@@ -156,8 +156,11 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 - **Never dismiss a flaky test.** Investigate immediately.
 - Tagged tests: `generate` and `diagnostic` are excluded by default. Run one with
   `-Dinclude.tags=diagnostic`, which also streams the forked JVM's console output.
-- **The self test is `./gradlew selfRead`.** It runs `SelfReadingDiagnostic` over this repository, writes
-  `code-semantics-engine/build/reports/self-reading/self-reading.md` and echoes it to the console. Point it at
+- **The self test is `./gradlew selfRead`.** It runs every `diagnostic`-tagged reading over this repository
+  and echoes each report to the console, writing them under
+  `code-semantics-engine/build/reports/self-reading/`: `self-reading.md` (what the code is legible as),
+  `themes.md` (what it is about, scope by scope) and `themes.json` (the same figures, for the viewer at
+  `docs/self-reading/build_themes_page.py`). Point it at
   another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the
   forked JVM. The README carries the current result; **regenerate it in the same commit as any change to the
   splitter, the citations or the tally**, because a reported measurement that no longer matches the code is

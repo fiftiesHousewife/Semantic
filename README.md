@@ -195,6 +195,62 @@ reporting legibility beside intensity rather than instead of it.
 
 ---
 
+## What it reads this repository as
+
+The same command reports the second reading: **which subjects this codebase's names belong to**, from the
+two bundled resources that place a word in a subject — WordNet Domains, which labels each of a word's senses,
+and Wiktionary's topic vocabulary, which labels the headword. Each word occurrence commits one unit of mass
+per resource, divided among the readings that resource names, so an ambiguous word does not shout. The report
+is at `code-semantics-engine/build/reports/self-reading/themes.md`, and
+`python3 docs/self-reading/build_themes_page.py` turns its export into a page.
+
+| Theme | ι | References | Leads | Lines led | Share | Carried by |
+|---|--:|--:|--:|--:|--:|---|
+| `mathematics` | 0.0592 | 13,811 | 54 | 4,165 | 43.8% | `assert` 841 · `string` 807 · `map` 734 |
+| `sciences` | 0.0474 | 15,805 | 13 | 1,023 | 10.8% | `assert` 841 · `string` 807 · `that` 701 |
+| `linguistics` | 0.0337 | 3,831 | 21 | 1,367 | 14.4% | `word` 900 · `lexicon` 298 · `reading` 296 |
+| `law` | 0.0320 | 3,498 | 19 | 717 | 7.5% | `string` 807 · `evidence` 416 · `file` 304 |
+| `music` | 0.0276 | 3,877 | 4 | 225 | 2.4% | `string` 1,614 · `set` 464 · `topic` 378 |
+| `pure_science` | 0.0210 | 1,124 | 16 | 1,050 | 11.0% | `assert` 841 · `class` 83 · `size` 60 |
+
+**Read that table as the weak reading it is, and the witnesses are why you can.** `linguistics` is right —
+this repository is about words. `mathematics` leading 43.8% of its lines is `set`, `map` and `assert`;
+`music` is `string`; further down, `jewellery` is `string` and nothing else. The resources are not wrong
+about English. The reading is asking what a word means with nothing around it, and a word alone is
+ambiguous — which is the failure the plan names in §16 and answers with a comparison rather than a count.
+
+### The comparison, which is the reading worth acting on
+
+A theme written at the same density everywhere contributes almost nothing to a divergence, so the ambiguity
+that dominates a count cancels. Each source set is compared with the whole repository by Jensen–Shannon
+divergence — bounded at 1 bit by its own definition, symmetric, and additively decomposable, so each theme's
+share of the difference is itself a bounded share. Then each divergence is judged against the field a scope
+of **its own size** draws by chance: 999 resamples of the same number of files, drawn from the repository.
+
+| Scope | Divergence | Null median | Excess | Chance draws at least as far |
+|---|--:|--:|--:|--:|
+| `code-semantics-api/src/main/java` | 0.0420 | 0.0119 | +0.0301 | 0 of 999 |
+| `code-semantics-api/src/test/java` | 0.0523 | 0.0219 | +0.0304 | 0 of 999 |
+| `code-semantics-engine/src/main/java` | 0.0278 | 0.0062 | +0.0215 | 0 of 999 |
+| `code-semantics-engine/src/test/java` | 0.0258 | 0.0124 | +0.0133 | 0 of 999 |
+| `lexicon-extraction/src/main/java` | 0.0526 | 0.0181 | +0.0346 | 0 of 999 |
+| `lexicon-extraction/src/test/java` | 0.0464 | 0.0276 | +0.0188 | 24 of 999 |
+| `lexicon/src/main/java` | 0.0480 | 0.0254 | +0.0226 | 6 of 999 |
+| `lexicon/src/test/java` | 0.0519 | 0.0277 | +0.0242 | 11 of 999 |
+
+Every scope stands outside its own null, so every ranking below it is printed; a scope that had not would
+have had its ranking **withheld**, because a caveat is not what gets quoted. The largest single contribution
+anywhere is `pure_science`, which the test source sets are over and the main ones under — and its witness is
+`assert`, written 841 times. That is a true reading of what separates a test from a class, wearing a label
+from a dictionary of English rather than one of software.
+
+Two fixes are in `BACKLOG.md`, and neither is a word list: sense disambiguation (the sibling words in one
+identifier, the enclosing declaration, the file's own pooled domain), and extracting Wiktionary's published
+topic hierarchy so `sciences`, `natural-sciences` and `physical-sciences` pool as the one label they nearly
+are instead of splitting a theme three ways.
+
+---
+
 ## Where the work starts
 
 The first vertical slice is §20 of the plan: one repository (`junit-team/junit-framework`), one language,

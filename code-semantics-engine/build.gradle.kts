@@ -15,6 +15,9 @@ dependencies {
     testCompileOnly(libs.lombok)
     testAnnotationProcessor(libs.lombok)
     testImplementation(libs.junit.jupiter)
+    // The theme diagnostic exports its graph for a viewer to render. A report format is a diagnostic's
+    // business and not the library's, so the serialiser stays out of the published artefact.
+    testImplementation(libs.jackson.databind)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 
@@ -27,11 +30,14 @@ tasks.test {
 // The library's self test: reads this repository's own Java sources and reports how much of what they are
 // written in a bundled resource can be cited for. Point it at another clone with -Dcs.clone.dir=<path>.
 //   ./gradlew selfRead
-val selfReadReport = layout.buildDirectory.file("reports/self-reading/self-reading.md")
+val selfReadReports = listOf(
+    layout.buildDirectory.file("reports/self-reading/self-reading.md"),
+    layout.buildDirectory.file("reports/self-reading/themes.md")
+)
 
 tasks.register<Test>("selfRead") {
     group = "verification"
-    description = "Reads this repository's own sources and reports their legibility"
+    description = "Reads this repository's own sources: what they are legible as, and what they are about"
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
@@ -39,8 +45,9 @@ tasks.register<Test>("selfRead") {
         includeTags("diagnostic")
     }
     outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     doLast {
-        logger.lifecycle(selfReadReport.get().asFile.readText())
+        selfReadReports.forEach { report -> logger.lifecycle(report.get().asFile.readText()) }
     }
 }

@@ -17,6 +17,16 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   by responsibility into `PieceCost` (what one candidate piece costs to read), `CompoundParses` (the candidate
   covers, including the one leading branding residual) and `WordMorphology` (a known word grown by an affix),
   each directly tested.
+- **The open-space accumulator** — `OpenSpaceAccumulator`, partitioning over the voted values plus one
+  explicit abstention mass, so confidence reads as the winner's share among contenders and what nothing could
+  read sits in the denominator instead of being implied by a vocabulary's size. Its test states the
+  distinction against `AxisEvidenceAccumulator` directly rather than inferring it from the arithmetic.
+- **The theme reading** — `TopicCitations` over WordNet Domains and Wiktionary topics, `TopicDistribution`
+  (the plan's ι), `JensenShannon` with its additive per-topic decomposition, and `PermutationNull` at 999
+  seeded resamples. Reports each source set's divergence from the repository, the topics accounting for it,
+  and whether a scope of that size draws as much by chance — with the words carrying every claim. All eight
+  scopes currently stand outside their nulls; the largest single contribution anywhere is `pure_science`,
+  which is the word `assert`.
 - **The self test** — `./gradlew selfRead`. `JavaSourceIdentifiers` (a lexical scan, comments, literals and the
   import section stepped over), `IdentifierWords`, `JavaLanguageKeywords` (citing
   `javax.lang.model.SourceVersion` rather than any bundled table), `CitedWords` over eight bundled resources,
@@ -84,17 +94,6 @@ as unread fragments of `StandardCharsets` and `unmodifiableList`.
 
 *Enables rule 4 of the splitter to arbitrate rather than guess.*
 
-## [HIGH] The open-space accumulator
-
-`AxisEvidenceAccumulator` partitions over an enum's constants, so unvoted values sit at the neutral prior and
-contribute `e⁰ = 1` each. Over ~10⁵ synsets the partition would be almost entirely neutral prior and the
-posterior would mean nothing. Build the sibling whose partition runs over the **voted values plus one
-explicit abstention mass**, so confidence reads as the winner's share among contenders and the abstention
-mass is represented rather than implied by an enum's size.
-
-**Measurement:** confidence on a token with two contending senses must not move when a third, unvoted sense
-exists in WordNet.
-
 ## [MEDIUM] Stages 1–3 — the repository read
 
 `RepositoryWalk` (blob rows off a ref), `ProvenanceRead` (JGit `RevWalk` + `RenameDetector`),
@@ -131,8 +130,11 @@ edge, that is what a dedicated graph engine buys and nothing else does.
 
 ## [MEDIUM] Intensity and divergence
 
-The legibility half is in the tree and measured (see the self test above); what follows it is the arithmetic
-that legibility is reported *beside*.
+**Landed over the working tree, at file granularity**: within-file share, scope intensity under a uniform
+weighting, Jensen–Shannon divergence with its additive decomposition, and the 999-draw permutation null. What
+is left is the part that needs stages 1–3 — the blob as the unit of observation rather than the file, the
+changed-lines weighting a pull request and a commit need, and legibility reported beside every intensity
+rather than in its own report.
 
 Within-blob share, scope intensity under a blob weighting, legibility reported beside it, and Jensen–Shannon
 divergence with its additive per-concept decomposition. Then the permutation null: 999 resamples of `|S|`
@@ -163,12 +165,31 @@ Acceptance, as measurements:
 The noise gate is the load-bearing one. A dependency bump has no semantic content; a statistic that finds
 some is wrong, and this is the single measurement that separates a real reading from a plausible-looking one.
 
-## [LOW] Sense disambiguation
+## [HIGH] Sense disambiguation
+
+Promoted, because the theme reading now measures what its absence costs. Reading a word with nothing around
+it makes `string` commit mass to music, jewellery and baseball, and `set` and `map` carry `mathematics` to
+43.8% of this repository's lines. The resources are not wrong about English; the question is being asked
+without context.
 
 Sibling tokens in the same identifier (shared hypernym chains, offsets intersected before flattening to
 lemmas), the enclosing declaration's tokens decayed by scope distance, and the file's pooled topical domain
-as a prior. Each a vote, none a gate. Measured against the most-frequent-sense baseline the first slice
-establishes.
+as a prior. Each a vote, none a gate.
+
+**Measurement, now available as a baseline rather than a prediction:** the share of lines led by
+`mathematics` (43.8%) and the divergence contribution of `pure_science` against the same tree, before and
+after. A disambiguation that does not move them has not helped.
+
+## [MEDIUM] The Wiktionary topic hierarchy
+
+`sciences`, `natural-sciences` and `physical-sciences` fire together on the same words and split one theme
+three ways; `computing` and `computer_science` are the same subject under two resources' labels. Wiktionary
+publishes its topic hierarchy as its own module data, so pooling a label with its parent would be a citation
+rather than a synonym list — which is the only form this library may take. Extract it with a named Gradle
+task and a provenance header, exactly as the other TSVs are.
+
+**Measurement:** the count of distinct topics (444 today) and whether the top of the ranking changes when
+siblings pool. A fold that only reduces the label count without moving the reading has bought nothing.
 
 ## [LOW] Version stamps
 
@@ -194,7 +215,14 @@ unrelated classes explained their behaviour by "the surname list", a file no exe
 
 ## [LOW] Visualisation
 
-A concept map laid out by the hypernym tree — the taxonomy supplies the coordinates, so no force simulation
+**A first viewer exists** for the theme reading — `docs/self-reading/build_themes_page.py` renders
+`themes.json` as a page whose every figure is copied from the export, so the picture and the report cannot
+disagree. Its layout is deterministic (themes on rows ordered by intensity, arcs joining two themes when the
+same word was read as both), which is the same discipline the concept map below demands and for the same
+reason: no force simulation, because readability is not a layout parameter. What it draws is the shared
+*word*, which makes the polysemy that dominates a raw ranking visible instead of hiding it.
+
+Still to build: a concept map laid out by the hypernym tree — the taxonomy supplies the coordinates, so no force simulation
 is needed and none should be used — and a divergence bar over the ranked per-concept shares, which chart as
 diverging bars with a real axis maximum of 1.
 
