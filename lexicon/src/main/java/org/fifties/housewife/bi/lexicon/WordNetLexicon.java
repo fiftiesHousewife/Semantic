@@ -30,12 +30,14 @@ public final class WordNetLexicon implements Lexicon {
     private final WordNetDomains domains;
     private final WordNetAbbreviations abbreviations;
     private final WordNetContrast contrast;
+    private final WordNetSenses senses;
 
     WordNetLexicon(final Dictionary dictionary, final WordNetDomains domains) {
         this.dictionary = dictionary;
         this.domains = domains;
         this.abbreviations = new WordNetAbbreviations(dictionary);
         this.contrast = new WordNetContrast(dictionary);
+        this.senses = new WordNetSenses(dictionary);
     }
 
     public static WordNetLexicon fromClasspath() {
@@ -97,6 +99,11 @@ public final class WordNetLexicon implements Lexicon {
         } catch (final JWNLException e) {
             throw new IllegalStateException("WordNet sense lookup failed for \"" + lower + "\"", e);
         }
+    }
+
+    @Override
+    public Optional<WordSense> commonestSense(final String word) {
+        return senses.commonestSense(word);
     }
 
     @Override

@@ -52,6 +52,15 @@ public interface Lexicon {
     int senseCount(String word);
 
     /**
+     * The sense the word is most often written in, as the dictionary identifies it, or empty when the
+     * dictionary does not know the word at all. It is the normal form two spellings can be compared at —
+     * {@code topic} and {@code theme} are one sense and differ as strings — and the choice of which sense is
+     * the dictionary's own tagged corpus counts rather than anything decided here. Empty is an abstention:
+     * a word nothing was published about is normalised to nothing, never to itself.
+     */
+    Optional<WordSense> commonestSense(String word);
+
+    /**
      * The topical domains WordNet Domains assigns across the word's senses — {@code music},
      * {@code commerce}, {@code tennis} — or empty when the resource does not cover the word. A domain
      * label describes the subject a sense belongs to, so an ambiguous word carries every subject it can

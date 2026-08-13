@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.fifties.housewife.bi.lexicon.Lexicon;
+import org.fifties.housewife.bi.lexicon.WordSense;
 
 /**
  * A dictionary that answers only the two questions a topical reading asks of one: which subjects label a
@@ -41,6 +42,11 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
 
     @Override
     public Optional<String> abbreviationNoun(final String token) {
+        throw new UnsupportedOperationException("a topical reading does not ask this");
+    }
+
+    @Override
+    public Optional<WordSense> commonestSense(final String word) {
         throw new UnsupportedOperationException("a topical reading does not ask this");
     }
 
