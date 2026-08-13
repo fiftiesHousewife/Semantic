@@ -55,6 +55,47 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
   for each. Current result in the README: **λ = 0.979** over 44,598 read word occurrences in 195 files, documentation included.
+- **The first functional taxonomy, extracted** — `./gradlew :lexicon-extraction:extractNistCsf` bundles
+  NIST's OSCAL edition of the Cybersecurity Framework 2.0 at a pinned revision, verified by the blob id that
+  revision holds, into `nist-csf-functions.tsv`: **6 functions, 22 categories and 106 subcategories**, each
+  carrying the outcome NIST states it as. Those are the figures NIST publishes for CSF 2.0, which is how the
+  extraction is checked against the publication rather than against itself. `OscalCatalog` reads the one
+  format NIST publishes all of its catalogues in, so SP 800-53 needs no second reader; `CsfConcepts` drops
+  the 91 concepts the publisher marks `withdrawn`, which is the publisher's statement and not a view about
+  which parts of a framework are interesting; `SkosTsv` renders the SKOS-shaped columns every source is
+  normalised to and refuses a field that would read back as a column nobody wrote. `NistCsfFunctions` reads
+  it back, and `definitionsUnder` is what a scope will be compared against. **Nothing in
+  `code-semantics-engine` reads it yet** — see the reading it is waiting on, below.
+- **A subject taxonomy, and the hop onto it** — `./gradlew :lexicon-extraction:extractArxivTaxonomy` reads
+  arXiv's own subject scheme out of the module arXiv's software classifies by, at a pinned revision, into
+  `arxiv-taxonomy.tsv`: **8 groups, 11 archives, 155 categories, 152 of them described**. MIT, read from
+  `arxiv/arxiv-base`'s own `LICENSE` — the `sql-functions.tsv` precedent a second time, a classification
+  taken from the software that applies it rather than off a rendered page. `ArxivTaxonomy` reads the module
+  by grammar as `TopicGeneralisations` reads wiktextract's; `MergedEntries` settles the nine subjects arXiv
+  states twice under one identifier; `altLabel` finally has a source, the 48 aliases arXiv publishes itself.
+  Then **the hop**: `SubjectAreas` reads a subject's description through the pipeline this repository's own
+  prose goes through, so a scope and a subject are distributions over one topic space and `JensenShannon`
+  places one against the other. Nothing is matched — no identifier meets a subject name. `SubjectNull` draws
+  the field a taxonomy of chance would have offered, and the bar is the **chance-expected best**, the
+  `1/(n+1)` quantile, because a field of 152 gets 152 attempts at being nearest. Two comparisons run
+  through the same machinery behind one `TopicComparison`, both smaller-is-nearer: `JensenShannon`, and
+  `SharedMass` for the mass two readings put in the same topics. Reported by `./gradlew selfRead` as
+  `subjects.md`, every row carrying the topics the two readings met on.
+- **The first taxonomy meant to be matched** — `./gradlew :lexicon-extraction:extractOliaTerms` reads OLiA's
+  core ontology at a pinned revision into `olia-terms.tsv`: **1,197 terms, 568 carrying a stated
+  superclass**. CC BY 3.0, stated by the ontology itself and in the repository's own `LICENSE.data` — the
+  code there is Apache-2.0 and the data is not, so the header says which this file is and carries the
+  attribution the licence requires. `OwlClasses` reads RDF/XML with an XML parser rather than by pattern,
+  because a class states its superclasses beside anonymous restrictions that are themselves classes and only
+  a parse tells them apart. Its terms are already identifiers — `AdjectivePhrase`, `CommonNoun`,
+  `Determiner` — so this is the `sql-functions.tsv` ground a third time. `OliaTerms` reads it back.
+  **The matcher itself is not built**: `TermIndex`, `TermSpans` and `PhraseSpecificity` are still only
+  specified.
+- **Two probes, because a ranking that cannot be argued with is not evidence.**
+  `./gradlew wordVotes -Pwords="theme topic phrase"` prints every vote the resources cast for a word;
+  `./gradlew topicCarriers -Ptopics="music medicine law"` prints every word carrying a topic with its
+  frequency and its share. The second is what showed that `topic` alone is 53.8% of `music` and 60.0% of
+  `medicine`.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -170,8 +211,14 @@ Whatever a source publishes — OWL, SKOS, CSV, XSD — the extraction normalise
 **SKOS-shaped** columns, and the bundled form stays a TSV:
 
 ```
-concept   prefLabel   altLabel   broader   kind   module
+concept   prefLabel   altLabel   broader   kind   module   definition
 ```
+
+**`definition` is the seventh column and it was added when the first functional taxonomy landed**, because
+a term taxonomy is read by its labels and a functional one cannot be. A row labelled `GV.OC-01` states
+nothing whatever without the sentence NIST defines it by, and that sentence is the only thing a scope can be
+compared against. It is `skos:definition`, so the shape is no less SKOS's for carrying it, and a term source
+that publishes no definitions simply leaves it empty.
 
 That is what "convert it to SKOS" should mean here. Emitting SKOS *RDF* and reading it back would take an
 RDF dependency (`jena-arq` is in the catalogue, consumed by nothing) to arrive at the same four facts, and
@@ -233,7 +280,8 @@ ever affected.
 
 #### The bundled file
 
-`lexicon/src/main/resources/fpml-schemes.tsv`, six columns, tab separated, sorted by `concept`:
+`lexicon/src/main/resources/fpml-schemes.tsv`, the shared columns, tab separated, sorted by `concept` —
+`SkosTsv` already renders them, so this stage writes a header and a mapping and nothing else:
 
 | Column | From | Example |
 |---|---|---|
@@ -242,7 +290,8 @@ ever affected.
 | `altLabel` | empty — genericode states no synonymy, and the reading abstains rather than borrowing WordNet | |
 | `broader` | the parent path's concept where the code is colon-delimited, else the scheme's own concept | `…product-taxonomy-4-0#Commodity:Agricultural:Dairy:Option` |
 | `kind` | `code` | `code` |
-| `scheme` | `ShortName` from the scheme's `Identification` | `assetClassScheme` |
+| `module` | `ShortName` from the scheme's `Identification` — the roll-up level the source itself names | `assetClassScheme` |
+| `definition` | `Description` where the scheme states one, empty where it does not | |
 
 Header carries `Source:` naming the archive URL and each scheme's own `Version`, `Licence:` naming the FpML
 Public License 3.0, and **Exhibit A verbatim**. `VocabularyProvenanceTest` covers it the moment it lands.
@@ -334,7 +383,7 @@ This distinction decides the design, and conflating them is the mistake to avoid
 | | **Term taxonomy** | **Functional taxonomy** |
 |---|---|---|
 | States | what a thing in the domain is called | what a business *does*, as a partition of activity |
-| Examples | FIBO, CDM, XBRL element names, FpML, ESCO skills | APQC PCF, BIAN service landscape, Basel event types, ISO 20022 business areas |
+| Examples | FIBO, CDM, XBRL element names, FpML, ESCO skills | **NIST CSF functions** (extracted), APQC PCF, BIAN service landscape, Basel event types, ISO 20022 business areas |
 | Grain | a term, matched against an identifier | a capability, matched against a whole scope |
 | How it reads | longest-match n-gram over a phrase — the matcher above | **not the matcher.** A scope's aggregate reading compared against each functional area, which is the divergence machinery already in the tree |
 | Answers | "this file writes the language of derivatives" | "this repository is trade processing, not wealth management" |
@@ -374,7 +423,7 @@ ones the matcher can use directly.
 | Banking capabilities | **BIAN Service Landscape** | BIAN | none stated — already ruled out | no — functional |
 | HR, skills, occupations | **ESCO** (native SKOS, ~13k skills); **O\*NET**; **ISCO-08** | EU Commission; US DoL; ILO | ESCO under the EU reuse decision; O\*NET CC BY | no |
 | Procurement | **CPV** common procurement vocabulary; **UNSPSC** | EU; GS1 US | CPV under EU reuse; UNSPSC licensed | no |
-| Security | **NIST CSF** functions; **SP 800-53** control families | NIST | **US Government work — public domain** | no |
+| Security | **NIST CSF** functions; **SP 800-53** control families | NIST | **public domain, verified** — `usnistgov/oscal-content`'s own `LICENSE.md` states a US Government work and waives copyright worldwide through CC0 1.0 | no — functional. **CSF extracted** |
 | IT service management | ITIL; COBIT | AXELOS; ISACA | proprietary — expect to rule both out | no |
 
 **Technical domains**
@@ -396,6 +445,89 @@ subject anyone would name. A computing taxonomy would say it precisely, and ther
 | **CSO** | `natural language processing`, `computational linguistics`, `word sense disambiguation`, `information retrieval`, `semantic web` | CC BY 4.0, unstated on the download page |
 | **MSC 2020** (mathematics subject classification, AMS and zbMATH) | `68T50` natural language processing, `94A17` entropy and measures of information — which is Jensen–Shannon exactly, and `62` statistics for the permutation null | a SKOS edition is published; terms unverified, and NC has been reported for it |
 | **OntoLex-lemon** (W3C) and **OLiA** | the model this library *implements* — lexical entry, sense, form, reference | W3C community report terms; OLiA CC BY |
+
+**A fourth candidate landed first, and it is both of the ones this section wanted.** arXiv's subject scheme
+covers mathematics (`math.ST`, `math.PR`, `math.CT`, `math.IT`) and language (`cs.CL`, `cs.IR`) in one
+taxonomy, and it is the only one of the four whose licence could be read in the publisher's own file — MIT,
+in `arxiv/arxiv-base`. MSC stays unverified: there is no route to `msc2020.org` from here, NC has been
+reported, and a third-party copy on GitHub would be laundering by the same argument that ruled out IEEE's.
+CSO still needs its CC BY read in the data file rather than on the pages around it.
+
+### What the hop measured, and where it is thin
+
+Read **at the level the taxonomy reports at** — every category description under an archive, pooled, which
+is what the `broader` column already holds — the answer is unambiguous:
+
+| Subject | Divergence |
+|---|--:|
+| `cs` Computer Science | **0.2504** |
+| `nlin` Nonlinear Sciences | 0.3796 |
+| `grp_physics` Physics | 0.4291 |
+| `math` Mathematics | 0.4999 |
+
+against a chance-nearest of 0.3424 over 999 draws. Computer science wins by 0.13 bits, which is half the
+distance again to the runner-up, and mathematics — the subject a `category-theory` reading would have
+predicted — is last but three.
+
+**At the leaves it is much weaker.** The whole top of the ranking is computer science, which is right, but
+the nearest single subject is `cs.ET` *Emerging Technologies* at 0.3295 and `cs.CL` is only seventh at
+0.4003.
+
+**The per-topic decomposition was proposed as the fix and it is refuted.** `SharedMass` ranks by what a
+scope and a subject both put in the same topics — the agreement rather than the difference, bounded at 1
+because shares sum to 1, and its complement is the total variation distance. It was run at the leaves
+against its own null, drawn the same way. It changes the order below the winner and nothing above it:
+`cs.ET` still first, `cs.CL` still seventh. Two statistics that disagree about breadth agree about the
+answer, so **breadth was never the cause** — which was the hypothesis, and it was wrong.
+
+**The witnesses say what the cause is.** Every row now carries the topics the two readings met on, and
+`law` and `music` are in nearly all of them — including `cs.AI` (*law, music, mathematics, programming*)
+and `cs.CE` (*law, music, mathematics, programming*). Those are this repository's own pooled-sense
+artefacts, `law` from `cite`, `witness` and `verdict` and `music` from `topic`, `phrase` and `theme`, and
+they are its second and fifth topics by mass. They put a **floor of agreement under every subject alike**,
+and at leaf grain the real signal — `linguistics`, which appears in only two of the twelve rows — is
+smaller than that floor. Pooling clears it because the difference between all of computer science and all
+of astrophysics is larger than the floor; a single thirty-word description is not.
+
+So the leaf grain is **not blocked on the comparison, it is blocked on the senses** — items 1 and 2 of the
+list above, the abstention-aware leader and WordNet's most frequent sense. That is a better-supported
+conclusion than the one this section previously predicted, and it costs nothing extra: the same two fixes
+are already the top of the queue for their own reasons. `SubjectPlacementDiagnostic` pins the defect as a
+stated expectation, so when the senses are read properly the assertion fails and someone has to rewrite it.
+
+### Two reweightings, tried and reverted
+
+`./gradlew wordVotes -Pwords="theme topic phrase"` prints every vote the resources cast for a word, which is
+how the floor was traced to its source. The three words carrying `music` are read like this:
+
+| Word | Occurrences | What the resources say |
+|---|--:|---|
+| `topic` | 315 | Wiktionary alone, a flat third each to **medicine, computing, music**; WordNet labels nothing |
+| `phrase` | 89 | Wiktionary {grammar, dance, music}, WordNet {grammar, music, linguistics} at 0.5 coverage — so **music 0.333 against linguistics 0.111** |
+| `theme` | 65 | seven subjects, **music largest at 0.22**, linguistics smallest at 0.10 |
+
+The repository's most-written word is a flat third music, and it is written 315 times. Two reweightings
+were implemented and measured against that, and **both were reverted**:
+
+- **The commitment as `p²`**, which is what `TopicCommitment`'s own javadoc describes and what the code does
+  not do — it returns `p`, and `PhraseTopics` then normalises, so the squaring survives only as the
+  phrase-level Simpson index in `coherence()`. Making it literal moves `music` from 0.0357 to 0.0305, but it
+  **sharpens toward whatever a word's largest label is, and for these three words that label is music**: the
+  leaf placement's nearest subject became `eess.AS` *Audio and Speech Processing* and stopped beating its
+  null. Wrong direction. The javadoc and the code still disagree and one of them has to move.
+- **Abstention on a flat word** — a subject holding no more than the uniform spread over the subjects the
+  word names has said nothing, so `(p − 1/n) / (1 − 1/n)` and a word with `n` equal labels votes for
+  nothing. `topic` abstains exactly, which is the intended effect. The theme table improves a great deal:
+  `music` falls to 0.0249 and out of the top five, `medicine` leaves it entirely, and **`linguistics` rises
+  to 0.0596 leading 27 files and 12.3% of the lines**. But the placement gets *worse*: `nucl-th` *Nuclear
+  Theory* arrives third, `cs.CL` falls to sixth, and nothing beats chance at all.
+
+**The floor did not disappear, it changed identity — from `music` to `law`.** Under abstention `law` becomes
+the top theme at 0.0666, because `cite` and `witness` are not flat: WordNet labels only the courtroom sense
+of `cite` and the bibliographic sense carries no label at all, so the concentration rule reads a confident
+wrong answer as strong evidence. That is the measurement settling the argument. **Reweighting cannot fix a
+sense that was never read**, and the queue is right as it stands: most-frequent-sense first, then re-run
+both variants — the harness is now in the tree, so each is a two-line change and one `selfRead`.
 
 **That makes this repository the in-domain corpus for stage 3, and it costs nothing to read.** FIBO used
 this tree as the out-of-domain control because the right answer was known to be *nothing*. CSO inverts it:
@@ -422,8 +554,38 @@ branch it puts *beside* that one.
    separate reading: a scope's topical distribution diverged against each functional area, reported as
    "this repository reads as trade processing", with the same permutation null. That is a different slice
    and should be measured separately, or it will be credited to the term matcher.
-4. **One shape for all of them** — the six SKOS-shaped columns above, one TSV per source, each carrying its
+4. **One shape for all of them** — the SKOS-shaped columns above, one TSV per source, each carrying its
    own provenance header.
+
+**NIST CSF is the one that went first**, and not because security is the most interesting domain. It is the
+only functional taxonomy on this page whose licence could be *verified from the publisher's own file* —
+`usnistgov/oscal-content` states a US Government work and a worldwide CC0 waiver in its `LICENSE.md` — and
+the only one reachable without a registration wall. APQC remains the taxonomy this section was written
+about, and it is still blocked on the same two things: terms that permit redistribution, and a copy anyone
+can fetch.
+
+### What the extracted framework is still waiting on
+
+The file is bundled and nothing in the engine reads it, which is the honest state for a resource whose
+reading has not been built. What it needs is not the matcher:
+
+- **A reference distribution per function.** Each function's own overview plus every category and
+  subcategory statement beneath it, read through `ContentWords` and `TopicCitations` exactly as a scope is,
+  so a function and a scope are two distributions over the same topic space and `JensenShannon` compares
+  them directly. `definitionsUnder` is already the accessor for it.
+- **A null of the right shape.** `PermutationNull` resamples files within a repository and answers the wrong
+  question again here. Permute the **statement-to-function assignment** within the framework, preserving how
+  many statements each function has, so a function keeps its size and only which sentences belong to it is
+  chance.
+- **A known answer to fail against.** This tree is *not* a security codebase, so the honest first result is
+  that no function clears its null. A functional reading that confidently places a lemma-and-frequency
+  library under `PROTECT` has told us the reading is measuring nothing. Two panel members with a known
+  answer would settle it — `bcgit/bc-java` under `PROTECT`, and something with no security surface at all —
+  which needs the panel `-Dcs.panel.dir` is being built for anyway.
+
+**Abandon if:** no repository with a real security surface clears the permuted-assignment null, or this tree
+clears it. Either one means the six functions are being told apart by everyday English rather than by what
+they partition.
 
 **The measurement stays the same and applies per domain:** a domain's vocabulary must fire on a repository
 in that domain and not on one outside it. With a dozen domains the honest form is a confusion matrix rather
