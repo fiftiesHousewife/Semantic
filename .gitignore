@@ -1,0 +1,45 @@
+.gradle
+build/
+.kotlin
+!gradle/wrapper/gradle-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+bin/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Logs and crash dumps ###
+logs/
+*.hprof
+hs_err_pid*.log
+
+### Local clones and stores the library is pointed at ###
+.clones/
+*.duckdb
+*.duckdb.wal
+
+### Clean Code plugin scaffolding ###
+.agent/
+AGENTS.md
+docs/clean-code/
+
+### Bundled TSVs and CSVs under a source set's resources are committed by design ###
+*.csv
+!*/src/*/resources/**/*.csv
+*.class

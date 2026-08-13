@@ -1,0 +1,64 @@
+[versions]
+lombok = "1.18.46"
+versions = "0.53.0"
+errorprone = "2.38.0"
+errorprone-plugin = "4.2.0"
+byte-buddy-agent = "1.15.11"
+junit = "6.0.3"
+jackson = "2.21.2"
+# Libraries the plan names but no module consumes yet. A catalog entry fetches nothing until a module
+# declares it, so these are declared here to be adopted one at a time as the pipeline stages land, with the
+# versions verified against repo1.maven.org on 2026-08-13.
+jgit = "7.7.1.202607240634-r"
+tree-sitter = "0.26.6"
+tree-sitter-java = "0.23.5"
+tree-sitter-python = "0.25.0"
+tree-sitter-go = "0.25.0"
+tree-sitter-typescript = "0.23.2"
+jtreesitter = "0.26.1"
+javaparser = "3.28.2"
+duckdb = "1.5.5.1"
+caffeine = "3.2.4"
+tinkerpop = "3.8.1"
+jena = "6.2.0"
+
+[libraries]
+# --- consumed today ---
+extjwnl = { module = "net.sf.extjwnl:extjwnl", version = "2.0.5" }
+extjwnl-data-wn31 = { module = "net.sf.extjwnl:extjwnl-data-wn31", version = "1.2" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }
+duckdb-jdbc = { module = "org.duckdb:duckdb_jdbc", version.ref = "duckdb" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+
+# --- declared, not yet consumed (plan §17) ---
+# Git: RevWalk, TreeWalk, RenameDetector, DiffFormatter. Pure Java, no `git` binary.
+jgit = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "jgit" }
+# Parsing. The core/grammar version skew (0.26 core against 0.23 grammars) is the first thing to measure:
+# ABI compatibility across it is not something to assume.
+tree-sitter = { module = "io.github.bonede:tree-sitter", version.ref = "tree-sitter" }
+tree-sitter-java = { module = "io.github.bonede:tree-sitter-java", version.ref = "tree-sitter-java" }
+tree-sitter-python = { module = "io.github.bonede:tree-sitter-python", version.ref = "tree-sitter-python" }
+tree-sitter-go = { module = "io.github.bonede:tree-sitter-go", version.ref = "tree-sitter-go" }
+tree-sitter-typescript = { module = "io.github.bonede:tree-sitter-typescript", version.ref = "tree-sitter-typescript" }
+# The tree-sitter organisation's own binding, on the FFM API. Requires Java 22+, so adopting it is a
+# toolchain decision rather than a dependency one.
+jtreesitter = { module = "io.github.tree-sitter:jtreesitter", version.ref = "jtreesitter" }
+# Optional by design: a library that requires a resolvable classpath cannot analyse a repo it cannot build.
+javaparser-symbol-solver-core = { module = "com.github.javaparser:javaparser-symbol-solver-core", version.ref = "javaparser" }
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
+# Export targets only — never the system of record.
+tinkergraph-gremlin = { module = "org.apache.tinkerpop:tinkergraph-gremlin", version.ref = "tinkerpop" }
+jena-arq = { module = "org.apache.jena:jena-arq", version.ref = "jena" }
+
+# --- plugin artifacts, used as implementation deps in build-logic ---
+ben-manes-versions-plugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versions" }
+errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
+errorprone-gradle-plugin = { module = "net.ltgt.gradle:gradle-errorprone-plugin", version.ref = "errorprone-plugin" }
+byte-buddy-agent = { module = "net.bytebuddy:byte-buddy-agent", version.ref = "byte-buddy-agent" }
+
+[plugins]
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+errorprone = { id = "net.ltgt.errorprone", version.ref = "errorprone-plugin" }
