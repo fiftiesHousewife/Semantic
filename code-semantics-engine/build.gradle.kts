@@ -30,12 +30,37 @@ tasks.test {
     maxHeapSize = "3g"
 }
 
+// What the bundled resources say about one word: every vote, what it is worth, and the share each subject
+// ends up holding. A ranking names the word that carried a topic; this is how to argue with it.
+//   ./gradlew wordVotes -Pwords="theme topic phrase"
+tasks.register<JavaExec>("wordVotes") {
+    group = "verification"
+    description = "Prints every topical vote the bundled resources cast for the named words"
+    mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicVoteProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    args = (findProperty("words") as String? ?: "").split(" ").filter { it.isNotBlank() }
+}
+
+// Every word that carried a topic, with how often it was written and how much of the topic it holds. The
+// theme report shows a handful of witnesses; this shows the whole tail, which is what an audit needs.
+//   ./gradlew topicCarriers -Ptopics="music medicine law"
+tasks.register<JavaExec>("topicCarriers") {
+    group = "verification"
+    description = "Prints every word carrying the named topics, with its frequency and mass"
+    mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicCarriersProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    args = (findProperty("topics") as String? ?: "").split(" ").filter { it.isNotBlank() }
+}
+
 // The library's self test: reads this repository's own Java sources and reports how much of what they are
 // written in a bundled resource can be cited for. Point it at another clone with -Dcs.clone.dir=<path>.
 //   ./gradlew selfRead
 val selfReadReports = listOf(
     layout.buildDirectory.file("reports/self-reading/self-reading.md"),
-    layout.buildDirectory.file("reports/self-reading/themes.md")
+    layout.buildDirectory.file("reports/self-reading/themes.md"),
+    layout.buildDirectory.file("reports/self-reading/subjects.md")
 )
 
 tasks.register<Test>("selfRead") {
