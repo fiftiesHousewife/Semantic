@@ -1,12 +1,12 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
+import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -20,15 +20,13 @@ import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
  */
 public final class TopicCarriersProbe {
 
-    private static final String SETTINGS_FILE = "settings.gradle.kts";
-
     private static final long SEED = 20260813L;
 
     private TopicCarriersProbe() {
     }
 
     public static void main(final String[] args) {
-        final Path root = repositoryRoot();
+        final Path root = new CloneUnderReading().root();
         final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
                 new DocumentationScope().under(root).stream()).toList();
         final RepositoryThemes themes = ThemeReading.fromClasspath(SEED)
@@ -47,16 +45,5 @@ public final class TopicCarriersProbe {
                             occurrences.getOrDefault(word.getKey(), 0), word.getValue(),
                             100.0 * word.getValue() / total));
         }
-    }
-
-    private static Path repositoryRoot() {
-        Path candidate = Path.of("").toAbsolutePath();
-        while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
-            candidate = candidate.getParent();
-            if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
-            }
-        }
-        return candidate;
     }
 }

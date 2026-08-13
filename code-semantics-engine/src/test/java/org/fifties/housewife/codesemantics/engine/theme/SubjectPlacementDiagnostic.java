@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
+import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -37,9 +38,6 @@ class SubjectPlacementDiagnostic {
 
     private static final String REPORT = "build/reports/self-reading/subjects.md";
 
-    private static final String SETTINGS_FILE = "settings.gradle.kts";
-    private static final String CLONE_DIRECTORY_PROPERTY = "cs.clone.dir";
-
     private static final long SEED = 20260813L;
     private static final int SUBJECTS_HELD = 12;
     private static final int ARCHIVES_HELD = 8;
@@ -62,7 +60,7 @@ class SubjectPlacementDiagnostic {
 
     @Test
     void placesThisRepositoryAgainstAPublishedSubjectTaxonomy() throws IOException {
-        final Path root = repositoryRoot();
+        final Path root = new CloneUnderReading().root();
         final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
@@ -159,20 +157,5 @@ class SubjectPlacementDiagnostic {
                 rendered.render(pooled, pooledChance, ARCHIVES_HELD),
                 rendered.render(placements, chance, SUBJECTS_HELD),
                 rendered.render(shared, sharedChance, SUBJECTS_HELD)));
-    }
-
-    private static Path repositoryRoot() {
-        final String supplied = System.getProperty(CLONE_DIRECTORY_PROPERTY, "");
-        if (!supplied.isBlank()) {
-            return Path.of(supplied).toAbsolutePath().normalize();
-        }
-        Path candidate = Path.of("").toAbsolutePath();
-        while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
-            candidate = candidate.getParent();
-            if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
-            }
-        }
-        return candidate;
     }
 }

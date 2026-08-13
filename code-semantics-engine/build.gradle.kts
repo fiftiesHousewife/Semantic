@@ -60,7 +60,8 @@ tasks.register<JavaExec>("topicCarriers") {
 val selfReadReports = listOf(
     layout.buildDirectory.file("reports/self-reading/self-reading.md"),
     layout.buildDirectory.file("reports/self-reading/themes.md"),
-    layout.buildDirectory.file("reports/self-reading/subjects.md")
+    layout.buildDirectory.file("reports/self-reading/subjects.md"),
+    layout.buildDirectory.file("reports/self-reading/terms.md")
 )
 
 tasks.register<Test>("selfRead") {

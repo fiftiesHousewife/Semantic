@@ -89,8 +89,30 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   because a class states its superclasses beside anonymous restrictions that are themselves classes and only
   a parse tells them apart. Its terms are already identifiers — `AdjectivePhrase`, `CommonNoun`,
   `Determiner` — so this is the `sql-functions.tsv` ground a third time. `OliaTerms` reads it back.
-  **The matcher itself is not built**: `TermIndex`, `TermSpans` and `PhraseSpecificity` are still only
-  specified.
+- **The matcher, and what it measured on the easiest case it will ever be given** — `TermIndex` states what a
+  term index must answer, so a second source needs an extraction and not a second reading. `LinguisticTerms`
+  keys OLiA's terms by the words `IdentifierWords` reads them as, so `AdjectivePhrase` is held as *adjective
+  phrase* and meets `adjectivePhrase` without that spelling being anticipated — no word of the key was chosen
+  here, the ontology wrote the term and the splitter wrote the boundaries. `TermSpans` takes the longest match
+  at each position, left to right, non-overlapping, over the **raw ordered** words: the first reading in this
+  tree to use word order at all, and a prefix that is not itself a published term abstains. `PhraseSpecificity`
+  weighs a run as the complement of the product of its words' commonness — bounded in `[0, 1]` by
+  construction, equal to `WordSpecificity` exactly at one word, and rising with every word added. Summed
+  surprisal was the other reading of "the surprisal of an n-gram" and was rejected: it needs truncating to
+  stay bounded and reaches that ceiling on any two content words, so every multi-word term would weigh the
+  same. Reported by `./gradlew selfRead` as `terms.md`.
+
+  **The measurement is unflattering, and that is what it is for.** In domain, on the repository this reading
+  was developed against, OLiA fires **192.67 times per thousand declared names — 978 spans over 5,076 names,
+  and 961 of the 978 are one word long**. That is the same 98% one-word shape a finance ontology showed on a
+  repository with *no* finance in it, so the single-word rate is not yet known to discriminate anything, and
+  the frequency weight narrows the gap without closing it: `first` carries 18.75 where `sentence` carries
+  11.21. Of the 17 multi-word spans, 13 are `part of`. `TermReadingDiagnostic` pins that share as a stated
+  finding and pins a defect beside it — `Collocation` reads as *col / location* because the frequency list
+  does not carry the compound, and it matches only because the ontology's own term broke the same way on the
+  same grammar, which is an argument for splitting both sides with one grammar and an argument against
+  trusting the split. **Nothing votes yet**: the theme reading is untouched, so if the out-of-domain arm
+  kills this, the diagnostic is deleted and no reading was ever affected.
 - **Two probes, because a ranking that cannot be argued with is not evidence.**
   `./gradlew wordVotes -Pwords="theme topic phrase"` prints every vote the resources cast for a word;
   `./gradlew topicCarriers -Ptopics="music medicine law"` prints every word carrying a topic with its
@@ -113,7 +135,7 @@ The figures they have to move are on this tree, at the commit this file ships in
 |--:|---|---|---|
 | 1 | **Make "leads" mean something** | **92 of the 178 files that have a leader are led at a share under a fifth**, and they hold 7,643 of the 13,711 led lines. The plan document is led by `law` holding 7.6% of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
 | 2 | **Read WordNet's most frequent sense** | the reading pools every labelled sense equally, which is *worse* than the naive baseline the plan already specifies for stage 9 | `law`'s remaining 11 files led, and whether `cite` stops voting law at all |
-| 3 | **Run on a repository this reading was not written for** | `law` is under-represented in the one module ported from elsewhere and over-represented in the code written for this reading — every figure so far is an instrument reading itself | a second tree is read through `-Dcs.clone.dir` and its themes are reported beside these |
+| 3 | **Run on a repository this reading was not written for** | `law` is under-represented in the one module ported from elsewhere and over-represented in the code written for this reading — every figure so far is an instrument reading itself. The term matcher now needs the same tree for a harder reason: 98% of what it matched in domain was one word long, which is what it would match out of domain too | a second tree is read through `-Dcs.clone.dir`, its themes are reported beside these, and `terms.md` is run on a repository OLiA should say nothing about |
 | 4 | **Verbal forms — the rest of it** | 592 methods read as clauses; no class name does, and the verb is chosen without the position that would settle it | the item below, with its three measurements |
 | 5 | **Stages 1–3, the git read** | no reading is pinned to a commit, so no permalink is rendered and no vote can be cast at all | `SourceAnchor` renders from a real revision and the witnesses become permalinks |
 
@@ -232,15 +254,19 @@ SKOS does not make it redistributable, and the derived file's header must carry 
 is discarded. But **81% of FIBO's labels are multi-word**, and `Vocabulary.IDENTIFIER.phrasesOf` already
 yields an *ordered* word list per identifier — the ordering is sitting there unused.
 
-A new `PhraseReading` implementation runs longest-match left to right over the raw ordered words, bounded by
-the index's own longest term. A hit emits a span and advances past it; a miss advances one word and records
-nothing. **A partial match abstains**: only a term the resource actually publishes votes, and a prefix that
-is not itself a published term is not a citation. It matches the raw words rather than the offered lemmas,
-because `OfferedWords` drops function words and would manufacture adjacency the author never wrote.
+**The span reading itself has landed**, built against OLiA rather than FIBO because that was the taxonomy
+whose licence could be read: `TermIndex`, `LinguisticTerms`, `TermSpans`, `TermSpan`, `PhraseSpecificity`,
+and `TermReading` over a repository's declared names. Longest match left to right, bounded by the index's own
+longest term, a hit advancing past itself and a miss advancing one word. **A partial match abstains**: only a
+term the resource actually publishes votes, and a prefix that is not itself a published term is not a
+citation. It matches the raw words rather than the offered lemmas, because `OfferedWords` drops function
+words and would manufacture adjacency the author never wrote. A new source needs an extraction, a provenance
+header and a `TermIndex` — no new reading.
 
-`PhraseTopics` is at the line limit, so it splits: `AgreeingWords` (today's body, moved), `MatchedTerms`
-(the span reading), and a pooled `PhraseTopics` over an ordered list of both. `TopicCitations` does not
-change — the term reading is its sibling, not its replacement.
+What is left of this part is the join, and it stays undone until the out-of-domain arm has run. `PhraseTopics`
+is at the line limit, so it splits: `AgreeingWords` (today's body, moved), `MatchedTerms` (the span reading's
+votes), and a pooled `PhraseTopics` over an ordered list of both. `TopicCitations` does not change — the term
+reading is its sibling, not its replacement.
 
 **Synonyms are never grouped by hand.** SKOS `altLabel`, `klink:relatedEquivalent` and `cmns-av:synonym`
 are each a published statement of synonymy, so each is a citation. Where a source publishes none — FIBO
@@ -354,9 +380,12 @@ single-token codes are excluded by hand.
 
 ### Staging
 
-1. **FIBO terms and a diagnostic, with the reading untouched.** `extractFiboTerms`, `fibo-terms.tsv`,
-   `FiboTerms`, `TermIndex`, `TermSpans`, `PhraseSpecificity`, and `./gradlew domainRead` behind
-   `-Dcs.panel.dir`. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
+1. **A term source and a diagnostic, with the reading untouched.** Landed for OLiA — `TermIndex`,
+   `TermSpans`, `PhraseSpecificity` and `terms.md` under `selfRead` — and what remains of it is the arm that
+   decides: a repository the vocabulary should say **nothing** about. That needs `./gradlew domainRead` behind
+   `-Dcs.panel.dir`, which `cs.java-conventions` must forward beside `cs.clone.dir`. `extractFiboTerms` and
+   `fibo-terms.tsv` are the same shape again for a domain this tree is outside of. If a kill criterion fires,
+   two files are deleted and no reading was ever corrupted.
 2. **The votes join the reading** — `MatchedTerms`, `TermCitations`, new `EvidenceSource` and `Weights`
    entries, and the FIBO module as the roll-up level the resource itself names.
 3. **CSO and the branch confusion matrix**, which is also the first real attempt on `computing` versus
@@ -886,6 +915,81 @@ abstention, and `TopicRankings` should count lines on that basis.
 **Measurement:** lines led, before and after, for every theme in the top ten — and the count of files with no
 leader at all, which should rise. A ranking that does not move is a ranking that was already honest, and
 this one will move.
+
+## [HIGH] How far a non-code entry can be trusted, measured rather than assumed
+
+A declared name compiles. A README, a javadoc statement and a comment do not, and nothing anywhere checks
+that they still describe the thing they sit above. The reading currently treats all three as one form worth
+one constant — `Weights.prose` at 0.5, chosen and not derived — and that is the last large unmeasured
+judgement in the tree.
+
+**Prose is not one kind of evidence.** At least five kinds are already in this corpus and the reading cannot
+tell them apart:
+
+| Kind | Example here | What it is worth |
+|---|---|---|
+| A statement that restates its own declaration | a javadoc over `TopicTally` beginning *"Accumulates one file's identifier occurrences"* | **less than nothing new** — the words are already counted at the declaration, so the phrase double-counts a name |
+| A statement that says what the name cannot | `NameForm`'s explanation of why a constructor is not collected | the most valuable prose there is, and the only kind the weight is currently right for |
+| A statement that has gone stale | `NameForm.LOCAL` says it covers *"a pattern binding"*; the parse does not collect one | **negative** — it is evidence for a reading the code refutes |
+| Boilerplate repeated verbatim | licence headers, generated banners, the provenance headers on eleven bundled resources | nothing, and it is written once per file so it scales with the corpus |
+| Documentation that is *about* this reading | `README.md` quotes λ and the theme table; `BACKLOG.md` quotes the term rate | it puts the reading's own output back into the corpus the reading reads |
+
+**Four measurements, each of which settles one row.**
+
+1. **Redundancy.** The share of a javadoc's content words that already appear in the declaration it sits
+   above. High share is a restatement, and a restatement corroborates nothing — it is one observation
+   counted twice. *Ships when a phrase's worth falls with its overlap and the theme table moves.*
+2. **Staleness, as a divergence.** A declaration's own topical reading against its javadoc's. The machinery
+   is already in the tree: two distributions over one topic space is exactly what `JensenShannon` compares,
+   and the null is the field of javadoc-to-declaration divergences across the repository. A comment far from
+   the code it sits on is either the most informative prose in the file or a lie, and **the reading cannot
+   tell which** — so it reports the pair and does not guess. *Ships when the ten most divergent javadocs in
+   this tree are read by hand and the split between the two is recorded.*
+3. **Boilerplate, by repetition rather than by a list.** A block of prose appearing identically in *n* files
+   is worth what one occurrence is worth, not *n*. **This is the doctrinal edge of the item and it must be
+   argued before it is built**: the doctrine forbids a curated observation of a corpus, and a repetition
+   count is an observation of *this* corpus. The defence is that it is computed at read time from the tree
+   in hand rather than extracted once and bundled — the same standing `WordSpecificity` has, moved from a
+   published list to the corpus itself. If that defence does not hold, the item is refused and the
+   duplication stays.
+4. **Self-reference.** `README.md` and `BACKLOG.md` carry this reading's own figures, so every theme the
+   reading reports is written back into the corpus it reports on. The fixed point is explicitly not chased —
+   `CLAUDE.md` says so — but nothing measures how large the effect is. *Ships when the reading is run with
+   the repository's own reports excluded and the two theme tables are printed side by side.* If the top of
+   the ranking moves, every figure quoted anywhere in this tree needs that caveat attached.
+
+**Why it is HIGH.** Prose is 37,605 of this repository's 50,723 read word occurrences — 74% of everything the
+reading has to go on — and its weight is the one number in the pipeline that was picked rather than derived.
+A 74% share resting on a chosen constant is where the largest unexamined error in the reading must be.
+
+**Abandon if:** redundancy and staleness both turn out to be near-uniform across the corpus, in which case
+one constant was the right model after all and the honest thing is to say so and keep it.
+
+## [MEDIUM] What the parse walks past, measured on a file written to contain all of it
+
+`JavaSource` collects declarations, imports and comments. Probed with one file written to contain every case,
+it returns `TYPE`, `METHOD`, `PARAMETER`, `FIELD` and `LOCAL` — and walks past five things the author wrote:
+
+- **String literals and text blocks.** `"interest rate swap"` is authored text and the reading never sees it.
+  This is the largest of the five and the least obvious: a literal is neither a declaration nor a use of
+  somebody else's declaration, so the rule that removes `String` and `assertThat` says nothing about it. Log
+  messages, error text, SQL, resource paths and embedded markup are all authored vocabulary — and format
+  strings, separators and reflection names are not, so **a literal is prose-shaped evidence needing the
+  trustworthiness reading above before it can be admitted**, not a sixth `NameForm` to add tomorrow.
+- **The package declaration.** Parsed into `ParsedSource.packageName()` and used only to sort imports. Its
+  segments — `parse`, `reading`, `theme`, `term`, `pipeline` — are the most deliberate taxonomy in the tree,
+  chosen once each and never counted.
+- **Pattern bindings.** `NameForm.LOCAL`'s javadoc claims it covers *"a loop variable and a pattern
+  binding"*. It does not: JavaParser's `TypePatternExpr` is not a `VariableDeclarationExpr` and no pass
+  collects it, so `subject instanceof String boundPattern` contributes nothing. **A stated coverage the code
+  does not have** — the first thing to write is the failing test, and the javadoc is either made true or
+  corrected.
+- **Labels.** `outerLoop:` is a name an author chose. Rare, and free once the pass exists.
+- **Module declarations.** No `module-info.java` in this tree, so the gap costs nothing here and would cost a
+  reading of a modular repository everything it declares about its own boundaries.
+
+**Measurement:** the count of word occurrences each adds, against λ and against the theme table. A gap that
+adds a thousand occurrences and moves no theme was not worth closing, and saying so is the finding.
 
 ## [LOW] Version stamps
 

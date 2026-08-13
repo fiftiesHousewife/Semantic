@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
+import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -31,9 +32,6 @@ class ThemeReadingDiagnostic {
     private static final String REPORT = "build/reports/self-reading/themes.md";
     private static final String GRAPH = "build/reports/self-reading/themes.json";
     private static final String PAGE = "build/reports/self-reading/themes.html";
-
-    private static final String SETTINGS_FILE = "settings.gradle.kts";
-    private static final String CLONE_DIRECTORY_PROPERTY = "cs.clone.dir";
 
     private static final long SEED = 20260813L;
     private static final int TOPICS_GRAPHED = 18;
@@ -67,7 +65,7 @@ class ThemeReadingDiagnostic {
 
     @Test
     void readsThisRepositorysThemesAndWritesTheReportAndTheGraph() throws IOException {
-        final Path root = repositoryRoot();
+        final Path root = new CloneUnderReading().root();
         final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
@@ -99,20 +97,5 @@ class ThemeReadingDiagnostic {
                 WITNESSES_HELD, new SourceLinks(root));
         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(), graph);
         Files.writeString(Path.of(PAGE), new ThemePage().of(graph));
-    }
-
-    private static Path repositoryRoot() {
-        final String supplied = System.getProperty(CLONE_DIRECTORY_PROPERTY, "");
-        if (!supplied.isBlank()) {
-            return Path.of(supplied).toAbsolutePath().normalize();
-        }
-        Path candidate = Path.of("").toAbsolutePath();
-        while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
-            candidate = candidate.getParent();
-            if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
-            }
-        }
-        return candidate;
     }
 }

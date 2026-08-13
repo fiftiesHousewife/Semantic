@@ -28,10 +28,6 @@ class SelfReadingDiagnostic {
 
     private static final String REPORT = "build/reports/self-reading/self-reading.md";
 
-    private static final String CLONE_DIRECTORY_PROPERTY = "cs.clone.dir";
-
-    private static final String SETTINGS_FILE = "settings.gradle.kts";
-
     private static final String PREAMBLE = """
             A reading of this repository's own Java sources by the library that reads repositories, over a
             parse of the working tree. What it reads is what this repository **declared** — its types,
@@ -46,7 +42,7 @@ class SelfReadingDiagnostic {
 
     @Test
     void readsThisRepositoryAndWritesTheLegibilityReport() throws IOException {
-        final Path root = repositoryRoot();
+        final Path root = new CloneUnderReading().root();
         final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
@@ -80,25 +76,5 @@ class SelfReadingDiagnostic {
                 .formatted(parsed.importsFrom(ImportOrigin.EXTERNAL),
                         parsed.importsFrom(ImportOrigin.PLATFORM),
                         parsed.importsFrom(ImportOrigin.INTERNAL));
-    }
-
-    /**
-     * The repository the reading is pointed at: {@code -Dcs.clone.dir} when given, so the same diagnostic can
-     * read another clone, and otherwise the enclosing build's own root — found by the settings file that
-     * defines it rather than by counting {@code ..} segments from a working directory.
-     */
-    private static Path repositoryRoot() {
-        final String supplied = System.getProperty(CLONE_DIRECTORY_PROPERTY, "");
-        if (!supplied.isBlank()) {
-            return Path.of(supplied).toAbsolutePath().normalize();
-        }
-        Path candidate = Path.of("").toAbsolutePath();
-        while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
-            candidate = candidate.getParent();
-            if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
-            }
-        }
-        return candidate;
     }
 }
