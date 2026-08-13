@@ -40,7 +40,12 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   it settled on. `SenseCoverage` then discounts a label by the share of the word it speaks for, which is what
   moved `law` off the top. `ContentWords` lemmatises and keeps prose to its content words; `WordSpecificity`
   weights a word nothing chose by the surprisal the frequency list states.
-- **Behaviours** — `Behaviours` reads 561 declared method names as clauses, verb first, by asking the
+- **The topic hierarchy** — `TopicHierarchyExtraction` bundles wiktextract's own generalisation map at a
+  pinned revision, verified by the blob id that revision holds so a run with no network route still cites the
+  permalink. `StatedTopics` folds a label another label of the same word already implies back into it, which
+  is what stopped one theme being counted six times: the vocabulary went from 519 distinct topics to 479,
+  `sciences` and its four restatements left the top of the ranking entirely, and `computing` leads.
+- **Behaviours** — `Behaviours` reads 592 declared method names as clauses, verb first, by asking the
   dictionary which word is a verb. `ForeignWords` ranks the names whose own subject is furthest from the
   repository's, as metaphor candidates.
 - **The documentation as a scope**, read as prose with code quotations stepped over, and `SourceLinks`
@@ -49,7 +54,7 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
-  for each. Current result in the README: **λ = 0.979** over 42,308 read word occurrences in 182 files, documentation included.
+  for each. Current result in the README: **λ = 0.979** over 44,598 read word occurrences in 195 files, documentation included.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -65,12 +70,11 @@ The figures they have to move are on this tree, at the commit this file ships in
 
 | # | Do this | Because the reading measured | It ships when |
 |--:|---|---|---|
-| 1 | **Extract Wiktionary's topic hierarchy** | `sciences`, `natural-sciences`, `physical-sciences`, `engineering`, `computing` and `human-sciences` hold **23% of all topical mass**, four have identical witnesses, four lead no files | the six labels pool to one by citation, and the ranking changes or is shown not to |
-| 2 | **Read WordNet's most frequent sense** | the reading pools every labelled sense equally, which is *worse* than the naive baseline the plan already specifies for stage 9 | `law`'s remaining 20 files led, and whether `cite` stops voting law at all |
+| 1 | **Make "leads" mean something** | **92 of the 178 files that have a leader are led at a share under a fifth**, and they hold 7,643 of the 13,711 led lines. The plan document is led by `law` holding 7.6% of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
+| 2 | **Read WordNet's most frequent sense** | the reading pools every labelled sense equally, which is *worse* than the naive baseline the plan already specifies for stage 9 | `law`'s remaining 11 files led, and whether `cite` stops voting law at all |
 | 3 | **Run on a repository this reading was not written for** | `law` is under-represented in the one module ported from elsewhere and over-represented in the code written for this reading — every figure so far is an instrument reading itself | a second tree is read through `-Dcs.clone.dir` and its themes are reported beside these |
-| 4 | **Make "leads" mean something** | `law` led three documentation files at a 5–14% share: the leader can win a file while holding almost none of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
-| 5 | **Verbal forms — the rest of it** | 561 methods read as clauses; no class name does, and the verb is chosen without the position that would settle it | the item below, with its three measurements |
-| 6 | **Stages 1–3, the git read** | no reading is pinned to a commit, so no permalink is rendered and no vote can be cast at all | `SourceAnchor` renders from a real revision and the witnesses become permalinks |
+| 4 | **Verbal forms — the rest of it** | 592 methods read as clauses; no class name does, and the verb is chosen without the position that would settle it | the item below, with its three measurements |
+| 5 | **Stages 1–3, the git read** | no reading is pinned to a commit, so no permalink is rendered and no vote can be cast at all | `SourceAnchor` renders from a real revision and the witnesses become permalinks |
 
 After those, the plan's own order resumes: the polyglot parse, the store, and the first vertical slice
 against `junit-team/junit-framework`, which is the first time this library reads something that is not itself.
@@ -269,39 +273,43 @@ is now the theme leading the most files. It also raised the count of files no to
 from 0 to 53, which is the honest consequence: a reading resting on words the resources barely cover should
 say so rather than resolve confidently.
 
-**It exposed the next distortion, which is now the largest.** With the sense-labelled resource properly
-discounted, the headword-labelled one dominates — and it labels with a hierarchy:
+**Fix 2 has landed and it worked too.** With the sense-labelled resource properly discounted, the
+headword-labelled one dominated — and it labels with a hierarchy it publishes as a closure, so one statement
+about a word arrived as six:
 
-| Label | ι | Leads | Carried by |
-|---|--:|--:|---|
-| `sciences` | 0.0651 | 20 | occurrence, topic, site, from |
-| `natural-sciences` | 0.0403 | 1 | topic, site, resource, word |
-| `physical-sciences` | 0.0365 | 0 | topic, site, resource, word |
-| `engineering` | 0.0344 | 0 | topic, site, resource, word |
-| `computing` | 0.0313 | 0 | topic, site, resource, word |
-| `human-sciences` | 0.0269 | 0 | occurrence, least, citation, initialism |
-| **together** | **0.2344** | 21 | — |
+| Label | ι before | Leads before | ι after | Carried by, before |
+|---|--:|--:|--:|---|
+| `sciences` | 0.0651 | 20 | — | occurrence, topic, site, from |
+| `natural-sciences` | 0.0403 | 1 | — | topic, site, resource, word |
+| `physical-sciences` | 0.0365 | 0 | — | topic, site, resource, word |
+| `engineering` | 0.0344 | 0 | — | topic, site, resource, word |
+| `computing` | 0.0313 | 0 | **0.0824**, leading 36 | topic, site, resource, word |
+| `human-sciences` | 0.0269 | 0 | — | occurrence, least, citation, initialism |
+| **together** | **0.2344** | 21 | — | — |
 
-Four of them have *identical* witnesses and lead nothing between them. That is **one theme counted six
-times**, holding 23% of all topical mass, and it is the Wiktionary topic hierarchy — which that resource
-publishes and this repository does not yet extract. It is the next thing to do, and it is the item below.
+Four had *identical* witnesses and led nothing between them: one theme counted six times, holding 23% of all
+topical mass. `StatedTopics` folds a derived label back into the label it was derived from, citing the same
+published map that derived it. The vocabulary went from 519 distinct topics to 479, the files no topic could
+be resolved for from 54 to 17, and `computing` — a defensible answer for a library that reads code — leads
+where five restatements of *sciences* used to sit.
 
 **The rest of the fixes, in the order they are worth doing:**
 
-2. **Read the most frequent sense, as the plan already says.** Stage 9 of the plan is explicitly reduced to
+3. **Read the most frequent sense, as the plan already says.** Stage 9 of the plan is explicitly reduced to
    WordNet's most frequent sense as a stated baseline. The reading currently pools every labelled sense
    equally, which is worse than the baseline it was supposed to start from — and WordNet carries the corpus
-   use counts that would settle it.
-3. **Stop treating narrowness as confidence.** Coherence should be agreement between the phrase's words, not
+   use counts that would settle it. The fold sharpened the case rather than settling it: `music` is now
+   fourth, carried by `topic`, whose everyday sense is the one the resource never labelled.
+4. **Stop treating narrowness as confidence.** Coherence should be agreement between the phrase's words, not
    the shape of one word's entry.
-4. **Read a repository this reading was not written for.** `-Dcs.clone.dir` already points the diagnostic at
+5. **Read a repository this reading was not written for.** `-Dcs.clone.dir` already points the diagnostic at
    another clone, and until it has been run on one, every figure here is an instrument reading itself.
 
 ## [HIGH] Verbal forms — the rest of the behaviour reading
 
 `Behaviours` reads a declared method name as a clause: the leading word where the dictionary carries a verb
-entry for it, and the rest as what the verb acts on. 539 of this repository's methods read that way — read
-(81), name (20), refuse (19), carry (14). Three parts of the question it was asked are **not** answered yet,
+entry for it, and the rest as what the verb acts on. 592 of this repository's methods read that way — read
+(84), name (21), refuse (21), carry (15). Three parts of the question it was asked are **not** answered yet,
 and each is a separate slice.
 
 **Class names are not read as structures.** A type name is not a clause but it is not nothing either:
@@ -323,25 +331,39 @@ is already parsed far enough to carry the first three; the fourth is a grammar r
 subordinate clause begins. *Measurement:* the share of test names that yield a condition, against the share
 that state one in prose.
 
-## [HIGH] The Wiktionary topic hierarchy
+## [LOW] The Wiktionary topic hierarchy — what is left of it
 
-`sciences`, `natural-sciences` and `physical-sciences` fire together on the same words and split one theme
-three ways; `computing` and `computer_science` are the same subject under two resources' labels. Wiktionary
-publishes its topic hierarchy as its own module data, so pooling a label with its parent would be a citation
-rather than a synonym list — which is the only form this library may take. Extract it with a named Gradle
-task and a provenance header, exactly as the other TSVs are.
+**The fold has landed.** `wiktionary-topic-hierarchy.tsv` carries wiktextract's own generalisation map at a
+pinned revision, and `StatedTopics` reads it to tell a label a headword was given from one derived off
+another it was given. Measured: 519 distinct topics to 479, `sciences` and its four restatements out of the
+top fifteen entirely, `computing` first at ι 0.0824 leading 36 files. A fold that only reduced the label
+count without moving the reading would have bought nothing; this one moved the top of the table.
 
-**Measurement:** the count of distinct topics (493 today) and whether the top of the ranking changes when
-siblings pool. Five labels — `sciences`, `natural-sciences`, `physical-sciences`, `engineering`,
-`computing` — currently fire on the same words and lead almost no files between them, which is one theme
-counted five times. A fold that only reduces the label count without moving the reading has bought nothing.
+Two things it does not do:
+
+**`computing` and `computer_science` are still two labels for one subject**, because they are two
+*resources'* labels — Wiktionary's and WordNet Domains's — and no bundled resource states that they are the
+same subject. Nothing here may say it either. A hierarchy folds a resource into itself; reconciling two label
+spaces needs a citation that maps between them, and WordNet Domains's own hierarchy is the first place to
+look for one.
+
+**A root by omission is not a root by statement.** The map generalises 690 of the vocabulary's 719 distinct
+labels and is silent about 29 — `law`, `business`, `government`, `media`, `metrology`, `arts` among them.
+Some of those are genuinely top-level and some only lack an entry, and the fold cannot tell which: a label
+nothing generalises is never folded, so a missing entry silently keeps a duplicate reading alive. The 29 are
+few enough to check against the map's own upper levels, and *checking* them is the work — the answer is a
+citation or it is nothing.
 
 ## [HIGH] A topic that leads a file should hold some of it
 
-`law` led `docs/CODE_SEMANTICS_LIBRARY_PLAN.md` (692 lines), `README.md` (239) and `CLAUDE.md` (207) at
-shares of **0.09, 0.14 and 0.05**. Nothing dominates those files; law won by a nose in a field where every
-theme is weak, and then took all their lines into its total. Two thirds of its *lines led* came from files
-where the leader held less than a fifth of the mass.
+**92 of the 178 files that have a leader are led at a share under a fifth, and they hold 7,643 of the 13,711
+led lines.** `law` leads the 692-line plan document holding **7.6%** of it; `mathematics` leads `README.md`
+at 9.4%, `computing` leads `CLAUDE.md` at 7.4%. Nothing dominates those files. A theme wins by a nose in a
+field where every theme is weak, and then takes every one of their lines into its total.
+
+The hierarchy fold made this worse rather than better, which is the honest way round: concentrating mass on
+the label a resource actually stated took the files with no leader at all from 54 to 17, so more files now
+have a leader that holds almost none of them.
 
 The abstention already knows this. `OpenSpaceAccumulator` resolves the leader's share against the voted mass
 *plus* what nothing could read, and that share is carried on every file as `ValueShare.share()` — the
