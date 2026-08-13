@@ -115,7 +115,7 @@ nothing; `interest rate swap` weighs near the ceiling.
 | **FIBO** | finance, and banking through its own `FBC`/`LOAN`/`BE`/`CAE` modules | OWL in RDF/XML, `rdfs:label` + `cmns-av:synonym` (422) + `cmns-av:abbreviation` (810) | **MIT**, verified from the repository's own `LICENSE` | **Ships first** |
 | **CSO** | computing, ~15,000 topics | CSV/OWL over a SKOS-derived schema, `klink:relatedEquivalent` for synonymy | CC BY 4.0 on the publisher's pages — **not stated on the download page** | Stage 3, after the licence is verified in the file itself |
 | **STW** | economics | native SKOS with English `altLabel`s | CC BY 4.0 **at v9.20**; v9.02 is **ODbL**, whose share-alike would attach to the derived file | Stage 5, pinned to a version whose licence was read |
-| **FpML** | markets, derivatives | XSD element names — `interestRateSwap`, `floatingRateIndex` — plus ISDA's published coding schemes | **Unverified.** Not reachable from this sandbox; `fpml.org` is not an allowed host | See below — the strongest candidate on fitness |
+| **FpML** | markets, derivatives | 236 coding schemes, 5,881 codes, in OASIS genericode; plus XSD element names | **FpML Public License 3.0 — verified**, read from the publisher | **Ships alongside FIBO.** See below |
 | **ISO 20022** | payments | message components and a data dictionary, `CstmrCdtTrfInitn`, `Dbtr`, `Cdtr` | *"used and reproduced freely"* under the IPR policy — **"use" is not "redistribute"** | Needs a legal read before anything is bundled |
 | ACM CCS | computing | SKOS | educational and research use only | Ruled out — a jar on Maven Central is neither |
 | IEEE Thesaurus | engineering | PDF, e-mail gated | CC BY-NC-ND 4.0 | Ruled out twice: NC and ND. A third party's MIT-stamped RDF conversion of it is laundering, not a licence |
@@ -132,13 +132,37 @@ between. A thesaurus needs lemmatising, splitting and n-gram alignment before it
 does not. That is the argument for putting them ahead of CSO and STW **if their licences permit
 redistribution**, and the licence is the whole question:
 
-- **FpML:** find the FpML Public License text, confirm it grants redistribution of a derived term list, and
-  find a reachable copy of the schemas. Neither `fpml.org` nor a canonical mirror is reachable from the
-  agent sandbox, so this needs a fetch from a user shell.
-- **ISO 20022:** read `iso20022.org/terms-use` and the IPR policy against the words *redistribute in a
-  derived work*. If it clears, the External Code Sets are the interesting part.
+**FpML is settled, and it is the cleanest source found so far.** The FpML Public License 3.0 (effective
+2026-02-01, licensor ISDA) grants *"a world-wide, royalty-free, non-exclusive license … to use, reproduce,
+modify, display, perform, and distribute the FpML Specifications (or portions thereof) with or without
+modifications, or as part of a Larger Work"*, and a Larger Work may be distributed under a licence of our
+choice provided it does not limit the recipient's rights to the Specifications themselves. Two conditions
+attach and both are satisfied by the provenance header this library already writes:
 
-Neither is blocked on design work — both would land as another extraction task and another TSV.
+- the **Exhibit A notice** goes in the derived file's header, verbatim;
+- the designation *FpML* may identify the specification and state the version, but must not be used as part
+  of a trademark for this library, and any compliance claim must name the version. So the header names the
+  exact scheme versions and the file claims nothing beyond citing them.
+
+What it publishes is better suited to this library than a thesaurus:
+
+| | Measured |
+|---|--:|
+| Coding schemes (`fpml.org/spec/coding-scheme/codelist.zip`, 388 KB) | 236 |
+| Codes across them | 5,881 |
+| Codes that are already single-token identifiers | **2,657** |
+
+`asset-class-2-1.xml` states `Commodity`, `Credit`, `Equity`, `ForeignExchange`, `InterestRate`,
+`SecuritiesFinancing` — the words a trading system's identifiers are actually built from. And
+`product-taxonomy-4-0.xml` publishes **a hierarchy in the code itself**:
+`Commodity:Agricultural:Dairy:Option:Cash`. Each colon is a broader/narrower step, so the `broader` column
+falls out of the code with no inference at all — the strongest form of the citation this library asks for.
+
+The format is **OASIS genericode**, with `Code`, `Source` and `Description` columns and a `CanonicalVersionUri`
+per scheme, so the extraction is a plain XML read and each scheme is a concept scheme.
+
+**ISO 20022** remains open: read `iso20022.org/terms-use` and the IPR policy against the words *redistribute
+in a derived work*. If it clears, the External Code Sets are the interesting part.
 
 ### One shape for every source
 
