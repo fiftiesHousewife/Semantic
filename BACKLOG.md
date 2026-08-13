@@ -976,6 +976,75 @@ A 74% share resting on a chosen constant is where the largest unexamined error i
 **Abandon if:** redundancy and staleness both turn out to be near-uniform across the corpus, in which case
 one constant was the right model after all and the honest thing is to say so and keep it.
 
+## [HIGH] The match is a string comparison, and it should be a comparison of meanings
+
+`TermSpans` compares one run of words with another run of words. `commonNoun` meets `CommonNoun` and
+`nounCommon`, `nounPhrase` and `substantivePhrase` meet nothing, and every near miss is silent — the reading
+cannot even say it nearly matched. That is a **lexical** match wearing the clothes of a conceptual one.
+
+Three things are being conflated and the design has to keep them apart:
+
+| | What it states | Citable from |
+|---|---|---|
+| **Synonymy** | two names for one concept | the taxonomy's own `altLabel` / `synonym` / `relatedEquivalent` — a publisher's statement |
+| **Subsumption** | one concept is a kind of another | WordNet's hypernym links, and the taxonomy's own `broader` |
+| **Similarity** | two concepts sit near each other in a tree | *derived* from subsumption, never published |
+
+**The machinery for the second is already in the tree and nothing uses it.** `Lexicon.sharedHypernyms` returns
+the categories two nouns are both a kind of and certifies them as coordinate sisters; `sharedHypernymChain`
+returns the lemma sets of every ancestor above that pair, nearest first, and is empty where they share none.
+Ported, tested, and not called by the matcher. The plan already asks for this in so many words — *the sibling
+reading agrees on labels where the plan intersects hypernym chains, so two words meaning neighbouring things
+agree on nothing* — so this is unbuilt design rather than new design.
+
+### The trap, which is why this is not simply a good idea
+
+**Climb far enough and everything meets.** `topic` and `verb` share an ancestor; so do `swap` and `sentence`.
+A match at a shared root is not evidence, it is arithmetic — and the current reading's measured defect is
+already that it matches *too much*, at 98.2% one-word spans. Naive expansion raises recall against a
+precision problem and would make the reading strictly worse.
+
+**What rescues it is that the depth of the meeting point is itself a precision signal**, and that is the
+version of this idea worth building. Two concepts meeting at a node deep in the tree have been shown to be
+near each other; two meeting only at the root have been shown to be unrelated, which the present reading
+cannot say at all. That is a *derived* statistic and it needs a derived bound: Wu–Palmer is bounded in
+`[0, 1]` by construction, being twice the depth of the least common subsumer over the summed depths of the
+pair. Lin's is bounded the same way over information content, and WordNet ships the corpus counts that
+information content is read from, so neither number is chosen here.
+
+### The doctrinal collision, to be settled before any of it is written
+
+The backlog already states, for synonymy: *where a source publishes none, the reading abstains rather than
+borrowing WordNet, because a WordNet synonym of a term's head noun is a statement about English and not about
+the taxonomy.* OLiA publishes `altLabel` for a small fraction of its terms. So the honest position is that
+**subsumption may be borrowed and synonymy may not** — WordNet stating that a noun is a kind of another noun
+is a fact about the words, and both sides of this match are words; WordNet stating that two words are
+interchangeable says nothing about whether a *taxonomy* would use them for one concept.
+
+And there is a second hazard. The term matcher exists precisely because a match identifier-to-identifier needs
+no English in between. Expanding both sides through WordNet puts English back in between — which is what the
+theme reading already does, and what `SubjectPlacementDiagnostic` pins as failing at leaf grain, where the
+floor of agreement under every subject drowns the signal. **A term matcher that generalises too freely
+collapses into the reading it was built to be independent of.**
+
+### What settles it, stated before it runs
+
+Three arms, all on the panel `-Dcs.panel.dir` is being built for, each reported at several depth cut-offs so
+the cut-off is a reported figure and not a chosen one:
+
+1. **Recall it should buy.** Terms this repository writes that OLiA states in other words. Hand-audit fifty
+   near misses and record how many a hypernym reading recovers.
+2. **Precision it must not cost.** The out-of-domain arm, unchanged: a repository OLiA should say nothing
+   about. If generalising raises the out-of-domain rate as fast as the in-domain one, it has bought nothing.
+3. **Whether depth discriminates.** For every match already found, the depth of its least common subsumer.
+   If the branch finding holds, the spurious matches — `topic`, `source`, `first`, `result` — should meet
+   their OLiA concept only near the root, and the real ones — `verb`, `clause`, `affix` — should meet deep.
+   **That arm is free and needs no panel**, because both sides are already in the tree, and it is the one to
+   run first: it tests the whole premise in an afternoon and can refuse it before anything is built.
+
+**Abandon if:** depth does not separate the matches the branch reading already separates. Two independent
+citations disagreeing about which matches are real would mean neither is measuring what it claims.
+
 ## [MEDIUM] What the parse walks past, measured on a file written to contain all of it
 
 `JavaSource` collects declarations, imports and comments. Probed with one file written to contain every case,
