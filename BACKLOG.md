@@ -215,6 +215,92 @@ Same interface shape, opposite direction, and the javadoc has to say so.
 
 ---
 
+## [HIGH] The domain landscape of a large institution, and which standards can be cited for it
+
+A bank is not one domain. It is a dozen business domains, a set of enterprise functions any large corporate
+has, and the technical domains underneath both — and a reading that offers only *finance* will read a
+payments service, an HR system and a risk engine as the same thing.
+
+### Two kinds of taxonomy, and they do not match the same way
+
+This distinction decides the design, and conflating them is the mistake to avoid:
+
+| | **Term taxonomy** | **Functional taxonomy** |
+|---|---|---|
+| States | what a thing in the domain is called | what a business *does*, as a partition of activity |
+| Examples | FIBO, CDM, XBRL element names, FpML, ESCO skills | APQC PCF, BIAN service landscape, Basel event types, ISO 20022 business areas |
+| Grain | a term, matched against an identifier | a capability, matched against a whole scope |
+| How it reads | longest-match n-gram over a phrase — the matcher above | **not the matcher.** A scope's aggregate reading compared against each functional area, which is the divergence machinery already in the tree |
+| Answers | "this file writes the language of derivatives" | "this repository is trade processing, not wealth management" |
+
+A functional taxonomy has perhaps a hundred labels and none of them appear in code — nobody writes
+`ManageEnterpriseRisk` — so matching it term-by-term would find nothing and mean nothing. It is a
+**reference distribution** to diverge against, which is what §16 of the plan already does for scopes.
+
+### The domains, and the standard that could speak for each
+
+Verified nowhere yet. **Every licence below is a claim to check, not a finding**, and the ones marked
+*code-shaped* are those whose terms are already identifiers — the `sql-functions.tsv` case, and the only
+ones the matcher can use directly.
+
+**Financial business domains**
+
+| Domain | Candidate standard | Publisher | Licence to check | Code-shaped |
+|---|---|---|---|:--:|
+| Trade processing, derivatives | **CDM (Common Domain Model)** | FINOS / ISDA | Apache-2.0 expected — it is a FINOS project on GitHub | **yes** |
+| Markets, derivatives documents | **FpML** | ISDA | FpML Public License, unreachable from here | **yes** |
+| Products, instruments | **ISDA Product Taxonomy**; **ISO 10962 CFI** | ISDA; ISO | ISDA unknown; ISO paywalled | no |
+| Payments | **ISO 20022** message components and business areas | ISO 20022 RA | "use and reproduce" ≠ redistribute | **yes** |
+| Consumer cards | **ISO 18245** merchant category codes; **PCI DSS** control set | ISO; PCI SSC | ISO paywalled; PCI free with terms | no |
+| Reference data, entities | **GLEIF** LEI and Entity Legal Forms | GLEIF | **CC0** expected — the strongest licence position of any candidate | no |
+| Venues | **ISO 10383** market identifier codes | SWIFT as RA | published free, terms to check | no |
+| Risk | **Basel** operational-risk event types; **ORX Reference Taxonomy** | BIS; ORX | BIS reproduction terms; ORX unknown | no |
+| Finance, accounting | **US GAAP Financial Reporting Taxonomy** (XBRL); **IFRS Taxonomy** | FASB; IFRS Foundation | FASB free-use to check; IFRS restrictive | **yes** — `AssetsCurrent`, `CashAndCashEquivalentsAtCarryingValue` |
+| Contract mechanics | **ACTUS** | ACTUS Financial Research | already vendored inside FIBO's own repository under FIBO's MIT | **yes** |
+| Desktop interop | **FDC3** context types | FINOS | Apache-2.0 expected | **yes** — `fdc3.instrument`, `fdc3.position` |
+| Wealth management | *no single standard found* | — | — | — |
+
+**Enterprise functions any large corporate has**
+
+| Domain | Candidate standard | Publisher | Licence to check | Code-shaped |
+|---|---|---|---|:--:|
+| The whole functional partition | **APQC Process Classification Framework**, cross-industry and its Banking PCF | APQC | free with registration; redistribution terms to check | no — functional |
+| Banking capabilities | **BIAN Service Landscape** | BIAN | none stated — already ruled out | no — functional |
+| HR, skills, occupations | **ESCO** (native SKOS, ~13k skills); **O\*NET**; **ISCO-08** | EU Commission; US DoL; ILO | ESCO under the EU reuse decision; O\*NET CC BY | no |
+| Procurement | **CPV** common procurement vocabulary; **UNSPSC** | EU; GS1 US | CPV under EU reuse; UNSPSC licensed | no |
+| Security | **NIST CSF** functions; **SP 800-53** control families | NIST | **US Government work — public domain** | no |
+| IT service management | ITIL; COBIT | AXELOS; ISACA | proprietary — expect to rule both out | no |
+
+**Technical domains**
+
+| Domain | Candidate standard | Licence to check | Code-shaped |
+|---|---|---|:--:|
+| Computing | **CSO** (above) | CC BY 4.0, unstated on the download page | no |
+| Data management | **DCAT** and **Dublin Core**; **ISO/IEC 11179** metadata registry | W3C and DCMI open; ISO paywalled | **yes** for DCAT terms |
+| Web and general | **schema.org** | CC BY-SA — share-alike, so read carefully before bundling | **yes** |
+
+### What to do with this
+
+1. **Verify the licences in one pass**, cheapest and most permissive first: GLEIF (CC0), NIST (public
+   domain), FINOS CDM and FDC3 (Apache-2.0), ESCO, CPV, then FpML, ISO 20022, APQC. A source whose licence
+   cannot be established does not get bundled, however well it fits.
+2. **Take the code-shaped ones first.** CDM, FDC3, XBRL, ACTUS and FpML state terms a program actually
+   writes, and the matcher can use them the day they are extracted. A classification of *businesses* or
+   *occupations* cannot be matched against identifiers and should not be bundled as if it could.
+3. **Keep functional taxonomies out of the matcher.** APQC and BIAN, if their licences permit, belong to a
+   separate reading: a scope's topical distribution diverged against each functional area, reported as
+   "this repository reads as trade processing", with the same permutation null. That is a different slice
+   and should be measured separately, or it will be credited to the term matcher.
+4. **One shape for all of them** — the six SKOS-shaped columns above, one TSV per source, each carrying its
+   own provenance header.
+
+**The measurement stays the same and applies per domain:** a domain's vocabulary must fire on a repository
+in that domain and not on one outside it. With a dozen domains the honest form is a confusion matrix rather
+than a pair of numbers — one repository per domain down the side, one vocabulary across the top, and the
+diagonal has to win against a permuted-assignment null.
+
+---
+
 ## [MEDIUM] The identifier splitter — the letter/digit boundary
 
 **Rules 1, 2, 3 and 5 have landed** in `IdentifierWords`, alongside the ported `Tokeniser` rather than inside
