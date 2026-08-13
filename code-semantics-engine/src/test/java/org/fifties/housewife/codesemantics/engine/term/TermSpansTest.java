@@ -77,6 +77,12 @@ class TermSpansTest {
     }
 
     @Test
+    void fallsToTheDictionaryFormBeforeItFallsToTheMeaning() {
+        assertThat(ladderOver("noun phrase").in(List.of("noun", "phrases")).getFirst().rung())
+                .isEqualTo(TermRung.LEMMAS);
+    }
+
+    @Test
     void fallsToTheMeaningOnlyWhereTheWordsSaidNothing() {
         final List<TermSpan> found = ladderOver("noun phrase").in(List.of("nominal", "phrase"));
 
@@ -103,6 +109,8 @@ class TermSpansTest {
 
     private static TermSpans ladderOver(final String... terms) {
         final TermIndex published = publishing(SOURCE, terms);
-        return new TermSpans(published, SensedTerms.over(published, SenseRuns.fromClasspath()));
+        return new TermSpans(published,
+                NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
+                NormalisedTerms.over(published, SenseRuns.fromClasspath()));
     }
 }

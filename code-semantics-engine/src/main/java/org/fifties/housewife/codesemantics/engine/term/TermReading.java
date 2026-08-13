@@ -33,12 +33,14 @@ public final class TermReading {
     }
 
     /**
-     * The published index and the same index read as meanings, in that order — the narrower rung answers where
-     * it can and the broader is asked only where it did not.
+     * The published index, the same index read as dictionary forms, and the same index read as meanings — in
+     * that order, narrowest first, each asked only where the one before it said nothing.
      */
     public static TermReading over(final TermIndex index) {
         return new TermReading(IdentifierWords.fromClasspath(),
-                new TermSpans(index, SensedTerms.over(index, SenseRuns.fromClasspath())),
+                new TermSpans(index,
+                        NormalisedTerms.over(index, LemmaRuns.fromClasspath()),
+                        NormalisedTerms.over(index, SenseRuns.fromClasspath())),
                 PhraseSpecificity.fromClasspath());
     }
 

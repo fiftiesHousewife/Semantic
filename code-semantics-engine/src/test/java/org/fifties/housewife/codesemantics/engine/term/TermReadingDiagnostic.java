@@ -61,6 +61,12 @@ class TermReadingDiagnostic {
             does to a repository it knows nothing about. No term is excluded for that — a list of words to
             ignore is what the doctrine forbids — so the weight comes from the bundled frequency list instead,
             and a run of everyday words is worth a fraction of a run the list barely carries.
+
+            **And read each rung apart.** Both sides are normalised to one thing before they are compared, and
+            the ladder takes the narrowest normalisation that answers: the words as both sides wrote them,
+            then each word's dictionary form, then the sense the dictionary carries it in. A match found on
+            the words and a match found on a sense two different words share are not the same evidence, so
+            there is a rate for each rung below and none across them.
             """;
 
     @Test
@@ -75,10 +81,13 @@ class TermReadingDiagnostic {
         write(root, terms, matched, TermGraph.of(root.getFileName().toString(), terms.source(),
                 matched, TermRung.WORDS, new StatedAncestry(terms)));
 
-        final List<String> carrying = matched.byMass(TERMS_HELD).stream().map(TermSighting::term).toList();
-        final List<String> longer = matched.longerThanOneWord().stream().map(TermSighting::term).toList();
+        final MatchedTerms onWords = matched.at(TermRung.WORDS);
+        final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);
+        final MatchedTerms onSenses = matched.at(TermRung.SENSES);
+        final List<String> carrying = onWords.byMass(TERMS_HELD).stream().map(TermSighting::term).toList();
+        final List<String> longer = onWords.longerThanOneWord().stream().map(TermSighting::term).toList();
         assertAll(
-                () -> assertThat(matched.spansFound())
+                () -> assertThat(onWords.spansFound())
                         .as("a taxonomy of grammar must fire on a library that reads grammar")
                         .isPositive(),
                 () -> assertThat(carrying)
@@ -95,7 +104,7 @@ class TermReadingDiagnostic {
                 () -> assertThat(Files.readString(Path.of(PAGE)))
                         .as("the page draws the same reading the report states")
                         .contains(TermProse.HEADING),
-                () -> assertThat(oneWordShare(matched))
+                () -> assertThat(oneWordShare(onWords))
                         .as("A FINDING, PINNED. In domain, on the repository this reading was developed "
                                 + "against, the taxonomy is fired almost entirely by one-word terms — the "
                                 + "same shape a finance ontology showed on a repository with no finance in "
@@ -108,7 +117,36 @@ class TermReadingDiagnostic {
                                 + "list does not carry the compound, and it matches only because the "
                                 + "ontology's own term broke the same way on the same grammar. When the "
                                 + "splitter learns the boundary this must fail and be rewritten.")
-                        .contains("col location"));
+                        .contains("col location"),
+                () -> assertThat(onLemmas.longerThanOneWord()).map(TermSighting::term)
+                        .as("A FINDING, PINNED. The dictionary form is the free half of the "
+                                + "generalisation: the ontology publishes singulars and a program declares "
+                                + "whatever its sentence needed, and `base forms` meeting `BaseForm` is one "
+                                + "word inflected rather than a claim about meaning. It is separated from "
+                                + "the sense rung so that the sense rung cannot take credit for a plural.")
+                        .contains("base forms"),
+                () -> assertThat(oneWordShare(onSenses))
+                        .as("A FINDING, PINNED, AND IT REFUSES THE RUNG AS SPECIFIED. Normalising both "
+                                + "sides to WordNet's most frequent sense was queued because it is where "
+                                + "`lemma` could meet `BaseForm` and `article` could meet `Determiner`. It "
+                                + "buys neither: WordNet holds no entry for `base form` at all, and it "
+                                + "makes `article` a piece of prose and `determiner` a conclusive argument, "
+                                + "so both examples fail before any code runs. What it does buy on this "
+                                + "tree is every span one word long — `subject` and `theme` reading as "
+                                + "`Topic`, `cite` as `Referring`, `place` and `put` as `Set`, `sum` as "
+                                + "`Amount`, `auto` as `Automobile` — against a design whose whole premise "
+                                + "is that the multi-word term is the signal. The rung stays, reported "
+                                + "apart and voting on nothing, because the figure is the argument for "
+                                + "refusing it.")
+                        .isEqualTo(1.0),
+                () -> assertThat(onSenses.byMass(TERMS_HELD)).map(TermSighting::term)
+                        .as("A FINDING, PINNED. The sense rung's largest gain is this repository's own "
+                                + "measured artefact arriving by a second route: `topic`, `theme` and "
+                                + "`subject` are one WordNet entry, which is what already puts `music` "
+                                + "under everything the theme reading says. A term matcher exists so that "
+                                + "a match needs no English in between, and this rung puts the English "
+                                + "back.")
+                        .contains("subject", "theme"));
     }
 
     private static double oneWordShare(final MatchedTerms matched) {

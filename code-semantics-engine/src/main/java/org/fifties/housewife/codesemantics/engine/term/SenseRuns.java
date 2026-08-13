@@ -23,7 +23,7 @@ import org.fifties.housewife.bi.lexicon.WordSense;
  * the words it could read: a reading that cannot cite abstains, and half a run of senses would be a comparison
  * this library invented for the half it could read.
  */
-public final class SenseRuns {
+public final class SenseRuns implements TermNormalisation<List<WordSense>> {
 
     private final Lexicon lexicon;
 
@@ -36,9 +36,15 @@ public final class SenseRuns {
     }
 
     /** The senses this run of words reads as, or nothing where any part of it cannot be read at all. */
+    @Override
     public Optional<List<WordSense>> of(final List<String> words) {
         return words.isEmpty() ? Optional.empty()
                 : asOneEntry(words).map(List::of).or(() -> wordByWord(words));
+    }
+
+    @Override
+    public TermRung rung() {
+        return TermRung.SENSES;
     }
 
     private Optional<WordSense> asOneEntry(final List<String> words) {
