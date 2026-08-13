@@ -44,6 +44,13 @@ class ThemeReadingDiagnostic {
             vocabulary, which labels the headword. Each word occurrence commits one unit of mass per resource,
             divided among the readings that resource names, so an ambiguous word does not shout.
 
+            A label another label of the same word already implies is not one of those readings. The topic
+            vocabulary publishes a closure over its own hierarchy — a word labelled `computing` arrives
+            carrying `engineering`, `mathematics`, `natural-sciences`, `physical-sciences` and `sciences`
+            besides — and the hierarchy that derived them, published by the same extractor, is what folds
+            them back into the label they came from. Nothing is excluded and no list is written: where the
+            hierarchy is silent, every label the word carries stands.
+
             **Read the ranking below as the weak reading it is.** A topic's intensity over one scope counts
             every occurrence of every word, and the commonest words in Java source are also the most
             ambiguous ones — `string`, `set`, `map`, `assert`, `of`. Their senses spray mass across subjects

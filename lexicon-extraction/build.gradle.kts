@@ -35,6 +35,22 @@ tasks.register<JavaExec>("extractWiktionary") {
     )
 }
 
+// Reads wiktextract's own topic generalisation map — the map that put the broader labels into the topic
+// vocabulary in the first place — at a pinned revision, and rewrites the bundled hierarchy TSV. One small
+// file over the network; -Pmodule=<path> reads a checked-out copy instead.
+//   ./gradlew :lexicon-extraction:extractTopicHierarchy
+tasks.register<JavaExec>("extractTopicHierarchy") {
+    group = "build"
+    description = "Extracts the Wiktionary topic hierarchy TSV from wiktextract's published topic module"
+    mainClass = "org.fifties.housewife.bi.lexicon.extraction.TopicHierarchyExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("module") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/wiktionary-topic-hierarchy.tsv").asFile.absolutePath
+    )
+}
+
 // Queries the Wikidata registry through the QLever SPARQL endpoint (qlever.dev) and rewrites the
 // bundled initialism TSV. Network-dependent — a few minutes of batched queries, run from a user
 // shell (the agent sandbox JVM has no network route).

@@ -19,7 +19,9 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  *       scaled by the {@link SenseCoverage share of the word it covers}, because the resource omits
  *       domain-less senses and a label on one sense of six is speaking for a sixth of the word.</li>
  *   <li><b>Wiktionary topics</b> publishes a flat set per headword with no sense structure to read, so its
- *       unit divides evenly among the labels it names.</li>
+ *       unit divides evenly among the labels it names — the labels it {@link StatedTopics states}, that is,
+ *       since the set it publishes is a closure over its own hierarchy and a subject the resource derived
+ *       is not a second reading of the word.</li>
  * </ul>
  *
  * <p>The two label spaces are <em>not</em> reconciled. WordNet Domains writes {@code computer_science} where
@@ -44,7 +46,7 @@ public final class TopicCitations {
     }
 
     public static TopicCitations fromClasspath() {
-        return new TopicCitations(SenseDomains.fromClasspath(), HeadwordTopics.fromClasspath(),
+        return new TopicCitations(SenseDomains.fromClasspath(), StatedTopics.fromClasspath(),
                 SenseCoverage.fromClasspath(), Weights.defaults());
     }
 
