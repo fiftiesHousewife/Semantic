@@ -20,7 +20,7 @@ class ThemePageTest {
                 List.of("Wiktionary topics"),
                 List.of(new ThemeGraph.Quotation("citation source", site)));
         return new ThemeGraph("tree", 1, 40, 2, 120L, "links that open the file in your editor",
-                List.of(new ThemeGraph.Node("computing", 0.08, 0.9, 12, 1, 1, 40, 0.4, 2,
+                List.of(new ThemeGraph.Node("computing", 0.08, 0.9, 12, 1, 1, 40, 0.4, 2, "sciences",
                         List.of(witness))),
                 List.of(),
                 List.of(new ThemeGraph.Scope("main", 1, 40, 0.2, 0.1, 0.1, 4, 999, true,
@@ -33,23 +33,17 @@ class ThemePageTest {
     }
 
     @Test
-    void namesASiteItCannotOpenWithoutPretendingItIsALink() {
+    void carriesNoLinkAndNoPathIntoTheTreeItRead() {
         final String page = new ThemePage().of(graphCiting(EDITOR));
         assertAll(
-                () -> assertThat(page).contains("Reading.java:12"),
                 () -> assertThat(page)
                         .as("an editor link is a path on the machine that read the tree, and this page travels")
                         .doesNotContain("vscode://")
                         .doesNotContain("/Users/someone"),
-                () -> assertThat(page).contains("none of them is a link"));
-    }
-
-    @Test
-    void linksASiteAReaderCanActuallyOpen() {
-        final String page = new ThemePage().of(graphCiting(PERMALINK));
-        assertAll(
-                () -> assertThat(page).contains("href=\"" + PERMALINK.url() + "\""),
-                () -> assertThat(page).contains("Every site on this page is a link"));
+                () -> assertThat(page)
+                        .as("the reports carry the sites; the page carries the figures")
+                        .doesNotContain("Reading.java:12")
+                        .doesNotContain("<a "));
     }
 
     @Test
@@ -68,10 +62,17 @@ class ThemePageTest {
                 () -> assertThat(page).contains("shannon"),
                 () -> assertThat(page).contains("read a repository"),
                 () -> assertThat(page).contains("stands outside its own null"),
-                () -> assertThat(page).contains("<svg id=\"space\""),
+                () -> assertThat(page).contains("<svg id=\"sunburst\""),
                 () -> assertThat(page)
-                        .as("a picture whose marks are unexplained is a decoration")
-                        .contains("A line joins two themes where the same word was read as both"));
+                        .as("a wedge is a share, and the ring closes exactly once")
+                        .contains("every other topic"));
+    }
+
+    @Test
+    void groupsAThemeUnderTheBroadSubjectTheHierarchyGeneralisesItTo() {
+        assertThat(new ThemePage().of(graphCiting(PERMALINK)))
+                .as("the inner ring is the resource's own hierarchy, not a grouping arranged here")
+                .contains("sciences");
     }
 
     @Test

@@ -28,18 +28,15 @@ final class PageProse {
             + "commit and no permalink is rendered, and no votes, because a vote needs an anchor and an "
             + "anchor needs a revision.";
 
-    static final String GRAPH_HEADING = "The theme graph";
+    static final String GRAPH_HEADING = "What share each theme holds";
 
-    static final String GRAPH = "Every theme is placed by three of its own figures — how much of the "
-            + "tree's topical mass it holds, how much of the tree it actually leads, and how much of it the "
-            + "code carried rather than its prose — each axis scaled by the largest value on it, so the box "
-            + "is derived from the reading rather than chosen. Nothing settles anywhere and no force pulls "
-            + "two themes together: two runs of one tree draw the same picture, which is the point of "
-            + "placing by measurement. Drag to turn it. A line joins two themes where the same word was "
-            + "read as both, thicker where more occurrences are shared — that is what a line means and all "
-            + "it means. Select a theme for the words behind it, ordered by the mass each carried rather "
-            + "than by how often it was written, and each quoted in the phrase it was read in, because the "
-            + "phrase and not the word is the unit of the reading.";
+    static final String GRAPH = "Every theme holds a wedge as wide as its share of all topical mass, so "
+            + "the ring closes exactly once and the topics too small to draw hold what is left rather than "
+            + "being dropped. The inner ring is the broad subject the topic resource generalises each label "
+            + "to, and the outer ring is the label the resource actually stated — the same published "
+            + "hierarchy the reading folds a derived label back through, so the grouping is a citation and "
+            + "not something arranged here. A label that generalises to nothing sits alone in its own "
+            + "sector, which is what the resource says about it.";
 
     static final String RANKING_HEADING = "Which themes dominate";
 
@@ -118,13 +115,4 @@ final class PageProse {
                 + "resource could read. The bar is all %s lines of the tree.".formatted(lines);
     }
 
-    /** What the sites on this page are, which depends on what the reading could render them as. */
-    static String linkage(final String describing, final boolean anyResolve) {
-        return anyResolve
-                ? "Every site on this page is a link: %s.".formatted(describing)
-                : ("Every site on this page names the file and the line it was read at, and none of them is "
-                        + "a link. The reading rendered %s, and a path on the machine that read the tree is "
-                        + "not an address this page can resolve — so the site is named and nothing pretends "
-                        + "to open.").formatted(describing);
-    }
 }

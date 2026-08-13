@@ -4,7 +4,6 @@ import java.util.List;
 
 import j2html.tags.DomContent;
 
-import static j2html.TagCreator.aside;
 import static j2html.TagCreator.caption;
 import static j2html.TagCreator.code;
 import static j2html.TagCreator.dd;
@@ -34,7 +33,7 @@ final class ThemeSections {
     private static final List<String> VERB_COLUMNS = List.of("Verb", "Times", "What it acts on");
 
     private static final List<String> FOREIGN_COLUMNS = List.of("Word", "Distance", "Written",
-            "The dictionary places it in", "First seen");
+            "The dictionary places it in");
 
     DomContent heading(final String heading, final String explaining) {
         return div(h2(heading), p(explaining).withClass("note")).withClass("section-head");
@@ -42,11 +41,6 @@ final class ThemeSections {
 
     DomContent figure(final String naming, final String reads) {
         return div(dt(naming), dd(reads)).withClass("stat");
-    }
-
-    /** Filled by the page's own script when a theme is selected; empty until one is. */
-    DomContent evidencePanel() {
-        return aside().withClass("evidence").withId("evidence").attr("aria-live", "polite");
     }
 
     DomContent behaviours(final List<ThemeGraph.Verb> verbs) {
@@ -64,7 +58,7 @@ final class ThemeSections {
     }
 
     private static DomContent clause(final ThemeGraph.Clause clause) {
-        return span(span(clause.sentence()), EvidenceSite.of(clause.site())).withClass("clause");
+        return span(clause.sentence()).withClass("clause");
     }
 
     DomContent foreignWords(final List<ThemeGraph.Foreign> foreign) {
@@ -77,8 +71,7 @@ final class ThemeSections {
         return tr(th(code(foreign.word())).attr("scope", "row"),
                 td(ThemeTables.bits(foreign.bits())).withClass("n"),
                 td(ThemeTables.count(foreign.occurrences())).withClass("n"),
-                td(String.join(", ", foreign.subjects())),
-                td(EvidenceSite.of(foreign.site())));
+                td(String.join(", ", foreign.subjects())));
     }
 
     DomContent strangeResults() {

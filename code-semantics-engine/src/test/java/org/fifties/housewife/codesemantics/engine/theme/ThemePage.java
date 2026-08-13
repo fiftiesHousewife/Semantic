@@ -1,8 +1,6 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.stream.Stream;
 
 import j2html.tags.DomContent;
 
@@ -12,9 +10,6 @@ import static j2html.TagCreator.h1;
 import static j2html.TagCreator.header;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
-import static j2html.TagCreator.rawHtml;
-import static j2html.TagCreator.script;
-import static j2html.TagCreator.scriptWithInlineFile;
 import static j2html.TagCreator.section;
 import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.title;
@@ -30,11 +25,7 @@ import static j2html.TagCreator.title;
 final class ThemePage {
 
     private static final String STYLE = "/themes.css";
-    private static final String BEHAVIOUR = "/themes.js";
-    private static final String PAYLOAD = "themes";
-
     private final ThemeSections sections = new ThemeSections();
-    private final EvidencePayload payload = new EvidencePayload();
 
     String of(final ThemeGraph graph) {
         final LinesLedBar led = new LinesLedBar(graph.filesRead());
@@ -42,17 +33,14 @@ final class ThemePage {
                 title("Themes — %s".formatted(graph.repository())),
                 styleWithInlineFile(STYLE),
                 div(masthead(graph),
-                        graphSection(),
+                        graphSection(graph),
                         rankingSection(graph),
                         sections.behaviours(graph.verbs()),
                         sections.foreignWords(graph.foreignWords()),
                         linesSection(led),
                         scopesSection(graph),
                         sections.strangeResults(),
-                        p(PageProse.FOOT).withClass("foot")).withClass("wrap"),
-                script(rawHtml(payload.of(graph.nodes(), graph.edges())))
-                        .withId(PAYLOAD).attr("type", "application/json"),
-                scriptWithInlineFile(BEHAVIOUR))
+                        p(PageProse.FOOT).withClass("foot")).withClass("wrap"))
                 .render();
     }
 
@@ -62,8 +50,6 @@ final class ThemePage {
                 h1(PageProse.HEADING),
                 p(PageProse.LEDE).withClass("lede"),
                 statistics(graph),
-                p(PageProse.linkage(graph.linkage(), anySiteResolves(graph))).withClass("limits")
-                        .withId("linkage"),
                 p(PageProse.READS).withClass("limits"));
     }
 
@@ -77,10 +63,10 @@ final class ThemePage {
                 .withClass("stats");
     }
 
-    private DomContent graphSection() {
+    private DomContent graphSection(final ThemeGraph graph) {
         return section(
                 sections.heading(PageProse.GRAPH_HEADING, PageProse.GRAPH),
-                div(new ThemeSpace().view(), sections.evidencePanel()).withClass("panel graph"));
+                div(new ThemeSunburst(graph.nodes()).chart()).withClass("panel sunburst-figure"));
     }
 
     private DomContent rankingSection(final ThemeGraph graph) {
@@ -103,18 +89,4 @@ final class ThemePage {
                 new ScopeCards(graph.scopes()).cards());
     }
 
-    /** Whether the reading rendered anything the page can open, which decides what the page says it did. */
-    private static boolean anySiteResolves(final ThemeGraph graph) {
-        return everySite(graph).stream().anyMatch(EvidenceSite::resolves);
-    }
-
-    private static List<ThemeGraph.Site> everySite(final ThemeGraph graph) {
-        return Stream.concat(
-                        graph.foreignWords().stream().map(ThemeGraph.Foreign::site),
-                        graph.nodes().stream()
-                                .flatMap(node -> node.carriedBy().stream())
-                                .flatMap(witness -> witness.quotations().stream())
-                                .map(ThemeGraph.Quotation::site))
-                .toList();
-    }
 }

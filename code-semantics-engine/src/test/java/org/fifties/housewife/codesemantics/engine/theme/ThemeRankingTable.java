@@ -64,8 +64,19 @@ final class ThemeRankingTable {
                 .attr("data-topic", node.topic());
     }
 
+    /**
+     * A word, how often it was written, and one phrase it was read in. The phrase is there because the
+     * phrase is the unit of the reading: a witness quoting only its own word shows the one thing that was
+     * never enough to decide anything.
+     */
     private static DomContent witnessed(final ThemeGraph.Witness witness) {
-        return span(code(witness.word()), text(TIGHT + ThemeTables.count(witness.occurrences()) + " "));
+        return span(code(witness.word()), text(TIGHT + ThemeTables.count(witness.occurrences())),
+                span(quoted(witness)).withClass("quoted"));
+    }
+
+    private static String quoted(final ThemeGraph.Witness witness) {
+        return witness.quotations().isEmpty() ? " "
+                : " " + witness.quotations().getFirst().phrase() + " ";
     }
 
     private static DomContent figure(final String reads) {

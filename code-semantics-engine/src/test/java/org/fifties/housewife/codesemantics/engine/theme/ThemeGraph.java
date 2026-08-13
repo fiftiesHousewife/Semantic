@@ -19,7 +19,7 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
                   List<Foreign> foreignWords, List<Verb> verbs) {
 
     record Node(String topic, double intensity, double nameShare, int references, int files, int leads,
-                int linesLed, double lineShare, int wordsBehind, List<Witness> carriedBy) {
+                int linesLed, double lineShare, int wordsBehind, String broader, List<Witness> carriedBy) {
     }
 
     /** One word's testimony, with every link a reader needs to check it themselves. */
@@ -96,8 +96,23 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
                              final SourceLinks links) {
         return new Node(ranking.topic(), ranking.intensity(), ranking.nameShare(), ranking.references(),
                 ranking.files(), ranking.dominantFiles(), ranking.linesDominated(),
-                ranking.lineShare(themes.lines()), ranking.wordsBehind(),
+                ranking.lineShare(themes.lines()), ranking.wordsBehind(), broaderThan(ranking.topic()),
                 witnesses(themes, ranking.topic(), witnesses, links));
+    }
+
+    private static final BroaderTopics HIERARCHY = BroaderTopics.fromClasspath();
+
+    /**
+     * The broadest subject the published hierarchy generalises a topic to, or the topic itself where the
+     * hierarchy says nothing about it. A label that generalises to nothing is its own broad subject, which
+     * is what the resource actually states rather than a group anyone chose.
+     */
+    private static String broaderThan(final String topic) {
+        return HIERARCHY.of(topic).stream()
+                .filter(broad -> HIERARCHY.of(broad).isEmpty())
+                .sorted()
+                .findFirst()
+                .orElse(topic);
     }
 
     private static Scope scope(final ScopeDivergence divergence, final RepositoryThemes themes,
