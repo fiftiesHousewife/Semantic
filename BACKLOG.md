@@ -196,6 +196,57 @@ one source set and its witness is `jupiter`, from the JUnit Jupiter import — t
 a Roman god, and nothing in the reading knows the file meant a test framework. A disambiguation that does not
 remove that reading has not helped.
 
+## [HIGH] The domain resources only label specialist senses — and the reading rewards that
+
+The theme reading finds this repository to be about **law**, and it is not. The cause is not polysemy, which
+is what it looks like; it is the opposite, and it is stated in the bundled resource's own header: *"Factotum
+(domain-less) entries are absent from the published lift."* A word's everyday sense carries no domain label,
+so **only its specialist senses ever vote**, and the specialist sense is usually not the one the code means.
+
+Measured, on the words carrying the theme:
+
+| Word | What the resources say | Coherence |
+|---|---|--:|
+| `cite` | `law` — and nothing else, from both resources | **1.000** |
+| `licence` | `law` — and nothing else | **1.000** |
+| `attribution` | `law` — and nothing else | **1.000** |
+| `claim` | `law` 0.88, `insurance` 0.13 | 0.781 |
+| `answer` | `law` 0.75, `physiology` 0.25 | 0.625 |
+| `word` | `linguistics` 0.19, `religion` 0.19, `computer_science` 0.17, and 18 more | 0.112 |
+| `read` | 23 labels, none above 0.10 | 0.060 |
+
+The bibliographic sense of `cite` — the only sense this repository ever means — is domain-less and therefore
+invisible. The legal sense is the whole of what the resources say about the word.
+
+**And the coherence rule amplifies exactly this.** A phrase commits Simpson's index over its own shares, so a
+word whose only labelled sense is specialist commits a full unit while a word whose meaning is genuinely
+general commits almost nothing. One `cite` outweighs roughly forty-seven occurrences of `word` — where `word`
+appears 727 times and is unambiguously what this repository is about. Narrowness was taken as confidence; it
+is a symptom of missing coverage.
+
+**The control confirms it is the instrument and not the corpus.** `law` is *under*-represented in
+`lexicon/src/main/java` — the module ported verbatim from another project — by 14.4% of that scope's
+divergence, and *over*-represented in the source sets written for this reading. `witness`, `evidence`,
+`attribution`, `claim`, `vote` and `commitment` are names chosen while building an evidence engine, and
+English files that vocabulary under law. This is the doctrine's own rule failing: *do not mark your own
+homework — the repositories a reading is tuned on and the repositories it is measured on are drawn
+disjointly.*
+
+**The fixes, in the order they are worth doing:**
+
+1. **Weight by sense coverage.** How much of a word the resource actually speaks for is *labelled senses /
+   total senses*, and WordNet knows both numbers. `cite` has several senses and one label; `divergence` has
+   few senses and labels most of them. A word the resource barely covers is weak evidence, and saying so
+   needs no new resource. *Measurement:* law's intensity and files led, before and after.
+2. **Read the most frequent sense, as the plan already says.** Stage 9 of the plan is explicitly reduced to
+   WordNet's most frequent sense as a stated baseline. The reading currently pools every labelled sense
+   equally, which is worse than the baseline it was supposed to start from — and WordNet carries the corpus
+   use counts that would settle it.
+3. **Stop treating narrowness as confidence.** Coherence should be agreement between the phrase's words, not
+   the shape of one word's entry.
+4. **Read a repository this reading was not written for.** `-Dcs.clone.dir` already points the diagnostic at
+   another clone, and until it has been run on one, every figure here is an instrument reading itself.
+
 ## [HIGH] Verbal forms — the rest of the behaviour reading
 
 `Behaviours` reads a declared method name as a clause: the leading word where the dictionary carries a verb
