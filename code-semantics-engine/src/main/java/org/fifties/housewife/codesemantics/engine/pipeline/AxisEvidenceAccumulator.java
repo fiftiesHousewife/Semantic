@@ -5,6 +5,7 @@ import org.fifties.housewife.codesemantics.model.AxisResolution;
 import org.fifties.housewife.codesemantics.model.AxisVote;
 import org.fifties.housewife.codesemantics.model.PooledLogOdds;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
@@ -45,18 +46,15 @@ public final class AxisEvidenceAccumulator<A extends Enum<A>> {
     }
 
     public AxisResolution<A> resolve(final List<? extends AxisVote<A>> votes) {
-        if (votes.isEmpty()) {
-            return new AxisResolution<>(unknown, 0.0);
-        }
-        if (evidenceMass(votes) < minimumEvidenceMass) {
-            return new AxisResolution<>(unknown, 0.0);
+        if (saysTooLittle(votes)) {
+            return abstention();
         }
         final Map<A, Double> logOdds = logOddsByValue(votes);
         final Map.Entry<A, Double> winner = logOdds.entrySet().stream()
                 .max(Comparator.comparingDouble(Map.Entry::getValue))
                 .orElseThrow();
         if (winner.getValue() <= 0.0) {
-            return new AxisResolution<>(unknown, 0.0);
+            return abstention();
         }
         return new AxisResolution<>(winner.getKey(), posterior(winner.getValue(), logOdds));
     }
@@ -73,10 +71,22 @@ public final class AxisEvidenceAccumulator<A extends Enum<A>> {
      * inherit — a clock keeping its own time is not one-third of a bookkeeping clock.
      */
     public double support(final List<? extends AxisVote<A>> votes, final A value) {
-        if (votes.isEmpty() || evidenceMass(votes) < minimumEvidenceMass) {
+        if (saysTooLittle(votes)) {
             return 0.0;
         }
         return PooledLogOdds.support(logOddsByValue(votes).getOrDefault(value, 0.0));
+    }
+
+    /**
+     * Whether the votes carry too little total magnitude to decide anything. An empty list is the same
+     * reading as a list of negligible votes, and both are the honest one: nothing was said.
+     */
+    private boolean saysTooLittle(final List<? extends AxisVote<A>> votes) {
+        return votes.isEmpty() || evidenceMass(votes) < minimumEvidenceMass;
+    }
+
+    private AxisResolution<A> abstention() {
+        return new AxisResolution<>(unknown, 0.0);
     }
 
     private Map<A, Double> logOddsByValue(final List<? extends AxisVote<A>> votes) {
@@ -98,12 +108,10 @@ public final class AxisEvidenceAccumulator<A extends Enum<A>> {
      * full confidence.
      */
     private double posterior(final double winnerLogOdds, final Map<A, Double> logOdds) {
-        double partition = 0.0;
-        for (final A candidate : unknown.getDeclaringClass().getEnumConstants()) {
-            if (candidate != unknown) {
-                partition += Math.exp(logOdds.getOrDefault(candidate, 0.0));
-            }
-        }
+        final double partition = Arrays.stream(unknown.getDeclaringClass().getEnumConstants())
+                .filter(candidate -> candidate != unknown)
+                .mapToDouble(candidate -> Math.exp(logOdds.getOrDefault(candidate, 0.0)))
+                .sum();
         return Math.exp(winnerLogOdds) / partition;
     }
 }

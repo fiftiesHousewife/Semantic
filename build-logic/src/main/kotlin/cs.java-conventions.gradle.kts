@@ -25,11 +25,8 @@ repositories {
 
 val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-val mockitoAgent: Configuration by configurations.creating
-
 dependencies {
     "errorprone"(catalog.findLibrary("errorprone-core").get())
-    mockitoAgent(catalog.findLibrary("byte-buddy-agent").get())
 }
 
 tasks.withType<JavaCompile> {
@@ -46,14 +43,9 @@ tasks.test {
             excludeTags("generate", "diagnostic")
         }
     }
-    jvmArgumentProviders.add(CommandLineArgumentProvider {
-        listOf("-javaagent:${mockitoAgent.asPath}")
-    })
-    // Forward opt-in overrides to the forked test JVM (a command-line -D reaches only the Gradle JVM
-    // otherwise), so a diagnostic can be pointed at a chosen clone or a chosen store location.
+    // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM
+    // otherwise), so a diagnostic can be pointed at a clone of the caller's choosing.
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    System.getProperty("cs.store.dir")?.let { systemProperty("cs.store.dir", it) }
-    System.getProperty("cs.duckdb.temp")?.let { systemProperty("cs.duckdb.temp", it) }
     // A diagnostic exists to print its findings for a human to read. By default Gradle captures the forked
     // test JVM's console output into the HTML report, where it is effectively swallowed; stream it to the
     // Gradle console instead — but only for a diagnostic run, so normal builds stay quiet.

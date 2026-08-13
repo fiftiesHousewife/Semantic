@@ -5,15 +5,18 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
  * The components of a permalink to the lines that evidenced a reading, rendered late so that a repository
  * which moves owner renders correctly without rewriting a stored URL.
  *
- * <p>The commit SHA is always a full 40 hex characters and never a branch or tag: a ref moves, and a
- * permalink that moves is not attribution. Line numbers are 1-based and inclusive, and a single line renders
- * {@code #Ln} rather than {@code #Ln-Ln}, because the host highlights the two differently.
+ * <p>The commit SHA is always a full 40 lowercase hex characters and never a branch or tag: a ref moves, and
+ * a permalink that moves is not attribution, so a 40-character ref name is refused for the same reason a
+ * short one is. Line numbers are 1-based and inclusive — a zero renders {@code #L0}, which highlights
+ * nothing — and a single line renders {@code #Ln} rather than {@code #Ln-Ln}, because the host highlights the
+ * two differently.
  *
  * <p>The blob permalink is the only anchor form emitted for code. The diff anchor
  * {@code …/pull/{n}/files#diff-{hash}} is deliberately absent: its hash construction is a host implementation
@@ -22,7 +25,9 @@ import java.util.stream.Collectors;
 public record SourceAnchor(String host, String owner, String repo, String commitSha,
                            String path, int startLine, int endLine) {
 
-    private static final int SHA_LENGTH = 40;
+    private static final Pattern FULL_SHA = Pattern.compile("[0-9a-f]{40}");
+
+    private static final int FIRST_LINE = 1;
 
     public SourceAnchor {
         Objects.requireNonNull(host, "host");
@@ -30,8 +35,11 @@ public record SourceAnchor(String host, String owner, String repo, String commit
         Objects.requireNonNull(repo, "repo");
         Objects.requireNonNull(commitSha, "commitSha");
         Objects.requireNonNull(path, "path");
-        if (commitSha.length() != SHA_LENGTH) {
+        if (!FULL_SHA.matcher(commitSha).matches()) {
             throw new IllegalArgumentException("a permalink pins a full commit sha: " + commitSha);
+        }
+        if (startLine < FIRST_LINE) {
+            throw new IllegalArgumentException("line numbers are 1-based: " + startLine);
         }
         if (startLine > endLine) {
             throw new IllegalArgumentException("line range runs backwards: " + startLine + ".." + endLine);

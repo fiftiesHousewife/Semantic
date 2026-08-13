@@ -61,6 +61,25 @@ class SourceAnchorTest {
     }
 
     @Test
+    void refusesARefNameLongEnoughToPassForASha() {
+        assertThatThrownBy(() -> new SourceAnchor("github.com", "junit-team", "junit-framework",
+                "mainmainmainmainmainmainmainmainmainmain", "Example.java", 1, 1))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("full commit sha");
+    }
+
+    @Test
+    void refusesALineNumberBelowTheFirstLine() {
+        assertAll(
+                () -> assertThatThrownBy(() -> anchor("Example.java", 0, 0))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessageContaining("1-based"),
+                () -> assertThatThrownBy(() -> anchor("Example.java", -3, 4))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessageContaining("1-based"));
+    }
+
+    @Test
     void refusesALineRangeThatRunsBackwards() {
         assertThatThrownBy(() -> anchor("Example.java", 47, 42))
                 .isInstanceOf(IllegalArgumentException.class)

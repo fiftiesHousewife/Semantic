@@ -3,7 +3,6 @@ lombok = "1.18.46"
 versions = "0.53.0"
 errorprone = "2.38.0"
 errorprone-plugin = "4.2.0"
-byte-buddy-agent = "1.15.11"
 junit = "6.0.3"
 jackson = "2.21.2"
 # Libraries the plan names but no module consumes yet. A catalog entry fetches nothing until a module
@@ -57,7 +56,6 @@ jena-arq = { module = "org.apache.jena:jena-arq", version.ref = "jena" }
 ben-manes-versions-plugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versions" }
 errorprone-core = { module = "com.google.errorprone:error_prone_core", version.ref = "errorprone" }
 errorprone-gradle-plugin = { module = "net.ltgt.gradle:gradle-errorprone-plugin", version.ref = "errorprone-plugin" }
-byte-buddy-agent = { module = "net.bytebuddy:byte-buddy-agent", version.ref = "byte-buddy-agent" }
 
 [plugins]
 versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }

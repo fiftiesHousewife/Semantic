@@ -13,7 +13,16 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - `ConceptId` / `ConceptVote` / `Citation` / `ConceptEvidence` and the `SymbolPipelineStage` contract.
 - `BlobOrigin` — the one closed axis the pipeline resolves per file revision, and the accumulator's first
   real consumer.
-- `Tokeniser`, `WordRanks`, `WordSegmenter` and the 20,000-word Leipzig frequency list.
+- `Tokeniser`, `WordRanks`, `WordSegmenter` and the 20,000-word Leipzig frequency list. The segmenter is split
+  by responsibility into `PieceCost` (what one candidate piece costs to read), `CompoundParses` (the candidate
+  covers, including the one leading branding residual) and `WordMorphology` (a known word grown by an affix),
+  each directly tested.
+- **The self test** — `./gradlew selfRead`. `JavaSourceIdentifiers` (a lexical scan, comments, literals and the
+  import section stepped over), `IdentifierWords`, `JavaLanguageKeywords` (citing
+  `javax.lang.model.SourceVersion` rather than any bundled table), `CitedWords` over eight bundled resources,
+  `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
+  denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
+  for each. Current result in the README: **λ = 0.978** over 19,155 word occurrences in 116 files, 0.2 s.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -38,14 +47,18 @@ The grammar, in order, all of it rules about where a word sits:
    citation decides. This is where a lesser design would put a list, and it must not.
 5. A residual lowercase run goes to `WordSegmenter`.
 
-**Measurement:** the nine-identifier table in the plan, plus the count of live identifiers whose reading
-changes. Ships when the five known mis-splits read correctly and nothing that read correctly regresses.
+**Measurement:** the nine-identifier table in the plan, now pinned in `TokeniserTest` so a widening shows up
+as a rewritten expectation rather than as a silent change, plus the count of live identifiers whose reading
+changes. The self test already names live instances: `aprefix` (10), `asuffix` (10), `aword` (9), `acompound`
+(4) and `jwnlexception` (10) are in the unread tail because there is no acronym-run rule and no rule for a
+single capital in front of a word. Ships when the five known mis-splits read correctly, those tail entries
+disappear, and nothing that read correctly regresses.
 
 *Blocked on nothing.*
 
 ## [HIGH] The cited catalogues
 
-`CitedTokens.NONE` recognises nothing, which is why `userid` currently refuses to split — `id` ranks 4705 and
+`CitedTokens.NONE` recognises nothing, which is why `userid` currently refuses to split — `id` ranks 4690 and
 a two-letter piece must rank inside 1000 to count as a word. The catalogues that fix this are published
 standards extracted by named Gradle tasks and bundled with provenance headers, exactly as `sql-functions.tsv`
 is:
@@ -57,8 +70,17 @@ is:
 - **`github/linguist` data** — `languages.yml`, `vendor.yml`, `generated.rb`. Verify the MIT licence at
   adoption.
 
+The Java half of the first item is **already cited without a bundled file**: `JavaLanguageKeywords` delegates
+to `javax.lang.model.SourceVersion`, which is the platform's own implementation of the JLS keyword table. The
+same trick does not exist for the other languages, and a contextual keyword (`var`, `record`, `sealed`,
+`yield`) is deliberately not named by it, because whether one is a keyword is a fact about where it sits and a
+scan cannot see that.
+
 **Measurement:** the share of word occurrences a catalogue demotes. Over the source project's 931 Java files,
-Java keywords were 13.5% of 381,466 word occurrences and a forty-name sample of JDK tokens a further 11.1%.
+Java keywords were 13.5% of 381,466 word occurrences and a forty-name sample of JDK tokens a further 11.1%. On
+this repository the keyword citation already demotes 3,137 of 14,600 identifier occurrences (21.5%); the
+standard-library index is what would then read `charsets` and `unmodifiable`, which the self test's tail names
+as unread fragments of `StandardCharsets` and `unmodifiableList`.
 
 *Enables rule 4 of the splitter to arbitrate rather than guess.*
 
@@ -95,7 +117,10 @@ parser that refuses such a file cannot analyse the pull requests that most need 
 
 ## [MEDIUM] The store
 
-DuckDB as the system of record, node and edge tables, recursive CTEs. The graph is a schema, not a product;
+DuckDB as the system of record, node and edge tables, recursive CTEs. The test convention forwards only
+`-Dcs.clone.dir` to a forked JVM today; the `cs.store.dir` and `cs.duckdb.temp` forwards were removed as
+scaffolding for absent code and belong back in `cs.java-conventions` with the first store diagnostic that
+reads them. The graph is a schema, not a product;
 GraphML/GraphSON and N-Quads fall out of a straight `SELECT`, so a consumer who wants Cypher or SPARQL gets
 it without the library taking the dependency.
 
@@ -105,6 +130,9 @@ hypernymy is already bounded at 6. If a real question needs unbounded variable-l
 edge, that is what a dedicated graph engine buys and nothing else does.
 
 ## [MEDIUM] Intensity and divergence
+
+The legibility half is in the tree and measured (see the self test above); what follows it is the arithmetic
+that legibility is reported *beside*.
 
 Within-blob share, scope intensity under a blob weighting, legibility reported beside it, and Jensen–Shannon
 divergence with its additive per-concept decomposition. Then the permutation null: 999 resamples of `|S|`
@@ -173,6 +201,26 @@ diverging bars with a real axis maximum of 1.
 **What must not be built** is a force-directed view over every node kind at once. One mid-sized repository at
 one commit yields 6,211 distinct words, 24.8% of them occurring exactly once. A whole-graph rendering is
 unreadable by construction, and readability is not a layout parameter.
+
+## [LOW] What the self test cannot yet say
+
+Each of these is a limit of the reading rather than a bug in it, and each is answered by a slice above rather
+than by tuning this one.
+
+- **It scans, it does not parse.** No reading belongs to a declaration, a use is indistinguishable from a
+  definition, and a type name is read at every mention. Stage 5 is what changes this.
+- **It reads a working tree, not a revision.** Nothing is pinned by a commit SHA, so no permalink is rendered
+  and no vote is cast — `ConceptVote` could not be constructed without an anchor, which is the type system
+  doing its job. Stages 1–3 are what change this.
+- **It asks WordNet for noun and verb lemmas only**, which is the coverage the `Lexicon` contract exposes. An
+  adjective or adverb the dictionary knows and neither part of speech carries reads as uncited, so the WordNet
+  column understates its own resource — the direction an unverified figure should err in.
+- **It drops prose.** Comments carry words the pipeline will read as prose evidence in its own right, and
+  counting them in a figure about what the code is written in would flatter it. A prose legibility figure
+  reported *beside* the code one is the honest form, and needs the prose reading first.
+- **λ over one scope is a weak reading**, exactly as §16 of the plan says of intensity. It is reported because
+  a denominator must be, not because a single-scope number is the interesting one. The divergence against a
+  stated reference is.
 
 ---
 

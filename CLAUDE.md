@@ -31,6 +31,12 @@ distinction is what lets the library know `final`, `static` and `return` are the
 author's, without ever writing a stop list. The precedent is `lexicon/src/main/resources/sql-functions.tsv`,
 whose own header states it.
 
+The cheapest form of that precedent needs no bundled file at all: `JavaLanguageKeywords` cites
+`javax.lang.model.SourceVersion`, the platform's own implementation of JLS §3.9, so the language's words are
+demoted by a citation that ships with the toolchain. Where a standard's own runtime can be asked the question,
+ask it rather than extracting a table — an extraction can go stale against the standard and a delegation
+cannot.
+
 ### Where the doctrine is currently held open
 
 - `CitedTokens.NONE` is the default the word segmenter runs on: it recognises nothing, so a compound is read
@@ -39,7 +45,10 @@ whose own header states it.
   tokens curated from the repositories the library was developed against.
 - `Tokeniser` is the narrow schema-identifier grammar, ported unchanged and **known to be too narrow for
   code**: it mis-splits `XMLHttpRequest`, `parseHTTPResponse`, `toJSONString`, `getDSLContext` and
-  `IPv6Address`. The class javadoc names each. Widening it is grammar work, not vocabulary work.
+  `IPv6Address`. The class javadoc names each and `TokeniserTest` pins each, so widening the grammar is a
+  deliberate change to a stated expectation rather than an accident. It is grammar work, not vocabulary work.
+  The self test finds the same defect in live code: `carriesAPrefix` reads carries / aprefix, and
+  `JWNLException` reads jwnlexception, both in the unread tail the README quotes.
 - `AxisEvidenceAccumulator` partitions over a **closed** enum. Concepts are an open space of ~10⁵ synsets and
   need a sibling accumulator whose partition runs over the voted values plus one explicit abstention mass.
 
@@ -63,7 +72,6 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 |---|---|
 | `cs.java-conventions` | Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instruction floor |
 | `cs.java-library` | The above plus `java-library` and AssertJ |
-| `cs.contract-library` | The above with the coverage floor disabled — records, interfaces and enums only |
 | `cs.maven-publish` | Sources and javadoc jars, `mavenJava` publication |
 | `cs.aggregate-tasks` | `checkAll` |
 
@@ -148,6 +156,12 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 - **Never dismiss a flaky test.** Investigate immediately.
 - Tagged tests: `generate` and `diagnostic` are excluded by default. Run one with
   `-Dinclude.tags=diagnostic`, which also streams the forked JVM's console output.
+- **The self test is `./gradlew selfRead`.** It runs `SelfReadingDiagnostic` over this repository, writes
+  `code-semantics-engine/build/reports/self-reading/self-reading.md` and echoes it to the console. Point it at
+  another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the
+  forked JVM. The README carries the current result; **regenerate it in the same commit as any change to the
+  splitter, the citations or the tally**, because a reported measurement that no longer matches the code is
+  worse than none.
 
 ### Measurement is the argument
 
@@ -163,7 +177,9 @@ run it, rather than asserting an answer — the plan does this throughout and th
    `cleanTest` before trusting one.
 2. Gate on the actual `BUILD SUCCESSFUL` log line, not a background exit code.
 3. Never run Gradle concurrently with another Gradle invocation, and never pipe Gradle through `tail`.
-4. **Never `git push` without explicit instruction.**
+4. If the change touches how a name is read, run `./gradlew selfRead` and update the README's figures in the
+   same commit.
+5. **Never `git push` without explicit instruction.**
 
 ---
 

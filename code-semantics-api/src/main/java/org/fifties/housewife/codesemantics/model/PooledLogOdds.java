@@ -48,9 +48,14 @@ public final class PooledLogOdds {
     /**
      * The pooled log-odds that squash to the given score at the given scale — the inverse of
      * {@link #squash}, so a target expressed on the score scale can be rendered back into the pool as a
-     * vote of exactly the difference.
+     * vote of exactly the difference. The squash's range is the open interval {@code (−1, 1)}, so a score
+     * outside it is refused rather than answered with an infinity: no finite pool of evidence reaches
+     * certainty, and a caller asking what would is asking the wrong question.
      */
     public static double unsquash(final double score, final double scale) {
+        if (Double.isNaN(score) || Math.abs(score) >= 1.0) {
+            throw new IllegalArgumentException("a squashed score lies in (-1, 1): " + score);
+        }
         return scale * Math.log((1.0 + score) / (1.0 - score));
     }
 

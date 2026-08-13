@@ -37,4 +37,38 @@ class TokeniserTest {
     void readsNoWordsFromPunctuationAlone() {
         assertThat(Tokeniser.words("(%)")).isEmpty();
     }
+
+    @Test
+    void namesTheLastTokenOfACompoundNameAndNothingForASingleWord() {
+        assertAll(
+                () -> assertThat(Tokeniser.lastToken("resolveNextPageCursor")).contains("cursor"),
+                () -> assertThat(Tokeniser.lastToken("life_expectancy")).contains("expectancy"),
+                () -> assertThat(Tokeniser.lastToken("cursor")).isEmpty(),
+                () -> assertThat(Tokeniser.lastToken("")).isEmpty());
+    }
+
+    @Test
+    void splitsTheIdentifiersItsGrammarAlreadyReads() {
+        assertAll(
+                () -> assertThat(Tokeniser.tokenise("AxisEvidenceAccumulator"))
+                        .containsExactly("axis", "evidence", "accumulator"),
+                () -> assertThat(Tokeniser.tokenise("co2_per_capita")).containsExactly("co2", "per", "capita"),
+                () -> assertThat(Tokeniser.tokenise("ft_1")).containsExactly("ft", "1"));
+    }
+
+    /**
+     * The narrow grammar's known mis-splits, pinned so that widening it is a measured change rather than an
+     * accident: an acronym run has no boundary rule, and neither has a letter/digit edge. Each of these
+     * assertions is expected to be rewritten by the identifier splitter, and none of them silently.
+     */
+    @Test
+    void readsTheAcronymRunsAndDigitEdgesItIsKnownNotToSplit() {
+        assertAll(
+                () -> assertThat(Tokeniser.tokenise("XMLHttpRequest")).containsExactly("xmlhttp", "request"),
+                () -> assertThat(Tokeniser.tokenise("parseHTTPResponse")).containsExactly("parse", "httpresponse"),
+                () -> assertThat(Tokeniser.tokenise("toJSONString")).containsExactly("to", "jsonstring"),
+                () -> assertThat(Tokeniser.tokenise("getDSLContext")).containsExactly("get", "dslcontext"),
+                () -> assertThat(Tokeniser.tokenise("IPv6Address")).containsExactly("ipv6address"),
+                () -> assertThat(Tokeniser.tokenise("utf8Decode")).containsExactly("utf8decode"));
+    }
 }

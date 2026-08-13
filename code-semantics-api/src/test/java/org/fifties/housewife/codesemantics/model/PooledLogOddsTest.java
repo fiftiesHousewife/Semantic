@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.stream.DoubleStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PooledLogOddsTest {
@@ -58,6 +59,20 @@ class PooledLogOddsTest {
                 () -> assertThat(PooledLogOdds.unsquash(PooledLogOdds.squash(-1.3, 1.0), 1.0))
                         .isCloseTo(-1.3, org.assertj.core.data.Offset.offset(1e-12)),
                 () -> assertThat(PooledLogOdds.unsquash(0.0, 2.5)).isZero());
+    }
+
+    @Test
+    void refusesToUnsquashAScoreOutsideTheSquashesOwnRange() {
+        assertAll(
+                () -> assertThatThrownBy(() -> PooledLogOdds.unsquash(1.0, 2.5))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessageContaining("(-1, 1)"),
+                () -> assertThatThrownBy(() -> PooledLogOdds.unsquash(-1.0, 2.5))
+                        .isInstanceOf(IllegalArgumentException.class),
+                () -> assertThatThrownBy(() -> PooledLogOdds.unsquash(1.4, 2.5))
+                        .isInstanceOf(IllegalArgumentException.class),
+                () -> assertThatThrownBy(() -> PooledLogOdds.unsquash(Double.NaN, 2.5))
+                        .isInstanceOf(IllegalArgumentException.class));
     }
 
     @Test

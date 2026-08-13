@@ -32,7 +32,7 @@ class WordSegmenterTest {
     @Test
     void refusesAShortPieceTooRareToCountAsAWordWithoutACitation() {
         assertThat(segmenter.segment("userid"))
-                .as("id ranks 4705, and a two-letter piece must rank inside 1000 to count")
+                .as("id ranks 4690, and a two-letter piece must rank inside 1000 to count")
                 .isEmpty();
     }
 

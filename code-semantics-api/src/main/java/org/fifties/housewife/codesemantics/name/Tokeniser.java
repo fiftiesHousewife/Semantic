@@ -42,7 +42,6 @@ public final class Tokeniser {
     public static List<String> words(final String prose) {
         return PHRASE_SEPARATOR.splitAsStream(prose)
                 .flatMap(phrase -> tokenise(phrase).stream())
-                .filter(token -> !token.isBlank())
                 .toList();
     }
 
