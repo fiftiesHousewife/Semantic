@@ -81,6 +81,140 @@ against `junit-team/junit-framework`, which is the first time this library reads
 
 ---
 
+## [HIGH] Read a repository against its industry's own vocabulary
+
+The two bundled resources are general dictionaries, and a general dictionary only labels a word's specialist
+senses — which is why this repository reads as *computing, law, music* and why `cite` votes law. A domain
+vocabulary states the terms an industry actually writes, and a repository in that industry writes them too.
+
+### The measurement that shaped the design, run before any of it was written
+
+3,837 FIBO T-Box labels, matched by longest n-gram against this repository's 63,275 identifier occurrences.
+This tree is out of domain for a finance ontology, so **every match here is a false positive by
+construction**:
+
+| Term length | Distinct terms | Matches on this tree |
+|--:|--:|--:|
+| 1 word | 306 | **1,789** |
+| 2 words | 1,244 | 2 |
+| 3+ words | 2,287 | 1 |
+
+The one-word hits are `name` (460), `share` (231), `value` (198) — FIBO does declare classes labelled
+*action*, *balance*, *butterfly*. All three multi-word hits are property labels (`is implied by`). Genuine
+multi-word class matches out of domain: **zero**.
+
+**So the multi-word term is the signal and the single-word term is the noise**, and neither fact was chosen.
+A stop list is forbidden, so the weight comes from a resource: `PhraseSpecificity`, the n-gram extension of
+`WordSpecificity`, reads the surprisal of an n-gram off the bundled frequency list. `name` weighs almost
+nothing; `interest rate swap` weighs near the ceiling.
+
+### The sources, and what each licence actually says
+
+| Source | Domain | Publishes | Licence as stated | Verdict |
+|---|---|---|---|---|
+| **FIBO** | finance, and banking through its own `FBC`/`LOAN`/`BE`/`CAE` modules | OWL in RDF/XML, `rdfs:label` + `cmns-av:synonym` (422) + `cmns-av:abbreviation` (810) | **MIT**, verified from the repository's own `LICENSE` | **Ships first** |
+| **CSO** | computing, ~15,000 topics | CSV/OWL over a SKOS-derived schema, `klink:relatedEquivalent` for synonymy | CC BY 4.0 on the publisher's pages — **not stated on the download page** | Stage 3, after the licence is verified in the file itself |
+| **STW** | economics | native SKOS with English `altLabel`s | CC BY 4.0 **at v9.20**; v9.02 is **ODbL**, whose share-alike would attach to the derived file | Stage 5, pinned to a version whose licence was read |
+| **FpML** | markets, derivatives | XSD element names — `interestRateSwap`, `floatingRateIndex` — plus ISDA's published coding schemes | **Unverified.** Not reachable from this sandbox; `fpml.org` is not an allowed host | See below — the strongest candidate on fitness |
+| **ISO 20022** | payments | message components and a data dictionary, `CstmrCdtTrfInitn`, `Dbtr`, `Cdtr` | *"used and reproduced freely"* under the IPR policy — **"use" is not "redistribute"** | Needs a legal read before anything is bundled |
+| ACM CCS | computing | SKOS | educational and research use only | Ruled out — a jar on Maven Central is neither |
+| IEEE Thesaurus | engineering | PDF, e-mail gated | CC BY-NC-ND 4.0 | Ruled out twice: NC and ND. A third party's MIT-stamped RDF conversion of it is laundering, not a licence |
+| GICS | industry | 4-tier classification | proprietary to S&P and MSCI | Ruled out |
+| BIAN | banking | a service landscape, not a vocabulary | none stated | Ruled out — an unstated licence is a no |
+| EuroVoc, LCSH, NAICS, JEL | — | — | mostly fine | Ruled out on **fitness**: they classify legislation, books and businesses, not the terms a codebase writes |
+
+**A schema is a better citation for code than a thesaurus, and the doctrine already says so.**
+`sql-functions.tsv`'s own header states the principle — *a schema token equal to a function's name is a fact
+about the standard this tool executes rather than an observation of any corpus*. FpML and ISO 20022 are
+exactly that case and are the only candidates whose terms are already **identifiers**: FpML writes
+`interestRateSwap` and so does a trading system, so the match is identifier to identifier with no English in
+between. A thesaurus needs lemmatising, splitting and n-gram alignment before it can meet code; a schema
+does not. That is the argument for putting them ahead of CSO and STW **if their licences permit
+redistribution**, and the licence is the whole question:
+
+- **FpML:** find the FpML Public License text, confirm it grants redistribution of a derived term list, and
+  find a reachable copy of the schemas. Neither `fpml.org` nor a canonical mirror is reachable from the
+  agent sandbox, so this needs a fetch from a user shell.
+- **ISO 20022:** read `iso20022.org/terms-use` and the IPR policy against the words *redistribute in a
+  derived work*. If it clears, the External Code Sets are the interesting part.
+
+Neither is blocked on design work — both would land as another extraction task and another TSV.
+
+### One shape for every source
+
+Whatever a source publishes — OWL, SKOS, CSV, XSD — the extraction normalises it to the same
+**SKOS-shaped** columns, and the bundled form stays a TSV:
+
+```
+concept   prefLabel   altLabel   broader   kind   module
+```
+
+That is what "convert it to SKOS" should mean here. Emitting SKOS *RDF* and reading it back would take an
+RDF dependency (`jena-arq` is in the catalogue, consumed by nothing) to arrive at the same four facts, and
+the reading needs a term-to-concept index rather than a graph. Normalising the vocabulary is the win; the
+serialisation is not. A conversion also **inherits the source's licence** — restating IEEE's thesaurus in
+SKOS does not make it redistributable, and the derived file's header must carry the original terms.
+
+### The matcher
+
+`TopicCitations.of(String word)` takes one word, and `PhraseTopics` reads a phrase as a bag, so word order
+is discarded. But **81% of FIBO's labels are multi-word**, and `Vocabulary.IDENTIFIER.phrasesOf` already
+yields an *ordered* word list per identifier — the ordering is sitting there unused.
+
+A new `PhraseReading` implementation runs longest-match left to right over the raw ordered words, bounded by
+the index's own longest term. A hit emits a span and advances past it; a miss advances one word and records
+nothing. **A partial match abstains**: only a term the resource actually publishes votes, and a prefix that
+is not itself a published term is not a citation. It matches the raw words rather than the offered lemmas,
+because `OfferedWords` drops function words and would manufacture adjacency the author never wrote.
+
+`PhraseTopics` is at the line limit, so it splits: `AgreeingWords` (today's body, moved), `MatchedTerms`
+(the span reading), and a pooled `PhraseTopics` over an ordered list of both. `TopicCitations` does not
+change — the term reading is its sibling, not its replacement.
+
+**Synonyms are never grouped by hand.** SKOS `altLabel`, `klink:relatedEquivalent` and `cmns-av:synonym`
+are each a published statement of synonymy, so each is a citation. Where a source publishes none — FIBO
+largely does not, at 11% coverage — the reading abstains rather than borrowing WordNet, because a WordNet
+synonym of a term's head noun is a statement about English and not about the taxonomy.
+
+**Lemmatise both sides, and keep both keys.** `securities` lemmatises to `security`, which is a first-class
+*computing* concept: collapsing them destroys evidence in exactly the case the taxonomy was added for. Index
+the surface form and the lemma as separate keys onto one concept, weight the surface match higher, and
+record which fired.
+
+### What settles it, stated before it runs
+
+A domain vocabulary must fire on a repository in its domain and **not** on one outside it. Held-out
+in-domain: `OpenGamma/Strata` and `apache/fineract`, both Apache-2.0. Out of domain: `netty/netty`,
+`junit-team/junit-framework`, `bcgit/bc-java`, and this tree — whose out-of-domain arm is already measured
+above. Tuned on `paritytrading/parity` and `JavaMoney/moneta`, drawn disjointly.
+
+Two nulls, because the existing one is the wrong shape: `PermutationNull` resamples files *within* a
+repository and cannot answer a between-repository question. Pool the panel's files for the first; permute
+the **term-to-concept** assignment within the taxonomy for the second, preserving branch and term-length
+distributions, so the matcher hits the same spans in the same places and only the branch reported is chance.
+
+**Abandon if:** in-domain mass does not clear the pooled null; multi-word matches in domain are not orders
+of magnitude above the 3-in-63,275 baseline; discrimination survives only when single-word terms are
+excluded **by hand**; or an audit of 50 sampled spans finds fewer than 40 genuine.
+
+### Staging
+
+1. **FIBO terms and a diagnostic, with the reading untouched.** `extractFiboTerms`, `fibo-terms.tsv`,
+   `FiboTerms`, `TermIndex`, `TermSpans`, `PhraseSpecificity`, and `./gradlew domainRead` behind
+   `-Dcs.panel.dir`. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
+2. **The votes join the reading** — `MatchedTerms`, `TermCitations`, new `EvidenceSource` and `Weights`
+   entries, and the FIBO module as the roll-up level the resource itself names.
+3. **CSO and the branch confusion matrix**, which is also the first real attempt on `computing` versus
+   `computer_science` — if CSO maps them, that mapping is CSO's statement rather than ours.
+4. **Synonymy and abbreviations**, and the surface-versus-lemma comparison as an A/B on the held-out panel.
+5. **STW**, only if the first three pass.
+
+Note the roll-up here runs **opposite** to `StatedTopics`: there the resource published a closure and the
+hierarchy subtracts what was derived; here the resource states one concept and the hierarchy rolls it up.
+Same interface shape, opposite direction, and the javadoc has to say so.
+
+---
+
 ## [MEDIUM] The identifier splitter — the letter/digit boundary
 
 **Rules 1, 2, 3 and 5 have landed** in `IdentifierWords`, alongside the ported `Tokeniser` rather than inside
