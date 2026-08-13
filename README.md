@@ -101,7 +101,7 @@ and no links, because with no remote to permalink into a site is only a path on 
 tree. The reports carry the sites; the page carries the figures. The runs below are a reading of this tree, which is what makes them checkable — and perishable in a way
 worth naming: the corpus includes this file. **The report is inside the thing it reports on**, so writing the
 figures down changes them, and there is no commit at which the two agree exactly. They are quoted as a
-reading of a named commit — the figures below are of `da5c06e` — regenerated whenever the reader itself
+reading of a named commit — the figures below are of `dc01886` — regenerated whenever the reader itself
 changes, and the fixed point is not chased.
 
 **The reading does not parse this repository's working notes.** A backlog and a set of session conventions
@@ -166,16 +166,17 @@ an article in it.
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 204 | 4,257 | 10,610 | 30,433 (74.1%) | 40,141 | **0.978** |
+| **repository** | 300 | 5,967 | 15,452 | 40,540 (72.4%) | 54,839 | **0.979** |
 
 ## What it reads this repository as
 
 | Theme | ι | From names | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `computing` | 0.0791 | 91.7% | **35** | 2,448 | 16.7% | `topic` · `unread` · `dictionary` · `lower` |
-| `law` | 0.0476 | 85.1% | 15 | 1,943 | 13.3% | `cite` · `within` · `witness` · `verdict` |
-| `linguistics` | 0.0452 | 93.2% | 16 | 1,319 | 9.0% | `antonymous` · `parse` · `initialism` · `scope` |
-| `music` | 0.0377 | 95.9% | 7 | 398 | 2.7% | `topic` · `phrase` · `verb` · `theme` |
+| `computing` | 0.0667 | 92.1% | **39** | 2,644 | 12.9% | `topic` · `unread` · `dictionary` · `parse` |
+| `linguistics` | 0.0401 | 93.8% | 24 | 1,985 | 9.7% | `antonymous` · `parse` · `description` · `initialism` |
+| `mathematics` | 0.0399 | 93.6% | 15 | 1,278 | 6.2% | `from` · `statistic` · `category` · `total` |
+| `law` | 0.0393 | 86.2% | 17 | 2,045 | 10.0% | `cite` · `within` · `verdict` · `witness` |
+| `music` | 0.0328 | 95.8% | 10 | 533 | 2.6% | `topic` · `phrase` · `verb` · `subject` |
 
 Witnesses are ordered by the **mass each word carried**, not by how often it was written. Read that way the
 reading is defensible: this library is about words, senses, abbreviations and hypernyms; its mathematics is
@@ -185,7 +186,7 @@ divergence and means; and it really does spend its time on votes, refusals and s
 library that reads code — and the four steps that got there were each a rule about evidence, none of which
 excluded a word: a word's commitment weighting its own vote (48 files led → 39), reading a phrase in context
 (→ 28), discounting a label by the share of the word it speaks for (→ 20), and folding a label into the one
-it was derived from. `law` sits second at 15 files led, and its witnesses say why: `cite`, `witness`,
+it was derived from. `law` sits fourth at 17 files led, and its witnesses say why: `cite`, `witness`,
 `verdict` are this library's own vocabulary, and English files that vocabulary under law.
 
 **That last step is what moved the top of the table.** `sciences` led before it, and `natural-sciences`,
@@ -198,21 +199,57 @@ took the vocabulary from 519 distinct topics to 479, and the files no topic coul
 ## What it says this repository does
 
 A method name is a clause and a test name is a sentence, so the suite is a specification wherever that
-convention holds. **643 declared methods** name a clause the dictionary can read as a verb and what the verb
+convention holds. **961 declared methods** name a clause the dictionary can read as a verb and what the verb
 acts on; a name whose first word has no verb entry yields no behaviour rather than a guessed one.
 
 | Verb | Times | For instance |
 |---|--:|---|
-| `read` | 84 | read a repository · read a file · read only the content words of a sentence |
-| `name` | 21 | name a stem · name the line each declaration sits on |
-| `refuse` | 21 | refuse a citation that would name no resource · refuse a line range that runs backwards |
-| `carry` | 15 | carry a prefix · carry the line each declaration sits on |
+| `read` | 116 | read a repository · read a file · read only the content words of a sentence |
+| `name` | 41 | name a stem · name the line each declaration sits on |
+| `refuse` | 37 | refuse a citation that would name no resource · refuse a line range that runs backwards |
+| `carry` | 28 | carry a prefix · carry an unknown word through as unclaimed |
 
 Getting there needed the backlog's `[HIGH]` splitter defect fixed: `refusesALineRange` was reading as
 *refuses / aline / range*. The acronym-run boundary now lands in `IdentifierWords`, alongside the ported
 tokeniser rather than inside it, and four of the plan's five documented mis-splits read correctly —
 `XMLHttpRequest`, `parseHTTPResponse`, `getDSLContext`, `JWNLException`. The letter/digit boundary is
 deliberately still absent, because `utf8` is one token in the catalogues that name it.
+
+## What a published taxonomy matched, and on what
+
+A subject scheme places a whole repository and can say nothing about a line in it, because nobody writes
+`cs.CL`. A **term** taxonomy publishes names a program in its field declares, so it is matched rather than
+diverged against: OLiA's `AdjectivePhrase` and this repository's `adjectivePhrase` read as the same two words
+through the same splitter, and a hit is the ontology stating that this is a term of its field.
+
+Both sides are normalised to one thing before they are compared, and the ladder takes the **narrowest**
+normalisation that answers. Which rung answered is carried on every span, and there is a rate for each and
+none across them — a match on the words and a match on a sense two different words happen to share are not
+the same evidence.
+
+| Both sides become | Spans | Per 1,000 names | Distinct terms | One word |
+|---|--:|--:|--:|--:|
+| the words themselves | 1,020 | 186.5 | 70 | 97.2% |
+| the dictionary form of each word | 247 | 45.2 | 44 | 98.8% |
+| the sense the dictionary carries each word in | 203 | 37.1 | 25 | **100%** |
+
+**The third rung is refused on that last column, and it was the one this work set out to build.** Most
+frequent sense was wanted because it is where `lemma` could meet `BaseForm` and `article` could meet
+`Determiner`; it buys neither — WordNet holds no entry for *base form* at all, and it reads *article* as a
+piece of prose and *determiner* as a conclusive argument. What it buys instead is 203 spans of which every
+one is a single word, against a design whose whole premise is that the multi-word term is the signal. Its
+largest term is `subject` and `theme` reading as `Topic`: one WordNet entry holds all three, which is the
+same artefact that already puts `music` under everything the theme reading says. A term matcher exists so
+that a match needs no English in between, and that rung puts the English back.
+
+The middle rung is the part that was worth having, and separating it is what showed the third one up. A
+taxonomy publishes singulars and a program declares whatever its sentence needed, so `phrases` meeting
+`Phrase` is one word inflected rather than a claim about meaning — and pooled with the senses it would have
+made the generalisation look twice as productive as it is.
+
+Nothing here votes. The theme reading is untouched by all of it, because a vocabulary run only on a
+repository inside its own domain has not been shown to discriminate anything; the arm that decides needs a
+repository OLiA should say nothing about.
 
 ## Words carried in from somewhere else
 
@@ -232,7 +269,7 @@ not what gets quoted.
 ### What is still wrong, and what would fix it
 
 The hierarchy fold moved the ranking, and what it exposed is that pooling was holding two distortions up at
-once. `music` is now fourth, carried by `topic` — the resource labels that word's specialist senses and the
+once. `music` is now sixth, carried by `topic` — the resource labels that word's specialist senses and the
 everyday one it always means here has no label at all, which is the same missing-coverage defect `cite` shows
 under `law`. Folding removed the restatements; it cannot supply a label nobody wrote.
 

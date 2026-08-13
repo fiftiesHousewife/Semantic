@@ -103,16 +103,24 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   same. Reported by `./gradlew selfRead` as `terms.md`.
 
   **The measurement is unflattering, and that is what it is for.** In domain, on the repository this reading
-  was developed against, OLiA fires **192.67 times per thousand declared names — 978 spans over 5,076 names,
-  and 961 of the 978 are one word long**. That is the same 98% one-word shape a finance ontology showed on a
+  was developed against, OLiA fires **186.47 times per thousand declared names — 1,020 spans over 5,470 names,
+  and 991 of the 1,020 are one word long**. That is the same 98% one-word shape a finance ontology showed on a
   repository with *no* finance in it, so the single-word rate is not yet known to discriminate anything, and
-  the frequency weight narrows the gap without closing it: `first` carries 18.75 where `sentence` carries
-  11.21. Of the 17 multi-word spans, 13 are `part of`. `TermReadingDiagnostic` pins that share as a stated
-  finding and pins a defect beside it — `Collocation` reads as *col / location* because the frequency list
-  does not carry the compound, and it matches only because the ontology's own term broke the same way on the
-  same grammar, which is an argument for splitting both sides with one grammar and an argument against
-  trusting the split. **Nothing votes yet**: the theme reading is untouched, so if the out-of-domain arm
-  kills this, the diagnostic is deleted and no reading was ever affected.
+  the frequency weight narrows the gap without closing it: `first` carries more than `sentence` does. Of the
+  29 multi-word spans, 20 are `part of`. `TermReadingDiagnostic` pins that share as a stated finding and pins
+  a defect beside it — `Collocation` reads as *col / location* because the frequency list does not carry the
+  compound, and it matches only because the ontology's own term broke the same way on the same grammar, which
+  is an argument for splitting both sides with one grammar and an argument against trusting the split.
+  **Nothing votes yet**: the theme reading is untouched, so if the out-of-domain arm kills this, the
+  diagnostic is deleted and no reading was ever affected.
+- **The ladder, and the rung it was built for refused.** Both sides of a match are normalised to one thing
+  before they are compared and the narrowest rung that answers is the one that answers — the words as both
+  sides wrote them, then each word's dictionary form, then the sense WordNet carries it in. `TermNormalisation`
+  is the shape, `NormalisedTerms` decorates any `TermIndex` with one, and every span carries the rung so no
+  report can add them together. The dictionary form is the half worth having, at 247 spans; **most frequent
+  sense buys 203 spans of which every single one is one word long**, and its largest term is `subject` and
+  `theme` reading as `Topic` because WordNet holds all three in one entry. See
+  [the ladder built and the rung refused](#the-ladder-is-built-and-the-rung-it-was-built-for-is-refused).
 - **Two probes, because a ranking that cannot be argued with is not evidence.**
   `./gradlew wordVotes -Pwords="theme topic phrase"` prints every vote the resources cast for a word;
   `./gradlew topicCarriers -Ptopics="music medicine law"` prints every word carrying a topic with its
@@ -1010,28 +1018,56 @@ reported as one number.
 | 2 | **the synset** | a word ≡ a different word WordNet puts in one sense | WordNet's own sense entries |
 | 3 | **the semantic domain** | a word ≡ a different word sharing a labelled subject | WordNet Domains, already bundled |
 
-Rung 2 is the one to build. It is where `lemma` could meet `BaseForm` and `article` could meet
-`Determiner` — pairs the present matcher cannot see and a reader would call obviously the same. **It also
-needs a sense chosen**, because a word belongs to as many synsets as it has senses, and the two honest forms
-are not equivalent: *most frequent sense* is already item 2 of the queue above and is the plan's own stated
-baseline; *any shared synset* is symmetric, needs no disambiguation, and is exactly the WordNet synonymy the
-doctrine says may not be borrowed for a taxonomy's terms. **Build the first. If the disambiguation is what
-makes it fail, that is a finding about senses and not about matching**, and it belongs to the queue item that
-already owns it rather than being worked around here.
+### The ladder is built, and the rung it was built for is refused
 
-Rung 3 is the stated fallback and the one to be most suspicious of, because this tree has already measured
-what domains do: `cite` carries only `law`, `topic` is a flat third `music`, and those artefacts put a floor
-of agreement under everything. A domain-level match is a claim that two words are about the same *area*,
-which is a great deal weaker than a claim that they mean the same thing — so it may not be pooled with rung 2
-and, on the evidence already in this tree, will probably have to be refused. **Run it, report it separately,
-and expect to say no.**
+`TermNormalisation` is the shape — a run of words in, a normal form out, and an abstention where any part of
+the run cannot be read. `NormalisedTerms` decorates any `TermIndex` with one, keying the source's own terms
+through the same statement a repository's runs go through, so neither side is privileged and a third source
+costs nothing. `TermSpans` takes the rungs in order and `TermSpan`, `TermSighting` and `TermReport` carry
+which one answered; the report states a rate per rung and offers none across them.
+
+**A rung was added between the two.** The dictionary form is its own normalisation, because without it the
+sense rung takes the credit for morphology: a taxonomy publishes singulars and a program declares whatever
+its sentence needed, so `phrases` meeting `Phrase` is one word inflected and not a claim about meaning. On
+this tree that is 247 of the 450 spans the two broader rungs find between them.
+
+| Both sides become | Spans | Per 1,000 names | Distinct terms | One word |
+|---|--:|--:|--:|--:|
+| the words themselves | 1,020 | 186.5 | 70 | 97.2% |
+| the dictionary form of each word | 247 | 45.2 | 44 | 98.8% |
+| the sense the dictionary carries each word in | 203 | 37.1 | 25 | **100%** |
+
+**Rung 2 fails on the column this whole design rests on, and both of the examples that motivated it fail
+before any code runs.** WordNet holds no entry for `base form`, so `lemma` cannot meet it; it reads `article`
+as a piece of prose and `determiner` as a conclusive argument, so those two never meet either. What most
+frequent sense buys here is 203 spans of which **every one is a single word** — against the measurement that
+shaped the matcher, where the multi-word term was the signal and the single-word term was the noise. Its
+largest term is `subject` and `theme` reading as `Topic`, because WordNet holds all three in one entry: the
+same artefact that already puts `music` under every theme this tree reports, arriving by a second route into
+the one reading built to need no English in between. The rest is `cite` as `Referring`, `place` and `put` as
+`Set`, `sum` as `Amount`, `auto` as `Automobile`, `program` as `Plan` — a hand audit of the 25 distinct terms
+finds one (`surname` as `FamilyName`) anyone would defend, against a stated abandon criterion of 40 in 50.
+
+It stays in the tree, reported apart and voting on nothing, because the figure is the argument. What would
+revisit it is **not** a different disambiguation: the failure is not that the wrong sense was chosen, it is
+that a single-word sense match is the noise the design already measured. `TermReadingDiagnostic` pins both
+findings, so a change that makes the rung productive has to rewrite a stated expectation.
+
+**Rung 3 is refused on the same evidence, unbuilt.** A domain-level match is a claim that two words are about
+the same *area*, which is weaker again than a claim that they mean the same thing — and rung 2 already
+collapsed into this tree's measured domain artefacts (`topic`, `cite`) while comparing something narrower.
+A rung that generalises further would find those artefacts sooner and more often. Building it to say so would
+cost a day to confirm what the row above already shows; the measurement that would revisit it is a rung 2
+that discriminates on a repository OLiA should say nothing about.
 
 ### The trap, which is why this is not simply a good idea
 
 **Climb far enough and everything meets.** `topic` and `verb` share an ancestor; so do `swap` and `sentence`.
 A match at a shared root is not evidence, it is arithmetic — and the current reading's measured defect is
-already that it matches *too much*, at 98.2% one-word spans. Naive expansion raises recall against a
-precision problem and would make the reading strictly worse.
+already that it matches *too much*, at 97.2% one-word spans on the narrowest rung. Naive expansion raises
+recall against a precision problem and would make the reading strictly worse. **The sense rung is that
+prediction confirmed at one step**: it generalises no further than a shared dictionary entry and already
+comes back 100% one word long.
 
 **What rescues it is that the depth of the meeting point is itself a precision signal**, and that is the
 version of this idea worth building. Two concepts meeting at a node deep in the tree have been shown to be
@@ -1056,6 +1092,10 @@ theme reading already does, and what `SubjectPlacementDiagnostic` pins as failin
 floor of agreement under every subject drowns the signal. **A term matcher that generalises too freely
 collapses into the reading it was built to be independent of.**
 
+That hazard is no longer a prediction. The sense rung's largest term is `subject` and `theme` reading as
+`Topic`, which is the same `topic` artefact the theme reading was already measured to be carrying — the
+collapse happened at the *first* step of generalisation, before any hypernym was climbed.
+
 ### What settles it, stated before it runs
 
 Three arms, all on the panel `-Dcs.panel.dir` is being built for, each reported at several depth cut-offs so
@@ -1070,6 +1110,9 @@ the cut-off is a reported figure and not a chosen one:
    their OLiA concept only near the root, and the real ones — `verb`, `clause`, `affix` — should meet deep.
    **That arm is free and needs no panel**, because both sides are already in the tree, and it is the one to
    run first: it tests the whole premise in an afternoon and can refuse it before anything is built.
+   **It is now the next thing to run**, and it has a stronger reason than it had: the sense rung produced a
+   list of matches a reader can sort by hand — `subject`, `cite`, `place`, `sum`, `auto` against `surname` —
+   so depth has something to be checked against rather than only to be computed.
 
 **Abandon if:** depth does not separate the matches the branch reading already separates. Two independent
 citations disagreeing about which matches are real would mean neither is measuring what it claims.
