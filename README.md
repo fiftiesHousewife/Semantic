@@ -93,161 +93,100 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instructi
 
 ## The self test
 
-`./gradlew selfRead` points the library at this repository and reports the one statistic it can take of itself
-with what is in the tree today: **legibility λ**, the share of the code's own word occurrences that at least
-one bundled resource can be cited for. The report lands at
-`code-semantics-engine/build/reports/self-reading/self-reading.md`; the run below is on the tree at the commit
-this README ships in.
+`./gradlew selfRead` points the library at this repository and reports two readings of it. The reports land
+in `code-semantics-engine/build/reports/self-reading/`; the runs below are on the tree this README ships in.
 
-Read the limits before the number. It is a **lexical scan of a working tree**, and every word of that is a
-constraint: no parse, so no reading belongs to a declaration; no git read, so nothing is pinned by a commit
-SHA and no permalink is rendered; no votes, because a vote requires an anchor and an anchor requires a
-revision. It counts, cites and abstains. The `package` and `import` sections are stepped over — a rule about
-where a name sits, not about what one means, because those lines are a file's coordinates rather than its
-vocabulary. Comments are stepped over too: prose is evidence in its own right and counting it here would
-flatter a figure that is about what the *code* is written in.
+**What it reads, and what it refuses to.** A Java file is mostly somebody else's vocabulary quoted:
+`String`, `List` and `assertThat` are *uses* of declarations the platform and the test framework made, and a
+use is not a word this codebase chose. So the reading runs over a **parse**, and takes only:
 
-| Scope | Files | Identifiers | The language's own | The author's words | Read | λ |
+- every name this repository **declared** — types, methods, fields, parameters, locals, record components,
+  enum constants;
+- the **prose** it wrote, in javadoc and comments;
+- the **dependencies** it named, where the import is neither the platform's own package nor this tree's.
+
+Three published resources decide those boundaries, and not one line of vocabulary is written here.
+`javax.lang.model` states the keyword table; `ModuleFinder.ofSystem()` states which packages are the
+platform's, so `java.util` is set aside where `net.sf.extjwnl` is kept; and WordNet — an open-class
+dictionary by construction — states which words in a sentence carry subject matter, so the words English uses
+to hold a sentence together are refused without a stop list existing. Of 893 imports, 518 were the platform's,
+126 this repository's own coordinates, and **249 were a choice worth reading**.
+
+Every word is read as its **dictionary form**, so `words` and `word` are one subject rather than two, and a
+word nothing chose is weighted by how much it **narrows** a subject — `log(rank) / log(20,000)` against the
+frequency list, which is the surprisal the list itself states. It is a weight and never a gate: the commonest
+word in English still votes, at the smallest weight the list can express.
+
+Still not done, and stated rather than glossed: no git read, so nothing is pinned by a commit SHA and no
+permalink is rendered; and no votes, because a vote requires an anchor and an anchor requires a revision.
+
+### Legibility λ
+
+| Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 24 | 1,627 | 451 (27.7%) | 1,793 | 1,756 | **0.979** |
-| `code-semantics-api/src/test/java` | 13 | 1,743 | 281 (16.1%) | 3,056 | 2,886 | **0.944** |
-| `code-semantics-engine/src/main/java` | 20 | 1,927 | 497 (25.8%) | 2,110 | 2,084 | **0.988** |
-| `code-semantics-engine/src/test/java` | 12 | 1,818 | 296 (16.3%) | 2,850 | 2,812 | **0.987** |
-| `lexicon-extraction/src/main/java` | 16 | 2,242 | 545 (24.3%) | 2,377 | 2,339 | **0.984** |
-| `lexicon-extraction/src/test/java` | 10 | 1,223 | 220 (18.0%) | 1,773 | 1,743 | **0.983** |
-| `lexicon/src/main/java` | 11 | 2,665 | 696 (26.1%) | 2,880 | 2,832 | **0.983** |
-| `lexicon/src/test/java` | 10 | 1,355 | 151 (11.1%) | 2,316 | 2,291 | **0.989** |
-| **repository** | 116 | 14,600 | 3,137 (21.5%) | 19,155 | 18,743 | **0.978** |
+| **repository** | 159 | 3,219 | 8,166 | 15,274 (65.2%) | 22,839 | **0.974** |
 
-The author's words are 19,155 occurrences of 1,090 distinct surfaces, 328 of them (30.1%) written exactly
-once. 408 glued runs no boundary divided were read by the segmenter; 412 occurrences across 101 surfaces
-nothing could be cited for at all. Reading 116 files cost 0.2 s, recorded rather than estimated.
+23,440 word occurrences of 2,202 distinct surfaces, 820 of them (37.2%) written exactly once; 601 occurrences
+across 167 surfaces nothing could be cited for at all. The tail is the finding rather than the residue — the
+top of it is `junit`, `assertj` and `extjwnl`, which are dependency names no dictionary carries, and
+`aprefix`/`asuffix`/`jwnlexception`, which are the tokeniser's missing acronym rule caught in live code.
 
-**21.5% of identifier occurrences are the language's own words**, cited to
-`javax.lang.model.SourceVersion` — the platform's own implementation of JLS §3.9 — so the demotion the plan
-asks for is already made by citation rather than by a list. It is not the same measurement as the plan's
-13.5%, and the difference is the denominator: that figure was keywords as a share of *word* occurrences across
-931 files, this one is keywords as a share of *identifier* occurrences with the import section stepped over.
-Both are reported with what they divide by, which is the only way either is worth quoting.
-
-### Which resource carried it
-
-Shares overlap by construction — a word both WordNet and the frequency list carry is counted under each — so
-they do not sum to one and are not presented as if they did. The last column is what answers the question the
-shares cannot: what the reading would lose if that resource were withdrawn.
-
-| Resource | Occurrences it can be cited for | Share | Resting on it alone |
-|---|--:|--:|--:|
-| `lexicon:word-frequency` | 17,485 | 91.3% | 154 |
-| `lexicon:wordnet-sense` | 15,316 | 80.0% | 364 |
-| `lexicon:wiktionary-topic` | 14,576 | 76.1% | 79 |
-| `lexicon:wordnet-domain` | 10,336 | 54.0% | 17 |
-| `lexicon:wikidata-initialism` | 7,611 | 39.7% | 32 |
-| `lexicon:wiktionary-abbreviation` | 5,623 | 29.4% | 0 |
-| `lexicon:wikidata-name` | 5,547 | 29.0% | 2 |
-| `catalogue:query-language-function` | 1,371 | 7.2% | 2 |
-
-Two of those readings are deliberately broad. The name registry knows Self and Ray as surnames however
-ordinary they read as words, and the initialism registry knows a great many three-letter capitals tokens —
-which is exactly why the last column matters: **the name registry carries 29.0% of the corpus and exactly 2
-occurrences on its own.** Withdrawing it would move λ by 0.0001. A λ of 0.978 that rested on a surname list
-would be a bad number dressed as a good one, and this table is how a reader can tell that it does not.
-
-### What nothing could read
-
-The tail is the finding, not the residue — what a repository wrote that no published resource covers, kept
-because a design which silently drops it can never be asked the question. The top of it:
-
-| Word | Occurrences | First seen |
-|---|--:|---|
-| `wiktionary` | 63 | `EvidenceSource.java:41` |
-| `segmenter` | 62 | `WordSegmenter.java:25` |
-| `tokeniser` | 24 | `Tokeniser.java:21` |
-| `charsets` | 17 | `WordRanks.java:55` |
-| `unmodifiable` | 17 | `CitedWords.java:42` |
-| `tokenise` | 16 | `Tokeniser.java:29` |
-| `aprefix` | 10 | `WordMorphology.java:43` |
-| `asuffix` | 10 | `WordMorphology.java:43` |
-| `jwnlexception` | 10 | `WordNetAbbreviations.java:59` |
-| `unparseable` | 10 | `CompoundParses.java:58` |
-| `aword` | 9 | `PieceCostTest.java:26` |
-
-It names three separate defects, each already in the backlog and each now carrying a measurement:
-
-1. **`aprefix`, `asuffix`, `aword`, `acompound`, `jwnlexception` are the tokeniser's missing rules, caught in
-   live code.** `carriesAPrefix` reads carries / aprefix because there is no acronym-run boundary and no rule
-   for a single capital before a word; `JWNLException` reads jwnlexception for the same reason. The narrowness
-   was already documented in `Tokeniser`'s javadoc and is now pinned by a test — and the self test found
-   instances of it in this repository's own names, which is the difference between a known limitation and a
-   measured one.
-2. **`charsets` and `unmodifiable` are the missing catalogues.** They are fragments of `StandardCharsets` and
-   `unmodifiableList` — names the platform published, which a standard-library API index extracted from the
-   platform itself would cite whole and demote as the platform's vocabulary rather than leave for the
-   frequency list to fail on. Nothing here should be fixed by widening a word list.
-3. **`wiktionary`, `segmenter`, `tokeniser`, `tokenise`, `permalink`, `vendored` are the honest abstentions.**
-   Proper nouns of the resources themselves, British-spelled derivations the Leipzig list does not carry, and
-   domain words. A reading that guessed at these would be inventing evidence; abstention is the correct
-   outcome, and the graph recording that they were *seen and not read* is the point.
-
-The number to hold onto is not λ. It is that λ is reported with its denominator, its per-resource support and
-its tail, so a consumer can see how thin a reading is before using it — which is what the plan means by
-reporting legibility beside intensity rather than instead of it.
-
----
+The per-resource table in the report carries a column no share can replace: **what each resource carries
+alone**. The frequency list cites 92% of occurrences and is the only citation for 768 of them; the Wikidata
+name registry cites 40% and is the only citation for 11. A λ that rested on a surname list would be a bad
+number dressed as a good one, and that column is how a reader can tell that it does not.
 
 ## What it reads this repository as
 
-The same command reports the second reading: **which subjects this codebase's names belong to**, from the
-two bundled resources that place a word in a subject — WordNet Domains, which labels each of a word's senses,
-and Wiktionary's topic vocabulary, which labels the headword. Each word occurrence commits one unit of mass
-per resource, divided among the readings that resource names, so an ambiguous word does not shout. The report
-is at `code-semantics-engine/build/reports/self-reading/themes.md`, and
-`python3 docs/self-reading/build_themes_page.py` turns its export into a page.
+The second reading places those words in subjects, through the two bundled resources that do that — WordNet
+Domains, which labels each of a word's senses, and Wiktionary's topic vocabulary, which labels the headword.
+Each word occurrence commits one unit of mass per resource, divided among the readings that resource names,
+so an ambiguous word does not shout.
 
-| Theme | ι | References | Leads | Lines led | Share | Carried by |
+| Theme | ι | References | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `mathematics` | 0.0592 | 13,811 | 54 | 4,165 | 43.8% | `assert` 841 · `string` 807 · `map` 734 |
-| `sciences` | 0.0474 | 15,805 | 13 | 1,023 | 10.8% | `assert` 841 · `string` 807 · `that` 701 |
-| `linguistics` | 0.0337 | 3,831 | 21 | 1,367 | 14.4% | `word` 900 · `lexicon` 298 · `reading` 296 |
-| `law` | 0.0320 | 3,498 | 19 | 717 | 7.5% | `string` 807 · `evidence` 416 · `file` 304 |
-| `music` | 0.0276 | 3,877 | 4 | 225 | 2.4% | `string` 1,614 · `set` 464 · `topic` 378 |
-| `pure_science` | 0.0210 | 1,124 | 16 | 1,050 | 11.0% | `assert` 841 · `class` 83 · `size` 60 |
+| `mathematics` | 0.0550 | 9,499 | 61 | 4,003 | 38.8% | `divergence` · `name` · `mean` · `domain` |
+| `sciences` | 0.0443 | 10,682 | 9 | 729 | 7.1% | `word` · `topic` · `occurrence` |
+| `linguistics` | 0.0422 | 4,071 | 39 | 2,862 | 27.7% | `word` · `sense` · `reading` · `abbreviation` |
+| `law` | 0.0340 | 2,251 | 21 | 1,080 | 10.5% | `cite` · `evidence` · `file` · `answer` |
+| `computer_science` | 0.0231 | 1,563 | 4 | 320 | 3.1% | `word` · `code` · `file` · `parser` |
+| `publishing` | 0.0212 | 2,129 | 2 | 67 | 0.6% | `dictionary` · `source` · `read` · `reference` |
 
-**Read that table as the weak reading it is, and the witnesses are why you can.** `linguistics` is right —
-this repository is about words. `mathematics` leading 43.8% of its lines is `set`, `map` and `assert`;
-`music` is `string`; further down, `jewellery` is `string` and nothing else. The resources are not wrong
-about English. The reading is asking what a word means with nothing around it, and a word alone is
-ambiguous — which is the failure the plan names in §16 and answers with a comparison rather than a count.
+The witnesses are ordered by the **mass each word actually carried**, not by how often it was written, which
+is what makes the column an explanation rather than a word count. Read that way the top themes are defensible:
+this repository really is about words, senses, readings, citation and evidence, and its mathematics really is
+divergence and means.
+
+Two results are still wrong, and both are visible rather than hidden. **`mythology` is `jupiter`** — a real
+theme of one source set, whose witness is the JUnit Jupiter dependency it imports, because the dictionary
+knows Jupiter as a Roman god and is not wrong to. And **`sciences`, `natural-sciences`, `physical-sciences`,
+`engineering` and `computing` fire together** on the same words while leading almost no files between them:
+they are Wiktionary's own hierarchy, so one theme is counted five times.
 
 ### The comparison, which is the reading worth acting on
 
-A theme written at the same density everywhere contributes almost nothing to a divergence, so the ambiguity
-that dominates a count cancels. Each source set is compared with the whole repository by Jensen–Shannon
-divergence — bounded at 1 bit by its own definition, symmetric, and additively decomposable, so each theme's
-share of the difference is itself a bounded share. Then each divergence is judged against the field a scope
-of **its own size** draws by chance: 999 resamples of the same number of files, drawn from the repository.
+A theme written at the same density everywhere contributes almost nothing to a divergence. Each source set is
+compared with the whole repository by Jensen–Shannon divergence — bounded at 1 bit by its own definition,
+symmetric, additively decomposable — and then judged against the field a scope of **its own size** draws by
+chance: 999 seeded resamples of the same number of files.
 
 | Scope | Divergence | Null median | Excess | Chance draws at least as far |
 |---|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 0.0420 | 0.0119 | +0.0301 | 0 of 999 |
-| `code-semantics-api/src/test/java` | 0.0523 | 0.0219 | +0.0304 | 0 of 999 |
-| `code-semantics-engine/src/main/java` | 0.0278 | 0.0062 | +0.0215 | 0 of 999 |
-| `code-semantics-engine/src/test/java` | 0.0258 | 0.0124 | +0.0133 | 0 of 999 |
-| `lexicon-extraction/src/main/java` | 0.0526 | 0.0181 | +0.0346 | 0 of 999 |
-| `lexicon-extraction/src/test/java` | 0.0464 | 0.0276 | +0.0188 | 24 of 999 |
-| `lexicon/src/main/java` | 0.0480 | 0.0254 | +0.0226 | 6 of 999 |
-| `lexicon/src/test/java` | 0.0519 | 0.0277 | +0.0242 | 11 of 999 |
+| `code-semantics-api/src/main/java` | 0.0232 | 0.0085 | +0.0147 | 0 of 999 |
+| `code-semantics-api/src/test/java` | 0.0367 | 0.0161 | +0.0206 | 0 of 999 |
+| `code-semantics-engine/src/main/java` | 0.0161 | 0.0034 | +0.0128 | 0 of 999 |
+| `code-semantics-engine/src/test/java` | 0.0211 | 0.0085 | +0.0126 | 0 of 999 |
+| `lexicon-extraction/src/main/java` | 0.0459 | 0.0131 | +0.0328 | 0 of 999 |
+| `lexicon-extraction/src/test/java` | 0.0654 | 0.0206 | +0.0448 | 0 of 999 |
+| `lexicon/src/main/java` | 0.0410 | 0.0191 | +0.0219 | 0 of 999 |
+| `lexicon/src/test/java` | 0.0322 | 0.0210 | +0.0112 | 9 of 999 |
 
-Every scope stands outside its own null, so every ranking below it is printed; a scope that had not would
-have had its ranking **withheld**, because a caveat is not what gets quoted. The largest single contribution
-anywhere is `pure_science`, which the test source sets are over and the main ones under — and its witness is
-`assert`, written 841 times. That is a true reading of what separates a test from a class, wearing a label
-from a dictionary of English rather than one of software.
+Every scope stands outside its own null, so every ranking is printed. A scope that had not would have had its
+ranking **withheld entirely**, because a caveat is not what gets quoted.
 
-Two fixes are in `BACKLOG.md`, and neither is a word list: sense disambiguation (the sibling words in one
-identifier, the enclosing declaration, the file's own pooled domain), and extracting Wiktionary's published
-topic hierarchy so `sciences`, `natural-sciences` and `physical-sciences` pool as the one label they nearly
-are instead of splitting a theme three ways.
+Both fixes are in `BACKLOG.md` and neither is a word list: sense disambiguation (the sibling words in one
+identifier, the enclosing declaration, the file's pooled domain), and extracting Wiktionary's published topic
+hierarchy so a label pools with its parent by citation.
 
 ---
 

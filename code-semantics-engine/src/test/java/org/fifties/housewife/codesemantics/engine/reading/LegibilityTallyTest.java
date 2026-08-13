@@ -3,6 +3,8 @@ package org.fifties.housewife.codesemantics.engine.reading;
 import java.util.List;
 import java.util.Set;
 
+import org.fifties.housewife.codesemantics.engine.parse.NameForm;
+import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.model.EvidenceSource;
 import org.fifties.housewife.codesemantics.name.WordSegmenter;
 import org.junit.jupiter.api.Test;
@@ -19,11 +21,15 @@ class LegibilityTallyTest {
             new ResourceCitation(EvidenceSource.WORD_FREQUENCY, Set.of("page", "cursor", "next")::contains),
             new ResourceCitation(EvidenceSource.WORDNET_SENSE, Set.of("page")::contains)));
 
-    private final LegibilityTally tally = new LegibilityTally(cited,
-            new IdentifierWords(WordSegmenter.fromClasspath()), new JavaLanguageKeywords());
+    private final LegibilityTally tally =
+            new LegibilityTally(cited, new IdentifierWords(WordSegmenter.fromClasspath()));
 
     private void add(final String identifier, final int line) {
-        tally.add(SITE, new IdentifierOccurrence(identifier, line));
+        tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
+    }
+
+    private void wrote(final String prose, final int line) {
+        tally.add(SITE, new NameOccurrence(prose, NameForm.JAVADOC, line));
     }
 
     @Test
@@ -34,25 +40,24 @@ class LegibilityTallyTest {
         final OccurrenceCounts counts = tally.reading("scope", 1).counts();
 
         assertAll(
-                () -> assertThat(counts.identifiers()).isEqualTo(2),
+                () -> assertThat(counts.declarations()).isEqualTo(2),
                 () -> assertThat(counts.words()).isEqualTo(3),
                 () -> assertThat(counts.read()).isEqualTo(2),
                 () -> assertThat(counts.legibility()).isCloseTo(2.0 / 3.0, offset(1e-9)));
     }
 
     @Test
-    void setsTheLanguagesOwnWordsAsideRatherThanReadingThemAsEnglish() {
-        add("final", 1);
-        add("return", 2);
-        add("page", 3);
+    void readsASentenceAsItsWordsAndANameAsItsOwnBoundaries() {
+        add("nextPage", 1);
+        wrote("The next page of the cursor.", 2);
 
         final OccurrenceCounts counts = tally.reading("scope", 1).counts();
 
         assertAll(
-                () -> assertThat(counts.identifiers()).isEqualTo(3),
-                () -> assertThat(counts.languageWords()).isEqualTo(2),
-                () -> assertThat(counts.words()).as("only the author's words are read").isOne(),
-                () -> assertThat(counts.languageWordShare()).isCloseTo(2.0 / 3.0, offset(1e-9)));
+                () -> assertThat(counts.declarations()).as("prose is not a declaration").isOne(),
+                () -> assertThat(counts.nameWords()).isEqualTo(2),
+                () -> assertThat(counts.proseWords()).isEqualTo(6),
+                () -> assertThat(counts.proseShare()).isCloseTo(6.0 / 8.0, offset(1e-9)));
     }
 
     @Test
@@ -111,7 +116,7 @@ class LegibilityTallyTest {
 
         assertAll(
                 () -> assertThat(reading.counts().legibility()).isZero(),
-                () -> assertThat(reading.counts().languageWordShare()).isZero(),
+                () -> assertThat(reading.counts().proseShare()).isZero(),
                 () -> assertThat(reading.counts().tailShare()).isZero(),
                 () -> assertThat(reading.unread().occurrences()).isEmpty());
     }

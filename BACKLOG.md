@@ -24,15 +24,21 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - **The theme reading** — `TopicCitations` over WordNet Domains and Wiktionary topics, `TopicDistribution`
   (the plan's ι), `JensenShannon` with its additive per-topic decomposition, and `PermutationNull` at 999
   seeded resamples. Reports each source set's divergence from the repository, the topics accounting for it,
-  and whether a scope of that size draws as much by chance — with the words carrying every claim. All eight
-  scopes currently stand outside their nulls; the largest single contribution anywhere is `pure_science`,
-  which is the word `assert`.
-- **The self test** — `./gradlew selfRead`. `JavaSourceIdentifiers` (a lexical scan, comments, literals and the
-  import section stepped over), `IdentifierWords`, `JavaLanguageKeywords` (citing
-  `javax.lang.model.SourceVersion` rather than any bundled table), `CitedWords` over eight bundled resources,
+  and whether a scope of that size draws as much by chance — with the words carrying every claim, ordered by
+  the mass each carried rather than by how often it was written. `ContentWords` cites WordNet's open-class
+  coverage to keep prose to the words that carry subject matter and to read every word as its dictionary
+  form; `WordSpecificity` weights a word nothing chose by the surprisal the frequency list states. All eight
+  scopes currently stand outside their nulls.
+- **The parse** — `JavaSource` over JavaParser 3.28.2, reading only what a repository *declared* (types,
+  methods, fields, parameters, locals, components, constants), the prose it wrote, and the imports that are
+  neither the platform's nor its own. A use of somebody else's declaration is never read, which is what
+  removes `String`, `List` and `assertThat` without naming any of them. `PlatformPackages` cites
+  `ModuleFinder.ofSystem()` for what the platform exports; `ImportOrigins` sorts an import by prefix walk
+  against that and against the packages this tree declares.
+- **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
-  for each. Current result in the README: **λ = 0.978** over 19,155 word occurrences in 116 files, 0.2 s.
+  for each. Current result in the README: **λ = 0.974** over 23,440 word occurrences in 159 files.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -106,6 +112,10 @@ incremental re-analysis and most of the work on generated code, and it is not a 
 
 ## [MEDIUM] Stage 5 — the syntax parse
 
+**A Java parse is in the tree** (`JavaSource`, JavaParser 3.28.2) and the self read runs on it, which is what
+lets the reading tell a declaration from a use. It is one language, no symbol resolution, and its error
+tolerance is measured rather than assumed — see the item below. What follows is still the polyglot stage:
+
 tree-sitter, one parser interface across a polyglot tree, symbol extraction as `.scm` queries per language.
 **Measure the core/grammar version skew first** (core 0.26.6 against `tree-sitter-java` 0.23.5): ABI
 compatibility across it is not something to assume, and if it does not hold the alternative is `jtreesitter`,
@@ -167,18 +177,19 @@ some is wrong, and this is the single measurement that separates a real reading 
 
 ## [HIGH] Sense disambiguation
 
-Promoted, because the theme reading now measures what its absence costs. Reading a word with nothing around
-it makes `string` commit mass to music, jewellery and baseball, and `set` and `map` carry `mathematics` to
-43.8% of this repository's lines. The resources are not wrong about English; the question is being asked
-without context.
+Promoted, because the theme reading now measures what its absence costs. The parse removed the worst of it —
+`string` and `assert` are uses, and uses are no longer read — but a word is still read with nothing around
+it, so `jupiter` in an import reads as a planet and a god. The resources are not wrong about English; the
+question is being asked without context.
 
 Sibling tokens in the same identifier (shared hypernym chains, offsets intersected before flattening to
 lemmas), the enclosing declaration's tokens decayed by scope distance, and the file's pooled topical domain
 as a prior. Each a vote, none a gate.
 
-**Measurement, now available as a baseline rather than a prediction:** the share of lines led by
-`mathematics` (43.8%) and the divergence contribution of `pure_science` against the same tree, before and
-after. A disambiguation that does not move them has not helped.
+**Measurement, now available as a baseline rather than a prediction:** `mythology` is a qualified theme of
+one source set and its witness is `jupiter`, from the JUnit Jupiter import — the dictionary knows Jupiter as
+a Roman god, and nothing in the reading knows the file meant a test framework. A disambiguation that does not
+remove that reading has not helped.
 
 ## [MEDIUM] The Wiktionary topic hierarchy
 
@@ -188,8 +199,10 @@ publishes its topic hierarchy as its own module data, so pooling a label with it
 rather than a synonym list — which is the only form this library may take. Extract it with a named Gradle
 task and a provenance header, exactly as the other TSVs are.
 
-**Measurement:** the count of distinct topics (444 today) and whether the top of the ranking changes when
-siblings pool. A fold that only reduces the label count without moving the reading has bought nothing.
+**Measurement:** the count of distinct topics (493 today) and whether the top of the ranking changes when
+siblings pool. Five labels — `sciences`, `natural-sciences`, `physical-sciences`, `engineering`,
+`computing` — currently fire on the same words and lead almost no files between them, which is one theme
+counted five times. A fold that only reduces the label count without moving the reading has bought nothing.
 
 ## [LOW] Version stamps
 
@@ -230,13 +243,28 @@ diverging bars with a real axis maximum of 1.
 one commit yields 6,211 distinct words, 24.8% of them occurring exactly once. A whole-graph rendering is
 unreadable by construction, and readability is not a layout parameter.
 
+## [MEDIUM] The parser's error tolerance, measured
+
+The plan chose tree-sitter for parsing partly because error recovery is a documented strength, and the self
+read uses JavaParser instead — pure Java, no grammar binary, no JNI and no version skew, which for a
+Java-only reading is the cheaper honest choice. Its recovery is **narrower than the plan assumes, and now
+measured**: an error inside a method body leaves the surrounding declarations readable, while an error in the
+structure that holds the bodies — an unclosed type, a malformed signature — yields nothing at all for the
+whole file. `JavaSourceTest` pins both.
+
+**Measurement that settles the choice:** take the head commits of a sample of open pull requests, count how
+many parse at all under each of JavaParser and `tree-sitter-java`, and count the declarations each recovers.
+A parser that refuses the commits most worth reading cannot be the one the pipeline standardises on.
+
 ## [LOW] What the self test cannot yet say
 
 Each of these is a limit of the reading rather than a bug in it, and each is answered by a slice above rather
 than by tuning this one.
 
-- **It scans, it does not parse.** No reading belongs to a declaration, a use is indistinguishable from a
-  definition, and a type name is read at every mention. Stage 5 is what changes this.
+- **A parse is not a resolution.** A declaration is known by its position in the syntax, so a call to a method
+  this repository declared is indistinguishable from a call to somebody else's and neither is read. The plan
+  counts a name once per occurrence, which this cannot yet do honestly: it would need to attribute a call to
+  the declaration it reaches, and that is `javaparser-symbol-solver`, optional by design.
 - **It reads a working tree, not a revision.** Nothing is pinned by a commit SHA, so no permalink is rendered
   and no vote is cast — `ConceptVote` could not be constructed without an anchor, which is the type system
   doing its job. Stages 1–3 are what change this.

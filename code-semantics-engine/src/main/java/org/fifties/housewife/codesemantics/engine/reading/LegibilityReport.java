@@ -18,7 +18,7 @@ public final class LegibilityReport {
     private static final int TAIL_LIMIT = 15;
 
     private static final String SCOPE_HEADER = """
-            | Scope | Files | Identifiers | The language's own | The author's words | Read | λ |
+            | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
             |---|--:|--:|--:|--:|--:|--:|""";
 
     private static final String SOURCE_HEADER = """
@@ -50,17 +50,17 @@ public final class LegibilityReport {
     private static String scopeRow(final ScopeLegibility scope, final boolean total) {
         final OccurrenceCounts counts = scope.counts();
         final String name = total ? "**" + scope.name() + "**" : "`" + scope.name() + "`";
-        return "| %s | %s | %s | %s (%s) | %s | %s | **%s** |".formatted(name,
-                count(scope.files()), count(counts.identifiers()),
-                count(counts.languageWords()), percentage(counts.languageWordShare()),
-                count(counts.words()), count(counts.read()), legibility(counts.legibility()));
+        return "| %s | %s | %s | %s | %s (%s) | %s | **%s** |".formatted(name,
+                count(scope.files()), count(counts.declarations()), count(counts.nameWords()),
+                count(counts.proseWords()), percentage(counts.proseShare()),
+                count(counts.read()), legibility(counts.legibility()));
     }
 
     private static String vocabularySentence(final ScopeLegibility repository) {
         final OccurrenceCounts counts = repository.counts();
-        return ("The author's words are %s occurrences of %s distinct surfaces, %s of them (%s) written exactly "
-                + "once. %s glued runs no boundary divided were read by the segmenter; %s occurrences across "
-                + "%s surfaces nothing could be cited for at all.").formatted(
+        return ("The repository's own words are %s occurrences of %s distinct surfaces, %s of them (%s) "
+                + "written exactly once. %s glued runs no boundary divided were read by the segmenter; %s "
+                + "occurrences across %s surfaces nothing could be cited for at all.").formatted(
                 count(counts.words()), count(counts.distinctWords()), count(counts.wordsSeenOnce()),
                 percentage(counts.tailShare()), count(counts.gluedRunsRead()),
                 count(repository.unread().totalOccurrences()), count(repository.unread().occurrences().size()));

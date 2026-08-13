@@ -31,11 +31,17 @@ distinction is what lets the library know `final`, `static` and `return` are the
 author's, without ever writing a stop list. The precedent is `lexicon/src/main/resources/sql-functions.tsv`,
 whose own header states it.
 
-The cheapest form of that precedent needs no bundled file at all: `JavaLanguageKeywords` cites
-`javax.lang.model.SourceVersion`, the platform's own implementation of JLS §3.9, so the language's words are
-demoted by a citation that ships with the toolchain. Where a standard's own runtime can be asked the question,
-ask it rather than extracting a table — an extraction can go stale against the standard and a delegation
-cannot.
+The cheapest form of that precedent needs no bundled file at all: **where a standard's own runtime can be
+asked the question, ask it.** `PlatformPackages` cites `ModuleFinder.ofSystem()` for which packages are the
+platform's, so `java.util` is set aside where `net.sf.extjwnl` is kept; `ContentWords` cites WordNet's
+open-class coverage for which words in a sentence carry subject matter, so the words English uses to hold a
+sentence together are refused without a stop list existing. An extracted table can go stale against its
+standard; a delegation cannot.
+
+**Read declarations, not uses.** Most of what a Java file contains is somebody else's vocabulary quoted —
+`String`, `List`, `assertThat` — and a use is not a word this repository chose. The parse is what tells the
+two apart, and that single rule removes the platform and the test framework from every reading without
+naming any of them. It is grammar, and grammar is permitted where a list of names to ignore is not.
 
 ### Where the doctrine is currently held open
 

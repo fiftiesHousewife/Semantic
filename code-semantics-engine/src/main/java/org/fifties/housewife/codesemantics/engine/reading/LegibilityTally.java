@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.fifties.housewife.codesemantics.engine.parse.NameForm;
+import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.model.EvidenceSource;
 
 /**
@@ -15,43 +17,48 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * arrive and cited once each at the end, so a corpus writing {@code evidence} a thousand times pays for one
  * dictionary lookup rather than a thousand.
  *
- * <p>A token the language's own catalogue names is counted and then set aside rather than read as a word:
- * {@code final} and {@code return} are the specification's vocabulary, and letting the frequency list read
- * them as common English would inflate every legibility figure by about the share of a Java file that is
- * grammar.
+ * <p>Nothing has to be set aside here, because the parse never offered it. The language's own words are
+ * never declarations; the platform's and the framework's names are uses of someone else's declarations; and
+ * both are gone before the first word is counted. What arrives is what this repository named and wrote.
  */
 public final class LegibilityTally {
 
     private final CitedWords cited;
     private final IdentifierWords words;
-    private final JavaLanguageKeywords keywords;
 
     private final Map<String, Integer> occurrencesByWord = new HashMap<>();
     private final Map<String, String> firstSiteByWord = new HashMap<>();
 
-    private int identifiers;
-    private int languageWords;
+    private final Map<String, Integer> occurrencesByForm = new HashMap<>();
+
+    private int declarations;
+    private int proseWords;
     private int gluedRunsRead;
 
-    public LegibilityTally(final CitedWords cited, final IdentifierWords words,
-                           final JavaLanguageKeywords keywords) {
+    public LegibilityTally(final CitedWords cited, final IdentifierWords words) {
         this.cited = cited;
         this.words = words;
-        this.keywords = keywords;
     }
 
-    public void add(final String site, final IdentifierOccurrence occurrence) {
-        identifiers++;
-        if (keywords.names(occurrence.identifier())) {
-            languageWords++;
-            return;
-        }
-        final IdentifierReading reading = words.of(occurrence.identifier());
+    public void add(final String site, final NameOccurrence occurrence) {
+        final NameForm form = occurrence.form();
+        final IdentifierReading reading = form.vocabulary().read(occurrence.text(), words);
         gluedRunsRead += reading.gluedRunsRead();
+        if (form.isProse()) {
+            proseWords += reading.words().size();
+        } else {
+            declarations++;
+        }
+        occurrencesByForm.merge(form.name(), reading.words().size(), Integer::sum);
         reading.words().forEach(word -> {
             occurrencesByWord.merge(word, 1, Integer::sum);
             firstSiteByWord.putIfAbsent(word, site + ":" + occurrence.line());
         });
+    }
+
+    /** How many word occurrences each syntactic form contributed — the mix behind every figure below. */
+    public Map<String, Integer> wordsByForm() {
+        return Map.copyOf(occurrencesByForm);
     }
 
     public ScopeLegibility reading(final String name, final int files) {
@@ -62,9 +69,10 @@ public final class LegibilityTally {
     }
 
     private OccurrenceCounts counts(final Map<String, Set<EvidenceSource>> sourcesByWord) {
-        return new OccurrenceCounts(identifiers, languageWords,
-                occurrencesOf(occurrencesByWord.keySet()), occurrencesOf(cited(sourcesByWord)),
-                gluedRunsRead, occurrencesByWord.size(), wordsSeenOnce());
+        final int words = occurrencesOf(occurrencesByWord.keySet());
+        return new OccurrenceCounts(declarations, words - proseWords, proseWords,
+                occurrencesOf(cited(sourcesByWord)), gluedRunsRead, occurrencesByWord.size(),
+                wordsSeenOnce());
     }
 
     private Map<EvidenceSource, Integer> occurrencesBySource(

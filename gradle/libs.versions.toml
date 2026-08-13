@@ -31,6 +31,9 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }
 duckdb-jdbc = { module = "org.duckdb:duckdb_jdbc", version.ref = "duckdb" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+# The Java parse the self-read runs on. Pure Java, no grammar binary and no JNI, and no symbol solving —
+# a declaration is a declaration in the syntax, and resolving what a name refers to is a separate decision.
+javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
 
 # --- declared, not yet consumed (plan §17) ---
 # Git: RevWalk, TreeWalk, RenameDetector, DiffFormatter. Pure Java, no `git` binary.

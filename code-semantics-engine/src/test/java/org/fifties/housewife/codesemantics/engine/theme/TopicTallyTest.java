@@ -7,9 +7,9 @@ import org.fifties.housewife.codesemantics.engine.Thresholds;
 import org.fifties.housewife.codesemantics.engine.Weights;
 import org.fifties.housewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
-import org.fifties.housewife.codesemantics.engine.reading.IdentifierOccurrence;
+import org.fifties.housewife.codesemantics.engine.parse.NameForm;
+import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
-import org.fifties.housewife.codesemantics.engine.reading.JavaLanguageKeywords;
 import org.fifties.housewife.codesemantics.name.WordSegmenter;
 import org.junit.jupiter.api.Test;
 
@@ -32,10 +32,11 @@ class TopicTallyTest {
 
     private final TopicTally tally = new TopicTally(
             new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
-            new IdentifierWords(WordSegmenter.fromClasspath()), new JavaLanguageKeywords(), witnesses);
+            new IdentifierWords(WordSegmenter.fromClasspath()), ContentWords.fromClasspath(),
+            WordSpecificity.fromClasspath(), witnesses);
 
     private void add(final String identifier, final int line) {
-        tally.add(SITE, new IdentifierOccurrence(identifier, line));
+        tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
     }
 
     @Test
@@ -62,13 +63,33 @@ class TopicTallyTest {
     }
 
     @Test
-    void setsTheLanguagesOwnWordsAsideRatherThanReadingThemAsSubjects() {
-        add("class", 1);
-        add("final", 2);
+    void readsOnlyTheContentWordsOfASentenceAndNotWhatHoldsItTogether() {
+        tally.add(SITE, new NameOccurrence("The word and the cursor.", NameForm.JAVADOC, 4));
 
         assertAll(
-                () -> assertThat(tally.reading(SITE, 10).massByTopic()).isEmpty(),
-                () -> assertThat(tally.reading(SITE, 10).wordOccurrences()).isZero());
+                () -> assertThat(tally.reading(SITE, 10).referencesTo("linguistics")).isOne(),
+                () -> assertThat(tally.reading(SITE, 10).wordOccurrences())
+                        .as("word and cursor; the and and are how English holds a sentence together")
+                        .isEqualTo(2));
+    }
+
+    @Test
+    void offersEveryWordOfANameWhetherOrNotADictionaryCarriesIt() {
+        add("qzxfgh", 1);
+
+        assertThat(tally.reading(SITE, 10).wordOccurrences())
+                .as("an unread name is a finding, where an unread preposition is grammar")
+                .isOne();
+    }
+
+    @Test
+    void readsAWordAsItsDictionaryFormSoAnInflectionDoesNotSplitItsEvidence() {
+        add("words", 1);
+        add("word", 2);
+
+        assertThat(tally.reading(SITE, 10).referencesTo("linguistics"))
+                .as("words and word are one subject, not two")
+                .isEqualTo(2);
     }
 
     @Test

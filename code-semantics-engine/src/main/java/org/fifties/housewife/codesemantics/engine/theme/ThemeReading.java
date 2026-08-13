@@ -1,22 +1,18 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.fifties.housewife.codesemantics.engine.Thresholds;
 import org.fifties.housewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
+import org.fifties.housewife.codesemantics.engine.parse.ParsedFile;
+import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
-import org.fifties.housewife.codesemantics.engine.reading.JavaLanguageKeywords;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceIdentifiers;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 
 /**
  * Reads what a working tree's scopes are about, and — the part that matters — what each is about
@@ -31,22 +27,22 @@ import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
  */
 public final class ThemeReading {
 
-    private final JavaSourceIdentifiers identifiers;
     private final TopicCitations citations;
     private final IdentifierWords words;
-    private final JavaLanguageKeywords keywords;
+    private final ContentWords content;
+    private final WordSpecificity specificity;
     private final OpenSpaceAccumulator<String> accumulator;
     private final JensenShannon divergence;
     private final PermutationNull chance;
 
-    public ThemeReading(final JavaSourceIdentifiers identifiers, final TopicCitations citations,
-                        final IdentifierWords words, final JavaLanguageKeywords keywords,
+    public ThemeReading(final TopicCitations citations, final IdentifierWords words,
+                        final ContentWords content, final WordSpecificity specificity,
                         final OpenSpaceAccumulator<String> accumulator, final JensenShannon divergence,
                         final PermutationNull chance) {
-        this.identifiers = identifiers;
         this.citations = citations;
         this.words = words;
-        this.keywords = keywords;
+        this.content = content;
+        this.specificity = specificity;
         this.accumulator = accumulator;
         this.divergence = divergence;
         this.chance = chance;
@@ -54,43 +50,40 @@ public final class ThemeReading {
 
     /** The reading over the bundled resources, with a seeded null so two runs of one tree agree. */
     public static ThemeReading fromClasspath(final long seed) {
-        return new ThemeReading(new JavaSourceIdentifiers(), TopicCitations.fromClasspath(),
-                IdentifierWords.fromClasspath(), new JavaLanguageKeywords(),
+        return new ThemeReading(TopicCitations.fromClasspath(), IdentifierWords.fromClasspath(),
+                ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
                 new OpenSpaceAccumulator<>(Thresholds.defaults()), new JensenShannon(),
                 PermutationNull.seeded(seed));
     }
 
-    public RepositoryThemes of(final Path root, final List<SourceScope> scopes) {
+    public RepositoryThemes of(final ParsedRepository parsed) {
         final long startedAt = System.nanoTime();
         final TopicWitnesses witnesses = new TopicWitnesses();
-        final Map<String, List<FileTopics>> byScope = new HashMap<>();
+        final Map<String, List<FileTopics>> byScope = new LinkedHashMap<>();
         final List<FileTopics> everyFile = new ArrayList<>();
-        scopes.forEach(scope -> {
-            final List<FileTopics> read = scope.files().stream()
-                    .map(file -> read(root, file, witnesses))
-                    .toList();
-            byScope.put(scope.name(), read);
-            everyFile.addAll(read);
+        parsed.files().forEach(file -> {
+            final FileTopics read = read(file, witnesses);
+            byScope.computeIfAbsent(file.scope(), scope -> new ArrayList<>()).add(read);
+            everyFile.add(read);
         });
         final ScopeThemes repository = themesOf("repository", everyFile);
         final Map<String, ValueShare<String>> dominant = dominantByFile(everyFile);
         return new RepositoryThemes(
-                scopes.stream().map(scope -> themesOf(scope.name(), byScope.get(scope.name()))).toList(),
+                byScope.entrySet().stream()
+                        .map(scope -> themesOf(scope.getKey(), scope.getValue())).toList(),
                 repository,
-                scopes.stream()
-                        .map(scope -> divergenceOf(scope.name(), byScope.get(scope.name()), everyFile,
+                byScope.entrySet().stream()
+                        .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), everyFile,
                                 repository.intensity()))
                         .toList(),
                 new TopicRankings(everyFile, dominant, witnesses).of(repository.intensity()),
                 everyFile, dominant, witnesses, Duration.ofNanos(System.nanoTime() - startedAt));
     }
 
-    private FileTopics read(final Path root, final Path file, final TopicWitnesses witnesses) {
-        final String source = contentOf(file);
-        final TopicTally tally = new TopicTally(citations, words, keywords, witnesses);
-        final String site = root.relativize(file).toString();
-        identifiers.in(source).forEach(occurrence -> tally.add(site, occurrence));
-        return tally.reading(site, (int) source.lines().count());
+    private FileTopics read(final ParsedFile file, final TopicWitnesses witnesses) {
+        final TopicTally tally = new TopicTally(citations, words, content, specificity, witnesses);
+        file.occurrences().forEach(occurrence -> tally.add(file.path(), occurrence));
+        return tally.reading(file.path(), file.lines());
     }
 
     private ScopeThemes themesOf(final String name, final List<FileTopics> files) {
@@ -122,13 +115,5 @@ public final class ThemeReading {
         files.forEach(file -> file.dominant(accumulator)
                 .ifPresent(leader -> dominant.put(file.path(), leader)));
         return dominant;
-    }
-
-    private static String contentOf(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
-        }
     }
 }

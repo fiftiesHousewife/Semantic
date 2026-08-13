@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class LegibilityReportTest {
 
     private static final ScopeLegibility SCOPE = new ScopeLegibility("engine/src/main/java", 12,
-            new OccurrenceCounts(2_500, 500, 2_000, 1_600, 40, 800, 200),
+            new OccurrenceCounts(500, 900, 1_100, 1_600, 40, 800, 200),
             Map.of(EvidenceSource.WORD_FREQUENCY, 1_500, EvidenceSource.WORDNET_SENSE, 900),
             Map.of(EvidenceSource.WORD_FREQUENCY, 700, EvidenceSource.WORDNET_SENSE, 100),
             new UnreadWords(Map.of("dsl", 30, "tconst", 4), Map.of("dsl", "Reading.java:7",
@@ -27,8 +27,8 @@ class LegibilityReportTest {
     @Test
     void reportsEveryShareBesideTheCountItCameFrom() {
         assertAll(
-                () -> assertThat(report).contains("| `engine/src/main/java` | 12 | 2,500 | 500 (20.0%) "
-                        + "| 2,000 | 1,600 | **0.800** |"),
+                () -> assertThat(report).contains("| `engine/src/main/java` | 12 | 500 | 900 "
+                        + "| 1,100 (55.0%) | 1,600 | **0.800** |"),
                 () -> assertThat(report).contains("**engine/src/main/java**"));
     }
 

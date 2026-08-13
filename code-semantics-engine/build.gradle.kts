@@ -9,6 +9,7 @@ description = "The reading pipeline implementing code-semantics-api: repository 
 dependencies {
     api(project(":code-semantics-api"))
     implementation(project(":lexicon"))
+    implementation(libs.javaparser.core)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 

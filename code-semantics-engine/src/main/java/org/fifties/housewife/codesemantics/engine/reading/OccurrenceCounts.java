@@ -6,16 +6,25 @@ package org.fifties.housewife.codesemantics.engine.reading;
  * exceptions named as such, {@link #distinctWords} and {@link #wordsSeenOnce}, which answer how long the tail
  * is rather than what the scope is about.
  *
- * @param identifiers   identifier-shaped runs the scan found, comments and literals excluded
- * @param languageWords those the language's own specification names, so not the author's words at all
- * @param words         word occurrences the remaining identifiers split into
- * @param read          word occurrences at least one bundled resource can be cited for
+ * <p>Names and prose are counted apart because they are different evidence. A name is what the author called
+ * a thing; a sentence is what they said about it. A reading that pooled them without saying so would let a
+ * densely documented file outvote a densely named one without a reader ever seeing why.
+ *
+ * @param declarations  names the scope declares — types, methods, fields, parameters, locals, dependencies
+ * @param nameWords     word occurrences those names split into
+ * @param proseWords    word occurrences read from javadoc and comments
+ * @param read          word occurrences, of either kind, at least one bundled resource can be cited for
  * @param gluedRunsRead runs no boundary divided that the segmenter unglued into words
- * @param distinctWords distinct word surfaces behind {@link #words}
+ * @param distinctWords distinct word surfaces behind them
  * @param wordsSeenOnce distinct word surfaces occurring exactly once — the tail's own measure
  */
-public record OccurrenceCounts(int identifiers, int languageWords, int words, int read, int gluedRunsRead,
+public record OccurrenceCounts(int declarations, int nameWords, int proseWords, int read, int gluedRunsRead,
                                int distinctWords, int wordsSeenOnce) {
+
+    /** Every word occurrence the scope offered to the resources, named or written. */
+    public int words() {
+        return nameWords + proseWords;
+    }
 
     /**
      * Legibility λ: the share of word occurrences some resource can be cited for, bounded in {@code [0, 1]}
@@ -23,12 +32,12 @@ public record OccurrenceCounts(int identifiers, int languageWords, int words, in
      * reads zero, which is neither a reading nor a failure — there was nothing to read.
      */
     public double legibility() {
-        return share(read, words);
+        return share(read, words());
     }
 
-    /** The share of identifier occurrences that are the language's own vocabulary and not the author's. */
-    public double languageWordShare() {
-        return share(languageWords, identifiers);
+    /** The share of word occurrences that came from prose rather than from a name. */
+    public double proseShare() {
+        return share(proseWords, words());
     }
 
     /** The share of distinct words occurring exactly once — how much of the vocabulary is a tail. */

@@ -15,7 +15,7 @@ class SharedReadingsTest {
 
     private void read(final String topic, final String word, final int occurrences) {
         for (int occurrence = 0; occurrence < occurrences; occurrence++) {
-            witnesses.record(topic, word, "Example.java:1", EvidenceSource.WORDNET_DOMAIN);
+            witnesses.record(topic, word, "Example.java:1", EvidenceSource.WORDNET_DOMAIN, 1.0);
         }
     }
 

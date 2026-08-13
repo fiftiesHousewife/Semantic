@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
@@ -58,7 +59,8 @@ class ThemeReadingDiagnostic {
     void readsThisRepositorysThemesAndWritesTheReportAndTheGraph() throws IOException {
         final Path root = repositoryRoot();
         final List<SourceScope> scopes = new JavaSourceScopes().under(root);
-        final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(root, scopes);
+        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(parsed);
 
         write(themes, root);
 

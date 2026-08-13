@@ -21,8 +21,17 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  */
 public final class TopicWitnesses {
 
-    /** One word's testimony for a topic: what it was, how often, where, and who said so. */
-    public record Witness(String word, int occurrences, String site, Set<EvidenceSource> sources) {
+    /**
+     * One word's testimony for a topic: what it was, how often, how much of the topic's mass it actually
+     * carried, where it can be seen, and which resource said so.
+     *
+     * <p>Occurrences and mass are both kept because they disagree, and the disagreement is the point. A
+     * function word occurring five hundred times carries almost no mass, because the frequency list says it
+     * narrows nothing; a rare word occurring twice can carry more. Ordering witnesses by mass is what makes
+     * the column an explanation rather than a word count.
+     */
+    public record Witness(String word, int occurrences, double mass, String site,
+                          Set<EvidenceSource> sources) {
 
         public Witness {
             sources = Set.copyOf(sources);
@@ -32,15 +41,16 @@ public final class TopicWitnesses {
     private final Map<String, Map<String, Witness>> witnessesByTopic = new HashMap<>();
 
     /** Records that a word, seen at a site, committed mass to a topic on one resource's say-so. */
-    public void record(final String topic, final String word, final String site, final EvidenceSource source) {
+    public void record(final String topic, final String word, final String site, final EvidenceSource source,
+                       final double mass) {
         witnessesByTopic.computeIfAbsent(topic, key -> new HashMap<>())
-                .merge(word, new Witness(word, 1, site, Set.of(source)), TopicWitnesses::merged);
+                .merge(word, new Witness(word, 1, mass, site, Set.of(source)), TopicWitnesses::merged);
     }
 
-    /** The words that carried a topic, most written first. */
+    /** The words that carried a topic, the ones carrying most of it first. */
     public List<Witness> forTopic(final String topic, final int limit) {
         return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()
-                .sorted(Comparator.comparingInt(Witness::occurrences).reversed()
+                .sorted(Comparator.comparingDouble(Witness::mass).reversed()
                         .thenComparing(Witness::word))
                 .limit(limit)
                 .toList();
@@ -57,9 +67,16 @@ public final class TopicWitnesses {
                 .collect(Collectors.toUnmodifiableMap(Witness::word, Witness::occurrences));
     }
 
+    /** How much mass each word carried into the topic — what the witnesses are ordered by. */
+    public Map<String, Double> massByWord(final String topic) {
+        return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()
+                .collect(Collectors.toUnmodifiableMap(Witness::word, Witness::mass));
+    }
+
     private static Witness merged(final Witness kept, final Witness offered) {
         final Set<EvidenceSource> sources = new LinkedHashSet<>(kept.sources());
         sources.addAll(offered.sources());
-        return new Witness(kept.word(), kept.occurrences() + offered.occurrences(), kept.site(), sources);
+        return new Witness(kept.word(), kept.occurrences() + offered.occurrences(),
+                kept.mass() + offered.mass(), kept.site(), sources);
     }
 }

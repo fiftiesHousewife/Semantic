@@ -21,8 +21,8 @@ class ThemeReportTest {
     private final TopicWitnesses witnesses = new TopicWitnesses();
 
     private RepositoryThemes themes(final Chance chance) {
-        witnesses.record("linguistics", "word", "Reading.java:7", EvidenceSource.WORDNET_DOMAIN);
-        witnesses.record("music", "string", "Reading.java:9", EvidenceSource.WIKTIONARY_TOPIC);
+        witnesses.record("linguistics", "word", "Reading.java:7", EvidenceSource.WORDNET_DOMAIN, 1.0);
+        witnesses.record("music", "string", "Reading.java:9", EvidenceSource.WIKTIONARY_TOPIC, 1.0);
         final TopicDistribution intensity = FILE.distribution();
         final ScopeThemes scope = new ScopeThemes("engine/src/main/java", 1, 1, 120, intensity);
         return new RepositoryThemes(List.of(scope), new ScopeThemes("repository", 1, 1, 120, intensity),

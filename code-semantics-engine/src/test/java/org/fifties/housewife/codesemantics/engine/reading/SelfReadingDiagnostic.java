@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.fifties.housewife.codesemantics.engine.parse.ImportOrigin;
+import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -30,39 +32,52 @@ class SelfReadingDiagnostic {
     private static final String SETTINGS_FILE = "settings.gradle.kts";
 
     private static final String PREAMBLE = """
-            A reading of this repository's own Java sources by the library that reads repositories. It is a
-            **lexical scan of a working tree**, and each of those words is a limit: no parse, so no reading
-            belongs to a declaration; no git read, so nothing is pinned by a commit SHA and no permalink is
-            rendered; and no votes, because a vote requires an anchor and an anchor requires a revision.
+            A reading of this repository's own Java sources by the library that reads repositories, over a
+            parse of the working tree. What it reads is what this repository **declared** — its types,
+            methods, fields, parameters and locals — the **prose** it wrote in javadoc and comments, and the
+            **dependencies** it named that are neither the platform's nor its own.
 
-            What it does say is what the code is written in, and how much of that some bundled resource can be
-            cited for. λ is the share of the author's word occurrences at least one resource reads. The
-            language's own words are counted separately and set aside, cited to the platform's own
-            implementation of the Java Language Specification rather than to any list written here.
+            Everything else a Java file contains is somebody else's vocabulary quoted: `String`, `List` and
+            `assertThat` are uses of declarations the platform and the test framework made, and a use is not
+            a word this codebase chose. Only a parse can tell the two apart, which is why this reading needs
+            one. λ is the share of those word occurrences at least one bundled resource can be cited for.
             """;
 
     @Test
     void readsThisRepositoryAndWritesTheLegibilityReport() throws IOException {
         final Path root = repositoryRoot();
         final List<SourceScope> scopes = new JavaSourceScopes().under(root);
-        final RepositoryLegibility reading = LegibilityReading.fromClasspath().of(root, scopes);
+        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final RepositoryLegibility reading = LegibilityReading.fromClasspath().of(parsed);
 
-        write(reading, root);
+        write(reading, root, parsed);
 
         assertAll(
                 () -> assertThat(scopes).as("a repository with no Java sources cannot be read").isNotEmpty(),
-                () -> assertThat(reading.repository().counts().identifiers()).isPositive(),
+                () -> assertThat(reading.repository().counts().declarations()).isPositive(),
+                () -> assertThat(parsed.unsoundFiles()).as("every file in this tree parses cleanly").isZero(),
+                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL)).isPositive(),
                 () -> assertThat(reading.repository().counts().legibility()).isBetween(0.0, 1.0),
                 () -> assertThat(reading.scopes()).allSatisfy(scope ->
                         assertThat(scope.counts().read()).isLessThanOrEqualTo(scope.counts().words())),
                 () -> assertThat(Files.readString(Path.of(REPORT))).contains("**repository**"));
     }
 
-    private void write(final RepositoryLegibility reading, final Path root) throws IOException {
+    private void write(final RepositoryLegibility reading, final Path root, final ParsedRepository parsed)
+            throws IOException {
         final Path report = Path.of(REPORT);
         Files.createDirectories(report.getParent());
-        Files.writeString(report, "# Self-reading — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                new LegibilityReport().render(reading)));
+        Files.writeString(report, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
+                new LegibilityReport().render(reading), imports(parsed)));
+    }
+
+    /** What the parse set aside, so a narrowed corpus is a reported figure rather than a silent one. */
+    private static String imports(final ParsedRepository parsed) {
+        return ("Imports read as this repository's own choice: %d. Set aside as the platform's own vocabulary: "
+                + "%d. Set aside as this repository's own coordinates: %d. No file failed to parse.")
+                .formatted(parsed.importsFrom(ImportOrigin.EXTERNAL),
+                        parsed.importsFrom(ImportOrigin.PLATFORM),
+                        parsed.importsFrom(ImportOrigin.INTERNAL));
     }
 
     /**

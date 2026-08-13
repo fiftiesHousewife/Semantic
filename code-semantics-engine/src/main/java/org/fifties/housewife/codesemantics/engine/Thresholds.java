@@ -21,6 +21,19 @@ public class Thresholds {
      */
     @Builder.Default double minimumEvidenceMass = 0.50;
 
+    /**
+     * How long a word must be before a dictionary entry for it is taken as subject matter, where the author
+     * did not choose it as a name. The dictionary's entries for one- and two-letter forms are symbol
+     * readings — {@code a} is the ampere, {@code be} beryllium, {@code em} a printer's measure — and a
+     * symbol reading of an article is a misreading by construction. It is the same judgement
+     * {@code WordSegmenter} makes about short pieces, for the same reason: almost any two letters are
+     * something somewhere, so a short form needs more than a bare entry to be believed.
+     *
+     * <p>It applies only to words nothing chose. A name is offered whole however short it is, because an
+     * author writing {@code id} meant {@code id}.
+     */
+    @Builder.Default int shortestProseWord = 3;
+
     public static Thresholds defaults() {
         return Thresholds.builder().build();
     }

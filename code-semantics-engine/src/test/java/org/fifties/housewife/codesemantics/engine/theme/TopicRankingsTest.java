@@ -22,7 +22,7 @@ class TopicRankingsTest {
     private final TopicWitnesses witnesses = new TopicWitnesses();
 
     private List<TopicRanking> rankings() {
-        witnesses.record("linguistics", "word", "Big.java:1", EvidenceSource.WORDNET_DOMAIN);
+        witnesses.record("linguistics", "word", "Big.java:1", EvidenceSource.WORDNET_DOMAIN, 1.0);
         return new TopicRankings(List.of(BIG, SMALL),
                 Map.of("Big.java", new ValueShare<>("linguistics", 0.9, 9.0),
                         "Small.java", new ValueShare<>("music", 1.0, 5.0)), witnesses)

@@ -383,9 +383,10 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
 <header>
   <p class="eyebrow">Self-reading · {esc(d['repository'])}</p>
   <h1>What this repository is about, and the words that say so</h1>
-  <p class="lede">Every identifier in the tree, split into words, each word offered to two published
-  resources that place a word in a subject. Nothing here is asserted: every theme carries the words that
-  earned it, and a theme carried by one word says so on its own row.</p>
+  <p class="lede">A parse of every file, read for the names this repository <em>declared</em>, the prose it
+  wrote, and the dependencies it chose — then each word offered to two published resources that place a word
+  in a subject. Nothing here is asserted: every theme carries the words that earned it, and a theme carried
+  by one word says so on its own row.</p>
   <dl class="stats">
     <div class="stat"><dt>Files read</dt><dd>{num(d['files'])}</dd></div>
     <div class="stat"><dt>Lines</dt><dd>{num(d['lines'])}</dd></div>
@@ -393,11 +394,15 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
     <div class="stat"><dt>Scopes compared</dt><dd>{len(scopes)}</dd></div>
     <div class="stat"><dt>Cost</dt><dd>{d['elapsedMillis'] / 1000:.1f}<small> s</small></dd></div>
   </dl>
-  <p class="limits">A lexical scan of a working tree: no parse, so no reading belongs to a declaration; no
-  git read, so nothing is pinned to a commit and no permalink is rendered; no votes, because a vote needs an
-  anchor and an anchor needs a revision. The language's own words — <code>final</code>, <code>return</code>,
-  <code>class</code> — are cited to the platform's own implementation of the Java specification and set
-  aside before any of this.</p>
+  <p class="limits">What a Java file mostly contains is somebody else's vocabulary quoted: <code>String</code>,
+  <code>List</code> and <code>assertThat</code> are uses of declarations the platform and the test framework
+  made, and a use is not a word this codebase chose. Only a parse can tell a declaration from a use, so that
+  is what runs. Prose is read for its content words alone — the dictionary is an open-class one, so the words
+  English uses to hold a sentence together are simply not in it — and every word is read as its dictionary
+  form, so <code>words</code> and <code>word</code> are one subject. A word nothing chose is weighted by how
+  much it narrows a subject, which the frequency list states and nothing here decides. Still not done: no git
+  read, so nothing is pinned to a commit and no permalink is rendered, and no votes, because a vote needs an
+  anchor and an anchor needs a revision.</p>
 </header>
 
 <section>
@@ -405,7 +410,8 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
     <h2>The theme graph</h2>
     <p class="note">Each theme sits on its own row, sized by intensity and figured by the lines it leads.
     An arc joins two themes when <em>the same word was read as both</em> — which is what a shared arc means
-    and all it means. Select a theme to see the words behind it.</p>
+    and all it means. Select a theme to see the words behind it, ordered by the mass each actually carried
+    rather than by how often it was written.</p>
   </div>
   <div class="panel graph">
     <div class="graph-figure">
@@ -466,18 +472,18 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
   <div class="section-head">
     <h2>Read the strange results, not around them</h2>
   </div>
-  <p class="note"><strong>Jewellery is <code>string</code>.</strong> Follow its arcs and every one of them
-  runs through a word whose senses reach subjects this codebase has nothing to do with — a string of pearls,
-  a string quartet, a string of a bow. <strong>Mathematics is <code>set</code>, <code>map</code> and
-  <code>assert</code>.</strong> The reading is not wrong about the dictionary; it is reading a word in
-  isolation, and a word in isolation is ambiguous. That is exactly why the comparison exists, and why the
-  witnesses are printed beside every claim: a reading whose strangest results explain themselves can be
-  argued with, and one that hides them cannot.</p>
-  <p class="note">Two fixes are named in the backlog, and neither is a word list. Sense disambiguation
-  would let the sibling words in one identifier and the enclosing declaration narrow which sense of
-  <code>string</code> is meant. And Wiktionary publishes its topic hierarchy — extracting it would let
-  <code>sciences</code>, <code>natural-sciences</code> and <code>physical-sciences</code> pool as the one
-  label they nearly are, instead of splitting a theme three ways.</p>
+  <p class="note"><strong>Mythology is <code>jupiter</code>.</strong> It is a real theme of one source set,
+  and its witness is the JUnit Jupiter dependency that set imports — the dictionary knows Jupiter as a Roman
+  god, and it is not wrong. <strong><code>sciences</code>, <code>natural-sciences</code>,
+  <code>physical-sciences</code>, <code>engineering</code> and <code>computing</code> fire together</strong>
+  on the same words and lead almost no files between them: they are Wiktionary's hierarchy, so one theme is
+  being counted five times. Neither of those is a defect in the evidence. They are what reading a word with
+  nothing around it, against two vocabularies that do not know about each other, actually produces.</p>
+  <p class="note">Two fixes are named in the backlog, and neither is a word list. <strong>Sense
+  disambiguation</strong> — the sibling words in one identifier, the enclosing declaration, the file's own
+  pooled domain — is what would let <code>jupiter</code> be read as the thing the file imports rather than as
+  a planet. And <strong>Wiktionary publishes its topic hierarchy</strong>: extracting it would let a label
+  pool with its parent by citation instead of splitting one theme five ways.</p>
 </section>
 
 <p class="foot">Generated by <code>./gradlew selfRead</code> from this repository's own sources; every figure
