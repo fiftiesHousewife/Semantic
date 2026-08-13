@@ -997,6 +997,35 @@ Ported, tested, and not called by the matcher. The plan already asks for this in
 reading agrees on labels where the plan intersects hypernym chains, so two words meaning neighbouring things
 agree on nothing* — so this is unbuilt design rather than new design.
 
+### The ladder, and it is a ladder rather than a choice
+
+Normalise **both sides to the same thing** and compare there, taking the narrowest rung that answers and
+falling to the next only where it does not. Each rung is a published statement, and which rung answered is
+recorded on every span — a match at rung 1 and a match at rung 3 are not the same evidence and must never be
+reported as one number.
+
+| Rung | Both sides become | Matches that rung buys | Cited from |
+|--:|---|---|---|
+| 1 | the run of words itself | `commonNoun` ≡ `CommonNoun` | nothing — it is a string comparison |
+| 2 | **the synset** | a word ≡ a different word WordNet puts in one sense | WordNet's own sense entries |
+| 3 | **the semantic domain** | a word ≡ a different word sharing a labelled subject | WordNet Domains, already bundled |
+
+Rung 2 is the one to build. It is where `lemma` could meet `BaseForm` and `article` could meet
+`Determiner` — pairs the present matcher cannot see and a reader would call obviously the same. **It also
+needs a sense chosen**, because a word belongs to as many synsets as it has senses, and the two honest forms
+are not equivalent: *most frequent sense* is already item 2 of the queue above and is the plan's own stated
+baseline; *any shared synset* is symmetric, needs no disambiguation, and is exactly the WordNet synonymy the
+doctrine says may not be borrowed for a taxonomy's terms. **Build the first. If the disambiguation is what
+makes it fail, that is a finding about senses and not about matching**, and it belongs to the queue item that
+already owns it rather than being worked around here.
+
+Rung 3 is the stated fallback and the one to be most suspicious of, because this tree has already measured
+what domains do: `cite` carries only `law`, `topic` is a flat third `music`, and those artefacts put a floor
+of agreement under everything. A domain-level match is a claim that two words are about the same *area*,
+which is a great deal weaker than a claim that they mean the same thing — so it may not be pooled with rung 2
+and, on the evidence already in this tree, will probably have to be refused. **Run it, report it separately,
+and expect to say no.**
+
 ### The trap, which is why this is not simply a good idea
 
 **Climb far enough and everything meets.** `topic` and `verb` share an ancestor; so do `swap` and `sentence`.
