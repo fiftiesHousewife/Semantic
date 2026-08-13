@@ -51,6 +51,57 @@ tasks.register<JavaExec>("extractTopicHierarchy") {
     )
 }
 
+// Reads NIST's OSCAL edition of the Cybersecurity Framework 2.0 at a pinned revision and rewrites the
+// bundled functional-taxonomy TSV. One 350 KB file over the network; -Pcatalog=<path> reads a downloaded
+// copy instead, and either way the blob id the revision holds decides whether what was read is cited.
+//   ./gradlew :lexicon-extraction:extractNistCsf
+tasks.register<JavaExec>("extractNistCsf") {
+    group = "build"
+    description = "Extracts the NIST Cybersecurity Framework functional-taxonomy TSV from NIST's OSCAL " +
+        "catalogue (-Pcatalog=<path> optional)"
+    mainClass = "org.fifties.housewife.bi.lexicon.extraction.NistCsfExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("catalog") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/nist-csf-functions.tsv").asFile.absolutePath
+    )
+}
+
+// Reads arXiv's own subject taxonomy out of the module its software classifies by, at a pinned revision,
+// and rewrites the bundled TSV. -Pmodule=<path> reads a downloaded copy instead, and either way the blob id
+// the revision holds decides whether what was read is what the header cites.
+//   ./gradlew :lexicon-extraction:extractArxivTaxonomy
+tasks.register<JavaExec>("extractArxivTaxonomy") {
+    group = "build"
+    description = "Extracts the arXiv subject-taxonomy TSV from arXiv's own taxonomy definitions " +
+        "(-Pmodule=<path> optional)"
+    mainClass = "org.fifties.housewife.bi.lexicon.extraction.ArxivTaxonomyExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("module") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/arxiv-taxonomy.tsv").asFile.absolutePath
+    )
+}
+
+// Reads OLiA's core ontology at a pinned revision and rewrites the bundled linguistic-term TSV. One 1.2 MB
+// file over the network; -Pontology=<path> reads a downloaded copy instead, and either way the blob id the
+// revision holds decides whether what was read is what the header cites.
+//   ./gradlew :lexicon-extraction:extractOliaTerms
+tasks.register<JavaExec>("extractOliaTerms") {
+    group = "build"
+    description = "Extracts the OLiA linguistic-term TSV from OLiA's own core ontology " +
+        "(-Pontology=<path> optional)"
+    mainClass = "org.fifties.housewife.bi.lexicon.extraction.OliaTermsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("ontology") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/olia-terms.tsv").asFile.absolutePath
+    )
+}
+
 // Queries the Wikidata registry through the QLever SPARQL endpoint (qlever.dev) and rewrites the
 // bundled initialism TSV. Network-dependent — a few minutes of batched queries, run from a user
 // shell (the agent sandbox JVM has no network route).
