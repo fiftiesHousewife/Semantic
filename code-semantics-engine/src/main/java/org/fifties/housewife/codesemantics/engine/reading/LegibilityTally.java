@@ -42,17 +42,19 @@ public final class LegibilityTally {
 
     public void add(final String site, final NameOccurrence occurrence) {
         final NameForm form = occurrence.form();
-        final IdentifierReading reading = form.vocabulary().read(occurrence.text(), words);
-        gluedRunsRead += reading.gluedRunsRead();
-        if (form.isProse()) {
-            proseWords += reading.words().size();
-        } else {
+        if (!form.isProse()) {
             declarations++;
         }
-        occurrencesByForm.merge(form.name(), reading.words().size(), Integer::sum);
-        reading.words().forEach(word -> {
-            occurrencesByWord.merge(word, 1, Integer::sum);
-            firstSiteByWord.putIfAbsent(word, site + ":" + occurrence.line());
+        form.vocabulary().phrasesOf(occurrence.text(), words).forEach(phrase -> {
+            gluedRunsRead += phrase.gluedRunsRead();
+            if (form.isProse()) {
+                proseWords += phrase.words().size();
+            }
+            occurrencesByForm.merge(form.name(), phrase.words().size(), Integer::sum);
+            phrase.words().forEach(word -> {
+                occurrencesByWord.merge(word, 1, Integer::sum);
+                firstSiteByWord.putIfAbsent(word, site + ":" + occurrence.line());
+            });
         });
     }
 

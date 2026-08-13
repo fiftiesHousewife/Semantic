@@ -2,12 +2,11 @@ package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.fifties.housewife.codesemantics.engine.Weights;
 import org.fifties.housewife.codesemantics.engine.parse.NameForm;
 import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
@@ -17,41 +16,22 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * Accumulates one file's identifier occurrences into a {@link FileTopics}, recording as it goes which words
  * carried which topic into the shared {@link TopicWitnesses}.
  *
- * <p>A word occurrence commits its mass once per resource and counts as one reference per topic, however
- * many senses of it named that topic. The two are kept apart deliberately: a word whose four senses all name
- * mathematics has said mathematics once and committed its whole unit to it, and counting four references
- * there would let a word's ambiguity inflate the very figure a reader uses to judge ambiguity.
+ * <p>The unit is the <b>phrase</b>, not the word. A declared name is one phrase and a sentence of prose is
+ * one phrase, and each commits a single unit of mass however many words it took to say — so a twenty-word
+ * javadoc sentence does not outvote a two-word field name by being longer. Inside a phrase the words are read
+ * as context for one another, which is where the ambiguity of any single word is actually answered:
+ * {@link PhraseTopics} scores a subject by what the words agree about and by how much of the phrase agrees.
  *
  * <p>What arrives is only what this repository declared and wrote — the parse has already left out every use
  * of a name someone else declared, which is what keeps a file's hundredth mention of {@code String} from
- * being read as a hundred statements about music.
- *
- * <p>Two rules separate what an author chose from what the language and the registries imposed, and both are
- * asked of a published resource rather than of a list:
- *
- * <ul>
- *   <li>A word this repository did not choose as a name is kept only where the dictionary knows it as a noun
- *       or a verb. {@code and}, {@code of} and {@code that} are how English holds a sentence together, not
- *       what the sentence is about, and an open-class dictionary is what says so.</li>
- *   <li>What survives is scaled by its {@link WordSpecificity specificity}, so a common content word narrows
- *       a subject less than a rare one. Nothing is silenced: it votes at the weight the frequency list says
- *       it is worth.</li>
- *   <li>Every word, chosen or not, votes its {@link TopicCommitment commitment} to a subject weighted by
- *       that same commitment, so a word the resources place in eight subjects says a sixty-fourth as much
- *       about each of them and an eighth as much in total.</li>
- *   <li>And by what its {@link NameForm form} is worth: a declared name is the code, a dependency is a
- *       choice about what the code is made of, and prose is commentary on it.</li>
- * </ul>
- *
- * <p>Every word, chosen or not, is read as its dictionary form, so {@code words} and {@code word} are one
- * subject rather than two and a verb's inflections do not split their own evidence.
+ * being read as a hundred statements about music. {@link OfferedWords} decides which of a phrase's words
+ * reach the resources at all, in what dictionary form, and what each is worth on its own.
  */
 public final class TopicTally {
 
-    private final TopicCitations citations;
     private final IdentifierWords words;
     private final OfferedWords offered;
-    private final TopicCommitment commitment;
+    private final PhraseTopics phrases;
     private final TopicWitnesses witnesses;
     private final WordSightings sightings;
 
@@ -60,57 +40,70 @@ public final class TopicTally {
     private final Map<String, Integer> referencesByTopic = new HashMap<>();
 
     private int unreadableOccurrences;
-    private int wordOccurrences;
+    private int phraseOccurrences;
 
-    public TopicTally(final TopicCitations citations, final IdentifierWords words, final OfferedWords offered,
-                      final TopicCommitment commitment, final TopicWitnesses witnesses,
-                      final WordSightings sightings) {
-        this.citations = citations;
+    public TopicTally(final IdentifierWords words, final OfferedWords offered, final PhraseTopics phrases,
+                      final TopicWitnesses witnesses, final WordSightings sightings) {
         this.words = words;
         this.offered = offered;
-        this.commitment = commitment;
+        this.phrases = phrases;
         this.witnesses = witnesses;
         this.sightings = sightings;
     }
 
     public void add(final String site, final NameOccurrence occurrence) {
         final NameForm form = occurrence.form();
-        form.vocabulary().read(occurrence.text(), words).words()
-                .forEach(word -> offered.of(form, word)
-                        .ifPresent(lemma -> read(lemma, form, site + ":" + occurrence.line(),
-                                offered.worthOf(form, lemma))));
+        form.vocabulary().phrasesOf(occurrence.text(), words)
+                .forEach(phrase -> read(phrase.words(), form, site + ":" + occurrence.line()));
     }
 
     public FileTopics reading(final String path, final int lines) {
         return new FileTopics(path, lines, massByTopic, nameMassByTopic, referencesByTopic,
-                unreadableOccurrences, wordOccurrences);
+                unreadableOccurrences, phraseOccurrences);
     }
 
-    private void read(final String word, final NameForm form, final String site, final double scale) {
-        wordOccurrences++;
-        sightings.saw(word, site, form.isChosenName());
-        final Map<String, Set<EvidenceSource>> sourcesByTopic = new HashMap<>();
-        final Map<String, Double> massByThisWord = new HashMap<>();
-        final List<TopicVote> votes = citations.of(word);
-        final Map<String, Double> committed = commitment.of(votes);
-        committed.forEach((topic, share) -> {
-            final double said = scale * share * share;
-            massByTopic.merge(topic, said, Double::sum);
-            massByThisWord.merge(topic, said, Double::sum);
-            if (form.isChosenName()) {
-                nameMassByTopic.merge(topic, said, Double::sum);
-            }
-        });
-        votes.forEach(vote ->
-                sourcesByTopic.computeIfAbsent(vote.topic(), key -> new LinkedHashSet<>()).add(vote.source()));
-        if (sourcesByTopic.isEmpty()) {
+    /**
+     * One phrase, read as a whole. Its words are offered in their dictionary form, weighed against each other
+     * for what they agree about, and the phrase commits a single unit of mass however many words it took to
+     * say it — scaled by what its form is worth and by how far its words settled on one subject. A phrase
+     * nothing could place is counted as unreadable,
+     * which is what keeps a file of unread names from resolving confidently to whatever little was read.
+     */
+    private void read(final List<String> phrase, final NameForm form, final String site) {
+        final List<String> lemmas = phrase.stream()
+                .map(word -> offered.of(form, word))
+                .flatMap(Optional::stream)
+                .toList();
+        if (lemmas.isEmpty()) {
+            return;
+        }
+        phraseOccurrences++;
+        lemmas.forEach(lemma -> sightings.saw(lemma, site, form.isChosenName()));
+        final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas));
+        if (reading.isEmpty()) {
             unreadableOccurrences++;
             return;
         }
-        sourcesByTopic.forEach((topic, sources) -> {
+        final double unit = offered.formWorth(form) * reading.coherence();
+        reading.shareByTopic().forEach((topic, share) -> {
+            final double said = unit * share;
+            massByTopic.merge(topic, said, Double::sum);
             referencesByTopic.merge(topic, 1, Integer::sum);
-            sources.forEach(source ->
-                    witnesses.record(topic, word, site, source, massByThisWord.get(topic)));
+            if (form.isChosenName()) {
+                nameMassByTopic.merge(topic, said, Double::sum);
+            }
+            witness(topic, said, reading.agreementByTopic().get(topic), site);
         });
+    }
+
+    /** Every word that agreed on the topic is a witness to it, and shares the mass the phrase committed. */
+    private void witness(final String topic, final double said, final Set<String> agreeing, final String site) {
+        agreeing.forEach(word -> witnesses.record(topic, word, site, EvidenceSource.TOPICAL_DOMAIN,
+                said / agreeing.size()));
+    }
+
+    private Map<String, Double> worthOf(final NameForm form, final List<String> lemmas) {
+        return lemmas.stream().distinct()
+                .collect(Collectors.toUnmodifiableMap(lemma -> lemma, lemma -> offered.narrowing(form, lemma)));
     }
 }

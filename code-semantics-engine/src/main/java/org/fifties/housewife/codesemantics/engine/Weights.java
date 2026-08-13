@@ -38,17 +38,20 @@ public class Weights {
     @Builder.Default double dependency = 0.5;
 
     /**
-     * What a word of prose is worth — javadoc, a comment, a line of documentation. Prose is commentary on
-     * the code rather than the code, it is discursive where a name is deliberate, and there is far more of
-     * it: on this repository it is roughly two thirds of every word occurrence, so at parity it would decide
-     * every theme by weight of volume alone.
+     * What a sentence of prose is worth — a javadoc statement, a comment, a line of documentation.
      *
-     * <p>A quarter is a stated starting point and not a finding. The measurement that would move it is the
-     * one the report prints beside every theme: what share of it came from names rather than from prose. A
-     * theme that only exists in the prose is a theme the code does not carry, and the number to tune against
-     * is how often that happens.
+     * <p>It was a quarter while the unit was the word, because prose is most of the words in this repository
+     * and at parity it would have decided every theme by volume alone. The unit is now the <em>phrase</em>,
+     * so a twenty-word sentence and a two-word field name each commit once and volume no longer decides
+     * anything. What is left for this number to express is the difference in kind, which is real but smaller:
+     * a name is the code and a sentence is commentary on it, chosen with less deliberation and read by fewer
+     * people.
+     *
+     * <p>A half is a stated starting point and not a finding. The measurement that would move it is the one
+     * the report prints beside every theme — what share of it came from names — and the case to watch is a
+     * theme that exists only in the prose, which is a theme the code does not carry.
      */
-    @Builder.Default double prose = 0.25;
+    @Builder.Default double prose = 0.5;
 
     public static Weights defaults() {
         return Weights.builder().build();

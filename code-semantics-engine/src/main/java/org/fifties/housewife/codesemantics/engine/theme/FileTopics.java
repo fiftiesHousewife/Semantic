@@ -23,7 +23,7 @@ import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
  */
 public record FileTopics(String path, int lines, Map<String, Double> massByTopic,
                          Map<String, Double> nameMassByTopic, Map<String, Integer> referencesByTopic,
-                         int unreadableOccurrences, int wordOccurrences) {
+                         int unreadableOccurrences, int phraseOccurrences) {
 
     public FileTopics {
         Objects.requireNonNull(path, "path");

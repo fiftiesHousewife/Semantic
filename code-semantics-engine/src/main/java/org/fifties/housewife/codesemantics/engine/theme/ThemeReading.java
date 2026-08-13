@@ -37,20 +37,20 @@ public final class ThemeReading {
     private final TopicCitations citations;
     private final IdentifierWords words;
     private final OfferedWords offered;
-    private final TopicCommitment commitment;
+    private final PhraseTopics phrases;
     private final OpenSpaceAccumulator<String> accumulator;
     private final JensenShannon divergence;
     private final PermutationNull chance;
     private final Behaviours behaviours = Behaviours.fromClasspath();
 
     public ThemeReading(final TopicCitations citations, final IdentifierWords words,
-                        final OfferedWords offered, final TopicCommitment commitment,
+                        final OfferedWords offered, final PhraseTopics phrases,
                         final OpenSpaceAccumulator<String> accumulator, final JensenShannon divergence,
                         final PermutationNull chance) {
         this.citations = citations;
         this.words = words;
         this.offered = offered;
-        this.commitment = commitment;
+        this.phrases = phrases;
         this.accumulator = accumulator;
         this.divergence = divergence;
         this.chance = chance;
@@ -59,7 +59,8 @@ public final class ThemeReading {
     /** The reading over the bundled resources, with a seeded null so two runs of one tree agree. */
     public static ThemeReading fromClasspath(final long seed) {
         return new ThemeReading(TopicCitations.fromClasspath(), IdentifierWords.fromClasspath(),
-                OfferedWords.fromClasspath(), new TopicCommitment(),
+                OfferedWords.fromClasspath(),
+                new PhraseTopics(TopicCitations.fromClasspath(), new TopicCommitment()),
                 new OpenSpaceAccumulator<>(Thresholds.defaults()), new JensenShannon(),
                 PermutationNull.seeded(seed));
     }
@@ -95,7 +96,7 @@ public final class ThemeReading {
 
     private FileTopics read(final ParsedFile file, final TopicWitnesses witnesses,
                             final WordSightings sightings) {
-        final TopicTally tally = new TopicTally(citations, words, offered, commitment, witnesses, sightings);
+        final TopicTally tally = new TopicTally(words, offered, phrases, witnesses, sightings);
         file.occurrences().forEach(occurrence -> tally.add(file.path(), occurrence));
         return tally.reading(file.path(), file.lines());
     }

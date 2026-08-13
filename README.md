@@ -107,30 +107,36 @@ A Java file is mostly somebody else's vocabulary quoted. `String`, `List` and `a
 declarations the platform and the test framework made, and a use is not a word this codebase chose. So the
 reading runs over a **parse**, and takes only what this repository committed to:
 
-| Kind | What is taken | What it is worth |
+| Kind | What is taken | What one phrase of it is worth |
 |---|---|--:|
 | Declared names | types, methods, fields, parameters, locals, components, constants | 1.0 |
 | Dependencies | imports that are neither the platform's own packages nor this tree's | 0.5 |
-| Prose | javadoc, comments, and the repository's own README, plan and backlog | 0.25 |
+| Prose | javadoc, comments, and the repository's own README, plan and backlog | 0.5 |
 
-Prose is 77.8% of the words by volume, so at parity it would decide every theme by weight of volume alone; a
-quarter is a stated starting point, and the report prints **what share of each theme came from names** so the
-number has something to be tuned against.
+**The unit is the phrase, not the word.** A declared name is one phrase and a sentence of prose is one
+phrase, and each commits a single unit however many words it took to say — so a twenty-word javadoc sentence
+does not outvote a two-word field name by being longer. Prose is 78% of the words and, at one unit per
+sentence, about a sixth of the evidence. The report prints **what share of each theme came from names**, and
+the case to watch is a theme that exists only in the prose.
 
 Four published resources draw every boundary, and not one line of vocabulary is written here:
 
 - **`ModuleFinder.ofSystem()`** states which packages are the platform's, so `java.util` is set aside where
-  `net.sf.extjwnl` is kept. Of 981 imports, 565 were the platform's, 158 this tree's own coordinates, and
-  **258 were a choice worth reading**.
+  `net.sf.extjwnl` is kept. Of 985 imports, 567 were the platform's, 158 this tree's own coordinates, and
+  **260 were a choice worth reading**.
 - **WordNet**, an open-class dictionary by construction, states which words carry subject matter — so the
   words English uses to hold a sentence together are refused without a stop list existing — and lemmatises
   what survives, so `words` and `word` are one subject.
 - **The Leipzig frequency list** states how much a word narrows a subject. A word nothing chose is weighted
   by `log(rank)/log(20,000)`, the surprisal the list itself states.
-- **The reading's own shape** states how much a word committed to a subject. A word placed in five subjects
-  gives each a fifth of itself, weighted *again* by that fifth — Simpson's concentration index, so an
-  ambiguous word says less in total and less about each subject in particular. `file` is law, computing,
-  tools and records, and its appearance in a class name is not evidence for any of them.
+- **The phrase itself** is what disambiguates its words. A word alone is ambiguous and nothing can fix that;
+  a word among its siblings is much less so, and the siblings are free. `cite` alone is law, linguistics,
+  publishing and half a dozen more; `citationSource` is cite beside source, and what both name is what the
+  phrase is about. A subject scores by the **geometric mean** of what the agreeing words committed — the
+  log-linear pooling this library uses everywhere — times **the share of the phrase that agrees**, so a
+  subject one word in twenty names scores a twentieth of what it would alone. The phrase then commits what it
+  settled on: Simpson's index over its own shares, so a phrase that could not decide between four subjects is
+  worth a quarter rather than a whole one spread thinner.
 
 One-and-two-letter words are refused whichever they are, because a dictionary entry for a one-letter form is
 about a symbol — `a` the ampere, `be` beryllium, `em` a printer's measure — and a name can be a sentence with
@@ -140,32 +146,31 @@ an article in it.
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 177 | 3,574 | 8,954 | 31,437 (77.8%) | 39,477 | **0.977** |
+| **repository** | 178 | 3,622 | 9,030 | 32,399 (78.2%) | 40,557 | **0.979** |
 
 ## What it reads this repository as
 
 | Theme | ι | From names | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `law` | 0.0845 | 60.8% | 39 | 3,258 | 25.3% | `cite` · `evidence` · `answer` · `licence` |
-| `linguistics` | 0.0708 | 69.8% | 28 | 1,927 | 15.0% | `word` · `abbreviation` · `sense` · `hypernym` |
-| `mathematics` | 0.0640 | 61.3% | 23 | 2,040 | 15.9% | `divergence` · `mean` · `add` |
-| `number` | 0.0339 | 53.9% | 10 | 843 | 6.6% | `nothing` · `zero` · `one` · `rank` |
-| `politics` | 0.0299 | 67.6% | 12 | 777 | 6.0% | `vote` · `refuse` · `state` |
+| `law` | 0.0722 | 82.1% | 28 | 2,936 | 22.5% | `cite` · `licence` · `evidence` |
+| `mathematics` | 0.0606 | 83.4% | 31 | 2,332 | 17.9% | `divergence` · `vote` · `total` · `topic` |
+| `linguistics` | 0.0568 | 88.0% | 28 | 2,004 | 15.4% | `word` · `antonymous` · `occurrence` · `vocabulary` |
+| `politics` | 0.0299 | 86.8% | 11 | 769 | 5.9% | `vote` · `recount` · `candidate` |
 
 Witnesses are ordered by the **mass each word carried**, not by how often it was written. Read that way the
 reading is defensible: this library is about words, senses, abbreviations and hypernyms; its mathematics is
 divergence and means; and it really does spend its time on votes, refusals and states.
 
-`law` leads, and it is the one to argue with. Its witnesses — `cite`, `evidence`, `answer`, `licence` — are
-every one of them a word this library is genuinely about, and every one of them a word the dictionary also
-places somewhere else. The commitment rule took it from 48 files led to 39. Whether a library about citation
-and evidence *is* about law in any useful sense is a question a dictionary cannot settle, and this reading
-does not pretend to.
+`law` leads, and it is the one to argue with. Its witnesses — `cite`, `licence`, `evidence` — are every one
+of them a word this library is genuinely about, and every one a word the dictionary also places elsewhere.
+Reading in context took it from 48 files led to 39 and then to 28, and each of those steps was a rule about
+evidence rather than a thumb on the scale. Whether a library about citation *is* about law in any useful
+sense is a question a dictionary cannot settle, and this reading does not pretend to.
 
 ## What it says this repository does
 
 A method name is a clause and a test name is a sentence, so the suite is a specification wherever that
-convention holds. **539 declared methods** name a clause the dictionary can read as a verb and what the verb
+convention holds. **545 declared methods** name a clause the dictionary can read as a verb and what the verb
 acts on; a name whose first word has no verb entry yields no behaviour rather than a guessed one.
 
 | Verb | Times | For instance |

@@ -27,9 +27,9 @@ class OfferedWordsTest {
     };
 
     private final TopicTally tally = new TopicTally(
-            new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
             new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
-            new TopicCommitment(), witnesses, new WordSightings());
+            new PhraseTopics(new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
+                    new TopicCommitment()), witnesses, new WordSightings());
 
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
@@ -41,16 +41,16 @@ class OfferedWordsTest {
 
         assertAll(
                 () -> assertThat(tally.reading(SITE, 10).referencesTo("linguistics")).isOne(),
-                () -> assertThat(tally.reading(SITE, 10).wordOccurrences())
-                        .as("word and cursor; the and and are how English holds a sentence together")
-                        .isEqualTo(2));
+                () -> assertThat(tally.reading(SITE, 10).phraseOccurrences())
+                        .as("one sentence is one phrase, whatever it took to say it")
+                        .isOne());
     }
 
     @Test
     void offersEveryWordOfANameWhetherOrNotADictionaryCarriesIt() {
         add("qzxfgh", 1);
 
-        assertThat(tally.reading(SITE, 10).wordOccurrences())
+        assertThat(tally.reading(SITE, 10).phraseOccurrences())
                 .as("an unread name is a finding, where an unread preposition is grammar")
                 .isOne();
     }
@@ -70,12 +70,12 @@ class OfferedWordsTest {
         final OfferedWords offered = OfferedWords.fromClasspath();
 
         assertAll(
-                () -> assertThat(offered.worthOf(NameForm.FIELD, "cursor")).isEqualTo(1.0),
-                () -> assertThat(offered.worthOf(NameForm.JAVADOC, "cursor"))
+                () -> assertThat(offered.formWorth(NameForm.FIELD)).isEqualTo(1.0),
+                () -> assertThat(offered.formWorth(NameForm.JAVADOC))
                         .as("prose is commentary on the code rather than the code")
-                        .isLessThan(offered.worthOf(NameForm.FIELD, "cursor")),
-                () -> assertThat(offered.worthOf(NameForm.IMPORT, "extjwnl"))
-                        .isLessThan(offered.worthOf(NameForm.FIELD, "extjwnl")));
+                        .isLessThan(offered.formWorth(NameForm.FIELD)),
+                () -> assertThat(offered.formWorth(NameForm.IMPORT))
+                        .isLessThan(offered.formWorth(NameForm.FIELD)));
     }
 
     @Test

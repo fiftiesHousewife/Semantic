@@ -38,7 +38,7 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
-  for each. Current result in the README: **λ = 0.977** over 39,477 read word occurrences in 177 files, documentation included.
+  for each. Current result in the README: **λ = 0.979** over 40,557 read word occurrences in 178 files, documentation included.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -175,21 +175,52 @@ Acceptance, as measurements:
 The noise gate is the load-bearing one. A dependency bump has no semantic content; a statistic that finds
 some is wrong, and this is the single measurement that separates a real reading from a plausible-looking one.
 
-## [HIGH] Sense disambiguation
+## [MEDIUM] Sense disambiguation — the parts context does not reach
 
-Promoted, because the theme reading now measures what its absence costs. The parse removed the worst of it —
-`string` and `assert` are uses, and uses are no longer read — but a word is still read with nothing around
-it, so `jupiter` in an import reads as a planet and a god. The resources are not wrong about English; the
-question is being asked without context.
+**The sibling half has landed.** `PhraseTopics` reads a phrase's words as context for one another: a subject
+scores by the geometric mean of what its agreeing words committed, times the share of the phrase that agrees,
+and the phrase commits what it settled on. That is the plan's first disambiguating vote, and it took `law`
+from 39 files led to 28 without anything being excluded.
 
-Sibling tokens in the same identifier (shared hypernym chains, offsets intersected before flattening to
-lemmas), the enclosing declaration's tokens decayed by scope distance, and the file's pooled topical domain
-as a prior. Each a vote, none a gate.
+Two of the plan's three contexts remain, and both reach further than a phrase can:
+
+The **enclosing declaration's** tokens, decayed by scope distance — a local called `key` inside
+`HttpHeaderParser` reads differently from one inside `EncryptionService`, and neither phrase contains the
+other's words. And the **file's pooled topical domain** as a prior over its own phrases, which is what would
+finally settle `jupiter` in an import as the test framework a test file imports rather than a Roman god.
+Each a vote, none a gate. The sibling reading is also still shallower than the plan asks: it agrees on
+labels where the plan intersects hypernym chains, so two words meaning neighbouring things agree on nothing.
 
 **Measurement, now available as a baseline rather than a prediction:** `mythology` is a qualified theme of
 one source set and its witness is `jupiter`, from the JUnit Jupiter import — the dictionary knows Jupiter as
 a Roman god, and nothing in the reading knows the file meant a test framework. A disambiguation that does not
 remove that reading has not helped.
+
+## [HIGH] Verbal forms — the rest of the behaviour reading
+
+`Behaviours` reads a declared method name as a clause: the leading word where the dictionary carries a verb
+entry for it, and the rest as what the verb acts on. 539 of this repository's methods read that way — read
+(81), name (20), refuse (19), carry (14). Three parts of the question it was asked are **not** answered yet,
+and each is a separate slice.
+
+**Class names are not read as structures.** A type name is not a clause but it is not nothing either:
+`WordSegmenter` is an agent noun over a verb, `TopicTally` a noun over a noun, `ParsedRepository` a participle
+over a noun. WordNet carries the derivational links (`segmenter` → `segment`) that would recover the verb
+inside the agent noun, which would let a type say what it *does* rather than only what it is called.
+*Measurement:* the share of declared types whose name yields a verb, and whether the verb it yields matches
+the verbs of the methods it declares. A type whose name promises one thing and whose methods do another is a
+finding worth having.
+
+**The verb is chosen without context.** `massByTopic` reads as the verb *mass* because English can mass
+troops; the parse knows it is a getter and the reading does not ask. A part of speech is a fact about a word
+in a position, and only the position is missing. *Measurement:* the count of clauses whose verb disagrees
+with what the declaration does — a method returning a value and taking none is not performing its first word.
+
+**The structured form stops at verb and object.** What a consumer wants is a specification: subject
+(the declaring type), verb, object, and the condition a test name states after `when` or `that`. The clause
+is already parsed far enough to carry the first three; the fourth is a grammar rule about where a
+subordinate clause begins. *Measurement:* the share of test names that yield a condition, against the share
+that state one in prose.
 
 ## [MEDIUM] The Wiktionary topic hierarchy
 

@@ -51,15 +51,20 @@ public final class OfferedWords {
         return form.isChosenName() ? Optional.of(content.lemmaOrSurface(word)) : content.lemmaOf(word);
     }
 
-    /** What one occurrence in this position is worth: what the form is worth, and how much the word narrows. */
-    public double worthOf(final NameForm form, final String lemma) {
-        return formWorth(form) * (form.isChosenName() ? 1.0 : specificity.of(lemma));
-    }
-
-    private double formWorth(final NameForm form) {
+    /** What one phrase in this position is worth, whatever it turns out to be about. */
+    public double formWorth(final NameForm form) {
         if (form.isProse()) {
             return weights.prose();
         }
         return form == NameForm.IMPORT ? weights.dependency() : weights.declaredName();
+    }
+
+    /**
+     * How much this word narrows a subject within its phrase. A word the author chose narrows fully — they
+     * picked it — where a word the language or a registry imposed narrows by how rare it is, which is the
+     * surprisal the frequency list states.
+     */
+    public double narrowing(final NameForm form, final String lemma) {
+        return form.isChosenName() ? 1.0 : specificity.of(lemma);
     }
 }

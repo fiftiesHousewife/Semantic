@@ -31,45 +31,51 @@ class TopicTallyTest {
     };
 
     private final TopicTally tally = new TopicTally(
-            new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
             new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
-            new TopicCommitment(), witnesses, new WordSightings());
+            new PhraseTopics(new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
+                    new TopicCommitment()), witnesses, new WordSightings());
 
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
     }
 
     @Test
-    void commitsTheMassEachWordsResourcesGaveIt() {
+    void commitsAWholeUnitForAPhraseWhoseWordsSettleOnOneSubject() {
         add("word", 3);
-        add("wordCursor", 4);
 
-        final FileTopics file = tally.reading(SITE, 40);
-
-        assertAll(
-                () -> assertThat(file.massByTopic().get("linguistics"))
-                        .as("word means one thing, so both its occurrences commit their whole unit")
-                        .isCloseTo(2.0, offset(1e-12)),
-                () -> assertThat(file.massByTopic().get("computing"))
-                        .as("cursor is placed in two subjects, so it says half as much about each")
-                        .isCloseTo(0.25, offset(1e-12)),
-                () -> assertThat(file.distribution().shareOf("linguistics")).isCloseTo(0.8, offset(1e-12)));
+        assertThat(tally.reading(SITE, 40).massByTopic().get("linguistics"))
+                .as("one word, one subject, one unit — a name is worth what its form is worth")
+                .isCloseTo(1.0, offset(1e-12));
     }
 
     @Test
-    void letsAWordThatMeansOneThingOutweighOneThatMeansMany() {
-        add("word", 1);
-        add("cursor", 2);
+    void commitsLessForAPhraseThatCouldNotDecide() {
+        add("cursor", 1);
 
         final FileTopics file = tally.reading(SITE, 10);
 
         assertAll(
-                () -> assertThat(file.massByTopic().get("linguistics"))
-                        .as("one unambiguous occurrence")
-                        .isCloseTo(1.0, offset(1e-12)),
-                () -> assertThat(file.massByTopic().get("computing") + file.massByTopic().get("typography"))
-                        .as("an occurrence spread over two subjects halves what it says about them both")
-                        .isCloseTo(0.5, offset(1e-12)));
+                () -> assertThat(file.massByTopic().values().stream().mapToDouble(Double::doubleValue).sum())
+                        .as("two subjects at even odds is half a unit, not a whole one spread thinner")
+                        .isCloseTo(0.5, offset(1e-12)),
+                () -> assertThat(file.massByTopic().get("computing"))
+                        .isCloseTo(file.massByTopic().get("typography"), offset(1e-12)));
+    }
+
+    @Test
+    void weighsAWordByWhatTheRestOfItsPhraseAgreesWith() {
+        add("word", 3);
+        final double alone = tally.reading(SITE, 40).massByTopic().get("linguistics");
+
+        final TopicTally amongStrangers = new TopicTally(
+                new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
+                new PhraseTopics(new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
+                        new TopicCommitment()), new TopicWitnesses(), new WordSightings());
+        amongStrangers.add(SITE, new NameOccurrence("wordCursor", NameForm.FIELD, 4));
+
+        assertThat(amongStrangers.reading(SITE, 40).massByTopic().get("linguistics"))
+                .as("a subject only one word of a phrase names is one word's opinion about the phrase")
+                .isLessThan(alone);
     }
 
     @Test
@@ -90,7 +96,7 @@ class TopicTallyTest {
 
         assertAll(
                 () -> assertThat(file.unreadableOccurrences()).isOne(),
-                () -> assertThat(file.wordOccurrences()).isEqualTo(2));
+                () -> assertThat(file.phraseOccurrences()).isEqualTo(2));
     }
 
     @Test
