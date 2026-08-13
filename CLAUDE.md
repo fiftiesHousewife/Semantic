@@ -165,8 +165,9 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 - **The self test is `./gradlew selfRead`.** It runs every `diagnostic`-tagged reading over this repository
   and echoes each report to the console, writing them under
   `code-semantics-engine/build/reports/self-reading/`: `self-reading.md` (what the code is legible as),
-  `themes.md` (what it is about, scope by scope) and `themes.json` (the same figures, for the viewer at
-  `docs/self-reading/build_themes_page.py`). Point it at
+  `themes.md` (what it is about, scope by scope), `themes.json` (the same figures, as an export) and
+  `themes.html` (the viewer over that export, rendered by `ThemePage` as typed tags — **markup never
+  appears in a Java string literal**, and the page's stylesheet and script are their own files). Point it at
   another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the
   forked JVM. The README carries the current result, and the corpus it reports on is this repository —
   **including its own documentation**, so any commit that changes a source file *or a markdown file* moves

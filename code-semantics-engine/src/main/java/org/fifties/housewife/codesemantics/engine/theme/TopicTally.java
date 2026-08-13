@@ -93,13 +93,17 @@ public final class TopicTally {
             if (form.isChosenName()) {
                 nameMassByTopic.merge(topic, said, Double::sum);
             }
-            witness(topic, said, reading.agreementByTopic().get(topic), site);
+            witness(topic, said, reading.agreementByTopic().get(topic), String.join(" ", phrase), site);
         });
     }
 
-    /** Every word that agreed on the topic is a witness to it, and shares the mass the phrase committed. */
-    private void witness(final String topic, final double said, final Set<String> agreeing, final String site) {
-        agreeing.forEach(word -> witnesses.record(topic, word, site, EvidenceSource.TOPICAL_DOMAIN,
+    /**
+     * Every word that agreed on the topic is a witness to it, and shares the mass the phrase committed —
+     * quoting the phrase it agreed in, because that phrase and not the word is what was read.
+     */
+    private void witness(final String topic, final double said, final Set<String> agreeing,
+                         final String phrase, final String site) {
+        agreeing.forEach(word -> witnesses.record(topic, word, phrase, site, EvidenceSource.TOPICAL_DOMAIN,
                 said / agreeing.size()));
     }
 

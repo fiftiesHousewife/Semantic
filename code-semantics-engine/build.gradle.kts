@@ -19,6 +19,8 @@ dependencies {
     // The theme diagnostic exports its graph for a viewer to render. A report format is a diagnostic's
     // business and not the library's, so the serialiser stays out of the published artefact.
     testImplementation(libs.jackson.databind)
+    // And renders that graph as a page. Markup is a DSL of typed tags, never a string in a Java file.
+    testImplementation(libs.j2html)
     testRuntimeOnly(libs.junit.platform.launcher)
 }
 

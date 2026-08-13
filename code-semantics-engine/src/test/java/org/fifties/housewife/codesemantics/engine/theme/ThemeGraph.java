@@ -23,7 +23,12 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
     }
 
     /** One word's testimony, with every link a reader needs to check it themselves. */
-    record Witness(String word, int occurrences, double mass, List<String> sources, List<Site> sites) {
+    record Witness(String word, int occurrences, double mass, List<String> sources,
+                   List<Quotation> quotations) {
+    }
+
+    /** The phrase the word was read in, and where it was written — the reading's own unit, quoted. */
+    record Quotation(String phrase, Site site) {
     }
 
     record Site(String where, String url) {
@@ -118,7 +123,10 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
         return themes.witnesses().forTopic(topic, shown).stream()
                 .map(witness -> new Witness(witness.word(), witness.occurrences(), witness.mass(),
                         witness.sources().stream().map(EvidenceSource::displayName).sorted().toList(),
-                        witness.sites().stream().map(where -> site(where, links)).toList()))
+                        witness.quotations().stream()
+                                .map(quoted -> new Quotation(quoted.phrase(),
+                                        site(quoted.site(), links)))
+                                .toList()))
                 .toList();
     }
 

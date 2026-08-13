@@ -5,6 +5,7 @@ errorprone = "2.38.0"
 errorprone-plugin = "4.2.0"
 junit = "6.0.3"
 jackson = "2.21.2"
+j2html = "1.6.0"
 # Libraries the plan names but no module consumes yet. A catalog entry fetches nothing until a module
 # declares it, so these are declared here to be adopted one at a time as the pipeline stages land, with the
 # versions verified against repo1.maven.org on 2026-08-13.
@@ -31,6 +32,10 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }
 duckdb-jdbc = { module = "org.duckdb:duckdb_jdbc", version.ref = "duckdb" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+# The themes viewer's markup, as a typed DSL rather than a string. A page assembled from tags cannot emit
+# unbalanced markup or forget to escape a witness, and the alternative — HTML inside Java string literals —
+# is the thing this keeps out of the tree. Diagnostic-only, so it never reaches the published artefact.
+j2html = { module = "com.j2html:j2html", version.ref = "j2html" }
 # The Java parse the self-read runs on. Pure Java, no grammar binary and no JNI, and no symbol solving —
 # a declaration is a declaration in the syntax, and resolving what a name refers to is a separate decision.
 javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }

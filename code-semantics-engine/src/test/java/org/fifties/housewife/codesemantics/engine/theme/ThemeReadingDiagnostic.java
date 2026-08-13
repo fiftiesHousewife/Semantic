@@ -30,6 +30,7 @@ class ThemeReadingDiagnostic {
 
     private static final String REPORT = "build/reports/self-reading/themes.md";
     private static final String GRAPH = "build/reports/self-reading/themes.json";
+    private static final String PAGE = "build/reports/self-reading/themes.html";
 
     private static final String SETTINGS_FILE = "settings.gradle.kts";
     private static final String CLONE_DIRECTORY_PROPERTY = "cs.clone.dir";
@@ -83,7 +84,10 @@ class ThemeReadingDiagnostic {
                 () -> assertThat(themes.divergences()).allSatisfy(divergence ->
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
                 () -> assertThat(Files.readString(Path.of(REPORT))).contains("What distinguishes each scope"),
-                () -> assertThat(Files.readString(Path.of(GRAPH))).contains("\"nodes\""));
+                () -> assertThat(Files.readString(Path.of(GRAPH))).contains("\"nodes\""),
+                () -> assertThat(Files.readString(Path.of(PAGE)))
+                        .as("the page draws the same reading the report states")
+                        .contains("What this repository is about"));
     }
 
     private void write(final RepositoryThemes themes, final Path root) throws IOException {
@@ -91,9 +95,10 @@ class ThemeReadingDiagnostic {
         Files.createDirectories(report.getParent());
         Files.writeString(report, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
                 new ThemeReport().render(themes)));
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(),
-                ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED, WITNESSES_HELD,
-                        new SourceLinks(root)));
+        final ThemeGraph graph = ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED,
+                WITNESSES_HELD, new SourceLinks(root));
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(), graph);
+        Files.writeString(Path.of(PAGE), new ThemePage().of(graph));
     }
 
     private static Path repositoryRoot() {
