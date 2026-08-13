@@ -168,9 +168,11 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
   `themes.md` (what it is about, scope by scope) and `themes.json` (the same figures, for the viewer at
   `docs/self-reading/build_themes_page.py`). Point it at
   another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the
-  forked JVM. The README carries the current result; **regenerate it in the same commit as any change to the
-  splitter, the citations or the tally**, because a reported measurement that no longer matches the code is
-  worse than none.
+  forked JVM. The README carries the current result, and the corpus it reports on is this repository — so
+  **any commit that adds or removes a Java file moves every figure in it.** Regenerate with `./gradlew
+  selfRead`, sync the README and `docs/self-reading/build_themes_page.py`'s output, and land them in a commit
+  that touches no Java, which is the only way the stated measurement and the tree it measures are the same
+  tree. A reported measurement that no longer matches the code is worse than none.
 
 ### Measurement is the argument
 
@@ -186,8 +188,8 @@ run it, rather than asserting an answer — the plan does this throughout and th
    `cleanTest` before trusting one.
 2. Gate on the actual `BUILD SUCCESSFUL` log line, not a background exit code.
 3. Never run Gradle concurrently with another Gradle invocation, and never pipe Gradle through `tail`.
-4. If the change touches how a name is read, run `./gradlew selfRead` and update the README's figures in the
-   same commit.
+4. If the change adds, removes or renames a Java file — or changes how a name is read — run
+   `./gradlew selfRead`, then land the regenerated figures in a follow-up commit that touches no Java.
 5. **Never `git push` without explicit instruction.**
 
 ---

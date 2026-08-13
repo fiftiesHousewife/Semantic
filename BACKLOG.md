@@ -38,7 +38,7 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
-  for each. Current result in the README: **λ = 0.974** over 23,440 word occurrences in 159 files.
+  for each. Current result in the README: **λ = 0.974** over 23,531 word occurrences in 160 files.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —

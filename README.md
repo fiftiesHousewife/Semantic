@@ -87,14 +87,20 @@ licence nor extjwnl's EPL/LGPL is stated in this repository yet.
 ```
 
 Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instruction floor on every module
-(measured: 97.5% / 96.7% / 92.4% / 89.0% instructions).
+(measured on the tree this README ships in: `code-semantics-api` 97.5%, `code-semantics-engine`
+92.0%, `lexicon` 92.4%, `lexicon-extraction` 89.0%).
 
 ---
 
 ## The self test
 
 `./gradlew selfRead` points the library at this repository and reports two readings of it. The reports land
-in `code-semantics-engine/build/reports/self-reading/`; the runs below are on the tree this README ships in.
+in `code-semantics-engine/build/reports/self-reading/`; the runs below are the tree this README ships in,
+which is what makes them checkable — clone it, run the command, and the figures should be these.
+
+That also makes them perishable. The corpus is the repository itself, so **any commit that adds or removes a
+Java file moves every count on this page.** They are regenerated and landed in a commit that touches no Java,
+which is the only way a stated measurement and the thing it measures can be the same tree.
 
 **What it reads, and what it refuses to.** A Java file is mostly somebody else's vocabulary quoted:
 `String`, `List` and `assertThat` are *uses* of declarations the platform and the test framework made, and a
@@ -109,8 +115,8 @@ Three published resources decide those boundaries, and not one line of vocabular
 `javax.lang.model` states the keyword table; `ModuleFinder.ofSystem()` states which packages are the
 platform's, so `java.util` is set aside where `net.sf.extjwnl` is kept; and WordNet — an open-class
 dictionary by construction — states which words in a sentence carry subject matter, so the words English uses
-to hold a sentence together are refused without a stop list existing. Of 893 imports, 518 were the platform's,
-126 this repository's own coordinates, and **249 were a choice worth reading**.
+to hold a sentence together are refused without a stop list existing. Of 896 imports, 518 were the platform's,
+126 this repository's own coordinates, and **252 were a choice worth reading**.
 
 Every word is read as its **dictionary form**, so `words` and `word` are one subject rather than two, and a
 word nothing chose is weighted by how much it **narrows** a subject — `log(rank) / log(20,000)` against the
@@ -124,16 +130,16 @@ permalink is rendered; and no votes, because a vote requires an anchor and an an
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 159 | 3,219 | 8,166 | 15,274 (65.2%) | 22,839 | **0.974** |
+| **repository** | 160 | 3,224 | 8,191 | 15,340 (65.2%) | 22,927 | **0.974** |
 
-23,440 word occurrences of 2,202 distinct surfaces, 820 of them (37.2%) written exactly once; 601 occurrences
+23,531 word occurrences of 2,204 distinct surfaces, 818 of them (37.1%) written exactly once; 604 occurrences
 across 167 surfaces nothing could be cited for at all. The tail is the finding rather than the residue — the
 top of it is `junit`, `assertj` and `extjwnl`, which are dependency names no dictionary carries, and
 `aprefix`/`asuffix`/`jwnlexception`, which are the tokeniser's missing acronym rule caught in live code.
 
 The per-resource table in the report carries a column no share can replace: **what each resource carries
-alone**. The frequency list cites 92% of occurrences and is the only citation for 768 of them; the Wikidata
-name registry cites 40% and is the only citation for 11. A λ that rested on a surname list would be a bad
+alone**. The frequency list cites 92.4% of occurrences and is the only citation for 818 of them; the Wikidata
+name registry cites 40.3% and is the only citation for 11. A λ that rested on a surname list would be a bad
 number dressed as a good one, and that column is how a reader can tell that it does not.
 
 ## What it reads this repository as
@@ -145,12 +151,12 @@ so an ambiguous word does not shout.
 
 | Theme | ι | References | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `mathematics` | 0.0550 | 9,499 | 61 | 4,003 | 38.8% | `divergence` · `name` · `mean` · `domain` |
-| `sciences` | 0.0443 | 10,682 | 9 | 729 | 7.1% | `word` · `topic` · `occurrence` |
-| `linguistics` | 0.0422 | 4,071 | 39 | 2,862 | 27.7% | `word` · `sense` · `reading` · `abbreviation` |
-| `law` | 0.0340 | 2,251 | 21 | 1,080 | 10.5% | `cite` · `evidence` · `file` · `answer` |
-| `computer_science` | 0.0231 | 1,563 | 4 | 320 | 3.1% | `word` · `code` · `file` · `parser` |
-| `publishing` | 0.0212 | 2,129 | 2 | 67 | 0.6% | `dictionary` · `source` · `read` · `reference` |
+| `mathematics` | 0.0551 | 9,526 | 62 | 4,020 | 38.9% | `divergence` · `name` · `mean` · `domain` |
+| `sciences` | 0.0443 | 10,715 | 9 | 729 | 7.0% | `word` · `topic` · `occurrence` |
+| `linguistics` | 0.0421 | 4,076 | 39 | 2,862 | 27.7% | `word` · `sense` · `reading` · `abbreviation` |
+| `law` | 0.0339 | 2,254 | 21 | 1,080 | 10.4% | `cite` · `evidence` · `file` · `answer` |
+| `computer_science` | 0.0232 | 1,570 | 4 | 320 | 3.1% | `word` · `code` · `file` · `parser` |
+| `publishing` | 0.0212 | 2,131 | 2 | 67 | 0.6% | `dictionary` · `source` · `read` · `reference` |
 
 The witnesses are ordered by the **mass each word actually carried**, not by how often it was written, which
 is what makes the column an explanation rather than a word count. Read that way the top themes are defensible:
@@ -172,14 +178,14 @@ chance: 999 seeded resamples of the same number of files.
 
 | Scope | Divergence | Null median | Excess | Chance draws at least as far |
 |---|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 0.0232 | 0.0085 | +0.0147 | 0 of 999 |
-| `code-semantics-api/src/test/java` | 0.0367 | 0.0161 | +0.0206 | 0 of 999 |
+| `code-semantics-api/src/main/java` | 0.0232 | 0.0086 | +0.0147 | 0 of 999 |
+| `code-semantics-api/src/test/java` | 0.0366 | 0.0163 | +0.0203 | 0 of 999 |
 | `code-semantics-engine/src/main/java` | 0.0161 | 0.0034 | +0.0128 | 0 of 999 |
-| `code-semantics-engine/src/test/java` | 0.0211 | 0.0085 | +0.0126 | 0 of 999 |
-| `lexicon-extraction/src/main/java` | 0.0459 | 0.0131 | +0.0328 | 0 of 999 |
-| `lexicon-extraction/src/test/java` | 0.0654 | 0.0206 | +0.0448 | 0 of 999 |
-| `lexicon/src/main/java` | 0.0410 | 0.0191 | +0.0219 | 0 of 999 |
-| `lexicon/src/test/java` | 0.0322 | 0.0210 | +0.0112 | 9 of 999 |
+| `code-semantics-engine/src/test/java` | 0.0206 | 0.0082 | +0.0124 | 0 of 999 |
+| `lexicon-extraction/src/main/java` | 0.0461 | 0.0132 | +0.0329 | 0 of 999 |
+| `lexicon-extraction/src/test/java` | 0.0654 | 0.0210 | +0.0444 | 0 of 999 |
+| `lexicon/src/main/java` | 0.0411 | 0.0190 | +0.0221 | 0 of 999 |
+| `lexicon/src/test/java` | 0.0321 | 0.0209 | +0.0113 | 11 of 999 |
 
 Every scope stands outside its own null, so every ranking is printed. A scope that had not would have had its
 ranking **withheld entirely**, because a caveat is not what gets quoted.
