@@ -43,6 +43,15 @@ public interface Lexicon {
     Optional<String> abbreviationNoun(String token);
 
     /**
+     * How many senses the dictionary carries for the word, across every part of speech, or zero when it does
+     * not know the word at all. It is the denominator a consumer needs to judge what a sense-labelled
+     * resource is actually speaking for: a word with six senses of which one carries a subject label has had
+     * one sixth of its meaning classified and five sixths passed over, and a reading that treats that label
+     * as the word's subject is quoting the rarest thing the word can mean.
+     */
+    int senseCount(String word);
+
+    /**
      * The topical domains WordNet Domains assigns across the word's senses — {@code music},
      * {@code commerce}, {@code tennis} — or empty when the resource does not cover the word. A domain
      * label describes the subject a sense belongs to, so an ambiguous word carries every subject it can

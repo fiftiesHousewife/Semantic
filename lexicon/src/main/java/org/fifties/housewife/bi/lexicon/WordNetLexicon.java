@@ -78,6 +78,28 @@ public final class WordNetLexicon implements Lexicon {
     }
 
     @Override
+    public int senseCount(final String word) {
+        final String lower = word.toLowerCase(Locale.ROOT);
+        if (!isSingleWord(lower)) {
+            return 0;
+        }
+        int senses = 0;
+        for (final POS partOfSpeech : POS.values()) {
+            senses += sensesOf(partOfSpeech, lower);
+        }
+        return senses;
+    }
+
+    private int sensesOf(final POS partOfSpeech, final String lower) {
+        try {
+            final IndexWord entry = dictionary.lookupIndexWord(partOfSpeech, lower);
+            return entry == null ? 0 : entry.getSenses().size();
+        } catch (final JWNLException e) {
+            throw new IllegalStateException("WordNet sense lookup failed for \"" + lower + "\"", e);
+        }
+    }
+
+    @Override
     public Set<String> domainsOf(final String word) {
         return domains.domainsOf(word);
     }

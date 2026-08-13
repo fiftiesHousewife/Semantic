@@ -1,6 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.fifties.housewife.codesemantics.engine.Weights;
@@ -17,7 +18,8 @@ class TopicCitationsTest {
     private static final HeadwordTopics NO_TOPICS = word -> Set.of();
 
     private static TopicCitations reading(final SenseDomains senses, final HeadwordTopics topics) {
-        return new TopicCitations(senses, topics, Weights.defaults());
+        return new TopicCitations(senses, topics,
+                new SenseCoverage(new StatedSenses(Map.of(), Map.of())), Weights.defaults());
     }
 
     private static double massOf(final List<TopicVote> votes, final String topic) {
@@ -77,6 +79,7 @@ class TopicCitationsTest {
     @Test
     void scalesAResourcesWholeContributionByItsDeclaredWeight() {
         final TopicCitations halved = new TopicCitations(word -> List.of(Set.of("computing")), NO_TOPICS,
+                new SenseCoverage(new StatedSenses(Map.of(), Map.of())),
                 Weights.builder().wordNetDomain(0.5).build());
 
         assertThat(massOf(halved.of("cursor"), "computing")).isCloseTo(0.5, offset(1e-12));

@@ -1,6 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.fifties.housewife.codesemantics.engine.Weights;
@@ -28,8 +29,17 @@ class OfferedWordsTest {
 
     private final TopicTally tally = new TopicTally(
             new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
-            new PhraseTopics(new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
-                    new TopicCommitment()), witnesses, new WordSightings());
+            new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), witnesses,
+            new WordSightings());
+
+    private TopicCitations citations() {
+        return new TopicCitations(senses, word -> Set.of(), fullyCovered(), Weights.defaults());
+    }
+
+    /** A fixture says what it means: coverage is not what these tests are about. */
+    private static SenseCoverage fullyCovered() {
+        return new SenseCoverage(new StatedSenses(Map.of(), Map.of()));
+    }
 
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));

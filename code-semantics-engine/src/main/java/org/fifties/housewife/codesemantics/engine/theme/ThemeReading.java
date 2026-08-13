@@ -60,7 +60,8 @@ public final class ThemeReading {
     public static ThemeReading fromClasspath(final long seed) {
         return new ThemeReading(TopicCitations.fromClasspath(), IdentifierWords.fromClasspath(),
                 OfferedWords.fromClasspath(),
-                new PhraseTopics(TopicCitations.fromClasspath(), new TopicCommitment()),
+                new PhraseTopics(TopicCitations.fromClasspath(), new TopicCommitment(),
+                        SenseCoverage.fromClasspath()),
                 new OpenSpaceAccumulator<>(Thresholds.defaults()), new JensenShannon(),
                 PermutationNull.seeded(seed));
     }

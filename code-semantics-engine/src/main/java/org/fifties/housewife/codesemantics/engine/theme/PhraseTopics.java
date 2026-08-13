@@ -27,7 +27,11 @@ import java.util.stream.Collectors;
  *       scored alone.</li>
  * </ul>
  *
- * <p>The result is normalised, so <b>a phrase commits one unit however long it is</b>. A twenty-word javadoc
+ * <p>The reading also carries its {@link Reading#credence()}: how much of its carrying words the resources
+ * spoke for at all. A phrase resting on words whose everyday senses were never labelled is a confident
+ * reading of very little, and the amount it commits says so where its shares cannot.
+ *
+ * <p>The shares are normalised, so <b>a phrase commits one unit however long it is</b>. A twenty-word javadoc
  * sentence and a two-word field name are one observation each, which is the same choice the plan makes at
  * blob level and for the same reason: without it, the reading measures how much was written rather than what
  * was said.
@@ -36,14 +40,18 @@ public final class PhraseTopics {
 
     private final TopicCitations citations;
     private final TopicCommitment commitment;
+    private final SenseCoverage coverage;
 
-    public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment) {
+    public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
+                        final SenseCoverage coverage) {
         this.citations = citations;
         this.commitment = commitment;
+        this.coverage = coverage;
     }
 
-    /** One phrase's reading: the subjects it is about, and which of its words agreed on each. */
-    public record Reading(Map<String, Double> shareByTopic, Map<String, Set<String>> agreementByTopic) {
+    /** One phrase's reading: the subjects it is about, which words agreed, and how much was spoken for. */
+    public record Reading(Map<String, Double> shareByTopic, Map<String, Set<String>> agreementByTopic,
+                          double credence) {
 
         public Reading {
             shareByTopic = Map.copyOf(shareByTopic);
@@ -66,7 +74,7 @@ public final class PhraseTopics {
         }
     }
 
-    private static final Reading NOTHING = new Reading(Map.of(), Map.of());
+    private static final Reading NOTHING = new Reading(Map.of(), Map.of(), 0.0);
 
     /**
      * What the phrase is about, as a distribution summing to one over the subjects its words agree on.
@@ -94,7 +102,21 @@ public final class PhraseTopics {
                 agreement.put(topic, agreeing);
             }
         });
-        return scores.isEmpty() ? NOTHING : new Reading(normalised(scores), agreement);
+        return scores.isEmpty() ? NOTHING
+                : new Reading(normalised(scores), agreement, credenceOf(agreement.values().stream()
+                        .flatMap(Set::stream).collect(Collectors.toUnmodifiableSet())));
+    }
+
+    /**
+     * How much of the phrase's carrying words the resources actually spoke for — the geometric mean of their
+     * sense coverage. It scales what the phrase commits without touching what it is about, because a label
+     * on one sense of six is a weak claim about the word and no claim at all about which subject is right.
+     */
+    private double credenceOf(final Set<String> carrying) {
+        return carrying.isEmpty() ? 0.0 : Math.exp(carrying.stream()
+                .mapToDouble(word -> Math.log(coverage.of(word)))
+                .average()
+                .orElse(0.0));
     }
 
     /** The geometric mean of what the agreeing words committed, each weighted by what it is worth. */

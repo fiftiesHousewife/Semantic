@@ -129,6 +129,11 @@ Four published resources draw every boundary, and not one line of vocabulary is 
   what survives, so `words` and `word` are one subject.
 - **The Leipzig frequency list** states how much a word narrows a subject. A word nothing chose is weighted
   by `log(rank)/log(20,000)`, the surprisal the list itself states.
+- **The share of a word the labeller actually spoke for.** The domain resource omits domain-less senses —
+  its own header says so — so a word's everyday meaning carries no label and only its specialist senses vote.
+  `cite` is labelled *law* and nothing else, because a court cites a defendant; the bibliographic sense this
+  repository always means is domain-less and silent. So a label is worth *labelled senses ÷ total senses*,
+  both read from WordNet: one label on one sense of six speaks for a sixth of the word.
 - **The phrase itself** is what disambiguates its words. A word alone is ambiguous and nothing can fix that;
   a word among its siblings is much less so, and the siblings are free. `cite` alone is law, linguistics,
   publishing and half a dozen more; `citationSource` is cite beside source, and what both name is what the
@@ -146,31 +151,37 @@ an article in it.
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 178 | 3,622 | 9,030 | 32,399 (78.2%) | 40,557 | **0.979** |
+| **repository** | 182 | 3,707 | 9,278 | 33,945 (78.5%) | 42,308 | **0.979** |
 
 ## What it reads this repository as
 
 | Theme | ι | From names | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `law` | 0.0722 | 82.1% | 28 | 2,936 | 22.5% | `cite` · `licence` · `evidence` |
-| `mathematics` | 0.0606 | 83.4% | 31 | 2,332 | 17.9% | `divergence` · `vote` · `total` · `topic` |
-| `linguistics` | 0.0568 | 88.0% | 28 | 2,004 | 15.4% | `word` · `antonymous` · `occurrence` · `vocabulary` |
-| `politics` | 0.0299 | 86.8% | 11 | 769 | 5.9% | `vote` · `recount` · `candidate` |
+| `sciences` | 0.0651 | 86.8% | 20 | 1,588 | 11.8% | `occurrence` · `topic` · `site` |
+| `mathematics` | 0.0587 | 79.3% | 14 | 1,326 | 9.9% | `vote` · `topic` · `divergence` · `statistic` |
+| `linguistics` | 0.0586 | 93.0% | **23** | 1,893 | 14.1% | `antonymous` · `occurrence` · `vocabulary` · `verb` |
+| `law` | 0.0528 | 73.2% | 20 | 2,400 | 17.9% | `cite` · `attribution` · `evidence` |
 
 Witnesses are ordered by the **mass each word carried**, not by how often it was written. Read that way the
 reading is defensible: this library is about words, senses, abbreviations and hypernyms; its mathematics is
 divergence and means; and it really does spend its time on votes, refusals and states.
 
-`law` leads, and it is the one to argue with. Its witnesses — `cite`, `licence`, `evidence` — are every one
-of them a word this library is genuinely about, and every one a word the dictionary also places elsewhere.
-Reading in context took it from 48 files led to 39 and then to 28, and each of those steps was a rule about
-evidence rather than a thumb on the scale. Whether a library about citation *is* about law in any useful
-sense is a question a dictionary cannot settle, and this reading does not pretend to.
+`law` was first until the resource was read properly. It is fourth now, and `linguistics` leads more files
+than anything else — which is the right answer for a library about words. The four steps that got there were
+each a rule about evidence and none of them excluded anything: a word's commitment weighting its own vote
+(48 files led → 39), reading a phrase in context (→ 28), and discounting a label by the share of the word it
+speaks for (→ 20).
+
+**`sciences` now leads, and it is the next thing wrong.** It, `natural-sciences`, `physical-sciences`,
+`engineering`, `computing` and `human-sciences` hold **23% of all topical mass between them**, four of them
+have identical witnesses, and four lead no files at all. That is one theme counted six times — Wiktionary's
+own topic hierarchy, which that resource publishes and this repository does not yet extract. `BACKLOG.md`
+carries it with the measurement that settles it.
 
 ## What it says this repository does
 
 A method name is a clause and a test name is a sentence, so the suite is a specification wherever that
-convention holds. **545 declared methods** name a clause the dictionary can read as a verb and what the verb
+convention holds. **561 declared methods** name a clause the dictionary can read as a verb and what the verb
 acts on; a name whose first word has no verb entry yields no behaviour rather than a guessed one.
 
 | Verb | Times | For instance |

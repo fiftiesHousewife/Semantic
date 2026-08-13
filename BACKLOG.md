@@ -38,7 +38,7 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 - **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
-  for each. Current result in the README: **λ = 0.979** over 40,557 read word occurrences in 178 files, documentation included.
+  for each. Current result in the README: **λ = 0.979** over 42,308 read word occurrences in 182 files, documentation included.
 - The whole `lexicon` module, verbatim, and `lexicon-extraction` minus the fixture-corpus task whose target
   does not exist here.
 - `VocabularyProvenanceTest` over both bundled resource directories. Porting it found one header —
@@ -232,12 +232,32 @@ English files that vocabulary under law. This is the doctrine's own rule failing
 homework — the repositories a reading is tuned on and the repositories it is measured on are drawn
 disjointly.*
 
-**The fixes, in the order they are worth doing:**
+**Fix 1 has landed and it worked.** `SenseCoverage` scales the sense-labelled resource's votes and the
+phrase's committed mass by *labelled senses / total senses*, both read from WordNet. Measured on this tree:
+`law` went from **first at ι 0.0723 leading 28 files** to **fourth at ι 0.0530 leading 20**, and `linguistics`
+is now the theme leading the most files. It also raised the count of files no topic could be resolved for
+from 0 to 53, which is the honest consequence: a reading resting on words the resources barely cover should
+say so rather than resolve confidently.
 
-1. **Weight by sense coverage.** How much of a word the resource actually speaks for is *labelled senses /
-   total senses*, and WordNet knows both numbers. `cite` has several senses and one label; `divergence` has
-   few senses and labels most of them. A word the resource barely covers is weak evidence, and saying so
-   needs no new resource. *Measurement:* law's intensity and files led, before and after.
+**It exposed the next distortion, which is now the largest.** With the sense-labelled resource properly
+discounted, the headword-labelled one dominates — and it labels with a hierarchy:
+
+| Label | ι | Leads | Carried by |
+|---|--:|--:|---|
+| `sciences` | 0.0651 | 20 | occurrence, topic, site, from |
+| `natural-sciences` | 0.0403 | 1 | topic, site, resource, word |
+| `physical-sciences` | 0.0365 | 0 | topic, site, resource, word |
+| `engineering` | 0.0344 | 0 | topic, site, resource, word |
+| `computing` | 0.0313 | 0 | topic, site, resource, word |
+| `human-sciences` | 0.0269 | 0 | occurrence, least, citation, initialism |
+| **together** | **0.2344** | 21 | — |
+
+Four of them have *identical* witnesses and lead nothing between them. That is **one theme counted six
+times**, holding 23% of all topical mass, and it is the Wiktionary topic hierarchy — which that resource
+publishes and this repository does not yet extract. It is the next thing to do, and it is the item below.
+
+**The rest of the fixes, in the order they are worth doing:**
+
 2. **Read the most frequent sense, as the plan already says.** Stage 9 of the plan is explicitly reduced to
    WordNet's most frequent sense as a stated baseline. The reading currently pools every labelled sense
    equally, which is worse than the baseline it was supposed to start from — and WordNet carries the corpus

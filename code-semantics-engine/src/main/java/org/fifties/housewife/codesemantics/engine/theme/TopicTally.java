@@ -65,8 +65,9 @@ public final class TopicTally {
     /**
      * One phrase, read as a whole. Its words are offered in their dictionary form, weighed against each other
      * for what they agree about, and the phrase commits a single unit of mass however many words it took to
-     * say it — scaled by what its form is worth and by how far its words settled on one subject. A phrase
-     * nothing could place is counted as unreadable,
+     * say it — scaled by what its form is worth, by how far its words settled on one subject, and by how
+     * much of those words the resources spoke for at all. A phrase nothing could place is counted as
+     * unreadable,
      * which is what keeps a file of unread names from resolving confidently to whatever little was read.
      */
     private void read(final List<String> phrase, final NameForm form, final String site) {
@@ -84,7 +85,7 @@ public final class TopicTally {
             unreadableOccurrences++;
             return;
         }
-        final double unit = offered.formWorth(form) * reading.coherence();
+        final double unit = offered.formWorth(form) * reading.coherence() * reading.credence();
         reading.shareByTopic().forEach((topic, share) -> {
             final double said = unit * share;
             massByTopic.merge(topic, said, Double::sum);
