@@ -221,6 +221,88 @@ distributions, so the matcher hits the same spans in the same places and only th
 of magnitude above the 3-in-63,275 baseline; discrimination survives only when single-word terms are
 excluded **by hand**; or an audit of 50 sampled spans finds fewer than 40 genuine.
 
+### Stage 1, specified to the file
+
+Written here rather than under `docs/` on purpose: `docs/*.md` is read by the reading, and a specification
+full of derivatives vocabulary would put `ForeignExchange` and `InterestRate` into the corpus and then find
+them. The working notes are no longer parsed, so a specification costs the reading nothing.
+
+**Nothing in `code-semantics-engine/src/main` changes in this stage.** The theme reading is untouched; if a
+kill criterion fires, the extraction task, the resource and the diagnostic are deleted and no reading was
+ever affected.
+
+#### The bundled file
+
+`lexicon/src/main/resources/fpml-schemes.tsv`, six columns, tab separated, sorted by `concept`:
+
+| Column | From | Example |
+|---|---|---|
+| `concept` | `CanonicalVersionUri` + `#` + code | `http://www.fpml.org/coding-scheme/asset-class-2-1#InterestRate` |
+| `prefLabel` | the code exactly as published | `InterestRate` |
+| `altLabel` | empty — genericode states no synonymy, and the reading abstains rather than borrowing WordNet | |
+| `broader` | the parent path's concept where the code is colon-delimited, else the scheme's own concept | `…product-taxonomy-4-0#Commodity:Agricultural:Dairy:Option` |
+| `kind` | `code` | `code` |
+| `scheme` | `ShortName` from the scheme's `Identification` | `assetClassScheme` |
+
+Header carries `Source:` naming the archive URL and each scheme's own `Version`, `Licence:` naming the FpML
+Public License 3.0, and **Exhibit A verbatim**. `VocabularyProvenanceTest` covers it the moment it lands.
+
+#### Extraction — `lexicon-extraction`
+
+| Class | Does one thing |
+|---|---|
+| `FpmlCodeList` | the archive on disk or fetched, its SHA-256 checked against a recorded constant |
+| `ContentDigest` | SHA-256 over bytes, the sibling of `GitBlobId` for a source that is not a git blob |
+| `GenericodeScheme` | one genericode document read to `Identification` (short name, version, canonical URI) plus its rows |
+| `SchemeCode` | record: `code`, `source`, `description` |
+| `FpmlConcepts` | codes to concept rows, deriving `broader` from the colon path |
+| `FpmlSchemeTsv` | renders the TSV under the provenance header |
+| `FpmlSchemeExtraction` | `main`, wired to `./gradlew :lexicon-extraction:extractFpmlSchemes` |
+
+`GitBlobId` cannot pin this: the archive is not in git. The digest is ours rather than the publisher's, so
+the header must say so — *"SHA-256 recorded at extraction; the publisher states no checksum"* — and each
+scheme's own `Version` is the publisher's statement that actually matters.
+
+#### Reading — `lexicon` and `code-semantics-engine`
+
+| Class | Does one thing |
+|---|---|
+| `FpmlSchemes` (lexicon) | the bundled TSV as a term index: `conceptsOf(String term)`, `longestTerm()`, `broaderOf(String concept)` |
+| `TermIndex` (engine, interface) | what a term index must answer, so a second source needs no new reading |
+| `TermSpans` (engine) | the longest-match, non-overlapping cover of a phrase's ordered words |
+| `TermSpan` (engine, record) | `from`, `to`, `words`, `concept`, `source` |
+| `PhraseSpecificity` (engine) | an n-gram's surprisal off the bundled frequency list, the sibling of `WordSpecificity` |
+| `DomainTermDiagnostic` (engine, test, `@Tag("diagnostic")`) | runs the panel and writes `domain-terms.md` |
+
+`./gradlew domainRead`, modelled on `selfRead`, reading `-Dcs.panel.dir` — which `cs.java-conventions`
+must forward beside `cs.clone.dir`, the only two properties the test convention passes to the forked JVM.
+
+#### Tests that come first
+
+- `GenericodeSchemeTest` — reads a scheme's identity and rows from a fixture; refuses a document stating no
+  `Identification` rather than reading it as empty.
+- `FpmlConceptsTest` — `Commodity:Agricultural:Dairy:Option:Cash` yields the parent
+  `Commodity:Agricultural:Dairy:Option` as `broader`; a code with no colon takes the scheme as `broader`.
+- `ContentDigestTest` — the digest of known bytes, against a value `shasum` also produces.
+- `FpmlSchemeTsvTest` — sorted rows under a header carrying the licence and Exhibit A.
+- `TermSpansTest` — longest wins and spans do not overlap; a prefix that is not itself a published term
+  **abstains**; matching runs over the raw ordered words, not the offered lemmas.
+- `PhraseSpecificityTest` — `name` weighs near nothing, `interest rate swap` near the ceiling, both bounded
+  in `[0, 1]` by the frequency list's own length.
+- `FpmlSchemesTest` — the bundled file answers `InterestRate`, and an unknown term yields nothing.
+
+#### What stage 1 reports, and what would end it
+
+`domainRead` writes, per repository in the panel: matched spans per thousand identifier occurrences, split
+by term length; the schemes that matched; and the count of files where nothing matched. The out-of-domain
+arm is already measured for FIBO — 1,789 one-word against 3 multi-word on this tree — and FpML's codes are
+single tokens, so **the one-word rate is exactly what has to be shown to be discriminating here**. That is
+the risk this stage exists to measure: FpML may be code-shaped and still be measuring the English words
+*credit*, *equity* and *option*.
+
+Abandon if in-domain matching does not clear the pooled permutation null, or if it clears only once
+single-token codes are excluded by hand.
+
 ### Staging
 
 1. **FIBO terms and a diagnostic, with the reading untouched.** `extractFiboTerms`, `fibo-terms.tsv`,
