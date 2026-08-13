@@ -96,11 +96,19 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instructi
 
 `./gradlew selfRead` points the library at this repository and reports what it is written in, what it is
 about, and what it does. The reports land in `code-semantics-engine/build/reports/self-reading/`, and
-`themes.html` beside them is the viewer over that export, where every claim names the line it came from. The runs below are a reading of this tree, which is what makes them checkable — and perishable in a way
+`themes.html` beside them is the viewer over the same reading — a sunburst of the shares, with no script
+and no links, because with no remote to permalink into a site is only a path on the machine that read the
+tree. The reports carry the sites; the page carries the figures. The runs below are a reading of this tree, which is what makes them checkable — and perishable in a way
 worth naming: the corpus includes this file. **The report is inside the thing it reports on**, so writing the
 figures down changes them, and there is no commit at which the two agree exactly. They are quoted as a
-reading of a named commit — the figures below are of `ce325d1`, the commit that landed the topic-hierarchy
-fold — regenerated whenever the reader itself changes, and the fixed point is not chased.
+reading of a named commit — the figures below are of `da5c06e` — regenerated whenever the reader itself
+changes, and the fixed point is not chased.
+
+**The reading does not parse this repository's working notes.** A backlog and a set of session conventions
+are written *about* the reading rather than about what the code is for, and counting them awards the reader
+the mass of its own vocabulary. `DocumentationScope` reads the README and the design documents and refuses
+the rest, which is the same rule the doctrine states for resources — do not mark your own homework — applied
+to the corpus.
 
 ### What it reads, and what it refuses to
 
@@ -112,19 +120,19 @@ reading runs over a **parse**, and takes only what this repository committed to:
 |---|---|--:|
 | Declared names | types, methods, fields, parameters, locals, components, constants | 1.0 |
 | Dependencies | imports that are neither the platform's own packages nor this tree's | 0.5 |
-| Prose | javadoc, comments, and the repository's own README, plan and backlog | 0.5 |
+| Prose | javadoc, comments, and the repository's own README and design documents | 0.5 |
 
 **The unit is the phrase, not the word.** A declared name is one phrase and a sentence of prose is one
 phrase, and each commits a single unit however many words it took to say — so a twenty-word javadoc sentence
-does not outvote a two-word field name by being longer. Prose is 78% of the words and, at one unit per
+does not outvote a two-word field name by being longer. Prose is 74% of the words and, at one unit per
 sentence, about a sixth of the evidence. The report prints **what share of each theme came from names**, and
 the case to watch is a theme that exists only in the prose.
 
 Five published resources draw every boundary, and not one line of vocabulary is written here:
 
 - **`ModuleFinder.ofSystem()`** states which packages are the platform's, so `java.util` is set aside where
-  `net.sf.extjwnl` is kept. Of 1,069 imports, 632 were the platform's, 155 this tree's own coordinates, and
-  **282 were a choice worth reading**.
+  `net.sf.extjwnl` is kept. Of 1,161 imports, 657 were the platform's, 156 this tree's own coordinates, and
+  **348 were a choice worth reading**.
 - **WordNet**, an open-class dictionary by construction, states which words carry subject matter — so the
   words English uses to hold a sentence together are refused without a stop list existing — and lemmatises
   what survives, so `words` and `word` are one subject.
@@ -158,26 +166,27 @@ an article in it.
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 195 | 3,886 | 9,793 | 35,760 (78.5%) | 44,598 | **0.979** |
+| **repository** | 204 | 4,257 | 10,610 | 30,433 (74.1%) | 40,141 | **0.978** |
 
 ## What it reads this repository as
 
 | Theme | ι | From names | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `computing` | 0.0824 | 87.8% | **36** | 2,651 | 18.7% | `topic` · `unread` · `dictionary` · `lower` |
-| `linguistics` | 0.0464 | 91.3% | 16 | 1,319 | 9.3% | `antonymous` · `parse` · `initialism` · `scope` |
-| `law` | 0.0444 | 77.6% | 11 | 1,576 | 11.1% | `cite` · `witness` · `file` · `result` |
-| `music` | 0.0382 | 94.2% | 7 | 398 | 2.8% | `topic` · `phrase` · `verb` · `canonical` |
+| `computing` | 0.0791 | 91.7% | **35** | 2,448 | 16.7% | `topic` · `unread` · `dictionary` · `lower` |
+| `law` | 0.0476 | 85.1% | 15 | 1,943 | 13.3% | `cite` · `within` · `witness` · `verdict` |
+| `linguistics` | 0.0452 | 93.2% | 16 | 1,319 | 9.0% | `antonymous` · `parse` · `initialism` · `scope` |
+| `music` | 0.0377 | 95.9% | 7 | 398 | 2.7% | `topic` · `phrase` · `verb` · `theme` |
 
 Witnesses are ordered by the **mass each word carried**, not by how often it was written. Read that way the
 reading is defensible: this library is about words, senses, abbreviations and hypernyms; its mathematics is
 divergence and means; and it really does spend its time on votes, refusals and states.
 
-`law` was first until the resource was read properly. It is third now, and `computing` leads — which is the
-right answer for a library that reads code. The five steps that got there were each a rule about evidence
-and none of them excluded anything: a word's commitment weighting its own vote (48 files led → 39), reading
-a phrase in context (→ 28), discounting a label by the share of the word it speaks for (→ 20), and folding a
-label into the one it was derived from (→ 11).
+`law` was first until the resources were read properly. `computing` leads now — the right answer for a
+library that reads code — and the four steps that got there were each a rule about evidence, none of which
+excluded a word: a word's commitment weighting its own vote (48 files led → 39), reading a phrase in context
+(→ 28), discounting a label by the share of the word it speaks for (→ 20), and folding a label into the one
+it was derived from. `law` sits second at 15 files led, and its witnesses say why: `cite`, `witness`,
+`verdict` are this library's own vocabulary, and English files that vocabulary under law.
 
 **That last step is what moved the top of the table.** `sciences` led before it, and `natural-sciences`,
 `physical-sciences`, `engineering`, `computing` and `human-sciences` held **23% of all topical mass** between
@@ -189,7 +198,7 @@ took the vocabulary from 519 distinct topics to 479, and the files no topic coul
 ## What it says this repository does
 
 A method name is a clause and a test name is a sentence, so the suite is a specification wherever that
-convention holds. **592 declared methods** name a clause the dictionary can read as a verb and what the verb
+convention holds. **643 declared methods** name a clause the dictionary can read as a verb and what the verb
 acts on; a name whose first word has no verb entry yields no behaviour rather than a guessed one.
 
 | Verb | Times | For instance |
