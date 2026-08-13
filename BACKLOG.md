@@ -385,6 +385,31 @@ ones the matcher can use directly.
 | Data management | **DCAT** and **Dublin Core**; **ISO/IEC 11179** metadata registry | W3C and DCMI open; ISO paywalled | **yes** for DCAT terms |
 | Web and general | **schema.org** | CC BY-SA — share-alike, so read carefully before bundling | **yes** |
 
+### The domain this repository is in, which is the cheapest test there is
+
+The general resources already stumble onto roughly the right labels for this tree — `linguistics`,
+`semantics`, `grammar`, `mathematics` — but they arrive as everyday dictionary topics rather than as a
+subject anyone would name. A computing taxonomy would say it precisely, and there are three candidates:
+
+| Source | Would place this tree under | Licence to check |
+|---|---|---|
+| **CSO** | `natural language processing`, `computational linguistics`, `word sense disambiguation`, `information retrieval`, `semantic web` | CC BY 4.0, unstated on the download page |
+| **MSC 2020** (mathematics subject classification, AMS and zbMATH) | `68T50` natural language processing, `94A17` entropy and measures of information — which is Jensen–Shannon exactly, and `62` statistics for the permutation null | a SKOS edition is published; terms unverified, and NC has been reported for it |
+| **OntoLex-lemon** (W3C) and **OLiA** | the model this library *implements* — lexical entry, sense, form, reference | W3C community report terms; OLiA CC BY |
+
+**That makes this repository the in-domain corpus for stage 3, and it costs nothing to read.** FIBO used
+this tree as the out-of-domain control because the right answer was known to be *nothing*. CSO inverts it:
+the right answer is known to be *computational linguistics*, and a taxonomy that cannot place a library
+about lemmas, senses and word frequencies under language is failing the easiest case it will ever be given.
+Run it here first, before any panel is cloned.
+
+Two limits on that, stated so the result is not over-claimed. It is a **smoke test, not the measurement** —
+a known-answer check on the tree the reading was developed against is exactly what the doctrine means by
+marking your own homework, so the held-out panel (`apache/lucene` → information retrieval, `netty/netty` →
+computer networks, `bcgit/bc-java` → cryptography) is still what decides. And a taxonomy naming this tree
+`natural language processing` has told us something we already knew; what would be worth having is the
+branch it puts *beside* that one.
+
 ### What to do with this
 
 1. **Verify the licences in one pass**, cheapest and most permissive first: GLEIF (CC0), NIST (public
