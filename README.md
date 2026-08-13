@@ -122,8 +122,8 @@ the case to watch is a theme that exists only in the prose.
 Four published resources draw every boundary, and not one line of vocabulary is written here:
 
 - **`ModuleFinder.ofSystem()`** states which packages are the platform's, so `java.util` is set aside where
-  `net.sf.extjwnl` is kept. Of 985 imports, 567 were the platform's, 158 this tree's own coordinates, and
-  **260 were a choice worth reading**.
+  `net.sf.extjwnl` is kept. Of 981 imports, 572 were the platform's, 151 this tree's own coordinates, and
+  **258 were a choice worth reading**.
 - **WordNet**, an open-class dictionary by construction, states which words carry subject matter — so the
   words English uses to hold a sentence together are refused without a stop list existing — and lemmatises
   what survives, so `words` and `word` are one subject.
