@@ -35,6 +35,17 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   removes `String`, `List` and `assertThat` without naming any of them. `PlatformPackages` cites
   `ModuleFinder.ofSystem()` for what the platform exports; `ImportOrigins` sorts an import by prefix walk
   against that and against the packages this tree declares.
+- **The phrase as the unit of the topical reading** — `PhraseTopics` scores a subject by the geometric mean
+  of what its agreeing words committed times the share of the phrase that agrees, and the phrase commits what
+  it settled on. `SenseCoverage` then discounts a label by the share of the word it speaks for, which is what
+  moved `law` off the top. `ContentWords` lemmatises and keeps prose to its content words; `WordSpecificity`
+  weights a word nothing chose by the surprisal the frequency list states.
+- **Behaviours** — `Behaviours` reads 561 declared method names as clauses, verb first, by asking the
+  dictionary which word is a verb. `ForeignWords` ranks the names whose own subject is furthest from the
+  repository's, as metaphor candidates.
+- **The documentation as a scope**, read as prose with code quotations stepped over, and `SourceLinks`
+  rendering a `SourceAnchor` permalink where the working copy has a remote and an editor link where it does
+  not.
 - **The self test** — `./gradlew selfRead`. `IdentifierWords`, `CitedWords` over eight bundled resources,
   `LegibilityTally` and `LegibilityReport`. It reads this repository and reports λ per source set with the
   denominator, the per-resource support, what rests on each resource alone, and the unread tail with a site
@@ -47,21 +58,42 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 
 ---
 
-## [HIGH] The identifier splitter
+## Next, in order
 
-`Tokeniser` mis-splits five of nine identifiers taken from real source; the class javadoc names each. Build
-`IdentifierSplitter` alongside it, taking an identifier and a language and returning ordered lowercase tokens
-each carrying the byte offset it began at — the offset is what lets a token's evidence carry a line-accurate
-permalink.
+Each of these is next because of something the reading measured, not because of where it sits in the plan.
+The figures they have to move are on this tree, at the commit this file ships in.
 
-The grammar, in order, all of it rules about where a word sits:
+| # | Do this | Because the reading measured | It ships when |
+|--:|---|---|---|
+| 1 | **Extract Wiktionary's topic hierarchy** | `sciences`, `natural-sciences`, `physical-sciences`, `engineering`, `computing` and `human-sciences` hold **23% of all topical mass**, four have identical witnesses, four lead no files | the six labels pool to one by citation, and the ranking changes or is shown not to |
+| 2 | **Read WordNet's most frequent sense** | the reading pools every labelled sense equally, which is *worse* than the naive baseline the plan already specifies for stage 9 | `law`'s remaining 20 files led, and whether `cite` stops voting law at all |
+| 3 | **Run on a repository this reading was not written for** | `law` is under-represented in the one module ported from elsewhere and over-represented in the code written for this reading — every figure so far is an instrument reading itself | a second tree is read through `-Dcs.clone.dir` and its themes are reported beside these |
+| 4 | **Make "leads" mean something** | `law` led three documentation files at a 5–14% share: the leader can win a file while holding almost none of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
+| 5 | **Verbal forms — the rest of it** | 561 methods read as clauses; no class name does, and the verb is chosen without the position that would settle it | the item below, with its three measurements |
+| 6 | **Stages 1–3, the git read** | no reading is pinned to a commit, so no permalink is rendered and no vote can be cast at all | `SourceAnchor` renders from a real revision and the witnesses become permalinks |
 
-1. Explicit separators `_ - . $ ::`
-2. Lower→upper boundary
-3. Acronym-run boundary `(?<=[A-Z])(?=[A-Z][a-z])`
-4. Letter↔digit boundary, **proposed not applied** — both readings go forward as candidates and a catalogue
-   citation decides. This is where a lesser design would put a list, and it must not.
-5. A residual lowercase run goes to `WordSegmenter`.
+After those, the plan's own order resumes: the polyglot parse, the store, and the first vertical slice
+against `junit-team/junit-framework`, which is the first time this library reads something that is not itself.
+
+---
+
+## [MEDIUM] The identifier splitter — the letter/digit boundary
+
+**Rules 1, 2, 3 and 5 have landed** in `IdentifierWords`, alongside the ported `Tokeniser` rather than inside
+it: explicit separators including the dot and dollar, the lower→upper boundary, the acronym-run boundary, and
+the residual run to `WordSegmenter`. Four of the plan's five documented mis-splits now read correctly, and
+`refusesALineRange` stopped reading as *refuses / aline / range*, which is what let a method name be read as a
+clause at all.
+
+Two things are left:
+
+**Rule 4, the letter↔digit boundary, proposed not applied.** Both readings go forward as candidates and a
+catalogue citation decides. `utf8Decode` still reads as one token because `utf8` is a single token in the
+catalogues that name it — and this repository bundles no such catalogue, so there is nothing yet to arbitrate
+with. It is blocked on the item below, and deliberately: this is where a lesser design would put a list.
+
+**Byte offsets.** A token should carry the offset it began at, which is what lets a token's evidence carry a
+line-accurate permalink rather than a line-accurate-to-the-declaration one.
 
 **Measurement:** the nine-identifier table in the plan, now pinned in `TokeniserTest` so a widening shows up
 as a rewritten expectation rather than as a silent change, plus the count of live identifiers whose reading
@@ -72,7 +104,7 @@ disappear, and nothing that read correctly regresses.
 
 *Blocked on nothing.*
 
-## [HIGH] The cited catalogues
+## [LOW] The cited catalogues — what rule 4 needs
 
 `CitedTokens.NONE` recognises nothing, which is why `userid` currently refuses to split — `id` ranks 4690 and
 a two-letter piece must rank inside 1000 to count as a word. The catalogues that fix this are published
@@ -86,19 +118,17 @@ is:
 - **`github/linguist` data** — `languages.yml`, `vendor.yml`, `generated.rb`. Verify the MIT licence at
   adoption.
 
-The Java half of the first item is **already cited without a bundled file**: `JavaLanguageKeywords` delegates
-to `javax.lang.model.SourceVersion`, which is the platform's own implementation of the JLS keyword table. The
-same trick does not exist for the other languages, and a contextual keyword (`var`, `record`, `sealed`,
-`yield`) is deliberately not named by it, because whether one is a keyword is a fact about where it sits and a
-scan cannot see that.
+**The keyword half is superseded and the demotion half is moot.** The parse reads declarations, so the
+language's own words never arrive — they are never declarations — and neither do the platform's, which are
+uses of somebody else's. `PlatformPackages` handles the one place platform names do arrive, the import
+section, by asking `ModuleFinder.ofSystem()` which packages the platform exports.
 
-**Measurement:** the share of word occurrences a catalogue demotes. Over the source project's 931 Java files,
-Java keywords were 13.5% of 381,466 word occurrences and a forty-name sample of JDK tokens a further 11.1%. On
-this repository the keyword citation already demotes 3,137 of 14,600 identifier occurrences (21.5%); the
-standard-library index is what would then read `charsets` and `unmodifiable`, which the self test's tail names
-as unread fragments of `StandardCharsets` and `unmodifiableList`.
+What the catalogues are still needed for is **rule 4 of the splitter**, which has nothing to arbitrate with
+until one exists. `utf8`, `ipv6`, `base64` and `co2` are single tokens in the catalogues that name them, and
+the letter/digit split must be proposed for a citation to dispose of rather than simply applied.
 
-*Enables rule 4 of the splitter to arbitrate rather than guess.*
+**Measurement:** the count of identifiers whose reading changes when the boundary is proposed and arbitrated,
+against the count that would change if it were simply applied. The difference is what the citation is buying.
 
 ## [MEDIUM] Stages 1–3 — the repository read
 
@@ -196,7 +226,7 @@ one source set and its witness is `jupiter`, from the JUnit Jupiter import — t
 a Roman god, and nothing in the reading knows the file meant a test framework. A disambiguation that does not
 remove that reading has not helped.
 
-## [HIGH] The domain resources only label specialist senses — and the reading rewards that
+## [MEDIUM] The domain resources only label specialist senses — what is left of it
 
 The theme reading finds this repository to be about **law**, and it is not. The cause is not polysemy, which
 is what it looks like; it is the opposite, and it is stated in the bundled resource's own header: *"Factotum
@@ -293,7 +323,7 @@ is already parsed far enough to carry the first three; the fourth is a grammar r
 subordinate clause begins. *Measurement:* the share of test names that yield a condition, against the share
 that state one in prose.
 
-## [MEDIUM] The Wiktionary topic hierarchy
+## [HIGH] The Wiktionary topic hierarchy
 
 `sciences`, `natural-sciences` and `physical-sciences` fire together on the same words and split one theme
 three ways; `computing` and `computer_science` are the same subject under two resources' labels. Wiktionary
@@ -305,6 +335,22 @@ task and a provenance header, exactly as the other TSVs are.
 siblings pool. Five labels — `sciences`, `natural-sciences`, `physical-sciences`, `engineering`,
 `computing` — currently fire on the same words and lead almost no files between them, which is one theme
 counted five times. A fold that only reduces the label count without moving the reading has bought nothing.
+
+## [HIGH] A topic that leads a file should hold some of it
+
+`law` led `docs/CODE_SEMANTICS_LIBRARY_PLAN.md` (692 lines), `README.md` (239) and `CLAUDE.md` (207) at
+shares of **0.09, 0.14 and 0.05**. Nothing dominates those files; law won by a nose in a field where every
+theme is weak, and then took all their lines into its total. Two thirds of its *lines led* came from files
+where the leader held less than a fifth of the mass.
+
+The abstention already knows this. `OpenSpaceAccumulator` resolves the leader's share against the voted mass
+*plus* what nothing could read, and that share is carried on every file as `ValueShare.share()` — the
+reporting simply ignores it. A topic should lead a file only where its share clears the file's own
+abstention, and `TopicRankings` should count lines on that basis.
+
+**Measurement:** lines led, before and after, for every theme in the top ten — and the count of files with no
+leader at all, which should rise. A ranking that does not move is a ranking that was already honest, and
+this one will move.
 
 ## [LOW] Version stamps
 

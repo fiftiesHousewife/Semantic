@@ -168,11 +168,12 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
   `themes.md` (what it is about, scope by scope) and `themes.json` (the same figures, for the viewer at
   `docs/self-reading/build_themes_page.py`). Point it at
   another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the
-  forked JVM. The README carries the current result, and the corpus it reports on is this repository — so
-  **any commit that adds or removes a Java file moves every figure in it.** Regenerate with `./gradlew
-  selfRead`, sync the README and `docs/self-reading/build_themes_page.py`'s output, and land them in a commit
-  that touches no Java, which is the only way the stated measurement and the tree it measures are the same
-  tree. A reported measurement that no longer matches the code is worse than none.
+  forked JVM. The README carries the current result, and the corpus it reports on is this repository —
+  **including its own documentation**, so any commit that changes a source file *or a markdown file* moves
+  every figure in it. The report is inside the thing it reports on, and there is no commit at which the two
+  agree exactly: writing the figures down changes them. So quote them as a reading **of a named commit**,
+  regenerate with `./gradlew selfRead` whenever the reading itself changes, and do not chase the fixed point.
+  A figure that is a commit or two old is honest; one taken from a different version of the reader is not.
 
 ### Measurement is the argument
 

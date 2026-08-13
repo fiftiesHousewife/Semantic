@@ -97,9 +97,11 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instructi
 `./gradlew selfRead` points the library at this repository and reports what it is written in, what it is
 about, and what it does. The reports land in `code-semantics-engine/build/reports/self-reading/`, and
 `python3 docs/self-reading/build_themes_page.py` turns the export into a page where every claim links to the
-line it came from. The runs below are the tree this README ships in, which is what makes them checkable —
-and perishable: **any commit that adds or removes a file moves every count here**, so they are regenerated
-and landed in a commit that touches no source.
+line it came from. The runs below are a reading of this tree, which is what makes them checkable — and perishable in a way
+worth naming: the corpus includes this file. **The report is inside the thing it reports on**, so writing the
+figures down changes them, and there is no commit at which the two agree exactly. They are quoted as a
+reading of a named commit, regenerated whenever the reader itself changes, and the fixed point is not
+chased.
 
 ### What it reads, and what it refuses to
 
