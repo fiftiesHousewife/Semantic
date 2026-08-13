@@ -46,7 +46,8 @@ final class TermPage {
 
     private DomContent masthead(final TermGraph graph) {
         return header(
-                p("Self-reading · %s · %s".formatted(graph.repository(), graph.source())).withClass("eyebrow"),
+                p("Self-reading · %s · %s · matched on %s"
+                        .formatted(graph.repository(), graph.source(), graph.rung())).withClass("eyebrow"),
                 h1(TermProse.HEADING),
                 p(TermProse.LEDE).withClass("lede"),
                 statistics(graph),

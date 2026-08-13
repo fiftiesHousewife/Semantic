@@ -71,7 +71,38 @@ class TermSpansTest {
         assertThat(spansOver("noun").in(List.of())).isEmpty();
     }
 
+    @Test
+    void saysTheWordsThemselvesAnsweredWhereTheyDid() {
+        assertThat(ladderOver("noun").in(List.of("noun")).getFirst().rung()).isEqualTo(TermRung.WORDS);
+    }
+
+    @Test
+    void fallsToTheMeaningOnlyWhereTheWordsSaidNothing() {
+        final List<TermSpan> found = ladderOver("noun phrase").in(List.of("nominal", "phrase"));
+
+        assertAll(
+                () -> assertThat(found).hasSize(1),
+                () -> assertThat(found.getFirst().rung()).isEqualTo(TermRung.SENSES),
+                () -> assertThat(found.getFirst().words()).containsExactly("nominal", "phrase"));
+    }
+
+    @Test
+    void takesTheWordsThemselvesWhereBothRungsWouldHaveAnswered() {
+        assertThat(ladderOver("noun phrase").in(List.of("noun", "phrase")).getFirst().rung())
+                .isEqualTo(TermRung.WORDS);
+    }
+
+    @Test
+    void abstainsOnARunNoRungOfTheLadderAnswers() {
+        assertThat(ladderOver("noun phrase").in(List.of("interest", "rate"))).isEmpty();
+    }
+
     private static TermSpans spansOver(final String... terms) {
         return new TermSpans(publishing(SOURCE, terms));
+    }
+
+    private static TermSpans ladderOver(final String... terms) {
+        final TermIndex published = publishing(SOURCE, terms);
+        return new TermSpans(published, SensedTerms.over(published, SenseRuns.fromClasspath()));
     }
 }

@@ -27,13 +27,19 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  * not itself a published term is nothing at all, and the walk moves on one word rather than settling for it.
  * That is the same rule the rest of the library obeys — a reading that cannot cite says nothing — applied to
  * the one place where saying something slightly wrong would be easy and cheap.
+ *
+ * <p><b>The rungs are a ladder, not a choice.</b> Each is the same taxonomy normalised to something narrower
+ * or broader — the words themselves, then what the dictionary says they mean — and a run is offered to each in
+ * turn until one answers. Length is settled before the rung is: a longer run is the stronger claim whichever
+ * rung found it, and the rung breaks the tie between two readings of the same run. Which one answered is
+ * carried on the span, so the two are never added together.
  */
 public final class TermSpans {
 
-    private final TermIndex index;
+    private final List<TermIndex> rungs;
 
-    public TermSpans(final TermIndex index) {
-        this.index = index;
+    public TermSpans(final TermIndex... rungs) {
+        this.rungs = List.of(rungs);
     }
 
     /** Every term the source publishes within this phrase, in the order the phrase states them. */
@@ -61,7 +67,11 @@ public final class TermSpans {
     }
 
     private int reachFrom(final List<String> phrase, final int from) {
-        return Math.min(index.longestTerm(), phrase.size() - from);
+        return Math.min(longestTerm(), phrase.size() - from);
+    }
+
+    private int longestTerm() {
+        return rungs.stream().mapToInt(TermIndex::longestTerm).max().orElse(0);
     }
 
     /**
@@ -72,8 +82,16 @@ public final class TermSpans {
     private Optional<TermSpan> spanOf(final List<String> phrase, final int from, final int to) {
         final List<String> run = phrase.subList(from, to).stream()
                 .map(word -> word.toLowerCase(Locale.ROOT)).toList();
-        final List<SkosConcept> concepts = index.conceptsOf(run);
+        return rungs.stream()
+                .map(rung -> statedBy(rung, run, from, to))
+                .flatMap(Optional::stream)
+                .findFirst();
+    }
+
+    private static Optional<TermSpan> statedBy(final TermIndex rung, final List<String> run,
+                                               final int from, final int to) {
+        final List<SkosConcept> concepts = rung.conceptsOf(run);
         return concepts.isEmpty() ? Optional.empty()
-                : Optional.of(new TermSpan(from, to, run, concepts, index.source()));
+                : Optional.of(new TermSpan(from, to, run, concepts, rung.source(), rung.rung()));
     }
 }

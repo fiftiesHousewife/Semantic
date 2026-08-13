@@ -73,7 +73,7 @@ class TermReadingDiagnostic {
         final MatchedTerms matched = TermReading.over(terms).of(parsed);
 
         write(root, terms, matched, TermGraph.of(root.getFileName().toString(), terms.source(),
-                matched, new StatedAncestry(terms)));
+                matched, TermRung.WORDS, new StatedAncestry(terms)));
 
         final List<String> carrying = matched.byMass(TERMS_HELD).stream().map(TermSighting::term).toList();
         final List<String> longer = matched.longerThanOneWord().stream().map(TermSighting::term).toList();

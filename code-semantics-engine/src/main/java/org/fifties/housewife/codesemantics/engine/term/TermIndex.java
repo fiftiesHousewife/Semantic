@@ -2,6 +2,7 @@ package org.fifties.housewife.codesemantics.engine.term;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 
@@ -27,6 +28,13 @@ public interface TermIndex {
      */
     List<SkosConcept> conceptsOf(List<String> words);
 
+    /**
+     * Every run of words this source publishes a term under. It is what lets one index be built over another —
+     * a reading that compares meanings rather than spellings needs the source's own runs to normalise, and
+     * asking for them is cheaper than every source learning how to be normalised.
+     */
+    Set<List<String>> terms();
+
     /** How many words the longest term this index holds is written in. */
     int longestTerm();
 
@@ -42,4 +50,10 @@ public interface TermIndex {
 
     /** The published resource speaking, so a match cites the taxonomy that stated it. */
     String source();
+
+    /**
+     * What this index compares at, so every span it answers records how far the two sides had to be
+     * generalised before they met.
+     */
+    TermRung rung();
 }

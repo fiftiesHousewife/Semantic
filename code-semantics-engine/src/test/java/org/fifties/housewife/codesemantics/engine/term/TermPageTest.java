@@ -19,8 +19,8 @@ class TermPageTest {
     private static final TermGraph.Match COMMON_NOUN = new TermGraph.Match("common noun", "CommonNoun",
             List.of("CommonNoun"), 0.96, 2, 1.93, 2, "OliaConceptsTest.java:16");
 
-    private final TermGraph graph = new TermGraph("CodeSemantics", "OLiA", 35, 5000, 3, 10, 6,
-            Map.of(1, 33, 2, 2),
+    private final TermGraph graph = new TermGraph("CodeSemantics", "OLiA", "the words themselves",
+            35, 5000, 3, 10, 6, Map.of(1, 33, 2, 2),
             List.of(new TermGraph.Branch("Verb", 31, 28.12, List.of(VERB)),
                     new TermGraph.Branch("Relation", 2, 1.53, List.of(CONTRAST)),
                     new TermGraph.Branch("CommonNoun", 2, 1.93, List.of(COMMON_NOUN))));
@@ -30,6 +30,11 @@ class TermPageTest {
     @Test
     void namesTheTaxonomyItDrewAndTheRepositoryItReads() {
         assertThat(page).contains("Terms — CodeSemantics").contains("CodeSemantics · OLiA");
+    }
+
+    @Test
+    void namesTheRungItDrawsSoNobodyReadsItAsEveryMatchFound() {
+        assertThat(page).contains("matched on the words themselves");
     }
 
     @Test

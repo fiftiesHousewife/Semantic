@@ -13,8 +13,13 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  * {@code SemanticFeature} in both {@code olia-top.owl} and {@code olia.owl} — and choosing between them here
  * would be this library deciding something its source did not. The span carries what was published and lets
  * the reading that consumes it say so.
+ *
+ * <p>It also carries the rung the two sides met on. A term found in the words the repository wrote and a term
+ * found in what the dictionary says those words mean are different strengths of evidence, and a span that did
+ * not say which it was could only ever be counted as the stronger.
  */
-public record TermSpan(int from, int to, List<String> words, List<SkosConcept> concepts, String source) {
+public record TermSpan(int from, int to, List<String> words, List<SkosConcept> concepts, String source,
+                       TermRung rung) {
 
     public TermSpan {
         words = List.copyOf(words);

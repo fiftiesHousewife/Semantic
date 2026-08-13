@@ -12,9 +12,13 @@ import java.util.stream.Collectors;
  * <p>Nothing here is computed that the report does not also state, and the one thing that is — the branch —
  * is read off the taxonomy's own {@code broader} column by {@link StatedAncestry}. The picture and the report
  * are written from one reading, so they cannot disagree about what matched.
+ *
+ * <p>It draws <b>one rung of the ladder</b> and names which. Drawing two on one set of axes would put a match
+ * made on the words beside a match made on what a dictionary says those words mean, at the same size, and the
+ * whole point of recording the rung is that those are not the same evidence.
  */
-record TermGraph(String repository, String source, int spans, int names, int distinctTerms, int filesRead,
-                 int filesMatched, Map<Integer, Integer> spansByLength, List<Branch> branches) {
+record TermGraph(String repository, String source, String rung, int spans, int names, int distinctTerms,
+                 int filesRead, int filesMatched, Map<Integer, Integer> spansByLength, List<Branch> branches) {
 
     /** One concept the taxonomy names as a root, and everything matched beneath it. */
     record Branch(String root, int spans, double mass, List<Match> matches) {
@@ -29,13 +33,14 @@ record TermGraph(String repository, String source, int spans, int names, int dis
         }
     }
 
-    static TermGraph of(final String repository, final String source, final MatchedTerms matched,
-                        final StatedAncestry ancestry) {
+    static TermGraph of(final String repository, final String source, final MatchedTerms whole,
+                        final TermRung rung, final StatedAncestry ancestry) {
+        final MatchedTerms matched = whole.at(rung);
         final List<Match> matches = matched.sightings().stream()
                 .map(sighting -> match(sighting, ancestry))
                 .toList();
-        return new TermGraph(repository, source, matched.spansFound(), matched.namesRead(),
-                matched.distinctTerms(), matched.filesRead(), matched.filesMatched(),
+        return new TermGraph(repository, source, rung.normalisation(), matched.spansFound(),
+                matched.namesRead(), matched.distinctTerms(), matched.filesRead(), matched.filesMatched(),
                 matched.spansByLength(), branches(matches));
     }
 

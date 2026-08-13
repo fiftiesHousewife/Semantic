@@ -18,11 +18,27 @@ import java.util.stream.Collectors;
  *
  * <p>The files nothing matched in are carried for the same reason a legibility reading carries its
  * denominator. A vocabulary firing hard in three files and nowhere else is a fact about those three files.
+ *
+ * <p>It can be asked for one rung of the ladder at a time and it has no method that sums across them. A term
+ * found in the words a repository wrote and a term found in what the dictionary says those words mean are
+ * different strengths of evidence, and one figure covering both would be read as the stronger.
  */
-public record MatchedTerms(List<TermSighting> sightings, int namesRead, int filesRead, int filesMatched) {
+public record MatchedTerms(List<TermSighting> sightings, int namesRead, int filesRead, int filesMatched,
+                           Map<TermRung, Integer> filesMatchedByRung) {
 
     public MatchedTerms {
         sightings = List.copyOf(sightings);
+        filesMatchedByRung = Map.copyOf(filesMatchedByRung);
+    }
+
+    /**
+     * The same reading with only what one rung of the ladder answered, over the same denominators — the names
+     * and the files are what every rung was offered, and only what was found on them narrows.
+     */
+    public MatchedTerms at(final TermRung rung) {
+        final int files = filesMatchedByRung.getOrDefault(rung, 0);
+        return new MatchedTerms(sightings.stream().filter(sighting -> sighting.rung() == rung).toList(),
+                namesRead, filesRead, files, Map.of(rung, files));
     }
 
     public int spansFound() {

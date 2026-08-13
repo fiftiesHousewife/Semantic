@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import org.fifties.housewife.bi.lexicon.SkosConcept;
@@ -45,6 +46,11 @@ final class PublishedTerms implements TermIndex {
     }
 
     @Override
+    public Set<List<String>> terms() {
+        return byWords.keySet();
+    }
+
+    @Override
     public int longestTerm() {
         return byWords.keySet().stream().mapToInt(List::size).max().orElse(0);
     }
@@ -52,5 +58,10 @@ final class PublishedTerms implements TermIndex {
     @Override
     public String source() {
         return source;
+    }
+
+    @Override
+    public TermRung rung() {
+        return TermRung.WORDS;
     }
 }

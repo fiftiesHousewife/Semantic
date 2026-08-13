@@ -52,8 +52,8 @@ class LinguisticTermsTest {
 
     @Test
     void holdsOneRunOfWordsForEveryTermExceptTheOneStatedTwice() {
-        assertThat(terms.size())
+        assertThat(terms.terms())
                 .as("1,197 terms, and only SemanticFeature is published in two modules at once")
-                .isEqualTo(1196);
+                .hasSize(1196);
     }
 }

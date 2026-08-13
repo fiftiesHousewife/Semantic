@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.fifties.housewife.bi.lexicon.OliaTerms;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
@@ -68,6 +69,11 @@ public final class LinguisticTerms implements TermIndex {
     }
 
     @Override
+    public Set<List<String>> terms() {
+        return byWords.keySet();
+    }
+
+    @Override
     public int longestTerm() {
         return longestTerm;
     }
@@ -77,13 +83,14 @@ public final class LinguisticTerms implements TermIndex {
         return SOURCE;
     }
 
+    @Override
+    public TermRung rung() {
+        return TermRung.WORDS;
+    }
+
     /** A label is keyed in lower case, because the ontology's own capitalisation is not part of the name. */
     private static String key(final String label) {
         return label.toLowerCase(Locale.ROOT);
     }
 
-    /** How many distinct runs of words the ontology's terms read as, which is fewer than the terms it states. */
-    public int size() {
-        return byWords.size();
-    }
 }

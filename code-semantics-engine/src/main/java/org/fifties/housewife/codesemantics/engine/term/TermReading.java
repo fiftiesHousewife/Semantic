@@ -32,8 +32,13 @@ public final class TermReading {
         this.specificity = specificity;
     }
 
+    /**
+     * The published index and the same index read as meanings, in that order — the narrower rung answers where
+     * it can and the broader is asked only where it did not.
+     */
     public static TermReading over(final TermIndex index) {
-        return new TermReading(IdentifierWords.fromClasspath(), new TermSpans(index),
+        return new TermReading(IdentifierWords.fromClasspath(),
+                new TermSpans(index, SensedTerms.over(index, SenseRuns.fromClasspath())),
                 PhraseSpecificity.fromClasspath());
     }
 
@@ -44,11 +49,10 @@ public final class TermReading {
     }
 
     private void read(final ParsedFile file, final TermTally tally) {
-        final int before = tally.spansFound();
         file.occurrences().stream()
                 .filter(occurrence -> occurrence.form().isChosenName())
                 .forEach(occurrence -> readName(file, occurrence, tally));
-        tally.readFile(tally.spansFound() > before);
+        tally.readFile();
     }
 
     private void readName(final ParsedFile file, final NameOccurrence occurrence, final TermTally tally) {
