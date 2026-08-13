@@ -131,6 +131,17 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 Each of these is next because of something the reading measured, not because of where it sits in the plan.
 The figures they have to move are on this tree, at the commit this file ships in.
 
+**The two taken first, in this order, are neither of the ones in the table below.** First
+[what the parse walks past](#medium-what-the-parse-walks-past-measured-on-a-file-written-to-contain-all-of-it) —
+string literals, the package declaration, pattern bindings, labels — because every reading in this tree rests
+on the tokens the parse hands it, and a corpus missing whole classes of authored text cannot be tuned into
+correctness by anything downstream. Then
+[how far a non-code entry can be trusted](#high-how-far-a-non-code-entry-can-be-trusted-measured-rather-than-assumed),
+which is the same question asked of what the parse already collects: prose is 74% of the read occurrences and
+its weight is the one number in the pipeline that was picked. The first widens the corpus, the second says
+what each part of it is worth, and doing them the other way round would weigh a corpus that is about to
+change.
+
 | # | Do this | Because the reading measured | It ships when |
 |--:|---|---|---|
 | 1 | **Make "leads" mean something** | **92 of the 178 files that have a leader are led at a share under a fifth**, and they hold 7,643 of the 13,711 led lines. The plan document is led by `law` holding 7.6% of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
