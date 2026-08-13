@@ -30,12 +30,16 @@ final class PageProse {
 
     static final String GRAPH_HEADING = "The theme graph";
 
-    static final String GRAPH = "Each theme sits on its own row, sized by intensity and figured by the "
-            + "lines it leads. An arc joins two themes when the same word was read as both — which is what "
-            + "a shared arc means and all it means. Select a theme to see the words behind it, ordered by "
-            + "the mass each actually carried rather than by how often it was written — each quoted in the "
-            + "phrase it was read in, because the phrase and not the word is the unit of the reading. A word "
-            + "alone is ambiguous and nothing can fix that; a word among its siblings is much less so.";
+    static final String GRAPH = "Every theme is placed by three of its own figures — how much of the "
+            + "tree's topical mass it holds, how much of the tree it actually leads, and how much of it the "
+            + "code carried rather than its prose — each axis scaled by the largest value on it, so the box "
+            + "is derived from the reading rather than chosen. Nothing settles anywhere and no force pulls "
+            + "two themes together: two runs of one tree draw the same picture, which is the point of "
+            + "placing by measurement. Drag to turn it. A line joins two themes where the same word was "
+            + "read as both, thicker where more occurrences are shared — that is what a line means and all "
+            + "it means. Select a theme for the words behind it, ordered by the mass each carried rather "
+            + "than by how often it was written, and each quoted in the phrase it was read in, because the "
+            + "phrase and not the word is the unit of the reading.";
 
     static final String RANKING_HEADING = "Which themes dominate";
 

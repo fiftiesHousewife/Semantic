@@ -35,11 +35,15 @@ final class EvidencePayload {
         return published;
     }
 
+    /**
+     * A theme with the three figures the view places it by, beside the ones the panel reads. None is
+     * computed here: each is what the reading reported, and the table under the picture prints the same.
+     */
     private static Map<String, Object> node(final ThemeGraph.Node node) {
-        return Map.of("wordsBehind", node.wordsBehind(), "files", node.files(), "leads", node.leads(),
-                "linesLed", node.linesLed(), "carriedBy", node.carriedBy().stream()
-                        .map(EvidencePayload::witness)
-                        .toList());
+        return Map.of("intensity", node.intensity(), "lineShare", node.lineShare(),
+                "nameShare", node.nameShare(), "wordsBehind", node.wordsBehind(), "files", node.files(),
+                "leads", node.leads(), "linesLed", node.linesLed(),
+                "carriedBy", node.carriedBy().stream().map(EvidencePayload::witness).toList());
     }
 
     private static Map<String, Object> witness(final ThemeGraph.Witness witness) {

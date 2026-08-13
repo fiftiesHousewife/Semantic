@@ -42,7 +42,7 @@ final class ThemePage {
                 title("Themes — %s".formatted(graph.repository())),
                 styleWithInlineFile(STYLE),
                 div(masthead(graph),
-                        graphSection(graph),
+                        graphSection(),
                         rankingSection(graph),
                         sections.behaviours(graph.verbs()),
                         sections.foreignWords(graph.foreignWords()),
@@ -77,11 +77,10 @@ final class ThemePage {
                 .withClass("stats");
     }
 
-    private DomContent graphSection(final ThemeGraph graph) {
+    private DomContent graphSection() {
         return section(
                 sections.heading(PageProse.GRAPH_HEADING, PageProse.GRAPH),
-                div(div(new ThemeArcs(graph.nodes(), graph.edges()).diagram()).withClass("graph-figure"),
-                        sections.evidencePanel()).withClass("panel graph"));
+                div(new ThemeSpace().view(), sections.evidencePanel()).withClass("panel graph"));
     }
 
     private DomContent rankingSection(final ThemeGraph graph) {

@@ -67,7 +67,11 @@ class ThemePageTest {
                 () -> assertThat(page).contains("computing"),
                 () -> assertThat(page).contains("shannon"),
                 () -> assertThat(page).contains("read a repository"),
-                () -> assertThat(page).contains("stands outside its own null"));
+                () -> assertThat(page).contains("stands outside its own null"),
+                () -> assertThat(page).contains("<svg id=\"space\""),
+                () -> assertThat(page)
+                        .as("a picture whose marks are unexplained is a decoration")
+                        .contains("A line joins two themes where the same word was read as both"));
     }
 
     @Test
