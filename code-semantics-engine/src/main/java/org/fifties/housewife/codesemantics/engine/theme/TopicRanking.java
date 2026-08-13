@@ -16,9 +16,10 @@ import java.util.Objects;
  * @param dominantFiles   files where it leads every other topic
  * @param linesDominated  the lines of code in those files
  * @param wordsBehind     distinct word surfaces carrying it — a topic behind one word is one word's opinion
+ * @param nameShare       how much of its mass came from declared names rather than prose, in {@code [0, 1]}
  */
 public record TopicRanking(String topic, double intensity, int references, int files, int dominantFiles,
-                           int linesDominated, int wordsBehind) {
+                           int linesDominated, int wordsBehind, double nameShare) {
 
     public TopicRanking {
         Objects.requireNonNull(topic, "topic");

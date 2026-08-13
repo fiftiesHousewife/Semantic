@@ -34,7 +34,9 @@ public enum NameForm {
     /** Documentation the author wrote against a declaration. */
     JAVADOC(Vocabulary.PROSE),
     /** Any other comment. */
-    COMMENT(Vocabulary.PROSE);
+    COMMENT(Vocabulary.PROSE),
+    /** A line of the repository's own documentation — a README, a plan, a backlog. */
+    DOCUMENTATION(Vocabulary.PROSE);
 
     private final Vocabulary vocabulary;
 

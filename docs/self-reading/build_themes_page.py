@@ -30,6 +30,8 @@ nodes = d["nodes"][:NODES_DRAWN]
 edges = sorted(d["edges"], key=lambda e: -e["occurrences"])[:EDGES_DRAWN]
 scopes = d["scopes"]
 files = d["filesRead"]
+verbs = d["verbs"][:14]
+foreign = d["foreignWords"][:18]
 
 # --- lines led by theme, over the whole tree ------------------------------------------------
 lines_by_theme = {}
@@ -107,12 +109,13 @@ table_rows = "\n".join(
     "<tr data-topic=\"{topic}\">"
     "<th scope=\"row\">{topic}</th>"
     "<td class=\"n\">{iota:.4f}</td>"
+    "<td class=\"n\">{names:.0f}%</td>"
     "<td class=\"n bar-cell\"><span class=\"bar\" style=\"--w:{refw:.1f}%\"></span><span class=\"v\">{refs}</span></td>"
     "<td class=\"n\">{files}</td><td class=\"n\">{leads}</td>"
     "<td class=\"n bar-cell\"><span class=\"bar alt\" style=\"--w:{linew:.1f}%\"></span><span class=\"v\">{lines}</span></td>"
     "<td class=\"n\">{share:.1f}%</td><td class=\"n\">{words}</td>"
     "<td class=\"witness\">{witnesses}</td></tr>".format(
-        topic=esc(n["topic"]), iota=n["intensity"], refs=num(n["references"]),
+        topic=esc(n["topic"]), iota=n["intensity"], names=100.0 * n["nameShare"], refs=num(n["references"]),
         refw=100.0 * n["references"] / max_refs, files=num(n["files"]), leads=num(n["leads"]),
         lines=num(n["linesLed"]), linew=100.0 * n["lineShare"], share=100.0 * n["lineShare"],
         words=num(n["wordsBehind"]),
@@ -136,6 +139,24 @@ for label, count, light, dark in stack:
             light=light, dark=dark, label=esc(label), lines=num(count), pct=pct))
 segments_html = "\n".join(segments)
 legend_html = "\n".join(legend)
+
+def link(site):
+    return '<a class="site" href="{url}">{where}</a>'.format(url=esc(site["url"]), where=esc(site["where"]))
+
+
+verb_rows = "\n".join(
+    '<tr><th scope="row">{verb}</th><td class="n">{times}</td><td class="clauses">{clauses}</td></tr>'.format(
+        verb=esc(v["verb"]), times=num(v["times"]),
+        clauses=" ".join('<span class="clause">{sentence} {site}</span>'.format(
+            sentence=esc(c["sentence"]), site=link(c["site"])) for c in v["clauses"][:4]))
+    for v in verbs)
+
+foreign_rows = "\n".join(
+    '<tr><th scope="row"><code>{word}</code></th><td class="n">{bits:.3f}</td><td class="n">{n}</td>'
+    '<td>{subjects}</td><td>{site}</td></tr>'.format(
+        word=esc(f["word"]), bits=f["bits"], n=num(f["occurrences"]),
+        subjects=", ".join(esc(t) for t in f["subjects"]), site=link(f["site"]))
+    for f in foreign)
 
 # --- scope cards ----------------------------------------------------------------------------------
 max_share = max((c["shareOfDivergence"] for s in scopes for c in s["contributions"]), default=0.2)
@@ -327,6 +348,12 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
   white-space:nowrap; overflow:hidden; }}
 @media (prefers-color-scheme: dark) {{ :root:where(:not([data-theme="light"])) .seg {{ background:var(--cd); }} }}
 :root[data-theme="dark"] .seg {{ background:var(--cd); }}
+.site {{ font-family:var(--mono); font-size:11px; color:var(--ink-3); text-decoration:none;
+  border-bottom:1px dotted var(--rule-strong); }}
+.site:hover {{ color:var(--accent); border-bottom-color:var(--accent); }}
+.clause {{ display:block; padding:2px 0; }}
+td.clauses {{ white-space:normal; min-width:340px; font-size:13px; }}
+.witness-list .sites {{ grid-column:1/-1; display:flex; flex-wrap:wrap; gap:8px; }}
 .legend {{ list-style:none; margin:16px 0 0; padding:0; display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:8px 22px; font-size:13.5px; }}
 .legend li {{ display:flex; align-items:baseline; gap:8px; }}
@@ -394,6 +421,7 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
     <div class="stat"><dt>Scopes compared</dt><dd>{len(scopes)}</dd></div>
     <div class="stat"><dt>Cost</dt><dd>{d['elapsedMillis'] / 1000:.1f}<small> s</small></dd></div>
   </dl>
+  <p class="limits" id="linkage">Every site on this page is a link: {esc(d['linkage'])}.</p>
   <p class="limits">What a Java file mostly contains is somebody else's vocabulary quoted: <code>String</code>,
   <code>List</code> and <code>assertThat</code> are uses of declarations the platform and the test framework
   made, and a use is not a word this codebase chose. Only a parse can tell a declaration from a use, so that
@@ -438,11 +466,48 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
       <caption>The eighteen strongest themes, by intensity. Words behind is the count of distinct
       surfaces; the last column names the three most written of them.</caption>
       <thead><tr>
-        <th scope="col">Theme</th><th scope="col">ι</th><th scope="col">References</th>
+        <th scope="col">Theme</th><th scope="col">ι</th><th scope="col">From names</th>
+        <th scope="col">References</th>
         <th scope="col">Files</th><th scope="col">Leads</th><th scope="col">Lines led</th>
         <th scope="col">Share</th><th scope="col">Words</th><th scope="col">Carried by</th>
       </tr></thead>
       <tbody>{table_rows}</tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>What this repository does</h2>
+    <p class="note">A method name is a clause and a test name is a sentence, so the suite is a specification
+    wherever that convention holds. The leading word is a verb where the dictionary carries a verb entry for
+    it; where it does not, the name yields no behaviour rather than a guessed one. Every clause links to the
+    line it was read from.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <caption>The verbs this repository performs most, with what each acts on.</caption>
+      <thead><tr><th scope="col">Verb</th><th scope="col">Times</th>
+        <th scope="col">What it acts on</th></tr></thead>
+      <tbody>{verb_rows}</tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-head">
+    <h2>Words carried in from somewhere else</h2>
+    <p class="note">Each of these is written at least three times, and the dictionary places it in a subject
+    this repository is not about — measured as the divergence of the word's own reading from the
+    repository's, in bits. That is what a metaphor looks like from the outside. It is also what an ordinary
+    technical term looks like when the resources are too coarse for it, which is why these are
+    <strong>candidates</strong> and the evidence is printed beside them.</p>
+  </div>
+  <div class="scroller">
+    <table>
+      <thead><tr><th scope="col">Word</th><th scope="col">Distance</th><th scope="col">Written</th>
+        <th scope="col">The dictionary places it in</th><th scope="col">First seen</th></tr></thead>
+      <tbody>{foreign_rows}</tbody>
     </table>
   </div>
 </section>
@@ -472,7 +537,13 @@ td.witness {{ color:var(--ink-2); font-size:13px; }}
   <div class="section-head">
     <h2>Read the strange results, not around them</h2>
   </div>
-  <p class="note"><strong>Mythology is <code>jupiter</code>.</strong> It is a real theme of one source set,
+  <p class="note"><strong>Law is <code>cite</code>, <code>evidence</code>, <code>claim</code> and
+  <code>licence</code>.</strong> Every one of those is a word this library really is about, and every one of
+  them the dictionary also places somewhere else — which is why each now votes its commitment weighted by
+  that same commitment, and why law leads 39 files rather than the 48 it led before that rule. It is still
+  first, and whether a library about citation and evidence <em>is</em> about law in any useful sense is a
+  question the dictionary cannot settle and this reading does not pretend to.</p>
+  <p class="note"><strong>Mythology was <code>jupiter</code>.</strong> It is a real theme of one source set,
   and its witness is the JUnit Jupiter dependency that set imports — the dictionary knows Jupiter as a Roman
   god, and it is not wrong. <strong><code>sciences</code>, <code>natural-sciences</code>,
   <code>physical-sciences</code>, <code>engineering</code> and <code>computing</code> fire together</strong>
@@ -513,8 +584,11 @@ The permutation null is seeded, so two runs of one tree agree.</p>
     const node = data.nodes[topic];
     if (!node) {{ return; }}
     const witnesses = node.carriedBy.map((w) =>
-      `<li><span class="w">${{w.word}}</span><span class="c">${{fmt(w.occurrences)}}</span>` +
-      `<span class="src">${{w.sources.join(' · ')}} — ${{w.site}}</span></li>`).join('');
+      `<li><span class="w">${{w.word}}</span><span class="c">${{fmt(w.occurrences)}} · ` +
+      `${{w.mass.toFixed(1)}} mass</span>` +
+      `<span class="src">${{w.sources.join(' · ')}}</span>` +
+      `<span class="sites">${{w.sites.map((s) =>
+        `<a href="${{s.url}}">${{s.where}}</a>`).join(' ')}}</span></li>`).join('');
     const links = shared(topic).map((s) =>
       `<li><span>${{s.other}} <span class="n">${{s.words.slice(0, 3).join(', ')}}</span></span>` +
       `<span class="n">${{fmt(s.occurrences)}}</span></li>`).join('');

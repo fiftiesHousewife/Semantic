@@ -59,4 +59,14 @@ public final class ContentWords {
     public String lemmaOrSurface(final String word) {
         return lemmaOf(word).orElse(word);
     }
+
+    /**
+     * Whether the word is too short for any entry about it to be about more than a symbol. It applies to a
+     * name as well as to a sentence, because a name can be a sentence: splitting {@code carriesAPrefix}
+     * correctly yields the article {@code a}, and an article is a form of the language wherever it is
+     * written. A name's own words are otherwise kept whether or not a dictionary carries them.
+     */
+    public boolean tooShortToMean(final String word) {
+        return word.length() < shortestProseWord;
+    }
 }

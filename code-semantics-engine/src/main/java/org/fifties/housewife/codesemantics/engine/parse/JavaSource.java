@@ -1,5 +1,6 @@
 package org.fifties.housewife.codesemantics.engine.parse;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,7 @@ import com.github.javaparser.ast.type.TypeParameter;
  * as unsound; only a file it could make nothing at all of reads as {@link ParsedSource#unreadable()}. Neither
  * throws, and neither is silently dropped.
  */
-public final class JavaSource {
+public final class JavaSource implements SourceReader {
 
     private final JavaParser parser;
 
@@ -49,6 +50,14 @@ public final class JavaSource {
                 .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21));
     }
 
+    private static final String JAVA_SUFFIX = ".java";
+
+    @Override
+    public boolean reads(final Path file) {
+        return file.getFileName().toString().endsWith(JAVA_SUFFIX);
+    }
+
+    @Override
     public ParsedSource read(final String source) {
         final ParseResult<CompilationUnit> result = parser.parse(source);
         return result.getResult()

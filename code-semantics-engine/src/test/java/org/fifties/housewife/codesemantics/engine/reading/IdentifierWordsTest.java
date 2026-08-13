@@ -40,6 +40,30 @@ class IdentifierWordsTest {
     }
 
     @Test
+    void endsAWordOfCapitalsOneLetterBeforeTheRunEnds() {
+        assertAll(
+                () -> assertThat(words.of("XMLHttpRequest").words()).containsExactly("xml", "http", "request"),
+                () -> assertThat(words.of("JWNLException").words()).containsExactly("jwnl", "exception"),
+                () -> assertThat(words.of("getDSLContext").words()).containsExactly("get", "dsl", "context"),
+                () -> assertThat(words.of("carriesAPrefix").words())
+                        .as("the article is a word of its own, not glued to the noun after it")
+                        .containsExactly("carries", "a", "prefix"));
+    }
+
+    @Test
+    void leavesALetterDigitBoundaryForACitationToDisposeOf() {
+        assertThat(words.of("utf8Decode").words())
+                .as("utf8 is one token in the catalogues that name it, so this split is proposed elsewhere")
+                .containsExactly("utf8decode");
+    }
+
+    @Test
+    void readsAQualifiedNameAsItsSegments() {
+        assertThat(words.of("net.sf.extjwnl.data").words())
+                .containsExactly("net", "sf", "extjwnl", "data");
+    }
+
+    @Test
     void readsNoWordsFromAnEmptyName() {
         assertThat(words.of("").words()).isEmpty();
     }

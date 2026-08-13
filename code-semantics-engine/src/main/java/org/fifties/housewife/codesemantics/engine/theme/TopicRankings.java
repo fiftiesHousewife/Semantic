@@ -37,7 +37,14 @@ public final class TopicRankings {
                 (int) files.stream().filter(file -> file.carries(topic)).count(),
                 (int) led(topic).count(),
                 led(topic).mapToInt(FileTopics::lines).sum(),
-                witnesses.wordsBehind(topic));
+                witnesses.wordsBehind(topic), nameShareOf(topic));
+    }
+
+    /** The share of a topic's mass that declared names carried, against everything that carried it. */
+    private double nameShareOf(final String topic) {
+        final double total = files.stream().mapToDouble(file -> file.massOf(topic)).sum();
+        return total <= 0.0 ? 0.0
+                : files.stream().mapToDouble(file -> file.nameMassOf(topic)).sum() / total;
     }
 
     /** The files this topic leads — those whose own resolution named it. */

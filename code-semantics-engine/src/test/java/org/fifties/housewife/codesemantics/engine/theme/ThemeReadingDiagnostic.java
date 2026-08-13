@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
+import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
@@ -58,7 +60,8 @@ class ThemeReadingDiagnostic {
     @Test
     void readsThisRepositorysThemesAndWritesTheReportAndTheGraph() throws IOException {
         final Path root = repositoryRoot();
-        final List<SourceScope> scopes = new JavaSourceScopes().under(root);
+        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
+                new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(parsed);
 
@@ -82,7 +85,8 @@ class ThemeReadingDiagnostic {
         Files.writeString(report, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
                 new ThemeReport().render(themes)));
         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(),
-                ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED, WITNESSES_HELD));
+                ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED, WITNESSES_HELD,
+                        new SourceLinks(root)));
     }
 
     private static Path repositoryRoot() {

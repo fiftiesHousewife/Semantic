@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.fifties.housewife.codesemantics.engine.parse.ImportOrigin;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
@@ -46,7 +47,8 @@ class SelfReadingDiagnostic {
     @Test
     void readsThisRepositoryAndWritesTheLegibilityReport() throws IOException {
         final Path root = repositoryRoot();
-        final List<SourceScope> scopes = new JavaSourceScopes().under(root);
+        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
+                new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final RepositoryLegibility reading = LegibilityReading.fromClasspath().of(parsed);
 

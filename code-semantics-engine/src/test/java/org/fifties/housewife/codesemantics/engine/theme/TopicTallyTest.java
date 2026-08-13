@@ -32,8 +32,8 @@ class TopicTallyTest {
 
     private final TopicTally tally = new TopicTally(
             new TopicCitations(senses, word -> Set.of(), Weights.defaults()),
-            new IdentifierWords(WordSegmenter.fromClasspath()), ContentWords.fromClasspath(),
-            WordSpecificity.fromClasspath(), witnesses);
+            new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
+            new TopicCommitment(), witnesses, new WordSightings());
 
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
@@ -47,10 +47,29 @@ class TopicTallyTest {
         final FileTopics file = tally.reading(SITE, 40);
 
         assertAll(
-                () -> assertThat(file.massByTopic().get("linguistics")).isCloseTo(2.0, offset(1e-12)),
-                () -> assertThat(file.massByTopic().get("computing")).isCloseTo(0.5, offset(1e-12)),
-                () -> assertThat(file.distribution().shareOf("linguistics")).isCloseTo(2.0 / 3.0,
-                        offset(1e-12)));
+                () -> assertThat(file.massByTopic().get("linguistics"))
+                        .as("word means one thing, so both its occurrences commit their whole unit")
+                        .isCloseTo(2.0, offset(1e-12)),
+                () -> assertThat(file.massByTopic().get("computing"))
+                        .as("cursor is placed in two subjects, so it says half as much about each")
+                        .isCloseTo(0.25, offset(1e-12)),
+                () -> assertThat(file.distribution().shareOf("linguistics")).isCloseTo(0.8, offset(1e-12)));
+    }
+
+    @Test
+    void letsAWordThatMeansOneThingOutweighOneThatMeansMany() {
+        add("word", 1);
+        add("cursor", 2);
+
+        final FileTopics file = tally.reading(SITE, 10);
+
+        assertAll(
+                () -> assertThat(file.massByTopic().get("linguistics"))
+                        .as("one unambiguous occurrence")
+                        .isCloseTo(1.0, offset(1e-12)),
+                () -> assertThat(file.massByTopic().get("computing") + file.massByTopic().get("typography"))
+                        .as("an occurrence spread over two subjects halves what it says about them both")
+                        .isCloseTo(0.5, offset(1e-12)));
     }
 
     @Test
@@ -60,36 +79,6 @@ class TopicTallyTest {
         assertAll(
                 () -> assertThat(tally.reading(SITE, 10).referencesTo("computing")).isOne(),
                 () -> assertThat(tally.reading(SITE, 10).referencesTo("typography")).isOne());
-    }
-
-    @Test
-    void readsOnlyTheContentWordsOfASentenceAndNotWhatHoldsItTogether() {
-        tally.add(SITE, new NameOccurrence("The word and the cursor.", NameForm.JAVADOC, 4));
-
-        assertAll(
-                () -> assertThat(tally.reading(SITE, 10).referencesTo("linguistics")).isOne(),
-                () -> assertThat(tally.reading(SITE, 10).wordOccurrences())
-                        .as("word and cursor; the and and are how English holds a sentence together")
-                        .isEqualTo(2));
-    }
-
-    @Test
-    void offersEveryWordOfANameWhetherOrNotADictionaryCarriesIt() {
-        add("qzxfgh", 1);
-
-        assertThat(tally.reading(SITE, 10).wordOccurrences())
-                .as("an unread name is a finding, where an unread preposition is grammar")
-                .isOne();
-    }
-
-    @Test
-    void readsAWordAsItsDictionaryFormSoAnInflectionDoesNotSplitItsEvidence() {
-        add("words", 1);
-        add("word", 2);
-
-        assertThat(tally.reading(SITE, 10).referencesTo("linguistics"))
-                .as("words and word are one subject, not two")
-                .isEqualTo(2);
     }
 
     @Test

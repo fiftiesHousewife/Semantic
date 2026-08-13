@@ -94,105 +94,118 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instructi
 
 ## The self test
 
-`./gradlew selfRead` points the library at this repository and reports two readings of it. The reports land
-in `code-semantics-engine/build/reports/self-reading/`; the runs below are the tree this README ships in,
-which is what makes them checkable — clone it, run the command, and the figures should be these.
+`./gradlew selfRead` points the library at this repository and reports what it is written in, what it is
+about, and what it does. The reports land in `code-semantics-engine/build/reports/self-reading/`, and
+`python3 docs/self-reading/build_themes_page.py` turns the export into a page where every claim links to the
+line it came from. The runs below are the tree this README ships in, which is what makes them checkable —
+and perishable: **any commit that adds or removes a file moves every count here**, so they are regenerated
+and landed in a commit that touches no source.
 
-That also makes them perishable. The corpus is the repository itself, so **any commit that adds or removes a
-Java file moves every count on this page.** They are regenerated and landed in a commit that touches no Java,
-which is the only way a stated measurement and the thing it measures can be the same tree.
+### What it reads, and what it refuses to
 
-**What it reads, and what it refuses to.** A Java file is mostly somebody else's vocabulary quoted:
-`String`, `List` and `assertThat` are *uses* of declarations the platform and the test framework made, and a
-use is not a word this codebase chose. So the reading runs over a **parse**, and takes only:
+A Java file is mostly somebody else's vocabulary quoted. `String`, `List` and `assertThat` are *uses* of
+declarations the platform and the test framework made, and a use is not a word this codebase chose. So the
+reading runs over a **parse**, and takes only what this repository committed to:
 
-- every name this repository **declared** — types, methods, fields, parameters, locals, record components,
-  enum constants;
-- the **prose** it wrote, in javadoc and comments;
-- the **dependencies** it named, where the import is neither the platform's own package nor this tree's.
+| Kind | What is taken | What it is worth |
+|---|---|--:|
+| Declared names | types, methods, fields, parameters, locals, components, constants | 1.0 |
+| Dependencies | imports that are neither the platform's own packages nor this tree's | 0.5 |
+| Prose | javadoc, comments, and the repository's own README, plan and backlog | 0.25 |
 
-Three published resources decide those boundaries, and not one line of vocabulary is written here.
-`javax.lang.model` states the keyword table; `ModuleFinder.ofSystem()` states which packages are the
-platform's, so `java.util` is set aside where `net.sf.extjwnl` is kept; and WordNet — an open-class
-dictionary by construction — states which words in a sentence carry subject matter, so the words English uses
-to hold a sentence together are refused without a stop list existing. Of 896 imports, 518 were the platform's,
-126 this repository's own coordinates, and **252 were a choice worth reading**.
+Prose is 77.8% of the words by volume, so at parity it would decide every theme by weight of volume alone; a
+quarter is a stated starting point, and the report prints **what share of each theme came from names** so the
+number has something to be tuned against.
 
-Every word is read as its **dictionary form**, so `words` and `word` are one subject rather than two, and a
-word nothing chose is weighted by how much it **narrows** a subject — `log(rank) / log(20,000)` against the
-frequency list, which is the surprisal the list itself states. It is a weight and never a gate: the commonest
-word in English still votes, at the smallest weight the list can express.
+Four published resources draw every boundary, and not one line of vocabulary is written here:
 
-Still not done, and stated rather than glossed: no git read, so nothing is pinned by a commit SHA and no
-permalink is rendered; and no votes, because a vote requires an anchor and an anchor requires a revision.
+- **`ModuleFinder.ofSystem()`** states which packages are the platform's, so `java.util` is set aside where
+  `net.sf.extjwnl` is kept. Of 981 imports, 565 were the platform's, 158 this tree's own coordinates, and
+  **258 were a choice worth reading**.
+- **WordNet**, an open-class dictionary by construction, states which words carry subject matter — so the
+  words English uses to hold a sentence together are refused without a stop list existing — and lemmatises
+  what survives, so `words` and `word` are one subject.
+- **The Leipzig frequency list** states how much a word narrows a subject. A word nothing chose is weighted
+  by `log(rank)/log(20,000)`, the surprisal the list itself states.
+- **The reading's own shape** states how much a word committed to a subject. A word placed in five subjects
+  gives each a fifth of itself, weighted *again* by that fifth — Simpson's concentration index, so an
+  ambiguous word says less in total and less about each subject in particular. `file` is law, computing,
+  tools and records, and its appearance in a class name is not evidence for any of them.
+
+One-and-two-letter words are refused whichever they are, because a dictionary entry for a one-letter form is
+about a symbol — `a` the ampere, `be` beryllium, `em` a printer's measure — and a name can be a sentence with
+an article in it.
 
 ### Legibility λ
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| **repository** | 160 | 3,224 | 8,191 | 15,340 (65.2%) | 22,927 | **0.974** |
-
-23,531 word occurrences of 2,204 distinct surfaces, 818 of them (37.1%) written exactly once; 604 occurrences
-across 167 surfaces nothing could be cited for at all. The tail is the finding rather than the residue — the
-top of it is `junit`, `assertj` and `extjwnl`, which are dependency names no dictionary carries, and
-`aprefix`/`asuffix`/`jwnlexception`, which are the tokeniser's missing acronym rule caught in live code.
-
-The per-resource table in the report carries a column no share can replace: **what each resource carries
-alone**. The frequency list cites 92.4% of occurrences and is the only citation for 818 of them; the Wikidata
-name registry cites 40.3% and is the only citation for 11. A λ that rested on a surname list would be a bad
-number dressed as a good one, and that column is how a reader can tell that it does not.
+| **repository** | 177 | 3,574 | 8,954 | 31,437 (77.8%) | 39,477 | **0.977** |
 
 ## What it reads this repository as
 
-The second reading places those words in subjects, through the two bundled resources that do that — WordNet
-Domains, which labels each of a word's senses, and Wiktionary's topic vocabulary, which labels the headword.
-Each word occurrence commits one unit of mass per resource, divided among the readings that resource names,
-so an ambiguous word does not shout.
-
-| Theme | ι | References | Leads | Lines led | Share | Carried by (most mass first) |
+| Theme | ι | From names | Leads | Lines led | Share | Carried by (most mass first) |
 |---|--:|--:|--:|--:|--:|---|
-| `mathematics` | 0.0551 | 9,526 | 62 | 4,020 | 38.9% | `divergence` · `name` · `mean` · `domain` |
-| `sciences` | 0.0443 | 10,715 | 9 | 729 | 7.0% | `word` · `topic` · `occurrence` |
-| `linguistics` | 0.0421 | 4,076 | 39 | 2,862 | 27.7% | `word` · `sense` · `reading` · `abbreviation` |
-| `law` | 0.0339 | 2,254 | 21 | 1,080 | 10.4% | `cite` · `evidence` · `file` · `answer` |
-| `computer_science` | 0.0232 | 1,570 | 4 | 320 | 3.1% | `word` · `code` · `file` · `parser` |
-| `publishing` | 0.0212 | 2,131 | 2 | 67 | 0.6% | `dictionary` · `source` · `read` · `reference` |
+| `law` | 0.0845 | 60.8% | 39 | 3,258 | 25.3% | `cite` · `evidence` · `answer` · `licence` |
+| `linguistics` | 0.0708 | 69.8% | 28 | 1,927 | 15.0% | `word` · `abbreviation` · `sense` · `hypernym` |
+| `mathematics` | 0.0640 | 61.3% | 23 | 2,040 | 15.9% | `divergence` · `mean` · `add` |
+| `number` | 0.0339 | 53.9% | 10 | 843 | 6.6% | `nothing` · `zero` · `one` · `rank` |
+| `politics` | 0.0299 | 67.6% | 12 | 777 | 6.0% | `vote` · `refuse` · `state` |
 
-The witnesses are ordered by the **mass each word actually carried**, not by how often it was written, which
-is what makes the column an explanation rather than a word count. Read that way the top themes are defensible:
-this repository really is about words, senses, readings, citation and evidence, and its mathematics really is
-divergence and means.
+Witnesses are ordered by the **mass each word carried**, not by how often it was written. Read that way the
+reading is defensible: this library is about words, senses, abbreviations and hypernyms; its mathematics is
+divergence and means; and it really does spend its time on votes, refusals and states.
 
-Two results are still wrong, and both are visible rather than hidden. **`mythology` is `jupiter`** — a real
-theme of one source set, whose witness is the JUnit Jupiter dependency it imports, because the dictionary
-knows Jupiter as a Roman god and is not wrong to. And **`sciences`, `natural-sciences`, `physical-sciences`,
-`engineering` and `computing` fire together** on the same words while leading almost no files between them:
-they are Wiktionary's own hierarchy, so one theme is counted five times.
+`law` leads, and it is the one to argue with. Its witnesses — `cite`, `evidence`, `answer`, `licence` — are
+every one of them a word this library is genuinely about, and every one of them a word the dictionary also
+places somewhere else. The commitment rule took it from 48 files led to 39. Whether a library about citation
+and evidence *is* about law in any useful sense is a question a dictionary cannot settle, and this reading
+does not pretend to.
+
+## What it says this repository does
+
+A method name is a clause and a test name is a sentence, so the suite is a specification wherever that
+convention holds. **539 declared methods** name a clause the dictionary can read as a verb and what the verb
+acts on; a name whose first word has no verb entry yields no behaviour rather than a guessed one.
+
+| Verb | Times | For instance |
+|---|--:|---|
+| `read` | 81 | read a repository · read a file · read only the content words of a sentence |
+| `name` | 20 | name a stem · name the line each declaration sits on |
+| `refuse` | 19 | refuse a citation that would name no resource · refuse a line range that runs backwards |
+| `carry` | 14 | carry a prefix · carry the line each declaration sits on |
+
+Getting there needed the backlog's `[HIGH]` splitter defect fixed: `refusesALineRange` was reading as
+*refuses / aline / range*. The acronym-run boundary now lands in `IdentifierWords`, alongside the ported
+tokeniser rather than inside it, and four of the plan's five documented mis-splits read correctly —
+`XMLHttpRequest`, `parseHTTPResponse`, `getDSLContext`, `JWNLException`. The letter/digit boundary is
+deliberately still absent, because `utf8` is one token in the catalogues that name it.
+
+## Words carried in from somewhere else
+
+A metaphor is a word carried in from a subject the reader already knows, so it is a word whose own topical
+reading diverges from the repository's — measured with the same Jensen–Shannon divergence, in bits, over the
+words this repository used as **names** rather than merely in a sentence. They are **candidates**: a distance
+cannot tell a figure of speech from a technical term the resources are too coarse for, which is why the
+subjects and a link are printed beside each one.
 
 ### The comparison, which is the reading worth acting on
 
-A theme written at the same density everywhere contributes almost nothing to a divergence. Each source set is
-compared with the whole repository by Jensen–Shannon divergence — bounded at 1 bit by its own definition,
-symmetric, additively decomposable — and then judged against the field a scope of **its own size** draws by
-chance: 999 seeded resamples of the same number of files.
+Each scope is compared with the whole repository, then judged against the field a scope of **its own size**
+draws by chance: 999 seeded resamples. Nine scopes — eight source sets and the documentation — are read, and
+a scope that does not stand outside its own null has its ranking **withheld entirely**, because a caveat is
+not what gets quoted.
 
-| Scope | Divergence | Null median | Excess | Chance draws at least as far |
-|---|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 0.0232 | 0.0086 | +0.0147 | 0 of 999 |
-| `code-semantics-api/src/test/java` | 0.0366 | 0.0163 | +0.0203 | 0 of 999 |
-| `code-semantics-engine/src/main/java` | 0.0161 | 0.0034 | +0.0128 | 0 of 999 |
-| `code-semantics-engine/src/test/java` | 0.0206 | 0.0082 | +0.0124 | 0 of 999 |
-| `lexicon-extraction/src/main/java` | 0.0461 | 0.0132 | +0.0329 | 0 of 999 |
-| `lexicon-extraction/src/test/java` | 0.0654 | 0.0210 | +0.0444 | 0 of 999 |
-| `lexicon/src/main/java` | 0.0411 | 0.0190 | +0.0221 | 0 of 999 |
-| `lexicon/src/test/java` | 0.0321 | 0.0209 | +0.0113 | 11 of 999 |
+### What is still wrong, and what would fix it
 
-Every scope stands outside its own null, so every ranking is printed. A scope that had not would have had its
-ranking **withheld entirely**, because a caveat is not what gets quoted.
+Two labels are still counted five ways: `sciences`, `natural-sciences`, `physical-sciences`, `engineering`
+and `computing` fire on the same words and lead almost nothing between them, because they are Wiktionary's
+own hierarchy. Extracting that published hierarchy would pool a label with its parent by citation.
 
-Both fixes are in `BACKLOG.md` and neither is a word list: sense disambiguation (the sibling words in one
-identifier, the enclosing declaration, the file's pooled domain), and extracting Wiktionary's published topic
-hierarchy so a label pools with its parent by citation.
+And the reading still asks what a word means with nothing around it. Every remaining oddity traces to that
+one gap — a function word with a noun homograph, a legal sense of `cite` in a library that cites dictionaries
+— which is sense disambiguation, `[HIGH]` in `BACKLOG.md`, with the numbers above as the baseline it has to
+move.
 
 ---
 

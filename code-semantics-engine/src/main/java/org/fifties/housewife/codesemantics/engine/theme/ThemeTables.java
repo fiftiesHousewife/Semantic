@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses.Witness;
 
@@ -11,8 +12,16 @@ import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses.Witness;
 final class ThemeTables {
 
     static final String RANKING_HEADER = """
-            | Topic | ι | References | Files | Leads | Lines led | Share of lines | Words behind |
-            |---|--:|--:|--:|--:|--:|--:|--:|""";
+            | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
+            |---|--:|--:|--:|--:|--:|--:|---|""";
+
+    static final String BEHAVIOUR_HEADER = """
+            | Verb | Times | What it acts on, and where |
+            |---|--:|---|""";
+
+    static final String FOREIGN_HEADER = """
+            | Word | Distance | Occurrences | The dictionary places it in | First seen |
+            |---|--:|--:|---|---|""";
 
     static final String CONTRIBUTION_HEADER = """
             | Share of the divergence | Topic | In scope | In repository | | Carried by |
@@ -25,9 +34,22 @@ final class ThemeTables {
 
     static String rankingRow(final TopicRanking ranking, final int totalLines, final List<Witness> carriedBy) {
         return "| `%s` | %s | %s | %s | %s | %s | %s | %s |".formatted(ranking.topic(),
-                share(ranking.intensity()), count(ranking.references()), count(ranking.files()),
+                share(ranking.intensity()), percentage(ranking.nameShare()), count(ranking.references()),
                 count(ranking.dominantFiles()), count(ranking.linesDominated()),
                 percentage(ranking.lineShare(totalLines)), witnesses(carriedBy));
+    }
+
+    static String behaviourRow(final String verb, final List<Behaviour> clauses, final int shown) {
+        return "| **%s** | %s | %s |".formatted(verb, count(clauses.size()),
+                clauses.stream()
+                        .limit(shown)
+                        .map(clause -> "%s <sub>`%s`</sub>".formatted(clause.sentence(), clause.site()))
+                        .collect(Collectors.joining("; ")));
+    }
+
+    static String foreignRow(final ForeignWords.ForeignWord foreign) {
+        return "| `%s` | %s | %s | %s | `%s` |".formatted(foreign.word(), bits(foreign.bits()),
+                count(foreign.occurrences()), String.join(", ", foreign.subjects()), foreign.site());
     }
 
     static String contributionRow(final Contribution contribution, final List<Witness> carriedBy) {

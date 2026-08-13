@@ -1,11 +1,13 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.fifties.housewife.codesemantics.engine.Weights;
 import org.fifties.housewife.codesemantics.engine.parse.NameForm;
 import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
@@ -34,6 +36,11 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  *   <li>What survives is scaled by its {@link WordSpecificity specificity}, so a common content word narrows
  *       a subject less than a rare one. Nothing is silenced: it votes at the weight the frequency list says
  *       it is worth.</li>
+ *   <li>Every word, chosen or not, votes its {@link TopicCommitment commitment} to a subject weighted by
+ *       that same commitment, so a word the resources place in eight subjects says a sixty-fourth as much
+ *       about each of them and an eighth as much in total.</li>
+ *   <li>And by what its {@link NameForm form} is worth: a declared name is the code, a dependency is a
+ *       choice about what the code is made of, and prose is commentary on it.</li>
  * </ul>
  *
  * <p>Every word, chosen or not, is read as its dictionary form, so {@code words} and {@code word} are one
@@ -43,60 +50,59 @@ public final class TopicTally {
 
     private final TopicCitations citations;
     private final IdentifierWords words;
-    private final ContentWords content;
-    private final WordSpecificity specificity;
+    private final OfferedWords offered;
+    private final TopicCommitment commitment;
     private final TopicWitnesses witnesses;
+    private final WordSightings sightings;
 
     private final Map<String, Double> massByTopic = new HashMap<>();
+    private final Map<String, Double> nameMassByTopic = new HashMap<>();
     private final Map<String, Integer> referencesByTopic = new HashMap<>();
 
     private int unreadableOccurrences;
     private int wordOccurrences;
 
-    public TopicTally(final TopicCitations citations, final IdentifierWords words,
-                      final ContentWords content, final WordSpecificity specificity,
-                      final TopicWitnesses witnesses) {
+    public TopicTally(final TopicCitations citations, final IdentifierWords words, final OfferedWords offered,
+                      final TopicCommitment commitment, final TopicWitnesses witnesses,
+                      final WordSightings sightings) {
         this.citations = citations;
         this.words = words;
-        this.content = content;
-        this.specificity = specificity;
+        this.offered = offered;
+        this.commitment = commitment;
         this.witnesses = witnesses;
+        this.sightings = sightings;
     }
 
     public void add(final String site, final NameOccurrence occurrence) {
         final NameForm form = occurrence.form();
         form.vocabulary().read(occurrence.text(), words).words()
-                .forEach(word -> offered(form, word)
-                        .ifPresent(lemma -> read(lemma, site + ":" + occurrence.line(),
-                                form.isChosenName() ? 1.0 : specificity.of(lemma))));
-    }
-
-    /**
-     * The dictionary form this word is offered to the resources as, or nothing where it is a word the author
-     * did not choose and the dictionary does not carry — a part of speech that holds a sentence together
-     * rather than saying what it is about. A name the repository chose is always offered, whether or not any
-     * dictionary knows it: an unread name is a finding, where an unread preposition is grammar.
-     */
-    private Optional<String> offered(final NameForm form, final String word) {
-        return form.isChosenName()
-                ? Optional.of(content.lemmaOrSurface(word))
-                : content.lemmaOf(word);
+                .forEach(word -> offered.of(form, word)
+                        .ifPresent(lemma -> read(lemma, form, site + ":" + occurrence.line(),
+                                offered.worthOf(form, lemma))));
     }
 
     public FileTopics reading(final String path, final int lines) {
-        return new FileTopics(path, lines, massByTopic, referencesByTopic, unreadableOccurrences,
-                wordOccurrences);
+        return new FileTopics(path, lines, massByTopic, nameMassByTopic, referencesByTopic,
+                unreadableOccurrences, wordOccurrences);
     }
 
-    private void read(final String word, final String site, final double scale) {
+    private void read(final String word, final NameForm form, final String site, final double scale) {
         wordOccurrences++;
+        sightings.saw(word, site, form.isChosenName());
         final Map<String, Set<EvidenceSource>> sourcesByTopic = new HashMap<>();
         final Map<String, Double> massByThisWord = new HashMap<>();
-        citations.of(word).forEach(vote -> {
-            massByTopic.merge(vote.topic(), vote.mass() * scale, Double::sum);
-            massByThisWord.merge(vote.topic(), vote.mass() * scale, Double::sum);
-            sourcesByTopic.computeIfAbsent(vote.topic(), key -> new LinkedHashSet<>()).add(vote.source());
+        final List<TopicVote> votes = citations.of(word);
+        final Map<String, Double> committed = commitment.of(votes);
+        committed.forEach((topic, share) -> {
+            final double said = scale * share * share;
+            massByTopic.merge(topic, said, Double::sum);
+            massByThisWord.merge(topic, said, Double::sum);
+            if (form.isChosenName()) {
+                nameMassByTopic.merge(topic, said, Double::sum);
+            }
         });
+        votes.forEach(vote ->
+                sourcesByTopic.computeIfAbsent(vote.topic(), key -> new LinkedHashSet<>()).add(vote.source()));
         if (sourcesByTopic.isEmpty()) {
             unreadableOccurrences++;
             return;

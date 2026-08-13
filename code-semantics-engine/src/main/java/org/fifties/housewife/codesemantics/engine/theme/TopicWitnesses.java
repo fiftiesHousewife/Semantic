@@ -30,11 +30,17 @@ public final class TopicWitnesses {
      * narrows nothing; a rare word occurring twice can carry more. Ordering witnesses by mass is what makes
      * the column an explanation rather than a word count.
      */
-    public record Witness(String word, int occurrences, double mass, String site,
+    public record Witness(String word, int occurrences, double mass, List<String> sites,
                           Set<EvidenceSource> sources) {
 
         public Witness {
+            sites = List.copyOf(sites);
             sources = Set.copyOf(sources);
+        }
+
+        /** One place to start looking; the rest are there for a reader who wants to check a pattern. */
+        public String site() {
+            return sites.isEmpty() ? "" : sites.getFirst();
         }
     }
 
@@ -44,7 +50,7 @@ public final class TopicWitnesses {
     public void record(final String topic, final String word, final String site, final EvidenceSource source,
                        final double mass) {
         witnessesByTopic.computeIfAbsent(topic, key -> new HashMap<>())
-                .merge(word, new Witness(word, 1, mass, site, Set.of(source)), TopicWitnesses::merged);
+                .merge(word, new Witness(word, 1, mass, List.of(site), Set.of(source)), TopicWitnesses::merged);
     }
 
     /** The words that carried a topic, the ones carrying most of it first. */
@@ -73,10 +79,16 @@ public final class TopicWitnesses {
                 .collect(Collectors.toUnmodifiableMap(Witness::word, Witness::mass));
     }
 
+    /** Sites accumulate to a handful: enough to check a pattern, not so many that the evidence is a log. */
+    private static final int SITES_KEPT = 4;
+
     private static Witness merged(final Witness kept, final Witness offered) {
         final Set<EvidenceSource> sources = new LinkedHashSet<>(kept.sources());
         sources.addAll(offered.sources());
+        final LinkedHashSet<String> sites = new LinkedHashSet<>(kept.sites());
+        sites.addAll(offered.sites());
         return new Witness(kept.word(), kept.occurrences() + offered.occurrences(),
-                kept.mass() + offered.mass(), kept.site(), sources);
+                kept.mass() + offered.mass(),
+                sites.stream().limit(SITES_KEPT).toList(), sources);
     }
 }

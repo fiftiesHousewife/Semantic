@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import org.fifties.housewife.codesemantics.engine.theme.PermutationNull.Chance;
@@ -16,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ThemeReportTest {
 
     private static final FileTopics FILE = new FileTopics("engine/src/main/java/Reading.java", 120,
-            Map.of("linguistics", 9.0, "music", 1.0), Map.of("linguistics", 90, "music", 10), 4, 104);
+            Map.of("linguistics", 9.0, "music", 1.0), Map.of("linguistics", 9.0, "music", 0.5),
+            Map.of("linguistics", 90, "music", 10), 4, 104);
 
     private final TopicWitnesses witnesses = new TopicWitnesses();
 
@@ -34,7 +36,17 @@ class ThemeReportTest {
                         Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)), witnesses)
                         .of(intensity),
                 List.of(FILE), Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)),
-                witnesses, Duration.ofMillis(2_500));
+                witnesses, sightings(), List.of(new ForeignWords.ForeignWord("harvest", 0.87, 4,
+                        List.of("agriculture"), "Reading.java:11")),
+                List.of(new Behaviour("refuse", List.of("a", "line", "range", "that", "runs", "backwards"),
+                        "refusesALineRangeThatRunsBackwards", "SourceAnchorTest.java:71")),
+                Duration.ofMillis(2_500));
+    }
+
+    private static WordSightings sightings() {
+        final WordSightings seen = new WordSightings();
+        seen.saw("harvest", "Reading.java:11", true);
+        return seen;
     }
 
     private static Chance beatingChance() {
@@ -50,9 +62,12 @@ class ThemeReportTest {
         final String report = new ThemeReport().render(themes(beatingChance()));
 
         assertAll(
-                () -> assertThat(report).contains("| `linguistics` | 0.9000 | 90 | 1 | 1 | 120 | 100.0% |"),
+                () -> assertThat(report)
+                        .contains("| `linguistics` | 0.9000 | 100.0% | 90 | 1 | 120 | 100.0% |"),
                 () -> assertThat(report).contains("`word`&nbsp;1"),
-                () -> assertThat(report).contains("| `music` | 0.1000 | 10 | 1 | 0 | 0 | 0.0% |"));
+                () -> assertThat(report)
+                        .as("music took half its mass from prose, and the row says so")
+                        .contains("| `music` | 0.1000 | 50.0% | 10 | 0 | 0 | 0.0% |"));
     }
 
     @Test

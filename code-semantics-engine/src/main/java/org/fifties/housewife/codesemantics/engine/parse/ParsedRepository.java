@@ -34,14 +34,15 @@ public final class ParsedRepository {
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes) {
-        return of(root, scopes, JavaSource.newInstance(), PlatformPackages.ofSystem());
+        return of(root, scopes, List.of(JavaSource.newInstance(), new MarkdownSource()),
+                PlatformPackages.ofSystem());
     }
 
-    public static ParsedRepository of(final Path root, final List<SourceScope> scopes, final JavaSource parser,
-                                      final PlatformPackages platform) {
+    public static ParsedRepository of(final Path root, final List<SourceScope> scopes,
+                                      final List<SourceReader> readers, final PlatformPackages platform) {
         final List<Read> read = scopes.stream()
                 .flatMap(scope -> scope.files().stream()
-                        .map(file -> read(root, scope.name(), file, parser)))
+                        .map(file -> read(root, scope.name(), file, readers)))
                 .toList();
         final ImportOrigins origins = new ImportOrigins(platform, read.stream()
                 .map(source -> source.parsed().packageName())
@@ -72,10 +73,15 @@ public final class ParsedRepository {
         return importsByOrigin.getOrDefault(origin, 0);
     }
 
-    private static Read read(final Path root, final String scope, final Path file, final JavaSource parser) {
+    private static Read read(final Path root, final String scope, final Path file,
+                             final List<SourceReader> readers) {
         final String source = contentOf(file);
         return new Read(scope, root.relativize(file).toString(), (int) source.lines().count(),
-                parser.read(source));
+                readers.stream()
+                        .filter(reader -> reader.reads(file))
+                        .findFirst()
+                        .map(reader -> reader.read(source))
+                        .orElseGet(ParsedSource::unreadable));
     }
 
     private static String contentOf(final Path file) {
