@@ -1,0 +1,11 @@
+/*
+ * The wedge rules for a sunburst that travels as a file. A markdown reader renders an image and not a
+ * page, so the picture cannot reach the page's stylesheet and carries its own. Each wedge states its own
+ * two colours as custom properties; these rules choose between them by the reader's colour scheme.
+ */
+.wedge path { fill:var(--c); stroke:#ffffff; stroke-width:1.5; }
+.wedge-label { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:10.5px; fill:#ffffff; text-anchor:middle; paint-order:stroke; }
+@media (prefers-color-scheme: dark) {
+  .wedge path { fill:var(--cd); stroke:#0e1216; }
+}

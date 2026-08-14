@@ -35,8 +35,11 @@ import static j2html.TagCreator.tag;
  */
 final class ThemeSunburst {
 
+    static final int SIZE = 420;
+    static final String DESCRIPTION = "Themes by share of topical mass, the broad subject inside and the "
+            + "label each was stated as outside";
+
     private static final double CENTRE = 210.0;
-    private static final int SIZE = 420;
     private static final double INNER_FROM = 58.0;
     private static final double INNER_TO = 116.0;
     private static final double OUTER_FROM = 121.0;
@@ -59,6 +62,14 @@ final class ThemeSunburst {
     }
 
     DomContent chart() {
+        return tag("svg").withId("sunburst").attr("viewBox", "0 0 %d %d".formatted(SIZE, SIZE))
+                .attr("role", "img")
+                .attr("aria-label", DESCRIPTION)
+                .with(wedges());
+    }
+
+    /** The marks alone, so a page and a file of its own can each supply their own root element. */
+    List<DomContent> wedges() {
         final List<DomContent> wedges = new ArrayList<>();
         double from = START;
         int rank = 0;
@@ -76,11 +87,7 @@ final class ThemeSunburst {
             from += sweep;
             rank++;
         }
-        return tag("svg").withId("sunburst").attr("viewBox", "0 0 %d %d".formatted(SIZE, SIZE))
-                .attr("role", "img")
-                .attr("aria-label", "Themes by share of topical mass, the broad subject inside and the "
-                        + "label each was stated as outside")
-                .with(wedges);
+        return wedges;
     }
 
     /** A share of what is drawn, so the ring closes over the topics that earned a place. */
