@@ -20,7 +20,7 @@ class ThemePageTest {
                 List.of("Wiktionary topics"),
                 List.of(new ThemeGraph.Quotation("citation source", site)));
         return new ThemeGraph("tree", 1, 40, 2, 120L, "links that open the file in your editor",
-                List.of(new ThemeGraph.Node("computing", 0.08, 0.9, 12, 1, 1, 40, 0.4, 2, "sciences",
+                List.of(new ThemeGraph.Node("computing", 0.08, 0.05, 0.9, 12, 1, 1, 40, 0.4, 2, "sciences",
                         List.of(witness))),
                 List.of(),
                 List.of(new ThemeGraph.Scope("main", 1, 40, 0.2, 0.1, 0.1, 4, 999, true,

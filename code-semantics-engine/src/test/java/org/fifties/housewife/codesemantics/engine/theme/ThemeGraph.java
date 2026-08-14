@@ -23,8 +23,15 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
                   List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead) {
  
 
-    record Node(String topic, double intensity, double nameShare, int references, int files, int leads,
-                int linesLed, double lineShare, int wordsBehind, String broader, List<Witness> carriedBy) {
+    /**
+     * {@code explains} is the divergence this topic accounts for across the scopes that beat their null, and
+     * it is what the chart is drawn from. {@code intensity} is how much of the repository's topical mass it
+     * holds, which is what a table ranks by. The two disagree, and the disagreement is the reading: mass
+     * measures how much was written and divergence measures what was found.
+     */
+    record Node(String topic, double intensity, double explains, double nameShare, int references, int files,
+                int leads, int linesLed, double lineShare, int wordsBehind, String broader,
+                List<Witness> carriedBy) {
     }
 
     /** One word's testimony, with every link a reader needs to check it themselves. */
@@ -58,7 +65,10 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
 
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
-        final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
+        final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses());
+        final java.util.Map<String, Double> explains = qualifying.explaining(
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
+        final List<String> qualified = qualifying.across(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
                 themes.repository().intensity());
         final List<TopicRanking> ranked = qualified.stream()
@@ -70,7 +80,8 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
         final List<String> topics = ranked.stream().map(TopicRanking::topic).toList();
         return new ThemeGraph(repository, themes.files().size(), themes.lines(), themes.rankings().size(),
                 themes.elapsed().toMillis(), links.describing(),
-                ranked.stream().map(ranking -> node(ranking, themes, witnessesShown, links)).toList(),
+                ranked.stream().map(ranking -> node(ranking, themes, witnessesShown, links, explains))
+                        .toList(),
                 new SharedReadings().among(topics, themes.witnesses()).stream()
                         .map(shared -> new Edge(shared.topic(), shared.other(), shared.occurrences(),
                                 shared.words()))
@@ -87,8 +98,9 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
     }
 
     private static Node node(final TopicRanking ranking, final RepositoryThemes themes, final int witnesses,
-                             final SourceLinks links) {
-        return new Node(ranking.topic(), ranking.intensity(), ranking.nameShare(), ranking.references(),
+                             final SourceLinks links, final java.util.Map<String, Double> explains) {
+        return new Node(ranking.topic(), ranking.intensity(), explains.getOrDefault(ranking.topic(), 0.0),
+                ranking.nameShare(), ranking.references(),
                 ranking.files(), ranking.dominantFiles(), ranking.linesDominated(),
                 ranking.lineShare(themes.lines()), ranking.wordsBehind(), broaderThan(ranking.topic()),
                 witnesses(themes, ranking.topic(), witnesses, links));

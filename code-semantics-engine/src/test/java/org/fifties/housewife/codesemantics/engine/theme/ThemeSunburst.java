@@ -12,7 +12,12 @@ import static j2html.TagCreator.tag;
 
 /**
  * The themes as a sunburst: the broad subject on the inner ring, the labels it was actually stated as on
- * the outer one, each wedge as wide as the share of topical mass it holds.
+ * the outer one, each wedge as wide as the share of the repository's structure it explains.
+ *
+ * <p><b>A wedge is not how much was written.</b> It is the divergence the topic accounts for across the
+ * scopes that departed further than chance — what the reading found rather than what the codebase typed.
+ * Sizing by topical mass draws whichever ambiguous word the repository writes most often, which is the
+ * reading the report's own front page calls the weak one.
  *
  * <p>The ring structure is not a drawing decision. The topic resource publishes a hierarchy, and it is the
  * same hierarchy the reading folds a derived label back through — so the inner ring is a citation rather
@@ -24,9 +29,9 @@ import static j2html.TagCreator.tag;
  * which put half the circle into a single grey wedge for the four hundred and seventy-five topics that
  * cleared no bar — a picture whose largest feature was the material it existed to leave out.
  *
- * <p>Nothing is hidden by that. What the drawn topics hold of <em>all</em> topical mass is a figure, and the
- * caption beside the chart states it: a denominator belongs in words where it is read, not in a wedge where
- * it is merely large.
+ * <p>Nothing is hidden by that. How many topics the reading resolved and how few earned a place is a
+ * figure, and the caption beside the chart states it: a denominator belongs in words where it is read, not
+ * in a wedge where it is merely large.
  */
 final class ThemeSunburst {
 
@@ -50,7 +55,7 @@ final class ThemeSunburst {
 
     ThemeSunburst(final List<ThemeGraph.Node> nodes) {
         this.grouped = byBroaderTopic(nodes);
-        this.drawn = nodes.stream().mapToDouble(ThemeGraph.Node::intensity).sum();
+        this.drawn = nodes.stream().mapToDouble(ThemeGraph.Node::explains).sum();
     }
 
     DomContent chart() {
@@ -59,11 +64,11 @@ final class ThemeSunburst {
         int rank = 0;
         for (final Map.Entry<String, List<ThemeGraph.Node>> group : grouped.entrySet()) {
             final double sweep = turnOf(group.getValue().stream()
-                    .mapToDouble(ThemeGraph.Node::intensity).sum());
+                    .mapToDouble(ThemeGraph.Node::explains).sum());
             wedges.add(sector(group.getKey(), from, sweep, INNER_FROM, INNER_TO, colour(rank), 1.0));
             double within = from;
             for (final ThemeGraph.Node node : group.getValue()) {
-                final double leaf = turnOf(node.intensity());
+                final double leaf = turnOf(node.explains());
                 wedges.add(sector(node.topic(), within, leaf, OUTER_FROM, OUTER_TO, colour(rank),
                         fade(group.getValue().indexOf(node))));
                 within += leaf;
@@ -121,10 +126,6 @@ final class ThemeSunburst {
                 figure(x(from, inner)), figure(y(from, inner)));
     }
 
-    /** How much of the ring the drawn themes account for, which the caption states beside the picture. */
-    double drawnShare() {
-        return drawn;
-    }
 
     private static String colour(final int rank) {
         return SeriesColours.swatch(SeriesColours.light(rank), SeriesColours.dark(rank));

@@ -60,11 +60,10 @@ final class ThemePage {
     }
 
     private DomContent graphSection(final ThemeGraph graph) {
-        final ThemeSunburst sunburst = new ThemeSunburst(graph.nodes());
         return section(
                 sections.heading(PageProse.GRAPH_HEADING, PageProse.GRAPH),
-                div(sunburst.chart()).withClass("panel sunburst-figure"),
-                p(denominator(graph, sunburst)).withClass("note"));
+                div(new ThemeSunburst(graph.nodes()).chart()).withClass("panel sunburst-figure"),
+                p(denominator(graph)).withClass("note"));
     }
 
     /**
@@ -72,12 +71,13 @@ final class ThemePage {
      * topics that cleared no bar, which made the picture's largest feature the material it existed to leave
      * out — so the share belongs here, in words, where it is read rather than merely seen.
      */
-    private static String denominator(final ThemeGraph graph, final ThemeSunburst sunburst) {
-        return "The ring closes over the %d topics that earned a place. They hold %s of all topical mass; "
-                .formatted(graph.nodes().size(), ThemeTables.percentage(sunburst.drawnShare()))
-                + "the other %d topics the reading resolved distinguish no part of this repository from "
+    private static String denominator(final ThemeGraph graph) {
+        return "A wedge is the divergence a topic accounts for — what the reading found — and not how much "
+                + "was written about it. The ring closes over the %d topics that earned a place; the other "
+                .formatted(graph.nodes().size())
+                + "%d the reading resolved distinguish no part of this repository from the rest of it, or "
                 .formatted(graph.topics() - graph.nodes().size())
-                + "the rest of it, or rest on a single word, and are named in the report rather than drawn.";
+                + "rest on a single word, and are named in the report rather than drawn.";
     }
 
     private DomContent rankingSection(final ThemeGraph graph) {

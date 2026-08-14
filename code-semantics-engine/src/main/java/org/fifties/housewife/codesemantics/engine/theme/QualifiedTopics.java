@@ -2,6 +2,8 @@ package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
@@ -72,6 +74,24 @@ public final class QualifiedTopics {
         return scope.contributions().stream()
                 .filter(Contribution::concentratedInScope)
                 .filter(contribution -> contribution.shareOfDivergence() > even);
+    }
+
+    /**
+     * How much of the repository's structure each qualified topic explains: the divergence it accounts for,
+     * summed across the scopes that departed further than chance.
+     *
+     * <p>This is what a picture of the reading should be drawn from, and the theme report has argued so on
+     * its own front page from the beginning — <em>a topic written at much the same density everywhere
+     * contributes almost nothing to a divergence, so the ambiguity that dominates a count cancels in a
+     * comparison</em>. A count of occurrences measures how much was written; a divergence measures what was
+     * found. The chart was drawn from the count.
+     */
+    public Map<String, Double> explaining(final List<ScopeDivergence> qualified) {
+        return qualified.stream()
+                .flatMap(this::accountingFor)
+                .filter(contribution -> !witnesses.restsOnOneWord(contribution.topic()))
+                .collect(Collectors.groupingBy(Contribution::topic,
+                        Collectors.summingDouble(Contribution::bits)));
     }
 
     /**
