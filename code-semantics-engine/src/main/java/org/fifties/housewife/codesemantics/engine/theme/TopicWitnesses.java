@@ -102,6 +102,27 @@ public final class TopicWitnesses {
                 || mass.values().stream().mapToDouble(Double::doubleValue).max().orElse(0.0) > total / 2.0;
     }
 
+    /**
+     * Whether only one bundled resource ever named this topic, however many words carried it.
+     *
+     * <p>Two resources reading the same subject out of a repository corroborate each other; one resource
+     * saying it a hundred times does not, and the hundred is what a ranking rewards. Every resource here has
+     * its own blind spot — WordNet Domains omits the domain-less sense of a word by construction, so the
+     * everyday reading is the one it never labels — and a topic no other resource ever reached is a topic
+     * resting entirely inside one blind spot. {@code military} arrives on {@code file} and
+     * {@code repository} from a headword vocabulary alone, because a file is a rank formation and a
+     * repository is an arsenal, and no sense-labelled entry anywhere agrees.
+     *
+     * <p>It is a fact about the evidence rather than a judgement about the subject, and it needs no list:
+     * the sources are recorded on every witness as it is admitted.
+     */
+    public boolean namedByOneResource(final String topic) {
+        return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()
+                .flatMap(witness -> witness.sources().stream())
+                .distinct()
+                .count() <= 1;
+    }
+
     /** How much mass each word carried into the topic — what the witnesses are ordered by. */
     public Map<String, Double> massByWord(final String topic) {
         return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()

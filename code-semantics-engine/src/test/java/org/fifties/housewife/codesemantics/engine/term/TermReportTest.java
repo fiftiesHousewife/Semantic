@@ -7,63 +7,72 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.fifties.housewife.codesemantics.engine.term.PublishedTerms.publishing;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class TermReportTest {
 
-    private static final SkosConcept COMMON_NOUN =
-            new SkosConcept("olia#CommonNoun", "CommonNoun", "", "", "class", "olia.owl", "");
-    private static final SkosConcept NOUN_PHRASE =
-            new SkosConcept("olia#NounPhrase", "NounPhrase", "", "", "class", "olia.owl", "");
+    private static final SkosConcept VERB =
+            new SkosConcept("olia#Verb", "Verb", "", "", "class", "olia.owl", "");
+    private static final SkosConcept TOPIC =
+            new SkosConcept("olia#Topic", "Topic", "", "", "class", "olia.owl", "");
+
+    /** The taxonomy places `Topic` under a branch of its own and states no parent at all for `Verb`. */
+    private final StatedAncestry ancestry = new StatedAncestry(
+            publishing("OLiA", "verb", "topic")
+                    .stating("Topic", "InformationStructure")
+                    .stating("InformationStructure", "LinguisticConcept"));
 
     private final String rendered = new TermReport().render("OLiA", new MatchedTerms(List.of(
-            new TermSighting(List.of("common", "noun"), List.of(COMMON_NOUN), TermRung.WORDS,
-                    0.96, 2, "Page.java:4"),
-            new TermSighting(List.of("noun"), List.of(COMMON_NOUN), TermRung.WORDS, 0.91, 8, "Page.java:6"),
-            new TermSighting(List.of("nominal", "phrase"), List.of(NOUN_PHRASE), TermRung.SENSES,
-                    0.98, 5, "Sense.java:9")),
-            1000, 10, 6, Map.of(TermRung.WORDS, 6, TermRung.SENSES, 2)), 5);
+            new TermSighting(List.of("verb"), List.of(VERB), TermRung.WORDS, 0.91, 32, "Behaviour.java:20"),
+            new TermSighting(List.of("topic"), List.of(TOPIC), TermRung.WORDS, 0.79, 153, "Evidence.java:43")),
+            5_000, 300, 200, Map.of(TermRung.WORDS, 200)), 20, ancestry);
 
     @Test
-    void statesWhatEveryRungWasOfferedBeforeWhatAnyOfThemFound() {
-        assertThat(rendered).contains("offered 1,000 declared names across 10 files, and 4 of those files "
-                + "match nothing on any rung");
-    }
-
-    @Test
-    void statesARateForEachRungAndNoRateAcrossThem() {
+    void leadsWithTheSplitThePublisherStatesRatherThanWithARate() {
         assertAll(
-                () -> assertThat(rendered).contains("## Matched on the words themselves"),
-                () -> assertThat(rendered).contains("## Matched on the sense the dictionary carries each "
-                        + "word in"),
-                () -> assertThat(rendered).contains("10.00 times per thousand declared names",
-                        "10 spans over 1,000 names"),
-                () -> assertThat(rendered).contains("5.00 times per thousand declared names",
-                        "5 spans over 1,000 names"));
+                () -> assertThat(rendered).contains("The split that decides is where the taxonomy itself "
+                        + "puts them"),
+                () -> assertThat(rendered).contains("| It states **no parent** — the field's own vocabulary "
+                        + "| 1 | 32 | 17.3% |"),
+                () -> assertThat(rendered).contains("| It **places** under a branch — English that collides "
+                        + "| 1 | 153 | 82.7% |"));
     }
 
     @Test
-    void saysHowManyFilesEachRungFoundNothingIn() {
+    void putsATermTheTaxonomyStatesNoParentForUnderTheFieldsOwnVocabulary() {
+        final String own = rendered.substring(rendered.indexOf("## The field's own vocabulary"),
+                rendered.indexOf("## Where it collides"));
+
+        assertThat(own).contains("`verb`").doesNotContain("`topic`");
+    }
+
+    @Test
+    void namesTheBranchAPlacedTermArrivesUnderSoACollisionCanBeSeen() {
+        final String collides = rendered.substring(rendered.indexOf("## Where it collides"),
+                rendered.indexOf("## How the two sides"));
+
         assertAll(
-                () -> assertThat(rendered).contains("**4 files match nothing on this rung**"),
-                () -> assertThat(rendered).contains("**8 files match nothing on this rung**"));
+                () -> assertThat(collides).contains("`topic`").doesNotContain("`verb`"),
+                () -> assertThat(collides)
+                        .as("the broadest concept the publisher states above it")
+                        .contains("`LinguisticConcept`"));
     }
 
     @Test
-    void splitsTheSpansByHowManyWordsTheTermIsWrittenIn() {
+    void leavesTheRungsToOneTableAtTheEnd() {
+        final String rungs = rendered.substring(rendered.indexOf("## How the two sides"));
+
         assertAll(
-                () -> assertThat(rendered).contains("| 1 | 8 | 80.0% |"),
-                () -> assertThat(rendered).contains("| 2 | 2 | 20.0% |"),
-                () -> assertThat(rendered).contains("| 2 | 5 | 100.0% |"));
-    }
-
-    @Test
-    void printsEveryTermOfMoreThanOneWordWhateverItCarries() {
-        assertThat(rendered).contains("### Every term of more than one word").contains("`common noun`");
+                () -> assertThat(rungs).contains("| the words themselves | 185 | 2 | 100.0% |"),
+                () -> assertThat(rungs).contains("| the dictionary form of each word | 0 | 0 | 0.0% |"),
+                () -> assertThat(rungs)
+                        .as("a rate per rung and none across them")
+                        .contains("the sense the dictionary carries each word in"));
     }
 
     @Test
     void namesTheConceptTheSourceStatesAndSomewhereToGoAndCheckIt() {
-        assertThat(rendered).contains("`CommonNoun`", "`Page.java:4`", "`Sense.java:9`");
+        assertThat(rendered).contains("`Verb`", "`Behaviour.java:20`", "`Evidence.java:43`");
     }
 }

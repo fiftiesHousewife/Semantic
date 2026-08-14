@@ -5,6 +5,7 @@ import java.util.List;
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
 import org.fifties.housewife.codesemantics.engine.reading.ScopeLegibility;
 import org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics;
+import org.fifties.housewife.codesemantics.engine.theme.TopicCitations;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.theme.ScopeDivergence;
 import org.fifties.housewife.codesemantics.engine.theme.SubjectNull;
@@ -66,7 +67,7 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 .filter(scope -> !scope.topics().isEmpty())
                 .toList();
         return new ReadingSummary(repository, legibilityOf(legibility.repository()),
-                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses()).across(qualified),
+                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses()).across(qualified, themes.repository().intensity()),
                 withheldFrom(themes, qualified));
     }
 

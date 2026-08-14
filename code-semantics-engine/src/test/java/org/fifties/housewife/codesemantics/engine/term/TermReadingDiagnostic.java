@@ -43,32 +43,14 @@ class TermReadingDiagnostic {
     private static final int TERMS_HELD = 100;
 
     private static final String PREAMBLE = """
-            Where this repository writes the vocabulary of a published taxonomy — the Ontologies of Linguistic
-            Annotation, 1,197 terms whose concepts are already identifiers.
+            Does this repository write the vocabulary of a published field? The Ontologies of Linguistic
+            Annotation state 1,197 terms whose names are already identifiers, so the match is identifier to
+            identifier with no English in between: OLiA's `AdjectivePhrase` and this repository's
+            `adjectivePhrase` read as the same two words, and a hit is the ontology saying this is a term of
+            its field rather than anyone here deciding so.
 
-            **This is matched, not diverged against**, and it is the other half of what a taxonomy can be. A
-            subject scheme places a whole repository and can say nothing about any line in it, because nobody
-            writes `cs.CL`. A term taxonomy publishes names a program in its field actually declares, so the
-            match is identifier to identifier: the ontology's `AdjectivePhrase` and this repository's
-            `adjectivePhrase` read as the same two words, and a hit is the ontology stating that this is a
-            term of its field rather than anyone here deciding so.
-
-            Only **declared names** are read. A term in a sentence is an author writing about a field and a
-            term in a name is a program working in it, and reading the prose would let this repository's own
-            documentation supply the evidence that it is about what it says it is about.
-
-            **Read the split by term length before the rate.** The measurement that shaped this design matched
-            3,837 finance-ontology labels against a repository with no finance in it and got 1,789 hits on
-            one-word terms against three on terms of two words or more: the one-word match is what a taxonomy
-            does to a repository it knows nothing about. No term is excluded for that — a list of words to
-            ignore is what the doctrine forbids — so the weight comes from the bundled frequency list instead,
-            and a run of everyday words is worth a fraction of a run the list barely carries.
-
-            **And read each rung apart.** Both sides are normalised to one thing before they are compared, and
-            the ladder takes the narrowest normalisation that answers: the words as both sides wrote them,
-            then each word's dictionary form, then the sense the dictionary carries it in. A match found on
-            the words and a match found on a sense two different words share are not the same evidence, so
-            there is a rate for each rung below and none across them.
+            Only **declared names** are read. A term in a sentence is an author writing about a field; a term
+            in a name is a program working in one.
             """;
 
     @Test
@@ -164,6 +146,6 @@ class TermReadingDiagnostic {
 
                 %s
                 %s""".formatted(root.getFileName(), PREAMBLE,
-                new TermReport().render(terms.source(), matched, TERMS_HELD)), "Terms");
+                new TermReport().render(terms.source(), matched, TERMS_HELD, new StatedAncestry(terms))), "Terms");
     }
 }

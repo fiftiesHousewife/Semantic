@@ -3,6 +3,7 @@ package org.fifties.housewife.codesemantics.engine.theme;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
@@ -26,15 +27,15 @@ class ThemeReportTest {
         witnesses.record("linguistics", "word", "word segmenter", "Reading.java:7",
                 EvidenceSource.WORDNET_DOMAIN, 1.0);
         witnesses.record("linguistics", "lemma", "lemma of a word", "Reading.java:8",
-                EvidenceSource.WORDNET_DOMAIN, 1.0);
+                EvidenceSource.WIKTIONARY_TOPIC, 1.0);
         witnesses.record("music", "string", "string builder", "Reading.java:9",
                 EvidenceSource.WIKTIONARY_TOPIC, 1.0);
         final TopicDistribution intensity = FILE.distribution();
         final ScopeThemes scope = new ScopeThemes("engine/src/main/java", 1, 1, 120, intensity);
         return new RepositoryThemes(List.of(scope), new ScopeThemes("repository", 1, 1, 120, intensity),
                 List.of(new ScopeDivergence("engine/src/main/java", 0.25,
-                        List.of(new Contribution("linguistics", 0.05, 0.20, 0.9, 0.5),
-                                new Contribution("music", 0.0125, 0.05, 0.1, 0.5)),
+                        List.of(new Contribution("linguistics", 0.20, 0.80, 0.9, 0.5),
+                                new Contribution("music", 0.05, 0.20, 0.1, 0.5)),
                         chance)),
                 new TopicRankings(List.of(FILE),
                         Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)), witnesses)
@@ -46,6 +47,7 @@ class ThemeReportTest {
                         "refusesALineRangeThatRunsBackwards", "SourceAnchorTest.java:71")),
                 Duration.ofMillis(2_500));
     }
+
 
     private static WordSightings sightings() {
         final WordSightings seen = new WordSightings();
@@ -82,7 +84,7 @@ class ThemeReportTest {
                 () -> assertThat(report)
                         .as("and the scope table still shows what music did there, under the topic that "
                                 + "earned the ranking — a topic refused a place is not a topic hidden")
-                        .contains("| 5.0% | `music` |"));
+                        .contains("| 20.0% | `music` |"));
     }
 
     @Test
@@ -97,10 +99,10 @@ class ThemeReportTest {
     void ranksAScopesTopicsOnlyWhenItStoodOutsideItsOwnNull() {
         assertAll(
                 () -> assertThat(new ThemeReport().render(themes(beatingChance())))
-                        .contains("| 20.0% | `linguistics` | 0.9000 | 0.5000 | **over** |"),
+                        .contains("| 80.0% | `linguistics` | 0.9000 | 0.5000 | **over** |"),
                 () -> assertThat(new ThemeReport().render(themes(withinChance())))
                         .as("a caveat is not what gets quoted, so nothing is ranked at all")
-                        .doesNotContain("| 20.0% | `linguistics` |")
+                        .doesNotContain("| 80.0% | `linguistics` |")
                         .contains("no topical content beyond its size"));
     }
 

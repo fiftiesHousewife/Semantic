@@ -13,10 +13,11 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * <p>It is a projection and not a second reading — every figure here is copied from {@link RepositoryThemes}
  * unchanged, so a picture and the report behind it can never disagree.
  *
- * <p>It draws the topics that <b>earned a place</b> and not the topics with the most mass, which is the same
- * bar the report applies and for the same reason: a picture of a raw ranking is a picture of whichever
- * ambiguous word the codebase writes most often. Drawing eighteen of four hundred and eighty-nine with no
- * bar at all is what made the sunburst look half empty and wholly unconvincing.
+ * <p>It draws the topics that <b>earned a place</b>, in the order of how much they account for, and not the
+ * topics with the most mass. A picture of a raw ranking is a picture of whichever ambiguous word the codebase
+ * writes most often — which is what put `baseball` and `astronomy` in it — and a picture ordered by mass puts
+ * the loudest artefact first even after the bar removes the worst of them. {@code topicsShown} is a ceiling
+ * on a set that is already bounded by the bar rather than the count that decides what is drawn.
  */
 record ThemeGraph(String repository, int files, int lines, int topics, long elapsedMillis, String linkage,
                   List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead) {
@@ -58,9 +59,12 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
         final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
-                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
-        final List<TopicRanking> ranked = themes.rankings().stream()
-                .filter(ranking -> qualified.contains(ranking.topic()))
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
+                themes.repository().intensity());
+        final List<TopicRanking> ranked = qualified.stream()
+                .map(topic -> themes.rankings().stream()
+                        .filter(ranking -> ranking.topic().equals(topic)).findFirst())
+                .flatMap(java.util.Optional::stream)
                 .limit(topicsShown)
                 .toList();
         final List<String> topics = ranked.stream().map(TopicRanking::topic).toList();

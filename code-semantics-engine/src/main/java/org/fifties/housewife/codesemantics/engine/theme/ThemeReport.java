@@ -18,6 +18,7 @@ import org.fifties.housewife.codesemantics.engine.behaviour.Behaviours;
  */
 public final class ThemeReport {
 
+
     private static final int TOPICS_SHOWN = 15;
     private static final int CONTRIBUTIONS_SHOWN = 8;
     private static final int WITNESSES_HELD = 8;
@@ -56,7 +57,8 @@ public final class ThemeReport {
      */
     private List<String> ranked(final RepositoryThemes themes) {
         final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
-                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
+                themes.repository().intensity());
         return themes.rankings().stream()
                 .filter(ranking -> qualified.contains(ranking.topic()))
                 .limit(TOPICS_SHOWN)
