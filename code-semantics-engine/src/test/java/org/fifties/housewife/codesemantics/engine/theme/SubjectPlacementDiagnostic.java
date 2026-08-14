@@ -136,19 +136,24 @@ class SubjectPlacementDiagnostic {
                                 + "rank moves with the reading and is not asserted; that it is among the "
                                 + "nearest few of 152 published subjects is.")
                         .contains("cs.CL"),
-                () -> assertThat(Math.abs(chance.nearest() - chance.chanceNearest()))
-                        .as("A FINDING, PINNED, AND IT IS AN INSTABILITY RATHER THAN A RESULT. At leaf "
-                                + "grain the placement and the chance bar it is judged against now sit "
-                                + "within a fiftieth of a bit of each other, and which side they fall on "
-                                + "flips when a single file is added to this repository — deleting one "
-                                + "probe moved the bar from 0.4206 to 0.4418 while the observed distance "
-                                + "did not move at all. So neither `stands apart` nor `does not` is a "
-                                + "finding here, and asserting either would pin a coin toss. The reading "
-                                + "is now narrow — `linguistics` holds a fifth of all topical mass — and a "
-                                + "divergence punishes a narrow reading against a thirty-word abstract "
-                                + "however right that abstract is. A null drawn at each subject's own "
-                                + "description length is what settles it.")
-                        .isLessThan(0.05));
+                () -> assertThat(chance.standsApart())
+                        .as("AND THE INSTABILITY IS GONE. At leaf grain the placement and its chance bar "
+                                + "once sat within a fiftieth of a bit of each other and flipped when one "
+                                + "file was added, so the suite pinned the wobble rather than either side "
+                                + "of it. Reading the senses, letting the parse choose the part of speech, "
+                                + "and giving the reading a reference for ordinary English moved the "
+                                + "nearest subject to 0.4092 bits against a bar of 0.4712. All three "
+                                + "placements now stand clear.")
+                        .isTrue(),
+                () -> assertThat(sharedChance.chanceNearest())
+                        .as("The shared-mass arm is still knife-edge and its direction is deliberately not "
+                                + "asserted: it sits within a hundredth of a bit of its bar and flips when "
+                                + "one file is added to this repository, which happens whenever this "
+                                + "reading is worked on, because it reads itself. What is asserted is that "
+                                + "the null is drawn and reported, so a reader sees the margin and judges "
+                                + "it. A null drawn at each subject's own description length is what would "
+                                + "settle it.")
+                        .isPositive());
     }
 
     private static void write(final Path root, final List<SubjectPlacement.Placement> placements,

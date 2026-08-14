@@ -4,81 +4,62 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.fifties.housewife.bi.lexicon.SkosConcept;
-
 /**
- * What a published taxonomy found in a repository, led by the one split that separates a real match from a
- * collision.
+ * Where a repository sits inside a published taxonomy, read by the <b>branches it occupies</b> rather than
+ * by the words it happens to share with one.
  *
- * <p>An earlier version of this report opened with a rate — matches per thousand declared names — and then
- * printed three near-identical tables, one per rung of the matching ladder. A reader could not tell from any
- * of it whether the reading had worked, because the rate is uninterpretable on its own and the rungs answer
- * a question about method rather than about the repository. The finding was in the data and in none of the
- * tables.
+ * <p>Two earlier versions of this report were wrong in the same way and it is worth saying how. The first
+ * led with a rate — matches per thousand declared names — which is uninterpretable on its own. The second
+ * split matches by whether the taxonomy stated a parent for the concept, and called that the publisher's own
+ * structure; it was an artefact of an extraction that could read only one of RDF's two spellings of a
+ * superclass and had lost 627 of the ontology's 1,422 edges.
  *
- * <p>So the split leads: the terms the taxonomy states no parent for against the terms it places. The rungs
- * are one line at the end, which is the weight a question about how two strings were made to meet deserves.
+ * <p>With the hierarchy recovered the reading can be what it should always have been. A branch is evidenced
+ * by everything beneath it, and it is ranked by <b>how many distinct concepts</b> under it a repository
+ * writes — not by how often. One ordinary word the taxonomy happens to claim, written four hundred times, is
+ * one concept; five different concepts under one branch is a codebase working in that part of the field.
  */
 public class TermReport {
 
-    public String render(final String source, final MatchedTerms matched, final int held,
-                         final StatedAncestry ancestry) {
-        final PlacedTerms split = new PlacedTerms(ancestry);
-        final List<TermSighting> own = split.atTheirOwnRoot(matched.sightings());
-        final List<TermSighting> placed = split.placed(matched.sightings());
-        return finding(source, matched, own, placed)
-                + section("The field's own vocabulary", OWN, own, held, split, false)
-                + section("Where it collides with ordinary English", PLACED, placed, held, split, true)
-                + rungs(matched);
+    private static final int BRANCHES_SHOWN = 12;
+    private static final int CONCEPTS_SHOWN = 8;
+
+    public String render(final String source, final MatchedTerms matched, final TaxonomyTree tree) {
+        return placed(source, matched, tree) + branches(tree) + rungs(matched);
     }
 
-    private static final String OWN =
-            "The taxonomy states no superclass for any of these — the parent is an anonymous restriction or "
-            + "belongs to an ontology it imports rather than carries. They are what a program working in the "
-            + "field declares, and the reason this reading is worth running.";
-
-    private static final String PLACED =
-            "These sit under a branch the taxonomy places, reached through discourse and text structure. "
-            + "Read the branch beside each one: a repository writing `topic`, `source` and `set` is writing "
-            + "English that collides with a published name, not the language of linguistic annotation.";
-
-    private static String finding(final String source, final MatchedTerms matched,
-                                  final List<TermSighting> own, final List<TermSighting> placed) {
-        final int ownSpans = PlacedTerms.spansIn(own);
-        final int placedSpans = PlacedTerms.spansIn(placed);
-        final int total = ownSpans + placedSpans;
-        return String.format("**%s** publishes terms whose names are already identifiers, and this "
-                        + "repository writes **%,d of them, %,d times**, across %,d of %,d files.%n%n"
-                        + "**The split that decides is where the taxonomy itself puts them**, read off its "
-                        + "own `broader` column and not from anything weighed here.%n%n"
-                        + "| Where the taxonomy puts the concept | Distinct terms | Written | Share |%n"
-                        + "|---|--:|--:|--:|%n"
-                        + "| It states **no parent** — the field's own vocabulary | %,d | %,d | %.1f%% |%n"
-                        + "| It **places** under a branch — English that collides | %,d | %,d | %.1f%% |%n",
-                source, own.size() + placed.size(), total, matched.filesMatched(), matched.filesRead(),
-                own.size(), ownSpans, share(ownSpans, total),
-                placed.size(), placedSpans, share(placedSpans, total));
+    private static String placed(final String source, final MatchedTerms matched, final TaxonomyTree tree) {
+        final long occupied = tree.roots().stream().filter(TaxonomyTree.Node::touched).count();
+        return String.format("**%s** publishes **%,d concepts** in a hierarchy nine levels deep. This "
+                        + "repository writes **%,d of them, %,d times**, across %,d of %,d files — reaching "
+                        + "**%,d of the taxonomy's %,d root branches**.%n%n"
+                        + "A branch is evidenced by everything beneath it and ranked by how many distinct "
+                        + "concepts under it were written, because one ordinary word a taxonomy happens to "
+                        + "claim is one concept however often a codebase writes it.%n",
+                source, tree.concepts(),
+                tree.roots().stream().mapToInt(TaxonomyTree.Node::conceptsWritten).sum(),
+                tree.written(), matched.filesMatched(), matched.filesRead(), occupied, tree.roots().size());
     }
 
-    private static String section(final String heading, final String explaining,
-                                  final List<TermSighting> sightings, final int held,
-                                  final PlacedTerms split, final boolean withBranch) {
-        return String.format("%n## %s%n%n%s%n%n", heading, explaining)
-                + terms(sightings.stream().limit(held).toList(), split, withBranch);
-    }
-
-    private static String terms(final List<TermSighting> sightings, final PlacedTerms split,
-                                final boolean withBranch) {
-        final StringBuilder table = new StringBuilder(withBranch
-                ? String.format("| Term | Written | Worth | Stated as | Under | Site |%n|---|--:|--:|---|---|---|%n")
-                : String.format("| Term | Written | Worth | Stated as | Site |%n|---|--:|--:|---|---|%n"));
-        sightings.forEach(sighting -> table.append(withBranch
-                ? String.format("| `%s` | %,d | %.2f | `%s` | `%s` | `%s` |%n", sighting.term(),
-                        sighting.occurrences(), sighting.mass(), stated(sighting), split.branchOf(sighting),
-                        sighting.firstSite())
-                : String.format("| `%s` | %,d | %.2f | `%s` | `%s` |%n", sighting.term(),
-                        sighting.occurrences(), sighting.mass(), stated(sighting), sighting.firstSite())));
+    private static String branches(final TaxonomyTree tree) {
+        final StringBuilder table = new StringBuilder(String.format(
+                "%n## The branches this repository occupies%n%n"
+                + "| Branch | Concepts written | Of published | Times | What it wrote there |%n"
+                + "|---|--:|--:|--:|---|%n"));
+        tree.roots().stream()
+                .filter(TaxonomyTree.Node::touched)
+                .limit(BRANCHES_SHOWN)
+                .forEach(root -> table.append(String.format("| `%s` | %,d | %,d | %,d | %s |%n",
+                        root.label(), root.conceptsWritten(), root.conceptsBelow(), root.writtenBelow(),
+                        wrote(root))));
         return table.toString();
+    }
+
+    private static String wrote(final TaxonomyTree.Node root) {
+        return root.writtenHere().stream()
+                .limit(CONCEPTS_SHOWN)
+                .map(node -> "`%s`&nbsp;%d".formatted(node.label(), node.written()))
+                .collect(Collectors.joining(" "));
     }
 
     /**
@@ -99,14 +80,5 @@ public class TermReport {
     private static double oneWordShare(final MatchedTerms rung) {
         return rung.spansFound() == 0 ? 0.0
                 : rung.spansByLength().getOrDefault(1, 0) / (double) rung.spansFound();
-    }
-
-    private static String stated(final TermSighting sighting) {
-        return sighting.concepts().stream().map(SkosConcept::prefLabel).distinct()
-                .collect(Collectors.joining(", "));
-    }
-
-    private static double share(final int part, final int whole) {
-        return whole == 0 ? 0.0 : 100.0 * part / whole;
     }
 }

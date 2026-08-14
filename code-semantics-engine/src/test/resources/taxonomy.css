@@ -1,0 +1,36 @@
+:root {
+    color-scheme: light dark;
+    --ink: #14181d; --muted: #5b6570; --rule: #dde3ea; --panel: #fff; --page: #f6f8fa;
+    --hit: #1baf7a; --hitink: #0b5c40; --accent: #2f5d8a;
+}
+@media (prefers-color-scheme: dark) {
+    :root { --ink: #e6eaef; --muted: #9aa5b1; --rule: #2a323b; --panel: #161b21; --page: #0e1216;
+            --hit: #199e70; --hitink: #7ce0b8; --accent: #8ab4e0; }
+}
+body { margin: 0; background: var(--page); color: var(--ink);
+       font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+.wrap { max-width: 60rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+.eyebrow { margin: 0 0 .4rem; color: var(--muted); font-size: .8rem; letter-spacing: .08em;
+           text-transform: uppercase; }
+h1 { margin: 0 0 .6rem; font-size: 1.8rem; letter-spacing: -.015em; }
+.lede { margin: 0 0 1.6rem; color: var(--muted); max-width: 40rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 1.6rem; margin: 0 0 2rem; padding: 0; }
+.stat { margin: 0; }
+.stat dt { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+.stat dd { margin: .15rem 0 0; font-size: 1.35rem; font-variant-numeric: tabular-nums; }
+details { border-left: 1px solid var(--rule); margin-left: .55rem; padding-left: .9rem; }
+details > summary { cursor: pointer; list-style: none; padding: .16rem 0; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "▸"; color: var(--muted); display: inline-block; width: 1rem;
+                            font-size: .8rem; }
+details[open] > summary::before { content: "▾"; }
+.leaf { padding: .16rem 0 .16rem 1rem; }
+.label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; }
+.touched > summary > .label, .leaf.touched > .label { color: var(--hitink); font-weight: 650; }
+.count { display: inline-block; margin-left: .5rem; padding: .02rem .4rem; border-radius: 999px;
+         background: color-mix(in srgb, var(--hit) 22%, transparent); color: var(--hitink);
+         font-size: .74rem; font-variant-numeric: tabular-nums; }
+.below { margin-left: .45rem; color: var(--muted); font-size: .74rem; }
+.untouched > summary > .label { color: var(--muted); }
+.foot { margin-top: 2.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--rule);
+        padding-top: 1rem; }

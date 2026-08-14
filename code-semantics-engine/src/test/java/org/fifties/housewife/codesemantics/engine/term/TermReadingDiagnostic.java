@@ -39,6 +39,7 @@ class TermReadingDiagnostic {
     private static final String REPORT = "terms";
     private static final String GRAPH = "terms.json";
     private static final String PAGE = "terms-chart.html";
+    private static final String TAXONOMY = "taxonomy.html";
 
     private static final int TERMS_HELD = 100;
 
@@ -62,8 +63,13 @@ class TermReadingDiagnostic {
 
         final MatchedTerms matched = TermReading.over(terms).of(parsed);
 
-        write(root, terms, matched, TermGraph.of(root.getFileName().toString(), terms.source(),
+        final TaxonomyTree tree = TaxonomyTree.of(
+                org.fifties.housewife.bi.lexicon.OliaTerms.fromClasspath().concepts(),
+                writtenByConcept(matched));
+        write(root, terms, matched, tree, TermGraph.of(root.getFileName().toString(), terms.source(),
                 matched, TermRung.WORDS, new StatedAncestry(terms)));
+        Files.writeString(REPORTS.file(TAXONOMY),
+                new TaxonomyPage().of(root.getFileName().toString(), terms.source(), tree));
 
         final MatchedTerms onWords = matched.at(TermRung.WORDS);
         final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);
@@ -133,12 +139,20 @@ class TermReadingDiagnostic {
                         .contains("subject", "theme"));
     }
 
+    /** How often the repository wrote each concept, by the label the taxonomy states it under. */
+    private static java.util.Map<String, Integer> writtenByConcept(final MatchedTerms matched) {
+        final java.util.Map<String, Integer> written = new java.util.HashMap<>();
+        matched.sightings().forEach(sighting -> sighting.concepts().forEach(concept ->
+                written.merge(concept.prefLabel(), sighting.occurrences(), Integer::sum)));
+        return written;
+    }
+
     private static double oneWordShare(final MatchedTerms matched) {
         return matched.spansByLength().getOrDefault(1, 0) / (double) matched.spansFound();
     }
 
     private static void write(final Path root, final LinguisticTerms terms, final MatchedTerms matched,
-                              final TermGraph graph) throws IOException {
+                              final TaxonomyTree tree, final TermGraph graph) throws IOException {
                 new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(REPORTS.file(GRAPH).toFile(), graph);
         Files.writeString(REPORTS.file(PAGE), new TermPage().of(graph));
         REPORTS.wrote(REPORT, """
@@ -146,6 +160,6 @@ class TermReadingDiagnostic {
 
                 %s
                 %s""".formatted(root.getFileName(), PREAMBLE,
-                new TermReport().render(terms.source(), matched, TERMS_HELD, new StatedAncestry(terms))), "Terms");
+                new TermReport().render(terms.source(), matched, tree)), "Terms");
     }
 }
