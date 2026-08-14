@@ -27,6 +27,8 @@ details[open] > summary::before { content: "▾"; }
 .leaf { padding: .16rem 0 .16rem 1rem; }
 .label { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .86rem; }
 .touched > summary > .label, .leaf.touched > .label { color: var(--hitink); font-weight: 650; }
+.label::after { content: " "; }
+.count::after { content: " "; }
 .count { display: inline-block; margin-left: .5rem; padding: .02rem .4rem; border-radius: 999px;
          background: color-mix(in srgb, var(--hit) 22%, transparent); color: var(--hitink);
          font-size: .74rem; font-variant-numeric: tabular-nums; }

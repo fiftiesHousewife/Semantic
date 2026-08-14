@@ -47,11 +47,6 @@ final class TaxonomyPage {
             + "closed rather than removed, because what a field has that a codebase does not is part of the "
             + "reading.";
 
-    private static final String CAPTION = "Three rings of the taxonomy's own hierarchy. A wedge is as wide "
-            + "as the share of the field's concepts beneath it, so the picture is the field's shape; the "
-            + "lighting is how much of each branch this repository writes. Grey is territory it never "
-            + "enters, which is most of any field.";
-
     private static final String READING = "Read the first two together. A codebase writing a large share of "
             + "a field's concepts is working across it; one writing a small share intensely is working in a "
             + "corner of it, and which corner is what the chart and the tree below are for.";
@@ -72,8 +67,7 @@ final class TaxonomyPage {
                                 statistics(tree)),
                         input().withType("checkbox").withId("full-screen").withClass("full-screen"),
                         div(label().withFor("full-screen").withClass("expand"),
-                                new TaxonomySunburst(tree).chart(),
-                                p(CAPTION).withClass("caption")).withClass("figure"),
+                                new TaxonomySunburst(tree).chart()).withClass("figure"),
                                 div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
                                 TaxonomyPage::node)),
                         p(FOOT).withClass("foot")).withClass("wrap"))
@@ -134,6 +128,6 @@ final class TaxonomyPage {
                                 .withTitle("where this was written")
                         : span(),
                 unwritten == 0 ? span()
-                        : span("%,d not written".formatted(unwritten)).withClass("below"));
+                        : span(" %,d more here go unwritten".formatted(unwritten)).withClass("below"));
     }
 }

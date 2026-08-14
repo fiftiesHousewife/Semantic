@@ -136,6 +136,43 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
   downstream of a sense that was never read**, and that is the same conclusion the two reverted reweightings
   reached from the other direction. Filtering, reweighting and abstention have now each been tried and each
   has failed for one reason; items 1 and 2 of the queue are the only thing left.
+- **The vote, rebuilt** — the reading asked every labelled sense of a word at once, which reads a word as its
+  rarest meaning: `cite` has eight senses, one carries a subject, and that one is being summoned before a
+  court. It now asks for the sense the tagged corpus counts most, and the **parse chooses the part of
+  speech** — an identifier is a noun phrase whose last word is the head, a method name is a clause whose
+  first word is the verb, a sentence is neither, and a word a file declares is read in prose as that file
+  declares it. A headword claim is admitted at the share of the word it can speak for, because a claim
+  naming no sense speaks for one of however many the dictionary states. `SenseNumberAlignmentTest` measures
+  the per-sense join the resource's own header calls version-sensitive: it holds for over 99% of its keys.
+- **Two references, so a subject has to earn its place** — `OrdinaryEnglish` reads the bundled frequency
+  list through the same pipeline, and what a general dictionary attaches to English vocabulary turns out to
+  be `geography`, `person`, `law`, `military`, `biology` and `music`. `FieldOfStudy` reads arXiv's own
+  description of the field the repository places in, narrowed to the nearer half of that field's subjects.
+  A topic must distinguish this repository from ordinary English **and** be one its field has, that it has
+  more of than its field. `biology`, `law`, `publishing` and `music` all leave the reading by that vote and
+  no word of any of them is named anywhere.
+- **`ChanceExpectedBest`** — the `1/(n+1)` quantile in one place, read from the near end where smaller is
+  nearer and the far end where larger is further. `SubjectNull` already held a placement to the best of 152
+  chance attempts; `PermutationNull` held a scope to the median of its own draws, which is a coin flip.
+- **The taxonomy read as a taxonomy.** RDF/XML spells a superclass two ways — an `rdf:resource` attribute
+  and a nested `owl:Class` — and OLiA uses both, so reading only the attribute lost **627 of its 1,422
+  superclass statements** and 115 classes declared by `rdf:ID`. 628 of 1,197 concepts had no parent and
+  `Verb`, `Noun`, `Phrase` and `Token` all looked like roots; a report then called that wreckage the
+  publisher's own structure. Read properly: 1,312 concepts, 1,241 placed, nine deep, under
+  `MorphosyntacticCategory`, `Relation`, `LinguisticConcept`, `SemanticFeature`, `Constituent`,
+  `OrthographicEntity`.
+- **The reading against nodes rather than words** — `TaxonomyTree` is general over SKOS, so one tree serves
+  any bundled source. A branch is evidenced by everything beneath it and ranked by **how many distinct
+  concepts** under it were written. This tree occupies 20 of OLiA's 70 root branches, and is in discourse
+  and text structure first, morphosyntax second — which no list of matched words could have said.
+- **The output, condensed** — `output/` at the project root, indexed, every report rendered as a page.
+  `taxonomy.html` draws the field as a sunburst with the footprint lit, the tree showing only occupied
+  paths, arcs linking into it, counts linking to `evidence.html`, and a full-screen toggle that is a
+  checkbox. The page carries the chain that chose the taxonomy, because a term match is only as good as the
+  choice of what to match against and that is the step most easily smuggled past a reader.
+- **Three of the five names the parse walked past** — pattern bindings (a stated coverage `NameForm.LOCAL`
+  claimed and did not have), labels, and the distinguishing part of the package declaration.
+
 - **Two probes, because a ranking that cannot be argued with is not evidence.**
   `./gradlew wordVotes -Pwords="theme topic phrase"` prints every vote the resources cast for a word;
   `./gradlew topicCarriers -Ptopics="music medicine law"` prints every word carrying a topic with its
@@ -151,38 +188,73 @@ only a capability. Nothing here is scheduled; the order is what the previous sli
 
 ## Next, in order
 
-Each of these is next because of something the reading measured, not because of where it sits in the plan.
-The figures they have to move are on this tree, at the commit this file ships in.
+Two, and the second is the one that decides whether the term reading means anything.
 
-**The two taken first, in this order, are neither of the ones in the table below.** First
-[what the parse walks past](#medium-what-the-parse-walks-past-measured-on-a-file-written-to-contain-all-of-it) —
-string literals, the package declaration, pattern bindings, labels — because every reading in this tree rests
-on the tokens the parse hands it, and a corpus missing whole classes of authored text cannot be tuned into
-correctness by anything downstream. Then
-[how far a non-code entry can be trusted](#high-how-far-a-non-code-entry-can-be-trusted-measured-rather-than-assumed),
-which is the same question asked of what the parse already collects: prose is 74% of the read occurrences and
-its weight is the one number in the pipeline that was picked. The first widens the corpus, the second says
-what each part of it is worth, and doing them the other way round would weigh a corpus that is about to
-change.
+### 1. The names the parse still walks past — string literals
 
-**And a third has moved ahead of both**, because it is the only one of the three that does not depend on the
-sense reading being fixed first:
-[what a repository depends on](#high-what-a-repository-depends-on-is-a-statement-about-its-domain). Every
-reading in this tree asks what a word means and then argues about the answer; a declared dependency is not a
-word, and this repository's `net.sf.extjwnl` says *lexical database* with no dictionary in the way. The parse
-already sorts it — `ImportOrigins` separates the platform's imports from this tree's own from everybody
-else's — and nothing reads the remainder as evidence of anything.
+`JavaSource` now collects pattern bindings, labels and the distinguishing part of the package declaration.
+What is left is **string literals and text blocks**, and they are left on purpose rather than forgotten. A
+literal is neither a declaration nor a use of somebody else's declaration, so the rule that removes `String`
+and `assertThat` says nothing about it — and log messages, error text, SQL and embedded markup are authored
+vocabulary while format strings, separators and reflection names are not. **A literal is prose-shaped
+evidence and needs the trustworthiness reading before it can be admitted**, which is the `[HIGH]` item below
+and does not exist yet. Module declarations are absent because this tree has no `module-info.java` to
+measure one on.
 
-| # | Do this | Because the reading measured | It ships when |
-|--:|---|---|---|
-| 1 | **Make "leads" mean something** | **92 of the 178 files that have a leader are led at a share under a fifth**, and they hold 7,643 of the 13,711 led lines. The plan document is led by `law` holding 7.6% of it | a topic leads a file only where it clears that file's own abstention mass, and lines led falls to what it should be |
-| 2 | **Read WordNet's most frequent sense** | the reading pools every labelled sense equally, which is *worse* than the naive baseline the plan already specifies for stage 9 | `law`'s remaining 11 files led, and whether `cite` stops voting law at all |
-| 3 | **Run on a repository this reading was not written for** | `law` is under-represented in the one module ported from elsewhere and over-represented in the code written for this reading — every figure so far is an instrument reading itself. The term matcher now needs the same tree for a harder reason: 98% of what it matched in domain was one word long, which is what it would match out of domain too | a second tree is read through `-Dcs.clone.dir`, its themes are reported beside these, and `terms.md` is run on a repository OLiA should say nothing about |
-| 4 | **Verbal forms — the rest of it** | 592 methods read as clauses; no class name does, and the verb is chosen without the position that would settle it | the item below, with its three measurements |
-| 5 | **Stages 1–3, the git read** | no reading is pinned to a commit, so no permalink is rendered and no vote can be cast at all | `SourceAnchor` renders from a real revision and the witnesses become permalinks |
+**Measurement:** the count of word occurrences it adds, against λ and against the branches occupied. A gap
+that adds a thousand occurrences and moves no branch was not worth closing, and saying so is the finding.
 
-After those, the plan's own order resumes: the polyglot parse, the store, and the first vertical slice
-against `junit-team/junit-framework`, which is the first time this library reads something that is not itself.
+### 2. Matching a single word is misleading — match in context
+
+This is the largest thing wrong with the term reading and it survives every fix so far. `topic` matches
+OLiA's `Topic`, and OLiA's `Topic` is information structure — what a sentence is about. This repository's
+`topic` is a subject label in a distribution. **The two are not the same concept and the reading cannot
+currently tell.** It is the same defect the theme reading had before senses were read, arriving in the one
+place that was supposed to need no English in between.
+
+The measured shape of it: of 1,563 matches, 97% are one word long, and the single largest is `topic` at 388.
+A reading whose headline number is one ambiguous word repeated is not reading a taxonomy, it is counting a
+word that a taxonomy happens to have claimed.
+
+**What context is available, and none of it needs a new resource:**
+
+| Context | What it would say |
+|---|---|
+| The **phrase** the word sits in | `topicDistribution` is `topic` beside `distribution`, and OLiA states no `Distribution`. A match whose siblings the taxonomy knows nothing about is a match the phrase does not corroborate |
+| The **file's other matches** | A file matching `Topic`, `Source`, `Citation` and `Heading` — all under `LinguisticConcept` — is coherent. A lone `Topic` in a file whose other matches are `Token` and `Prefix` is not |
+| The **branch** | The hierarchy recovered above is exactly what makes the second checkable. Two concepts are near if their least common subsumer is deep, and that is a derived statistic with a derived bound — Wu–Palmer is bounded in `[0, 1]` by construction |
+
+**The rule, stated plainly: matching `preferred` means nothing unless the nodes above it were matched too.**
+A concept deep in a taxonomy is a leaf of a subject, and a repository that writes one leaf of a subject it
+otherwise never touches has written an English word that a taxonomy happens to have claimed. OLiA states
+`Preferred` under `UsageAndFrequencyFeature`; this repository writes it once, and writes nothing else under
+that feature. That match is a coincidence and the hierarchy is what can say so.
+
+**One refinement the data forces, and it is not a softening.** Taken literally the rule refuses almost
+everything, because the nodes above are technical names nobody writes: `Verb` sits under
+`MorphosyntacticCategory`, and no program declares a `morphosyntacticCategory`. What actually supports
+`Verb` is that this repository also writes `Noun`, `Clause`, `Phrase` and `Abbreviation` — its **siblings
+under that parent**. So the test is whether the branch is occupied by more than this one concept, which is
+the same claim in the form the data can answer, and `TaxonomyTree.conceptsWritten()` already computes it.
+
+Multi-word matches are admitted unconditionally — `common noun` and `base form` need no corroboration, which
+is the whole reason term length was worth measuring in the first place.
+
+**What settles it:** the share of matches that are one word long must fall, the branches occupied must not
+collapse to one, and `topic` must stop being the largest single match — or the corroboration must be shown
+to remove real matches, in which case the honest finding is that this taxonomy cannot be matched at word
+grain at all and the reading belongs at the branch level only.
+
+**Abandon if:** requiring corroboration leaves fewer than half the branches occupied. A reading that can
+only see the one branch a repository writes most in has stopped being a placement.
+
+---
+
+## After those, the plan's own order resumes
+
+The polyglot parse, the store, and the first vertical slice against `junit-team/junit-framework` — the first
+time this library reads something that is not itself. `-Dcs.panel.dir` and the out-of-domain arm are what
+turn every figure here from an instrument reading itself into a measurement.
 
 ---
 
