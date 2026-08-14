@@ -18,8 +18,7 @@ class TopicCitationsTest {
     private static final HeadwordTopics NO_TOPICS = word -> Set.of();
 
     private static TopicCitations reading(final SenseDomains senses, final HeadwordTopics topics) {
-        return new TopicCitations(senses, topics,
-                new SenseCoverage(new StatedSenses(Map.of(), Map.of())), Weights.defaults());
+        return new TopicCitations(senses, topics, Weights.defaults());
     }
 
     private static double massOf(final List<TopicVote> votes, final String topic) {
@@ -27,22 +26,38 @@ class TopicCitationsTest {
     }
 
     @Test
-    void spreadsAWordsUnitAcrossItsSensesSoTheCentralReadingLeads() {
+    void countsEachLabelledSenseAsAnObservationOfItsOwn() {
         final List<TopicVote> votes = reading(word -> List.of(Set.of("food"), Set.of("food", "chemistry")),
                 NO_TOPICS).of("food");
 
         assertAll(
                 () -> assertThat(massOf(votes, "food"))
-                        .as("food in both senses, chemistry in one")
-                        .isCloseTo(0.75, offset(1e-12)),
-                () -> assertThat(massOf(votes, "chemistry")).isCloseTo(0.25, offset(1e-12)),
+                        .as("food observed in both senses, chemistry in one")
+                        .isCloseTo(1.5, offset(1e-12)),
+                () -> assertThat(massOf(votes, "chemistry")).isCloseTo(0.5, offset(1e-12)),
                 () -> assertThat(votes.stream().mapToDouble(TopicVote::mass).sum())
-                        .as("an ambiguous word does not shout")
-                        .isCloseTo(1.0, offset(1e-12)));
+                        .as("a word the resource read two senses of has said twice as much as one it read "
+                                + "a single sense of, and the total is what carries that")
+                        .isCloseTo(2.0, offset(1e-12)));
     }
 
     @Test
-    void dividesAHeadwordsUnitEvenlyWhereThereIsNoSenseStructureToRead() {
+    void refusesToLetOneHeadwordLabelOutweighEverySenseTheDictionaryRead() {
+        final List<TopicVote> votes = reading(
+                word -> List.of(Set.of("baseball"), Set.of("university"), Set.of("mathematics"),
+                        Set.of("number"), Set.of("music")),
+                word -> Set.of("baseball")).of("first");
+        final double total = votes.stream().mapToDouble(TopicVote::mass).sum();
+
+        assertThat(massOf(votes, "baseball") / total)
+                .as("this is `first` as the bundled resources actually read it. While each resource was "
+                        + "normalised to one unit, Wiktionary's single label took the whole of that unit "
+                        + "and baseball held 81% of a word written 116 times. One label is one observation")
+                .isCloseTo(2.0 / 6.0, offset(1e-12));
+    }
+
+    @Test
+    void dividesAHeadwordsOneObservationEvenlyWhereThereIsNoSenseStructureToRead() {
         final List<TopicVote> votes =
                 reading(word -> List.of(), word -> Set.of("computing", "typography")).of("cursor");
 
@@ -52,7 +67,7 @@ class TopicCitationsTest {
     }
 
     @Test
-    void letsEachResourceCommitItsOwnUnitSoTwoAgreeingResourcesCorroborate() {
+    void letsTwoAgreeingResourcesCorroborateOneAnother() {
         final List<TopicVote> votes =
                 reading(word -> List.of(Set.of("computing")), word -> Set.of("computing")).of("cursor");
 
@@ -79,7 +94,6 @@ class TopicCitationsTest {
     @Test
     void scalesAResourcesWholeContributionByItsDeclaredWeight() {
         final TopicCitations halved = new TopicCitations(word -> List.of(Set.of("computing")), NO_TOPICS,
-                new SenseCoverage(new StatedSenses(Map.of(), Map.of())),
                 Weights.builder().wordNetDomain(0.5).build());
 
         assertThat(massOf(halved.of("cursor"), "computing")).isCloseTo(0.5, offset(1e-12));
