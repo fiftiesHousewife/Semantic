@@ -45,14 +45,46 @@ public final class FieldOfStudy {
                 new JensenShannon()::divergence);
     }
 
-    /** The published description of the field this reading stands nearest to, read as topics. */
+    /**
+     * The published description of the field this reading stands nearest to — read from the half of that
+     * field's own subjects the reading stands nearest to, and not from all of them.
+     *
+     * <p>An archive is a wide thing. Computer science contains Sound, and Sound is why arXiv's computer
+     * science reads as partly about {@code music} — so a whole-archive reference cannot refuse {@code music}
+     * to a repository that has never made a noise. Taking the nearer half of the archive's subjects keeps
+     * the reference a published statement about the field while dropping the corners of it this repository
+     * is demonstrably not in.
+     *
+     * <p>The half is the <b>median</b> and not a count anybody chose: it is the only split of a field into
+     * nearer and further that needs no threshold. It is also a reference and never evidence — nothing here
+     * can add a topic to a reading, only decline to vouch for one.
+     */
     public TopicDistribution nearestTo(final TopicDistribution repository) {
         final List<SkosConcept> archives =
                 new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy);
         return areas.of(archives).stream()
                 .min(java.util.Comparator.comparingDouble(
                         subject -> comparison.between(repository, subject.distribution())))
-                .map(SubjectTopics::distribution)
+                .map(nearest -> nearerHalfOf(nearest.concept(), repository))
                 .orElseGet(() -> new TopicDistribution(java.util.Map.of()));
+    }
+
+    /** The mean reading of the subjects under this archive that the repository stands nearer than half. */
+    private TopicDistribution nearerHalfOf(final String archive, final TopicDistribution repository) {
+        final List<SubjectTopics> under = areas.of(taxonomy.described().stream()
+                .filter(subject -> archive.equals(subject.broader()))
+                .toList());
+        if (under.isEmpty()) {
+            return new TopicDistribution(java.util.Map.of());
+        }
+        final List<Double> apart = under.stream()
+                .map(subject -> comparison.between(repository, subject.distribution()))
+                .sorted()
+                .toList();
+        final double median = apart.get(apart.size() / 2);
+        return TopicDistribution.meanOf(under.stream()
+                .filter(subject -> comparison.between(repository, subject.distribution()) <= median)
+                .map(SubjectTopics::distribution)
+                .toList());
     }
 }

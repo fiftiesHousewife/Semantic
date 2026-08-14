@@ -142,7 +142,13 @@ public final class PhraseTopics {
             return word -> declaredHere.contains(word) ? citations.of(word) : citations.inProse(word);
         }
         final Set<String> verbs = form == NameForm.METHOD ? Set.of(words.getFirst()) : Set.of();
-        return word -> verbs.contains(word) ? citations.ofVerb(word) : citations.of(word);
+        final String head = words.getLast();
+        return word -> {
+            if (verbs.contains(word)) {
+                return citations.ofVerb(word);
+            }
+            return word.equals(head) ? citations.of(word) : citations.inProse(word);
+        };
     }
 
     private Reading of(final List<String> words, final Map<String, Double> weightByWord,

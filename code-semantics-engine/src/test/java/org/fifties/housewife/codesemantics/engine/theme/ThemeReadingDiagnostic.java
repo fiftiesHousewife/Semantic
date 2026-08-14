@@ -126,17 +126,19 @@ class ThemeReadingDiagnostic {
                                 + "`publishing`. No word of any of the three was named to remove it.")
                         .doesNotContain("biology", "law", "publishing"),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("A DEFECT, PINNED, AND IT IS THE FOURTH. `music` survives, carried by `topic`, "
-                                + "`line` and `dominant`, and it survives for a reason the other three did "
-                                + "not have: arXiv's computer science genuinely carries music, because "
-                                + "cs.SD is Sound. The field reference cannot refuse a subject its own "
-                                + "publisher lists. Two ways of removing it were built and reverted — "
-                                + "discounting every evenly-spread word, and refusing a headword "
-                                + "vocabulary that names several subjects for a word nothing "
-                                + "sense-labels — because each took `computing` and `grammar` with it and "
-                                + "left a three-topic reading. Removing `music` needs a field reference "
-                                + "finer than a whole archive, which is the leaf placement this tree "
-                                + "cannot yet make stable.")
+                        .as("A DEFECT, PINNED, AND ITS CAUSE NAMED EXACTLY. `music` is one word. `topic` is "
+                                + "the commonest content word this repository writes; WordNet Domains "
+                                + "labels neither of its senses; and the one vocabulary that answers splits "
+                                + "it evenly across `medicine`, `computing` and `music` — a third each, "
+                                + "four hundred times over. Seven mechanisms were built against it and "
+                                + "reverted, and they failed for one reason: every rule that refuses a flat "
+                                + "undisambiguated split refuses the same shape in the arXiv descriptions "
+                                + "that form the field reference, and those are short enough that removing "
+                                + "it costs `computing` and `grammar` and leaves a three-topic reading. "
+                                + "This is not a rule that is missing. It is a resource: something that "
+                                + "states what `topic` means in software, which is the computing "
+                                + "vocabulary the backlog has named since before any of this. When one "
+                                + "lands, this assertion must fail and be deleted.")
                         .contains("music"));
     }
 
