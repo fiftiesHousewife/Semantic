@@ -15,6 +15,8 @@ class PermutationNullTest {
 
     private static final int DRAWS = 99;
 
+    private static final int SCOPES = 9;
+
     private final JensenShannon divergence = new JensenShannon();
 
     private static TopicDistribution of(final String topic) {
@@ -39,7 +41,7 @@ class PermutationNullTest {
         final TopicDistribution sample = TopicDistribution.meanOf(pool.subList(0, 6));
         final double observed = divergence.divergence(sample, reference);
 
-        final Chance chance = seeded(1L).of(observed, 6, pool, reference);
+        final Chance chance = seeded(1L).of(observed, 6, SCOPES, pool, reference);
 
         assertThat(chance.atLeastAsExtreme())
                 .as("a scope drawn from the reference must not look like a finding")
@@ -52,7 +54,7 @@ class PermutationNullTest {
         final TopicDistribution reference = TopicDistribution.meanOf(pool);
         final TopicDistribution scope = TopicDistribution.meanOf(List.of(of("law"), of("law"), of("law")));
 
-        final Chance chance = seeded(1L).of(divergence.divergence(scope, reference), 3, pool, reference);
+        final Chance chance = seeded(1L).of(divergence.divergence(scope, reference), 3, SCOPES, pool, reference);
 
         assertAll(
                 () -> assertThat(chance.exceedsChance()).isTrue(),
@@ -66,15 +68,15 @@ class PermutationNullTest {
         final List<TopicDistribution> pool = mixedPool();
         final TopicDistribution reference = TopicDistribution.meanOf(pool);
 
-        assertThat(seeded(7L).of(0.1, 5, pool, reference))
+        assertThat(seeded(7L).of(0.1, 5, SCOPES, pool, reference))
                 .as("a null that moved between runs would make every excess unfalsifiable")
-                .isEqualTo(seeded(7L).of(0.1, 5, pool, reference));
+                .isEqualTo(seeded(7L).of(0.1, 5, SCOPES, pool, reference));
     }
 
     @Test
     void reportsHowManyDrawsItTookAndHowManyMatchedTheObservation() {
         final List<TopicDistribution> pool = mixedPool();
-        final Chance chance = seeded(3L).of(0.0, 5, pool, TopicDistribution.meanOf(pool));
+        final Chance chance = seeded(3L).of(0.0, 5, SCOPES, pool, TopicDistribution.meanOf(pool));
 
         assertAll(
                 () -> assertThat(chance.resamples()).isEqualTo(DRAWS),
@@ -82,6 +84,33 @@ class PermutationNullTest {
                 () -> assertThat(chance.exceedsChance())
                         .as("an observation of nothing exceeds nothing")
                         .isFalse());
+    }
+
+    @Test
+    void refusesAScopeThatClearsOnlyTheMiddleOfItsOwnDraws() {
+        final List<TopicDistribution> pool = mixedPool();
+        final TopicDistribution reference = TopicDistribution.meanOf(pool);
+        final Chance median = seeded(1L).of(0.0, 6, SCOPES, pool, reference);
+
+        final Chance chance = seeded(1L).of(median.median() + 1e-9, 6, SCOPES, pool, reference);
+
+        assertAll(
+                () -> assertThat(chance.excess())
+                        .as("it beat the coin flip this class used to ask for")
+                        .isPositive(),
+                () -> assertThat(chance.exceedsChance())
+                        .as("and every scope was tested, so one of them was always going to")
+                        .isFalse());
+    }
+
+    @Test
+    void asksMoreOfAScopeTheMoreScopesWereTestedBesideIt() {
+        final List<TopicDistribution> pool = mixedPool();
+        final TopicDistribution reference = TopicDistribution.meanOf(pool);
+
+        assertThat(seeded(1L).of(0.0, 6, 20, pool, reference).chanceExpectedBest())
+                .as("twenty scopes get twenty attempts at looking furthest")
+                .isGreaterThan(seeded(1L).of(0.0, 6, 2, pool, reference).chanceExpectedBest());
     }
 
     @Test

@@ -85,6 +85,23 @@ public final class TopicWitnesses {
                 .collect(Collectors.toUnmodifiableMap(Witness::word, Witness::occurrences));
     }
 
+    /**
+     * Whether one word carries a majority of a topic's mass, which makes the topic that word's opinion
+     * rather than a reading. {@code jewellery} rests entirely on {@code string} and a reader shown the
+     * witnesses rejects it at a glance; this is the same rejection, available to a report that has to decide
+     * what to print before a reader sees it.
+     *
+     * <p>A majority is the bound, and it follows from what carrying a topic means rather than from tuning: a
+     * word holding more than half of a topic outvotes every other word that read it put together. A topic
+     * nothing was recorded for rests on no words at all, which cannot be shown to be more than one.
+     */
+    public boolean restsOnOneWord(final String topic) {
+        final Map<String, Double> mass = massByWord(topic);
+        final double total = mass.values().stream().mapToDouble(Double::doubleValue).sum();
+        return total <= 0.0
+                || mass.values().stream().mapToDouble(Double::doubleValue).max().orElse(0.0) > total / 2.0;
+    }
+
     /** How much mass each word carried into the topic — what the witnesses are ordered by. */
     public Map<String, Double> massByWord(final String topic) {
         return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()

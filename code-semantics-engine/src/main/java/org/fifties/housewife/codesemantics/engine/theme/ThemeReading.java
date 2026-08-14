@@ -85,7 +85,7 @@ public final class ThemeReading {
                         .map(scope -> themesOf(scope.getKey(), scope.getValue())).toList(),
                 repository,
                 byScope.entrySet().stream()
-                        .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), everyFile,
+                        .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), byScope.size(), everyFile,
                                 repository.intensity()))
                         .toList(),
                 new TopicRankings(everyFile, dominant, witnesses).of(repository.intensity()),
@@ -108,14 +108,14 @@ public final class ThemeReading {
                 files.stream().mapToInt(FileTopics::lines).sum(), TopicDistribution.meanOf(reading));
     }
 
-    private ScopeDivergence divergenceOf(final String name, final List<FileTopics> scope,
+    private ScopeDivergence divergenceOf(final String name, final List<FileTopics> scope, final int scopes,
                                          final List<FileTopics> everyFile,
                                          final TopicDistribution reference) {
         final List<TopicDistribution> reading = readings(scope);
         final double bits = divergence.divergence(TopicDistribution.meanOf(reading), reference);
         return new ScopeDivergence(name, bits,
                 divergence.contributions(TopicDistribution.meanOf(reading), reference),
-                chance.of(bits, reading.size(), readings(everyFile), reference));
+                chance.of(bits, reading.size(), scopes, readings(everyFile), reference));
     }
 
     /** The distributions of the files that carried any topical reading at all; the rest are removed. */

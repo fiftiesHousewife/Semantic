@@ -83,7 +83,7 @@ public final class SubjectNull {
 
     /** Where the best of a field of this size sits among the draws — the quantile, not a chosen rank. */
     static int bestOf(final int subjects, final int drawn) {
-        return Math.min(drawn - 1, drawn / (subjects + 1));
+        return ChanceExpectedBest.nearestIn(subjects, drawn);
     }
 
     private String wordsFrom(final List<String> pool, final int length) {

@@ -52,11 +52,11 @@ class ThemeReportTest {
     }
 
     private static Chance beatingChance() {
-        return new Chance(0.25, 0.05, 0.20, 0, 999);
+        return new Chance(0.25, 0.05, 0.20, 0.10, 0, 999);
     }
 
     private static Chance withinChance() {
-        return new Chance(0.25, 0.30, -0.05, 640, 999);
+        return new Chance(0.25, 0.30, -0.05, 0.40, 640, 999);
     }
 
     @Test
