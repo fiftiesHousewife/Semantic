@@ -49,6 +49,10 @@ final class TaxonomyPage {
             + "lighting is how much of each branch this repository writes. Grey is territory it never "
             + "enters, which is most of any field.";
 
+    private static final String READING = "Read the first two together. A codebase writing a large share of "
+            + "a field's concepts is working across it; one writing a small share intensely is working in a "
+            + "corner of it, and which corner is what the chart and the tree below are for.";
+
     private static final String FOOT = "Drawn from the same match the report is written from. Regenerate "
             + "with ./gradlew selfRead.";
 
@@ -73,11 +77,20 @@ final class TaxonomyPage {
 
     private DomContent statistics(final TaxonomyTree tree) {
         final long touched = tree.roots().stream().mapToLong(TaxonomyPage::touchedIn).sum();
-        return dl(figure("Concepts published", "%,d".formatted(tree.concepts())),
-                figure("Concepts this repository writes", "%,d".formatted(touched)),
-                figure("Times written", "%,d".formatted(tree.written())),
-                figure("Branches at the root", "%,d".formatted(tree.roots().size())))
-                .withClass("stats");
+        final long occupied = tree.roots().stream().filter(TaxonomyTree.Node::touched).count();
+        return div(dl(
+                figure("Concepts published", "%,d".formatted(tree.concepts()),
+                        "everything the taxonomy states, whether or not this repository has any use for it"),
+                figure("Written here", "%,d".formatted(touched),
+                        "how many of them appear as a name this repository declared — %.0f%% of the field"
+                                .formatted(100.0 * touched / Math.max(1, tree.concepts()))),
+                figure("Times written", "%,d".formatted(tree.written()),
+                        "occurrences of those names, so one concept written often counts once above and "
+                                + "many times here"),
+                figure("Branches entered", "%,d of %,d".formatted(occupied, tree.roots().size()),
+                        "top-level divisions of the field with at least one concept written beneath them"))
+                .withClass("stats"),
+                p(READING).withClass("caption"));
     }
 
     private static long touchedIn(final TaxonomyTree.Node node) {
@@ -85,8 +98,8 @@ final class TaxonomyPage {
                 + node.children().stream().mapToLong(TaxonomyPage::touchedIn).sum();
     }
 
-    private static DomContent figure(final String naming, final String reads) {
-        return div(dt(naming), dd(reads)).withClass("stat");
+    private static DomContent figure(final String naming, final String reads, final String meaning) {
+        return div(dt(naming), dd(reads), p(meaning).withClass("gloss")).withClass("stat");
     }
 
     /**
