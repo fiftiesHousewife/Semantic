@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +42,15 @@ public final class WikidataInitialisms {
     /** The registry's readings of a token written exactly as the schema wrote it, capitals and all. */
     public List<Reading> readingsOf(final String capitalsToken) {
         return readingsByToken.getOrDefault(capitalsToken, List.of());
+    }
+
+    /**
+     * Every token the registry carries, so what this catalogue would say yes to can be measured rather than
+     * assumed. A caller weighing it as a source of evidence needs to see its shape, and a registry of what
+     * readers write for an entity is a wider thing than it looks.
+     */
+    public Set<String> tokens() {
+        return readingsByToken.keySet();
     }
 
     private static WikidataInitialisms load() {

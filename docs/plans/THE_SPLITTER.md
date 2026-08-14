@@ -41,6 +41,19 @@ is:
 - **`github/linguist` data** — `languages.yml`, `vendor.yml`, `generated.rb`. Verify the MIT licence at
   adoption.
 
+**The catalogue already in the tree was tried against this and refused, with the measurement recorded in
+`CitedTokenCatalogueTest`.** The Wikidata initialism registry looks like it would fill the seam in one line:
+74,397 tokens, provenance-headed, CC0, already read for votes elsewhere. It carries 14,322 three-letter
+tokens and 1,195 of the ten thousand commonest English words, including the ones a Java file is actually made
+of — `CODE`, `DATA`, `NAME`, `TYPE`, `LIST`, `NODE`, `SIZE`. Arbitrating candidate pieces against it would
+find a reading for very nearly any run of letters, which is the failure `PieceCost` holds short pieces to a
+rarity floor to avoid. A registry of what readers write *for an entity* is not a statement about whether a
+run of letters *in an identifier* is one thing, and the size of the catalogue is what disguises that.
+
+The registry states a prominence per reading, so narrowing it is available and is the obvious next attempt.
+It is a **bound, and a bound must be derived**: the threshold has to be fitted on repositories this reading
+was not written for, which makes it one more thing waiting on the panel rather than a number to pick here.
+
 **The keyword half is superseded and the demotion half is moot.** The parse reads declarations, so the
 language's own words never arrive — they are never declarations — and neither do the platform's, which are
 uses of somebody else's. `PlatformPackages` handles the one place platform names do arrive, the import

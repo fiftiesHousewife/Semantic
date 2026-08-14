@@ -48,7 +48,14 @@ naming any of them. It is grammar, and grammar is permitted where a list of name
 - `CitedTokens.NONE` is the default the word segmenter runs on: it recognises nothing, so a compound is read
   by word frequency alone. That is deliberate. Implementations must be backed by an extracted,
   provenance-headed resource — a specification's own keyword table, a platform's own API index — never by
-  tokens curated from the repositories the library was developed against.
+  tokens curated from the repositories the library was developed against. **The one bundled catalogue that
+  looks like it would fill the seam does not**, and `CitedTokenCatalogueTest` measures why rather than
+  asserting it: the Wikidata initialism registry carries 74,397 tokens, 14,322 of them three letters long,
+  and 1,195 of them among the ten thousand commonest English words — `THE`, `OF`, `AND`, and the ones a Java
+  file actually contains, `CODE`, `DATA`, `NAME`, `TYPE`, `LIST`, `NODE`, `SIZE`. A segmenter arbitrating
+  against it would find a reading for very nearly any run of letters. Narrowing it by the prominence the
+  registry itself states is the obvious next move and is a **bound, so it must be derived** — on repositories
+  this reading was not written for, not on this one.
 - `Tokeniser` is the narrow schema-identifier grammar, ported unchanged and **known to be too narrow for
   code**: it mis-splits `XMLHttpRequest`, `parseHTTPResponse`, `toJSONString`, `getDSLContext` and
   `IPv6Address`. The class javadoc names each and `TokeniserTest` pins each, so widening the grammar is a
