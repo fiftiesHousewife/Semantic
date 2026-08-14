@@ -158,20 +158,24 @@ reading that makes stage 1 and stage 2 the same change, which is a sign it is th
 
 ### Staging, each stage shipping a measurement rather than a capability
 
-**Stage A — stop offering a dependency's name to a dictionary, which is free and is the largest single
-win.** A word arriving only through an import is a coordinate naming somebody else's artefact, and asking
-WordNet what it means is a category error rather than an inaccuracy. `jupiter` alone is 40.8% of `astronomy`
-and 11.8% of `chemistry`. The parse and `ImportOrigins` already carry everything needed, so this is a change
-to `OfferedWords` and nothing else, and it lands **before stage 0** because it removes noise rather than
-rescaling it. It is also the same fix as the dependency reading, approached from the other side.
+**Stage A — stop offering a dependency's name to a dictionary. Landed.** `OfferedWords.of` returns nothing
+for `NameForm.IMPORT`, so a coordinate naming somebody else's artefact is never asked what it means in
+English. `jupiter` and `owl` are out of the topical reading.
 
-**Stage 0 — pin the arithmetic as it stands.** A test asserting, on a fixed fixture, that one occurrence
-yields WordNet `covered` and Wiktionary exactly 1.0. Nothing changes; the current behaviour becomes a stated
-expectation so every later stage is a rewritten assertion rather than a silent drift. *Also verify a
-suspected off-by-one:* `SenseCoverage` counts `senseDomainsOf(word).size()` as the labelled numerator while
-`TopicCitations` filters that same list to its non-empty entries — if the resource returns empty sets for
-unlabelled senses, the numerator counts senses that cast no vote and every coverage figure in the tree is
-too high.
+**Stage 0 — pin the arithmetic as it stands. Landed, and the suspected off-by-one does not exist.**
+`SenseCoverage.sensesLabelled` filters `senseDomainsOf(word)` to its non-empty entries and
+`TopicCitations.senseLabelled` filters the same list the same way, so the coverage numerator counts exactly
+the senses that cast a vote. Both sides are pinned — `SenseCoverageTest` states that a word no sense of which
+is labelled is uncovered rather than fully spoken for, and `TopicCitationsTest` states that an unlabelled
+sense casts nothing.
+
+Two things drifted from what this document assumed while that was true, and the later stages have to be read
+against the code rather than against the paragraphs above. `SenseCoverage` no longer scales the vote in
+`TopicCitations` at all — it discounts what a phrase commits, in `PhraseTopics`, and applying it in both
+places was counting one fact twice. And the doctrinal question below has effectively been answered as
+**(b)**: a headword claim is admitted at `1/senses`, the dictionary's own sense count. The recommendation
+here was (c). Either the recommendation or the code should move, and which one is stage 2's first decision
+rather than something to settle in passing.
 
 **Stage 1 — abstention mass into the distribution.** `TopicDistribution` gains an abstention share; the
 open-space accumulator's partition becomes the one the topical reading runs on. Ships when every share in
