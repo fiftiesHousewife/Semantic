@@ -37,7 +37,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class ReadingSummaryDiagnostic {
 
-    private static final String REPORT = "build/reports/self-reading/summary.md";
+    private static final String FOLDER = "build/reports/self-reading";
+    private static final String REPORT = FOLDER + "/summary.md";
+    private static final String INDEX = FOLDER + "/index.html";
 
     private static final long SEED = 20260813L;
     private static final int TOPICS_PER_SCOPE = 3;
@@ -63,6 +65,7 @@ class ReadingSummaryDiagnostic {
                 LegibilityReading.fromClasspath().of(parsed), themes, field, chance, TOPICS_PER_SCOPE);
         final String page = new SummaryReport().render(summary);
         write(page);
+        Files.writeString(Path.of(INDEX), new IndexPage().of(ReadingIndex.of(root.getFileName().toString())));
 
         assertAll(
                 () -> assertThat(summary.field().standsApart())
@@ -79,6 +82,9 @@ class ReadingSummaryDiagnostic {
                                 + "the median. If nothing is ever withheld again, the bar has gone soft.")
                         .isNotEmpty(),
                 () -> assertThat(page).hasSizeLessThan(4_000),
+                () -> assertThat(Files.readString(Path.of(INDEX)))
+                        .as("a folder of reports with no index is a folder read in the wrong order")
+                        .contains("summary.md", "themes.html", "What it takes to be printed:"),
                 () -> assertThat(summary.about())
                         .as("the topics that make some part unlike the rest are the reading with a bar")
                         .isNotEmpty());

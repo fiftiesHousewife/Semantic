@@ -1,11 +1,9 @@
-package org.fifties.housewife.codesemantics.engine.summary;
+package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.List;
 
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import org.fifties.housewife.codesemantics.engine.theme.PermutationNull.Chance;
-import org.fifties.housewife.codesemantics.engine.theme.ScopeDivergence;
-import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses;
 import org.fifties.housewife.codesemantics.model.EvidenceSource;
 import org.junit.jupiter.api.Test;
 

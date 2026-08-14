@@ -76,6 +76,7 @@ tasks.register<Test>("selfRead") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     doLast {
         logger.lifecycle(selfReadSummary.get().asFile.readText())
-        logger.lifecycle("The detailed reports are beside it in ${selfReadSummary.get().asFile.parent}")
+        logger.lifecycle("Every report, with the bar each carries: " +
+            "file://${selfReadSummary.get().asFile.parent}/index.html")
     }
 }

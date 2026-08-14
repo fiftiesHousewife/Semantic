@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
 import org.fifties.housewife.codesemantics.engine.reading.ScopeLegibility;
+import org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.theme.ScopeDivergence;
 import org.fifties.housewife.codesemantics.engine.theme.SubjectNull;

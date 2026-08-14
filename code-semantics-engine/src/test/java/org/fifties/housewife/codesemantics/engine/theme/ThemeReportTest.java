@@ -25,6 +25,8 @@ class ThemeReportTest {
     private RepositoryThemes themes(final Chance chance) {
         witnesses.record("linguistics", "word", "word segmenter", "Reading.java:7",
                 EvidenceSource.WORDNET_DOMAIN, 1.0);
+        witnesses.record("linguistics", "lemma", "lemma of a word", "Reading.java:8",
+                EvidenceSource.WORDNET_DOMAIN, 1.0);
         witnesses.record("music", "string", "string builder", "Reading.java:9",
                 EvidenceSource.WIKTIONARY_TOPIC, 1.0);
         final TopicDistribution intensity = FILE.distribution();
@@ -60,6 +62,16 @@ class ThemeReportTest {
     }
 
     @Test
+    void keepsATopicOutOfTheRankingWhereOneWordCarriesAMajorityOfIt() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertThat(report.substring(0, report.indexOf("Read over")))
+                .as("music rests entirely on `string`, and a topic one word holds is that word's opinion")
+                .contains("`linguistics`")
+                .doesNotContain("`music`");
+    }
+
+    @Test
     void ranksTheRepositorysTopicsWithTheWordsCarryingThem() {
         final String report = new ThemeReport().render(themes(beatingChance()));
 
@@ -68,8 +80,9 @@ class ThemeReportTest {
                         .contains("| `linguistics` | 0.9000 | 100.0% | 90 | 1 | 120 | 100.0% |"),
                 () -> assertThat(report).contains("`word`&nbsp;1"),
                 () -> assertThat(report)
-                        .as("music took half its mass from prose, and the row says so")
-                        .contains("| `music` | 0.1000 | 50.0% | 10 | 0 | 0 | 0.0% |"));
+                        .as("and the scope table still shows what music did there, under the topic that "
+                                + "earned the ranking — a topic refused a place is not a topic hidden")
+                        .contains("| 5.0% | `music` |"));
     }
 
     @Test

@@ -25,9 +25,18 @@ public final class ThemeReport {
     private static final int CONTRIBUTIONS_SHOWN = 8;
     private static final int WITNESSES_HELD = 8;
 
+    private static final String QUALIFICATION =
+            "Only the topics that **earned a place**: a topic reaches this table where it makes some part "
+            + "of this repository unlike the rest of it — a scope that departed further than the furthest "
+            + "of a field of chance draws — and where more than one word carries it. A topic held at the "
+            + "same density everywhere distinguishes nothing, and a topic one word holds a majority of is "
+            + "that word's opinion. Both bars follow from the reading; neither is a list.";
+
     public String render(final RepositoryThemes themes) {
         final List<String> lines = new ArrayList<>();
         lines.add("## What the whole repository reads as");
+        lines.add("");
+        lines.add(QUALIFICATION);
         lines.add("");
         lines.add(ThemeTables.RANKING_HEADER);
         ranked(themes).forEach(lines::add);
@@ -45,8 +54,18 @@ public final class ThemeReport {
         return String.join("\n", lines) + "\n";
     }
 
+    /**
+     * The topics that earned a place, most-distinguishing first — not the topics with the most mass. A raw
+     * ranking is led by whatever ambiguous word a codebase writes most, and this report printed one for most
+     * of its life: {@code baseball} on {@code first}, {@code astronomy} on an import of JUnit Jupiter. A
+     * topic reaches this table only where it makes some part of the repository unlike the rest of it and
+     * where more than one word carries it.
+     */
     private List<String> ranked(final RepositoryThemes themes) {
+        final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
         return themes.rankings().stream()
+                .filter(ranking -> qualified.contains(ranking.topic()))
                 .limit(TOPICS_SHOWN)
                 .map(ranking -> ThemeTables.rankingRow(ranking, themes.lines(),
                         themes.witnesses().forTopic(ranking.topic(), WITNESSES_HELD)))

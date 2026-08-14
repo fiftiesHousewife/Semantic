@@ -13,6 +13,11 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  *
  * <p>It is a projection and not a second reading — every figure here is copied from {@link RepositoryThemes}
  * unchanged, so a picture and the report behind it can never disagree.
+ *
+ * <p>It draws the topics that <b>earned a place</b> and not the topics with the most mass, which is the same
+ * bar the report applies and for the same reason: a picture of a raw ranking is a picture of whichever
+ * ambiguous word the codebase writes most often. Drawing eighteen of four hundred and eighty-nine with no
+ * bar at all is what made the sunburst look half empty and wholly unconvincing.
  */
 record ThemeGraph(String repository, int files, int lines, int topics, long elapsedMillis, String linkage,
                   List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead,
@@ -59,7 +64,12 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
 
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
-        final List<TopicRanking> ranked = themes.rankings().stream().limit(topicsShown).toList();
+        final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
+        final List<TopicRanking> ranked = themes.rankings().stream()
+                .filter(ranking -> qualified.contains(ranking.topic()))
+                .limit(topicsShown)
+                .toList();
         final List<String> topics = ranked.stream().map(TopicRanking::topic).toList();
         return new ThemeGraph(repository, themes.files().size(), themes.lines(), themes.rankings().size(),
                 themes.elapsed().toMillis(), links.describing(),

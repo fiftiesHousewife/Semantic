@@ -1,4 +1,4 @@
-package org.fifties.housewife.codesemantics.engine.summary;
+package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.Comparator;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
-import org.fifties.housewife.codesemantics.engine.theme.ScopeDivergence;
-import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses;
 
 /**
  * The topics that earned their place: those accounting for the departure of a scope that departed further
