@@ -81,3 +81,59 @@ tasks.register<Test>("selfRead") {
             "file://${readingOutput.file("index.html").asFile.absolutePath}")
     }
 }
+
+// The backtest. Every figure selfRead reports is an instrument reading itself; this reads the panel the
+// reading was not written for, one report folder per member under output/<name>/.
+//   ./gradlew panelRead -Dcs.panel.dir=<directory holding the clones>
+// One Test task per member, because a member is read by pointing the whole reading at it and a Test task
+// carries one set of system properties. A member the caller has not cloned is skipped and named, not
+// silently counted as read: an empty confusion matrix looks exactly like a perfect one.
+val panelDirectory: String? = System.getProperty("cs.panel.dir")
+
+val panelMembers: List<String> = layout.projectDirectory.file("src/test/resources/panel.tsv").asFile
+    .readLines()
+    .filter { it.isNotBlank() && !it.startsWith("#") }
+    .map { it.substringBefore('\t') }
+
+val memberReadings = panelMembers.map { member ->
+    tasks.register<Test>("panelRead${member.replaceFirstChar(Char::uppercase)}") {
+        group = "verification"
+        description = "Reads the panel member $member"
+        testClassesDirs = sourceSets["test"].output.classesDirs
+        classpath = sourceSets["test"].runtimeClasspath
+        maxHeapSize = "3g"
+        useJUnitPlatform { includeTags("diagnostic") }
+        outputs.upToDateWhen { false }
+        testLogging.showStandardStreams = true
+        systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
+        panelDirectory?.let { systemProperty("cs.clone.dir", "$it/$member") }
+        onlyIf {
+            val cloned = panelDirectory != null && file("$panelDirectory/$member").isDirectory
+            if (!cloned) {
+                logger.lifecycle("Panel member $member is not cloned under ${panelDirectory ?: "(no -Dcs.panel.dir)"} — not read.")
+            }
+            cloned
+        }
+    }
+}
+
+tasks.register("panelRead") {
+    group = "verification"
+    description = "Reads every cloned panel member, one report folder per member under output/"
+    dependsOn(memberReadings)
+    doFirst {
+        if (panelDirectory == null) {
+            throw GradleException("panelRead needs -Dcs.panel.dir=<directory holding the clones>.")
+        }
+        if (panelMembers.isEmpty()) {
+            throw GradleException("The panel manifest names no member, so this would report an empty " +
+                "confusion matrix as a result. src/test/resources/panel.tsv states what a member costs " +
+                "to add: a licence verified at the revision, a domain stated by somebody outside this " +
+                "project, a pinned SHA, and an arm.")
+        }
+    }
+    doLast {
+        logger.lifecycle("Panel read. One report folder per member under " +
+            "file://${readingOutput.asFile.absolutePath}")
+    }
+}

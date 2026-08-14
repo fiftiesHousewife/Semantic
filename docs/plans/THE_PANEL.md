@@ -60,17 +60,27 @@ that do.
 
 ## What it needs before it can run
 
-1. **`-Dcs.panel.dir` forwarded by `cs.java-conventions`**, beside `cs.clone.dir` — the only two system
-   properties the test convention passes to a forked JVM.
-2. **A panel manifest**, one row per member: clone URL, pinned SHA, licence, stated domain, the source that
-   stated it, and which arm it is in. It is data, so it is a TSV with a provenance header like every other
-   bundled resource — and its provenance is *this project*, which must be said outright, because a curated
-   observation of a corpus is exactly what the doctrine refuses as evidence. **It is a test fixture and it
-   never votes.**
-3. **`./gradlew panelRead`**, modelled on `selfRead`: one report per member and one confusion matrix over
-   all of them.
+1. ~~**`-Dcs.panel.dir` forwarded by `cs.java-conventions`**~~ — landed, beside `cs.clone.dir`.
+2. ~~**A panel manifest**~~ — landed as `code-semantics-engine/src/test/resources/panel.tsv`, one row per
+   member: origin URL, pinned SHA, licence, stated domain, the source that stated it, and which arm it is
+   in. Its provenance header says outright that its provenance is *this project*, because a curated
+   observation of a corpus is exactly what the doctrine refuses as evidence. **It is a test fixture, it is
+   not on the published classpath, and it never votes.** `PanelManifest` reads it.
+3. **`./gradlew panelRead`** — the per-member half has landed: one Test task per manifest member, each
+   pointing the whole reading at that clone and writing to `output/<name>/`, and a member the caller has not
+   cloned is named and skipped rather than silently counted as read. With no `-Dcs.panel.dir`, or with a
+   manifest naming nobody, it fails and says so — an empty confusion matrix looks exactly like a perfect
+   one. **The confusion matrix over all of them is still to write**, and it needs members before it has
+   anything to be a matrix of.
 4. **A cost figure.** Thirty clones parsed end to end, recorded rather than estimated. If a full panel run
    takes an hour, it runs nightly and not per commit, and that is a fact the build has to be shaped around.
+   The one figure in hand: the whole reading over this repository — 337 files, 64,446 word occurrences — is
+   72 seconds, and a first smoke run against an unrelated Java repository of similar size was 55.
+
+**What is left before it can run is the panel itself**: no member is named yet. Each costs a licence
+verified at the pinned revision, a domain stated by somebody outside this project and recorded before the
+reading is run, and an arm. That is deliberately not done here — a panel assembled by whoever is about to be
+measured by it is the defect this whole plan exists to avoid.
 
 ## What it settles
 
