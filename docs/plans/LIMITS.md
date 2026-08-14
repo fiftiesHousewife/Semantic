@@ -2,14 +2,20 @@
 
 ## The reachability contract
 
-The provenance half of the bundled-resource contract is in the tree; the reachability half is not. It asserts
-that every bundled resource is named by a production class, and that the class naming it is itself named by
-something else — the floor on being called, since a class nothing else names is dead by construction.
+**The resource half has landed.** `BundledResourceReachabilityTest` asserts that every entry this project
+publishes is named in the constant pool of a class it publishes beside it, over the artefacts the build
+states as `cs.published.artefacts` rather than over the test JVM's own classpath — a test that scans itself
+finds every name it mentions, including the one it mentions to prove it can say no. Dropping an unread TSV
+into `lexicon/src/main/resources` fails the build; removing it restores it.
 
-It needs a small classpath bytecode scanner (`ClasspathClasses` / `ClassReferences` in the source project).
-Bytecode rather than source, because the two disagree in precisely the case that matters: a class named only
-in a javadoc link reads as referenced and compiles to nothing, so prose alone makes a dead class look used to
-a reader and to a grep alike.
+**The class half has not.** The contract also asserts that the class naming a resource is itself named by
+something else — the floor on being called, since a class nothing else names is dead by construction. That is
+a reference graph over the constant pools rather than a substring search in them, and it is the half that
+would have caught the source project's real failure rather than its symptom.
+
+Bytecode rather than source in both halves, because the two disagree in precisely the case that matters: a
+class named only in a javadoc link reads as referenced and compiles to nothing, so prose alone makes a dead
+class look used to a reader and to a grep alike.
 
 **Why it earns its place:** bundled data nothing loads is not inert. It ships, so it carries its licence; it
 is maintained, so it costs; and it is cited, so it lends its authority to behaviour it never touched. All

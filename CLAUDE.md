@@ -22,7 +22,7 @@ list, no gate.**
 | A bound must be derived, never chosen | Every reported statistic has a maximum that follows from its definition. A share bounds itself at 1; JSD bounds itself at 1 bit; KL is unbounded and is therefore not used |
 | A winner qualifies against the **chance-expected maximum** of its field | A small pull request's divergence is judged against a permutation null, never a fixed sigma count |
 | Grammar is not vocabulary | The identifier splitter's rules are grammar and are permitted. A list of words is not |
-| Every bundled resource carries a provenance header, and one nothing reads fails the build | `VocabularyProvenanceTest` enforces the first half over both resource directories. The reachability half needs a bytecode scanner and is backlogged, not dropped |
+| Every bundled resource carries a provenance header, and one nothing reads fails the build | `VocabularyProvenanceTest` enforces the first half over both resource directories; `BundledResourceReachabilityTest` enforces the second over the artefacts the build publishes. The dead-class half of the contract — the class naming a resource must itself be named — is backlogged, not dropped |
 | Do not mark your own homework | The repositories a reading is tuned on and the repositories it is measured on are drawn disjointly |
 | An embedding is not a citation | Admissible only as a candidate generator whose proposals a citable reading confirms, never as evidence in its own right |
 

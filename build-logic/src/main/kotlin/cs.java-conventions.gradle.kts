@@ -46,6 +46,11 @@ tasks.test {
     // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM
     // otherwise), so a diagnostic can be pointed at a clone of the caller's choosing.
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    // What this module publishes, as opposed to what it compiles to run its own tests. A test asking
+    // whether a bundled resource is read has to ask it of the artefacts that ship, and the classpath a
+    // test JVM runs on carries its own classes and fixtures besides. The build knows which is which and
+    // the test would have to guess from directory names.
+    systemProperty("cs.published.artefacts", sourceSets["main"].runtimeClasspath.asPath)
     // Reports are written where a person will look for them rather than under build/, and a reading
     // pointed at another clone must still write its findings here and not into that clone.
     systemProperty("cs.output.dir", rootProject.layout.projectDirectory.dir("output").asFile.absolutePath)
