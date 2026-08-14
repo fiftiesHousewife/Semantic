@@ -4,6 +4,7 @@ import java.util.List;
 
 import j2html.tags.DomContent;
 
+import static j2html.TagCreator.a;
 import static j2html.TagCreator.details;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.dd;
@@ -12,6 +13,8 @@ import static j2html.TagCreator.dt;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.header;
+import static j2html.TagCreator.input;
+import static j2html.TagCreator.label;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.span;
@@ -67,7 +70,9 @@ final class TaxonomyPage {
                                 p(LEDE).withClass("lede"),
                                 p(choice.reasoning()).withClass("chain"),
                                 statistics(tree)),
-                        div(new TaxonomySunburst(tree).chart(),
+                        input().withType("checkbox").withId("full-screen").withClass("full-screen"),
+                        div(label().withFor("full-screen").withClass("expand"),
+                                new TaxonomySunburst(tree).chart(),
                                 p(CAPTION).withClass("caption")).withClass("figure"),
                                 div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
                                 TaxonomyPage::node)),
@@ -113,16 +118,21 @@ final class TaxonomyPage {
         final List<TaxonomyTree.Node> occupied = node.children().stream()
                 .filter(TaxonomyTree.Node::touched).toList();
         if (occupied.isEmpty()) {
-            return div(label(node)).withClass(node.written() > 0 ? "leaf touched" : "leaf");
+            return div(nodeLabel(node)).withClass(node.written() > 0 ? "leaf touched" : "leaf")
+                    .withId(TaxonomySunburst.anchorFor(node.label()));
         }
-        return details(summary(label(node)), each(occupied, TaxonomyPage::node))
-                .withClass("touched").attr("open");
+        return details(summary(nodeLabel(node)), each(occupied, TaxonomyPage::node))
+                .withClass("touched").withId(TaxonomySunburst.anchorFor(node.label())).attr("open");
     }
 
-    private static DomContent label(final TaxonomyTree.Node node) {
+    private static DomContent nodeLabel(final TaxonomyTree.Node node) {
         final int unwritten = node.conceptsBelow() - node.conceptsWritten();
         return span(span(node.words()).withClass("label"),
-                node.written() > 0 ? span("%,d".formatted(node.written())).withClass("count") : span(),
+                node.written() > 0
+                        ? a(span("%,d".formatted(node.written())).withClass("count"))
+                                .withHref("evidence.html#" + TaxonomySunburst.anchorFor(node.label()))
+                                .withTitle("where this was written")
+                        : span(),
                 unwritten == 0 ? span()
                         : span("%,d not written".formatted(unwritten)).withClass("below"));
     }

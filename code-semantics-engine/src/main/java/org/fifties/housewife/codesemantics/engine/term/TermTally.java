@@ -50,8 +50,8 @@ public final class TermTally {
         rungsInThisFile.add(span.rung());
         byTerm.merge(span.words(),
                 new TermSighting(span.words(), span.concepts(), span.rung(), specificity.of(span.words()),
-                        1, site),
-                (seen, arrived) -> seen.seenAgain());
+                        1, List.of(site)),
+                (seen, arrived) -> seen.seenAgain(site));
     }
 
     public MatchedTerms matched() {

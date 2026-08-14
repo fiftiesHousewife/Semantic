@@ -37,6 +37,7 @@ class TermReadingDiagnostic {
     private static final ReportFolder REPORTS = new ReportFolder();
     private static final String REPORT = "terms";
     private static final String TAXONOMY = "taxonomy.html";
+    private static final String EVIDENCE = "evidence.html";
 
     private static final int TERMS_HELD = 100;
 
@@ -67,6 +68,8 @@ class TermReadingDiagnostic {
                 writtenByConcept(matched),
                 label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
         write(root, terms, matched, tree);
+        Files.writeString(REPORTS.file(EVIDENCE), new EvidencePage()
+                .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(REPORTS.file(TAXONOMY), new TaxonomyPage()
                 .of(root.getFileName().toString(), terms.source(), tree, chose(parsed, terms.source())));
 

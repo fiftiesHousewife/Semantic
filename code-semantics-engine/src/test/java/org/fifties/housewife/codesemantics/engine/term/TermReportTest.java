@@ -33,7 +33,7 @@ class TermReportTest {
 
     private final String rendered = new TermReport().render("OLiA", new MatchedTerms(List.of(
             new TermSighting(List.of("phrase"), List.of(concept("Phrase", "Constituent")), TermRung.WORDS,
-                    0.83, 34, "Tokeniser.java:44")),
+                    0.83, 34, List.of("Tokeniser.java:44"))),
             5_000, 300, 200, Map.of(TermRung.WORDS, 200)), tree);
 
     @Test

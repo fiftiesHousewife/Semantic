@@ -76,11 +76,21 @@ final class TaxonomySunburst {
                               final double inner, final double outer) {
         final double occupancy = node.conceptsBelow() == 0 ? 0.0
                 : (double) node.conceptsWritten() / node.conceptsBelow();
-        return tag("g").withClass(node.touched() ? "arc lit" : "arc")
+        final DomContent drawn = tag("g").withClass(node.touched() ? "arc lit" : "arc")
                 .attr("style", "--fill:%.3f".formatted(Math.min(1.0, 0.25 + occupancy * 2.5)))
                 .with(tag("path").attr("d", path(from, sweep, inner, outer))
                                 .with(tag("title").withText(describing(node))),
                         label(node.words(), from, sweep, (inner + outer) / 2.0));
+        return node.touched() ? tag("a").attr("href", "#" + anchorFor(node.label())).with(drawn) : drawn;
+    }
+
+    /**
+     * A lit wedge is a link into the tree below it, which needs no script because the tree draws every
+     * occupied path already open — the anchor lands on a node a reader can see rather than on a closed
+     * branch they would then have to find.
+     */
+    static String anchorFor(final String label) {
+        return "at-" + label.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-");
     }
 
     private static String describing(final TaxonomyTree.Node node) {
