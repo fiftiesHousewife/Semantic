@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -97,6 +98,51 @@ class TermReadingTest {
                 () -> assertThat(matched.distinctTerms()).isEqualTo(1),
                 () -> assertThat(matched.spansFound()).isEqualTo(2),
                 () -> assertThat(matched.byMass(1).getFirst().occurrences()).isEqualTo(2));
+    }
+
+    @Test
+    void asksTheBranchAboutTheRunTheRepositoryWroteAndNotTheOneThePublisherSpelled(@TempDir final Path root)
+            throws IOException {
+        final TermIndex published = publishing(SOURCE, "family name").stating("family name", "proper noun");
+        final ParsedRepository parsed = parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private String surname;
+                }
+                """);
+
+        final MatchedTerms matched = TermReading.corroboratedBy(published, nothingWritten()).of(parsed);
+
+        assertThat(matched.spansFound())
+                .as("the publisher wrote two words and this repository wrote one, and it is the run "
+                        + "written here that the branch has to corroborate")
+                .isZero();
+    }
+
+    @Test
+    void findsTheSameRunWhereTheRuleIsPutOnThePublishersSpellingInstead(@TempDir final Path root)
+            throws IOException {
+        final TermIndex published = publishing(SOURCE, "family name").stating("family name", "proper noun");
+        final ParsedRepository parsed = parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private String surname;
+                }
+                """);
+
+        final MatchedTerms matched = TermReading
+                .over(CorroboratedTerms.of(published, nothingWritten())).of(parsed);
+
+        assertThat(matched.spansFound())
+                .as("this is the composition the reading does not use: two published words are admitted "
+                        + "unconditionally, and a dictionary then lets one written word reach them with no "
+                        + "branch corroborating it")
+                .isEqualTo(1);
+    }
+
+    /** A taxonomy the repository under reading has written nothing of, so no branch corroborates anything. */
+    private static StatedSiblings nothingWritten() {
+        return StatedSiblings.of(TaxonomyTree.of(List.of(), Map.of(), label -> label));
     }
 
     private static ParsedRepository parsed(final Path root, final String path, final String source)

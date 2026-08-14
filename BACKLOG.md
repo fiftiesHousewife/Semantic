@@ -89,7 +89,7 @@ below are blocked on it and say so.
 | | Plan | Step | What is left | Blocked on |
 |---|---|--:|---|---|
 | **NEXT** | [The backtest](docs/plans/THE_PANEL.md) | all | Naming the members. The machinery, the manifest and `panelRead` have landed; the table of every vocabulary against every repository needs members before it has anything to put in a cell | naming the members |
-| **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | The match is fired almost entirely by one-word terms — `first` carries more than `sentence`. Promoting branch corroboration from a reported comparison into the reading, and scoring a match against the subtree it occupies rather than term by term | nothing. FIBO's dense hierarchy is now bundled, which is what this needed |
+| **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel | nothing |
 | HIGH | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Two resources are called equal and are not on one scale; there is no mass for the words no resource read; votes are summed where this library says they are pooled | its own stage 0 |
 | HIGH | [The run at computational linguistics](docs/plans/COMPUTATIONAL_LINGUISTICS.md) | 7 | Whether the reading places this repository in its own field on strong evidence with nothing hard-coded. Ten attempts at most, each recorded | — |
 | HIGH | [What a repository depends on](docs/plans/DEPENDENCIES_AS_DOMAIN.md) | 1 | A coordinate denotes one artefact and needs no disambiguation; `ImportOrigins` already sorts them and nothing reads them as evidence | — |
@@ -114,6 +114,9 @@ argument. This is only what has left the queue.
 
 - **One document that traces the analysis.** `output/index.html` is now the nine steps above in order, with
   each step's figures and a link to the report holding its whole tail, and the sunburst drawn inside it.
+- **The branch corroboration votes.** Step 8 reports the corroborated reading rather than every match, and
+  applying the rule to each rung's answer rather than to the source's own spellings closed the gap a
+  normalised two-word term left open.
 - **A reading of another clone reports rather than fails.** Findings true of this tree alone moved out of the
   diagnostics into pinned classes; a reading of somebody else's repository writes to `output/<name>/` and can
   no longer overwrite the figures this repository publishes of itself.

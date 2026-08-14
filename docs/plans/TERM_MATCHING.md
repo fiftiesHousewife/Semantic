@@ -29,9 +29,32 @@ behave differently there.
 `Topic` on that strength and leaves it the largest single match at 177 — the defect unchanged. That is the
 trap named further down this document confirmed at one step: climb far enough and everything meets.
 
-**What is still not done:** nothing votes on it. The corroborated reading is reported beside the full one and
-the headline placement, the taxonomy page and the evidence page are still built from every match. Promoting
-it is the next slice, and its measurement is the branch table and the README's own figures.
+### It has been promoted, and it is now the reading that is reported
+
+The headline placement, the branch table, the taxonomy tree and the evidence page are built from the
+corroborated reading. The reading that admits every match is kept beside it, in the comparison above and in
+the list of refusals below it, because a rule that removes matches can only be judged as a comparison.
+
+| Reported | Concepts written | Times | Branches occupied | Largest single term |
+|---|--:|--:|--:|---|
+| before, every match | 86 | 1,704 | 20 of 70 | `Topic` 414 |
+| now, corroborated | 56 | 1,059 | 11 of 70 | `Source` 165 |
+
+`Topic` is out of the headline entirely, which is what this item was written to achieve. Three counts *rose*
+— `Root` 79 to 81, `Set` 52 to 53 — because the span walk takes the longest term at each position and moves
+on by its length, so refusing a term frees the words under it for a shorter one that was never reachable.
+
+**Promoting it found a defect in where the rule was applied.** `CorroboratedTerms` asks the length of the run
+it is given, and `NormalisedTerms` builds its index by asking the source about the source's own spellings —
+so wrapping the published index and *then* normalising put the rule on the publisher's term length. OLiA
+states `FamilyName`, which is two words and is admitted unconditionally, and this repository's one-word
+`surname` then reached it through a shared WordNet sense with no branch corroborating anything. The rule
+exists to judge what the repository wrote, so `TermReading.corroboratedBy` now corroborates each rung's
+answer rather than the ladder's input. `TermReadingTest` pins both compositions, the used one and the refused
+one, so the order cannot be flipped back by accident.
+
+**What is still not done:** a match is scored term by term rather than against the subtree it occupies, and
+the depth arm below has not been run.
 
 ---
 

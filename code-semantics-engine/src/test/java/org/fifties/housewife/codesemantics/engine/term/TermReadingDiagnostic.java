@@ -54,6 +54,12 @@ class TermReadingDiagnostic {
 
             Only **declared names** are read. A term in a sentence is an author writing about a field; a term
             in a name is a program working in one.
+
+            **What is reported below is the corroborated reading.** A term written in one word counts only
+            where this repository writes another concept in the branch the publisher placed that concept
+            under; a term written in more than one word counts unconditionally. The reading that admits every
+            match is kept at the end, beside the list of what the branch refused, because a rule that removes
+            matches can only be judged as a comparison.
             """;
 
     @Test
@@ -63,14 +69,16 @@ class TermReadingDiagnostic {
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final LinguisticTerms terms = LinguisticTerms.fromClasspath();
 
-        final MatchedTerms matched = TermReading.over(terms).of(parsed);
+        final MatchedTerms every = TermReading.over(terms).of(parsed);
+        final TaxonomyTree everyTree = treeOf(every);
+        final StatedSiblings siblings = StatedSiblings.of(everyTree);
 
+        final MatchedTerms matched = TermReading.corroboratedBy(terms, siblings).of(parsed);
         final TaxonomyTree tree = treeOf(matched);
-        final StatedSiblings siblings = StatedSiblings.of(tree);
-        final MatchedTerms corroborated = TermReading.over(CorroboratedTerms.of(terms, siblings)).of(parsed);
+
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         write(reports, root, terms, matched, tree,
-                new CorroborationReport(siblings).render(matched, tree, corroborated, treeOf(corroborated)));
+                new CorroborationReport(siblings).render(every, everyTree, matched, tree));
         Files.writeString(reports.file(EVIDENCE), new EvidencePage()
                 .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(reports.file(TAXONOMY), new TaxonomyPage()
@@ -82,15 +90,28 @@ class TermReadingDiagnostic {
                         .isPositive(),
                 () -> assertThat(matched.sightings()).allSatisfy(sighting ->
                         assertThat(sighting.specificity()).isBetween(0.0, 1.0)),
-                () -> assertThat(corroborated.longerThanOneWord()).map(TermSighting::term)
+                () -> assertThat(oneWordSightings(matched))
+                        .as("what the reading now reports is what the branch corroborated, so a one-word "
+                                + "term reaches the report only where the publisher's own branch holds "
+                                + "another concept this repository wrote")
+                        .allSatisfy(sighting -> assertThat(sighting.concepts()).anyMatch(concept ->
+                                siblings.writtenBeside(concept.prefLabel()) > 0)),
+                () -> assertThat(matched.longerThanOneWord()).map(TermSighting::term)
                         .as("corroboration must not cost a single multi-word match, which is admitted "
                                 + "unconditionally because no everyday sentence contains one")
-                        .containsAll(matched.longerThanOneWord().stream().map(TermSighting::term).toList()),
-                () -> assertThat(branchesOccupied(treeOf(corroborated)))
+                        .containsAll(every.longerThanOneWord().stream().map(TermSighting::term).toList()),
+                () -> assertThat(branchesOccupied(tree))
                         .as("ABANDON CRITERION. A reading that can only see the one branch a repository "
                                 + "writes most in has stopped being a placement, so corroboration must "
                                 + "leave at least half the branches occupied.")
-                        .isGreaterThanOrEqualTo(branchesOccupied(tree) / 2));
+                        .isGreaterThanOrEqualTo(branchesOccupied(everyTree) / 2));
+    }
+
+    /** The sightings the corroboration rule governs; a longer term is admitted whatever its branch holds. */
+    private static List<TermSighting> oneWordSightings(final MatchedTerms matched) {
+        return matched.sightings().stream()
+                .filter(sighting -> sighting.length() == 1)
+                .toList();
     }
 
     private static long branchesOccupied(final TaxonomyTree tree) {

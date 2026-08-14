@@ -46,7 +46,7 @@ class PinnedTermFindings {
 
         final MatchedTerms matched = TermReading.over(terms).of(parsed);
         final StatedSiblings siblings = StatedSiblings.of(treeOf(matched));
-        final MatchedTerms corroborated = TermReading.over(CorroboratedTerms.of(terms, siblings)).of(parsed);
+        final MatchedTerms corroborated = TermReading.corroboratedBy(terms, siblings).of(parsed);
 
         final MatchedTerms onWords = matched.at(TermRung.WORDS);
         final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);

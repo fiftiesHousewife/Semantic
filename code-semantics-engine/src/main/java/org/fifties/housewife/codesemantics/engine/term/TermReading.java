@@ -1,5 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.term;
 
+import java.util.List;
+
 import org.fifties.housewife.codesemantics.engine.parse.NameOccurrence;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedFile;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
@@ -37,11 +39,35 @@ public final class TermReading {
      * that order, narrowest first, each asked only where the one before it said nothing.
      */
     public static TermReading over(final TermIndex index) {
+        return reading(ladder(index));
+    }
+
+    /**
+     * The same ladder with the branch rule applied to what each rung answers, rather than to the source's own
+     * spellings before the ladder is built.
+     *
+     * <p>The order matters and it was measured. Corroborating the index first puts the rule on the length of
+     * the term <em>the publisher</em> wrote, so a two-word term admitted unconditionally there can still be
+     * reached by a one-word run once a dictionary has normalised both sides: OLiA's {@code FamilyName} is two
+     * words and is admitted, and this repository's {@code surname} then matches it through a shared sense
+     * without any branch corroborating it. The rule exists to judge what the repository wrote, so it is
+     * applied where the repository's run is what is being asked about.
+     */
+    public static TermReading corroboratedBy(final TermIndex index, final StatedSiblings siblings) {
+        return reading(ladder(index).stream()
+                .map(rung -> (TermIndex) CorroboratedTerms.of(rung, siblings))
+                .toList());
+    }
+
+    private static List<TermIndex> ladder(final TermIndex index) {
+        return List.of(index,
+                NormalisedTerms.over(index, LemmaRuns.fromClasspath()),
+                NormalisedTerms.over(index, SenseRuns.fromClasspath()));
+    }
+
+    private static TermReading reading(final List<TermIndex> rungs) {
         return new TermReading(IdentifierWords.fromClasspath(),
-                new TermSpans(index,
-                        NormalisedTerms.over(index, LemmaRuns.fromClasspath()),
-                        NormalisedTerms.over(index, SenseRuns.fromClasspath())),
-                PhraseSpecificity.fromClasspath());
+                new TermSpans(rungs.toArray(TermIndex[]::new)), PhraseSpecificity.fromClasspath());
     }
 
     public MatchedTerms of(final ParsedRepository parsed) {
