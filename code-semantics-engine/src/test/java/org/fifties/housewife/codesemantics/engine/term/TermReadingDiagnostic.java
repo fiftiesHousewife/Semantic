@@ -63,11 +63,11 @@ class TermReadingDiagnostic {
 
         final MatchedTerms matched = TermReading.over(terms).of(parsed);
 
-        final TaxonomyTree tree = TaxonomyTree.of(
-                org.fifties.housewife.bi.lexicon.OliaTerms.fromClasspath().concepts(),
-                writtenByConcept(matched),
-                label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
-        write(root, terms, matched, tree);
+        final TaxonomyTree tree = treeOf(matched);
+        final StatedSiblings siblings = StatedSiblings.of(tree);
+        final MatchedTerms corroborated = TermReading.over(CorroboratedTerms.of(terms, siblings)).of(parsed);
+        write(root, terms, matched, tree,
+                new CorroborationReport(siblings).render(matched, tree, corroborated, treeOf(corroborated)));
         Files.writeString(REPORTS.file(EVIDENCE), new EvidencePage()
                 .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(REPORTS.file(TAXONOMY), new TaxonomyPage()
@@ -135,7 +135,36 @@ class TermReadingDiagnostic {
                                 + "under everything the theme reading says. A term matcher exists so that "
                                 + "a match needs no English in between, and this rung puts the English "
                                 + "back.")
-                        .contains("subject", "theme"));
+                        .contains("subject", "theme"),
+                () -> assertThat(oneWordShare(corroborated.at(TermRung.WORDS)))
+                        .as("WHAT THE CORROBORATION HAD TO DO. Requiring the branch to hold more than the "
+                                + "one concept must move the share the whole design turns on, or it is a "
+                                + "rule the data does not need.")
+                        .isLessThan(oneWordShare(onWords)),
+                () -> assertThat(corroborated.longerThanOneWord()).map(TermSighting::term)
+                        .as("and it must not cost a single multi-word match, which is admitted "
+                                + "unconditionally because no everyday sentence contains one")
+                        .containsAll(matched.longerThanOneWord().stream().map(TermSighting::term).toList()),
+                () -> assertThat(branchesOccupied(treeOf(corroborated)))
+                        .as("ABANDON CRITERION. A reading that can only see the one branch a repository "
+                                + "writes most in has stopped being a placement, so corroboration must "
+                                + "leave at least half the branches occupied.")
+                        .isGreaterThanOrEqualTo(branchesOccupied(tree) / 2),
+                () -> assertThat(largestTerm(corroborated))
+                        .as("WHAT SETTLES IT. `topic` is OLiA's information structure and this "
+                                + "repository's subject label in a distribution. A reading whose headline "
+                                + "number is one ambiguous word repeated is not reading a taxonomy.")
+                        .isNotEqualTo("topic"));
+    }
+
+    private static long branchesOccupied(final TaxonomyTree tree) {
+        return tree.roots().stream().filter(TaxonomyTree.Node::touched).count();
+    }
+
+    private static String largestTerm(final MatchedTerms matched) {
+        return matched.sightings().stream()
+                .max(java.util.Comparator.comparingInt(TermSighting::occurrences))
+                .map(TermSighting::term).orElse("");
     }
 
     /**
@@ -190,13 +219,20 @@ class TermReadingDiagnostic {
         return matched.spansByLength().getOrDefault(1, 0) / (double) matched.spansFound();
     }
 
+    private static TaxonomyTree treeOf(final MatchedTerms matched) {
+        return TaxonomyTree.of(org.fifties.housewife.bi.lexicon.OliaTerms.fromClasspath().concepts(),
+                writtenByConcept(matched),
+                label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
+    }
+
     private static void write(final Path root, final LinguisticTerms terms, final MatchedTerms matched,
-                              final TaxonomyTree tree) throws IOException {
+                              final TaxonomyTree tree, final String corroboration) throws IOException {
         REPORTS.wrote(REPORT, """
                 # Terms — %s
 
                 %s
+                %s
                 %s""".formatted(root.getFileName(), PREAMBLE,
-                new TermReport().render(terms.source(), matched, tree)), "Terms");
+                new TermReport().render(terms.source(), matched, tree), corroboration), "Terms");
     }
 }
