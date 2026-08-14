@@ -68,7 +68,8 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
 
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
-        final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH);
+        final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity()));
         final java.util.Map<String, Double> explains = qualifying.explaining(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
         final List<String> qualified = qualifying.across(

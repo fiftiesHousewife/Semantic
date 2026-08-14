@@ -49,6 +49,7 @@ public final class QualifiedTopics {
 
     private final TopicWitnesses witnesses;
     private final TopicDistribution ordinaryEnglish;
+    private final TopicDistribution field;
 
 
 
@@ -57,8 +58,30 @@ public final class QualifiedTopics {
     }
 
     public QualifiedTopics(final TopicWitnesses witnesses, final TopicDistribution ordinaryEnglish) {
+        this(witnesses, ordinaryEnglish, new TopicDistribution(java.util.Map.of()));
+    }
+
+    public QualifiedTopics(final TopicWitnesses witnesses, final TopicDistribution ordinaryEnglish,
+                           final TopicDistribution field) {
         this.witnesses = witnesses;
         this.ordinaryEnglish = ordinaryEnglish;
+        this.field = field;
+    }
+
+    /**
+     * Whether the field this repository belongs to carries the topic at all, above what ordinary English
+     * carries it at. A subject can stand far above English in a repository and be no part of its work —
+     * {@code publishing} does, on {@code read}, {@code page} and {@code publish}, every one of them a
+     * computing act named with a publishing word. {@link FieldOfStudy} is what says so, and where no field
+     * has been established it says nothing and this bar does not apply.
+     *
+     * <p>It is the <em>same</em> test the repository has to pass, put to the field: a subject must
+     * distinguish computer science from ordinary English before it can be counted as distinguishing a
+     * computer science repository from it. A bare inequality is not enough on either side — the field's own
+     * descriptions are prose and carry the same everyday subjects any prose does.
+     */
+    private boolean carriedByTheField(final String topic) {
+        return field.isEmpty() || distinguishingFromOrdinaryEnglish(field).contains(topic);
     }
 
     /**
@@ -152,6 +175,7 @@ public final class QualifiedTopics {
                 .map(Contribution::topic)
                 .filter(topic -> !witnesses.restsOnOneWord(topic))
                 .filter(unlikeEnglish(intensity))
+                .filter(this::carriedByTheField)
                 .distinct()
                 .sorted(Comparator.comparingDouble(intensity::shareOf).reversed()
                         .thenComparing(Comparator.naturalOrder()))

@@ -108,16 +108,32 @@ public final class ThemeReading {
         return tallied(file, phrases.under(alone.distribution(), declaredIn(file)), witnesses, sightings);
     }
 
-    /** The words this file declared, in the form the resources are asked about them. */
+    /**
+     * The words this file declared <em>as nouns</em>, in the form the resources are asked about them.
+     *
+     * <p>The leading word of a method name is left out, and leaving it in was a defect with a measurable
+     * cost. A method name is a clause and its first word is what the method does, so a file declaring
+     * {@code readRepository} has declared no noun called {@code read} — but the rule that reads a file's
+     * prose as its declarations do then read every sentence's {@code read} as the noun, which WordNet
+     * Domains labels {@code publishing}. This library's most-written verb became evidence for the
+     * publishing trade twice over, once through the rule meant to stop exactly that.
+     */
     private java.util.Set<String> declaredIn(final ParsedFile file) {
         return file.occurrences().stream()
                 .filter(occurrence -> occurrence.form().isChosenName())
                 .flatMap(occurrence -> occurrence.form().vocabulary()
-                        .phrasesOf(occurrence.text(), words).stream())
-                .flatMap(phrase -> phrase.words().stream())
+                        .phrasesOf(occurrence.text(), words).stream()
+                        .flatMap(phrase -> nounsOf(phrase.words(), occurrence.form()).stream()))
                 .map(word -> offered.of(NameForm.TYPE, word))
                 .flatMap(java.util.Optional::stream)
                 .collect(java.util.stream.Collectors.toUnmodifiableSet());
+    }
+
+    /** Every word of a declared name but the one the grammar says is a verb. */
+    private static List<String> nounsOf(final List<String> phrase, final NameForm form) {
+        return form == NameForm.METHOD && !phrase.isEmpty()
+                ? phrase.subList(1, phrase.size())
+                : phrase;
     }
 
     private FileTopics tallied(final ParsedFile file, final PhraseTopics reading,

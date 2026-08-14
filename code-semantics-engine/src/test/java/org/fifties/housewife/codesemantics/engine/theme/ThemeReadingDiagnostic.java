@@ -115,30 +115,34 @@ class ThemeReadingDiagnostic {
                         .as("and carried by more than one of them, which is the claim that matters")
                         .isFalse(),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("THE GOAL, HALF MET AND HELD THERE. `biology` and `music` were read out of this "
-                                + "repository by the vote and must stay out: `taxonomy` and `ancestry` are "
-                                + "a tree of concepts, `topic` and `phrase` are the units of this reading, "
-                                + "and no word of either was named to exclude them. What did it was reading "
-                                + "the sense a word is most often written in, letting the parse say which "
-                                + "part of speech that is, and asking whether the repository writes a "
-                                + "subject more than ordinary English does.")
-                        .doesNotContain("biology", "music"),
+                        .as("THE GOAL, THREE OF FOUR, BY THE VOTE AND WITH NOTHING NAMED. `biology` went "
+                                + "when the reading stopped pooling every labelled sense and started asking "
+                                + "for the one a word is most often written in. `law` went when the "
+                                + "bundled frequency list gave the reading a reference for ordinary "
+                                + "English, whose largest subjects are `geography`, `person`, `law` and "
+                                + "`military` — a topic held at the rate English holds it says nothing "
+                                + "about code. `publishing` went when arXiv's own description of computer "
+                                + "science was asked what the field is about and never answered "
+                                + "`publishing`. No word of any of the three was named to remove it.")
+                        .doesNotContain("biology", "law", "publishing"),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("A DEFECT, PINNED, AND ITS CAUSE MEASURED. `law` and `publishing` survive ten "
-                                + "cycles of the same treatment, and they survive honestly: this repository "
-                                + "writes `witness`, `cite`, `read`, `publish` and `page` far more than "
-                                + "ordinary English does, and the resources are not wrong that those words "
-                                + "denote those subjects. Removing them needs a resource that states what "
-                                + "the words mean *here* — a domain vocabulary of computing, which the "
-                                + "backlog already names and does not yet have. Anything else would be a "
-                                + "list of subjects to suppress, which the doctrine forbids and which would "
-                                + "not survive the next repository. When such a resource lands this "
-                                + "assertion must fail and be deleted.")
-                        .contains("law", "publishing"));
+                        .as("A DEFECT, PINNED, AND IT IS THE FOURTH. `music` survives, carried by `topic`, "
+                                + "`line` and `dominant`, and it survives for a reason the other three did "
+                                + "not have: arXiv's computer science genuinely carries music, because "
+                                + "cs.SD is Sound. The field reference cannot refuse a subject its own "
+                                + "publisher lists. Two ways of removing it were built and reverted — "
+                                + "discounting every evenly-spread word, and refusing a headword "
+                                + "vocabulary that names several subjects for a word nothing "
+                                + "sense-labels — because each took `computing` and `grammar` with it and "
+                                + "left a three-topic reading. Removing `music` needs a field reference "
+                                + "finer than a whole archive, which is the leaf placement this tree "
+                                + "cannot yet make stable.")
+                        .contains("music"));
     }
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {
-        return new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).across(
+        return new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity())).across(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
                 themes.repository().intensity());
     }

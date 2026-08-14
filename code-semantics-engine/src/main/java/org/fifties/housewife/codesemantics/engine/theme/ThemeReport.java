@@ -59,7 +59,8 @@ public final class ThemeReport {
      * where more than one word carries it.
      */
     private List<String> ranked(final RepositoryThemes themes) {
-        final List<String> qualified = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).across(
+        final List<String> qualified = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity())).across(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
                 themes.repository().intensity());
         return themes.rankings().stream()

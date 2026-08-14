@@ -66,11 +66,15 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 .toList();
         final List<Distinctive> distinctive = qualified.stream()
                 .map(scope -> new Distinctive(scope.scope(), scope.bits(),
-                        new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).concentratedIn(scope, topicsPerScope)))
+                        new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                        org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
+                                .nearestTo(themes.repository().intensity())).concentratedIn(scope, topicsPerScope)))
                 .filter(scope -> !scope.topics().isEmpty())
                 .toList();
         return new ReadingSummary(repository, legibilityOf(legibility.repository()),
-                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).across(qualified, themes.repository().intensity()),
+                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                        org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
+                                .nearestTo(themes.repository().intensity())).across(qualified, themes.repository().intensity()),
                 withheldFrom(themes, qualified));
     }
 
