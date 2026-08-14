@@ -85,7 +85,41 @@ class ThemeReadingDiagnostic {
                 () -> assertThat(Files.readString(Path.of(GRAPH))).contains("\"nodes\""),
                 () -> assertThat(Files.readString(Path.of(PAGE)))
                         .as("the page draws the same reading the report states")
-                        .contains("What this repository is about"));
+                        .contains("What this repository is about"),
+                () -> assertThat(leadingTopic(themes))
+                        .as("THE GOAL, ASSERTED. A library of lemmas, senses, word frequencies and "
+                                + "hypernym chains is working in computational linguistics, and the "
+                                + "strongest topic the resources read it as must say so. This led `law` "
+                                + "for most of the reading's life and `computing` after that; it leads "
+                                + "`linguistics` because a dependency's name stopped being read as English, "
+                                + "a resource stopped being normalised to one unit, and a word nothing "
+                                + "labelled stopped reading as fully spoken for. Nothing is excluded and no "
+                                + "word is listed.")
+                        .isEqualTo("linguistics"),
+                () -> assertThat(shareOf(themes, "linguistics"))
+                        .as("and it must lead by more than a nose, because a lead inside the noise is a "
+                                + "coin toss that happened to land right")
+                        .isGreaterThan(1.5 * shareOf(themes, "music")),
+                () -> assertThat(witnessesFor(themes, "linguistics"))
+                        .as("carried by words that are the field's own, not by one ambiguous word")
+                        .contains("word", "parse", "verb"));
+    }
+
+    private static String leadingTopic(final RepositoryThemes themes) {
+        return themes.repository().intensity().shareByTopic().entrySet().stream()
+                .max(java.util.Map.Entry.comparingByValue())
+                .orElseThrow()
+                .getKey();
+    }
+
+    private static double shareOf(final RepositoryThemes themes, final String topic) {
+        return themes.repository().intensity().shareOf(topic);
+    }
+
+    private static List<String> witnessesFor(final RepositoryThemes themes, final String topic) {
+        return themes.witnesses().forTopic(topic, WITNESSES_HELD).stream()
+                .map(TopicWitnesses.Witness::word)
+                .toList();
     }
 
     private void write(final RepositoryThemes themes, final Path root) throws IOException {

@@ -109,12 +109,23 @@ class SubjectPlacementDiagnostic {
                 () -> assertThat(chance.standsApart())
                         .as("the nearest subject must beat the nearest of a taxonomy of chance")
                         .isTrue(),
+                () -> assertThat(nearest.subList(0, 5))
+                        .as("THE GOAL AT LEAF GRAIN. Computation and Language must stand among the five "
+                                + "nearest of 152 published subjects. It was seventh while `law` and "
+                                + "`music` put a floor of agreement under every subject alike; it is fourth "
+                                + "now, and every subject above it is also computer science.")
+                        .contains("cs.CL"),
+                () -> assertThat(nearest.subList(0, 5))
+                        .as("and the field it is placed in must be that field throughout, not one right "
+                                + "answer among four wrong ones")
+                        .allMatch(subject -> subject.startsWith("cs.")),
                 () -> assertThat(placements.getFirst().concept())
-                        .as("A DEFECT, PINNED. At leaf grain the nearest subject is not the one this "
-                                + "library is about, and the witnesses say why: nearly every row is met on "
-                                + "`law` and `music`, this repository's own pooled-sense artefacts, which "
-                                + "put a floor of agreement under every subject alike. When the senses are "
-                                + "read properly this assertion must fail and be rewritten.")
+                        .as("A DEFECT, PINNED, AND NARROWED. The nearest single subject is still not the "
+                                + "one this library is about. What is left is not the senses — `cs.CL` "
+                                + "now meets this tree on `linguistics` first — but the statistic: at leaf "
+                                + "grain a short vague description is punished least, and `cs.ET` Emerging "
+                                + "Technologies is the vaguest description arXiv publishes. A null drawn "
+                                + "at each subject's own description length is what would settle it.")
                         .isNotIn("cs.CL", "cs.IR"),
                 () -> assertThat(shared.getFirst().concept())
                         .as("and both statistics choose the same subject, so the comparison was never the "
