@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
 import org.fifties.housewife.codesemantics.engine.reading.ScopeLegibility;
+import org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy;
 import org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics;
 import org.fifties.housewife.codesemantics.engine.theme.TopicCitations;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
@@ -30,6 +31,8 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
 
     private static final org.fifties.housewife.codesemantics.engine.theme.TopicDistribution ORDINARY_ENGLISH =
             org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading();
+
+    /* A scope names only topics the whole reading qualified, so one table cannot contradict the other. */
 
     /** How much of the repository any resource could be cited for, which is the denominator for the rest. */
     public record Legibility(double lambda, int words, int files, double proseShare) {
@@ -64,17 +67,17 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
         final List<ScopeDivergence> qualified = themes.divergences().stream()
                 .filter(scope -> scope.chance().exceedsChance())
                 .toList();
+        final QualifiedTopics topics = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity()));
+        final List<String> about = topics.across(qualified, themes.repository().intensity());
         final List<Distinctive> distinctive = qualified.stream()
                 .map(scope -> new Distinctive(scope.scope(), scope.bits(),
-                        new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
-                        org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
-                                .nearestTo(themes.repository().intensity())).concentratedIn(scope, topicsPerScope)))
+                        topics.concentratedIn(scope, topicsPerScope).stream()
+                                .filter(about::contains).toList()))
                 .filter(scope -> !scope.topics().isEmpty())
                 .toList();
         return new ReadingSummary(repository, legibilityOf(legibility.repository()),
-                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
-                        org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
-                                .nearestTo(themes.repository().intensity())).across(qualified, themes.repository().intensity()),
+                fieldOf(field, chance), distinctive, about,
                 withheldFrom(themes, qualified));
     }
 
