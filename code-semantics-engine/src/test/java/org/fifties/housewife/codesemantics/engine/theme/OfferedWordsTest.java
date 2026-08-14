@@ -38,7 +38,7 @@ class OfferedWordsTest {
 
     /** A fixture says what it means: coverage is not what these tests are about. */
     private static SenseCoverage fullyCovered() {
-        return new SenseCoverage(new StatedSenses(Map.of(), Map.of()));
+        return new SenseCoverage(new StatedSenses(Map.of(), Map.of()), word -> Set.of());
     }
 
     private void add(final String identifier, final int line) {

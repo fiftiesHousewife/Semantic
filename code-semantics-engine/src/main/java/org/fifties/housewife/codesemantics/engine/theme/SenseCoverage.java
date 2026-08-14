@@ -19,30 +19,50 @@ import org.fifties.housewife.bi.lexicon.WordNetLexicon;
  * third. Neither figure is chosen — both come from the dictionary, and the second is the one already being
  * read.
  *
- * <p>Where the dictionary does not know the word at all, nothing is being passed over and the answer is one.
- * The asymmetry is deliberate and worth stating: this measures the sense-labelled resource, and a resource
- * that labels headwords rather than senses — Wiktionary's topics — makes no claim about sense coverage that
- * could be checked this way. It is not discounted here, and that is a gap rather than a judgement.
+ * <p><b>A word the sense-labelled resource says nothing about is not fully covered — it is uncovered.</b>
+ * This class returned one in that case, which read as complete confidence on no evidence at all and was the
+ * amplifier under every reading resting on a headword label alone: {@code look} and {@code inside} are
+ * labelled by nothing in WordNet Domains, reported coverage {@code 1.000}, and carried a third of
+ * {@code baseball} between them at full strength.
+ *
+ * <p>A headword resource still speaks, and what it speaks for is measurable at its floor. A topic attached
+ * to a headword is a claim about <em>some</em> sense of the word without saying which, so it covers at least
+ * one — the least a claim can concern, which is a consequence of a claim existing rather than a number
+ * chosen here. So a word WordNet labels no sense of and Wiktionary names a topic for is covered
+ * {@code 1/senses}: quiet, and not silent.
+ *
+ * <p>Where the dictionary does not know the word at all there is no sense structure to discount against,
+ * nothing is being passed over, and the answer is one.
  */
 public final class SenseCoverage {
 
     private final Lexicon lexicon;
+    private final HeadwordTopics headwordTopics;
 
-    public SenseCoverage(final Lexicon lexicon) {
+    public SenseCoverage(final Lexicon lexicon, final HeadwordTopics headwordTopics) {
         this.lexicon = lexicon;
+        this.headwordTopics = headwordTopics;
     }
 
     public static SenseCoverage fromClasspath() {
-        return new SenseCoverage(WordNetLexicon.fromClasspath());
+        return new SenseCoverage(WordNetLexicon.fromClasspath(), StatedTopics.fromClasspath());
     }
 
-    /** The share of the word's senses that carry a subject label, in {@code (0, 1]}. */
+    /** The share of the word's senses some resource put a subject on, in {@code (0, 1]}. */
     public double of(final String word) {
-        final int labelled = lexicon.senseDomainsOf(word).size();
         final int senses = lexicon.senseCount(word);
-        if (labelled == 0 || senses == 0) {
+        if (senses == 0) {
             return 1.0;
         }
-        return Math.min(1.0, (double) labelled / senses);
+        return Math.min(1.0, Math.max(sensesLabelled(word), headwordClaims(word)) / (double) senses);
+    }
+
+    private int sensesLabelled(final String word) {
+        return (int) lexicon.senseDomainsOf(word).stream().filter(labels -> !labels.isEmpty()).count();
+    }
+
+    /** A topic on a headword names no sense, so it speaks for the fewest a claim can — one. */
+    private int headwordClaims(final String word) {
+        return headwordTopics.of(word).isEmpty() ? 0 : 1;
     }
 }
