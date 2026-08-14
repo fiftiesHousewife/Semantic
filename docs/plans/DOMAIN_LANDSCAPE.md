@@ -218,8 +218,9 @@ clears it. Either one means the six functions are being told apart by everyday E
 they partition.
 
 **The measurement stays the same and applies per domain:** a domain's vocabulary must fire on a repository
-in that domain and not on one outside it. With a dozen domains the honest form is a confusion matrix rather
-than a pair of numbers — one repository per domain down the side, one vocabulary across the top, and the
-diagonal has to win against a permuted-assignment null.
+in that domain and not on one outside it. With a dozen domains the honest form is a full table rather than a
+pair of numbers: one repository per domain down the side, one vocabulary across the top, and every cell how
+much that vocabulary fired on that repository. What has to hold is that each vocabulary fires hardest on the
+repository from its own field, by more than a permuted assignment of terms to concepts would give it.
 
 ---

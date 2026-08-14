@@ -244,7 +244,7 @@ single-token codes are excluded by hand.
    two files are deleted and no reading was ever corrupted.
 2. **The votes join the reading** — `MatchedTerms`, `TermCitations`, new `EvidenceSource` and `Weights`
    entries, and the FIBO module as the roll-up level the resource itself names.
-3. **CSO and the branch confusion matrix**, which is also the first real attempt on `computing` versus
+3. **CSO and the vocabulary-against-repository table**, which is also the first real attempt on `computing` versus
    `computer_science` — if CSO maps them, that mapping is CSO's statement rather than ours.
 4. **Synonymy and abbreviations**, and the surface-versus-lemma comparison as an A/B on the held-out panel.
 5. **STW**, only if the first three pass.

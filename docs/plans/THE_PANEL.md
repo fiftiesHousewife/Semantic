@@ -29,8 +29,8 @@ should say nothing whatever about, and the honest first result for those is sile
 
 | Arm | What it is for | Members, roughly |
 |---|---|--:|
-| **In domain, taxonomy bundled** | The diagonal of the confusion matrix — a vocabulary firing where its publisher's field is | 12 |
-| **Out of domain, same taxonomy** | The off-diagonal, which is what makes the diagonal mean something | 12 |
+| **In domain, taxonomy bundled** | A vocabulary firing where its publisher's field is — the cases it is supposed to get right | 12 |
+| **Out of domain, same taxonomy** | The same vocabulary on repositories it should say nothing about — the cases that make the ones above mean anything | 12 |
 | **No taxonomy applies at all** | The abstention arm. A reading that always finds a domain has found none | 4 |
 | **Degenerate** | A repository that is mostly generated code, mostly configuration, or a monorepo of unrelated things | 2 |
 
@@ -69,9 +69,10 @@ that do.
 3. **`./gradlew panelRead`** — the per-member half has landed: one Test task per manifest member, each
    pointing the whole reading at that clone and writing to `output/<name>/`, and a member the caller has not
    cloned is named and skipped rather than silently counted as read. With no `-Dcs.panel.dir`, or with a
-   manifest naming nobody, it fails and says so — an empty confusion matrix looks exactly like a perfect
-   one. **The confusion matrix over all of them is still to write**, and it needs members before it has
-   anything to be a matrix of.
+   manifest naming nobody, it fails and says so: a member that was never read and a member a vocabulary
+   correctly said nothing about produce the same empty row, and only one of them is a result. **The table across all of them is still to write** — every bundled vocabulary down one side, every
+   panel repository across the top, each cell how much that vocabulary fired on that repository — and it
+   needs members before it has anything to put in a cell.
 4. **A cost figure.** Thirty clones parsed end to end, recorded rather than estimated. If a full panel run
    takes an hour, it runs nightly and not per commit, and that is a fact the build has to be shaped around.
    The one figure in hand: the whole reading over this repository — 337 files, 64,446 word occurrences — is
@@ -84,9 +85,9 @@ measured by it is the defect this whole plan exists to avoid.
 
 ## What it settles
 
-- **The confusion matrix diagonal beats a permuted-assignment null.** One repository per domain down the
-  side, one vocabulary across the top. Anything less and the vocabularies are being told apart by everyday
-  English rather than by what they partition.
+- **A vocabulary fires more on repositories in its own domain than on the rest, by more than chance would
+  give.** One repository per domain down the side, one vocabulary across the top. Anything less and the
+  vocabularies are being told apart by everyday English rather than by what they partition.
 - **The multi-word match rate in domain is orders of magnitude above the out-of-domain baseline** of
   3 in 63,275 that FIBO showed on this tree.
 - **λ, and every figure quoted in the README, is reproduced on a repository this reading never saw.** A

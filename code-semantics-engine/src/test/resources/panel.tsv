@@ -21,8 +21,8 @@
 # Licence: this file is part of this project and carries its licence. The repositories it names
 #   carry their own, which is what the licence column is for.
 #
-# No member is named yet, and panelRead says so rather than reporting an empty confusion matrix as
-# a result. What a member costs to add is: verify the licence at the revision, record the stated
+# No member is named yet, and panelRead says so rather than reporting an empty result table as a
+# result. What a member costs to add is: verify the licence at the revision, record the stated
 # domain and who stated it, pin the SHA, and put it in an arm. Every domain needs at least one
 # out-of-domain member, because a vocabulary that fires in its domain proves nothing until it is
 # shown not to fire outside it, and the honest first result for those is silence.

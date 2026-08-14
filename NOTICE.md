@@ -9,8 +9,8 @@ file added without one fails the build. This page is a summary of those headers 
 them: **the file's own header is the authority**, and where the two ever disagree the header is right and this
 page is stale.
 
-The library's own dependencies are declared in `gradle/libs.versions.toml` with their licences noted in
-`docs/plans/CODE_SEMANTICS_LIBRARY_PLAN.md` §17.
+The library's own dependencies are declared in `gradle/libs.versions.toml`, with the licence of each and
+the reason it was chosen in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
 
 ## Bundled data
 

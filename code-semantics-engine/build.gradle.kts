@@ -87,7 +87,8 @@ tasks.register<Test>("selfRead") {
 //   ./gradlew panelRead -Dcs.panel.dir=<directory holding the clones>
 // One Test task per member, because a member is read by pointing the whole reading at it and a Test task
 // carries one set of system properties. A member the caller has not cloned is skipped and named, not
-// silently counted as read: an empty confusion matrix looks exactly like a perfect one.
+// silently counted as read: a member that was never read and a member the vocabulary correctly said
+// nothing about produce the same empty row, and only one of them is a result.
 val panelDirectory: String? = System.getProperty("cs.panel.dir")
 
 val panelMembers: List<String> = layout.projectDirectory.file("src/test/resources/panel.tsv").asFile
@@ -127,7 +128,7 @@ tasks.register("panelRead") {
         }
         if (panelMembers.isEmpty()) {
             throw GradleException("The panel manifest names no member, so this would report an empty " +
-                "confusion matrix as a result. src/test/resources/panel.tsv states what a member costs " +
+                "result table as a result. src/test/resources/panel.tsv states what a member costs " +
                 "to add: a licence verified at the revision, a domain stated by somebody outside this " +
                 "project, a pinned SHA, and an arm.")
         }
