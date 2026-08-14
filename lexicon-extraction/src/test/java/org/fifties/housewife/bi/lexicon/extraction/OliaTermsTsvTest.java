@@ -12,7 +12,8 @@ class OliaTermsTsvTest {
 
     private static final List<SkosConcept> CONCEPTS = List.of(
             new SkosConcept("http://purl.org/olia/olia.owl#CommonNoun", "CommonNoun", "common noun", "Noun",
-                    "class", "olia.owl", ""));
+                    "class", "olia.owl", "A noun that is not a name.",
+                    "EAGLES"));
 
     private static final String SOURCE = "https://example.invalid/olia.owl";
 
@@ -46,6 +47,7 @@ class OliaTermsTsvTest {
     @Test
     void writesEveryTermBelowTheHeader() {
         assertThat(rendered).endsWith(
-                "http://purl.org/olia/olia.owl#CommonNoun\tCommonNoun\tcommon noun\tNoun\tclass\tolia.owl\t\n");
+                "http://purl.org/olia/olia.owl#CommonNoun\tCommonNoun\tcommon noun\tNoun\tclass\tolia.owl\t"
+                        + "A noun that is not a name.\tEAGLES\n");
     }
 }

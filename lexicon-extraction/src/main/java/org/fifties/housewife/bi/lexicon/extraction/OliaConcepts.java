@@ -22,6 +22,12 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  *
  * <p>{@code module} is the ontology document the class's own identifier names — OLiA publishes its top
  * level, its core and its system vocabulary as separate ontologies, and the namespace says which is which.
+ *
+ * <p>{@code definition} is the ontology's {@code rdfs:comment} and {@code note} is its {@code owl:versionInfo}
+ * — what a concept means and where its publisher took it from. Both were written empty here for as long as
+ * this class existed, which discarded 1,272 definitions and 949 notes the ontology had gone to the trouble of
+ * publishing, and left every OLiA concept matchable only by the string it is called. A definition is prose,
+ * and prose is the one thing this library already knows how to read into topics.
  */
 public class OliaConcepts {
 
@@ -36,10 +42,12 @@ public class OliaConcepts {
         return classes.stream().map(owl -> concept(owl, stated)).toList();
     }
 
-    private static SkosConcept concept(final OwlClass owl, final Set<String> stated) {
+    private final JoinedStatements statements = new JoinedStatements();
+
+    private SkosConcept concept(final OwlClass owl, final Set<String> stated) {
         return new SkosConcept(owl.concept(), owl.id(), altLabel(owl),
                 stated.contains(owl.broader()) ? owl.broader() : NOTHING, CLASS, moduleOf(owl),
-                NOTHING);
+                statements.of(owl.comments()), statements.of(owl.versionInfo()));
     }
 
     /** The label the ontology writes for a reader, where it says something the identifier does not. */

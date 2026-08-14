@@ -31,7 +31,7 @@ final class PublishedTerms implements TermIndex {
         IntStream.range(0, terms.length).forEach(module ->
                 byWords.computeIfAbsent(List.of(terms[module].split(" ")), key -> new ArrayList<>())
                         .add(new SkosConcept(source + module + "#" + terms[module], terms[module],
-                                "", "", "class", source + module, "")));
+                                "", "", "class", source + module, "", "")));
         return new PublishedTerms(source, byWords);
     }
 

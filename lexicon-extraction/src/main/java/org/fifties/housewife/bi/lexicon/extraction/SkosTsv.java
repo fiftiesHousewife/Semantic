@@ -19,7 +19,7 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  */
 public class SkosTsv {
 
-    static final String COLUMNS = "concept, prefLabel, altLabel, broader, kind, module, definition";
+    static final String COLUMNS = "concept, prefLabel, altLabel, broader, kind, module, definition, note";
 
     private static final Pattern SEPARATOR = Pattern.compile("[\t\n\r]");
 
@@ -45,7 +45,7 @@ public class SkosTsv {
 
     private static List<String> fields(final SkosConcept concept) {
         return List.of(concept.concept(), concept.prefLabel(), concept.altLabel(), concept.broader(),
-                concept.kind(), concept.module(), concept.definition());
+                concept.kind(), concept.module(), concept.definition(), concept.note());
     }
 
     private static String unbroken(final String field) {

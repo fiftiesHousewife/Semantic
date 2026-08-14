@@ -6,7 +6,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.as;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class OwlClassesTest {
@@ -19,14 +21,22 @@ class OwlClassesTest {
                      xml:base="http://purl.org/olia/olia.owl">
               <owl:Class rdf:about="http://purl.org/olia/olia.owl#CommonNoun">
                 <rdfs:label>common noun</rdfs:label>
+                <rdfs:comment>A noun that is not
+                  a name.</rdfs:comment>
+                <owl:versionInfo>EAGLES</owl:versionInfo>
                 <rdfs:subClassOf rdf:resource="http://purl.org/olia/olia.owl#Noun"/>
                 <rdfs:subClassOf>
                   <owl:Restriction>
+                    <rdfs:comment>a condition is not a concept and states no meaning</rdfs:comment>
                     <owl:onProperty rdf:resource="http://purl.org/olia/system.owl#hasTag"/>
                   </owl:Restriction>
                 </rdfs:subClassOf>
               </owl:Class>
               <owl:Class rdf:about="#Noun"/>
+              <owl:Class rdf:about="http://purl.org/olia/olia.owl#CommonNoun">
+                <rdfs:comment>Not a proper noun.</rdfs:comment>
+                <owl:versionInfo>Santorini 1991</owl:versionInfo>
+              </owl:Class>
               <owl:Class rdf:about="http://purl.org/olia/olia.owl#Noun">
                 <rdfs:label>noun</rdfs:label>
               </owl:Class>
@@ -45,6 +55,38 @@ class OwlClassesTest {
                 () -> assertThat(noun.concept()).isEqualTo("http://purl.org/olia/olia.owl#CommonNoun"),
                 () -> assertThat(noun.label()).isEqualTo("common noun"),
                 () -> assertThat(noun.broader()).isEqualTo("Noun"));
+    }
+
+    @Test
+    void readsWhatTheOntologySaysAConceptMeansAndWhereItTookItFrom() {
+        final OwlClass noun = owl("CommonNoun");
+        assertAll(
+                () -> assertThat(noun.comments()).first(as(STRING)).contains("A noun that is not"),
+                () -> assertThat(noun.versionInfo()).contains("EAGLES"));
+    }
+
+    @Test
+    void keepsEveryStatementOfARepeatedPropertyWhereAClassIsWrittenOutTwice() {
+        final OwlClass noun = owl("CommonNoun");
+        assertAll(
+                () -> assertThat(noun.comments())
+                        .as("a definition stated in the second class element is one the ontology states")
+                        .hasSize(2).last(as(STRING)).isEqualTo("Not a proper noun."),
+                () -> assertThat(noun.versionInfo()).containsExactly("EAGLES", "Santorini 1991"));
+    }
+
+    @Test
+    void passesOverWhatANestedRestrictionSaysAboutItself() {
+        assertThat(owl("CommonNoun").comments())
+                .as("a condition inside a class is not a statement about the class")
+                .noneMatch(comment -> comment.contains("a condition is not a concept"));
+    }
+
+    @Test
+    void statesNothingForAConceptTheOntologyDefinesNowhere() {
+        assertAll(
+                () -> assertThat(owl("Noun").comments()).isEmpty(),
+                () -> assertThat(owl("Noun").versionInfo()).isEmpty());
     }
 
     @Test

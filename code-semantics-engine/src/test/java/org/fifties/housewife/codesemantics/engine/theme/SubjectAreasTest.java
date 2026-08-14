@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class SubjectAreasTest {
 
     private static final SkosConcept RETRIEVAL = new SkosConcept("cs.IR", "Information Retrieval", "", "cs",
-            "category", "grp_cs", "Covers indexing, dictionaries, retrieval, content and analysis.");
+            "category", "grp_cs", "Covers indexing, dictionaries, retrieval, content and analysis.", "");
 
     private static final SkosConcept UNREADABLE = new SkosConcept("zz.QQ", "Nothing", "", "cs", "category",
-            "grp_cs", "");
+            "grp_cs", "", "");
 
     private final SubjectAreas areas = SubjectAreas.fromClasspath();
 

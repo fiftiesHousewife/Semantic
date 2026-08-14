@@ -29,7 +29,7 @@ class CsfConceptsTest {
     void readsAConceptAsThePublisherIdentifiesAndDefinesIt() {
         assertThat(concepts.in(List.of(GOVERN, CONTEXT, OUTCOME)))
                 .contains(new SkosConcept("GV.OC-01", "GV.OC-01", "", "GV.OC", "subcategory", "GV",
-                        "The mission is understood"));
+                        "The mission is understood", ""));
     }
 
     @Test

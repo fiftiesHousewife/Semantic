@@ -17,7 +17,7 @@ class CorroborationReportTest {
     }
 
     private static SkosConcept concept(final String label, final String broader) {
-        return new SkosConcept("olia#" + label, label, "", broader, "class", "olia.owl", "");
+        return new SkosConcept("olia#" + label, label, "", broader, "class", "olia.owl", "", "");
     }
 
     private static final List<SkosConcept> TAXONOMY = List.of(

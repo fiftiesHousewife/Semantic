@@ -18,7 +18,7 @@ class TaxonomyTreeTest {
     }
 
     private static SkosConcept concept(final String label, final String broader) {
-        return new SkosConcept("x#" + label, label, "", broader, "class", "x.owl", "");
+        return new SkosConcept("x#" + label, label, "", broader, "class", "x.owl", "", "");
     }
 
     private static final List<SkosConcept> TAXONOMY = List.of(

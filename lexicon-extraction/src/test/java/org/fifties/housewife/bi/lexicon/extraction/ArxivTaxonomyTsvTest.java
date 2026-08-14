@@ -12,7 +12,7 @@ class ArxivTaxonomyTsvTest {
 
     private static final List<SkosConcept> CONCEPTS = List.of(new SkosConcept("cs.CL",
             "Computation and Language", "cmp-lg", "cs", "category", "grp_cs",
-            "Covers natural language processing"));
+            "Covers natural language processing", ""));
 
     private static final String SOURCE = "https://example.invalid/definitions.py";
 
@@ -40,6 +40,6 @@ class ArxivTaxonomyTsvTest {
     void writesEverySubjectBelowTheHeader() {
         assertThat(rendered).endsWith(
                 "cs.CL\tComputation and Language\tcmp-lg\tcs\tcategory\tgrp_cs\t"
-                        + "Covers natural language processing\n");
+                        + "Covers natural language processing\t\n");
     }
 }

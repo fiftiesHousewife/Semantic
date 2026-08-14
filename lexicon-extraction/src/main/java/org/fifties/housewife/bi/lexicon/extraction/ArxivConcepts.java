@@ -24,6 +24,12 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  */
 public class ArxivConcepts {
 
+    /**
+     * arXiv states no provenance for a subject. Its taxonomy module names each subject, describes it and
+     * nests it, and there is no fourth thing in the source being passed over here.
+     */
+    private static final String NO_NOTE = "";
+
     private final RollUp groups = new RollUp();
 
     private final MergedEntries merged = new MergedEntries();
@@ -38,7 +44,7 @@ public class ArxivConcepts {
 
     private SkosConcept concept(final ArxivEntry entry, final Map<String, ArxivEntry> byId) {
         return new SkosConcept(entry.id(), entry.name(), entry.alias(), entry.broader(), entry.kind(),
-                groups.topOf(entry, byId).id(), entry.description());
+                groups.topOf(entry, byId).id(), entry.description(), NO_NOTE);
     }
 
     private static boolean live(final ArxivEntry entry, final Map<String, ArxivEntry> byId) {

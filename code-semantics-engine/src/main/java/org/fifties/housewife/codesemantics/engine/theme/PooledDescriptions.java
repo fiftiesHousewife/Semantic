@@ -41,6 +41,7 @@ public class PooledDescriptions {
         final SkosConcept stated = taxonomy.conceptOf(broader);
         return new SkosConcept(broader, stated.prefLabel(), stated.altLabel(), stated.broader(), POOLED,
                 stated.module(),
-                under.stream().map(SkosConcept::definition).collect(Collectors.joining(JOINED)));
+                under.stream().map(SkosConcept::definition).collect(Collectors.joining(JOINED)),
+                stated.note());
     }
 }

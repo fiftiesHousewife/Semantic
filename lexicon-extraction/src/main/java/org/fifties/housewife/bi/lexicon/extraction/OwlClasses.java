@@ -31,7 +31,13 @@ import org.xml.sax.SAXException;
  *
  * <p>A class element with no {@code rdf:about} is anonymous — a restriction states a condition, not a
  * concept — and is passed over. Where a class is written more than once, the first statement of each
- * property stands.
+ * single-valued property stands and every statement of a repeated one is kept.
+ *
+ * <p>Which properties are read is the whole question, because what is not read is not lost loudly. Two were
+ * missed for as long as this class existed: {@code rdfs:comment}, where the ontology states what a concept
+ * <em>means</em>, and {@code owl:versionInfo}, where it states which scheme it took the concept from. Both
+ * are now read, and {@code OliaTermsExtractionTest} counts them against the document rather than trusting
+ * that they arrived.
  */
 public class OwlClasses {
 
@@ -44,6 +50,8 @@ public class OwlClasses {
     private static final String RESOURCE = "resource";
     private static final String CLASS = "Class";
     private static final String LABEL = "label";
+    private static final String COMMENT = "comment";
+    private static final String VERSION_INFO = "versionInfo";
     private static final String SUBCLASS_OF = "subClassOf";
 
     private static final String BASE = "base";
@@ -67,10 +75,25 @@ public class OwlClasses {
                              final Map<String, OwlClass> byConcept) {
         final String concept = resolved(nameOf(element), base);
         final OwlClass known = byConcept.getOrDefault(concept,
-                new OwlClass(concept, fragmentOf(concept), NOTHING, NOTHING));
+                new OwlClass(concept, fragmentOf(concept), NOTHING, NOTHING, List.of(), List.of()));
         byConcept.put(concept, new OwlClass(concept, known.id(),
                 known.label().isEmpty() ? labelOf(element) : known.label(),
-                known.broader().isEmpty() ? namedSuperclass(element) : known.broader()));
+                known.broader().isEmpty() ? namedSuperclass(element) : known.broader(),
+                and(known.comments(), textOf(element, RDFS, COMMENT)),
+                and(known.versionInfo(), textOf(element, OWL, VERSION_INFO))));
+    }
+
+    /**
+     * Where a class is written out more than once, the first statement of a single-valued property stands
+     * and a repeated property accumulates. A definition the ontology states in the second of three class
+     * elements is one the ontology states.
+     */
+    private static List<String> and(final List<String> known, final List<String> stated) {
+        return Stream.concat(known.stream(), stated.stream()).toList();
+    }
+
+    private static List<String> textOf(final Element element, final String namespace, final String name) {
+        return children(element, namespace, name).map(Node::getTextContent).toList();
     }
 
     /**

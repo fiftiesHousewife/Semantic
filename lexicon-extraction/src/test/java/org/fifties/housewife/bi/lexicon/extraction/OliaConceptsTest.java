@@ -11,13 +11,15 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class OliaConceptsTest {
 
     private static final OwlClass NOUN =
-            new OwlClass("http://purl.org/olia/olia.owl#Noun", "Noun", "noun", "");
+            new OwlClass("http://purl.org/olia/olia.owl#Noun", "Noun", "noun", "",
+                    List.of("A word that names a\n\tthing.", "A word that names a\n\tthing."), List.of("EAGLES"));
 
     private static final OwlClass COMMON_NOUN = new OwlClass("http://purl.org/olia/olia.owl#CommonNoun",
-            "CommonNoun", "common noun", "Noun");
+            "CommonNoun", "common noun", "Noun", List.of("A noun that is not a name.", "Not a proper noun."),
+            List.of());
 
     private static final OwlClass IMPORTED = new OwlClass("http://purl.org/olia/olia.owl#Determiner",
-            "Determiner", "Determiner", "PronounOrDeterminer");
+            "Determiner", "Determiner", "PronounOrDeterminer", List.of(), List.of());
 
     private final List<SkosConcept> concepts = new OliaConcepts().in(List.of(NOUN, COMMON_NOUN, IMPORTED));
 
@@ -52,8 +54,25 @@ class OliaConceptsTest {
     }
 
     @Test
-    void statesNoDefinitionBecauseTheOntologyStatesNone() {
-        assertThat(concepts).allMatch(concept -> concept.definition().isEmpty());
+    void carriesWhatTheOntologySaysAConceptMeans() {
+        assertThat(concept("CommonNoun").definition())
+                .as("1,272 of these were discarded for as long as this conversion existed")
+                .isEqualTo("A noun that is not a name. | Not a proper noun.");
+    }
+
+    @Test
+    void carriesWhereTheOntologySaysItTookTheConceptFrom() {
+        assertThat(concept("Noun").note()).isEqualTo("EAGLES");
+    }
+
+    @Test
+    void statesTheSameDefinitionOnceWhereTheOntologyWroteTheClassOutTwice() {
+        assertThat(concept("Noun").definition()).isEqualTo("A word that names a thing.");
+    }
+
+    @Test
+    void statesNothingWhereTheOntologyStatesNothing() {
+        assertThat(concept("Determiner").definition()).isEmpty();
     }
 
     private SkosConcept concept(final String term) {

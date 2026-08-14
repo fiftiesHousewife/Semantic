@@ -31,9 +31,19 @@ public class OliaTermsTsv {
                 # broader is the first superclass the ontology states by name, and empty where that
                 # superclass belongs to an ontology this file imports rather than carries — a roll-up must
                 # not climb to a concept nothing here can answer for. altLabel is the rdfs:label where it
-                # says something the identifier does not. definition is empty: OLiA states its meaning
-                # through its hierarchy and its links to annotation schemes, not in prose, and inventing a
-                # gloss would be this library writing the vocabulary it is supposed to be citing.
+                # says something the identifier does not.
+                #
+                # definition is the ontology's own rdfs:comment and note is its own owl:versionInfo — what a
+                # concept means, and which scheme its publisher took it from. Both were written empty in
+                # every earlier revision of this file on the belief that OLiA states its meaning only
+                # through its hierarchy. It does not: the document carries 1,272 definitions across 1,216 of
+                # these concepts and 949 provenance notes across 780 of them, and they were discarded here.
+                # Nothing is paraphrased and no gloss is written; the text is the publisher's, with runs of
+                # whitespace collapsed to one space so a row stays a row. Where the ontology states a
+                # property twice for one concept the statements are joined with " | " in the order it wrote
+                # them, and an exact repeat counts once. One definition, on AdnominalConstituent, the
+                # ontology marks xml:lang="de"; it is carried like the rest, because refusing it would be
+                # this file deciding what the publisher may say.
                 #
                 # Source: OLiA's core ontology olia.owl, read from
                 #  \s""" + source + """

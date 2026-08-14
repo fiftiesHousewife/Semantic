@@ -23,6 +23,12 @@ import org.fifties.housewife.bi.lexicon.SkosConcept;
  */
 public class CsfConcepts {
 
+    /**
+     * OSCAL states no provenance for a control beyond the catalogue it is published in, which is the file
+     * itself. There is nothing in the source being passed over here.
+     */
+    private static final String NO_NOTE = "";
+
     private final RollUp functions = new RollUp();
 
     public List<SkosConcept> in(final List<OscalControl> controls) {
@@ -34,7 +40,7 @@ public class CsfConcepts {
 
     private SkosConcept concept(final OscalControl control, final Map<String, OscalControl> byId) {
         return new SkosConcept(control.id(), control.title(), altLabel(control), control.broader(),
-                control.kind(), functions.topOf(control, byId).id(), control.definition());
+                control.kind(), functions.topOf(control, byId).id(), control.definition(), NO_NOTE);
     }
 
     /** The label published beside a title — {@code GOVERN (GV)} — wherever a different one is published. */

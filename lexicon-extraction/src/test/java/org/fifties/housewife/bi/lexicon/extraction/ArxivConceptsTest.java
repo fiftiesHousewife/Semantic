@@ -30,7 +30,7 @@ class ArxivConceptsTest {
     @Test
     void readsASubjectAsArxivIdentifiesNamesAndDescribesIt() {
         assertThat(concepts).contains(new SkosConcept("cs.CL", "Computation and Language", "cmp-lg", "cs",
-                "category", "grp_cs", "Covers natural language processing"));
+                "category", "grp_cs", "Covers natural language processing", ""));
     }
 
     @Test

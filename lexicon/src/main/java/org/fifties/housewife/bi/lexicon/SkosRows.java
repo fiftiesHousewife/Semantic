@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A bundled taxonomy read back off the classpath. Every taxonomy this library bundles is the same seven
+ * A bundled taxonomy read back off the classpath. Every taxonomy this library bundles is the same eight
  * columns whatever its source published, so one reader serves all of them and a new source costs a
  * provenance header rather than a parser.
  *
@@ -23,7 +23,7 @@ public final class SkosRows {
 
     private static final String COLUMN = "\t";
 
-    private static final int COLUMNS = 7;
+    private static final int COLUMNS = 8;
 
     private SkosRows() {
     }
@@ -45,6 +45,7 @@ public final class SkosRows {
             throw new IllegalStateException("A row of " + resource + " states " + fields.length
                     + " columns where the shape has " + COLUMNS + ": " + line);
         }
-        return new SkosConcept(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6]);
+        return new SkosConcept(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6],
+                fields[7]);
     }
 }

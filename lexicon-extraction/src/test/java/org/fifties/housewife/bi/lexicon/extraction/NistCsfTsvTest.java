@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class NistCsfTsvTest {
 
     private static final List<SkosConcept> CONCEPTS = List.of(new SkosConcept("GV", "GOVERN", "GOVERN (GV)",
-            "", "function", "GV", "Risk is governed"));
+            "", "function", "GV", "Risk is governed", ""));
 
     private static final String SOURCE = "https://example.invalid/NIST_CSF_v2.0_catalog.json";
 
@@ -43,6 +43,6 @@ class NistCsfTsvTest {
 
     @Test
     void writesEveryConceptBelowTheHeader() {
-        assertThat(rendered).endsWith("GV\tGOVERN\tGOVERN (GV)\t\tfunction\tGV\tRisk is governed\n");
+        assertThat(rendered).endsWith("GV\tGOVERN\tGOVERN (GV)\t\tfunction\tGV\tRisk is governed\t\n");
     }
 }

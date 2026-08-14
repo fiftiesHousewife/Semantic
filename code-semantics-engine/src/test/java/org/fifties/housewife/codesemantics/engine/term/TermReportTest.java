@@ -18,7 +18,7 @@ class TermReportTest {
     }
 
     private static SkosConcept concept(final String label, final String broader) {
-        return new SkosConcept("olia#" + label, label, "", broader, "class", "olia.owl", "");
+        return new SkosConcept("olia#" + label, label, "", broader, "class", "olia.owl", "", "");
     }
 
     /** One branch the repository works in, and one whole region of the field it never enters. */
