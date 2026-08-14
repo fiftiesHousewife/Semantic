@@ -1,6 +1,7 @@
 package org.fifties.housewife.bi.lexicon.extraction;
 
 import java.util.List;
+import java.util.Map;
 
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
@@ -11,15 +12,18 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class OliaConceptsTest {
 
     private static final OwlClass NOUN =
-            new OwlClass("http://purl.org/olia/olia.owl#Noun", "Noun", "noun", "",
-                    List.of("A word that names a\n\tthing.", "A word that names a\n\tthing."), List.of("EAGLES"));
+            new OwlClass("http://purl.org/olia/olia.owl#Noun", "Noun", "",
+                    Map.of("http://www.w3.org/2000/01/rdf-schema#label", List.of("noun"),
+                            "http://www.w3.org/2000/01/rdf-schema#comment", List.of("A word that names a\n\tthing.", "A word that names a\n\tthing."),
+                            "http://www.w3.org/2002/07/owl#versionInfo", List.of("EAGLES")));
 
     private static final OwlClass COMMON_NOUN = new OwlClass("http://purl.org/olia/olia.owl#CommonNoun",
-            "CommonNoun", "common noun", "Noun", List.of("A noun that is not a name.", "Not a proper noun."),
-            List.of());
+            "CommonNoun", "Noun",
+            Map.of("http://www.w3.org/2000/01/rdf-schema#label", List.of("common noun"),
+                    "http://www.w3.org/2000/01/rdf-schema#comment", List.of("A noun that is not a name.", "Not a proper noun.")));
 
     private static final OwlClass IMPORTED = new OwlClass("http://purl.org/olia/olia.owl#Determiner",
-            "Determiner", "Determiner", "PronounOrDeterminer", List.of(), List.of());
+            "Determiner", "PronounOrDeterminer", Map.of("http://www.w3.org/2000/01/rdf-schema#label", List.of("Determiner")));
 
     private final List<SkosConcept> concepts = new OliaConcepts().in(List.of(NOUN, COMMON_NOUN, IMPORTED));
 

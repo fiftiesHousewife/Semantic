@@ -3,6 +3,7 @@ package org.fifties.housewife.bi.lexicon.extraction;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,14 +50,15 @@ public class OwlClasses {
     private static final String ID = "ID";
     private static final String RESOURCE = "resource";
     private static final String CLASS = "Class";
-    private static final String LABEL = "label";
-    private static final String COMMENT = "comment";
-    private static final String VERSION_INFO = "versionInfo";
     private static final String SUBCLASS_OF = "subClassOf";
 
     private static final String BASE = "base";
 
     private static final String FRAGMENT = "#";
+
+    private static final char PATH = '/';
+
+    private static final String SCHEME = "://";
 
     private static final String NOTHING = "";
 
@@ -75,25 +77,42 @@ public class OwlClasses {
                              final Map<String, OwlClass> byConcept) {
         final String concept = resolved(nameOf(element), base);
         final OwlClass known = byConcept.getOrDefault(concept,
-                new OwlClass(concept, fragmentOf(concept), NOTHING, NOTHING, List.of(), List.of()));
+                new OwlClass(concept, fragmentOf(concept), NOTHING, Map.of()));
         byConcept.put(concept, new OwlClass(concept, known.id(),
-                known.label().isEmpty() ? labelOf(element) : known.label(),
                 known.broader().isEmpty() ? namedSuperclass(element) : known.broader(),
-                and(known.comments(), textOf(element, RDFS, COMMENT)),
-                and(known.versionInfo(), textOf(element, OWL, VERSION_INFO))));
+                and(known.annotations(), annotationsOn(element))));
     }
 
     /**
-     * Where a class is written out more than once, the first statement of a single-valued property stands
-     * and a repeated property accumulates. A definition the ontology states in the second of three class
-     * elements is one the ontology states.
+     * Where a class is written out more than once, the first statement of its place stands and every
+     * annotation accumulates. A definition the ontology states in the second of three class elements is one
+     * the ontology states.
      */
-    private static List<String> and(final List<String> known, final List<String> stated) {
-        return Stream.concat(known.stream(), stated.stream()).toList();
+    private static Map<String, List<String>> and(final Map<String, List<String>> known,
+                                                 final Map<String, List<String>> stated) {
+        final Map<String, List<String>> pooled = new LinkedHashMap<>(known);
+        stated.forEach((property, values) -> pooled.merge(property, values,
+                (before, after) -> Stream.concat(before.stream(), after.stream()).toList()));
+        return pooled;
     }
 
-    private static List<String> textOf(final Element element, final String namespace, final String name) {
-        return children(element, namespace, name).map(Node::getTextContent).toList();
+    /**
+     * Every annotation written directly on the class. A child carrying element children of its own is a
+     * structural axiom rather than an annotation — a nested restriction or a class expression — and states
+     * nothing this shape has a column for.
+     */
+    private static Map<String, List<String>> annotationsOn(final Element element) {
+        final Map<String, List<String>> stated = new LinkedHashMap<>();
+        elements(element.getChildNodes())
+                .filter(child -> elements(child.getChildNodes()).findAny().isEmpty())
+                .forEach(child -> stated.computeIfAbsent(qualified(child), property -> new ArrayList<>())
+                        .add(child.getTextContent()));
+        return stated;
+    }
+
+    /** A property named the way a caller writes it: its namespace and its local name. */
+    static String qualified(final Element child) {
+        return child.getNamespaceURI() + child.getLocalName();
     }
 
     /**
@@ -101,12 +120,21 @@ public class OwlClasses {
      * resolving it is what makes {@code #Noun} the same concept as the one written out in full. Left
      * unresolved it is a second concept with the same name — and a first column beginning with {@code #}
      * that every reader of a bundled file would take for a comment.
+     *
+     * <p>An absolute reference is already resolved and is left exactly as the ontology wrote it. Appending
+     * it to the base instead produced concepts named {@code <base>#<whole URI>} for every FIBO class, whose
+     * URIs separate with {@code /} and carry no fragment at all — so every identifier read out of that
+     * ontology was the URI rather than the term.
      */
     private static String resolved(final String reference, final String base) {
         if (reference.startsWith(FRAGMENT)) {
             return base + reference;
         }
-        return reference.contains(FRAGMENT) ? reference : base + FRAGMENT + reference;
+        return absolute(reference) ? reference : base + FRAGMENT + reference;
+    }
+
+    private static boolean absolute(final String reference) {
+        return reference.contains(SCHEME) || reference.contains(FRAGMENT);
     }
 
     /**
@@ -142,14 +170,15 @@ public class OwlClasses {
         return about.isEmpty() ? element.getAttributeNS(RDF, ID) : about;
     }
 
-    private static String labelOf(final Element element) {
-        return children(element, RDFS, LABEL).findFirst()
-                .map(child -> child.getTextContent().strip()).orElse(NOTHING);
-    }
-
+    /**
+     * The local name a concept URI ends in, which is the term. RDF spells that two ways and both are in use
+     * here: OLiA writes {@code olia.owl#CommonNoun} and FIBO writes {@code .../IRSwaps/InterestRateSwap}, so
+     * the name is what follows the last {@code #} where there is one and the last {@code /} where there is
+     * not.
+     */
     private static String fragmentOf(final String uri) {
-        final int fragment = uri.indexOf(FRAGMENT);
-        return fragment < 0 ? uri : uri.substring(fragment + 1);
+        final int fragment = uri.lastIndexOf(FRAGMENT);
+        return fragment < 0 ? uri.substring(uri.lastIndexOf(PATH) + 1) : uri.substring(fragment + 1);
     }
 
     private static Stream<Element> named(final Document document) {

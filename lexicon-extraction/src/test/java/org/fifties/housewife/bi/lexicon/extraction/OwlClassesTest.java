@@ -53,7 +53,7 @@ class OwlClassesTest {
         final OwlClass noun = owl("CommonNoun");
         assertAll(
                 () -> assertThat(noun.concept()).isEqualTo("http://purl.org/olia/olia.owl#CommonNoun"),
-                () -> assertThat(noun.label()).isEqualTo("common noun"),
+                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#label")).containsExactly("common noun"),
                 () -> assertThat(noun.broader()).isEqualTo("Noun"));
     }
 
@@ -61,23 +61,23 @@ class OwlClassesTest {
     void readsWhatTheOntologySaysAConceptMeansAndWhereItTookItFrom() {
         final OwlClass noun = owl("CommonNoun");
         assertAll(
-                () -> assertThat(noun.comments()).first(as(STRING)).contains("A noun that is not"),
-                () -> assertThat(noun.versionInfo()).contains("EAGLES"));
+                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#comment")).first(as(STRING)).contains("A noun that is not"),
+                () -> assertThat(noun.statedIn("http://www.w3.org/2002/07/owl#versionInfo")).contains("EAGLES"));
     }
 
     @Test
     void keepsEveryStatementOfARepeatedPropertyWhereAClassIsWrittenOutTwice() {
         final OwlClass noun = owl("CommonNoun");
         assertAll(
-                () -> assertThat(noun.comments())
+                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#comment"))
                         .as("a definition stated in the second class element is one the ontology states")
                         .hasSize(2).last(as(STRING)).isEqualTo("Not a proper noun."),
-                () -> assertThat(noun.versionInfo()).containsExactly("EAGLES", "Santorini 1991"));
+                () -> assertThat(noun.statedIn("http://www.w3.org/2002/07/owl#versionInfo")).containsExactly("EAGLES", "Santorini 1991"));
     }
 
     @Test
     void passesOverWhatANestedRestrictionSaysAboutItself() {
-        assertThat(owl("CommonNoun").comments())
+        assertThat(owl("CommonNoun").statedIn("http://www.w3.org/2000/01/rdf-schema#comment"))
                 .as("a condition inside a class is not a statement about the class")
                 .noneMatch(comment -> comment.contains("a condition is not a concept"));
     }
@@ -85,8 +85,8 @@ class OwlClassesTest {
     @Test
     void statesNothingForAConceptTheOntologyDefinesNowhere() {
         assertAll(
-                () -> assertThat(owl("Noun").comments()).isEmpty(),
-                () -> assertThat(owl("Noun").versionInfo()).isEmpty());
+                () -> assertThat(owl("Noun").statedIn("http://www.w3.org/2000/01/rdf-schema#comment")).isEmpty(),
+                () -> assertThat(owl("Noun").statedIn("http://www.w3.org/2002/07/owl#versionInfo")).isEmpty());
     }
 
     @Test
@@ -105,12 +105,13 @@ class OwlClassesTest {
 
     @Test
     void keepsWhatTheOntologySaysWhereItWritesTheSameClassOutTwice() {
-        assertThat(owl("Noun").label()).isEqualTo("noun");
+        assertThat(owl("Noun").statedIn("http://www.w3.org/2000/01/rdf-schema#label"))
+                .containsExactly("noun");
     }
 
     @Test
     void passesOverAnAnonymousClassBecauseARestrictionStatesAConditionNotAConcept() {
-        assertThat(classes).extracting(OwlClass::label)
+        assertThat(classes).extracting(OwlClass::id)
                 .doesNotContain("an anonymous restriction is not a concept");
     }
 

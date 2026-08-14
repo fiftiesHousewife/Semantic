@@ -33,6 +33,11 @@ public class OliaConcepts {
 
     private static final String CLASS = "class";
 
+    /** Where OLiA states each thing. Its own vocabulary, named here because this is OLiA's conversion. */
+    private static final String LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
+    private static final String COMMENT = "http://www.w3.org/2000/01/rdf-schema#comment";
+    private static final String VERSION_INFO = "http://www.w3.org/2002/07/owl#versionInfo";
+
     private static final String FRAGMENT = "#";
 
     private static final String NOTHING = "";
@@ -47,12 +52,13 @@ public class OliaConcepts {
     private SkosConcept concept(final OwlClass owl, final Set<String> stated) {
         return new SkosConcept(owl.concept(), owl.id(), altLabel(owl),
                 stated.contains(owl.broader()) ? owl.broader() : NOTHING, CLASS, moduleOf(owl),
-                statements.of(owl.comments()), statements.of(owl.versionInfo()));
+                statements.of(owl.statedIn(COMMENT)), statements.of(owl.statedIn(VERSION_INFO)));
     }
 
     /** The label the ontology writes for a reader, where it says something the identifier does not. */
     private static String altLabel(final OwlClass owl) {
-        return owl.label().equalsIgnoreCase(owl.id()) ? NOTHING : owl.label();
+        final String label = owl.statedIn(LABEL).stream().findFirst().orElse(NOTHING).strip();
+        return label.equalsIgnoreCase(owl.id()) ? NOTHING : label;
     }
 
     private static String moduleOf(final OwlClass owl) {

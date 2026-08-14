@@ -146,3 +146,19 @@ tasks.register<JavaExec>("extractSqlFunctions") {
             .file("lexicon/src/main/resources/sql-functions.tsv").asFile.absolutePath
     )
 }
+
+// Reads FIBO's production T-Box — the hundred-odd ontologies its own manifest names — into the bundled
+// finance vocabulary TSV. FIBO publishes no merged document and is far too large to fetch file by file, so
+// this reads a checkout; -Pfibo=<path> is required.
+//   ./gradlew :lexicon-extraction:extractFiboTerms -Pfibo=/path/to/fibo
+tasks.register<JavaExec>("extractFiboTerms") {
+    group = "build"
+    description = "Extracts the FIBO finance-vocabulary TSV from a FIBO checkout (-Pfibo=<path>)"
+    mainClass = "org.fifties.housewife.bi.lexicon.extraction.FiboTermsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("fibo") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/fibo-terms.tsv").asFile.absolutePath
+    )
+}
