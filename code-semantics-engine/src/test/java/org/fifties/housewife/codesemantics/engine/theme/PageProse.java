@@ -66,7 +66,6 @@ final class PageProse {
             + "It is also what an ordinary technical term looks like when the resources are too coarse for "
             + "it, which is why these are candidates and the evidence is printed beside them.";
 
-    static final String LINES_HEADING = "Lines of code, by the theme that leads them";
 
     static final String SCOPES_HEADING = "What distinguishes each scope";
 
@@ -110,9 +109,5 @@ final class PageProse {
     private PageProse() {
     }
 
-    static String linesLed(final String lines) {
-        return "Every file resolves to at most one leading theme, weighed against everything in it that no "
-                + "resource could read. The bar is all %s lines of the tree.".formatted(lines);
-    }
 
 }

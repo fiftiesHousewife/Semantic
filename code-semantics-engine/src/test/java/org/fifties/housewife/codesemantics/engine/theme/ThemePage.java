@@ -28,14 +28,12 @@ final class ThemePage {
     private final ThemeSections sections = new ThemeSections();
 
     String of(final ThemeGraph graph) {
-        final LinesLedBar led = new LinesLedBar(graph.filesRead());
         return join(
                 title("Themes — %s".formatted(graph.repository())),
                 styleWithInlineFile(STYLE),
                 div(masthead(graph),
                         graphSection(graph),
                         rankingSection(graph),
-                        linesSection(led),
                         scopesSection(graph),
                         sections.strangeResults(),
                         p(PageProse.FOOT).withClass("foot")).withClass("wrap"))
@@ -89,12 +87,6 @@ final class ThemePage {
                         .withClass("scroller"));
     }
 
-    private DomContent linesSection(final LinesLedBar led) {
-        return section(
-                sections.heading(PageProse.LINES_HEADING,
-                        PageProse.linesLed(ThemeTables.count(led.lines()))),
-                led.bar(), led.legend());
-    }
 
     private DomContent scopesSection(final ThemeGraph graph) {
         return section(
