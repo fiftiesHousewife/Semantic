@@ -54,6 +54,6 @@ The repository's own words are 69,307 occurrences of 3,422 distinct surfaces, 1,
 | `arxiv` | 20 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TermReadingDiagnostic.java:128` |
 | `codesemantics engine parse` | 16 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportOrigin.java:1` |
 
-Read 360 files in 0.2 s — 0.6 ms a file, recorded rather than estimated.
+Read 360 files in 0.2 s — 0.7 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 628. Set aside as the platform's own vocabulary: 1071. Set aside as this repository's own coordinates: 315. Files the parser refused: 0.

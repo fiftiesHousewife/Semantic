@@ -8,7 +8,7 @@ Every line below cleared a bar that follows from the size of the field it compet
 
 ## The field it is in
 
-**Computer Science**, 0.3404 bits away. A taxonomy of chance placed its nearest subject at 0.4071 bits over 999 draws, so this stands apart from chance. The runner-up is Nonlinear Sciences at 0.4677.
+**Computer Science**, 0.3404 bits away. A taxonomy of chance placed its nearest subject at 0.4006 bits over 999 draws, so this stands apart from chance. The runner-up is Nonlinear Sciences at 0.4677.
 
 ## What it is about
 

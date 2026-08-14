@@ -21,13 +21,13 @@ vocabulary of every description — and a field of 152 subjects must be read aga
 | `cs` Computer Science | grp_cs | 0.3404 | linguistics, mathematics, law, computing |
 | `nlin` Nonlinear Sciences | grp_physics | 0.4677 | mathematics, computing, telecommunication, literature |
 | `eess` Electrical Engineering and Systems Science | grp_eess | 0.4710 | computing, mathematics, grammar, person |
-| `math` Mathematics | grp_math | 0.4783 | mathematics, physics, law, psychology |
-| `physics` Physics | grp_physics | 0.5299 | telecommunication, mathematics, physics, chemistry |
-| `cond-mat` Condensed Matter | grp_physics | 0.5548 | telecommunication, computing, physics, mathematics |
-| `q-fin` Quantitative Finance | grp_q-fin | 0.5594 | linguistics, law, number, programming |
-| `astro-ph` Astrophysics | grp_physics | 0.5670 | telecommunication, geography, physics, chemistry |
+| `math` Mathematics | grp_math | 0.5005 | mathematics, telecommunication, physics, psychology |
+| `q-fin` Quantitative Finance | grp_q-fin | 0.5289 | mathematics, law, chemistry, linguistics |
+| `physics` Physics | grp_physics | 0.5340 | telecommunication, mathematics, physics, chemistry |
+| `cond-mat` Condensed Matter | grp_physics | 0.5702 | computing, telecommunication, chemistry, politics |
+| `astro-ph` Astrophysics | grp_physics | 0.5704 | telecommunication, geography, computing, physics |
 
-The nearest subject stands **0.3404 bits** away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was **0.4071 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.3404 bits** away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was **0.4006 bits**, so this placement **stands apart from chance**.
 
 ## At its leaves, by divergence
 
@@ -49,7 +49,7 @@ narrower than a repository and the vaguest description wins.
 | `math.IT` Information Theory | grp_math | 0.5225 | linguistics, law, mathematics, programming |
 | `math.CA` Classical Analysis and ODEs | grp_math | 0.5285 | linguistics, mathematics, literature, computing |
 
-The nearest subject stands **0.4102 bits** away. Across 994 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.4216 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.4102 bits** away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.4414 bits**, so this placement **stands apart from chance**.
 
 ## At its leaves, by the mass both hold
 
@@ -71,4 +71,4 @@ repository is also about.
 | `q-fin.EC` Economics | grp_q-fin | 0.6844 | linguistics, law, number, programming |
 | `cs.SD` Sound | grp_cs | 0.6859 | mathematics, telecommunication, grammar, law |
 
-The nearest subject stands **0.5989 bits** away. Across 994 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.6060 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.5989 bits** away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.6073 bits**, so this placement **stands apart from chance**.

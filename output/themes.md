@@ -161,4 +161,4 @@ Read over 360 files and 25,627 lines: 466 topics, 1 files no topic could be reso
 
 **0.2445 bits** from the repository, against a null median of 0.3484 over 999 resamples of the same size — an excess of -0.1039, and 981 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
-Read, compared and resampled in 4.5 s, recorded rather than estimated.
+Read, compared and resampled in 5.0 s, recorded rather than estimated.
