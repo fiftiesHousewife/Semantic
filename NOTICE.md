@@ -10,7 +10,7 @@ them: **the file's own header is the authority**, and where the two ever disagre
 page is stale.
 
 The library's own dependencies are declared in `gradle/libs.versions.toml` with their licences noted in
-`docs/CODE_SEMANTICS_LIBRARY_PLAN.md` §17.
+`docs/plans/CODE_SEMANTICS_LIBRARY_PLAN.md` §17.
 
 ## Bundled data
 
