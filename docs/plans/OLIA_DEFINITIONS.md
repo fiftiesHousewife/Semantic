@@ -1,14 +1,22 @@
 # The taxonomy states more than we read — definitions, provenance, and its other modules
 
-Measured on the bundled revision, not assumed. Every row carries a resolvable concept URI and `broader` is
-now full, but the `definition` column is **empty in all 1,312 rows** while the ontology publishes:
+Measured on the bundled revision, not assumed. **The extraction half has landed.** The document states 1,292
+`rdfs:comment` and 969 `owl:versionInfo` elements in all; of those, the ones sitting on a named class are what
+a taxonomy row can carry:
 
 | The source states | Count | What we do with it |
 |---|--:|---|
-| `rdfs:comment` — a real definition per concept | **1,292** | discarded |
-| `owl:versionInfo` — where the publisher took the concept from | **968** | discarded |
+| `rdfs:comment` on a named class — a real definition | **1,271 over 1,216 concepts** | carried, as `definition` |
+| `owl:versionInfo` on a named class — where the publisher took the concept from | **949 over 780 concepts** | carried, as `note`, a column the SKOS shape did not have |
 | `rdfs:label` | 786 | kept where it differs from the identifier |
 | `concept` URI, resolvable | 1,312 | kept, never rendered as a link |
+
+Whitespace is collapsed so a row stays a row, repeated statements are joined rather than the first one kept,
+and an exact repeat counts once — which is the 1,272nd comment. `OliaTermsTest` asserts each of those counts
+against the shipped file, so the next reading that drops a property fails rather than ships quietly.
+
+**What is left is the use, not the extraction.** Nothing yet reads a definition: a concept is still matched
+by the string it is called and not by what it means.
 
 **Following the URIs buys nothing and that was checked**: `http://purl.org/olia/olia.owl#Verb` answers 302 to
 the whole ontology document, so a concept URI is a fragment into the one file already bundled. Of 4,381

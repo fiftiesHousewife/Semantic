@@ -14,7 +14,7 @@ here, with a reference for each.
 
 | | Plan | What it would settle | Blocked on |
 |---|---|---|---|
-| **NEXT** | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | 1,292 published definitions and 968 provenance statements are discarded; a definition makes a concept matchable by what it *means* | nothing |
+| **NEXT** | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | The 1,271 definitions and 949 provenance notes are extracted and shipped; what is left is reading them, so a concept is matchable by what it *means*, and OLiA's other modules | nothing |
 | **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | Branch corroboration has landed and settles its three criteria. What is left is promoting it from a reported comparison to the reading, and the hypernym-depth arm | nothing |
 | HIGH | [The backtest — thirty repositories](docs/plans/THE_PANEL.md) | Whether any figure here survives a repository the reading was not written for, and whether a relevant taxonomy can be offered for each domain at all. Four other plans are blocked on it | `-Dcs.panel.dir`, and a manifest |
 | HIGH | [The vote itself](docs/plans/THE_VOTE.md) | Two resources are called equal and are not on one scale; there is no abstention mass in the topical reading; votes are summed where this library says they are pooled | its own stage 0 |

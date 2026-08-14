@@ -9,7 +9,7 @@ its field rather than anyone here deciding so.
 Only **declared names** are read. A term in a sentence is an author writing about a field; a term
 in a name is a program working in one.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **85 of them, 1,602 times**, across 292 of 330 files — reaching **20 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **85 of them, 1,626 times**, across 295 of 335 files — reaching **20 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -17,10 +17,10 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `LinguisticConcept` | 19 | 136 | 834 | `Topic`&nbsp;396 `Source`&nbsp;151 `Citation`&nbsp;46 `Set`&nbsp;42 `Evidence`&nbsp;32 `Identifier`&nbsp;23 `PartOf`&nbsp;22 `Given`&nbsp;18 |
-| `MorphosyntacticCategory` | 14 | 288 | 162 | `Verb`&nbsp;33 `Noun`&nbsp;29 `Abbreviation`&nbsp;22 `Symbol`&nbsp;15 `List`&nbsp;14 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 |
-| `OrthographicEntity` | 6 | 37 | 142 | `Token`&nbsp;76 `Text`&nbsp;30 `Script`&nbsp;15 `Letter`&nbsp;13 `Space`&nbsp;6 `String`&nbsp;2 |
-| `SemanticFeature` | 10 | 125 | 102 | `Referring`&nbsp;42 `Function`&nbsp;34 `Person`&nbsp;7 `Amount`&nbsp;6 `Object`&nbsp;4 `Plan`&nbsp;3 `Time`&nbsp;2 `URL`&nbsp;2 |
+| `LinguisticConcept` | 19 | 136 | 843 | `Topic`&nbsp;396 `Source`&nbsp;156 `Citation`&nbsp;46 `Set`&nbsp;43 `Evidence`&nbsp;32 `Identifier`&nbsp;23 `PartOf`&nbsp;22 `Given`&nbsp;18 |
+| `MorphosyntacticCategory` | 14 | 288 | 164 | `Verb`&nbsp;33 `Noun`&nbsp;31 `Abbreviation`&nbsp;22 `Symbol`&nbsp;15 `List`&nbsp;14 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 |
+| `OrthographicEntity` | 6 | 37 | 153 | `Token`&nbsp;82 `Text`&nbsp;31 `Script`&nbsp;15 `Letter`&nbsp;13 `Space`&nbsp;10 `String`&nbsp;2 |
+| `SemanticFeature` | 10 | 125 | 104 | `Referring`&nbsp;44 `Function`&nbsp;34 `Person`&nbsp;7 `Amount`&nbsp;6 `Object`&nbsp;4 `Plan`&nbsp;3 `Time`&nbsp;2 `URL`&nbsp;2 |
 | `MorphologicalCategory` | 5 | 16 | 101 | `Root`&nbsp;70 `Prefix`&nbsp;15 `Suffix`&nbsp;10 `Stem`&nbsp;5 `Affix`&nbsp;1 |
 | `Constituent` | 4 | 37 | 67 | `Phrase`&nbsp;49 `Fragment`&nbsp;9 `Clause`&nbsp;7 `Chunk`&nbsp;2 |
 | `PersonFeature` | 2 | 10 | 64 | `First`&nbsp;46 `Second`&nbsp;18 |
@@ -34,9 +34,9 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 1,102 | 74 | 97.5% |
-| the dictionary form of each word | 272 | 47 | 98.9% |
-| the sense the dictionary carries each word in | 228 | 26 | 100.0% |
+| the words themselves | 1,121 | 74 | 97.5% |
+| the dictionary form of each word | 274 | 47 | 98.9% |
+| the sense the dictionary carries each word in | 231 | 27 | 100.0% |
 
 
 ## Whether the branch corroborates the match
@@ -47,8 +47,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 1,602 | 147 | 98.1% | 20 of 70 | `topic`&nbsp;177 |
-| only where the branch holds more than this one concept | 992 | 101 | 96.9% | 11 of 70 | `source`&nbsp;119 |
+| every match | 1,626 | 148 | 98.1% | 20 of 70 | `topic`&nbsp;177 |
+| only where the branch holds more than this one concept | 1,010 | 102 | 96.9% | 11 of 70 | `source`&nbsp;124 |
 
 ### What the branch refused
 
@@ -60,7 +60,7 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | `topics` | 96 | `PragmaticUnit` |
 | `subject` | 55 | `PragmaticUnit` |
 | `themes` | 30 | `PragmaticUnit` |
-| `cited` | 25 | `Referentiality` |
+| `cited` | 27 | `Referentiality` |
 | `head` | 25 | `SyntacticRole` |
 | `subjects` | 23 | `PragmaticUnit` |
 | `identifier` | 18 | `DiscourseEntity` |
@@ -70,9 +70,9 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | `control` | 10 | `MovementFeature` |
 | `letter` | 9 | `Character` |
 | `list` | 8 | `Conjunction` |
+| `space` | 8 | `GraphicalSeparator` |
 | `cites` | 7 | `Referentiality` |
 | `definition` | 7 | `Assessment` |
 | `person` | 7 | `AnimateEntity` |
 | `cite` | 5 | `Referentiality` |
 | `citing` | 5 | `Referentiality` |
-| `identifiers` | 5 | `DiscourseEntity` |
