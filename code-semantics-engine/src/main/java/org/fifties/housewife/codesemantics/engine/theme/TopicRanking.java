@@ -10,7 +10,9 @@ import java.util.Objects;
  * hold high intensity because one ambiguous word appears everywhere, or lead on lines because it happens to
  * dominate the three largest files.
  *
- * @param intensity       the topic's share of the repository's topical mass, ι, bounded at 1
+ * @param intensity       the topic's share of everything the reading observed, ι, bounded at 1 — the
+ *                        mass no topic was settled on is in that denominator, so the intensities of
+ *                        every topic sum to less than 1 by exactly that share
  * @param references      word occurrences that committed mass to it
  * @param files           files any of whose words did
  * @param dominantFiles   files where it leads every other topic

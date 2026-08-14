@@ -15,9 +15,10 @@ import java.util.stream.Collectors;
  * asks the other question — of what this subject is about, how much is this repository also about — and a
  * narrow subject is not punished for being narrow, only for being elsewhere.
  *
- * <p>It decomposes per topic exactly as the divergence does, and it is bounded by its own definition: each
- * intensity's shares sum to 1, so the shared part cannot exceed 1 and reaches it only where the two are the
- * same distribution. Reported as {@code 1 - shared} so that it runs the way every other comparison here
+ * <p>It decomposes per topic exactly as the divergence does, and it is bounded by its own definition: taken
+ * among what each side placed, both sets of shares sum to 1, so the shared part cannot exceed 1 and reaches
+ * it only where the two are the same distribution. What no topic took is left out for the reason
+ * {@link JensenShannon} leaves it out — a subject cannot be agreed on with a reading that named none. Reported as {@code 1 - shared} so that it runs the way every other comparison here
  * runs, smaller being nearer; that complement is the total variation distance, which is where the bound
  * comes from and not a normalisation chosen to produce one.
  */
@@ -35,16 +36,20 @@ public final class SharedMass implements TopicComparison {
 
     /** The mass both put in the same topics. */
     public double sharedBy(final TopicDistribution scope, final TopicDistribution subject) {
-        return TopicDistribution.support(scope, subject).stream()
-                .mapToDouble(topic -> massOf(topic, scope, subject))
+        final TopicDistribution placed = scope.amongWhatWasPlaced();
+        final TopicDistribution against = subject.amongWhatWasPlaced();
+        return TopicDistribution.support(placed, against).stream()
+                .mapToDouble(topic -> massOf(topic, placed, against))
                 .sum();
     }
 
     /** Which topics the agreement is made of, largest first — the reading behind the number. */
     public List<Shared> contributions(final TopicDistribution scope, final TopicDistribution subject) {
-        return TopicDistribution.support(scope, subject).stream()
-                .map(topic -> new Shared(topic, massOf(topic, scope, subject), scope.shareOf(topic),
-                        subject.shareOf(topic)))
+        final TopicDistribution placed = scope.amongWhatWasPlaced();
+        final TopicDistribution against = subject.amongWhatWasPlaced();
+        return TopicDistribution.support(placed, against).stream()
+                .map(topic -> new Shared(topic, massOf(topic, placed, against), placed.shareOf(topic),
+                        against.shareOf(topic)))
                 .filter(shared -> shared.mass() > 0.0)
                 .sorted(Comparator.comparingDouble(Shared::mass).reversed().thenComparing(Shared::topic))
                 .toList();

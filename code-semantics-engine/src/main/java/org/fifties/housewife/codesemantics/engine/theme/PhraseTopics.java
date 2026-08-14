@@ -48,7 +48,7 @@ public final class PhraseTopics {
 
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
-        this(citations, commitment, coverage, new TopicDistribution(Map.of()), Set.of());
+        this(citations, commitment, coverage, TopicDistribution.NOTHING, Set.of());
     }
 
     private PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,

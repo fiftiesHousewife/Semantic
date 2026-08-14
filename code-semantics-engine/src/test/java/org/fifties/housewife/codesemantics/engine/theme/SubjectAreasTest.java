@@ -27,6 +27,10 @@ class SubjectAreasTest {
                 () -> assertThat(read.group()).isEqualTo("grp_cs"),
                 () -> assertThat(read.distribution().isEmpty()).isFalse(),
                 () -> assertThat(read.distribution().shareByTopic().values().stream()
+                        .mapToDouble(Double::doubleValue).sum() + read.distribution().unplaced())
+                        .as("a description is read over everything it wrote, placed or not")
+                        .isCloseTo(1.0, org.assertj.core.data.Offset.offset(1e-9)),
+                () -> assertThat(read.distribution().amongWhatWasPlaced().shareByTopic().values().stream()
                         .mapToDouble(Double::doubleValue).sum()).isCloseTo(1.0, org.assertj.core.data
                         .Offset.offset(1e-9)));
     }

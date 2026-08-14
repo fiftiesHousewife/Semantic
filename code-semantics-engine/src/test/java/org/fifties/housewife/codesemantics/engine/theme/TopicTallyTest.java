@@ -110,6 +110,29 @@ class TopicTallyTest {
     }
 
     @Test
+    void keepsTheWholeOfAPhraseNothingCouldPlace() {
+        add("qzxfgh", 2);
+
+        assertThat(tally.reading(SITE, 10).unplacedMass())
+                .as("a name is worth one unit whether or not anything could read it")
+                .isCloseTo(1.0, offset(1e-12));
+    }
+
+    @Test
+    void keepsWhatAPhraseCouldNotSettleOnASubject() {
+        add("cursor", 1);
+
+        final FileTopics file = tally.reading(SITE, 10);
+
+        assertAll(
+                () -> assertThat(file.unplacedMass())
+                        .as("two subjects at even odds settle half a unit, and the other half is not a vote")
+                        .isCloseTo(0.5, offset(1e-12)),
+                () -> assertThat(file.distribution().unplaced()).isCloseTo(0.5, offset(1e-12)),
+                () -> assertThat(file.distribution().shareOf("computing")).isCloseTo(0.25, offset(1e-12)));
+    }
+
+    @Test
     void recordsTheWordAndTheSiteBehindEveryTopicItRead() {
         add("word", 7);
 

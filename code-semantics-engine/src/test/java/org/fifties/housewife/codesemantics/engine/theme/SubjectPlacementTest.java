@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class SubjectPlacementTest {
 
     private static final TopicDistribution SCOPE =
-            new TopicDistribution(Map.of("linguistics", 0.7, "computing", 0.3));
+            new TopicDistribution(Map.of("linguistics", 0.7, "computing", 0.3), 0.0);
 
     private static final SubjectTopics NEAR = new SubjectTopics("cs.CL", "Computation and Language",
-            "grp_cs", new TopicDistribution(Map.of("linguistics", 0.6, "computing", 0.4)), 1);
+            "grp_cs", new TopicDistribution(Map.of("linguistics", 0.6, "computing", 0.4), 0.0), 1);
 
     private static final SubjectTopics FAR = new SubjectTopics("astro-ph", "Astrophysics", "grp_physics",
-            new TopicDistribution(Map.of("astronomy", 1.0)), 1);
+            new TopicDistribution(Map.of("astronomy", 1.0), 0.0), 1);
 
     private final SubjectPlacement placement = SubjectPlacement.byDivergence();
 

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ThemeReportTest {
 
     private static final FileTopics FILE = new FileTopics("engine/src/main/java/Reading.java", 120,
-            Map.of("linguistics", 9.0, "music", 1.0), Map.of("linguistics", 9.0, "music", 0.5),
+            Map.of("linguistics", 9.0, "music", 1.0), 4.0, Map.of("linguistics", 9.0, "music", 0.5),
             Map.of("linguistics", 90, "music", 10), 4, 104);
 
     private final TopicWitnesses witnesses = new TopicWitnesses();
@@ -79,12 +79,21 @@ class ThemeReportTest {
 
         assertAll(
                 () -> assertThat(report)
-                        .contains("| `linguistics` | 0.9000 | 100.0% | 90 | 1 | 120 | 100.0% |"),
+                        .as("nine units of fourteen observed, and not nine of the ten a topic took")
+                        .contains("| `linguistics` | 0.6429 | 100.0% | 90 | 1 | 120 | 100.0% |"),
                 () -> assertThat(report).contains("`word`&nbsp;1"),
                 () -> assertThat(report)
                         .as("and the scope table still shows what music did there, under the topic that "
                                 + "earned the ranking — a topic refused a place is not a topic hidden")
                         .contains("| 20.0% | `music` |"));
+    }
+
+    @Test
+    void saysWhichDenominatorTheComparisonColumnsAreOut() {
+        assertThat(new ThemeReport().render(themes(beatingChance())))
+                .as("one document carrying two denominators has to say which is which")
+                .contains("shares of the mass a topic was settled on, where ι above is a share of "
+                        + "everything that was observed");
     }
 
     @Test
@@ -113,5 +122,19 @@ class ThemeReportTest {
         assertAll(
                 () -> assertThat(report).contains("Read, compared and resampled in 2.5 s"),
                 () -> assertThat(report).contains("0 files no topic could be resolved for"));
+    }
+
+    @Test
+    void saysWhatShareOfWhatItReadNoTopicWasSettledOn() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertAll(
+                () -> assertThat(report)
+                        .as("a reader cannot judge a share of 0.6429 without the denominator it is out of")
+                        .contains("the topics sum to 71.4% of it")
+                        .contains("the other 28.6%"),
+                () -> assertThat(report)
+                        .as("the old claim was that ι summed to one, which it does not and did not")
+                        .doesNotContain("sums to 1 across every topic"));
     }
 }

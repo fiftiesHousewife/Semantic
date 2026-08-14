@@ -106,7 +106,13 @@ votes. `StatedTopics` folds each derived label into the label it came from, usin
 hierarchy that produced it.
 
 **7. Mass is pooled per scope.** The result is a distribution over subjects for each scope and for the
-repository as a whole, reported with λ, the share of word occurrences any resource could be cited for.
+repository as a whole, taken over **everything the reading observed and not over what it managed to place**.
+A phrase no resource could place keeps its whole unit, and a phrase whose words named so many subjects that
+none of them was settled keeps whatever they could not settle; both stay in the denominator, so a file the
+reading barely read cannot produce the same shares as a file it read entirely. Two figures are reported with
+it and they count different things: λ, the share of word occurrences any resource could be cited for at all,
+and the share of the observed mass no subject was settled on. A word can be perfectly legible and settle
+nothing.
 
 **8. Nothing is reported until it beats chance.** A scope's distribution is compared against the whole
 repository's by Jensen–Shannon divergence, and that divergence against 999 seeded resamples of a scope the

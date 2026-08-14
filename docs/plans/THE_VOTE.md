@@ -99,15 +99,15 @@ figures are what it costs.
 cause B is a scale defect, cause C is missing coverage in a resource. A constant tuned against any of them
 would be compensating for all three at once, which is the argument for stage 4 being last.
 
-### Defect 2 — there is no abstention mass in the topical reading
+### Defect 2 — there is no abstention mass in the topical reading. Fixed in stage 1 below
 
-`TopicDistribution.of` divides each topic's mass by the total mass **that was voted**. A word no resource can
+`TopicDistribution.of` divided each topic's mass by the total mass **that was voted**. A word no resource can
 label contributes nothing and silently shrinks the denominator, so a file whose words are half unreadable
 produces shares indistinguishable from a file whose words were all read. The doctrine's own rule — *a signal
 that cannot speak must abstain, **not vote zero***, and *what nothing could read sits in the denominator* —
-is enforced by `OpenSpaceAccumulator`, which exists for precisely this and is used **only to pick a file's
+is enforced by `OpenSpaceAccumulator`, which exists for precisely this and was used **only to pick a file's
 dominant topic**. The distribution every divergence, every placement and every summary line is computed from
-does not use it.
+did not use it, and now does.
 
 The consequence compounds with defect 1: an unlabelled word is not merely absent, it inflates every label
 that did fire, and the labels that fire most are Wiktionary's undiscounted ones.
@@ -177,10 +177,36 @@ places was counting one fact twice. And the doctrinal question below has effecti
 here was (c). Either the recommendation or the code should move, and which one is stage 2's first decision
 rather than something to settle in passing.
 
-**Stage 1 — abstention mass into the distribution.** `TopicDistribution` gains an abstention share; the
-open-space accumulator's partition becomes the one the topical reading runs on. Ships when every share in
-the report has a denominator that includes what nothing could read, and when λ and ι can be read on one page
-without a caveat explaining why they disagree.
+**Stage 1 — abstention mass into the distribution. Landed.** `TopicDistribution` carries the share of what
+was observed that no topic took, and the open-space partition is now the one the whole topical reading runs
+on rather than the one the dominant topic alone ran on.
+
+The rule is one line and derives from what a phrase is already worth: **an observation is worth what its form
+is worth however it reads, so what the resources could not settle on a subject is what is left of it.** A
+phrase nothing could place keeps its whole unit; a phrase read at coherence *c* and credence *k* keeps
+`worth × (1 − ck)`. Nothing new is weighted, and no choice was made about which of the three discounts counts
+— they all do, because they all describe mass that was written and not placed.
+
+Two consequences neither planned nor unwelcome. `FileTopics.dominant` was passing the **count** of unreadable
+phrases as its abstention where the votes beside it were masses, so a prose sentence and a declared name
+abstained equally though they commit 1:2; it now passes the mass. And a scope's intensity is the mean of its
+files' distributions, so a file the reading barely placed anything in now weighs proportionally less in its
+scope's topical profile — which is the same defect this stage fixes, one level up.
+
+What it moved, on this tree: ι fell by a factor of about four and a half — `linguistics` 0.1991 → 0.0468 —
+because **77.9% of the observed mass is settled on no subject**, against λ = 0.978. Almost every word is
+citable and almost none of them settles anything, which is the disagreement the two figures existed to
+expose and which no single number could have stated. The qualified topics did not change, and the placement
+still stands apart from chance.
+
+**What stage 1 did not do, and the measurement that would settle it.** A divergence still compares the two
+readings *among what each placed*. Putting the unplaced share into the comparison is defensible — a scope
+nothing could be read in really is unlike one that was read — but it would make illegibility answer the
+question "which topics account for the departure", and it would break every comparison against a reading that
+states no unplaced mass of its own: a single word's own reading, and ordinary English. The measurement that
+would settle it is to run both and compare the qualified topics against the panel, where a scope's legibility
+and its subject are independent; on this tree they are not, because the least legible scope is the
+documentation and the documentation is where the subject is stated.
 
 **Stage 2 — one unit per resource.** Remove the structural discount from WordNet and carry it as abstention
 instead; settle the doctrinal question above for Wiktionary and apply whichever reading was chosen.

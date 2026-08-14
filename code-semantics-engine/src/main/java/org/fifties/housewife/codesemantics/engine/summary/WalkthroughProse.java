@@ -39,7 +39,12 @@ final class WalkthroughProse {
     static final String POOLED = "One declared name is one unit of evidence and one sentence of prose is "
             + "another, whatever their length, so a long sentence cannot outweigh a short name by containing "
             + "more words. The result is a distribution over subjects for each scope and for the repository "
-            + "as a whole. The chart draws the topics that earned a place: the inner ring is the topic "
+            + "as a whole, taken over everything that was observed rather than over what was placed: a "
+            + "phrase no resource could place keeps its whole unit, and a phrase whose words named so many "
+            + "subjects that none of them was settled keeps whatever they could not settle. Both stay in "
+            + "the denominator, because a reading that divided only by what it managed to place would report "
+            + "the same shares for a file it read and a file it did not. The chart draws the topics that "
+            + "earned a place: the inner ring is the topic "
             + "resource's own hierarchy, the outer ring the labels the reading resolved, and a wedge is the "
             + "share of the divergence that topic accounts for rather than how often it was written.";
 

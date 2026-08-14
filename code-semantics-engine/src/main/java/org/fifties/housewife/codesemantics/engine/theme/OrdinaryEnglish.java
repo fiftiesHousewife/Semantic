@@ -46,6 +46,6 @@ public final class OrdinaryEnglish {
         final Map<String, Double> massByTopic = new HashMap<>();
         ranks.words().forEach(word -> citations.of(word)
                 .forEach(vote -> massByTopic.merge(vote.topic(), vote.mass(), Double::sum)));
-        return TopicDistribution.of(massByTopic);
+        return TopicDistribution.ofCitedMass(massByTopic);
     }
 }

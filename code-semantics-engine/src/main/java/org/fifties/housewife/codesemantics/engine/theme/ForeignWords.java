@@ -73,7 +73,7 @@ public final class ForeignWords {
 
     private ForeignWord foreign(final String word, final WordSightings sightings,
                                 final TopicDistribution repository) {
-        final TopicDistribution own = TopicDistribution.of(massOf(word));
+        final TopicDistribution own = TopicDistribution.ofCitedMass(massOf(word));
         return new ForeignWord(word, own.isEmpty() ? 0.0 : divergence.divergence(own, repository),
                 sightings.occurrencesOf(word), leading(own), sightings.siteOf(word));
     }

@@ -14,7 +14,7 @@ class JensenShannonTest {
     private final JensenShannon divergence = new JensenShannon();
 
     private static TopicDistribution distribution(final Map<String, Double> mass) {
-        return TopicDistribution.of(mass);
+        return TopicDistribution.ofCitedMass(mass);
     }
 
     @Test
@@ -90,6 +90,32 @@ class JensenShannonTest {
                 () -> assertThat(divergence.contributions(scope, reference))
                         .filteredOn(contribution -> "music".equals(contribution.topic()))
                         .allSatisfy(contribution -> assertThat(contribution.concentratedInScope()).isFalse()));
+    }
+
+    @Test
+    void readsNoDistanceBetweenTwoScopesThatDifferOnlyInHowMuchTheyCouldPlace() {
+        final TopicDistribution read = TopicDistribution.of(Map.of("linguistics", 3.0, "music", 1.0), 0.0);
+        final TopicDistribution barelyRead =
+                TopicDistribution.of(Map.of("linguistics", 3.0, "music", 1.0), 36.0);
+
+        assertAll(
+                () -> assertThat(divergence.divergence(read, barelyRead))
+                        .as("how much of a scope nobody could read is not a subject the other is far from")
+                        .isCloseTo(0.0, offset(1e-12)),
+                () -> assertThat(divergence.contributions(barelyRead, read))
+                        .allSatisfy(contribution ->
+                                assertThat(contribution.bits()).isCloseTo(0.0, offset(1e-12))));
+    }
+
+    @Test
+    void comparesSharesOfWhatEachSidePlacedRatherThanOfWhatItObserved() {
+        final TopicDistribution scope = TopicDistribution.of(Map.of("linguistics", 3.0, "music", 1.0), 4.0);
+        final TopicDistribution reference = distribution(Map.of("linguistics", 1.0, "music", 1.0));
+
+        assertThat(divergence.contributions(scope, reference))
+                .filteredOn(contribution -> "linguistics".equals(contribution.topic()))
+                .singleElement()
+                .satisfies(contribution -> assertThat(contribution.scopeShare()).isEqualTo(0.75));
     }
 
     @Test

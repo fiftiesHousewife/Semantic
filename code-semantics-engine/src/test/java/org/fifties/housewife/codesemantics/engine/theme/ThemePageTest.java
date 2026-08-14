@@ -19,7 +19,7 @@ class ThemePageTest {
         final ThemeGraph.Witness witness = new ThemeGraph.Witness("cite", 3, 1.5,
                 List.of("Wiktionary topics"),
                 List.of(new ThemeGraph.Quotation("citation source", site)));
-        return new ThemeGraph("tree", 1, 40, 2, 120L, "links that open the file in your editor",
+        return new ThemeGraph("tree", 1, 40, 2, 0.78, 120L, "links that open the file in your editor",
                 List.of(new ThemeGraph.Node("computing", 0.08, 0.05, 0.9, 12, 1, 1, 40, 0.4, 2, "sciences",
                         List.of(witness))),
                 List.of(),
@@ -58,6 +58,9 @@ class ThemePageTest {
                 () -> assertThat(page).contains("computing"),
                 () -> assertThat(page).contains("stands outside its own null"),
                 () -> assertThat(page).contains("<svg id=\"sunburst\""),
+                () -> assertThat(page)
+                        .as("a share of 0.08 means nothing without the denominator it was taken over")
+                        .contains("78.0%"),
                 () -> assertThat(page)
                         .as("the ring closes over what earned a place, so no wedge is the leftovers")
                         .doesNotContain("every other topic"),

@@ -34,8 +34,17 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
 
     /* A scope names only topics the whole reading qualified, so one table cannot contradict the other. */
 
-    /** How much of the repository any resource could be cited for, which is the denominator for the rest. */
-    public record Legibility(double lambda, int words, int files, double proseShare) {
+    /**
+     * The two denominators, stated together because they are read together and count different things.
+     *
+     * <p>λ is lexical: the share of word occurrences some bundled resource can be cited for at all. The
+     * unplaced share is topical: of the mass the reading then observed, how much no subject was settled on —
+     * a phrase nothing could place, and the part of a phrase whose words named so many subjects that none of
+     * them was settled. A word can be perfectly legible and settle nothing, so λ is high where the unplaced
+     * share is high, and a reader given one figure without the other will read the second as a failure of
+     * the first.
+     */
+    public record Legibility(double lambda, int words, int files, double proseShare, double unplaced) {
     }
 
     /** The nearest published subject, and the nearest a taxonomy of chance offered. */
@@ -76,14 +85,15 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                                 .filter(about::contains).toList()))
                 .filter(scope -> !scope.topics().isEmpty())
                 .toList();
-        return new ReadingSummary(repository, legibilityOf(legibility.repository()),
+        return new ReadingSummary(repository,
+                legibilityOf(legibility.repository(), themes.repository().intensity().unplaced()),
                 fieldOf(field, chance), distinctive, about,
                 withheldFrom(themes, qualified));
     }
 
-    private static Legibility legibilityOf(final ScopeLegibility scope) {
+    private static Legibility legibilityOf(final ScopeLegibility scope, final double unplaced) {
         return new Legibility(scope.counts().legibility(), scope.counts().words(), scope.files(),
-                scope.counts().proseShare());
+                scope.counts().proseShare(), unplaced);
     }
 
     private static Field fieldOf(final List<Placement> field, final SubjectNull.Chance chance) {

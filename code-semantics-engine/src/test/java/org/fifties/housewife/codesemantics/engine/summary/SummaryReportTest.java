@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class SummaryReportTest {
 
     private final String rendered = new SummaryReport().render(new ReadingSummary("CodeSemantics",
-            new Legibility(0.979, 54_839, 300, 0.724),
+            new Legibility(0.979, 54_839, 300, 0.724, 0.952),
             new Field("cs Computer Science", 0.2504, 0.3423, "nlin Nonlinear Sciences", 0.3810),
             List.of(new Distinctive("lexicon/src/main/java", 0.1751, List.of("networking", "geology")),
                     new Distinctive("engine/src/main/java", 0.0628, List.of("semantics", "grammar"))),
@@ -27,6 +27,13 @@ class SummaryReportTest {
     }
 
     @Test
+    void statesTheOtherDenominatorBesideIt() {
+        assertThat(rendered)
+                .as("a reader meets λ and ι on one page and has to be told they count different things")
+                .contains("95.2% of it was settled on no subject");
+    }
+
+    @Test
     void placesTheRepositoryAgainstItsFieldWithTheBarItHadToBeat() {
         assertThat(rendered).contains("**cs Computer Science**, 0.2504 bits away",
                 "chance placed its nearest subject at 0.3423", "stands apart from chance",
@@ -36,7 +43,7 @@ class SummaryReportTest {
     @Test
     void saysAPlacementDoesNotStandApartWhereItDidNot() {
         final String weak = new SummaryReport().render(new ReadingSummary("R",
-                new Legibility(0.9, 10, 1, 0.5),
+                new Legibility(0.9, 10, 1, 0.5, 0.5),
                 new Field("cs", 0.40, 0.30, "math", 0.42), List.of(), List.of(), List.of()));
 
         assertThat(weak).contains("does **not** stand apart from chance");

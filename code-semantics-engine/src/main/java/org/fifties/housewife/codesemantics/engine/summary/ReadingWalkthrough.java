@@ -50,7 +50,8 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
                 new Step("Each vote is weighted", WalkthroughProse.WEIGHTED,
                         Optional.empty(), Optional.empty(), List.of()),
                 new Step("The votes are pooled into a distribution", WalkthroughProse.POOLED,
-                        Optional.of("This repository reads as %s.".formatted(named(summary.about()))),
+                        Optional.of("This repository reads as %s. %s".formatted(named(summary.about()),
+                                unplaced(read))),
                         Optional.of(CHART), index.named("themes-chart.html", "themes.html")),
                 new Step("Each scope is compared against the whole", WalkthroughProse.COMPARED,
                         Optional.of(distinctive(summary)), Optional.empty(),
@@ -70,6 +71,15 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
         return "λ = %.3f. At least one bundled resource can be cited for that share of %,d word occurrences, "
                 .formatted(read.lambda(), read.words())
                 + "%.0f%% of which are prose rather than declared names.".formatted(100.0 * read.proseShare());
+    }
+
+    /**
+     * The share of what was observed that no subject took, said in the step that produces the distribution
+     * rather than left for a reader to infer from shares that do not add up.
+     */
+    private static String unplaced(final ReadingSummary.Legibility read) {
+        return ("%.1f%% of the mass this step observed was settled on no subject at all, and stays in the "
+                + "denominator of every share below.").formatted(100.0 * read.unplaced());
     }
 
     private static String placement(final ReadingSummary.Field field) {

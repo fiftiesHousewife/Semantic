@@ -57,6 +57,7 @@ final class ThemePage {
         return dl(sections.figure("Files read", ThemeTables.count(graph.files())),
                 sections.figure("Lines", ThemeTables.count(graph.lines())),
                 sections.figure("Themes found", ThemeTables.count(graph.topics())),
+                sections.figure("Settled on no subject", ThemeTables.percentage(graph.unplaced())),
                 sections.figure("Scopes compared", ThemeTables.count(graph.scopes().size())),
                 sections.figure("Cost", String.format(Locale.ROOT, "%.1f s",
                         graph.elapsedMillis() / 1000.0)))

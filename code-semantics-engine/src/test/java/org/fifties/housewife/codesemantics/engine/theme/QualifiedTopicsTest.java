@@ -14,7 +14,7 @@ class QualifiedTopicsTest {
 
     private final TopicWitnesses witnesses = new TopicWitnesses();
 
-    private static final TopicDistribution INTENSITY = TopicDistribution.of(
+    private static final TopicDistribution INTENSITY = TopicDistribution.ofCitedMass(
             java.util.Map.of("grammar", 0.5, "geology", 0.3, "music", 0.2));
 
     private final QualifiedTopics topics = new QualifiedTopics(witnesses);

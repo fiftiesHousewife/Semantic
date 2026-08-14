@@ -39,6 +39,7 @@ public final class TopicTally {
     private final Map<String, Double> nameMassByTopic = new HashMap<>();
     private final Map<String, Integer> referencesByTopic = new HashMap<>();
 
+    private double unplacedMass;
     private int unreadableOccurrences;
     private int phraseOccurrences;
 
@@ -58,7 +59,7 @@ public final class TopicTally {
     }
 
     public FileTopics reading(final String path, final int lines) {
-        return new FileTopics(path, lines, massByTopic, nameMassByTopic, referencesByTopic,
+        return new FileTopics(path, lines, massByTopic, unplacedMass, nameMassByTopic, referencesByTopic,
                 unreadableOccurrences, phraseOccurrences);
     }
 
@@ -66,9 +67,13 @@ public final class TopicTally {
      * One phrase, read as a whole. Its words are offered in their dictionary form, weighed against each other
      * for what they agree about, and the phrase commits a single unit of mass however many words it took to
      * say it — scaled by what its form is worth, by how far its words settled on one subject, and by how
-     * much of those words the resources spoke for at all. A phrase nothing could place is counted as
-     * unreadable,
-     * which is what keeps a file of unread names from resolving confidently to whatever little was read.
+     * much of those words the resources spoke for at all.
+     *
+     * <p>Whatever those three scalings take off the unit is kept, rather than dropped: a phrase is worth what
+     * its form is worth however it reads, so what the resources could not settle on a subject is exactly what
+     * is left of it. A phrase nothing could place at all keeps the whole of its form's worth and is counted
+     * as unreadable besides. That total is what keeps a file of unread names from reading as confidently
+     * about the little that was read as a file every name of which the resources spoke for.
      */
     private void read(final List<String> phrase, final NameForm form, final String site) {
         final List<String> lemmas = phrase.stream()
@@ -80,12 +85,15 @@ public final class TopicTally {
         }
         phraseOccurrences++;
         lemmas.forEach(lemma -> sightings.saw(lemma, site, form.isChosenName()));
+        final double worth = offered.formWorth(form);
         final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas), form);
         if (reading.isEmpty()) {
             unreadableOccurrences++;
+            unplacedMass += worth;
             return;
         }
-        final double unit = offered.formWorth(form) * reading.coherence() * reading.credence();
+        final double unit = worth * reading.coherence() * reading.credence();
+        unplacedMass += worth - unit;
         reading.shareByTopic().forEach((topic, share) -> {
             final double said = unit * share;
             massByTopic.merge(topic, said, Double::sum);

@@ -41,7 +41,10 @@ final class PageProse {
     static final String RANKING_HEADING = "Which themes dominate";
 
     static final String RANKING = "Three different questions, three different answers, and their "
-            + "disagreement is the reading. ι is the theme's share of the tree's topical mass. References "
+            + "disagreement is the reading. ι is the theme's share of everything the reading observed, "
+            + "which includes the mass no topic was settled on — so the column sums to well under "
+            + "one, and how far under is the reading's own account of what it could not place. "
+            + "References "
             + "counts word occurrences. Lines led counts only the files where the theme beats every other, "
             + "which is the measure closest to \"how much of this codebase is that\".";
 

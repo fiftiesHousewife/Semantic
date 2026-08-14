@@ -17,7 +17,7 @@ class SubjectNullTest {
             "Covers natural language processing, computational linguistics and speech.");
 
     private static final TopicDistribution SCOPE =
-            new TopicDistribution(Map.of("linguistics", 0.7, "computing", 0.3));
+            new TopicDistribution(Map.of("linguistics", 0.7, "computing", 0.3), 0.0);
 
     private static final int DRAWS = 40;
 

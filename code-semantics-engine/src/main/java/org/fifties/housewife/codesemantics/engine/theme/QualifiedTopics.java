@@ -54,18 +54,23 @@ public final class QualifiedTopics {
 
 
     public QualifiedTopics(final TopicWitnesses witnesses) {
-        this(witnesses, new TopicDistribution(java.util.Map.of()));
+        this(witnesses, TopicDistribution.NOTHING);
     }
 
     public QualifiedTopics(final TopicWitnesses witnesses, final TopicDistribution ordinaryEnglish) {
-        this(witnesses, ordinaryEnglish, new TopicDistribution(java.util.Map.of()));
+        this(witnesses, ordinaryEnglish, TopicDistribution.NOTHING);
     }
 
+    /**
+     * Every reading here is held among what it placed, because every bar below is a comparison. A reading
+     * also states the share of itself no topic took, and two readings that could not place equal shares of
+     * themselves would otherwise fail these bars for a reason that is not about any subject.
+     */
     public QualifiedTopics(final TopicWitnesses witnesses, final TopicDistribution ordinaryEnglish,
                            final TopicDistribution field) {
         this.witnesses = witnesses;
-        this.ordinaryEnglish = ordinaryEnglish;
-        this.field = field;
+        this.ordinaryEnglish = ordinaryEnglish.amongWhatWasPlaced();
+        this.field = field.amongWhatWasPlaced();
     }
 
     /**
@@ -155,12 +160,12 @@ public final class QualifiedTopics {
      */
     /** A topic that distinguishes this repository from ordinary English, where a reference is available. */
     private java.util.function.Predicate<String> unlikeEnglish(final TopicDistribution repository) {
-        this.repository = repository;
+        this.repository = repository.amongWhatWasPlaced();
         final Set<String> distinguishing = distinguishingFromOrdinaryEnglish(repository);
         return topic -> ordinaryEnglish.isEmpty() || distinguishing.contains(topic);
     }
 
-    private TopicDistribution repository = new TopicDistribution(java.util.Map.of());
+    private TopicDistribution repository = TopicDistribution.NOTHING;
 
     private double scopeShareOf(final String topic) {
         return repository.shareOf(topic);

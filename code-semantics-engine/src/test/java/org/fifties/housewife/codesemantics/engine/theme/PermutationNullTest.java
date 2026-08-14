@@ -20,7 +20,7 @@ class PermutationNullTest {
     private final JensenShannon divergence = new JensenShannon();
 
     private static TopicDistribution of(final String topic) {
-        return TopicDistribution.of(Map.of(topic, 1.0));
+        return TopicDistribution.ofCitedMass(Map.of(topic, 1.0));
     }
 
     /** A pool of files two thirds about one subject and one third about another. */

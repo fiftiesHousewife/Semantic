@@ -30,8 +30,14 @@ public final class SummaryReport {
         return String.format("%n## How much of it could be read%n%n"
                         + "**λ = %.3f** — a bundled resource can be cited for that share of %,d word "
                         + "occurrences across %,d files, %.0f%% of them prose. It is the denominator "
-                        + "everything else rests on, not a finding.%n",
-                read.lambda(), read.words(), read.files(), 100.0 * read.proseShare());
+                        + "everything else rests on, not a finding.%n%n"
+                        + "Of the mass the topical reading then observed, **%.1f%% of it was settled on no "
+                        + "subject**: a phrase nothing could place, or one whose words named so many "
+                        + "subjects that none of them was settled. That share is in the denominator of "
+                        + "every ι reported anywhere, so a topic's intensity is a share of everything "
+                        + "written and not of the little that resolved.%n",
+                read.lambda(), read.words(), read.files(), 100.0 * read.proseShare(),
+                100.0 * read.unplaced());
     }
 
     private static String field(final ReadingSummary summary) {

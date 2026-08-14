@@ -46,7 +46,9 @@ it, times the share of the name that agrees. Every weight is read off a publishe
 
 **5. The votes are pooled.** `TopicDistribution` accumulates one unit of evidence per phrase — one declared
 name, or one sentence of prose at half the weight — into a distribution over subjects for each scope and for
-the repository as a whole. `PooledLogOdds` and `AxisEvidenceAccumulator` do the arithmetic for a closed set
+the repository as a whole, over everything observed rather than over what was placed: what a phrase's words
+could not settle on a subject stays in the denominator, so a share says how much of what was written it is
+and not how much of what happened to resolve. `PooledLogOdds` and `AxisEvidenceAccumulator` do the arithmetic for a closed set
 of values, `OpenSpaceAccumulator` for an open one. `LegibilityReading` reports λ, the share of word
 occurrences any resource could be cited for, which is the denominator the rest rests on.
 
@@ -90,7 +92,7 @@ below are blocked on it and say so.
 |---|---|--:|---|---|
 | **NEXT** | [The backtest](docs/plans/THE_PANEL.md) | all | Naming the members. The machinery, the manifest and `panelRead` have landed; the table of every vocabulary against every repository needs members before it has anything to put in a cell | naming the members |
 | **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel | nothing |
-| HIGH | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Stages A and 0 have landed and the off-by-one they were to check does not exist. What is left: a share whose denominator excludes the words nothing could read, and votes summed where this library says they are pooled. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c) | nothing |
+| **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 77.9% of this tree's observed mass is settled on no subject against λ = 0.978. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves | nothing |
 | HIGH | [The run at computational linguistics](docs/plans/COMPUTATIONAL_LINGUISTICS.md) | 7 | Whether the reading places this repository in its own field on strong evidence with nothing hard-coded. Ten attempts at most, each recorded | — |
 | HIGH | [What a repository depends on](docs/plans/DEPENDENCIES_AS_DOMAIN.md) | 1 | A coordinate denotes one artefact and needs no disambiguation; `ImportOrigins` already sorts them and nothing reads them as evidence | — |
 | HIGH | [Read a repository against its industry's vocabulary](docs/plans/INDUSTRY_VOCABULARIES.md) | 8 | FIBO is bundled — 1,833 concepts, 89% of its labels more than one word. What is left is the arm that decides: running it on a repository it should say nothing about | the panel |
@@ -112,6 +114,11 @@ below are blocked on it and say so.
 Kept short on purpose — the reports under [`output/`](output) carry the figures, and the README carries the
 argument. This is only what has left the queue.
 
+- **A share's denominator now holds what nothing could place.** Every ι is a share of everything the reading
+  observed, the dominant-topic reading and the distribution run on one partition, and the summary states the
+  two denominators together: λ = 0.978 of word occurrences are citable, and 77.9% of the observed mass is
+  settled on no subject. A comparison still runs over what each side placed, and the plan says what would
+  settle whether it should.
 - **One document that traces the analysis.** `output/index.html` is now the nine steps above in order, with
   each step's figures and a link to the report holding its whole tail, and the sunburst drawn inside it.
 - **The branch corroboration votes.** Step 8 reports the corroborated reading rather than every match, and

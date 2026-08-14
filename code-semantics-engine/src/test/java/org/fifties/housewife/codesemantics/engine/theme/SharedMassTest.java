@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class SharedMassTest {
 
     private static final TopicDistribution BROAD =
-            new TopicDistribution(Map.of("computing", 0.5, "linguistics", 0.3, "law", 0.2));
+            new TopicDistribution(Map.of("computing", 0.5, "linguistics", 0.3, "law", 0.2), 0.0);
 
     private static final TopicDistribution NARROW =
-            new TopicDistribution(Map.of("linguistics", 1.0));
+            new TopicDistribution(Map.of("linguistics", 1.0), 0.0);
 
     private static final TopicDistribution ELSEWHERE =
-            new TopicDistribution(Map.of("astronomy", 1.0));
+            new TopicDistribution(Map.of("astronomy", 1.0), 0.0);
 
     private final SharedMass mass = new SharedMass();
 
@@ -51,7 +51,7 @@ class SharedMassTest {
     @Test
     void namesTheTopicsTheAgreementIsMadeOfLargestFirst() {
         assertThat(mass.contributions(BROAD, new TopicDistribution(
-                Map.of("computing", 0.4, "linguistics", 0.6))))
+                Map.of("computing", 0.4, "linguistics", 0.6), 0.0)))
                 .extracting(SharedMass.Shared::topic)
                 .containsExactly("computing", "linguistics");
     }

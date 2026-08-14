@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class TopicRankingsTest {
 
     private static final FileTopics BIG = new FileTopics("Big.java", 400,
-            Map.of("linguistics", 9.0, "music", 1.0), Map.of("linguistics", 9.0, "music", 0.5),
+            Map.of("linguistics", 9.0, "music", 1.0), 0.0, Map.of("linguistics", 9.0, "music", 0.5),
             Map.of("linguistics", 90, "music", 10), 0, 100);
 
     private static final FileTopics SMALL = new FileTopics("Small.java", 20,
-            Map.of("music", 5.0), Map.of("music", 2.5), Map.of("music", 5), 0, 5);
+            Map.of("music", 5.0), 0.0, Map.of("music", 2.5), Map.of("music", 5), 0, 5);
 
     private final TopicWitnesses witnesses = new TopicWitnesses();
 

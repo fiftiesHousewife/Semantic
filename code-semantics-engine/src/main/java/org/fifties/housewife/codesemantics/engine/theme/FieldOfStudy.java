@@ -66,7 +66,7 @@ public final class FieldOfStudy {
                 .min(java.util.Comparator.comparingDouble(
                         subject -> comparison.between(repository, subject.distribution())))
                 .map(nearest -> nearerHalfOf(nearest.concept(), repository))
-                .orElseGet(() -> new TopicDistribution(java.util.Map.of()));
+                .orElseGet(() -> TopicDistribution.NOTHING);
     }
 
     /** The mean reading of the subjects under this archive that the repository stands nearer than half. */
@@ -75,7 +75,7 @@ public final class FieldOfStudy {
                 .filter(subject -> archive.equals(subject.broader()))
                 .toList());
         if (under.isEmpty()) {
-            return new TopicDistribution(java.util.Map.of());
+            return TopicDistribution.NOTHING;
         }
         final List<Double> apart = under.stream()
                 .map(subject -> comparison.between(repository, subject.distribution()))

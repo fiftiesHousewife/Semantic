@@ -84,8 +84,9 @@ class ThemeReadingDiagnostic {
         assertAll(
                 () -> assertThat(themes.rankings()).as("a repository of names reads as some subject").isNotEmpty(),
                 () -> assertThat(themes.repository().intensity().shareByTopic().values().stream()
-                        .mapToDouble(Double::doubleValue).sum())
-                        .as("an intensity is a distribution and sums to one")
+                        .mapToDouble(Double::doubleValue).sum()
+                        + themes.repository().intensity().unplaced())
+                        .as("an intensity is a distribution over everything observed, placed or not")
                         .isCloseTo(1.0, offset(1e-9)),
                 () -> assertThat(themes.divergences()).allSatisfy(divergence ->
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),

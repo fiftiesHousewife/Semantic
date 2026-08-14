@@ -19,7 +19,8 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * the loudest artefact first even after the bar removes the worst of them. {@code topicsShown} is a ceiling
  * on a set that is already bounded by the bar rather than the count that decides what is drawn.
  */
-record ThemeGraph(String repository, int files, int lines, int topics, long elapsedMillis, String linkage,
+record ThemeGraph(String repository, int files, int lines, int topics, double unplaced,
+                  long elapsedMillis, String linkage,
                   List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead) {
  
 
@@ -83,7 +84,7 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
                 .toList();
         final List<String> topics = ranked.stream().map(TopicRanking::topic).toList();
         return new ThemeGraph(repository, themes.files().size(), themes.lines(), themes.rankings().size(),
-                themes.elapsed().toMillis(), links.describing(),
+                themes.repository().intensity().unplaced(), themes.elapsed().toMillis(), links.describing(),
                 ranked.stream().map(ranking -> node(ranking, themes, witnessesShown, links, explains))
                         .toList(),
                 new SharedReadings().among(topics, themes.witnesses()).stream()
