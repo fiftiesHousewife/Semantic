@@ -41,7 +41,8 @@ class DocumentationScopeTest {
     }
 
     @Test
-    void refusesTheWorkingNotesBecauseTheyAreWrittenAboutTheReadingRatherThanTheCode() throws IOException {
+    void refusesTheWorkingNotesTheRepositoryItselfStatesAreWorkingNotes() throws IOException {
+        write(".readingignore", "BACKLOG.md\nCLAUDE.md\n");
         write("README.md", "what this is for");
         write("BACKLOG.md", "evidence, votes, witnesses, abstention");
         write("CLAUDE.md", "evidence, votes, witnesses, abstention");
@@ -51,7 +52,28 @@ class DocumentationScopeTest {
     }
 
     @Test
+    void refusesAPlanDocumentFiledUnderTheDocumentationDirectory() throws IOException {
+        write(".readingignore", "docs/plans/**\n");
+        write("docs/CODE_SEMANTICS_LIBRARY_PLAN.md", "what it is for");
+        write("docs/plans/FPML.md", "interest rate swap, foreign exchange");
+        assertThat(read())
+                .as("a specification of a reading not yet built would put its domain into the corpus "
+                        + "and then find it")
+                .containsExactly(Path.of("docs", "CODE_SEMANTICS_LIBRARY_PLAN.md").toString());
+    }
+
+    @Test
+    void readsEverythingWhereARepositoryStatesNothingAboutItself() throws IOException {
+        write("README.md", "what this is for");
+        write("CONTRIBUTING.md", "how to work here");
+        assertThat(read())
+                .as("silence is not permission to guess which of somebody else's files are notes")
+                .containsExactlyInAnyOrder("README.md", "CONTRIBUTING.md");
+    }
+
+    @Test
     void abstainsWhereARepositoryDocumentsNothingButItsOwnWorking() throws IOException {
+        write(".readingignore", "BACKLOG.md\n");
         write("BACKLOG.md", "only notes here");
         assertAll(
                 () -> assertThat(scope.under(root)).isEmpty(),

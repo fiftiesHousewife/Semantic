@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
-import org.fifties.housewife.codesemantics.engine.behaviour.Behaviours;
 
 /**
  * Renders a {@link RepositoryThemes} as markdown, in the order that keeps a reader honest: the ranking a

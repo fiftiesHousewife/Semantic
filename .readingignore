@@ -1,0 +1,25 @@
+# What this repository states is not part of what it is.
+#
+# One glob per line, matched against the path relative to this root. These are notes about how the
+# work is done rather than statements of what the work is for, and reading them is the instrument
+# reading its own notes: the vocabulary of evidence, votes, witnesses and abstention is the reader's
+# own, and every occurrence of it in a plan or a to-do list is mass the reading would award itself.
+#
+# README.md is deliberately absent. It states what this library is for, so it is read — and it also
+# quotes the reading's own figures, which is the self-reference the backlog measures rather than hides.
+
+BACKLOG.md
+CLAUDE.md
+AGENTS.md
+CONTRIBUTING.md
+CHANGELOG.md
+
+# The plan documents. They specify readings that are not built, in the vocabulary of the domains they
+# would read, so leaving them in the corpus would put ForeignExchange and InterestRate into the tree
+# and then find them.
+docs/plans/**
+
+# The glossary. It defines morphology, semantics, lemma and synset for a reader who is not a linguist,
+# and this repository's stated goal is to be placed under computational linguistics by evidence. A
+# glossary of the field written into the corpus would satisfy that goal by construction.
+docs/GLOSSARY.md

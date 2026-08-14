@@ -13,6 +13,10 @@ import java.util.stream.Stream;
  * by the path that found it. Anchoring on that path rather than on a file extension sweep is what keeps
  * generated output and build directories out of the reading without any list of directories to ignore: a
  * source set is where a build declares its sources are, and nothing else is claimed to be a scope.
+ *
+ * <p>A repository may still state that some of its own source is not part of what it is — vendored code, a
+ * fixture corpus, a module kept for compatibility — and {@link StatedExclusions} is where it says so. Nothing
+ * is excluded unless the tree under reading asks for it.
  */
 public final class JavaSourceScopes {
 
@@ -21,8 +25,13 @@ public final class JavaSourceScopes {
     private static final String JAVA_SUFFIX = ".java";
 
     public List<SourceScope> under(final Path root) {
+        final StatedExclusions excluded = StatedExclusions.statedUnder(root);
         return directories(root).stream()
-                .map(directory -> new SourceScope(root.relativize(directory).toString(), filesIn(directory)))
+                .filter(directory -> !excluded.excludes(root.relativize(directory)))
+                .map(directory -> new SourceScope(root.relativize(directory).toString(),
+                        filesIn(directory).stream()
+                                .filter(file -> !excluded.excludes(root.relativize(file)))
+                                .toList()))
                 .filter(scope -> !scope.files().isEmpty())
                 .toList();
     }
