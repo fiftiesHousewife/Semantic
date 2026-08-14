@@ -18,6 +18,7 @@ import static j2html.TagCreator.label;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.span;
+import static j2html.TagCreator.scriptWithInlineFile;
 import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.summary;
 import static j2html.TagCreator.title;
@@ -34,13 +35,17 @@ import static j2html.TagCreator.title;
  * repository placed in a taxonomy. Opening one is how a reader sees what the field has that this code does
  * not.
  *
- * <p>The collapsing is {@code details} and {@code summary}, which every browser implements, so the page
- * carries no script at all — the same reasoning as the sunburst's fixed layout: interaction that the
- * document can express is not a thing to write code for.
+ * <p>The collapsing is {@code details} and {@code summary}, which every browser implements, so no script is
+ * written for it — interaction the document can express is not a thing to write code for. The one script the
+ * page does carry is there because the document cannot express it: a wedge is as wide as its share of the
+ * field, so most wedges are far too thin to hold their own name, and the native tooltip that would say it
+ * arrives after a delay a reader hunting for a name does not wait out.
  */
 final class TaxonomyPage {
 
     private static final String STYLE = "/taxonomy.css";
+
+    private static final String SCRIPT = "/sunburst.js";
 
     private static final String LEDE = "Every concept the taxonomy publishes, in the hierarchy it publishes "
             + "them in. A concept this repository writes is lit and counted; a branch it never reaches is "
@@ -70,7 +75,8 @@ final class TaxonomyPage {
                                 new TaxonomySunburst(tree).chart()).withClass("figure"),
                                 div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
                                 TaxonomyPage::node)),
-                        p(FOOT).withClass("foot")).withClass("wrap"))
+                        p(FOOT).withClass("foot")).withClass("wrap"),
+                scriptWithInlineFile(SCRIPT))
                 .render();
     }
 

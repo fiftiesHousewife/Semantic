@@ -72,3 +72,11 @@ a:has(.arc) { cursor: pointer; }
 .sites li { font: .78rem/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
 h2 { font-size: 1rem; margin: 1.6rem 0 .2rem; }
 .count a, a .count { color: inherit; text-decoration: none; }
+
+/* A wedge too thin to hold its name says it on hover instead; the text is the wedge's own <title>. */
+.sunburst-tip { position:fixed; z-index:20; max-width:300px; padding:7px 10px; border-radius:6px;
+  background:#11161d; color:#f2f5f8; font-size:12.5px; line-height:1.45; pointer-events:none;
+  box-shadow:0 3px 14px rgba(0,0,0,.34); opacity:0; transition:opacity .08s ease; }
+.sunburst-tip.shown { opacity:1; }
+.arc { cursor:pointer; }
+.arc:hover path, .arc:focus path { stroke:#11161d; stroke-width:1.1; }

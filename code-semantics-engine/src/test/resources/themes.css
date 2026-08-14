@@ -161,3 +161,11 @@ td.clauses { white-space:normal; min-width:340px; font-size:13px; }
 .foot { margin-top:60px; border-top:1px solid var(--rule); padding-top:20px; color:var(--ink-3);
   font-size:13px; }
 @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+
+/* A wedge too thin to hold its name says it on hover instead; the text is the wedge's own <title>. */
+.sunburst-tip { position:fixed; z-index:20; max-width:300px; padding:7px 10px; border-radius:6px;
+  background:#11161d; color:#f2f5f8; font-size:12.5px; line-height:1.45; pointer-events:none;
+  box-shadow:0 3px 14px rgba(0,0,0,.34); opacity:0; transition:opacity .08s ease; }
+.sunburst-tip.shown { opacity:1; }
+.arc { cursor:default; }
+.arc:hover path, .arc:focus path { stroke:#11161d; stroke-width:1.1; }

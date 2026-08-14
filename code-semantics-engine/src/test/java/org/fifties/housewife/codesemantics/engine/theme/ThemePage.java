@@ -11,6 +11,7 @@ import static j2html.TagCreator.header;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.section;
+import static j2html.TagCreator.scriptWithInlineFile;
 import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.title;
 
@@ -25,6 +26,8 @@ import static j2html.TagCreator.title;
 final class ThemePage {
 
     private static final String STYLE = "/themes.css";
+
+    private static final String SCRIPT = "/sunburst.js";
     private final ThemeSections sections = new ThemeSections();
 
     String of(final ThemeGraph graph) {
@@ -36,7 +39,8 @@ final class ThemePage {
                         rankingSection(graph),
                         scopesSection(graph),
                         sections.strangeResults(),
-                        p(PageProse.FOOT).withClass("foot")).withClass("wrap"))
+                        p(PageProse.FOOT).withClass("foot")).withClass("wrap"),
+                scriptWithInlineFile(SCRIPT))
                 .render();
     }
 
