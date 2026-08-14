@@ -186,6 +186,23 @@ against `junit-team/junit-framework`, which is the first time this library reads
 
 ---
 
+## [HIGH] The run at computational linguistics — a stated goal, a bounded budget, and every attempt recorded
+
+**The goal, stated before the attempts so it cannot be moved to fit them:** the reading must place this
+repository in the semantic domain of computational linguistics, evidenced in the suite, on strong supporting
+evidence, with nothing hard-coded. **Ten attempts at most.** Each attempt names the false signal it is
+attacking, states the root cause, changes one thing, and records what moved — including where it made things
+worse, because an attempt that is quietly dropped is an attempt that will be made again.
+
+The false signals are the measure of progress. A reading that arrives at `linguistics` while still carrying
+`baseball` has not been fixed, it has been outweighed, and the next corpus will expose it.
+
+| # | The false signal | Root cause attacked | What it changed | Result |
+|--:|---|---|---|---|
+| 1 | `astronomy`, `mythology` | **A product name read as an English word.** `jupiter` written 230 times, 117 of them `import org.junit.jupiter`, voting as the Roman god; `blob`, `owl`, `sha`, `alt` the same shape | `OfferedWords` no longer offers a dependency's own name to a dictionary at all — a coordinate denotes an artefact and asking what it *means* is a category error. `Weights.dependency` deleted with it, being a weight nothing could read | **`astronomy` gone from every scope.** `api/main` loses `computing` and gains `heraldry`; `engine/test` loses `programming` and gains `law`. `baseball`, `soccer`, `military`, `chemistry` all survive — they were never carried by imports |
+
+---
+
 ## [HIGH] The vote itself — what one resource contributes, and how two of them combine
 
 Written here rather than under `docs/` for the reason the FpML specification is: `docs/*.md` is inside the

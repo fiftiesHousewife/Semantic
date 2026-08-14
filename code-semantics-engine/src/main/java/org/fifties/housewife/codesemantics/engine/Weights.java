@@ -32,12 +32,6 @@ public class Weights {
     @Builder.Default double declaredName = 1.0;
 
     /**
-     * What a dependency a file names is worth. A choice about what the code is made of rather than about
-     * what it says, and one a file makes once however much it leans on it.
-     */
-    @Builder.Default double dependency = 0.5;
-
-    /**
      * What a sentence of prose is worth — a javadoc statement, a comment, a line of documentation.
      *
      * <p>It was a quarter while the unit was the word, because prose is most of the words in this repository

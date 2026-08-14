@@ -83,9 +83,23 @@ class OfferedWordsTest {
                 () -> assertThat(offered.formWorth(NameForm.FIELD)).isEqualTo(1.0),
                 () -> assertThat(offered.formWorth(NameForm.JAVADOC))
                         .as("prose is commentary on the code rather than the code")
-                        .isLessThan(offered.formWorth(NameForm.FIELD)),
-                () -> assertThat(offered.formWorth(NameForm.IMPORT))
                         .isLessThan(offered.formWorth(NameForm.FIELD)));
+    }
+
+    @Test
+    void refusesToAskADictionaryWhatADependencysNameMeans() {
+        final OfferedWords offered = OfferedWords.fromClasspath();
+
+        assertAll(
+                () -> assertThat(offered.of(NameForm.IMPORT, "jupiter"))
+                        .as("org.junit.jupiter names a test framework, and WordNet answers a Roman god")
+                        .isEmpty(),
+                () -> assertThat(offered.of(NameForm.IMPORT, "owl"))
+                        .as("and an ontology language is not a bird")
+                        .isEmpty(),
+                () -> assertThat(offered.of(NameForm.FIELD, "jupiter"))
+                        .as("a name this repository declared is still its own word")
+                        .contains("jupiter"));
     }
 
     @Test
