@@ -24,11 +24,16 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
     /**
      * One concept, what the repository wrote it as, and everything beneath it.
      *
+     * <p>{@code words} is the label as the identifier splitter reads it — {@code MorphosyntacticCategory}
+     * as <em>morphosyntactic category</em> — which is the form the match was made on and the form a reader
+     * can compare with a name in the code. The ontology's own spelling is kept beside it because that is
+     * what the publication says.
+     *
      * <p>{@code written} counts only this concept; {@code writtenBelow} counts the subtree, and it is what
      * decides whether a branch is worth opening. A branch nothing was written under is not hidden — it is
      * closed, and a reader can open it and see that the field has a whole region this codebase never enters.
      */
-    public record Node(String concept, String label, int written, List<Node> children) {
+    public record Node(String concept, String label, String words, int written, List<Node> children) {
 
         public Node {
             children = List.copyOf(children);
@@ -79,14 +84,15 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
      * @param published the source's own rows
      * @param written  how often the repository wrote each concept, by the label the source states it under
      */
-    public static TaxonomyTree of(final List<SkosConcept> published, final Map<String, Integer> written) {
+    public static TaxonomyTree of(final List<SkosConcept> published, final Map<String, Integer> written,
+                                  final java.util.function.Function<String, String> asWords) {
         final List<SkosConcept> concepts = oncePerLabel(published);
         final Map<String, List<SkosConcept>> byParent = new LinkedHashMap<>();
         concepts.forEach(concept -> byParent.computeIfAbsent(concept.broader(), parent -> new ArrayList<>())
                 .add(concept));
         final List<Node> roots = concepts.stream()
                 .filter(concept -> isRoot(concept, concepts))
-                .map(concept -> node(concept, byParent, written))
+                .map(concept -> node(concept, byParent, written, asWords))
                 .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
                         .thenComparing(Node::label))
                 .toList();
@@ -115,12 +121,13 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
     }
 
     private static Node node(final SkosConcept concept, final Map<String, List<SkosConcept>> byParent,
-                             final Map<String, Integer> written) {
-        return new Node(concept.concept(), concept.prefLabel(),
+                             final Map<String, Integer> written,
+                             final java.util.function.Function<String, String> asWords) {
+        return new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
                 written.getOrDefault(concept.prefLabel(), 0),
                 byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
                         .filter(child -> !child.prefLabel().equals(concept.prefLabel()))
-                        .map(child -> node(child, byParent, written))
+                        .map(child -> node(child, byParent, written, asWords))
                         .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
                                 .thenComparing(Node::label))
                         .toList());

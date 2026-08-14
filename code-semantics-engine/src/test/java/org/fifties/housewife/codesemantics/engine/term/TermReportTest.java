@@ -11,6 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class TermReportTest {
 
+    /** The splitter the match itself uses, so a page shows the form the reading matched on. */
+    private static String asWords(final String label) {
+        return String.join(" ", org.fifties.housewife.codesemantics.engine.reading
+                .IdentifierWords.fromClasspath().of(label).words());
+    }
+
     private static SkosConcept concept(final String label, final String broader) {
         return new SkosConcept("olia#" + label, label, "", broader, "class", "olia.owl", "");
     }
@@ -23,7 +29,7 @@ class TermReportTest {
             concept("PragmaticRelation", ""),
             concept("Contrast", "PragmaticRelation"));
 
-    private final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("Phrase", 34, "NounPhrase", 1));
+    private final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("Phrase", 34, "NounPhrase", 1), TermReportTest::asWords);
 
     private final String rendered = new TermReport().render("OLiA", new MatchedTerms(List.of(
             new TermSighting(List.of("phrase"), List.of(concept("Phrase", "Constituent")), TermRung.WORDS,

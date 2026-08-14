@@ -11,6 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class TaxonomyTreeTest {
 
+    /** The splitter the match itself uses, so a page shows the form the reading matched on. */
+    private static String asWords(final String label) {
+        return String.join(" ", org.fifties.housewife.codesemantics.engine.reading
+                .IdentifierWords.fromClasspath().of(label).words());
+    }
+
     private static SkosConcept concept(final String label, final String broader) {
         return new SkosConcept("x#" + label, label, "", broader, "class", "x.owl", "");
     }
@@ -25,7 +31,7 @@ class TaxonomyTreeTest {
 
     @Test
     void buildsTheHierarchyThePublisherStatesInItsBroaderColumn() {
-        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of());
+        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of(), TaxonomyTreeTest::asWords);
 
         assertAll(
                 () -> assertThat(tree.roots()).extracting(TaxonomyTree.Node::label)
@@ -37,7 +43,7 @@ class TaxonomyTreeTest {
     @Test
     void countsDistinctConceptsWrittenRatherThanTimesWritten() {
         final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY,
-                Map.of("CommonNoun", 400, "Contrast", 3, "Relation", 2));
+                Map.of("CommonNoun", 400, "Contrast", 3, "Relation", 2), TaxonomyTreeTest::asWords);
 
         assertAll(
                 () -> assertThat(tree.roots().getFirst().conceptsWritten())
@@ -50,7 +56,7 @@ class TaxonomyTreeTest {
 
     @Test
     void rollsWhatWasWrittenUpToTheBranchThatContainsIt() {
-        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5));
+        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5), TaxonomyTreeTest::asWords);
 
         assertAll(
                 () -> assertThat(tree.roots().getFirst().writtenBelow())
@@ -62,7 +68,7 @@ class TaxonomyTreeTest {
 
     @Test
     void namesTheConceptsABranchsClaimRestsOn() {
-        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5, "Verb", 9));
+        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5, "Verb", 9), TaxonomyTreeTest::asWords);
 
         assertThat(tree.roots().getFirst().writtenHere()).extracting(TaxonomyTree.Node::label)
                 .containsExactly("Verb", "CommonNoun");
@@ -70,7 +76,7 @@ class TaxonomyTreeTest {
 
     @Test
     void standsAConceptAtItsOwnRootWhereTheSourceDoesNotCarryItsStatedParent() {
-        final TaxonomyTree tree = TaxonomyTree.of(List.of(concept("Orphan", "SomethingImported")), Map.of());
+        final TaxonomyTree tree = TaxonomyTree.of(List.of(concept("Orphan", "SomethingImported")), Map.of(), TaxonomyTreeTest::asWords);
 
         assertThat(tree.roots()).extracting(TaxonomyTree.Node::label).containsExactly("Orphan");
     }

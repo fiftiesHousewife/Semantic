@@ -5,10 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
+import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -37,11 +36,11 @@ class TermReadingDiagnostic {
 
     private static final ReportFolder REPORTS = new ReportFolder();
     private static final String REPORT = "terms";
-    private static final String GRAPH = "terms.json";
-    private static final String PAGE = "terms-chart.html";
     private static final String TAXONOMY = "taxonomy.html";
 
     private static final int TERMS_HELD = 100;
+
+    private static final long SEED = 20260813L;
 
     private static final String PREAMBLE = """
             Does this repository write the vocabulary of a published field? The Ontologies of Linguistic
@@ -65,11 +64,11 @@ class TermReadingDiagnostic {
 
         final TaxonomyTree tree = TaxonomyTree.of(
                 org.fifties.housewife.bi.lexicon.OliaTerms.fromClasspath().concepts(),
-                writtenByConcept(matched));
-        write(root, terms, matched, tree, TermGraph.of(root.getFileName().toString(), terms.source(),
-                matched, TermRung.WORDS, new StatedAncestry(terms)));
-        Files.writeString(REPORTS.file(TAXONOMY),
-                new TaxonomyPage().of(root.getFileName().toString(), terms.source(), tree));
+                writtenByConcept(matched),
+                label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
+        write(root, terms, matched, tree);
+        Files.writeString(REPORTS.file(TAXONOMY), new TaxonomyPage()
+                .of(root.getFileName().toString(), terms.source(), tree, chose(parsed, terms.source())));
 
         final MatchedTerms onWords = matched.at(TermRung.WORDS);
         final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);
@@ -91,9 +90,6 @@ class TermReadingDiagnostic {
                         .isPositive(),
                 () -> assertThat(matched.sightings()).allSatisfy(sighting ->
                         assertThat(sighting.specificity()).isBetween(0.0, 1.0)),
-                () -> assertThat(Files.readString(REPORTS.file(PAGE)))
-                        .as("the page draws the same reading the report states")
-                        .contains(TermProse.HEADING),
                 () -> assertThat(oneWordShare(onWords))
                         .as("A FINDING, PINNED. In domain, on the repository this reading was developed "
                                 + "against, the taxonomy is fired almost entirely by one-word terms — the "
@@ -139,6 +135,46 @@ class TermReadingDiagnostic {
                         .contains("subject", "theme"));
     }
 
+    /**
+     * The chain that selected this taxonomy, recomputed here so the page carries its own evidence rather
+     * than a claim that some other report agrees with it.
+     */
+    private static TaxonomyChoice chose(final ParsedRepository parsed, final String taxonomy) {
+        final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes =
+                org.fifties.housewife.codesemantics.engine.theme.ThemeReading.fromClasspath(SEED).of(parsed);
+        final org.fifties.housewife.bi.lexicon.ArxivSubjects arxiv =
+                org.fifties.housewife.bi.lexicon.ArxivSubjects.fromClasspath();
+        final java.util.List<org.fifties.housewife.bi.lexicon.SkosConcept> archives =
+                new org.fifties.housewife.codesemantics.engine.theme.PooledDescriptions()
+                        .broaderThan(arxiv.described(), arxiv);
+        final java.util.List<org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.Placement>
+                placed = org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.byDivergence()
+                        .of(themes.repository().intensity(),
+                                org.fifties.housewife.codesemantics.engine.theme.SubjectAreas
+                                        .fromClasspath().of(archives));
+        final org.fifties.housewife.codesemantics.engine.theme.SubjectNull.Chance chance =
+                org.fifties.housewife.codesemantics.engine.theme.SubjectNull.seeded(SEED)
+                        .of(placed.getFirst().bits(), themes.repository().intensity(),
+                                archives.stream()
+                                        .map(org.fifties.housewife.bi.lexicon.SkosConcept::definition)
+                                        .toList());
+        return new TaxonomyChoice(qualifiedTopics(themes), placed.getFirst().label(),
+                placed.getFirst().bits(), chance.chanceNearest(), chance.standsApart(), taxonomy,
+                "it is the vocabulary of linguistic annotation, whose concepts are already identifiers, so "
+                        + "a match is identifier to identifier with no English in between");
+    }
+
+    private static java.util.List<String> qualifiedTopics(
+            final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes) {
+        return new org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics(themes.witnesses(),
+                org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading(),
+                org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
+                        .nearestTo(themes.repository().intensity()))
+                .across(themes.divergences().stream()
+                        .filter(scope -> scope.chance().exceedsChance()).toList(),
+                        themes.repository().intensity());
+    }
+
     /** How often the repository wrote each concept, by the label the taxonomy states it under. */
     private static java.util.Map<String, Integer> writtenByConcept(final MatchedTerms matched) {
         final java.util.Map<String, Integer> written = new java.util.HashMap<>();
@@ -152,9 +188,7 @@ class TermReadingDiagnostic {
     }
 
     private static void write(final Path root, final LinguisticTerms terms, final MatchedTerms matched,
-                              final TaxonomyTree tree, final TermGraph graph) throws IOException {
-                new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(REPORTS.file(GRAPH).toFile(), graph);
-        Files.writeString(REPORTS.file(PAGE), new TermPage().of(graph));
+                              final TaxonomyTree tree) throws IOException {
         REPORTS.wrote(REPORT, """
                 # Terms — %s
 

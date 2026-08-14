@@ -1,5 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.term;
 
+import java.util.List;
+
 import j2html.tags.DomContent;
 
 import static j2html.TagCreator.details;
@@ -42,10 +44,16 @@ final class TaxonomyPage {
             + "closed rather than removed, because what a field has that a codebase does not is part of the "
             + "reading.";
 
+    private static final String CAPTION = "Three rings of the taxonomy's own hierarchy. A wedge is as wide "
+            + "as the share of the field's concepts beneath it, so the picture is the field's shape; the "
+            + "lighting is how much of each branch this repository writes. Grey is territory it never "
+            + "enters, which is most of any field.";
+
     private static final String FOOT = "Drawn from the same match the report is written from. Regenerate "
             + "with ./gradlew selfRead.";
 
-    String of(final String repository, final String source, final TaxonomyTree tree) {
+    String of(final String repository, final String source, final TaxonomyTree tree,
+              final TaxonomyChoice choice) {
         return join(
                 title("%s — %s".formatted(source, repository)),
                 styleWithInlineFile(STYLE),
@@ -53,8 +61,12 @@ final class TaxonomyPage {
                                 p("Taxonomy · %s".formatted(repository)).withClass("eyebrow"),
                                 h1(source),
                                 p(LEDE).withClass("lede"),
+                                p(choice.reasoning()).withClass("chain"),
                                 statistics(tree)),
-                        div(each(tree.roots(), TaxonomyPage::node)),
+                        div(new TaxonomySunburst(tree).chart(),
+                                p(CAPTION).withClass("caption")).withClass("figure"),
+                                div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
+                                TaxonomyPage::node)),
                         p(FOOT).withClass("foot")).withClass("wrap"))
                 .render();
     }
@@ -77,20 +89,28 @@ final class TaxonomyPage {
         return div(dt(naming), dd(reads)).withClass("stat");
     }
 
+    /**
+     * Only the paths that lead somewhere. A subtree the repository never writes in is left out of the tree
+     * entirely and counted instead — the sunburst above already draws the whole field to scale, so the two
+     * together say what a field contains and what this codebase does in it without either repeating the
+     * other. A tree that listed a thousand concepts nobody wrote was a list, and the point of a hierarchy is
+     * that it is not one.
+     */
     private static DomContent node(final TaxonomyTree.Node node) {
-        if (node.children().isEmpty()) {
+        final List<TaxonomyTree.Node> occupied = node.children().stream()
+                .filter(TaxonomyTree.Node::touched).toList();
+        if (occupied.isEmpty()) {
             return div(label(node)).withClass(node.written() > 0 ? "leaf touched" : "leaf");
         }
-        final j2html.tags.specialized.DetailsTag branch =
-                details(summary(label(node)), each(node.children(), TaxonomyPage::node))
-                        .withClass(node.touched() ? "touched" : "untouched");
-        return node.touched() ? branch.attr("open") : branch;
+        return details(summary(label(node)), each(occupied, TaxonomyPage::node))
+                .withClass("touched").attr("open");
     }
 
     private static DomContent label(final TaxonomyTree.Node node) {
-        return span(span(node.label()).withClass("label"),
+        final int unwritten = node.conceptsBelow() - node.conceptsWritten();
+        return span(span(node.words()).withClass("label"),
                 node.written() > 0 ? span("%,d".formatted(node.written())).withClass("count") : span(),
-                node.children().isEmpty() ? span()
-                        : span("%,d below".formatted(node.conceptsBelow() - 1)).withClass("below"));
+                unwritten == 0 ? span()
+                        : span("%,d not written".formatted(unwritten)).withClass("below"));
     }
 }

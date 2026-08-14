@@ -34,3 +34,16 @@ details[open] > summary::before { content: "▾"; }
 .untouched > summary > .label { color: var(--muted); }
 .foot { margin-top: 2.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--rule);
         padding-top: 1rem; }
+.figure { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px;
+          padding: 1rem; margin: 0 0 1.4rem; text-align: center; }
+#taxonomy-sunburst { width: 100%; max-width: 30rem; height: auto; }
+.arc path { fill: var(--rule); stroke: var(--page); stroke-width: 1; }
+.arc.lit path { fill: color-mix(in srgb, var(--hit) calc(var(--fill) * 100%), var(--rule)); }
+.arc-label { font-size: 6px; fill: var(--muted); text-anchor: middle; dominant-baseline: middle;
+             pointer-events: none; }
+.arc.lit .arc-label { fill: var(--hitink); font-weight: 600; }
+.caption { color: var(--muted); font-size: .85rem; margin: .6rem 0 0; }
+
+.chain { background: color-mix(in srgb, var(--accent) 8%, transparent);
+         border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+         padding: .8rem 1rem; margin: 0 0 1.6rem; max-width: 44rem; }
