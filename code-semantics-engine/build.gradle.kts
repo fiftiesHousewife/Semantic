@@ -57,12 +57,10 @@ tasks.register<JavaExec>("topicCarriers") {
 // The library's self test: reads this repository's own Java sources and reports how much of what they are
 // written in a bundled resource can be cited for. Point it at another clone with -Dcs.clone.dir=<path>.
 //   ./gradlew selfRead
-val selfReadReports = listOf(
-    layout.buildDirectory.file("reports/self-reading/self-reading.md"),
-    layout.buildDirectory.file("reports/self-reading/themes.md"),
-    layout.buildDirectory.file("reports/self-reading/subjects.md"),
-    layout.buildDirectory.file("reports/self-reading/terms.md")
-)
+// Only the summary is echoed. The detailed reports are still written beside it — self-reading.md, themes.md,
+// subjects.md and terms.md — and each carries what it measured; the summary carries what cleared a bar, and
+// printing both to one console is how the second gets lost in the first.
+val selfReadSummary = layout.buildDirectory.file("reports/self-reading/summary.md")
 
 tasks.register<Test>("selfRead") {
     group = "verification"
@@ -77,6 +75,7 @@ tasks.register<Test>("selfRead") {
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     doLast {
-        selfReadReports.forEach { report -> logger.lifecycle(report.get().asFile.readText()) }
+        logger.lifecycle(selfReadSummary.get().asFile.readText())
+        logger.lifecycle("The detailed reports are beside it in ${selfReadSummary.get().asFile.parent}")
     }
 }
