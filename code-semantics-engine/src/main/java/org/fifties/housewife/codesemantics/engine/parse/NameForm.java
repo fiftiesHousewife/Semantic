@@ -29,6 +29,14 @@ public enum NameForm {
     CONSTANT(Vocabulary.IDENTIFIER),
     /** A type parameter. Usually one letter, and usually an abstention, which is the honest outcome. */
     TYPE_PARAMETER(Vocabulary.IDENTIFIER),
+    /**
+     * The part of a file's package that distinguishes it from its neighbours — {@code theme}, {@code parse},
+     * {@code term}. The coordinate every file shares is not read: it is the organisation's, chosen once, and
+     * counting it once per file would say this repository is about its own domain name.
+     */
+    PACKAGE(Vocabulary.IDENTIFIER),
+    /** A label on a statement. Rare, and a name its author chose as deliberately as any other. */
+    LABEL(Vocabulary.IDENTIFIER),
     /** A dependency this file names — kept only where it is neither the platform's nor this tree's own. */
     IMPORT(Vocabulary.IDENTIFIER),
     /** Documentation the author wrote against a declaration. */

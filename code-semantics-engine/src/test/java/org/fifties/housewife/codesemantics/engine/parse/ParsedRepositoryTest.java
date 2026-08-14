@@ -26,6 +26,24 @@ class ParsedRepositoryTest {
     }
 
     @Test
+    void readsWhatAFilesPackageSaysThatItsNeighboursDoNot(@TempDir final Path root) throws IOException {
+        final Path theme = write(root, "Theme.java", "package org.acme.tool.theme;\nclass Theme {}\n");
+        final Path parse = write(root, "Parse.java", "package org.acme.tool.parse;\nclass Parse {}\n");
+
+        final List<String> packages = ParsedRepository
+                .of(root, List.of(new SourceScope("main", List.of(theme, parse)))).files().stream()
+                .flatMap(file -> file.occurrences().stream())
+                .filter(occurrence -> occurrence.form() == NameForm.PACKAGE)
+                .map(NameOccurrence::text)
+                .toList();
+
+        assertThat(packages)
+                .as("the coordinate every file shares is the organisation's and is read once by nobody; "
+                        + "what distinguishes a file is the taxonomy its author chose")
+                .containsExactlyInAnyOrder("theme", "parse");
+    }
+
+    @Test
     void keepsTheDependenciesARepositoryChoseAndSetsAsideTheRest(@TempDir final Path root) throws IOException {
         final Path file = write(root, "Reading.java", """
                 package example.engine;

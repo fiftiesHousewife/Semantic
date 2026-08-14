@@ -38,6 +38,47 @@ public final class ParsedRepository {
                 PlatformPackages.ofSystem());
     }
 
+    /**
+     * The package prefix every file in the repository shares, which is the organisation's coordinate rather
+     * than anything an author chose per file — {@code org.fifties.housewife.codesemantics}. It is derived
+     * from the tree in hand and not written down anywhere, so a repository with two root packages shares a
+     * shorter prefix and one with none shares nothing, which is the correct answer in both cases.
+     */
+    static String sharedPackagePrefix(final List<Read> read) {
+        final List<String> packages = read.stream()
+                .map(source -> source.parsed().packageName())
+                .filter(name -> !name.isEmpty())
+                .toList();
+        if (packages.isEmpty()) {
+            return "";
+        }
+        String prefix = packages.getFirst();
+        for (final String name : packages) {
+            while (!name.equals(prefix) && !name.startsWith(prefix + ".")) {
+                final int lastDot = prefix.lastIndexOf('.');
+                if (lastDot < 0) {
+                    return "";
+                }
+                prefix = prefix.substring(0, lastDot);
+            }
+        }
+        return prefix;
+    }
+
+    /**
+     * What a file's package says that its neighbours' do not. These are the most deliberate names in a
+     * repository — {@code parse}, {@code reading}, {@code theme}, {@code term} — chosen once each to divide
+     * the work, and until now read only to sort imports.
+     */
+    private static List<NameOccurrence> packageWords(final String declared, final String coordinate) {
+        if (declared.isEmpty() || !declared.startsWith(coordinate)) {
+            return List.of();
+        }
+        final String distinguishing = declared.substring(coordinate.length());
+        return distinguishing.isBlank() ? List.of()
+                : List.of(new NameOccurrence(distinguishing.replace('.', ' ').strip(), NameForm.PACKAGE, 1));
+    }
+
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes,
                                       final List<SourceReader> readers, final PlatformPackages platform) {
         final List<Read> read = scopes.stream()
@@ -49,8 +90,10 @@ public final class ParsedRepository {
                 .filter(name -> !name.isEmpty())
                 .collect(Collectors.toUnmodifiableSet()));
         final Map<ImportOrigin, Integer> imports = new EnumMap<>(ImportOrigin.class);
+        final String coordinate = sharedPackagePrefix(read);
         final List<ParsedFile> files = read.stream()
-                .map(source -> source.retaining(origins, imports))
+                .map(source -> source.retaining(origins, imports,
+                        packageWords(source.parsed().packageName(), coordinate)))
                 .toList();
         return new ParsedRepository(files,
                 (int) read.stream().filter(source -> !source.parsed().sound()).count(), imports);
@@ -95,8 +138,9 @@ public final class ParsedRepository {
     /** One file after the parse and before its imports have been sorted. */
     private record Read(String scope, String path, int lines, ParsedSource parsed) {
 
-        ParsedFile retaining(final ImportOrigins origins, final Map<ImportOrigin, Integer> tally) {
-            final List<NameOccurrence> kept = new ArrayList<>();
+        ParsedFile retaining(final ImportOrigins origins, final Map<ImportOrigin, Integer> tally,
+                             final List<NameOccurrence> alsoDeclared) {
+            final List<NameOccurrence> kept = new ArrayList<>(alsoDeclared);
             parsed.occurrences().forEach(occurrence -> {
                 if (occurrence.form() != NameForm.IMPORT) {
                     kept.add(occurrence);

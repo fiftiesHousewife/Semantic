@@ -19,6 +19,43 @@ class JavaSourceTest {
     }
 
     @Test
+    void readsThePatternBindingLocalsJavadocAlreadyClaimedToCover() {
+        final String source = """
+                package example;
+                class Reader {
+                    void read(final Object subject) {
+                        if (subject instanceof String citedText) {
+                            System.out.println(citedText);
+                        }
+                    }
+                }
+                """;
+
+        assertThat(namesOf(source, NameForm.LOCAL))
+                .as("a stated coverage the parse did not have: TypePatternExpr is not a "
+                        + "VariableDeclarationExpr, so no pass collected it and a name the author chose "
+                        + "contributed nothing")
+                .contains("citedText");
+    }
+
+    @Test
+    void readsALabelBecauseAnAuthorChoseIt() {
+        final String source = """
+                package example;
+                class Walk {
+                    void over() {
+                        outerScan:
+                        for (int at = 0; at < 3; at++) {
+                            break outerScan;
+                        }
+                    }
+                }
+                """;
+
+        assertThat(namesOf(source, NameForm.LABEL)).containsExactly("outerScan");
+    }
+
+    @Test
     void readsTheTypesMethodsAndFieldsARepositoryDeclares() {
         final String source = """
                 package example;

@@ -82,6 +82,10 @@ public final class JavaSource implements SourceReader {
         unit.findAll(VariableDeclarationExpr.class).forEach(local ->
                 local.getVariables().forEach(variable ->
                         add(variable.getNameAsString(), NameForm.LOCAL, variable, occurrences)));
+        unit.findAll(com.github.javaparser.ast.expr.TypePatternExpr.class).forEach(pattern ->
+                add(pattern.getNameAsString(), NameForm.LOCAL, pattern, occurrences));
+        unit.findAll(com.github.javaparser.ast.stmt.LabeledStmt.class).forEach(labelled ->
+                add(labelled.getLabel().asString(), NameForm.LABEL, labelled, occurrences));
         unit.getImports().forEach(imported ->
                 add(imported.getNameAsString(), NameForm.IMPORT, imported, occurrences));
         unit.getAllComments().forEach(comment -> prose(comment, occurrences));
