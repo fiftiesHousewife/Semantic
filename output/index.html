@@ -1,0 +1,106 @@
+<title>Reading — CodeSemantics</title> <style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+.wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 5rem;
+}
+.eyebrow {
+    margin: 0 0 0.4rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0 0 0.6rem;
+    font-size: 1.9rem;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+}
+.lede {
+    margin: 0 0 2.4rem;
+    color: var(--muted);
+    max-width: 34rem;
+}
+
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: report;
+}
+
+li {
+    counter-increment: report;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    margin-bottom: 0.7rem;
+}
+
+li::before {
+    content: counter(report);
+    display: inline-block;
+    min-width: 1.6rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+}
+
+a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.answers {
+    margin: 0.35rem 0 0 1.6rem;
+}
+.bar {
+    margin: 0.3rem 0 0 1.6rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+.bar strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+.foot {
+    margin-top: 2.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+}
+</style> <div class="wrap"><header><p class="eyebrow">Self-reading</p><h1>CodeSemantics</h1><p class="lede">Two kinds of document sit in this folder and a reader cannot tell them apart by looking. The summary prints what the reading showed; everything under it prints what the reading measured. Each entry names the bar a row had to clear to be printed at all.</p></header><ol><li><a href="summary.html">Summary</a><p class="answers">what the reading shows, in one page</p><p class="bar"><span class="label">What it takes to be printed: </span><span>every line cleared a bar; what did not is named and printed nowhere</span></p></li><li><a href="themes-chart.html">Themes — the chart</a><p class="answers">what the repository is about, drawn</p><p class="bar"><span class="label">What it takes to be printed: </span><span>only topics that distinguish some part of it and that more than one word carries</span></p></li><li><a href="themes.html">Themes — the detail</a><p class="answers">the same reading with every scope, witness and site</p><p class="bar"><span class="label">What it takes to be printed: </span><span>the ranking is qualified; the scope tables print everything measured</span></p></li><li><a href="subjects.html">Subjects</a><p class="answers">where the repository stands against 152 published subject areas</p><p class="bar"><span class="label">What it takes to be printed: </span><span>the nearest must beat the nearest a taxonomy of chance offers</span></p></li><li><a href="taxonomy.html">The taxonomy</a><p class="answers">the published field as a tree, with what this repository writes lit inside it</p><p class="bar"><span class="label">What it takes to be printed: </span><span>every concept is drawn; a branch nothing was written under is closed, not hidden</span></p></li><li><a href="evidence.html">The evidence</a><p class="answers">every concept this repository writes, with the names and the lines it wrote them at</p><p class="bar"><span class="label">What it takes to be printed: </span><span>a count is a claim until somebody can go and look; this is what it links to</span></p></li><li><a href="terms.html">Terms</a><p class="answers">which branches of the field the repository occupies, and what it wrote there</p><p class="bar"><span class="label">What it takes to be printed: </span><span>a branch is ranked by distinct concepts written, not by how often</span></p></li><li><a href="self-reading.html">Legibility</a><p class="answers">how much of the repository any resource can be cited for</p><p class="bar"><span class="label">What it takes to be printed: </span><span>a denominator, not a finding</span></p></li></ol><p class="foot">Regenerate all of it with./gradlew selfRead. Every figure is a reading of one commit of one working tree, and the corpus includes these reports.</p></div>

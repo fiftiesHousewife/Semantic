@@ -1,0 +1,179 @@
+<title>Subjects</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>Subjects — CodeSemantics</h1>
+<p>Where this repository stands against arXiv's published subject taxonomy — 152 subject areas, each</p>
+<p>read from the description arXiv states its subject matter in.</p>
+<p><strong>Nothing here is matched.</strong> No identifier is compared with a subject name, and no word of a</p>
+<p>description has to appear in the code. A description is prose, so it goes through the reading</p>
+<p>this repository's own prose goes through, and comes back as an intensity over the same</p>
+<p>dictionary topics. The themes are the hop: once a scope and a subject are distributions over one</p>
+<p>space, the divergence already used between two scopes places one against the other.</p>
+<p>A ranking on its own would be a horoscope, because something is always nearest. The bar is what</p>
+<p>a taxonomy of chance achieves — real description lengths filled with words drawn from the pooled</p>
+<p>vocabulary of every description — and a field of 152 subjects must be read against the best of</p>
+<p>152 chance attempts, not against an average one.</p>
+<h2>At the level the taxonomy reports at, by divergence</h2>
+<table>
+<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
+<tr><td><code>cs</code> Computer Science</td><td>grp_cs</td><td>0.3479</td><td>linguistics, mathematics, law, computing</td></tr>
+<tr><td><code>nlin</code> Nonlinear Sciences</td><td>grp_physics</td><td>0.4629</td><td>mathematics, computing, telecommunication, literature</td></tr>
+<tr><td><code>eess</code> Electrical Engineering and Systems Science</td><td>grp_eess</td><td>0.4742</td><td>computing, mathematics, grammar, person</td></tr>
+<tr><td><code>math</code> Mathematics</td><td>grp_math</td><td>0.5110</td><td>mathematics, telecommunication, physics, psychology</td></tr>
+<tr><td><code>physics</code> Physics</td><td>grp_physics</td><td>0.5318</td><td>telecommunication, mathematics, physics, chemistry</td></tr>
+<tr><td><code>astro-ph</code> Astrophysics</td><td>grp_physics</td><td>0.5754</td><td>telecommunication, physics, geography, chemistry</td></tr>
+<tr><td><code>cond-mat</code> Condensed Matter</td><td>grp_physics</td><td>0.5883</td><td>computing, telecommunication, physics, chemistry</td></tr>
+<tr><td><code>grp_physics</code> Physics</td><td>grp_physics</td><td>0.5897</td><td>mathematics, physics, chemistry, geography</td></tr>
+</table>
+<p>The nearest subject stands <strong>0.3479 bits</strong> away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was <strong>0.4062 bits</strong>, so this placement <strong>stands apart from chance</strong>.</p>
+<h2>At its leaves, by divergence</h2>
+<p>Every topic either side holds counts, so a thirty-word description is punished for being</p>
+<p>narrower than a repository and the vaguest description wins.</p>
+<table>
+<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
+<tr><td><code>cs.SY</code> Systems and Control</td><td>grp_cs</td><td>0.4080</td><td>linguistics, law, mathematics, computing</td></tr>
+<tr><td><code>cs.LO</code> Logic in Computer Science</td><td>grp_cs</td><td>0.4428</td><td>linguistics, law, grammar, geography</td></tr>
+<tr><td><code>cs.CL</code> Computation and Language</td><td>grp_cs</td><td>0.4439</td><td>linguistics, computing, law, grammar</td></tr>
+<tr><td><code>math.MP</code> Mathematical Physics</td><td>grp_math</td><td>0.4608</td><td>linguistics, mathematics, law, physics</td></tr>
+<tr><td><code>cs.ET</code> Emerging Technologies</td><td>grp_cs</td><td>0.4923</td><td>mathematics, computing, law, literature</td></tr>
+<tr><td><code>cs.CC</code> Computational Complexity</td><td>grp_cs</td><td>0.4932</td><td>mathematics, linguistics, law, geography</td></tr>
+<tr><td><code>cs.SD</code> Sound</td><td>grp_cs</td><td>0.5065</td><td>mathematics, telecommunication, grammar, law</td></tr>
+<tr><td><code>cs.HC</code> Human-Computer Interaction</td><td>grp_cs</td><td>0.5083</td><td>mathematics, law, computing, telecommunication</td></tr>
+<tr><td><code>cs.AI</code> Artificial Intelligence</td><td>grp_cs</td><td>0.5116</td><td>mathematics, law, grammar, linguistics</td></tr>
+<tr><td><code>cs.NA</code> Numerical Analysis</td><td>grp_cs</td><td>0.5176</td><td>linguistics, law, grammar, music</td></tr>
+<tr><td><code>math.IT</code> Information Theory</td><td>grp_math</td><td>0.5192</td><td>linguistics, law, mathematics, programming</td></tr>
+<tr><td><code>math.CA</code> Classical Analysis and ODEs</td><td>grp_math</td><td>0.5220</td><td>linguistics, mathematics, literature, computing</td></tr>
+</table>
+<p>The nearest subject stands <strong>0.4080 bits</strong> away. Across 992 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>0.4355 bits</strong>, so this placement <strong>stands apart from chance</strong>.</p>
+<h2>At its leaves, by the mass both hold</h2>
+<p>The same readings and the same null, asking instead how much of what a subject is about this</p>
+<p>repository is also about.</p>
+<table>
+<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
+<tr><td><code>cs.SY</code> Systems and Control</td><td>grp_cs</td><td>0.5960</td><td>linguistics, law, mathematics, computing</td></tr>
+<tr><td><code>math.MP</code> Mathematical Physics</td><td>grp_math</td><td>0.6117</td><td>linguistics, mathematics, law, physics</td></tr>
+<tr><td><code>cs.CL</code> Computation and Language</td><td>grp_cs</td><td>0.6190</td><td>linguistics, computing, law, grammar</td></tr>
+<tr><td><code>cs.LO</code> Logic in Computer Science</td><td>grp_cs</td><td>0.6297</td><td>linguistics, law, grammar, geography</td></tr>
+<tr><td><code>cs.ET</code> Emerging Technologies</td><td>grp_cs</td><td>0.6412</td><td>mathematics, computing, law, literature</td></tr>
+<tr><td><code>cs.HC</code> Human-Computer Interaction</td><td>grp_cs</td><td>0.6615</td><td>mathematics, law, computing, telecommunication</td></tr>
+<tr><td><code>cs.AI</code> Artificial Intelligence</td><td>grp_cs</td><td>0.6702</td><td>mathematics, law, grammar, linguistics</td></tr>
+<tr><td><code>eess.IV</code> Image and Video Processing</td><td>grp_eess</td><td>0.6714</td><td>publishing, mathematics, computing, physics</td></tr>
+<tr><td><code>cs.CC</code> Computational Complexity</td><td>grp_cs</td><td>0.6746</td><td>mathematics, linguistics, law, geography</td></tr>
+<tr><td><code>cs.SD</code> Sound</td><td>grp_cs</td><td>0.6786</td><td>mathematics, telecommunication, grammar, law</td></tr>
+<tr><td><code>eess.SY</code> Systems and Control</td><td>grp_eess</td><td>0.6827</td><td>mathematics, computing, literature, physics</td></tr>
+<tr><td><code>q-fin.EC</code> Economics</td><td>grp_q-fin</td><td>0.6879</td><td>linguistics, law, number, programming</td></tr>
+</table>
+<p>The nearest subject stands <strong>0.5960 bits</strong> away. Across 992 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>0.6194 bits</strong>, so this placement <strong>stands apart from chance</strong>.</p>
+</div>
