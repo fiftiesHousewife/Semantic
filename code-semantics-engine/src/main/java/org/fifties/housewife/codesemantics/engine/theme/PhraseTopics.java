@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.fifties.housewife.codesemantics.engine.parse.NameForm;
 import java.util.stream.Collectors;
 
 /**
@@ -83,12 +85,42 @@ public final class PhraseTopics {
      * @param weightByWord what each word is worth on its own — how much it narrows a subject at all
      */
     public Reading of(final List<String> words, final Map<String, Double> weightByWord) {
+        return of(words, weightByWord, citations::of);
+    }
+
+    /**
+     * What the phrase is about, with the words the grammar says are verbs read as verbs.
+     *
+     * @param form where the phrase was written, which is what says how each of its words is being used
+     */
+    public Reading of(final List<String> words, final Map<String, Double> weightByWord,
+                      final NameForm form) {
+        return of(words, weightByWord, reading(form, words));
+    }
+
+    /**
+     * How each word of a phrase in this position is to be read. An identifier is a noun phrase, so its words
+     * are nouns; a method name is a clause, so its first word is what the method does; a sentence is neither,
+     * so the corpus's own counts decide. It is grammar read off the parse, which is what makes it permitted
+     * where a list of words would not be.
+     */
+    private java.util.function.Function<String, List<TopicVote>> reading(final NameForm form,
+                                                                        final List<String> words) {
+        if (form.isProse()) {
+            return citations::inProse;
+        }
+        final Set<String> verbs = form == NameForm.METHOD ? Set.of(words.getFirst()) : Set.of();
+        return word -> verbs.contains(word) ? citations.ofVerb(word) : citations.of(word);
+    }
+
+    private Reading of(final List<String> words, final Map<String, Double> weightByWord,
+                       final java.util.function.Function<String, List<TopicVote>> cite) {
         if (words.isEmpty()) {
             return NOTHING;
         }
         final Map<String, Map<String, Double>> commitments = words.stream().distinct()
                 .collect(Collectors.toUnmodifiableMap(word -> word,
-                        word -> commitment.of(citations.of(word))));
+                        word -> commitment.of(cite.apply(word))));
         final Map<String, Double> scores = new HashMap<>();
         final Map<String, Set<String>> agreement = new HashMap<>();
         topicsIn(commitments).forEach(topic -> {

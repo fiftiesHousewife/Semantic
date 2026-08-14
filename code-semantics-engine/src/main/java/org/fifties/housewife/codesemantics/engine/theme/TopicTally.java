@@ -80,7 +80,7 @@ public final class TopicTally {
         }
         phraseOccurrences++;
         lemmas.forEach(lemma -> sightings.saw(lemma, site, form.isChosenName()));
-        final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas));
+        final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas), form);
         if (reading.isEmpty()) {
             unreadableOccurrences++;
             return;
@@ -106,6 +106,7 @@ public final class TopicTally {
         agreeing.forEach(word -> witnesses.record(topic, word, phrase, site, EvidenceSource.TOPICAL_DOMAIN,
                 said / agreeing.size()));
     }
+
 
     private Map<String, Double> worthOf(final NameForm form, final List<String> lemmas) {
         return lemmas.stream().distinct()

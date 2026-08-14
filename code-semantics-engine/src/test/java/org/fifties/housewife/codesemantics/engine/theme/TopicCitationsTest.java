@@ -17,8 +17,11 @@ class TopicCitationsTest {
 
     private static final HeadwordTopics NO_TOPICS = word -> Set.of();
 
+    /** A one-sense word, so a headword claim speaks for the whole of it and the arithmetic stays readable. */
+    private static final TopicCitations.SenseCount ONE_SENSE = word -> 1;
+
     private static TopicCitations reading(final SenseDomains senses, final HeadwordTopics topics) {
-        return new TopicCitations(senses, topics, Weights.defaults());
+        return new TopicCitations(senses, topics, ONE_SENSE, Weights.defaults());
     }
 
     private static double massOf(final List<TopicVote> votes, final String topic) {
@@ -87,6 +90,17 @@ class TopicCitationsTest {
     }
 
     @Test
+    void admitsAHeadwordClaimAtTheShareOfTheWordItCanSpeakFor() {
+        final TopicCitations eightSenses = new TopicCitations(word -> List.of(), word -> Set.of("law"),
+                word -> 8, Weights.defaults());
+
+        assertThat(massOf(eightSenses.of("cite"), "law"))
+                .as("a claim naming no sense speaks for one of the eight the dictionary states, where a "
+                        + "disambiguated reading speaks for the sense the word is most often written in")
+                .isCloseTo(0.125, offset(1e-12));
+    }
+
+    @Test
     void abstainsForAWordNeitherResourceClaims() {
         assertThat(reading(word -> List.of(), NO_TOPICS).of("qzxfgh")).isEmpty();
     }
@@ -94,7 +108,7 @@ class TopicCitationsTest {
     @Test
     void scalesAResourcesWholeContributionByItsDeclaredWeight() {
         final TopicCitations halved = new TopicCitations(word -> List.of(Set.of("computing")), NO_TOPICS,
-                Weights.builder().wordNetDomain(0.5).build());
+                ONE_SENSE, Weights.builder().wordNetDomain(0.5).build());
 
         assertThat(massOf(halved.of("cursor"), "computing")).isCloseTo(0.5, offset(1e-12));
     }

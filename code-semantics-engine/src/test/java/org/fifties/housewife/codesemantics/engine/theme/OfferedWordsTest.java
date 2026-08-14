@@ -33,7 +33,7 @@ class OfferedWordsTest {
             new WordSightings());
 
     private TopicCitations citations() {
-        return new TopicCitations(senses, word -> Set.of(), Weights.defaults());
+        return new TopicCitations(senses, word -> Set.of(), word -> 1, Weights.defaults());
     }
 
     /** A fixture says what it means: coverage is not what these tests are about. */

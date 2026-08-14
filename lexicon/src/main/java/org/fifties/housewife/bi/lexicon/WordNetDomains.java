@@ -31,11 +31,14 @@ final class WordNetDomains {
 
     private final Map<String, List<Set<String>>> sensesByLemma;
     private final Map<String, Set<String>> lemmasByDomain;
+    private final Map<String, Set<String>> domainsBySense;
 
     private WordNetDomains(final Map<String, List<Set<String>>> sensesByLemma,
-                           final Map<String, Set<String>> lemmasByDomain) {
+                           final Map<String, Set<String>> lemmasByDomain,
+                           final Map<String, Set<String>> domainsBySense) {
         this.sensesByLemma = sensesByLemma;
         this.lemmasByDomain = lemmasByDomain;
+        this.domainsBySense = domainsBySense;
     }
 
     static WordNetDomains fromClasspath() {
@@ -52,6 +55,22 @@ final class WordNetDomains {
         return sensesByLemma.getOrDefault(word.toLowerCase(Locale.ROOT), List.of());
     }
 
+    /**
+     * The subjects assigned to one named sense — the resource's own key, {@code lemma#pos#number}. It is
+     * what a most-frequent-sense reading needs and what the pooled view cannot give: a word's specialist
+     * sense and its everyday one are different rows of this file, and pooling them reads a word as its
+     * rarest meaning.
+     */
+    Set<String> domainsOfSense(final String lemma, final String partOfSpeech, final int senseNumber) {
+        return domainsBySense.getOrDefault(
+                "%s#%s#%d".formatted(lemma.toLowerCase(Locale.ROOT), partOfSpeech, senseNumber), Set.of());
+    }
+
+    /** How many senses of this lemma the resource labels at all, whichever part of speech carries them. */
+    int labelledSenses(final String lemma) {
+        return sensesByLemma.getOrDefault(lemma.toLowerCase(Locale.ROOT), List.of()).size();
+    }
+
     Set<String> lemmasOf(final String domain) {
         return lemmasByDomain.getOrDefault(domain.toLowerCase(Locale.ROOT), Set.of());
     }
@@ -63,10 +82,13 @@ final class WordNetDomains {
             final Map<String, String> canonicalDomains = new HashMap<>();
             final Map<String, List<Set<String>>> sensesByLemma = new HashMap<>();
             final Map<String, Set<String>> lemmasByDomain = new HashMap<>();
+            final Map<String, Set<String>> domainsBySense = new HashMap<>();
             reader.lines()
                     .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .forEach(line -> index(line, sensesByLemma, lemmasByDomain, canonicalDomains));
-            return new WordNetDomains(freezeSenses(sensesByLemma), freezeLemmas(lemmasByDomain));
+                    .forEach(line -> index(line, sensesByLemma, lemmasByDomain, canonicalDomains,
+                            domainsBySense));
+            return new WordNetDomains(freezeSenses(sensesByLemma), freezeLemmas(lemmasByDomain),
+                    Map.copyOf(domainsBySense));
         } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the bundled WordNet Domains resource", e);
         }
@@ -74,7 +96,8 @@ final class WordNetDomains {
 
     private static void index(final String line, final Map<String, List<Set<String>>> sensesByLemma,
                               final Map<String, Set<String>> lemmasByDomain,
-                              final Map<String, String> canonicalDomains) {
+                              final Map<String, String> canonicalDomains,
+                              final Map<String, Set<String>> domainsBySense) {
         final String[] fields = line.split(" ", -1);
         final String senseKey = fields[1];
         final String lemma = senseKey.substring(0, senseKey.indexOf('#')).toLowerCase(Locale.ROOT);
@@ -83,6 +106,7 @@ final class WordNetDomains {
             senseDomains.add(canonicalDomains.computeIfAbsent(fields[field], domain -> domain));
         }
         sensesByLemma.computeIfAbsent(lemma, unused -> new ArrayList<>()).add(Set.copyOf(senseDomains));
+        domainsBySense.put(senseKey.toLowerCase(Locale.ROOT), Set.copyOf(senseDomains));
         senseDomains.forEach(domain ->
                 lemmasByDomain.computeIfAbsent(domain, unused -> new HashSet<>()).add(lemma));
     }

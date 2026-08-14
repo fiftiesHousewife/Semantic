@@ -33,13 +33,38 @@ final class WordNetSenses {
         this.dictionary = dictionary;
     }
 
-    Optional<WordSense> commonestSense(final String word) {
+    /**
+     * The commonest sense among the word's <b>noun</b> senses, falling to every part of speech only where
+     * the dictionary knows no noun reading at all.
+     *
+     * <p>The preference is grammar and it is already stated elsewhere in this library for the same reason:
+     * a topical resource labels what a word is <em>about</em>, and English names its subjects with nouns.
+     * Without it {@code file} reads as its verb — to file a legal document, which WordNet Domains labels
+     * {@code law} — and a repository of parsed files becomes a repository about litigation. An identifier is
+     * a noun phrase, so its words are being used as nouns wherever the dictionary offers one.
+     */
+    Optional<WordSense> commonestSenseAsNoun(final String word) {
         final String written = written(word);
-        return Stream.of(POS.values())
+        return commonestAmong(Stream.of(POS.NOUN), written).or(() -> commonestSense(word));
+    }
+
+    /** The commonest of the word's verb senses, falling to every part of speech where it has none. */
+    Optional<WordSense> commonestSenseAsVerb(final String word) {
+        final String written = written(word);
+        return commonestAmong(Stream.of(POS.VERB), written).or(() -> commonestSense(word));
+    }
+
+    Optional<WordSense> commonestSense(final String word) {
+        return commonestAmong(Stream.of(POS.values()), written(word));
+    }
+
+    private Optional<WordSense> commonestAmong(final Stream<POS> parts, final String written) {
+        return parts
                 .map(partOfSpeech -> entry(partOfSpeech, written))
                 .flatMap(Optional::stream)
-                .flatMap(entry -> entry.getSenses().stream()
-                        .map(sense -> new CountedSense(entry.getLemma(), sense)))
+                .flatMap(entry -> java.util.stream.IntStream.range(0, entry.getSenses().size())
+                        .mapToObj(at -> new CountedSense(entry.getLemma(), entry.getSenses().get(at),
+                                at + 1)))
                 .max(Comparator.comparingInt(CountedSense::uses))
                 .map(CountedSense::named);
     }

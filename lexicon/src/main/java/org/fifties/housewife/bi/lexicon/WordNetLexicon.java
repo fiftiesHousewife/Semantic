@@ -107,6 +107,31 @@ public final class WordNetLexicon implements Lexicon {
     }
 
     @Override
+    public Set<String> commonestSenseDomains(final String word) {
+        return domainsOf(senses.commonestSenseAsNoun(word), word);
+    }
+
+    @Override
+    public Set<String> commonestVerbSenseDomains(final String word) {
+        return domainsOf(senses.commonestSenseAsVerb(word), word);
+    }
+
+    @Override
+    public Set<String> commonestAnySenseDomains(final String word) {
+        return domainsOf(senses.commonestSense(word), word);
+    }
+
+    private Set<String> domainsOf(final Optional<WordSense> sense, final String word) {
+        return sense.map(read -> domains.domainsOfSense(baseOf(word, read), read.posKey(),
+                read.senseNumber())).orElseGet(Set::of);
+    }
+
+    /** The resource is keyed by the dictionary's own lemma, which is what morphology resolved the word to. */
+    private String baseOf(final String word, final WordSense sense) {
+        return baseForm(POS.getPOSForKey(sense.posKey()), word).orElse(word);
+    }
+
+    @Override
     public Set<String> domainsOf(final String word) {
         return domains.domainsOf(word);
     }

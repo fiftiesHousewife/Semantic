@@ -42,42 +42,107 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  */
 public final class TopicCitations {
 
+    /** How many senses the dictionary states for a word — the denominator a headword claim speaks against. */
+    @FunctionalInterface
+    public interface SenseCount {
+        int of(String word);
+    }
+
     private final SenseDomains senseDomains;
+    private final SenseDomains verbSenses;
+    private final SenseDomains anyPartSenses;
     private final HeadwordTopics headwordTopics;
+    private final SenseCount senseCount;
     private final Weights weights;
 
     public TopicCitations(final SenseDomains senseDomains, final HeadwordTopics headwordTopics,
+                          final SenseCount senseCount, final Weights weights) {
+        this(senseDomains, senseDomains, headwordTopics, senseCount, weights);
+    }
+
+    public TopicCitations(final SenseDomains senseDomains, final SenseDomains verbSenses,
+                          final HeadwordTopics headwordTopics, final SenseCount senseCount,
                           final Weights weights) {
+        this(senseDomains, verbSenses, senseDomains, headwordTopics, senseCount, weights);
+    }
+
+    public TopicCitations(final SenseDomains senseDomains, final SenseDomains verbSenses,
+                          final SenseDomains anyPartSenses, final HeadwordTopics headwordTopics,
+                          final SenseCount senseCount, final Weights weights) {
+        this.verbSenses = verbSenses;
+        this.anyPartSenses = anyPartSenses;
         this.senseDomains = senseDomains;
         this.headwordTopics = headwordTopics;
+        this.senseCount = senseCount;
         this.weights = weights;
     }
 
     public static TopicCitations fromClasspath() {
-        return new TopicCitations(SenseDomains.fromClasspath(), StatedTopics.fromClasspath(),
+        return new TopicCitations(SenseDomains.fromClasspath(), SenseDomains.verbsFromClasspath(),
+                SenseDomains.anyPartFromClasspath(), StatedTopics.fromClasspath(),
+                org.fifties.housewife.bi.lexicon.WordNetLexicon.fromClasspath()::senseCount,
                 Weights.defaults());
     }
 
-    /** Every topical reading of the word, or an empty list when neither resource claims it. */
+    /** Every topical reading of the word as a noun, or an empty list when neither resource claims it. */
     public List<TopicVote> of(final String word) {
-        final List<TopicVote> votes = new ArrayList<>(senseLabelled(word));
+        return readAs(senseDomains, word);
+    }
+
+    /**
+     * The same, of a word the grammar says is being used as a verb — the first word of a method name, which
+     * this library already reads as a clause. Its noun and its verb are different subjects and the parse is
+     * what says which was written.
+     */
+    public List<TopicVote> ofVerb(final String word) {
+        return readAs(verbSenses, word);
+    }
+
+    /**
+     * The reading for a word in <b>prose</b>, where nothing in the grammar says it is being used as a name.
+     * An identifier is a noun phrase and its words are nouns; a sentence is not, and forcing {@code read}
+     * into its noun sense made a library that reads repositories evidence for the publishing trade.
+     */
+    public List<TopicVote> inProse(final String word) {
+        return readAs(anyPartSenses, word);
+    }
+
+    private List<TopicVote> readAs(final SenseDomains reading, final String word) {
+        final List<TopicVote> votes = new ArrayList<>(senseLabelled(reading, word));
         votes.addAll(headwordLabelled(word));
         return List.copyOf(votes);
     }
 
-    private List<TopicVote> senseLabelled(final String word) {
+    private List<TopicVote> senseLabelled(final SenseDomains reading, final String word) {
         final List<TopicVote> votes = new ArrayList<>();
-        senseDomains.of(word).stream()
+        reading.of(word).stream()
                 .filter(labels -> !labels.isEmpty())
                 .forEach(labels -> labels.forEach(label -> votes.add(new TopicVote(label,
                         weights.wordNetDomain() / labels.size(), EvidenceSource.WORDNET_DOMAIN))));
         return votes;
     }
 
+    /**
+     * A headword claim names no sense, so it speaks for one of however many the dictionary states — and it
+     * is admitted at that share.
+     *
+     * <p>The two resources are answering different questions and were being counted as if they answered the
+     * same one. WordNet's reading is disambiguated: it is the subject of the sense the word is
+     * <em>most often written in</em>. A headword claim is about the word as a whole, so for a word with
+     * eight senses it is evidence about at most an eighth of it. Counting them at parity let the vaguer
+     * claim outvote the sharper one exactly where the two disagreed: {@code phrase} is
+     * {@code grammar} to a disambiguated reading and {@code music} to a headword one, and
+     * {@code cite} is nothing at all to the first and {@code law} to the second.
+     *
+     * <p>The share is the dictionary's own sense count and not a number chosen here, and a word the
+     * dictionary does not know at all has no denominator to speak against, so the claim stands whole — it is
+     * the only evidence there is.
+     */
     private List<TopicVote> headwordLabelled(final String word) {
         final Set<String> labels = headwordTopics.of(word);
+        final int senses = Math.max(1, senseCount.of(word));
         return labels.stream()
-                .map(label -> new TopicVote(label, weights.wiktionaryTopic() / labels.size(),
+                .map(label -> new TopicVote(label, weights.wiktionaryTopic() / (labels.size() * senses),
                         EvidenceSource.WIKTIONARY_TOPIC))
                 .toList();
     }

@@ -46,6 +46,21 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
     }
 
     @Override
+    public Set<String> commonestSenseDomains(final String word) {
+        return senseDomainsOf(word).stream().findFirst().orElseGet(Set::of);
+    }
+
+    @Override
+    public Set<String> commonestVerbSenseDomains(final String word) {
+        return commonestSenseDomains(word);
+    }
+
+    @Override
+    public Set<String> commonestAnySenseDomains(final String word) {
+        return commonestSenseDomains(word);
+    }
+
+    @Override
     public Optional<WordSense> commonestSense(final String word) {
         throw new UnsupportedOperationException("a topical reading does not ask this");
     }

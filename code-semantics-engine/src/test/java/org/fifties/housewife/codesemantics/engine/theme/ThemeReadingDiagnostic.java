@@ -110,7 +110,23 @@ class ThemeReadingDiagnostic {
                         .contains("word", "parse"),
                 () -> assertThat(themes.witnesses().restsOnOneWord("linguistics"))
                         .as("and carried by more than one of them, which is the claim that matters")
-                        .isFalse());
+                        .isFalse(),
+                () -> assertThat(qualifiedTopics(themes))
+                        .as("THE GOAL. This repository has no biology in it, no law, no publishing and no "
+                                + "music. Each is a word whose everyday sense the resources never labelled "
+                                + "and whose specialist sense they did: `taxonomy` and `ancestry` are a "
+                                + "tree of concepts, `cite` and `witness` are evidence, `publish` is a "
+                                + "bundled resource, `topic` and `phrase` are the units of this reading. "
+                                + "They must fall out of the qualified set by the vote, and nothing here "
+                                + "may name them to make it happen — a list of themes to exclude is what "
+                                + "the doctrine forbids and would not survive the next repository.")
+                        .doesNotContain("biology", "law", "publishing", "music"));
+    }
+
+    private static List<String> qualifiedTopics(final RepositoryThemes themes) {
+        return new QualifiedTopics(themes.witnesses()).across(
+                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
+                themes.repository().intensity());
     }
 
     private static String leadingTopic(final RepositoryThemes themes) {
