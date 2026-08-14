@@ -24,7 +24,7 @@ class IndexPageTest {
     @Test
     void linksEveryReportTheSelfReadingWrites() {
         assertThat(page).contains("summary.html", "themes-chart.html", "themes.html", "subjects.html",
-                "terms-chart.html", "terms.html", "self-reading.html");
+                "taxonomy.html", "terms-chart.html", "terms.html", "self-reading.html");
     }
 
     @Test
