@@ -81,7 +81,34 @@ public final class QualifiedTopics {
      * descriptions are prose and carry the same everyday subjects any prose does.
      */
     private boolean carriedByTheField(final String topic) {
-        return field.isEmpty() || distinguishingFromOrdinaryEnglish(field).contains(topic);
+        return field.isEmpty()
+                || (distinguishingFromOrdinaryEnglish(field).contains(topic) && moreThanTheFieldDoes(topic));
+    }
+
+    /**
+     * Whether this repository is more concentrated in the topic than <b>its own field</b> is.
+     *
+     * <p>Standing above ordinary English is not enough, because a field stands above ordinary English too
+     * and for the same reasons. Computer science as arXiv describes it holds {@code law} at nearly twice
+     * what English does and {@code music} at twice — it has a Sound archive, and its prose carries the same
+     * everyday senses any prose carries. This repository holds them at 1.35 and 1.41 times English. So on
+     * both, the repository is <em>less</em> distinctive than the field it belongs to: they are things
+     * computer science carries, not things this codebase does. On {@code linguistics} it is thirteen times
+     * English against the field's five and a half, and on {@code computing} four and a half against three
+     * and a half.
+     *
+     * <p>It is asked <em>with</em> the question above it and neither alone is enough. The field must carry
+     * the subject distinctively at all — arXiv's computer science never carries {@code publishing}, whatever
+     * this repository does with {@code read} and {@code page} — and where it does carry one, this
+     * repository must carry it harder still. Together they say: a topic of this codebase is a topic its
+     * field has, that it has more of than its field.
+     *
+     * <p>Two ratios against one reference, and nothing chosen. It cannot add a topic to a reading, only
+     * decline to call one characteristic.
+     */
+    private boolean moreThanTheFieldDoes(final String topic) {
+        final double english = ordinaryEnglish.shareOf(topic);
+        return english <= 0.0 || field.shareOf(topic) / english < scopeShareOf(topic) / english;
     }
 
     /**
@@ -93,10 +120,9 @@ public final class QualifiedTopics {
      * and far above {@code linguistics}. A topic held at the rate English holds it has said nothing about
      * the code.
      *
-     * <p>The bars are the two this library applies everywhere else and for the same reasons: the topic must
-     * be concentrated on this side of the comparison, and it must hold more than an even share of the
-     * divergence it is part of. A bare inequality is not enough — {@code music} clears one by two ten
-     * thousandths, which is exactly the "at the same rate" this exists to catch.
+     * <p>The bars are the two this library applies everywhere else: the topic must be concentrated on this
+     * side of the comparison, and it must hold more than an even share of the divergence it is part of. A
+     * bare inequality is not enough — {@code music} clears one by two ten thousandths.
      */
     private Set<String> distinguishingFromOrdinaryEnglish(final TopicDistribution repository) {
         if (ordinaryEnglish.isEmpty()) {
@@ -129,8 +155,15 @@ public final class QualifiedTopics {
      */
     /** A topic that distinguishes this repository from ordinary English, where a reference is available. */
     private java.util.function.Predicate<String> unlikeEnglish(final TopicDistribution repository) {
+        this.repository = repository;
         final Set<String> distinguishing = distinguishingFromOrdinaryEnglish(repository);
         return topic -> ordinaryEnglish.isEmpty() || distinguishing.contains(topic);
+    }
+
+    private TopicDistribution repository = new TopicDistribution(java.util.Map.of());
+
+    private double scopeShareOf(final String topic) {
+        return repository.shareOf(topic);
     }
 
     private Stream<Contribution> accountingFor(final ScopeDivergence scope) {

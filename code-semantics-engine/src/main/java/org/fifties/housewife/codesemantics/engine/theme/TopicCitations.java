@@ -48,11 +48,18 @@ public final class TopicCitations {
         int of(String word);
     }
 
+    /** Whether a bundled domain taxonomy publishes this word as one of its own terms. */
+    @FunctionalInterface
+    public interface PublishedTerm {
+        boolean states(String word);
+    }
+
     private final SenseDomains senseDomains;
     private final SenseDomains verbSenses;
     private final SenseDomains anyPartSenses;
     private final HeadwordTopics headwordTopics;
     private final SenseCount senseCount;
+    private final PublishedTerm published;
     private final Weights weights;
 
     public TopicCitations(final SenseDomains senseDomains, final HeadwordTopics headwordTopics,
@@ -63,12 +70,14 @@ public final class TopicCitations {
     public TopicCitations(final SenseDomains senseDomains, final SenseDomains verbSenses,
                           final HeadwordTopics headwordTopics, final SenseCount senseCount,
                           final Weights weights) {
-        this(senseDomains, verbSenses, senseDomains, headwordTopics, senseCount, weights);
+        this(senseDomains, verbSenses, senseDomains, headwordTopics, senseCount, word -> false, weights);
     }
 
     public TopicCitations(final SenseDomains senseDomains, final SenseDomains verbSenses,
                           final SenseDomains anyPartSenses, final HeadwordTopics headwordTopics,
-                          final SenseCount senseCount, final Weights weights) {
+                          final SenseCount senseCount, final PublishedTerm published,
+                          final Weights weights) {
+        this.published = published;
         this.verbSenses = verbSenses;
         this.anyPartSenses = anyPartSenses;
         this.senseDomains = senseDomains;
@@ -81,7 +90,18 @@ public final class TopicCitations {
         return new TopicCitations(SenseDomains.fromClasspath(), SenseDomains.verbsFromClasspath(),
                 SenseDomains.anyPartFromClasspath(), StatedTopics.fromClasspath(),
                 org.fifties.housewife.bi.lexicon.WordNetLexicon.fromClasspath()::senseCount,
-                Weights.defaults());
+                publishedTerms(), Weights.defaults());
+    }
+
+    /**
+     * The terms a bundled domain taxonomy publishes, asked of one word at a time. OLiA states the vocabulary
+     * of linguistic annotation and its concepts are already identifiers, so a word it names is a word a
+     * field has claimed.
+     */
+    private static PublishedTerm publishedTerms() {
+        final org.fifties.housewife.codesemantics.engine.term.LinguisticTerms terms =
+                org.fifties.housewife.codesemantics.engine.term.LinguisticTerms.fromClasspath();
+        return word -> !terms.conceptsOf(java.util.List.of(word)).isEmpty();
     }
 
     /** Every topical reading of the word as a noun, or an empty list when neither resource claims it. */
@@ -107,9 +127,32 @@ public final class TopicCitations {
         return readAs(anyPartSenses, word);
     }
 
+    /**
+     * Where a <b>domain taxonomy publishes the word as one of its own terms</b> and no sense-labelled
+     * resource speaks about it, a general vocabulary's spread of unrelated subjects is not admitted.
+     *
+     * <p>A citation outranks an assertion, and that is the whole of the rule. {@code topic} is a term OLiA
+     * publishes — it is information structure, what a sentence is about — and it is the commonest content
+     * word this repository writes. WordNet Domains labels neither of its senses, and the one general
+     * vocabulary that answers splits it evenly across {@code medicine}, {@code computing} and {@code music}:
+     * three equal guesses about a word a field has already claimed. A published taxonomy saying "this is my
+     * term" outranks a general dictionary saying "it might be any of these".
+     *
+     * <p>The rule is deliberately narrow, and every clause of it is load-bearing. It needs a taxonomy to
+     * have claimed the word, and it needs the sense-labelled resource to be silent — so {@code phrase},
+     * which OLiA also publishes and whose commonest sense WordNet labels {@code grammar}, is untouched.
+     * Refusing flat sets without the taxonomy clause was measured and reverted three times: it takes the
+     * same shape out of the arXiv descriptions that form the field reference, which are too short to spare
+     * it, and costs {@code computing} and {@code grammar}.
+     */
     private List<TopicVote> readAs(final SenseDomains reading, final String word) {
-        final List<TopicVote> votes = new ArrayList<>(senseLabelled(reading, word));
-        votes.addAll(headwordLabelled(word));
+        final List<TopicVote> sensed = senseLabelled(reading, word);
+        final List<TopicVote> headword = headwordLabelled(word);
+        if (sensed.isEmpty() && headword.size() > 1 && published.states(word)) {
+            return List.of();
+        }
+        final List<TopicVote> votes = new ArrayList<>(sensed);
+        votes.addAll(headword);
         return List.copyOf(votes);
     }
 

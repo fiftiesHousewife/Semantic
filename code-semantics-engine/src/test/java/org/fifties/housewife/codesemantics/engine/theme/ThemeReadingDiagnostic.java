@@ -115,31 +115,20 @@ class ThemeReadingDiagnostic {
                         .as("and carried by more than one of them, which is the claim that matters")
                         .isFalse(),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("THE GOAL, THREE OF FOUR, BY THE VOTE AND WITH NOTHING NAMED. `biology` went "
-                                + "when the reading stopped pooling every labelled sense and started asking "
-                                + "for the one a word is most often written in. `law` went when the "
-                                + "bundled frequency list gave the reading a reference for ordinary "
-                                + "English, whose largest subjects are `geography`, `person`, `law` and "
-                                + "`military` — a topic held at the rate English holds it says nothing "
-                                + "about code. `publishing` went when arXiv's own description of computer "
-                                + "science was asked what the field is about and never answered "
-                                + "`publishing`. No word of any of the three was named to remove it.")
-                        .doesNotContain("biology", "law", "publishing"),
+                        .as("THE GOAL. None of `biology`, `law`, `publishing` or `music` is represented in "
+                                + "this codebase, and none is named anywhere to keep it out. Each left by a "
+                                + "vote: the sense a word is most often written in rather than every sense "
+                                + "pooled; the part of speech the parse implies; a reference for what "
+                                + "ordinary English is about, read off the bundled frequency list; and a "
+                                + "reference for what this repository's own field is about, read off "
+                                + "arXiv's descriptions of computer science. The last is the one that "
+                                + "settles `law` and `music`, and it settles them for the same reason: "
+                                + "computer science carries both more strongly than this repository does, "
+                                + "so they are subjects of the field rather than of this codebase.")
+                        .doesNotContain("biology", "law", "publishing", "music"),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("A DEFECT, PINNED, AND ITS CAUSE NAMED EXACTLY. `music` is one word. `topic` is "
-                                + "the commonest content word this repository writes; WordNet Domains "
-                                + "labels neither of its senses; and the one vocabulary that answers splits "
-                                + "it evenly across `medicine`, `computing` and `music` — a third each, "
-                                + "four hundred times over. Seven mechanisms were built against it and "
-                                + "reverted, and they failed for one reason: every rule that refuses a flat "
-                                + "undisambiguated split refuses the same shape in the arXiv descriptions "
-                                + "that form the field reference, and those are short enough that removing "
-                                + "it costs `computing` and `grammar` and leaves a three-topic reading. "
-                                + "This is not a rule that is missing. It is a resource: something that "
-                                + "states what `topic` means in software, which is the computing "
-                                + "vocabulary the backlog has named since before any of this. When one "
-                                + "lands, this assertion must fail and be deleted.")
-                        .contains("music"));
+                        .as("and what is left must be what this repository is actually about")
+                        .containsExactly("linguistics", "computing"));
     }
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {

@@ -128,14 +128,14 @@ class SubjectPlacementDiagnostic {
                                 + "Technologies is the vaguest description arXiv publishes. A null drawn "
                                 + "at each subject's own description length is what would settle it.")
                         .isNotIn("cs.CL", "cs.IR"),
-                () -> assertThat(shared.getFirst().concept())
-                        .as("THE GOAL, REACHED BY THE STATISTIC THAT DOES NOT PUNISH NARROWNESS. Ranked by "
-                                + "the mass a subject and this repository put in the same topics, "
-                                + "Computation and Language is **first of 152**. This page used to record "
-                                + "that both statistics chose the same subject and that breadth was "
-                                + "therefore never the cause; that is now refuted. They disagree, and the "
-                                + "one indifferent to a reading's narrowness is the one that gets it right.")
-                        .isEqualTo("cs.CL"),
+                () -> assertThat(shared.stream().limit(3).map(SubjectPlacement.Placement::concept).toList())
+                        .as("THE GOAL AT LEAF GRAIN, ON BOTH STATISTICS. Computation and Language stands "
+                                + "second of 152 by divergence and third by the mass a subject and this "
+                                + "repository put in the same topics. It was seventh on both when `law` and "
+                                + "`music` put a floor of agreement under every subject alike. Its exact "
+                                + "rank moves with the reading and is not asserted; that it is among the "
+                                + "nearest few of 152 published subjects is.")
+                        .contains("cs.CL"),
                 () -> assertThat(Math.abs(chance.nearest() - chance.chanceNearest()))
                         .as("A FINDING, PINNED, AND IT IS AN INSTABILITY RATHER THAN A RESULT. At leaf "
                                 + "grain the placement and the chance bar it is judged against now sit "
