@@ -231,6 +231,60 @@ measured cost. `topic` is written 356 times in this tree; WordNet labels it noth
 flat third each to `medicine`, `computing` and `music`, undiscounted, 356 times over. That is where `music`
 comes from, and `medicine`, and a large part of why the summary's topic labels cannot be trusted.
 
+### What the probes found when the five worst labels were traced, which sharpens all of this
+
+`./gradlew topicCarriers` and `./gradlew wordVotes` were run on the five labels a reader called wrong on
+sight — `baseball`, `soccer`, `chemistry`, `military`, `astronomy`. **Each is carried by two or three words,
+and every one of those words fails for one of three reasons.**
+
+| Label | Carried by | Share |
+|---|---|--:|
+| `baseball` | `first` 45.0%, `look` 21.6%, `inside` 11.3% | **78%** on three words |
+| `astronomy` | `jupiter` 40.8%, `blob` 26.7% | **68%** on two |
+| `soccer` | `header` 41.0%, `owl` 22.6% | **64%** on two |
+| `military` | `repository` 23.9%, `file` 23.3% | **47%** on two |
+| `chemistry` | `jupiter` 11.8%, `test` 11.7% | **24%** on two |
+
+**Cause A — a product name read as an English word.** `jupiter` is written **230 times in this tree and 117
+of those are literally `import org.junit.jupiter.…`**. It votes `astronomy` 0.35, `mythology` 0.35,
+`chemistry` 0.10, and it is the largest single carrier of two of the five labels. `owl` is the ontology
+language and votes `animals`, `biology` and `soccer`. `blob` is a git blob and votes `astronomy` a third.
+`sha`, `ha`, `alt`, `tsv` and `net` are the same shape. **These are not English words in this repository at
+all**, and the parse already knows it: they arrive through the import section, which `ImportOrigins` has
+already sorted as neither the platform's nor this tree's own. This is
+[what a repository depends on](#high-what-a-repository-depends-on-is-a-statement-about-its-domain) arriving
+from the other direction — a coordinate read as an artefact says *JUnit Jupiter*, and the same coordinate
+read as English says *Roman god*. The fix for the noise and the fix for the missing signal are one fix.
+
+**Cause B — a single-label headword takes the whole unit, so precision becomes volume.** This is defect 1
+above in its sharpest form and the arithmetic is worth seeing:
+
+```
+first — 6 votes, coverage 0.313
+    baseball        mass 1.0000  WIKTIONARY_TOPIC     ← one label, so it takes the entire unit
+    baseball        mass 0.0625  WORDNET_DOMAIN
+    university      mass 0.0625  WORDNET_DOMAIN
+    mathematics     mass 0.0625  WORDNET_DOMAIN
+    number          mass 0.0625  WORDNET_DOMAIN
+    music           mass 0.0625  WORDNET_DOMAIN
+  share baseball    p 0.8095
+```
+
+`first` is written 116 times and reads as **81% baseball**, because Wiktionary states exactly one topic for
+the headword and an undivided unit goes to it, while WordNet's five topics split 0.3125 between them.
+`look` and `inside` are **100% baseball** for the same reason. **The fewer labels a resource states, the
+louder each one is** — an inverted incentive nobody chose, and it means the most confident-looking readings
+in the whole tree are the ones resting on the least evidence.
+
+**Cause C — only the specialist sense carries a label.** `file` votes `military` because a file is a rank
+formation; `repository` votes `military` because it is an arsenal; `extraction`, `column` and `test` vote
+`chemistry`. The computing sense of each carries no label at all. Already stated as its own item, and these
+figures are what it costs.
+
+**None of the three is a weighting.** Cause A is a word that should never have been offered to a dictionary,
+cause B is a scale defect, cause C is missing coverage in a resource. A constant tuned against any of them
+would be compensating for all three at once, which is the argument for stage 4 being last.
+
 ### Defect 2 — there is no abstention mass in the topical reading
 
 `TopicDistribution.of` divides each topic's mass by the total mass **that was voted**. A word no resource can
@@ -289,6 +343,13 @@ a hand-tuned weight wearing a citation's clothes, and the doctrine already refus
 reading that makes stage 1 and stage 2 the same change, which is a sign it is the right cut.
 
 ### Staging, each stage shipping a measurement rather than a capability
+
+**Stage A — stop offering a dependency's name to a dictionary, which is free and is the largest single
+win.** A word arriving only through an import is a coordinate naming somebody else's artefact, and asking
+WordNet what it means is a category error rather than an inaccuracy. `jupiter` alone is 40.8% of `astronomy`
+and 11.8% of `chemistry`. The parse and `ImportOrigins` already carry everything needed, so this is a change
+to `OfferedWords` and nothing else, and it lands **before stage 0** because it removes noise rather than
+rescaling it. It is also the same fix as the dependency reading, approached from the other side.
 
 **Stage 0 — pin the arithmetic as it stands.** A test asserting, on a fixed fixture, that one occurrence
 yields WordNet `covered` and Wiktionary exactly 1.0. Nothing changes; the current behaviour becomes a stated
