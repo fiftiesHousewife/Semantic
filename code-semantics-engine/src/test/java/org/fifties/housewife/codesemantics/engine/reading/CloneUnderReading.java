@@ -1,6 +1,5 @@
 package org.fifties.housewife.codesemantics.engine.reading;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -13,21 +12,10 @@ import java.nio.file.Path;
  */
 public final class CloneUnderReading {
 
-    private static final String SETTINGS_FILE = "settings.gradle.kts";
     private static final String CLONE_DIRECTORY_PROPERTY = "cs.clone.dir";
 
     public Path root() {
         final String supplied = System.getProperty(CLONE_DIRECTORY_PROPERTY, "");
-        if (!supplied.isBlank()) {
-            return Path.of(supplied).toAbsolutePath().normalize();
-        }
-        Path candidate = Path.of("").toAbsolutePath();
-        while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
-            candidate = candidate.getParent();
-            if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
-            }
-        }
-        return candidate;
+        return supplied.isBlank() ? new HostTree().root() : Path.of(supplied).toAbsolutePath().normalize();
     }
 }

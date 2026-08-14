@@ -1,7 +1,5 @@
 package org.fifties.housewife.codesemantics.engine.summary;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Stream;
@@ -9,11 +7,10 @@ import java.util.stream.Stream;
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
+import org.fifties.housewife.codesemantics.engine.reading.HostTree;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.LegibilityReading;
-import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.fifties.housewife.codesemantics.engine.theme.PooledDescriptions;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
@@ -28,31 +25,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * Writes the one page a reader should be given first: what this reading shows, with everything that did not
- * clear a bar named rather than printed.
+ * What cleared a bar when the summary was written about this repository, held in place.
  *
- * <p>It runs the same three readings the detailed reports run, over the same seed, so the summary cannot
- * disagree with them. What it does not do is add a reading of its own — every figure on the page appears in
- * one of the three, and the work here is the filtering.
- *
- * <p>The filtering is what is asserted: that the page stays short enough to be read whole and that the index
- * names every report beside it. <b>What cleared the bar is not.</b> A repository whose scopes all read alike
- * has nothing distinctive to print and a repository the taxonomy cannot place ought to say so, and both are
- * correct outcomes rather than failures — so what this reading printed about <i>this</i> tree is pinned in
- * {@link PinnedSummaryFindings}.
+ * <p>Each of these is a claim that some part of the reading had something to say, and every one of them may
+ * legitimately go the other way on a repository this reading was never written for: a tree whose every scope
+ * reads alike has nothing distinctive to print, and a tree whose placement does not beat a taxonomy of chance
+ * ought to be reported as placed nowhere. Abstention is a correct outcome, so it cannot be a failing build on
+ * a panel member — it is only a failure <em>here</em>, where the answer is known.
  */
-@Tag("diagnostic")
-class ReadingSummaryDiagnostic {
-
-    private static final String REPORT = "summary";
-    private static final String INDEX = "index.html";
+@Tag("pinned")
+class PinnedSummaryFindings {
 
     private static final long SEED = 20260813L;
     private static final int TOPICS_PER_SCOPE = 3;
 
     @Test
-    void writesEverythingTheReadingShowedAndNothingItOnlyMeasured() throws IOException {
-        final Path root = new CloneUnderReading().root();
+    void printsAFieldAToneAndABarNothingSoftEnoughToPassEveryScope() {
+        final Path root = new HostTree().root();
         final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
@@ -69,20 +58,23 @@ class ReadingSummaryDiagnostic {
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
                 LegibilityReading.fromClasspath().of(parsed), themes, field, chance, TOPICS_PER_SCOPE);
-        final String page = new SummaryReport().render(summary);
-        final ReportFolder reports = ReportFolder.forReadingOf(root);
-        reports.wrote(REPORT, page, "Summary");
-        Files.writeString(reports.file(INDEX), new IndexPage().of(ReadingIndex.of(root.getFileName().toString())));
 
         assertAll(
-                () -> assertThat(page)
-                        .as("a summary nobody finishes is a report with a summary in it somewhere")
-                        .hasSizeLessThan(4_000),
-                () -> assertThat(Files.readString(reports.file(INDEX)))
-                        .as("a folder of reports with no index is a folder read in the wrong order")
-                        .contains("summary.html", "themes-chart.html", "What it takes to be printed:"),
-                () -> assertThat(summary.repository())
-                        .as("the page says which repository it summarises, and it is the one that was read")
-                        .isEqualTo(root.getFileName().toString()));
+                () -> assertThat(summary.field().standsApart())
+                        .as("a placement that does not beat a taxonomy of chance is a horoscope")
+                        .isTrue(),
+                () -> assertThat(summary.distinctive())
+                        .as("a repository whose every part reads alike would have nothing to summarise")
+                        .isNotEmpty(),
+                () -> assertThat(summary.withheld())
+                        .as("A BAR, PINNED. Every scope of a repository is tested, so the scopes are a "
+                                + "field competing to look furthest and the bar is the furthest of that "
+                                + "field rather than the middle of one scope's own draws. Three of nine "
+                                + "scopes fail it here, and two of those three passed while the bar was "
+                                + "the median. If nothing is ever withheld again, the bar has gone soft.")
+                        .isNotEmpty(),
+                () -> assertThat(summary.about())
+                        .as("the topics that make some part unlike the rest are the reading with a bar")
+                        .isNotEmpty());
     }
 }

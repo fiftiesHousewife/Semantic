@@ -69,7 +69,7 @@ tasks.register<Test>("selfRead") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     useJUnitPlatform {
-        includeTags("diagnostic")
+        includeTags("diagnostic | pinned")
     }
     outputs.upToDateWhen { false }
     testLogging.showStandardStreams = true

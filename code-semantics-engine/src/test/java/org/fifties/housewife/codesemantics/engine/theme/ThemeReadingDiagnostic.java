@@ -26,17 +26,18 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  *
  * <p>The draw is seeded on a fixed number so two runs of one tree agree: a permutation null that moved
  * between runs would make every excess unfalsifiable.
+ *
+ * <p>What it asserts holds of any repository it is pointed at: that an intensity is a distribution, that a
+ * divergence stays inside the bound its own definition gives it, and that the report and the graph were
+ * written. What this reading found on <i>this</i> tree is pinned in {@link PinnedThemeFindings} instead, so
+ * that a run against a clone this reading was never written for reports its figures rather than failing.
  */
 @Tag("diagnostic")
 class ThemeReadingDiagnostic {
 
-    private static final ReportFolder REPORTS = new ReportFolder();
     private static final String REPORT = "themes";
     private static final String GRAPH = "themes.json";
     private static final String PAGE = "themes-chart.html";
-
-    private static final TopicDistribution ORDINARY_ENGLISH =
-            OrdinaryEnglish.fromClasspath().reading();
 
     private static final long SEED = 20260813L;
     private static final int TOPICS_GRAPHED = 18;
@@ -75,8 +76,9 @@ class ThemeReadingDiagnostic {
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(parsed);
+        final ReportFolder reports = ReportFolder.forReadingOf(root);
 
-        write(themes, root);
+        write(reports, themes, root);
 
         assertAll(
                 () -> assertThat(themes.rankings()).as("a repository of names reads as some subject").isNotEmpty(),
@@ -86,81 +88,20 @@ class ThemeReadingDiagnostic {
                         .isCloseTo(1.0, offset(1e-9)),
                 () -> assertThat(themes.divergences()).allSatisfy(divergence ->
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
-                () -> assertThat(Files.readString(REPORTS.file(REPORT + ".md"))).contains("What distinguishes each scope"),
-                () -> assertThat(Files.readString(REPORTS.file(GRAPH))).contains("\"nodes\""),
-                () -> assertThat(Files.readString(REPORTS.file(PAGE)))
+                () -> assertThat(Files.readString(reports.file(REPORT + ".md"))).contains("What distinguishes each scope"),
+                () -> assertThat(Files.readString(reports.file(GRAPH))).contains("\"nodes\""),
+                () -> assertThat(Files.readString(reports.file(PAGE)))
                         .as("the page draws the same reading the report states")
-                        .contains("What this repository is about"),
-                () -> assertThat(leadingTopic(themes))
-                        .as("THE GOAL, ASSERTED. A library of lemmas, senses, word frequencies and "
-                                + "hypernym chains is working in computational linguistics, and the "
-                                + "strongest topic the resources read it as must say so. This led `law` "
-                                + "for most of the reading's life and `computing` after that; it leads "
-                                + "`linguistics` because a dependency's name stopped being read as English, "
-                                + "a resource stopped being normalised to one unit, and a word nothing "
-                                + "labelled stopped reading as fully spoken for. Nothing is excluded and no "
-                                + "word is listed.")
-                        .isEqualTo("linguistics"),
-                () -> assertThat(shareOf(themes, "linguistics"))
-                        .as("and it must lead by more than a nose, because a lead inside the noise is a "
-                                + "coin toss that happened to land right")
-                        .isGreaterThan(1.5 * shareOf(themes, "music")),
-                () -> assertThat(witnessesFor(themes, "linguistics"))
-                        .as("carried by words that are the field's own. Named sparingly and on purpose: "
-                                + "this reading reads itself, so a witness whose count depends on how "
-                                + "often the reader's own code happens to mention it is a fragile thing "
-                                + "to assert — deleting a record called `Verb` once broke this line.")
-                        .contains("word", "parse"),
-                () -> assertThat(themes.witnesses().restsOnOneWord("linguistics"))
-                        .as("and carried by more than one of them, which is the claim that matters")
-                        .isFalse(),
-                () -> assertThat(qualifiedTopics(themes))
-                        .as("THE GOAL. None of `biology`, `law`, `publishing` or `music` is represented in "
-                                + "this codebase, and none is named anywhere to keep it out. Each left by a "
-                                + "vote: the sense a word is most often written in rather than every sense "
-                                + "pooled; the part of speech the parse implies; a reference for what "
-                                + "ordinary English is about, read off the bundled frequency list; and a "
-                                + "reference for what this repository's own field is about, read off "
-                                + "arXiv's descriptions of computer science. The last is the one that "
-                                + "settles `law` and `music`, and it settles them for the same reason: "
-                                + "computer science carries both more strongly than this repository does, "
-                                + "so they are subjects of the field rather than of this codebase.")
-                        .doesNotContain("biology", "law", "publishing", "music"),
-                () -> assertThat(qualifiedTopics(themes))
-                        .as("and what is left must be what this repository is actually about")
-                        .containsExactly("linguistics", "computing"));
+                        .contains("What this repository is about"));
     }
 
-    private static List<String> qualifiedTopics(final RepositoryThemes themes) {
-        return new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
-                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity())).across(
-                themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
-                themes.repository().intensity());
-    }
-
-    private static String leadingTopic(final RepositoryThemes themes) {
-        return themes.repository().intensity().shareByTopic().entrySet().stream()
-                .max(java.util.Map.Entry.comparingByValue())
-                .orElseThrow()
-                .getKey();
-    }
-
-    private static double shareOf(final RepositoryThemes themes, final String topic) {
-        return themes.repository().intensity().shareOf(topic);
-    }
-
-    private static List<String> witnessesFor(final RepositoryThemes themes, final String topic) {
-        return themes.witnesses().forTopic(topic, WITNESSES_HELD).stream()
-                .map(TopicWitnesses.Witness::word)
-                .toList();
-    }
-
-    private void write(final RepositoryThemes themes, final Path root) throws IOException {
-                REPORTS.wrote(REPORT, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
+    private void write(final ReportFolder reports, final RepositoryThemes themes, final Path root)
+            throws IOException {
+                reports.wrote(REPORT, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
                 new ThemeReport().render(themes)), "Themes");
         final ThemeGraph graph = ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED,
                 WITNESSES_HELD, new SourceLinks(root));
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(REPORTS.file(GRAPH).toFile(), graph);
-        Files.writeString(REPORTS.file(PAGE), new ThemePage().of(graph));
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(reports.file(GRAPH).toFile(), graph);
+        Files.writeString(reports.file(PAGE), new ThemePage().of(graph));
     }
 }

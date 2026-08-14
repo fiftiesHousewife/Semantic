@@ -40,7 +40,7 @@ tasks.test {
         if (includedTags != null) {
             includeTags(includedTags)
         } else {
-            excludeTags("generate", "diagnostic")
+            excludeTags("generate", "diagnostic", "pinned")
         }
     }
     // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM

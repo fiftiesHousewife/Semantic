@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class SelfReadingDiagnostic {
 
-    private static final ReportFolder REPORTS = new ReportFolder();
     private static final String REPORT = "self-reading";
 
     private static final String PREAMBLE = """
@@ -48,8 +47,9 @@ class SelfReadingDiagnostic {
                 new DocumentationScope().under(root).stream()).toList();
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final RepositoryLegibility reading = LegibilityReading.fromClasspath().of(parsed);
+        final ReportFolder reports = ReportFolder.forReadingOf(root);
 
-        write(reading, root, parsed);
+        write(reports, reading, root, parsed);
 
         assertAll(
                 () -> assertThat(scopes).as("a repository with no Java sources cannot be read").isNotEmpty(),
@@ -59,12 +59,12 @@ class SelfReadingDiagnostic {
                 () -> assertThat(reading.repository().counts().legibility()).isBetween(0.0, 1.0),
                 () -> assertThat(reading.scopes()).allSatisfy(scope ->
                         assertThat(scope.counts().read()).isLessThanOrEqualTo(scope.counts().words())),
-                () -> assertThat(Files.readString(REPORTS.file(REPORT + ".md"))).contains("**repository**"));
+                () -> assertThat(Files.readString(reports.file(REPORT + ".md"))).contains("**repository**"));
     }
 
-    private void write(final RepositoryLegibility reading, final Path root, final ParsedRepository parsed)
-            throws IOException {
-                REPORTS.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
+    private void write(final ReportFolder reports, final RepositoryLegibility reading, final Path root,
+            final ParsedRepository parsed) throws IOException {
+                reports.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
                 new LegibilityReport().render(reading), imports(parsed)), "Legibility");
     }
 
