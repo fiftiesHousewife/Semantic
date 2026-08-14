@@ -12,6 +12,7 @@ import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -36,7 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class SubjectPlacementDiagnostic {
 
-    private static final String REPORT = "build/reports/self-reading/subjects.md";
+    private static final ReportFolder REPORTS = new ReportFolder();
+    private static final String REPORT = "subjects";
 
     private static final long SEED = 20260813L;
     private static final int SUBJECTS_HELD = 12;
@@ -143,10 +145,8 @@ class SubjectPlacementDiagnostic {
                               final SubjectNull.Chance pooledChance,
                               final List<SubjectPlacement.Placement> shared,
                               final SubjectNull.Chance sharedChance) throws IOException {
-        final Path report = Path.of(REPORT);
-        Files.createDirectories(report.getParent());
-        final SubjectReport rendered = new SubjectReport();
-        Files.writeString(report, """
+                final SubjectReport rendered = new SubjectReport();
+        REPORTS.wrote(REPORT, """
                 # Subjects — %s
 
                 %s
@@ -167,6 +167,6 @@ class SubjectPlacementDiagnostic {
                 %s""".formatted(root.getFileName(), PREAMBLE,
                 rendered.render(pooled, pooledChance, ARCHIVES_HELD),
                 rendered.render(placements, chance, SUBJECTS_HELD),
-                rendered.render(shared, sharedChance, SUBJECTS_HELD)));
+                rendered.render(shared, sharedChance, SUBJECTS_HELD)), "Subjects");
     }
 }

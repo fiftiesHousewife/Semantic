@@ -11,6 +11,7 @@ import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class ThemeReadingDiagnostic {
 
-    private static final String REPORT = "build/reports/self-reading/themes.md";
-    private static final String GRAPH = "build/reports/self-reading/themes.json";
-    private static final String PAGE = "build/reports/self-reading/themes.html";
+    private static final ReportFolder REPORTS = new ReportFolder();
+    private static final String REPORT = "themes";
+    private static final String GRAPH = "themes.json";
+    private static final String PAGE = "themes-chart.html";
 
     private static final long SEED = 20260813L;
     private static final int TOPICS_GRAPHED = 18;
@@ -81,9 +83,9 @@ class ThemeReadingDiagnostic {
                         .isCloseTo(1.0, offset(1e-9)),
                 () -> assertThat(themes.divergences()).allSatisfy(divergence ->
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
-                () -> assertThat(Files.readString(Path.of(REPORT))).contains("What distinguishes each scope"),
-                () -> assertThat(Files.readString(Path.of(GRAPH))).contains("\"nodes\""),
-                () -> assertThat(Files.readString(Path.of(PAGE)))
+                () -> assertThat(Files.readString(REPORTS.file(REPORT + ".md"))).contains("What distinguishes each scope"),
+                () -> assertThat(Files.readString(REPORTS.file(GRAPH))).contains("\"nodes\""),
+                () -> assertThat(Files.readString(REPORTS.file(PAGE)))
                         .as("the page draws the same reading the report states")
                         .contains("What this repository is about"),
                 () -> assertThat(leadingTopic(themes))
@@ -101,8 +103,14 @@ class ThemeReadingDiagnostic {
                                 + "coin toss that happened to land right")
                         .isGreaterThan(1.5 * shareOf(themes, "music")),
                 () -> assertThat(witnessesFor(themes, "linguistics"))
-                        .as("carried by words that are the field's own, not by one ambiguous word")
-                        .contains("word", "parse", "verb"));
+                        .as("carried by words that are the field's own. Named sparingly and on purpose: "
+                                + "this reading reads itself, so a witness whose count depends on how "
+                                + "often the reader's own code happens to mention it is a fragile thing "
+                                + "to assert — deleting a record called `Verb` once broke this line.")
+                        .contains("word", "parse"),
+                () -> assertThat(themes.witnesses().restsOnOneWord("linguistics"))
+                        .as("and carried by more than one of them, which is the claim that matters")
+                        .isFalse());
     }
 
     private static String leadingTopic(final RepositoryThemes themes) {
@@ -123,13 +131,11 @@ class ThemeReadingDiagnostic {
     }
 
     private void write(final RepositoryThemes themes, final Path root) throws IOException {
-        final Path report = Path.of(REPORT);
-        Files.createDirectories(report.getParent());
-        Files.writeString(report, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                new ThemeReport().render(themes)));
+                REPORTS.wrote(REPORT, "# Themes — %s%n%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
+                new ThemeReport().render(themes)), "Themes");
         final ThemeGraph graph = ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED,
                 WITNESSES_HELD, new SourceLinks(root));
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(), graph);
-        Files.writeString(Path.of(PAGE), new ThemePage().of(graph));
+        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(REPORTS.file(GRAPH).toFile(), graph);
+        Files.writeString(REPORTS.file(PAGE), new ThemePage().of(graph));
     }
 }

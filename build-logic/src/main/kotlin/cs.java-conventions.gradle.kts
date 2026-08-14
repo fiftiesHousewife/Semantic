@@ -46,6 +46,9 @@ tasks.test {
     // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM
     // otherwise), so a diagnostic can be pointed at a clone of the caller's choosing.
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    // Reports are written where a person will look for them rather than under build/, and a reading
+    // pointed at another clone must still write its findings here and not into that clone.
+    systemProperty("cs.output.dir", rootProject.layout.projectDirectory.dir("output").asFile.absolutePath)
     // A diagnostic exists to print its findings for a human to read. By default Gradle captures the forked
     // test JVM's console output into the HTML report, where it is effectively swallowed; stream it to the
     // Gradle console instead — but only for a diagnostic run, so normal builds stay quiet.

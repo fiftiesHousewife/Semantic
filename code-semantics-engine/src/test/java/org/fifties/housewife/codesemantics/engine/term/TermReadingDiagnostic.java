@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class TermReadingDiagnostic {
 
-    private static final String REPORT = "build/reports/self-reading/terms.md";
-    private static final String GRAPH = "build/reports/self-reading/terms.json";
-    private static final String PAGE = "build/reports/self-reading/terms.html";
+    private static final ReportFolder REPORTS = new ReportFolder();
+    private static final String REPORT = "terms";
+    private static final String GRAPH = "terms.json";
+    private static final String PAGE = "terms-chart.html";
 
     private static final int TERMS_HELD = 100;
 
@@ -101,7 +103,7 @@ class TermReadingDiagnostic {
                         .isPositive(),
                 () -> assertThat(matched.sightings()).allSatisfy(sighting ->
                         assertThat(sighting.specificity()).isBetween(0.0, 1.0)),
-                () -> assertThat(Files.readString(Path.of(PAGE)))
+                () -> assertThat(Files.readString(REPORTS.file(PAGE)))
                         .as("the page draws the same reading the report states")
                         .contains(TermProse.HEADING),
                 () -> assertThat(oneWordShare(onWords))
@@ -155,15 +157,13 @@ class TermReadingDiagnostic {
 
     private static void write(final Path root, final LinguisticTerms terms, final MatchedTerms matched,
                               final TermGraph graph) throws IOException {
-        final Path report = Path.of(REPORT);
-        Files.createDirectories(report.getParent());
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(Path.of(GRAPH).toFile(), graph);
-        Files.writeString(Path.of(PAGE), new TermPage().of(graph));
-        Files.writeString(report, """
+                new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(REPORTS.file(GRAPH).toFile(), graph);
+        Files.writeString(REPORTS.file(PAGE), new TermPage().of(graph));
+        REPORTS.wrote(REPORT, """
                 # Terms — %s
 
                 %s
                 %s""".formatted(root.getFileName(), PREAMBLE,
-                new TermReport().render(terms.source(), matched, TERMS_HELD)));
+                new TermReport().render(terms.source(), matched, TERMS_HELD)), "Terms");
     }
 }

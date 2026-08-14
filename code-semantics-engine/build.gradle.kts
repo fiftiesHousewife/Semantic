@@ -60,7 +60,7 @@ tasks.register<JavaExec>("topicCarriers") {
 // Only the summary is echoed. The detailed reports are still written beside it — self-reading.md, themes.md,
 // subjects.md and terms.md — and each carries what it measured; the summary carries what cleared a bar, and
 // printing both to one console is how the second gets lost in the first.
-val selfReadSummary = layout.buildDirectory.file("reports/self-reading/summary.md")
+val readingOutput = rootProject.layout.projectDirectory.dir("output")
 
 tasks.register<Test>("selfRead") {
     group = "verification"
@@ -74,9 +74,10 @@ tasks.register<Test>("selfRead") {
     outputs.upToDateWhen { false }
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
     doLast {
-        logger.lifecycle(selfReadSummary.get().asFile.readText())
+        logger.lifecycle(readingOutput.file("summary.md").asFile.readText())
         logger.lifecycle("Every report, with the bar each carries: " +
-            "file://${selfReadSummary.get().asFile.parent}/index.html")
+            "file://${readingOutput.file("index.html").asFile.absolutePath}")
     }
 }

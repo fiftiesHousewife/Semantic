@@ -19,8 +19,14 @@ import static j2html.TagCreator.tag;
  * than a grouping anyone invented. A theme the hierarchy says nothing about sits alone in its own sector,
  * which is the honest way to draw a label that generalises to nothing.
  *
- * <p>An angle is a share and a share bounds itself at one, so the ring closes exactly once: the topics too
- * small to draw hold the wedge that is left rather than being quietly dropped.
+ * <p><b>The ring closes over the topics that earned a place</b>, so every wedge is a share of what the
+ * picture is actually about and two wedges can be compared by eye. It once closed over all topical mass,
+ * which put half the circle into a single grey wedge for the four hundred and seventy-five topics that
+ * cleared no bar — a picture whose largest feature was the material it existed to leave out.
+ *
+ * <p>Nothing is hidden by that. What the drawn topics hold of <em>all</em> topical mass is a figure, and the
+ * caption beside the chart states it: a denominator belongs in words where it is read, not in a wedge where
+ * it is merely large.
  */
 final class ThemeSunburst {
 
@@ -52,12 +58,12 @@ final class ThemeSunburst {
         double from = START;
         int rank = 0;
         for (final Map.Entry<String, List<ThemeGraph.Node>> group : grouped.entrySet()) {
-            final double sweep = FULL_TURN * group.getValue().stream()
-                    .mapToDouble(ThemeGraph.Node::intensity).sum();
+            final double sweep = turnOf(group.getValue().stream()
+                    .mapToDouble(ThemeGraph.Node::intensity).sum());
             wedges.add(sector(group.getKey(), from, sweep, INNER_FROM, INNER_TO, colour(rank), 1.0));
             double within = from;
             for (final ThemeGraph.Node node : group.getValue()) {
-                final double leaf = FULL_TURN * node.intensity();
+                final double leaf = turnOf(node.intensity());
                 wedges.add(sector(node.topic(), within, leaf, OUTER_FROM, OUTER_TO, colour(rank),
                         fade(group.getValue().indexOf(node))));
                 within += leaf;
@@ -65,7 +71,6 @@ final class ThemeSunburst {
             from += sweep;
             rank++;
         }
-        wedges.add(remainder(from));
         return tag("svg").withId("sunburst").attr("viewBox", "0 0 %d %d".formatted(SIZE, SIZE))
                 .attr("role", "img")
                 .attr("aria-label", "Themes by share of topical mass, the broad subject inside and the "
@@ -73,11 +78,9 @@ final class ThemeSunburst {
                 .with(wedges);
     }
 
-    /** What is left of the turn: every topic too small to be drawn, held rather than dropped. */
-    private DomContent remainder(final double from) {
-        final double left = Math.max(0.0, FULL_TURN + START - from);
-        return sector("every other topic", from, left, INNER_FROM, OUTER_TO,
-                SeriesColours.swatch(SeriesColours.REST, SeriesColours.REST), 1.0);
+    /** A share of what is drawn, so the ring closes over the topics that earned a place. */
+    private double turnOf(final double intensity) {
+        return drawn <= 0.0 ? 0.0 : FULL_TURN * intensity / drawn;
     }
 
     private DomContent sector(final String named, final double from, final double sweep, final double inner,
@@ -89,7 +92,8 @@ final class ThemeSunburst {
     }
 
     private static String describing(final String named, final double sweep) {
-        return "%s — %s of all topical mass".formatted(named, ThemeTables.percentage(sweep / FULL_TURN));
+        return "%s — %s of what the chart draws".formatted(named,
+                ThemeTables.percentage(sweep / FULL_TURN));
     }
 
     private static DomContent label(final String named, final double from, final double sweep,

@@ -16,15 +16,15 @@ class IndexPageTest {
 
     @Test
     void putsTheSummaryFirstBecauseItIsTheOnlyOneWithABarOnEveryLine() {
-        assertThat(page.indexOf("summary.md"))
-                .isLessThan(page.indexOf("themes.md"))
-                .isLessThan(page.indexOf("self-reading.md"));
+        assertThat(page.indexOf("summary.html"))
+                .isLessThan(page.indexOf("themes.html"))
+                .isLessThan(page.indexOf("self-reading.html"));
     }
 
     @Test
     void linksEveryReportTheSelfReadingWrites() {
-        assertThat(page).contains("summary.md", "themes.html", "themes.md", "subjects.md",
-                "terms.html", "terms.md", "self-reading.md");
+        assertThat(page).contains("summary.html", "themes-chart.html", "themes.html", "subjects.html",
+                "terms-chart.html", "terms.html", "self-reading.html");
     }
 
     @Test

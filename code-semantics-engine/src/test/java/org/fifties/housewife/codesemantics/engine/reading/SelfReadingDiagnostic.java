@@ -26,7 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class SelfReadingDiagnostic {
 
-    private static final String REPORT = "build/reports/self-reading/self-reading.md";
+    private static final ReportFolder REPORTS = new ReportFolder();
+    private static final String REPORT = "self-reading";
 
     private static final String PREAMBLE = """
             A reading of this repository's own Java sources by the library that reads repositories, over a
@@ -58,15 +59,13 @@ class SelfReadingDiagnostic {
                 () -> assertThat(reading.repository().counts().legibility()).isBetween(0.0, 1.0),
                 () -> assertThat(reading.scopes()).allSatisfy(scope ->
                         assertThat(scope.counts().read()).isLessThanOrEqualTo(scope.counts().words())),
-                () -> assertThat(Files.readString(Path.of(REPORT))).contains("**repository**"));
+                () -> assertThat(Files.readString(REPORTS.file(REPORT + ".md"))).contains("**repository**"));
     }
 
     private void write(final RepositoryLegibility reading, final Path root, final ParsedRepository parsed)
             throws IOException {
-        final Path report = Path.of(REPORT);
-        Files.createDirectories(report.getParent());
-        Files.writeString(report, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                new LegibilityReport().render(reading), imports(parsed)));
+                REPORTS.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
+                new LegibilityReport().render(reading), imports(parsed)), "Legibility");
     }
 
     /** What the parse set aside, so a narrowed corpus is a reported figure rather than a silent one. */

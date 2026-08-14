@@ -43,3 +43,4 @@ docs/clean-code/
 *.csv
 !*/src/*/resources/**/*.csv
 *.class
+output/

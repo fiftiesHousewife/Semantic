@@ -26,10 +26,7 @@ class ThemePageTest {
                 List.of(new ThemeGraph.Scope("main", 1, 40, 0.2, 0.1, 0.1, 4, 999, true,
                         List.of(new ThemeGraph.Contribution("computing", 0.5, 0.3, 0.1, true,
                                 List.of(witness))))),
-                List.of(new ThemeGraph.File("Reading.java", 40, "computing", 0.4)),
-                List.of(new ThemeGraph.Foreign("shannon", 0.97, 3, List.of("buildings"), site)),
-                List.of(new ThemeGraph.Verb("read", 2,
-                        List.of(new ThemeGraph.Clause("read a repository", "reads", site)))));
+                List.of(new ThemeGraph.File("Reading.java", 40, "computing", 0.4)));
     }
 
     @Test
@@ -59,13 +56,14 @@ class ThemePageTest {
         assertAll(
                 () -> assertThat(page).contains("<title>Themes — tree</title>"),
                 () -> assertThat(page).contains("computing"),
-                () -> assertThat(page).contains("shannon"),
-                () -> assertThat(page).contains("read a repository"),
                 () -> assertThat(page).contains("stands outside its own null"),
                 () -> assertThat(page).contains("<svg id=\"sunburst\""),
                 () -> assertThat(page)
-                        .as("a wedge is a share, and the ring closes exactly once")
-                        .contains("every other topic"));
+                        .as("the ring closes over what earned a place, so no wedge is the leftovers")
+                        .doesNotContain("every other topic"),
+                () -> assertThat(page)
+                        .as("and the share those topics hold of all mass is stated in words instead")
+                        .contains("The ring closes over the", "topics that earned a place"));
     }
 
     @Test

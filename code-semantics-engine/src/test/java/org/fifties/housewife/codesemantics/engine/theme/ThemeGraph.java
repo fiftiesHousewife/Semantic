@@ -3,7 +3,6 @@ package org.fifties.housewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.Map;
 
-import org.fifties.housewife.codesemantics.engine.behaviour.Behaviours;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
 import org.fifties.housewife.codesemantics.model.EvidenceSource;
 
@@ -20,8 +19,8 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * bar at all is what made the sunburst look half empty and wholly unconvincing.
  */
 record ThemeGraph(String repository, int files, int lines, int topics, long elapsedMillis, String linkage,
-                  List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead,
-                  List<Foreign> foreignWords, List<Verb> verbs) {
+                  List<Node> nodes, List<Edge> edges, List<Scope> scopes, List<File> filesRead) {
+ 
 
     record Node(String topic, double intensity, double nameShare, int references, int files, int leads,
                 int linesLed, double lineShare, int wordsBehind, String broader, List<Witness> carriedBy) {
@@ -39,14 +38,8 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
     record Site(String where, String url) {
     }
 
-    record Foreign(String word, double bits, int occurrences, List<String> subjects, Site site) {
-    }
 
-    record Verb(String verb, int times, List<Clause> clauses) {
-    }
 
-    record Clause(String sentence, String subject, Site site) {
-    }
 
     record Edge(String from, String to, int occurrences, List<String> words) {
     }
@@ -81,22 +74,9 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
                 themes.divergences().stream()
                         .map(divergence -> scope(divergence, themes, witnessesShown, links))
                         .toList(),
-                themes.files().stream().map(file -> file(file, themes.dominantByFile())).toList(),
-                themes.foreignWords().stream()
-                        .map(foreign -> new Foreign(foreign.word(), foreign.bits(), foreign.occurrences(),
-                                foreign.subjects(), site(foreign.site(), links)))
-                        .toList(),
-                verbs(themes, links));
+                themes.files().stream().map(file -> file(file, themes.dominantByFile())).toList());
     }
 
-    private static List<Verb> verbs(final RepositoryThemes themes, final SourceLinks links) {
-        return Behaviours.byVerb(themes.behaviours()).entrySet().stream()
-                .map(verb -> new Verb(verb.getKey(), verb.getValue().size(), verb.getValue().stream()
-                        .map(clause -> new Clause(clause.sentence(), clause.subject(),
-                                site(clause.site(), links)))
-                        .toList()))
-                .toList();
-    }
 
     private static Site site(final String where, final SourceLinks links) {
         return new Site(where, links.of(where));

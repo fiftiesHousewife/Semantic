@@ -28,50 +28,12 @@ import static j2html.TagCreator.tr;
  */
 final class ThemeSections {
 
-    private static final int CLAUSES_SHOWN = 4;
-
-    private static final List<String> VERB_COLUMNS = List.of("Verb", "Times", "What it acts on");
-
-    private static final List<String> FOREIGN_COLUMNS = List.of("Word", "Distance", "Written",
-            "The dictionary places it in");
-
     DomContent heading(final String heading, final String explaining) {
         return div(h2(heading), p(explaining).withClass("note")).withClass("section-head");
     }
 
     DomContent figure(final String naming, final String reads) {
         return div(dt(naming), dd(reads)).withClass("stat");
-    }
-
-    DomContent behaviours(final List<ThemeGraph.Verb> verbs) {
-        return section(heading(PageProse.BEHAVIOUR_HEADING, PageProse.BEHAVIOUR),
-                div(table(caption(PageProse.BEHAVIOUR_CAPTION),
-                        columns(VERB_COLUMNS),
-                        tbody(each(verbs, this::verb)))).withClass("scroller"));
-    }
-
-    private DomContent verb(final ThemeGraph.Verb verb) {
-        return tr(th(verb.verb()).attr("scope", "row"),
-                td(ThemeTables.count(verb.times())).withClass("n"),
-                td(each(verb.clauses().stream().limit(CLAUSES_SHOWN).map(ThemeSections::clause)))
-                        .withClass("clauses"));
-    }
-
-    private static DomContent clause(final ThemeGraph.Clause clause) {
-        return span(clause.sentence()).withClass("clause");
-    }
-
-    DomContent foreignWords(final List<ThemeGraph.Foreign> foreign) {
-        return section(heading(PageProse.FOREIGN_HEADING, PageProse.FOREIGN),
-                div(table(columns(FOREIGN_COLUMNS), tbody(each(foreign, this::foreignWord))))
-                        .withClass("scroller"));
-    }
-
-    private DomContent foreignWord(final ThemeGraph.Foreign foreign) {
-        return tr(th(code(foreign.word())).attr("scope", "row"),
-                td(ThemeTables.bits(foreign.bits())).withClass("n"),
-                td(ThemeTables.count(foreign.occurrences())).withClass("n"),
-                td(String.join(", ", foreign.subjects())));
     }
 
     DomContent strangeResults() {
@@ -81,7 +43,4 @@ final class ThemeSections {
                 p(PageProse.STRANGE_REST).withClass("note"));
     }
 
-    private static DomContent columns(final List<String> named) {
-        return thead(tr(each(named, column -> th(column).attr("scope", "col"))));
-    }
 }
