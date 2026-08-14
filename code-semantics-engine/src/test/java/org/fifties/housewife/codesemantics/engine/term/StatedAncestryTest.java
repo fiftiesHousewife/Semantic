@@ -16,11 +16,16 @@ class StatedAncestryTest {
     }
 
     @Test
-    void leavesATermTheOntologyStatesNoNamedParentForStandingAtItsOwnRoot() {
+    void placesTheVocabularyAProgramWritesUnderTheBranchesItsPublisherStates() {
         assertAll(
-                () -> assertThat(ancestry.of("Verb")).containsExactly("Verb"),
-                () -> assertThat(ancestry.of("CommonNoun")).containsExactly("CommonNoun"),
-                () -> assertThat(ancestry.rootOf("Phrase")).isEqualTo("Phrase"));
+                () -> assertThat(ancestry.of("Verb"))
+                        .as("these read as roots of their own until the extraction learned RDF's second "
+                                + "spelling of a superclass, which cost 627 of the ontology's 1,422 edges")
+                        .containsExactly("MorphosyntacticCategory", "Verb"),
+                () -> assertThat(ancestry.of("CommonNoun"))
+                        .containsExactly("MorphosyntacticCategory", "Noun", "CommonNoun"),
+                () -> assertThat(ancestry.rootOf("Phrase")).isEqualTo("Constituent"),
+                () -> assertThat(ancestry.rootOf("Token")).isEqualTo("OrthographicEntity"));
     }
 
     @Test
@@ -29,7 +34,7 @@ class StatedAncestryTest {
                 () -> assertThat(ancestry.rootOf("Summary")).isEqualTo("Relation"),
                 () -> assertThat(ancestry.rootOf("Sentence")).isEqualTo("LinguisticConcept"),
                 () -> assertThat(ancestry.rootOf("Person")).isEqualTo("SemanticFeature"),
-                () -> assertThat(ancestry.rootOf("Noun")).isEqualTo("Noun"));
+                () -> assertThat(ancestry.rootOf("Noun")).isEqualTo("MorphosyntacticCategory"));
     }
 
     @Test

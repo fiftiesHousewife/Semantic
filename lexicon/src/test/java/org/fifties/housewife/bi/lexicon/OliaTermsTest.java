@@ -11,7 +11,7 @@ class OliaTermsTest {
 
     @Test
     void statesTheVocabularyOfLinguisticAnnotation() {
-        assertThat(terms.terms()).hasSize(1197)
+        assertThat(terms.terms()).hasSize(1312)
                 .contains("Noun", "Verb", "Phrase", "CommonNoun", "AdjectivePhrase", "Determiner");
     }
 
@@ -39,11 +39,12 @@ class OliaTermsTest {
     }
 
     @Test
-    void statesNothingBroaderWhereTheOntologyNamesNoSuperclass() {
+    void statesTheSuperclassTheOntologyNamesHoweverItSpellsIt() {
         assertThat(terms.conceptsOf("commonnoun").getFirst().broader())
-                .as("CommonNoun's only superclass is an anonymous restriction, which states a condition "
-                        + "rather than a parent")
-                .isEmpty();
+                .as("written as a class nested inside the subClassOf rather than as a reference on it — "
+                        + "the spelling this extraction could not read, and 627 of the ontology's 1,422 "
+                        + "superclasses are written that way")
+                .isEqualTo("Noun");
     }
 
     @Test

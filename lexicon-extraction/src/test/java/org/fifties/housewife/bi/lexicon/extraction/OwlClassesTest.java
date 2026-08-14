@@ -73,6 +73,48 @@ class OwlClassesTest {
     }
 
     @Test
+    void readsASuperclassWrittenAsANestedClassRatherThanAsAReference() {
+        final String nested = """
+                <?xml version="1.0"?>
+                <rdf:RDF xml:base="http://purl.org/olia/olia.owl"
+                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+                         xmlns:owl="http://www.w3.org/2002/07/owl#">
+                  <owl:Class rdf:about="#FiniteVerb">
+                    <rdfs:subClassOf>
+                      <owl:Class rdf:about="#Verb"/>
+                    </rdfs:subClassOf>
+                  </owl:Class>
+                </rdf:RDF>
+                """;
+
+        assertThat(new OwlClasses().in(nested.getBytes(StandardCharsets.UTF_8)).stream()
+                .filter(owl -> "FiniteVerb".equals(owl.id())).findFirst().orElseThrow().broader())
+                .as("OLiA writes 627 of its 1,422 superclasses this way, and an attribute-only reading "
+                        + "lost every one of them — leaving more than half the ontology as loose roots")
+                .isEqualTo("Verb");
+    }
+
+    @Test
+    void readsAClassDeclaredByIdRatherThanByAbout() {
+        final String byId = """
+                <?xml version="1.0"?>
+                <rdf:RDF xml:base="http://purl.org/olia/olia.owl"
+                         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+                         xmlns:owl="http://www.w3.org/2002/07/owl#">
+                  <owl:Class rdf:ID="QualitativeVerb">
+                    <rdfs:subClassOf rdf:resource="#MainVerb"/>
+                  </owl:Class>
+                </rdf:RDF>
+                """;
+
+        assertThat(new OwlClasses().in(byId.getBytes(StandardCharsets.UTF_8)))
+                .as("a class states its own name with rdf:ID as readily as with rdf:about")
+                .extracting(OwlClass::id).contains("QualitativeVerb");
+    }
+
+    @Test
     void takesOnlyASuperclassStatedByNameAndNotTheRestrictionBesideIt() {
         assertThat(owl("CommonNoun").broader()).isEqualTo("Noun");
     }

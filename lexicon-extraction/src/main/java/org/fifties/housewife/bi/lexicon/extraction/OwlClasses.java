@@ -40,6 +40,7 @@ public class OwlClasses {
     private static final String OWL = "http://www.w3.org/2002/07/owl#";
 
     private static final String ABOUT = "about";
+    private static final String ID = "ID";
     private static final String RESOURCE = "resource";
     private static final String CLASS = "Class";
     private static final String LABEL = "label";
@@ -64,7 +65,7 @@ public class OwlClasses {
 
     private static void read(final Element element, final String base,
                              final Map<String, OwlClass> byConcept) {
-        final String concept = resolved(element.getAttributeNS(RDF, ABOUT), base);
+        final String concept = resolved(nameOf(element), base);
         final OwlClass known = byConcept.getOrDefault(concept,
                 new OwlClass(concept, fragmentOf(concept), NOTHING, NOTHING));
         byConcept.put(concept, new OwlClass(concept, known.id(),
@@ -79,15 +80,43 @@ public class OwlClasses {
      * that every reader of a bundled file would take for a comment.
      */
     private static String resolved(final String reference, final String base) {
-        return reference.startsWith(FRAGMENT) ? base + reference : reference;
+        if (reference.startsWith(FRAGMENT)) {
+            return base + reference;
+        }
+        return reference.contains(FRAGMENT) ? reference : base + FRAGMENT + reference;
     }
 
-    /** The first superclass stated by name; an anonymous restriction states a condition, not a parent. */
+    /**
+     * The first superclass stated by name, however the ontology chose to write it; an anonymous restriction
+     * states a condition, not a parent.
+     *
+     * <p>RDF/XML offers two spellings of the same statement and OLiA uses both: an {@code rdf:resource}
+     * attribute on the {@code rdfs:subClassOf}, and a nested {@code owl:Class} naming the parent. Reading
+     * only the attribute lost <b>627 of the ontology's 1,422 superclass statements</b> — more than half its
+     * hierarchy — and left the concepts a program actually writes, {@code Verb} and {@code Noun} and
+     * {@code Phrase} among them, looking like roots of their own. A taxonomy read that way is a list of
+     * words, and this library then described the wreckage as the publisher's own structure.
+     */
     private static String namedSuperclass(final Element element) {
         return children(element, RDFS, SUBCLASS_OF)
-                .map(child -> child.getAttributeNS(RDF, RESOURCE))
-                .filter(resource -> !resource.isEmpty())
+                .map(OwlClasses::parentNamedBy)
+                .filter(named -> !named.isEmpty())
                 .findFirst().map(OwlClasses::fragmentOf).orElse(NOTHING);
+    }
+
+    /** Either spelling: the reference on the statement, or the class nested inside it. */
+    private static String parentNamedBy(final Element subClassOf) {
+        final String reference = subClassOf.getAttributeNS(RDF, RESOURCE);
+        return reference.isEmpty()
+                ? children(subClassOf, OWL, CLASS).map(OwlClasses::nameOf)
+                        .filter(named -> !named.isEmpty()).findFirst().orElse(NOTHING)
+                : reference;
+    }
+
+    /** What a class element calls itself, by either of the two names RDF/XML allows it. */
+    private static String nameOf(final Element element) {
+        final String about = element.getAttributeNS(RDF, ABOUT);
+        return about.isEmpty() ? element.getAttributeNS(RDF, ID) : about;
     }
 
     private static String labelOf(final Element element) {
@@ -102,7 +131,7 @@ public class OwlClasses {
 
     private static Stream<Element> named(final Document document) {
         return elements(document.getElementsByTagNameNS(OWL, CLASS))
-                .filter(element -> !element.getAttributeNS(RDF, ABOUT).isEmpty());
+                .filter(element -> !nameOf(element).isEmpty());
     }
 
     private static Stream<Element> children(final Element element, final String namespace,
