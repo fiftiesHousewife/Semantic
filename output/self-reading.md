@@ -14,27 +14,27 @@ one. λ is the share of those word occurrences at least one bundled resource can
 |---|--:|--:|--:|--:|--:|--:|
 | `code-semantics-api/src/main/java` | 24 | 361 | 565 | 3,594 (86.4%) | 4,059 | **0.976** |
 | `code-semantics-api/src/test/java` | 13 | 215 | 1,215 | 52 (4.1%) | 1,194 | **0.942** |
-| `code-semantics-engine/src/main/java` | 103 | 2,346 | 3,284 | 24,450 (88.2%) | 27,455 | **0.990** |
-| `code-semantics-engine/src/test/java` | 97 | 2,412 | 7,998 | 6,482 (44.8%) | 13,970 | **0.965** |
+| `code-semantics-engine/src/main/java` | 103 | 2,354 | 3,293 | 24,580 (88.2%) | 27,593 | **0.990** |
+| `code-semantics-engine/src/test/java` | 97 | 2,430 | 8,048 | 6,512 (44.7%) | 14,050 | **0.965** |
 | `lexicon-extraction/src/main/java` | 45 | 943 | 1,210 | 6,022 (83.3%) | 7,088 | **0.980** |
 | `lexicon-extraction/src/test/java` | 35 | 556 | 2,760 | 0 (0.0%) | 2,589 | **0.938** |
 | `lexicon/src/main/java` | 21 | 681 | 1,134 | 4,649 (80.4%) | 5,675 | **0.981** |
 | `lexicon/src/test/java` | 19 | 310 | 1,611 | 437 (21.3%) | 1,950 | **0.952** |
 | `documentation` | 3 | 0 | 0 | 3,625 (100.0%) | 3,549 | **0.979** |
-| **repository** | 360 | 7,824 | 19,777 | 49,311 (71.4%) | 67,529 | **0.977** |
+| **repository** | 360 | 7,850 | 19,836 | 49,471 (71.4%) | 67,747 | **0.977** |
 
-The repository's own words are 69,088 occurrences of 3,421 distinct surfaces, 1,086 of them (31.7%) written exactly once. 265 glued runs no boundary divided were read by the segmenter; 1,559 occurrences across 231 surfaces nothing could be cited for at all.
+The repository's own words are 69,307 occurrences of 3,422 distinct surfaces, 1,084 of them (31.7%) written exactly once. 265 glued runs no boundary divided were read by the segmenter; 1,560 occurrences across 231 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 64,720 | 93.7% | 2,781 |
-| `lexicon:wordnet-sense` | 47,322 | 68.5% | 761 |
-| `lexicon:wiktionary-topic` | 39,280 | 56.9% | 140 |
-| `lexicon:wikidata-initialism` | 31,193 | 45.1% | 81 |
-| `lexicon:wordnet-domain` | 29,078 | 42.1% | 70 |
-| `lexicon:wikidata-name` | 28,150 | 40.7% | 14 |
-| `lexicon:wiktionary-abbreviation` | 25,383 | 36.7% | 2 |
-| `catalogue:query-language-function` | 928 | 1.3% | 1 |
+| `lexicon:word-frequency` | 64,925 | 93.7% | 2,787 |
+| `lexicon:wordnet-sense` | 47,477 | 68.5% | 771 |
+| `lexicon:wiktionary-topic` | 39,393 | 56.8% | 140 |
+| `lexicon:wikidata-initialism` | 31,285 | 45.1% | 81 |
+| `lexicon:wordnet-domain` | 29,162 | 42.1% | 70 |
+| `lexicon:wikidata-name` | 28,246 | 40.8% | 14 |
+| `lexicon:wiktionary-abbreviation` | 25,444 | 36.7% | 2 |
+| `catalogue:query-language-function` | 930 | 1.3% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
@@ -51,9 +51,9 @@ The repository's own words are 69,088 occurrences of 3,421 distinct surfaces, 1,
 | `wiktionary` | 36 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41` |
 | `permalink` | 28 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:50` |
 | `segmenter` | 23 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3` |
-| `arxiv` | 20 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TermReadingDiagnostic.java:107` |
+| `arxiv` | 20 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TermReadingDiagnostic.java:128` |
 | `codesemantics engine parse` | 16 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportOrigin.java:1` |
 
 Read 360 files in 0.2 s — 0.6 ms a file, recorded rather than estimated.
 
-Imports read as this repository's own choice: 628. Set aside as the platform's own vocabulary: 1069. Set aside as this repository's own coordinates: 315. Files the parser refused: 0.
+Imports read as this repository's own choice: 628. Set aside as the platform's own vocabulary: 1071. Set aside as this repository's own coordinates: 315. Files the parser refused: 0.

@@ -30,55 +30,55 @@ Only the topics that **earned a place**: a topic reaches this table where it mak
 
 | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
 |---|--:|--:|--:|--:|--:|--:|---|
-| `linguistics` | 0.1992 | 80.3% | 2,989 | 109 | 8,641 | 33.8% | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| `computing` | 0.0534 | 82.7% | 4,265 | 22 | 1,564 | 6.1% | `repository`&nbsp;347 `unread`&nbsp;9 `read`&nbsp;582 `parse`&nbsp;102 |
+| `linguistics` | 0.1991 | 80.3% | 3,000 | 109 | 8,688 | 33.9% | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| `computing` | 0.0534 | 82.8% | 4,278 | 22 | 1,564 | 6.1% | `repository`&nbsp;351 `parse`&nbsp;104 `unread`&nbsp;9 `read`&nbsp;582 |
 
-Read over 360 files and 25,534 lines: 466 topics, 1 files no topic could be resolved for, and 33.8% of the repository's lines led by its single strongest topic. ι is a share of topical mass and sums to 1 across every topic; the columns beside it are counts and do not. **From names** is how much of a theme the code itself carried rather than its prose.
+Read over 360 files and 25,627 lines: 466 topics, 1 files no topic could be resolved for, and 33.9% of the repository's lines led by its single strongest topic. ι is a share of topical mass and sums to 1 across every topic; the columns beside it are counts and do not. **From names** is how much of a theme the code itself carried rather than its prose.
 
 ## What distinguishes each scope from the repository
 
 ### `code-semantics-api/src/main/java`
 
-**0.1554 bits** from the repository, against a null median of 0.0974 over 999 resamples of the same size — an excess of +0.0580, and 1 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.1555 bits** from the repository, against a null median of 0.0973 over 999 resamples of the same size — an excess of +0.0582, and 1 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 14.0% | `telecommunication` | 0.0002 | 0.0451 | under | `file`&nbsp;173 `entry`&nbsp;147 `note`&nbsp;9 `record`&nbsp;3 |
-| 6.6% | `plants` | 0.0019 | 0.0289 | under | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
-| 6.5% | `physics` | 0.0703 | 0.0210 | **over** | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;35 |
-| 5.5% | `publishing` | 0.0142 | 0.0529 | under | `publish`&nbsp;181 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;355 |
+| 13.9% | `telecommunication` | 0.0002 | 0.0449 | under | `file`&nbsp;173 `entry`&nbsp;147 `note`&nbsp;9 `record`&nbsp;3 |
+| 6.6% | `plants` | 0.0019 | 0.0287 | under | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 6.5% | `physics` | 0.0703 | 0.0210 | **over** | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;36 |
+| 5.6% | `publishing` | 0.0142 | 0.0534 | under | `publish`&nbsp;183 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;360 |
 | 5.2% | `electronics` | 0.0009 | 0.0205 | under | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
 | 4.3% | `time_period` | 0.0246 | 0.0033 | **over** | `span`&nbsp;11 `none`&nbsp;4 `even`&nbsp;4 `longest`&nbsp;12 |
 | 3.2% | `philosophy` | 0.0001 | 0.0104 | under | `describe`&nbsp;35 `lemma`&nbsp;70 `explain`&nbsp;12 `each`&nbsp;23 |
-| 2.8% | `lexicography` | 0.0367 | 0.0128 | **over** | `citation`&nbsp;93 `sense`&nbsp;304 `gloss`&nbsp;2 `lemma`&nbsp;70 |
+| 2.8% | `lexicography` | 0.0367 | 0.0128 | **over** | `citation`&nbsp;93 `sense`&nbsp;305 `gloss`&nbsp;2 `lemma`&nbsp;70 |
 
 ### `code-semantics-api/src/test/java`
 
-**0.1966 bits** from the repository, against a null median of 0.1546 over 999 resamples of the same size — an excess of +0.0419, and 56 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.1965 bits** from the repository, against a null median of 0.1545 over 999 resamples of the same size — an excess of +0.0420, and 56 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 9.3% | `telecommunication` | 0.0017 | 0.0451 | under | `file`&nbsp;173 `entry`&nbsp;147 `note`&nbsp;9 `record`&nbsp;3 |
-| 6.7% | `plants` | 0.0004 | 0.0289 | under | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 9.2% | `telecommunication` | 0.0017 | 0.0449 | under | `file`&nbsp;173 `entry`&nbsp;147 `note`&nbsp;9 `record`&nbsp;3 |
+| 6.6% | `plants` | 0.0004 | 0.0287 | under | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
 | 6.5% | `biology` | 0.0384 | 0.0031 | **over** | `morphology`&nbsp;16 `owl`&nbsp;31 `person`&nbsp;20 `glob`&nbsp;5 |
-| 6.2% | `literature` | 0.0002 | 0.0261 | under | `header`&nbsp;68 `text`&nbsp;44 `write`&nbsp;355 `title`&nbsp;13 |
+| 6.2% | `literature` | 0.0002 | 0.0260 | under | `header`&nbsp;68 `text`&nbsp;44 `write`&nbsp;360 `title`&nbsp;13 |
 | 4.5% | `electronics` | 0.0005 | 0.0205 | under | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
-| 4.2% | `politics` | 0.0553 | 0.0162 | **over** | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;406 `name`&nbsp;505 |
+| 4.2% | `politics` | 0.0553 | 0.0162 | **over** | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;408 `name`&nbsp;506 |
 | 4.0% | `law` | 0.0971 | 0.0429 | **over** | `file`&nbsp;342 `witness`&nbsp;70 `summary`&nbsp;33 `within`&nbsp;8 |
-| 3.5% | `publishing` | 0.0172 | 0.0529 | under | `publish`&nbsp;181 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;355 |
+| 3.6% | `publishing` | 0.0172 | 0.0534 | under | `publish`&nbsp;183 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;360 |
 
 ### `code-semantics-engine/src/main/java`
 
-**0.0605 bits** from the repository, against a null median of 0.0232 over 999 resamples of the same size — an excess of +0.0373, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.0604 bits** from the repository, against a null median of 0.0231 over 999 resamples of the same size — an excess of +0.0373, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
 | 14.4% | `electronics` | 0.0005 | 0.0205 | under | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
 | 10.6% | `chemistry` | 0.0020 | 0.0206 | under | `syn`&nbsp;15 `extraction`&nbsp;48 `extract`&nbsp;7 `test`&nbsp;169 |
 | 8.6% | `psychology` | 0.0004 | 0.0125 | under | `module`&nbsp;76 `confidence`&nbsp;20 `know`&nbsp;56 `test`&nbsp;169 |
-| 5.6% | `grammar` | 0.0508 | 0.0245 | **over** | `phrase`&nbsp;136 `verb`&nbsp;66 `occurrence`&nbsp;113 `clause`&nbsp;24 |
-| 3.2% | `linguistics` | 0.2480 | 0.1992 | **over** | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| 2.5% | `politics` | 0.0300 | 0.0162 | **over** | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;406 `name`&nbsp;505 |
+| 5.6% | `grammar` | 0.0506 | 0.0245 | **over** | `phrase`&nbsp;136 `verb`&nbsp;66 `occurrence`&nbsp;113 `clause`&nbsp;24 |
+| 3.2% | `linguistics` | 0.2481 | 0.1991 | **over** | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| 2.5% | `politics` | 0.0300 | 0.0162 | **over** | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;408 `name`&nbsp;506 |
 | 2.5% | `computer-languages` | 0.0001 | 0.0037 | under | `json`&nbsp;5 `sparql`&nbsp;1 `owl`&nbsp;31 `java`&nbsp;40 |
 | 2.4% | `animals` | 0.0015 | 0.0071 | under | `nest`&nbsp;27 `owl`&nbsp;31 `down`&nbsp;5 `head`&nbsp;32 |
 
@@ -88,44 +88,44 @@ Read over 360 files and 25,534 lines: 466 topics, 1 files no topic could be reso
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 16.1% | `plants` | 0.0816 | 0.0289 | **over** | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 15.9% | `plants` | 0.0808 | 0.0287 | **over** | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
 | 15.6% | `electronics` | 0.0003 | 0.0205 | under | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
 | 8.6% | `chemistry` | 0.0033 | 0.0206 | under | `syn`&nbsp;15 `extraction`&nbsp;48 `extract`&nbsp;7 `test`&nbsp;169 |
 | 2.8% | `animals` | 0.0012 | 0.0071 | under | `nest`&nbsp;27 `owl`&nbsp;31 `down`&nbsp;5 `head`&nbsp;32 |
-| 2.8% | `christianity` | 0.0003 | 0.0045 | under | `kind`&nbsp;47 `use`&nbsp;67 `publish`&nbsp;181 `publisher`&nbsp;58 |
 | 2.7% | `computer-languages` | 0.0001 | 0.0037 | under | `json`&nbsp;5 `sparql`&nbsp;1 `owl`&nbsp;31 `java`&nbsp;40 |
+| 2.6% | `christianity` | 0.0003 | 0.0045 | under | `kind`&nbsp;47 `use`&nbsp;67 `publish`&nbsp;183 `publisher`&nbsp;61 |
 | 2.4% | `psychology` | 0.0045 | 0.0125 | under | `module`&nbsp;76 `confidence`&nbsp;20 `know`&nbsp;56 `test`&nbsp;169 |
-| 2.3% | `astrology` | 0.0142 | 0.0057 | **over** | `placement`&nbsp;44 `figure`&nbsp;62 `term`&nbsp;256 `configuration`&nbsp;3 |
+| 2.3% | `astrology` | 0.0142 | 0.0057 | **over** | `placement`&nbsp;44 `figure`&nbsp;62 `term`&nbsp;258 `configuration`&nbsp;3 |
 
 ### `lexicon-extraction/src/main/java`
 
-**0.1690 bits** from the repository, against a null median of 0.0566 over 999 resamples of the same size — an excess of +0.1123, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.1689 bits** from the repository, against a null median of 0.0566 over 999 resamples of the same size — an excess of +0.1122, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 8.7% | `linguistics` | 0.0914 | 0.1992 | under | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| 7.0% | `literature` | 0.0847 | 0.0261 | **over** | `header`&nbsp;68 `text`&nbsp;44 `write`&nbsp;355 `title`&nbsp;13 |
-| 6.1% | `plants` | 0.0018 | 0.0289 | under | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 8.7% | `linguistics` | 0.0914 | 0.1991 | under | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| 7.0% | `literature` | 0.0847 | 0.0260 | **over** | `header`&nbsp;68 `text`&nbsp;44 `write`&nbsp;360 `title`&nbsp;13 |
+| 6.1% | `plants` | 0.0018 | 0.0287 | under | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
 | 5.7% | `animals` | 0.0413 | 0.0071 | **over** | `nest`&nbsp;27 `owl`&nbsp;31 `down`&nbsp;5 `head`&nbsp;32 |
 | 5.3% | `grammar` | 0.0014 | 0.0245 | under | `phrase`&nbsp;136 `verb`&nbsp;66 `occurrence`&nbsp;113 `clause`&nbsp;24 |
 | 4.6% | `computer-languages` | 0.0283 | 0.0037 | **over** | `json`&nbsp;5 `sparql`&nbsp;1 `owl`&nbsp;31 `java`&nbsp;40 |
-| 4.5% | `physics` | 0.0013 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;35 |
+| 4.5% | `physics` | 0.0013 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;36 |
 | 4.1% | `electronics` | 0.0587 | 0.0205 | **over** | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
 
 ### `lexicon-extraction/src/test/java`
 
-**0.1984 bits** from the repository, against a null median of 0.0720 over 999 resamples of the same size — an excess of +0.1264, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.1982 bits** from the repository, against a null median of 0.0719 over 999 resamples of the same size — an excess of +0.1263, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 19.3% | `chemistry` | 0.1461 | 0.0206 | **over** | `syn`&nbsp;15 `extraction`&nbsp;48 `extract`&nbsp;7 `test`&nbsp;169 |
+| 19.4% | `chemistry` | 0.1461 | 0.0206 | **over** | `syn`&nbsp;15 `extraction`&nbsp;48 `extract`&nbsp;7 `test`&nbsp;169 |
 | 15.8% | `electronics` | 0.1281 | 0.0205 | **over** | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
-| 6.1% | `linguistics` | 0.1002 | 0.1992 | under | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| 3.7% | `physics` | 0.0015 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;35 |
+| 6.1% | `linguistics` | 0.1002 | 0.1991 | under | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| 3.7% | `physics` | 0.0015 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;36 |
 | 3.2% | `person` | 0.0028 | 0.0227 | under | `reader`&nbsp;100 `child`&nbsp;18 `host`&nbsp;27 `bearer`&nbsp;18 |
-| 3.0% | `lexicography` | 0.0002 | 0.0128 | under | `citation`&nbsp;93 `sense`&nbsp;304 `gloss`&nbsp;2 `lemma`&nbsp;70 |
+| 3.0% | `lexicography` | 0.0002 | 0.0128 | under | `citation`&nbsp;93 `sense`&nbsp;305 `gloss`&nbsp;2 `lemma`&nbsp;70 |
 | 2.6% | `law` | 0.0146 | 0.0429 | under | `file`&nbsp;342 `witness`&nbsp;70 `summary`&nbsp;33 `within`&nbsp;8 |
-| 2.1% | `politics` | 0.0023 | 0.0162 | under | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;406 `name`&nbsp;505 |
+| 2.1% | `politics` | 0.0023 | 0.0162 | under | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;408 `name`&nbsp;506 |
 
 ### `lexicon/src/main/java`
 
@@ -133,32 +133,32 @@ Read over 360 files and 25,534 lines: 466 topics, 1 files no topic could be reso
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 8.9% | `plants` | 0.0000 | 0.0289 | under | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 8.8% | `plants` | 0.0000 | 0.0287 | under | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
 | 6.3% | `mathematics` | 0.1239 | 0.0540 | **over** | `from`&nbsp;107 `function`&nbsp;60 `lemma`&nbsp;70 `distribution`&nbsp;54 |
 | 5.8% | `person` | 0.0707 | 0.0227 | **over** | `reader`&nbsp;100 `child`&nbsp;18 `host`&nbsp;27 `bearer`&nbsp;18 |
-| 5.4% | `physics` | 0.0006 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;35 |
+| 5.4% | `physics` | 0.0006 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;36 |
 | 4.3% | `networking` | 0.0338 | 0.0070 | **over** | `resource`&nbsp;194 `request`&nbsp;19 `preamble`&nbsp;5 `endpoint`&nbsp;12 |
-| 3.8% | `linguistics` | 0.2910 | 0.1992 | **over** | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| 3.5% | `publishing` | 0.0196 | 0.0529 | under | `publish`&nbsp;181 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;355 |
+| 3.9% | `linguistics` | 0.2910 | 0.1991 | **over** | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| 3.6% | `publishing` | 0.0196 | 0.0534 | under | `publish`&nbsp;183 `read`&nbsp;118 `directory`&nbsp;51 `write`&nbsp;360 |
 | 3.1% | `law` | 0.0150 | 0.0429 | under | `file`&nbsp;342 `witness`&nbsp;70 `summary`&nbsp;33 `within`&nbsp;8 |
 
 ### `lexicon/src/test/java`
 
-**0.1519 bits** from the repository, against a null median of 0.1176 over 999 resamples of the same size — an excess of +0.0342, and 41 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
+**0.1518 bits** from the repository, against a null median of 0.1176 over 999 resamples of the same size — an excess of +0.0342, and 39 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 9.1% | `linguistics` | 0.3427 | 0.1992 | **over** | `word`&nbsp;1,072 `name`&nbsp;445 `term`&nbsp;248 `parse`&nbsp;102 |
-| 9.0% | `plants` | 0.0002 | 0.0289 | under | `root`&nbsp;99 `tree`&nbsp;112 `seed`&nbsp;20 `leaf`&nbsp;11 |
+| 9.1% | `linguistics` | 0.3427 | 0.1991 | **over** | `word`&nbsp;1,075 `name`&nbsp;446 `term`&nbsp;250 `parse`&nbsp;104 |
+| 8.9% | `plants` | 0.0002 | 0.0287 | under | `root`&nbsp;101 `tree`&nbsp;113 `seed`&nbsp;20 `leaf`&nbsp;11 |
 | 6.7% | `electronics` | 0.0000 | 0.0205 | under | `tsv`&nbsp;38 `field`&nbsp;150 `default`&nbsp;24 `node`&nbsp;51 |
-| 5.4% | `physics` | 0.0010 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;35 |
-| 5.1% | `lexicography` | 0.0477 | 0.0128 | **over** | `citation`&nbsp;93 `sense`&nbsp;304 `gloss`&nbsp;2 `lemma`&nbsp;70 |
-| 3.5% | `politics` | 0.0014 | 0.0162 | under | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;406 `name`&nbsp;505 |
+| 5.4% | `physics` | 0.0010 | 0.0210 | under | `mass`&nbsp;116 `weight`&nbsp;49 `radius`&nbsp;4 `length`&nbsp;36 |
+| 5.1% | `lexicography` | 0.0477 | 0.0128 | **over** | `citation`&nbsp;93 `sense`&nbsp;305 `gloss`&nbsp;2 `lemma`&nbsp;70 |
+| 3.5% | `politics` | 0.0014 | 0.0162 | under | `vote`&nbsp;53 `normalisation`&nbsp;13 `reading`&nbsp;408 `name`&nbsp;506 |
 | 2.4% | `baseball` | 0.0208 | 0.0052 | **over** | `field`&nbsp;150 `outer`&nbsp;6 `line`&nbsp;176 `look`&nbsp;32 |
-| 2.1% | `military` | 0.0031 | 0.0154 | under | `repository`&nbsp;347 `column`&nbsp;42 `base`&nbsp;46 `refuse`&nbsp;100 |
+| 2.1% | `military` | 0.0031 | 0.0154 | under | `repository`&nbsp;351 `column`&nbsp;42 `base`&nbsp;46 `refuse`&nbsp;100 |
 
 ### `documentation`
 
-**0.2448 bits** from the repository, against a null median of 0.3486 over 999 resamples of the same size — an excess of -0.1038, and 981 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
+**0.2445 bits** from the repository, against a null median of 0.3484 over 999 resamples of the same size — an excess of -0.1039, and 981 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
-Read, compared and resampled in 4.6 s, recorded rather than estimated.
+Read, compared and resampled in 4.5 s, recorded rather than estimated.

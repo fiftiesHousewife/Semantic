@@ -9,7 +9,13 @@ its field rather than anyone here deciding so.
 Only **declared names** are read. A term in a sentence is an author writing about a field; a term
 in a name is a program working in one.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **86 of them, 1,704 times**, across 315 of 357 files — reaching **20 of the taxonomy's 70 root branches**.
+**What is reported below is the corroborated reading.** A term written in one word counts only
+where this repository writes another concept in the branch the publisher placed that concept
+under; a term written in more than one word counts unconditionally. The reading that admits every
+match is kept at the end, beside the list of what the branch refused, because a rule that removes
+matches can only be judged as a comparison.
+
+**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **56 of them, 1,059 times**, across 263 of 357 files — reaching **11 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -17,26 +23,25 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `LinguisticConcept` | 19 | 136 | 894 | `Topic`&nbsp;414 `Source`&nbsp;165 `Set`&nbsp;52 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Identifier`&nbsp;26 `Document`&nbsp;22 `PartOf`&nbsp;22 |
-| `MorphosyntacticCategory` | 14 | 288 | 165 | `Verb`&nbsp;33 `Noun`&nbsp;31 `Abbreviation`&nbsp;23 `Symbol`&nbsp;15 `List`&nbsp;14 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 |
-| `OrthographicEntity` | 6 | 37 | 156 | `Token`&nbsp;82 `Text`&nbsp;30 `Script`&nbsp;18 `Letter`&nbsp;13 `Space`&nbsp;11 `String`&nbsp;2 |
-| `MorphologicalCategory` | 5 | 16 | 111 | `Root`&nbsp;79 `Prefix`&nbsp;15 `Suffix`&nbsp;11 `Stem`&nbsp;5 `Affix`&nbsp;1 |
-| `SemanticFeature` | 10 | 125 | 107 | `Referring`&nbsp;45 `Function`&nbsp;34 `Person`&nbsp;8 `Amount`&nbsp;7 `Object`&nbsp;4 `Plan`&nbsp;3 `Time`&nbsp;2 `URL`&nbsp;2 |
-| `Relation` | 10 | 203 | 70 | `Summary`&nbsp;21 `Result`&nbsp;11 `Comparison`&nbsp;10 `Definition`&nbsp;10 `Expansion`&nbsp;10 `Attribution`&nbsp;3 `Contrast`&nbsp;2 `Condition`&nbsp;1 |
+| `LinguisticConcept` | 15 | 136 | 437 | `Source`&nbsp;165 `Set`&nbsp;53 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Document`&nbsp;22 `PartOf`&nbsp;22 `Given`&nbsp;20 `Means`&nbsp;19 |
+| `MorphosyntacticCategory` | 10 | 288 | 143 | `Verb`&nbsp;33 `Noun`&nbsp;31 `Abbreviation`&nbsp;23 `Symbol`&nbsp;15 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 `Acronym`&nbsp;4 |
+| `OrthographicEntity` | 4 | 37 | 132 | `Token`&nbsp;82 `Text`&nbsp;30 `Script`&nbsp;18 `String`&nbsp;2 |
+| `MorphologicalCategory` | 5 | 16 | 113 | `Root`&nbsp;81 `Prefix`&nbsp;15 `Suffix`&nbsp;11 `Stem`&nbsp;5 `Affix`&nbsp;1 |
 | `Constituent` | 4 | 37 | 67 | `Phrase`&nbsp;49 `Fragment`&nbsp;9 `Clause`&nbsp;7 `Chunk`&nbsp;2 |
 | `PersonFeature` | 2 | 10 | 66 | `First`&nbsp;48 `Second`&nbsp;18 |
-| `SyntacticRole` | 2 | 33 | 27 | `Head`&nbsp;26 `Qualifier`&nbsp;1 |
-| `MovementFeature` | 1 | 7 | 13 | `Control`&nbsp;13 |
+| `SemanticFeature` | 5 | 125 | 50 | `Function`&nbsp;34 `Amount`&nbsp;7 `Object`&nbsp;4 `Plan`&nbsp;3 `Time`&nbsp;2 |
+| `Relation` | 5 | 203 | 35 | `Consequence`&nbsp;11 `Comparison`&nbsp;10 `Expansion`&nbsp;10 `Attribution`&nbsp;3 `Extra`&nbsp;1 |
 | `NumberFeature` | 3 | 11 | 6 | `Plural`&nbsp;4 `Singular`&nbsp;1 `Trial`&nbsp;1 |
 | `SemanticUnit` | 1 | 12 | 6 | `Collocation`&nbsp;6 |
+| `InflectionTypeFeature` | 2 | 9 | 4 | `BaseForm`&nbsp;2 `Inflected`&nbsp;2 |
 
 ## How the two sides were made to meet
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 1,173 | 75 | 97.6% |
-| the dictionary form of each word | 277 | 47 | 98.9% |
-| the sense the dictionary carries each word in | 254 | 28 | 100.0% |
+| the words themselves | 830 | 51 | 96.6% |
+| the dictionary form of each word | 147 | 31 | 98.0% |
+| the sense the dictionary carries each word in | 82 | 19 | 100.0% |
 
 
 ## Whether the branch corroborates the match
@@ -47,12 +52,12 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 1,704 | 150 | 98.2% | 20 of 70 | `topic`&nbsp;180 |
-| only where the branch holds more than this one concept | 1,057 | 102 | 97.1% | 11 of 70 | `source`&nbsp;130 |
+| every match | 1,707 | 150 | 98.2% | 20 of 70 | `topic`&nbsp;180 |
+| only where the branch holds more than this one concept | 1,059 | 101 | 97.1% | 11 of 70 | `source`&nbsp;130 |
 
 ### What the branch refused
 
-**48 terms**, most-written first, each of them the one concept this repository writes in the region of the field its publisher placed it in.
+**49 terms**, most-written first, each of them the one concept this repository writes in the region of the field its publisher placed it in.
 
 | Term | Times | Stood alone under |
 |---|--:|---|
