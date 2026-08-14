@@ -1,6 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.summary;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * What a reader is handed first: the summary, and then every other report with the bar it carries stated
@@ -22,6 +23,19 @@ public record ReadingIndex(String repository, List<Entry> entries) {
 
     public ReadingIndex {
         entries = List.copyOf(entries);
+    }
+
+    /**
+     * The named reports, in the order asked for. A name no entry carries is a report the walkthrough thinks
+     * it writes and does not, so it fails here rather than rendering a link to nothing.
+     */
+    public List<Entry> named(final String... files) {
+        return Stream.of(files).map(this::entry).toList();
+    }
+
+    private Entry entry(final String file) {
+        return entries.stream().filter(entry -> entry.file().equals(file)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("no report named " + file));
     }
 
     /** The reports the self reading writes, in the order they should be read. */

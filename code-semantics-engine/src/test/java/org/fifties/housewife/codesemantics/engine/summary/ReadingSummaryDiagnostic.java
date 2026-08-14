@@ -72,15 +72,18 @@ class ReadingSummaryDiagnostic {
         final String page = new SummaryReport().render(summary);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         reports.wrote(REPORT, page, "Summary");
-        Files.writeString(reports.file(INDEX), new IndexPage().of(ReadingIndex.of(root.getFileName().toString())));
+        final ReadingIndex index = ReadingIndex.of(root.getFileName().toString());
+        Files.writeString(reports.file(INDEX),
+                new WalkthroughPage().of(ReadingWalkthrough.of(summary.repository(), summary, index)));
 
         assertAll(
                 () -> assertThat(page)
                         .as("a summary nobody finishes is a report with a summary in it somewhere")
                         .hasSizeLessThan(4_000),
                 () -> assertThat(Files.readString(reports.file(INDEX)))
-                        .as("a folder of reports with no index is a folder read in the wrong order")
-                        .contains("summary.html", "themes-chart.html", "What it takes to be printed:"),
+                        .as("the walkthrough traces the analysis and names the report behind each step")
+                        .contains("The files are parsed", "themes-sunburst.svg", "themes-chart.html",
+                                "What it takes to be printed:"),
                 () -> assertThat(summary.repository())
                         .as("the page says which repository it summarises, and it is the one that was read")
                         .isEqualTo(root.getFileName().toString()));

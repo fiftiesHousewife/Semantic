@@ -57,25 +57,55 @@ ol {
     list-style: none;
     margin: 0;
     padding: 0;
-    counter-reset: report;
+    counter-reset: step;
 }
 
 li {
-    counter-increment: report;
+    counter-increment: step;
     background: var(--panel);
     border: 1px solid var(--rule);
     border-radius: 10px;
-    padding: 1rem 1.15rem;
-    margin-bottom: 0.7rem;
+    padding: 1.15rem 1.3rem;
+    margin-bottom: 0.8rem;
 }
 
-li::before {
-    content: counter(report);
-    display: inline-block;
-    min-width: 1.6rem;
+h2 {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+h2::before {
+    content: counter(step) ". ";
     color: var(--muted);
     font-variant-numeric: tabular-nums;
-    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.what {
+    margin: 0.5rem 0 0;
+}
+
+.found {
+    margin: 0.8rem 0 0;
+    padding: 0.7rem 0.85rem;
+    background: var(--page);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+}
+
+.chart {
+    display: block;
+    width: 100%;
+    max-width: 26rem;
+    height: auto;
+    margin: 1rem auto 0;
+}
+
+.report {
+    margin: 0.6rem 0 0;
+    font-size: 0.88rem;
+    color: var(--muted);
 }
 
 a {
