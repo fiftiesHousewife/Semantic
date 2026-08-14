@@ -12,6 +12,7 @@ import org.fifties.housewife.codesemantics.engine.behaviour.Behaviours;
 import org.fifties.housewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
 import org.fifties.housewife.codesemantics.engine.pipeline.ValueShare;
 import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
+import org.fifties.housewife.codesemantics.engine.parse.NameForm;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedFile;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
@@ -95,9 +96,33 @@ public final class ThemeReading {
                 stated, Duration.ofNanos(System.nanoTime() - startedAt));
     }
 
+    /**
+     * A file is read twice. The first pass answers what the file is about from its phrases alone; the second
+     * reads the same phrases again with that answer as a prior, which is the only context a one-word phrase
+     * has. Only the second pass records witnesses and sightings, so the evidence a reader is shown is the
+     * evidence the reading actually used.
+     */
     private FileTopics read(final ParsedFile file, final TopicWitnesses witnesses,
                             final WordSightings sightings) {
-        final TopicTally tally = new TopicTally(words, offered, phrases, witnesses, sightings);
+        final FileTopics alone = tallied(file, phrases, new TopicWitnesses(), new WordSightings());
+        return tallied(file, phrases.under(alone.distribution(), declaredIn(file)), witnesses, sightings);
+    }
+
+    /** The words this file declared, in the form the resources are asked about them. */
+    private java.util.Set<String> declaredIn(final ParsedFile file) {
+        return file.occurrences().stream()
+                .filter(occurrence -> occurrence.form().isChosenName())
+                .flatMap(occurrence -> occurrence.form().vocabulary()
+                        .phrasesOf(occurrence.text(), words).stream())
+                .flatMap(phrase -> phrase.words().stream())
+                .map(word -> offered.of(NameForm.TYPE, word))
+                .flatMap(java.util.Optional::stream)
+                .collect(java.util.stream.Collectors.toUnmodifiableSet());
+    }
+
+    private FileTopics tallied(final ParsedFile file, final PhraseTopics reading,
+                               final TopicWitnesses witnesses, final WordSightings sightings) {
+        final TopicTally tally = new TopicTally(words, offered, reading, witnesses, sightings);
         file.occurrences().forEach(occurrence -> tally.add(file.path(), occurrence));
         return tally.reading(file.path(), file.lines());
     }

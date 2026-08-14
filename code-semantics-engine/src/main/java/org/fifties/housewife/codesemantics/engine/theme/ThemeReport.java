@@ -19,6 +19,9 @@ import org.fifties.housewife.codesemantics.engine.behaviour.Behaviours;
 public final class ThemeReport {
 
 
+    private static final TopicDistribution ORDINARY_ENGLISH =
+            OrdinaryEnglish.fromClasspath().reading();
+
     private static final int TOPICS_SHOWN = 15;
     private static final int CONTRIBUTIONS_SHOWN = 8;
     private static final int WITNESSES_HELD = 8;
@@ -56,7 +59,7 @@ public final class ThemeReport {
      * where more than one word carries it.
      */
     private List<String> ranked(final RepositoryThemes themes) {
-        final List<String> qualified = new QualifiedTopics(themes.witnesses()).across(
+        final List<String> qualified = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).across(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
                 themes.repository().intensity());
         return themes.rankings().stream()

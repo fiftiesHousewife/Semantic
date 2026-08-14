@@ -45,6 +45,11 @@ public final class WordRanks {
         return ranksByWord.getOrDefault(word.toLowerCase(Locale.ROOT), UNKNOWN_RANK);
     }
 
+    /** Every word the list carries, so a consumer can read the vocabulary of ordinary English as a whole. */
+    public java.util.Set<String> words() {
+        return ranksByWord.keySet();
+    }
+
     public int size() {
         return ranksByWord.size();
     }

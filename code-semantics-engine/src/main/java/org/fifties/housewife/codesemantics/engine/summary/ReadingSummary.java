@@ -28,6 +28,9 @@ import org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.Placeme
 public record ReadingSummary(String repository, Legibility legibility, Field field,
                              List<Distinctive> distinctive, List<String> about, List<Withheld> withheld) {
 
+    private static final org.fifties.housewife.codesemantics.engine.theme.TopicDistribution ORDINARY_ENGLISH =
+            org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading();
+
     /** How much of the repository any resource could be cited for, which is the denominator for the rest. */
     public record Legibility(double lambda, int words, int files, double proseShare) {
     }
@@ -63,11 +66,11 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 .toList();
         final List<Distinctive> distinctive = qualified.stream()
                 .map(scope -> new Distinctive(scope.scope(), scope.bits(),
-                        new QualifiedTopics(themes.witnesses()).concentratedIn(scope, topicsPerScope)))
+                        new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).concentratedIn(scope, topicsPerScope)))
                 .filter(scope -> !scope.topics().isEmpty())
                 .toList();
         return new ReadingSummary(repository, legibilityOf(legibility.repository()),
-                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses()).across(qualified, themes.repository().intensity()),
+                fieldOf(field, chance), distinctive, new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH).across(qualified, themes.repository().intensity()),
                 withheldFrom(themes, qualified));
     }
 

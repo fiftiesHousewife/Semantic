@@ -43,12 +43,44 @@ public final class PhraseTopics {
     private final TopicCitations citations;
     private final TopicCommitment commitment;
     private final SenseCoverage coverage;
+    private final TopicDistribution prior;
+    private final Set<String> declaredHere;
 
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
+        this(citations, commitment, coverage, new TopicDistribution(Map.of()), Set.of());
+    }
+
+    private PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
+                         final SenseCoverage coverage, final TopicDistribution prior,
+                         final Set<String> declaredHere) {
         this.citations = citations;
         this.commitment = commitment;
         this.coverage = coverage;
+        this.prior = prior;
+        this.declaredHere = declaredHere;
+    }
+
+    /**
+     * The same reading conditioned on what the file it sits in is already about.
+     *
+     * <p>A phrase of one word has no siblings to be read against, and that is where the reading is weakest:
+     * a field called {@code page} is the publishing trade to a dictionary and an HTML element to everyone
+     * who has seen the file. The file is the context a single word does not carry, and it costs nothing —
+     * the first pass over the file has already computed it.
+     *
+     * <p>It is a vote and not a gate. A topic the file barely holds is quietened rather than removed, and a
+     * topic the file has never read at all is not in the prior and so cannot be conditioned on: an empty
+     * prior leaves the reading exactly as it was, which is what makes the first pass safe.
+     *
+     * <p>The file's own declared names come with it, and they settle a part of speech no tagger is needed
+     * for. A sentence is not a noun phrase, so a word in prose is read by the corpus's own counts — but a
+     * word this file <em>declared</em> is one the file has already committed to a meaning for, and the
+     * prose around a declaration is prose about that declaration. Without it {@code file} in a sentence
+     * reads as the verb, which is a legal act, and a library documenting parsed files documents litigation.
+     */
+    public PhraseTopics under(final TopicDistribution fileReading, final Set<String> declaredHere) {
+        return new PhraseTopics(citations, commitment, coverage, fileReading, declaredHere);
     }
 
     /** One phrase's reading: the subjects it is about, which words agreed, and how much was spoken for. */
@@ -107,7 +139,7 @@ public final class PhraseTopics {
     private java.util.function.Function<String, List<TopicVote>> reading(final NameForm form,
                                                                         final List<String> words) {
         if (form.isProse()) {
-            return citations::inProse;
+            return word -> declaredHere.contains(word) ? citations.of(word) : citations.inProse(word);
         }
         final Set<String> verbs = form == NameForm.METHOD ? Set.of(words.getFirst()) : Set.of();
         return word -> verbs.contains(word) ? citations.ofVerb(word) : citations.of(word);
@@ -128,7 +160,8 @@ public final class PhraseTopics {
                     .filter(word -> commitments.get(word).containsKey(topic))
                     .collect(Collectors.toUnmodifiableSet());
             final double score = agreed(agreeing, topic, commitments, weightByWord)
-                    * agreeing.size() / words.stream().distinct().count();
+                    * agreeing.size() / words.stream().distinct().count()
+                    * expectedIn(topic);
             if (score > 0.0) {
                 scores.put(topic, score);
                 agreement.put(topic, agreeing);
@@ -137,6 +170,11 @@ public final class PhraseTopics {
         return scores.isEmpty() ? NOTHING
                 : new Reading(normalised(scores), agreement, credenceOf(agreement.values().stream()
                         .flatMap(Set::stream).collect(Collectors.toUnmodifiableSet())));
+    }
+
+    /** How much the file this phrase sits in is already about the topic, and one where nothing says. */
+    private double expectedIn(final String topic) {
+        return prior.isEmpty() ? 1.0 : prior.shareOf(topic);
     }
 
     /**

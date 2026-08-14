@@ -2,6 +2,7 @@ package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,11 +48,45 @@ import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contributi
 public final class QualifiedTopics {
 
     private final TopicWitnesses witnesses;
+    private final TopicDistribution ordinaryEnglish;
 
 
 
     public QualifiedTopics(final TopicWitnesses witnesses) {
+        this(witnesses, new TopicDistribution(java.util.Map.of()));
+    }
+
+    public QualifiedTopics(final TopicWitnesses witnesses, final TopicDistribution ordinaryEnglish) {
         this.witnesses = witnesses;
+        this.ordinaryEnglish = ordinaryEnglish;
+    }
+
+    /**
+     * The topics that account for how this repository differs from <b>ordinary English</b>.
+     *
+     * <p>A general dictionary attaches a subject to a common word's specialist sense, so every repository
+     * reads as partly about {@code law}, {@code publishing} and {@code music} whatever it contains — those
+     * are among the largest subjects the bundled frequency list itself reads as, above {@code mathematics}
+     * and far above {@code linguistics}. A topic held at the rate English holds it has said nothing about
+     * the code.
+     *
+     * <p>The bars are the two this library applies everywhere else and for the same reasons: the topic must
+     * be concentrated on this side of the comparison, and it must hold more than an even share of the
+     * divergence it is part of. A bare inequality is not enough — {@code music} clears one by two ten
+     * thousandths, which is exactly the "at the same rate" this exists to catch.
+     */
+    private Set<String> distinguishingFromOrdinaryEnglish(final TopicDistribution repository) {
+        if (ordinaryEnglish.isEmpty()) {
+            return Set.of();
+        }
+        final List<Contribution> against =
+                new JensenShannon().contributions(repository, ordinaryEnglish);
+        final double even = against.isEmpty() ? 1.0 : 1.0 / against.size();
+        return against.stream()
+                .filter(Contribution::concentratedInScope)
+                .filter(contribution -> contribution.shareOfDivergence() > even)
+                .map(Contribution::topic)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
 
@@ -69,6 +104,12 @@ public final class QualifiedTopics {
      * The contributions that account for a scope's departure: concentrated in it, and holding more of the
      * divergence than an even spread across the contributing topics would give.
      */
+    /** A topic that distinguishes this repository from ordinary English, where a reference is available. */
+    private java.util.function.Predicate<String> unlikeEnglish(final TopicDistribution repository) {
+        final Set<String> distinguishing = distinguishingFromOrdinaryEnglish(repository);
+        return topic -> ordinaryEnglish.isEmpty() || distinguishing.contains(topic);
+    }
+
     private Stream<Contribution> accountingFor(final ScopeDivergence scope) {
         final double even = scope.contributions().isEmpty() ? 1.0 : 1.0 / scope.contributions().size();
         return scope.contributions().stream()
@@ -110,6 +151,7 @@ public final class QualifiedTopics {
                 .flatMap(this::accountingFor)
                 .map(Contribution::topic)
                 .filter(topic -> !witnesses.restsOnOneWord(topic))
+                .filter(unlikeEnglish(intensity))
                 .distinct()
                 .sorted(Comparator.comparingDouble(intensity::shareOf).reversed()
                         .thenComparing(Comparator.naturalOrder()))

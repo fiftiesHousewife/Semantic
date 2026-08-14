@@ -29,6 +29,9 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
      * holds, which is what a table ranks by. The two disagree, and the disagreement is the reading: mass
      * measures how much was written and divergence measures what was found.
      */
+    private static final TopicDistribution ORDINARY_ENGLISH =
+            OrdinaryEnglish.fromClasspath().reading();
+
     record Node(String topic, double intensity, double explains, double nameShare, int references, int files,
                 int leads, int linesLed, double lineShare, int wordsBehind, String broader,
                 List<Witness> carriedBy) {
@@ -65,7 +68,7 @@ record ThemeGraph(String repository, int files, int lines, int topics, long elap
 
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
-        final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses());
+        final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH);
         final java.util.Map<String, Double> explains = qualifying.explaining(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList());
         final List<String> qualified = qualifying.across(
