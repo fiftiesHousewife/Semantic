@@ -43,6 +43,8 @@ class TermReadingDiagnostic {
 
     private static final long SEED = 20260813L;
 
+    private static final int WITNESSES_NAMED = 6;
+
     private static final String PREAMBLE = """
             Does this repository write the vocabulary of a published field? The Ontologies of Linguistic
             Annotation state 1,197 terms whose names are already identifiers, so the match is identifier to
@@ -118,10 +120,22 @@ class TermReadingDiagnostic {
                                 archives.stream()
                                         .map(org.fifties.housewife.bi.lexicon.SkosConcept::definition)
                                         .toList());
-        return new TaxonomyChoice(qualifiedTopics(themes), placed.getFirst().label(),
+        return new TaxonomyChoice(themesCarriedBy(themes), placed.getFirst().label(),
                 placed.getFirst().bits(), chance.chanceNearest(), chance.standsApart(), taxonomy,
                 "it is the vocabulary of linguistic annotation, whose concepts are already identifiers, so "
                         + "a match is identifier to identifier with no English in between");
+    }
+
+    /** Each qualified subject with the words that put it there, so the page can show its working. */
+    private static java.util.List<TaxonomyChoice.Theme> themesCarriedBy(
+            final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes) {
+        return qualifiedTopics(themes).stream()
+                .map(topic -> new TaxonomyChoice.Theme(topic,
+                        themes.witnesses().forTopic(topic, WITNESSES_NAMED).stream()
+                                .map(org.fifties.housewife.codesemantics.engine.theme
+                                        .TopicWitnesses.Witness::word)
+                                .toList()))
+                .toList();
     }
 
     private static java.util.List<String> qualifiedTopics(

@@ -4,11 +4,11 @@ Every line below cleared a bar that follows from the size of the field it compet
 
 ## How much of it could be read
 
-**λ = 0.978** — a bundled resource can be cited for that share of 69,204 word occurrences across 354 files, 72% of them prose. It is the denominator everything else rests on, not a finding.
+**λ = 0.978** — a bundled resource can be cited for that share of 69,731 word occurrences across 356 files, 72% of them prose. It is the denominator everything else rests on, not a finding.
 
 ## The field it is in
 
-**Computer Science**, 0.3432 bits away. A taxonomy of chance placed its nearest subject at 0.4016 bits over 999 draws, so this stands apart from chance. The runner-up is Mathematics at 0.3682.
+**Computer Science**, 0.3425 bits away. A taxonomy of chance placed its nearest subject at 0.4053 bits over 999 draws, so this stands apart from chance. The runner-up is Nonlinear Sciences at 0.4666.
 
 ## What it is about
 
@@ -20,11 +20,11 @@ A topic held at the same density everywhere distinguishes nothing, so there is n
 
 | Scope | Bits from the repository | Writes more of |
 |---|--:|---|
-| `code-semantics-api/src/test/java` | 0.1971 | `linguistics` |
-| `code-semantics-engine/src/main/java` | 0.0612 | `linguistics` |
-| `lexicon/src/main/java` | 0.1607 | `linguistics` |
-| `lexicon/src/test/java` | 0.1523 | `linguistics` |
+| `code-semantics-api/src/test/java` | 0.1969 | `linguistics` |
+| `code-semantics-engine/src/main/java` | 0.0611 | `linguistics` |
+| `lexicon/src/main/java` | 0.1606 | `linguistics` |
+| `lexicon/src/test/java` | 0.1516 | `linguistics` |
 
 ## Withheld
 
-- `documentation` — 0.2403 bits, and 972 of 999 chance draws stood at least as far
+- `documentation` — 0.2405 bits, and 971 of 999 chance draws stood at least as far

@@ -9,7 +9,7 @@ its field rather than anyone here deciding so.
 Only **declared names** are read. A term in a sentence is an author writing about a field; a term
 in a name is a program working in one.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **86 of them, 1,672 times**, across 309 of 351 files — reaching **20 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **86 of them, 1,688 times**, across 311 of 353 files — reaching **20 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -17,7 +17,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `LinguisticConcept` | 19 | 136 | 871 | `Topic`&nbsp;396 `Source`&nbsp;165 `Set`&nbsp;51 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Identifier`&nbsp;26 `PartOf`&nbsp;22 `Document`&nbsp;20 |
+| `LinguisticConcept` | 19 | 136 | 887 | `Topic`&nbsp;411 `Source`&nbsp;165 `Set`&nbsp;52 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Identifier`&nbsp;26 `PartOf`&nbsp;22 `Document`&nbsp;20 |
 | `MorphosyntacticCategory` | 14 | 288 | 165 | `Verb`&nbsp;33 `Noun`&nbsp;31 `Abbreviation`&nbsp;23 `Symbol`&nbsp;15 `List`&nbsp;14 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 |
 | `OrthographicEntity` | 6 | 37 | 153 | `Token`&nbsp;82 `Text`&nbsp;30 `Script`&nbsp;17 `Letter`&nbsp;13 `Space`&nbsp;9 `String`&nbsp;2 |
 | `MorphologicalCategory` | 5 | 16 | 111 | `Root`&nbsp;79 `Prefix`&nbsp;15 `Suffix`&nbsp;11 `Stem`&nbsp;5 `Affix`&nbsp;1 |
@@ -34,9 +34,9 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 1,157 | 75 | 97.6% |
+| the words themselves | 1,160 | 75 | 97.6% |
 | the dictionary form of each word | 275 | 47 | 98.9% |
-| the sense the dictionary carries each word in | 240 | 28 | 100.0% |
+| the sense the dictionary carries each word in | 253 | 28 | 100.0% |
 
 
 ## Whether the branch corroborates the match
@@ -47,8 +47,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 1,672 | 150 | 98.1% | 20 of 70 | `topic`&nbsp;177 |
-| only where the branch holds more than this one concept | 1,049 | 102 | 97.0% | 11 of 70 | `source`&nbsp;130 |
+| every match | 1,688 | 150 | 98.2% | 20 of 70 | `topic`&nbsp;180 |
+| only where the branch holds more than this one concept | 1,050 | 102 | 97.0% | 11 of 70 | `source`&nbsp;130 |
 
 ### What the branch refused
 
@@ -56,17 +56,17 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Term | Times | Stood alone under |
 |---|--:|---|
-| `topic` | 177 | `PragmaticUnit` |
+| `topic` | 180 | `PragmaticUnit` |
 | `topics` | 96 | `PragmaticUnit` |
-| `subject` | 55 | `PragmaticUnit` |
-| `themes` | 30 | `PragmaticUnit` |
+| `subject` | 60 | `PragmaticUnit` |
+| `themes` | 35 | `PragmaticUnit` |
 | `cited` | 27 | `Referentiality` |
 | `head` | 25 | `SyntacticRole` |
 | `subjects` | 23 | `PragmaticUnit` |
 | `identifier` | 21 | `DiscourseEntity` |
 | `other` | 17 | `SameType` |
 | `summary` | 17 | `Generalization` |
-| `theme` | 15 | `PragmaticUnit` |
+| `theme` | 17 | `PragmaticUnit` |
 | `control` | 10 | `MovementFeature` |
 | `definition` | 9 | `Assessment` |
 | `letter` | 9 | `Character` |
