@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420" role="img" aria-label="Themes by share of topical mass, the broad subject inside and the label each was stated as outside"><style>/*
+ * The wedge rules for a sunburst that travels as a file. A markdown reader renders an image and not a
+ * page, so the picture cannot reach the page's stylesheet and carries its own. Each wedge states its own
+ * two colours as custom properties; these rules choose between them by the reader's colour scheme.
+ */
+.wedge path { fill:var(--c); stroke:#ffffff; stroke-width:1.5; }
+.wedge-label { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:10.5px; fill:#ffffff; text-anchor:middle; paint-order:stroke; }
+@media (prefers-color-scheme: dark) {
+  .wedge path { fill:var(--cd); stroke:#0e1216; }
+}
+</style><g class="wedge" style="--c:#2a78d6;--cd:#3987e5" opacity="1.00"><path d="M 210.00 94.00 A 116.00 116.00 0 1 1 197.43 94.68 L 203.71 152.34 A 58.00 58.00 0 1 0 210.00 152.00 Z"><title>sciences — 98.3% of what the chart draws</title></path><text class="wedge-label" x="214.72" y="296.87" transform="rotate(-3.11 214.72 296.87)">sciences</text></g><g class="wedge" style="--c:#2a78d6;--cd:#3987e5" opacity="0.90"><path d="M 210.00 28.00 A 182.00 182.00 0 1 1 190.28 29.07 L 196.89 89.71 A 121.00 121.00 0 1 0 210.00 89.00 Z"><title>linguistics — 98.3% of what the chart draws</title></path><text class="wedge-label" x="218.22" y="361.28" transform="rotate(-3.11 218.22 361.28)">linguistics</text></g><g class="wedge" style="--c:#eb6834;--cd:#d95926" opacity="1.00"><path d="M 197.43 94.68 A 116.00 116.00 0 0 1 210.00 94.00 L 210.00 152.00 A 58.00 58.00 0 0 0 203.71 152.34 Z"><title>natural-sciences — 1.7% of what the chart draws</title></path><g></g></g><g class="wedge" style="--c:#eb6834;--cd:#d95926" opacity="0.90"><path d="M 190.28 29.07 A 182.00 182.00 0 0 1 210.00 28.00 L 210.00 89.00 A 121.00 121.00 0 0 0 196.89 89.71 Z"><title>computing — 1.7% of what the chart draws</title></path><g></g></g></svg>
