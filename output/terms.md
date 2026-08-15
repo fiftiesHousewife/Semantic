@@ -15,7 +15,7 @@ under; a term written in more than one word counts unconditionally. The reading 
 match is kept at the end, beside the list of what the branch refused, because a rule that removes
 matches can only be judged as a comparison.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **56 of them, 1,084 times**, across 269 of 360 files — reaching **11 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **56 of them, 1,086 times**, across 269 of 360 files — reaching **11 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -23,7 +23,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `LinguisticConcept` | 15 | 136 | 459 | `Source`&nbsp;165 `Set`&nbsp;70 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Document`&nbsp;24 `PartOf`&nbsp;22 `Means`&nbsp;21 `Given`&nbsp;20 |
+| `LinguisticConcept` | 15 | 136 | 461 | `Source`&nbsp;165 `Set`&nbsp;70 `Citation`&nbsp;46 `Evidence`&nbsp;32 `Document`&nbsp;26 `PartOf`&nbsp;22 `Means`&nbsp;21 `Given`&nbsp;20 |
 | `MorphosyntacticCategory` | 10 | 288 | 143 | `Verb`&nbsp;33 `Noun`&nbsp;31 `Abbreviation`&nbsp;23 `Symbol`&nbsp;15 `Foreign`&nbsp;12 `Initialism`&nbsp;11 `Residual`&nbsp;11 `Acronym`&nbsp;4 |
 | `OrthographicEntity` | 4 | 37 | 131 | `Token`&nbsp;82 `Text`&nbsp;30 `Script`&nbsp;17 `String`&nbsp;2 |
 | `MorphologicalCategory` | 5 | 16 | 114 | `Root`&nbsp;82 `Prefix`&nbsp;15 `Suffix`&nbsp;11 `Stem`&nbsp;5 `Affix`&nbsp;1 |
@@ -39,7 +39,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 838 | 51 | 96.7% |
+| the words themselves | 840 | 51 | 96.7% |
 | the dictionary form of each word | 147 | 31 | 98.0% |
 | the sense the dictionary carries each word in | 99 | 19 | 100.0% |
 
@@ -52,8 +52,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 1,741 | 150 | 98.2% | 20 of 70 | `topic`&nbsp;183 |
-| only where the branch holds more than this one concept | 1,084 | 101 | 97.1% | 11 of 70 | `source`&nbsp;130 |
+| every match | 1,743 | 150 | 98.2% | 20 of 70 | `topic`&nbsp;183 |
+| only where the branch holds more than this one concept | 1,086 | 101 | 97.1% | 11 of 70 | `source`&nbsp;130 |
 
 ### What the branch refused
 

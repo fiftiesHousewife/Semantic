@@ -18,16 +18,16 @@ vocabulary of every description — and a field of 152 subjects must be read aga
 
 | Subject | Group | Distance | Met on |
 |---|---|--:|---|
-| `cs` Computer Science | grp_cs | 0.3639 | linguistics, mathematics, law, computing |
-| `eess` Electrical Engineering and Systems Science | grp_eess | 0.4752 | computing, mathematics, grammar, person |
+| `cs` Computer Science | grp_cs | 0.3633 | linguistics, mathematics, law, computing |
+| `eess` Electrical Engineering and Systems Science | grp_eess | 0.4744 | computing, mathematics, grammar, person |
 | `nlin` Nonlinear Sciences | grp_physics | 0.4822 | computing, mathematics, telecommunication, literature |
-| `math` Mathematics | grp_math | 0.5025 | mathematics, physics, law, psychology |
-| `q-fin` Quantitative Finance | grp_q-fin | 0.5180 | linguistics, mathematics, law, chemistry |
-| `physics` Physics | grp_physics | 0.5461 | telecommunication, mathematics, chemistry, person |
-| `astro-ph` Astrophysics | grp_physics | 0.5653 | computing, chemistry, geography, telecommunication |
-| `stat` Statistics | grp_stat | 0.5657 | linguistics, law, programming, signal-processing |
+| `math` Mathematics | grp_math | 0.5283 | telecommunication, mathematics, physics, psychology |
+| `physics` Physics | grp_physics | 0.5504 | telecommunication, mathematics, chemistry, person |
+| `cond-mat` Condensed Matter | grp_physics | 0.5685 | computing, telecommunication, chemistry, physics |
+| `astro-ph` Astrophysics | grp_physics | 0.5911 | telecommunication, chemistry, geography, physics |
+| `q-bio` Quantitative Biology | grp_q-bio | 0.6083 | publishing, person, chemistry, mathematics |
 
-The nearest subject stands **0.3639 bits** away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was **0.4187 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.3633 bits** away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was **0.4164 bits**, so this placement **stands apart from chance**.
 
 ## At its leaves, by divergence
 
@@ -36,20 +36,20 @@ narrower than a repository and the vaguest description wins.
 
 | Subject | Group | Distance | Met on |
 |---|---|--:|---|
-| `cs.SY` Systems and Control | grp_cs | 0.4118 | linguistics, law, mathematics, computing |
-| `cs.CL` Computation and Language | grp_cs | 0.4541 | linguistics, computing, law, grammar |
-| `cs.LO` Logic in Computer Science | grp_cs | 0.4607 | linguistics, law, grammar, geography |
-| `math.MP` Mathematical Physics | grp_math | 0.4718 | linguistics, mathematics, law, physics |
+| `cs.SY` Systems and Control | grp_cs | 0.4111 | linguistics, law, mathematics, computing |
+| `cs.CL` Computation and Language | grp_cs | 0.4531 | linguistics, computing, law, grammar |
+| `cs.LO` Logic in Computer Science | grp_cs | 0.4603 | linguistics, law, grammar, geography |
+| `math.MP` Mathematical Physics | grp_math | 0.4719 | linguistics, mathematics, law, physics |
 | `cs.ET` Emerging Technologies | grp_cs | 0.5067 | mathematics, computing, law, literature |
 | `cs.HC` Human-Computer Interaction | grp_cs | 0.5164 | mathematics, law, computing, telecommunication |
 | `cs.NA` Numerical Analysis | grp_cs | 0.5179 | linguistics, law, grammar, music |
 | `math.IT` Information Theory | grp_math | 0.5191 | linguistics, law, mathematics, programming |
-| `cs.CC` Computational Complexity | grp_cs | 0.5209 | linguistics, mathematics, law, geography |
-| `cs.SD` Sound | grp_cs | 0.5256 | mathematics, telecommunication, grammar, chemistry |
-| `cs.AI` Artificial Intelligence | grp_cs | 0.5328 | mathematics, law, grammar, linguistics |
-| `eess.IV` Image and Video Processing | grp_eess | 0.5336 | publishing, computing, mathematics, chemistry |
+| `cs.CC` Computational Complexity | grp_cs | 0.5203 | linguistics, mathematics, law, geography |
+| `cs.SD` Sound | grp_cs | 0.5252 | mathematics, telecommunication, grammar, chemistry |
+| `cs.AI` Artificial Intelligence | grp_cs | 0.5318 | mathematics, law, grammar, linguistics |
+| `eess.IV` Image and Video Processing | grp_eess | 0.5326 | publishing, computing, mathematics, chemistry |
 
-The nearest subject stands **0.4118 bits** away. Across 997 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.4393 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.4111 bits** away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.4681 bits**, so this placement **stands apart from chance**.
 
 ## At its leaves, by the mass both hold
 
@@ -58,17 +58,17 @@ repository is also about.
 
 | Subject | Group | Distance | Met on |
 |---|---|--:|---|
-| `cs.SY` Systems and Control | grp_cs | 0.5980 | linguistics, law, mathematics, computing |
-| `math.MP` Mathematical Physics | grp_math | 0.6181 | linguistics, mathematics, law, physics |
-| `cs.CL` Computation and Language | grp_cs | 0.6269 | linguistics, computing, law, grammar |
-| `cs.LO` Logic in Computer Science | grp_cs | 0.6444 | linguistics, law, grammar, geography |
-| `cs.ET` Emerging Technologies | grp_cs | 0.6580 | mathematics, computing, law, literature |
-| `eess.IV` Image and Video Processing | grp_eess | 0.6713 | publishing, computing, mathematics, chemistry |
-| `cs.HC` Human-Computer Interaction | grp_cs | 0.6778 | mathematics, law, computing, telecommunication |
-| `q-fin.EC` Economics | grp_q-fin | 0.6825 | linguistics, law, number, programming |
-| `cs.AI` Artificial Intelligence | grp_cs | 0.6875 | mathematics, law, grammar, linguistics |
-| `eess.AS` Audio and Speech Processing | grp_eess | 0.6915 | computing, person, grammar, telecommunication |
+| `cs.SY` Systems and Control | grp_cs | 0.5975 | linguistics, law, mathematics, computing |
+| `math.MP` Mathematical Physics | grp_math | 0.6182 | linguistics, mathematics, law, physics |
+| `cs.CL` Computation and Language | grp_cs | 0.6258 | linguistics, computing, law, grammar |
+| `cs.LO` Logic in Computer Science | grp_cs | 0.6442 | linguistics, law, grammar, geography |
+| `cs.ET` Emerging Technologies | grp_cs | 0.6584 | mathematics, computing, law, literature |
+| `eess.IV` Image and Video Processing | grp_eess | 0.6701 | publishing, computing, mathematics, chemistry |
+| `cs.HC` Human-Computer Interaction | grp_cs | 0.6780 | mathematics, law, computing, telecommunication |
+| `q-fin.EC` Economics | grp_q-fin | 0.6820 | linguistics, law, number, programming |
+| `cs.AI` Artificial Intelligence | grp_cs | 0.6873 | mathematics, law, grammar, linguistics |
+| `eess.AS` Audio and Speech Processing | grp_eess | 0.6909 | computing, person, grammar, telecommunication |
 | `cs.NA` Numerical Analysis | grp_cs | 0.6930 | linguistics, law, grammar, music |
-| `cs.SD` Sound | grp_cs | 0.6948 | mathematics, telecommunication, grammar, chemistry |
+| `cs.SD` Sound | grp_cs | 0.6946 | mathematics, telecommunication, grammar, chemistry |
 
-The nearest subject stands **0.5980 bits** away. Across 997 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.6066 bits**, so this placement **stands apart from chance**.
+The nearest subject stands **0.5975 bits** away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **0.6170 bits**, so this placement **stands apart from chance**.
