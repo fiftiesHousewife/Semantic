@@ -75,6 +75,8 @@ a { color:var(--accent); }
 .panel { background:var(--surface); border:1px solid var(--rule); border-radius:10px; }
 .sunburst-figure { padding:18px; display:flex; justify-content:center; }
 .sunburst-figure svg { width:100%; max-width:460px; height:auto; display:block; }
+/* The field's picture is written by another step, so it arrives as a file rather than as markup. */
+.sunburst-figure object { width:100%; max-width:500px; height:auto; aspect-ratio:1; display:block; }
 .wedge path { fill:var(--c); stroke:var(--surface); stroke-width:1.5; }
 @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) .wedge path { fill:var(--cd); } }
 :root[data-theme="dark"] .wedge path { fill:var(--cd); }

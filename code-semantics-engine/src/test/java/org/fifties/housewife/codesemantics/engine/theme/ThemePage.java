@@ -13,6 +13,7 @@ import static j2html.TagCreator.p;
 import static j2html.TagCreator.section;
 import static j2html.TagCreator.scriptWithInlineFile;
 import static j2html.TagCreator.styleWithInlineFile;
+import static j2html.TagCreator.tag;
 import static j2html.TagCreator.title;
 
 /**
@@ -28,6 +29,10 @@ final class ThemePage {
     private static final String STYLE = "/themes.css";
 
     private static final String SCRIPT = "/sunburst.js";
+
+    private static final String TAXONOMY_PICTURE = "taxonomy-sunburst.svg";
+
+    private static final String SVG = "image/svg+xml";
     private final ThemeSections sections = new ThemeSections();
 
     String of(final ThemeGraph graph) {
@@ -68,7 +73,24 @@ final class ThemePage {
         return section(
                 sections.heading(PageProse.GRAPH_HEADING, PageProse.GRAPH),
                 div(new ThemeSunburst(graph.nodes()).chart()).withClass("panel sunburst-figure"),
-                p(denominator(graph)).withClass("note"));
+                p(denominator(graph)).withClass("note"),
+                taxonomySection());
+    }
+
+    /**
+     * The other picture this reading draws, referenced rather than redrawn.
+     *
+     * <p>It comes from a different step over a different reading, and the two are never run together, so
+     * neither can hand the other its nodes. The file on disk is what lets one page carry both without
+     * either step waiting on the one before it: the term reading writes its picture, and this references
+     * what was written. A reader gets the two questions side by side — what the code is about, and where in
+     * a published field it writes — which is the comparison neither picture makes alone.
+     */
+    private DomContent taxonomySection() {
+        return section(
+                sections.heading(PageProse.FIELD_HEADING, PageProse.FIELD),
+                div(tag("object").attr("type", SVG).attr("data", TAXONOMY_PICTURE)
+                        .attr("aria-label", PageProse.FIELD_HEADING)).withClass("panel sunburst-figure"));
     }
 
     /**

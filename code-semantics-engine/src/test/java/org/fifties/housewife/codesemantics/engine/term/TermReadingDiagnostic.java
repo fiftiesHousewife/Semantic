@@ -38,6 +38,7 @@ class TermReadingDiagnostic {
     private static final String REPORT = "terms";
     private static final String TAXONOMY = "taxonomy.html";
     private static final String EVIDENCE = "evidence.html";
+    private static final String PICTURE = "taxonomy-sunburst.svg";
 
     private static final int TERMS_HELD = 100;
 
@@ -83,6 +84,7 @@ class TermReadingDiagnostic {
                 .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(reports.file(TAXONOMY), new TaxonomyPage()
                 .of(root.getFileName().toString(), terms.source(), tree, chose(parsed, terms.source())));
+        Files.writeString(reports.file(PICTURE), new TaxonomySunburstDocument().of(tree));
 
         assertAll(
                 () -> assertThat(matched.filesWithNoMatch())

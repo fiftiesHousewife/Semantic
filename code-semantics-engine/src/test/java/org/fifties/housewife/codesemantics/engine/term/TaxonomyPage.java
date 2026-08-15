@@ -13,12 +13,9 @@ import static j2html.TagCreator.dt;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.header;
-import static j2html.TagCreator.input;
-import static j2html.TagCreator.label;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.span;
-import static j2html.TagCreator.scriptWithInlineFile;
 import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.summary;
 import static j2html.TagCreator.title;
@@ -45,8 +42,6 @@ final class TaxonomyPage {
 
     private static final String STYLE = "/taxonomy.css";
 
-    private static final String SCRIPT = "/sunburst.js";
-
     private static final String LEDE = "Every concept the taxonomy publishes, in the hierarchy it publishes "
             + "them in. A concept this repository writes is lit and counted; a branch it never reaches is "
             + "closed rather than removed, because what a field has that a codebase does not is part of the "
@@ -54,7 +49,8 @@ final class TaxonomyPage {
 
     private static final String READING = "Read the first two together. A codebase writing a large share of "
             + "a field's concepts is working across it; one writing a small share intensely is working in a "
-            + "corner of it, and which corner is what the chart and the tree below are for.";
+            + "corner of it, and which corner is what the tree below says. The picture of it is on the "
+            + "chart page, beside the other one this reading draws.";
 
     private static final String FOOT = "Drawn from the same match the report is written from. Regenerate "
             + "with ./gradlew selfRead.";
@@ -70,13 +66,9 @@ final class TaxonomyPage {
                                 p(LEDE).withClass("lede"),
                                 p(choice.reasoning()).withClass("chain"),
                                 statistics(tree)),
-                        input().withType("checkbox").withId("full-screen").withClass("full-screen"),
-                        div(label().withFor("full-screen").withClass("expand"),
-                                new TaxonomySunburst(tree).chart()).withClass("figure"),
-                                div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
+                        div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
                                 TaxonomyPage::node)),
-                        p(FOOT).withClass("foot")).withClass("wrap"),
-                scriptWithInlineFile(SCRIPT))
+                        p(FOOT).withClass("foot")).withClass("wrap"))
                 .render();
     }
 
@@ -109,9 +101,9 @@ final class TaxonomyPage {
 
     /**
      * Only the paths that lead somewhere. A subtree the repository never writes in is left out of the tree
-     * entirely and counted instead — the sunburst above already draws the whole field to scale, so the two
-     * together say what a field contains and what this codebase does in it without either repeating the
-     * other. A tree that listed a thousand concepts nobody wrote was a list, and the point of a hierarchy is
+     * entirely and counted instead — the sunburst on the chart page already draws the whole field to scale,
+     * so the two together say what a field contains and what this codebase does in it without either
+     * repeating the other. A tree that listed a thousand concepts nobody wrote was a list, and the point of a hierarchy is
      * that it is not one.
      */
     private static DomContent node(final TaxonomyTree.Node node) {

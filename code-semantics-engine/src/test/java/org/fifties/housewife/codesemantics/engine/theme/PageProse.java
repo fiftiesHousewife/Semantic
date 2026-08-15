@@ -38,6 +38,15 @@ final class PageProse {
             + "not something arranged here. A label that generalises to nothing sits alone in its own "
             + "sector, which is what the resource says about it.";
 
+    static final String FIELD_HEADING = "Where it writes in a published field";
+
+    static final String FIELD = "The second picture is the other reading this library takes, drawn to the "
+            + "same rule: every concept a published taxonomy states, as a wedge the width of its share of "
+            + "the field, with the branches this repository writes in lit. It answers a different question "
+            + "from the ring above it — that one is what the code is about, this one is where in somebody "
+            + "else's map of a field it puts its names — and nothing from it feeds the reading above. The "
+            + "tree behind it, with every concept and the lines it was written at, is on the taxonomy page.";
+
     static final String RANKING_HEADING = "Which themes dominate";
 
     static final String RANKING = "Three different questions, three different answers, and their "

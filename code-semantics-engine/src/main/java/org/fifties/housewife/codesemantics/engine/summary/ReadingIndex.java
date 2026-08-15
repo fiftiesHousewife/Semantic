@@ -44,9 +44,11 @@ public record ReadingIndex(String repository, List<Entry> entries) {
                 new Entry("summary.html", "Summary",
                         "what the reading shows, in one page",
                         "every line cleared a bar; what did not is named and printed nowhere"),
-                new Entry("themes-chart.html", "Themes — the chart",
-                        "what the repository is about, drawn",
-                        "only topics that distinguish some part of it and that more than one word carries"),
+                new Entry("themes-chart.html", "The charts",
+                        "both pictures this reading draws: what the repository is about, and where in a "
+                                + "published field it writes",
+                        "only topics that distinguish some part of it and that more than one word carries; "
+                                + "the field is drawn whole, lit where this repository writes"),
                 new Entry("themes.html", "Themes — the detail",
                         "the same reading with every scope, witness and site",
                         "the ranking is qualified; the scope tables print everything measured"),
@@ -54,8 +56,10 @@ public record ReadingIndex(String repository, List<Entry> entries) {
                         "where the repository stands against 152 published subject areas",
                         "the nearest must beat the nearest a taxonomy of chance offers"),
                 new Entry("taxonomy.html", "The taxonomy",
-                        "the published field as a tree, with what this repository writes lit inside it",
-                        "every concept is drawn; a branch nothing was written under is closed, not hidden"),
+                        "the published field as a tree, concept by concept, with what this repository wrote "
+                                + "under each",
+                        "a branch nothing was written under is counted, not hidden; the picture of the "
+                                + "whole field is on the chart page"),
                 new Entry("evidence.html", "The evidence",
                         "every concept this repository writes, with the names and the lines it wrote them at",
                         "a count is a claim until somebody can go and look; this is what it links to"),

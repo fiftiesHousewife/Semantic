@@ -30,6 +30,17 @@ class ThemePageTest {
     }
 
     @Test
+    void carriesBothPicturesTheReadingDraws() {
+        final String page = new ThemePage().of(graphCiting(PERMALINK));
+        assertAll(
+                () -> assertThat(page).contains("<svg id=\"sunburst\""),
+                () -> assertThat(page)
+                        .as("the field is drawn by a different step over a different reading, so the page "
+                                + "references the file that step wrote rather than redrawing it")
+                        .contains("taxonomy-sunburst.svg"));
+    }
+
+    @Test
     void carriesNoLinkAndNoPathIntoTheTreeItRead() {
         final String page = new ThemePage().of(graphCiting(EDITOR));
         assertAll(

@@ -22,8 +22,12 @@ import static j2html.TagCreator.tag;
  */
 final class TaxonomySunburst {
 
+    static final int SIZE = 500;
+
+    static final String DESCRIPTION = "The taxonomy by share of its concepts, with the branches this "
+            + "repository writes in lit";
+
     private static final double CENTRE = 250.0;
-    private static final int SIZE = 500;
     private static final double FULL_TURN = 360.0;
     private static final double START = -90.0;
     private static final double LABEL_FITS = 9.0;
@@ -36,7 +40,8 @@ final class TaxonomySunburst {
         this.tree = tree;
     }
 
-    DomContent chart() {
+    /** The wedges alone, so a page and a file of its own can draw the same picture from the same nodes. */
+    List<DomContent> wedges() {
         final List<DomContent> wedges = new ArrayList<>();
         final double published = Math.max(1, tree.roots().stream()
                 .mapToInt(TaxonomyTree.Node::conceptsBelow).sum());
@@ -46,11 +51,14 @@ final class TaxonomySunburst {
             wedges.addAll(ring(root, from, sweep, 0));
             from += sweep;
         }
+        return wedges;
+    }
+
+    DomContent chart() {
         return tag("svg").withId("taxonomy-sunburst").attr("viewBox", "0 0 %d %d".formatted(SIZE, SIZE))
                 .attr("role", "img")
-                .attr("aria-label", "The taxonomy by share of its concepts, with the branches this "
-                        + "repository writes in lit")
-                .with(wedges);
+                .attr("aria-label", DESCRIPTION)
+                .with(wedges());
     }
 
     private List<DomContent> ring(final TaxonomyTree.Node node, final double from, final double sweep,
