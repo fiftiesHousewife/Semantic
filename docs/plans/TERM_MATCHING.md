@@ -53,8 +53,9 @@ exists to judge what the repository wrote, so `TermReading.corroboratedBy` now c
 answer rather than the ladder's input. `TermReadingTest` pins both compositions, the used one and the refused
 one, so the order cannot be flipped back by accident.
 
-**What is still not done:** a match is scored term by term rather than against the subtree it occupies, and
-the depth arm below has not been run.
+**What is still not done:** a match is scored term by term rather than against the subtree it occupies. The
+depth reading has been run and is refuted; the section below carries what it measured and what the failure
+points at instead.
 
 ### The first reading of a repository this was not written for, and what it showed
 
@@ -71,13 +72,102 @@ negative control, and it has not been read.
 
 What is unambiguous is the rest: **`Result` 836, `Object` 476, `Exception` 283, `String` 585**. Ordinary
 programming words a linguistic ontology happens to publish, matched at a rate no rule here currently touches.
-Their shared property is depth: they sit near the roots of the taxonomy, where a term that means something to
-a field sits deep. **The depth arm is the measurement that would separate them**, and depth is read off the
-publisher's own hierarchy rather than chosen, so it is admissible where a list of words to ignore is not.
+This document said their shared property was depth — that they sit near the roots, where a term meaning
+something to a field sits deep — and named the depth reading as the measurement that would separate them.
 
 The target vocabulary makes this urgent rather than optional. **56% of PyPI Trove's 321 `Topic ::` leaf labels
 are a single word** — `Application`, `Analysis`, `Audio`, `Backup`, `Archiving` — against 11% of FIBO's. A
 matcher that cannot price a shallow single-word hit will be handed a vocabulary made mostly of them.
+
+### The depth reading has been run, and it is refuted
+
+`StatedDepth` counts the rungs the publisher states between a concept and the root of its branch, bounded by
+the deepest chain the source states — nine here — and `DepthReport` puts what the branch rule admitted beside
+what it refused, because the branch rule is the separation already in the tree. If depth carried the same
+signal, the refused matches would stand nearer a root than the admitted ones.
+
+Both readings are of a named commit: this repository at the commit that landed the measurement, Tika at
+`43cbdae6`. The reading covers this repository's own documentation, so writing these figures down moves them.
+
+| Read against | Concepts | Times | Mean rungs per concept | Mean rungs per span |
+|---|--:|--:|--:|--:|
+| this repository, what the branch admitted | 56 | 1,174 | 2.21 | 2.17 |
+| this repository, what the branch refused | 32 | 804 | **3.22** | **2.44** |
+| Tika `43cbdae6`, what the branch admitted | 106 | 8,799 | 2.86 | 2.70 |
+| Tika `43cbdae6`, what the branch refused | 40 | 3,984 | **3.43** | **3.20** |
+
+**It separates them the other way round, on both trees.** The out-of-domain member also matches deeper than
+the in-domain one — 2.70 rungs per span against 2.16 — so a weight that favoured depth would raise the reading
+this library needs to lower.
+
+The four matches this section was written about are the clearest form of it. `Result` is six rungs down,
+`Exception` five and `Object` three, against `Verb`, `Noun`, `Token`, `Clause`, `Phrase`, `Diacritic`,
+`Script` and `Text`, every one of them one rung down. Tika's deepest rung holds 1,341 spans — 15.2% of the
+reading — and it is `Result` 836, `URL` 285, `Example` 115, `Book` 46, `Movie` 29, `Album` 21, `PhoneNumber` 7
+and `EmailAddress` 2, without a term of the field among them.
+
+The reason is in the taxonomy rather than in the arithmetic. OLiA's long chains are its discourse relations
+(`Result` < `Cause` < `Contigency` < `CoherenceRelation` < `DiscourseRelation` < `PragmaticRelation` <
+`Relation`) and its named entities (`Book`, `Movie`, `Album`, `PhoneNumber` under `EntityType`), and both are
+built out of ordinary English. The morphosyntax a program working in the field actually declares stands one
+rung down, because OLiA states no named parent for it — the fact `StatedAncestry` already documents and which
+this reading treated as a gap to price rather than as the shape of the source.
+
+`PinnedTermFindings` holds the refutation, so a change that makes depth productive has to rewrite a stated
+expectation, and `DepthReport` writes the table into `terms.md` for whatever tree the reading is pointed at.
+
+**Abandon criterion met.** *Abandon if: depth does not separate the matches the branch reading already
+separates.* It does not, and the second citation disagreeing with the first is the outcome that section
+predicted would mean neither is measuring what it claims — except that here only one of them is wrong, and the
+branch reading is the one still standing.
+
+### What the failure points at: the branch rule is right and its scope is not
+
+Three further signals were measured on the same two trees before any was built, over every span the ladder
+finds rather than the corroborated reading, so each is judged on what it would have to remove.
+
+| Signal | What it did |
+|---|---|
+| depth in the publisher's hierarchy | inverted, above |
+| the frequency weight already on every sighting | 0.729 mean per span on Tika against 0.724 here — it does not tell the two trees apart at all, and `URL` at 0.947 outweighs `Character` at 0.669 |
+| how specific the company a match keeps in its own file is | `Result` scores 0.787 and `Token` 0.734 — no separation |
+| **the branch rule the reading already uses, asked of the file rather than of the repository** | it removes what the other three cannot |
+
+The last one is the finding. **Repository-scope corroboration gets cheaper as a repository gets bigger**: Tika
+has 2,148 files and clears the rule on 97 concepts, this repository has 378 and clears it on 52, and any
+large Java tree writes something under `Relation` and something under `SemanticFeature` somewhere. Asked of
+the file the term was written in, the same rule reads what the rest of that file is about.
+
+| Corroborated at | Tika spans | Concepts | Branches | What leads |
+|---|--:|--:|--:|---|
+| the repository, as today | 7,712 | 97 | 12 of 24 | `Text` 939 `String` 585 `Object` 476 `Script` 381 `Document` 372 |
+| the file | 2,135 | 56 | 8 of 24 | `Text` 484 `Script` 351 `String` 201 `Author` 175 `Token` 174 |
+| the file, and where a file holds no other match at all the file has nothing to read and the repository answers | 2,664 | 68 | 10 of 24 | `Text` 531 `Script` 356 `String` 245 `Token` 203 `Author` 197 |
+
+| Corroborated at | This repository's spans | Concepts | Branches | What leads |
+|---|--:|--:|--:|---|
+| the repository, as today | 1,118 | 52 | 11 of 20 | `Source` 169 `Root` 97 `Token` 83 `Set` 81 `Phrase` 68 |
+| the file | 272 | 32 | 9 of 20 | `First` 25 `Source` 24 `Token` 24 `Second` 22 `Noun` 21 |
+| the file, and the repository where the file holds no other match | 354 | 37 | 11 of 20 | `Source` 64 `First` 28 `Token` 24 `Second` 22 `Noun` 21 |
+
+At file scope `Set` 1,754, `List` 966, `Result` 836, `Object` 476, `Support` 366, `URL` 285 and `Exception`
+265 leave Tika's reading, and `Topic` 531 and `Root` 97 leave this one — the whole of what the two readings
+were being criticised for. What is left of Tika is `Text`, `Script`, `Token`, `Character`, `Prefix`, `Suffix`,
+`Sentence`, `Diacritic`, `Heading` and `Footnote`, which is what a text-extraction library and a linguistic
+ontology genuinely share.
+
+**Two costs, and neither is small.** It removes real matches: `Phrase` is written 68 times here and one of
+them survives, because this repository writes `phrase` in files that do not also write `clause` or
+`fragment` — company it does keep, under `SemanticUnit` rather than under `Constituent`. And it fails the
+abandon criterion this document already states. *Abandon if: requiring corroboration leaves fewer than half
+the branches occupied* — encoded in `TermReadingDiagnostic` against the uncorroborated count, so the line is
+10 here and 12 on Tika. File scope leaves 9 and 8; falling back to the repository where a file holds no other
+match leaves 11 and 10, which clears the line here and misses it by two on Tika.
+
+So the rule is not promoted on this measurement. What would settle it is a second out-of-domain member, and
+the observation that nine of Tika's 24 branches are held by five spans or fewer — a criterion counting those
+equally with `OrthographicEntity`'s 2,727 is measuring how long the tail is, which is the next thing this
+document should say a number about.
 
 ### A second vocabulary is what makes a match falsifiable
 
@@ -254,13 +344,17 @@ recall against a precision problem and would make the reading strictly worse. **
 prediction confirmed at one step**: it generalises no further than a shared dictionary entry and already
 comes back 100% one word long.
 
-**What rescues it is that the depth of the meeting point is itself a precision signal**, and that is the
-version of this idea worth building. Two concepts meeting at a node deep in the tree have been shown to be
-near each other; two meeting only at the root have been shown to be unrelated, which the present reading
-cannot say at all. That is a *derived* statistic and it needs a derived bound: Wu–Palmer is bounded in
-`[0, 1]` by construction, being twice the depth of the least common subsumer over the summed depths of the
-pair. Lin's is bounded the same way over information content, and WordNet ships the corpus counts that
-information content is read from, so neither number is chosen here.
+**The rescue proposed was that the depth of the meeting point is itself a precision signal** — two concepts
+meeting at a node deep in the tree shown to be near each other, two meeting only at the root shown to be
+unrelated — with Wu–Palmer as the bounded form, twice the depth of the least common subsumer over the summed
+depths of the pair.
+
+**That rescue is refused by the measurement above and it has to be said here too.** No hypernym is climbed
+yet, so the least common subsumer of a match is the concept itself and its depth is exactly what
+`StatedDepth` reports; and where it is deep the match is `Result`, `URL`, `Book` and `Movie`, and where it is
+shallow the match is `Verb`, `Noun`, `Token` and `Diacritic`. Wu–Palmer over an expansion would inherit that,
+because the numerator it is built on is the depth that was measured to point the wrong way. What is left of
+the idea is the bound, which is sound, over a statistic that is not.
 
 ### The doctrinal collision, to be settled before any of it is written
 
@@ -290,14 +384,14 @@ the cut-off is a reported figure and not a chosen one:
    near misses and record how many a hypernym reading recovers.
 2. **Precision it must not cost.** The out-of-domain arm, unchanged: a repository OLiA should say nothing
    about. If generalising raises the out-of-domain rate as fast as the in-domain one, it has bought nothing.
-3. **Whether depth discriminates.** For every match already found, the depth of its least common subsumer.
-   If the branch finding holds, the spurious matches — `topic`, `source`, `first`, `result` — should meet
-   their OLiA concept only near the root, and the real ones — `verb`, `clause`, `affix` — should meet deep.
-   **That arm is free and needs no panel**, because both sides are already in the tree, and it is the one to
-   run first: it tests the whole premise in an afternoon and can refuse it before anything is built.
-   **It is now the next thing to run**, and it has a stronger reason than it had: the sense rung produced a
-   list of matches a reader can sort by hand — `subject`, `cite`, `place`, `sum`, `auto` against `surname` —
-   so depth has something to be checked against rather than only to be computed.
+3. ~~**Whether depth discriminates.**~~ **Run, and refuted** — the section above carries the figures. The
+   prediction was that `topic`, `source`, `first` and `result` would meet their OLiA concept near the root
+   and `verb`, `clause` and `affix` would meet deep. `result` is six rungs down and `verb`, `clause` and
+   `affix` are one, two and two, and what the branch rule refused is deeper than what it admitted on both
+   trees read. It cost an afternoon and it refused the premise before anything was built on it, which is what
+   it was queued to do.
 
-**Abandon if:** depth does not separate the matches the branch reading already separates. Two independent
-citations disagreeing about which matches are real would mean neither is measuring what it claims.
+**Abandon if:** depth does not separate the matches the branch reading already separates. **It did not**, and
+the reason the two citations disagree is legible rather than mysterious: OLiA's depth records which branch a
+concept is in, and its two deepest branches are discourse relations and named entities, both spelled in
+ordinary English. So the branch reading stands and depth votes on nothing.

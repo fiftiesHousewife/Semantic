@@ -118,6 +118,49 @@ class PinnedTermFindings {
                         .isNotEqualTo("topic"));
     }
 
+    @Test
+    void placesTheOrdinaryEnglishItMatchedDeeperThanTheFieldsOwnVocabulary() {
+        final Path root = new HostTree().root();
+        final ParsedRepository parsed = ParsedRepository.of(root, new JavaSourceScopes().under(root));
+        final LinguisticTerms terms = LinguisticTerms.fromClasspath();
+
+        final MatchedTerms every = TermReading.over(terms).of(parsed);
+        final TaxonomyTree everyTree = treeOf(every);
+        final TaxonomyTree corroborated =
+                treeOf(TermReading.corroboratedBy(terms, StatedSiblings.of(everyTree)).of(parsed));
+        final StatedDepth depth = StatedDepth.of(everyTree);
+        final WrittenByDepth admitted = WrittenByDepth.of(corroborated.writtenHere(), depth);
+        final WrittenByDepth refused = WrittenByDepth.of(everyTree.writtenHere().stream()
+                .filter(node -> corroborated.writtenHere().stream()
+                        .noneMatch(kept -> kept.label().equals(node.label())))
+                .toList(), depth);
+
+        assertAll(
+                () -> assertThat(refused.meanRungPerConcept())
+                        .as("A PREDICTION, REFUTED, AND THE ARM IT WAS THE WHOLE OF. The depth arm expected "
+                                + "a term that means something to a field to sit deep in that field's "
+                                + "hierarchy and an ordinary English word the field happens to have claimed "
+                                + "to sit near a root, so depth would separate the two with no word listed. "
+                                + "It separates them the other way round: what the branch rule refused sits "
+                                + "deeper than what it admitted, on this tree and on the one out-of-domain "
+                                + "member read so far. OLiA's deep chains are its discourse relations and "
+                                + "its named entities, both made of ordinary English, and the morphosyntax "
+                                + "a program writing about grammar declares stands one rung down because "
+                                + "OLiA states no named parent for it.")
+                        .isGreaterThan(admitted.meanRungPerConcept()),
+                () -> assertThat(depth.below("Result"))
+                        .as("THE FOUR MATCHES THE ARM WAS WRITTEN ABOUT. `Result`, `Object`, `Exception` "
+                                + "and `String` were said to share the property of sitting near the roots. "
+                                + "Three of the four sit below the median rung and `Result` is as deep as "
+                                + "this taxonomy goes, so the shared property was never depth.")
+                        .isGreaterThan(depth.below("Verb")),
+                () -> assertThat(admitted.at(1).spans())
+                        .as("Where the field's own vocabulary sits. `Verb`, `Noun`, `Token`, `Clause`, "
+                                + "`Phrase` and `Diacritic` are all one rung down, which is the rung a "
+                                + "depth weight would have discounted hardest.")
+                        .isPositive());
+    }
+
     private static TaxonomyTree treeOf(final MatchedTerms matched) {
         return TaxonomyTree.of(OliaTerms.fromClasspath().concepts(), writtenByConcept(matched),
                 label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));

@@ -40,6 +40,7 @@ import com.github.javaparser.ast.type.TypeParameter;
 public final class JavaSource implements SourceReader {
 
     private final JavaParser parser;
+    private final JavadocProse javadoc = new JavadocProse();
 
     public JavaSource(final ParserConfiguration configuration) {
         this.parser = new JavaParser(configuration);
@@ -65,7 +66,7 @@ public final class JavaSource implements SourceReader {
                 .orElseGet(ParsedSource::unreadable);
     }
 
-    private static ParsedSource occurrencesIn(final CompilationUnit unit, final boolean sound) {
+    private ParsedSource occurrencesIn(final CompilationUnit unit, final boolean sound) {
         final List<NameOccurrence> occurrences = new ArrayList<>();
         declared(unit, TypeDeclaration.class, NameForm.TYPE, occurrences);
         declared(unit, MethodDeclaration.class, NameForm.METHOD, occurrences);
@@ -105,9 +106,16 @@ public final class JavaSource implements SourceReader {
                 .forEach(node -> add(node.getNameAsString(), form, node, occurrences));
     }
 
-    private static void prose(final Comment comment, final List<NameOccurrence> occurrences) {
-        add(comment.getContent(), comment instanceof JavadocComment ? NameForm.JAVADOC : NameForm.COMMENT,
-                comment, occurrences);
+    /**
+     * A comment as the author's own sentences. A javadoc is read through {@link JavadocProse}, which leaves
+     * out Javadoc's tag names and the names its inline tags point at; any other comment is the text it is.
+     */
+    private void prose(final Comment comment, final List<NameOccurrence> occurrences) {
+        if (comment instanceof JavadocComment written) {
+            add(javadoc.in(written), NameForm.JAVADOC, comment, occurrences);
+            return;
+        }
+        add(comment.getContent(), NameForm.COMMENT, comment, occurrences);
     }
 
     private static void add(final String text, final NameForm form, final Node node,

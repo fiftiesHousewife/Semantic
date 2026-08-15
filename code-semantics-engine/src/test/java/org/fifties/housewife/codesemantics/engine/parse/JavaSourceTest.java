@@ -107,7 +107,9 @@ class JavaSourceTest {
 
         assertAll(
                 () -> assertThat(namesOf(source, NameForm.JAVADOC))
-                        .containsExactly(" Resolves the next page of a cursor. "),
+                        .as("a javadoc arrives as the author's sentences, which JavadocProse has already "
+                                + "separated from Javadoc's own syntax")
+                        .containsExactly("Resolves the next page of a cursor."),
                 () -> assertThat(namesOf(source, NameForm.COMMENT))
                         .containsExactly(" a trailing thought"));
     }

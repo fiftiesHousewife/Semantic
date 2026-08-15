@@ -79,7 +79,8 @@ class TermReadingDiagnostic {
 
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         write(reports, root, terms, matched, tree,
-                new CorroborationReport(siblings).render(every, everyTree, matched, tree));
+                new CorroborationReport(siblings).render(every, everyTree, matched, tree)
+                        + new DepthReport().render(StatedDepth.of(everyTree), everyTree, tree));
         Files.writeString(reports.file(EVIDENCE), new EvidencePage()
                 .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(reports.file(TAXONOMY), new TaxonomyPage()

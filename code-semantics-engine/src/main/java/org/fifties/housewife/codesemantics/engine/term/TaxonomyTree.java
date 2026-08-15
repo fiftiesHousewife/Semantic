@@ -84,6 +84,14 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         }
     }
 
+    /** Every concept the repository wrote, wherever the publisher placed it, most-written first. */
+    public List<Node> writtenHere() {
+        return roots.stream()
+                .flatMap(root -> root.writtenHere().stream())
+                .sorted(Comparator.comparingInt(Node::written).reversed().thenComparing(Node::label))
+                .toList();
+    }
+
     /**
      * The source as a tree, with each concept carrying what the repository wrote it as.
      *
