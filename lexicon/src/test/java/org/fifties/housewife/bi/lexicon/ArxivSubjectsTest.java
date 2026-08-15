@@ -26,6 +26,22 @@ class ArxivSubjectsTest {
                 () -> assertThat(subjects.described()).allMatch(subject -> !subject.definition().isBlank()));
     }
 
+    /**
+     * A reading that pools several of these joins their descriptions, so the order they arrive in is part of
+     * the text it reads. An immutable map randomises its iteration order once per JVM, which made the
+     * repository's own archive-level placement differ between two runs over one unchanged tree — Mathematics
+     * at 0.3660 in one and 0.5306 in the next, changing which field the reading reported.
+     */
+    @Test
+    void statesItsSubjectsInTheOrderThePublisherStatesThem() {
+        assertThat(subjects.described()).extracting(SkosConcept::concept)
+                .containsExactlyElementsOf(SkosRows.in("arxiv-taxonomy.tsv").stream()
+                        .filter(row -> "category".equals(row.kind()))
+                        .filter(row -> !row.definition().isBlank())
+                        .map(SkosConcept::concept)
+                        .toList());
+    }
+
     @Test
     void describesTheSubjectThisLibraryIsAbout() {
         assertAll(
