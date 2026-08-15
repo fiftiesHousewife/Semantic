@@ -13,28 +13,28 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
 | `code-semantics-api/src/main/java` | 24 | 361 | 613 | 3,594 (85.4%) | 4,131 | **0.982** |
-| `code-semantics-api/src/test/java` | 13 | 215 | 1,241 | 52 (4.0%) | 1,233 | **0.954** |
-| `code-semantics-engine/src/main/java` | 106 | 2,452 | 3,753 | 26,910 (87.8%) | 30,477 | **0.994** |
-| `code-semantics-engine/src/test/java` | 104 | 2,650 | 9,137 | 7,504 (45.1%) | 16,196 | **0.973** |
+| `code-semantics-api/src/test/java` | 13 | 215 | 1,241 | 109 (8.1%) | 1,285 | **0.952** |
+| `code-semantics-engine/src/main/java` | 106 | 2,452 | 3,753 | 26,996 (87.8%) | 30,556 | **0.994** |
+| `code-semantics-engine/src/test/java` | 104 | 2,650 | 9,141 | 7,504 (45.1%) | 16,200 | **0.973** |
 | `lexicon-extraction/src/main/java` | 45 | 943 | 1,300 | 6,022 (82.2%) | 7,223 | **0.986** |
 | `lexicon-extraction/src/test/java` | 35 | 556 | 2,830 | 0 (0.0%) | 2,694 | **0.952** |
 | `lexicon/src/main/java` | 21 | 689 | 1,173 | 4,956 (80.9%) | 6,040 | **0.985** |
 | `lexicon/src/test/java` | 19 | 314 | 1,652 | 505 (23.4%) | 2,076 | **0.962** |
-| `documentation` | 3 | 0 | 0 | 3,833 (100.0%) | 3,757 | **0.980** |
-| **repository** | 370 | 8,180 | 21,699 | 53,376 (71.1%) | 73,827 | **0.983** |
+| `documentation` | 3 | 0 | 0 | 3,874 (100.0%) | 3,795 | **0.980** |
+| **repository** | 370 | 8,180 | 21,703 | 53,560 (71.2%) | 74,000 | **0.983** |
 
-The repository's own words are 75,075 occurrences of 3,448 distinct surfaces, 1,078 of them (31.3%) written exactly once. 538 glued runs no boundary divided were read by the segmenter; 1,248 occurrences across 220 surfaces nothing could be cited for at all.
+The repository's own words are 75,263 occurrences of 3,457 distinct surfaces, 1,075 of them (31.1%) written exactly once. 538 glued runs no boundary divided were read by the segmenter; 1,263 occurrences across 226 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 70,815 | 94.3% | 3,035 |
-| `lexicon:wordnet-sense` | 51,955 | 69.2% | 811 |
-| `lexicon:wiktionary-topic` | 43,315 | 57.7% | 174 |
-| `lexicon:wikidata-initialism` | 34,046 | 45.3% | 81 |
-| `lexicon:wordnet-domain` | 32,229 | 42.9% | 79 |
-| `lexicon:wikidata-name` | 30,664 | 40.8% | 14 |
-| `lexicon:wiktionary-abbreviation` | 27,390 | 36.5% | 2 |
-| `catalogue:query-language-function` | 969 | 1.3% | 1 |
+| `lexicon:word-frequency` | 70,984 | 94.3% | 3,042 |
+| `lexicon:wordnet-sense` | 52,078 | 69.2% | 811 |
+| `lexicon:wiktionary-topic` | 43,426 | 57.7% | 175 |
+| `lexicon:wikidata-initialism` | 34,124 | 45.3% | 81 |
+| `lexicon:wordnet-domain` | 32,303 | 42.9% | 79 |
+| `lexicon:wikidata-name` | 30,730 | 40.8% | 14 |
+| `lexicon:wiktionary-abbreviation` | 27,486 | 36.5% | 1 |
+| `catalogue:query-language-function` | 975 | 1.3% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
