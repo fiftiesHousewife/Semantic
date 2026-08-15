@@ -157,8 +157,16 @@ argument. This is only what has left the queue.
 - **The reading is deterministic.** Two `selfRead` runs over an unchanged tree placed this repository in
   different fields — Mathematics at 0.3660 bits in one and 0.5306 in the next — because a bundled taxonomy
   held its concepts in an immutable map, whose iteration order Java randomises once per JVM, and the
-  archive-level reading joins the descriptions it pools. The publisher's stated order is kept now, and two
-  consecutive runs write byte-identical reports.
+  archive-level reading joins the descriptions it pools. The publisher's stated order is kept now, and every
+  figure a report states is reproducible.
+  **Not byte-identical, which this list claimed until it was measured.** Two consecutive runs over an
+  unchanged tree still differ in `output/themes.json` at roughly 2,100 lines: `elapsedMillis` and the commit
+  the permalinks name are recorded rather than derived, and the rest is last-place floating-point drift —
+  `0.04597877460727532` against `…33`, `142.6102680297462` against `142.61026802974624`. `Map.copyOf`,
+  `Set.copyOf` and `Collectors.toUnmodifiable*` salt their iteration order once per JVM, which is the same
+  mechanism as the defect above, and addition over doubles is not associative, so a sum taken in a different
+  order lands on a different last bit. It changes no reported figure — the drift is around 1e-17 relative —
+  and every other report is byte-identical. Summing in a stated order would close it.
 - **A package's rungs are read as the words they are.** The tail was handed on with its dots replaced by
   spaces, which the identifier grammar cannot split, so every deep package sat in the unread tail —
   `codesemantics engine theme` eighty-one times. The words an author divides their work by are now read.
