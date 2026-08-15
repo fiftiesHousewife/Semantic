@@ -168,6 +168,20 @@ educational-and-research only, the target is PyPI Trove's `Topic ::` classifiers
 GitHub's topic descriptions (CC BY 4.0) supplying the prose the description arm needs. Record the answer and
 the URL read in the resource's provenance header, which is where this repository already keeps such things.
 
+**Settled: the target is PyPI Trove.** ACM states, at
+[acm.org/publications/class-2012](https://www.acm.org/publications/class-2012) read 2026-08-15, that "the
+full CCS classification tree is freely available for educational and research purposes in HTML format".
+Educational and research use is not redistribution in a published artefact, so CCS is out as a bundled
+target — it stays readable as prior art. Trove is verified Apache-2.0 at
+[pypa/trove-classifiers](https://github.com/pypa/trove-classifiers): **321 `Topic ::` classifiers, 25 roots,
+hierarchy by `::` to depth 4**, which is the hierarchy `CorroboratedTerms` requires. Its weakness stands as
+the plan predicted — no definitions — so GitHub's topic descriptions under CC BY 4.0 remain what the
+description arm needs.
+
+Neither page is reachable from the build or from an agent's shell: `acm.org` answers a Cloudflare challenge
+to `curl` whatever user-agent it states. It was read in a browser, which is worth writing down so the next
+reader does not spend the attempt again.
+
 **Then build the manifest** from Apache DOAP: for each of the 255 Java projects, one category token, the
 source URL and the retrieval date. **Cite rather than copy** — a category token per member is a fact, where a wholesale copy
 of a curated list is an adaptation of it, and two of the alternative label sets are share-alike (F-Droid's are
