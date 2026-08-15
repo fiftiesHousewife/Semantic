@@ -31,8 +31,10 @@ class ThemeReportTest {
         witnesses.record("music", "string", "string builder", "Reading.java:9",
                 EvidenceSource.WIKTIONARY_TOPIC, 1.0);
         final TopicDistribution intensity = FILE.distribution();
-        final ScopeThemes scope = new ScopeThemes("engine/src/main/java", 1, 1, 120, intensity);
-        return new RepositoryThemes(List.of(scope), new ScopeThemes("repository", 1, 1, 120, intensity),
+        final TopicDistribution comparison = intensity.amongWhatWasPlaced();
+        final ScopeThemes scope = new ScopeThemes("engine/src/main/java", 1, 1, 120, intensity, comparison);
+        return new RepositoryThemes(List.of(scope),
+                new ScopeThemes("repository", 1, 1, 120, intensity, comparison),
                 List.of(new ScopeDivergence("engine/src/main/java", 0.25,
                         List.of(new Contribution("linguistics", 0.20, 0.80, 0.9, 0.5),
                                 new Contribution("music", 0.05, 0.20, 0.1, 0.5)),

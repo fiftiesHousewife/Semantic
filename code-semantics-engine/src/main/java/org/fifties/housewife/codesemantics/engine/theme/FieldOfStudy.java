@@ -82,7 +82,7 @@ public final class FieldOfStudy {
                 .sorted()
                 .toList();
         final double median = apart.get(apart.size() / 2);
-        return TopicDistribution.meanOf(under.stream()
+        return TopicDistribution.meanOfWhatEachPlaced(under.stream()
                 .filter(subject -> comparison.between(repository, subject.distribution()) <= median)
                 .map(SubjectTopics::distribution)
                 .toList());

@@ -130,6 +130,58 @@ class TopicDistributionTest {
     }
 
     @Test
+    void weightsAFileMostOfWhichNothingCouldPlaceAsHeavilyAsOneItReadThroughout() {
+        final TopicDistribution legible = TopicDistribution.of(Map.of("linguistics", 4.0), NOTHING_UNPLACED);
+        final TopicDistribution barelyLegible = TopicDistribution.of(Map.of("music", 1.0), 3.0);
+
+        final TopicDistribution composed =
+                TopicDistribution.meanOfWhatEachPlaced(List.of(legible, barelyLegible));
+
+        assertAll(
+                () -> assertThat(composed.shareOf("linguistics")).isCloseTo(0.5, offset(1e-12)),
+                () -> assertThat(composed.shareOf("music"))
+                        .as("a file is one observation whatever share of it could be read")
+                        .isCloseTo(0.5, offset(1e-12)),
+                () -> assertThat(TopicDistribution.meanOf(List.of(legible, barelyLegible))
+                        .amongWhatWasPlaced().shareOf("music"))
+                        .as("averaging first and renormalising after weights a file by its legible fraction")
+                        .isCloseTo(0.2, offset(1e-12)));
+    }
+
+    @Test
+    void composesToADistributionOverWhatWasPlacedAlone() {
+        final TopicDistribution composed = TopicDistribution.meanOfWhatEachPlaced(List.of(
+                TopicDistribution.of(Map.of("linguistics", 3.0, "music", 1.0), 4.0),
+                TopicDistribution.of(Map.of("music", 1.0, "law", 1.0), 6.0)));
+
+        assertAll(
+                () -> assertThat(composed.unplaced()).isZero(),
+                () -> assertThat(total(composed)).isCloseTo(1.0, offset(1e-12)));
+    }
+
+    @Test
+    void composesAsTheUniformMeanDoesWhereEveryFileWasPlacedThroughout() {
+        final List<TopicDistribution> cited = List.of(
+                TopicDistribution.ofCitedMass(Map.of("linguistics", 3.0, "music", 1.0)),
+                TopicDistribution.ofCitedMass(Map.of("music", 1.0, "law", 1.0)));
+
+        assertThat(TopicDistribution.meanOfWhatEachPlaced(cited).shareByTopic())
+                .isEqualTo(TopicDistribution.meanOf(cited).shareByTopic());
+    }
+
+    @Test
+    void composesOverTheFilesThatCarriedAReadingAndRemovesTheRest() {
+        final TopicDistribution read = TopicDistribution.of(Map.of("linguistics", 1.0), 1.0);
+        final TopicDistribution silent = TopicDistribution.of(Map.of(), 7.0);
+
+        assertAll(
+                () -> assertThat(TopicDistribution.meanOfWhatEachPlaced(List.of(read, silent))
+                        .shareOf("linguistics")).isEqualTo(1.0),
+                () -> assertThat(TopicDistribution.meanOfWhatEachPlaced(List.of(silent, silent)).isEmpty())
+                        .isTrue());
+    }
+
+    @Test
     void readsTheSupportOfAComparisonAsEitherSidesTopics() {
         assertThat(TopicDistribution.support(
                 TopicDistribution.of(Map.of("linguistics", 1.0), NOTHING_UNPLACED),

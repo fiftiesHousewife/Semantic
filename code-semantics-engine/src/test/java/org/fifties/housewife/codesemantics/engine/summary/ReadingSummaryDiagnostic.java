@@ -4,17 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
-import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.fifties.housewife.codesemantics.engine.reading.LegibilityReading;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.fifties.housewife.codesemantics.engine.theme.PooledDescriptions;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.theme.SubjectAreas;
@@ -47,24 +43,22 @@ class ReadingSummaryDiagnostic {
     private static final String REPORT = "summary";
     private static final String INDEX = "index.html";
 
-    private static final long SEED = 20260813L;
     private static final int TOPICS_PER_SCOPE = 3;
 
     @Test
     void writesEverythingTheReadingShowedAndNothingItOnlyMeasured() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(parsed);
+        final TreeReading reading = TreeReading.ofTheCloneUnderReading();
+        final Path root = reading.root();
+        final ParsedRepository parsed = reading.parsed();
+        final RepositoryThemes themes = reading.themes();
 
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
         final List<SkosConcept> archives =
                 new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy);
         final List<SubjectPlacement.Placement> field = SubjectPlacement.byDivergence()
-                .of(themes.repository().intensity(), SubjectAreas.fromClasspath().of(archives));
-        final SubjectNull.Chance chance = SubjectNull.seeded(SEED).of(field.getFirst().bits(),
-                themes.repository().intensity(),
+                .of(themes.repository().comparison(), SubjectAreas.fromClasspath().of(archives));
+        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(field.getFirst().bits(),
+                themes.repository().comparison(),
                 archives.stream().map(SkosConcept::definition).toList());
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),

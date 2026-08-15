@@ -3,16 +3,10 @@ package org.fifties.housewife.codesemantics.engine.theme;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
-import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +34,6 @@ class ThemeReadingDiagnostic {
     private static final String PAGE = "themes-chart.html";
     private static final String PICTURE = "themes-sunburst.svg";
 
-    private static final long SEED = 20260813L;
     private static final int TOPICS_GRAPHED = 18;
     private static final int WITNESSES_HELD = 8;
 
@@ -72,11 +65,9 @@ class ThemeReadingDiagnostic {
 
     @Test
     void readsThisRepositorysThemesAndWritesTheReportAndTheGraph() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(parsed);
+        final TreeReading reading = TreeReading.ofTheCloneUnderReading();
+        final Path root = reading.root();
+        final RepositoryThemes themes = reading.themes();
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
         write(reports, themes, root);

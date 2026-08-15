@@ -206,13 +206,18 @@ public final class QualifiedTopics {
      * with `chemistry` and finds `linguistics` sixth. What a reader is asking of this list is what the
      * repository is about, and among topics that have each been shown to distinguish something, the one
      * holding most of it is the answer.
+     *
+     * <p>The two readings are asked for separately because they answer different questions. The bars below
+     * are comparisons and run over {@code comparison}, where each file counts once; the order is how much of
+     * everything observed a topic holds, which is {@code intensity}.
      */
-    public List<String> across(final List<ScopeDivergence> qualified, final TopicDistribution intensity) {
+    public List<String> across(final List<ScopeDivergence> qualified, final TopicDistribution intensity,
+                               final TopicDistribution comparison) {
         return qualified.stream()
                 .flatMap(this::accountingFor)
                 .map(Contribution::topic)
                 .filter(topic -> !witnesses.restsOnOneWord(topic))
-                .filter(unlikeEnglish(intensity))
+                .filter(unlikeEnglish(comparison))
                 .filter(this::carriedByTheField)
                 .distinct()
                 .sorted(Comparator.comparingDouble(intensity::shareOf).reversed()

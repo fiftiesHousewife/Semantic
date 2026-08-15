@@ -1,16 +1,10 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
-import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
-import org.fifties.housewife.codesemantics.engine.reading.HostTree;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 /**
  * What the theme reading found when it was pointed at this repository, held in place.
  *
- * <p>These are claims about one named tree and not about Java, so they read {@link HostTree} directly rather
+ * <p>These are claims about one named tree and not about Java, so they read the host tree directly rather
  * than the clone {@code -Dcs.clone.dir} names. A figure that is true of this codebase — that it leads
  * `linguistics`, that `law` and `music` left by a vote — says nothing about the next repository, and a
  * reading pointed at somebody else's tree that failed on them would be reporting the panel's job as a defect.
@@ -32,15 +26,11 @@ class PinnedThemeFindings {
 
     private static final TopicDistribution ORDINARY_ENGLISH = OrdinaryEnglish.fromClasspath().reading();
 
-    private static final long SEED = 20260813L;
     private static final int WITNESSES_HELD = 8;
 
     @Test
     void readsThisRepositoryAsTheFieldItWorksIn() throws IOException {
-        final Path root = new HostTree().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final RepositoryThemes themes = ThemeReading.fromClasspath(SEED).of(ParsedRepository.of(root, scopes));
+        final RepositoryThemes themes = TreeReading.ofTheHostTree().themes();
 
         assertAll(
                 () -> assertThat(leadingTopic(themes))
@@ -91,9 +81,9 @@ class PinnedThemeFindings {
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {
         return new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
-                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity())).across(
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison())).across(
                 themes.divergences().stream().filter(scope -> scope.chance().exceedsChance()).toList(),
-                themes.repository().intensity());
+                themes.repository().intensity(), themes.repository().comparison());
     }
 
     private static String leadingTopic(final RepositoryThemes themes) {

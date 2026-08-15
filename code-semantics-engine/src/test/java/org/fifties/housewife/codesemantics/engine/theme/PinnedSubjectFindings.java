@@ -1,17 +1,11 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
-import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
-import org.fifties.housewife.codesemantics.engine.reading.HostTree;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * Theory has been fooled by exactly the ambiguity the theme report warns about on its own front page, so
  * that subject is required to stay out of the running.
  *
- * <p>Every one of those is a claim about one named tree, so this reads {@link HostTree} and not the clone
+ * <p>Every one of those is a claim about one named tree, so this reads the host tree and not the clone
  * {@code -Dcs.clone.dir} names. Where a placement must stand for any repository at all —
  * that its divergence is a number of bits between none and one, that the null was drawn — is
  * {@link SubjectPlacementDiagnostic}.
@@ -40,17 +34,16 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("pinned")
 class PinnedSubjectFindings {
 
-    private static final long SEED = 20260813L;
     private static final int SUBJECTS_HELD = 12;
     private static final int NEAREST_HELD = 3;
 
+    /** The two nearest, which is the window the leading pair swap inside without either being wrong. */
+    private static final int NEAREST_WINDOW = 2;
+
     @Test
     void placesThisRepositoryInComputationAndLanguage() throws IOException {
-        final Path root = new HostTree().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final TopicDistribution repository = ThemeReading.fromClasspath(SEED).of(parsed).repository().intensity();
+        final TopicDistribution repository =
+                TreeReading.ofTheHostTree().themes().repository().comparison();
 
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
         final List<SkosConcept> described = taxonomy.described();
@@ -62,9 +55,9 @@ class PinnedSubjectFindings {
                 .of(repository, SubjectAreas.fromClasspath().of(archives));
         final List<SubjectPlacement.Placement> shared =
                 SubjectPlacement.bySharedMass().of(repository, subjects);
-        final SubjectNull.Chance chance = SubjectNull.seeded(SEED).of(placements.getFirst().bits(),
+        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(placements.getFirst().bits(),
                 repository, described.stream().map(SkosConcept::definition).toList());
-        final SubjectNull.Chance pooledChance = SubjectNull.seeded(SEED).of(pooled.getFirst().bits(),
+        final SubjectNull.Chance pooledChance = SubjectNull.seeded(TreeReading.SEED).of(pooled.getFirst().bits(),
                 repository, archives.stream().map(SkosConcept::definition).toList());
 
         final List<String> nearest = placements.stream().limit(SUBJECTS_HELD)
@@ -100,14 +93,20 @@ class PinnedSubjectFindings {
                                 + "to something else. It stands 0.0022 bits behind `cs.CL`, which is a "
                                 + "coin flip and is why nothing here asserts an order between them.")
                         .allMatch(subject -> subject.startsWith("cs.")),
-                () -> assertThat(placements.getFirst().concept())
-                        .as("A DEFECT, PINNED, AND NARROWED. The nearest single subject is still not the "
-                                + "one this library is about. What is left is not the senses — `cs.CL` "
-                                + "now meets this tree on `linguistics` first — but the statistic: at leaf "
-                                + "grain a short vague description is punished least, and `cs.ET` Emerging "
-                                + "Technologies is the vaguest description arXiv publishes. A null drawn "
-                                + "at each subject's own description length is what would settle it.")
-                        .isNotIn("cs.CL", "cs.IR"),
+                () -> assertThat(nearest.subList(0, NEAREST_WINDOW))
+                        .as("THE DEFECT THIS PINNED IS CLOSED, AND THE MARGIN IS A COIN FLIP. The nearest "
+                                + "single subject was `cs.SY` with `cs.CL` second. Weighting every file "
+                                + "once in a comparison, rather than by the share of itself the resources "
+                                + "could read, exchanged them: read off one tree both ways, `cs.CL` stands "
+                                + "at 0.3900 bits against `cs.SY` at 0.3916, where it had been 0.4013 "
+                                + "against 0.3965. The 0.0016 between them is smaller than the gap this "
+                                + "class already declines to assert an order across, so what is asserted is "
+                                + "the pair and not their order. The explanation the defect carried — that "
+                                + "a short vague description is punished least, and `cs.ET` is the vaguest "
+                                + "arXiv publishes — was not what stood in the way: `cs.ET` was twelfth at "
+                                + "0.5388 while the defect was open. A null drawn at each subject's own "
+                                + "description length is still what would make the order worth asserting.")
+                        .contains("cs.CL"),
                 () -> assertThat(shared.stream().limit(NEAREST_HELD).map(SubjectPlacement.Placement::concept)
                         .toList())
                         .as("THE GOAL AT LEAF GRAIN, ON BOTH STATISTICS. Computation and Language stands "

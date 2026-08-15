@@ -77,8 +77,9 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 .filter(scope -> scope.chance().exceedsChance())
                 .toList();
         final QualifiedTopics topics = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
-                FieldOfStudy.fromClasspath().nearestTo(themes.repository().intensity()));
-        final List<String> about = topics.across(qualified, themes.repository().intensity());
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison()));
+        final List<String> about = topics.across(qualified, themes.repository().intensity(),
+                themes.repository().comparison());
         final List<Distinctive> distinctive = qualified.stream()
                 .map(scope -> new Distinctive(scope.scope(), scope.bits(),
                         topics.concentratedIn(scope, topicsPerScope).stream()

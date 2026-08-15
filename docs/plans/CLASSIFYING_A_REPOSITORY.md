@@ -130,6 +130,36 @@ report it. **Measurement.** Spearman ρ between the topic rankings before and af
 documented claim was false in practice as well as in principle. **Blocked on** nothing. **Prerequisite for**
 every chunk that reads a divergence.
 
+**Landed.** Renormalised, because the weighting the arithmetic produced was nobody's decision: it weighted a
+file by its legible fraction while refusing to weight it by its length, so a 400-line file and a 30-line file
+stayed one observation each and the more legible of two files outvoted the other. A weighting has to justify
+both or neither. `meanOfWhatEachPlaced` composes a comparison and `meanOf` stays the intensity; the two
+cannot be derived from one another, so `ScopeThemes` carries both and every call site names which it means.
+
+**Measured: ρ = 0.9985** over 373 files and 463 topics, so the documented claim was false in principle and
+very nearly true in practice — the order held, and the plan's bar of 0.9 is not approached.
+`FileWeightingDiagnostic` composes both ways off the same file readings and reports it; `RankCorrelation` is
+Spearman with mid-ranks for ties, bounded in [−1, 1] by its own definition.
+
+**The shares moved further than the order did, and the field placement swapped.** `publishing` fell from
+5.95% to 5.21%, `telecommunication` from 4.93% to 4.11%, `chemistry` from 3.30% to 2.72%. At leaf grain,
+**both compositions read off the same tree**, the two nearest of 152 exchange places:
+
+| | by legible fraction | by file |
+|--:|---|---|
+| 1 | `cs.SY` 0.3965 | **`cs.CL` 0.3900** |
+| 2 | `cs.CL` 0.4013 | `cs.SY` 0.3916 |
+
+Measuring both ways on one tree is what attributes the swap to the composition: the committed reports also
+moved because the corpus grew by the three files this chunk added, and a before-and-after taken across two
+commits cannot tell the two causes apart.
+
+That closes the defect `PinnedSubjectFindings` had recorded as open — but by 0.0016 bits, which is inside the
+margin that class already declines to assert an order across, so the pin asserts the leading pair and not
+their order. The explanation the defect carried was wrong: it blamed the vaguest description arXiv publishes,
+`cs.ET`, which was twelfth at 0.5388 throughout. Chunk 6's length-matched null is still what would make the
+order worth asserting.
+
 ### Chunk 2 — Read two licences, then name the panel
 
 **First, settle the target vocabulary**, because every later chunk matches against it. Read ACM CCS's stated

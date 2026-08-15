@@ -115,6 +115,16 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 - No methods starting with `handle`, `process`, `do`, `perform`. Name a method after what it returns or what
   it changes.
 - No abbreviations unless universally understood in context (`id`, `url`, `sha`).
+- **No invented idioms, and no term borrowed from a field that means something else there.** A word chosen
+  because it sounds precise is a word every reader has to be taught, and one already in use elsewhere teaches
+  them something false. Where a concept has a standard name in statistics, machine learning or linguistics,
+  use that name; where it has none, use plain English that says the mechanism. Two are in the tree now and
+  are wrong:
+
+  | In the tree | Where it comes from, and why it misleads | Use instead |
+  |---|---|---|
+  | `panel` | Econometrics, where panel data is repeated observations of the same units *over time*. This is a set of repositories read once each | **evaluation set** — the repositories a reading is measured on, held out from the ones it was developed against |
+  | `arm` | Clinical trials, where an arm is a group receiving one treatment. This column says what a member is there to demonstrate | **expected result** — and its values are ordinary controls: a member the vocabulary should fire on is a positive control, one it should stay silent on a negative control |
 - Parameterless factories are `newInstance()`, not `of()`.
 - No magic strings. A literal appearing more than once, or whose meaning is not self-evident, is a named
   constant — named after the value, with no `VAR_`/`STR_`/`KEY_` prefix.
@@ -151,6 +161,15 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
   important context.
 - **No spurious comments.** A comment is spurious if it restates the code. Comments explain *why* something
   non-obvious is done, or document a gotcha.
+- **Javadoc is blunt, factual and terse.** State what the thing is, and the gotcha if there is one. Stop.
+  A caller who reads two sentences should know what they need.
+  - **Never narrate history.** What the code used to do, what it cost before, which run or defect changed
+    it, how many seconds it saved — none of that belongs in a javadoc. `git log` and the backlog hold it.
+  - **No measurements.** Figures move with every commit; a javadoc quoting one is wrong by the next. They
+    live in `output/` and in the backlog.
+  - **No essays and no rhetoric.** No building to a conclusion, no rhetorical contrast ("X is worse than Y,
+    not better"), no restating one point in three shapes, no throat-clearing before the fact. If a paragraph
+    does not change what a caller does, delete it.
 - **Never reference plan documents or section numbers in code comments.** State the reasoning itself. Strip
   any pre-existing reference you find.
 

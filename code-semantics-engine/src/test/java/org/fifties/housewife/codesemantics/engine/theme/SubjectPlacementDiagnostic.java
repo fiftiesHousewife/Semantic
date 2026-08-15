@@ -4,16 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
-import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
-import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
-import org.fifties.housewife.codesemantics.engine.reading.DocumentationScope;
-import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
-import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +33,6 @@ class SubjectPlacementDiagnostic {
 
     private static final String REPORT = "subjects";
 
-    private static final long SEED = 20260813L;
     private static final int SUBJECTS_HELD = 12;
     private static final int ARCHIVES_HELD = 8;
 
@@ -60,12 +54,9 @@ class SubjectPlacementDiagnostic {
 
     @Test
     void placesThisRepositoryAgainstAPublishedSubjectTaxonomy() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final TopicDistribution repository =
-                ThemeReading.fromClasspath(SEED).of(parsed).repository().intensity();
+        final TreeReading reading = TreeReading.ofTheCloneUnderReading();
+        final Path root = reading.root();
+        final TopicDistribution repository = reading.themes().repository().comparison();
 
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
         final List<SkosConcept> described = taxonomy.described();
@@ -78,11 +69,11 @@ class SubjectPlacementDiagnostic {
                 .of(repository, SubjectAreas.fromClasspath().of(archives));
         final List<SubjectPlacement.Placement> shared =
                 SubjectPlacement.bySharedMass().of(repository, subjects);
-        final SubjectNull.Chance chance = SubjectNull.seeded(SEED).of(placements.getFirst().bits(),
+        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(placements.getFirst().bits(),
                 repository, descriptions);
-        final SubjectNull.Chance pooledChance = SubjectNull.seeded(SEED).of(pooled.getFirst().bits(),
+        final SubjectNull.Chance pooledChance = SubjectNull.seeded(TreeReading.SEED).of(pooled.getFirst().bits(),
                 repository, archives.stream().map(SkosConcept::definition).toList());
-        final SubjectNull.Chance sharedChance = SubjectNull.seeded(SEED, new SharedMass())
+        final SubjectNull.Chance sharedChance = SubjectNull.seeded(TreeReading.SEED, new SharedMass())
                 .of(shared.getFirst().bits(), repository, descriptions);
 
         write(ReportFolder.forReadingOf(root), root, placements, chance, pooled, pooledChance, shared,

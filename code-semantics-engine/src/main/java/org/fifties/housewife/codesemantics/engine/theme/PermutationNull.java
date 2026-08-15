@@ -70,15 +70,18 @@ public final class PermutationNull {
      * @param observed  the scope's own divergence from the reference
      * @param scopeSize how many files carried the scope's reading
      * @param scopes    how many scopes are being read, which is the field this one competes in
-     * @param pool      every file distribution the reference is made of
-     * @param reference the reference intensity itself
+     * @param pool      every file distribution the reference is made of, <b>each already taken among what
+     *                  it placed</b>, so a uniform mean of a sample composes a resample the way the scope it
+     *                  stands in for was composed
+     * @param reference the composition the observed divergence was taken against
      */
     public Chance of(final double observed, final int scopeSize, final int scopes,
                      final List<TopicDistribution> pool, final TopicDistribution reference) {
         final List<Double> chanceDivergences = new ArrayList<>();
+        final List<TopicDistribution> drawing = new ArrayList<>(pool);
         for (int draw = 0; draw < resamples; draw++) {
             chanceDivergences.add(
-                    divergence.divergence(TopicDistribution.meanOf(sample(pool, scopeSize)), reference));
+                    divergence.divergence(TopicDistribution.meanOf(sample(drawing, scopeSize)), reference));
         }
         Collections.sort(chanceDivergences);
         final int atLeastAsExtreme = (int) chanceDivergences.stream().filter(drawn -> drawn >= observed).count();
@@ -88,9 +91,18 @@ public final class PermutationNull {
         return new Chance(observed, median, observed - median, best, atLeastAsExtreme, resamples);
     }
 
-    private List<TopicDistribution> sample(final List<TopicDistribution> pool, final int size) {
-        final List<TopicDistribution> shuffled = new ArrayList<>(pool);
-        Collections.shuffle(shuffled, draws);
-        return shuffled.subList(0, Math.min(size, shuffled.size()));
+    /**
+     * A scope-sized draw without replacement: a Fisher–Yates shuffle stopped once the draw is satisfied, so
+     * the cost is the size of the scope rather than the size of the pool.
+     *
+     * <p>The list is permuted in place and carried between draws. A permutation of a permutation is still
+     * one, so the sample stays uniform.
+     */
+    private List<TopicDistribution> sample(final List<TopicDistribution> drawing, final int size) {
+        final int held = Math.min(size, drawing.size());
+        for (int at = 0; at < held; at++) {
+            Collections.swap(drawing, at, at + draws.nextInt(drawing.size() - at));
+        }
+        return drawing.subList(0, held);
     }
 }

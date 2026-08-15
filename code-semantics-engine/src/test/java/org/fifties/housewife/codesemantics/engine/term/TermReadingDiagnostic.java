@@ -83,7 +83,7 @@ class TermReadingDiagnostic {
         Files.writeString(reports.file(EVIDENCE), new EvidencePage()
                 .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
         Files.writeString(reports.file(TAXONOMY), new TaxonomyPage()
-                .of(root.getFileName().toString(), terms.source(), tree, chose(parsed, terms.source())));
+                .of(root.getFileName().toString(), terms.source(), tree, chose(terms.source())));
         Files.writeString(reports.file(PICTURE), new TaxonomySunburstDocument().of(tree));
 
         assertAll(
@@ -121,12 +121,13 @@ class TermReadingDiagnostic {
     }
 
     /**
-     * The chain that selected this taxonomy, recomputed here so the page carries its own evidence rather
-     * than a claim that some other report agrees with it.
+     * The chain that selected this taxonomy, over the shared reading rather than a second one of its own.
+     * That reading covers the markdown as well as the Java, so this page agrees with every other report.
      */
-    private static TaxonomyChoice chose(final ParsedRepository parsed, final String taxonomy) {
+    private static TaxonomyChoice chose(final String taxonomy) {
         final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes =
-                org.fifties.housewife.codesemantics.engine.theme.ThemeReading.fromClasspath(SEED).of(parsed);
+                org.fifties.housewife.codesemantics.engine.reading.TreeReading
+                        .ofTheCloneUnderReading().themes();
         final org.fifties.housewife.bi.lexicon.ArxivSubjects arxiv =
                 org.fifties.housewife.bi.lexicon.ArxivSubjects.fromClasspath();
         final java.util.List<org.fifties.housewife.bi.lexicon.SkosConcept> archives =
@@ -134,12 +135,12 @@ class TermReadingDiagnostic {
                         .broaderThan(arxiv.described(), arxiv);
         final java.util.List<org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.Placement>
                 placed = org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.byDivergence()
-                        .of(themes.repository().intensity(),
+                        .of(themes.repository().comparison(),
                                 org.fifties.housewife.codesemantics.engine.theme.SubjectAreas
                                         .fromClasspath().of(archives));
         final org.fifties.housewife.codesemantics.engine.theme.SubjectNull.Chance chance =
                 org.fifties.housewife.codesemantics.engine.theme.SubjectNull.seeded(SEED)
-                        .of(placed.getFirst().bits(), themes.repository().intensity(),
+                        .of(placed.getFirst().bits(), themes.repository().comparison(),
                                 archives.stream()
                                         .map(org.fifties.housewife.bi.lexicon.SkosConcept::definition)
                                         .toList());
@@ -166,10 +167,10 @@ class TermReadingDiagnostic {
         return new org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics(themes.witnesses(),
                 org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading(),
                 org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
-                        .nearestTo(themes.repository().intensity()))
+                        .nearestTo(themes.repository().comparison()))
                 .across(themes.divergences().stream()
                         .filter(scope -> scope.chance().exceedsChance()).toList(),
-                        themes.repository().intensity());
+                        themes.repository().intensity(), themes.repository().comparison());
     }
 
     /** How often the repository wrote each concept, by the label the taxonomy states it under. */

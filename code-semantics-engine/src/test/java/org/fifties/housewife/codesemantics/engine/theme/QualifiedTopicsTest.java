@@ -66,7 +66,7 @@ class QualifiedTopicsTest {
                         held("music", 0.20, 0.01, 0.30)),
                 scope("two", held("grammar", 0.60, 0.30, 0.05), held("music", 0.40, 0.01, 0.30)));
 
-        assertThat(topics.across(qualified, INTENSITY)).containsExactly("grammar", "geology");
+        assertThat(topics.across(qualified, INTENSITY, INTENSITY)).containsExactly("grammar", "geology");
     }
 
     @Test
@@ -82,7 +82,7 @@ class QualifiedTopicsTest {
                 () -> assertThat(topics.concentratedIn(scope, 5))
                         .as("a topic nine tenths of which is one word is that word's opinion")
                         .containsExactly("grammar"),
-                () -> assertThat(topics.across(List.of(scope), INTENSITY)).containsExactly("grammar"));
+                () -> assertThat(topics.across(List.of(scope), INTENSITY, INTENSITY)).containsExactly("grammar"));
     }
 
     @Test
@@ -108,7 +108,7 @@ class QualifiedTopicsTest {
     @Test
     void namesNoTopicFromAScopeNothingQualified() {
         assertAll(
-                () -> assertThat(topics.across(List.of(), INTENSITY)).isEmpty(),
+                () -> assertThat(topics.across(List.of(), INTENSITY, INTENSITY)).isEmpty(),
                 () -> assertThat(topics.concentratedIn(scope("empty"), 5)).isEmpty());
     }
 }

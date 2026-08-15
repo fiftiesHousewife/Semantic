@@ -21,12 +21,30 @@ class PanelManifestTest {
     }
 
     @Test
-    void namesNoMemberYetAndSaysSoRatherThanReportingAnEmptyPanelAsAResult() {
+    void statesEveryMemberCompletelyOrIsNotAStatementAtAll() {
         assertThat(manifest.members())
-                .as("A STATE, PINNED. When the first member is added this fails, and what replaces it is "
-                        + "the arm counts the panel plan states: twelve in domain, twelve out of it, four "
-                        + "the taxonomies should say nothing whatever about, and two degenerate.")
-                .isEmpty();
+                .as("the first member is named, so the state this pinned — that none was — is gone")
+                .isNotEmpty()
+                .allSatisfy(member -> assertAll(
+                        () -> assertThat(member.sha())
+                                .as("pinned to a commit, because a reading of a moving target is not "
+                                        + "reproducible and every figure here is a reading of a named one")
+                                .matches("[0-9a-f]{40}"),
+                        () -> assertThat(member.licence()).isNotBlank(),
+                        () -> assertThat(member.domain())
+                                .as("what it is about, said by somebody outside this project")
+                                .isNotBlank(),
+                        () -> assertThat(member.statedBy())
+                                .as("and who said so, recorded before the reading was run")
+                                .isNotBlank(),
+                        () -> assertThat(member.arm()).isNotBlank()));
+    }
+
+    @Test
+    void drawsEveryMemberFromOneStatementOfWhatItIsAbout() {
+        assertThat(manifest.members())
+                .as("mixing sources would let the reading be scored against whichever answer suited it")
+                .allSatisfy(member -> assertThat(member.statedBy()).contains("Apache DOAP"));
     }
 
     @Test

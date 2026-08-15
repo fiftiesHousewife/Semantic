@@ -83,18 +83,19 @@ public final class ThemeReading {
         });
         final ScopeThemes repository = themesOf("repository", everyFile);
         final Map<String, ValueShare<String>> dominant = dominantByFile(everyFile);
+        final List<TopicDistribution> pool = placedReadings(everyFile);
         return new RepositoryThemes(
                 byScope.entrySet().stream()
                         .map(scope -> themesOf(scope.getKey(), scope.getValue())).toList(),
                 repository,
                 byScope.entrySet().stream()
-                        .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), byScope.size(), everyFile,
-                                repository.intensity()))
+                        .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), byScope.size(), pool,
+                                repository.comparison()))
                         .toList(),
                 new TopicRankings(everyFile, dominant, witnesses).of(repository.intensity()),
                 everyFile, dominant, witnesses, sightings,
                 new ForeignWords(citations, divergence, LEAST_SIGHTINGS)
-                        .in(sightings, repository.intensity(), FOREIGN_WORDS_HELD),
+                        .in(sightings, repository.comparison(), FOREIGN_WORDS_HELD),
                 stated, Duration.ofNanos(System.nanoTime() - startedAt));
     }
 
@@ -149,17 +150,28 @@ public final class ThemeReading {
     private ScopeThemes themesOf(final String name, final List<FileTopics> files) {
         final List<TopicDistribution> reading = readings(files);
         return new ScopeThemes(name, files.size(), reading.size(),
-                files.stream().mapToInt(FileTopics::lines).sum(), TopicDistribution.meanOf(reading));
+                files.stream().mapToInt(FileTopics::lines).sum(), TopicDistribution.meanOf(reading),
+                TopicDistribution.meanOfWhatEachPlaced(reading));
+    }
+
+    /**
+     * The pool a resample is drawn from, composed the way a scope is: each file among what it placed.
+     * Renormalised here rather than inside the null, which draws from it 999 times per scope.
+     */
+    private static List<TopicDistribution> placedReadings(final List<FileTopics> files) {
+        return readings(files).stream()
+                .map(TopicDistribution::amongWhatWasPlaced)
+                .toList();
     }
 
     private ScopeDivergence divergenceOf(final String name, final List<FileTopics> scope, final int scopes,
-                                         final List<FileTopics> everyFile,
+                                         final List<TopicDistribution> pool,
                                          final TopicDistribution reference) {
-        final List<TopicDistribution> reading = readings(scope);
-        final double bits = divergence.divergence(TopicDistribution.meanOf(reading), reference);
-        return new ScopeDivergence(name, bits,
-                divergence.contributions(TopicDistribution.meanOf(reading), reference),
-                chance.of(bits, reading.size(), scopes, readings(everyFile), reference));
+        final List<TopicDistribution> placed = placedReadings(scope);
+        final TopicDistribution reading = TopicDistribution.meanOf(placed);
+        final double bits = divergence.divergence(reading, reference);
+        return new ScopeDivergence(name, bits, divergence.contributions(reading, reference),
+                chance.of(bits, placed.size(), scopes, pool, reference));
     }
 
     /** The distributions of the files that carried any topical reading at all; the rest are removed. */

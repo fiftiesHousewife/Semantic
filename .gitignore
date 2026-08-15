@@ -43,3 +43,7 @@ docs/clean-code/
 *.csv
 !*/src/*/resources/**/*.csv
 *.class
+
+### Reports for a clone that is not this repository. Written by panelRead, one folder per member;
+### the figures this repository publishes of itself are the files directly under output/.
+output/*/

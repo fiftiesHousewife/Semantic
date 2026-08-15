@@ -1,5 +1,6 @@
 package org.fifties.housewife.codesemantics.engine.summary;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -13,6 +14,9 @@ import java.util.List;
 public final class SummaryReport {
 
     private static final int TOPICS_NAMED = 6;
+
+    /** How many scopes each list names before it starts counting instead. */
+    private static final int SCOPES_NAMED = 8;
 
     public String render(final ReadingSummary summary) {
         return heading(summary) + legibility(summary) + field(summary) + about(summary)
@@ -63,16 +67,29 @@ public final class SummaryReport {
     private static String distinctive(final ReadingSummary summary) {
         final StringBuilder table = new StringBuilder(String.format("%n## What distinguishes each part%n%n"
                 + "| Scope | Bits from the repository | Writes more of |%n|---|--:|---|%n"));
-        summary.distinctive().forEach(scope -> table.append(String.format("| `%s` | %.4f | %s |%n",
-                scope.scope(), scope.bits(), named(scope.topics()))));
-        return table.toString();
+        summary.distinctive().stream()
+                .sorted(Comparator.comparingDouble(ReadingSummary.Distinctive::bits).reversed())
+                .limit(SCOPES_NAMED)
+                .forEach(scope -> table.append(String.format("| `%s` | %.4f | %s |%n",
+                        scope.scope(), scope.bits(), named(scope.topics()))));
+        return table + rest(summary.distinctive().size(), "departed further than chance");
     }
 
     private static String withheld(final ReadingSummary summary) {
         final StringBuilder held = new StringBuilder(String.format("%n## Withheld%n%n"));
-        summary.withheld().forEach(entry -> held.append(String.format("- `%s` — %s%n",
-                entry.what(), entry.why())));
-        return held.toString();
+        summary.withheld().stream()
+                .limit(SCOPES_NAMED)
+                .forEach(entry -> held.append(String.format("- `%s` — %s%n", entry.what(), entry.why())));
+        return held + rest(summary.withheld().size(), "did not clear the bar either");
+    }
+
+    /**
+     * What the lists above left out, counted rather than dropped: a silent cap reads as coverage it does not
+     * have. The report holding every row is named.
+     */
+    private static String rest(final int held, final String what) {
+        return held <= SCOPES_NAMED ? ""
+                : String.format("%n%d more %s — `themes.md` names every one.%n", held - SCOPES_NAMED, what);
     }
 
     private static String named(final List<String> topics) {

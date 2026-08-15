@@ -27,6 +27,11 @@ import java.util.stream.Stream;
  * the answer "which topics account for the departure" something that is not a topic. So the reading carries
  * what it could not place and the comparison sets it aside, and each says which it is doing.
  *
+ * <p><b>A scope has two compositions, and which one is asked for decides what a file is worth.</b>
+ * {@link #meanOf} is the intensity; {@link #meanOfWhatEachPlaced} is what a comparison runs over, and it is
+ * not that mean renormalised. They agree only where every file was placed throughout — true of a reading of
+ * a published list, and of nothing read off a working tree.
+ *
  * <p>A file whose words carry no topical mass has no distribution and is <em>removed</em> from its scope
  * rather than entered as a uniform one — nothing was read there, and a uniform guess would be evidence the
  * resources never gave.
@@ -88,6 +93,20 @@ public record TopicDistribution(Map<String, Double> shareByTopic, double unplace
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                         Collectors.summingDouble(topic -> topic.getValue() / reading.size()))),
                 reading.stream().mapToDouble(TopicDistribution::unplaced).average().orElseThrow());
+    }
+
+    /**
+     * The uniform mean of what each reading placed — the composition a comparison runs over.
+     *
+     * <p>Each reading is taken {@link #amongWhatWasPlaced()} <em>before</em> the mean, and the order is the
+     * whole of it. Averaging first and renormalising after gives {@code Σ(1 − u) · r ⁄ Σ(1 − u)}, which
+     * weights each file by the share of itself the resources could read while refusing to weight it by its
+     * length — a weighting that would have to justify both or neither.
+     */
+    public static TopicDistribution meanOfWhatEachPlaced(final Collection<TopicDistribution> distributions) {
+        return meanOf(distributions.stream()
+                .map(TopicDistribution::amongWhatWasPlaced)
+                .toList());
     }
 
     /**

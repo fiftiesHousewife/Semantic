@@ -100,11 +100,12 @@ taxonomy's multi-word concepts in the order they were written and produces a con
 fed the answer. The reason it could not is gone.
 
 Each chunk lands on its own and states the number that judges it. **Chunks 1–4 are sequential and chunk 4 is
-the kill line**; 5, 6 and 7 are independent once it has passed.
+the kill line**; 5, 6 and 7 are independent once it has passed. Chunk 1 has landed, so chunk 2 is next and it
+opens with two licences to read.
 
 | | Chunk | What it does | The number that judges it |
 |---|---|---|---|
-| 1 | Weight every file equally in a comparison | `meanOf` averages shares and `unplaced` separately, so `amongWhatWasPlaced` weights each file by its own legible fraction — a file legible at 60% carries 2.4× one at 25%. True of the intensity reading, false of every divergence | Spearman ρ between the topic rankings before and after; below 0.9 the documented claim was false in practice |
+| ~~1~~ | ~~Weight every file equally in a comparison~~ | **Landed.** A comparison composes with `meanOfWhatEachPlaced`, so a file is one observation whatever share of it could be read; the intensity keeps `meanOf` and `ScopeThemes` carries both | **ρ = 0.9985** over 373 files and 463 topics — the order held. The shares moved further, and `cs.CL` passed `cs.SY` to stand first of 152 |
 | 2 | Read two licences, then name the panel | Settle whether ACM CCS permits indexing use or the target is PyPI Trove `Topic ::`; then build the manifest from Apache DOAP, citing a category token, source URL and retrieval date rather than copying a curated list | Members named and categories retaining ≥5 Java members after `retired` and `no-tlp-doap` are filtered out |
 | 3 | Read the panel and report what happens | `panelRead` over the named members. No classification yet | Does λ = 0.983 reproduce off this tree, and does the unplaced share stay near 75.5% |
 | 4 | **The decisive test, on concept match alone** | Mean pairwise divergence within a stated category against between categories, p-value by shuffling the labels across members | The permutation p-value. **If it does not clear, stop** — the reading is measuring Java rather than subject matter |
@@ -140,6 +141,22 @@ the kill line**; 5, 6 and 7 are independent once it has passed.
 
 Kept short on purpose — the reports under [`output/`](output) carry the figures, and the README carries the
 argument. This is only what has left the queue.
+
+- **A file is one observation in a comparison, which is what the contract had always claimed.** A scope's
+  comparison distribution was its intensity renormalised, and that composition is
+  `Σ(1 − u) · r ⁄ Σ(1 − u)` — every file weighted by the share of itself the resources could read, on a tree
+  where three quarters of the observed mass settles on no subject. Nobody decided that. It weighted by
+  legibility while refusing to weight by length, so a 400-line file and a 30-line file stayed one observation
+  each and the more legible of two files outvoted the other, and a weighting has to justify both or neither.
+  Each file is renormalised before the mean now. The order barely moved — Spearman ρ = 0.9985 over 373 files
+  and 463 topics — but the shares moved further, `publishing` from 5.95% to 5.21% and `telecommunication`
+  from 4.93% to 4.11%, and the field placement swapped: read off one tree both ways, `cs.CL` Computation and
+  Language passed `cs.SY` Systems and Control to stand nearest of 152 published subjects, 0.3900 bits against
+  0.3916 where it had been 0.4013 against 0.3965. That closes a defect the subject pin had recorded as open,
+  by 0.0016 bits — a margin the pin declines to assert an order across, so it asserts the leading pair
+  instead. The explanation that defect carried was wrong: it blamed the vaguest description arXiv publishes,
+  `cs.ET`, which was twelfth at 0.5388 throughout. Both compositions are measured on one tree because the
+  committed reports moved for a second reason as well — the corpus grew by the files this change added.
 
 - **The field's own concepts are readable, not just the ones this codebase writes.** The taxonomy page named
   56 concepts and reported the other 1,255 as counts — `121 more here go unwritten` — so the vocabulary a
