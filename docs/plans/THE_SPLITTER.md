@@ -10,10 +10,24 @@ clause at all.
 
 Two things are left:
 
-**Rule 4, the letter↔digit boundary, proposed not applied.** Both readings go forward as candidates and a
-catalogue citation decides. `utf8Decode` still reads as one token because `utf8` is a single token in the
-catalogues that name it — and this repository bundles no such catalogue, so there is nothing yet to arbitrate
-with. It is blocked on the item below, and deliberately: this is where a lesser design would put a list.
+**Rule 4, the letter↔digit boundary — the citation exists, and it says do not break.** This was recorded as
+blocked on a catalogue. It was blocked on the wrong half. [UAX #29](https://www.unicode.org/reports/tr29/)
+states rules WB9 `AHLetter × Numeric` and WB10 `Numeric × AHLetter`, where `×` is defined in its own Table 1
+as *do not allow break here*, under the prose "do not break within sequences of digits, or digits adjacent to
+letters (`3a`, or `A3`)". Unicode publishes it as a boundary rule and states the annex "may be cited as a
+normative reference by other specifications", so it is grammar of exactly the kind this library already
+admits — the same sort of thing as the acronym-run rule, and not a list of tokens.
+
+So `utf8Decode` reading as utf8 / decode is **cited today**, and the code has been obeying a published
+standard while its javadoc apologised for a gap. A catalogue of cited tokens is what would be needed to
+**override** that default for a particular run — never to obey it. What is left of rule 4 is therefore not a
+blocker but a question with a smaller shape: which runs, if any, a published catalogue says should break
+against Unicode's default.
+
+The state of the art makes the opposite choice and shows what it costs. Ronin, the current best identifier
+splitter, ships a hand-written `constants.py` of special terms containing exactly `utf8`, `ipv4` and `J2SE`,
+which its own README calls "surely incomplete". That is the list this library refuses, maintained by hand,
+solving the case a standards body had already ruled on.
 
 **Byte offsets.** A token should carry the offset it began at, which is what lets a token's evidence carry a
 line-accurate permalink rather than a line-accurate-to-the-declaration one.

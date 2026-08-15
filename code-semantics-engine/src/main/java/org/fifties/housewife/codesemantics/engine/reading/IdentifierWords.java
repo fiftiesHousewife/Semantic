@@ -21,9 +21,15 @@ import org.fifties.housewife.codesemantics.name.WordSegmenter;
  *
  * <p>They are added alongside the ported tokeniser and not inside it. That class is shared with the project
  * this library's evidence machinery came from, where it reads schema identifiers, and a widening measured
- * against code is not automatically a widening that project wants. The letter/digit boundary the plan also
- * names is deliberately still absent: {@code utf8} and {@code ipv6} are single tokens in the catalogues that
- * name them, so that split must be proposed for a citation to dispose of rather than simply applied.
+ * against code is not automatically a widening that project wants.
+ *
+ * <p><b>A letter beside a digit is not a boundary, and that is a citation rather than an omission.</b>
+ * Unicode's own word-segmentation grammar states it: UAX #29 rules WB9 and WB10 — {@code AHLetter × Numeric}
+ * and {@code Numeric × AHLetter}, where {@code ×} is defined as "do not allow break here" — under the prose
+ * "do not break within sequences of digits, or digits adjacent to letters ('3a', or 'A3')". So
+ * {@code utf8Decode} reads as utf8 and decode by a boundary rule a standards body published, which is the
+ * same kind of thing as the acronym run above and not a list of tokens. A catalogue of cited tokens is what
+ * would be needed to <em>override</em> that default for a particular run, never to obey it.
  */
 public final class IdentifierWords {
 

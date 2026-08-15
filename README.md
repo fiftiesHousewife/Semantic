@@ -72,8 +72,10 @@ declaration of the type elsewhere. The type reference at this position is a use 
 otherwise a type used in fifty places would outvote fifty distinct names. The javadoc sentence above it is
 taken as prose. Files the parser cannot read are counted and reported.
 
-**2. The name is split into words.** `Tokeniser` applies case transitions, digit boundaries and separators to
-yield `citation`, `source`. Where a compound has no such boundary, `WordSegmenter` scores candidate splits
+**2. The name is split into words.** `Tokeniser` applies case transitions and separators to yield `citation`,
+`source`. A letter next to a digit is **not** a boundary, and that is Unicode's rule rather than an omission:
+[UAX #29](https://www.unicode.org/reports/tr29/) states "do not break within sequences of digits, or digits
+adjacent to letters" (WB9, WB10), which is why `utf8Decode` reads as `utf8` and `decode`. Where a compound has no such boundary, `WordSegmenter` scores candidate splits
 against a published frequency list and `PieceCost` prices each piece, so `userid` reads as `user` and `id`
 rather than `use` and `rid`.
 

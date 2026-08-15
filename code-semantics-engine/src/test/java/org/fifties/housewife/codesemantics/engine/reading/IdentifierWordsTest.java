@@ -51,9 +51,9 @@ class IdentifierWordsTest {
     }
 
     @Test
-    void leavesALetterDigitBoundaryForACitationToDisposeOf() {
+    void keepsALetterBesideADigitWholeBecauseUnicodeSaysThatIsNotABoundary() {
         assertThat(words.of("utf8Decode").words())
-                .as("utf8 is one token in the catalogues that name it, so this split is proposed elsewhere")
+                .as("UAX #29 WB9 and WB10 state no break between a letter and a digit, so utf8 is one word")
                 .containsExactly("utf8decode");
     }
 

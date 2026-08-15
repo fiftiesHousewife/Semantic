@@ -58,8 +58,12 @@ class TokeniserTest {
 
     /**
      * The narrow grammar's known mis-splits, pinned so that widening it is a measured change rather than an
-     * accident: an acronym run has no boundary rule, and neither has a letter/digit edge. Each of these
-     * assertions is expected to be rewritten by the identifier splitter, and none of them silently.
+     * accident: an acronym run has no boundary rule here, and {@code IdentifierWords} is where one was added.
+     *
+     * <p>The letter/digit edges in the last two are a different case and are <em>not</em> mis-splits. UAX #29
+     * states no boundary between a letter and a digit (WB9, WB10), so {@code ipv6address} and
+     * {@code utf8decode} are what Unicode's own grammar reads there, and only the missing acronym rule is a
+     * defect. Overriding the standard for a particular run is what a catalogue of cited tokens would buy.
      */
     @Test
     void readsTheAcronymRunsAndDigitEdgesItIsKnownNotToSplit() {

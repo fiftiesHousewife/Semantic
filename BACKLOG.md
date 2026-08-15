@@ -26,8 +26,9 @@ only thing that tells the two apart. `ImportOrigins` sorts each import into plat
 asking `PlatformPackages`, which cites `ModuleFinder.ofSystem()`. Files that do not parse are counted and
 named, never dropped in silence.
 
-**2. Each name is split into words.** `Tokeniser` splits on case transitions, digit boundaries and
-separators; `IdentifierWords` applies it to a declared name. Where a compound carries no boundary at all,
+**2. Each name is split into words.** `Tokeniser` splits on case transitions and separators;
+`IdentifierWords` applies it to a declared name and adds the acronym-run rule. A letter beside a digit is not
+a boundary, which is [UAX #29](https://www.unicode.org/reports/tr29/)'s own rule WB9/WB10 and not a gap. Where a compound carries no boundary at all,
 `WordSegmenter` enumerates candidate splits through `CompoundParses` and prices each piece with `PieceCost`
 against the frequency list `WordRanks` reads, so the commonest reading wins. This is grammar and it is
 permitted; a list of words to treat specially would not be. `CollocatedWords` then reads the words back in
