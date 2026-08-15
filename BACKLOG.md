@@ -130,7 +130,7 @@ the kill line**; 5, 6 and 7 are independent once it has passed.
 | MEDIUM | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | 8 | The 1,271 definitions and 949 provenance notes are extracted, shipped, and now shown — the taxonomy page names every concept the field publishes with what its publisher says it means. What is left is *reading* them, so a concept is matchable by what it means, and OLiA's own annotation modules | — |
 | MEDIUM | [The parse](docs/plans/THE_PARSE.md) | 1 | String literals and text blocks, module declarations, the polyglot stage, and how far a parser recovers from a head commit that does not compile | literals need the prose reading |
 | MEDIUM | [Sense disambiguation](docs/plans/SENSE_DISAMBIGUATION.md) | 3 | The enclosing declaration and the file's pooled domain as context, and the resources that label only a word's specialist senses | — |
-| MEDIUM | [The identifier splitter](docs/plans/THE_SPLITTER.md) | 2 | The letter/digit boundary, proposed for a citation to dispose of rather than applied, and byte offsets on every token. The one bundled catalogue that would fill the cited-token gap was measured and refused | a catalogue that is not ordinary English |
+| MEDIUM | [The identifier splitter](docs/plans/THE_SPLITTER.md) | 2 | Byte offsets on every token, and the adjective edge — a run whose first word is an adjective the reading refuses alone, `geometric mean` and `lexical semantics`, is refused with it. **The letter/digit boundary is closed**: UAX #29 states no break between a letter and a digit, so a catalogue is what would override the standard rather than what was needed to obey it | nothing |
 | MEDIUM | [The repository read, the store and the first slice](docs/plans/THE_PIPELINE.md) | 1, 9 | The blob as the unit of observation, DuckDB as the system of record, and the first reading of something that is not this repository | — |
 | LOW | [The Wiktionary topic hierarchy](docs/plans/WIKTIONARY_HIERARCHY.md) | 3 | Two label spaces that no bundled resource says are one, and 29 labels a root by omission cannot be told from a root by statement | a citation that maps between them |
 | LOW | [Visualisation](docs/plans/VISUALISATION.md) | 9 | A concept map laid out by the hypernym tree, and a divergence bar with a real axis maximum | — |
@@ -147,6 +147,13 @@ argument. This is only what has left the queue.
   OLiA's own definition on it, what went unwritten behind one closed fold per branch, and the 59 root
   branches this repository never enters drawn at the end. The sunburst cannot carry this and no styling will
   make it: a leaf wedge is a hairline.
+- **The letter/digit boundary was never a gap, and now says so.** The splitter's javadoc apologised for not
+  dividing a letter from a digit and this list recorded it as blocked on a catalogue nothing bundles. UAX #29
+  states rules WB9 and WB10 — `AHLetter × Numeric` and `Numeric × AHLetter`, where the operator is defined in
+  Unicode's own table as *do not allow break here* — so `utf8Decode` reading as utf8 and decode is cited
+  grammar of the same kind as the acronym-run rule. A catalogue is what would override that default for a
+  particular run, never what was needed to obey it. Two documents claimed `Tokeniser` splits on digit
+  boundaries; its splitter is `(?<=[a-z])(?=[A-Z])|[_-]` and never has.
 - **A name's words are read in the order they were written.** A run of adjacent words a topical resource
   publishes as one entry is one word from step 2 on, taken longest-first and left to right over the 69,713
   collocations the two bundled resources state. `part of speech` is written 41 times here and was three words
