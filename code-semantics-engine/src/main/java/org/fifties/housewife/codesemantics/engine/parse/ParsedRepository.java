@@ -9,6 +9,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
@@ -21,6 +22,9 @@ import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
  * a reading that quietly narrowed its corpus would report a cleaner result than it earned.
  */
 public final class ParsedRepository {
+
+    /** The dot the tail begins with once its shared coordinate is taken off, which names no rung. */
+    private static final Pattern LEADING_QUALIFIER = Pattern.compile("^\\.");
 
     private final List<ParsedFile> files;
     private final int unsoundFiles;
@@ -69,6 +73,13 @@ public final class ParsedRepository {
      * What a file's package says that its neighbours' do not. These are the most deliberate names in a
      * repository — {@code parse}, {@code reading}, {@code theme}, {@code term} — chosen once each to divide
      * the work, and until now read only to sort imports.
+     *
+     * <p><b>The separator stays the one the identifier grammar knows.</b> This handed on a tail with its
+     * dots replaced by spaces, which reads well and was read by nothing: the identifier splitter divides at
+     * case boundaries, underscores, hyphens and the qualifier dot, and a space is none of those, so a
+     * two-rung tail arrived as one token nothing could be cited for. Every deep package in this tree was in
+     * the unread tail on that account — {@code codesemantics engine theme} eighty-one times — and the words
+     * an author chose to divide their work by were the words the reading never saw.
      */
     private static List<NameOccurrence> packageWords(final String declared, final String coordinate) {
         if (declared.isEmpty() || !declared.startsWith(coordinate)) {
@@ -76,7 +87,8 @@ public final class ParsedRepository {
         }
         final String distinguishing = declared.substring(coordinate.length());
         return distinguishing.isBlank() ? List.of()
-                : List.of(new NameOccurrence(distinguishing.replace('.', ' ').strip(), NameForm.PACKAGE, 1));
+                : List.of(new NameOccurrence(LEADING_QUALIFIER.matcher(distinguishing).replaceFirst(""),
+                        NameForm.PACKAGE, 1));
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes,

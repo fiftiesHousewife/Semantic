@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
+import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -41,6 +42,24 @@ class ParsedRepositoryTest {
                 .as("the coordinate every file shares is the organisation's and is read once by nobody; "
                         + "what distinguishes a file is the taxonomy its author chose")
                 .containsExactlyInAnyOrder("theme", "parse");
+    }
+
+    @Test
+    void readsEveryWordOfAPackageTailAndNotTheWholeTailAsOneToken(@TempDir final Path root)
+            throws IOException {
+        final Path deep = write(root, "Deep.java",
+                "package org.acme.tool.engine.theme;\nclass Deep {}\n");
+        final Path shallow = write(root, "Shallow.java", "package org.acme.tool.parse;\nclass Shallow {}\n");
+
+        final List<String> words = of(root, deep, shallow).files().stream()
+                .flatMap(file -> file.occurrences().stream())
+                .filter(occurrence -> occurrence.form() == NameForm.PACKAGE)
+                .flatMap(occurrence -> IdentifierWords.fromClasspath().of(occurrence.text()).words().stream())
+                .toList();
+
+        assertThat(words)
+                .as("a package is the taxonomy its author chose, and every rung of it is one of the words")
+                .containsExactlyInAnyOrder("engine", "theme", "parse");
     }
 
     @Test
