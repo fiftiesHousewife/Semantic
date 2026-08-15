@@ -54,6 +54,6 @@ The repository's own words are 75,075 occurrences of 3,448 distinct surfaces, 1,
 | `wiktextract` | 12 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:14` |
 | `javadoc` | 10 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34` |
 
-Read 370 files in 0.2 s — 0.6 ms a file, recorded rather than estimated.
+Read 370 files in 0.2 s — 0.5 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 650. Set aside as the platform's own vocabulary: 1104. Set aside as this repository's own coordinates: 329. Files the parser refused: 0.

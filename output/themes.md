@@ -164,4 +164,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 **0.2726 bits** from the repository, against a null median of 0.3190 over 999 resamples of the same size — an excess of -0.0464, and 798 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
-Read, compared and resampled in 7.1 s, recorded rather than estimated.
+Read, compared and resampled in 6.2 s, recorded rather than estimated.
