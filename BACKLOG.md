@@ -103,7 +103,7 @@ below are blocked on it and say so.
 | HIGH | [How far a non-code entry can be trusted](docs/plans/PROSE_TRUSTWORTHINESS.md) | 5 | Prose is 72% of everything the reading has to go on and its weight is the one number that was picked rather than derived | — |
 | HIGH | [A topic that leads a file should hold some of it](docs/plans/TOPIC_LEADERSHIP.md) | 5 | Most led files are led at a share under a fifth; the correction that would fix it is computed and ignored | — |
 | HIGH | [Verbal forms](docs/plans/BEHAVIOURS.md) | 2–3 | A type name read as a structure, a verb chosen with the parse's context, and a clause carried as far as its condition | — |
-| MEDIUM | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | 8 | The 1,271 definitions and 949 provenance notes are extracted and shipped. What is left is *reading* them, so a concept is matchable by what it means, and OLiA's own annotation modules | — |
+| MEDIUM | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | 8 | The 1,271 definitions and 949 provenance notes are extracted, shipped, and now shown — the taxonomy page names every concept the field publishes with what its publisher says it means. What is left is *reading* them, so a concept is matchable by what it means, and OLiA's own annotation modules | — |
 | MEDIUM | [The parse](docs/plans/THE_PARSE.md) | 1 | String literals and text blocks, module declarations, the polyglot stage, and how far a parser recovers from a head commit that does not compile | literals need the prose reading |
 | MEDIUM | [Sense disambiguation](docs/plans/SENSE_DISAMBIGUATION.md) | 3 | The enclosing declaration and the file's pooled domain as context, and the resources that label only a word's specialist senses | — |
 | MEDIUM | [The identifier splitter](docs/plans/THE_SPLITTER.md) | 2 | The letter/digit boundary, proposed for a citation to dispose of rather than applied, and byte offsets on every token. The one bundled catalogue that would fill the cited-token gap was measured and refused | a catalogue that is not ordinary English |
@@ -117,6 +117,12 @@ below are blocked on it and say so.
 Kept short on purpose — the reports under [`output/`](output) carry the figures, and the README carries the
 argument. This is only what has left the queue.
 
+- **The field's own concepts are readable, not just the ones this codebase writes.** The taxonomy page named
+  56 concepts and reported the other 1,255 as counts — `121 more here go unwritten` — so the vocabulary a
+  reader wants to judge the reading against was only in the resource file. Every concept is named now, with
+  OLiA's own definition on it, what went unwritten behind one closed fold per branch, and the 59 root
+  branches this repository never enters drawn at the end. The sunburst cannot carry this and no styling will
+  make it: a leaf wedge is a hairline.
 - **A name's words are read in the order they were written.** A run of adjacent words a topical resource
   publishes as one entry is one word from step 2 on, taken longest-first and left to right over the 69,713
   collocations the two bundled resources state. `part of speech` is written 41 times here and was three words

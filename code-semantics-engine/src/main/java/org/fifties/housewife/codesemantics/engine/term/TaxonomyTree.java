@@ -32,8 +32,14 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
      * <p>{@code written} counts only this concept; {@code writtenBelow} counts the subtree, and it is what
      * decides whether a branch is worth opening. A branch nothing was written under is not hidden — it is
      * closed, and a reader can open it and see that the field has a whole region this codebase never enters.
+     *
+     * <p>{@code definition} is the source's own statement of what the concept means, blank where it states
+     * none. It is carried on the node because the concepts a repository does <em>not</em> write are the ones
+     * a reader most needs it for: a label alone says whether a name matched, and only the publisher's own
+     * words say whether it should have.
      */
-    public record Node(String concept, String label, String words, int written, List<Node> children) {
+    public record Node(String concept, String label, String words, String definition, int written,
+                       List<Node> children) {
 
         public Node {
             children = List.copyOf(children);
@@ -124,7 +130,7 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
                              final Map<String, Integer> written,
                              final java.util.function.Function<String, String> asWords) {
         return new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
-                written.getOrDefault(concept.prefLabel(), 0),
+                concept.definition(), written.getOrDefault(concept.prefLabel(), 0),
                 byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
                         .filter(child -> !child.prefLabel().equals(concept.prefLabel()))
                         .map(child -> node(child, byParent, written, asWords))

@@ -34,6 +34,17 @@ details[open] > summary::before { content: "▾"; }
          font-size: .74rem; font-variant-numeric: tabular-nums; }
 .below { margin-left: .45rem; color: var(--muted); font-size: .74rem; }
 .untouched > summary > .label { color: var(--muted); }
+
+/* The publisher's own words for a concept. Two lines by default, because a reader scanning a branch wants
+   the names; the whole of it on hover or once the concept is the anchor, because a reader who stopped at
+   one wants what the field says it is. */
+.definition { margin: .1rem 0 .5rem 1.55rem; max-width: 44rem; color: var(--muted); font-size: .78rem;
+              line-height: 1.45; display: -webkit-box; -webkit-box-orient: vertical;
+              -webkit-line-clamp: 2; overflow: hidden; }
+.leaf > .definition { margin-left: 1rem; }
+.definition:hover, :target > .definition { -webkit-line-clamp: unset; overflow: visible; }
+details.unwritten { border-left-style: dashed; }
+details.unwritten > summary > .below { margin-left: 0; }
 .foot { margin-top: 2.5rem; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--rule);
         padding-top: 1rem; }
 .figure { background: var(--panel); border: 1px solid var(--rule); border-radius: 12px;

@@ -1,11 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.term;
 
-import java.util.List;
-
 import j2html.tags.DomContent;
 
-import static j2html.TagCreator.a;
-import static j2html.TagCreator.details;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.dd;
 import static j2html.TagCreator.dl;
@@ -15,9 +11,7 @@ import static j2html.TagCreator.h1;
 import static j2html.TagCreator.header;
 import static j2html.TagCreator.join;
 import static j2html.TagCreator.p;
-import static j2html.TagCreator.span;
 import static j2html.TagCreator.styleWithInlineFile;
-import static j2html.TagCreator.summary;
 import static j2html.TagCreator.title;
 
 /**
@@ -30,13 +24,11 @@ import static j2html.TagCreator.title;
  * and it is the honest shape for this reading — most of a field is a region any one codebase never enters,
  * and a viewer that dropped those branches would show a taxonomy shaped like the repository rather than the
  * repository placed in a taxonomy. Opening one is how a reader sees what the field has that this code does
- * not.
+ * not, and {@link TaxonomyBranch} is what draws each of them, down to the leaf and its definition.
  *
- * <p>The collapsing is {@code details} and {@code summary}, which every browser implements, so no script is
- * written for it — interaction the document can express is not a thing to write code for. The one script the
- * page does carry is there because the document cannot express it: a wedge is as wide as its share of the
- * field, so most wedges are far too thin to hold their own name, and the native tooltip that would say it
- * arrives after a delay a reader hunting for a name does not wait out.
+ * <p>The one script the page carries is there because the document cannot express it: a wedge is as wide as
+ * its share of the field, so most wedges are far too thin to hold their own name, and the native tooltip
+ * that would say it arrives after a delay a reader hunting for a name does not wait out.
  */
 final class TaxonomyPage {
 
@@ -67,7 +59,7 @@ final class TaxonomyPage {
                                 p(choice.reasoning()).withClass("chain"),
                                 statistics(tree)),
                         div(each(tree.roots().stream().filter(TaxonomyTree.Node::touched).toList(),
-                                TaxonomyPage::node)),
+                                TaxonomyBranch::of), TaxonomyBranch.unreachedRoots(tree)),
                         p(FOOT).withClass("foot")).withClass("wrap"))
                 .render();
     }
@@ -99,33 +91,4 @@ final class TaxonomyPage {
         return div(dt(naming), dd(reads), p(meaning).withClass("gloss")).withClass("stat");
     }
 
-    /**
-     * Only the paths that lead somewhere. A subtree the repository never writes in is left out of the tree
-     * entirely and counted instead — the sunburst on the chart page already draws the whole field to scale,
-     * so the two together say what a field contains and what this codebase does in it without either
-     * repeating the other. A tree that listed a thousand concepts nobody wrote was a list, and the point of a hierarchy is
-     * that it is not one.
-     */
-    private static DomContent node(final TaxonomyTree.Node node) {
-        final List<TaxonomyTree.Node> occupied = node.children().stream()
-                .filter(TaxonomyTree.Node::touched).toList();
-        if (occupied.isEmpty()) {
-            return div(nodeLabel(node)).withClass(node.written() > 0 ? "leaf touched" : "leaf")
-                    .withId(TaxonomySunburst.anchorFor(node.label()));
-        }
-        return details(summary(nodeLabel(node)), each(occupied, TaxonomyPage::node))
-                .withClass("touched").withId(TaxonomySunburst.anchorFor(node.label())).attr("open");
-    }
-
-    private static DomContent nodeLabel(final TaxonomyTree.Node node) {
-        final int unwritten = node.conceptsBelow() - node.conceptsWritten();
-        return span(span(node.words()).withClass("label"),
-                node.written() > 0
-                        ? a(span("%,d".formatted(node.written())).withClass("count"))
-                                .withHref("evidence.html#" + TaxonomySunburst.anchorFor(node.label()))
-                                .withTitle("where this was written")
-                        : span(),
-                unwritten == 0 ? span()
-                        : span(" %,d more here go unwritten".formatted(unwritten)).withClass("below"));
-    }
 }
