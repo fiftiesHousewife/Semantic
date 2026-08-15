@@ -23,3 +23,8 @@ docs/plans/**
 # and this repository's stated goal is to be placed under computational linguistics by evidence. A
 # glossary of the field written into the corpus would satisfy that goal by construction.
 docs/GLOSSARY.md
+
+# Surveys of the field. They are notes on what other people have built and written, held here for
+# reference, and they name every method and resource computational linguistics has — which is the same
+# self-fulfilment the glossary would commit, at the scale of a discipline rather than a word list.
+docs/reference/**
