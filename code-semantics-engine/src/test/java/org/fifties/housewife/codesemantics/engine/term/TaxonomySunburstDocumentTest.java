@@ -1,10 +1,15 @@
 package org.fifties.housewife.codesemantics.engine.term;
 
+import java.io.StringReader;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.InputSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -26,6 +31,21 @@ class TaxonomySunburstDocumentTest {
             Map.of("Noun", 4), TaxonomySunburstDocumentTest::asWords);
 
     private final String drawn = new TaxonomySunburstDocument().of(TREE);
+
+    /**
+     * An SVG file is fetched as XML, where a page's markup is not. Anything the stylesheet carries that
+     * looks like a tag opens an element the parser then never sees closed, and a browser renders the file
+     * up to that point and stops. The page this is embedded in cannot fail this way, so the file has to say
+     * it itself.
+     */
+    @Test
+    void parsesAsTheXmlDocumentAnSvgFileIs() throws Exception {
+        final DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        parser.setErrorHandler(null);
+
+        assertThat(parser.parse(new InputSource(new StringReader(drawn))).getDocumentElement().getTagName())
+                .isEqualTo("svg");
+    }
 
     @Test
     void carriesEverythingAFileFetchedOnItsOwnNeeds() {

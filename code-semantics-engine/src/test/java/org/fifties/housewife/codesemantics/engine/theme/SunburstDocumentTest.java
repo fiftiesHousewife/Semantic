@@ -1,8 +1,13 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
+import java.io.StringReader;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.junit.jupiter.api.Test;
+import org.xml.sax.InputSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -22,6 +27,20 @@ class SunburstDocumentTest {
                 () -> assertThat(document)
                         .as("a wedge states both of its colours and the stylesheet chooses between them")
                         .contains("--c:", "--cd:"));
+    }
+
+    /**
+     * The same guard the taxonomy picture needed. A file is parsed as XML where a page's markup is not, so
+     * anything the stylesheet carries that looks like a tag opens an element the parser never sees closed —
+     * and a browser renders the file up to that point and stops.
+     */
+    @Test
+    void parsesAsTheXmlDocumentAnSvgFileIs() throws Exception {
+        final DocumentBuilder parser = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        parser.setErrorHandler(null);
+
+        assertThat(parser.parse(new InputSource(new StringReader(document))).getDocumentElement().getTagName())
+                .isEqualTo("svg");
     }
 
     @Test
