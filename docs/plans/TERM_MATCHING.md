@@ -56,6 +56,46 @@ one, so the order cannot be flipped back by accident.
 **What is still not done:** a match is scored term by term rather than against the subtree it occupies, and
 the depth arm below has not been run.
 
+### The first reading of a repository this was not written for, and what it showed
+
+OLiA read against Apache Tika, pinned at `43cbdae6`: **106 of 1,311 concepts, 8,799 times, across 1,537 of
+2,148 files**, reaching 12 of 70 root branches. That is the corroborated reading — the branch rule ran and
+did not hold it back.
+
+**It is not the out-of-domain result it first looks like, and the member is why.** Tika extracts text, and
+OLiA annotates text, so `Text` 939, `Token` 307, `Character` 128, `Script` 381, `Diacritic` 12 and `Acronym`
+13 are the two vocabularies agreeing about something real. No linguistics taxonomy separates *about
+linguistics* from *about text processing*, because they share the words. A member with no text in its subject
+matter at all — `maven` or `ant`, which Apache states as `build-management` — is what would make this a
+negative control, and it has not been read.
+
+What is unambiguous is the rest: **`Result` 836, `Object` 476, `Exception` 283, `String` 585**. Ordinary
+programming words a linguistic ontology happens to publish, matched at a rate no rule here currently touches.
+Their shared property is depth: they sit near the roots of the taxonomy, where a term that means something to
+a field sits deep. **The depth arm is the measurement that would separate them**, and depth is read off the
+publisher's own hierarchy rather than chosen, so it is admissible where a list of words to ignore is not.
+
+The target vocabulary makes this urgent rather than optional. **56% of PyPI Trove's 321 `Topic ::` leaf labels
+are a single word** — `Application`, `Analysis`, `Audio`, `Backup`, `Archiving` — against 11% of FIBO's. A
+matcher that cannot price a shallow single-word hit will be handed a vocabulary made mostly of them.
+
+### A second vocabulary is what makes a match falsifiable
+
+One taxonomy firing has nothing to be compared against, which is the argument this library already makes
+about a single scope's topic ranking: the weak reading is the count, the strong one is the divergence. With
+only OLiA bundled for this material, "OLiA fired on Tika" cannot be told from "Tika is about text". With an
+adjacent vocabulary for programming and text processing beside it, the question becomes which of the two fits
+better — a comparison, against a null.
+
+The Computer Science Ontology is the best-shaped candidate found: 15,000 topics, 166,000 relationships, and
+roots including both Computer Science and Linguistics, so the comparison runs inside one publisher's
+hierarchy. It is deep, which the depth arm needs and which Trove at four levels is not. **Two things must be
+settled before it is bundled**, and neither is answered on its own pages: its licence is stated on neither
+the home nor the downloads page, and it is generated automatically by Klink-2 over 16 million publications —
+which is a curated observation of a corpus, the one thing the doctrine refuses. WordNet is corpus-informed
+and lexicographically curated; this is algorithmically derived, and whether that crosses the line is a
+decision to take deliberately rather than by bundling it.
+
 ---
 
 ## Matching a single word is misleading — match in context
