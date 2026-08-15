@@ -91,11 +91,34 @@ missing is the panel: no member is named yet. Naming one costs a licence verifie
 domain stated by somebody outside this project and recorded *before* the reading runs, and an arm. Four plans
 below are blocked on it and say so.
 
+## The run in progress: classifying a repository against a taxonomy
+
+[The plan](docs/plans/CLASSIFYING_A_REPOSITORY.md) replaces the present route to a published subject — word,
+then one of ~460 general vocabulary labels, then a divergence — with a direct answer: which concepts of a
+published taxonomy this repository writes, and which category they place it in. Step 8 already matches a
+taxonomy's multi-word concepts in the order they were written and produces a concept identifier; it has never
+fed the answer. The reason it could not is gone.
+
+Each chunk lands on its own and states the number that judges it. **Chunks 1–4 are sequential and chunk 4 is
+the kill line**; 5, 6 and 7 are independent once it has passed.
+
+| | Chunk | What it does | The number that judges it |
+|---|---|---|---|
+| 1 | Weight every file equally in a comparison | `meanOf` averages shares and `unplaced` separately, so `amongWhatWasPlaced` weights each file by its own legible fraction — a file legible at 60% carries 2.4× one at 25%. True of the intensity reading, false of every divergence | Spearman ρ between the topic rankings before and after; below 0.9 the documented claim was false in practice |
+| 2 | Read two licences, then name the panel | Settle whether ACM CCS permits indexing use or the target is PyPI Trove `Topic ::`; then build the manifest from Apache DOAP, citing a category token, source URL and retrieval date rather than copying a curated list | Members named and categories retaining ≥5 Java members after `retired` and `no-tlp-doap` are filtered out |
+| 3 | Read the panel and report what happens | `panelRead` over the named members. No classification yet | Does λ = 0.983 reproduce off this tree, and does the unplaced share stay near 75.5% |
+| 4 | **The decisive test, on concept match alone** | Mean pairwise divergence within a stated category against between categories, p-value by shuffling the labels across members | The permutation p-value. **If it does not clear, stop** — the reading is measuring Java rather than subject matter |
+| 5 | Concept match as a ranked assignment | The share of a category's subtree the repository writes, corroborated by branch, bounded at 1 by its own definition | First-place and first-three counts on the panel against two trivial baselines: majority category, and BM25 over the README |
+| 6 | Fix the description arm | Null drawn at each category's own description length, and a subtree's descriptions pooled to its root. The truncation study first, which needs no panel | The truncation fraction at which the winning subject changes; before 1/4 means the present placement reads description length |
+| 7 | The dependency arm | Coordinates as evidence in their own right — an artefact denotes one published thing, so nothing is disambiguated | The same counts as chunk 5 from coordinates alone, and **whether it is wrong in different places**, which is what makes combining worthwhile |
+| 8 | Combine the arms and measure | Pooled log-linearly, each arm weighted by a figure it reports about itself rather than a constant fitted here | The combination against its best single arm, with the per-arm figures beside it and the smallest categories reported rather than hidden |
+
 ## The queue
 
 | | Plan | Step | What is left | Blocked on |
 |---|---|--:|---|---|
-| **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | **The priority.** Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 75.5% of this tree's observed mass is settled on no subject against λ = 0.983. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves. A phrase read as a published run makes it sharper rather than easier: `part of speech` now casts one vote where three words used to, and what a run is worth against what a word is worth is a weight nobody has derived | nothing |
+| **NEXT** | [Classifying a repository](docs/plans/CLASSIFYING_A_REPOSITORY.md) | 5, 7–8 | **The priority**, and the run above states it chunk by chunk. The present route answers in the wrong vocabulary: it yields `linguistics` and `computing` where the question was which published subject this repository belongs to, and it compares a 75,000-occurrence tree against descriptions with a median of 18 words | nothing until chunk 4 |
+| **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 75.5% of this tree's observed mass is settled on no subject against λ = 0.983. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves. A phrase read as a published run makes it sharper rather than easier: `part of speech` now casts one vote where three words used to, and what a run is worth against what a word is worth is a weight nobody has derived | nothing |
 | **NEXT** | [The backtest](docs/plans/THE_PANEL.md) | all | Naming the members. The machinery, the manifest and `panelRead` have landed; the table of every vocabulary against every repository needs members before it has anything to put in a cell | naming the members |
 | **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel. **Nothing from step 8 feeds step 5 still**, and the reason it could not — the topical reading read a word at a time where a taxonomy publishes phrases — is gone | nothing |
 | HIGH | [What a repository depends on](docs/plans/DEPENDENCIES_AS_DOMAIN.md) | 1 | A coordinate denotes one artefact and needs no disambiguation; `ImportOrigins` already sorts them and nothing reads them as evidence | — |
