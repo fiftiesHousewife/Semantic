@@ -60,8 +60,10 @@ naming any of them. It is grammar, and grammar is permitted where a list of name
   code**: it mis-splits `XMLHttpRequest`, `parseHTTPResponse`, `toJSONString`, `getDSLContext` and
   `IPv6Address`. The class javadoc names each and `TokeniserTest` pins each, so widening the grammar is a
   deliberate change to a stated expectation rather than an accident. It is grammar work, not vocabulary work.
-  The self test finds the same defect in live code: `carriesAPrefix` reads carries / aprefix, and
-  `JWNLException` reads jwnlexception, both in the unread tail the README quotes.
+  The live instances this named — `carriesAPrefix` read as carries / aprefix, `JWNLException` as
+  jwnlexception — are no longer in the unread tail: the acronym-run rule and the rule for a single capital
+  in front of a word landed in `IdentifierWords`, beside the ported grammar rather than inside it. What is
+  left of the splitter is the letter/digit boundary, blocked on a catalogue, and byte offsets on a token.
 - `AxisEvidenceAccumulator` partitions over a **closed** enum. Concepts are an open space of ~10⁵ synsets and
   need a sibling accumulator whose partition runs over the voted values plus one explicit abstention mass.
 

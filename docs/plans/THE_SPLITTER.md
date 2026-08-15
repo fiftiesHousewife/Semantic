@@ -20,12 +20,35 @@ line-accurate permalink rather than a line-accurate-to-the-declaration one.
 
 **Measurement:** the nine-identifier table in the plan, now pinned in `TokeniserTest` so a widening shows up
 as a rewritten expectation rather than as a silent change, plus the count of live identifiers whose reading
-changes. The self test already names live instances: `aprefix` (10), `asuffix` (10), `aword` (9), `acompound`
-(4) and `jwnlexception` (10) are in the unread tail because there is no acronym-run rule and no rule for a
-single capital in front of a word. Ships when the five known mis-splits read correctly, those tail entries
-disappear, and nothing that read correctly regresses.
+changes. **The live instances this paragraph named are gone**: `aprefix`, `asuffix`, `aword`, `acompound` and
+`jwnlexception` were in the unread tail when it was written and are in none of it now, so what is left of the
+splitter is rule 4 and the offsets rather than the mis-splits.
 
 *Blocked on nothing.*
+
+## The sequence of a name's words — the priority
+
+A name is split into an ordered list and then read as a bag of words. Position is used twice — the last word
+of a name is its head, and the first word of a method name is its verb — and **adjacency is used nowhere**.
+`PhraseTopics` collects the words that agree on a subject into a set and scores the subject by what they
+agree on and how much of the name agrees, so nothing in the topical reading distinguishes `citationSource`
+from `sourceCitation` beyond which of the two is head.
+
+That order is not missing; it is produced and then dropped. `Vocabulary.IDENTIFIER.phrasesOf` yields an
+ordered list per name, and `TermSpans` already reads it that way — longest published term at each position,
+left to right, no two matches overlapping. **The topical reading cannot**, and the vocabularies say what that
+costs: 89% of FIBO's labels and 81% of OLiA's are more than one word, so a reading that matches a word at a
+time is refusing most of what a published field states about itself.
+
+What it is, concretely: carry the sequence from the splitter through the citation step, and admit a phrase
+where only a word is admitted now — `word segmenter` before `word` and `segmenter` separately, and only where
+a resource publishes the phrase. It is a precursor rather than the phrase reading itself: the reading cannot
+match phrases until the phrases survive step 2.
+
+**Measurement:** the count of declared names in which a bundled vocabulary publishes an ordered multi-word
+match that the single-word reading currently splits apart, and what the topical reading does with them once
+it can see them. **Abandon if** the multi-word matches are almost all one-word terms adjacent by accident,
+which is the failure mode a longest-match-left-to-right rule already has to defend against.
 
 ## The cited catalogues — what rule 4 needs
 

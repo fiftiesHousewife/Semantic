@@ -90,10 +90,10 @@ below are blocked on it and say so.
 
 | | Plan | Step | What is left | Blocked on |
 |---|---|--:|---|---|
+| **NEXT** | [The sequence of a name's words](docs/plans/THE_SPLITTER.md) | 2–3, 8 | **The priority.** A name is split into an ordered list and then read as a bag of words. Position is used twice — the last word is the head and a method's first word is its verb — and adjacency is used nowhere: `PhraseTopics` collects the agreeing words into sets and scores a subject by what they agree on, so nothing in the topical reading can tell `citationSource` from `sourceCitation` by more than which word is head. The order is produced and dropped, and it is what phrase matching needs: 89% of FIBO's labels and 81% of OLiA's are more than one word, and `TermSpans` already matches on ordered words where the topical reading cannot. Carry the sequence from step 2 through step 3, and match a phrase where only a word is matched now | nothing |
 | **NEXT** | [The backtest](docs/plans/THE_PANEL.md) | all | Naming the members. The machinery, the manifest and `panelRead` have landed; the table of every vocabulary against every repository needs members before it has anything to put in a cell | naming the members |
 | **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel | nothing |
 | **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 77.9% of this tree's observed mass is settled on no subject against λ = 0.978. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves | nothing |
-| HIGH | [The run at computational linguistics](docs/plans/COMPUTATIONAL_LINGUISTICS.md) | 7 | Whether the reading places this repository in its own field on strong evidence with nothing hard-coded. Ten attempts at most, each recorded | — |
 | HIGH | [What a repository depends on](docs/plans/DEPENDENCIES_AS_DOMAIN.md) | 1 | A coordinate denotes one artefact and needs no disambiguation; `ImportOrigins` already sorts them and nothing reads them as evidence | — |
 | HIGH | [Read a repository against its industry's vocabulary](docs/plans/INDUSTRY_VOCABULARIES.md) | 8 | FIBO is bundled — 1,833 concepts, 89% of its labels more than one word. What is left is the arm that decides: running it on a repository it should say nothing about | the panel |
 | HIGH | [The domain landscape of a large institution](docs/plans/DOMAIN_LANDSCAPE.md) | 7 | Which standards can be cited for a dozen business domains, and why a functional taxonomy is diverged against rather than matched | licences, one per source |
@@ -114,6 +114,25 @@ below are blocked on it and say so.
 Kept short on purpose — the reports under [`output/`](output) carry the figures, and the README carries the
 argument. This is only what has left the queue.
 
+- **The reading is deterministic.** Two `selfRead` runs over an unchanged tree placed this repository in
+  different fields — Mathematics at 0.3660 bits in one and 0.5306 in the next — because a bundled taxonomy
+  held its concepts in an immutable map, whose iteration order Java randomises once per JVM, and the
+  archive-level reading joins the descriptions it pools. The publisher's stated order is kept now, and two
+  consecutive runs write byte-identical reports.
+- **A package's rungs are read as the words they are.** The tail was handed on with its dots replaced by
+  spaces, which the identifier grammar cannot split, so every deep package sat in the unread tail —
+  `codesemantics engine theme` eighty-one times. The words an author divides their work by are now read.
+- **The reading places itself in its own field, and the run that got it there is closed.** The goal — this
+  repository placed in computational linguistics on evidence, nothing hard-coded — is met and pinned in
+  `PinnedSubjectFindings`: `cs.CL` stands second of 152 published subjects by divergence and third by shared
+  mass, and the archive-level placement beats a taxonomy of chance. Four attempts got it there: not offering
+  a dependency's name to a dictionary, one observation per resource rather than one unit per resource,
+  reading an unlabelled word as uncovered, and pinning the goal in the suite so a regression fails a build.
+  What remains is a defect the pin states rather than a plan: the nearest single subject is still not
+  `cs.CL`, and a null drawn at each subject's own description length is what would settle it.
+- **Both pictures the reading draws are on one page.** The term reading writes its sunburst as a file the
+  way the theme reading already did, so the chart page carries both without either step waiting on the
+  other, and both files are parsed by their tests rather than trusted.
 - **A share's denominator now holds what nothing could place.** Every ι is a share of everything the reading
   observed, the dominant-topic reading and the distribution run on one partition, and the summary states the
   two denominators together: λ = 0.978 of word occurrences are citable, and 77.9% of the observed mass is
