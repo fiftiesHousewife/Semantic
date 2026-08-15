@@ -119,6 +119,15 @@ public interface Lexicon {
     Set<String> lemmasOf(String domain);
 
     /**
+     * Every collocation the topical resource labels, in WordNet's own written form
+     * ({@code double_fault}). A reading that splits a name into words needs to know which runs of adjacent
+     * words this dictionary has an opinion about as runs — {@code break point} is a term the resource
+     * labels, where {@code break} and {@code point} beside each other are two words a reading would
+     * otherwise have to guess were related.
+     */
+    Set<String> labelledCollocations();
+
+    /**
      * The names of every kind the dictionary says both nouns directly are — the lemmas of each synset
      * that is a direct hypernym of a sense of each word. A non-empty answer certifies the pair as
      * coordinate sisters, alternatives within one category rather than merely similar words, and the

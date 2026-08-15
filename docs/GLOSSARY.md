@@ -26,7 +26,7 @@ means, what it is called in this tree, and where to read more.
 | **Homograph** | Two unrelated words spelled the same — *file* the container and *file* the rank formation | `SENSE_DISAMBIGUATION.md` |
 | **Word-sense disambiguation** | Deciding which sense a word carries *in this position*. [WSD](https://en.wikipedia.org/wiki/Word-sense_disambiguation) | `PhraseTopics` — a phrase's words as context for one another |
 | **Content word** | A noun, verb, adjective or adverb — a word carrying subject matter, as against a **function word** (*the*, *of*, *is*) which holds a sentence together | `ContentWords`, which cites WordNet's open-class coverage rather than a stop list |
-| **Collocation** | Words that habitually occur together and mean something as a pair — *base form*, *common noun* | `Collocation` in OLiA; the splitter currently mis-reads it |
+| **Collocation** | Words that habitually occur together and mean something as a pair — *base form*, *common noun* | `Collocation` in OLiA; `PublishedPhrases` holds the ones the two topical resources state, and `CollocatedWords` reads a run of them as one word |
 
 ## Words about the shape of words
 

@@ -26,17 +26,21 @@ public final class SubjectAreas {
     private static final int FIRST_LINE = 1;
 
     private final IdentifierWords words;
+    private final CollocatedWords collocated;
     private final OfferedWords offered;
     private final PhraseTopics phrases;
 
-    public SubjectAreas(final IdentifierWords words, final OfferedWords offered, final PhraseTopics phrases) {
+    public SubjectAreas(final IdentifierWords words, final CollocatedWords collocated,
+                        final OfferedWords offered, final PhraseTopics phrases) {
         this.words = words;
+        this.collocated = collocated;
         this.offered = offered;
         this.phrases = phrases;
     }
 
     public static SubjectAreas fromClasspath() {
-        return new SubjectAreas(IdentifierWords.fromClasspath(), OfferedWords.fromClasspath(),
+        return new SubjectAreas(IdentifierWords.fromClasspath(), CollocatedWords.fromClasspath(),
+                OfferedWords.fromClasspath(),
                 new PhraseTopics(TopicCitations.fromClasspath(), new TopicCommitment(),
                         SenseCoverage.fromClasspath()));
     }
@@ -60,7 +64,7 @@ public final class SubjectAreas {
 
     /** Any prose read the way a subject's description is, which is what lets a null be drawn the same way. */
     public FileTopics topicsIn(final String concept, final String description) {
-        final TopicTally tally = new TopicTally(words, offered, phrases, new TopicWitnesses(),
+        final TopicTally tally = new TopicTally(words, collocated, offered, phrases, new TopicWitnesses(),
                 new WordSightings());
         tally.add(concept, new NameOccurrence(description, NameForm.DOCUMENTATION, FIRST_LINE));
         return tally.reading(concept, FIRST_LINE);

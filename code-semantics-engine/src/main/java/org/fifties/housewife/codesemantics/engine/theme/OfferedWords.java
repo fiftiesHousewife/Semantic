@@ -32,18 +32,20 @@ public final class OfferedWords {
 
     private final ContentWords content;
     private final WordSpecificity specificity;
+    private final PublishedPhrases phrases;
     private final Weights weights;
 
     public OfferedWords(final ContentWords content, final WordSpecificity specificity,
-                        final Weights weights) {
+                        final PublishedPhrases phrases, final Weights weights) {
         this.content = content;
         this.specificity = specificity;
+        this.phrases = phrases;
         this.weights = weights;
     }
 
     public static OfferedWords fromClasspath() {
         return new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
-                Weights.defaults());
+                PublishedPhrases.fromClasspath(), Weights.defaults());
     }
 
     /**
@@ -51,10 +53,18 @@ public final class OfferedWords {
      * and the dictionary does not carry — a part of speech that holds a sentence together rather than saying
      * what it is about. A name the repository chose is otherwise always offered, whether or not any
      * dictionary knows it: an unread name is a finding, where an unread preposition is grammar.
+     *
+     * <p>A run of words a resource publishes as one entry is offered exactly as that resource writes it. It
+     * arrives already in the dictionary's own form, because being in that form is what
+     * {@link CollocatedWords} read it as a run for, and a lemmatiser asked about a collocation answers about
+     * its head word — which would offer {@code base} for {@code base form} and lose the entry that was found.
      */
     public Optional<String> of(final NameForm form, final String word) {
         if (form == NameForm.IMPORT || content.tooShortToMean(word)) {
             return Optional.empty();
+        }
+        if (phrases.states(word)) {
+            return Optional.of(word);
         }
         return form.isChosenName() ? Optional.of(content.lemmaOrSurface(word)) : content.lemmaOf(word);
     }

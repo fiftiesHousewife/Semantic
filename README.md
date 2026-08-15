@@ -77,6 +77,13 @@ yield `citation`, `source`. Where a compound has no such boundary, `WordSegmente
 against a published frequency list and `PieceCost` prices each piece, so `userid` reads as `user` and `id`
 rather than `use` and `rid`.
 
+**Where a resource publishes a run of those words as one entry, the run is one word.**
+`CollocatedWords` takes the longest published run at each position, left to right, with no two overlapping,
+so `partOfSpeech` reaches the resources as the term a dictionary states rather than as three words pooling
+their subjects. A run has to begin and end on a word that carries subject matter on its own: a collocation
+dictionary states *to the* and *out of* as readily as *noun phrase*, and this repository writes far more of
+the first kind. That is the same open-class coverage step 3 cites, applied at the edges of a run.
+
 **3. Function words are removed without a stop list.** `ContentWords` asks WordNet whether a word has an
 open-class entry. *of*, *and* and *which* have none and are refused, and the refusal cites WordNet's coverage
 rather than a list written here. The same query returns the dictionary form, so `citations` and `citation`

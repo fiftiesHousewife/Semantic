@@ -76,6 +76,11 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
     }
 
     @Override
+    public Set<String> labelledCollocations() {
+        throw new UnsupportedOperationException("a topical reading does not ask this");
+    }
+
+    @Override
     public Set<String> sharedHypernyms(final String first, final String second) {
         throw new UnsupportedOperationException("a topical reading does not ask this");
     }

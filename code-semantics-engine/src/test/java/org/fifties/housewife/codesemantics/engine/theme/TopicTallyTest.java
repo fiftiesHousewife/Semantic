@@ -28,13 +28,23 @@ class TopicTallyTest {
     private final SenseDomains senses = word -> switch (word) {
         case "word" -> List.of(Set.of("linguistics"));
         case "cursor" -> List.of(Set.of("computing"), Set.of("typography"));
+        case "word_cursor" -> List.of(Set.of("lexicography"));
         default -> List.of();
     };
 
-    private final TopicTally tally = new TopicTally(
-            new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
-            new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), witnesses,
-            new WordSightings());
+    /** A fixture says what it means: no resource publishes a run, unless a test says one does. */
+    private static final PublishedPhrases NOTHING_PUBLISHED = new PublishedPhrases(Set.of());
+
+    private final TopicTally tally = tallyOver(NOTHING_PUBLISHED, witnesses);
+
+    private TopicTally tallyOver(final PublishedPhrases published, final TopicWitnesses into) {
+        return new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
+                new CollocatedWords(published, ContentWords.fromClasspath()),
+                new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(), published,
+                        Weights.defaults()),
+                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), into,
+                new WordSightings());
+    }
 
     private TopicCitations citations() {
         return new TopicCitations(senses, word -> Set.of(), word -> 1, Weights.defaults());
@@ -77,15 +87,27 @@ class TopicTallyTest {
         add("word", 3);
         final double alone = tally.reading(SITE, 40).massByTopic().get("linguistics");
 
-        final TopicTally amongStrangers = new TopicTally(
-                new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
-                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()),
-                new TopicWitnesses(), new WordSightings());
+        final TopicTally amongStrangers = tallyOver(NOTHING_PUBLISHED, new TopicWitnesses());
         amongStrangers.add(SITE, new NameOccurrence("wordCursor", NameForm.FIELD, 4));
 
         assertThat(amongStrangers.reading(SITE, 40).massByTopic().get("linguistics"))
                 .as("a subject only one word of a phrase names is one word's opinion about the phrase")
                 .isLessThan(alone);
+    }
+
+    @Test
+    void readsARunAResourcePublishesAsOneWordRatherThanAsItsWordsApart() {
+        final TopicTally asATerm = tallyOver(new PublishedPhrases(Set.of("word_cursor")),
+                new TopicWitnesses());
+        asATerm.add(SITE, new NameOccurrence("wordCursor", NameForm.FIELD, 4));
+
+        assertAll(
+                () -> assertThat(asATerm.reading(SITE, 40).massByTopic())
+                        .as("what the resource says of the run, and neither of the subjects its words carry")
+                        .containsOnlyKeys("lexicography"),
+                () -> assertThat(asATerm.reading(SITE, 40).massByTopic().get("lexicography"))
+                        .as("one name, one term, one unit")
+                        .isCloseTo(1.0, offset(1e-12)));
     }
 
     @Test

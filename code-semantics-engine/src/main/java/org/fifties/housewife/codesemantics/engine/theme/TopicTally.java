@@ -26,10 +26,17 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  * of a name someone else declared, which is what keeps a file's hundredth mention of {@code String} from
  * being read as a hundred statements about music. {@link OfferedWords} decides which of a phrase's words
  * reach the resources at all, in what dictionary form, and what each is worth on its own.
+ *
+ * <p>What counts as one of those words is settled first, by {@link CollocatedWords}: a run a resource
+ * publishes as a single entry is one word here, so {@code partOfSpeech} is read as the term a dictionary
+ * states rather than as three words whose subjects are pooled. It happens before anything is offered,
+ * because offering drops the words nothing can be cited for and a dropped word would close the gap between
+ * two the author never wrote next to each other.
  */
 public final class TopicTally {
 
     private final IdentifierWords words;
+    private final CollocatedWords collocated;
     private final OfferedWords offered;
     private final PhraseTopics phrases;
     private final TopicWitnesses witnesses;
@@ -43,9 +50,11 @@ public final class TopicTally {
     private int unreadableOccurrences;
     private int phraseOccurrences;
 
-    public TopicTally(final IdentifierWords words, final OfferedWords offered, final PhraseTopics phrases,
+    public TopicTally(final IdentifierWords words, final CollocatedWords collocated,
+                      final OfferedWords offered, final PhraseTopics phrases,
                       final TopicWitnesses witnesses, final WordSightings sightings) {
         this.words = words;
+        this.collocated = collocated;
         this.offered = offered;
         this.phrases = phrases;
         this.witnesses = witnesses;
@@ -55,7 +64,8 @@ public final class TopicTally {
     public void add(final String site, final NameOccurrence occurrence) {
         final NameForm form = occurrence.form();
         form.vocabulary().phrasesOf(occurrence.text(), words)
-                .forEach(phrase -> read(phrase.words(), form, site + ":" + occurrence.line()));
+                .forEach(phrase -> read(collocated.of(phrase.words()), form,
+                        site + ":" + occurrence.line()));
     }
 
     public FileTopics reading(final String path, final int lines) {

@@ -24,6 +24,7 @@ public final class WiktionaryTopics {
 
     private static final String RESOURCE = "wiktionary-topics.tsv";
     private static final String COMMENT = "#";
+    private static final char COLLOCATION_JOINER = '_';
 
     private final Map<String, Set<String>> topicsByWord;
     private final Map<String, Set<String>> wordsByTopic;
@@ -44,6 +45,17 @@ public final class WiktionaryTopics {
 
     public Set<String> wordsOf(final String topic) {
         return wordsByTopic.getOrDefault(topic.toLowerCase(Locale.ROOT), Set.of());
+    }
+
+    /**
+     * Every entry written in more than one word, in the resource's own written form ({@code break_point}).
+     * It is what a reading needs to know that a run of adjacent words is something this dictionary has an
+     * opinion about, rather than two words that happened to be written next to each other.
+     */
+    public Set<String> collocations() {
+        return topicsByWord.keySet().stream()
+                .filter(word -> word.indexOf(COLLOCATION_JOINER) >= 0)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     private static WiktionaryTopics load() {

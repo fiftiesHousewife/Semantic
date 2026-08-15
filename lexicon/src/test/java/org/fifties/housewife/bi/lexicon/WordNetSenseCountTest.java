@@ -30,10 +30,21 @@ class WordNetSenseCountTest {
     }
 
     @Test
-    void answersForASingleWordOnlySoACollocationIsNotCountedThroughItsHead() {
+    void countsNothingForACompoundTheDictionaryDoesNotPublishRatherThanCountingItsHead() {
         assertThat(lexicon.senseCount("title_basics"))
-                .as("a compound resolves through phrase lookup to its head, which would be a lie about it")
+                .as("phrase lookup would resolve a compound to its head, which would be a lie about it")
                 .isZero();
+    }
+
+    @Test
+    void countsTheCollocationsItDoesPublishFromTheirOwnEntry() {
+        assertAll(
+                () -> assertThat(lexicon.senseCount("double_fault"))
+                        .as("a run the dictionary publishes has senses of its own to speak against")
+                        .isPositive(),
+                () -> assertThat(lexicon.senseCount("double_fault"))
+                        .as("and they are the run's senses, never the head word's")
+                        .isLessThan(lexicon.senseCount("fault")));
     }
 
     @Test

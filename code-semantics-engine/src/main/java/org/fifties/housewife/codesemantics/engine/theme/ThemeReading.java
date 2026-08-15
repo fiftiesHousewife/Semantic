@@ -37,6 +37,7 @@ public final class ThemeReading {
 
     private final TopicCitations citations;
     private final IdentifierWords words;
+    private final CollocatedWords collocated;
     private final OfferedWords offered;
     private final PhraseTopics phrases;
     private final OpenSpaceAccumulator<String> accumulator;
@@ -45,11 +46,12 @@ public final class ThemeReading {
     private final Behaviours behaviours = Behaviours.fromClasspath();
 
     public ThemeReading(final TopicCitations citations, final IdentifierWords words,
-                        final OfferedWords offered, final PhraseTopics phrases,
-                        final OpenSpaceAccumulator<String> accumulator, final JensenShannon divergence,
-                        final PermutationNull chance) {
+                        final CollocatedWords collocated, final OfferedWords offered,
+                        final PhraseTopics phrases, final OpenSpaceAccumulator<String> accumulator,
+                        final JensenShannon divergence, final PermutationNull chance) {
         this.citations = citations;
         this.words = words;
+        this.collocated = collocated;
         this.offered = offered;
         this.phrases = phrases;
         this.accumulator = accumulator;
@@ -60,7 +62,7 @@ public final class ThemeReading {
     /** The reading over the bundled resources, with a seeded null so two runs of one tree agree. */
     public static ThemeReading fromClasspath(final long seed) {
         return new ThemeReading(TopicCitations.fromClasspath(), IdentifierWords.fromClasspath(),
-                OfferedWords.fromClasspath(),
+                CollocatedWords.fromClasspath(), OfferedWords.fromClasspath(),
                 new PhraseTopics(TopicCitations.fromClasspath(), new TopicCommitment(),
                         SenseCoverage.fromClasspath()),
                 new OpenSpaceAccumulator<>(Thresholds.defaults()), new JensenShannon(),
@@ -123,7 +125,8 @@ public final class ThemeReading {
                 .filter(occurrence -> occurrence.form().isChosenName())
                 .flatMap(occurrence -> occurrence.form().vocabulary()
                         .phrasesOf(occurrence.text(), words).stream()
-                        .flatMap(phrase -> nounsOf(phrase.words(), occurrence.form()).stream()))
+                        .flatMap(phrase -> nounsOf(collocated.of(phrase.words()),
+                                occurrence.form()).stream()))
                 .map(word -> offered.of(NameForm.TYPE, word))
                 .flatMap(java.util.Optional::stream)
                 .collect(java.util.stream.Collectors.toUnmodifiableSet());
@@ -138,7 +141,7 @@ public final class ThemeReading {
 
     private FileTopics tallied(final ParsedFile file, final PhraseTopics reading,
                                final TopicWitnesses witnesses, final WordSightings sightings) {
-        final TopicTally tally = new TopicTally(words, offered, reading, witnesses, sightings);
+        final TopicTally tally = new TopicTally(words, collocated, offered, reading, witnesses, sightings);
         file.occurrences().forEach(occurrence -> tally.add(file.path(), occurrence));
         return tally.reading(file.path(), file.lines());
     }

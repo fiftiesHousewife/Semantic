@@ -28,6 +28,7 @@ final class WordNetDomains {
 
     private static final String RESOURCE = "wordnet-domains.txt";
     private static final String COMMENT = "#";
+    private static final char COLLOCATION_JOINER = '_';
 
     private final Map<String, List<Set<String>>> sensesByLemma;
     private final Map<String, Set<String>> lemmasByDomain;
@@ -73,6 +74,13 @@ final class WordNetDomains {
 
     Set<String> lemmasOf(final String domain) {
         return lemmasByDomain.getOrDefault(domain.toLowerCase(Locale.ROOT), Set.of());
+    }
+
+    /** Every lemma written in more than one word that the resource labels, in its own written form. */
+    Set<String> labelledCollocations() {
+        return sensesByLemma.keySet().stream()
+                .filter(lemma -> lemma.indexOf(COLLOCATION_JOINER) >= 0)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     private static WordNetDomains load() {

@@ -79,8 +79,14 @@ class PinnedThemeFindings {
                                 + "so they are subjects of the field rather than of this codebase.")
                         .doesNotContain("biology", "law", "publishing", "music"),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("and what is left must be what this repository is actually about")
-                        .containsExactly("linguistics", "computing"));
+                        .as("and what is left must be what this repository is actually about. `grammar` "
+                                + "joined the day a run of words a dictionary publishes stopped being read "
+                                + "as its words apart: `part of speech` is written 42 times here and was "
+                                + "three words pooling their subjects, where the dictionary states one "
+                                + "subject for the run. A library whose splitter is grammar and whose "
+                                + "bundled taxonomy is linguistic annotation is about grammar, and it took "
+                                + "reading a name in the order it was written for the resources to say so.")
+                        .containsExactly("linguistics", "computing", "grammar"));
     }
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {

@@ -26,29 +26,49 @@ splitter is rule 4 and the offsets rather than the mis-splits.
 
 *Blocked on nothing.*
 
-## The sequence of a name's words — the priority
+## The sequence of a name's words — landed, and what it left behind
 
-A name is split into an ordered list and then read as a bag of words. Position is used twice — the last word
-of a name is its head, and the first word of a method name is its verb — and **adjacency is used nowhere**.
-`PhraseTopics` collects the words that agree on a subject into a set and scores the subject by what they
-agree on and how much of the name agrees, so nothing in the topical reading distinguishes `citationSource`
-from `sourceCitation` beyond which of the two is head.
+**The topical reading reads adjacency now.** `CollocatedWords` takes the longest run a resource publishes at
+each position of a phrase, left to right, with no two runs overlapping — the walk `TermSpans` already
+performed over a published taxonomy, run over the collocations the two topical resources state.
+`PublishedPhrases` pools those: 31,025 multi-word lemmas WordNet Domains labels and 42,865 multi-word entries
+Wiktionary's topic vocabulary carries, 69,713 entries reaching 26 words. It runs before anything is offered
+to a dictionary, because offering drops what it cannot read and a dropped word closes the gap between two
+words the author never wrote next to each other.
 
-That order is not missing; it is produced and then dropped. `Vocabulary.IDENTIFIER.phrasesOf` yields an
-ordered list per name, and `TermSpans` already reads it that way — longest published term at each position,
-left to right, no two matches overlapping. **The topical reading cannot**, and the vocabularies say what that
-costs: 89% of FIBO's labels and 81% of OLiA's are more than one word, so a reading that matches a word at a
-time is refusing most of what a published field states about itself.
+**What it measured.** Over this repository, 300 of 10,886 phrases carry a published run, in 99 distinct runs.
+The commonest are `part_of_speech` (41), `frequency_list` (22), `head_word` (17), `computer_science` (12),
+`normal_form` (12), `noun_phrase` (11), `adjective_phrase` (10) — terms this library is written about, each
+carrying one subject the resource states for the run against the several its words pool separately. The
+reading settles more of what it observes than before, 75.5% of the mass unsettled against 76.1%, and
+`grammar` clears the bar it had been under: it is now a topic this repository is *about*, on the strength of
+`part of speech` alone, and `PinnedThemeFindings` states so.
 
-What it is, concretely: carry the sequence from the splitter through the citation step, and admit a phrase
-where only a word is admitted now — `word segmenter` before `word` and `segmenter` separately, and only where
-a resource publishes the phrase. It is a precursor rather than the phrase reading itself: the reading cannot
-match phrases until the phrases survive step 2.
+**What nearly ended it, and the rule that answered.** The plan said to abandon this if the matches were
+one-word terms adjacent by accident, and the first measurement said they were: the commonest published run in
+the tree was `to the` at 78 occurrences, voting *mathematics*, with `out of` (*nautical*), `in one`
+(*theater*) and `up to` behind it. A collocation dictionary states those as readily as it states `noun
+phrase`. **A run is admitted only where its first and last words carry subject matter on their own** — the
+same open-class coverage `ContentWords` already cites to decide which words reach the resources at all, so no
+list is written and nothing new is asked of a resource. It refuses 58 distinct runs over 282 occurrences and
+keeps `part of speech`, because English builds a noun phrase with a preposition inside it and the boundary of
+a constituent is what says whether one was written.
 
-**Measurement:** the count of declared names in which a bundled vocabulary publishes an ordered multi-word
-match that the single-word reading currently splits apart, and what the topical reading does with them once
-it can see them. **Abandon if** the multi-word matches are almost all one-word terms adjacent by accident,
-which is the failure mode a longest-match-left-to-right rule already has to defend against.
+**What it cost, and what is left.** The edge rule refuses a term whose first word is an adjective the reading
+would not have read alone: `geometric mean`, `lexical semantics`, `lexical database`. `ContentWords` asks for
+a noun or a verb, so an adjective reaches the resources only where the dictionary also carries it as a noun —
+`regular expression` and `absolute value` survive by that accident and `lexical semantics` does not. Reading
+adjectives is what would settle it, and it is a change to step 3 rather than to this walk. Two runs the
+walk admits are wrong and say what else is unfinished: `mark down` (14) is `markdown` as the segmenter split
+it, so the fold is restoring a run the splitter should never have divided, and `four hundred` is a numeral
+pair the resources read as *sociology*.
+
+**What this does not do.** λ does not move, because `LegibilityTally` counts word occurrences and a run the
+topical reading takes as one word is still two words there — the two readings answer different questions and
+only one of them was changed. It reads phrases the two *topical* resources publish. A published field's own
+vocabulary is still matched a word at a time in step 8 by `TermSpans`, which has always read order, and
+nothing yet carries a taxonomy's multi-word labels into the topical reading — 89% of FIBO's labels and 81% of
+OLiA's are more than one word. That join is the next thing this makes possible rather than something it did.
 
 ## The cited catalogues — what rule 4 needs
 

@@ -65,6 +65,30 @@ final class WordNetSenses {
         return commonestAmong(Stream.of(POS.values()), written(word));
     }
 
+    /**
+     * How many senses the dictionary carries for the word across every part of speech, and none for a form
+     * it does not hold. A collocation is counted from its own entry or not at all, by the same rule the
+     * sense readings obey: the count is the denominator a claim about the word speaks against, and counting
+     * {@code base form} through {@code base} would give it a denominator belonging to another word.
+     */
+    int senseCount(final String word) {
+        final String written = written(word);
+        if (!isWritten(written)) {
+            return 0;
+        }
+        return Stream.of(POS.values())
+                .mapToInt(partOfSpeech -> entry(partOfSpeech, written)
+                        .map(entry -> entry.getSenses().size())
+                        .orElse(0))
+                .sum();
+    }
+
+    /** Letters, and the spaces between the words of a collocation: the forms the dictionary is keyed by. */
+    private static boolean isWritten(final String written) {
+        return !written.isEmpty()
+                && written.chars().allMatch(letter -> letter == ' ' || (letter >= 'a' && letter <= 'z'));
+    }
+
     private Optional<WordSense> commonestAmong(final Stream<POS> parts, final String written) {
         return parts
                 .map(partOfSpeech -> entry(partOfSpeech, written))

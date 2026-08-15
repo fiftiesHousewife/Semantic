@@ -28,9 +28,15 @@ class OfferedWordsTest {
     };
 
     private final TopicTally tally = new TopicTally(
-            new IdentifierWords(WordSegmenter.fromClasspath()), OfferedWords.fromClasspath(),
+            new IdentifierWords(WordSegmenter.fromClasspath()), noPublishedRuns(),
+            OfferedWords.fromClasspath(),
             new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), witnesses,
             new WordSightings());
+
+    /** A fixture says what it means: a run read as one word is not what these tests are about. */
+    private static CollocatedWords noPublishedRuns() {
+        return new CollocatedWords(new PublishedPhrases(Set.of()), ContentWords.fromClasspath());
+    }
 
     private TopicCitations citations() {
         return new TopicCitations(senses, word -> Set.of(), word -> 1, Weights.defaults());

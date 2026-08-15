@@ -30,7 +30,11 @@ named, never dropped in silence.
 separators; `IdentifierWords` applies it to a declared name. Where a compound carries no boundary at all,
 `WordSegmenter` enumerates candidate splits through `CompoundParses` and prices each piece with `PieceCost`
 against the frequency list `WordRanks` reads, so the commonest reading wins. This is grammar and it is
-permitted; a list of words to treat specially would not be.
+permitted; a list of words to treat specially would not be. `CollocatedWords` then reads the words back in
+the order they were written: a run of adjacent words a topical resource publishes as one entry —
+`PublishedPhrases` holds the 69,713 the two bundled ones state — is one word from here on, and a run must
+begin and end on a word that carries subject matter, because the same dictionaries publish `to the` and
+`out of`.
 
 **3. Each word is looked up.** `ContentWords` asks WordNet whether the word has an open-class entry, which
 removes the words English uses to hold a sentence together without a stop list existing. `WordMorphology`
@@ -90,10 +94,9 @@ below are blocked on it and say so.
 
 | | Plan | Step | What is left | Blocked on |
 |---|---|--:|---|---|
-| **NEXT** | [The sequence of a name's words](docs/plans/THE_SPLITTER.md) | 2–3, 8 | **The priority.** A name is split into an ordered list and then read as a bag of words. Position is used twice — the last word is the head and a method's first word is its verb — and adjacency is used nowhere: `PhraseTopics` collects the agreeing words into sets and scores a subject by what they agree on, so nothing in the topical reading can tell `citationSource` from `sourceCitation` by more than which word is head. The order is produced and dropped, and it is what phrase matching needs: 89% of FIBO's labels and 81% of OLiA's are more than one word, and `TermSpans` already matches on ordered words where the topical reading cannot. Carry the sequence from step 2 through step 3, and match a phrase where only a word is matched now | nothing |
+| **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | **The priority.** Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 75.5% of this tree's observed mass is settled on no subject against λ = 0.983. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves. A phrase read as a published run makes it sharper rather than easier: `part of speech` now casts one vote where three words used to, and what a run is worth against what a word is worth is a weight nobody has derived | nothing |
 | **NEXT** | [The backtest](docs/plans/THE_PANEL.md) | all | Naming the members. The machinery, the manifest and `panelRead` have landed; the table of every vocabulary against every repository needs members before it has anything to put in a cell | naming the members |
-| **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel | nothing |
-| **NEXT** | [The vote itself](docs/plans/THE_VOTE.md) | 4–5 | Stages A, 0 and 1 have landed: a share's denominator now includes what nothing could place, and 77.9% of this tree's observed mass is settled on no subject against λ = 0.978. What is left: one unit per resource, votes pooled where this library says they are pooled rather than summed, and the constants last. The scale defect is half fixed — a headword claim is discounted by the dictionary's sense count, which is reading (b) where the plan recommended (c), and stage 2's first decision is which of the two moves | nothing |
+| **NEXT** | [Matching a term in context](docs/plans/TERM_MATCHING.md) | 8 | Branch corroboration is now the reading that is reported, and `Topic` is out of the headline. What is left is scoring a match against the subtree it occupies rather than term by term, and the depth arm: for every match, how deep its least common subsumer sits. That arm needs no panel. **Nothing from step 8 feeds step 5 still**, and the reason it could not — the topical reading read a word at a time where a taxonomy publishes phrases — is gone | nothing |
 | HIGH | [What a repository depends on](docs/plans/DEPENDENCIES_AS_DOMAIN.md) | 1 | A coordinate denotes one artefact and needs no disambiguation; `ImportOrigins` already sorts them and nothing reads them as evidence | — |
 | HIGH | [Read a repository against its industry's vocabulary](docs/plans/INDUSTRY_VOCABULARIES.md) | 8 | FIBO is bundled — 1,833 concepts, 89% of its labels more than one word. What is left is the arm that decides: running it on a repository it should say nothing about | the panel |
 | HIGH | [The domain landscape of a large institution](docs/plans/DOMAIN_LANDSCAPE.md) | 7 | Which standards can be cited for a dozen business domains, and why a functional taxonomy is diverged against rather than matched | licences, one per source |
@@ -114,6 +117,13 @@ below are blocked on it and say so.
 Kept short on purpose — the reports under [`output/`](output) carry the figures, and the README carries the
 argument. This is only what has left the queue.
 
+- **A name's words are read in the order they were written.** A run of adjacent words a topical resource
+  publishes as one entry is one word from step 2 on, taken longest-first and left to right over the 69,713
+  collocations the two bundled resources state. `part of speech` is written 41 times here and was three words
+  pooling their subjects; it is one term with one subject now, and `grammar` clears the bar it had been under
+  as a result. The rule that made it usable is that a run must begin and end on a word carrying subject
+  matter: the first measurement's commonest run was `to the`, voting *mathematics* 78 times, and the same
+  open-class coverage that refuses `to` and `the` on their own refuses them at the edge of a run.
 - **The reading is deterministic.** Two `selfRead` runs over an unchanged tree placed this repository in
   different fields — Mathematics at 0.3660 bits in one and 0.5306 in the next — because a bundled taxonomy
   held its concepts in an immutable map, whose iteration order Java randomises once per JVM, and the
