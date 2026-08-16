@@ -44,6 +44,12 @@ docs/clean-code/
 !*/src/*/resources/**/*.csv
 *.class
 
-### Reports for a clone that is not this repository. Written by panelRead, one folder per member;
-### the figures this repository publishes of itself are the files directly under output/.
+### A reading of somebody else's clone, written by `read -Dcs.clone.dir` into a folder of that clone's
+### own name. What is committed is this repository's reading of itself, one folder per format, and the
+### backtest snapshot the README links.
 output/*/
+!output/json/
+!output/markdown/
+!output/html/
+!output/svg/
+!output/tika/

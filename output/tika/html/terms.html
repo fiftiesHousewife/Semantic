@@ -1,0 +1,206 @@
+<title>Terms</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>Terms — tika</h1>
+<p>Does this repository write the vocabulary of a published field? The Ontologies of Linguistic</p>
+<p>Annotation state 1,197 terms whose names are already identifiers, so the match is identifier to</p>
+<p>identifier with no English in between: OLiA's <code>AdjectivePhrase</code> and this repository's</p>
+<p><code>adjectivePhrase</code> read as the same two words, and a hit is the ontology saying this is a term of</p>
+<p>its field rather than anyone here deciding so.</p>
+<p>Only <strong>declared names</strong> are read. A term in a sentence is an author writing about a field; a term</p>
+<p>in a name is a program working in one.</p>
+<p><strong>What is reported below is the corroborated reading.</strong> A term written in one word counts only</p>
+<p>where this repository writes another concept in the branch the publisher placed that concept</p>
+<p>under; a term written in more than one word counts unconditionally. The reading that admits every</p>
+<p>match is kept at the end, beside the list of what the branch refused, because a rule that removes</p>
+<p>matches can only be judged as a comparison.</p>
+<p><strong>OLiA</strong> publishes <strong>1,311 concepts</strong> in a hierarchy nine levels deep. This repository writes <strong>108 of them, 8,614 times</strong>, across 1,520 of 2,148 files — reaching <strong>13 of the taxonomy's 70 root branches</strong>.</p>
+<p>A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.</p>
+<h2>The branches this repository occupies</h2>
+<table>
+<tr><th>Branch</th><th>Concepts written</th><th>Of published</th><th>Times</th><th>What it wrote there</th></tr>
+<tr><td><code>OrthographicEntity</code></td><td>9</td><td>37</td><td>2,362</td><td><code>Text</code> 921 <code>String</code> 579 <code>Script</code> 358 <code>Token</code> 294 <code>Character</code> 128 <code>Letter</code> 44 <code>Country</code> 20 <code>Diacritic</code> 12</td></tr>
+<tr><td><code>LinguisticConcept</code></td><td>26</td><td>136</td><td>1,856</td><td><code>Document</code> 372 <code>Support</code> 366 <code>Author</code> 338 <code>Source</code> 196 <code>New</code> 115 <code>Title</code> 104 <code>Topic</code> 65 <code>Sentence</code> 63</td></tr>
+<tr><td><code>Relation</code></td><td>8</td><td>203</td><td>1,228</td><td><code>Result</code> 836 <code>Exception</code> 267 <code>Example</code> 69 <code>Alternative</code> 29 <code>Expansion</code> 14 <code>Comparison</code> 8 <code>Instantiation</code> 4 <code>Background</code> 1</td></tr>
+<tr><td><code>SemanticFeature</code></td><td>19</td><td>125</td><td>1,197</td><td><code>Object</code> 476 <code>URL</code> 285 <code>Time</code> 165 <code>Amount</code> 70 <code>Address</code> 48 <code>Movie</code> 29 <code>Organization</code> 24 <code>Album</code> 21</td></tr>
+<tr><td><code>MorphosyntacticCategory</code></td><td>24</td><td>288</td><td>772</td><td><code>Image</code> 329 <code>Date</code> 206 <code>Unique</code> 48 <code>Slash</code> 38 <code>Quote</code> 31 <code>Symbol</code> 26 <code>Acronym</code> 13 <code>Colon</code> 11</td></tr>
+<tr><td><code>MorphologicalCategory</code></td><td>2</td><td>16</td><td>450</td><td><code>Prefix</code> 363 <code>Suffix</code> 87</td></tr>
+<tr><td><code>Constituent</code></td><td>4</td><td>37</td><td>304</td><td><code>Chunk</code> 261 <code>Clause</code> 23 <code>Fragment</code> 19 <code>Phrase</code> 1</td></tr>
+<tr><td><code>PersonFeature</code></td><td>3</td><td>10</td><td>184</td><td><code>Second</code> 91 <code>First</code> 90 <code>Third</code> 3</td></tr>
+<tr><td><code>CoordTypeFeature</code></td><td>2</td><td>5</td><td>99</td><td><code>Simple</code> 83 <code>Initial</code> 16</td></tr>
+<tr><td><code>TenseFeature</code></td><td>4</td><td>35</td><td>91</td><td><code>Future</code> 57 <code>Present</code> 26 <code>Perfect</code> 6 <code>Past</code> 2</td></tr>
+<tr><td><code>SyntacticRole</code></td><td>3</td><td>33</td><td>36</td><td><code>Head</code> 34 <code>Modifier</code> 1 <code>Qualifier</code> 1</td></tr>
+<tr><td><code>NullElement</code></td><td>2</td><td>7</td><td>30</td><td><code>Trace</code> 26 <code>Gapping</code> 4</td></tr>
+</table>
+<h2>Matches per normalisation</h2>
+<table>
+<tr><th>Both sides became</th><th>Written</th><th>Distinct terms</th><th>One word long</th></tr>
+<tr><td>the words themselves</td><td>6,687</td><td>97</td><td>99.8%</td></tr>
+<tr><td>the dictionary form of each word</td><td>1,479</td><td>62</td><td>97.8%</td></tr>
+<tr><td>the sense the dictionary carries each word in</td><td>445</td><td>49</td><td>98.4%</td></tr>
+</table>
+<h2>Whether the branch corroborates the match</h2>
+<p>A concept deep in a taxonomy is a leaf of a subject, and a repository that writes one leaf of a subject it otherwise never touches has written an English word the taxonomy happens to have claimed. OLiA states <code>Preferred</code> under <code>UsageAndFrequencyFeature</code>; this repository writes it once and writes nothing else under that feature.</p>
+<p>Taken to the root the rule would refuse nothing and taken at the concept itself it would refuse everything — no program declares a <code>morphosyntacticCategory</code>. So the test is the one the data can answer: what supports <code>Verb</code> is that this repository also writes <code>Noun</code>, <code>Clause</code> and <code>Phrase</code>, the siblings the publisher put beside it. <strong>A term written in more than one word is admitted unconditionally</strong>, which is the whole reason term length was worth measuring.</p>
+<table>
+<tr><th>Admitted</th><th>Spans</th><th>Distinct terms</th><th>One word long</th><th>Branches occupied</th><th>Largest single term</th></tr>
+<tr><td>every match</td><td>12,542</td><td>289</td><td>99.6%</td><td>24 of 70</td><td><code>set</code> 1,628</td></tr>
+<tr><td>only where the branch holds more than this one concept</td><td>8,611</td><td>208</td><td>99.4%</td><td>13 of 70</td><td><code>text</code> 909</td></tr>
+</table>
+<h3>What the branch refused</h3>
+<p><strong>81 terms</strong>, most-written first, each of them the one concept this repository writes in the region of the field its publisher placed it in.</p>
+<table>
+<tr><th>Term</th><th>Times</th><th>Stood alone under</th></tr>
+<tr><td><code>set</code></td><td>1,628</td><td><code>PartWhole</code></td></tr>
+<tr><td><code>list</code></td><td>954</td><td><code>Conjunction</code></td></tr>
+<tr><td><code>root</code></td><td>263</td><td><code>Morpheme</code></td></tr>
+<tr><td><code>space</code></td><td>260</td><td><code>GraphicalSeparator</code></td></tr>
+<tr><td><code>control</code></td><td>82</td><td><code>MovementFeature</code></td></tr>
+<tr><td><code>auto</code></td><td>79</td><td><code>Vehicle</code></td></tr>
+<tr><td><code>frame</code></td><td>53</td><td><code>LexicalUnit</code></td></tr>
+<tr><td><code>point</code></td><td>38</td><td><code>SentenceFinalPunctuation</code></td></tr>
+<tr><td><code>spaces</code></td><td>36</td><td><code>GraphicalSeparator</code></td></tr>
+<tr><td><code>summary</code></td><td>34</td><td><code>Generalization</code></td></tr>
+<tr><td><code>put</code></td><td>32</td><td><code>PartWhole</code></td></tr>
+<tr><td><code>place</code></td><td>31</td><td><code>PartWhole</code></td></tr>
+<tr><td><code>relation</code></td><td>31</td><td><code>Relation</code></td></tr>
+<tr><td><code>settings</code></td><td>30</td><td><code>PartWhole</code></td></tr>
+<tr><td><code>cause</code></td><td>26</td><td><code>Contigency</code></td></tr>
+<tr><td><code>identifier</code></td><td>25</td><td><code>DiscourseEntity</code></td></tr>
+<tr><td><code>sequence</code></td><td>25</td><td><code>SubjectMatterRelation</code></td></tr>
+<tr><td><code>extra</code></td><td>23</td><td><code>TextualOrganizationalRelation</code></td></tr>
+<tr><td><code>roots</code></td><td>22</td><td><code>Morpheme</code></td></tr>
+<tr><td><code>person</code></td><td>13</td><td><code>AnimateEntity</code></td></tr>
+</table>
+<h2>Whether the depth the publisher states separates the match</h2>
+<p>Depth is read off the source's own edges and is a citation rather than a heuristic: the publisher stated every one of them, and a rung count is what they add up to. It is bounded by the deepest chain the source states — 9 rungs here — so a shallow taxonomy and a deep one are read on one scale without a level count being chosen.</p>
+<table>
+<tr><th>Rungs below the root</th><th>Concepts written</th><th>Times</th><th>Share of spans</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0.0%</td></tr>
+<tr><td>1</td><td>26</td><td>3,023</td><td>35.1%</td></tr>
+<tr><td>2</td><td>30</td><td>1,888</td><td>21.9%</td></tr>
+<tr><td>3</td><td>17</td><td>1,504</td><td>17.5%</td></tr>
+<tr><td>4</td><td>15</td><td>535</td><td>6.2%</td></tr>
+<tr><td>5</td><td>12</td><td>407</td><td>4.7%</td></tr>
+<tr><td>6</td><td>8</td><td>1,257</td><td>14.6%</td></tr>
+</table>
+<table>
+<tr><th>Admitted</th><th>Concepts</th><th>Times</th><th>Mean rungs per concept</th><th>Mean rungs per span</th></tr>
+<tr><td>what the branch admitted</td><td>108</td><td>8,614</td><td>2.82</td><td>2.67</td></tr>
+<tr><td>what the branch refused</td><td>39</td><td>3,940</td><td>3.49</td><td>3.22</td></tr>
+</table>
+<p>The deepest of what was written: <code>Album</code> 6 rungs, 21 <code>Book</code> 6 rungs, 8 <code>EmailAddress</code> 6 rungs, 2 <code>Example</code> 6 rungs, 69 <code>Movie</code> 6 rungs, 29 <code>PhoneNumber</code> 6 rungs, 7 <code>Result</code> 6 rungs, 836 <code>URL</code> 6 rungs, 285.</p>
+<p>The shallowest: <code>Weak</code> 1 rung, 1 <code>Unique</code> 1 rung, 48 <code>Trace</code> 1 rung, 26 <code>Token</code> 1 rung, 294 <code>Third</code> 1 rung, 3 <code>Text</code> 1 rung, 921 <code>Strong</code> 1 rung, 4 <code>String</code> 1 rung, 579.</p>
+</div>

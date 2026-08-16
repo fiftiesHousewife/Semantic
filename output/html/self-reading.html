@@ -1,0 +1,170 @@
+<title>Legibility</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>Self-reading — CodeSemantics</h1>
+<p>A reading of this repository's own Java sources by the library that reads repositories, over a</p>
+<p>parse of the working tree. What it reads is what this repository <strong>declared</strong> — its types,</p>
+<p>methods, fields, parameters and locals — the <strong>prose</strong> it wrote in javadoc and comments, and the</p>
+<p><strong>dependencies</strong> it named that are neither the platform's nor its own.</p>
+<p>Everything else a Java file contains is somebody else's vocabulary quoted: <code>String</code>, <code>List</code> and</p>
+<p><code>assertThat</code> are uses of declarations the platform and the test framework made, and a use is not</p>
+<p>a word this codebase chose. Only a parse can tell the two apart, which is why this reading needs</p>
+<p>one. λ is the share of those word occurrences at least one bundled resource can be cited for.</p>
+<table>
+<tr><th>Scope</th><th>Files</th><th>Declarations</th><th>Words in names</th><th>Words in prose</th><th>Read</th><th>λ</th></tr>
+<tr><td><code>code-semantics-api/src/main/java</code></td><td>25</td><td>352</td><td>557</td><td>3,711 (86.9%)</td><td>4,176</td><td><strong>0.978</strong></td></tr>
+<tr><td><code>code-semantics-api/src/test/java</code></td><td>13</td><td>165</td><td>951</td><td>97 (9.3%)</td><td>1,028</td><td><strong>0.981</strong></td></tr>
+<tr><td><code>code-semantics-engine/src/main/java</code></td><td>148</td><td>3,281</td><td>4,762</td><td>33,053 (87.4%)</td><td>37,258</td><td><strong>0.985</strong></td></tr>
+<tr><td><code>code-semantics-engine/src/test/java</code></td><td>143</td><td>2,868</td><td>8,811</td><td>8,565 (49.3%)</td><td>17,222</td><td><strong>0.991</strong></td></tr>
+<tr><td><code>lexicon-extraction/src/main/java</code></td><td>45</td><td>899</td><td>1,158</td><td>5,509 (82.6%)</td><td>6,500</td><td><strong>0.975</strong></td></tr>
+<tr><td><code>lexicon-extraction/src/test/java</code></td><td>35</td><td>405</td><td>1,936</td><td>0 (0.0%)</td><td>1,915</td><td><strong>0.989</strong></td></tr>
+<tr><td><code>lexicon/src/main/java</code></td><td>21</td><td>681</td><td>1,135</td><td>4,794 (80.9%)</td><td>5,768</td><td><strong>0.973</strong></td></tr>
+<tr><td><code>lexicon/src/test/java</code></td><td>19</td><td>239</td><td>1,273</td><td>489 (27.8%)</td><td>1,740</td><td><strong>0.988</strong></td></tr>
+<tr><td><code>documentation</code></td><td>3</td><td>0</td><td>0</td><td>5,519 (100.0%)</td><td>5,320</td><td><strong>0.964</strong></td></tr>
+<tr><td><strong>repository</strong></td><td>452</td><td>8,890</td><td>20,583</td><td>61,737 (75.0%)</td><td>80,927</td><td><strong>0.983</strong></td></tr>
+</table>
+<p>The repository's own words are 82,320 occurrences of 3,750 distinct surfaces, 1,215 of them (32.4%) written exactly once. 203 glued runs no boundary divided were read by the segmenter; 1,393 occurrences across 413 surfaces nothing could be cited for at all.</p>
+<table>
+<tr><th>Resource</th><th>Occurrences it can be cited for</th><th>Share</th><th>Resting on it alone</th></tr>
+<tr><td><code>lexicon:word-frequency</code></td><td>78,165</td><td>95.0%</td><td>3,730</td></tr>
+<tr><td><code>lexicon:wordnet-sense</code></td><td>56,072</td><td>68.1%</td><td>1,002</td></tr>
+<tr><td><code>lexicon:wiktionary-topic</code></td><td>46,276</td><td>56.2%</td><td>186</td></tr>
+<tr><td><code>lexicon:wikidata-initialism</code></td><td>37,190</td><td>45.2%</td><td>64</td></tr>
+<tr><td><code>lexicon:wikidata-name</code></td><td>33,014</td><td>40.1%</td><td>23</td></tr>
+<tr><td><code>lexicon:wordnet-domain</code></td><td>32,710</td><td>39.7%</td><td>91</td></tr>
+<tr><td><code>lexicon:wiktionary-abbreviation</code></td><td>28,508</td><td>34.6%</td><td>10</td></tr>
+<tr><td><code>catalogue:query-language-function</code></td><td>1,262</td><td>1.5%</td><td>1</td></tr>
+</table>
+<table>
+<tr><th>Word</th><th>Occurrences</th><th>First seen</th></tr>
+<tr><td><code>repository's</code></td><td>57</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:10</code></td></tr>
+<tr><td><code>commonest</code></td><td>43</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:10</code></td></tr>
+<tr><td><code>word's</code></td><td>40</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:6</code></td></tr>
+<tr><td><code>wiktionary</code></td><td>37</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41</code></td></tr>
+<tr><td><code>segmenter</code></td><td>34</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3</code></td></tr>
+<tr><td><code>extjwnl</code></td><td>29</td><td><code>lexicon/src/main/java/org/fifties/housewife/bi/lexicon/CountedSense.java:3</code></td></tr>
+<tr><td><code>permalink</code></td><td>28</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:50</code></td></tr>
+<tr><td><code>javadoc</code></td><td>26</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34</code></td></tr>
+<tr><td><code>resamples</code></td><td>23</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/SetAside.java:3</code></td></tr>
+<tr><td><code>topic's</code></td><td>23</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ExportedTheme.java:6</code></td></tr>
+<tr><td><code>scope's</code></td><td>22</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ExportedTheme.java:6</code></td></tr>
+<tr><td><code>arxiv</code></td><td>21</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PlacedField.java:37</code></td></tr>
+<tr><td><code>net's</code></td><td>19</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:23</code></td></tr>
+<tr><td><code>file's</code></td><td>18</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:14</code></td></tr>
+<tr><td><code>publisher's</code></td><td>17</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ExportedTaxonomies.java:14</code></td></tr>
+</table>
+<p>Read 452 files in 1.4 s — 3.2 ms a file, recorded rather than estimated.</p>
+<p>Imports read as this repository's own choice: 77. Set aside as the platform's own vocabulary: 1316. Set aside as this repository's own coordinates: 436. Set aside as the toolchain a source set nothing is published from is checked with: 722. Files the parser refused: 0.</p>
+</div>

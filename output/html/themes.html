@@ -1,0 +1,255 @@
+<title>Themes</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>Themes — CodeSemantics</h1>
+<p>What this repository's names are about, read through the two bundled resources that assign a word</p>
+<p>to a subject: WordNet Domains, which labels each of a word's senses, and Wiktionary's topic</p>
+<p>vocabulary, which labels the headword. Each word occurrence commits one unit of mass per resource,</p>
+<p>divided among the readings that resource names, so an ambiguous word does not shout.</p>
+<p>A label another label of the same word already implies is not one of those readings. The topic</p>
+<p>vocabulary publishes a closure over its own hierarchy — a word labelled <code>computing</code> arrives</p>
+<p>carrying <code>engineering</code>, <code>mathematics</code>, <code>natural-sciences</code>, <code>physical-sciences</code> and <code>sciences</code></p>
+<p>besides — and the hierarchy that derived them, published by the same extractor, is what folds</p>
+<p>them back into the label they came from. Nothing is excluded and no list is written: where the</p>
+<p>hierarchy is silent, every label the word carries stands.</p>
+<p><strong>Read the ranking below as the weak reading it is.</strong> A topic's intensity over one scope counts</p>
+<p>every occurrence of every word, and the commonest words in Java source are also the most</p>
+<p>ambiguous ones — <code>string</code>, <code>set</code>, <code>map</code>, <code>assert</code>, <code>of</code>. Their senses spray mass across subjects</p>
+<p>that have nothing to do with this codebase, which is why the witnesses are printed beside every</p>
+<p>row: a topic carried by one word is one word's opinion, and the table says so.</p>
+<p>The reading worth acting on is the comparison underneath it. A topic written at much the same</p>
+<p>density everywhere contributes almost nothing to a divergence, so the ambiguity that dominates a</p>
+<p>count cancels in a comparison — and each scope's divergence is judged against the field of</p>
+<p>divergences a scope of its own size draws by chance, so a small scope cannot look interesting</p>
+<p>merely by being small.</p>
+<h2>What the whole repository reads as</h2>
+<p>Only the topics that <strong>earned a place</strong>: a topic reaches this table where it makes some part of this repository unlike the rest of it — a scope that departed further than the furthest of a field of chance draws — and where more than one word carries it. A topic held at the same density everywhere distinguishes nothing, and a topic one word holds a majority of is that word's opinion. Both bars follow from the reading; neither is a list.</p>
+<table>
+<tr><th>Topic</th><th>ι</th><th>From names</th><th>References</th><th>Leads</th><th>Lines led</th><th>Share of lines</th><th>Carried by</th></tr>
+<tr><td><code>linguistics</code></td><td>0.0512</td><td>80.8%</td><td>3,803</td><td>139</td><td>11,189</td><td>34.0%</td><td><code>word</code> 1,390 <code>name</code> 623 <code>term</code> 299 <code>parse</code> 133</td></tr>
+<tr><td><code>computing</code></td><td>0.0137</td><td>83.4%</td><td>5,544</td><td>28</td><td>1,853</td><td>5.6%</td><td><code>repository</code> 400 <code>read</code> 748 <code>folder</code> 30 <code>parse</code> 133</td></tr>
+<tr><td><code>grammar</code></td><td>0.0086</td><td>89.9%</td><td>2,134</td><td>17</td><td>1,299</td><td>3.9%</td><td><code>phrase</code> 148 <code>part_of_speech</code> 39 <code>occurrence</code> 161 <code>verb</code> 77</td></tr>
+</table>
+<p>Read over 452 files and 32,927 lines: 463 topics, 2 files no topic could be resolved for, and 34.0% of the repository's lines led by its single strongest topic. <strong>ι is a share of everything the reading observed</strong>, and the topics sum to 24.0% of it; the other 76.0% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. <strong>From names</strong> is how much of a theme the code itself carried rather than its prose.</p>
+<h2>What distinguishes each scope from the repository</h2>
+<p>The two share columns below are shares of the mass a topic was settled on, where ι above is a share of everything that was observed. A comparison is between what each side was placed in: a scope nothing could be read in is not a scope about something else, and counting what went unplaced as part of a divergence would report illegibility as a subject.</p>
+<h3><code>code-semantics-api/src/main/java</code></h3>
+<p><strong>0.1576 bits</strong> from the repository, against a null median of 0.0977 over 999 resamples of the same size — an excess of +0.0599, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>13.0%</td><td><code>telecommunication</code></td><td>0.0002</td><td>0.0422</td><td>under</td><td><code>file</code> 214 <code>entry</code> 182 <code>note</code> 7 <code>argument</code> 9</td></tr>
+<tr><td>7.1%</td><td><code>plants</code></td><td>0.0018</td><td>0.0306</td><td>under</td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>6.9%</td><td><code>publishing</code></td><td>0.0171</td><td>0.0653</td><td>under</td><td><code>publish</code> 274 <code>read</code> 152 <code>write</code> 606 <code>vocabulary</code> 152</td></tr>
+<tr><td>6.4%</td><td><code>physics</code></td><td>0.0665</td><td>0.0190</td><td><strong>over</strong></td><td><code>mass</code> 131 <code>weight</code> 57 <code>length</code> 48 <code>radius</code> 3</td></tr>
+<tr><td>4.8%</td><td><code>time_period</code></td><td>0.0292</td><td>0.0042</td><td><strong>over</strong></td><td><code>span</code> 15 <code>none</code> 5 <code>long</code> 21 <code>even</code> 4</td></tr>
+<tr><td>4.1%</td><td><code>electronics</code></td><td>0.0008</td><td>0.0168</td><td>under</td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>3.4%</td><td><code>lexicography</code></td><td>0.0349</td><td>0.0097</td><td><strong>over</strong></td><td><code>citation</code> 96 <code>sense</code> 311 <code>gloss</code> 2 <code>lemma</code> 76</td></tr>
+<tr><td>2.6%</td><td><code>philosophy</code></td><td>0.0001</td><td>0.0089</td><td>under</td><td><code>describe</code> 36 <code>lemma</code> 76 <code>each</code> 40 <code>explain</code> 13</td></tr>
+</table>
+<h3><code>code-semantics-api/src/test/java</code></h3>
+<p><strong>0.2032 bits</strong> from the repository, against a null median of 0.1578 over 999 resamples of the same size — an excess of +0.0454, and 47 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>8.3%</td><td><code>telecommunication</code></td><td>0.0017</td><td>0.0422</td><td>under</td><td><code>file</code> 214 <code>entry</code> 182 <code>note</code> 7 <code>argument</code> 9</td></tr>
+<tr><td>6.8%</td><td><code>plants</code></td><td>0.0004</td><td>0.0306</td><td>under</td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>6.7%</td><td><code>biology</code></td><td>0.0383</td><td>0.0025</td><td><strong>over</strong></td><td><code>morphology</code> 19 <code>owl</code> 22 <code>person</code> 21 <code>glob</code> 5</td></tr>
+<tr><td>5.5%</td><td><code>publishing</code></td><td>0.0167</td><td>0.0653</td><td>under</td><td><code>publish</code> 274 <code>read</code> 152 <code>write</code> 606 <code>vocabulary</code> 152</td></tr>
+<tr><td>4.7%</td><td><code>politics</code></td><td>0.0552</td><td>0.0138</td><td><strong>over</strong></td><td><code>vote</code> 53 <code>normalisation</code> 19 <code>reading</code> 574 <code>name</code> 708</td></tr>
+<tr><td>4.1%</td><td><code>literature</code></td><td>0.0016</td><td>0.0237</td><td>under</td><td><code>header</code> 76 <code>write</code> 605 <code>text</code> 67 <code>prose</code> 93</td></tr>
+<tr><td>3.7%</td><td><code>linguistics</code></td><td>0.3029</td><td>0.2003</td><td><strong>over</strong></td><td><code>word</code> 1,390 <code>name</code> 623 <code>term</code> 299 <code>parse</code> 133</td></tr>
+<tr><td>3.6%</td><td><code>law</code></td><td>0.0949</td><td>0.0429</td><td><strong>over</strong></td><td><code>file</code> 424 <code>witness</code> 70 <code>summary</code> 52 <code>claim</code> 104</td></tr>
+</table>
+<h3><code>code-semantics-engine/src/main/java</code></h3>
+<p><strong>0.0392 bits</strong> from the repository, against a null median of 0.0166 over 999 resamples of the same size — an excess of +0.0226, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>13.8%</td><td><code>electronics</code></td><td>0.0015</td><td>0.0168</td><td>under</td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>10.6%</td><td><code>chemistry</code></td><td>0.0018</td><td>0.0147</td><td>under</td><td><code>extraction</code> 50 <code>fraction</code> 9 <code>extract</code> 7 <code>test</code> 215</td></tr>
+<tr><td>7.2%</td><td><code>psychology</code></td><td>0.0015</td><td>0.0107</td><td>under</td><td><code>module</code> 71 <code>confidence</code> 20 <code>know</code> 69 <code>test</code> 215</td></tr>
+<tr><td>4.3%</td><td><code>animals</code></td><td>0.0005</td><td>0.0052</td><td>under</td><td><code>nest</code> 28 <code>owl</code> 22 <code>head</code> 13 <code>posterior</code> 6</td></tr>
+<tr><td>3.5%</td><td><code>grammar</code></td><td>0.0490</td><td>0.0316</td><td><strong>over</strong></td><td><code>phrase</code> 148 <code>part_of_speech</code> 39 <code>occurrence</code> 161 <code>verb</code> 77</td></tr>
+<tr><td>3.3%</td><td><code>calculus</code></td><td>0.0133</td><td>0.0053</td><td><strong>over</strong></td><td><code>divergence</code> 129</td></tr>
+<tr><td>2.2%</td><td><code>semantics</code></td><td>0.0121</td><td>0.0057</td><td><strong>over</strong></td><td><code>occurrence</code> 161 <code>reference</code> 161 <code>word</code> 1,419 <code>sense</code> 311</td></tr>
+<tr><td>2.1%</td><td><code>politics</code></td><td>0.0229</td><td>0.0138</td><td><strong>over</strong></td><td><code>vote</code> 53 <code>normalisation</code> 19 <code>reading</code> 574 <code>name</code> 708</td></tr>
+</table>
+<h3><code>code-semantics-engine/src/test/java</code></h3>
+<p><strong>0.0442 bits</strong> from the repository, against a null median of 0.0173 over 999 resamples of the same size — an excess of +0.0270, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>16.3%</td><td><code>electronics</code></td><td>0.0004</td><td>0.0168</td><td>under</td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>13.5%</td><td><code>plants</code></td><td>0.0710</td><td>0.0306</td><td><strong>over</strong></td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>4.8%</td><td><code>animals</code></td><td>0.0002</td><td>0.0052</td><td>under</td><td><code>nest</code> 28 <code>owl</code> 22 <code>head</code> 13 <code>posterior</code> 6</td></tr>
+<tr><td>4.7%</td><td><code>mathematics</code></td><td>0.0266</td><td>0.0471</td><td>under</td><td><code>from</code> 136 <code>function</code> 57 <code>distribution</code> 80 <code>lemma</code> 76</td></tr>
+<tr><td>4.4%</td><td><code>chemistry</code></td><td>0.0047</td><td>0.0147</td><td>under</td><td><code>extraction</code> 50 <code>fraction</code> 9 <code>extract</code> 7 <code>test</code> 215</td></tr>
+<tr><td>3.4%</td><td><code>psychology</code></td><td>0.0033</td><td>0.0107</td><td>under</td><td><code>module</code> 71 <code>confidence</code> 20 <code>know</code> 69 <code>test</code> 215</td></tr>
+<tr><td>3.4%</td><td><code>publishing</code></td><td>0.0906</td><td>0.0653</td><td><strong>over</strong></td><td><code>publish</code> 274 <code>read</code> 152 <code>write</code> 606 <code>vocabulary</code> 152</td></tr>
+<tr><td>3.1%</td><td><code>computer-languages</code></td><td>0.0001</td><td>0.0033</td><td>under</td><td><code>json</code> 6 <code>sparql</code> 1 <code>owl</code> 22 <code>java</code> 57</td></tr>
+</table>
+<h3><code>lexicon-extraction/src/main/java</code></h3>
+<p><strong>0.1834 bits</strong> from the repository, against a null median of 0.0600 over 999 resamples of the same size — an excess of +0.1234, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>8.2%</td><td><code>linguistics</code></td><td>0.0916</td><td>0.2003</td><td>under</td><td><code>word</code> 1,390 <code>name</code> 623 <code>term</code> 299 <code>parse</code> 133</td></tr>
+<tr><td>7.0%</td><td><code>literature</code></td><td>0.0840</td><td>0.0237</td><td><strong>over</strong></td><td><code>header</code> 76 <code>write</code> 605 <code>text</code> 67 <code>prose</code> 93</td></tr>
+<tr><td>7.0%</td><td><code>grammar</code></td><td>0.0012</td><td>0.0316</td><td>under</td><td><code>phrase</code> 148 <code>part_of_speech</code> 39 <code>occurrence</code> 161 <code>verb</code> 77</td></tr>
+<tr><td>6.3%</td><td><code>animals</code></td><td>0.0414</td><td>0.0052</td><td><strong>over</strong></td><td><code>nest</code> 28 <code>owl</code> 22 <code>head</code> 13 <code>posterior</code> 6</td></tr>
+<tr><td>6.0%</td><td><code>plants</code></td><td>0.0019</td><td>0.0306</td><td>under</td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>5.0%</td><td><code>electronics</code></td><td>0.0596</td><td>0.0168</td><td><strong>over</strong></td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>4.5%</td><td><code>computer-languages</code></td><td>0.0283</td><td>0.0033</td><td><strong>over</strong></td><td><code>json</code> 6 <code>sparql</code> 1 <code>owl</code> 22 <code>java</code> 57</td></tr>
+<tr><td>4.0%</td><td><code>physics</code></td><td>0.0009</td><td>0.0190</td><td>under</td><td><code>mass</code> 131 <code>weight</code> 57 <code>length</code> 48 <code>radius</code> 3</td></tr>
+</table>
+<h3><code>lexicon-extraction/src/test/java</code></h3>
+<p><strong>0.2178 bits</strong> from the repository, against a null median of 0.0761 over 999 resamples of the same size — an excess of +0.1417, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>20.8%</td><td><code>chemistry</code></td><td>0.1468</td><td>0.0147</td><td><strong>over</strong></td><td><code>extraction</code> 50 <code>fraction</code> 9 <code>extract</code> 7 <code>test</code> 215</td></tr>
+<tr><td>16.0%</td><td><code>electronics</code></td><td>0.1281</td><td>0.0168</td><td><strong>over</strong></td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>5.4%</td><td><code>linguistics</code></td><td>0.1019</td><td>0.2003</td><td>under</td><td><code>word</code> 1,390 <code>name</code> 623 <code>term</code> 299 <code>parse</code> 133</td></tr>
+<tr><td>3.5%</td><td><code>physics</code></td><td>0.0008</td><td>0.0190</td><td>under</td><td><code>mass</code> 131 <code>weight</code> 57 <code>length</code> 48 <code>radius</code> 3</td></tr>
+<tr><td>2.8%</td><td><code>person</code></td><td>0.0028</td><td>0.0218</td><td>under</td><td><code>reader</code> 121 <code>child</code> 20 <code>host</code> 29 <code>bearer</code> 18</td></tr>
+<tr><td>2.5%</td><td><code>psychology</code></td><td>0.0368</td><td>0.0107</td><td><strong>over</strong></td><td><code>module</code> 71 <code>confidence</code> 20 <code>know</code> 69 <code>test</code> 215</td></tr>
+<tr><td>2.4%</td><td><code>law</code></td><td>0.0146</td><td>0.0429</td><td>under</td><td><code>file</code> 424 <code>witness</code> 70 <code>summary</code> 52 <code>claim</code> 104</td></tr>
+<tr><td>2.3%</td><td><code>grammar</code></td><td>0.0086</td><td>0.0316</td><td>under</td><td><code>phrase</code> 148 <code>part_of_speech</code> 39 <code>occurrence</code> 161 <code>verb</code> 77</td></tr>
+</table>
+<h3><code>lexicon/src/main/java</code></h3>
+<p><strong>0.1945 bits</strong> from the repository, against a null median of 0.1116 over 999 resamples of the same size — an excess of +0.0829, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>7.9%</td><td><code>plants</code></td><td>0.0000</td><td>0.0306</td><td>under</td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>6.6%</td><td><code>publishing</code></td><td>0.0143</td><td>0.0653</td><td>under</td><td><code>publish</code> 274 <code>read</code> 152 <code>write</code> 606 <code>vocabulary</code> 152</td></tr>
+<tr><td>5.2%</td><td><code>mathematics</code></td><td>0.1131</td><td>0.0471</td><td><strong>over</strong></td><td><code>from</code> 136 <code>function</code> 57 <code>distribution</code> 80 <code>lemma</code> 76</td></tr>
+<tr><td>4.8%</td><td><code>person</code></td><td>0.0693</td><td>0.0218</td><td><strong>over</strong></td><td><code>reader</code> 121 <code>child</code> 20 <code>host</code> 29 <code>bearer</code> 18</td></tr>
+<tr><td>4.1%</td><td><code>networking</code></td><td>0.0327</td><td>0.0052</td><td><strong>over</strong></td><td><code>resource</code> 253 <code>preamble</code> 7 <code>request</code> 11 <code>node</code> 66</td></tr>
+<tr><td>4.0%</td><td><code>physics</code></td><td>0.0006</td><td>0.0190</td><td>under</td><td><code>mass</code> 131 <code>weight</code> 57 <code>length</code> 48 <code>radius</code> 3</td></tr>
+<tr><td>3.9%</td><td><code>grammar</code></td><td>0.0793</td><td>0.0316</td><td><strong>over</strong></td><td><code>phrase</code> 148 <code>part_of_speech</code> 39 <code>occurrence</code> 161 <code>verb</code> 77</td></tr>
+<tr><td>3.3%</td><td><code>chemistry</code></td><td>0.0003</td><td>0.0147</td><td>under</td><td><code>extraction</code> 50 <code>fraction</code> 9 <code>extract</code> 7 <code>test</code> 215</td></tr>
+</table>
+<h3><code>lexicon/src/test/java</code></h3>
+<p><strong>0.1507 bits</strong> from the repository, against a null median of 0.1209 over 999 resamples of the same size — an excess of +0.0299, and 58 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>9.6%</td><td><code>plants</code></td><td>0.0002</td><td>0.0306</td><td>under</td><td><code>root</code> 140 <code>tree</code> 166 <code>seed</code> 24 <code>leaf</code> 17</td></tr>
+<tr><td>8.6%</td><td><code>linguistics</code></td><td>0.3387</td><td>0.2003</td><td><strong>over</strong></td><td><code>word</code> 1,390 <code>name</code> 623 <code>term</code> 299 <code>parse</code> 133</td></tr>
+<tr><td>5.8%</td><td><code>lexicography</code></td><td>0.0445</td><td>0.0097</td><td><strong>over</strong></td><td><code>citation</code> 96 <code>sense</code> 311 <code>gloss</code> 2 <code>lemma</code> 76</td></tr>
+<tr><td>5.5%</td><td><code>electronics</code></td><td>0.0000</td><td>0.0168</td><td>under</td><td><code>tsv</code> 38 <code>field</code> 184 <code>headroom</code> 2 <code>bar</code> 97</td></tr>
+<tr><td>2.9%</td><td><code>politics</code></td><td>0.0013</td><td>0.0138</td><td>under</td><td><code>vote</code> 53 <code>normalisation</code> 19 <code>reading</code> 574 <code>name</code> 708</td></tr>
+<tr><td>2.8%</td><td><code>chemistry</code></td><td>0.0018</td><td>0.0147</td><td>under</td><td><code>extraction</code> 50 <code>fraction</code> 9 <code>extract</code> 7 <code>test</code> 215</td></tr>
+<tr><td>2.3%</td><td><code>astrology</code></td><td>0.0000</td><td>0.0071</td><td>under</td><td><code>placement</code> 66 <code>scheme</code> 27 <code>term</code> 305 <code>figure</code> 77</td></tr>
+<tr><td>2.0%</td><td><code>computing</code></td><td>0.0309</td><td>0.0580</td><td>under</td><td><code>repository</code> 400 <code>read</code> 748 <code>folder</code> 30 <code>parse</code> 133</td></tr>
+</table>
+<h3><code>documentation</code></h3>
+<p><strong>0.2490 bits</strong> from the repository, against a null median of 0.3523 over 999 resamples of the same size — an excess of -0.1032, and 960 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<p>Read, compared and resampled in 7.8 s, recorded rather than estimated.</p>
+</div>

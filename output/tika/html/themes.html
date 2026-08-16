@@ -1,0 +1,990 @@
+<title>Themes</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>Themes — tika</h1>
+<p>What this repository's names are about, read through the two bundled resources that assign a word</p>
+<p>to a subject: WordNet Domains, which labels each of a word's senses, and Wiktionary's topic</p>
+<p>vocabulary, which labels the headword. Each word occurrence commits one unit of mass per resource,</p>
+<p>divided among the readings that resource names, so an ambiguous word does not shout.</p>
+<p>A label another label of the same word already implies is not one of those readings. The topic</p>
+<p>vocabulary publishes a closure over its own hierarchy — a word labelled <code>computing</code> arrives</p>
+<p>carrying <code>engineering</code>, <code>mathematics</code>, <code>natural-sciences</code>, <code>physical-sciences</code> and <code>sciences</code></p>
+<p>besides — and the hierarchy that derived them, published by the same extractor, is what folds</p>
+<p>them back into the label they came from. Nothing is excluded and no list is written: where the</p>
+<p>hierarchy is silent, every label the word carries stands.</p>
+<p><strong>Read the ranking below as the weak reading it is.</strong> A topic's intensity over one scope counts</p>
+<p>every occurrence of every word, and the commonest words in Java source are also the most</p>
+<p>ambiguous ones — <code>string</code>, <code>set</code>, <code>map</code>, <code>assert</code>, <code>of</code>. Their senses spray mass across subjects</p>
+<p>that have nothing to do with this codebase, which is why the witnesses are printed beside every</p>
+<p>row: a topic carried by one word is one word's opinion, and the table says so.</p>
+<p>The reading worth acting on is the comparison underneath it. A topic written at much the same</p>
+<p>density everywhere contributes almost nothing to a divergence, so the ambiguity that dominates a</p>
+<p>count cancels in a comparison — and each scope's divergence is judged against the field of</p>
+<p>divergences a scope of its own size draws by chance, so a small scope cannot look interesting</p>
+<p>merely by being small.</p>
+<h2>What the whole repository reads as</h2>
+<p>Only the topics that <strong>earned a place</strong>: a topic reaches this table where it makes some part of this repository unlike the rest of it — a scope that departed further than the furthest of a field of chance draws — and where more than one word carries it. A topic held at the same density everywhere distinguishes nothing, and a topic one word holds a majority of is that word's opinion. Both bars follow from the reading; neither is a list.</p>
+<table>
+<tr><th>Topic</th><th>ι</th><th>From names</th><th>References</th><th>Leads</th><th>Lines led</th><th>Share of lines</th><th>Carried by</th></tr>
+<tr><td><code>computing</code></td><td>0.1113</td><td>80.5%</td><td>71,386</td><td>1,226</td><td>260,157</td><td>68.4%</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td><code>law</code></td><td>0.0295</td><td>36.5%</td><td>38,935</td><td>224</td><td>15,123</td><td>4.0%</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td><code>linguistics</code></td><td>0.0234</td><td>75.8%</td><td>30,288</td><td>170</td><td>26,177</td><td>6.9%</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+</table>
+<p>Read over 2,156 files and 380,237 lines: 552 topics, 0 files no topic could be resolved for, and 68.4% of the repository's lines led by its single strongest topic. <strong>ι is a share of everything the reading observed</strong>, and the topics sum to 31.3% of it; the other 68.7% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. <strong>From names</strong> is how much of a theme the code itself carried rather than its prose.</p>
+<h2>What distinguishes each scope from the repository</h2>
+<p>The two share columns below are shares of the mass a topic was settled on, where ι above is a share of everything that was observed. A comparison is between what each side was placed in: a scope nothing could be read in is not a scope about something else, and counting what went unplaced as part of a divergence would report illegibility as a subject.</p>
+<h3><code>tika-annotation-processor/src/main/java</code></h3>
+<p><strong>0.2750 bits</strong> from the repository, against a null median of 0.2357 over 999 resamples of the same size — an excess of +0.0393, and 240 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-annotation-processor/src/test/java</code></h3>
+<p><strong>0.5560 bits</strong> from the repository, against a null median of 0.3628 over 999 resamples of the same size — an excess of +0.1932, and 134 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-app/src/main/java</code></h3>
+<p><strong>0.1499 bits</strong> from the repository, against a null median of 0.1833 over 999 resamples of the same size — an excess of -0.0334, and 840 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-app/src/test/java</code></h3>
+<p><strong>0.2286 bits</strong> from the repository, against a null median of 0.2070 over 999 resamples of the same size — an excess of +0.0216, and 303 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-bundles/tika-bundle-standard/src/main/java</code></h3>
+<p><strong>0.3320 bits</strong> from the repository, against a null median of 0.3660 over 999 resamples of the same size — an excess of -0.0340, and 652 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-bundles/tika-bundle-standard/src/test/java</code></h3>
+<p><strong>0.3985 bits</strong> from the repository, against a null median of 0.3656 over 999 resamples of the same size — an excess of +0.0329, and 407 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-core/src/main/java</code></h3>
+<p><strong>0.0378 bits</strong> from the repository, against a null median of 0.0076 over 999 resamples of the same size — an excess of +0.0302, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>11.2%</td><td><code>computer-languages</code></td><td>0.0030</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>8.9%</td><td><code>industry</code></td><td>0.0029</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>6.9%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>6.3%</td><td><code>geography</code></td><td>0.0348</td><td>0.0166</td><td><strong>over</strong></td><td><code>apache</code> 6,823 <code>stream</code> 1,670 <code>state</code> 273 <code>java</code> 222</td></tr>
+<tr><td>5.5%</td><td><code>law</code></td><td>0.1476</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>5.0%</td><td><code>linguistics</code></td><td>0.1082</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>4.8%</td><td><code>computer-graphics</code></td><td>0.0153</td><td>0.0053</td><td><strong>over</strong></td><td><code>renderer</code> 54 <code>instance</code> 572 <code>mpeg</code> 48 <code>jpeg</code> 49</td></tr>
+<tr><td>4.5%</td><td><code>computing</code></td><td>0.2673</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+</table>
+<h3><code>tika-core/src/test/java</code></h3>
+<p><strong>0.0612 bits</strong> from the repository, against a null median of 0.0262 over 999 resamples of the same size — an excess of +0.0350, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>12.1%</td><td><code>industry</code></td><td>0.0513</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>11.7%</td><td><code>electrotechnology</code></td><td>0.0464</td><td>0.0130</td><td><strong>over</strong></td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>5.1%</td><td><code>literature</code></td><td>0.0042</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>4.6%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>3.4%</td><td><code>programming</code></td><td>0.0698</td><td>0.0441</td><td><strong>over</strong></td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.3%</td><td><code>grammar</code></td><td>0.0012</td><td>0.0081</td><td>under</td><td><code>num</code> 476 <code>clause</code> 33 <code>modify</code> 123 <code>number</code> 737</td></tr>
+<tr><td>3.1%</td><td><code>metrology</code></td><td>0.0004</td><td>0.0054</td><td>under</td><td><code>array</code> 804 <code>entropy</code> 90 <code>rate</code> 140 <code>measurement</code> 13</td></tr>
+<tr><td>2.7%</td><td><code>computing</code></td><td>0.2680</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+</table>
+<h3><code>tika-detectors/tika-detector-magika/src/main/java</code></h3>
+<p><strong>0.2934 bits</strong> from the repository, against a null median of 0.3647 over 999 resamples of the same size — an excess of -0.0714, and 809 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-detectors/tika-detector-magika/src/test/java</code></h3>
+<p><strong>0.2842 bits</strong> from the repository, against a null median of 0.2798 over 999 resamples of the same size — an excess of +0.0044, and 470 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-detectors/tika-detector-siegfried/src/main/java</code></h3>
+<p><strong>0.3418 bits</strong> from the repository, against a null median of 0.3657 over 999 resamples of the same size — an excess of -0.0239, and 605 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-detectors/tika-detector-siegfried/src/test/java</code></h3>
+<p><strong>0.2752 bits</strong> from the repository, against a null median of 0.2789 over 999 resamples of the same size — an excess of -0.0037, and 521 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-e2e-tests/tika-grpc/src/test/java</code></h3>
+<p><strong>0.2330 bits</strong> from the repository, against a null median of 0.2026 over 999 resamples of the same size — an excess of +0.0303, and 249 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-e2e-tests/tika-server/src/test/java</code></h3>
+<p><strong>0.4540 bits</strong> from the repository, against a null median of 0.2792 over 999 resamples of the same size — an excess of +0.1748, and 37 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-html/src/main/java</code></h3>
+<p><strong>0.1451 bits</strong> from the repository, against a null median of 0.1314 over 999 resamples of the same size — an excess of +0.0137, and 275 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-html/src/test/java</code></h3>
+<p><strong>0.2465 bits</strong> from the repository, against a null median of 0.2814 over 999 resamples of the same size — an excess of -0.0348, and 723 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-icu4j/src/main/java</code></h3>
+<p><strong>0.1562 bits</strong> from the repository, against a null median of 0.1299 over 999 resamples of the same size — an excess of +0.0263, and 181 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-icu4j/src/test/java</code></h3>
+<p><strong>0.4427 bits</strong> from the repository, against a null median of 0.3594 over 999 resamples of the same size — an excess of +0.0833, and 279 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-mojibuster/src/main/java</code></h3>
+<p><strong>0.1391 bits</strong> from the repository, against a null median of 0.1031 over 999 resamples of the same size — an excess of +0.0359, and 53 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java</code></h3>
+<p><strong>0.1381 bits</strong> from the repository, against a null median of 0.0876 over 999 resamples of the same size — an excess of +0.0505, and 7 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-encoding-detectors/tika-encoding-detector-universal/src/main/java</code></h3>
+<p><strong>0.2531 bits</strong> from the repository, against a null median of 0.2761 over 999 resamples of the same size — an excess of -0.0230, and 667 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-eval/tika-eval-app/src/main/java</code></h3>
+<p><strong>0.1439 bits</strong> from the repository, against a null median of 0.0576 over 999 resamples of the same size — an excess of +0.0863, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>12.5%</td><td><code>publishing</code></td><td>0.0777</td><td>0.0136</td><td><strong>over</strong></td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>8.5%</td><td><code>computing</code></td><td>0.1891</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>6.3%</td><td><code>arithmetic</code></td><td>0.0264</td><td>0.0020</td><td><strong>over</strong></td><td><code>extract</code> 1,065 <code>integer</code> 148 <code>position</code> 250 <code>subtract</code> 15</td></tr>
+<tr><td>4.5%</td><td><code>theatre</code></td><td>0.0225</td><td>0.0027</td><td><strong>over</strong></td><td><code>mime</code> 595 <code>script</code> 825 <code>jackson</code> 72 <code>extra</code> 17</td></tr>
+<tr><td>4.4%</td><td><code>geology</code></td><td>0.0171</td><td>0.0009</td><td><strong>over</strong></td><td><code>col</code> 69 <code>delta</code> 36 <code>julian</code> 5 <code>sheet</code> 149</td></tr>
+<tr><td>3.7%</td><td><code>electrotechnology</code></td><td>0.0005</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.5%</td><td><code>transport</code></td><td>0.0164</td><td>0.0016</td><td><strong>over</strong></td><td><code>container</code> 470 <code>train</code> 201 <code>driver</code> 18 <code>direction</code> 35</td></tr>
+<tr><td>3.4%</td><td><code>databases</code></td><td>0.0176</td><td>0.0022</td><td><strong>over</strong></td><td><code>entity</code> 298 <code>jdbc</code> 42 <code>select</code> 69 <code>sql</code> 38</td></tr>
+</table>
+<h3><code>tika-eval/tika-eval-app/src/test/java</code></h3>
+<p><strong>0.1726 bits</strong> from the repository, against a null median of 0.1233 over 999 resamples of the same size — an excess of +0.0493, and 37 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-eval/tika-eval-core/src/main/java</code></h3>
+<p><strong>0.1626 bits</strong> from the repository, against a null median of 0.0525 over 999 resamples of the same size — an excess of +0.1101, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>21.4%</td><td><code>mathematics</code></td><td>0.1398</td><td>0.0217</td><td><strong>over</strong></td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>5.2%</td><td><code>computer-languages</code></td><td>0.0001</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>4.8%</td><td><code>video-games</code></td><td>0.0299</td><td>0.0042</td><td><strong>over</strong></td><td><code>stats</code> 50 <code>meta</code> 187 <code>item</code> 318 <code>row</code> 314</td></tr>
+<tr><td>4.7%</td><td><code>telecommunication</code></td><td>0.0011</td><td>0.0205</td><td>under</td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>3.2%</td><td><code>electronics</code></td><td>0.0003</td><td>0.0120</td><td>under</td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>3.2%</td><td><code>tennis</code></td><td>0.0348</td><td>0.0102</td><td><strong>over</strong></td><td><code>get</code> 4,191 <code>return</code> 1,431 <code>server</code> 670 <code>single</code> 447</td></tr>
+<tr><td>3.2%</td><td><code>computing</code></td><td>0.2315</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>3.0%</td><td><code>law</code></td><td>0.1704</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+</table>
+<h3><code>tika-eval/tika-eval-core/src/test/java</code></h3>
+<p><strong>0.1543 bits</strong> from the repository, against a null median of 0.1516 over 999 resamples of the same size — an excess of +0.0027, and 447 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-example/src/main/java</code></h3>
+<p><strong>0.1215 bits</strong> from the repository, against a null median of 0.0504 over 999 resamples of the same size — an excess of +0.0710, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>21.2%</td><td><code>telecommunication</code></td><td>0.1138</td><td>0.0205</td><td><strong>over</strong></td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>7.3%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>4.5%</td><td><code>industry</code></td><td>0.0010</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.1%</td><td><code>electrotechnology</code></td><td>0.0395</td><td>0.0130</td><td><strong>over</strong></td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>2.8%</td><td><code>mathematics</code></td><td>0.0061</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>2.5%</td><td><code>buildings</code></td><td>0.0003</td><td>0.0077</td><td>under</td><td><code>log</code> 484 <code>window</code> 349 <code>tear_down</code> 48 <code>machine</code> 38</td></tr>
+<tr><td>2.4%</td><td><code>programming</code></td><td>0.0751</td><td>0.0441</td><td><strong>over</strong></td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>2.2%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+</table>
+<h3><code>tika-example/src/test/java</code></h3>
+<p><strong>0.2276 bits</strong> from the repository, against a null median of 0.1218 over 999 resamples of the same size — an excess of +0.1058, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>9.7%</td><td><code>computing</code></td><td>0.1517</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>8.0%</td><td><code>law</code></td><td>0.2406</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>7.9%</td><td><code>chemistry</code></td><td>0.0672</td><td>0.0092</td><td><strong>over</strong></td><td><code>buffer</code> 420 <code>builder</code> 189 <code>type</code> 3,463 <code>max</code> 1,148</td></tr>
+<tr><td>7.6%</td><td><code>telecommunication</code></td><td>0.0905</td><td>0.0205</td><td><strong>over</strong></td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>5.7%</td><td><code>programming</code></td><td>0.0049</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>5.3%</td><td><code>buildings</code></td><td>0.0489</td><td>0.0077</td><td><strong>over</strong></td><td><code>log</code> 484 <code>window</code> 349 <code>tear_down</code> 48 <code>machine</code> 38</td></tr>
+<tr><td>4.4%</td><td><code>industry</code></td><td>0.0593</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.3%</td><td><code>video-games</code></td><td>0.0293</td><td>0.0042</td><td><strong>over</strong></td><td><code>stats</code> 50 <code>meta</code> 187 <code>item</code> 318 <code>row</code> 314</td></tr>
+</table>
+<h3><code>tika-grpc/src/main/java</code></h3>
+<p><strong>0.2413 bits</strong> from the repository, against a null median of 0.2324 over 999 resamples of the same size — an excess of +0.0089, and 424 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-grpc/src/test/java</code></h3>
+<p><strong>0.3179 bits</strong> from the repository, against a null median of 0.2026 over 999 resamples of the same size — an excess of +0.1153, and 24 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-handlers/tika-handler-boilerpipe/src/main/java</code></h3>
+<p><strong>0.3831 bits</strong> from the repository, against a null median of 0.3695 over 999 resamples of the same size — an excess of +0.0136, and 447 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-pipes-es-integration-tests/src/test/java</code></h3>
+<p><strong>0.2677 bits</strong> from the repository, against a null median of 0.2834 over 999 resamples of the same size — an excess of -0.0157, and 615 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-pipes-kafka-integration-tests/src/test/java</code></h3>
+<p><strong>0.3772 bits</strong> from the repository, against a null median of 0.3605 over 999 resamples of the same size — an excess of +0.0167, and 427 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-pipes-opensearch-integration-tests/src/test/java</code></h3>
+<p><strong>0.2590 bits</strong> from the repository, against a null median of 0.2778 over 999 resamples of the same size — an excess of -0.0187, and 646 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-pipes-s3-integration-tests/src/test/java</code></h3>
+<p><strong>0.3780 bits</strong> from the repository, against a null median of 0.2827 over 999 resamples of the same size — an excess of +0.0953, and 148 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-pipes-solr-integration-tests/src/test/java</code></h3>
+<p><strong>0.4431 bits</strong> from the repository, against a null median of 0.1814 over 999 resamples of the same size — an excess of +0.2617, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>21.9%</td><td><code>hydraulics</code></td><td>0.2266</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>17.7%</td><td><code>christianity</code></td><td>0.1756</td><td>0.0029</td><td><strong>over</strong></td><td><code>use</code> 4,071 <code>see</code> 4,839 <code>kind</code> 2,190 <code>element</code> 1,056</td></tr>
+<tr><td>15.0%</td><td><code>computing</code></td><td>0.0651</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>8.2%</td><td><code>law</code></td><td>0.3097</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>4.6%</td><td><code>programming</code></td><td>0.0004</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>2.3%</td><td><code>mathematics</code></td><td>0.0001</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>2.0%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>1.9%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+</table>
+<h3><code>tika-integration-tests/tika-resource-loading-tests/src/test/java</code></h3>
+<p><strong>0.2308 bits</strong> from the repository, against a null median of 0.2779 over 999 resamples of the same size — an excess of -0.0471, and 795 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-integration-tests/tika-woodstox-tests/src/test/java</code></h3>
+<p><strong>0.4837 bits</strong> from the repository, against a null median of 0.3625 over 999 resamples of the same size — an excess of +0.1211, and 229 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-java7/src/main/java</code></h3>
+<p><strong>0.5137 bits</strong> from the repository, against a null median of 0.2780 over 999 resamples of the same size — an excess of +0.2357, and 8 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-java7/src/test/java</code></h3>
+<p><strong>0.4244 bits</strong> from the repository, against a null median of 0.3656 over 999 resamples of the same size — an excess of +0.0589, and 321 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-charsoup-core/src/main/java</code></h3>
+<p><strong>0.3296 bits</strong> from the repository, against a null median of 0.1402 over 999 resamples of the same size — an excess of +0.1894, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>13.9%</td><td><code>mathematics</code></td><td>0.1668</td><td>0.0217</td><td><strong>over</strong></td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>8.1%</td><td><code>computing</code></td><td>0.1386</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>8.0%</td><td><code>law</code></td><td>0.0178</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>5.3%</td><td><code>linguistics</code></td><td>0.1887</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>4.9%</td><td><code>arithmetic</code></td><td>0.0419</td><td>0.0020</td><td><strong>over</strong></td><td><code>extract</code> 1,065 <code>integer</code> 148 <code>position</code> 250 <code>subtract</code> 15</td></tr>
+<tr><td>4.8%</td><td><code>rail-transport</code></td><td>0.0398</td><td>0.0015</td><td><strong>over</strong></td><td><code>pre</code> 37 <code>exc</code> 16 <code>helper</code> 126 <code>uni</code> 56</td></tr>
+<tr><td>4.8%</td><td><code>art</code></td><td>0.0391</td><td>0.0015</td><td><strong>over</strong></td><td><code>flag</code> 263 <code>artist</code> 29 <code>write</code> 844 <code>key</code> 1,630</td></tr>
+<tr><td>4.7%</td><td><code>programming</code></td><td>0.0030</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+</table>
+<h3><code>tika-langdetect/tika-langdetect-charsoup/src/main/java</code></h3>
+<p><strong>0.2397 bits</strong> from the repository, against a null median of 0.2325 over 999 resamples of the same size — an excess of +0.0072, and 446 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-charsoup/src/test/java</code></h3>
+<p><strong>0.1901 bits</strong> from the repository, against a null median of 0.0532 over 999 resamples of the same size — an excess of +0.1369, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>20.4%</td><td><code>computing</code></td><td>0.1095</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>7.9%</td><td><code>telecommunications</code></td><td>0.0377</td><td>0.0015</td><td><strong>over</strong></td><td><code>ext</code> 104 <code>csd</code> 3 <code>read</code> 1,016 <code>prefix</code> 605</td></tr>
+<tr><td>4.7%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>4.6%</td><td><code>linguistics</code></td><td>0.1510</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>4.2%</td><td><code>law</code></td><td>0.0506</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>2.8%</td><td><code>mathematics</code></td><td>0.0545</td><td>0.0217</td><td><strong>over</strong></td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>2.2%</td><td><code>programming</code></td><td>0.0179</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>2.1%</td><td><code>computer_science</code></td><td>0.0051</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+</table>
+<h3><code>tika-langdetect/tika-langdetect-lingo24/src/main/java</code></h3>
+<p><strong>0.3223 bits</strong> from the repository, against a null median of 0.3656 over 999 resamples of the same size — an excess of -0.0433, and 689 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-lingo24/src/test/java</code></h3>
+<p><strong>0.6242 bits</strong> from the repository, against a null median of 0.3660 over 999 resamples of the same size — an excess of +0.2582, and 59 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-mitll-text/src/main/java</code></h3>
+<p><strong>0.5149 bits</strong> from the repository, against a null median of 0.3583 over 999 resamples of the same size — an excess of +0.1567, and 154 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-mitll-text/src/test/java</code></h3>
+<p><strong>0.6274 bits</strong> from the repository, against a null median of 0.3594 over 999 resamples of the same size — an excess of +0.2681, and 46 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-opennlp/src/main/java</code></h3>
+<p><strong>0.2579 bits</strong> from the repository, against a null median of 0.2351 over 999 resamples of the same size — an excess of +0.0228, and 334 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-opennlp/src/test/java</code></h3>
+<p><strong>0.5762 bits</strong> from the repository, against a null median of 0.3603 over 999 resamples of the same size — an excess of +0.2159, and 87 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-optimaize/src/main/java</code></h3>
+<p><strong>0.2864 bits</strong> from the repository, against a null median of 0.2829 over 999 resamples of the same size — an excess of +0.0034, and 471 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-optimaize/src/test/java</code></h3>
+<p><strong>0.5988 bits</strong> from the repository, against a null median of 0.3594 over 999 resamples of the same size — an excess of +0.2395, and 69 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-langdetect/tika-langdetect-test-commons/src/main/java</code></h3>
+<p><strong>0.4644 bits</strong> from the repository, against a null median of 0.3588 over 999 resamples of the same size — an excess of +0.1057, and 257 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-metadata-schema/src/main/java</code></h3>
+<p><strong>0.2866 bits</strong> from the repository, against a null median of 0.2359 over 999 resamples of the same size — an excess of +0.0507, and 197 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-metadata-schema/src/test/java</code></h3>
+<p><strong>0.2883 bits</strong> from the repository, against a null median of 0.1379 over 999 resamples of the same size — an excess of +0.1504, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>9.3%</td><td><code>networking</code></td><td>0.0857</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>8.3%</td><td><code>number</code></td><td>0.0606</td><td>0.0025</td><td><strong>over</strong></td><td><code>value</code> 1,848 <code>nothing</code> 125 <code>digit</code> 83 <code>first</code> 89</td></tr>
+<tr><td>7.3%</td><td><code>computing</code></td><td>0.1547</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>5.9%</td><td><code>linguistics</code></td><td>0.0142</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>4.5%</td><td><code>law</code></td><td>0.2167</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>3.5%</td><td><code>computer_science</code></td><td>0.0002</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>3.4%</td><td><code>publishing</code></td><td>0.0555</td><td>0.0136</td><td><strong>over</strong></td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>3.1%</td><td><code>basketball</code></td><td>0.0192</td><td>0.0002</td><td><strong>over</strong></td><td><code>key</code> 1,630 <code>three</code> 63 <code>four</code> 59 <code>drain</code> 34</td></tr>
+</table>
+<h3><code>tika-ml/tika-ml-chardetect/src/main/java</code></h3>
+<p><strong>0.2293 bits</strong> from the repository, against a null median of 0.1629 over 999 resamples of the same size — an excess of +0.0664, and 38 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-chardetect/src/test/java</code></h3>
+<p><strong>0.5402 bits</strong> from the repository, against a null median of 0.3606 over 999 resamples of the same size — an excess of +0.1796, and 145 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-core/src/main/java</code></h3>
+<p><strong>0.4300 bits</strong> from the repository, against a null median of 0.2403 over 999 resamples of the same size — an excess of +0.1898, and 9 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-core/src/test/java</code></h3>
+<p><strong>0.5523 bits</strong> from the repository, against a null median of 0.3673 over 999 resamples of the same size — an excess of +0.1850, and 122 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-junkdetect-tools/src/main/java</code></h3>
+<p><strong>0.1966 bits</strong> from the repository, against a null median of 0.1502 over 999 resamples of the same size — an excess of +0.0464, and 76 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-junkdetect-tools/src/test/java</code></h3>
+<p><strong>0.2089 bits</strong> from the repository, against a null median of 0.2035 over 999 resamples of the same size — an excess of +0.0054, and 442 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-junkdetect/src/main/java</code></h3>
+<p><strong>0.1994 bits</strong> from the repository, against a null median of 0.1644 over 999 resamples of the same size — an excess of +0.0350, and 150 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-ml/tika-ml-junkdetect/src/test/java</code></h3>
+<p><strong>0.2073 bits</strong> from the repository, against a null median of 0.1396 over 999 resamples of the same size — an excess of +0.0678, and 22 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-http-jdk/src/main/java</code></h3>
+<p><strong>0.3729 bits</strong> from the repository, against a null median of 0.3695 over 999 resamples of the same size — an excess of +0.0034, and 485 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-http-jdk/src/test/java</code></h3>
+<p><strong>0.3751 bits</strong> from the repository, against a null median of 0.2834 over 999 resamples of the same size — an excess of +0.0917, and 131 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-ocr-encode-module/src/main/java</code></h3>
+<p><strong>0.2478 bits</strong> from the repository, against a null median of 0.2782 over 999 resamples of the same size — an excess of -0.0304, and 713 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-ocr-encode-module/src/test/java</code></h3>
+<p><strong>0.3250 bits</strong> from the repository, against a null median of 0.2818 over 999 resamples of the same size — an excess of +0.0433, and 277 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/main/java</code></h3>
+<p><strong>0.1536 bits</strong> from the repository, against a null median of 0.1304 over 999 resamples of the same size — an excess of +0.0233, and 188 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/java</code></h3>
+<p><strong>0.2063 bits</strong> from the repository, against a null median of 0.1546 over 999 resamples of the same size — an excess of +0.0517, and 65 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-scientific-package/src/test/java</code></h3>
+<p><strong>0.4793 bits</strong> from the repository, against a null median of 0.3697 over 999 resamples of the same size — an excess of +0.1097, and 268 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-sqlite3-module/src/main/java</code></h3>
+<p><strong>0.2039 bits</strong> from the repository, against a null median of 0.1650 over 999 resamples of the same size — an excess of +0.0389, and 139 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parser-sqlite3-module/src/test/java</code></h3>
+<p><strong>0.2826 bits</strong> from the repository, against a null median of 0.3659 over 999 resamples of the same size — an excess of -0.0832, and 851 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-extended/tika-parsers-extended-integration-tests/src/test/java</code></h3>
+<p><strong>0.2087 bits</strong> from the repository, against a null median of 0.2341 over 999 resamples of the same size — an excess of -0.0254, and 720 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-inference/src/main/java</code></h3>
+<p><strong>0.1638 bits</strong> from the repository, against a null median of 0.0942 over 999 resamples of the same size — an excess of +0.0696, and 2 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>11.2%</td><td><code>linguistics</code></td><td>0.0129</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>9.9%</td><td><code>travel-industry</code></td><td>0.0348</td><td>0.0003</td><td><strong>over</strong></td><td><code>locator</code> 61 <code>osi</code> 3 <code>pseudo</code> 8 <code>fit</code> 29</td></tr>
+<tr><td>6.2%</td><td><code>publishing</code></td><td>0.0563</td><td>0.0136</td><td><strong>over</strong></td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>5.1%</td><td><code>tennis</code></td><td>0.0445</td><td>0.0102</td><td><strong>over</strong></td><td><code>get</code> 4,191 <code>return</code> 1,431 <code>server</code> 670 <code>single</code> 447</td></tr>
+<tr><td>4.7%</td><td><code>buildings</code></td><td>0.0372</td><td>0.0077</td><td><strong>over</strong></td><td><code>log</code> 484 <code>window</code> 349 <code>tear_down</code> 48 <code>machine</code> 38</td></tr>
+<tr><td>4.5%</td><td><code>industry</code></td><td>0.0001</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.0%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.4%</td><td><code>programming</code></td><td>0.0146</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-ml/tika-inference/src/test/java</code></h3>
+<p><strong>0.2552 bits</strong> from the repository, against a null median of 0.1641 over 999 resamples of the same size — an excess of +0.0911, and 15 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java</code></h3>
+<p><strong>0.1156 bits</strong> from the repository, against a null median of 0.0688 over 999 resamples of the same size — an excess of +0.0468, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>8.0%</td><td><code>linguistics</code></td><td>0.1532</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>7.0%</td><td><code>law</code></td><td>0.0502</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>6.1%</td><td><code>astronomy</code></td><td>0.0202</td><td>0.0014</td><td><strong>over</strong></td><td><code>latitude</code> 24 <code>longitude</code> 23 <code>egress</code> 27 <code>alt</code> 70</td></tr>
+<tr><td>5.6%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>4.6%</td><td><code>politics</code></td><td>0.0167</td><td>0.0015</td><td><strong>over</strong></td><td><code>pas</code> 173 <code>country</code> 47 <code>zip</code> 625 <code>jackson</code> 72</td></tr>
+<tr><td>4.5%</td><td><code>industry</code></td><td>0.0012</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.9%</td><td><code>electronics</code></td><td>0.0007</td><td>0.0120</td><td>under</td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>3.1%</td><td><code>science-fiction</code></td><td>0.0101</td><td>0.0007</td><td><strong>over</strong></td><td><code>entity</code> 298 <code>tesseract</code> 170 <code>inner</code> 49 <code>cred</code> 17</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/test/java</code></h3>
+<p><strong>0.1779 bits</strong> from the repository, against a null median of 0.1655 over 999 resamples of the same size — an excess of +0.0124, and 334 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-parser-tess4j-module/src/main/java</code></h3>
+<p><strong>0.2773 bits</strong> from the repository, against a null median of 0.2782 over 999 resamples of the same size — an excess of -0.0009, and 506 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-parser-tess4j-module/src/test/java</code></h3>
+<p><strong>0.2185 bits</strong> from the repository, against a null median of 0.2057 over 999 resamples of the same size — an excess of +0.0129, and 381 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-transcribe-aws/src/main/java</code></h3>
+<p><strong>0.2388 bits</strong> from the repository, against a null median of 0.2741 over 999 resamples of the same size — an excess of -0.0353, and 742 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-transcribe-aws/src/test/java</code></h3>
+<p><strong>0.6628 bits</strong> from the repository, against a null median of 0.3702 over 999 resamples of the same size — an excess of +0.2927, and 28 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-vlm/src/main/java</code></h3>
+<p><strong>0.1838 bits</strong> from the repository, against a null median of 0.1652 over 999 resamples of the same size — an excess of +0.0186, and 282 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-ml/tika-vlm/src/test/java</code></h3>
+<p><strong>0.2995 bits</strong> from the repository, against a null median of 0.1814 over 999 resamples of the same size — an excess of +0.1181, and 14 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java</code></h3>
+<p><strong>0.0946 bits</strong> from the repository, against a null median of 0.0287 over 999 resamples of the same size — an excess of +0.0659, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>13.0%</td><td><code>computing</code></td><td>0.4851</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>7.9%</td><td><code>mathematics</code></td><td>0.0016</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>6.6%</td><td><code>electrotechnology</code></td><td>0.0435</td><td>0.0130</td><td><strong>over</strong></td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>4.5%</td><td><code>industry</code></td><td>0.0406</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.7%</td><td><code>linguistics</code></td><td>0.0432</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>3.5%</td><td><code>tennis</code></td><td>0.0009</td><td>0.0102</td><td>under</td><td><code>get</code> 4,191 <code>return</code> 1,431 <code>server</code> 670 <code>single</code> 447</td></tr>
+<tr><td>2.9%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>2.6%</td><td><code>grammar</code></td><td>0.0008</td><td>0.0081</td><td>under</td><td><code>num</code> 476 <code>clause</code> 33 <code>modify</code> 123 <code>number</code> 737</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/main/java</code></h3>
+<p><strong>0.1426 bits</strong> from the repository, against a null median of 0.1153 over 999 resamples of the same size — an excess of +0.0273, and 123 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/java</code></h3>
+<p><strong>0.1938 bits</strong> from the repository, against a null median of 0.1674 over 999 resamples of the same size — an excess of +0.0264, and 206 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/main/java</code></h3>
+<p><strong>0.1317 bits</strong> from the repository, against a null median of 0.0547 over 999 resamples of the same size — an excess of +0.0770, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>11.8%</td><td><code>music</code></td><td>0.0516</td><td>0.0055</td><td><strong>over</strong></td><td><code>ti</code> 1,145 <code>version</code> 2,955 <code>label</code> 356 <code>album</code> 30</td></tr>
+<tr><td>8.1%</td><td><code>tennis</code></td><td>0.0509</td><td>0.0102</td><td><strong>over</strong></td><td><code>get</code> 4,191 <code>return</code> 1,431 <code>server</code> 670 <code>single</code> 447</td></tr>
+<tr><td>6.8%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>5.6%</td><td><code>computer-graphics</code></td><td>0.0315</td><td>0.0053</td><td><strong>over</strong></td><td><code>renderer</code> 54 <code>instance</code> 572 <code>mpeg</code> 48 <code>jpeg</code> 49</td></tr>
+<tr><td>4.9%</td><td><code>art</code></td><td>0.0193</td><td>0.0015</td><td><strong>over</strong></td><td><code>flag</code> 263 <code>artist</code> 29 <code>write</code> 844 <code>key</code> 1,630</td></tr>
+<tr><td>4.8%</td><td><code>programming</code></td><td>0.0927</td><td>0.0441</td><td><strong>over</strong></td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.6%</td><td><code>law</code></td><td>0.0619</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>3.0%</td><td><code>industry</code></td><td>0.0022</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java</code></h3>
+<p><strong>0.1583 bits</strong> from the repository, against a null median of 0.0944 over 999 resamples of the same size — an excess of +0.0639, and 1 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>9.5%</td><td><code>linguistics</code></td><td>0.0170</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>7.6%</td><td><code>computing</code></td><td>0.4833</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>6.4%</td><td><code>industry</code></td><td>0.0598</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.4%</td><td><code>telecommunication</code></td><td>0.0016</td><td>0.0205</td><td>under</td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>4.2%</td><td><code>medicine</code></td><td>0.0005</td><td>0.0160</td><td>under</td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>4.0%</td><td><code>computer-languages</code></td><td>0.0013</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>3.5%</td><td><code>person</code></td><td>0.0010</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>3.0%</td><td><code>art</code></td><td>0.0152</td><td>0.0015</td><td><strong>over</strong></td><td><code>flag</code> 263 <code>artist</code> 29 <code>write</code> 844 <code>key</code> 1,630</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/main/java</code></h3>
+<p><strong>0.1629 bits</strong> from the repository, against a null median of 0.1412 over 999 resamples of the same size — an excess of +0.0217, and 223 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/java</code></h3>
+<p><strong>0.2711 bits</strong> from the repository, against a null median of 0.2040 over 999 resamples of the same size — an excess of +0.0671, and 91 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/main/java</code></h3>
+<p><strong>0.1375 bits</strong> from the repository, against a null median of 0.1529 over 999 resamples of the same size — an excess of -0.0153, and 723 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/java</code></h3>
+<p><strong>0.2642 bits</strong> from the repository, against a null median of 0.1632 over 999 resamples of the same size — an excess of +0.1009, and 9 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-crypto-module/src/main/java</code></h3>
+<p><strong>0.2079 bits</strong> from the repository, against a null median of 0.2022 over 999 resamples of the same size — an excess of +0.0057, and 441 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-crypto-module/src/test/java</code></h3>
+<p><strong>0.2618 bits</strong> from the repository, against a null median of 0.1830 over 999 resamples of the same size — an excess of +0.0788, and 41 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-datauri-commons/src/main/java</code></h3>
+<p><strong>0.2583 bits</strong> from the repository, against a null median of 0.2313 over 999 resamples of the same size — an excess of +0.0270, and 318 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-datauri-commons/src/test/java</code></h3>
+<p><strong>0.5961 bits</strong> from the repository, against a null median of 0.3649 over 999 resamples of the same size — an excess of +0.2312, and 72 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-digest-commons/src/main/java</code></h3>
+<p><strong>0.4602 bits</strong> from the repository, against a null median of 0.2009 over 999 resamples of the same size — an excess of +0.2594, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>17.8%</td><td><code>mathematics</code></td><td>0.2516</td><td>0.0217</td><td><strong>over</strong></td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>15.5%</td><td><code>publishing</code></td><td>0.2021</td><td>0.0136</td><td><strong>over</strong></td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>9.8%</td><td><code>engineering</code></td><td>0.1009</td><td>0.0017</td><td><strong>over</strong></td><td><code>datum</code> 1,929 <code>encoder</code> 16 <code>generator</code> 42 <code>mill</code> 359</td></tr>
+<tr><td>6.2%</td><td><code>computing</code></td><td>0.1330</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>4.1%</td><td><code>linguistics</code></td><td>0.0121</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>3.2%</td><td><code>computer_science</code></td><td>0.0865</td><td>0.0219</td><td><strong>over</strong></td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>2.9%</td><td><code>buildings</code></td><td>0.0519</td><td>0.0077</td><td><strong>over</strong></td><td><code>log</code> 484 <code>window</code> 349 <code>tear_down</code> 48 <code>machine</code> 38</td></tr>
+<tr><td>2.4%</td><td><code>law</code></td><td>0.0422</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/main/java</code></h3>
+<p><strong>0.2231 bits</strong> from the repository, against a null median of 0.2769 over 999 resamples of the same size — an excess of -0.0537, and 851 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/test/java</code></h3>
+<p><strong>0.2907 bits</strong> from the repository, against a null median of 0.3605 over 999 resamples of the same size — an excess of -0.0699, and 800 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/main/java</code></h3>
+<p><strong>0.2492 bits</strong> from the repository, against a null median of 0.1649 over 999 resamples of the same size — an excess of +0.0843, and 26 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/java</code></h3>
+<p><strong>0.1769 bits</strong> from the repository, against a null median of 0.2784 over 999 resamples of the same size — an excess of -0.1015, and 982 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java</code></h3>
+<p><strong>0.1207 bits</strong> from the repository, against a null median of 0.0892 over 999 resamples of the same size — an excess of +0.0315, and 46 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java</code></h3>
+<p><strong>0.2353 bits</strong> from the repository, against a null median of 0.1105 over 999 resamples of the same size — an excess of +0.1248, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>20.5%</td><td><code>computing</code></td><td>0.6815</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>14.8%</td><td><code>linguistics</code></td><td>0.0011</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>3.8%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>3.8%</td><td><code>programming</code></td><td>0.0093</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.5%</td><td><code>mathematics</code></td><td>0.0010</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>2.8%</td><td><code>law</code></td><td>0.0551</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>2.8%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>2.5%</td><td><code>person</code></td><td>0.0008</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-jdbc-commons/src/main/java</code></h3>
+<p><strong>0.2606 bits</strong> from the repository, against a null median of 0.2775 over 999 resamples of the same size — an excess of -0.0169, and 609 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-commons/src/main/java</code></h3>
+<p><strong>0.2378 bits</strong> from the repository, against a null median of 0.2801 over 999 resamples of the same size — an excess of -0.0423, and 786 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-commons/src/test/java</code></h3>
+<p><strong>0.2598 bits</strong> from the repository, against a null median of 0.2747 over 999 resamples of the same size — an excess of -0.0149, and 607 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/main/java</code></h3>
+<p><strong>0.1690 bits</strong> from the repository, against a null median of 0.2338 over 999 resamples of the same size — an excess of -0.0648, and 957 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/java</code></h3>
+<p><strong>0.2780 bits</strong> from the repository, against a null median of 0.2772 over 999 resamples of the same size — an excess of +0.0007, and 497 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java</code></h3>
+<p><strong>0.0617 bits</strong> from the repository, against a null median of 0.0083 over 999 resamples of the same size — an excess of +0.0533, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>12.6%</td><td><code>computer-languages</code></td><td>0.0004</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>10.0%</td><td><code>electrotechnology</code></td><td>0.0001</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>6.2%</td><td><code>computer_science</code></td><td>0.0489</td><td>0.0219</td><td><strong>over</strong></td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>5.7%</td><td><code>electronics</code></td><td>0.0014</td><td>0.0120</td><td>under</td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>4.6%</td><td><code>industry</code></td><td>0.0036</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.5%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>4.4%</td><td><code>metrology</code></td><td>0.0184</td><td>0.0054</td><td><strong>over</strong></td><td><code>array</code> 804 <code>entropy</code> 90 <code>rate</code> 140 <code>measurement</code> 13</td></tr>
+<tr><td>3.6%</td><td><code>mathematics</code></td><td>0.0411</td><td>0.0217</td><td><strong>over</strong></td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java</code></h3>
+<p><strong>0.1248 bits</strong> from the repository, against a null median of 0.0383 over 999 resamples of the same size — an excess of +0.0865, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>13.7%</td><td><code>industry</code></td><td>0.0794</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>8.6%</td><td><code>aviation</code></td><td>0.0364</td><td>0.0040</td><td><strong>over</strong></td><td><code>rtf</code> 105 <code>max</code> 1,148 <code>threshold</code> 186 <code>fis</code> 5</td></tr>
+<tr><td>5.7%</td><td><code>linguistics</code></td><td>0.0313</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>5.5%</td><td><code>literature</code></td><td>0.0532</td><td>0.0174</td><td><strong>over</strong></td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>4.0%</td><td><code>medicine</code></td><td>0.0016</td><td>0.0160</td><td>under</td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>3.7%</td><td><code>person</code></td><td>0.0016</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>3.6%</td><td><code>law</code></td><td>0.0633</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>3.3%</td><td><code>computing</code></td><td>0.4118</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/main/java</code></h3>
+<p><strong>0.0883 bits</strong> from the repository, against a null median of 0.0472 over 999 resamples of the same size — an excess of +0.0411, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>12.6%</td><td><code>law</code></td><td>0.0420</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>6.5%</td><td><code>computer-languages</code></td><td>0.0016</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>6.5%</td><td><code>linguistics</code></td><td>0.1345</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>5.1%</td><td><code>arithmetic</code></td><td>0.0160</td><td>0.0020</td><td><strong>over</strong></td><td><code>extract</code> 1,065 <code>integer</code> 148 <code>position</code> 250 <code>subtract</code> 15</td></tr>
+<tr><td>5.0%</td><td><code>programming</code></td><td>0.0835</td><td>0.0441</td><td><strong>over</strong></td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>4.1%</td><td><code>electrotechnology</code></td><td>0.0017</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.8%</td><td><code>medicine</code></td><td>0.0381</td><td>0.0160</td><td><strong>over</strong></td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>3.2%</td><td><code>metrology</code></td><td>0.0189</td><td>0.0054</td><td><strong>over</strong></td><td><code>array</code> 804 <code>entropy</code> 90 <code>rate</code> 140 <code>measurement</code> 13</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/java</code></h3>
+<p><strong>0.2103 bits</strong> from the repository, against a null median of 0.1090 over 999 resamples of the same size — an excess of +0.1012, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>19.9%</td><td><code>computer-languages</code></td><td>0.1479</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>8.6%</td><td><code>linguistics</code></td><td>0.0131</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>8.4%</td><td><code>industry</code></td><td>0.0809</td><td>0.0154</td><td><strong>over</strong></td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.5%</td><td><code>telecommunication</code></td><td>0.0002</td><td>0.0205</td><td>under</td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>4.3%</td><td><code>algebra</code></td><td>0.0423</td><td>0.0083</td><td><strong>over</strong></td><td><code>content</code> 2,501 <code>unknown</code> 275 <code>normalizer</code> 16 <code>index</code> 910</td></tr>
+<tr><td>3.7%</td><td><code>gastronomy</code></td><td>0.0234</td><td>0.0020</td><td><strong>over</strong></td><td><code>swallow</code> 191 <code>hash</code> 185 <code>fork</code> 174 <code>consume</code> 75</td></tr>
+<tr><td>3.1%</td><td><code>mathematics</code></td><td>0.0023</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>3.1%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-news-module/src/main/java</code></h3>
+<p><strong>0.1863 bits</strong> from the repository, against a null median of 0.2767 over 999 resamples of the same size — an excess of -0.0904, and 983 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-news-module/src/test/java</code></h3>
+<p><strong>0.2898 bits</strong> from the repository, against a null median of 0.3680 over 999 resamples of the same size — an excess of -0.0782, and 815 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/src/main/java</code></h3>
+<p><strong>0.1830 bits</strong> from the repository, against a null median of 0.1812 over 999 resamples of the same size — an excess of +0.0017, and 482 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/src/test/java</code></h3>
+<p><strong>0.2963 bits</strong> from the repository, against a null median of 0.2857 over 999 resamples of the same size — an excess of +0.0105, and 431 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java</code></h3>
+<p><strong>0.1366 bits</strong> from the repository, against a null median of 0.0673 over 999 resamples of the same size — an excess of +0.0693, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>15.6%</td><td><code>publishing</code></td><td>0.0862</td><td>0.0136</td><td><strong>over</strong></td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>8.5%</td><td><code>computer-graphics</code></td><td>0.0421</td><td>0.0053</td><td><strong>over</strong></td><td><code>renderer</code> 54 <code>instance</code> 572 <code>mpeg</code> 48 <code>jpeg</code> 49</td></tr>
+<tr><td>6.5%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>4.8%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>4.4%</td><td><code>motor-racing</code></td><td>0.0137</td><td>0.0003</td><td><strong>over</strong></td><td><code>dpi</code> 23 <code>observer</code> 22 <code>intermediate</code> 84 <code>place</code> 122</td></tr>
+<tr><td>4.3%</td><td><code>telecommunication</code></td><td>0.0025</td><td>0.0205</td><td>under</td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>4.0%</td><td><code>furniture</code></td><td>0.0142</td><td>0.0006</td><td><strong>over</strong></td><td><code>counter</code> 74 <code>drawer</code> 12 <code>phone</code> 29 <code>settle</code> 1</td></tr>
+<tr><td>2.5%</td><td><code>information-science</code></td><td>0.0106</td><td>0.0009</td><td><strong>over</strong></td><td><code>document</code> 1,456 <code>align</code> 54 <code>controlled_vocabulary</code> 14 <code>keyword</code> 7</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java</code></h3>
+<p><strong>0.2131 bits</strong> from the repository, against a null median of 0.1534 over 999 resamples of the same size — an excess of +0.0598, and 46 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/main/java</code></h3>
+<p><strong>0.1649 bits</strong> from the repository, against a null median of 0.1224 over 999 resamples of the same size — an excess of +0.0425, and 50 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/java</code></h3>
+<p><strong>0.1458 bits</strong> from the repository, against a null median of 0.0952 over 999 resamples of the same size — an excess of +0.0507, and 7 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-text-module/src/main/java</code></h3>
+<p><strong>0.1502 bits</strong> from the repository, against a null median of 0.1146 over 999 resamples of the same size — an excess of +0.0356, and 67 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-text-module/src/test/java</code></h3>
+<p><strong>0.2081 bits</strong> from the repository, against a null median of 0.1499 over 999 resamples of the same size — an excess of +0.0582, and 55 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-webarchive-module/src/main/java</code></h3>
+<p><strong>0.2315 bits</strong> from the repository, against a null median of 0.2326 over 999 resamples of the same size — an excess of -0.0011, and 507 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-webarchive-module/src/test/java</code></h3>
+<p><strong>0.3134 bits</strong> from the repository, against a null median of 0.2369 over 999 resamples of the same size — an excess of +0.0765, and 114 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java</code></h3>
+<p><strong>0.2139 bits</strong> from the repository, against a null median of 0.0952 over 999 resamples of the same size — an excess of +0.1187, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>18.9%</td><td><code>medicine</code></td><td>0.1390</td><td>0.0160</td><td><strong>over</strong></td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>10.7%</td><td><code>law</code></td><td>0.0218</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>5.3%</td><td><code>programming</code></td><td>0.1131</td><td>0.0441</td><td><strong>over</strong></td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>4.5%</td><td><code>computing</code></td><td>0.4638</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>3.7%</td><td><code>linguistics</code></td><td>0.1462</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>3.4%</td><td><code>person</code></td><td>0.0001</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>3.2%</td><td><code>industry</code></td><td>0.0003</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.0%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/test/java</code></h3>
+<p><strong>0.2420 bits</strong> from the repository, against a null median of 0.1500 over 999 resamples of the same size — an excess of +0.0920, and 7 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/main/java</code></h3>
+<p><strong>0.2089 bits</strong> from the repository, against a null median of 0.1844 over 999 resamples of the same size — an excess of +0.0245, and 255 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/java</code></h3>
+<p><strong>0.3662 bits</strong> from the repository, against a null median of 0.2362 over 999 resamples of the same size — an excess of +0.1300, and 40 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java</code></h3>
+<p><strong>0.1702 bits</strong> from the repository, against a null median of 0.0907 over 999 resamples of the same size — an excess of +0.0796, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>16.9%</td><td><code>linguistics</code></td><td>0.2298</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>7.4%</td><td><code>furniture</code></td><td>0.0289</td><td>0.0006</td><td><strong>over</strong></td><td><code>counter</code> 74 <code>drawer</code> 12 <code>phone</code> 29 <code>settle</code> 1</td></tr>
+<tr><td>5.3%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>5.1%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>4.3%</td><td><code>computer_science</code></td><td>0.0017</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>4.3%</td><td><code>telecommunication</code></td><td>0.0601</td><td>0.0205</td><td><strong>over</strong></td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>3.6%</td><td><code>industry</code></td><td>0.0006</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.6%</td><td><code>person</code></td><td>0.0006</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+</table>
+<h3><code>tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/test/java</code></h3>
+<p><strong>0.3247 bits</strong> from the repository, against a null median of 0.2771 over 999 resamples of the same size — an excess of +0.0476, and 260 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-async-cli/src/main/java</code></h3>
+<p><strong>0.1645 bits</strong> from the repository, against a null median of 0.1806 over 999 resamples of the same size — an excess of -0.0161, and 699 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-async-cli/src/test/java</code></h3>
+<p><strong>0.2478 bits</strong> from the repository, against a null median of 0.2050 over 999 resamples of the same size — an excess of +0.0428, and 174 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-httpclient-commons/src/main/java</code></h3>
+<p><strong>0.3738 bits</strong> from the repository, against a null median of 0.2358 over 999 resamples of the same size — an excess of +0.1380, and 31 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-api/src/main/java</code></h3>
+<p><strong>0.2049 bits</strong> from the repository, against a null median of 0.0734 over 999 resamples of the same size — an excess of +0.1314, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>14.7%</td><td><code>law</code></td><td>0.2875</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>11.6%</td><td><code>biology</code></td><td>0.0613</td><td>0.0028</td><td><strong>over</strong></td><td><code>emit</code> 883 <code>bos</code> 67 <code>reporter</code> 105 <code>model</code> 711</td></tr>
+<tr><td>5.3%</td><td><code>electronics</code></td><td>0.0553</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>4.4%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>4.2%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>3.2%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.1%</td><td><code>publishing</code></td><td>0.0002</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>3.0%</td><td><code>computing</code></td><td>0.2233</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-config-store-ignite/src/main/java</code></h3>
+<p><strong>0.2800 bits</strong> from the repository, against a null median of 0.1822 over 999 resamples of the same size — an excess of +0.0978, and 18 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-config-store-ignite/src/test/java</code></h3>
+<p><strong>0.4507 bits</strong> from the repository, against a null median of 0.3625 over 999 resamples of the same size — an excess of +0.0882, and 290 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-core/src/main/java</code></h3>
+<p><strong>0.0843 bits</strong> from the repository, against a null median of 0.0298 over 999 resamples of the same size — an excess of +0.0545, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>10.8%</td><td><code>electronics</code></td><td>0.0502</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>8.9%</td><td><code>biology</code></td><td>0.0253</td><td>0.0028</td><td><strong>over</strong></td><td><code>emit</code> 883 <code>bos</code> 67 <code>reporter</code> 105 <code>model</code> 711</td></tr>
+<tr><td>8.2%</td><td><code>hydraulics</code></td><td>0.0307</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>6.2%</td><td><code>linguistics</code></td><td>0.0367</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>5.2%</td><td><code>publishing</code></td><td>0.0012</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>4.4%</td><td><code>industry</code></td><td>0.0025</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.4%</td><td><code>medicine</code></td><td>0.0039</td><td>0.0160</td><td>under</td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>3.0%</td><td><code>electrotechnology</code></td><td>0.0029</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-core/src/test/java</code></h3>
+<p><strong>0.1353 bits</strong> from the repository, against a null median of 0.0955 over 999 resamples of the same size — an excess of +0.0398, and 21 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-fork-parser/src/main/java</code></h3>
+<p><strong>0.1926 bits</strong> from the repository, against a null median of 0.2036 over 999 resamples of the same size — an excess of -0.0111, and 608 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-fork-parser/src/test/java</code></h3>
+<p><strong>0.3545 bits</strong> from the repository, against a null median of 0.3656 over 999 resamples of the same size — an excess of -0.0111, and 545 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-integration-tests/src/test/java</code></h3>
+<p><strong>0.1285 bits</strong> from the repository, against a null median of 0.0713 over 999 resamples of the same size — an excess of +0.0572, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>21.2%</td><td><code>hydraulics</code></td><td>0.0787</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>7.0%</td><td><code>computing</code></td><td>0.4590</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>6.1%</td><td><code>literature</code></td><td>0.0002</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>4.5%</td><td><code>publishing</code></td><td>0.0004</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>2.8%</td><td><code>computer_science</code></td><td>0.0058</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>2.6%</td><td><code>grammar</code></td><td>0.0002</td><td>0.0081</td><td>under</td><td><code>num</code> 476 <code>clause</code> 33 <code>modify</code> 123 <code>number</code> 737</td></tr>
+<tr><td>2.5%</td><td><code>person</code></td><td>0.0032</td><td>0.0154</td><td>under</td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>2.2%</td><td><code>geography</code></td><td>0.0042</td><td>0.0166</td><td>under</td><td><code>apache</code> 6,823 <code>stream</code> 1,670 <code>state</code> 273 <code>java</code> 222</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-iterator-commons/src/main/java</code></h3>
+<p><strong>0.4239 bits</strong> from the repository, against a null median of 0.2822 over 999 resamples of the same size — an excess of +0.1416, and 69 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/main/java</code></h3>
+<p><strong>0.1668 bits</strong> from the repository, against a null median of 0.1650 over 999 resamples of the same size — an excess of +0.0018, and 473 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/test/java</code></h3>
+<p><strong>0.3728 bits</strong> from the repository, against a null median of 0.3651 over 999 resamples of the same size — an excess of +0.0077, and 461 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/main/java</code></h3>
+<p><strong>0.2075 bits</strong> from the repository, against a null median of 0.1229 over 999 resamples of the same size — an excess of +0.0846, and 4 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>10.3%</td><td><code>time_period</code></td><td>0.0761</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>8.7%</td><td><code>electronics</code></td><td>0.0741</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>6.6%</td><td><code>military</code></td><td>0.0542</td><td>0.0081</td><td><strong>over</strong></td><td><code>column</code> 259 <code>predict</code> 119 <code>password</code> 187 <code>base</code> 806</td></tr>
+<tr><td>5.0%</td><td><code>hydraulics</code></td><td>0.0393</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>4.2%</td><td><code>graphical-user-interface</code></td><td>0.0214</td><td>0.0007</td><td><strong>over</strong></td><td><code>container</code> 470 <code>label</code> 356 <code>widget</code> 11 <code>chooser</code> 2</td></tr>
+<tr><td>3.6%</td><td><code>transport</code></td><td>0.0217</td><td>0.0016</td><td><strong>over</strong></td><td><code>container</code> 470 <code>train</code> 201 <code>driver</code> 18 <code>direction</code> 35</td></tr>
+<tr><td>3.1%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.1%</td><td><code>industry</code></td><td>0.0004</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/test/java</code></h3>
+<p><strong>0.2858 bits</strong> from the repository, against a null median of 0.2044 over 999 resamples of the same size — an excess of +0.0814, and 63 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-csv/src/main/java</code></h3>
+<p><strong>0.2361 bits</strong> from the repository, against a null median of 0.2041 over 999 resamples of the same size — an excess of +0.0320, and 248 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-csv/src/test/java</code></h3>
+<p><strong>0.2139 bits</strong> from the repository, against a null median of 0.2822 over 999 resamples of the same size — an excess of -0.0683, and 901 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-es/src/main/java</code></h3>
+<p><strong>0.1773 bits</strong> from the repository, against a null median of 0.1215 over 999 resamples of the same size — an excess of +0.0558, and 23 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-es/src/test/java</code></h3>
+<p><strong>0.3776 bits</strong> from the repository, against a null median of 0.2839 over 999 resamples of the same size — an excess of +0.0937, and 146 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java</code></h3>
+<p><strong>0.1743 bits</strong> from the repository, against a null median of 0.0952 over 999 resamples of the same size — an excess of +0.0792, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>8.3%</td><td><code>time_period</code></td><td>0.0593</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>7.7%</td><td><code>electronics</code></td><td>0.0620</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>6.0%</td><td><code>computer-languages</code></td><td>0.0659</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>5.9%</td><td><code>computer_science</code></td><td>0.0002</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>3.7%</td><td><code>hydraulics</code></td><td>0.0297</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>3.7%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.2%</td><td><code>publishing</code></td><td>0.0004</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>3.1%</td><td><code>sociology</code></td><td>0.0186</td><td>0.0021</td><td><strong>over</strong></td><td><code>status</code> 293 <code>priority</code> 33 <code>class</code> 1,453 <code>common</code> 248</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/test/java</code></h3>
+<p><strong>0.2187 bits</strong> from the repository, against a null median of 0.1523 over 999 resamples of the same size — an excess of +0.0663, and 37 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/main/java</code></h3>
+<p><strong>0.2247 bits</strong> from the repository, against a null median of 0.1231 over 999 resamples of the same size — an excess of +0.1016, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>10.4%</td><td><code>electronics</code></td><td>0.0874</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>9.7%</td><td><code>time_period</code></td><td>0.0775</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>8.8%</td><td><code>mechanics</code></td><td>0.0500</td><td>0.0021</td><td><strong>over</strong></td><td><code>bucket</code> 379 <code>override</code> 147 <code>throttle</code> 23 <code>restart</code> 103</td></tr>
+<tr><td>5.0%</td><td><code>hydraulics</code></td><td>0.0418</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>3.8%</td><td><code>computer-hardware</code></td><td>0.0184</td><td>0.0002</td><td><strong>over</strong></td><td><code>storage</code> 140 <code>cpu</code> 31 <code>ram</code> 99 <code>device</code> 11</td></tr>
+<tr><td>2.9%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>2.9%</td><td><code>publishing</code></td><td>0.0001</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>2.6%</td><td><code>person</code></td><td>0.0466</td><td>0.0154</td><td><strong>over</strong></td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/test/java</code></h3>
+<p><strong>0.2278 bits</strong> from the repository, against a null median of 0.2049 over 999 resamples of the same size — an excess of +0.0229, and 291 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-google-drive/src/main/java</code></h3>
+<p><strong>0.2107 bits</strong> from the repository, against a null median of 0.2040 over 999 resamples of the same size — an excess of +0.0067, and 447 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-google-drive/src/test/java</code></h3>
+<p><strong>0.3482 bits</strong> from the repository, against a null median of 0.3612 over 999 resamples of the same size — an excess of -0.0129, and 552 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-http/src/main/java</code></h3>
+<p><strong>0.2852 bits</strong> from the repository, against a null median of 0.1302 over 999 resamples of the same size — an excess of +0.1549, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>19.2%</td><td><code>exchange</code></td><td>0.1150</td><td>0.0007</td><td><strong>over</strong></td><td><code>issuer</code> 17 <code>stock</code> 22 <code>option</code> 129 <code>warranty</code> 2,148</td></tr>
+<tr><td>14.5%</td><td><code>cryptography</code></td><td>0.1011</td><td>0.0034</td><td><strong>over</strong></td><td><code>encrypt</code> 97 <code>password</code> 186 <code>private_key</code> 25 <code>md5</code> 21</td></tr>
+<tr><td>8.8%</td><td><code>networking</code></td><td>0.0817</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>5.7%</td><td><code>programming</code></td><td>0.0025</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>4.5%</td><td><code>literature</code></td><td>0.0713</td><td>0.0174</td><td><strong>over</strong></td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>2.4%</td><td><code>industry</code></td><td>0.0003</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>2.3%</td><td><code>publishing</code></td><td>0.0001</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>2.3%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-http/src/test/java</code></h3>
+<p><strong>0.2795 bits</strong> from the repository, against a null median of 0.2067 over 999 resamples of the same size — an excess of +0.0728, and 64 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/main/java</code></h3>
+<p><strong>0.1862 bits</strong> from the repository, against a null median of 0.1210 over 999 resamples of the same size — an excess of +0.0652, and 9 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/test/java</code></h3>
+<p><strong>0.2307 bits</strong> from the repository, against a null median of 0.2038 over 999 resamples of the same size — an excess of +0.0269, and 263 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-json/src/main/java</code></h3>
+<p><strong>0.2904 bits</strong> from the repository, against a null median of 0.2038 over 999 resamples of the same size — an excess of +0.0866, and 50 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-json/src/test/java</code></h3>
+<p><strong>0.2955 bits</strong> from the repository, against a null median of 0.2781 over 999 resamples of the same size — an excess of +0.0174, and 405 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/main/java</code></h3>
+<p><strong>0.1843 bits</strong> from the repository, against a null median of 0.1535 over 999 resamples of the same size — an excess of +0.0308, and 174 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/test/java</code></h3>
+<p><strong>0.3078 bits</strong> from the repository, against a null median of 0.2788 over 999 resamples of the same size — an excess of +0.0290, and 336 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-microsoft-graph/src/main/java</code></h3>
+<p><strong>0.2749 bits</strong> from the repository, against a null median of 0.1402 over 999 resamples of the same size — an excess of +0.1347, and 1 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>25.1%</td><td><code>law</code></td><td>0.4155</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>4.9%</td><td><code>mechanics</code></td><td>0.0366</td><td>0.0021</td><td><strong>over</strong></td><td><code>bucket</code> 379 <code>override</code> 147 <code>throttle</code> 23 <code>restart</code> 103</td></tr>
+<tr><td>3.9%</td><td><code>mathematics</code></td><td>0.0000</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>3.7%</td><td><code>programming</code></td><td>0.0078</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.5%</td><td><code>town_planning</code></td><td>0.0218</td><td>0.0004</td><td><strong>over</strong></td><td><code>store</code> 443 <code>current</code> 74 <code>archive</code> 76 <code>tenant</code> 18</td></tr>
+<tr><td>3.2%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>2.8%</td><td><code>computing</code></td><td>0.2130</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>2.5%</td><td><code>publishing</code></td><td>0.0000</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-microsoft-graph/src/test/java</code></h3>
+<p><strong>0.2674 bits</strong> from the repository, against a null median of 0.2790 over 999 resamples of the same size — an excess of -0.0116, and 555 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/main/java</code></h3>
+<p><strong>0.2092 bits</strong> from the repository, against a null median of 0.1034 over 999 resamples of the same size — an excess of +0.1058, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>14.3%</td><td><code>computer-languages</code></td><td>0.1187</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>9.7%</td><td><code>person</code></td><td>0.0881</td><td>0.0154</td><td><strong>over</strong></td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>5.7%</td><td><code>sociology</code></td><td>0.0332</td><td>0.0021</td><td><strong>over</strong></td><td><code>status</code> 293 <code>priority</code> 33 <code>class</code> 1,453 <code>common</code> 248</td></tr>
+<tr><td>5.2%</td><td><code>plants</code></td><td>0.0406</td><td>0.0056</td><td><strong>over</strong></td><td><code>root</code> 458 <code>log</code> 484 <code>stub</code> 81 <code>complete</code> 142</td></tr>
+<tr><td>3.1%</td><td><code>networking</code></td><td>0.0353</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>3.1%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.0%</td><td><code>publishing</code></td><td>0.0002</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>2.8%</td><td><code>time_period</code></td><td>0.0357</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/test/java</code></h3>
+<p><strong>0.3823 bits</strong> from the repository, against a null median of 0.2798 over 999 resamples of the same size — an excess of +0.1025, and 118 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/main/java</code></h3>
+<p><strong>0.1780 bits</strong> from the repository, against a null median of 0.1221 over 999 resamples of the same size — an excess of +0.0559, and 31 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/test/java</code></h3>
+<p><strong>0.2561 bits</strong> from the repository, against a null median of 0.2329 over 999 resamples of the same size — an excess of +0.0232, and 338 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/main/java</code></h3>
+<p><strong>0.2386 bits</strong> from the repository, against a null median of 0.1415 over 999 resamples of the same size — an excess of +0.0972, and 5 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>15.6%</td><td><code>electronics</code></td><td>0.1206</td><td>0.0120</td><td><strong>over</strong></td><td><code>emitter</code> 562 <code>ti</code> 1,145 <code>input</code> 1,031 <code>tsv</code> 13</td></tr>
+<tr><td>13.0%</td><td><code>person</code></td><td>0.1150</td><td>0.0154</td><td><strong>over</strong></td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>6.7%</td><td><code>computing</code></td><td>0.1727</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>4.8%</td><td><code>hydraulics</code></td><td>0.0422</td><td>0.0056</td><td><strong>over</strong></td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>4.0%</td><td><code>time_period</code></td><td>0.0464</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>3.8%</td><td><code>telecommunication</code></td><td>0.0004</td><td>0.0205</td><td>under</td><td><code>file</code> 3,477 <code>entry</code> 811 <code>medium</code> 440 <code>record</code> 161</td></tr>
+<tr><td>3.6%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>2.7%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/test/java</code></h3>
+<p><strong>0.2314 bits</strong> from the repository, against a null median of 0.2344 over 999 resamples of the same size — an excess of -0.0029, and 529 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-pipes/tika-pipes-reporter-commons/src/main/java</code></h3>
+<p><strong>0.5286 bits</strong> from the repository, against a null median of 0.3613 over 999 resamples of the same size — an excess of +0.1674, and 175 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-plugins-core/src/main/java</code></h3>
+<p><strong>0.2670 bits</strong> from the repository, against a null median of 0.1515 over 999 resamples of the same size — an excess of +0.1155, and 4 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>36.4%</td><td><code>time_period</code></td><td>0.2431</td><td>0.0095</td><td><strong>over</strong></td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>5.7%</td><td><code>plants</code></td><td>0.0511</td><td>0.0056</td><td><strong>over</strong></td><td><code>root</code> 458 <code>log</code> 484 <code>stub</code> 81 <code>complete</code> 142</td></tr>
+<tr><td>4.3%</td><td><code>computer-languages</code></td><td>0.0689</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>3.8%</td><td><code>computer_science</code></td><td>0.0002</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>3.2%</td><td><code>literature</code></td><td>0.0000</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>2.7%</td><td><code>software</code></td><td>0.0247</td><td>0.0028</td><td><strong>over</strong></td><td><code>shift_jis</code> 59 <code>pdf</code> 153 <code>excel</code> 98 <code>factory_class</code> 20</td></tr>
+<tr><td>2.4%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>2.4%</td><td><code>mathematics</code></td><td>0.0025</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+</table>
+<h3><code>tika-plugins-core/src/test/java</code></h3>
+<p><strong>0.2777 bits</strong> from the repository, against a null median of 0.2328 over 999 resamples of the same size — an excess of +0.0449, and 216 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-serialization/src/main/java</code></h3>
+<p><strong>0.1200 bits</strong> from the repository, against a null median of 0.0535 over 999 resamples of the same size — an excess of +0.0665, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>18.0%</td><td><code>graph-theory</code></td><td>0.0519</td><td>0.0016</td><td><strong>over</strong></td><td><code>component</code> 599 <code>node</code> 598 <code>size</code> 784 <code>path</code> 1,674</td></tr>
+<tr><td>4.8%</td><td><code>industry</code></td><td>0.0008</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>4.3%</td><td><code>psychology</code></td><td>0.0183</td><td>0.0023</td><td><strong>over</strong></td><td><code>confidence</code> 226 <code>module</code> 100 <code>self</code> 50 <code>test</code> 5,626</td></tr>
+<tr><td>4.2%</td><td><code>computer-languages</code></td><td>0.0475</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>3.9%</td><td><code>electrotechnology</code></td><td>0.0384</td><td>0.0130</td><td><strong>over</strong></td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>3.4%</td><td><code>medicine</code></td><td>0.0023</td><td>0.0160</td><td>under</td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>2.8%</td><td><code>time_period</code></td><td>0.0007</td><td>0.0095</td><td>under</td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>2.7%</td><td><code>linguistics</code></td><td>0.1190</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+</table>
+<h3><code>tika-serialization/src/test/java</code></h3>
+<p><strong>0.1091 bits</strong> from the repository, against a null median of 0.0524 over 999 resamples of the same size — an excess of +0.0567, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>16.5%</td><td><code>computer-languages</code></td><td>0.0874</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>6.2%</td><td><code>computing</code></td><td>0.4392</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>5.7%</td><td><code>publishing</code></td><td>0.0002</td><td>0.0136</td><td>under</td><td><code>table</code> 860 <code>page</code> 554 <code>text</code> 2,092 <code>read</code> 277</td></tr>
+<tr><td>3.6%</td><td><code>time_period</code></td><td>0.0003</td><td>0.0095</td><td>under</td><td><code>extension</code> 478 <code>future</code> 90 <code>current</code> 269 <code>duration</code> 76</td></tr>
+<tr><td>2.5%</td><td><code>hydraulics</code></td><td>0.0000</td><td>0.0056</td><td>under</td><td><code>pipe</code> 1,028 <code>module</code> 100 <code>accumulator</code> 9</td></tr>
+<tr><td>2.5%</td><td><code>networking</code></td><td>0.0007</td><td>0.0082</td><td>under</td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>2.3%</td><td><code>grammar</code></td><td>0.0008</td><td>0.0081</td><td>under</td><td><code>num</code> 476 <code>clause</code> 33 <code>modify</code> 123 <code>number</code> 737</td></tr>
+<tr><td>2.3%</td><td><code>algebra</code></td><td>0.0009</td><td>0.0083</td><td>under</td><td><code>content</code> 2,501 <code>unknown</code> 275 <code>normalizer</code> 16 <code>index</code> 910</td></tr>
+</table>
+<h3><code>tika-server/tika-server-core/src/main/java</code></h3>
+<p><strong>0.1339 bits</strong> from the repository, against a null median of 0.0453 over 999 resamples of the same size — an excess of +0.0886, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>16.0%</td><td><code>networking</code></td><td>0.0732</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>7.8%</td><td><code>literature</code></td><td>0.0645</td><td>0.0174</td><td><strong>over</strong></td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>7.5%</td><td><code>commerce</code></td><td>0.0336</td><td>0.0036</td><td><strong>over</strong></td><td><code>server</code> 670 <code>packet</code> 73 <code>quote</code> 66 <code>package</code> 206</td></tr>
+<tr><td>5.0%</td><td><code>law</code></td><td>0.1821</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>4.3%</td><td><code>computer-languages</code></td><td>0.0016</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>3.5%</td><td><code>programming</code></td><td>0.0167</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.4%</td><td><code>industry</code></td><td>0.0016</td><td>0.0154</td><td>under</td><td><code>test</code> 3,756 <code>extractor</code> 394 <code>string</code> 130 <code>factory</code> 525</td></tr>
+<tr><td>3.1%</td><td><code>mathematics</code></td><td>0.0048</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+</table>
+<h3><code>tika-server/tika-server-core/src/test/java</code></h3>
+<p><strong>0.1170 bits</strong> from the repository, against a null median of 0.0631 over 999 resamples of the same size — an excess of +0.0539, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>14.4%</td><td><code>networking</code></td><td>0.0621</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>7.9%</td><td><code>linguistics</code></td><td>0.0266</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>5.5%</td><td><code>anatomy</code></td><td>0.0254</td><td>0.0038</td><td><strong>over</strong></td><td><code>body</code> 409 <code>socket</code> 144 <code>iter</code> 11 <code>colon</code> 23</td></tr>
+<tr><td>5.5%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+<tr><td>5.3%</td><td><code>law</code></td><td>0.1790</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>4.9%</td><td><code>programming</code></td><td>0.0144</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.6%</td><td><code>commerce</code></td><td>0.0191</td><td>0.0036</td><td><strong>over</strong></td><td><code>server</code> 670 <code>packet</code> 73 <code>quote</code> 66 <code>package</code> 206</td></tr>
+<tr><td>2.8%</td><td><code>grammar</code></td><td>0.0003</td><td>0.0081</td><td>under</td><td><code>num</code> 476 <code>clause</code> 33 <code>modify</code> 123 <code>number</code> 737</td></tr>
+</table>
+<h3><code>tika-server/tika-server-standard/src/main/java</code></h3>
+<p><strong>0.2817 bits</strong> from the repository, against a null median of 0.2735 over 999 resamples of the same size — an excess of +0.0082, and 450 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-server/tika-server-standard/src/test/java</code></h3>
+<p><strong>0.1852 bits</strong> from the repository, against a null median of 0.0909 over 999 resamples of the same size — an excess of +0.0943, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>14.3%</td><td><code>person</code></td><td>0.1036</td><td>0.0154</td><td><strong>over</strong></td><td><code>reader</code> 376 <code>child</code> 294 <code>mapper</code> 309 <code>logger</code> 39</td></tr>
+<tr><td>10.5%</td><td><code>networking</code></td><td>0.0685</td><td>0.0082</td><td><strong>over</strong></td><td><code>resource</code> 733 <code>http</code> 2,683 <code>request</code> 695 <code>mime</code> 596</td></tr>
+<tr><td>7.4%</td><td><code>programming</code></td><td>0.0044</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>6.9%</td><td><code>computer-languages</code></td><td>0.0728</td><td>0.0180</td><td><strong>over</strong></td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>5.1%</td><td><code>mathematics</code></td><td>0.0005</td><td>0.0217</td><td>under</td><td><code>count</code> 925 <code>value</code> 1,869 <code>from</code> 292 <code>rel</code> 66</td></tr>
+<tr><td>4.2%</td><td><code>linguistics</code></td><td>0.0299</td><td>0.0770</td><td>under</td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>2.8%</td><td><code>law</code></td><td>0.0602</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>2.3%</td><td><code>computing</code></td><td>0.4128</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+</table>
+<h3><code>tika-translate/src/main/java</code></h3>
+<p><strong>0.1536 bits</strong> from the repository, against a null median of 0.1148 over 999 resamples of the same size — an excess of +0.0388, and 62 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>tika-translate/src/test/java</code></h3>
+<p><strong>0.3106 bits</strong> from the repository, against a null median of 0.1301 over 999 resamples of the same size — an excess of +0.1804, and 0 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>14.1%</td><td><code>botany</code></td><td>0.0957</td><td>0.0012</td><td><strong>over</strong></td><td><code>translator</code> 126 <code>test</code> 5,626 <code>key</code> 1,630 <code>offset</code> 444</td></tr>
+<tr><td>13.9%</td><td><code>software</code></td><td>0.1020</td><td>0.0028</td><td><strong>over</strong></td><td><code>shift_jis</code> 59 <code>pdf</code> 153 <code>excel</code> 98 <code>factory_class</code> 20</td></tr>
+<tr><td>12.4%</td><td><code>linguistics</code></td><td>0.2626</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>6.7%</td><td><code>programming</code></td><td>0.0003</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>3.2%</td><td><code>computer_science</code></td><td>0.0003</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+<tr><td>3.1%</td><td><code>computing</code></td><td>0.2021</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>2.9%</td><td><code>computer-languages</code></td><td>0.0000</td><td>0.0180</td><td>under</td><td><code>json</code> 834 <code>xml</code> 418 <code>sql</code> 38 <code>java</code> 222</td></tr>
+<tr><td>2.5%</td><td><code>medicine</code></td><td>0.0000</td><td>0.0160</td><td>under</td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+</table>
+<h3><code>tika-xmp/src/main/java</code></h3>
+<p><strong>0.1962 bits</strong> from the repository, against a null median of 0.1232 over 999 resamples of the same size — an excess of +0.0730, and 5 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>9.5%</td><td><code>programming</code></td><td>0.0013</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>7.3%</td><td><code>medicine</code></td><td>0.0730</td><td>0.0160</td><td><strong>over</strong></td><td><code>uri</code> 334 <code>type</code> 3,463 <code>start</code> 1,211 <code>tmp</code> 331</td></tr>
+<tr><td>6.4%</td><td><code>linguistics</code></td><td>0.1681</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>4.6%</td><td><code>applied_science</code></td><td>0.0196</td><td>0.0002</td><td><strong>over</strong></td><td><code>process</code> 139 <code>processing</code> 7</td></tr>
+<tr><td>4.0%</td><td><code>computing</code></td><td>0.4489</td><td>0.3199</td><td><strong>over</strong></td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>3.9%</td><td><code>economy</code></td><td>0.0333</td><td>0.0059</td><td><strong>over</strong></td><td><code>property</code> 1,106 <code>total</code> 216 <code>manager</code> 306 <code>mark_down</code> 31</td></tr>
+<tr><td>3.4%</td><td><code>law</code></td><td>0.0546</td><td>0.1091</td><td>under</td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>3.3%</td><td><code>electrotechnology</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>detector</code> 1,108 <code>wire</code> 3 <code>wiring</code> 7 <code>soar</code> 1</td></tr>
+</table>
+<h3><code>tika-xmp/src/test/java</code></h3>
+<p><strong>0.3132 bits</strong> from the repository, against a null median of 0.2736 over 999 resamples of the same size — an excess of +0.0396, and 305 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
+<h3><code>documentation</code></h3>
+<p><strong>0.2534 bits</strong> from the repository, against a null median of 0.1414 over 999 resamples of the same size — an excess of +0.1120, and 2 of those draws diverged at least as far. The scope stands outside its own null, so its topics are ranked below.</p>
+<table>
+<tr><th>Share of the divergence</th><th>Topic</th><th>In scope</th><th>In repository</th><th></th><th>Carried by</th></tr>
+<tr><td>15.9%</td><td><code>computing</code></td><td>0.1064</td><td>0.3199</td><td>under</td><td><code>metadata</code> 4,118 <code>config</code> 2,430 <code>parser</code> 2,583 <code>byte</code> 2,993</td></tr>
+<tr><td>15.0%</td><td><code>law</code></td><td>0.3167</td><td>0.1091</td><td><strong>over</strong></td><td><code>file</code> 10,172 <code>license</code> 10,825 <code>client</code> 720 <code>compliance</code> 2,148</td></tr>
+<tr><td>14.0%</td><td><code>geography</code></td><td>0.1288</td><td>0.0166</td><td><strong>over</strong></td><td><code>apache</code> 6,823 <code>stream</code> 1,670 <code>state</code> 273 <code>java</code> 222</td></tr>
+<tr><td>7.9%</td><td><code>linguistics</code></td><td>0.1986</td><td>0.0770</td><td><strong>over</strong></td><td><code>name</code> 3,802 <code>context</code> 2,255 <code>parse</code> 2,825 <code>prefix</code> 605</td></tr>
+<tr><td>3.3%</td><td><code>programming</code></td><td>0.0100</td><td>0.0441</td><td>under</td><td><code>handler</code> 1,912 <code>factory</code> 525 <code>iterator</code> 127 <code>tmp</code> 331</td></tr>
+<tr><td>2.7%</td><td><code>physics</code></td><td>0.0266</td><td>0.0038</td><td><strong>over</strong></td><td><code>length</code> 1,226 <code>weight</code> 122 <code>free_space</code> 26 <code>sql</code> 38</td></tr>
+<tr><td>2.1%</td><td><code>literature</code></td><td>0.0017</td><td>0.0174</td><td>under</td><td><code>header</code> 1,039 <code>writer</code> 284 <code>text</code> 2,092 <code>author</code> 173</td></tr>
+<tr><td>2.1%</td><td><code>computer_science</code></td><td>0.0036</td><td>0.0219</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
+</table>
+<p>Read, compared and resampled in 61.6 s, recorded rather than estimated.</p>
+</div>
