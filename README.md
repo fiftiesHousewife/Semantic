@@ -207,9 +207,18 @@ A run writes four pages beside those files: `output/html/index.html` traces the 
 
 ## Calling it from Java
 
-**The taxonomy layer is published and callable. The end-to-end reading is not yet** — `TreeReading`, `ReportFolder` and `ExportedReading` sit in the test source set, so a consumer of the jar cannot start a run from them. That is [an open item](BACKLOG.md), stated here rather than left to be discovered.
+**A directory in, one validated export out.** `RepositoryReading` takes the path and reads it; `ExportedReading` turns that into the same document `output/json/reading.json` holds.
 
-What the published jar offers today:
+```java
+RepositoryReading reading = RepositoryReading.of(Path.of("/path/to/repository"));
+ReadingExport export = new ExportedReading().of(reading, "43cbdae6");
+```
+
+It takes the directory rather than finding one: nothing in it reads a system property, asks which tree a test is running inside, or memoises across a JVM. A run of diagnostics does want a shared reading per tree, and `TreeReading` holds that on the test side — which is why the decision about how long a reading lives stays out of the API.
+
+**What is still test-side**: `ReportFolder` and the report writers. Those produce the markdown under `output/`, which is a diagnostic artefact rather than something a consumer acts on — the export is the contract.
+
+The taxonomy layer beneath it:
 
 | To | Call |
 |---|---|

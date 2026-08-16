@@ -22,15 +22,26 @@ import org.fifties.housewife.codesemantics.engine.theme.ThemeReading;
 public final class TreeReading {
 
     /** The seed the null is drawn with, so two runs of one tree agree rather than placing it differently. */
-    public static final long SEED = 20260813L;
+    public static final long SEED = RepositoryReading.SEED;
 
-    private static final Map<Path, ParsedRepository> PARSED = new ConcurrentHashMap<>();
-    private static final Map<Path, RepositoryThemes> THEMES = new ConcurrentHashMap<>();
+    /**
+     * One {@link RepositoryReading} per tree, shared across the diagnostics of a run.
+     *
+     * <p>The published class deliberately memoises nothing across a JVM, because a library should not decide
+     * how long a caller's reading lives. A run of diagnostics does want exactly that, and holding it here is
+     * what keeps the decision out of the API.
+     */
+    private static final Map<Path, RepositoryReading> READINGS = new ConcurrentHashMap<>();
 
     private final Path root;
 
     private TreeReading(final Path root) {
         this.root = root;
+    }
+
+    /** The published reading of this tree, for a diagnostic that wants to call the API a consumer calls. */
+    public RepositoryReading reading() {
+        return READINGS.computeIfAbsent(root, RepositoryReading::of);
     }
 
     /** The tree {@code -Dcs.clone.dir} names, or the one the test is running inside where it does not. */
@@ -52,15 +63,14 @@ public final class TreeReading {
 
     /** Every Java source set and the markdown beside it, filtered by whatever {@code .readingignore} states. */
     public static List<SourceScope> scopesUnder(final Path root) {
-        return Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
+        return RepositoryReading.scopesUnder(root);
     }
 
     public ParsedRepository parsed() {
-        return PARSED.computeIfAbsent(root, tree -> ParsedRepository.of(tree, scopesUnder(tree)));
+        return reading().parsed();
     }
 
     public RepositoryThemes themes() {
-        return THEMES.computeIfAbsent(root, tree -> ThemeReading.fromClasspath(SEED).of(parsed()));
+        return reading().themes();
     }
 }

@@ -7,7 +7,7 @@ import org.fifties.housewife.bi.lexicon.OliaTerms;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.LegibilityReading;
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
-import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
+import org.fifties.housewife.codesemantics.engine.reading.RepositoryReading;
 import org.fifties.housewife.codesemantics.engine.reading.WrittenWords;
 import org.fifties.housewife.codesemantics.engine.summary.ReadingSummary;
 import org.fifties.housewife.codesemantics.engine.term.CorroboratedReading;
@@ -20,7 +20,8 @@ import org.fifties.housewife.codesemantics.engine.vocabulary.PublishedNames;
 import org.fifties.housewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
- * One working tree read into the export a consumer receives. Every reading it composes is one the reports
+ * One working tree read into the export a consumer receives. With {@link RepositoryReading} it is the whole
+ * of what a program embedding this library has to call: a directory in, one validated document out. Every reading it composes is one the reports
  * also run, at the same seed, so the file and the documents state the same figures — and none of the
  * documents has to be written for the file to exist.
  */
@@ -34,13 +35,13 @@ public final class ExportedReading {
     /** How many words and concepts the summary names before a consumer opens the evidence beneath it. */
     private static final int LEADING = 10;
 
-    public ReadingExport of(final TreeReading reading, final String commit) {
+    public ReadingExport of(final RepositoryReading reading, final String commit) {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
         final RepositoryLegibility legibility = LegibilityReading.fromClasspath().of(parsed);
-        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), TreeReading.SEED);
+        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), reading.seed());
         final ReadingSummary summary = summaryOf(reading, legibility, themes, field);
-        final Vocabulary vocabulary = vocabularyOf(legibility);
+        final Vocabulary vocabulary = vocabularyOf(legibility, reading.seed());
         final CorroboratedReading terms = CorroboratedReading.of(LinguisticTerms.fromClasspath(),
                 OliaTerms.fromClasspath().concepts(), parsed);
 
@@ -59,22 +60,22 @@ public final class ExportedReading {
     private record Vocabulary(List<ChosenWord> ranked, List<ExportedSignal> signals) {
     }
 
-    private static Vocabulary vocabularyOf(final RepositoryLegibility legibility) {
+    private static Vocabulary vocabularyOf(final RepositoryLegibility legibility, final long seed) {
         final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
         final WrittenWords names = new PublishedNames().published(legibility);
         final List<ChosenWord> ranked = chosen.in(names);
         final Map<String, Double> thresholds = VocabularyNull.byReference(
-                VocabularyNull.seeded(TreeReading.SEED).over(names, chosen.references()));
+                VocabularyNull.seeded(seed).over(names, chosen.references()));
         return new Vocabulary(ranked, new ExportedSignals(thresholds, ReadingSource.CLONE).in(ranked));
     }
 
-    private static ReadingSummary summaryOf(final TreeReading reading, final RepositoryLegibility legibility,
+    private static ReadingSummary summaryOf(final RepositoryReading reading, final RepositoryLegibility legibility,
                                             final RepositoryThemes themes, final PlacedField field) {
         return ReadingSummary.of(reading.root().getFileName().toString(), legibility, themes, field,
                 TOPICS_PER_SCOPE);
     }
 
-    private static ExportedSummary summarised(final TreeReading reading, final String commit,
+    private static ExportedSummary summarised(final RepositoryReading reading, final String commit,
                                               final ReadingSummary summary, final List<ExportedSignal> signals,
                                               final List<ExportedTheme> themes,
                                               final ExportedTaxonomy taxonomy, final PlacedField field) {

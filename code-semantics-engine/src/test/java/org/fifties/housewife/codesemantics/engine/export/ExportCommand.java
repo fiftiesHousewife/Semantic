@@ -30,7 +30,7 @@ public final class ExportCommand {
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = Files.exists(file)
                 ? Optional.of(exports.in(file)) : Optional.empty();
-        final ReadingExport current = new ExportedReading().of(reading, commitIn(arguments));
+        final ReadingExport current = new ExportedReading().of(reading.reading(), commitIn(arguments));
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
     }
