@@ -1,6 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.vocabulary;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * One word this repository wrote, with what every reference says about it and where to go and look.
@@ -34,5 +35,15 @@ public record ChosenWord(String word, int occurrences, int inNames, double claim
     /** The share of its occurrences that were names, which says whether the code or its prose carried it. */
     public double nameShare() {
         return occurrences == 0 ? 0.0 : (double) inNames / occurrences;
+    }
+
+    /**
+     * Whether every reference's claim for this word stands outside what that reference's own null produced
+     * by chance. It is the weakest-claim rule applied to the bound: a word one reference calls ordinary is
+     * ordinary however loudly the other shouts, so a word clears each bar in turn or it clears none.
+     */
+    public boolean clears(final Map<String, Double> barByReference) {
+        return against.stream()
+                .allMatch(claim -> claim.claim() > barByReference.getOrDefault(claim.reference(), 0.0));
     }
 }

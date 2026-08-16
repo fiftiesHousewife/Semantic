@@ -10,19 +10,31 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class VocabularyReportTest {
 
-    private static final List<ChosenWord.ReferenceClaim> AGAINST = List.of(
+    private static final List<ChosenWord.ReferenceClaim> SPECIALIST = List.of(
             new ChosenWord.ReferenceClaim("ordinary English", 0.0001, 0.004, true),
             new ChosenWord.ReferenceClaim("the platform's own API", 0.0002, 0.003, true));
 
+    private static final List<ChosenWord.ReferenceClaim> ORDINARY = List.of(
+            new ChosenWord.ReferenceClaim("ordinary English", 0.0400, 0.0018, true),
+            new ChosenWord.ReferenceClaim("the platform's own API", 0.0300, 0.0016, true));
+
+    private static final List<ChosenWord.ReferenceClaim> WRITTEN_MORE_THERE = List.of(
+            new ChosenWord.ReferenceClaim("ordinary English", 0.9000, 0.0010, false),
+            new ChosenWord.ReferenceClaim("the platform's own API", 0.8000, 0.0090, false));
+
     private static final List<ChosenWord> RANKED = List.of(
-            new ChosenWord("synset", 40, 30, 0.003, 0.02, AGAINST, "Lexicon.java:4", false),
-            new ChosenWord("by", 70, 70, 0.0025, 0.03, AGAINST, "MassByTopic.java:5", true),
-            new ChosenWord("rung", 20, 20, 0.002, 0.01, AGAINST, "Rung.java:9", false),
-            new ChosenWord("list", 90, 90, -0.001, 0.05, AGAINST, "Names.java:2", false));
+            new ChosenWord("synset", 40, 30, 0.003, 0.02, SPECIALIST, "Lexicon.java:4", false),
+            new ChosenWord("by", 70, 70, 0.0025, 0.03, SPECIALIST, "MassByTopic.java:5", true),
+            new ChosenWord("rung", 20, 20, 0.0016, 0.01, ORDINARY, "Rung.java:9", false),
+            new ChosenWord("list", 90, 90, -0.009, 0.05, WRITTEN_MORE_THERE, "Names.java:2", false));
 
     private final WrittenWords written = new WrittenWords();
 
-    private final String report = new VocabularyReport(2).render("What it called things", RANKED, written);
+    private static final List<VocabularyNull.Bar> BARS = List.of(
+            new VocabularyNull.Bar("ordinary English", 0.0021, 4, 999, 3_996),
+            new VocabularyNull.Bar("the platform's own API", 0.0015, 4, 999, 3_996));
+
+    private final String report = new VocabularyReport(BARS).render("What it called things", RANKED, written);
 
     @Test
     void namesEveryReferenceAWordWasReadAgainstAsAColumnOfItsOwn() {
@@ -32,16 +44,26 @@ class VocabularyReportTest {
     }
 
     @Test
-    void printsOnlyAsManyRowsAsItWasAskedFor() {
+    void printsOnlyTheWordsThatBeatEveryReferencesOwnBar() {
         assertAll(
-                () -> assertThat(report).contains("`synset`", "`rung`"),
+                () -> assertThat(report).contains("`synset`"),
+                () -> assertThat(report.lines().filter(line -> line.startsWith("| 3 |")).count())
+                        .as("`rung` claims 0.002 bits, under ordinary English's bar of 0.0021").isZero(),
                 () -> assertThat(report.lines().filter(line -> line.startsWith("| 4 |")).count()).isZero());
+    }
+
+    @Test
+    void statesTheBarEachReferenceSetAndWhatItWasDrawnFrom() {
+        assertAll(
+                () -> assertThat(report).contains("0.002100 bits** against ordinary English"),
+                () -> assertThat(report).contains("0.001500 bits** against the platform's own API"),
+                () -> assertThat(report).contains("field of 4", "999 draws", "3,996 scored words"));
     }
 
     @Test
     void leavesAGapInTheNumberingWhereTheLanguageSuppliedTheWord() {
         assertAll(
-                () -> assertThat(report).contains("| 1 | `synset`", "| 3 | `rung`"),
+                () -> assertThat(report).contains("| 1 | `synset`"),
                 () -> assertThat(report.lines().filter(line -> line.startsWith("| 2 |")).count()).isOne());
     }
 
@@ -60,8 +82,8 @@ class VocabularyReportTest {
     }
 
     @Test
-    void statesHowMuchOfTheReadingTheRowsItPrintedHold() {
+    void statesHowMuchOfTheReadingTheRowsAboveTheBarHold() {
         assertThat(report).contains("occurrences of 4 distinct words", "1 words in the ranking",
-                "1 are ones English supplied");
+                "1 are ones English supplied", "of the divergence");
     }
 }

@@ -41,13 +41,13 @@ copied comment and the restated type are measured on Apache Tika and are invisib
 
 | | Item | What it costs | The number that judges it |
 |--:|---|---|---|
-| 1 | A run the dictionary carries whole is one word | A seam on the segmenter and one class | **31 of 49 distinct runs, 134 of 266 occurrences** — measured |
-| 2 | A catch parameter is not a name about a subject | One `NameForm` | **52 of 52** short catch parameters are `e`, and every catch parameter in the tree is `e` |
-| 3 | The possessive is not a word boundary | One rule beside the acronym run | `s` 589, fourth of everything written |
-| 4 | The lemmatiser stops manufacturing nouns | Asking the open-class question before the lemma | `wa` 268, `doe` 191, `ha` 174 leave the table |
-| 5 | A published run is one row of the ranking | The reading already computes it | `part of speech` outranks both `part` 26 and `speech` 16 |
+| 1 | A run the dictionary carries whole is one word | A seam on the segmenter and one class | **Landed.** 31 of 49 distinct runs, 134 of 266 occurrences |
+| 2 | A catch parameter is not a name about a subject | One `NameForm` | **Landed.** 52 of 52 short catch parameters are `e`, and every catch parameter in the tree is `e` |
+| 3 | The possessive is not a word boundary | One rule beside the acronym run | **Landed.** `s` 589 gone, and λ fell 0.992 → 0.984 because it had been counting a false citation |
+| 4 | The lemmatiser stops manufacturing nouns | Preferring a stated inflection to a derived one | **Two of three landed.** `wa` 268 and `ha` 174 gone; `doe` 191 remains, and §4 says exactly why |
+| 5 | A published run is one row of the ranking | The reading already computes it | **Landed.** `part_of_speech` 44th where `part` fell to 382nd and `speech` left |
 | 6 | A word weighs observed against expected, never frequency alone | Replaces `WordSpecificity`'s scale | Every theme figure moves; the placement is what says whether it moved the right way |
-| 7 | The cutoff is a permutation null over the vocabulary | A resampling unit | How many words clear the bar, here and on each panel member |
+| 7 | The cutoff is a permutation null over the vocabulary | A resampling unit | **Landed.** 259 of 859 named words clear a bar of 0.000194 bits, holding 86.5% of the divergence, where 250 had been picked |
 | 8 | The ranking runs on a repository it was not written for | A clone | Whether the top of Tika's ranking is Tika's subject matter |
 | 9 | Step 8 consumes the partition | The term matcher reads the ranking | Spans lost, concept by concept |
 | — | A type restated in its own declaration's name | A parse pass over each declaration's own types | **21% of every OLiA span on Tika** |
@@ -199,9 +199,9 @@ in which case frequency alone was carrying something the ratio is not, and that 
 
 **Blast radius:** every figure in `output/`. It is item 6 rather than item 1 for that reason.
 
-## 7. The cutoff is a permutation null over the vocabulary
+## 7. The cutoff is a permutation null over the vocabulary — landed
 
-The report prints a fixed 250 rows. The number was chosen, and a chosen bound is the one thing the doctrine
+The report printed a fixed 250 rows. The number was chosen, and a chosen bound is the one thing the doctrine
 refuses outright.
 
 **A count is also not comparable.** 250 of this tree's 843 named words is a different slice from 250 of a
@@ -229,13 +229,27 @@ here, and nothing new is needed but the resampling unit.
 to the bound: pooling the references would need a weight nothing states, and clearing each in turn needs
 none.
 
-**Measurement:** how many words clear the bar, on this tree and on each panel member, against the 250 the
-report prints today. **A bar that admits nearly all 632** says the references are too weak to refuse
-anything; **a bar that admits under 50** says the null is drawn wrong, because `hypernym` and `skos` are not
-chance.
+**What it measured, on the names the build publishes.** The bar is **0.000194 bits** against ordinary
+English and **0.000231 bits** against the platform's own API, drawn over 999 resamples yielding 2.4 million
+and 1.5 million scored words. **259 of 859 words clear it**, holding 63.3% of what was written and 86.5% of
+the divergence — where the picked cutoff was 250. Two very different rules landing ten rows apart is not the
+result; the result is that this one states what it is.
 
-**Until then, state the denominator that is derived.** The summary line says the rows hold 63.4% of the
-reading, which is the *occurrence* share; the ranking is over divergence and they hold 89.1% of that.
+**It passes both of the tests that were set for it.** A bar admitting nearly every word would say the
+references are too weak to refuse anything, and one admitting under fifty would say the null is drawn wrong,
+because `hypernym` and `skos` are not chance. Every word the mass cutoff would have dropped clears this one:
+`arxiv`, `fibo`, `csf`, `hypernym`, `olia`, `skos`, `antonymous`, `credence`, `initialism`, `nist` and
+`segmenter`, each written three to six times, each at 0.000234 or 0.000312 bits against a bar of 0.000194.
+
+The report also states the divergence share the rows hold, which is bounded at one by the statistic's own
+definition, beside the occurrence share it always quoted.
+
+**A property worth stating, because it is what makes the bar comparable at all**: a reference concentrated on
+few words sets a higher bar than one spread thin, since a word's term of the divergence scales with the share
+it holds. So the two references do not have to agree on a number, and a word clears each in turn.
+
+**What is left:** running it on a panel member, which is item 8. A cutoff that means one thing everywhere is
+the reason the panel could not report a vocabulary, and it has not yet been asked to.
 
 ## 8. The ranking runs on a repository it was not written for
 

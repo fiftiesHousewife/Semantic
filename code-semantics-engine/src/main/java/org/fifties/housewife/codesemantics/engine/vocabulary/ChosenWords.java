@@ -46,6 +46,11 @@ public final class ChosenWords {
                 new ShareDivergence(), FunctionWords.fromClasspath());
     }
 
+    /** What the ranking is read against, which is what a null has to be drawn from to bound it. */
+    public List<ReferenceVocabulary> references() {
+        return references;
+    }
+
     /** The strongest claims first, and every word the repository wrote is somewhere in the ranking. */
     public List<ChosenWord> in(final WrittenWords written) {
         final Map<String, Double> here = written.shareByWord();

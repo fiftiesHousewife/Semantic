@@ -31,12 +31,6 @@ class VocabularyReadingDiagnostic {
 
     private static final String REPORT = "vocabulary";
 
-    private static final int SHOWN = 250;
-
-    private static final int CHECKED_SHOWN = 50;
-
-    private static final int PROSE_SHOWN = 50;
-
     private static final String NAMES = "What it called things";
 
     private static final String CHECKS = "What it called the things that check it";
@@ -94,13 +88,14 @@ class VocabularyReadingDiagnostic {
         final WrittenWords named = namesPublishedFrom(legibility);
         final WrittenWords checked = namesThatCheckIt(legibility);
         final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
+        final VocabularyNull chance = VocabularyNull.seeded(TreeReading.SEED);
         final List<ChosenWord> ranked = chosen.in(named);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
         reports.wrote(REPORT, "# The vocabulary — %s%n%n%s%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                new VocabularyReport(SHOWN).render(NAMES, ranked, named),
-                new VocabularyReport(CHECKED_SHOWN).render(CHECKS, chosen.in(checked), checked),
-                new VocabularyReport(PROSE_SHOWN).render(PROSE, chosen.in(written), written)),
+                report(chance, chosen, named).render(NAMES, ranked, named),
+                report(chance, chosen, checked).render(CHECKS, chosen.in(checked), checked),
+                report(chance, chosen, written).render(PROSE, chosen.in(written), written)),
                 "The vocabulary");
 
         assertAll(
@@ -111,6 +106,12 @@ class VocabularyReadingDiagnostic {
                         (first, second) -> Double.compare(second.claim(), first.claim())),
                 () -> assertThat(Files.readString(reports.file(REPORT + ".md")))
                         .contains(NAMES, CHECKS, PROSE, "What a count on its own would have said"));
+    }
+
+    /** One population's report, cut where that population's own null puts the bar rather than at a count. */
+    private static VocabularyReport report(final VocabularyNull chance, final ChosenWords chosen,
+                                           final WrittenWords written) {
+        return new VocabularyReport(chance.over(written, chosen.references()));
     }
 
     /** What the source sets the build publishes called things — the repository as anyone else receives it. */
