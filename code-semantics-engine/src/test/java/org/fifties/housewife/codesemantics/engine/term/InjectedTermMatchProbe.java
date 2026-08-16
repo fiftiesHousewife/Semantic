@@ -46,7 +46,7 @@ public final class InjectedTermMatchProbe {
                 matched.spansFound(), matched.perThousandNames(), matched.distinctTerms());
         System.out.printf("%nwhere the matches concentrate — the branch, not the leaves%n");
         System.out.printf("%-42s %8s %8s %8s%n", "branch", "written", "below", "reach");
-        WrittenSubtree.in(reading.tree()).stream().limit(SHOWN)
+        WrittenSubtree.in(reading.tree(), WrittenMass.fromClasspath()).stream().limit(SHOWN)
                 .forEach(branch -> System.out.printf("%-42s %8d %8d %7.1f%%%n", branch.concept(),
                         branch.written(), branch.conceptsBelow(), 100.0 * branch.reach()));
 

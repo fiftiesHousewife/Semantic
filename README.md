@@ -208,7 +208,7 @@ Words English supplies inside a name are scored, ranked and left out of `signals
 
 `ExportFile` validates every document against that schema before writing it, so a run produces a document matching the contract or produces none. `schemaVersion` rises when a field is added, renamed or removed, and `ReadingExportSchemaTest` fails the build on a change the schema does not state.
 
-**It is at `3.1`, and that version is what a consumer branches on rather than discovers by failing.** The run itself is the first such consumer: it reads the previous export to write `changes.md`, and a version it cannot read is treated as a run with nothing to compare against — the same case as the first run ever. `3.1` added `summary.aboutStatedBy`, which names the resources the topics in `about` come from, and turned `summary.leadingConcepts` from bare strings into `{ concept, publishedBy }`, because a summary naming `ontology` beside `Verb` was reporting two vocabularies' answers as one list.
+**It is at `3.1`.** A consumer branches on that version rather than discovering a change by failing. The run is the first such consumer: it reads the previous export to write `changes.md`, and a version it cannot read is a run with nothing to compare against.
 
 ### Producing it
 
@@ -501,12 +501,19 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 [`TermSpans`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TermSpans.java) takes the longest published term at each position, left to right, with no two matches overlapping. A prefix that is not itself a published term is not evidence.
 
-**Two normalisation levels, reported separately and never summed:**
+**Three normalisation levels, reported separately and never summed. The narrowest that answers is the one that answers, and a wider one is asked only where the narrower said nothing:**
 
 | Level | Both sides reduced to | Source |
 |--:|---|---|
 | 1 | the sequence of words itself | a string comparison, which invents nothing |
-| 2 | the lemma of each word | WordNet's lemma index. `phrases` matching `Phrase` is one word and its plural, not two words a dictionary calls alike |
+| 2 | the [lemma](docs/GLOSSARY.md) of each word | WordNet's lemma index. `phrases` matching `Phrase` is one word and its plural, not two words a dictionary calls alike |
+| 3 | the [synset](https://wordnet.princeton.edu/) each word belongs to — the set of words WordNet records under one meaning | WordNet's sense index. `nominal phrase` meets `noun phrase` because the dictionary wrote both spellings into one entry, which no comparison of words can do |
+
+**Both sides go through one normalisation.** [`LemmaRuns`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/LemmaRuns.java) and [`SenseRuns`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/SenseRuns.java) are put over the publisher's terms when the index is built and over the repository's runs when they are asked about, so neither side is privileged.
+
+**Level 2 is reported apart from level 3 so that a plural cannot be counted as a shared meaning.** Level 3 is the widest claim and carries the risk with it: WordNet reads `topic`, `theme` and `subject` as one entry, so a repository writing about topics meets a taxonomy stating subjects whether or not either meant the other. Every match records the level that found it, and [the term report](output/markdown/terms.md) prints the levels apart.
+
+**A run is offered to the dictionary whole before its words.** `SenseRuns` asks WordNet for `document processing` first, and falls back to a run of two senses only where the dictionary carries no entry for the pair.
 
 **Corroboration by branch.** A taxonomy is a tree: every concept sits under a parent, beside sibling concepts the publisher placed there. A match on a single word counts only where the repository also writes at least one of that concept's siblings. Writing several concepts from one part of a field is evidence of working in it; writing a single one is what an ordinary English word the taxonomy has claimed produces.
 

@@ -6,27 +6,36 @@ Walking from the matched leaves to the branch they concentrate in is how a readi
 
 ## Where it stands
 
-Read against Apache Tika at `43cbdae6` with the Computer Science Ontology:
+`ReachedSubjectTest` runs the scoring over both saved concept sets and prints the target beside what was reached. It is `diagnostic`-tagged, so `./gradlew read` runs it.
 
-| Branch | Written | Concepts below | Reach |
-|---|--:|--:|--:|
-| `target language` | 59 | 2 | 100.0% |
-| `html` | 346 | 8 | 25.0% |
-| **`network protocols`** | 708 | 1,143 | **7.3%** |
-| `telephone sets` | 60 | 69 | 11.6% |
-| `medium access control` | 177 | 280 | 7.5% |
+| Repository | Target | Reached | Concepts written below | Share of the repository's writing |
+|---|---|---|--:|--:|
+| This library | language or knowledge representation | **`semantics`** | 8 of 322 | 65.0% |
+| Apache Tika `43cbdae6` | documents, formats or text | **`natural language`** | 6 of 188 | 18.8% |
 
-`network protocols` wins. The answer for a text-extraction toolkit should be document processing.
+`network protocols` is gone from both rankings. This repository's answer is met and the whole top of its ranking is `semantics`, `natural language processing`, `formal languages`, `linguistics`. **Apache Tika's is not met**, and the reason is stated below.
 
-## The three defects
+## What was wrong, and what each change was worth
 
-| | Defect | Evidence |
-|---|---|---|
-| 1 | **The score rewards branch size.** The weight is `reach × log(below)`, so a huge branch at 7% outranks a small one at 25% | `network protocols` 7.3% of 1,143 above `html` 25.0% of 8 |
-| 2 | **Synonyms fill the ranking.** CSO states equivalent labels as separate concepts with identical subtrees | `web content`, `web contents`, `web page`, `web pages`, `web users`, `web-page` — six rows, one idea |
-| 3 | **The leaves are generic.** Tika's matches are dominated by `http`, `server`, `ns`, `mac`, so the branch they honestly concentrate in *is* networking | the corroborated list is in `matched/tika-cso.tsv` |
+| | Defect | What it was | What changed |
+|---|---|---|---|
+| 1 | **A share taken over paths, not concepts** | CSO states two thirds of its topics beneath more than one parent, so the tree reaches one concept by many routes. `network protocols` stood over 1,143 nodes and far fewer topics | `Descendants` counts distinct labels. `network protocols` left the ranking on this change alone |
+| 2 | **The score rewarded branch size** | `reach × log(below)` put a 1,143-concept branch at 7% above an 8-concept branch at 25% | The score is two shares multiplied: how much of the repository's writing falls beneath the branch, and how many of the concepts beneath it were written |
+| 3 | **A leaf scored 1** | A subtree of one is written entirely or not at all, and `ids` at 803 spans took the top of Tika's ranking | Both shares are taken over the concepts *beneath* the branch, so a leaf scores zero. This is the abstention the class javadoc already claimed |
+| 4 | **One concept carried a branch** | CSO states `ids` as an intrusion detection system. Tika writes `id` 778 times, so a fifth of its writing sat beneath `intrusion detection` on one concept | The second share. `intrusion detection` fell out of the top ten |
+| 5 | **Everyday words weighed as much as terms** | `id`, `parse`, `cache` and `server` are what any Java repository writes | `WrittenMass` weighs occurrences by `PhraseSpecificity`, read from the bundled frequency list |
+| 6 | **Inflections were separate branches** | `parse`/`parsing`/`parsed`, `ontology`/`ontologies`, `descriptor`/`descriptors` | `PooledConcepts` folds a taxonomy's labels by lemma and rewrites every `broader` naming a folded label. It removed 6 of Tika's 71 concepts and 2 of this repository's 17, and moved no winner |
 
-Defect 3 is the one to take seriously: the walk may be reporting the truth about a poor set of leaves rather than failing. That is a question about which leaves are admitted, not about the walk.
+**The fixture is lossy and was being read as though it were not.** It records the run of words a span matched on, not the concept it reached, and 43 of Tika's 91 runs are no label CSO publishes — `parse` is CSO's `parsing`, reached at the lemma rung. Looking them up by spelling dropped half the mass before any scoring ran. `MatchedFixture` puts the runs back through the same rung ladder, which is what made the harness reproduce the figures above.
+
+## Why Apache Tika reaches language
+
+`parse` is 748 of Tika's 4,387 spans — a sixth of everything it writes. **CSO states `parsing` beneath computational linguistics, formal languages and natural language processing, and beneath nothing about documents.** There is no document-parsing concept for it to reach. The document branches CSO does publish are almost empty of Tika: `text processing` holds 1 of its concepts and 2 spans, and `document-processing`, `information extraction`, `character recognition` and `text mining` hold none at all.
+
+So the walk is reporting the truth about the leaves it was given. That is the abandon condition stated below, and it names the next piece of work: **which leaves are admitted**, not how they are aggregated. Two are measured and specific:
+
+- `ids` → intrusion detection system, 803 spans. An initialism the repository never meant.
+- `parse` → linguistic parsing, 748 spans. A word whose one CSO placement is the wrong field.
 
 ## The fixtures, so this can be goal-sought
 
@@ -47,11 +56,11 @@ They are an **input** to the scoring work and not part of it, so a change to the
 
 **A known answer per repository, stated before the scoring changes.** Tika should reach a branch about documents, formats or text extraction; this repository should reach one about language or knowledge representation. Neither should reach `network protocols`.
 
-Three changes to try, each measured against both fixtures:
+Three changes to try, each measured against both fixtures. **The first two are done and the third is not:**
 
-1. **Score by matched mass beneath a branch**, not by the count of distinct concepts. A branch holding `xml` 354 and `html` 264 has more of the repository in it than one holding forty concepts written once each.
-2. **Pool the taxonomy's own concepts before the walk, by lemma first and equivalence second.** Three separate problems wear one face here:
-   - **Inflection.** CSO publishes `parse`, `parsing` and `parsed` as three topics, and `descriptor`/`descriptors` and `ontology`/`ontologies` likewise. Both sides match at the *words* rung, so the lemma rung is never reached — the reading is lemmatising correctly and the rung ladder is working; the duplication is in the taxonomy, not in the normalisation. Folding a taxonomy's concepts by lemma before the tree is built removes it, and lemma is the cheapest and safest of the three normalisations this library already has.
+1. ~~**Score by matched mass beneath a branch**, not by the count of distinct concepts.~~ Done. The score is the mass share beneath the branch times the share of the concepts beneath it that were written, and the mass is weighed by `PhraseSpecificity`.
+2. **Pool the taxonomy's own concepts before the walk, by lemma first and equivalence second.** Lemma pooling is done, in `PooledConcepts`; the two equivalence rungs are not. Three separate problems wear one face here:
+   - ~~**Inflection.**~~ Done. `PooledConcepts` folds a taxonomy's labels by lemma and rewrites every `broader` naming a folded label, and a concept folded onto its own parent loses that parent rather than standing beneath itself. It removed 6 of Tika's 71 concepts and 2 of this repository's 17, and moved no winner.
    - **Equivalence the publisher states.** `relatedEquivalent` and `preferentialEquivalent` are extracted into `altLabel` already and are not folded.
    - **Equivalence the publisher does not state.** `web content`, `web page` and `web users` survive both of the above and are six branches with identical subtrees.
 
@@ -77,3 +86,11 @@ What is left for the phrase case is morphology rather than a dictionary — a su
 **What settles it**: whether pooling the taxonomy's concepts by sense before the walk changes which branch wins on either fixture. It costs one pass over the concept labels and is measured against the saved matches in a second, so it is the cheapest of the three changes above and should be tried first.
 
 **Abandon if** no scoring reaches a document-related branch on Tika while keeping a language-related one on this repository. That would mean the leaves the matcher admits carry the wrong information, and the work belongs in what is admitted rather than in how it is aggregated.
+
+**The abandon condition is met, and the aggregation half is finished.** Six scorings were measured against both fixtures. Every one that kept `semantics` on this repository put Tika under a branch its heaviest leaf sits beneath, and CSO states Tika's heaviest leaves — `id` at 778 spans and `parse` at 748 — beneath intrusion detection and linguistics respectively. The remaining work is which leaves are admitted:
+
+| What to try | Why it is the next thing |
+|---|---|
+| **Weigh a match by the rung that found it.** `parse` reaches `parsing` at the lemma rung; `xml` and `html` match at the words rung. `TermRung` already states that a wider rung is a weaker claim, and the reading already records which rung answered every span | it is the one discount already justified by a class in this tree, and it demotes the exact span that carries Tika to the wrong branch |
+| **An initialism a repository never meant.** `ids` is CSO's intrusion detection system and 803 spans of Apache Tika | this is `CitedTokens.NONE`, which [CLAUDE.md](../../CLAUDE.md) already holds open, seen from the other side |
+| **Draw the null.** Change 3 above, still not done | without it neither answer above can be told from what any Java repository would produce |

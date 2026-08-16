@@ -12,16 +12,25 @@ import java.util.List;
  * {@code hyperlink}, which it does declare, all sit beneath it. The leaves are what was written; the
  * ancestor is what they are about.
  *
- * <p><b>The score is a share and bounds itself.</b> A node's reach is the concepts written beneath it over
- * the concepts the publisher put beneath it, so it is 1 where a repository writes an entire branch and small
- * where it writes one corner of a large one. Nothing is chosen: the denominator is the taxonomy's own
- * subtree size.
+ * <p><b>The score is two shares multiplied, each bounded at 1 by its own definition.</b> One is how much of
+ * everything the repository wrote falls beneath the concept, weighed by {@link WrittenMass}. The other is how
+ * many of the concepts beneath it were written, over how many the publisher put there. Nothing is chosen:
+ * both denominators are the taxonomy's own.
  *
- * <p>A node is only worth reporting where it is both broad and full, so the two are multiplied — a leaf
- * reaches 1 of a subtree of 1 and says nothing, and a root holds everything and says nothing either. What
- * survives is the branch a repository fills.
+ * <p>Both are taken over the concepts <em>beneath</em> the branch and not the branch itself. A leaf therefore
+ * scores zero — there is nothing below it for a repository's writing to concentrate in, and a subtree of one
+ * can only be written entirely or not at all, which is not a measurement of where. A root scores near zero
+ * the other way, holding everything and reaching almost none of it.
+ *
+ * <p>The second share is what stops one concept from carrying a branch. Apache Tika writes {@code id} 778
+ * times and CSO states {@code ids} as an intrusion detection system, so a fifth of the repository's writing
+ * sits beneath {@code intrusion detection} on the strength of that one concept.
+ *
+ * <p>{@code reach} is reported over the whole subtree, the branch included, because that is the figure a
+ * reader compares with the publisher's own subtree size. The score uses the concepts below.
  */
-public record WrittenSubtree(String concept, int written, int conceptsBelow, double reach, double weight) {
+public record WrittenSubtree(String concept, int written, int conceptsWritten, int conceptsBelow,
+                             double reach, double weight) {
 
     /**
      * Every branch of the tree, the ones a repository fills most of first.
@@ -31,32 +40,26 @@ public record WrittenSubtree(String concept, int written, int conceptsBelow, dou
      * reported each would print one row dozens of times. The subtree beneath a concept is the same whichever
      * parent was followed to it, so the first is kept.
      */
-    public static List<WrittenSubtree> in(final TaxonomyTree tree) {
-        final java.util.Map<String, WrittenSubtree> byConcept = new java.util.LinkedHashMap<>();
-        tree.roots().stream().flatMap(root -> branches(root).stream())
-                .forEach(branch -> byConcept.merge(branch.concept(), branch,
-                        (kept, again) -> kept.conceptsBelow() >= again.conceptsBelow() ? kept : again));
-        return byConcept.values().stream()
+    public static List<WrittenSubtree> in(final TaxonomyTree tree, final WrittenMass mass) {
+        final Descendants descendants = Descendants.of(tree, mass);
+        return labelsIn(tree, descendants).stream()
+                .map(label -> of(label, descendants))
                 .sorted(Comparator.comparingDouble(WrittenSubtree::weight).reversed()
                         .thenComparing(WrittenSubtree::concept))
                 .toList();
     }
 
-    private static List<WrittenSubtree> branches(final TaxonomyTree.Node node) {
-        final List<WrittenSubtree> below = node.children().stream()
-                .flatMap(child -> branches(child).stream()).toList();
-        return java.util.stream.Stream.concat(java.util.stream.Stream.of(of(node)), below.stream()).toList();
+    private static java.util.Set<String> labelsIn(final TaxonomyTree tree, final Descendants descendants) {
+        final java.util.Set<String> labels = new java.util.LinkedHashSet<>();
+        tree.roots().forEach(root -> labels.addAll(descendants.of(root.label())));
+        return labels;
     }
 
-    private static WrittenSubtree of(final TaxonomyTree.Node node) {
-        final int below = node.conceptsBelow();
-        final double reach = below == 0 ? 0.0 : (double) writtenBelow(node) / below;
-        return new WrittenSubtree(node.label(), node.writtenBelow(), below, reach, reach * Math.log(below));
-    }
-
-    /** How many distinct concepts of the subtree were written, which is what a share of it counts. */
-    private static int writtenBelow(final TaxonomyTree.Node node) {
-        return (node.written() > 0 ? 1 : 0)
-                + node.children().stream().mapToInt(WrittenSubtree::writtenBelow).sum();
+    private static WrittenSubtree of(final String label, final Descendants descendants) {
+        final int below = descendants.of(label).size();
+        final int written = descendants.writtenIn(label);
+        final double reach = (double) written / below;
+        return new WrittenSubtree(label, descendants.occurrencesIn(label), written, below, reach,
+                descendants.shareBelow(label) * descendants.reachBelow(label));
     }
 }

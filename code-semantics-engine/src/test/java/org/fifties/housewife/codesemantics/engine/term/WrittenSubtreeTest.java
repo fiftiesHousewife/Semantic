@@ -26,7 +26,7 @@ class WrittenSubtreeTest {
             topic("quasars", "astrophysics"));
 
     private static List<WrittenSubtree> branches(final Map<String, Integer> written) {
-        return WrittenSubtree.in(TaxonomyTree.of(PUBLISHED, written, label -> label));
+        return WrittenSubtree.in(TaxonomyTree.of(PUBLISHED, written, label -> label), WrittenMass.fromClasspath());
     }
 
     @Test
@@ -62,6 +62,29 @@ class WrittenSubtreeTest {
 
         assertThat(ranked).extracting(WrittenSubtree::concept)
                 .doesNotContainSequence("astrophysics", "document processing");
+    }
+
+    @Test
+    void countsAConceptOnceHoweverManyParentsThePublisherStatesItBeneath() {
+        final List<SkosConcept> polyHierarchy = List.of(
+                topic("document processing", ""),
+                topic("markup", "document processing"),
+                topic("xml", "markup" + SkosConcept.STATEMENTS + "document processing"));
+
+        assertThat(WrittenSubtree.in(TaxonomyTree.of(polyHierarchy, Map.of("xml", 4), label -> label),
+                WrittenMass.fromClasspath()))
+                .filteredOn(branch -> branch.concept().equals("document processing"))
+                .singleElement()
+                .satisfies(branch -> assertThat(branch.conceptsBelow()).isEqualTo(3));
+    }
+
+    @Test
+    void ranksABranchRestingOnOneWrittenConceptBelowOneSeveralOfWhoseConceptsWereWritten() {
+        final List<WrittenSubtree> ranked =
+                branches(Map.of("xml", 30, "html", 30, "css", 30, "pulsars", 100));
+
+        assertThat(ranked).extracting(WrittenSubtree::concept)
+                .containsSubsequence("document processing", "astrophysics");
     }
 
     @Test
