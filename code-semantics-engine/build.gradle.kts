@@ -79,6 +79,22 @@ tasks.register<JavaExec>("functionalPlacement") {
     })
 }
 
+// Which concepts of a term taxonomy held in a file this repository declares, so a candidate vocabulary
+// can be tried before anything decides to bundle it. A taxonomy stating no definition can be read no
+// other way.
+//   ./gradlew injectedTermMatch -Ptaxonomy=taxonomies/cso-topics.tsv
+tasks.register<JavaExec>("injectedTermMatch") {
+    group = "verification"
+    description = "Matches declared names against an unbundled term taxonomy"
+    mainClass = "org.fifties.housewife.codesemantics.engine.term.InjectedTermMatchProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull((findProperty("taxonomy") as String?)?.let {
+        rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+    })
+}
+
 // Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The
 // report prints a top; this answers for a word it never reached.
 //   ./gradlew wordPlace -Pwords="get set list"

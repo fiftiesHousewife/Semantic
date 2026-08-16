@@ -2,9 +2,13 @@ package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
+import org.fifties.housewife.bi.lexicon.PublishedTerms;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.fifties.housewife.bi.lexicon.SkosRows;
 
@@ -20,17 +24,20 @@ import org.fifties.housewife.bi.lexicon.SkosRows;
  * spelled as a system property, so a caller embedding this library and a caller running a build task reach
  * one implementation and cannot drift apart.
  */
-public final class InjectedTaxonomy {
+public final class InjectedTaxonomy implements PublishedTerms {
 
     /** Set {@code -Dcs.taxonomy=<path>} to place against a taxonomy the published jar does not carry. */
     public static final String FROM_COMMAND_LINE = "cs.taxonomy";
 
     private final List<SkosConcept> concepts;
     private final String source;
+    private final Map<String, List<SkosConcept>> byLabel;
 
     private InjectedTaxonomy(final List<SkosConcept> concepts, final String source) {
         this.concepts = List.copyOf(concepts);
         this.source = source;
+        this.byLabel = this.concepts.stream().filter(concept -> !concept.prefLabel().isBlank())
+                .collect(Collectors.groupingBy(concept -> concept.prefLabel().toLowerCase(Locale.ROOT)));
     }
 
     /** The taxonomy in the named file, read exactly as a bundled one is. */
@@ -54,6 +61,21 @@ public final class InjectedTaxonomy {
                 .filter(named -> !named.isBlank())
                 .map(named -> named(Path.of(named)))
                 .orElseGet(InjectedTaxonomy::bundled);
+    }
+
+    /**
+     * The concepts published under a label, so an injected taxonomy can be matched against declared names
+     * as well as compared as a distribution. A source stating no definition — CSO states none for any of
+     * its 14,636 topics — can only be read this way.
+     */
+    @Override
+    public List<SkosConcept> conceptsOf(final String term) {
+        return byLabel.getOrDefault(term.toLowerCase(Locale.ROOT), List.of());
+    }
+
+    @Override
+    public List<String> terms() {
+        return concepts.stream().map(SkosConcept::prefLabel).filter(label -> !label.isBlank()).toList();
     }
 
     /** Every concept the taxonomy states a description for, which is what a placement can be taken against. */

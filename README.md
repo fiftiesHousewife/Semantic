@@ -4,10 +4,10 @@
 
 A Java library that states what subject matter a source repository is concerned with, by reading the words in the names its authors declared.
 
-It works in the terms of lexical semantics and information theory and assumes neither: the [glossary](docs/GLOSSARY.md) defines every one of them — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
+It works in the terms of lexical semantics and information theory, and expects no prior knowledge of either. The [glossary](docs/GLOSSARY.md) defines every term it uses — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
 
 - **Takes** — a directory of Java source. No clone, no build, no type resolution, no network.
-- **Gives** — one JSON file per run: the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare.
+- **Gives** — one export per run, [`reading.json`](output/json/reading.json): the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare. A run also writes `themes.json`, which is not part of the export — it is the graph the themes viewer draws from, and [where it belongs is an open question](BACKLOG.md).
 - **Decides by** — published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here.
 - **Run** — `./gradlew read`, then read the [summary](output/markdown/summary.md).
 
@@ -205,6 +205,36 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, an 80% JaCoCo instruction 
 
 A run writes four pages beside those files: `output/html/index.html` traces the nine steps in order with each step's figures, `taxonomy.html` draws the field as a tree with every concept and its publisher's definition, `evidence.html` lists every match with a link to the line, and `themes-chart.html` carries both charts. **They are pages, so they render in a browser and not on this site** — open them from `output/` after a run. The markdown above and the two SVGs are what renders here.
 
+## Calling it from Java
+
+**The taxonomy layer is published and callable. The end-to-end reading is not yet** — `TreeReading`, `ReportFolder` and `ExportedReading` sit in the test source set, so a consumer of the jar cannot start a run from them. That is [an open item](BACKLOG.md), stated here rather than left to be discovered.
+
+What the published jar offers today:
+
+| To | Call |
+|---|---|
+| read a taxonomy the jar does not carry | `InjectedTaxonomy.named(Path.of("taxonomies/cso-topics.tsv"))` |
+| take the same taxonomy a build would | `InjectedTaxonomy.fromCommandLineOrBundled()` — honours `-Dcs.taxonomy`, falls back to the bundled scheme |
+| read any eight-column taxonomy file | `SkosRows.at(Path)`, the same reader the bundled ones go through |
+| place a reading against subjects | `SubjectAreas.of(concepts)`, then `SubjectPlacement.byDivergence().of(distribution, subjects)` |
+| judge that placement against chance | `SubjectNull.seeded(seed).of(nearest, distribution, descriptions)` |
+| place against a functional taxonomy | `FunctionPlacement.fromClasspath().of(distribution, statementsByFunction)`, with `PermutedAssignment` as its null |
+| match declared names against a term taxonomy | `InjectedTerms.of(published, source)`, then `CorroboratedReading.of(terms, concepts, parsed)` |
+| compare two distributions directly | `new JensenShannon().divergence(a, b)` — bounded at one bit by its own definition |
+
+**A named taxonomy that cannot be read throws rather than falling back.** A caller who asked for one taxonomy and silently received another would read a wrong answer without being told, so `InjectedTaxonomy.named` fails and says which file it could not read.
+
+Worked example — place a repository's reading against BIAN rather than arXiv:
+
+```java
+InjectedTaxonomy bian = InjectedTaxonomy.named(Path.of("taxonomies/bian-service-domains.tsv"));
+List<SubjectTopics> domains = SubjectAreas.fromClasspath().of(bian.described());
+List<SubjectPlacement.Placement> nearest =
+        SubjectPlacement.byDivergence().of(repositoryDistribution, domains);
+```
+
+`described()` is what a placement needs and it is not the same as `concepts()`: a concept with no definition has no prose to compare, and CSO states none for any of its 14,636 topics — which is why CSO is matched as a term taxonomy instead.
+
 ## Backtesting
 
 Every figure this repository reports about itself is an instrument measuring itself. The taxonomies, the resources and the rules were all chosen while reading this tree, so a reading that works here establishes nothing on its own. A backtest reads a repository the reading was never written for.
@@ -357,7 +387,12 @@ The bundled one is the [arXiv category taxonomy](https://arxiv.org/category_taxo
 - **It classifies research, so commercial software is placed by resemblance to a research field.** Finance and economics take 12 of the 174 rows — Trading and Market Microstructure, Risk Management, Pricing of Securities, Portfolio Management — and a trading system is placed against those.
 - **Whole domains have no category at all**: payments and settlement, ledgers, e-commerce and order management, health records, logistics, telecommunications operations, identity, and deployment tooling. Something is always nearest, and the reading cannot state that the right answer was absent from the list.
 
-[PyPI's 321 `Topic ::` classifiers](https://pypi.org/classifiers/) carry `Office/Business :: Financial :: Point-Of-Sale`, `Communications :: Telephony` and `System :: Logging`, and swapping the scheme for them is [planned](docs/plans/CLASSIFYING_A_REPOSITORY.md). What settles the swap is the share of repositories whose stated category has a nearest subject at all under each scheme.
+[PyPI's 321 `Topic ::` classifiers](https://pypi.org/classifiers/) cover much of what arXiv does not — `Office/Business :: Financial :: Point-Of-Sale`, `Communications :: Telephony`, `System :: Logging` — and a swap is [planned](docs/plans/CLASSIFYING_A_REPOSITORY.md). **It is not a swap of one file for another, and two measurements say why.**
+
+- **Trove states no definition for any classifier**, so it cannot be read as a subject scheme at all: this section compares a repository's distribution against a category's *prose*, and there is none. Trove is a term taxonomy of activity names, matched against declared names, which is a different mechanism and a different chunk of the plan.
+- **Half its leaf names are single ordinary words** — 153 of 298, including `System`, `Session`, `Testing`, `Unit`, `General`, `Libraries`, `Filters` and `Analysis`. Every Java repository declares a dozen of them, which is what the corroboration rule below exists to survive.
+
+What settles the swap is the share of repositories whose stated category has a nearest subject at all under each scheme.
 
 ### Functional taxonomy
 
@@ -399,7 +434,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb` survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's `AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less likely than one.
 
-**The two bundled taxonomies:**
+**The two bundled term taxonomies** — the functional ones are above, and [`taxonomies/`](taxonomies) holds those read by path:
 
 | Taxonomy | Field | What it tests |
 |---|---|---|
@@ -460,10 +495,13 @@ Each report names what it did not use, at the end of that report and nowhere els
 
 | | Reference |
 |---|---|
+| Banking capabilities | [BIAN Service Landscape](https://github.com/bian-official/artefacts), Banking Industry Architecture Network. 319 service domains, Apache-2.0 |
 | Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |
+| Computer science topics | [CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, Knowledge Media Institute, The Open University. 14,636 topics, CC BY 4.0, and no definition for any of them |
 | Jensen–Shannon divergence | Lin, J. (1991), *Divergence measures based on the Shannon entropy*, IEEE Transactions on Information Theory 37(1), 145–151. Bounded at 1 bit under base-2 logarithms |
 | Linguistic annotation terms | [OLiA](https://github.com/acoli-repo/olia), Ontologies of Linguistic Annotation |
 | Kullback–Leibler divergence | Kullback, S. and Leibler, R. A. (1951), *On information and sufficiency*, Annals of Mathematical Statistics 22(1), 79–86. Unbounded above, which is why no figure here is reported in it |
+| Partitioned security activity | [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework), read from NIST's own OSCAL edition. A US Government work |
 | Permutation test | Good, P. (2005), *Permutation, Parametric and Bootstrap Tests of Hypotheses*, 3rd ed., Springer |
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |

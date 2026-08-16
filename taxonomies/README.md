@@ -10,9 +10,12 @@ Point a reading at one with `-Dcs.taxonomy=<path>`:
 
 ## What each file holds
 
-| File | Publisher | Concepts | Licence |
-|---|---|--:|---|
-| `bian-service-domains.tsv` | [BIAN](https://github.com/bian-official/artefacts) | 319 service domains under 8 business areas | Apache-2.0, stated in the publisher's own `LICENSE` |
+| File | Publisher | Concepts | Read as | Licence |
+|---|---|--:|---|---|
+| `cso-topics.tsv` | [CSO](https://cso.kmi.open.ac.uk/), Knowledge Media Institute | 14,636 topics | a **term** taxonomy — CSO states no definition for any topic, so there is no prose to compare a scope against | CC BY 4.0, attribution required |
+| `bian-service-domains.tsv` | [BIAN](https://github.com/bian-official/artefacts) | 319 service domains under 8 business areas | a **functional** taxonomy — each states a role definition | Apache-2.0, stated in the publisher's own `LICENSE` |
+
+**`cso-topics.tsv` is lossy and its header says so.** CSO is a poly-hierarchy: 9,927 of its 14,624 topics with a parent have more than one, up to 33, and these eight columns hold a single `broader`. The alphabetically first is carried so a run reproduces, and 29,886 parent statements are dropped. Anything reading the hierarchy out of this file is reading a tree CSO did not publish — the shape has to change before branch corroboration rests on it.
 
 ## What a file here still owes
 
