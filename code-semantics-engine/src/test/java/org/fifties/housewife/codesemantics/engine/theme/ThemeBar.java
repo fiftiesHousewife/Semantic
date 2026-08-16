@@ -1,62 +1,73 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import j2html.tags.DomContent;
 
 import static j2html.TagCreator.tag;
 
 /**
- * The themes as one stacked bar: every topic that earned a place, laid end to end in the order the
- * hierarchy groups them, each segment as wide as the share of the reading it explains.
+ * The themes as one horizontal bar per topic, longest first, each bar as long as the share of the reading
+ * that topic explains, with the topic's name to its left and its percentage at its end.
  *
- * <p>It draws exactly what {@link ThemeSunburst} draws, from the same nodes and the same quantity, and it
- * reads better for the one job the front page has. A reader comparing two topics on a ring is comparing two
- * angles at different radii; on a bar they are comparing two lengths on one line, which is the comparison
- * the eye is reliable at. The ring earns its place on the theme page, where the inner ring carries the
- * publisher's own hierarchy and there is room to read it.
+ * <p>One bar per row is what lets two topics be compared: the eye reads two lengths from a common baseline,
+ * where a stacked bar asks it to compare two segments starting at different offsets and a ring asks it to
+ * compare two angles at different radii. The ring belongs on the theme page, where the inner ring carries
+ * the publisher's own hierarchy and there is room to read it.
  *
- * <p><b>A segment is not how much was written.</b> It is the divergence the topic accounts for across the
- * scopes that departed further than chance — what the reading found rather than what the codebase typed.
+ * <p><b>A bar's length is the divergence its topic accounts for</b> across the scopes that departed further
+ * than chance, as a share of the divergence the chart draws. It is what the reading found and not how much
+ * of the codebase was typed.
  *
- * <p>The bar closes over the topics that earned a place, so every segment is a share of what the picture is
- * about and any two can be compared by eye. What did not earn a place is a figure and belongs in the
- * sentence beside the chart, not in a grey segment whose only property is being the largest.
- *
- * <p>A segment too narrow to hold its name is drawn and left unlabelled rather than dropped: the length is
- * the reading and the label is a convenience, and the title on every segment carries the name regardless.
+ * <p>Colour groups the topics the publisher's hierarchy places under one broad subject, so the grouping the
+ * stacked bar carried by adjacency is still readable when the order is by length.
  */
 final class ThemeBar {
 
     static final int WIDTH = 720;
-    static final int HEIGHT = 96;
-    static final String DESCRIPTION = "Themes as one bar, each segment the share of the reading that topic "
-            + "explains, grouped by the broad subject the publisher's hierarchy places it under";
+    static final String DESCRIPTION = "Themes as one bar per topic, longest first, each as long as the "
+            + "share of the reading that topic explains";
 
-    private static final double BAR_TOP = 8.0;
-    private static final double BAR_HEIGHT = 40.0;
-    private static final double LABEL_BASELINE = 72.0;
-    private static final double TICK_TOP = 52.0;
+    private static final double TOP = 10.0;
+    private static final double BOTTOM = 10.0;
+    private static final double ROW_HEIGHT = 28.0;
+    private static final double BAR_HEIGHT = 18.0;
 
-    /** A segment narrower than this cannot hold a word, and an unreadable label is not a label. */
-    private static final double LABEL_FITS = 46.0;
+    /** Where a bar begins, leaving the topic's name room to the left of it. */
+    private static final double BAR_LEFT = 176.0;
 
-    private static final double FADE_PER_THEME = 0.1;
-    private static final double FAINTEST = 0.42;
+    /** What the percentage at the end of the longest bar needs. */
+    private static final double VALUE_WIDTH = 56.0;
 
-    private final Map<String, List<ThemeGraph.Node>> grouped;
+    private static final double VALUE_GAP = 8.0;
+
+    private static final double LABEL_GAP = 10.0;
+
+    /** Where text sits inside a row so that it centres on the bar. */
+    private static final double TEXT_BASELINE = 13.0;
+
+    private final List<ThemeGraph.Node> ranked;
+    private final List<String> broaderTopics;
     private final double drawn;
 
     ThemeBar(final List<ThemeGraph.Node> nodes) {
-        this.grouped = ThemeSunburst.byBroaderTopic(nodes);
+        this.ranked = nodes.stream()
+                .sorted(Comparator.comparingDouble(ThemeGraph.Node::explains).reversed())
+                .toList();
+        this.broaderTopics = List.copyOf(ThemeSunburst.byBroaderTopic(nodes).keySet());
         this.drawn = nodes.stream().mapToDouble(ThemeGraph.Node::explains).sum();
     }
 
+    /** As tall as the rows it draws, so a file of it carries no empty space and clips nothing. */
+    int height() {
+        return (int) Math.round(TOP + ROW_HEIGHT * ranked.size() + BOTTOM);
+    }
+
     DomContent chart() {
-        return tag("svg").withId("theme-bar").attr("viewBox", "0 0 %d %d".formatted(WIDTH, HEIGHT))
+        return tag("svg").withId("theme-bar").attr("viewBox", "0 0 %d %d".formatted(WIDTH, height()))
                 .attr("role", "img")
                 .attr("aria-label", DESCRIPTION)
                 .with(segments());
@@ -65,59 +76,45 @@ final class ThemeBar {
     /** The marks alone, so a page and a file of its own can each supply their own root element. */
     List<DomContent> segments() {
         final List<DomContent> marks = new ArrayList<>();
-        double from = 0.0;
-        int rank = 0;
-        for (final Map.Entry<String, List<ThemeGraph.Node>> group : grouped.entrySet()) {
-            for (final ThemeGraph.Node node : group.getValue()) {
-                final double width = widthOf(node.explains());
-                marks.add(segment(node.topic(), from, width, colour(rank),
-                        fade(group.getValue().indexOf(node))));
-                from += width;
-            }
-            rank++;
+        for (int row = 0; row < ranked.size(); row++) {
+            marks.add(row(ranked.get(row), row));
         }
         return marks;
     }
 
-    /** A share of what is drawn, so the bar closes over the topics that earned a place. */
-    private double widthOf(final double explains) {
-        return drawn <= 0.0 ? 0.0 : WIDTH * explains / drawn;
+    private DomContent row(final ThemeGraph.Node node, final int row) {
+        final double share = shareOf(node.explains());
+        final double top = TOP + ROW_HEIGHT * row;
+        return tag("g").withClass("segment")
+                .attr("style", colour(broaderTopics.indexOf(node.broader())))
+                .with(tag("text").withClass("segment-label")
+                                .attr("x", figure(BAR_LEFT - LABEL_GAP))
+                                .attr("y", figure(top + TEXT_BASELINE))
+                                .withText(node.topic()),
+                        tag("rect").attr("x", figure(BAR_LEFT)).attr("y", figure(top))
+                                .attr("width", figure(lengthOf(share))).attr("height", figure(BAR_HEIGHT))
+                                .with(tag("title").withText(describing(node.topic(), share))),
+                        tag("text").withClass("segment-value")
+                                .attr("x", figure(BAR_LEFT + lengthOf(share) + VALUE_GAP))
+                                .attr("y", figure(top + TEXT_BASELINE))
+                                .withText(ThemeTables.percentage(share)));
     }
 
-    private DomContent segment(final String named, final double from, final double width,
-                               final String colour, final double weight) {
-        return tag("g").withClass("segment").attr("style", colour).attr("opacity", figure(weight))
-                .with(tag("rect").attr("x", figure(from)).attr("y", figure(BAR_TOP))
-                                .attr("width", figure(width)).attr("height", figure(BAR_HEIGHT))
-                                .with(tag("title").withText(describing(named, width))),
-                        label(named, from, width));
+    /** A share of what is drawn, so the bars close over the topics the reading reports. */
+    private double shareOf(final double explains) {
+        return drawn <= 0.0 ? 0.0 : explains / drawn;
     }
 
-    private static String describing(final String named, final double width) {
-        return "%s — %s of what the chart draws".formatted(named,
-                ThemeTables.percentage(width / WIDTH));
+    private static double lengthOf(final double share) {
+        return (WIDTH - BAR_LEFT - VALUE_WIDTH - VALUE_GAP) * share;
     }
 
-    /** The name under its own segment, with a tick joining the two, where the segment is wide enough. */
-    private static DomContent label(final String named, final double from, final double width) {
-        if (width < LABEL_FITS) {
-            return tag("g");
-        }
-        final double middle = from + width / 2.0;
-        return tag("g").with(
-                tag("line").withClass("segment-tick").attr("x1", figure(middle)).attr("x2", figure(middle))
-                        .attr("y1", figure(TICK_TOP)).attr("y2", figure(BAR_TOP + BAR_HEIGHT)),
-                tag("text").withClass("segment-label")
-                        .attr("x", figure(middle)).attr("y", figure(LABEL_BASELINE))
-                        .withText(named));
+    private static String describing(final String named, final double share) {
+        return "%s — %s of what the chart draws".formatted(named, ThemeTables.percentage(share));
     }
 
-    private static String colour(final int rank) {
-        return SeriesColours.swatch(SeriesColours.light(rank), SeriesColours.dark(rank));
-    }
-
-    private static double fade(final int within) {
-        return Math.max(FAINTEST, 1.0 - FADE_PER_THEME * (within + 1));
+    private static String colour(final int group) {
+        return SeriesColours.swatch(SeriesColours.light(group), SeriesColours.dark(group));
     }
 
     private static String figure(final double value) {

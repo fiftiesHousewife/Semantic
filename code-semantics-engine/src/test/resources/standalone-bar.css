@@ -1,14 +1,15 @@
 /*
- * The segment rules for a stacked bar that travels as a file. A markdown reader renders an image and not a
- * page, so the picture cannot reach the page's stylesheet and carries its own. Each segment states its own
- * two colours as custom properties; these rules choose between them by the reader's colour scheme.
+ * The rules for a bar chart that travels as a file. A markdown reader renders an image and not a page, so
+ * the picture cannot reach the page's stylesheet and carries its own. Each row states its own two colours as
+ * custom properties; these rules choose between them by the reader's colour scheme.
  */
-.segment rect { fill:var(--c); stroke:#ffffff; stroke-width:1; }
-.segment-tick { stroke:var(--c); stroke-width:1; }
+.segment rect { fill:var(--c); rx:2; }
 .segment-label { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  font-size:11px; fill:#3c4650; text-anchor:middle; }
+  font-size:13px; fill:#3c4650; text-anchor:end; }
+.segment-value { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:12px; fill:#5c6773; text-anchor:start; }
 @media (prefers-color-scheme: dark) {
-  .segment rect { fill:var(--cd); stroke:#0e1216; }
-  .segment-tick { stroke:var(--cd); }
-  .segment-label { fill:#b6c2cf; }
+  .segment rect { fill:var(--cd); }
+  .segment-label { fill:#dbe3ea; }
+  .segment-value { fill:#93a1af; }
 }

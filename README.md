@@ -3,21 +3,21 @@
 A Java library that states what subject matter a source repository is concerned with, by reading the words in
 the names its authors declared.
 
-![Every topic that stands apart from chance in this repository, each as wide as the share of the reading it explains](output/themes-bar.svg)
+![One bar per topic the reading reports, each as long as the share of the reading that topic accounts for](output/themes-bar.svg)
 
-The bar shows only the topics whose figures exceed chance resampling, each drawn as wide as the share of the
-reading it accounts for. [The sunburst](output/themes-chart.html) answers a different question: it draws **every** topic the
-reading observed, at whatever share it holds, arranged on the topic resource's own hierarchy — the roots on
-the inner ring, their children outside them. So a topic missing from the bar is still in the sunburst, and a
-wedge's width there is a share of everything written rather than a share of what the bar reports.
+The bar carries the topics whose figures exceed chance resampling, longest first, each as long as the share
+of the reading it accounts for. [The sunburst](output/themes-chart.html) answers a second question: it draws
+**every** topic the reading observed, arranged on the topic resource's own hierarchy, with the broad subjects
+on the inner ring and their children outside them. A topic absent from the bar still appears there, and a
+wedge is sized by its share of everything written.
 
 ## What it does
 
 - **Reads a local directory.** No clone, no fetch, no compile, no type resolution — a repository that does
   not build is still readable, and so is a pull request.
-- **Counts only the names a repository declares.** `String`, `List` and `assertThat` are names declared in the platform and
-  in third-party libraries, referenced here rather than chosen here. Only a parse tells a declaration from a
-  reference, so the reading runs on a parse tree.
+- **Counts only the names a repository declares.** `String`, `List` and `assertThat` belong to the platform
+  and to third-party libraries; a repository referencing them has said nothing about its own subject. A parse
+  distinguishes a declaration from a reference, so the reading runs on a parse tree.
 - **Looks each word up in published resources** — WordNet, WordNet Domains, Wiktionary's topic vocabulary, a
   published frequency list — and records what each resource says the word is about.
 - **Adds that up into a distribution over subjects**, weighting each [phrase](#definitions) once however
@@ -39,10 +39,10 @@ wedge's width there is a share of everything written rather than a share of what
 | Rule | Consequence |
 |---|---|
 | **A word tells you about subject matter only where a dictionary carries it as a noun, a verb or an adjective.** `the`, `of` and `and` are how English holds a sentence together, and `e`, `s` and `i` are symbols standing in for something else. Neither kind says anything about what the code is for, so neither counts | WordNet's own coverage decides which words those are, so this repository holds no stop list |
-| **Where no resource has an entry for a word, the reading records that it saw the word and says nothing further about it.** It does not guess a subject, and it does not score the word as zero: zero is itself a claim, and it would drag every average down | The word stays in the total, so λ states what share of the text the reading could use at all |
-| Every statistic has a maximum that follows from its definition | A share bounds itself at 1, a [Jensen–Shannon divergence](#references) at 1 bit. Kullback–Leibler is unbounded, so nothing uses it |
+| **Where no resource has an entry for a word, the reading records that it saw the word and says nothing further about it.** A guessed subject would be an invention; a score of zero would be a claim in its own right, lowering every average that includes it | The word stays in the total, so λ states what share of the text the reading could use at all |
+| Every statistic has a maximum that follows from its definition | A share bounds itself at 1, a [Jensen–Shannon divergence](#references) at 1 bit. [Kullback–Leibler divergence](#references) is unbounded, so nothing here uses it |
 | A piece of evidence cannot be built without its source | Constructing one requires a [`SourceAnchor`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java) naming the resource and the line |
-| Grammar is permitted where vocabulary is not | The rules splitting `adjectivePhrase` into two words are grammar. A list of words to treat specially is not |
+| Splitting rules are allowed; word lists are not | A capital letter divides `adjectivePhrase` into two words, which is a rule about spelling. Which of those two words means anything is a published dictionary's answer |
 
 ## Running it
 
@@ -89,7 +89,7 @@ Each term below has an everyday meaning too. The technical one is meant.
 
 | Term | Meaning here |
 |---|---|
-| **scope** | one directory the build compiles as a unit — `<module>/src/<set>/java`, so `lexicon/src/main/java` and `lexicon/src/test/java` are two — or the repository's documentation. A package is not a scope and a file is not |
+| **scope** | one directory the build compiles as a unit — `<module>/src/<set>/java`, so `lexicon/src/main/java` and `lexicon/src/test/java` are two — or the repository's documentation. A package or a single file is not a scope |
 | **phrase** | one declared name, or one sentence of prose. It is the unit of evidence: each contributes a single unit of mass whatever its length, so a long javadoc sentence cannot outweigh a short field name |
 | **sense** | one of the distinct meanings a dictionary lists under a word, as [WordNet](#references) enumerates them. `cite` has several, one of them summoning a defendant to court |
 | **headword** | the word itself, with its senses pooled — the form a dictionary indexes |
@@ -106,17 +106,18 @@ Each term below has an everyday meaning too. The technical one is meant.
 | Dependencies | imports belonging neither to the Java platform nor to the repository under analysis | 0.5 |
 | Prose | javadoc, comments, and markdown the repository has not declared to be a working note | 0.5 |
 
-Four positions in the grammar say a name was bound rather than chosen, and each is a rule about the parse
-rather than a list of names:
+In four positions the syntax fixes the name, so the name says nothing about subject matter. Each is a rule
+about the parse:
 
 - **A dependency's package path** states somebody else's coordinates in its leading segments.
 - **A catch clause's parameter** stands for the type the language requires beside it. Every catch clause in
   this repository names it `e`, and so do 1,675 of Apache Tika's 1,744 short ones.
 - **A name that is the initials of the words of its own type** stands for that type: `TikaInputStream tis`,
-  `StringBuilder sb`, `InputStream is`. It is not a rule about length — `String id` spells `s`, so `id`
-  keeps the rank the reading gave it.
-- **A javadoc's own syntax** is Javadoc's and not a subject. A block tag's name, a `@param` name already read
-  where it was declared, and whatever `{@link}` points at all leave, and no tag list exists to say so.
+  `StringBuilder sb`, `InputStream is`. Length plays no part in the rule, so `String id` — whose type spells
+  `s` — keeps its rank.
+- **A javadoc's tags** belong to the Javadoc format. A block tag's name, a `@param` name (already read where
+  the parameter was declared) and whatever `{@link}` points at are all discarded, and the format's own
+  structure identifies them.
 
 Two more positions decide whether a name belongs to the repository or to the build around it: a package is
 one naming decision however many files sit under it, so it is read once; and an import is read only in a
@@ -132,7 +133,7 @@ Worked example: the field `private final CitationSource citationSource;`.
 | 1 | The parse keeps the declaration and drops the use | `citationSource` is kept; the type `CitationSource` at this position is a use | [`ParsedRepository`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java) |
 | 2 | Split at case transitions and separators | `citation`, `source` | [`Tokeniser`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java), [`IdentifierWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierWords.java) |
 | 3 | Price a glued run against a frequency list, and keep whole any run the dictionary carries | `userid` → `user`, `id`; `abstains` stays one word | [`WordSegmenter`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java), [`PieceCost`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java) |
-| 4 | Fold a published run of words into one term | `partOfSpeech` → `part of speech`, counted once rather than as three separate words | [`CollocatedWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java) |
+| 4 | Fold a published run of words into one term | `partOfSpeech` → `part of speech`, one term counted once | [`CollocatedWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java) |
 | 5 | Discard a word carrying no subject matter, and take the lemma of the rest | *of*, *and*, *which* leave; `citations` → `citation` | [`ContentWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ContentWords.java), [`WordMorphology`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java) |
 | 6 | Collect what each resource says the word is about | `cite` → `law`, from the sense about summoning a defendant | [`TopicCitations`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/TopicCitations.java) |
 | 7 | Count each label once, however many ancestors it arrives with | a word labelled `computing` arrives labelled `engineering`, `mathematics`, `natural-sciences`, `physical-sciences` and `sciences` as well, because the resource publishes every ancestor alongside the label. Counted as six, one statement about one word would be six times the evidence, so the five ancestors are folded back into `computing` | [`StatedTopics`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/StatedTopics.java) |
@@ -141,13 +142,13 @@ Worked example: the field `private final CitationSource citationSource;`.
 ### Where one word ends and the next begins
 
 The rules come from [UAX #29](https://www.unicode.org/reports/tr29/), the Unicode standard for text
-segmentation, rather than from anything decided here. Two of its word-boundary rules decide cases a naive
-splitter gets wrong:
+segmentation. Two of its word-boundary rules cover cases a splitter working from capital letters alone gets
+wrong:
 
-| Rule | What it states | Example |
+| Rule | What it states | Effect |
 |---|---|---|
-| WB9, WB10 | a letter next to a digit is not a boundary | `utf8Decode` reads as `utf8` and `decode`, not `utf`, `8`, `decode` |
-| WB6, WB7 | a letter either side of an apostrophe is not a boundary | `resource's` is one word, not `resource` followed by the letter `s` — which a dictionary would otherwise resolve as a noun |
+| WB9, WB10 | a letter next to a digit is not a boundary | `utf8Decode` reads as `utf8` and `decode` |
+| WB6, WB7 | a letter either side of an apostrophe is not a boundary | `resource's` is one word. Split at the apostrophe, the trailing `s` reaches the dictionary, which carries it as a noun |
 
 ### Where each weight comes from
 
@@ -155,23 +156,23 @@ splitter gets wrong:
 |---|---|---|
 | Sense coverage | labelled senses ÷ total senses | both counts from WordNet. The domain resource states in its own header that it omits domain-less senses |
 | Specificity | `log(rank) / log(size)` | a published frequency list, which bounds it in `[0, 1]` by its own length |
-| Phrase agreement | geometric mean over the words that agree on a subject, times the share of the phrase's words that agree | the words of the phrase, read together rather than one at a time. On its own, `cite` could be law (summoning a defendant), linguistics or publishing. The name is `citationSource`, so the reading scores the pair: `citation` and `source` both carry publishing, neither carries law, and publishing is what the name is scored for |
+| Phrase agreement | geometric mean over the words that agree on a subject, times the share of the phrase's words that agree | the words of the phrase, read together. On its own, `cite` could be law (summoning a defendant), linguistics or publishing. The name is `citationSource`, so the reading scores the pair: `citation` and `source` both carry publishing, neither carries law, and publishing is what the name is scored for |
 
 ### Why a raw word count is not enough
 
 The words a Java program contains most of are the words *every* Java program contains most of. Each word is
-therefore scored against what it would be if this repository were unremarkable, using two references:
+therefore scored against the rate at which two references write it:
 
 | Reference | What it states | What it scores down that the other cannot |
 |---|---|---|
 | The bundled frequency list | what ordinary English is written in, as a rank per word | `the`, `of`, `that` |
 | [`PlatformVocabulary`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/PlatformVocabulary.java), from `ModuleFinder.ofSystem()` | what ordinary Java is written in: every type name and every public or protected method name the platform declares in its exported packages, split by the same grammar | `get`, `set`, `value`, `map`, `object`, `list`, `string`, which a frequency list of English finds *specialist* |
 
-The second asks the running JDK to describe itself, the same move [`PlatformPackages`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java) makes to sort an import.
-[`ClassFileMethods`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ClassFileMethods.java) reads the method names out of each class file's constant pool, loading no class. A word
-rises only where both references agree this repository writes it more densely than they do; a reference that
-writes it more densely scores the word down instead of discarding it.
-[See the whole ranking](output/vocabulary.md).
+The second asks the running JDK to describe itself, the same delegation [`PlatformPackages`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java)
+uses to sort an import. [`ClassFileMethods`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ClassFileMethods.java)
+reads the method names from each class file's constant pool, loading no class. A word ranks high only where
+both references write it less often than this repository does; where a reference writes it more often, its
+score falls and it keeps its place in the table. [See the whole ranking](output/vocabulary.md).
 
 ## Matching against published taxonomies
 
@@ -198,18 +199,18 @@ overlapping. A prefix that is not itself a published term is not evidence.
 
 **Corroboration by branch.** A taxonomy is a tree: every concept sits under a parent, beside sibling
 concepts the publisher placed there. A match on a single word counts only where the repository also writes at
-least one of that concept's siblings — evidence that it is working in that part of the field rather than
-using an ordinary English word the taxonomy happens to have claimed.
+least one of that concept's siblings. Writing several concepts from one part of a field is evidence of
+working in it; writing a single one is what an ordinary English word the taxonomy has claimed produces.
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the
 rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb`
 survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's
-`AdjectivePhrase` against OLiA's — needs no such support: two words agreeing by chance is a different order
-of coincidence.
+`AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less
+likely than one.
 
-**The two bundled taxonomies, and why the second one is the one that decides:**
+**The two bundled taxonomies:**
 
-| Taxonomy | Field | Its job |
+| Taxonomy | Field | What it tests |
 |---|---|---|
 | [OLiA](https://github.com/acoli-repo/olia) — Ontologies of Linguistic Annotation | linguistic annotation | the in-domain case: a vocabulary of grammar should match a library built from lemmas and senses |
 | [FIBO](https://spec.edmcouncil.org/fibo/) — Financial Industry Business Ontology | finance | the out-of-domain case: a vocabulary of finance should match almost nothing in it |
@@ -261,15 +262,12 @@ docs/plans/**
 - **A scope is a source-set directory.** That keeps generated output out of the reading with no list of
   directories to ignore, but a repository laid out any other way reads as having no Java in it, silently.
 
-
-
 ## Appendix: what the reading discarded
 
-Each report names what it did not use, at the end of the report and nowhere else: the topics no further from
-the repository than chance resampling put them, the one-word taxonomy matches standing alone in their branch,
-and the words no bundled resource has an entry for: [topics no better than chance](output/summary.md),
-[matches standing alone in their branch](output/terms.md), and
-[words nothing could be cited for](output/self-reading.md).
+Each report names what it did not use, at the end of that report and nowhere else:
+[topics no further away than chance resampling put them](output/summary.md),
+[one-word taxonomy matches standing alone in their branch](output/terms.md), and
+[words no bundled resource has an entry for](output/self-reading.md).
 
 ## References
 
@@ -278,6 +276,7 @@ and the words no bundled resource has an entry for: [topics no better than chanc
 | Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |
 | Jensen–Shannon divergence | Lin, J. (1991), *Divergence measures based on the Shannon entropy*, IEEE Transactions on Information Theory 37(1), 145–151. Bounded at 1 bit under base-2 logarithms |
 | Linguistic annotation terms | [OLiA](https://github.com/acoli-repo/olia), Ontologies of Linguistic Annotation |
+| Kullback–Leibler divergence | Kullback, S. and Leibler, R. A. (1951), *On information and sufficiency*, Annals of Mathematical Statistics 22(1), 79–86. Unbounded above, which is why no figure here is reported in it |
 | Permutation test | Good, P. (2005), *Permutation, Parametric and Bootstrap Tests of Hypotheses*, 3rd ed., Springer |
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |

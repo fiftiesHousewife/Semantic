@@ -64,6 +64,24 @@ that a repository does information retrieval than any English word inside it.
 arXiv is the wrong target for repositories. It classifies research fields, its descriptions are 18 words, and
 no repository is *about* `math.AG`.
 
+**What arXiv covers of commercial software, counted from the bundled file.** Finance is present as research:
+12 of the 174 rows are `q-fin` and `econ`, including `q-fin.TR` Trading and Market Microstructure, `q-fin.RM`
+Risk Management, `q-fin.PR` Pricing of Securities and `q-fin.PM` Portfolio Management. So a trading system
+has somewhere to be placed, and the placement is a research field it resembles.
+
+What has no category at all is most of what commercial software is written for: payments and settlement,
+accounting and ledgers, e-commerce and order management, health records, logistics, telecommunications
+operations, identity, customer relationship management, build and deployment tooling. arXiv is a preprint
+archive, so its categories are subjects people publish papers about. A payments repository read against it is
+placed by resemblance to whichever research field shares its words, and the reading has no way to state that
+the right answer was absent from the list.
+
+**This is the argument for the Trove target below**, whose 321 classifiers under 25 roots include
+`Topic :: Office/Business :: Financial :: Point-Of-Sale`, `Topic :: Communications :: Telephony` and
+`Topic :: System :: Logging`. **What settles it:** the share of a panel whose stated category has a nearest
+arXiv subject at all, against the same share under Trove. **Nothing is bundled before
+[the extractors](THE_EXTRACTORS.md) are restructured.**
+
 A vocabulary fit for this task needs four things, and **no single candidate has all four**:
 
 | | Concepts a program would write | Prose per concept | Hierarchy | Bundleable |

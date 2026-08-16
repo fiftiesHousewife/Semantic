@@ -1,6 +1,7 @@
 package org.fifties.housewife.codesemantics.engine.theme;
 
 import java.io.StringReader;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -41,42 +42,60 @@ class BarDocumentTest {
 
     @Test
     void statesTheNamespaceAndTheSizeAFileIsRenderedAt() {
+        final int height = new ThemeBar(NODES).height();
+
         assertAll(
                 () -> assertThat(document).contains("xmlns=\"http://www.w3.org/2000/svg\""),
-                () -> assertThat(document).contains("width=\"720\"", "height=\"96\""),
-                () -> assertThat(document).contains("viewBox=\"0 0 720 96\""));
+                () -> assertThat(document).contains("width=\"720\"", "height=\"%d\"".formatted(height)),
+                () -> assertThat(document).contains("viewBox=\"0 0 720 %d\"".formatted(height)));
     }
 
     @Test
-    void closesTheBarOverTheTopicsThatEarnedAPlace() throws Exception {
-        final NodeList segments = parsed().getElementsByTagName("rect");
-        final double drawn = IntStream.range(0, segments.getLength())
-                .mapToDouble(at -> width(segments, at))
-                .sum();
+    void growsWithTheNumberOfTopicsItDraws() {
+        assertThat(new ThemeBar(NODES).height())
+                .as("a row per topic, so a file of it clips nothing and carries no empty space")
+                .isGreaterThan(new ThemeBar(NODES.subList(0, 2)).height());
+    }
+
+    @Test
+    void drawsOneBarPerTopicStartingFromACommonBaseline() throws Exception {
+        final NodeList bars = parsed().getElementsByTagName("rect");
+        final List<Double> lefts = IntStream.range(0, bars.getLength())
+                .mapToObj(at -> Double.parseDouble(((Element) bars.item(at)).getAttribute("x")))
+                .distinct()
+                .toList();
 
         assertAll(
-                () -> assertThat(segments.getLength()).isEqualTo(NODES.size()),
-                () -> assertThat(drawn)
-                        .as("every segment is a share of what the chart draws, so any two compare by eye")
-                        .isCloseTo(ThemeBar.WIDTH, within(0.5)));
+                () -> assertThat(bars.getLength()).isEqualTo(NODES.size()),
+                () -> assertThat(lefts)
+                        .as("two lengths compare by eye only where both start at the same place")
+                        .hasSize(1));
     }
 
     @Test
-    void widensASegmentWithTheShareOfTheReadingItsTopicExplains() throws Exception {
-        final NodeList segments = parsed().getElementsByTagName("rect");
+    void lengthensABarWithTheShareOfTheReadingItsTopicExplains() throws Exception {
+        final NodeList bars = parsed().getElementsByTagName("rect");
 
-        assertThat(width(segments, 0))
-                .as("computing explains 0.05 of 0.10, so it takes half the bar")
-                .isCloseTo(ThemeBar.WIDTH / 2.0, within(0.5));
+        assertThat(width(bars, 0))
+                .as("computing explains 0.05 of 0.10, so its bar is twice law's, which explains 0.02")
+                .isCloseTo(width(bars, 2) * 2.5, within(0.5));
     }
 
     @Test
-    void namesEverySegmentWhetherOrNotItIsWideEnoughToBeLabelled() {
+    void ordersTheBarsLongestFirst() throws Exception {
+        final NodeList bars = parsed().getElementsByTagName("rect");
+
+        assertThat(List.of(width(bars, 0), width(bars, 1), width(bars, 2)))
+                .isSortedAccordingTo(Comparator.reverseOrder());
+    }
+
+    @Test
+    void namesEveryTopicBesideItsOwnBar() {
         assertAll(
-                () -> assertThat(document).contains("computing", "linguistics", "law"),
+                () -> assertThat(document).contains(">computing<", ">linguistics<", ">law<"),
                 () -> assertThat(document)
-                        .as("a segment too narrow for its name still carries it as a title")
-                        .contains("<title>law"));
+                        .as("the percentage sits at the end of the bar it belongs to")
+                        .contains("segment-value"));
     }
 
     @Test
