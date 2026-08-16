@@ -72,7 +72,8 @@ way corpora are actually assembled" ([Mildenberger 2023](https://arxiv.org/pdf/2
 
 ## 3. Resolved during the survey: the letter/digit boundary
 
-`THE_SPLITTER.md` recorded rule 4 as blocked on a catalogue of cited tokens. The blocker was misidentified.
+The splitter plan recorded rule 4 as blocked on a catalogue of cited tokens, and the blocker was
+misidentified. It is now stated in [`WHAT_THE_AUTHOR_CHOSE.md`](WHAT_THE_AUTHOR_CHOSE.md).
 
 [UAX #29](https://www.unicode.org/reports/tr29/) states rules **WB9 (`AHLetter × Numeric`)** and **WB10
 (`Numeric × AHLetter`)**, where `×` is defined in the annex's own Table 1 as *do not allow break here*, under
