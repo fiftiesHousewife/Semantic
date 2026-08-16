@@ -1,0 +1,660 @@
+<title>The vocabulary</title>
+<style>:root {
+    color-scheme: light dark;
+    --ink: #14181d;
+    --muted: #5b6570;
+    --rule: #dde3ea;
+    --panel: #ffffff;
+    --page: #f6f8fa;
+    --accent: #2f5d8a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ink: #e6eaef;
+        --muted: #9aa5b1;
+        --rule: #2a323b;
+        --panel: #161b21;
+        --page: #0e1216;
+        --accent: #8ab4e0;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.wrap {
+    max-width: 58rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.2rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin: 2.4rem 0 0.8rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+}
+
+h3 {
+    font-size: 1rem;
+    margin: 1.6rem 0 0.6rem;
+    color: var(--muted);
+}
+
+p {
+    margin: 0 0 0.9rem;
+    max-width: 46rem;
+}
+
+p.item {
+    margin: 0 0 0.35rem 1rem;
+    text-indent: -1rem;
+}
+
+p.item::before {
+    content: "— ";
+    color: var(--muted);
+}
+
+code {
+    font: 0.88em/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    background: color-mix(in srgb, var(--accent) 10%, transparent);
+    padding: 0.12em 0.32em;
+    border-radius: 3px;
+}
+
+strong {
+    font-weight: 650;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 1.4rem;
+    font-size: 0.9rem;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.42rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+}
+
+th {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+tr:hover td {
+    background: var(--panel);
+}
+
+td code {
+    background: none;
+    padding: 0;
+}
+</style>
+<div class="wrap">
+<h1>The vocabulary — CodeSemantics</h1>
+<p>The words this repository chose, and what it took to tell them from the words it had no choice</p>
+<p>about. Every word of every <strong>declared name</strong> is here — including the ones no bundled resource</p>
+<p>could be cited for, because what a repository wrote and what could be read of it are different</p>
+<p>questions.</p>
+<p>The ranking is over the <strong>names</strong> because that is where the choosing happens. A name is a word</p>
+<p>its author picked for a thing; a sentence is English, and English requires articles, copulas and</p>
+<p>conjunctions whatever it is about. The prose is read too and ranked the same way underneath, so</p>
+<p>which population a figure came from is stated rather than pooled.</p>
+<p>A count on its own answers neither question. The words a Java program contains most of are the words every</p>
+<p>Java program contains most of, and the words a body of prose contains most of are the ones English</p>
+<p>requires whatever it is about. So each word is scored against two references that state their own</p>
+<p>contents: the bundled frequency list, whose ordering says how common a word is in English, and</p>
+<p>the type names the running platform declares in the packages it exports, read from</p>
+<p><code>ModuleFinder.ofSystem()</code> and split by the same grammar this repository's names are split by.</p>
+<p>The score is that word's term of the Jensen–Shannon divergence between what this repository is</p>
+<p>written in and what a reference is written in — non-negative, bounded at one bit by the</p>
+<p>statistic's own definition, and summing to the distance between the two. A word is ranked by the</p>
+<p><strong>weakest</strong> claim any reference makes for it, so it reaches the top only where both agree this</p>
+<p>repository writes it more densely than they do. Pooling the two would need a weight per reference</p>
+<p>that nothing states; the weakest claim needs none.</p>
+<p>Neither reference can answer for a word English put inside a name. <code>massByTopic</code> is a name about</p>
+<p>mass and about topics, and <code>by</code> is what the language puts between the two; against a reference</p>
+<p>drawn from prose it looks specialist, because prose is not where a program's prepositions are</p>
+<p>written. Two bundled resources place such a word between them: WordNet carries no noun or verb</p>
+<p>entry for it, and the frequency list carries it as a word English is written in. A word placed</p>
+<p>outside the dictionary and inside the language is one its author had no choice about, and it is</p>
+<p>shown in its own table under <strong>What the language supplied</strong>. The conjunction is what makes the</p>
+<p>reading safe — the dictionary refuses <code>tsv</code>, <code>skos</code> and <code>synset</code> exactly as it refuses <code>by</code>, and</p>
+<p>the frequency list carries <code>class</code>, <code>part</code> and <code>first</code>, which a program may well be about.</p>
+<p>No word is excluded. A word a reference writes more densely than this repository does carries that</p>
+<p>reference's claim as a negative and sorts below everything that survived, which is where a reader</p>
+<p>can go and check that the references are refusing what they should. A word the language supplied</p>
+<p>keeps the place it earned and is printed with it, which is why the first table's numbering has</p>
+<p>gaps: the gap is where the reader should look for it.</p>
+<h2>What it called things</h2>
+<p><strong>6,406 occurrences of 843 distinct words</strong>, read against ordinary English and the platform's own API. The 250 below hold 63.4% of this reading, and 100.0% of their occurrences are names. 198 words in the ranking are ones a reference writes more densely than this repository does, and 38 are ones English supplied rather than the author choosing them; both are shown below rather than removed.</p>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>1</td><td><code>word</code></td><td>0.017043</td><td>229</td><td>100.0%</td><td>3.5748%</td><td>0.0145%</td><td>0.0212%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:35</code></td></tr>
+<tr><td>2</td><td><code>topic</code></td><td>0.009038</td><td>118</td><td>100.0%</td><td>1.8420%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:43</code></td></tr>
+<tr><td>3</td><td><code>words</code></td><td>0.008765</td><td>119</td><td>100.0%</td><td>1.8576%</td><td>0.0139%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java:33</code></td></tr>
+<tr><td>5</td><td><code>sense</code></td><td>0.004878</td><td>68</td><td>100.0%</td><td>1.0615%</td><td>0.0125%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:13</code></td></tr>
+<tr><td>6</td><td><code>concept</code></td><td>0.004350</td><td>59</td><td>100.0%</td><td>0.9210%</td><td>0.0068%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:1</code></td></tr>
+<tr><td>7</td><td><code>occurrences</code></td><td>0.004258</td><td>55</td><td>100.0%</td><td>0.8586%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavaSource.java:69</code></td></tr>
+<tr><td>8</td><td><code>topics</code></td><td>0.004240</td><td>56</td><td>100.0%</td><td>0.8742%</td><td>0.0031%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/BundledCitations.java:41</code></td></tr>
+<tr><td>9</td><td><code>written</code></td><td>0.004005</td><td>57</td><td>100.0%</td><td>0.8898%</td><td>0.0137%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/BlobOrigin.java:11</code></td></tr>
+<tr><td>10</td><td><code>share</code></td><td>0.003733</td><td>55</td><td>100.0%</td><td>0.8586%</td><td>0.0187%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergence.java:20</code></td></tr>
+<tr><td>11</td><td><code>scope</code></td><td>0.003649</td><td>65</td><td>100.0%</td><td>1.0147%</td><td>0.0029%</td><td>0.0635%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/symbol/SymbolContext.java:18</code></td></tr>
+<tr><td>12</td><td><code>concepts</code></td><td>0.003289</td><td>44</td><td>100.0%</td><td>0.6869%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:11</code></td></tr>
+<tr><td>13</td><td><code>e</code></td><td>0.003137</td><td>43</td><td>100.0%</td><td>0.6712%</td><td>0.0048%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:67</code></td></tr>
+<tr><td>14</td><td><code>files</code></td><td>0.003091</td><td>48</td><td>100.0%</td><td>0.7493%</td><td>0.0039%</td><td>0.0242%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviours.java:44</code></td></tr>
+<tr><td>15</td><td><code>mass</code></td><td>0.002769</td><td>39</td><td>100.0%</td><td>0.6088%</td><td>0.0083%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Thresholds.java:22</code></td></tr>
+<tr><td>16</td><td><code>rung</code></td><td>0.002654</td><td>34</td><td>100.0%</td><td>0.5308%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/PublishedSourceSets.java:38</code></td></tr>
+<tr><td>17</td><td><code>broader</code></td><td>0.002628</td><td>35</td><td>100.0%</td><td>0.5464%</td><td>0.0025%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:59</code></td></tr>
+<tr><td>18</td><td><code>source</code></td><td>0.002383</td><td>71</td><td>100.0%</td><td>1.1083%</td><td>0.0130%</td><td>0.2147%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:13</code></td></tr>
+<tr><td>19</td><td><code>reading</code></td><td>0.002243</td><td>32</td><td>100.0%</td><td>0.4995%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/BundledCitations.java:1</code></td></tr>
+<tr><td>20</td><td><code>domains</code></td><td>0.002206</td><td>29</td><td>100.0%</td><td>0.4527%</td><td>0.0013%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/SenseDomains.java:17</code></td></tr>
+<tr><td>21</td><td><code>repository</code></td><td>0.002021</td><td>32</td><td>100.0%</td><td>0.4995%</td><td>0.0006%</td><td>0.0181%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSourceType.java:17</code></td></tr>
+<tr><td>22</td><td><code>name</code></td><td>0.002007</td><td>83</td><td>100.0%</td><td>1.2957%</td><td>0.0346%</td><td>0.3629%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:79</code></td></tr>
+<tr><td>23</td><td><code>read</code></td><td>0.001846</td><td>55</td><td>100.0%</td><td>0.8586%</td><td>0.0143%</td><td>0.1663%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java:83</code></td></tr>
+<tr><td>24</td><td><code>label</code></td><td>0.001836</td><td>44</td><td>100.0%</td><td>0.6869%</td><td>0.0028%</td><td>0.0937%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/NameForm.java:39</code></td></tr>
+<tr><td>25</td><td><code>site</code></td><td>0.001792</td><td>33</td><td>100.0%</td><td>0.5151%</td><td>0.0203%</td><td>0.0363%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviour.java:20</code></td></tr>
+<tr><td>26</td><td><code>senses</code></td><td>0.001742</td><td>23</td><td>100.0%</td><td>0.3590%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/SenseRuns.java:59</code></td></tr>
+<tr><td>27</td><td><code>path</code></td><td>0.001722</td><td>73</td><td>100.0%</td><td>1.1396%</td><td>0.0055%</td><td>0.3266%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:36</code></td></tr>
+<tr><td>28</td><td><code>lemma</code></td><td>0.001717</td><td>22</td><td>100.0%</td><td>0.3434%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/BundledCitations.java:64</code></td></tr>
+<tr><td>29</td><td><code>stated</code></td><td>0.001701</td><td>25</td><td>100.0%</td><td>0.3903%</td><td>0.0083%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/StatedExclusions.java:29</code></td></tr>
+<tr><td>30</td><td><code>phrase</code></td><td>0.001701</td><td>23</td><td>100.0%</td><td>0.3590%</td><td>0.0025%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:44</code></td></tr>
+<tr><td>31</td><td><code>citations</code></td><td>0.001690</td><td>22</td><td>100.0%</td><td>0.3434%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:11</code></td></tr>
+<tr><td>32</td><td><code>prose</code></td><td>0.001672</td><td>22</td><td>100.0%</td><td>0.3434%</td><td>0.0010%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:59</code></td></tr>
+<tr><td>33</td><td><code>chance</code></td><td>0.001671</td><td>25</td><td>100.0%</td><td>0.3903%</td><td>0.0097%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:51</code></td></tr>
+<tr><td>34</td><td><code>term</code></td><td>0.001599</td><td>26</td><td>100.0%</td><td>0.4059%</td><td>0.0171%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:1</code></td></tr>
+<tr><td>35</td><td><code>tsv</code></td><td>0.001561</td><td>20</td><td>100.0%</td><td>0.3122%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationTsv.java:11</code></td></tr>
+<tr><td>36</td><td><code>token</code></td><td>0.001513</td><td>35</td><td>100.0%</td><td>0.5464%</td><td>0.0013%</td><td>0.0695%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:54</code></td></tr>
+<tr><td>37</td><td><code>witnesses</code></td><td>0.001485</td><td>20</td><td>100.0%</td><td>0.3122%</td><td>0.0020%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/QualifiedTopics.java:56</code></td></tr>
+<tr><td>38</td><td><code>published</code></td><td>0.001456</td><td>24</td><td>100.0%</td><td>0.3746%</td><td>0.0169%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:175</code></td></tr>
+<tr><td>39</td><td><code>line</code></td><td>0.001393</td><td>45</td><td>100.0%</td><td>0.7025%</td><td>0.0313%</td><td>0.1512%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:64</code></td></tr>
+<tr><td>40</td><td><code>divergence</code></td><td>0.001375</td><td>18</td><td>100.0%</td><td>0.2810%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergence.java:20</code></td></tr>
+<tr><td>41</td><td><code>lines</code></td><td>0.001341</td><td>22</td><td>100.0%</td><td>0.3434%</td><td>0.0101%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/MarkdownSource.java:36</code></td></tr>
+<tr><td>42</td><td><code>bits</code></td><td>0.001289</td><td>22</td><td>100.0%</td><td>0.3434%</td><td>0.0024%</td><td>0.0181%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:51</code></td></tr>
+<tr><td>43</td><td><code>verb</code></td><td>0.001278</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviour.java:20</code></td></tr>
+<tr><td>44</td><td><code>count</code></td><td>0.001268</td><td>21</td><td>100.0%</td><td>0.3278%</td><td>0.0041%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:93</code></td></tr>
+<tr><td>45</td><td><code>cited</code></td><td>0.001239</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0024%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:13</code></td></tr>
+<tr><td>46</td><td><code>lexicon</code></td><td>0.001223</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSourceType.java:15</code></td></tr>
+<tr><td>47</td><td><code>terms</code></td><td>0.001219</td><td>21</td><td>100.0%</td><td>0.3278%</td><td>0.0180%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:29</code></td></tr>
+<tr><td>48</td><td><code>phrases</code></td><td>0.001198</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0013%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/Vocabulary.java:49</code></td></tr>
+<tr><td>49</td><td><code>occurrence</code></td><td>0.001189</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0015%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviours.java:47</code></td></tr>
+<tr><td>50</td><td><code>subject</code></td><td>0.001163</td><td>25</td><td>100.0%</td><td>0.3903%</td><td>0.0117%</td><td>0.0423%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviour.java:20</code></td></tr>
+<tr><td>51</td><td><code>legibility</code></td><td>0.001093</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReading.java:21</code></td></tr>
+<tr><td>52</td><td><code>form</code></td><td>0.001087</td><td>23</td><td>100.0%</td><td>0.3590%</td><td>0.0376%</td><td>0.0363%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavaSource.java:102</code></td></tr>
+<tr><td>53</td><td><code>speech</code></td><td>0.001074</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0060%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptId.java:11</code></td></tr>
+<tr><td>54</td><td><code>rows</code></td><td>0.001069</td><td>15</td><td>100.0%</td><td>0.2342%</td><td>0.0013%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:69</code></td></tr>
+<tr><td>55</td><td><code>owl</code></td><td>0.001064</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0006%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:66</code></td></tr>
+<tr><td>56</td><td><code>semantics</code></td><td>0.001055</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0009%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:1</code></td></tr>
+<tr><td>57</td><td><code>render</code></td><td>0.001050</td><td>18</td><td>100.0%</td><td>0.2810%</td><td>0.0014%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:32</code></td></tr>
+<tr><td>58</td><td><code>vocabulary</code></td><td>0.001044</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/NameForm.java:55</code></td></tr>
+<tr><td>59</td><td><code>labels</code></td><td>0.001035</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0015%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:19</code></td></tr>
+<tr><td>60</td><td><code>english</code></td><td>0.001033</td><td>18</td><td>100.0%</td><td>0.2810%</td><td>0.0161%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:32</code></td></tr>
+<tr><td>61</td><td><code>bearers</code></td><td>0.001015</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WikidataNameExtraction.java:53</code></td></tr>
+<tr><td>62</td><td><code>commonest</code></td><td>0.001015</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/WordSpecificity.java:23</code></td></tr>
+<tr><td>63</td><td><code>lemmas</code></td><td>0.001015</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/LemmaRuns.java:35</code></td></tr>
+<tr><td>64</td><td><code>blob</code></td><td>0.000997</td><td>15</td><td>100.0%</td><td>0.2342%</td><td>0.0000%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/BlobOrigin.java:9</code></td></tr>
+<tr><td>65</td><td><code>matched</code></td><td>0.000993</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/WalkthroughProse.java:61</code></td></tr>
+<tr><td>66</td><td><code>sightings</code></td><td>0.000984</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0007%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/MatchedTerms.java:26</code></td></tr>
+<tr><td>67</td><td><code>piece</code></td><td>0.000970</td><td>15</td><td>100.0%</td><td>0.2342%</td><td>0.0073%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:56</code></td></tr>
+<tr><td>68</td><td><code>ranks</code></td><td>0.000939</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0021%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:22</code></td></tr>
+<tr><td>69</td><td><code>pref</code></td><td>0.000937</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:60</code></td></tr>
+<tr><td>70</td><td><code>syn</code></td><td>0.000937</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptId.java:11</code></td></tr>
+<tr><td>71</td><td><code>themes</code></td><td>0.000921</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0028%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:74</code></td></tr>
+<tr><td>72</td><td><code>tokens</code></td><td>0.000916</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0008%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:13</code></td></tr>
+<tr><td>73</td><td><code>taxonomy</code></td><td>0.000909</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyChoice.java:26</code></td></tr>
+<tr><td>75</td><td><code>noun</code></td><td>0.000893</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0011%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ContentWords.java:54</code></td></tr>
+<tr><td>76</td><td><code>id</code></td><td>0.000892</td><td>28</td><td>100.0%</td><td>0.4371%</td><td>0.0020%</td><td>0.0907%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptId.java:11</code></td></tr>
+<tr><td>77</td><td><code>nearest</code></td><td>0.000884</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:51</code></td></tr>
+<tr><td>78</td><td><code>part</code></td><td>0.000876</td><td>26</td><td>100.0%</td><td>0.4059%</td><td>0.0782%</td><td>0.0272%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:22</code></td></tr>
+<tr><td>79</td><td><code>named</code></td><td>0.000869</td><td>20</td><td>100.0%</td><td>0.3122%</td><td>0.0110%</td><td>0.0393%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/WrittenWords.java:74</code></td></tr>
+<tr><td>80</td><td><code>longest</code></td><td>0.000869</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0019%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:64</code></td></tr>
+<tr><td>81</td><td><code>col</code></td><td>0.000863</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0000%</td><td>0.0091%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:45</code></td></tr>
+<tr><td>82</td><td><code>corroborated</code></td><td>0.000859</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:29</code></td></tr>
+<tr><td>83</td><td><code>rungs</code></td><td>0.000859</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/PublishedSourceSets.java:36</code></td></tr>
+<tr><td>84</td><td><code>scopes</code></td><td>0.000859</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:198</code></td></tr>
+<tr><td>85</td><td><code>unplaced</code></td><td>0.000859</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:47</code></td></tr>
+<tr><td>86</td><td><code>defaults</code></td><td>0.000848</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0000%</td><td>0.0242%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:72</code></td></tr>
+<tr><td>87</td><td><code>summary</code></td><td>0.000835</td><td>15</td><td>100.0%</td><td>0.2342%</td><td>0.0023%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingIndex.java:1</code></td></tr>
+<tr><td>88</td><td><code>tally</code></td><td>0.000826</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0008%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportTally.java:13</code></td></tr>
+<tr><td>89</td><td><code>declared</code></td><td>0.000812</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0042%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:32</code></td></tr>
+<tr><td>90</td><td><code>readings</code></td><td>0.000807</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReading.java:52</code></td></tr>
+<tr><td>91</td><td><code>placed</code></td><td>0.000801</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0085%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/WalkthroughProse.java:57</code></td></tr>
+<tr><td>92</td><td><code>resamples</code></td><td>0.000781</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:34</code></td></tr>
+<tr><td>93</td><td><code>ranked</code></td><td>0.000780</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0024%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/JensenShannon.java:83</code></td></tr>
+<tr><td>94</td><td><code>dominant</code></td><td>0.000780</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0024%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FileTopics.java:67</code></td></tr>
+<tr><td>95</td><td><code>specificity</code></td><td>0.000756</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/PhraseSpecificity.java:33</code></td></tr>
+<tr><td>96</td><td><code>first</code></td><td>0.000742</td><td>33</td><td>100.0%</td><td>0.5151%</td><td>0.1539%</td><td>0.0091%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:30</code></td></tr>
+<tr><td>97</td><td><code>extraction</code></td><td>0.000729</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0014%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSense.java:1</code></td></tr>
+<tr><td>98</td><td><code>length</code></td><td>0.000709</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0077%</td><td>0.0363%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:33</code></td></tr>
+<tr><td>99</td><td><code>wiktionary</code></td><td>0.000702</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41</code></td></tr>
+<tr><td>100</td><td><code>rank</code></td><td>0.000698</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0026%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java:59</code></td></tr>
+<tr><td>101</td><td><code>names</code></td><td>0.000689</td><td>19</td><td>100.0%</td><td>0.2966%</td><td>0.0081%</td><td>0.0514%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:79</code></td></tr>
+<tr><td>102</td><td><code>dictionary</code></td><td>0.000688</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/FunctionWords.java:35</code></td></tr>
+<tr><td>103</td><td><code>sighting</code></td><td>0.000681</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0005%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:80</code></td></tr>
+<tr><td>104</td><td><code>subjects</code></td><td>0.000674</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ForeignWords.java:29</code></td></tr>
+<tr><td>105</td><td><code>fields</code></td><td>0.000668</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0051%</td><td>0.0121%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivTaxonomy.java:67</code></td></tr>
+<tr><td>106</td><td><code>sources</code></td><td>0.000664</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/CitedWords.java:23</code></td></tr>
+<tr><td>107</td><td><code>index</code></td><td>0.000658</td><td>21</td><td>100.0%</td><td>0.3278%</td><td>0.0042%</td><td>0.0695%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingIndex.java:18</code></td></tr>
+<tr><td>108</td><td><code>comparison</code></td><td>0.000653</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0037%</td><td>0.0181%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroborationReport.java:47</code></td></tr>
+<tr><td>109</td><td><code>class</code></td><td>0.000638</td><td>68</td><td>100.0%</td><td>1.0615%</td><td>0.0143%</td><td>0.5352%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:36</code></td></tr>
+<tr><td>110</td><td><code>row</code></td><td>0.000626</td><td>25</td><td>100.0%</td><td>0.3903%</td><td>0.0032%</td><td>0.1058%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:50</code></td></tr>
+<tr><td>111</td><td><code>references</code></td><td>0.000624</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0028%</td><td>0.0060%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FileTopics.java:75</code></td></tr>
+<tr><td>112</td><td><code>parsed</code></td><td>0.000624</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0000%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavadocProse.java:46</code></td></tr>
+<tr><td>113</td><td><code>shared</code></td><td>0.000622</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0091%</td><td>0.0454%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:52</code></td></tr>
+<tr><td>114</td><td><code>cost</code></td><td>0.000618</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0209%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:25</code></td></tr>
+<tr><td>115</td><td><code>run</code></td><td>0.000615</td><td>14</td><td>100.0%</td><td>0.2185%</td><td>0.0270%</td><td>0.0212%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierWords.java:44</code></td></tr>
+<tr><td>116</td><td><code>sha</code></td><td>0.000612</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0000%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:18</code></td></tr>
+<tr><td>117</td><td><code>depth</code></td><td>0.000601</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0035%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/JavaSourceScopes.java:51</code></td></tr>
+<tr><td>118</td><td><code>ontology</code></td><td>0.000601</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0006%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:58</code></td></tr>
+<tr><td>119</td><td><code>abbreviation</code></td><td>0.000599</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41</code></td></tr>
+<tr><td>120</td><td><code>spans</code></td><td>0.000591</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0009%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/MatchedTerms.java:44</code></td></tr>
+<tr><td>121</td><td><code>labelled</code></td><td>0.000586</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0011%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavaSource.java:88</code></td></tr>
+<tr><td>122</td><td><code>merged</code></td><td>0.000582</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:27</code></td></tr>
+<tr><td>123</td><td><code>offered</code></td><td>0.000582</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0085%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/OfferedWords.java:31</code></td></tr>
+<tr><td>124</td><td><code>weights</code></td><td>0.000579</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0013%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:23</code></td></tr>
+<tr><td>125</td><td><code>ranking</code></td><td>0.000571</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0016%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ThemeReport.java:59</code></td></tr>
+<tr><td>126</td><td><code>load</code></td><td>0.000562</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0034%</td><td>0.0454%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:57</code></td></tr>
+<tr><td>127</td><td><code>odds</code></td><td>0.000552</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0023%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:20</code></td></tr>
+<tr><td>128</td><td><code>canonical</code></td><td>0.000551</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0008%</td><td>0.0060%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:96</code></td></tr>
+<tr><td>129</td><td><code>extract</code></td><td>0.000551</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0016%</td><td>0.0060%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java:46</code></td></tr>
+<tr><td>130</td><td><code>pooled</code></td><td>0.000551</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0000%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:20</code></td></tr>
+<tr><td>131</td><td><code>suffix</code></td><td>0.000551</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0007%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:57</code></td></tr>
+<tr><td>132</td><td><code>foreign</code></td><td>0.000550</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0105%</td><td>0.0060%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ForeignWords.java:26</code></td></tr>
+<tr><td>133</td><td><code>weight</code></td><td>0.000549</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0089%</td><td>0.0212%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:14</code></td></tr>
+<tr><td>134</td><td><code>comment</code></td><td>0.000547</td><td>17</td><td>100.0%</td><td>0.2654%</td><td>0.0046%</td><td>0.0544%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:28</code></td></tr>
+<tr><td>135</td><td><code>normalisation</code></td><td>0.000546</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/NormalisedTerms.java:39</code></td></tr>
+<tr><td>136</td><td><code>carried</code></td><td>0.000535</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0070%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/QualifiedTopics.java:88</code></td></tr>
+<tr><td>137</td><td><code>ordinary</code></td><td>0.000533</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0032%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:32</code></td></tr>
+<tr><td>138</td><td><code>sentence</code></td><td>0.000527</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0034%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviour.java:30</code></td></tr>
+<tr><td>139</td><td><code>anchor</code></td><td>0.000527</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0015%</td><td>0.0121%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:14</code></td></tr>
+<tr><td>140</td><td><code>votes</code></td><td>0.000527</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0034%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/AxisEvidenceAccumulator.java:48</code></td></tr>
+<tr><td>141</td><td><code>root</code></td><td>0.000526</td><td>19</td><td>100.0%</td><td>0.2966%</td><td>0.0033%</td><td>0.0726%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:41</code></td></tr>
+<tr><td>142</td><td><code>withheld</code></td><td>0.000524</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:64</code></td></tr>
+<tr><td>143</td><td><code>kept</code></td><td>0.000524</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0076%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:176</code></td></tr>
+<tr><td>144</td><td><code>contribution</code></td><td>0.000521</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0037%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/JensenShannon.java:39</code></td></tr>
+<tr><td>145</td><td><code>header</code></td><td>0.000519</td><td>20</td><td>100.0%</td><td>0.3122%</td><td>0.0012%</td><td>0.0816%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:22</code></td></tr>
+<tr><td>146</td><td><code>branch</code></td><td>0.000518</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0037%</td><td>0.0181%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/RepositoryFacts.java:14</code></td></tr>
+<tr><td>147</td><td><code>items</code></td><td>0.000508</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0086%</td><td>0.0030%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WikidataInitialismExtraction.java:76</code></td></tr>
+<tr><td>148</td><td><code>siblings</code></td><td>0.000500</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTerms.java:34</code></td></tr>
+<tr><td>149</td><td><code>revision</code></td><td>0.000498</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0014%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java:24</code></td></tr>
+<tr><td>150</td><td><code>child</code></td><td>0.000484</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0149%</td><td>0.0272%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/StatedDepth.java:39</code></td></tr>
+<tr><td>151</td><td><code>intensity</code></td><td>0.000482</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0021%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/QualifiedTopics.java:214</code></td></tr>
+<tr><td>152</td><td><code>shown</code></td><td>0.000481</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0105%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroborationReport.java:19</code></td></tr>
+<tr><td>153</td><td><code>quantity</code></td><td>0.000480</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0022%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSense.java:12</code></td></tr>
+<tr><td>154</td><td><code>chain</code></td><td>0.000478</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0047%</td><td>0.0060%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportTally.java:24</code></td></tr>
+<tr><td>155</td><td><code>mean</code></td><td>0.000477</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0107%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/WrittenByDepth.java:62</code></td></tr>
+<tr><td>156</td><td><code>arxiv</code></td><td>0.000468</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivConcepts.java:25</code></td></tr>
+<tr><td>157</td><td><code>total</code></td><td>0.000463</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0230%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:50</code></td></tr>
+<tr><td>158</td><td><code>head</code></td><td>0.000462</td><td>13</td><td>100.0%</td><td>0.2029%</td><td>0.0247%</td><td>0.0363%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:18</code></td></tr>
+<tr><td>159</td><td><code>commit</code></td><td>0.000461</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0018%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:15</code></td></tr>
+<tr><td>160</td><td><code>nothing</code></td><td>0.000460</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0120%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/WrittenByDepth.java:21</code></td></tr>
+<tr><td>161</td><td><code>args</code></td><td>0.000458</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0000%</td><td>0.0121%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java:39</code></td></tr>
+<tr><td>162</td><td><code>definition</code></td><td>0.000458</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0049%</td><td>0.0121%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:41</code></td></tr>
+<tr><td>163</td><td><code>runs</code></td><td>0.000457</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0073%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierReading.java:10</code></td></tr>
+<tr><td>164</td><td><code>vote</code></td><td>0.000456</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0074%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptVote.java:13</code></td></tr>
+<tr><td>165</td><td><code>admitted</code></td><td>0.000447</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0037%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/CorroborationReport.java:56</code></td></tr>
+<tr><td>166</td><td><code>glued</code></td><td>0.000445</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierReading.java:10</code></td></tr>
+<tr><td>167</td><td><code>second</code></td><td>0.000437</td><td>16</td><td>100.0%</td><td>0.2498%</td><td>0.0620%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/RankCorrelation.java:29</code></td></tr>
+<tr><td>169</td><td><code>freeze</code></td><td>0.000432</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0011%</td><td>0.0000%</td><td><code>lexicon/src/main/java/org/fifties/housewife/bi/lexicon/WikidataInitialisms.java:76</code></td></tr>
+<tr><td>170</td><td><code>chosen</code></td><td>0.000425</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0049%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/NameForm.java:70</code></td></tr>
+<tr><td>171</td><td><code>excluded</code></td><td>0.000419</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0016%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/DocumentationScope.java:35</code></td></tr>
+<tr><td>172</td><td><code>pieces</code></td><td>0.000418</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0053%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:92</code></td></tr>
+<tr><td>173</td><td><code>reads</code></td><td>0.000412</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0018%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java:47</code></td></tr>
+<tr><td>174</td><td><code>distinctive</code></td><td>0.000407</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0021%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:60</code></td></tr>
+<tr><td>175</td><td><code>functions</code></td><td>0.000400</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0064%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/BundledCitations.java:44</code></td></tr>
+<tr><td>176</td><td><code>fibo</code></td><td>0.000390</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:42</code></td></tr>
+<tr><td>177</td><td><code>json</code></td><td>0.000390</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:31</code></td></tr>
+<tr><td>178</td><td><code>ontologies</code></td><td>0.000390</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboManifest.java:46</code></td></tr>
+<tr><td>179</td><td><code>translingual</code></td><td>0.000390</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WiktionaryDump.java:36</code></td></tr>
+<tr><td>180</td><td><code>unread</code></td><td>0.000390</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityTally.java:106</code></td></tr>
+<tr><td>181</td><td><code>claim</code></td><td>0.000378</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ChosenWord.java:22</code></td></tr>
+<tr><td>182</td><td><code>drawn</code></td><td>0.000372</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0038%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ChanceExpectedBest.java:27</code></td></tr>
+<tr><td>183</td><td><code>origin</code></td><td>0.000361</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0041%</td><td>0.0091%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/BlobOrigin.java:9</code></td></tr>
+<tr><td>184</td><td><code>residual</code></td><td>0.000357</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0010%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:25</code></td></tr>
+<tr><td>185</td><td><code>distribution</code></td><td>0.000354</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0062%</td><td>0.0151%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FileTopics.java:53</code></td></tr>
+<tr><td>186</td><td><code>behaviours</code></td><td>0.000350</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviours.java:30</code></td></tr>
+<tr><td>187</td><td><code>evidence</code></td><td>0.000342</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0162%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:11</code></td></tr>
+<tr><td>188</td><td><code>fragment</code></td><td>0.000334</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0008%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:51</code></td></tr>
+<tr><td>189</td><td><code>entries</code></td><td>0.000328</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0021%</td><td>0.0242%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/DocumentationScope.java:44</code></td></tr>
+<tr><td>190</td><td><code>net</code></td><td>0.000323</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0063%</td><td>0.0393%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:35</code></td></tr>
+<tr><td>191</td><td><code>mark</code></td><td>0.000323</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0097%</td><td>0.0121%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/MarkdownSource.java:20</code></td></tr>
+<tr><td>192</td><td><code>package</code></td><td>0.000315</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0045%</td><td>0.0484%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/symbol/SymbolKind.java:5</code></td></tr>
+<tr><td>193</td><td><code>batch</code></td><td>0.000312</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0019%</td><td>0.0030%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WikidataInitialismExtraction.java:27</code></td></tr>
+<tr><td>194</td><td><code>imports</code></td><td>0.000312</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0016%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:148</code></td></tr>
+<tr><td>195</td><td><code>placement</code></td><td>0.000312</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0019%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingWalkthrough.java:85</code></td></tr>
+<tr><td>196</td><td><code>runner</code></td><td>0.000312</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0012%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:51</code></td></tr>
+<tr><td>197</td><td><code>span</code></td><td>0.000312</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TermReading.java:91</code></td></tr>
+<tr><td>198</td><td><code>csf</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/CsfConcepts.java:24</code></td></tr>
+<tr><td>199</td><td><code>hypernym</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:54</code></td></tr>
+<tr><td>200</td><td><code>hypernyms</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon/src/main/java/org/fifties/housewife/bi/lexicon/Lexicon.java:149</code></td></tr>
+<tr><td>201</td><td><code>olia</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/OliaConcepts.java:32</code></td></tr>
+<tr><td>202</td><td><code>skos</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:47</code></td></tr>
+<tr><td>203</td><td><code>unreadable</code></td><td>0.000312</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedSource.java:23</code></td></tr>
+<tr><td>204</td><td><code>located</code></td><td>0.000312</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0131%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:45</code></td></tr>
+<tr><td>205</td><td><code>contributions</code></td><td>0.000310</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0032%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/JensenShannon.java:57</code></td></tr>
+<tr><td>206</td><td><code>base</code></td><td>0.000307</td><td>15</td><td>100.0%</td><td>0.2342%</td><td>0.0115%</td><td>0.0756%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:18</code></td></tr>
+<tr><td>207</td><td><code>letter</code></td><td>0.000305</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0081%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java:27</code></td></tr>
+<tr><td>208</td><td><code>engine</code></td><td>0.000302</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0074%</td><td>0.0423%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Thresholds.java:1</code></td></tr>
+<tr><td>209</td><td><code>held</code></td><td>0.000302</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0272%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/SummaryReport.java:90</code></td></tr>
+<tr><td>210</td><td><code>statements</code></td><td>0.000302</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0036%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:62</code></td></tr>
+<tr><td>211</td><td><code>normal</code></td><td>0.000297</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0087%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/NormalisedTerms.java:88</code></td></tr>
+<tr><td>212</td><td><code>domain</code></td><td>0.000297</td><td>12</td><td>100.0%</td><td>0.1873%</td><td>0.0034%</td><td>0.0514%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:39</code></td></tr>
+<tr><td>213</td><td><code>links</code></td><td>0.000295</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0040%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WikidataInitialismExtraction.java:113</code></td></tr>
+<tr><td>214</td><td><code>abbreviations</code></td><td>0.000294</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0005%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/BundledCitations.java:40</code></td></tr>
+<tr><td>215</td><td><code>batches</code></td><td>0.000294</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0005%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WikidataInitialismExtraction.java:105</code></td></tr>
+<tr><td>216</td><td><code>elapsed</code></td><td>0.000293</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0005%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/RepositoryLegibility.java:16</code></td></tr>
+<tr><td>217</td><td><code>thresholds</code></td><td>0.000293</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0005%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Thresholds.java:12</code></td></tr>
+<tr><td>218</td><td><code>quotations</code></td><td>0.000293</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0005%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/TopicWitnesses.java:44</code></td></tr>
+<tr><td>219</td><td><code>endpoint</code></td><td>0.000292</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0006%</td><td>0.0091%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/QleverWikidata.java:24</code></td></tr>
+<tr><td>220</td><td><code>expansion</code></td><td>0.000292</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0045%</td><td>0.0091%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSense.java:11</code></td></tr>
+<tr><td>221</td><td><code>behaviour</code></td><td>0.000284</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0047%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviour.java:1</code></td></tr>
+<tr><td>222</td><td><code>apart</code></td><td>0.000281</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0049%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:54</code></td></tr>
+<tr><td>223</td><td><code>exported</code></td><td>0.000281</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0010%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java:26</code></td></tr>
+<tr><td>224</td><td><code>rankings</code></td><td>0.000276</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/RepositoryThemes.java:20</code></td></tr>
+<tr><td>226</td><td><code>accumulator</code></td><td>0.000264</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0000%</td><td>0.0060%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/AxisEvidenceAccumulator.java:38</code></td></tr>
+<tr><td>227</td><td><code>min</code></td><td>0.000264</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0009%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:33</code></td></tr>
+<tr><td>228</td><td><code>packages</code></td><td>0.000264</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0020%</td><td>0.0060%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportOrigins.java:24</code></td></tr>
+<tr><td>229</td><td><code>draws</code></td><td>0.000263</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0018%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:56</code></td></tr>
+<tr><td>230</td><td><code>prefix</code></td><td>0.000261</td><td>7</td><td>100.0%</td><td>0.1093%</td><td>0.0009%</td><td>0.0181%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:61</code></td></tr>
+<tr><td>231</td><td><code>counts</code></td><td>0.000258</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0021%</td><td>0.0121%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReport.java:51</code></td></tr>
+<tr><td>232</td><td><code>dump</code></td><td>0.000258</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0010%</td><td>0.0121%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/WiktionaryDump.java:17</code></td></tr>
+<tr><td>233</td><td><code>description</code></td><td>0.000257</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0040%</td><td>0.0333%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavadocProse.java:60</code></td></tr>
+<tr><td>234</td><td><code>carries</code></td><td>0.000254</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0022%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:57</code></td></tr>
+<tr><td>235</td><td><code>median</code></td><td>0.000249</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0025%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FieldOfStudy.java:84</code></td></tr>
+<tr><td>236</td><td><code>every</code></td><td>0.000246</td><td>11</td><td>100.0%</td><td>0.1717%</td><td>0.0516%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/CitedWords.java:38</code></td></tr>
+<tr><td>237</td><td><code>witness</code></td><td>0.000244</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0027%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ThemeTables.java:65</code></td></tr>
+<tr><td>238</td><td><code>chose</code></td><td>0.000236</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0032%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/VocabularyReport.java:87</code></td></tr>
+<tr><td>239</td><td><code>antonymous</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon/src/main/java/org/fifties/housewife/bi/lexicon/Lexicon.java:157</code></td></tr>
+<tr><td>240</td><td><code>credence</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PhraseTopics.java:191</code></td></tr>
+<tr><td>241</td><td><code>divergences</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:80</code></td></tr>
+<tr><td>242</td><td><code>git</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:11</code></td></tr>
+<tr><td>243</td><td><code>initialism</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:45</code></td></tr>
+<tr><td>244</td><td><code>nist</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/NistCsfExtraction.java:23</code></td></tr>
+<tr><td>245</td><td><code>seeded</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:62</code></td></tr>
+<tr><td>246</td><td><code>segmenter</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java:25</code></td></tr>
+<tr><td>247</td><td><code>unsound</code></td><td>0.000234</td><td>3</td><td>100.0%</td><td>0.0468%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:143</code></td></tr>
+<tr><td>248</td><td><code>compound</code></td><td>0.000232</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0020%</td><td>0.0454%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:20</code></td></tr>
+<tr><td>249</td><td><code>classes</code></td><td>0.000228</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0054%</td><td>0.0151%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/FiboConcepts.java:64</code></td></tr>
+<tr><td>250</td><td><code>parent</code></td><td>0.000226</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0031%</td><td>0.0091%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:105</code></td></tr>
+<tr><td>251</td><td><code>pinned</code></td><td>0.000226</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0007%</td><td>0.0091%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java:53</code></td></tr>
+<tr><td>252</td><td><code>here</code></td><td>0.000223</td><td>10</td><td>100.0%</td><td>0.1561%</td><td>0.0470%</td><td>0.0030%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:74</code></td></tr>
+<tr><td>253</td><td><code>stands</code></td><td>0.000222</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0041%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:54</code></td></tr>
+<tr><td>254</td><td><code>coverage</code></td><td>0.000221</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0042%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PhraseTopics.java:50</code></td></tr>
+</table>
+<h3>What the language supplied</h3>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>4</td><td><code>by</code></td><td>0.005506</td><td>173</td><td>100.0%</td><td>2.7006%</td><td>0.5613%</td><td>0.0151%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:32</code></td></tr>
+<tr><td>74</td><td><code>from</code></td><td>0.000895</td><td>70</td><td>100.0%</td><td>1.0927%</td><td>0.4771%</td><td>0.0242%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:36</code></td></tr>
+<tr><td>168</td><td><code>wiki</code></td><td>0.000437</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0009%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:45</code></td></tr>
+<tr><td>225</td><td><code>beside</code></td><td>0.000271</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/StatedSiblings.java:37</code></td></tr>
+<tr><td>273</td><td><code>below</code></td><td>0.000192</td><td>6</td><td>100.0%</td><td>0.0937%</td><td>0.0194%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/DepthReport.java:102</code></td></tr>
+<tr><td>433</td><td><code>among</code></td><td>0.000072</td><td>5</td><td>100.0%</td><td>0.0781%</td><td>0.0318%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/StatedSiblings.java:64</code></td></tr>
+<tr><td>437</td><td><code>against</code></td><td>0.000067</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.0658%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/JensenShannon.java:73</code></td></tr>
+<tr><td>490</td><td><code>genuinely</code></td><td>0.000053</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java:59</code></td></tr>
+<tr><td>550</td><td><code>lex</code></td><td>0.000034</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0005%</td><td>0.0030%</td><td><code>lexicon/src/main/java/org/fifties/housewife/bi/lexicon/WordNetLexicon.java:27</code></td></tr>
+<tr><td>554</td><td><code>sp</code></td><td>0.000034</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0007%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:23</code></td></tr>
+<tr><td>563</td><td><code>once</code></td><td>0.000032</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0335%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityTally.java:127</code></td></tr>
+<tr><td>588</td><td><code>keyword</code></td><td>0.000016</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0007%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:28</code></td></tr>
+<tr><td>642</td><td><code>api</code></td><td>0.000000</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0010%</td><td>0.0151%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:30</code></td></tr>
+<tr><td>657</td><td><code>what</code></td><td>-0.000001</td><td>8</td><td>100.0%</td><td>0.1249%</td><td>0.1344%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:64</code></td></tr>
+<tr><td>659</td><td><code>sql</code></td><td>-0.000001</td><td>4</td><td>100.0%</td><td>0.0624%</td><td>0.0008%</td><td>0.0695%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/SqlFunction.java:8</code></td></tr>
+<tr><td>660</td><td><code>again</code></td><td>-0.000001</td><td>2</td><td>100.0%</td><td>0.0312%</td><td>0.0364%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:127</code></td></tr>
+<tr><td>666</td><td><code>ever</code></td><td>-0.000002</td><td>1</td><td>100.0%</td><td>0.0156%</td><td>0.0204%</td><td>0.0000%</td><td><code>lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/QleverWikidata.java:22</code></td></tr>
+<tr><td>682</td><td><code>login</code></td><td>-0.000006</td><td>2</td><td>100.0%</td><td>0.0312%</td><td>0.0008%</td><td>0.0423%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:19</code></td></tr>
+<tr><td>684</td><td><code>per</code></td><td>-0.000006</td><td>9</td><td>100.0%</td><td>0.1405%</td><td>0.0519%</td><td>0.1633%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:75</code></td></tr>
+<tr><td>686</td><td><code>too</code></td><td>-0.000006</td><td>2</td><td>100.0%</td><td>0.0312%</td><td>0.0426%</td><td>0.0091%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/AxisEvidenceAccumulator.java:84</code></td></tr>
+</table>
+<h3>What a count on its own would have said</h3>
+<table>
+<tr><th>Written most</th><th>Occurrences</th><th>Its place once the references are asked</th></tr>
+<tr><td><code>word</code></td><td>229</td><td>1</td></tr>
+<tr><td><code>of</code></td><td>180</td><td>827</td></tr>
+<tr><td><code>by</code></td><td>173</td><td>4</td></tr>
+<tr><td><code>words</code></td><td>119</td><td>3</td></tr>
+<tr><td><code>topic</code></td><td>118</td><td>2</td></tr>
+<tr><td><code>name</code></td><td>83</td><td>22</td></tr>
+<tr><td><code>path</code></td><td>73</td><td>27</td></tr>
+<tr><td><code>source</code></td><td>71</td><td>18</td></tr>
+<tr><td><code>from</code></td><td>70</td><td>74</td></tr>
+<tr><td><code>class</code></td><td>68</td><td>109</td></tr>
+<tr><td><code>sense</code></td><td>68</td><td>5</td></tr>
+<tr><td><code>scope</code></td><td>65</td><td>11</td></tr>
+<tr><td><code>concept</code></td><td>59</td><td>6</td></tr>
+<tr><td><code>written</code></td><td>57</td><td>9</td></tr>
+<tr><td><code>topics</code></td><td>56</td><td>8</td></tr>
+<tr><td><code>occurrences</code></td><td>55</td><td>7</td></tr>
+<tr><td><code>read</code></td><td>55</td><td>23</td></tr>
+<tr><td><code>share</code></td><td>55</td><td>10</td></tr>
+<tr><td><code>entry</code></td><td>54</td><td>313</td></tr>
+<tr><td><code>file</code></td><td>49</td><td>640</td></tr>
+</table>
+<h2>What it called the things that check it</h2>
+<p><strong>11,922 occurrences of 1,450 distinct words</strong>, read against ordinary English and the platform's own API. The 50 below hold 28.6% of this reading, and 100.0% of their occurrences are names. 383 words in the ranking are ones a reference writes more densely than this repository does, and 95 are ones English supplied rather than the author choosing them; both are shown below rather than removed.</p>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>1</td><td><code>reads</code></td><td>0.007163</td><td>173</td><td>100.0%</td><td>1.4511%</td><td>0.0018%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:78</code></td></tr>
+<tr><td>2</td><td><code>word</code></td><td>0.006234</td><td>165</td><td>100.0%</td><td>1.3840%</td><td>0.0145%</td><td>0.0212%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/PieceCostTest.java:12</code></td></tr>
+<tr><td>3</td><td><code>test</code></td><td>0.005273</td><td>145</td><td>100.0%</td><td>1.2162%</td><td>0.0135%</td><td>0.0272%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:14</code></td></tr>
+<tr><td>4</td><td><code>words</code></td><td>0.003832</td><td>102</td><td>100.0%</td><td>0.8556%</td><td>0.0139%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/CompoundParsesTest.java:23</code></td></tr>
+<tr><td>5</td><td><code>a</code></td><td>0.003698</td><td>527</td><td>100.0%</td><td>4.4204%</td><td>1.9083%</td><td>0.0030%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:47</code></td></tr>
+<tr><td>6</td><td><code>nothing</code></td><td>0.003226</td><td>86</td><td>100.0%</td><td>0.7214%</td><td>0.0120%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/CompoundParsesTest.java:51</code></td></tr>
+<tr><td>7</td><td><code>concept</code></td><td>0.002744</td><td>71</td><td>100.0%</td><td>0.5955%</td><td>0.0068%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:14</code></td></tr>
+<tr><td>8</td><td><code>carries</code></td><td>0.002717</td><td>67</td><td>100.0%</td><td>0.5620%</td><td>0.0022%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:26</code></td></tr>
+<tr><td>9</td><td><code>topic</code></td><td>0.002711</td><td>68</td><td>100.0%</td><td>0.5704%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/CorroborationReportTest.java:41</code></td></tr>
+<tr><td>10</td><td><code>refuses</code></td><td>0.002549</td><td>62</td><td>100.0%</td><td>0.5200%</td><td>0.0011%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:64</code></td></tr>
+<tr><td>11</td><td><code>reading</code></td><td>0.002343</td><td>62</td><td>100.0%</td><td>0.5200%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergenceTest.java:17</code></td></tr>
+<tr><td>12</td><td><code>names</code></td><td>0.002237</td><td>79</td><td>100.0%</td><td>0.6626%</td><td>0.0081%</td><td>0.0514%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:67</code></td></tr>
+<tr><td>13</td><td><code>written</code></td><td>0.002209</td><td>62</td><td>100.0%</td><td>0.5200%</td><td>0.0137%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/behaviour/BehavioursTest.java:39</code></td></tr>
+<tr><td>14</td><td><code>states</code></td><td>0.002169</td><td>75</td><td>100.0%</td><td>0.6291%</td><td>0.0457%</td><td>0.0030%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/ThresholdsTest.java:10</code></td></tr>
+<tr><td>16</td><td><code>root</code></td><td>0.001931</td><td>78</td><td>100.0%</td><td>0.6543%</td><td>0.0033%</td><td>0.0726%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:18</code></td></tr>
+<tr><td>17</td><td><code>topics</code></td><td>0.001899</td><td>48</td><td>100.0%</td><td>0.4026%</td><td>0.0031%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/summary/PinnedSummaryFindings.java:35</code></td></tr>
+<tr><td>18</td><td><code>every</code></td><td>0.001827</td><td>68</td><td>100.0%</td><td>0.5704%</td><td>0.0516%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:33</code></td></tr>
+<tr><td>19</td><td><code>taxonomy</code></td><td>0.001773</td><td>43</td><td>100.0%</td><td>0.3607%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/summary/PinnedSummaryFindings.java:44</code></td></tr>
+<tr><td>20</td><td><code>its</code></td><td>0.001761</td><td>111</td><td>100.0%</td><td>0.9311%</td><td>0.2120%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:47</code></td></tr>
+<tr><td>21</td><td><code>scope</code></td><td>0.001752</td><td>70</td><td>100.0%</td><td>0.5871%</td><td>0.0029%</td><td>0.0635%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/repository/RepositoryFactsTest.java:58</code></td></tr>
+<tr><td>22</td><td><code>term</code></td><td>0.001663</td><td>50</td><td>100.0%</td><td>0.4194%</td><td>0.0171%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergenceTest.java:40</code></td></tr>
+<tr><td>23</td><td><code>keeps</code></td><td>0.001581</td><td>40</td><td>100.0%</td><td>0.3355%</td><td>0.0026%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/TokeniserTest.java:31</code></td></tr>
+<tr><td>24</td><td><code>repository</code></td><td>0.001564</td><td>48</td><td>100.0%</td><td>0.4026%</td><td>0.0006%</td><td>0.0181%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/repository/RepositoryFactsTest.java:13</code></td></tr>
+<tr><td>25</td><td><code>no</code></td><td>0.001551</td><td>92</td><td>100.0%</td><td>0.7717%</td><td>0.1272%</td><td>0.1633%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:26</code></td></tr>
+<tr><td>26</td><td><code>it</code></td><td>0.001418</td><td>193</td><td>100.0%</td><td>1.6189%</td><td>0.6815%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/CompoundParsesTest.java:23</code></td></tr>
+<tr><td>27</td><td><code>broader</code></td><td>0.001417</td><td>36</td><td>100.0%</td><td>0.3020%</td><td>0.0025%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTermsTest.java:19</code></td></tr>
+<tr><td>28</td><td><code>sense</code></td><td>0.001351</td><td>40</td><td>100.0%</td><td>0.3355%</td><td>0.0125%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/SenseRunsTest.java:10</code></td></tr>
+<tr><td>29</td><td><code>run</code></td><td>0.001270</td><td>44</td><td>100.0%</td><td>0.3691%</td><td>0.0270%</td><td>0.0212%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/CompoundParsesTest.java:51</code></td></tr>
+<tr><td>30</td><td><code>ontology</code></td><td>0.001232</td><td>30</td><td>100.0%</td><td>0.2516%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/LinguisticTermsTest.java:31</code></td></tr>
+<tr><td>31</td><td><code>own</code></td><td>0.001226</td><td>55</td><td>100.0%</td><td>0.4613%</td><td>0.0636%</td><td>0.0030%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:64</code></td></tr>
+<tr><td>33</td><td><code>dictionary</code></td><td>0.001196</td><td>31</td><td>100.0%</td><td>0.2600%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/WordSegmenterTest.java:14</code></td></tr>
+<tr><td>34</td><td><code>terms</code></td><td>0.001177</td><td>38</td><td>100.0%</td><td>0.3187%</td><td>0.0180%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergenceTest.java:30</code></td></tr>
+<tr><td>35</td><td><code>counts</code></td><td>0.001161</td><td>35</td><td>100.0%</td><td>0.2936%</td><td>0.0021%</td><td>0.0121%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:146</code></td></tr>
+<tr><td>38</td><td><code>share</code></td><td>0.001127</td><td>37</td><td>100.0%</td><td>0.3104%</td><td>0.0187%</td><td>0.0030%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/OpenSpaceAccumulatorTest.java:37</code></td></tr>
+<tr><td>39</td><td><code>writes</code></td><td>0.001126</td><td>29</td><td>100.0%</td><td>0.2432%</td><td>0.0026%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/MarkdownRenderingTest.java:12</code></td></tr>
+<tr><td>40</td><td><code>scopes</code></td><td>0.001090</td><td>26</td><td>100.0%</td><td>0.2181%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:132</code></td></tr>
+<tr><td>41</td><td><code>senses</code></td><td>0.001083</td><td>27</td><td>100.0%</td><td>0.2265%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/LemmaRunsTest.java:26</code></td></tr>
+<tr><td>42</td><td><code>published</code></td><td>0.001041</td><td>34</td><td>100.0%</td><td>0.2852%</td><td>0.0169%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:108</code></td></tr>
+<tr><td>43</td><td><code>themes</code></td><td>0.001037</td><td>27</td><td>100.0%</td><td>0.2265%</td><td>0.0028%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/TreeReading.java:63</code></td></tr>
+<tr><td>44</td><td><code>matched</code></td><td>0.000990</td><td>26</td><td>100.0%</td><td>0.2181%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/LinguisticTermsTest.java:24</code></td></tr>
+<tr><td>45</td><td><code>says</code></td><td>0.000971</td><td>39</td><td>100.0%</td><td>0.3271%</td><td>0.0359%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:29</code></td></tr>
+<tr><td>46</td><td><code>chance</code></td><td>0.000969</td><td>29</td><td>100.0%</td><td>0.2432%</td><td>0.0097%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/summary/PinnedSummaryFindings.java:49</code></td></tr>
+<tr><td>47</td><td><code>report</code></td><td>0.000962</td><td>38</td><td>100.0%</td><td>0.3187%</td><td>0.0336%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityReportTest.java:13</code></td></tr>
+<tr><td>48</td><td><code>stated</code></td><td>0.000954</td><td>28</td><td>100.0%</td><td>0.2349%</td><td>0.0083%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/PanelManifest.java:37</code></td></tr>
+<tr><td>49</td><td><code>publisher</code></td><td>0.000940</td><td>28</td><td>100.0%</td><td>0.2349%</td><td>0.0015%</td><td>0.0091%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/CorroboratedTermsTest.java:52</code></td></tr>
+<tr><td>50</td><td><code>ab</code></td><td>0.000938</td><td>24</td><td>100.0%</td><td>0.2013%</td><td>0.0019%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/symbol/SymbolContextTest.java:59</code></td></tr>
+<tr><td>51</td><td><code>does</code></td><td>0.000938</td><td>42</td><td>100.0%</td><td>0.3523%</td><td>0.0484%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/name/WordRanksTest.java:26</code></td></tr>
+<tr><td>52</td><td><code>concepts</code></td><td>0.000934</td><td>25</td><td>100.0%</td><td>0.2097%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/DepthReportTest.java:58</code></td></tr>
+<tr><td>53</td><td><code>subject</code></td><td>0.000933</td><td>40</td><td>100.0%</td><td>0.3355%</td><td>0.0117%</td><td>0.0423%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyChoiceTest.java:21</code></td></tr>
+<tr><td>54</td><td><code>stains</code></td><td>0.000895</td><td>22</td><td>100.0%</td><td>0.1845%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/symbol/SymbolContextTest.java:59</code></td></tr>
+</table>
+<h3>What the language supplied</h3>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>15</td><td><code>rather</code></td><td>0.001970</td><td>61</td><td>100.0%</td><td>0.5117%</td><td>0.0241%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/repository/RepositoryFactsTest.java:68</code></td></tr>
+<tr><td>32</td><td><code>than</code></td><td>0.001210</td><td>76</td><td>100.0%</td><td>0.6375%</td><td>0.1446%</td><td>0.0121%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/repository/RepositoryFactsTest.java:68</code></td></tr>
+<tr><td>36</td><td><code>where</code></td><td>0.001161</td><td>63</td><td>100.0%</td><td>0.5284%</td><td>0.0994%</td><td>0.0030%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/AwkwardRepositoryTest.java:30</code></td></tr>
+<tr><td>37</td><td><code>what</code></td><td>0.001135</td><td>71</td><td>100.0%</td><td>0.5955%</td><td>0.1344%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ImportOriginsTest.java:52</code></td></tr>
+<tr><td>61</td><td><code>itself</code></td><td>0.000771</td><td>26</td><td>100.0%</td><td>0.2181%</td><td>0.0145%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/EvidenceSourceTest.java:28</code></td></tr>
+<tr><td>68</td><td><code>not</code></td><td>0.000693</td><td>98</td><td>100.0%</td><td>0.8220%</td><td>0.3534%</td><td>0.2117%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:23</code></td></tr>
+<tr><td>72</td><td><code>beside</code></td><td>0.000663</td><td>17</td><td>100.0%</td><td>0.1426%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/BundledResourceReachabilityTest.java:53</code></td></tr>
+<tr><td>108</td><td><code>twice</code></td><td>0.000429</td><td>13</td><td>100.0%</td><td>0.1090%</td><td>0.0046%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/JavaSourceTest.java:145</code></td></tr>
+<tr><td>131</td><td><code>without</code></td><td>0.000324</td><td>23</td><td>100.0%</td><td>0.1929%</td><td>0.0500%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/EvidenceSourceTest.java:22</code></td></tr>
+<tr><td>134</td><td><code>below</code></td><td>0.000314</td><td>15</td><td>100.0%</td><td>0.1258%</td><td>0.0194%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:28</code></td></tr>
+<tr><td>192</td><td><code>beneath</code></td><td>0.000204</td><td>6</td><td>100.0%</td><td>0.0503%</td><td>0.0018%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/reading/PanelManifestTest.java:57</code></td></tr>
+<tr><td>216</td><td><code>whose</code></td><td>0.000177</td><td>8</td><td>100.0%</td><td>0.0671%</td><td>0.0093%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/behaviour/BehavioursTest.java:65</code></td></tr>
+<tr><td>236</td><td><code>never</code></td><td>0.000164</td><td>15</td><td>100.0%</td><td>0.1258%</td><td>0.0408%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/AxisEvidenceAccumulatorTest.java:97</code></td></tr>
+<tr><td>242</td><td><code>else</code></td><td>0.000159</td><td>7</td><td>100.0%</td><td>0.0587%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ImportOriginsTest.java:29</code></td></tr>
+<tr><td>244</td><td><code>cannot</code></td><td>0.000158</td><td>9</td><td>100.0%</td><td>0.0755%</td><td>0.0150%</td><td>0.0151%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:47</code></td></tr>
+<tr><td>262</td><td><code>against</code></td><td>0.000145</td><td>19</td><td>100.0%</td><td>0.1594%</td><td>0.0658%</td><td>0.0000%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:28</code></td></tr>
+<tr><td>270</td><td><code>elsewhere</code></td><td>0.000142</td><td>5</td><td>100.0%</td><td>0.0419%</td><td>0.0033%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:52</code></td></tr>
+<tr><td>271</td><td><code>everything</code></td><td>0.000141</td><td>8</td><td>100.0%</td><td>0.0671%</td><td>0.0134%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ImportOriginsTest.java:29</code></td></tr>
+<tr><td>286</td><td><code>once</code></td><td>0.000127</td><td>12</td><td>100.0%</td><td>0.1007%</td><td>0.0335%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepositoryTest.java:47</code></td></tr>
+<tr><td>289</td><td><code>anything</code></td><td>0.000126</td><td>7</td><td>100.0%</td><td>0.0587%</td><td>0.0114%</td><td>0.0000%</td><td><code>code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/pipeline/OpenSpaceAccumulatorTest.java:75</code></td></tr>
+</table>
+<h3>What a count on its own would have said</h3>
+<table>
+<tr><th>Written most</th><th>Occurrences</th><th>Its place once the references are asked</th></tr>
+<tr><td><code>the</code></td><td>692</td><td>1,446</td></tr>
+<tr><td><code>a</code></td><td>527</td><td>5</td></tr>
+<tr><td><code>it</code></td><td>193</td><td>26</td></tr>
+<tr><td><code>reads</code></td><td>173</td><td>1</td></tr>
+<tr><td><code>as</code></td><td>169</td><td>74</td></tr>
+<tr><td><code>word</code></td><td>165</td><td>2</td></tr>
+<tr><td><code>of</code></td><td>154</td><td>1,450</td></tr>
+<tr><td><code>test</code></td><td>145</td><td>3</td></tr>
+<tr><td><code>and</code></td><td>116</td><td>1,448</td></tr>
+<tr><td><code>its</code></td><td>111</td><td>20</td></tr>
+<tr><td><code>is</code></td><td>103</td><td>1,376</td></tr>
+<tr><td><code>to</code></td><td>103</td><td>1,445</td></tr>
+<tr><td><code>words</code></td><td>102</td><td>4</td></tr>
+<tr><td><code>in</code></td><td>99</td><td>1,420</td></tr>
+<tr><td><code>not</code></td><td>98</td><td>68</td></tr>
+<tr><td><code>no</code></td><td>92</td><td>25</td></tr>
+<tr><td><code>that</code></td><td>90</td><td>1,337</td></tr>
+<tr><td><code>nothing</code></td><td>86</td><td>6</td></tr>
+<tr><td><code>one</code></td><td>86</td><td>55</td></tr>
+<tr><td><code>names</code></td><td>79</td><td>12</td></tr>
+</table>
+<h2>And what it wrote about all of it</h2>
+<p><strong>74,179 occurrences of 3,406 distinct words</strong>, read against ordinary English and the platform's own API. The 50 below hold 27.2% of this reading, and 23.6% of their occurrences are names. 1,329 words in the ranking are ones a reference writes more densely than this repository does, and 191 are ones English supplied rather than the author choosing them; both are shown below rather than removed.</p>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>1</td><td><code>word</code></td><td>0.005979</td><td>988</td><td>39.9%</td><td>1.3319%</td><td>0.0145%</td><td>0.0212%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptId.java:5</code></td></tr>
+<tr><td>2</td><td><code>a</code></td><td>0.005462</td><td>3,789</td><td>14.3%</td><td>5.1079%</td><td>1.9083%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>3</td><td><code>reading</code></td><td>0.003105</td><td>501</td><td>18.8%</td><td>0.6754%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>4</td><td><code>s</code></td><td>0.003030</td><td>590</td><td>0.0%</td><td>0.7954%</td><td>0.0213%</td><td>0.0393%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/AxisResolution.java:3</code></td></tr>
+<tr><td>5</td><td><code>words</code></td><td>0.002962</td><td>502</td><td>44.0%</td><td>0.6767%</td><td>0.0139%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:58</code></td></tr>
+<tr><td>6</td><td><code>it</code></td><td>0.002437</td><td>1,482</td><td>13.0%</td><td>1.9979%</td><td>0.6815%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>8</td><td><code>repository</code></td><td>0.002281</td><td>411</td><td>19.5%</td><td>0.5541%</td><td>0.0006%</td><td>0.0181%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:3</code></td></tr>
+<tr><td>9</td><td><code>is</code></td><td>0.002275</td><td>2,227</td><td>5.5%</td><td>3.0022%</td><td>1.3630%</td><td>0.0151%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>10</td><td><code>topic</code></td><td>0.002230</td><td>351</td><td>53.0%</td><td>0.4732%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:43</code></td></tr>
+<tr><td>11</td><td><code>one</code></td><td>0.002127</td><td>817</td><td>12.1%</td><td>1.1014%</td><td>0.2446%</td><td>0.0060%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>12</td><td><code>nothing</code></td><td>0.002053</td><td>356</td><td>26.7%</td><td>0.4799%</td><td>0.0120%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>13</td><td><code>reads</code></td><td>0.002014</td><td>310</td><td>57.7%</td><td>0.4179%</td><td>0.0018%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptVote.java:8</code></td></tr>
+<tr><td>15</td><td><code>written</code></td><td>0.001547</td><td>283</td><td>42.0%</td><td>0.3815%</td><td>0.0137%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/BlobOrigin.java:11</code></td></tr>
+<tr><td>16</td><td><code>own</code></td><td>0.001470</td><td>386</td><td>15.3%</td><td>0.5204%</td><td>0.0636%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>17</td><td><code>every</code></td><td>0.001367</td><td>344</td><td>23.0%</td><td>0.4637%</td><td>0.0516%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:3</code></td></tr>
+<tr><td>18</td><td><code>concept</code></td><td>0.001354</td><td>231</td><td>56.3%</td><td>0.3114%</td><td>0.0068%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:1</code></td></tr>
+<tr><td>19</td><td><code>taxonomy</code></td><td>0.001292</td><td>196</td><td>28.1%</td><td>0.2642%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:15</code></td></tr>
+<tr><td>20</td><td><code>its</code></td><td>0.001236</td><td>576</td><td>19.4%</td><td>0.7765%</td><td>0.2120%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>21</td><td><code>sense</code></td><td>0.001161</td><td>219</td><td>49.3%</td><td>0.2952%</td><td>0.0125%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:13</code></td></tr>
+<tr><td>23</td><td><code>dictionary</code></td><td>0.001137</td><td>184</td><td>22.3%</td><td>0.2480%</td><td>0.0015%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSourceType.java:14</code></td></tr>
+<tr><td>24</td><td><code>carries</code></td><td>0.001114</td><td>177</td><td>40.1%</td><td>0.2386%</td><td>0.0022%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>25</td><td><code>topics</code></td><td>0.001103</td><td>179</td><td>58.1%</td><td>0.2413%</td><td>0.0031%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:24</code></td></tr>
+<tr><td>26</td><td><code>so</code></td><td>0.001047</td><td>475</td><td>6.1%</td><td>0.6403%</td><td>0.1704%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>27</td><td><code>share</code></td><td>0.000942</td><td>200</td><td>46.0%</td><td>0.2696%</td><td>0.0187%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:5</code></td></tr>
+<tr><td>28</td><td><code>subject</code></td><td>0.000895</td><td>242</td><td>26.9%</td><td>0.3262%</td><td>0.0117%</td><td>0.0423%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:38</code></td></tr>
+<tr><td>29</td><td><code>phrase</code></td><td>0.000881</td><td>143</td><td>31.5%</td><td>0.1928%</td><td>0.0025%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:44</code></td></tr>
+<tr><td>30</td><td><code>term</code></td><td>0.000851</td><td>181</td><td>42.0%</td><td>0.2440%</td><td>0.0171%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/OpenSpaceAccumulator.java:9</code></td></tr>
+<tr><td>31</td><td><code>vocabulary</code></td><td>0.000850</td><td>133</td><td>27.1%</td><td>0.1793%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:29</code></td></tr>
+<tr><td>32</td><td><code>states</code></td><td>0.000801</td><td>231</td><td>34.2%</td><td>0.3114%</td><td>0.0457%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:14</code></td></tr>
+<tr><td>33</td><td><code>writes</code></td><td>0.000773</td><td>127</td><td>22.8%</td><td>0.1712%</td><td>0.0026%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:63</code></td></tr>
+<tr><td>34</td><td><code>names</code></td><td>0.000767</td><td>235</td><td>41.7%</td><td>0.3168%</td><td>0.0081%</td><td>0.0514%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>36</td><td><code>published</code></td><td>0.000756</td><td>165</td><td>35.2%</td><td>0.2224%</td><td>0.0169%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>37</td><td><code>scope</code></td><td>0.000749</td><td>252</td><td>53.6%</td><td>0.3397%</td><td>0.0029%</td><td>0.0635%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:55</code></td></tr>
+<tr><td>38</td><td><code>test</code></td><td>0.000742</td><td>185</td><td>80.0%</td><td>0.2494%</td><td>0.0135%</td><td>0.0272%</td><td><code>code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:14</code></td></tr>
+<tr><td>39</td><td><code>read</code></td><td>0.000740</td><td>398</td><td>29.6%</td><td>0.5365%</td><td>0.0143%</td><td>0.1663%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:50</code></td></tr>
+<tr><td>40</td><td><code>run</code></td><td>0.000727</td><td>182</td><td>31.9%</td><td>0.2454%</td><td>0.0270%</td><td>0.0212%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3</code></td></tr>
+<tr><td>41</td><td><code>bundled</code></td><td>0.000723</td><td>111</td><td>18.0%</td><td>0.1496%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:48</code></td></tr>
+<tr><td>42</td><td><code>senses</code></td><td>0.000723</td><td>114</td><td>43.9%</td><td>0.1537%</td><td>0.0012%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:50</code></td></tr>
+<tr><td>43</td><td><code>mass</code></td><td>0.000687</td><td>132</td><td>43.9%</td><td>0.1779%</td><td>0.0083%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>44</td><td><code>concepts</code></td><td>0.000662</td><td>114</td><td>60.5%</td><td>0.1537%</td><td>0.0036%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:11</code></td></tr>
+<tr><td>45</td><td><code>same</code></td><td>0.000633</td><td>239</td><td>12.1%</td><td>0.3222%</td><td>0.0702%</td><td>0.0212%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:53</code></td></tr>
+<tr><td>46</td><td><code>prose</code></td><td>0.000629</td><td>99</td><td>32.3%</td><td>0.1335%</td><td>0.0010%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:59</code></td></tr>
+<tr><td>47</td><td><code>occurrences</code></td><td>0.000614</td><td>95</td><td>70.5%</td><td>0.1281%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/JavaSource.java:69</code></td></tr>
+<tr><td>48</td><td><code>each</code></td><td>0.000613</td><td>254</td><td>13.4%</td><td>0.3424%</td><td>0.0830%</td><td>0.0393%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:10</code></td></tr>
+<tr><td>49</td><td><code>divergence</code></td><td>0.000608</td><td>94</td><td>31.9%</td><td>0.1267%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergence.java:20</code></td></tr>
+<tr><td>50</td><td><code>says</code></td><td>0.000599</td><td>176</td><td>22.7%</td><td>0.2373%</td><td>0.0359%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:6</code></td></tr>
+<tr><td>52</td><td><code>does</code></td><td>0.000596</td><td>197</td><td>21.8%</td><td>0.2656%</td><td>0.0484%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3</code></td></tr>
+<tr><td>53</td><td><code>ontology</code></td><td>0.000576</td><td>89</td><td>42.7%</td><td>0.1200%</td><td>0.0006%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/LinguisticTerms.java:15</code></td></tr>
+<tr><td>54</td><td><code>stated</code></td><td>0.000536</td><td>108</td><td>49.1%</td><td>0.1456%</td><td>0.0083%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:36</code></td></tr>
+<tr><td>55</td><td><code>rung</code></td><td>0.000506</td><td>75</td><td>57.3%</td><td>0.1011%</td><td>0.0000%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java:27</code></td></tr>
+</table>
+<h3>What the language supplied</h3>
+<table>
+<tr><th>#</th><th>Word</th><th>Claim</th><th>Occurrences</th><th>In names</th><th>Here</th><th>In ordinary English</th><th>In the platform's own API</th><th>First seen</th></tr>
+<tr><td>7</td><td><code>what</code></td><td>0.002384</td><td>685</td><td>11.5%</td><td>0.9234%</td><td>0.1344%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>14</td><td><code>rather</code></td><td>0.001860</td><td>362</td><td>16.9%</td><td>0.4880%</td><td>0.0241%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>22</td><td><code>than</code></td><td>0.001149</td><td>460</td><td>17.4%</td><td>0.6201%</td><td>0.1446%</td><td>0.0121%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/Citation.java:8</code></td></tr>
+<tr><td>35</td><td><code>where</code></td><td>0.000765</td><td>311</td><td>20.3%</td><td>0.4193%</td><td>0.0994%</td><td>0.0030%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSourceType.java:3</code></td></tr>
+<tr><td>51</td><td><code>not</code></td><td>0.000598</td><td>580</td><td>17.2%</td><td>0.7819%</td><td>0.3534%</td><td>0.2117%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>60</td><td><code>itself</code></td><td>0.000450</td><td>108</td><td>24.1%</td><td>0.1456%</td><td>0.0145%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSourceType.java:3</code></td></tr>
+<tr><td>69</td><td><code>beside</code></td><td>0.000400</td><td>66</td><td>31.8%</td><td>0.0890%</td><td>0.0014%</td><td>0.0000%</td><td><code>code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34</code></td></tr>
+<tr><td>81</td><td><code>cannot</code></td><td>0.000362</td><td>94</td><td>9.6%</td><td>0.1267%</td><td>0.0150%</td><td>0.0151%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptVote.java:8</code></td></tr>
+<tr><td>92</td><td><code>never</code></td><td>0.000311</td><td>127</td><td>11.8%</td><td>0.1712%</td><td>0.0408%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:14</code></td></tr>
+<tr><td>97</td><td><code>how</code></td><td>0.000294</td><td>208</td><td>6.3%</td><td>0.2804%</td><td>0.1060%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptEvidence.java:6</code></td></tr>
+<tr><td>98</td><td><code>whose</code></td><td>0.000292</td><td>70</td><td>11.4%</td><td>0.0944%</td><td>0.0093%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:14</code></td></tr>
+<tr><td>100</td><td><code>because</code></td><td>0.000285</td><td>186</td><td>10.8%</td><td>0.2507%</td><td>0.0900%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/concept/ConceptId.java:5</code></td></tr>
+<tr><td>115</td><td><code>exactly</code></td><td>0.000259</td><td>58</td><td>8.6%</td><td>0.0782%</td><td>0.0065%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:36</code></td></tr>
+<tr><td>118</td><td><code>against</code></td><td>0.000251</td><td>147</td><td>18.4%</td><td>0.1982%</td><td>0.0658%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:5</code></td></tr>
+<tr><td>128</td><td><code>whether</code></td><td>0.000236</td><td>90</td><td>4.4%</td><td>0.1213%</td><td>0.0267%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3</code></td></tr>
+<tr><td>132</td><td><code>which</code></td><td>0.000232</td><td>358</td><td>2.5%</td><td>0.4826%</td><td>0.2650%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:3</code></td></tr>
+<tr><td>159</td><td><code>else</code></td><td>0.000195</td><td>50</td><td>14.0%</td><td>0.0674%</td><td>0.0079%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java:72</code></td></tr>
+<tr><td>179</td><td><code>everything</code></td><td>0.000162</td><td>54</td><td>14.8%</td><td>0.0728%</td><td>0.0134%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/symbol/SymbolContext.java:8</code></td></tr>
+<tr><td>181</td><td><code>already</code></td><td>0.000160</td><td>72</td><td>9.7%</td><td>0.0971%</td><td>0.0256%</td><td>0.0242%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:61</code></td></tr>
+<tr><td>186</td><td><code>without</code></td><td>0.000157</td><td>103</td><td>24.3%</td><td>0.1389%</td><td>0.0500%</td><td>0.0000%</td><td><code>code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:6</code></td></tr>
+</table>
+<h3>What a count on its own would have said</h3>
+<table>
+<tr><th>Written most</th><th>Occurrences</th><th>Its place once the references are asked</th></tr>
+<tr><td><code>the</code></td><td>4,890</td><td>3,393</td></tr>
+<tr><td><code>a</code></td><td>3,789</td><td>2</td></tr>
+<tr><td><code>is</code></td><td>2,227</td><td>9</td></tr>
+<tr><td><code>and</code></td><td>1,679</td><td>3,310</td></tr>
+<tr><td><code>it</code></td><td>1,482</td><td>6</td></tr>
+<tr><td><code>of</code></td><td>1,418</td><td>3,404</td></tr>
+<tr><td><code>word</code></td><td>988</td><td>1</td></tr>
+<tr><td><code>that</code></td><td>829</td><td>1,469</td></tr>
+<tr><td><code>one</code></td><td>817</td><td>11</td></tr>
+<tr><td><code>in</code></td><td>747</td><td>3,290</td></tr>
+<tr><td><code>to</code></td><td>741</td><td>3,395</td></tr>
+<tr><td><code>what</code></td><td>685</td><td>7</td></tr>
+<tr><td><code>as</code></td><td>661</td><td>756</td></tr>
+<tr><td><code>s</code></td><td>590</td><td>4</td></tr>
+<tr><td><code>not</code></td><td>580</td><td>51</td></tr>
+<tr><td><code>its</code></td><td>576</td><td>20</td></tr>
+<tr><td><code>by</code></td><td>528</td><td>348</td></tr>
+<tr><td><code>words</code></td><td>502</td><td>5</td></tr>
+<tr><td><code>reading</code></td><td>501</td><td>3</td></tr>
+<tr><td><code>this</code></td><td>476</td><td>498</td></tr>
+</table>
+</div>

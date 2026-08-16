@@ -12,39 +12,36 @@ one. λ is the share of those word occurrences at least one bundled resource can
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 24 | 361 | 613 | 3,379 (84.6%) | 3,944 | **0.988** |
-| `code-semantics-api/src/test/java` | 13 | 215 | 1,241 | 102 (7.6%) | 1,280 | **0.953** |
-| `code-semantics-engine/src/main/java` | 111 | 2,609 | 4,010 | 27,428 (87.2%) | 31,252 | **0.994** |
-| `code-semantics-engine/src/test/java` | 112 | 2,818 | 9,921 | 7,745 (43.8%) | 17,192 | **0.973** |
-| `lexicon-extraction/src/main/java` | 45 | 943 | 1,300 | 5,704 (81.4%) | 6,916 | **0.987** |
-| `lexicon-extraction/src/test/java` | 35 | 556 | 2,830 | 0 (0.0%) | 2,694 | **0.952** |
-| `lexicon/src/main/java` | 21 | 689 | 1,173 | 4,749 (80.2%) | 5,835 | **0.985** |
-| `lexicon/src/test/java` | 19 | 314 | 1,652 | 501 (23.3%) | 2,072 | **0.962** |
-| `documentation` | 3 | 0 | 0 | 3,874 (100.0%) | 3,795 | **0.980** |
-| **repository** | 383 | 8,505 | 22,740 | 53,482 (70.2%) | 74,980 | **0.984** |
+| `code-semantics-api/src/main/java` | 24 | 342 | 556 | 3,357 (85.8%) | 3,865 | **0.988** |
+| `code-semantics-api/src/test/java` | 13 | 157 | 901 | 99 (9.9%) | 982 | **0.982** |
+| `code-semantics-engine/src/main/java` | 124 | 2,760 | 3,945 | 29,338 (88.1%) | 33,088 | **0.994** |
+| `code-semantics-engine/src/test/java` | 122 | 2,500 | 7,811 | 7,803 (50.0%) | 15,548 | **0.996** |
+| `lexicon-extraction/src/main/java` | 45 | 899 | 1,168 | 5,591 (82.7%) | 6,671 | **0.987** |
+| `lexicon-extraction/src/test/java` | 35 | 405 | 1,950 | 0 (0.0%) | 1,930 | **0.990** |
+| `lexicon/src/main/java` | 21 | 673 | 1,139 | 4,779 (80.8%) | 5,831 | **0.985** |
+| `lexicon/src/test/java` | 19 | 236 | 1,260 | 492 (28.1%) | 1,733 | **0.989** |
+| `documentation` | 3 | 0 | 0 | 3,990 (100.0%) | 3,911 | **0.980** |
+| **repository** | 406 | 7,972 | 18,730 | 55,449 (74.8%) | 73,559 | **0.992** |
 
-The repository's own words are 76,222 occurrences of 3,396 distinct surfaces, 1,063 of them (31.3%) written exactly once. 568 glued runs no boundary divided were read by the segmenter; 1,242 occurrences across 199 surfaces nothing could be cited for at all.
+The repository's own words are 74,179 occurrences of 3,406 distinct surfaces, 1,072 of them (31.5%) written exactly once. 322 glued runs no boundary divided were read by the segmenter; 620 occurrences across 194 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 72,070 | 94.6% | 3,181 |
-| `lexicon:wordnet-sense` | 52,384 | 68.7% | 830 |
-| `lexicon:wiktionary-topic` | 43,569 | 57.2% | 175 |
-| `lexicon:wikidata-initialism` | 34,325 | 45.0% | 62 |
-| `lexicon:wordnet-domain` | 32,024 | 42.0% | 73 |
-| `lexicon:wikidata-name` | 30,945 | 40.6% | 17 |
-| `lexicon:wiktionary-abbreviation` | 27,997 | 36.7% | 1 |
-| `catalogue:query-language-function` | 1,009 | 1.3% | 1 |
+| `lexicon:word-frequency` | 71,135 | 95.9% | 3,342 |
+| `lexicon:wordnet-sense` | 51,300 | 69.2% | 872 |
+| `lexicon:wiktionary-topic` | 41,941 | 56.5% | 180 |
+| `lexicon:wikidata-initialism` | 33,457 | 45.1% | 64 |
+| `lexicon:wikidata-name` | 30,455 | 41.1% | 18 |
+| `lexicon:wordnet-domain` | 30,377 | 41.0% | 73 |
+| `lexicon:wiktionary-abbreviation` | 26,526 | 35.8% | 1 |
+| `catalogue:query-language-function` | 1,076 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
-| `junit` | 313 | `code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:8` |
-| `assertj` | 187 | `code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/concept/ConceptEvidenceTest.java:10` |
-| `j2html` | 109 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/summary/WalkthroughPage.java:3` |
-| `commonest` | 39 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:8` |
-| `extjwnl` | 39 | `lexicon/src/main/java/org/fifties/housewife/bi/lexicon/CountedSense.java:3` |
+| `commonest` | 42 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:8` |
 | `wiktionary` | 36 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41` |
 | `javadoc` | 31 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34` |
+| `extjwnl` | 30 | `lexicon/src/main/java/org/fifties/housewife/bi/lexicon/CountedSense.java:3` |
 | `permalink` | 28 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:50` |
 | `segmenter` | 21 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3` |
 | `arxiv` | 20 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TermReadingDiagnostic.java:132` |
@@ -52,8 +49,11 @@ The repository's own words are 76,222 occurrences of 3,396 distinct surfaces, 1,
 | `resamples` | 14 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:34` |
 | `wikidata` | 14 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:44` |
 | `wiktextract` | 12 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:14` |
-| `fasterxml` | 9 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/theme/ThemeReadingDiagnostic.java:7` |
+| `fasterxml` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:3` |
+| `olia` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/OliaConcepts.java:32` |
+| `oscal` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/CsfConcepts.java:26` |
+| `furthest` | 7 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:15` |
 
-Read 383 files in 0.2 s — 0.5 ms a file, recorded rather than estimated.
+Read 406 files in 0.2 s — 0.5 ms a file, recorded rather than estimated.
 
-Imports read as this repository's own choice: 682. Set aside as the platform's own vocabulary: 1127. Set aside as this repository's own coordinates: 317. Files the parser refused: 0.
+Imports read as this repository's own choice: 62. Set aside as the platform's own vocabulary: 1180. Set aside as this repository's own coordinates: 349. Set aside as the toolchain a source set nothing is published from is checked with: 648. Files the parser refused: 0.
