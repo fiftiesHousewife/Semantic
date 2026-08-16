@@ -344,6 +344,7 @@ The second asks the running JDK to describe itself, the same delegation [`Platfo
 |---|---|---|
 | **Subject scheme** — classifies whole documents | the [arXiv category taxonomy](https://arxiv.org/category_taxonomy): 152 categories the preprint archive uses to file scientific papers, each with a published description | as a reference distribution. Its category names never appear in code, so the reading pools each category's own description through the same pipeline and compares distribution against distribution |
 | **Term taxonomy** — names the terms a field's practitioners use | [OLiA](https://github.com/acoli-repo/olia), [FIBO](https://spec.edmcouncil.org/fibo/) | matched against declared names. OLiA publishes `AdjectivePhrase`; a repository may declare `adjectivePhrase`, and both split into the same two words |
+| **Functional taxonomy** — partitions what an organisation *does* | the [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework), the [BIAN Service Landscape](https://github.com/bian-official/artefacts) | as a reference distribution, like a subject scheme. Nobody writes `GV.OC-01` in code and nobody writes Organizational Context either, so each function is read from the statements its publisher files under it |
 
 **Every taxonomy is converted to [SKOS](https://www.w3.org/TR/skos-reference/) before it is read** — the W3C model for published vocabularies: each concept has a preferred label, any number of alternative labels, and `broader`/`narrower` links to its neighbours. OLiA arrives as OWL and FIBO as RDF/XML; both become the same rows, so the matcher and the branch rule work the same way whatever the publisher used.
 
@@ -357,6 +358,31 @@ The bundled one is the [arXiv category taxonomy](https://arxiv.org/category_taxo
 - **Whole domains have no category at all**: payments and settlement, ledgers, e-commerce and order management, health records, logistics, telecommunications operations, identity, and deployment tooling. Something is always nearest, and the reading cannot state that the right answer was absent from the list.
 
 [PyPI's 321 `Topic ::` classifiers](https://pypi.org/classifiers/) carry `Office/Business :: Financial :: Point-Of-Sale`, `Communications :: Telephony` and `System :: Logging`, and swapping the scheme for them is [planned](docs/plans/CLASSIFYING_A_REPOSITORY.md). What settles the swap is the share of repositories whose stated category has a nearest subject at all under each scheme.
+
+### Functional taxonomy
+
+A functional taxonomy names what an organisation does rather than what things in its field are called, so it is compared as a distribution and never matched term by term. The bundled one is the [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework), read from [`nist-csf-functions.tsv`](lexicon/src/main/resources/nist-csf-functions.tsv): six functions, and every category and subcategory NIST files under one of them. [`FunctionPlacement`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FunctionPlacement.java) pools each function's statements and compares them with a scope's own reading.
+
+**Its null is not the subject scheme's, and the difference is the point.** A framework's functions all come from one document in one register, so they share a vocabulary by construction — asking whether their words could have arisen by chance is already answered. [`PermutedAssignment`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutedAssignment.java) instead reassigns the framework's own statements to its own functions, each function keeping the number its publisher gave it. Every statement is real and every function keeps its size; only which statements pool together is chance. So a function clears its null only where the *partition* carries something.
+
+**Silence is a correct outcome.** A repository with no security surface should land nowhere, and this one does — [`security-functions.md`](output/markdown/security-functions.md) carries the figures.
+
+### Reading against a taxonomy the published jar does not carry
+
+A source is a candidate long before anything decides to publish it, and a candidate has to be read by the same reading that would bundle it, or the measurement is not the one the bundled reading would take.
+
+| From | How |
+|---|---|
+| a build | `./gradlew functionalPlacement -Ptaxonomy=taxonomies/bian-service-domains.tsv`, or `-Dcs.taxonomy=<path>` on any reading |
+| a program | `InjectedTaxonomy.named(Path)`, or `InjectedTaxonomy.fromCommandLineOrBundled()` for the same resolution a build gets |
+
+A named file that cannot be read **fails rather than falling back** to the bundled taxonomy: a caller who asked for one taxonomy and silently got another would read the wrong answer without being told.
+
+[`taxonomies/`](taxonomies) holds converted taxonomies that are committed without being bundled. A file under `lexicon/src/main/resources` ships inside the published jar, and no further vocabulary ships until [the extractors](docs/plans/THE_EXTRACTORS.md) are one runner — so a file there is diffable and reproducible without being published. What it still owes is the extraction that would regenerate it from the pinned revision its header names.
+
+| Taxonomy | Field | Licence |
+|---|---|---|
+| [BIAN Service Landscape](https://github.com/bian-official/artefacts) — 319 service domains under 8 business areas, each with a role definition | banking capabilities | Apache-2.0, stated in the publisher's own `LICENSE` |
 
 ### Term taxonomy
 
