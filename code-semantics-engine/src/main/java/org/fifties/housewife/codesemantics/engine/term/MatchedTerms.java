@@ -24,11 +24,13 @@ import java.util.stream.Collectors;
  * different strengths of evidence, and one figure covering both would be read as the stronger.
  */
 public record MatchedTerms(List<TermSighting> sightings, int namesRead, int filesRead, int filesMatched,
-                           Map<TermRung, Integer> filesMatchedByRung) {
+                           Map<TermRung, Integer> filesMatchedByRung,
+                           Map<List<String>, Integer> restatedTypes) {
 
     public MatchedTerms {
         sightings = List.copyOf(sightings);
         filesMatchedByRung = Map.copyOf(filesMatchedByRung);
+        restatedTypes = Map.copyOf(restatedTypes);
     }
 
     /**
@@ -38,7 +40,21 @@ public record MatchedTerms(List<TermSighting> sightings, int namesRead, int file
     public MatchedTerms at(final TermRung rung) {
         final int files = filesMatchedByRung.getOrDefault(rung, 0);
         return new MatchedTerms(sightings.stream().filter(sighting -> sighting.rung() == rung).toList(),
-                namesRead, filesRead, files, Map.of(rung, files));
+                namesRead, filesRead, files, Map.of(rung, files), restatedTypes);
+    }
+
+    /** How many spans were the declaration's own type spelled again, and so are not terms anyone reached for. */
+    public int spansRestatingTheirType() {
+        return restatedTypes.values().stream().mapToInt(Integer::intValue).sum();
+    }
+
+    /** What that rule removed, most-removed first — the list a reader argues with term by term. */
+    public List<Map.Entry<List<String>, Integer>> restatedTypesByCount(final int held) {
+        return restatedTypes.entrySet().stream()
+                .sorted(Map.Entry.<List<String>, Integer>comparingByValue().reversed()
+                        .thenComparing(entry -> String.join(" ", entry.getKey())))
+                .limit(held)
+                .toList();
     }
 
     public int spansFound() {

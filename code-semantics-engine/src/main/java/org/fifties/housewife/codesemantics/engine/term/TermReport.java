@@ -25,7 +25,28 @@ public class TermReport {
     private static final int CONCEPTS_SHOWN = 8;
 
     public String render(final String source, final MatchedTerms matched, final TaxonomyTree tree) {
-        return placed(source, matched, tree) + branches(tree) + rungs(matched);
+        return placed(source, matched, tree) + branches(tree) + rungs(matched) + restatedTypes(matched);
+    }
+
+    /**
+     * What the declaration's own type accounted for. Java asks for the type on the line, so
+     * {@code Set<String> mimeSet} writes {@code set} whatever the author meant, and a taxonomy claiming the
+     * English noun has matched the language rather than the field. Each removed term is named, so a reader
+     * disagrees term by term rather than with a rate.
+     */
+    private static String restatedTypes(final MatchedTerms matched) {
+        if (matched.spansRestatingTheirType() == 0) {
+            return "";
+        }
+        final StringBuilder table = new StringBuilder(String.format(
+                "%n## Refused as the type written beside the name%n%n"
+                + "**%,d spans** repeated the declared type and nothing else. The words stay in the name — "
+                + "removing one would close a gap between two words the author never wrote next to each "
+                + "other — and only the match is refused.%n%n"
+                + "| Term | Spans refused |%n|---|--:|%n", matched.spansRestatingTheirType()));
+        matched.restatedTypesByCount(CONCEPTS_SHOWN).forEach(refused -> table.append(String.format(
+                "| `%s` | %,d |%n", String.join(" ", refused.getKey()), refused.getValue())));
+        return table.toString();
     }
 
     private static String placed(final String source, final MatchedTerms matched, final TaxonomyTree tree) {

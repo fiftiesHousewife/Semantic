@@ -20,7 +20,10 @@ class SubjectReportTest {
     @Test
     void statesTheSubjectsAScopeStandsNearestAndHowFar() {
         assertThat(report.render(PLACEMENTS, standingApart(), 2))
-                .contains("| `cs.CL` Computation and Language | grp_cs | 0.4031 | linguistics, computing |");
+                .contains("| [`cs.CL` Computation and Language](https://arxiv.org/list/cs.CL/recent) "
+                        + "| [grp_cs](https://arxiv.org/category_taxonomy) | 40.3% | keep "
+                        + "| the nearest subject read, and nearer than chance reaches "
+                        + "| linguistics, computing |");
     }
 
     @Test

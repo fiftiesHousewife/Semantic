@@ -55,8 +55,8 @@ class VocabularyReportTest {
     @Test
     void statesTheBarEachReferenceSetAndWhatItWasDrawnFrom() {
         assertAll(
-                () -> assertThat(report).contains("0.002100 bits** against ordinary English"),
-                () -> assertThat(report).contains("0.001500 bits** against the platform's own API"),
+                () -> assertThat(report).contains("0.2100%** of the maximum divergence against ordinary English"),
+                () -> assertThat(report).contains("0.1500%** of the maximum divergence against the platform's own API"),
                 () -> assertThat(report).contains("field of 4", "999 draws", "3,996 scored words"));
     }
 

@@ -140,6 +140,62 @@ class TermReadingTest {
                 .isEqualTo(1);
     }
 
+    @Test
+    void refusesASpanThatIsTheTypeWrittenBesideTheName(@TempDir final Path root) throws IOException {
+        final TermReading claiming = TermReading.over(publishing(SOURCE, "set"));
+
+        final MatchedTerms matched = claiming.of(parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private java.util.Set<String> set;
+                }
+                """));
+
+        assertAll(
+                () -> assertThat(matched.spansFound())
+                        .as("Java asks for the type on the line, so the name says `set` whatever its "
+                                + "author meant by it")
+                        .isZero(),
+                () -> assertThat(matched.spansRestatingTheirType()).isOne(),
+                () -> assertThat(matched.restatedTypesByCount(1))
+                        .singleElement()
+                        .extracting(refused -> String.join(" ", refused.getKey()))
+                        .isEqualTo("set"));
+    }
+
+    @Test
+    void keepsATermTheAuthorWroteBesideTheTypeTheyDeclared(@TempDir final Path root) throws IOException {
+        final TermReading claiming = TermReading.over(publishing(SOURCE, "phrase"));
+
+        final MatchedTerms matched = claiming.of(parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private java.util.Set<String> phraseSet;
+                }
+                """));
+
+        assertAll(
+                () -> assertThat(matched.spansFound())
+                        .as("`phrase` is not on the line because Java asked for it")
+                        .isOne(),
+                () -> assertThat(matched.spansRestatingTheirType()).isZero());
+    }
+
+    @Test
+    void keepsATypeNameItsAuthorDeclared(@TempDir final Path root) throws IOException {
+        final TermReading claiming = TermReading.over(publishing(SOURCE, "phrase"));
+
+        final MatchedTerms matched = claiming.of(parsed(root, "Phrase.java", """
+                package example;
+                class Phrase {
+                }
+                """));
+
+        assertThat(matched.spansFound())
+                .as("a type declaration writes no type beside its name, so nothing on it is quoted")
+                .isOne();
+    }
+
     /** A taxonomy the repository under reading has written nothing of, so no branch corroborates anything. */
     private static StatedSiblings nothingWritten() {
         return StatedSiblings.of(TaxonomyTree.of(List.of(), Map.of(), label -> label));

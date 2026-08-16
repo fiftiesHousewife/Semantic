@@ -5,7 +5,10 @@ plugins {
     id("net.ltgt.errorprone")
 }
 
-group = "org.fifties.housewife"
+// The Maven Central namespace, which is verified against the GitHub account that owns this repository.
+// It is deliberately not the Java package: Central verifies the coordinate, and renaming 380 files to
+// match it would move every figure in output/ without changing what the library does.
+group = "io.github.fiftieshousewife"
 version = rootProject.version
 
 java {

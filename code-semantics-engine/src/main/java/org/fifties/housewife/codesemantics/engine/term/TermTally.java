@@ -19,6 +19,7 @@ public final class TermTally {
 
     private final PhraseSpecificity specificity;
     private final Map<List<String>, TermSighting> byTerm = new HashMap<>();
+    private final Map<List<String>, Integer> restatedTypes = new HashMap<>();
     private final Map<TermRung, Integer> filesByRung = new EnumMap<>(TermRung.class);
     private final Set<TermRung> rungsInThisFile = EnumSet.noneOf(TermRung.class);
 
@@ -54,7 +55,16 @@ public final class TermTally {
                 (seen, arrived) -> seen.seenAgain(site));
     }
 
+    /**
+     * A span the name's own declared type spelled again, recorded by term rather than as one total. Naming
+     * what a rule removed is what lets a reader disagree with it concept by concept instead of with a rate.
+     */
+    public void refusedAsItsOwnType(final TermSpan span) {
+        restatedTypes.merge(span.words(), 1, Integer::sum);
+    }
+
     public MatchedTerms matched() {
-        return new MatchedTerms(List.copyOf(byTerm.values()), namesRead, filesRead, filesMatched, filesByRung);
+        return new MatchedTerms(List.copyOf(byTerm.values()), namesRead, filesRead, filesMatched, filesByRung,
+                restatedTypes);
     }
 }

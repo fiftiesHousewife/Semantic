@@ -65,7 +65,7 @@ public final class TopicTally {
         final NameForm form = occurrence.form();
         form.vocabulary().phrasesOf(occurrence.text(), words)
                 .forEach(phrase -> read(collocated.of(phrase.words()), form,
-                        site + ":" + occurrence.line()));
+                        site + ":" + occurrence.line(), occurrence.weight()));
     }
 
     public FileTopics reading(final String path, final int lines) {
@@ -84,8 +84,13 @@ public final class TopicTally {
      * is left of it. A phrase nothing could place at all keeps the whole of its form's worth and is counted
      * as unreadable besides. That total is what keeps a file of unread names from reading as confidently
      * about the little that was read as a file every name of which the resources spoke for.
+     *
+     * <p>A fourth scaling comes in on the occurrence rather than on the phrase: text standing in several
+     * files was written once, and {@link org.fifties.housewife.codesemantics.engine.parse.CopiedComments}
+     * states what one of its occurrences is worth.
      */
-    private void read(final List<String> phrase, final NameForm form, final String site) {
+    private void read(final List<String> phrase, final NameForm form, final String site,
+                      final double weight) {
         final List<String> lemmas = phrase.stream()
                 .map(word -> offered.of(form, word))
                 .flatMap(Optional::stream)
@@ -95,7 +100,7 @@ public final class TopicTally {
         }
         phraseOccurrences++;
         lemmas.forEach(lemma -> sightings.saw(lemma, site, form.isChosenName()));
-        final double worth = offered.formWorth(form);
+        final double worth = offered.formWorth(form) * weight;
         final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas), form);
         if (reading.isEmpty()) {
             unreadableOccurrences++;

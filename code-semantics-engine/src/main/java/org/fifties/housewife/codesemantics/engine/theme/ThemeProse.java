@@ -40,8 +40,9 @@ final class ThemeProse {
      * because a divergence quoted without its null is the number a reader will treat as a finding.
      */
     static final String VERDICT =
-            "**%s bits** from the repository, against a null median of %s over %s resamples of the same "
-            + "size — an excess of %+.4f, and %d of those draws diverged at least as far. %s";
+            "**%s** of the maximum divergence from the repository, against a null median of %s over %s "
+            + "resamples of the same size — an excess of %+.1f points, and %d of those draws diverged at "
+            + "least as far. %s";
 
     static final String STOOD_OUT = "The scope stands outside its own null, so its topics are ranked below.";
 

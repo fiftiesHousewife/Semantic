@@ -190,4 +190,27 @@ class TopicTallyTest {
         assertThat(tally.reading(SITE, 10).dominant(new OpenSpaceAccumulator<>(Thresholds.defaults())))
                 .isEmpty();
     }
+
+    @Test
+    void commitsAQuarterOfAUnitForAPhraseStandingInFourFiles() {
+        tally.add(SITE, new NameOccurrence("word", NameForm.FIELD, 3, 0.25, List.of()));
+
+        assertThat(tally.reading(SITE, 40).massByTopic().get("linguistics"))
+                .as("text standing in four files was written once, so each of the four is worth a quarter")
+                .isCloseTo(0.25, offset(1e-12));
+    }
+
+    @Test
+    void keepsWhatAWeighedPhraseCouldNotPlaceAtTheSameShareOfItsOwnWorth() {
+        tally.add(SITE, new NameOccurrence("cursor", NameForm.FIELD, 1, 0.5, List.of()));
+
+        final FileTopics file = tally.reading(SITE, 10);
+
+        assertAll(
+                () -> assertThat(file.massByTopic().values().stream().mapToDouble(Double::doubleValue).sum())
+                        .isCloseTo(0.25, offset(1e-12)),
+                () -> assertThat(file.unplacedMass())
+                        .as("the whole of a phrase's worth is placed or kept, whatever that worth is")
+                        .isCloseTo(0.25, offset(1e-12)));
+    }
 }

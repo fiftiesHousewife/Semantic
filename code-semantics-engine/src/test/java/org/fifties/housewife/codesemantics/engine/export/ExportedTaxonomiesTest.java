@@ -30,7 +30,7 @@ class ExportedTaxonomiesTest {
     }
 
     private static MatchedTerms matched(final TermSighting... sightings) {
-        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(TermRung.WORDS, 12));
+        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(TermRung.WORDS, 12), Map.of());
     }
 
     private final ExportedTaxonomies taxonomies = new ExportedTaxonomies();

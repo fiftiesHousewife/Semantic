@@ -35,7 +35,7 @@ class CorroborationReportTest {
     }
 
     private static MatchedTerms matching(final TermSighting... sightings) {
-        return new MatchedTerms(List.of(sightings), 5_000, 300, 200, Map.of(TermRung.WORDS, 200));
+        return new MatchedTerms(List.of(sightings), 5_000, 300, 200, Map.of(TermRung.WORDS, 200), Map.of());
     }
 
     private static final TermSighting TOPIC = sighting("topic", "Topic", "PragmaticUnit", 388);

@@ -9,8 +9,8 @@ The vocabulary reading states the partition and every later step consumes it. No
 | The word arrived because | What says so | State |
 |---|---|---|
 | **English requires it** — `by` in `massByTopic` | a word no open class carries that the frequency list does | landed |
-| **The syntax bound it** — `catch (IOException e)`, `TikaInputStream tis` | the position the name holds in the parse | landed for the catch parameter and the abbreviated type; **open for a type restated inside a longer name** |
-| **Somebody else wrote it** — the platform's API, a licence header, a Javadoc tag | the platform's own runtime, the count of files a comment appears in, Javadoc's own model of itself | landed for type names, method names and Javadoc; **open for the copied comment** |
+| **The syntax bound it** — `catch (IOException e)`, `TikaInputStream tis`, `Set<String> mimeSet` | the position the name holds in the parse | landed |
+| **Somebody else wrote it** — the platform's API, a licence header, a Javadoc tag | the platform's own runtime, the count of files a comment appears in, Javadoc's own model of itself | landed |
 | **This library manufactured it** — `ab` from `abstains`, `wa` from `was`, `s` from a possessive | a dictionary that carries the run whole, and UAX #29 | landed, except `doe` |
 
 ---
@@ -27,36 +27,13 @@ The vocabulary ranking already computes the right statistic in a place where it 
 
 **Blast radius:** every figure in `output/`.
 
-### 2. A type restated inside its own declaration's name
+### 2. Step 8 consumes the rest of the partition
 
-`List<Foo> getFooList()` names `List` twice, and the second is the return type spelled again. Same for `Set<String> mimeSet`, `Map<String, Integer> countMap`, `Exception parseException`.
-
-**21% of every span the vocabulary finds on Tika**: `Set` 1,754 and `List` 966, at `PDFParserConfig`'s setters and `OneNoteHeader`'s fields. Not one is a type *use* leaking through the parse — it is Java's naming conventions colliding with ordinary English nouns a taxonomy claims, which is why neither the declaration rule nor the depth reading touches it.
-
-The parse states it with no list: for each declaration, the simple names of the types it names — return type, parameter types, field type, and their type arguments. A word of the declared name repeating one of them is the type quoted. `TypeInitials` already does this for a name that is the *whole* type abbreviated; this is the same rule for a word inside a longer name.
-
-**It must mark rather than remove.** Dropping a word from the middle of a name closes a gap between two words that were never adjacent, so a term matched across that gap is one this library manufactured. **Measurement:** spans lost, concept by concept, on both trees. **Abandon if** it removes a name whose author plainly meant the word — `TokenList` as a declared *type* is somebody naming a thing.
-
-### 3. A comment copied into more than one file weighs 1/n
-
-| Read against | Java files | Comment word occurrences | In a comment whose text appears in more than one file |
-|---|--:|--:|--:|
-| this repository | 379 | 46,900 | 148 — **0.3%** |
-| Tika `43cbdae6` | 2,149 | 573,224 | 258,326 — **45.1%** |
-
-The Apache licence header sits in 2,140 of Tika's 2,149 Java files, 115 words each, and alone contributes `license` 19,287, `apache` 6,436, `distributed` 6,434, and `law`, `compliance`, `warranties`, `permissions`, `governing`, `conditions`, `applicable` and `obtain` at 2,142 apiece. Tika's second theme is that header. Tika is not about law.
-
-A comment whose text appears in *n* files was written once, so it weighs `1/n`: derived from the tree in hand, bounded in `(0, 1]` by its own definition, needing no bundled resource. `ParsedRepository` already reads in two passes.
-
-**What settles it:** Tika's `law` leaves the reported themes, and this repository's figures move by no more than the 0.3% the measurement predicts. **Abandon if** it removes a comment one author genuinely wrote in two files and that removal changes a reported theme.
-
-### 4. Step 8 consumes the partition
-
-`TermSpans` matches a published taxonomy's concepts against declared names and has never been told which words of those names the author chose. `Set` 1,754 and `List` 966 on Tika are words the platform declares and the vocabulary reading already sorts past 670th of 838.
+The type a declaration writes beside its name is consumed, and the table at the end carries what that removed. What is not consumed is the rest of the partition: `TermSpans` still has not been told which of a name's remaining words English supplied, and `FunctionWords` already states 38 of this tree's 843.
 
 **Measurement:** spans lost, concept by concept, on both trees. **Abandon if** it removes a name whose author plainly meant the word.
 
-### 5. `doe` — one derived reading against another
+### 3. `doe` — one derived reading against another
 
 | Offered as | Occurrences | Rank in the frequency list | Weight it votes at | What it was |
 |---|--:|--:|--:|---|
@@ -66,7 +43,7 @@ A comment whose text appears in *n* files was written once, so it weighs `1/n`: 
 
 What would settle it is a rule for choosing between two derived readings, and every candidate so far is a threshold rather than a statement: preferring the commoner lemma reads `leaves` as `leave` rather than `leaf`, which is wrong in code.
 
-### 6. What the splitter still owes
+### 4. What the splitter still owes
 
 - **Byte offsets.** A token should carry the offset it began at, which is what lets a token's evidence carry a line-accurate permalink rather than a line-accurate-to-the-declaration one.
 - **The adjective edge.** A published run whose first word is an adjective the reading refuses alone is refused with it: `geometric mean`, `lexical semantics`, `lexical database`. `ContentWords` asks for a noun or a verb, so an adjective reaches the resources only where the dictionary also carries it as a noun. It is a change to step 3 rather than to the walk.
@@ -90,3 +67,5 @@ What would settle it is a rule for choosing between two derived readings, and ev
 | Javadoc's own syntax is not the author's prose | on Tika: `param` 2,768, `code` 2,195, `link` 1,729, `return` 1,430 |
 | The platform's own method names | `get` fell from **1st of 4,582** to last of 4,527, `set` from 21st to 4,507th; 96,631 method names read in 259 ms |
 | A declared name that is its own type, abbreviated | 4,108 declarations over 242 names on Tika, against one here; `tis` fell from 7th to 147th; one accident, `id` of an `ImageDeskew` |
+| A comment standing in *n* files weighs 1/*n* | `law` left Tika's reported themes, which is the criterion this item stated in advance: two topics are reported there now, `computing` 0.1215 and `linguistics` 0.0253, against `computing` 0.1113, `law` 0.0295 and `linguistics` 0.0234 before. Nothing entered or left here, where 0.3% of comment word occurrences stand in more than one file against Tika's 45.1% |
+| A type restated inside a longer name | 1,850 spans refused on Tika — `string` 407, `result` 355, `object` 234, `writer` 175, `document` 125, `exception` 64 — taking the term reading from 8,614 spans to 6,764 over the same 108 concepts; 89 spans here, led by `source` 25 and `citations` 14. Root branches held at 13 on Tika and 12 here, so the stated abandon line was never approached |

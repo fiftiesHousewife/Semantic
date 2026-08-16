@@ -4,18 +4,16 @@
 
 A Java library that states what subject matter a source repository is concerned with, by reading the words in the names its authors declared.
 
-It works in the terms of lexical semantics and information theory and assumes neither: [`docs/GLOSSARY.md`](docs/GLOSSARY.md) defines every one of them — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
+It works in the terms of lexical semantics and information theory and assumes neither: the [glossary](docs/GLOSSARY.md) defines every one of them — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
 
-| | |
-|---|---|
-| **Takes** | a directory of Java source. No clone, no build, no type resolution, no network |
-| **Gives** | one JSON file per run: the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare |
-| **Decides by** | published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here |
-| **Run** | `./gradlew read`, then read [`output/markdown/summary.md`](output/markdown/summary.md) |
+- **Takes** — a directory of Java source. No clone, no build, no type resolution, no network.
+- **Gives** — one JSON file per run: the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare.
+- **Decides by** — published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here.
+- **Run** — `./gradlew read`, then read the [summary](output/markdown/summary.md).
 
 ![One bar per topic, each as long as the share of the divergence between this repository's parts that the topic accounts for](output/svg/themes-bar.svg)
 
-One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#what-a-divergence-in-bits-is) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 72.4% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all. Hover a bar for both figures.
+One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#what-a-divergence-is-and-why-it-is-a-percentage) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 97.6% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all.
 
 Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above both `linguistics` and `grammar`, and `natural-sciences` above `computing`, so the first two share a colour and the third does not.
 
@@ -28,19 +26,17 @@ Colour groups the topics the topic resource places under one broad subject: Wikt
 - **Compares distributions**: a scope against the whole repository, the repository against a [published subject scheme](#subject-scheme), and every declared name against a [published term taxonomy](#term-taxonomy).
 - **Reports nothing that chance would have produced.** Every reported figure has passed a [permutation test](#references), described below.
 
-### What a divergence in bits is
+### What a divergence is, and why it is a percentage
 
-Every distance these reports state is a **divergence in bits**.
+Every distance these reports state is a **Jensen–Shannon divergence**, written as the share of its own maximum it holds.
 
 The reading turns each scope into a distribution over subjects — for `lexicon/src/main/java`, so much `grammar`, so much `computing`, so much `linguistics`, summing to 1 across everything observed. The whole repository is another such distribution. A divergence measures how far two of them stand apart.
 
 The measure is the [Jensen–Shannon divergence](#references), and it has three properties the reading depends on:
 
-| | |
-|---|---|
-| **0 bits** | the two distributions are identical — the scope writes every subject at exactly the repository's rate |
-| **1 bit** | they share nothing — every subject one writes, the other never writes |
-| **bounded at 1** | the maximum follows from the definition under base-2 logarithms, so no figure here needs a scale explained beside it |
+- **0%** — the two distributions are identical: the scope writes every subject at exactly the repository's rate.
+- **100%** — they share nothing: every subject one writes, the other never writes.
+- **The maximum follows from the definition** under base-2 logarithms — one bit — so the percentage is a share of a bound nobody chose, and no figure here needs a scale explained beside it.
 
 That last property is why this measure and not another. [Kullback–Leibler divergence](#references) answers a similar question and is unbounded above, so 4.2 of it means nothing without knowing what the maximum was — and there is no maximum.
 
@@ -64,9 +60,9 @@ D(Q‖M) = 0.1887   (by symmetry)
 JSD    = ½(0.1887) + ½(0.1887) = 0.1887 bits
 ```
 
-So **0.1887 bits is what a three-to-one preference reversed between two subjects looks like.** `lexicon/src/main/java` sits at 0.1945 bits from this repository — about that far apart, spread over more subjects than two.
+So **18.9% is what a three-to-one preference reversed between two subjects looks like.** `lexicon/src/main/java` sits at 19.4% from this repository — about that far apart, spread over more subjects than two.
 
-Each topic's own term of that sum is reported separately, which is what says *which* subjects carried the distance. `grammar` accounts for 0.0076 bits of `lexicon/src/main/java`'s 0.1945.
+Each topic's own term of that sum is reported separately, which is what says *which* subjects carried the distance. The reports state each term as a share of the same one-bit maximum, so a term and the whole it belongs to are read off the same scale.
 
 ### What the 999 resamples are for
 
@@ -81,7 +77,7 @@ So the reading builds the distribution of differences chance alone produces, and
 | 3 | Measure the same divergence for each of the 999 |
 | 4 | Report the real scope only if its divergence is larger than **all** 999 |
 
-Worked example: `lexicon/src/main/java` sits 0.1945 bits from the whole repository, and no random group of the same number of files reached that far, so the reading reports it. `documentation` sits 0.2490 bits away — **further** — and the reading does not report it, because 960 of the 999 random draws reached at least that far. Distance alone is not evidence. Distance a random group of that size does not reach is.
+Worked example: `lexicon/src/main/java` sits 19.4% from the whole repository, and no random group of the same number of files reached that far, so the reading reports it. `documentation` sits 24.7% away — **further** — and the reading does not report it, because 958 of the 999 random draws reached at least that far. Distance alone is not evidence. Distance a random group of that size does not reach is.
 
 Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile is what keeps the whole table honest. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
@@ -110,7 +106,7 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
   "placedIn": {
     "scheme": "arXiv",
     "archive":  { "subject": "Computer Science", "divergenceBits": 0.3401, "standsApartFromChance": true },
-    "category": { "subject": "Computation and Language", "divergenceBits": 0.3960, "standsApartFromChance": true }
+    "category": { "subject": "Computation and Language", "divergenceBits": 0.3970, "standsApartFromChance": true }
   },
   "leadingWords": [{ "word": "word", "divergenceBits": 0.0158, "occurrences": 239 }, ...],
   "leadingConcepts": ["Source", "Root", "Token", "Phrase", "Verb"],
@@ -131,24 +127,7 @@ Each list under the summary answers a follow-up question.
 | which published concepts the declared names match | `taxonomies[].concepts` |
 | how much was measured and left out of the lists | `setAside` |
 
-Any JSON reader will do. In Python, with nothing installed:
-
-```python
-import json
-
-reading = json.load(open("output/json/reading.json"))
-
-print(reading["summary"]["about"])                      # ['linguistics', 'computing', 'grammar']
-print(reading["summary"]["placedIn"]["subject"])        # Computer Science
-
-for signal in reading["signals"][:10]:                  # the ten strongest words
-    print(signal["word"], round(signal["divergenceBits"], 4), signal["firstWrittenAt"]["file"])
-
-lexicon = [t for t in reading["themes"] if t["scope"] == "lexicon/src/main/java"]
-print([(t["topic"], t["carriedBy"][:3]) for t in lexicon])
-```
-
-In a browser or Node, `JSON.parse` over the same file gives the same objects. [`jq`](https://jqlang.github.io/jq/) works too where it is installed — `jq '.summary' output/json/reading.json` — but nothing here needs it.
+Any JSON reader will do — `JSON.parse` in a browser or Node, [`jq`](https://jqlang.github.io/jq/) at a shell, a generated type from the schema below. Nothing here needs a client library.
 
 One signal, in full:
 
@@ -175,11 +154,7 @@ Words English supplies inside a name are scored, ranked and left out of `signals
 
 ### The schema
 
-[`reading-export.schema.json`](code-semantics-engine/src/main/resources/reading-export.schema.json) states the shape, with a description on every field. It ships inside the published jar at `/reading-export.schema.json`, so a consumer can generate types from it or validate against it:
-
-```bash
-python3 -c "import json; print(json.load(open('reading-export.schema.json'))['properties']['summary']['properties']['placedIn']['description'])"
-```
+[`reading-export.schema.json`](code-semantics-engine/src/main/resources/reading-export.schema.json) states the shape, with a description on every field. It ships inside the published jar at `/reading-export.schema.json`, so a consumer can generate types from it or validate against it.
 
 `ExportFile` validates every document against that schema before writing it, so a run produces a document matching the contract or produces none. `schemaVersion` rises when a field is added, renamed or removed, and `ReadingExportSchemaTest` fails the build on a change the schema does not state.
 
@@ -205,7 +180,7 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, an 80% JaCoCo instruction 
 
 ### What a run tells you
 
-- [**The topics, with the evidence behind each**](output/markdown/summary.md) — every topic whose figure exceeds all 999 chance resamples, its distance in bits, and the words and lines that produced it. Start here.
+- [**The topics, with the evidence behind each**](output/markdown/summary.md) — every topic whose figure exceeds all 999 chance resamples, its distance as a share of the maximum, and the words and lines that produced it. Start here.
 - [**How much of the repository could be read at all**](output/markdown/self-reading.md) — λ, the files that would not parse, and the words no resource could be cited for.
 - [**The words and phrases that carry the most signal here**](output/markdown/vocabulary.md) — every declared word ranked against ordinary English and against the Java platform's own API. A word both references write more often than this repository does scores lower than one neither of them writes.
 - [**What each scope is about**](output/markdown/themes.md) — with the words that produced each topic's score, and the line each was written on.
@@ -227,26 +202,29 @@ Every figure this repository reports about itself is an instrument measuring its
 
 | | Tika | This repository |
 |---|--:|--:|
-| Word occurrences read | 770,028 | 82,075 |
-| Files | 2,156 | 451 |
+| Word occurrences read | 770,028 | 85,928 |
+| Files | 2,156 | 463 |
 | λ, share with a citation | 0.972 | 0.983 |
-| Evidence resolving to no subject | 68.7% | 76.1% |
-| Nearest arXiv archive | Computer Science, 0.3621 bits | Computer Science, 0.3401 bits |
-| Nearest by chance | 0.4337 bits | 0.4120 bits |
-| Nearest arXiv category | `cs.CL` Computation and Language, 0.3817 bits | `cs.CL` Computation and Language, 0.3960 bits |
-| Subjects distinguishing some scope | `computing`, `law`, `linguistics` | `linguistics`, `computing`, `grammar` |
-| OLiA concepts written, of 1,311 | 108 | 115 |
+| Evidence resolving to no subject | 67.2% | 75.9% |
+| Nearest arXiv archive | Computer Science, 37.2% | Computer Science, 34.1% |
+| Nearest by chance | 42.5% | 41.2% |
+| Nearest arXiv category | `cs.CL` Computation and Language, 39.2% | `cs.CL` Computation and Language, 39.7% |
+| Subjects distinguishing some scope | `computing`, `linguistics` | `linguistics`, `computing` |
+| OLiA concepts written, of 1,311 | 108 | 68 |
 | OLiA root branches reached, of 70 | 13 | 12 |
+| OLiA spans refused as the declared type | 1,850 | 90 |
 
 **λ reproduces off this tree**, which is the first thing the backtest had to show: 0.972 against 0.983, on a repository nine times the size and in another domain.
 
 **The reading places Tika under Computer Science and separates it from chance**, and `computing` is the subject distinguishing most of its scopes — which is what its own DOAP category states.
 
-**`law` is a defect the backtest found and this tree could never show.** It distinguishes five of Tika's eight leading scopes, and it is the Apache licence header: 45.1% of Tika's comment word occurrences sit in a comment copied into more than one file, against 0.3% here, because this repository carries no licence header. A comment copied into 2,140 files is counted 2,140 times. [What the author chose](docs/plans/WHAT_THE_AUTHOR_CHOSE.md) states the fix — a comment appearing in *n* files weighs 1/*n*.
+**`law` was a defect the backtest found and this tree could never show, and it is now closed.** It distinguished five of Tika's eight leading scopes and it was the Apache licence header: 45.1% of Tika's comment word occurrences stand in a comment written into more than one file, against 0.3% here, because this repository carries no licence header. Counted once per file, one legal instrument was Tika's second-largest theme. [`CopiedComments`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/CopiedComments.java) now weighs a comment standing in *n* files at 1/*n*, so the 2,140 copies of the header are worth between them what its author wrote: one. `law` is gone from Tika's reported themes, which leaves `computing` and `linguistics`, and nothing entered or left here.
 
-**The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer of the two at 0.3817 bits against 0.3960. That is defensible — Tika extracts text and detects languages, so Computation and Language is a fair reading of it — and it is also exactly why the evaluation set needs a member with no text in its subject matter. A scheme that puts a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
+**The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer of the two at 39.2% against 39.7%. That is defensible — Tika extracts text and detects languages, so Computation and Language is a fair reading of it — and it is also exactly why the evaluation set needs a member with no text in its subject matter. A scheme that puts a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
 
-**The term matcher does not yet discriminate.** Tika writes 108 OLiA concepts against this repository's 65, and its top branches hold `Text`, `String`, `Result`, `Object` and `Exception` — Java's naming conventions colliding with ordinary English nouns that a linguistics taxonomy happens to publish. A vocabulary of linguistic annotation should say almost nothing about a text extraction toolkit, and this one says a great deal.
+**The term matcher discriminates further than it did, and the parse is what did it.** Tika's top branches held `Text`, `String`, `Result`, `Object` and `Exception` — Java's naming conventions colliding with ordinary English nouns a linguistics taxonomy happens to publish. Most of that is the declared type written a second time: `Set<String> mimeSet` says `set` because the language asks for the type on the line, and nobody chose the word. [`DeclaredTypeWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads those words off the parse and the matcher refuses a span made only of them — **1,850 spans on Tika**, led by `string` 407, `result` 355, `object` 234, `writer` 175 and `document` 125, taking the reading from 8,614 spans to 6,764 over the same 108 concepts. `String` falls 579 to 163, `Result` 836 to 466, `Object` 476 to 240. The word stays in the name, because dropping one closes a gap between two words the author never wrote next to each other; only the match is refused, and [the term report](output/tika/markdown/terms.md) names every term it removed.
+
+**What is left of it is still a finding.** 108 concepts on a text-extraction toolkit is a great many for a vocabulary of linguistic annotation, and the branch count did not move. Tika extracts text and OLiA annotates text, so the two agree about something real — which is the next paragraph's problem, not this one's.
 
 The whole reading is snapshotted under [`output/tika/`](output/tika): [the summary](output/tika/markdown/summary.md), [what each scope is about](output/tika/markdown/themes.md), [the words it chose](output/tika/markdown/vocabulary.md), [the taxonomy terms it writes](output/tika/markdown/terms.md) and [where it stands among published subjects](output/tika/markdown/subjects.md).
 
@@ -256,7 +234,7 @@ A vocabulary must match inside its domain **and** produce few or no matches outs
 
 ## Definitions
 
-Each term below has an everyday meaning too. The technical one is meant. [`docs/GLOSSARY.md`](docs/GLOSSARY.md) carries the rest — the words about words, the words about the shape of words, and the statistics — each with the class that implements it.
+Each term below has an everyday meaning too. The technical one is meant. The [glossary](docs/GLOSSARY.md) carries the rest — the words about words, the words about the shape of words, and the statistics — each with the class that implements it.
 
 | Term | Meaning here |
 |---|---|
@@ -266,7 +244,7 @@ Each term below has an everyday meaning too. The technical one is meant. [`docs/
 | **headword** | the word itself, with its senses pooled — the form a dictionary indexes |
 | **lemma** | the dictionary form of an inflected word, as [WordNet](https://wordnet.princeton.edu/) indexes it: `citations` → `citation` |
 | **λ (legibility)** | the share of word occurrences any bundled resource could be cited for |
-| **divergence** | how far two distributions over subjects stand apart, in bits, bounded at 1. [Defined with a worked example above](#what-a-divergence-in-bits-is) |
+| **divergence** | how far two distributions over subjects stand apart, bounded at one bit by its own definition and reported as the share of that bound it holds. [Defined with a worked example above](#what-a-divergence-is-and-why-it-is-a-percentage) |
 | **span** | one match of a published taxonomy term inside a declared name |
 | **rung** | one step a publisher states between a concept and the root of its branch |
 

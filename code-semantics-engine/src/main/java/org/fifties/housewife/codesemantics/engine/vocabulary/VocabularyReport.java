@@ -81,10 +81,11 @@ public final class VocabularyReport {
      */
     private String bar(final RankedWordTable table) {
         return bars.stream()
-                .map(bar -> ("A word is here where it beats **%s bits** against %s — the claim a word of a "
+                .map(bar -> ("A word is here where it beats **%s** of the maximum divergence against %s — the "
+                        + "claim a word of a "
                         + "repository this size reaches by chance in the best of a field of %s, over %s "
                         + "draws yielding %s scored words from that reference's own distribution.")
-                        .formatted(table.bits(bar.bits()), bar.reference(), table.count(bar.field()),
+                        .formatted(table.claim(bar.bits()), bar.reference(), table.count(bar.field()),
                                 table.count(bar.resamples()), table.count(bar.drawn())))
                 .collect(Collectors.joining(" "));
     }

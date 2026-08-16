@@ -1,7 +1,9 @@
 package org.fifties.housewife.codesemantics.engine.export;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
@@ -18,10 +20,33 @@ public final class ExportCommand {
     private ExportCommand() {
     }
 
+    /** What the reading writes beside the export to say what moved since the last one. */
+    private static final String CHANGES = "changes";
+
     public static void main(final String[] arguments) throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
-        final Path file = ReportFolder.forReadingOf(reading.root()).file(ExportFile.NAME);
-        new ExportFile().wrote(file, new ExportedReading().of(reading, commitIn(arguments)));
+        final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
+        final Path file = folder.file(ExportFile.NAME);
+        final ExportFile exports = new ExportFile();
+        final Optional<ReadingExport> previous = Files.exists(file)
+                ? Optional.of(exports.in(file)) : Optional.empty();
+        final ReadingExport current = new ExportedReading().of(reading, commitIn(arguments));
+        exports.wrote(file, current);
+        wroteChanges(folder, previous, current);
+    }
+
+    /**
+     * The comparison is written only where there is something to compare against. A first run has no previous
+     * reading, and a report saying every figure moved from nothing would be a report about that rather than
+     * about the repository.
+     */
+    private static void wroteChanges(final ReportFolder folder, final Optional<ReadingExport> previous,
+                                     final ReadingExport current) throws IOException {
+        if (previous.isEmpty()) {
+            return;
+        }
+        folder.wrote(CHANGES, new ChangeReport().render(ReadingChanges.between(previous.get(), current)),
+                "What moved since the last reading");
     }
 
     /** The commit the caller states, or nothing where it states none — an empty field, never a guess. */

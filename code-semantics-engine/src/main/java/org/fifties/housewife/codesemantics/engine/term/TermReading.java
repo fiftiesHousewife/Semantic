@@ -88,6 +88,21 @@ public final class TermReading {
         final String site = file.path() + ":" + occurrence.line();
         occurrence.form().vocabulary().phrasesOf(occurrence.text(), words)
                 .forEach(phrase -> spans.in(phrase.words())
-                        .forEach(span -> tally.saw(span, site)));
+                        .forEach(span -> record(span, occurrence, site, tally)));
+    }
+
+    /**
+     * A span whose every word is the type written beside the name is that type spelled again, not a term the
+     * author reached for. {@code Set<String> mimeSet} declares {@code set} because Java asks for the type on
+     * the line, and a taxonomy claiming the English noun {@code set} is matching the language rather than the
+     * field. The refusal is counted, because a rule that removes matches can only be judged as a comparison.
+     */
+    private void record(final TermSpan span, final NameOccurrence occurrence, final String site,
+                        final TermTally tally) {
+        if (occurrence.restatesItsType(span.words())) {
+            tally.refusedAsItsOwnType(span);
+            return;
+        }
+        tally.saw(span, site);
     }
 }

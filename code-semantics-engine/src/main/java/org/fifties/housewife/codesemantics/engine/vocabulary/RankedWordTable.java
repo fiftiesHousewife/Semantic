@@ -2,6 +2,8 @@ package org.fifties.housewife.codesemantics.engine.vocabulary;
 
 import java.util.List;
 import java.util.Locale;
+
+import org.fifties.housewife.codesemantics.engine.DivergenceShare;
 import java.util.stream.Collectors;
 
 /**
@@ -13,6 +15,8 @@ import java.util.stream.Collectors;
  * its words would otherwise have stood.
  */
 final class RankedWordTable {
+
+    private static final DivergenceShare DIVERGENCE = new DivergenceShare();
 
     private final List<ChosenWord> ranked;
 
@@ -50,7 +54,7 @@ final class RankedWordTable {
                 .map(claim -> share(claim.share()) + " | ")
                 .collect(Collectors.joining());
         return "| %s | `%s` | %s | %s | %s | %s | %s`%s` |".formatted(count(placeOf(word)), word.word(),
-                bits(word.claim()), count(word.occurrences()), percentage(word.nameShare()),
+                claim(word.claim()), count(word.occurrences()), percentage(word.nameShare()),
                 share(word.share()), references, word.site());
     }
 
@@ -67,8 +71,12 @@ final class RankedWordTable {
         return String.format(Locale.ROOT, "%,d", value);
     }
 
-    String bits(final double value) {
-        return String.format(Locale.ROOT, "%.6f", value);
+    /**
+     * One word's term of the divergence, as the share of the statistic's own maximum it holds. The terms sum
+     * to the whole, so a single one is a small share of a bound that is one bit by definition.
+     */
+    String claim(final double value) {
+        return DIVERGENCE.ofOneTerm(value);
     }
 
     String share(final double value) {

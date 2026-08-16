@@ -43,16 +43,19 @@ public final class JavaSource implements SourceReader {
 
     private final JavaParser parser;
     private final TypeInitials initials;
+    private final DeclaredTypeWords typeWords;
     private final JavadocProse javadoc = new JavadocProse();
 
-    public JavaSource(final ParserConfiguration configuration, final TypeInitials initials) {
+    public JavaSource(final ParserConfiguration configuration, final DeclaredTypeWords typeWords) {
         this.parser = new JavaParser(configuration);
-        this.initials = initials;
+        this.typeWords = typeWords;
+        this.initials = new TypeInitials(typeWords);
     }
 
     public static JavaSource newInstance() {
         return new JavaSource(new ParserConfiguration()
-                .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21), TypeInitials.fromClasspath());
+                .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21),
+                DeclaredTypeWords.fromClasspath());
     }
 
     private static final String JAVA_SUFFIX = ".java";
@@ -73,7 +76,12 @@ public final class JavaSource implements SourceReader {
     private ParsedSource occurrencesIn(final CompilationUnit unit, final boolean sound) {
         final List<NameOccurrence> occurrences = new ArrayList<>();
         declared(unit, TypeDeclaration.class, NameForm.TYPE, occurrences);
-        declared(unit, MethodDeclaration.class, NameForm.METHOD, occurrences);
+        // A method writes its return type beside its name, so `List<Foo> getFooList()` says `list` twice.
+        // The initials rule is not asked of it: a method named for the whole of its type is not the pattern
+        // that rule was measured on, and claiming one here would change what it means without measuring it.
+        unit.findAll(MethodDeclaration.class).forEach(method ->
+                add(method.getNameAsString(), NameForm.METHOD, method, occurrences,
+                        typeWords.of(method.getType())));
         unit.findAll(CatchClause.class).forEach(caught ->
                 add(caught.getParameter().getNameAsString(), NameForm.CAUGHT, caught, occurrences));
         // Parameter covers a lambda's parameters as well as a method's, so neither needs a pass of its own.
@@ -139,15 +147,21 @@ public final class JavaSource implements SourceReader {
      */
     private void addNamed(final String name, final Type type, final NameForm form, final Node node,
                           final List<NameOccurrence> occurrences) {
-        add(name, initials.spell(name, type) ? NameForm.ABBREVIATED_TYPE : form, node, occurrences);
+        add(name, initials.spell(name, type) ? NameForm.ABBREVIATED_TYPE : form, node, occurrences,
+                typeWords.of(type));
     }
 
     private static void add(final String text, final NameForm form, final Node node,
                             final List<NameOccurrence> occurrences) {
+        add(text, form, node, occurrences, List.of());
+    }
+
+    private static void add(final String text, final NameForm form, final Node node,
+                            final List<NameOccurrence> occurrences, final List<String> typeWords) {
         if (text.isBlank()) {
             return;
         }
-        occurrences.add(new NameOccurrence(text, form, lineOf(node)));
+        occurrences.add(new NameOccurrence(text, form, lineOf(node), 1.0, typeWords));
     }
 
     private static int lineOf(final Node node) {

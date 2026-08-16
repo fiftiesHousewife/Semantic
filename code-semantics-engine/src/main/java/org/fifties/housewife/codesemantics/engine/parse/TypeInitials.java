@@ -2,14 +2,8 @@ package org.fifties.housewife.codesemantics.engine.parse;
 
 import java.util.Locale;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
-import com.github.javaparser.ast.type.PrimitiveType;
 import com.github.javaparser.ast.type.Type;
-
-import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
 
 /**
  * The first letter of each word of a declared type, in the order the type was written — {@code tis} for a
@@ -23,21 +17,17 @@ import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
  * which is a name an author meant; {@code String id} spells {@code s}, so {@code id} is untouched, while
  * {@code StringBuilder sb} spells {@code sb} and is claimed. A type nothing was written for — a
  * {@code var} declaration, a lambda's parameter — spells nothing, and nothing is what no name can equal.
- *
- * <p>The type's words are read by the same splitter the declared name's words are, so both sides of the
- * comparison are made the same way. A type argument counts as written: {@code List<Foo> lf} names the type
- * twice as much as {@code List<Foo> foos} does.
  */
 public final class TypeInitials {
 
-    private final IdentifierWords words;
+    private final DeclaredTypeWords typeWords;
 
-    public TypeInitials(final IdentifierWords words) {
-        this.words = words;
+    public TypeInitials(final DeclaredTypeWords typeWords) {
+        this.typeWords = typeWords;
     }
 
     public static TypeInitials fromClasspath() {
-        return new TypeInitials(IdentifierWords.fromClasspath());
+        return new TypeInitials(DeclaredTypeWords.fromClasspath());
     }
 
     /** Whether the name is the initials of its own type and nothing else. */
@@ -48,26 +38,8 @@ public final class TypeInitials {
 
     /** The initials themselves, which is what a report shows beside the name it claimed. */
     public String of(final Type type) {
-        return simpleNamesIn(type)
-                .flatMap(simple -> words.of(simple).words().stream())
+        return typeWords.of(type).stream()
                 .map(word -> word.substring(0, 1))
                 .collect(Collectors.joining());
-    }
-
-    /**
-     * The types the declaration names, in the order they were written. The package a type lives in is not
-     * one of them — {@code java.io.InputStream} names {@code InputStream} — and an array is its component.
-     */
-    private Stream<String> simpleNamesIn(final Type type) {
-        return Stream.of(
-                        type.toClassOrInterfaceType().stream().flatMap(this::namesWrittenBy),
-                        type.toPrimitiveType().stream().map(PrimitiveType::asString),
-                        type.toArrayType().stream().flatMap(array -> simpleNamesIn(array.getComponentType())))
-                .flatMap(names -> names);
-    }
-
-    private Stream<String> namesWrittenBy(final ClassOrInterfaceType named) {
-        return Stream.concat(Stream.of(named.getNameAsString()),
-                named.getTypeArguments().stream().flatMap(NodeList::stream).flatMap(this::simpleNamesIn));
     }
 }

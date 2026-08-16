@@ -244,6 +244,76 @@ class JavaSourceTest {
 
         assertThat(parser.read(source).occurrences())
                 .contains(new NameOccurrence("Page", NameForm.TYPE, 3),
-                        new NameOccurrence("cursor", NameForm.FIELD, 4));
+                        new NameOccurrence("cursor", NameForm.FIELD, 4, 1.0, List.of("int")));
+    }
+
+    private List<String> typeWordsOf(final String source, final String name) {
+        return parser.read(source).occurrences().stream()
+                .filter(occurrence -> occurrence.text().equals(name))
+                .findFirst()
+                .orElseThrow()
+                .typeWords();
+    }
+
+    @Test
+    void carriesTheWordsOfTheTypeAFieldWritesBesideItsName() {
+        final String source = """
+                package example;
+                class Page {
+                    private Set<String> mimeSet;
+                }
+                """;
+
+        assertThat(typeWordsOf(source, "mimeSet"))
+                .as("a type argument counts as written, so both names are on the line")
+                .containsExactlyInAnyOrder("set", "string");
+    }
+
+    @Test
+    void carriesTheWordsOfTheTypeAMethodReturns() {
+        final String source = """
+                package example;
+                class Page {
+                    List<Token> getTokenList() {
+                        return List.of();
+                    }
+                }
+                """;
+
+        assertThat(typeWordsOf(source, "getTokenList")).containsExactlyInAnyOrder("list", "token");
+    }
+
+    @Test
+    void carriesNoTypeWordsForADeclarationThatWritesNoTypeBesideItsName() {
+        final String source = """
+                package example;
+                class TokenList {
+                    void read() {
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(typeWordsOf(source, "TokenList")).isEmpty(),
+                () -> assertThat(typeWordsOf(source, "read"))
+                        .as("void names no type, so a method returning nothing quotes nothing")
+                        .isEmpty());
+    }
+
+    @Test
+    void keepsTheInitialsRuleOffAMethodName() {
+        final String source = """
+                package example;
+                class Page {
+                    StringBuilder sb() {
+                        return new StringBuilder();
+                    }
+                }
+                """;
+
+        assertThat(namesOf(source, NameForm.METHOD))
+                .as("the initials rule was measured on declarations that bind a name to a value, and "
+                        + "claiming a method here would change what it means without measuring it")
+                .contains("sb");
     }
 }

@@ -42,13 +42,13 @@ class SummaryReportTest {
         assertAll(
                 () -> assertThat(rendered)
                         .as("the archive is the level whose null is strongest")
-                        .contains("| Archive | **cs Computer Science** | 0.2504 | 0.3423 | apart from chance |"),
+                        .contains("| Archive | **cs Computer Science** | 25.0% | 34.2% | apart from chance |"),
                 () -> assertThat(rendered)
                         .as("and the category is the level that answers what it is about")
-                        .contains("| Category | **cs.CL Computation and Language** | 0.3950 | 0.4455 "
+                        .contains("| Category | **cs.CL Computation and Language** | 39.5% | 44.6% "
                                 + "| apart from chance |"),
                 () -> assertThat(rendered).contains("behind the leading one is nlin Nonlinear Sciences at "
-                        + "0.3810"));
+                        + "38.1%"));
     }
 
     @Test
@@ -75,9 +75,9 @@ class SummaryReportTest {
     @Test
     void carriesEachQualifiedScopeWithWhatItWritesMoreOf() {
         assertAll(
-                () -> assertThat(rendered).contains("| `lexicon/src/main/java` | 0.1751 | "
+                () -> assertThat(rendered).contains("| `lexicon/src/main/java` | 17.5% | "
                         + "`networking`, `geology` |"),
-                () -> assertThat(rendered).contains("| `engine/src/main/java` | 0.0628 | "
+                () -> assertThat(rendered).contains("| `engine/src/main/java` | 6.3% | "
                         + "`semantics`, `grammar` |"));
     }
 

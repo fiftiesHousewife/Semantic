@@ -2,6 +2,7 @@ package org.fifties.housewife.codesemantics.engine.summary;
 
 import java.util.List;
 
+import org.fifties.housewife.codesemantics.engine.DivergenceShare;
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
 import org.fifties.housewife.codesemantics.engine.reading.ScopeLegibility;
 import org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy;
@@ -27,6 +28,8 @@ import org.fifties.housewife.codesemantics.engine.theme.PlacedField;
  */
 public record ReadingSummary(String repository, Legibility legibility, Field field,
                              List<Distinctive> distinctive, List<String> about, List<Withheld> withheld) {
+
+    private static final DivergenceShare DIVERGENCE = new DivergenceShare();
 
     private static final org.fifties.housewife.codesemantics.engine.theme.TopicDistribution ORDINARY_ENGLISH =
             org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading();
@@ -123,8 +126,8 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
         return themes.divergences().stream()
                 .filter(scope -> !qualified.contains(scope))
                 .map(scope -> new Withheld(scope.scope(), String.format(
-                        "%.4f bits, and %d of 999 chance draws stood at least as far", scope.bits(),
-                        scope.chance().atLeastAsExtreme())))
+                        "%s of the maximum divergence, and %d of 999 chance draws stood at least as far",
+                        DIVERGENCE.of(scope.bits()), scope.chance().atLeastAsExtreme())))
                 .toList();
     }
 }

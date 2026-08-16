@@ -101,8 +101,10 @@ class ThemeReportTest {
     @Test
     void statesTheDivergenceBesideTheFieldItHadToBeat() {
         assertThat(new ThemeReport().render(themes(beatingChance())))
-                .contains("**0.2500 bits** from the repository, against a null median of 0.0500 over 999 "
-                        + "resamples of the same size — an excess of +0.2000, and 0 of those draws diverged "
+                .contains("**25.0%** of the maximum divergence from the repository, against a null median of "
+                        + "5.0% over 999 "
+                        + "resamples of the same size — an excess of +20.0 points, and 0 of those draws "
+                        + "diverged "
                         + "at least as far.");
     }
 

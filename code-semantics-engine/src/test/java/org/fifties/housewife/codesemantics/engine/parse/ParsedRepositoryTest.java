@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ParsedRepositoryTest {
@@ -160,6 +161,38 @@ class ParsedRepositoryTest {
                                 + "smaller corpus without saying so")
                         .extracting(NameOccurrence::text)
                         .contains("cursor"));
+    }
+
+    private static double weightOfCommentIn(final ParsedRepository parsed, final String path) {
+        return parsed.files().stream()
+                .filter(file -> file.path().equals(path))
+                .flatMap(file -> file.occurrences().stream())
+                .filter(occurrence -> occurrence.form() == NameForm.COMMENT)
+                .mapToDouble(NameOccurrence::weight)
+                .max()
+                .orElseThrow();
+    }
+
+    @Test
+    void weighsACommentStandingInThreeFilesAtAThirdInEach(@TempDir final Path root) throws IOException {
+        final String header = "/* Licensed under the Apache License, Version 2.0 */\n";
+        final Path first = write(root, "First.java", header + "package example;\nclass First {}\n");
+        final Path second = write(root, "Second.java", header + "package example;\nclass Second {}\n");
+        final Path third = write(root, "Third.java", header + "package example;\nclass Third {}\n");
+
+        assertThat(weightOfCommentIn(of(root, first, second, third), "First.java"))
+                .as("a licence header is one statement its author wrote once, not one per file")
+                .isCloseTo(1.0 / 3.0, offset(1e-12));
+    }
+
+    @Test
+    void leavesACommentWrittenWhereItStandsAtItsWholeWeight(@TempDir final Path root) throws IOException {
+        final Path first = write(root, "First.java",
+                "package example;\n/* what this class is for */\nclass First {}\n");
+        final Path second = write(root, "Second.java",
+                "package example;\n/* what that class is for */\nclass Second {}\n");
+
+        assertThat(weightOfCommentIn(of(root, first, second), "First.java")).isEqualTo(1.0);
     }
 
     @Test

@@ -17,7 +17,8 @@ import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 
 /**
  * A whole working tree, parsed once. Two passes, and the second needs the first: an import can only be known
- * for this repository's own coordinates once every package this repository declares has been seen.
+ * for this repository's own coordinates once every package this repository declares has been seen, and a
+ * comment can only be known to stand in three hundred files once every file has been read.
  *
  * <p>Nothing is dropped silently. Files the parser refused are counted, and so is every import set aside —
  * a reading that quietly narrowed its corpus would report a cleaner result than it earned.
@@ -113,11 +114,14 @@ public final class ParsedRepository {
         final PublishedSourceSets published = new PublishedSourceSets();
         final String coordinate = sharedPackagePrefix(read);
         final Set<String> declaresItsPackage = firstFileOfEachPackage(read);
+        final CopiedComments copied = CopiedComments.over(read.stream()
+                .map(source -> source.parsed().occurrences())
+                .toList());
         final List<ParsedFile> files = read.stream()
                 .map(source -> source.retaining(origins, imports,
                         declaresItsPackage.contains(source.path())
                                 ? packageWords(source.parsed().packageName(), coordinate) : List.of(),
-                        published))
+                        published, copied))
                 .toList();
         return new ParsedRepository(files,
                 (int) read.stream().filter(source -> !source.parsed().sound()).count(), imports);
@@ -172,11 +176,12 @@ public final class ParsedRepository {
     private record Read(String scope, String path, int lines, ParsedSource parsed) {
 
         ParsedFile retaining(final ImportOrigins origins, final ImportTally tally,
-                             final List<NameOccurrence> alsoDeclared, final PublishedSourceSets published) {
+                             final List<NameOccurrence> alsoDeclared, final PublishedSourceSets published,
+                             final CopiedComments copied) {
             final List<NameOccurrence> kept = new ArrayList<>(alsoDeclared);
             parsed.occurrences().forEach(occurrence -> {
                 if (occurrence.form() != NameForm.IMPORT) {
-                    kept.add(occurrence);
+                    kept.add(copied.weighing(occurrence));
                     return;
                 }
                 final ImportOrigin origin = origins.of(occurrence.text());

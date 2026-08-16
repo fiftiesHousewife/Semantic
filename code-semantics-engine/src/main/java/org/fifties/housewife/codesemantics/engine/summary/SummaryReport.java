@@ -3,6 +3,7 @@ package org.fifties.housewife.codesemantics.engine.summary;
 import java.util.Comparator;
 import java.util.List;
 
+import org.fifties.housewife.codesemantics.engine.DivergenceShare;
 
 /**
  * The summary as a person reads it: one page, every line of which passed a stated test.
@@ -12,6 +13,8 @@ import java.util.List;
  * out.
  */
 public final class SummaryReport {
+
+    private static final DivergenceShare DIVERGENCE = new DivergenceShare();
 
     private static final int TOPICS_NAMED = 6;
 
@@ -49,20 +52,21 @@ public final class SummaryReport {
     private static String field(final ReadingSummary summary) {
         final ReadingSummary.Field field = summary.field();
         return String.format("%n## The field it is in%n%n"
-                        + "| Level | Nearest subject | Distance | Nearest by chance | |%n"
+                        + "| Level | Nearest subject | Divergence | Chance reaches | |%n"
                         + "|---|---|--:|--:|---|%n"
-                        + "| Archive | **%s** | %.4f | %.4f | %s |%n"
-                        + "| Category | **%s** | %.4f | %.4f | %s |%n%n"
-                        + "The archive is compared against every category's description pooled under it, "
-                        + "which is enough prose for the divergence to be stable. The category is compared "
-                        + "against the few dozen words the scheme states for it alone, which is the weaker "
-                        + "measurement and the sharper answer. The archive behind the leading one is %s at "
-                        + "%.4f.%n",
-                field.archive().label(), field.archive().bits(), field.archive().chanceNearest(),
-                apart(field.archive()),
-                field.category().label(), field.category().bits(), field.category().chanceNearest(),
-                apart(field.category()),
-                field.runnerUp(), field.runnerUpBits());
+                        + "| Archive | **%s** | %s | %s | %s |%n"
+                        + "| Category | **%s** | %s | %s | %s |%n%n"
+                        + "A divergence is written as the share of its own maximum it holds: 0%% is two "
+                        + "readings that are identical, 100%% two sharing no subject at all. The archive is "
+                        + "compared against every category's description pooled under it, which is enough "
+                        + "prose for the divergence to be stable. The category is compared against the few "
+                        + "dozen words the scheme states for it alone, which is the weaker measurement and "
+                        + "the sharper answer. The archive behind the leading one is %s at %s.%n",
+                field.archive().label(), DIVERGENCE.of(field.archive().bits()),
+                DIVERGENCE.of(field.archive().chanceNearest()), apart(field.archive()),
+                field.category().label(), DIVERGENCE.of(field.category().bits()),
+                DIVERGENCE.of(field.category().chanceNearest()), apart(field.category()),
+                field.runnerUp(), DIVERGENCE.of(field.runnerUpBits()));
     }
 
     /** Whether a placement says more than that the taxonomy is large. */
@@ -81,12 +85,12 @@ public final class SummaryReport {
 
     private static String distinctive(final ReadingSummary summary) {
         final StringBuilder table = new StringBuilder(String.format("%n## What distinguishes each part%n%n"
-                + "| Scope | Bits from the repository | Writes more of |%n|---|--:|---|%n"));
+                + "| Scope | Divergence from the repository | Writes more of |%n|---|--:|---|%n"));
         summary.distinctive().stream()
                 .sorted(Comparator.comparingDouble(ReadingSummary.Distinctive::bits).reversed())
                 .limit(SCOPES_NAMED)
-                .forEach(scope -> table.append(String.format("| `%s` | %.4f | %s |%n",
-                        scope.scope(), scope.bits(), named(scope.topics()))));
+                .forEach(scope -> table.append(String.format("| `%s` | %s | %s |%n",
+                        scope.scope(), DIVERGENCE.of(scope.bits()), named(scope.topics()))));
         return table + rest(summary.distinctive().size(), "departed further than chance");
     }
 

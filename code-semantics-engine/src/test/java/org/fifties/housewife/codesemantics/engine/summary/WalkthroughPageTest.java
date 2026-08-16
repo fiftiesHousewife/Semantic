@@ -47,8 +47,8 @@ class WalkthroughPageTest {
         assertAll(
                 () -> assertThat(page).contains("λ = 0.410"),
                 () -> assertThat(page).contains("640 files were read"),
-                () -> assertThat(page).contains("Computation and Language", "0.0812", "0.1104"),
-                () -> assertThat(page).contains("lexicon/src/main/java", "0.0421"),
+                () -> assertThat(page).contains("Computation and Language", "8.1%", "11.0%"),
+                () -> assertThat(page).contains("lexicon/src/main/java", "4.2%"),
                 () -> assertThat(page).contains("214 of 999 chance draws"));
     }
 

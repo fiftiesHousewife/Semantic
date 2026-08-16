@@ -14,6 +14,12 @@ import static j2html.TagCreator.li;
 import static j2html.TagCreator.ol;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.span;
+import static j2html.TagCreator.table;
+import static j2html.TagCreator.tbody;
+import static j2html.TagCreator.td;
+import static j2html.TagCreator.th;
+import static j2html.TagCreator.thead;
+import static j2html.TagCreator.tr;
 import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.title;
 
@@ -46,7 +52,15 @@ final class WalkthroughPage {
                 p(step.what()).withClass("what"),
                 each(step.picture().stream().toList(), WalkthroughPage::chart),
                 each(step.found().stream().toList(), found -> p(found).withClass("found")),
+                each(step.table().stream().toList(), WalkthroughPage::found),
                 each(step.reports(), WalkthroughPage::report));
+    }
+
+    /** A finding with columns. The heading row is what lets a reader find one scope without reading all of them. */
+    private static DomContent found(final ReadingWalkthrough.Found rows) {
+        return table(thead(tr(each(rows.headings(), heading -> th(heading)))),
+                tbody(each(rows.rows(), row -> tr(each(row, cell -> td(cell))))))
+                .withClass("found-table");
     }
 
     private static DomContent chart(final String file) {

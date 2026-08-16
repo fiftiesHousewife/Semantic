@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import org.fifties.housewife.codesemantics.engine.DivergenceShare;
 import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses.Witness;
@@ -27,6 +28,8 @@ final class ThemeTables {
             | Share of the divergence | Topic | In scope | In repository | | Carried by |
             |--:|---|--:|--:|---|---|""";
 
+    private static final DivergenceShare DIVERGENCE = new DivergenceShare();
+
     private static final int WITNESSES_SHOWN = 4;
 
     private ThemeTables() {
@@ -48,7 +51,7 @@ final class ThemeTables {
     }
 
     static String foreignRow(final ForeignWords.ForeignWord foreign) {
-        return "| `%s` | %s | %s | %s | `%s` |".formatted(foreign.word(), bits(foreign.bits()),
+        return "| `%s` | %s | %s | %s | `%s` |".formatted(foreign.word(), divergence(foreign.bits()),
                 count(foreign.occurrences()), String.join(", ", foreign.subjects()), foreign.site());
     }
 
@@ -78,7 +81,11 @@ final class ThemeTables {
         return String.format(Locale.ROOT, "%.1f%%", value * 100.0);
     }
 
-    static String bits(final double value) {
-        return String.format(Locale.ROOT, "%.4f", value);
+    /**
+     * A divergence as the share of its own maximum it holds. The statistic is bounded at one bit by its own
+     * definition, so the percentage is the same number with the bound stated.
+     */
+    static String divergence(final double value) {
+        return DIVERGENCE.of(value);
     }
 }

@@ -88,8 +88,8 @@ public final class ThemeReport {
     private static String verdict(final ScopeDivergence divergence) {
         final PermutationNull.Chance chance = divergence.chance();
         return String.format(Locale.ROOT, ThemeProse.VERDICT,
-                ThemeTables.bits(divergence.bits()), ThemeTables.bits(chance.median()),
-                ThemeTables.count(chance.resamples()), chance.excess(), chance.atLeastAsExtreme(),
+                ThemeTables.divergence(divergence.bits()), ThemeTables.divergence(chance.median()),
+                ThemeTables.count(chance.resamples()), 100.0 * chance.excess(), chance.atLeastAsExtreme(),
                 chance.exceedsChance() ? ThemeProse.STOOD_OUT : ThemeProse.DID_NOT_STAND_OUT);
     }
 

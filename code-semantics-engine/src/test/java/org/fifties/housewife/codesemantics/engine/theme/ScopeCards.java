@@ -66,7 +66,7 @@ final class ScopeCards {
                 span(span().withClass(styling)
                         .attr("style", "--w:%s".formatted(ThemeTables.percentage(bits / mostBits))))
                         .withClass("chance-track"),
-                span("%s bits".formatted(ThemeTables.bits(bits))).withClass("chance-val"))
+                span(ThemeTables.divergence(bits)).withClass("chance-val"))
                 .withClass("chance-row");
     }
 
