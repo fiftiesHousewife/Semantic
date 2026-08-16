@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * language it was written in and says nothing about the word. What is returned is the concept as published,
  * so a citation names the ontology's own identifier and not a normalised copy of it.
  */
-public final class OliaTerms {
+public final class OliaTerms implements PublishedTerms {
 
     private static final String RESOURCE = "olia-terms.tsv";
 
@@ -33,6 +33,7 @@ public final class OliaTerms {
     }
 
     /** Every concept published under this term, or nothing where the ontology does not state it. */
+    @Override
     public List<SkosConcept> conceptsOf(final String term) {
         return byTerm.getOrDefault(term.toLowerCase(Locale.ROOT), List.of());
     }
@@ -43,6 +44,7 @@ public final class OliaTerms {
         return byTerm.values().stream().flatMap(List::stream).distinct().toList();
     }
 
+    @Override
     public List<String> terms() {
         return byTerm.values().stream().flatMap(List::stream).map(SkosConcept::prefLabel).sorted().toList();
     }

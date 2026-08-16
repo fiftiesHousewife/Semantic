@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * to identifier with no English in between. A term the ontology does not publish has no concepts, never a
  * guess.
  */
-public final class FiboTerms {
+public final class FiboTerms implements PublishedTerms {
 
     private static final String RESOURCE = "fibo-terms.tsv";
 
@@ -41,6 +41,7 @@ public final class FiboTerms {
     }
 
     /** The concepts FIBO publishes under this term, whatever case it is asked in. */
+    @Override
     public List<SkosConcept> conceptsOf(final String term) {
         return conceptsByTerm.getOrDefault(term.toLowerCase(Locale.ROOT), List.of());
     }
@@ -51,6 +52,7 @@ public final class FiboTerms {
     }
 
     /** Every term it publishes, which is the denominator any match rate is a share of. */
+    @Override
     public List<String> terms() {
         return concepts.stream().map(SkosConcept::prefLabel).toList();
     }

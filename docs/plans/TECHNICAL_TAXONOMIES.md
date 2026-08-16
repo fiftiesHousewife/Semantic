@@ -28,6 +28,12 @@ Seven domains to cover: computer science, data analysis, DevOps and testing, cyb
 
 **The honest reading of this row: computer science has no good term taxonomy.** Its vocabulary is ordinary English — *cache*, *tree*, *stream*, *thread* — which is the exact collision the term matcher already fails on. The six domains below are narrower and their vocabularies are better spelled.
 
+**And it has no good functional taxonomy either, which is the larger gap.** A functional taxonomy needs prose per category, because prose is what the divergence compares. arXiv states it and classifies research; PyPI Trove states none at all, so the target [the classification plan](CLASSIFYING_A_REPOSITORY.md) selected is a term taxonomy of activities and cannot feed the description arm. GitHub's topics were named to fill that gap and were measured this session against Apache Tika: they state formats where Trove states activities, ten of the twelve names a text-extraction toolkit needs are absent, and no publisher maps the flat topic set onto Trove's `::` paths. **Trove also states no classifier for streaming at all** — no name of its 321 contains the word.
+
+So the software-domain functional taxonomy is still unfound, and the two candidates named for the *business* domains — BIAN and TOGAF — are queued in [the domain landscape](DOMAIN_LANDSCAPE.md) with their licences flagged for human review. Neither is reachable from an agent shell, so neither can be settled the way arXiv's MIT and NIST's CC0 were, from the publisher's own file.
+
+**The one functional reading that costs nothing is NIST CSF**, bundled and verified and read by nothing. It is what would show the functional machinery generalises past arXiv before any of the above is fetched.
+
 ### Data analysis
 
 | Candidate | Publishes | Identifier-shaped | Licence |

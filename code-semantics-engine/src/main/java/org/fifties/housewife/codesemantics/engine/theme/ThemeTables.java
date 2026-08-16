@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.fifties.housewife.codesemantics.engine.DivergenceShare;
 import org.fifties.housewife.codesemantics.engine.behaviour.Behaviour;
 import org.fifties.housewife.codesemantics.engine.theme.JensenShannon.Contribution;
-import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses.Witness;
 
 /** The markdown rows a theme report is made of, each keeping a figure beside the count it came from. */
 final class ThemeTables {
@@ -35,7 +34,8 @@ final class ThemeTables {
     private ThemeTables() {
     }
 
-    static String rankingRow(final TopicRanking ranking, final int totalLines, final List<Witness> carriedBy) {
+    static String rankingRow(final TopicRanking ranking, final int totalLines,
+                             final List<TopicWitnesses.CarriedTopic> carriedBy) {
         return "| `%s` | %s | %s | %s | %s | %s | %s | %s |".formatted(ranking.topic(),
                 share(ranking.intensity()), percentage(ranking.nameShare()), count(ranking.references()),
                 count(ranking.dominantFiles()), count(ranking.linesDominated()),
@@ -55,17 +55,26 @@ final class ThemeTables {
                 count(foreign.occurrences()), String.join(", ", foreign.subjects()), foreign.site());
     }
 
-    static String contributionRow(final Contribution contribution, final List<Witness> carriedBy) {
+    static String contributionRow(final Contribution contribution,
+                                  final List<TopicWitnesses.CarriedTopic> carriedBy) {
         return "| %s | `%s` | %s | %s | %s | %s |".formatted(percentage(contribution.shareOfDivergence()),
                 contribution.topic(), share(contribution.scopeShare()), share(contribution.referenceShare()),
                 contribution.concentratedInScope() ? "**over**" : "under", witnesses(carriedBy));
     }
 
-    /** The words behind a topic, most written first — the reason a reader can argue with the row. */
-    static String witnesses(final List<Witness> carriedBy) {
+    /**
+     * The words behind a topic, the largest share of it first, each with the share it carried and how often
+     * it was written.
+     *
+     * <p>Both figures are printed because they disagree, and the disagreement is what a reader needs. This
+     * column showed occurrences alone against a mass ordering, so {@code file} stood first on 457
+     * occurrences while carrying almost none of {@code law}, and nothing on the row said why it led.
+     */
+    static String witnesses(final List<TopicWitnesses.CarriedTopic> carriedBy) {
         return carriedBy.stream()
                 .limit(WITNESSES_SHOWN)
-                .map(witness -> "`%s`\u00A0%s".formatted(witness.word(), count(witness.occurrences())))
+                .map(witness -> "`%s`\u00A0%s\u00A0(%s)".formatted(witness.word(),
+                        percentage(witness.share()), count(witness.occurrences())))
                 .collect(Collectors.joining(" "));
     }
 

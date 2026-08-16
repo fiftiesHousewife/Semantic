@@ -51,7 +51,7 @@ A vocabulary fit for this task needs four things, and **no single candidate has 
 | arXiv subjects (152) | no — research fields | 18 words median | yes | yes |
 | **ACM CCS 2012** (~2,000) | yes — *query optimization*, *compilers* | no definitions | deep | **educational/research only** |
 | **PyPI Trove `Topic ::`** (320) | yes — *Database :: Database Engines/Servers* | no | yes, via `::` | **Apache-2.0** |
-| **GitHub topics** (1,255) | yes — *orm*, *compiler*, *kubernetes* | **short_description + Wikipedia link** | flat, only `related` | CC BY 4.0 |
+| **GitHub topics** (1,255) | yes — *orm*, *compiler*, *kubernetes* | **short_description + Wikipedia link**, and see chunk 2 for what it does not cover | flat, only `related`, and nothing maps it to Trove | CC BY 4.0 |
 | Apache DOAP (51 tokens) | no — `library`, `retired` | no | flat | unstated |
 | OLiA, FIBO (bundled) | yes, for linguistics and finance | yes | deep | yes |
 
@@ -59,7 +59,7 @@ Two decisions follow.
 
 **The target taxonomy and the validation labels must be different vocabularies.** Apache DOAP is ground truth — an institution stating a category in a document separate from the code — and it is a poor classification target, because `library` is not subject matter and every Java project would match it meaninglessly. Classifying into DOAP and scoring against DOAP would be circular.
 
-**The target is PyPI Trove's `Topic ::` classifiers, unless ACM CCS turns out to permit indexing use.** Trove is Apache-2.0, hierarchical by construction, and is a published statement of what software is *for*; the hierarchy is what `CorroboratedTerms` requires. Its weakness is that it carries no definitions, which starves the description arm — and that is what GitHub's topic set supplies, each of its 1,255 topics carrying a `short_description` and a `wikipedia_url` under CC BY 4.0. ACM CCS is the discipline's own classification and better shaped than either, but its stated terms restrict it to educational and research use, which is incompatible with bundling it into a published artefact. **Reading that licence is the first task in chunk 2** and it settles which vocabulary the rest of this plan targets.
+**The target is PyPI Trove's `Topic ::` classifiers, unless ACM CCS turns out to permit indexing use.** Trove is Apache-2.0, hierarchical by construction, and is a published statement of what software is *for*; the hierarchy is what `CorroboratedTerms` requires. Its weakness is that it carries no definitions, which starves the description arm — and GitHub's topic set was named to supply them, each of its 1,255 topics carrying a `short_description` and a `wikipedia_url` under CC BY 4.0. **Chunk 2 measured that pairing and it is weaker than this table implies**: GitHub's set names formats where Trove names activities, and no publisher maps the one to the other. ACM CCS is the discipline's own classification and better shaped than either, but its stated terms restrict it to educational and research use, which is incompatible with bundling it into a published artefact. **Reading that licence is the first task in chunk 2** and it settles which vocabulary the rest of this plan targets.
 
 The bundled OLiA and FIBO stay where they are, as out-of-domain controls rather than classification targets: a reading that fires FIBO's vocabulary on a compiler is broken, and that is a test rather than an answer.
 
@@ -110,6 +110,22 @@ That closes the defect `PinnedSubjectFindings` had recorded as open — but by 0
 
 Neither page is reachable from the build or from an agent's shell: `acm.org` answers a Cloudflare challenge to `curl` whatever user-agent it states. It was read in a browser, which is worth writing down so the next reader does not spend the attempt again.
 
+**How far the two sources cover the panel member already read**, measured 2026-08-16 against Apache Tika, which is a text extractor and the case the swap is meant to improve. Both licences reproduce: Trove states Apache-2.0 in [pypa/trove-classifiers](https://github.com/pypa/trove-classifiers), 321 `Topic ::` classifiers; [github/explore](https://github.com/github/explore) states CC BY 4.0 in `LICENSE.txt`, and its README states it for the topic content.
+
+Trove covers the subject matter arXiv has one category for. Its `Text Processing` root states `Filters`, `Indexing`, `Linguistic` and `Markup ::` for HTML, XML, SGML, LaTeX, Markdown and reStructuredText; `System :: Archiving :: Compression`, `Multimedia :: Graphics`, `Multimedia :: Sound/Audio`, `Multimedia :: Video`, `Office/Business :: Office Suites`, `Scientific/Engineering :: Image Recognition` and `Internet :: WWW/HTTP :: Indexing/Search` are the rest of what a format toolkit does. arXiv offers `cs.CL` Computation and Language at 39.2%, and offers it to this repository too.
+
+**Trove states no classifier for streaming.** No name of the 321 contains `stream`, and no candidate in this plan or in [the technical taxonomies](TECHNICAL_TAXONOMIES.md) supplies one. A repository whose subject matter is a pipeline over byte streams has no home in the target vocabulary, and the reading will place it somewhere anyway.
+
+**The description arm is thinner than this plan assumed.** GitHub's topics carry a `short_description`, a `wikipedia_url` and a paragraph — `parsing` states 55 words of it — but ten of the twelve names Tika's subject matter needs are absent:
+
+| Present | Absent |
+|---|---|
+| `parsing`, `xml`, `latex`, `markdown`, `csv`, `json`, `yaml`, `image-processing`, `computer-vision`, `video`, `i18n`, `crawler` | `pdf`, `ocr`, `streaming`, `stream-processing`, `metadata`, `compression`, `file-format`, `markup`, `information-retrieval`, `text-mining` |
+
+The absences are one kind of name and the presences another: GitHub's set states **formats and technologies**, and a Trove classifier states an **activity**. So the two sources do not meet where the description arm needs them to. **And nothing published maps one to the other** — GitHub's topics are flat, with `related` and `aliases` inside their own set and no `Topic ::` path anywhere — so joining `Topic :: Text Processing :: Markup :: XML` to `xml` is an inference this project would be making, which is the shape the doctrine refuses. Either the join is derived from something a publisher states, or the description arm reads Trove's classifier names alone and the plan says so.
+
+**Extraction note.** `api.github.com/repos/github/explore/contents/topics` truncates at 1,000 entries and gives no indication that it has. The 1,255 figure this plan quotes needs a clone or the git-tree endpoint.
+
 **Then build the manifest** from Apache DOAP: for each of the 255 Java projects, one category token, the source URL and the retrieval date. **Cite rather than copy** — a category token per member is a fact, where a wholesale copy of a curated list is an adaptation of it, and two of the alternative label sets are share-alike (F-Droid's are AGPL-3.0, awesome-java's CC BY-SA 4.0). The manifest's `stated-by` column already has this shape.
 
 **Practical constraint.** The forked Gradle JVM has no network route. The DOAP aggregate must be fetched in the user's own shell and passed in as a local path, with a checksum recorded in the manifest so a later run can tell it is reading the same file:
@@ -143,6 +159,19 @@ Turn the match into an answer: for each category, the share of that category's s
 Two changes, both from the same finding. Draw the null **at each category's own description length** rather than a common one, and pool a category's subtree descriptions to its root the way a package's rungs are already pooled — which is Song & Roth's own aggregation and the direct precedent for it.
 
 Before either, run the truncation study, which needs no panel and no new resource: truncate each arXiv description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. **Measurement.** If the ranking changes before 1/4, the present placement is measuring description length, and that is a finding to publish in the reports whether or not the fix lands. **Blocked on** nothing.
+
+**The truncation study has run, and the placement clears the bar by one step.** `TruncatedDescriptions` cuts a description to the first ⌈share × words⌉ words and leaves every other property the publisher stated; `PlacementByDescriptionLength` places the repository again at each share off the same repository reading, the same dictionaries and the same divergence, so only the words that left can move a subject. `DescriptionLengthReport` writes it as a section of [`subjects.md`](../../output/markdown/subjects.md), which means it runs on any clone rather than only here.
+
+| Share of each description | Median words | Nearest subject |
+|---|--:|---|
+| full | 18 | `cs.CL` Computation and Language |
+| 1/2 | 9 | `cs.CL` Computation and Language |
+| 1/4 | 5 | `eess.SP` Signal Processing |
+| 1/16 | 2 | `cs.SY` Systems and Control |
+
+`cs.CL` survives the half and falls at the quarter. The plan's condemning case is a change **before** 1/4, so the placement is not measuring description length — but it holds by one step of four, and the two subjects that replace it are ones a five-word description can only have reached by accident. **The two changes this chunk states are still worth making**, and the median of 18 words this study confirms is why: the null drawn at each subject's own description length, and a subtree's descriptions pooled to its root.
+
+**What this does not settle.** The study moves one side and holds the other. A repository read at a quarter of its own words against full descriptions would ask the same question from the other end, and the asymmetry Song and Roth report is between the two sides rather than in either one.
 
 ### Chunk 7 — The dependency arm
 

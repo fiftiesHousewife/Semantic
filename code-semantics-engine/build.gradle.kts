@@ -62,6 +62,19 @@ tasks.register<JavaExec>("topicCarriers") {
     args = (findProperty("topics") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
+// Where this repository stands against a functional taxonomy held in a file rather than on the classpath,
+// so a candidate source can be measured before anything decides to bundle it.
+//   ./gradlew functionalPlacement -Ptaxonomy=/path/to/taxonomy.tsv
+tasks.register<JavaExec>("functionalPlacement") {
+    group = "verification"
+    description = "Places this repository against an unbundled functional taxonomy"
+    mainClass = "org.fifties.housewife.codesemantics.engine.theme.FunctionalPlacementProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("taxonomy") as String?)
+}
+
 // Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The
 // report prints a top; this answers for a word it never reached.
 //   ./gradlew wordPlace -Pwords="get set list"

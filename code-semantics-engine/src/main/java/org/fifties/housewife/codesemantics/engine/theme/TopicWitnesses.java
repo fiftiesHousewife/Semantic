@@ -65,6 +65,31 @@ public final class TopicWitnesses {
                         Set.of(source)), TopicWitnesses::merged);
     }
 
+    /**
+     * One word's share of a topic, which is what the witness column is ordered by and therefore what it has
+     * to print.
+     *
+     * <p>Occurrences alone cannot explain the order. {@code file} is written into {@code law} far more often
+     * than {@code claim} and carries far less of it, so a column showing counts beside a mass ordering asks
+     * a reader to take the sequence on trust. The share is a share of the topic's own total, so it bounds
+     * itself at 1 and the printed figures sum to 1 across every carrying word.
+     */
+    public record CarriedTopic(String word, int occurrences, double share) {
+    }
+
+    /** The words that carried a topic with the share of it each carried, largest share first. */
+    public List<CarriedTopic> carrying(final String topic, final int limit) {
+        final double total = witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()
+                .mapToDouble(Witness::mass).sum();
+        if (total <= 0.0) {
+            return List.of();
+        }
+        return forTopic(topic, limit).stream()
+                .map(witness -> new CarriedTopic(witness.word(), witness.occurrences(),
+                        witness.mass() / total))
+                .toList();
+    }
+
     /** The words that carried a topic, the ones carrying most of it first. */
     public List<Witness> forTopic(final String topic, final int limit) {
         return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()

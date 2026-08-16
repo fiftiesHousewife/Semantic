@@ -61,7 +61,7 @@ public final class ThemeReport {
                 .filter(ranking -> qualified.contains(ranking.topic()))
                 .limit(TOPICS_SHOWN)
                 .map(ranking -> ThemeTables.rankingRow(ranking, themes.lines(),
-                        themes.witnesses().forTopic(ranking.topic(), WITNESSES_HELD)))
+                        themes.witnesses().carrying(ranking.topic(), WITNESSES_HELD)))
                 .toList();
     }
 
@@ -82,7 +82,7 @@ public final class ThemeReport {
             lines.add(ThemeTables.CONTRIBUTION_HEADER);
             divergence.qualified(CONTRIBUTIONS_SHOWN).forEach(contribution -> lines.add(
                     ThemeTables.contributionRow(contribution,
-                            themes.witnesses().forTopic(contribution.topic(), WITNESSES_HELD))));
+                            themes.witnesses().carrying(contribution.topic(), WITNESSES_HELD))));
         }
         return lines;
     }

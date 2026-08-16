@@ -36,6 +36,9 @@ class SubjectPlacementDiagnostic {
     private static final int SUBJECTS_HELD = 12;
     private static final int ARCHIVES_HELD = 8;
 
+    /** Full, a half, a quarter and a sixteenth — the lengths Song and Roth truncated their own study to. */
+    private static final List<Double> SHARES = List.of(1.0, 0.5, 0.25, 0.0625);
+
     private static final String PREAMBLE = """
             Where this repository stands against arXiv's published subject taxonomy — 152 subject areas, each
             read from the description arXiv states its subject matter in.
@@ -76,8 +79,11 @@ class SubjectPlacementDiagnostic {
         final SubjectNull.Chance sharedChance = SubjectNull.seeded(TreeReading.SEED, new SharedMass())
                 .of(shared.getFirst().bits(), repository, descriptions);
 
+        final List<PlacementByDescriptionLength.Placed> byLength =
+                PlacementByDescriptionLength.fromClasspath().of(repository, described, SHARES);
+
         write(ReportFolder.forReadingOf(root), root, placements, chance, pooled, pooledChance, shared,
-                sharedChance);
+                sharedChance, new DescriptionLengthReport().render(byLength));
 
         assertAll(
                 () -> assertThat(subjects).as("a taxonomy this reading cannot read places nothing")
@@ -100,8 +106,9 @@ class SubjectPlacementDiagnostic {
                               final List<SubjectPlacement.Placement> pooled,
                               final SubjectNull.Chance pooledChance,
                               final List<SubjectPlacement.Placement> shared,
-                              final SubjectNull.Chance sharedChance) throws IOException {
-                final SubjectReport rendered = new SubjectReport();
+                              final SubjectNull.Chance sharedChance,
+                              final String byLength) throws IOException {
+        final SubjectReport rendered = new SubjectReport();
         reports.wrote(REPORT, """
                 # Subjects — %s
 
@@ -120,9 +127,16 @@ class SubjectPlacementDiagnostic {
                 The same readings and the same null, asking instead how much of what a subject is about this
                 repository is also about.
 
+                %s
+                ## Whether the placement reads subject matter or description length
+
+                The same repository, the same dictionaries and the same divergence at every row. Only the
+                descriptions get shorter, so a subject that changes places changed because of the words that
+                left it.
+
                 %s""".formatted(root.getFileName(), PREAMBLE,
                 rendered.render(pooled, pooledChance, ARCHIVES_HELD),
                 rendered.render(placements, chance, SUBJECTS_HELD),
-                rendered.render(shared, sharedChance, SUBJECTS_HELD)), "Subjects");
+                rendered.render(shared, sharedChance, SUBJECTS_HELD), byLength), "Subjects");
     }
 }
