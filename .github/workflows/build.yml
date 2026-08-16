@@ -1,0 +1,57 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# One run per branch. A push landing while an earlier run is still going cancels it, because only the
+# result for the head commit says anything.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # Dependabot opens pull requests this build has nothing to say about, and its token cannot read the
+    # secrets a run would need. Its branches are skipped rather than failed.
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # The wrapper jar is a binary in the repository, so its checksum is checked against the ones Gradle
+      # publishes before it is executed.
+      - name: Validate the Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      # The toolchain the convention plugin states. Installing it here stops Gradle provisioning a JDK
+      # of its own on every run.
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # cleanTest first: a cached BUILD SUCCESSFUL reads exactly like a real green, and the pre-push
+      # checklist in CLAUDE.md says to gate on a run that actually executed the tests.
+      - name: Check
+        run: ./gradlew cleanTest checkAll --no-daemon
+
+      # The reports a failure is diagnosed from, kept only when there is a failure to diagnose.
+      - name: Keep the test reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/**'
+          retention-days: 7

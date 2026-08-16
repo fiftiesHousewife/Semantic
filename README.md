@@ -1,5 +1,7 @@
 # code-semantics
 
+[![build](https://github.com/fiftiesHousewife/Semantic/actions/workflows/build.yml/badge.svg)](https://github.com/fiftiesHousewife/Semantic/actions/workflows/build.yml)
+
 A Java library that states what subject matter a source repository is concerned with, by reading the words in the names its authors declared.
 
 It works in the terms of lexical semantics and information theory and assumes neither: [`docs/GLOSSARY.md`](docs/GLOSSARY.md) defines every one of them — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
@@ -195,7 +197,7 @@ python3 -c "import json; print(json.load(open('reading-export.schema.json'))['pr
 |---|---|
 | `./gradlew read` | reads this repository and writes the reports linked below |
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and keeps its reports separate |
-| `./gradlew checkAll` | tests and coverage verification |
+| `./gradlew checkAll` | tests and coverage verification — what [the build](.github/workflows/build.yml) runs on every push and pull request |
 
 The commands that answer a question about one word, one topic or one panel member are in [the appendix](#appendix-diagnostics-and-analysis).
 
