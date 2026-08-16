@@ -3,6 +3,7 @@ package org.fifties.housewife.codesemantics.engine.reading;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -25,6 +26,7 @@ public final class LegibilityTally {
 
     private final CitedWords cited;
     private final IdentifierWords words;
+    private final PublishedRuns runs;
 
     private final Map<String, Integer> occurrencesByWord = new HashMap<>();
     private final Map<String, String> firstSiteByWord = new HashMap<>();
@@ -36,9 +38,10 @@ public final class LegibilityTally {
     private int proseWords;
     private int gluedRunsRead;
 
-    public LegibilityTally(final CitedWords cited, final IdentifierWords words) {
+    public LegibilityTally(final CitedWords cited, final IdentifierWords words, final PublishedRuns runs) {
         this.cited = cited;
         this.words = words;
+        this.runs = runs;
     }
 
     public void add(final String site, final NameOccurrence occurrence) {
@@ -52,12 +55,29 @@ public final class LegibilityTally {
                 proseWords += phrase.words().size();
             }
             occurrencesByForm.merge(form.name(), phrase.words().size(), Integer::sum);
-            phrase.words().forEach(word -> {
-                occurrencesByWord.merge(word, 1, Integer::sum);
-                firstSiteByWord.putIfAbsent(word, site + ":" + occurrence.line());
-                written.saw(word, site + ":" + occurrence.line(), form.isChosenName());
-            });
+            cite(phrase.words(), site + ":" + occurrence.line());
+            record(runs.of(phrase.words()), site + ":" + occurrence.line(), form.isChosenName());
         });
+    }
+
+    /** What λ is taken over: every word as the splitter produced it, whether or not anything reads it. */
+    private void cite(final List<String> phrase, final String site) {
+        phrase.forEach(word -> {
+            occurrencesByWord.merge(word, 1, Integer::sum);
+            firstSiteByWord.putIfAbsent(word, site);
+        });
+    }
+
+    /**
+     * What the vocabulary reading ranks: the same phrase with each published run standing as one word.
+     *
+     * <p>The two tallies answer different questions and only one of them folds. λ is the share of word
+     * occurrences a resource can be cited for, and a run read as one word is still two words written; the
+     * vocabulary reading asks what this repository called things, and {@code part of speech} is one thing
+     * it called something.
+     */
+    private void record(final List<String> phrase, final String site, final boolean chosenAsName) {
+        phrase.forEach(word -> written.saw(word, site, chosenAsName));
     }
 
     /** Every word the scope wrote, cited or not — what the vocabulary reading ranks. */

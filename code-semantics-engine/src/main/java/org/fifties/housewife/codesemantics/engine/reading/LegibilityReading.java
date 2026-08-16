@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.fifties.housewife.codesemantics.engine.parse.ParsedFile;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
+import org.fifties.housewife.codesemantics.engine.theme.CollocatedWords;
 
 /**
  * Reads a working tree's Java sources and reports how much of what they are written in some bundled resource
@@ -24,25 +25,29 @@ public final class LegibilityReading {
 
     private final CitedWords cited;
     private final IdentifierWords words;
+    private final PublishedRuns runs;
 
-    public LegibilityReading(final CitedWords cited, final IdentifierWords words) {
+    public LegibilityReading(final CitedWords cited, final IdentifierWords words,
+                             final PublishedRuns runs) {
         this.cited = cited;
         this.words = words;
+        this.runs = runs;
     }
 
     public static LegibilityReading fromClasspath() {
-        return new LegibilityReading(CitedWords.fromClasspath(), IdentifierWords.fromClasspath());
+        return new LegibilityReading(CitedWords.fromClasspath(), IdentifierWords.fromClasspath(),
+                CollocatedWords.fromClasspath());
     }
 
     /** Reads every scope, and the same occurrences again as one repository-wide scope. */
     public RepositoryLegibility of(final ParsedRepository parsed) {
         final long startedAt = System.nanoTime();
-        final LegibilityTally repository = new LegibilityTally(cited, words);
+        final LegibilityTally repository = new LegibilityTally(cited, words, runs);
         final Map<String, LegibilityTally> byScope = new LinkedHashMap<>();
         final Map<String, Integer> filesByScope = new LinkedHashMap<>();
         parsed.files().forEach(file -> {
             final LegibilityTally tally =
-                    byScope.computeIfAbsent(file.scope(), scope -> new LegibilityTally(cited, words));
+                    byScope.computeIfAbsent(file.scope(), scope -> new LegibilityTally(cited, words, runs));
             filesByScope.merge(file.scope(), 1, Integer::sum);
             file.occurrences().forEach(occurrence -> {
                 tally.add(file.path(), occurrence);

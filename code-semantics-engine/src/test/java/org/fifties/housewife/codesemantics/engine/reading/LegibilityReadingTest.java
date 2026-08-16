@@ -23,7 +23,7 @@ class LegibilityReadingTest {
     private final LegibilityReading reading = new LegibilityReading(
             new CitedWords(List.of(new ResourceCitation(EvidenceSource.WORD_FREQUENCY,
                     Set.of("page", "cursor", "next", "example", "the", "of")::contains))),
-            new IdentifierWords(WordSegmenter.fromClasspath()));
+            new IdentifierWords(WordSegmenter.fromClasspath()), PublishedRuns.NONE);
 
     private static Path write(final Path root, final String path, final String source) throws IOException {
         final Path file = root.resolve(path);

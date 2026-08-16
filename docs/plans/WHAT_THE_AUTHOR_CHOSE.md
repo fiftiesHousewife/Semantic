@@ -168,9 +168,15 @@ Neither reference carries a run, so a folded run's share in both references is z
 largest the statistic allows. That is the correct answer and it is worth saying out loud: a term a dictionary
 publishes and neither reference writes is exactly what a specialist vocabulary is.
 
-**What settles it:** the count of rows that merge, and whether the merged row outranks either of its parts.
-**Abandon if** the folded rows crowd out the single words — report both populations, since a run and a word
-are different things to have written.
+**Measured on the published names:** `part_of_speech` stands **44th on 16 occurrences**, `part` fell from 26
+occurrences to 10 and from where it stood to 382nd, and `speech` left the ranking altogether. The merged row
+outranks either of its parts by an order of magnitude, which is what the run being a term rather than two
+adjacent words means.
+
+**λ does not move, and that is deliberate.** The two tallies answer different questions and only one of them
+folds: λ is the share of word occurrences a resource can be cited for, and a run read as one word is still
+two words written. `LegibilityTally` cites the splitter's words and records the folded ones, in two named
+passes over the same phrase.
 
 ## 6. A word weighs observed against expected, never frequency alone
 

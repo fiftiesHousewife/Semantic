@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
 
+import org.fifties.housewife.codesemantics.engine.reading.PublishedRuns;
+
 /**
  * A phrase's words with each published run standing as one word: the longest run a resource publishes at
  * each position, taken left to right, with no two runs overlapping.
@@ -42,7 +44,7 @@ import java.util.stream.IntStream;
  * coverage {@link ContentWords} already cites to decide which words reach the resources at all. A word the
  * reading would not have read alone cannot be read at the edge of a phrase either.
  */
-public final class CollocatedWords {
+public final class CollocatedWords implements PublishedRuns {
 
     private final PublishedPhrases phrases;
     private final ContentWords content;
@@ -57,6 +59,7 @@ public final class CollocatedWords {
     }
 
     /** The phrase read in the units the resources publish it in, in the order it was written. */
+    @Override
     public List<String> of(final List<String> words) {
         final List<String> read = new ArrayList<>();
         int from = 0;

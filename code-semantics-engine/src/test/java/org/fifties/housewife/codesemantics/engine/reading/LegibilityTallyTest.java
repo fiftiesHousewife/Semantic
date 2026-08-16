@@ -22,7 +22,8 @@ class LegibilityTallyTest {
             new ResourceCitation(EvidenceSource.WORDNET_SENSE, Set.of("page")::contains)));
 
     private final LegibilityTally tally =
-            new LegibilityTally(cited, new IdentifierWords(WordSegmenter.fromClasspath()));
+            new LegibilityTally(cited, new IdentifierWords(WordSegmenter.fromClasspath()),
+                    PublishedRuns.NONE);
 
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
