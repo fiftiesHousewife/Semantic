@@ -36,6 +36,8 @@ public final class ThemeReport {
         lines.add("");
         lines.add("## What distinguishes each scope from the repository");
         lines.add("");
+        lines.add(ThemeProse.WHAT_A_SCOPE_IS);
+        lines.add("");
         lines.add(ThemeProse.COMPARED_AMONG_WHAT_WAS_PLACED);
         themes.divergences().forEach(divergence -> lines.addAll(scopeSection(themes, divergence)));
         lines.add("");

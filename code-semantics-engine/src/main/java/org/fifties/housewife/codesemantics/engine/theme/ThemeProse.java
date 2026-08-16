@@ -36,6 +36,21 @@ final class ThemeProse {
             + "sum. **From names** is how much of a theme the code itself carried rather than its prose.";
 
     /**
+     * What a scope is, said where the scopes are listed. The word carries an everyday meaning and a Java
+     * one, and every row below is the Java one.
+     */
+    static final String WHAT_A_SCOPE_IS =
+            "**A scope is a source set** — one `<module>/src/<set>/java` directory — so a module with a "
+            + "main and a test source set is two scopes here, not one. The repository's own markdown is "
+            + "one scope more.\n\n**Each is read against a null of its own, and that is what decides "
+            + "which of them is ranked.** Every source set differs from the repository somewhat, and a "
+            + "small one differs a great deal by accident, so a distance means nothing until it is read "
+            + "against the distances a random group of that many files reaches. A source set whose "
+            + "distance chance reaches is still read in full and still contributes to the repository's "
+            + "distribution; what it does not get is a ranking of its own topics, because that ranking "
+            + "would be of noise.";
+
+    /**
      * The divergence beside the field it had to beat. Whether it beat it is stated in the same sentence,
      * because a divergence quoted without its null is the number a reader will treat as a finding.
      */

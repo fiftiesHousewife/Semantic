@@ -13,7 +13,7 @@ It works in the terms of lexical semantics and information theory and assumes ne
 
 ![One bar per topic, each as long as the share of the divergence between this repository's parts that the topic accounts for](output/svg/themes-bar.svg)
 
-One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#what-a-divergence-is-and-why-it-is-a-percentage) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 97.6% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all.
+One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#step-1--measuring-the-difference-what-a-divergence-is-and-why-it-is-a-percentage) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 97.6% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all.
 
 Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above both `linguistics` and `grammar`, and `natural-sciences` above `computing`, so the first two share a colour and the third does not.
 
@@ -22,15 +22,15 @@ Colour groups the topics the topic resource places under one broad subject: Wikt
 - **Reads a local directory.** No clone, no fetch, no compile, no type resolution — a repository that does not build is still readable, and so is a pull request.
 - **Counts only the names a repository declares.** `String`, `List` and `assertThat` belong to the platform and to third-party libraries; a repository referencing them has said nothing about its own subject. Only the syntax says which is which, so [`ParsedRepository`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java) reads each file with [JavaParser](https://github.com/javaparser/javaparser) into an abstract syntax tree over the [Java language grammar](https://docs.oracle.com/javase/specs/jls/se21/html/jls-2.html), then keeps the identifier at a declaration node — a type, method, field, parameter, local, record component, constant, pattern binding or label — while the same identifier at a use is set aside. No symbol solver is on the classpath: what a name refers to is a separate question this reading never asks.
 - **Looks each word up in published resources** — [WordNet](https://wordnet.princeton.edu/), [WordNet Domains](https://wndomains.fbk.eu/), [Wiktionary](https://en.wiktionary.org/)'s topic vocabulary and the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download) frequency list — and records what each resource says the word is about.
-- **Adds that up into a distribution over subjects**, weighting each [phrase](#definitions) once however long it is, per [scope](#definitions) and for the repository.
+- **Adds that up into a distribution over subjects**, weighting each [phrase](#definitions) once however long it is, per **scope** and for the repository. **A scope is a [source set](https://docs.gradle.org/current/userguide/java_plugin.html#sec:source_sets)** — one `<module>/src/<set>/java` directory — so `lexicon/src/main/java` and `lexicon/src/test/java` are two, and every table below saying *scope* means one of those. The repository's own markdown is one more.
 - **Compares distributions**: a scope against the whole repository, the repository against a [published subject scheme](#subject-scheme), and every declared name against a [published term taxonomy](#term-taxonomy).
 - **Reports nothing that chance would have produced.** Every reported figure has passed a [permutation test](#references), described below.
 
-### What a divergence is, and why it is a percentage
+### Step 1 — measuring the difference: what a divergence is, and why it is a percentage
 
 Every distance these reports state is a **Jensen–Shannon divergence**, written as the share of its own maximum it holds.
 
-The reading turns each scope into a distribution over subjects — for `lexicon/src/main/java`, so much `grammar`, so much `computing`, so much `linguistics`, summing to 1 across everything observed. The whole repository is another such distribution. A divergence measures how far two of them stand apart.
+The reading turns each scope — each [source set](#definitions) — into a distribution over subjects. For `lexicon/src/main/java`: so much `grammar`, so much `computing`, so much `linguistics`, summing to 1 across everything observed. The whole repository is another such distribution. A divergence measures how far two of them stand apart.
 
 The measure is the [Jensen–Shannon divergence](#references), and it has three properties the reading depends on:
 
@@ -39,6 +39,10 @@ The measure is the [Jensen–Shannon divergence](#references), and it has three 
 - **The maximum follows from the definition** under base-2 logarithms — one bit — so the percentage is a share of a bound nobody chose, and no figure here needs a scale explained beside it.
 
 That last property is why this measure and not another. [Kullback–Leibler divergence](#references) answers a similar question and is unbounded above, so 4.2 of it means nothing without knowing what the maximum was — and there is no maximum.
+
+**Which way is close.** A **small** percentage is high overlap: the two readings are about the same subjects at about the same rates. A **large** one is low overlap, and 100% is no subject in common. So `code-semantics-engine/src/main/java` at 3.9% writes very nearly what the whole repository writes, and `documentation` at 24.0% writes something noticeably different.
+
+**But size alone decides nothing, and this is the point of the next step.** 24.0% is the larger figure and it is the one the reading throws away, because the source set producing it is small enough that 972 of 999 random groups of that size reached at least as far. A percentage here is only ever read against the null built for a source set of that size.
 
 **Worked example.** Take two readings over two subjects. One is three-quarters `grammar` and one-quarter `computing`; the other is the reverse.
 
@@ -64,9 +68,11 @@ So **18.9% is what a three-to-one preference reversed between two subjects looks
 
 Each topic's own term of that sum is reported separately, which is what says *which* subjects carried the distance. The reports state each term as a share of the same one-bit maximum, so a term and the whole it belongs to are read off the same scale.
 
-### What the 999 resamples are for
+### Step 2 — separating signal from noise: what the 999 resamples are for
 
-A scope's distribution always differs somewhat from the whole repository's. The question is whether the difference means anything, and a small scope produces a large difference by accident: read 4 files and they will look unlike the other 447 whatever they contain.
+**They decide which source sets are signal.** Every source set's distribution differs somewhat from the whole repository's, so a table of distances alone would report every one of them as if it meant something. The resamples say which of those distances a random group of files of that size would have produced anyway — and a source set whose distance chance reaches has its topics withheld rather than ranked.
+
+The problem is size. A small source set produces a large distance by accident: read 4 files and they will look unlike the other 447 whatever is in them. A distance is therefore uninterpretable until it is read against the distances a group of *that size* reaches by chance, which is a different bar for each source set and is why one is built per source set rather than one for the repository.
 
 So the reading builds the distribution of differences chance alone produces, and asks where the real one falls in it:
 
@@ -77,11 +83,20 @@ So the reading builds the distribution of differences chance alone produces, and
 | 3 | Measure the same divergence for each of the 999 |
 | 4 | Report the real scope only if its divergence is larger than **all** 999 |
 
-Worked example: `lexicon/src/main/java` sits 19.4% from the whole repository, and no random group of the same number of files reached that far, so the reading reports it. `documentation` sits 24.7% away — **further** — and the reading does not report it, because 958 of the 999 random draws reached at least that far. Distance alone is not evidence. Distance a random group of that size does not reach is.
+**Worked example, on this repository.** Two source sets, and the one that is further away is the one thrown out.
+
+| Source set | Distance from the repository | Draws reaching at least that far | |
+|---|--:|--:|---|
+| `code-semantics-engine/src/main/java` | 3.9% | 0 of 999 | kept — its topics are ranked |
+| `documentation` | 24.0% | 972 of 999 | discarded — nothing is ranked for it |
+
+`documentation` stands six times further from the repository than the engine's main source set and is the one discarded, because it is small: 972 of the 999 random groups of that many files reached at least as far, so chance explains the whole of its distance. The engine's main source set is the largest in the tree, and a random group of that many files never once reached 3.9%. **Distance alone is not evidence. Distance a random group of that size does not reach is.**
+
+Kept on this reading: `code-semantics-api/src/test/java`, `lexicon/src/test/java` and `code-semantics-engine/src/main/java`. Discarded: `documentation`.
 
 Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile is what keeps the whole table honest. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
-Failures are named. Every scope that did not pass is printed with its figure and how many draws beat it, at the end of [the summary](output/markdown/summary.md).
+**What the test decides is what gets reported, not what gets read.** A source set inside its own null is read in full and contributes to the repository's distribution exactly as any other does; what it does not get is a ranking of its own topics, because the ranking would be of noise. Failures are named: every source set that did not pass is printed with its figure and how many of the 999 draws beat it, at the end of [the summary](output/markdown/summary.md).
 
 ## The export
 
@@ -202,10 +217,10 @@ Every figure this repository reports about itself is an instrument measuring its
 
 | | Tika | This repository |
 |---|--:|--:|
-| Word occurrences read | 770,028 | 85,928 |
+| Word occurrences read | 770,028 | 86,762 |
 | Files | 2,156 | 463 |
 | λ, share with a citation | 0.972 | 0.983 |
-| Evidence resolving to no subject | 67.2% | 75.9% |
+| Evidence resolving to no subject | 67.2% | 76.0% |
 | Nearest arXiv archive | Computer Science, 37.2% | Computer Science, 34.1% |
 | Nearest by chance | 42.5% | 41.2% |
 | Nearest arXiv category | `cs.CL` Computation and Language, 39.2% | `cs.CL` Computation and Language, 39.7% |
@@ -218,13 +233,13 @@ Every figure this repository reports about itself is an instrument measuring its
 
 **The reading places Tika under Computer Science and separates it from chance**, and `computing` is the subject distinguishing most of its scopes — which is what its own DOAP category states.
 
-**`law` was a defect the backtest found and this tree could never show, and it is now closed.** It distinguished five of Tika's eight leading scopes and it was the Apache licence header: 45.1% of Tika's comment word occurrences stand in a comment written into more than one file, against 0.3% here, because this repository carries no licence header. Counted once per file, one legal instrument was Tika's second-largest theme. [`CopiedComments`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/CopiedComments.java) now weighs a comment standing in *n* files at 1/*n*, so the 2,140 copies of the header are worth between them what its author wrote: one. `law` is gone from Tika's reported themes, which leaves `computing` and `linguistics`, and nothing entered or left here.
+**A comment carries the weight of one writing, not one per file.** 45.1% of Tika's comment word occurrences stand in a comment written into more than one file, against 0.3% here, because this repository carries no licence header. The Apache header stands in 2,140 of Tika's 2,149 Java files, and [`CopiedComments`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/CopiedComments.java) weighs a comment standing in *n* files at 1/*n* — derived from the tree in hand, bounded in (0, 1] by its own definition, citing no bundled resource. Tika's reported themes are `computing` and `linguistics`.
 
-**The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer of the two at 39.2% against 39.7%. That is defensible — Tika extracts text and detects languages, so Computation and Language is a fair reading of it — and it is also exactly why the evaluation set needs a member with no text in its subject matter. A scheme that puts a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
+**The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer at 39.2% against 39.7%. That is defensible — Tika extracts text and detects languages — and it is exactly why the evaluation set needs a member with no text in its subject matter. A scheme placing a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
 
-**The term matcher discriminates further than it did, and the parse is what did it.** Tika's top branches held `Text`, `String`, `Result`, `Object` and `Exception` — Java's naming conventions colliding with ordinary English nouns a linguistics taxonomy happens to publish. Most of that is the declared type written a second time: `Set<String> mimeSet` says `set` because the language asks for the type on the line, and nobody chose the word. [`DeclaredTypeWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads those words off the parse and the matcher refuses a span made only of them — **1,850 spans on Tika**, led by `string` 407, `result` 355, `object` 234, `writer` 175 and `document` 125, taking the reading from 8,614 spans to 6,764 over the same 108 concepts. `String` falls 579 to 163, `Result` 836 to 466, `Object` 476 to 240. The word stays in the name, because dropping one closes a gap between two words the author never wrote next to each other; only the match is refused, and [the term report](output/tika/markdown/terms.md) names every term it removed.
+**A name repeating its own declared type is the language, not the author.** `Set<String> mimeSet` writes `set` because Java asks for the type on the line. [`DeclaredTypeWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads those words off the parse and the matcher refuses a span made only of them: **1,850 spans on Tika**, led by `string` 407, `result` 355, `object` 234, `writer` 175 and `document` 125, against 90 here. The word stays in the name, because dropping one closes a gap between two words the author never wrote next to each other; only the match is refused, and [the term report](output/tika/markdown/terms.md) names every term it removes.
 
-**What is left of it is still a finding.** 108 concepts on a text-extraction toolkit is a great many for a vocabulary of linguistic annotation, and the branch count did not move. Tika extracts text and OLiA annotates text, so the two agree about something real — which is the next paragraph's problem, not this one's.
+**108 concepts on a text-extraction toolkit is a great many for a vocabulary of linguistic annotation.** Tika reaches 13 of OLiA's 70 root branches against this repository's 12. Tika extracts text and OLiA annotates text, so the two agree about something real — which is the next section's problem.
 
 The whole reading is snapshotted under [`output/tika/`](output/tika): [the summary](output/tika/markdown/summary.md), [what each scope is about](output/tika/markdown/themes.md), [the words it chose](output/tika/markdown/vocabulary.md), [the taxonomy terms it writes](output/tika/markdown/terms.md) and [where it stands among published subjects](output/tika/markdown/subjects.md).
 
@@ -238,13 +253,13 @@ Each term below has an everyday meaning too. The technical one is meant. The [gl
 
 | Term | Meaning here |
 |---|---|
-| **scope** | one directory the build compiles as a unit — `<module>/src/<set>/java`, so `lexicon/src/main/java` and `lexicon/src/test/java` are two — or the repository's documentation. A package or a single file is not a scope |
+| **scope** | **in Java, a [source set](https://docs.gradle.org/current/userguide/java_plugin.html#sec:source_sets)** — one `<module>/src/<set>/java` directory, so `lexicon/src/main/java` and `lexicon/src/test/java` are two scopes of one module. The repository's documentation is a scope of its own. A package, a class or a single file is not a scope, and neither is a Gradle module: a module with a main and a test source set is two scopes |
 | **phrase** | one declared name, or one sentence of prose. It is the unit of evidence: each contributes a single unit of mass whatever its length, so a long javadoc sentence cannot outweigh a short field name |
 | **sense** | one of the distinct meanings a dictionary lists under a word, as [WordNet](#references) enumerates them. `cite` has several, one of them summoning a defendant to court |
 | **headword** | the word itself, with its senses pooled — the form a dictionary indexes |
 | **lemma** | the dictionary form of an inflected word, as [WordNet](https://wordnet.princeton.edu/) indexes it: `citations` → `citation` |
 | **λ (legibility)** | the share of word occurrences any bundled resource could be cited for |
-| **divergence** | how far two distributions over subjects stand apart, bounded at one bit by its own definition and reported as the share of that bound it holds. [Defined with a worked example above](#what-a-divergence-is-and-why-it-is-a-percentage) |
+| **divergence** | how far two distributions over subjects stand apart, bounded at one bit by its own definition and reported as the share of that bound it holds. [Defined with a worked example above](#step-1--measuring-the-difference-what-a-divergence-is-and-why-it-is-a-percentage) |
 | **span** | one match of a published taxonomy term inside a declared name |
 | **rung** | one step a publisher states between a concept and the root of its branch |
 
@@ -266,7 +281,7 @@ Worked example: the field `private final CitationSource citationSource;`. The sa
 |--:|---|---|---|
 | 1 | The parse keeps the declaration and drops the use | `citationSource` is kept; the type `CitationSource` at this position is a use | [`ParsedRepository`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ParsedRepository.java) |
 | 2 | Split at case transitions and separators | `citation`, `source` | [`Tokeniser`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java), [`IdentifierWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierWords.java) |
-| 3 | Price a glued run against a frequency list, and keep whole any run the dictionary carries | `userid` → `user`, `id`; `abstains` stays one word | [`WordSegmenter`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java), [`PieceCost`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java) |
+| 3 | Price a glued run against a frequency list, and keep whole any run the dictionary carries | `pushevent` → `push`, `event`; `abstains` and `userid` each stay one word, [for different reasons](#where-one-word-ends-and-the-next-begins) | [`WordSegmenter`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordSegmenter.java), [`PieceCost`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/PieceCost.java) |
 | 4 | Fold a published run of words into one term | `partOfSpeech` → `part of speech`, one term counted once | [`CollocatedWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java) |
 | 5 | Discard a word carrying no subject matter, and take the lemma of the rest | *of*, *and*, *which* leave; `citations` → `citation` | [`ContentWords`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ContentWords.java), [`WordMorphology`](code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java) |
 | 6 | Collect what each resource says the word is about | `cite` → `law`, from the sense about summoning a defendant | [`TopicCitations`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/TopicCitations.java) |
@@ -281,6 +296,28 @@ The rules come from [UAX #29](https://www.unicode.org/reports/tr29/), the Unicod
 |---|---|---|
 | WB9, WB10 | a letter next to a digit is not a boundary | `utf8Decode` reads as `utf8` and `decode` |
 | WB6, WB7 | a letter either side of an apostrophe is not a boundary | `resource's` is one word. Split at the apostrophe, the trailing `s` reaches the dictionary, which carries it as a noun |
+
+#### A run with no boundary in it at all
+
+`pushevent` carries no capital, no underscore and no digit, so nothing above divides it. Five steps decide what it is, in order, and **the first four are all refusals**:
+
+| | The question | What answers it |
+|--:|---|---|
+| 1 | Is it a candidate at all? | A run under six letters, or one the frequency list already carries, or one WordNet carries, or one that is a known word plus an inflection, is **left whole**. Nothing further is asked |
+| 2 | What are the ways of cutting it? | Every split into pieces, enumerated |
+| 3 | What does each piece cost? | `log(rank) + 3` against the frequency list. **A piece of three letters or fewer must be genuinely common** — inside rank 1,000 for two letters, 6,000 for three — because the list carries fragments like `tc`, `ri` and `ity` that would let any identifier parse. A piece failing that is unreadable, and no split containing it can be scored at all |
+| 4 | Is the split words or fragments? | A split whose pieces average under three letters is discarded |
+| 5 | Which survives? | The cheapest. If none survives, the run is **left whole** |
+
+**Three worked examples, and two of them come back whole.**
+
+| Run | What happens | Why |
+|---|---|---|
+| `pushevent` | → `push`, `event` | Nothing carries `pushevent` whole, and both pieces are common words. `pu` + `shevent` prices worse |
+| `abstains` | stays `abstains` | **Refused at step 1.** WordNet carries `abstains`, so it is never offered for cutting. This matters: on frequency alone it reads as `ab` + `stains`, both of which the list carries, and that split is what the dictionary check exists to stop |
+| `userid` | stays `userid` | **Refused at step 3.** `user` + `id` needs `id`, which ranks 4,690 — far outside the 1,000 a two-letter piece must reach — so that split is unscorable, and no other cut of those six letters prices better. It splits only where a catalogue of published tokens vouches for `id`, and **no such catalogue is wired**: `CitedTokens.NONE` is what the reading runs on, because the one registry that would fill the seam carries `THE`, `OF`, `CODE`, `DATA` and `NAME`, and a segmenter arbitrating against it would find a reading for almost any run of letters |
+
+So `abstains` is kept whole by a **dictionary**, and `userid` is kept whole by a **rarity floor**. Neither is a list of words to treat specially: the first is WordNet's own coverage, the second a rank against a published frequency list.
 
 ### Where each weight comes from
 
