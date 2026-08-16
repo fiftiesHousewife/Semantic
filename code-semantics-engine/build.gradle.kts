@@ -39,6 +39,7 @@ tasks.register<JavaExec>("wordVotes") {
     mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicVoteProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     args = (findProperty("words") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
@@ -51,6 +52,7 @@ tasks.register<JavaExec>("topicCarriers") {
     mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicCarriersProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     args = (findProperty("topics") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
@@ -63,6 +65,7 @@ tasks.register<JavaExec>("wordPlace") {
     mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.ChosenWordProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     args = (findProperty("words") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
@@ -160,6 +163,7 @@ tasks.register<JavaExec>("vocabularyMass") {
     mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.VocabularyMassProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
 // Every glued run the segmenter took apart, with what the dictionary says about the run whole. It is what
@@ -171,6 +175,7 @@ tasks.register<JavaExec>("splitRuns") {
     mainClass = "org.fifties.housewife.codesemantics.engine.reading.SplitRunsProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
 // Declared names too short for a dictionary entry about them to be about more than a symbol, by the kind of
@@ -182,4 +187,5 @@ tasks.register<JavaExec>("shortNames") {
     mainClass = "org.fifties.housewife.codesemantics.engine.reading.ShortNamesProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }

@@ -48,7 +48,7 @@ copied comment and the restated type are measured on Apache Tika and are invisib
 | 5 | A published run is one row of the ranking | The reading already computes it | **Landed.** `part_of_speech` 44th where `part` fell to 382nd and `speech` left |
 | 6 | A word weighs observed against expected, never frequency alone | Replaces `WordSpecificity`'s scale | Every theme figure moves; the placement is what says whether it moved the right way |
 | 7 | The cutoff is a permutation null over the vocabulary | A resampling unit | **Landed.** 259 of 859 named words clear a bar of 0.000194 bits, holding 86.5% of the divergence, where 250 had been picked |
-| 8 | The ranking runs on a repository it was not written for | A clone | Whether the top of Tika's ranking is Tika's subject matter |
+| 8 | The ranking runs on a repository it was not written for | A clone, 37 seconds | **Landed.** 805 of 4,582 words clear Tika's bar holding 88.2% of the divergence against 86.5% here — and `get` stands first |
 | 9 | Step 8 consumes the partition | The term matcher reads the ranking | Spans lost, concept by concept |
 | — | A type restated in its own declaration's name | A parse pass over each declaration's own types | **21% of every OLiA span on Tika** |
 | — | A comment copied into more than one file weighs `1/n` | A second pass, which `ParsedRepository` already makes | **45.1% of Tika's comment word occurrences**, 0.3% here |
@@ -64,6 +64,11 @@ broken into pieces it does, however ordinary the run is as English.
 **Measured over every glued run this repository's declared names contain**: the segmenter split 49 distinct
 runs over 266 occurrences, and **the dictionary carries 31 of them whole, over 134 occurrences** — more than
 half of everything the segmenter did.
+
+**On Tika it is worth four times as much, and it was mangling that repository's central concept**: 91 of 325
+distinct runs over **1,375 of 3,046 occurrences**, led by `extractor` read as extract / or **244 times** on a
+library whose subject is extraction, `mapper` as map / per 240, `wrapper` as wrap / per 84, `bigram` as
+big / ram 75, `filename` as file / name 71, `parsing` as par / sing 52 and `append` as app / end 41.
 
 | Written | Read as | Times | The dictionary calls it |
 |---|---|--:|---|
@@ -251,14 +256,40 @@ it holds. So the two references do not have to agree on a number, and a word cle
 **What is left:** running it on a panel member, which is item 8. A cutoff that means one thing everywhere is
 the reason the panel could not report a vocabulary, and it has not yet been asked to.
 
-## 8. The ranking runs on a repository it was not written for
+## 8. The ranking runs on a repository it was not written for — landed, and it found the largest defect
 
-Every figure the ranking reports today is an instrument reading itself. `panelRead` writes one report folder
-per member and the vocabulary report is not yet among them, so the first run costs a clone and nothing else.
+Apache Tika, pinned at `43cbdae6`: 2,149 Java files, λ = 0.972 over 770,028 word occurrences.
 
-**Measurement:** whether the top of Tika's ranking is Tika's subject matter — content extraction, parsers,
-formats — or Java's. And whether the cutoff of item 7 admits a comparable share of two very different
-repositories, which is the whole reason it has to be derived.
+**The cutoff transfers, which is what it was derived for.**
+
+| | Words clearing the bar | The bar, against ordinary English | Share of the divergence they hold |
+|---|--:|--:|--:|
+| this repository | 259 of 859 | 0.000194 bits | 86.5% |
+| Tika `43cbdae6` | 805 of 4,582 | 0.000020 bits | 88.2% |
+
+The row count differs by a factor of three and the share of the divergence agrees to within two points. A
+picked count could not have done that, and it is what was stopping the panel from reporting a vocabulary.
+
+**The subject matter comes through**: `metadata` 2nd, `config` 3rd, `parse` 5th, `tika` 6th, `xhtml` 13th,
+`json` 15th, `extract` 16th, `emit` 17th, `embedded` 23rd, `pipes` 24th, `detect` 26th.
+
+**And `get` stands first.** 2,652 occurrences, 2.80% of everything Tika declared, the largest claim of all
+4,582 words — with `set` 21st at 1,343, and `name` 4th, `max` 8th, `id` 9th, `length` 10th, `start` 12th,
+`num` 18th, `count` 22nd, `b` 25th, `index` 27th, `size` 28th and `len` 30th behind them. The reason no
+reference refuses them is exact: `PlatformVocabulary` asks `ModuleFinder.ofSystem()` for the **type** names
+the platform exports, and these are **method** names. The platform declares them thousands of times and the
+reference cannot see one.
+
+**This tree could never have shown it.** `get` is never written as a declared name here at all, because this
+codebase declares no getters. The defect that dominates the out-of-domain member's ranking is invisible on
+the tree the reading was developed against, which is the whole argument for a panel in one line.
+
+**Two more, both the splitter's**: `tis` 498, first seen at `TikaCLI.java:196` where `TikaInputStream` is
+abbreviated, and `mill` 323, which is `millis` broken at a boundary the frequency list cannot price.
+
+**A member costs 37 seconds to fetch.** `git init`, `git fetch --depth 1 origin <sha>`, `git checkout
+FETCH_HEAD` — 442 MB for Tika. Adding `--filter=blob:none` makes it *slower*, 87 seconds, because the filter
+defers each blob and the checkout then fetches 2,149 files one round trip at a time.
 
 ## 9. Step 8 consumes the partition
 
