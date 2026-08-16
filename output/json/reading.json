@@ -2,20 +2,20 @@
   "schemaVersion" : "3.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "27aec5027436e894278066fae3491ccfeb807d8a",
+    "commit" : "943a7d6fc662dfe243d3c5c6d7f2891db1aa179c",
     "about" : [ "linguistics", "computing" ],
     "placedIn" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.34059152955780825,
-        "nearestByChanceBits" : 0.41027099411879575,
+        "divergenceBits" : 0.34058010020569185,
+        "nearestByChanceBits" : 0.4102654171007807,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3999928688697589,
-        "nearestByChanceBits" : 0.4461433543871286,
+        "divergenceBits" : 0.3999900182365915,
+        "nearestByChanceBits" : 0.44613132568913316,
         "standsApartFromChance" : true
       }
     },
@@ -63,21 +63,21 @@
     "leadingConcepts" : [ "Source", "Root", "Token", "Phrase", "Verb", "Noun", "Set", "First", "Text", "Function" ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-api/src/test/java",
-      "divergenceBits" : 0.205664058550448,
+      "divergenceBits" : 0.20566394097693178,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.03758626651615882,
+      "divergenceBits" : 0.03758624670247401,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.1450528778595763,
+      "divergenceBits" : 0.14505824642489173,
       "writesMoreOf" : [ "linguistics" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9832586680302812,
-    "shareOfMassOnNoSubject" : 0.760167298153198,
+    "shareOfWordsWithACitation" : 0.9832468380343252,
+    "shareOfMassOnNoSubject" : 0.7601737289900393,
     "counts" : {
-      "signals" : 253,
+      "signals" : 254,
       "themes" : 3,
       "concepts" : 116
     }
@@ -220,7 +220,7 @@
     "occurrences" : 45,
     "occurrencesInNames" : 45,
     "divergenceBits" : 0.0029375827963847795,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/DivergenceShare.java",
       "line" : 15
@@ -902,7 +902,7 @@
     "occurrences" : 13,
     "occurrencesInNames" : 13,
     "divergenceBits" : 8.25826141989901E-4,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ReadingChanges.java",
       "line" : 113
@@ -1265,7 +1265,7 @@
     "occurrences" : 36,
     "occurrencesInNames" : 36,
     "divergenceBits" : 6.210888779950247E-4,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java",
       "line" : 30
@@ -1386,7 +1386,7 @@
     "occurrences" : 9,
     "occurrencesInNames" : 9,
     "divergenceBits" : 5.605441533574363E-4,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/MatchedTerms.java",
       "line" : 47
@@ -2277,7 +2277,7 @@
     "occurrences" : 5,
     "occurrencesInNames" : 5,
     "divergenceBits" : 2.980699634644108E-4,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java",
       "line" : 25
@@ -2684,7 +2684,7 @@
     "occurrences" : 4,
     "occurrencesInNames" : 4,
     "divergenceBits" : 2.3224984699291048E-4,
-    "closestReference" : "the platform's own API",
+    "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/CopiedComments.java",
       "line" : 21
@@ -2801,6 +2801,17 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "counted",
+    "occurrences" : 4,
+    "occurrencesInNames" : 4,
+    "divergenceBits" : 2.016505519744268E-4,
+    "closestReference" : "the platform's own API",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/ImportTally.java",
+      "line" : 19
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "areas",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
@@ -2869,20 +2880,20 @@
   "themes" : [ {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.050750624972163184,
-    "divergenceBits" : 0.01030520937852232,
+    "shareOfRepository" : 0.0507468401005615,
+    "divergenceBits" : 0.010308114295457929,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "form" ]
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-api/src/test/java",
-    "shareOfRepository" : 0.050750624972163184,
-    "divergenceBits" : 0.007611695005136247,
+    "shareOfRepository" : 0.0507468401005615,
+    "divergenceBits" : 0.007614196211941648,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "form" ]
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.050750624972163184,
-    "divergenceBits" : 6.784494229118056E-4,
+    "shareOfRepository" : 0.0507468401005615,
+    "divergenceBits" : 6.792001450842168E-4,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "form" ]
   } ],
   "taxonomies" : [ {
@@ -4049,29 +4060,29 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "senses" : 141,
+      "words" : 1033,
       "lemmas" : 178,
-      "words" : 1033
+      "senses" : 141
     },
     "placement" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.34059152955780825,
-        "nearestByChanceBits" : 0.41027099411879575,
+        "divergenceBits" : 0.34058010020569185,
+        "nearestByChanceBits" : 0.4102654171007807,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3999928688697589,
-        "nearestByChanceBits" : 0.4461433543871286,
+        "divergenceBits" : 0.3999900182365915,
+        "nearestByChanceBits" : 0.44613132568913316,
         "standsApartFromChance" : true
       }
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 1506,
-    "wordsBelowEveryThreshold" : 683,
+    "wordOccurrencesNoResourceCovers" : 1514,
+    "wordsBelowEveryThreshold" : 682,
     "scopesWithinChance" : 1,
     "matchesDiscardedByBranchRule" : 57,
     "filesTheParserCouldNotRead" : 0

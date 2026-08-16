@@ -11,9 +11,9 @@ spread, to be read beside how many words touched the topic at all.
 
 | Topic | ι | Words touching it | Effective carriers | Concentration | Largest carrier |
 |---|--:|--:|--:|--:|---|
-| `linguistics` | 0.0508 | 127 | 6.5 | 0.146 | `word` 32.4% |
+| `linguistics` | 0.0507 | 127 | 6.5 | 0.146 | `word` 32.4% |
 | `publishing` | 0.0176 | 44 | 8.9 | 0.092 | `publish` 22.9% |
-| `computing` | 0.0134 | 299 | 40.4 | 0.021 | `repository` 7.6% |
+| `computing` | 0.0134 | 301 | 40.4 | 0.021 | `repository` 7.6% |
 | `mathematics` | 0.0123 | 129 | 8.7 | 0.108 | `from` 28.8% |
 | `telecommunication` | 0.0123 | 17 | 2.0 | 0.473 | `file` 64.6% |
 | `law` | 0.0095 | 226 | 19.2 | 0.048 | `file` 11.5% |
