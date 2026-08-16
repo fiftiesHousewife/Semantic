@@ -10,7 +10,7 @@ Of the mass the topical reading then observed, **76.0% of it was settled on no s
 
 ## The field it is in
 
-**Computer Science**, 0.3389 bits away. A taxonomy of chance placed its nearest subject at 0.4103 bits over 999 draws, so this stands apart from chance. The runner-up is Electrical Engineering and Systems Science at 0.4854.
+**Computer Science**, 0.3389 bits away. A taxonomy of chance placed its nearest subject at 0.4103 bits over 999 draws, so this stands apart from chance. The runner-up is Electrical Engineering and Systems Science at 0.4855.
 
 ## What it is about
 
@@ -23,10 +23,10 @@ A topic held at the same density everywhere distinguishes nothing, so there is n
 | Scope | Bits from the repository | Writes more of |
 |---|--:|---|
 | `code-semantics-api/src/test/java` | 0.2008 | `linguistics` |
-| `lexicon/src/main/java` | 0.1887 | `grammar` |
-| `lexicon/src/test/java` | 0.1462 | `linguistics` |
+| `lexicon/src/main/java` | 0.1886 | `grammar` |
+| `lexicon/src/test/java` | 0.1460 | `linguistics` |
 | `code-semantics-engine/src/main/java` | 0.0456 | `grammar`, `linguistics` |
 
 ## Withheld
 
-- `documentation` — 0.2407 bits, and 965 of 999 chance draws stood at least as far
+- `documentation` — 0.2434 bits, and 968 of 999 chance draws stood at least as far

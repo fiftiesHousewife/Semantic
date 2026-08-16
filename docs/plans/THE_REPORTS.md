@@ -1,11 +1,8 @@
 # The reports
 
-Everything under [`output/`](../../output) is a published artefact, and the reading is judged on them before
-it is judged on anything else. They are currently written in three styles by five classes, and a reader has
-to be taught each one.
+Everything under [`output/`](../../output) is a published artefact, and the reading is judged on them before it is judged on anything else. They are currently written in three styles by five classes, and a reader has to be taught each one.
 
-**One statement of style, applied to every generated page and every generated markdown file.** The rules
-below are the statement; the work is making each writer obey it and deleting what obeys nothing.
+**One statement of style, applied to every generated page and every generated markdown file.** The rules below are the statement; the work is making each writer obey it and deleting what obeys nothing.
 
 ## The style every generated artefact holds to
 
@@ -28,20 +25,15 @@ Three sections, in this order, and nothing else:
 2. **How to use it** — the tasks, the properties each takes, and where each writes.
 3. **What it currently reads as** — a short table linking into `output/`, one line per report.
 
-**The README duplicates the reports today** and so states figures twice, in two wordings, both of which move
-on every commit. A figure has one home; the README links to it.
+**The README duplicates the reports today** and so states figures twice, in two wordings, both of which move on every commit. A figure has one home; the README links to it.
 
 ## One artefact per report, not two
 
-`output/` carries `summary`, `self-reading`, `themes`, `subjects`, `terms` and `vocabulary` as both `.md` and
-`.html`, and the HTML is a mechanical rendering of the markdown. Keep one.
+`output/` carries `summary`, `self-reading`, `themes`, `subjects`, `terms` and `vocabulary` as both `.md` and `.html`, and the HTML is a mechanical rendering of the markdown. Keep one.
 
-- **Recommendation: keep the markdown.** It diffs in review, it is what a commit shows moving, and the
-  renderer is the source of the entity defect above.
-- **Keep as pages only what markdown cannot carry**: `index.html`, the chart page, the taxonomy page and the
-  three SVGs, which hold interaction rather than text.
-- **What settles it:** no report exists in two formats, and every link in the README and in `index.html`
-  resolves.
+- **Recommendation: keep the markdown.** It diffs in review, it is what a commit shows moving, and the renderer is the source of the entity defect above.
+- **Keep as pages only what markdown cannot carry**: `index.html`, the chart page, the taxonomy page and the three SVGs, which hold interaction rather than text.
+- **What settles it:** no report exists in two formats, and every link in the README and in `index.html` resolves.
 
 ## The charts
 
@@ -64,6 +56,4 @@ on every commit. A figure has one home; the README links to it.
 
 ## What must not be lost
 
-The reports are the argument, so condensing must not remove a bound, a denominator or a citation. A figure
-printed without the maximum it is bounded by, or without what it was read against, is worse than no figure.
-Cut the restatement, not the provenance.
+The reports are the argument, so condensing must not remove a bound, a denominator or a citation. A figure printed without the maximum it is bounded by, or without what it was read against, is worse than no figure. Cut the restatement, not the provenance.

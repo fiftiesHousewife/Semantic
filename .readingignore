@@ -19,6 +19,10 @@ CHANGELOG.md
 # and then find them.
 docs/plans/**
 
+# The skills index and the script that installs one. They state how the work is done.
+docs/SKILLS.md
+install-*-skill.sh
+
 # The glossary. It defines morphology, semantics, lemma and synset for a reader who is not a linguist,
 # and this repository's stated goal is to be placed under computational linguistics by evidence. A
 # glossary of the field written into the corpus would satisfy that goal by construction.

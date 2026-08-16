@@ -1,12 +1,8 @@
 # Glossary
 
-This library reads code with the tools of lexical semantics and the arithmetic of information theory, and it
-assumes neither. Every term below appears in the source, the reports or the plans; each entry says what it
-means, what it is called in this tree, and where to read more.
+This library reads code with the tools of lexical semantics and the arithmetic of information theory, and it assumes neither. Every term below appears in the source, the reports or the plans; each entry says what it means, what it is called in this tree, and where to read more.
 
-> This file is excluded from the corpus the reading reads — [`.readingignore`](../.readingignore) states so.
-> A glossary of linguistics written into a repository whose stated goal is to be *placed* under linguistics
-> would satisfy that goal by construction, which is the doctrine's own rule against marking your own homework.
+> This file is excluded from the corpus the reading reads — [`.readingignore`](../.readingignore) states so. A glossary of linguistics written into a repository whose stated goal is to be *placed* under linguistics would satisfy that goal by construction, which is the doctrine's own rule against marking your own homework.
 
 ---
 
@@ -86,29 +82,21 @@ means, what it is called in this tree, and where to read more.
 
 ## "High-meaning" words, which is two separate facts
 
-There is no single class called that, and deliberately so — it is the product of two independent citations,
-each of which can be argued with on its own.
+There is no single class called that, and deliberately so — it is the product of two independent citations, each of which can be argued with on its own.
 
 | | The question | The citation | Where |
 |---|---|---|---|
 | **Is it a content word at all?** | Does English use this word to carry subject matter, or to hold a sentence together? | WordNet is a dictionary of **open-class** words by construction. *and*, *of*, *that*, *which* are not in it as a noun or a verb, so asking for their lemma is how the reading finds out — **without anybody writing a stop list** | `ContentWords` |
 | **How much does it narrow?** | How rare is it? | `log(rank) / log(size)` off the bundled Leipzig frequency list. Bounded in `[0, 1]` by the list's own length, not by a chosen constant, and a word the list does not carry at all is as specific as the list can say | `WordSpecificity` |
 
-The two multiply. A term's mass is `specificity × occurrences`, so `name` written 460 times weighs almost
-nothing and `interest rate swap` written once weighs near the ceiling. `PhraseSpecificity` extends it to a
-run of words as the complement of the product of their commonness — equal to `WordSpecificity` at one word,
-and rising with every word added.
+The two multiply. A term's mass is `specificity × occurrences`, so `name` written 460 times weighs almost nothing and `interest rate swap` written once weighs near the ceiling. `PhraseSpecificity` extends it to a run of words as the complement of the product of their commonness — equal to `WordSpecificity` at one word, and rising with every word added.
 
 Two things worth knowing about the second:
 
-- **It is a weight and never a gate.** The commonest word in English still votes, at the smallest weight the
-  list can express. Nothing is excluded anywhere in this library.
-- **Summed surprisal was the other reading and was rejected.** It needs truncating to stay bounded and
-  reaches that ceiling on any two content words, so every multi-word term would weigh the same.
+- **It is a weight and never a gate.** The commonest word in English still votes, at the smallest weight the list can express. Nothing is excluded anywhere in this library.
+- **Summed surprisal was the other reading and was rejected.** It needs truncating to stay bounded and reaches that ceiling on any two content words, so every multi-word term would weigh the same.
 
-One further rule that is about length rather than meaning: one- and two-letter forms are refused, because a
-dictionary entry for a one-letter form is a symbol reading — *a* the ampere, *be* beryllium, *em* a printer's
-measure — and a name can be a sentence with an article in it.
+One further rule that is about length rather than meaning: one- and two-letter forms are refused, because a dictionary entry for a one-letter form is a symbol reading — *a* the ampere, *be* beryllium, *em* a printer's measure — and a name can be a sentence with an article in it.
 
 ## Words this project uses in a particular way
 

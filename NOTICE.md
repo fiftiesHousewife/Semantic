@@ -1,16 +1,10 @@
 # Third-party notices
 
-The library's own code is licensed under Apache-2.0; see `LICENSE`. Everything below is about data it did not
-write, which that licence does not cover.
+The library's own code is licensed under Apache-2.0; see `LICENSE`. Everything below is about data it did not write, which that licence does not cover.
 
-This library ships lexical data it did not write. Every bundled file states its own source and licence in a
-leading comment block — a contract `VocabularyProvenanceTest` enforces over both resource directories, so a
-file added without one fails the build. This page is a summary of those headers and not a substitute for
-them: **the file's own header is the authority**, and where the two ever disagree the header is right and this
-page is stale.
+This library ships lexical data it did not write. Every bundled file states its own source and licence in a leading comment block — a contract `VocabularyProvenanceTest` enforces over both resource directories, so a file added without one fails the build. This page is a summary of those headers and not a substitute for them: **the file's own header is the authority**, and where the two ever disagree the header is right and this page is stale.
 
-The library's own dependencies are declared in `gradle/libs.versions.toml`, with the licence of each and
-the reason it was chosen in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
+The library's own dependencies are declared in `gradle/libs.versions.toml`, with the licence of each and the reason it was chosen in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
 
 ## Bundled data
 
@@ -27,12 +21,6 @@ the reason it was chosen in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
 
 ## WordNet, and a gap stated rather than papered over
 
-WordNet 3.1 is **not** bundled here. It arrives on the classpath inside `net.sf.extjwnl:extjwnl-data-wn31`,
-which `lexicon` declares as a runtime dependency and reads through
-`Dictionary.getDefaultResourceInstance()` — nothing is extracted to disk.
+WordNet 3.1 is **not** bundled here. It arrives on the classpath inside `net.sf.extjwnl:extjwnl-data-wn31`, which `lexicon` declares as a runtime dependency and reads through `Dictionary.getDefaultResourceInstance()` — nothing is extracted to disk.
 
-Two licences therefore apply to a consumer of this library and **neither is stated in this repository**:
-the Princeton WordNet licence covering the database, and extjwnl's own EPL/LGPL. That is a real gap, it was
-inherited with the `lexicon` port, and it is recorded as an open question in `BACKLOG.md` rather than
-answered here — because the honest answer is that it has not been verified yet, and a licence page that
-guesses is worse than one that says so.
+Two licences therefore apply to a consumer of this library and **neither is stated in this repository**: the Princeton WordNet licence covering the database, and extjwnl's own EPL/LGPL. That is a real gap, it was inherited with the `lexicon` port, and it is recorded as an open question in `BACKLOG.md` rather than answered here — because the honest answer is that it has not been verified yet, and a licence page that guesses is worse than one that says so.
