@@ -18,7 +18,7 @@ import java.util.Objects;
  * @param placement               where the repository stands among published subjects
  */
 public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
-                               Map<String, Integer> matchesByNormalisation, Placement placement) {
+                               Map<String, Integer> matchesByNormalisation, ExportedPlacement placement) {
 
     /**
      * One published concept as the repository wrote it.
@@ -33,38 +33,6 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
      */
     public record Concept(String concept, String placedUnder, int occurrences, double specificity,
                           int wordsInTerm, SightingSite firstWrittenAt) {
-    }
-
-    /**
-     * The nearest published subject, and the nearest a taxonomy of chance offered.
-     *
-     * <p>Whether it stands apart is a field rather than a comparison left to the reader, because it is the
-     * whole test and a consumer that skipped it would be reading a horoscope. It is checked against the two
-     * figures it summarises, so a document cannot state one thing and mean another.
-     *
-     * @param scheme                 the subject scheme the placement is against
-     * @param subject                the nearest subject's own label
-     * @param divergenceBits         how far the repository stands from it
-     * @param nearestByChanceBits    how far the nearest subject of a taxonomy of chance stood
-     * @param standsApartFromChance  whether the real placement is nearer than the chance one
-     */
-    public record Placement(String scheme, String subject, double divergenceBits, double nearestByChanceBits,
-                            boolean standsApartFromChance) {
-
-        public Placement {
-            if (standsApartFromChance != divergenceBits < nearestByChanceBits) {
-                throw new IllegalArgumentException(
-                        "a placement at " + divergenceBits + " against chance at " + nearestByChanceBits
-                                + " cannot state standsApartFromChance=" + standsApartFromChance);
-            }
-        }
-
-        /** The placement, with whether it stands apart read off the two figures rather than asserted. */
-        public static Placement of(final String scheme, final String subject, final double divergenceBits,
-                                   final double nearestByChanceBits) {
-            return new Placement(scheme, subject, divergenceBits, nearestByChanceBits,
-                    divergenceBits < nearestByChanceBits);
-        }
     }
 
     public ExportedTaxonomy {

@@ -49,8 +49,7 @@ class ReadingSummaryDiagnostic {
         final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), TreeReading.SEED);
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
-                LegibilityReading.fromClasspath().of(parsed), themes, field.placements(), field.chance(),
-                TOPICS_PER_SCOPE);
+                LegibilityReading.fromClasspath().of(parsed), themes, field, TOPICS_PER_SCOPE);
         final String page = new SummaryReport().render(summary);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         reports.wrote(REPORT, page, "Summary");

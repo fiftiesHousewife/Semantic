@@ -14,7 +14,7 @@ import java.util.Objects;
  * @param repository                the directory the reading was pointed at
  * @param commit                    the commit the working tree stood on, stated by the caller
  * @param about                     the topics that make some part of this repository unlike the rest of it
- * @param placedIn                  the nearest published subject, with the nearest chance one beside it
+ * @param placedIn                  where the scheme places it, at both the levels it states
  * @param leadingWords              the words scoring highest, with their scores, highest first
  * @param leadingConcepts           the published concepts the repository writes most of, most first
  * @param distinctiveScopes         the parts that depart from the whole further than chance
@@ -22,7 +22,7 @@ import java.util.Objects;
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
  */
 public record ExportedSummary(String repository, String commit, List<String> about,
-                              ExportedTaxonomy.Placement placedIn, List<LeadingWord> leadingWords,
+                              ExportedPlacement placedIn, List<LeadingWord> leadingWords,
                               List<String> leadingConcepts, List<DistinctiveScope> distinctiveScopes,
                               double shareOfWordsWithACitation, double shareOfMassOnNoSubject,
                               Counts counts) {

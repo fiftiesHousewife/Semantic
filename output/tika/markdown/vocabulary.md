@@ -42,9 +42,9 @@ gaps: the gap is where the reader should look for it.
 
 ## What it called things
 
-**92,658 occurrences of 4,530 distinct words**, read against ordinary English and the platform's own API. The 837 that clear the bar hold 60.6% of what was written and 87.2% of the divergence, and 100.0% of their occurrences are names. 1,439 words in the ranking are ones a reference writes more densely than this repository does, and 133 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**92,658 occurrences of 4,530 distinct words**, read against ordinary English and the platform's own API. The 838 that clear the bar hold 60.7% of what was written and 87.2% of the divergence, and 100.0% of their occurrences are names. 1,439 words in the ranking are ones a reference writes more densely than this repository does, and 133 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000021 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 12,762,550 scored words from that reference's own distribution. A word is here where it beats **0.000025 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 3,848,706 scored words from that reference's own distribution.
+A word is here where it beats **0.000021 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 12,761,855 scored words from that reference's own distribution. A word is here where it beats **0.000025 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 3,849,094 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -98,6 +98,12 @@ A word is here where it beats **0.000021 bits** against ordinary English — the
 | 50 | `tmp` | 0.000658 | 135 | 100.0% | 0.1457% | 0.0000% | 0.0022% | `tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:613` |
 | 51 | `header` | 0.000654 | 294 | 100.0% | 0.3173% | 0.0012% | 0.0650% | `tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java:396` |
 | 52 | `zip` | 0.000623 | 159 | 100.0% | 0.1716% | 0.0010% | 0.0103% | `tika-core/src/main/java/org/apache/tika/metadata/Zip.java:24` |
+
+<details>
+<summary>788 more words, ranked</summary>
+
+| # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
+|--:|---|--:|--:|--:|--:|--:|--:|---|
 | 54 | `total` | 0.000611 | 192 | 100.0% | 0.2072% | 0.0230% | 0.0211% | `tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java:203` |
 | 55 | `chm` | 0.000604 | 112 | 100.0% | 0.1209% | 0.0000% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/chm/ChmAccessor.java:1` |
 | 56 | `mapper` | 0.000601 | 140 | 100.0% | 0.1511% | 0.0000% | 0.0060% | `tika-app/src/main/java/org/apache/tika/cli/XmlToJsonConfigConverter.java:139` |
@@ -867,6 +873,7 @@ A word is here where it beats **0.000021 bits** against ordinary English — the
 | 841 | `alternate` | 0.000025 | 10 | 100.0% | 0.0108% | 0.0018% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/TikaCoreProperties.java:537` |
 | 842 | `created` | 0.000025 | 32 | 100.0% | 0.0345% | 0.0161% | 0.0043% | `tika-core/src/main/java/org/apache/tika/metadata/DublinCore.java:102` |
 | 843 | `dominant` | 0.000025 | 11 | 100.0% | 0.0119% | 0.0024% | 0.0000% | `tika-core/src/main/java/org/apache/tika/quality/TextQualityScore.java:75` |
+| 844 | `queue` | 0.000025 | 60 | 100.0% | 0.0648% | 0.0010% | 0.0383% | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ExtractComparerRunner.java:361` |
 | 846 | `warned` | 0.000025 | 12 | 100.0% | 0.0130% | 0.0029% | 0.0000% | `tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java:64` |
 | 847 | `reply` | 0.000025 | 10 | 100.0% | 0.0108% | 0.0019% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/MAPI.java:72` |
 | 848 | `latin` | 0.000024 | 15 | 100.0% | 0.0162% | 0.0046% | 0.0000% | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/main/java/org/apache/tika/ml/chardetect/CharsetConfusables.java:155` |
@@ -885,6 +892,7 @@ A word is here where it beats **0.000021 bits** against ordinary English — the
 | 1,006 | `structural` | 0.000021 | 11 | 100.0% | 0.0119% | 0.0029% | 0.0009% | `tika-core/src/main/java/org/apache/tika/detect/EncodingResult.java:59` |
 | 1,008 | `dice` | 0.000021 | 7 | 100.0% | 0.0076% | 0.0010% | 0.0000% | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/db/Cols.java:43` |
 | 1,009 | `bullet` | 0.000021 | 8 | 100.0% | 0.0086% | 0.0014% | 0.0000% | `tika-core/src/main/java/org/apache/tika/sax/ToMarkdownContentHandler.java:568` |
+</details>
 
 ### What the language supplied
 
@@ -938,9 +946,9 @@ A word is here where it beats **0.000021 bits** against ordinary English — the
 
 ## What it called the things that check it
 
-**48,667 occurrences of 3,873 distinct words**, read against ordinary English and the platform's own API. The 582 that clear the bar hold 61.1% of what was written and 85.6% of the divergence, and 100.0% of their occurrences are names. 1,128 words in the ranking are ones a reference writes more densely than this repository does, and 136 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**48,667 occurrences of 3,873 distinct words**, read against ordinary English and the platform's own API. The 583 that clear the bar hold 61.2% of what was written and 85.6% of the divergence, and 100.0% of their occurrences are names. 1,128 words in the ranking are ones a reference writes more densely than this repository does, and 136 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000037 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 9,251,721 scored words from that reference's own distribution. A word is here where it beats **0.000045 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 3,201,034 scored words from that reference's own distribution.
+A word is here where it beats **0.000037 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 9,251,315 scored words from that reference's own distribution. A word is here where it beats **0.000044 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 3,199,968 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -994,6 +1002,12 @@ A word is here where it beats **0.000037 bits** against ordinary English — the
 | 51 | `mock` | 0.000607 | 62 | 100.0% | 0.1274% | 0.0008% | 0.0004% | `tika-core/src/test/java/org/apache/tika/parser/mock/MockParser.java:1` |
 | 52 | `temp` | 0.000603 | 72 | 100.0% | 0.1479% | 0.0005% | 0.0052% | `tika-app/src/test/java/org/apache/tika/cli/XmlToJsonConfigConverterTest.java:52` |
 | 54 | `k` | 0.000583 | 70 | 100.0% | 0.1438% | 0.0025% | 0.0052% | `tika-app/src/test/java/org/apache/tika/cli/TikaCLIAsyncTest.java:148` |
+
+<details>
+<summary>533 more words, ranked</summary>
+
+| # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
+|--:|---|--:|--:|--:|--:|--:|--:|---|
 | 55 | `extract` | 0.000573 | 69 | 100.0% | 0.1418% | 0.0016% | 0.0052% | `tika-app/src/test/java/org/apache/tika/cli/AsyncHelperTest.java:67` |
 | 56 | `limits` | 0.000569 | 65 | 100.0% | 0.1336% | 0.0034% | 0.0009% | `tika-core/src/test/java/org/apache/tika/config/ParseTimeoutTest.java:35` |
 | 57 | `chm` | 0.000565 | 55 | 100.0% | 0.1130% | 0.0000% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/AutoDetectParserTest.java:176` |
@@ -1507,6 +1521,7 @@ A word is here where it beats **0.000037 bits** against ordinary English — the
 | 585 | `epoch` | 0.000045 | 20 | 100.0% | 0.0411% | 0.0006% | 0.0151% | `tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/Phase2Trainer.java:329` |
 | 586 | `outlook` | 0.000045 | 8 | 100.0% | 0.0164% | 0.0021% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java/org/apache/tika/parser/microsoft/OutlookParserTest.java:52` |
 | 587 | `mb` | 0.000045 | 6 | 100.0% | 0.0123% | 0.0007% | 0.0000% | `tika-core/src/test/java/org/apache/tika/parser/mock/MockParser.java:211` |
+| 589 | `composite` | 0.000044 | 27 | 100.0% | 0.0555% | 0.0017% | 0.0245% | `tika-app/src/test/java/org/apache/tika/cli/XmlToJsonConfigConverterTest.java:70` |
 | 590 | `links` | 0.000044 | 10 | 100.0% | 0.0205% | 0.0040% | 0.0004% | `tika-core/src/test/java/org/apache/tika/utils/RegexUtilsTest.java:38` |
 | 591 | `contexts` | 0.000044 | 7 | 100.0% | 0.0144% | 0.0015% | 0.0004% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/AutoDetectReaderParserTest.java:48` |
 | 593 | `full` | 0.000044 | 31 | 100.0% | 0.0637% | 0.0303% | 0.0185% | `tika-core/src/test/java/org/apache/tika/TikaTest.java:357` |
@@ -1526,6 +1541,7 @@ A word is here where it beats **0.000037 bits** against ordinary English — the
 | 684 | `fragmentation` | 0.000037 | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-ml/tika-ml-junkdetect/src/test/java/org/apache/tika/ml/junkdetect/TextQualityFeaturesTest.java:164` |
 | 689 | `gemini` | 0.000037 | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-parsers/tika-parsers-ml/tika-vlm/src/test/java/org/apache/tika/parser/vlm/GeminiVLMParserTest.java:42` |
 | 690 | `probes` | 0.000037 | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/CalibrateTopK.java:68` |
+</details>
 
 ### What the language supplied
 
@@ -1581,7 +1597,7 @@ A word is here where it beats **0.000037 bits** against ordinary English — the
 
 **766,635 occurrences of 14,556 distinct words**, read against ordinary English and the platform's own API. The 1,890 that clear the bar hold 47.0% of what was written and 89.9% of the divergence, and 18.0% of their occurrences are names. 5,194 words in the ranking are ones a reference writes more densely than this repository does, and 511 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000004 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 19,884,363 scored words from that reference's own distribution. A word is here where it beats **0.000004 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 5,238,224 scored words from that reference's own distribution.
+A word is here where it beats **0.000004 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 19,884,313 scored words from that reference's own distribution. A word is here where it beats **0.000004 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 5,237,923 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -1635,6 +1651,12 @@ A word is here where it beats **0.000004 bits** against ordinary English — the
 | 51 | `additional` | 0.000958 | 2,231 | 1.3% | 0.2910% | 0.0243% | 0.0099% | `tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java:1` |
 | 54 | `embedded` | 0.000832 | 1,379 | 34.5% | 0.1799% | 0.0019% | 0.0017% | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:212` |
 | 55 | `law` | 0.000821 | 2,148 | 0.0% | 0.2802% | 0.0316% | 0.0000% | `tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java:1` |
+
+<details>
+<summary>1840 more words, ranked</summary>
+
+| # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
+|--:|---|--:|--:|--:|--:|--:|--:|---|
 | 56 | `parser` | 0.000757 | 2,474 | 51.5% | 0.3227% | 0.0005% | 0.0551% | `tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java:21` |
 | 57 | `tis` | 0.000748 | 1,147 | 3.8% | 0.1496% | 0.0000% | 0.0000% | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:196` |
 | 58 | `version` | 0.000681 | 2,923 | 13.6% | 0.3813% | 0.0139% | 0.0926% | `tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java:40` |
@@ -3475,6 +3497,7 @@ A word is here where it beats **0.000004 bits** against ordinary English — the
 | 2,109 | `dominant` | 0.000004 | 40 | 37.5% | 0.0052% | 0.0024% | 0.0000% | `tika-core/src/main/java/org/apache/tika/quality/TextQualityScore.java:75` |
 | 2,111 | `protected` | 0.000004 | 51 | 47.1% | 0.0067% | 0.0034% | 0.0017% | `tika-core/src/main/java/org/apache/tika/io/TikaInputStream.java:72` |
 | 2,117 | `assertions` | 0.000004 | 17 | 5.9% | 0.0022% | 0.0006% | 0.0000% | `tika-core/src/test/java/org/apache/tika/parser/NetworkParserTest.java:61` |
+</details>
 
 ### What the language supplied
 

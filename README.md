@@ -13,9 +13,11 @@ It works in the terms of lexical semantics and information theory and assumes ne
 | **Decides by** | published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here |
 | **Run** | `./gradlew read`, then read [`output/markdown/summary.md`](output/markdown/summary.md) |
 
-![One bar per topic the reading reports, each as long as the share of the reading that topic accounts for](output/svg/themes-bar.svg)
+![One bar per topic, each as long as the share of the divergence between this repository's parts that the topic accounts for](output/svg/themes-bar.svg)
 
-One bar per topic whose figure exceeds all 999 chance resamples, longest first, each as long as the share of the reading that topic accounts for. Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above both `linguistics` and `grammar`, and `natural-sciences` above `computing`, so the first two share a colour and the third does not.
+One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#what-a-divergence-in-bits-is) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 72.4% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all. Hover a bar for both figures.
+
+Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above both `linguistics` and `grammar`, and `natural-sciences` above `computing`, so the first two share a colour and the third does not.
 
 ## What it does
 
@@ -107,20 +109,18 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
   "about": ["linguistics", "computing", "grammar"],
   "placedIn": {
     "scheme": "arXiv",
-    "subject": "Computer Science",
-    "divergenceBits": 0.3399432131693857,
-    "nearestByChanceBits": 0.4125288002235385,
-    "standsApartFromChance": true
+    "archive":  { "subject": "Computer Science", "divergenceBits": 0.3401, "standsApartFromChance": true },
+    "category": { "subject": "Computation and Language", "divergenceBits": 0.3960, "standsApartFromChance": true }
   },
   "leadingWords": [{ "word": "word", "divergenceBits": 0.0158, "occurrences": 239 }, ...],
   "leadingConcepts": ["Source", "Root", "Token", "Phrase", "Verb"],
-  "shareOfWordsWithACitation": 0.983078231292517,
-  "shareOfMassOnNoSubject": 0.7602347402694423,
-  "counts": { "signals": 246, "themes": 5, "concepts": 115 }
+  "shareOfWordsWithACitation": 0.9830255639097745,
+  "shareOfMassOnNoSubject": 0.7591515609169042,
+  "counts": { "signals": 261, "themes": 5, "concepts": 115 }
 }
 ```
 
-Read `placedIn.standsApartFromChance` before `placedIn.subject`: some subject is always nearest, and the boolean is what makes the nearest one a result.
+`placedIn` states two levels. `archive` is compared against every category's description pooled under it — enough prose for the divergence to be stable, and broad enough that *Computer Science* says little about a Java library. `category` is compared against the few dozen words arXiv states for that subject alone: the weaker measurement, and the answer to what the repository is about. Read `standsApartFromChance` on either before reading its `subject`, because some subject is always nearest.
 
 Each list under the summary answers a follow-up question.
 
@@ -171,7 +171,7 @@ One signal, in full:
 
 Words English supplies inside a name are scored, ranked and left out of `signals`. `massByTopic` is a name about mass and about topics, and `by` is what the language puts between them: against a frequency list drawn from prose it reads as specialist, because prose is not where a program's prepositions are written. Two bundled resources place such a word between them — WordNet carries no noun, verb or adjective entry for it, and the frequency list carries it as a word English is written in — and [the vocabulary report](output/markdown/vocabulary.md) prints it under its own heading with the rank it earned.
 
-**Signals only.** A word no resource covers, a match the branch rule discarded and a topic within chance appear in no list, and `setAside` counts each. 246 signals out of 894 words scored is a different claim from 246 out of 8,000, and the counts are what tell the two apart.
+**Signals only.** A word no resource covers, a match the branch rule discarded and a topic within chance appear in no list, and `setAside` counts each. 261 signals out of 895 words scored is a different claim from 261 out of 8,000, and the counts are what tell the two apart.
 
 ### The schema
 
@@ -231,8 +231,9 @@ Every figure this repository reports about itself is an instrument measuring its
 | Files | 2,156 | 451 |
 | λ, share with a citation | 0.972 | 0.983 |
 | Evidence resolving to no subject | 68.7% | 76.1% |
-| Nearest arXiv subject | Computer Science, 0.3621 bits | Computer Science, 0.3399 bits |
-| Nearest by chance | 0.4337 bits | 0.4125 bits |
+| Nearest arXiv archive | Computer Science, 0.3621 bits | Computer Science, 0.3401 bits |
+| Nearest by chance | 0.4337 bits | 0.4120 bits |
+| Nearest arXiv category | `cs.CL` Computation and Language, 0.3817 bits | `cs.CL` Computation and Language, 0.3960 bits |
 | Subjects distinguishing some scope | `computing`, `law`, `linguistics` | `linguistics`, `computing`, `grammar` |
 | OLiA concepts written, of 1,311 | 108 | 115 |
 | OLiA root branches reached, of 70 | 13 | 12 |
@@ -242,6 +243,8 @@ Every figure this repository reports about itself is an instrument measuring its
 **The reading places Tika under Computer Science and separates it from chance**, and `computing` is the subject distinguishing most of its scopes — which is what its own DOAP category states.
 
 **`law` is a defect the backtest found and this tree could never show.** It distinguishes five of Tika's eight leading scopes, and it is the Apache licence header: 45.1% of Tika's comment word occurrences sit in a comment copied into more than one file, against 0.3% here, because this repository carries no licence header. A comment copied into 2,140 files is counted 2,140 times. [What the author chose](docs/plans/WHAT_THE_AUTHOR_CHOSE.md) states the fix — a comment appearing in *n* files weighs 1/*n*.
+
+**The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer of the two at 0.3817 bits against 0.3960. That is defensible — Tika extracts text and detects languages, so Computation and Language is a fair reading of it — and it is also exactly why the evaluation set needs a member with no text in its subject matter. A scheme that puts a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
 
 **The term matcher does not yet discriminate.** Tika writes 108 OLiA concepts against this repository's 65, and its top branches hold `Text`, `String`, `Result`, `Object` and `Exception` — Java's naming conventions colliding with ordinary English nouns that a linguistics taxonomy happens to publish. A vocabulary of linguistic annotation should say almost nothing about a text extraction toolkit, and this one says a great deal.
 

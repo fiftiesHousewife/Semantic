@@ -9,8 +9,7 @@ import org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics;
 import org.fifties.housewife.codesemantics.engine.theme.TopicCitations;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.theme.ScopeDivergence;
-import org.fifties.housewife.codesemantics.engine.theme.SubjectNull;
-import org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.Placement;
+import org.fifties.housewife.codesemantics.engine.theme.PlacedField;
 
 /**
  * Everything the reading found that cleared a stated bar, and nothing else.
@@ -47,12 +46,25 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
     public record Legibility(double lambda, int words, int files, double proseShare, double unplaced) {
     }
 
-    /** The nearest published subject, and the nearest a taxonomy of chance offered. */
-    public record Field(String label, double bits, double chanceNearest, String runnerUp,
-                        double runnerUpBits) {
+    /**
+     * Where the reading places the repository, at both levels the subject scheme states.
+     *
+     * <p>The archive is compared against every category's description pooled under it, so its divergence
+     * rests on enough prose to be stable. The category is compared against the few dozen words the scheme
+     * states for it alone: a weaker measurement, and the one that answers what the repository is about.
+     */
+    public record Field(Nearest archive, Nearest category, String runnerUp, double runnerUpBits) {
+
+        /** One subject, how far the repository stands from it, and how near chance came. */
+        public record Nearest(String label, double bits, double chanceNearest) {
+
+            public boolean standsApart() {
+                return bits < chanceNearest;
+            }
+        }
 
         public boolean standsApart() {
-            return bits < chanceNearest;
+            return archive.standsApart();
         }
     }
 
@@ -71,8 +83,8 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
     }
 
     public static ReadingSummary of(final String repository, final RepositoryLegibility legibility,
-                                    final RepositoryThemes themes, final List<Placement> field,
-                                    final SubjectNull.Chance chance, final int topicsPerScope) {
+                                    final RepositoryThemes themes, final PlacedField field,
+                                    final int topicsPerScope) {
         final List<ScopeDivergence> qualified = themes.divergences().stream()
                 .filter(scope -> scope.chance().exceedsChance())
                 .toList();
@@ -88,7 +100,7 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 .toList();
         return new ReadingSummary(repository,
                 legibilityOf(legibility.repository(), themes.repository().intensity().unplaced()),
-                fieldOf(field, chance), distinctive, about,
+                fieldOf(field), distinctive, about,
                 withheldFrom(themes, qualified));
     }
 
@@ -97,11 +109,13 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                 scope.counts().proseShare(), unplaced);
     }
 
-    private static Field fieldOf(final List<Placement> field, final SubjectNull.Chance chance) {
-        final Placement nearest = field.getFirst();
-        final Placement runnerUp = field.get(1);
-        return new Field(nearest.label(), nearest.bits(), chance.chanceNearest(), runnerUp.label(),
-                runnerUp.bits());
+    private static Field fieldOf(final PlacedField field) {
+        return new Field(
+                new Field.Nearest(field.nearestArchive().label(), field.nearestArchive().bits(),
+                        field.archiveChance().chanceNearest()),
+                new Field.Nearest(field.nearestCategory().label(), field.nearestCategory().bits(),
+                        field.categoryChance().chanceNearest()),
+                field.runnerUpArchive().label(), field.runnerUpArchive().bits());
     }
 
     private static List<Withheld> withheldFrom(final RepositoryThemes themes,

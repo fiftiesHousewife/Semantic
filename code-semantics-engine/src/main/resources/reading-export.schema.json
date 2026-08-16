@@ -356,17 +356,34 @@
     },
     "placement": {
       "title": "Subject placement",
-      "description": "Where the reading places the repository among a published scheme of subjects, and how near a scheme of chance places it. Some subject is always nearest, so `standsApartFromChance` is what makes the placement a result.",
+      "description": "Where the reading places the repository in a published subject scheme, at both levels the scheme states. Some subject is always nearest, so `standsApartFromChance` is what makes a placement a result.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["scheme", "subject", "divergenceBits", "nearestByChanceBits", "standsApartFromChance"],
+      "required": ["scheme", "archive", "category"],
       "properties": {
         "scheme": {
-          "description": "The published subject scheme, such as the arXiv category taxonomy.",
+          "description": "The published subject scheme both levels come from, such as the arXiv category taxonomy.",
           "type": "string"
         },
+        "archive": {
+          "title": "Nearest top-level grouping",
+          "description": "The nearest of the scheme's own top-level groupings, compared against every description pooled under it. Enough prose for the divergence to be stable, and broad enough that Computer Science says little about a Java library.",
+          "$ref": "#/$defs/placementLevel"
+        },
+        "category": {
+          "title": "Nearest single subject",
+          "description": "The nearest single subject the scheme publishes, compared against the few dozen words the scheme states for it alone. The weaker measurement and the sharper answer: read this to learn what the repository is about.",
+          "$ref": "#/$defs/placementLevel"
+        }
+      }
+    },
+    "placementLevel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject", "divergenceBits", "nearestByChanceBits", "standsApartFromChance"],
+      "properties": {
         "subject": {
-          "description": "The nearest subject of that scheme, under the label the scheme publishes.",
+          "description": "The subject's own label, as the scheme publishes it.",
           "type": "string"
         },
         "divergenceBits": {

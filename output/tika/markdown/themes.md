@@ -1249,4 +1249,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 2.1% | `literature` | 0.0017 | 0.0174 | under | `header` 1,039 `writer` 284 `text` 2,092 `author` 173 |
 | 2.1% | `computer_science` | 0.0036 | 0.0219 | under | `parser` 2,583 `byte` 2,993 `url` 466 `format` 613 |
 
-Read, compared and resampled in 61.6 s, recorded rather than estimated.
+Read, compared and resampled in 66.5 s, recorded rather than estimated.

@@ -70,8 +70,8 @@ public final class ExportedReading {
 
     private static ReadingSummary summaryOf(final TreeReading reading, final RepositoryLegibility legibility,
                                             final RepositoryThemes themes, final PlacedField field) {
-        return ReadingSummary.of(reading.root().getFileName().toString(), legibility, themes,
-                field.placements(), field.chance(), TOPICS_PER_SCOPE);
+        return ReadingSummary.of(reading.root().getFileName().toString(), legibility, themes, field,
+                TOPICS_PER_SCOPE);
     }
 
     private static ExportedSummary summarised(final TreeReading reading, final String commit,
@@ -100,9 +100,12 @@ public final class ExportedReading {
                 .toList();
     }
 
-    private static ExportedTaxonomy.Placement placement(final PlacedField field) {
-        return ExportedTaxonomy.Placement.of(field.scheme(), field.nearest().label(), field.nearest().bits(),
-                field.chance().chanceNearest());
+    private static ExportedPlacement placement(final PlacedField field) {
+        return new ExportedPlacement(field.scheme(),
+                ExportedPlacement.Level.of(field.nearestArchive().label(), field.nearestArchive().bits(),
+                        field.archiveChance().chanceNearest()),
+                ExportedPlacement.Level.of(field.nearestCategory().label(), field.nearestCategory().bits(),
+                        field.categoryChance().chanceNearest()));
     }
 
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,

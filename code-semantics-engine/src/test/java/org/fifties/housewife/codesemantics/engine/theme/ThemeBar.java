@@ -10,8 +10,8 @@ import j2html.tags.DomContent;
 import static j2html.TagCreator.tag;
 
 /**
- * The themes as one horizontal bar per topic, longest first, each bar as long as the share of the reading
- * that topic explains, with the topic's name to its left and its percentage at its end.
+ * The themes as one horizontal bar per topic, longest first, each bar as long as the share of the reported
+ * divergence that topic accounts for, with the topic's name to its left and its percentage at its end.
  *
  * <p>One bar per row is what lets two topics be compared: the eye reads two lengths from a common baseline,
  * where a stacked bar asks it to compare two segments starting at different offsets and a ring asks it to
@@ -28,8 +28,8 @@ import static j2html.TagCreator.tag;
 final class ThemeBar {
 
     static final int WIDTH = 720;
-    static final String DESCRIPTION = "Themes as one bar per topic, longest first, each as long as the "
-            + "share of the reading that topic explains";
+    static final String DESCRIPTION = "One bar per topic, longest first, each as long as the share of the "
+            + "divergence between this repository's parts that the topic accounts for";
 
     private static final double TOP = 10.0;
     private static final double BOTTOM = 10.0;
@@ -93,7 +93,7 @@ final class ThemeBar {
                                 .withText(node.topic()),
                         tag("rect").attr("x", figure(BAR_LEFT)).attr("y", figure(top))
                                 .attr("width", figure(lengthOf(share))).attr("height", figure(BAR_HEIGHT))
-                                .with(tag("title").withText(describing(node.topic(), share))),
+                                .with(tag("title").withText(describing(node, share))),
                         tag("text").withClass("segment-value")
                                 .attr("x", figure(BAR_LEFT + lengthOf(share) + VALUE_GAP))
                                 .attr("y", figure(top + TEXT_BASELINE))
@@ -109,8 +109,16 @@ final class ThemeBar {
         return (WIDTH - BAR_LEFT - VALUE_WIDTH - VALUE_GAP) * share;
     }
 
-    private static String describing(final String named, final double share) {
-        return "%s — %s of what the chart draws".formatted(named, ThemeTables.percentage(share));
+    /**
+     * What a reader gets on hover: the figure the bar is drawn to, and the one it is not. A share of the
+     * divergence says which topic makes the parts differ; a share of everything written says how much of
+     * the repository the topic is at all, and the two are far apart wherever most writing resolves to no
+     * subject.
+     */
+    private static String describing(final ThemeGraph.Node node, final double share) {
+        return "%s — %s of the divergence the reading reports, and %s of everything written"
+                .formatted(node.topic(), ThemeTables.percentage(share),
+                        ThemeTables.percentage(node.intensity()));
     }
 
     private static String colour(final int group) {

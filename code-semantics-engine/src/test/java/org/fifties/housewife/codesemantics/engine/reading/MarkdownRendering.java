@@ -21,6 +21,11 @@ final class MarkdownRendering {
 
     private static final Pattern CODE = Pattern.compile("`([^`]+)`");
     private static final Pattern BOLD = Pattern.compile("\\*\\*([^*]+)\\*\\*");
+    /** The fold a long table is written behind, which is markup rather than markdown. */
+    private static final Pattern FOLD = Pattern.compile("</?details>|<summary>.*</summary>");
+
+    private static final Pattern SUMMARY = Pattern.compile("<summary>(.*)</summary>");
+
     private static final Pattern HEADING = Pattern.compile("^(#{1,4})\\s+(.*)$");
 
     String of(final String title, final String markdown) {
@@ -44,6 +49,9 @@ final class MarkdownRendering {
     }
 
     private String block(final String line) {
+        if (FOLD.matcher(line).matches()) {
+            return foldOf(line);
+        }
         final Matcher heading = HEADING.matcher(line);
         if (heading.matches()) {
             final int level = heading.group(1).length();
@@ -53,6 +61,15 @@ final class MarkdownRendering {
             return "<p class=\"item\">%s</p>".formatted(inline(line.substring(2)));
         }
         return line.isBlank() ? "" : "<p>%s</p>".formatted(inline(line));
+    }
+
+    /**
+     * The one markup a renderer here emits directly, because markdown states no fold and a three-hundred-row
+     * table needs one. The summary's own text is escaped like any other text.
+     */
+    private String foldOf(final String line) {
+        final Matcher summary = SUMMARY.matcher(line);
+        return summary.matches() ? "<summary>%s</summary>".formatted(inline(summary.group(1))) : line;
     }
 
     /** A run of pipe-delimited lines is one table; the row of dashes under the head is a rule, not a row. */

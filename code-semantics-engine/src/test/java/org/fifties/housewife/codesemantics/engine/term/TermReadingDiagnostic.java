@@ -136,8 +136,9 @@ class TermReadingDiagnostic {
     private static TaxonomyChoice chose(final String taxonomy) {
         final RepositoryThemes themes = TreeReading.ofTheCloneUnderReading().themes();
         final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), SEED);
-        return new TaxonomyChoice(themesCarriedBy(themes), field.nearest().label(), field.nearest().bits(),
-                field.chance().chanceNearest(), field.chance().standsApart(), taxonomy,
+        return new TaxonomyChoice(themesCarriedBy(themes), field.nearestArchive().label(),
+                field.nearestArchive().bits(), field.archiveChance().chanceNearest(),
+                field.archiveChance().standsApart(), taxonomy,
                 "it is the vocabulary of linguistic annotation, whose concepts are already identifiers, so "
                         + "a match is identifier to identifier with no English in between");
     }

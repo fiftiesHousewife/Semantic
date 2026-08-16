@@ -14,8 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedTaxonomiesTest {
 
-    private static final ExportedTaxonomy.Placement PLACEMENT =
-            ExportedTaxonomy.Placement.of("arXiv", "cs Computer Science", 0.3408, 0.4124);
+    private static final ExportedPlacement PLACEMENT = new ExportedPlacement("arXiv",
+            ExportedPlacement.Level.of("Computer Science", 0.3408, 0.4124),
+            ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455));
 
     private static SkosConcept concept(final String label, final String broader) {
         return new SkosConcept("http://purl.org/olia/olia.owl#" + label, label, "", broader, "class",
@@ -81,10 +82,11 @@ class ExportedTaxonomiesTest {
     }
 
     @Test
-    void statesWhetherThePlacementStandsApartFromChance() {
+    void statesWhetherEachLevelStandsApartFromChance() {
         assertAll(
-                () -> assertThat(PLACEMENT.standsApartFromChance()).isTrue(),
-                () -> assertThat(ExportedTaxonomy.Placement.of("arXiv", "cs", 0.42, 0.40).standsApartFromChance())
+                () -> assertThat(PLACEMENT.archive().standsApartFromChance()).isTrue(),
+                () -> assertThat(PLACEMENT.category().standsApartFromChance()).isTrue(),
+                () -> assertThat(ExportedPlacement.Level.of("cs", 0.42, 0.40).standsApartFromChance())
                         .isFalse());
     }
 }

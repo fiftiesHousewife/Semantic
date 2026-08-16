@@ -10,31 +10,38 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PlacedFieldTest {
 
-    private static final Placement NEAREST =
-            new Placement("cs", "Computer Science", "cs", 0.3408, List.of("computing"));
+    private static final Placement ARCHIVE =
+            new Placement("cs", "Computer Science", "grp_cs", 0.3399, List.of("linguistics"));
 
     private static final Placement RUNNER_UP =
-            new Placement("math", "Mathematics", "math", 0.3661, List.of("mathematics"));
+            new Placement("eess", "Electrical Engineering", "grp_eess", 0.4848, List.of("computing"));
 
-    private static PlacedField placed(final double chanceNearest) {
-        return new PlacedField("arXiv", List.of(NEAREST, RUNNER_UP),
-                new SubjectNull.Chance(0.3408, chanceNearest, 152, 999));
+    private static final Placement CATEGORY =
+            new Placement("cs.CL", "Computation and Language", "grp_cs", 0.3950, List.of("linguistics"));
+
+    private static PlacedField placed(final double archiveChance, final double categoryChance) {
+        return new PlacedField("arXiv", List.of(ARCHIVE, RUNNER_UP),
+                new SubjectNull.Chance(0.3399, archiveChance, 12, 999),
+                List.of(CATEGORY), new SubjectNull.Chance(0.3950, categoryChance, 152, 995));
     }
 
     @Test
-    void namesTheNearestSubjectAndTheOneBehindIt() {
+    void namesTheNearestAtBothLevelsTheSchemeStates() {
         assertAll(
-                () -> assertThat(placed(0.4124).nearest()).isEqualTo(NEAREST),
-                () -> assertThat(placed(0.4124).runnerUp()).isEqualTo(RUNNER_UP),
-                () -> assertThat(placed(0.4124).scheme()).isEqualTo("arXiv"));
+                () -> assertThat(placed(0.4125, 0.4455).nearestArchive()).isEqualTo(ARCHIVE),
+                () -> assertThat(placed(0.4125, 0.4455).nearestCategory()).isEqualTo(CATEGORY),
+                () -> assertThat(placed(0.4125, 0.4455).runnerUpArchive()).isEqualTo(RUNNER_UP),
+                () -> assertThat(placed(0.4125, 0.4455).scheme()).isEqualTo("arXiv"));
     }
 
     @Test
-    void carriesTheChancePlacementBesideTheRealOne() {
+    void carriesAChancePlacementForEachLevel() {
         assertAll(
-                () -> assertThat(placed(0.4124).chance().standsApart())
-                        .as("something is always nearest, so only the chance placement makes it a result")
+                () -> assertThat(placed(0.4125, 0.4455).archiveChance().standsApart())
+                        .as("some subject is always nearest, so only the chance placement makes it a result")
                         .isTrue(),
-                () -> assertThat(placed(0.3000).chance().standsApart()).isFalse());
+                () -> assertThat(placed(0.4125, 0.4455).categoryChance().standsApart()).isTrue(),
+                () -> assertThat(placed(0.3000, 0.3000).archiveChance().standsApart()).isFalse(),
+                () -> assertThat(placed(0.3000, 0.3000).categoryChance().standsApart()).isFalse());
     }
 }

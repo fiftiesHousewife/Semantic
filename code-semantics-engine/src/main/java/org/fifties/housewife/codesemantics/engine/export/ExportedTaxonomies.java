@@ -26,7 +26,7 @@ public final class ExportedTaxonomies {
 
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
-                               final ExportedTaxonomy.Placement placement) {
+                               final ExportedPlacement placement) {
         return new ExportedTaxonomy(vocabulary, concepts(matched), matchesByNormalisation(matched),
                 placement);
     }

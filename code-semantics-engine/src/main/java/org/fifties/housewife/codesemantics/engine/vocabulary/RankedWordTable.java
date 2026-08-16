@@ -24,6 +24,19 @@ final class RankedWordTable {
         return rows.stream().map(this::row).collect(Collectors.joining("\n", header() + "\n", ""));
     }
 
+    /**
+     * The first rows open, the rest behind one fold. Three hundred rows of a four-column table is a document
+     * nobody scrolls to the end of, and the rows below the first fifty are the tail the ranking exists to
+     * show — so they are folded rather than cut, and the fold says how many it holds.
+     */
+    String folded(final List<ChosenWord> rows, final int shown, final String what) {
+        if (rows.size() <= shown) {
+            return of(rows);
+        }
+        return "%s%n%n<details>%n<summary>%d more %s</summary>%n%n%s%n</details>".formatted(
+                of(rows.subList(0, shown)), rows.size() - shown, what, of(rows.subList(shown, rows.size())));
+    }
+
     private String header() {
         final String columns = claims().stream()
                 .map(claim -> "In %s | ".formatted(claim.reference()))

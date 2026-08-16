@@ -49,11 +49,25 @@ public final class SummaryReport {
     private static String field(final ReadingSummary summary) {
         final ReadingSummary.Field field = summary.field();
         return String.format("%n## The field it is in%n%n"
-                        + "**%s**, %.4f bits away. A taxonomy of chance placed its nearest subject at "
-                        + "%.4f bits over 999 draws, so this %s. The runner-up is %s at %.4f.%n",
-                field.label(), field.bits(), field.chanceNearest(),
-                field.standsApart() ? "stands apart from chance" : "does **not** stand apart from chance",
+                        + "| Level | Nearest subject | Distance | Nearest by chance | |%n"
+                        + "|---|---|--:|--:|---|%n"
+                        + "| Archive | **%s** | %.4f | %.4f | %s |%n"
+                        + "| Category | **%s** | %.4f | %.4f | %s |%n%n"
+                        + "The archive is compared against every category's description pooled under it, "
+                        + "which is enough prose for the divergence to be stable. The category is compared "
+                        + "against the few dozen words the scheme states for it alone, which is the weaker "
+                        + "measurement and the sharper answer. The archive behind the leading one is %s at "
+                        + "%.4f.%n",
+                field.archive().label(), field.archive().bits(), field.archive().chanceNearest(),
+                apart(field.archive()),
+                field.category().label(), field.category().bits(), field.category().chanceNearest(),
+                apart(field.category()),
                 field.runnerUp(), field.runnerUpBits());
+    }
+
+    /** Whether a placement says more than that the taxonomy is large. */
+    private static String apart(final ReadingSummary.Field.Nearest nearest) {
+        return nearest.standsApart() ? "apart from chance" : "**within chance**";
     }
 
     private static String about(final ReadingSummary summary) {

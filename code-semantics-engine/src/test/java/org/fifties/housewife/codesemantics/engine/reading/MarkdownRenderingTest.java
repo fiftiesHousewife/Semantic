@@ -55,4 +55,20 @@ class MarkdownRenderingTest {
     void carriesAStylesheetFromItsOwnFileRatherThanFromAJavaString() {
         assertThat(page.of("t", "# x")).contains("<style>", "--ink");
     }
+
+    @Test
+    void rendersAFoldAsMarkupRatherThanAsText() {
+        final String page = new MarkdownRendering().of("Vocabulary",
+                "<details>\n<summary>245 more words, ranked</summary>\n\n| # |\n|--:|\n| 51 |\n</details>\n");
+
+        assertAll(
+                () -> assertThat(page).contains("<details>", "</details>"),
+                () -> assertThat(page).contains("<summary>245 more words, ranked</summary>"),
+                () -> assertThat(page)
+                        .as("the rows inside the fold are still a table")
+                        .contains("<table>"),
+                () -> assertThat(page)
+                        .as("and nothing of the markup arrives as text")
+                        .doesNotContain("&lt;details&gt;", "&lt;summary&gt;"));
+    }
 }

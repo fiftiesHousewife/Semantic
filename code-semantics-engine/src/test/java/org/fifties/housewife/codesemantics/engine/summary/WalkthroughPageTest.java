@@ -11,7 +11,10 @@ class WalkthroughPageTest {
 
     private static final ReadingSummary SUMMARY = new ReadingSummary("tree",
             new ReadingSummary.Legibility(0.41, 120_000, 640, 0.71, 0.9),
-            new ReadingSummary.Field("Computation and Language", 0.0812, 0.1104, "Machine Learning", 0.0903),
+            new ReadingSummary.Field(
+                    new ReadingSummary.Field.Nearest("Computer Science", 0.0812, 0.1104),
+                    new ReadingSummary.Field.Nearest("Computation and Language", 0.0900, 0.1200),
+                    "Machine Learning", 0.0903),
             List.of(new ReadingSummary.Distinctive("lexicon/src/main/java", 0.0421,
                     List.of("linguistics", "computing"))),
             List.of("linguistics", "computing"),

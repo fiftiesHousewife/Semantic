@@ -58,7 +58,8 @@ class ExportedThemesTest {
 
     private static ReadingSummary summary(final List<String> topics) {
         return new ReadingSummary("CodeSemantics", new Legibility(0.98, 100, 1, 0.7, 0.76),
-                new Field("cs", 0.34, 0.41, "math", 0.38),
+                new Field(new Field.Nearest("Computer Science", 0.34, 0.41),
+                        new Field.Nearest("cs.CL Computation and Language", 0.395, 0.445), "math", 0.38),
                 List.of(new Distinctive(SCOPE, 0.25, topics)), topics, List.of());
     }
 

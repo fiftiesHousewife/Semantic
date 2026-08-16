@@ -6,40 +6,61 @@ import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.SkosConcept;
 
 /**
- * Where a reading stands among the published subjects of a scheme, with the nearest a taxonomy of chance
- * offers beside it.
+ * Where a reading stands among the published subjects of a scheme, at both levels the scheme states, each
+ * with the nearest a taxonomy of chance offers beside it.
  *
- * <p>The two are computed together because neither is a result alone: something is always nearest, and only
- * the chance placement says whether being nearest means anything.
+ * <p>Both levels are reported because each answers a question the other cannot. An archive pools every
+ * category's description under it, so it is compared against enough prose for the divergence to be stable —
+ * and it is broad enough that {@code Computer Science} says little about a Java library. A category is
+ * compared against the thirty to eighty words the scheme states for it alone, which is a weaker measurement
+ * and a far sharper answer.
  *
- * <p>The descriptions are pooled at the archive the scheme states each category under, so a placement is
- * against a body of prose the publisher wrote rather than against one sentence.
+ * <p>Neither is a result without its chance placement: some subject is always nearest.
  */
-public record PlacedField(String scheme, List<SubjectPlacement.Placement> placements,
-                          SubjectNull.Chance chance) {
+public record PlacedField(String scheme, List<SubjectPlacement.Placement> archives,
+                          SubjectNull.Chance archiveChance, List<SubjectPlacement.Placement> categories,
+                          SubjectNull.Chance categoryChance) {
 
     private static final String ARXIV = "arXiv";
 
     public PlacedField {
-        placements = List.copyOf(placements);
+        archives = List.copyOf(archives);
+        categories = List.copyOf(categories);
     }
 
-    /** The nearest of the scheme's subjects, which is what the reading places the repository in. */
-    public SubjectPlacement.Placement nearest() {
-        return placements.getFirst();
+    /** The nearest archive, which is the level the placement's own null is strongest at. */
+    public SubjectPlacement.Placement nearestArchive() {
+        return archives.getFirst();
     }
 
-    public SubjectPlacement.Placement runnerUp() {
-        return placements.get(1);
+    /** The archive behind it, which says how close the leading call was. */
+    public SubjectPlacement.Placement runnerUpArchive() {
+        return archives.get(1);
     }
 
-    /** Placed against arXiv's own taxonomy, drawn against a chance one at the stated seed. */
+    /** The nearest single category, which is the sharpest answer the scheme can give. */
+    public SubjectPlacement.Placement nearestCategory() {
+        return categories.getFirst();
+    }
+
+    /** Placed against arXiv's own taxonomy at both levels, each drawn against chance at the stated seed. */
     public static PlacedField ofArxiv(final TopicDistribution reading, final long seed) {
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
-        final List<SkosConcept> archives = new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy);
-        final List<SubjectPlacement.Placement> placements = SubjectPlacement.byDivergence()
-                .of(reading, SubjectAreas.fromClasspath().of(archives));
-        return new PlacedField(ARXIV, placements, SubjectNull.seeded(seed).of(placements.getFirst().bits(),
-                reading, archives.stream().map(SkosConcept::definition).toList()));
+        final List<SkosConcept> described = taxonomy.described();
+        final List<SkosConcept> archives = new PooledDescriptions().broaderThan(described, taxonomy);
+        return new PlacedField(ARXIV,
+                placed(reading, archives), chance(reading, archives, seed),
+                placed(reading, described), chance(reading, described, seed));
+    }
+
+    private static List<SubjectPlacement.Placement> placed(final TopicDistribution reading,
+                                                           final List<SkosConcept> subjects) {
+        return SubjectPlacement.byDivergence().of(reading, SubjectAreas.fromClasspath().of(subjects));
+    }
+
+    private static SubjectNull.Chance chance(final TopicDistribution reading,
+                                             final List<SkosConcept> subjects, final long seed) {
+        return SubjectNull.seeded(seed).of(placed(reading, subjects).getFirst().bits(), reading,
+                subjects.stream().map(SkosConcept::definition).toList());
     }
 }

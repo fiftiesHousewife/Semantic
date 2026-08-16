@@ -83,10 +83,16 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
     }
 
     private static String placement(final ReadingSummary.Field field) {
-        return "%s, %.4f bits away, against %.4f bits from chance, so it %s. The runner-up is %s at %.4f."
-                .formatted(field.label(), field.bits(), field.chanceNearest(),
-                        field.standsApart() ? "stands apart from chance" : "does not stand apart from chance",
-                        field.runnerUp(), field.runnerUpBits());
+        return ("Archive: %s, %.4f bits away against %.4f from chance, so it %s. "
+                + "Nearest single subject: %s, %.4f bits away against %.4f from chance, so it %s.")
+                .formatted(field.archive().label(), field.archive().bits(), field.archive().chanceNearest(),
+                        apart(field.archive()),
+                        field.category().label(), field.category().bits(),
+                        field.category().chanceNearest(), apart(field.category()));
+    }
+
+    private static String apart(final ReadingSummary.Field.Nearest nearest) {
+        return nearest.standsApart() ? "stands apart from chance" : "does not stand apart from chance";
     }
 
     private static String distinctive(final ReadingSummary summary) {

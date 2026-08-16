@@ -15,7 +15,9 @@ class SummaryReportTest {
 
     private final String rendered = new SummaryReport().render(new ReadingSummary("CodeSemantics",
             new Legibility(0.979, 54_839, 300, 0.724, 0.952),
-            new Field("cs Computer Science", 0.2504, 0.3423, "nlin Nonlinear Sciences", 0.3810),
+            new Field(new Field.Nearest("cs Computer Science", 0.2504, 0.3423),
+                    new Field.Nearest("cs.CL Computation and Language", 0.3950, 0.4455),
+                    "nlin Nonlinear Sciences", 0.3810),
             List.of(new Distinctive("lexicon/src/main/java", 0.1751, List.of("networking", "geology")),
                     new Distinctive("engine/src/main/java", 0.0628, List.of("semantics", "grammar"))),
             List.of("semantics", "grammar", "networking"),
@@ -37,18 +39,28 @@ class SummaryReportTest {
 
     @Test
     void placesTheRepositoryAgainstItsFieldWithTheBarItHadToBeat() {
-        assertThat(rendered).contains("**cs Computer Science**, 0.2504 bits away",
-                "chance placed its nearest subject at 0.3423", "stands apart from chance",
-                "runner-up is nlin Nonlinear Sciences at 0.3810");
+        assertAll(
+                () -> assertThat(rendered)
+                        .as("the archive is the level whose null is strongest")
+                        .contains("| Archive | **cs Computer Science** | 0.2504 | 0.3423 | apart from chance |"),
+                () -> assertThat(rendered)
+                        .as("and the category is the level that answers what it is about")
+                        .contains("| Category | **cs.CL Computation and Language** | 0.3950 | 0.4455 "
+                                + "| apart from chance |"),
+                () -> assertThat(rendered).contains("behind the leading one is nlin Nonlinear Sciences at "
+                        + "0.3810"));
     }
 
     @Test
     void saysAPlacementDoesNotStandApartWhereItDidNot() {
         final String weak = new SummaryReport().render(new ReadingSummary("R",
                 new Legibility(0.9, 10, 1, 0.5, 0.5),
-                new Field("cs", 0.40, 0.30, "math", 0.42), List.of(), List.of(), List.of()));
+                new Field(new Field.Nearest("cs", 0.40, 0.30), new Field.Nearest("cs.CL", 0.44, 0.41),
+                        "math", 0.42), List.of(), List.of(), List.of()));
 
-        assertThat(weak).contains("does **not** stand apart from chance");
+        assertThat(weak)
+                .as("a placement no nearer than chance is named as such rather than printed plainly")
+                .contains("**within chance**");
     }
 
     @Test

@@ -22,6 +22,9 @@ public final class VocabularyReport {
 
     private static final int COUNTED = 20;
 
+    /** How many rows of a ranking open before the rest go behind a fold. */
+    private static final int SHOWN = 50;
+
     private static final String COUNT_HEADER = """
             | Written most | Occurrences | Its place once the references are asked |
             |---|--:|--:|""";
@@ -45,7 +48,7 @@ public final class VocabularyReport {
         lines.add("");
         lines.add(bar(table));
         lines.add("");
-        lines.add(table.of(chose));
+        lines.add(table.folded(chose, SHOWN, "words, ranked"));
         lines.add("");
         lines.add("### What the language supplied");
         lines.add("");

@@ -16,7 +16,12 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 ## The field it is in
 
-**Computer Science**, 0.3621 bits away. A taxonomy of chance placed its nearest subject at 0.4337 bits over 999 draws, so this stands apart from chance. The runner-up is Electrical Engineering and Systems Science at 0.3871.
+| Level | Nearest subject | Distance | Nearest by chance | |
+|---|---|--:|--:|---|
+| Archive | **Computer Science** | 0.3621 | 0.4337 | apart from chance |
+| Category | **Computation and Language** | 0.3817 | 0.4375 | apart from chance |
+
+The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 0.3871.
 
 ## What it is about
 
