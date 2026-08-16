@@ -44,7 +44,7 @@ gaps: the gap is where the reader should look for it.
 
 **6,551 occurrences of 877 distinct words**, read against ordinary English and the platform's own API. The 258 that clear the bar hold 64.4% of what was written and 86.5% of the divergence, and 100.0% of their occurrences are names. 196 words in the ranking are ones a reference writes more densely than this repository does, and 38 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000193 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 877, over 999 draws yielding 2,437,674 scored words from that reference's own distribution. A word is here where it beats **0.000226 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 877, over 999 draws yielding 1,441,160 scored words from that reference's own distribution.
+A word is here where it beats **0.000192 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 877, over 999 draws yielding 2,437,771 scored words from that reference's own distribution. A word is here where it beats **0.000227 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 877, over 999 draws yielding 1,440,256 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -361,7 +361,7 @@ A word is here where it beats **0.000193 bits** against ordinary English — the
 
 **12,569 occurrences of 1,502 distinct words**, read against ordinary English and the platform's own API. The 279 that clear the bar hold 50.8% of what was written and 80.3% of the divergence, and 100.0% of their occurrences are names. 408 words in the ranking are ones a reference writes more densely than this repository does, and 98 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000112 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 1,502, over 999 draws yielding 3,913,578 scored words from that reference's own distribution. A word is here where it beats **0.000137 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 1,502, over 999 draws yielding 1,940,484 scored words from that reference's own distribution.
+A word is here where it beats **0.000112 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 1,502, over 999 draws yielding 3,913,811 scored words from that reference's own distribution. A word is here where it beats **0.000137 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 1,502, over 999 draws yielding 1,938,980 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -697,9 +697,9 @@ A word is here where it beats **0.000112 bits** against ordinary English — the
 
 ## And what it wrote about all of it
 
-**77,874 occurrences of 3,719 distinct words**, read against ordinary English and the platform's own API. The 634 that clear the bar hold 48.8% of what was written and 83.3% of the divergence, and 28.3% of their occurrences are names. 1,388 words in the ranking are ones a reference writes more densely than this repository does, and 188 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**77,874 occurrences of 3,719 distinct words**, read against ordinary English and the platform's own API. The 635 that clear the bar hold 48.9% of what was written and 83.3% of the divergence, and 28.3% of their occurrences are names. 1,388 words in the ranking are ones a reference writes more densely than this repository does, and 188 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.000024 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,719, over 999 draws yielding 11,786,746 scored words from that reference's own distribution. A word is here where it beats **0.000029 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,719, over 999 draws yielding 3,673,403 scored words from that reference's own distribution.
+A word is here where it beats **0.000024 bits** against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,719, over 999 draws yielding 11,787,088 scored words from that reference's own distribution. A word is here where it beats **0.000028 bits** against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,719, over 999 draws yielding 3,674,565 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -1304,6 +1304,7 @@ A word is here where it beats **0.000024 bits** against ordinary English — the
 | 640 | `claimed` | 0.000029 | 17 | 23.5% | 0.0218% | 0.0070% | 0.0000% | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/TypeInitials.java:14` |
 | 641 | `qualified` | 0.000029 | 33 | 63.6% | 0.0424% | 0.0027% | 0.0202% | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/IdentifierWords.java:62` |
 | 642 | `far` | 0.000029 | 39 | 17.9% | 0.0501% | 0.0258% | 0.0000% | `code-semantics-api/src/test/java/org/fifties/housewife/codesemantics/model/PooledLogOddsTest.java:36` |
+| 643 | `separators` | 0.000029 | 6 | 16.7% | 0.0077% | 0.0000% | 0.0004% | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:52` |
 | 644 | `bare` | 0.000028 | 8 | 12.5% | 0.0103% | 0.0013% | 0.0000% | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:46` |
 | 650 | `stem` | 0.000028 | 10 | 30.0% | 0.0128% | 0.0024% | 0.0000% | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CompoundParses.java:10` |
 | 651 | `half` | 0.000028 | 34 | 14.7% | 0.0437% | 0.0214% | 0.0000% | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/PooledLogOdds.java:36` |

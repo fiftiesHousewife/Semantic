@@ -54,6 +54,6 @@ The repository's own words are 78,195 occurrences of 3,647 distinct surfaces, 1,
 | `scope's` | 17 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityTally.java:16` |
 | `unreadable` | 16 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:52` |
 
-Read 427 files in 3.0 s — 7.0 ms a file, recorded rather than estimated.
+Read 427 files in 1.4 s — 3.3 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 69. Set aside as the platform's own vocabulary: 1259. Set aside as this repository's own coordinates: 371. Set aside as the toolchain a source set nothing is published from is checked with: 696. Files the parser refused: 0.
