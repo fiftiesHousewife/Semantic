@@ -127,53 +127,53 @@ td code {
 <p>152 chance attempts, not against an average one.</p>
 <h2>At the level the taxonomy reports at, by divergence</h2>
 <table>
-<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
-<tr><td><code>cs</code> Computer Science</td><td>grp_cs</td><td>0.3621</td><td>linguistics, law, programming, computing</td></tr>
-<tr><td><code>eess</code> Electrical Engineering and Systems Science</td><td>grp_eess</td><td>0.3871</td><td>computing, programming, mathematics, law</td></tr>
-<tr><td><code>q-fin</code> Quantitative Finance</td><td>grp_q-fin</td><td>0.5696</td><td>linguistics, law, programming, mathematics</td></tr>
-<tr><td><code>cond-mat</code> Condensed Matter</td><td>grp_physics</td><td>0.5882</td><td>computing, telecommunication, medicine, mathematics</td></tr>
-<tr><td><code>nlin</code> Nonlinear Sciences</td><td>grp_physics</td><td>0.5909</td><td>computing, mathematics, telecommunication, literature</td></tr>
-<tr><td><code>physics</code> Physics</td><td>grp_physics</td><td>0.6172</td><td>mathematics, telecommunication, medicine, industry</td></tr>
-<tr><td><code>astro-ph</code> Astrophysics</td><td>grp_physics</td><td>0.6230</td><td>computing, telecommunication, geography, programming</td></tr>
-<tr><td><code>math</code> Mathematics</td><td>grp_math</td><td>0.6328</td><td>mathematics, geography, programming, law</td></tr>
+<tr><th>Subject</th><th>Group</th><th>Divergence</th><th>Kept</th><th>Why</th><th>Met on</th></tr>
+<tr><td>[<code>cs</code> Computer Science](https://arxiv.org/list/cs/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>37.2%</td><td>keep</td><td>the nearest subject read, and nearer than chance reaches</td><td>linguistics, programming, computing, law</td></tr>
+<tr><td>[<code>eess</code> Electrical Engineering and Systems Science](https://arxiv.org/list/eess/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>37.3%</td><td>discard</td><td>nearer than chance reaches, but a nearer subject was read</td><td>computing, programming, mathematics, law</td></tr>
+<tr><td>[<code>nlin</code> Nonlinear Sciences](https://arxiv.org/list/nlin/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>56.8%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, mathematics, telecommunication, literature</td></tr>
+<tr><td>[<code>cond-mat</code> Condensed Matter](https://arxiv.org/list/cond-mat/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>57.0%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, telecommunication, medicine, mathematics</td></tr>
+<tr><td>[<code>q-fin</code> Quantitative Finance](https://arxiv.org/list/q-fin/recent)</td><td>[grp_q-fin](https://arxiv.org/category_taxonomy)</td><td>57.9%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, mathematics</td></tr>
+<tr><td>[<code>physics</code> Physics](https://arxiv.org/list/physics/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>60.3%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>telecommunication, mathematics, industry, medicine</td></tr>
+<tr><td>[<code>astro-ph</code> Astrophysics](https://arxiv.org/list/astro-ph/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>61.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>telecommunication, computing, programming, geography</td></tr>
+<tr><td>[<code>math</code> Mathematics](https://arxiv.org/list/math/recent)</td><td>[grp_math](https://arxiv.org/category_taxonomy)</td><td>62.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>mathematics, programming, law, geography</td></tr>
 </table>
-<p>The nearest subject stands <strong>0.3621 bits</strong> away. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was <strong>0.4337 bits</strong>, so this placement <strong>stands apart from chance</strong>.</p>
+<p>The nearest subject stands <strong>37.2%</strong> of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was <strong>42.5%</strong>, so this placement <strong>stands apart from chance</strong>.</p>
 <h2>At its leaves, by divergence</h2>
 <p>Every topic either side holds counts, so a thirty-word description is punished for being</p>
 <p>narrower than a repository and the vaguest description wins.</p>
 <table>
-<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
-<tr><td><code>cs.CL</code> Computation and Language</td><td>grp_cs</td><td>0.3817</td><td>computing, linguistics, programming, law</td></tr>
-<tr><td><code>cs.NI</code> Networking and Internet Architecture</td><td>grp_cs</td><td>0.4320</td><td>computing, programming, computer_science, telecommunication</td></tr>
-<tr><td><code>cs.SY</code> Systems and Control</td><td>grp_cs</td><td>0.4451</td><td>law, linguistics, programming, computer_science</td></tr>
-<tr><td><code>eess.AS</code> Audio and Speech Processing</td><td>grp_eess</td><td>0.4517</td><td>computing, telecommunication, mathematics, person</td></tr>
-<tr><td><code>astro-ph.IM</code> Instrumentation and Methods for Astrophysics</td><td>grp_physics</td><td>0.4558</td><td>computing, law, computer_science, industry</td></tr>
-<tr><td><code>eess.SY</code> Systems and Control</td><td>grp_eess</td><td>0.4784</td><td>computing, programming, computer_science, law</td></tr>
-<tr><td><code>cs.AI</code> Artificial Intelligence</td><td>grp_cs</td><td>0.4885</td><td>linguistics, law, programming, computer_science</td></tr>
-<tr><td><code>cs.SI</code> Social and Information Networks</td><td>grp_cs</td><td>0.4897</td><td>law, computing, programming, computer_science</td></tr>
-<tr><td><code>cs.DB</code> Databases</td><td>grp_cs</td><td>0.4962</td><td>computing, programming, law, computer_science</td></tr>
-<tr><td><code>cs.CY</code> Computers and Society</td><td>grp_cs</td><td>0.5040</td><td>computing, law, programming, computer_science</td></tr>
-<tr><td><code>cs.LO</code> Logic in Computer Science</td><td>grp_cs</td><td>0.5107</td><td>linguistics, programming, law, computer_science</td></tr>
-<tr><td><code>eess.IV</code> Image and Video Processing</td><td>grp_eess</td><td>0.5182</td><td>computing, programming, mathematics, telecommunication</td></tr>
+<tr><th>Subject</th><th>Group</th><th>Divergence</th><th>Kept</th><th>Why</th><th>Met on</th></tr>
+<tr><td>[<code>cs.CL</code> Computation and Language](https://arxiv.org/list/cs.CL/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>39.2%</td><td>keep</td><td>the nearest subject read, and nearer than chance reaches</td><td>computing, linguistics, programming, law</td></tr>
+<tr><td>[<code>cs.NI</code> Networking and Internet Architecture](https://arxiv.org/list/cs.NI/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>40.2%</td><td>discard</td><td>nearer than chance reaches, but a nearer subject was read</td><td>computing, programming, computer_science, industry</td></tr>
+<tr><td>[<code>eess.AS</code> Audio and Speech Processing](https://arxiv.org/list/eess.AS/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>44.5%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, person, telecommunication, mathematics</td></tr>
+<tr><td>[<code>eess.SY</code> Systems and Control](https://arxiv.org/list/eess.SY/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>46.7%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>programming, computing, mathematics, computer_science</td></tr>
+<tr><td>[<code>cs.SY</code> Systems and Control](https://arxiv.org/list/cs.SY/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>47.3%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, computer_science</td></tr>
+<tr><td>[<code>astro-ph.IM</code> Instrumentation and Methods for Astrophysics](https://arxiv.org/list/astro-ph.IM/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>48.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, law, computer_science, industry</td></tr>
+<tr><td>[<code>eess.IV</code> Image and Video Processing](https://arxiv.org/list/eess.IV/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>49.4%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, mathematics, telecommunication</td></tr>
+<tr><td>[<code>cs.SI</code> Social and Information Networks](https://arxiv.org/list/cs.SI/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>50.2%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, law, mathematics</td></tr>
+<tr><td>[<code>cs.DB</code> Databases](https://arxiv.org/list/cs.DB/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>50.4%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, law, computer_science</td></tr>
+<tr><td>[<code>cs.AI</code> Artificial Intelligence](https://arxiv.org/list/cs.AI/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>50.8%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, mathematics</td></tr>
+<tr><td>[<code>cs.LO</code> Logic in Computer Science](https://arxiv.org/list/cs.LO/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>52.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, mathematics</td></tr>
+<tr><td>[<code>cs.GR</code> Graphics](https://arxiv.org/list/cs.GR/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>52.7%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, law, computer_science</td></tr>
 </table>
-<p>The nearest subject stands <strong>0.3817 bits</strong> away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>0.4375 bits</strong>, so this placement <strong>stands apart from chance</strong>.</p>
+<p>The nearest subject stands <strong>39.2%</strong> of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>43.1%</strong>, so this placement <strong>stands apart from chance</strong>.</p>
 <h2>At its leaves, by the mass both hold</h2>
 <p>The same readings and the same null, asking instead how much of what a subject is about this</p>
 <p>repository is also about.</p>
 <table>
-<tr><th>Subject</th><th>Group</th><th>Distance</th><th>Met on</th></tr>
-<tr><td><code>cs.CL</code> Computation and Language</td><td>grp_cs</td><td>0.5800</td><td>computing, linguistics, programming, law</td></tr>
-<tr><td><code>eess.AS</code> Audio and Speech Processing</td><td>grp_eess</td><td>0.5836</td><td>computing, telecommunication, mathematics, person</td></tr>
-<tr><td><code>astro-ph.IM</code> Instrumentation and Methods for Astrophysics</td><td>grp_physics</td><td>0.5988</td><td>computing, law, computer_science, industry</td></tr>
-<tr><td><code>cs.DB</code> Databases</td><td>grp_cs</td><td>0.6084</td><td>computing, programming, law, computer_science</td></tr>
-<tr><td><code>cs.SY</code> Systems and Control</td><td>grp_cs</td><td>0.6381</td><td>law, linguistics, programming, computer_science</td></tr>
-<tr><td><code>cs.NI</code> Networking and Internet Architecture</td><td>grp_cs</td><td>0.6446</td><td>computing, programming, computer_science, telecommunication</td></tr>
-<tr><td><code>stat.CO</code> Computation</td><td>grp_stat</td><td>0.6541</td><td>computing, mathematics, video-games, soccer</td></tr>
-<tr><td><code>cs.AI</code> Artificial Intelligence</td><td>grp_cs</td><td>0.6566</td><td>linguistics, law, programming, computer_science</td></tr>
-<tr><td><code>cs.CY</code> Computers and Society</td><td>grp_cs</td><td>0.6882</td><td>computing, law, programming, computer_science</td></tr>
-<tr><td><code>cs.LO</code> Logic in Computer Science</td><td>grp_cs</td><td>0.6899</td><td>linguistics, programming, law, computer_science</td></tr>
-<tr><td><code>cs.GR</code> Graphics</td><td>grp_cs</td><td>0.6929</td><td>computing, programming, law, computer_science</td></tr>
-<tr><td><code>cs.SI</code> Social and Information Networks</td><td>grp_cs</td><td>0.6976</td><td>law, computing, programming, computer_science</td></tr>
+<tr><th>Subject</th><th>Group</th><th>Divergence</th><th>Kept</th><th>Why</th><th>Met on</th></tr>
+<tr><td>[<code>cs.CL</code> Computation and Language](https://arxiv.org/list/cs.CL/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>57.5%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, linguistics, programming, law</td></tr>
+<tr><td>[<code>eess.AS</code> Audio and Speech Processing](https://arxiv.org/list/eess.AS/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>57.6%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, person, telecommunication, mathematics</td></tr>
+<tr><td>[<code>cs.DB</code> Databases](https://arxiv.org/list/cs.DB/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>60.6%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, law, computer_science</td></tr>
+<tr><td>[<code>cs.NI</code> Networking and Internet Architecture](https://arxiv.org/list/cs.NI/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>61.9%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, computer_science, industry</td></tr>
+<tr><td>[<code>astro-ph.IM</code> Instrumentation and Methods for Astrophysics](https://arxiv.org/list/astro-ph.IM/recent)</td><td>[grp_physics](https://arxiv.org/category_taxonomy)</td><td>63.6%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, law, computer_science, industry</td></tr>
+<tr><td>[<code>stat.CO</code> Computation](https://arxiv.org/list/stat.CO/recent)</td><td>[grp_stat](https://arxiv.org/category_taxonomy)</td><td>64.0%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, mathematics, video-games, soccer</td></tr>
+<tr><td>[<code>cs.SY</code> Systems and Control](https://arxiv.org/list/cs.SY/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>67.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, computer_science</td></tr>
+<tr><td>[<code>cs.AI</code> Artificial Intelligence](https://arxiv.org/list/cs.AI/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>67.3%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, mathematics</td></tr>
+<tr><td>[<code>cs.GR</code> Graphics](https://arxiv.org/list/cs.GR/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>68.3%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, law, computer_science</td></tr>
+<tr><td>[<code>eess.SY</code> Systems and Control](https://arxiv.org/list/eess.SY/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>68.5%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>programming, computing, mathematics, computer_science</td></tr>
+<tr><td>[<code>eess.IV</code> Image and Video Processing](https://arxiv.org/list/eess.IV/recent)</td><td>[grp_eess](https://arxiv.org/category_taxonomy)</td><td>68.9%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>computing, programming, mathematics, telecommunication</td></tr>
+<tr><td>[<code>cs.LO</code> Logic in Computer Science](https://arxiv.org/list/cs.LO/recent)</td><td>[grp_cs](https://arxiv.org/category_taxonomy)</td><td>69.1%</td><td>discard</td><td>a taxonomy of chance reaches this far</td><td>linguistics, programming, law, mathematics</td></tr>
 </table>
-<p>The nearest subject stands <strong>0.5800 bits</strong> away. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>0.5753 bits</strong>, so this placement <strong>says only that the taxonomy is large</strong>.</p>
+<p>The nearest subject stands <strong>57.5%</strong> of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was <strong>56.7%</strong>, so this placement <strong>says only that the taxonomy is large</strong>.</p>
 </div>
