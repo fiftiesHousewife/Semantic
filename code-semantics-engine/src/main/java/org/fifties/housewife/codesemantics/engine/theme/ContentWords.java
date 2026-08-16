@@ -22,7 +22,14 @@ import org.fifties.housewife.codesemantics.engine.Thresholds;
  * inflections, and the tail of surfaces seen exactly once shortens for a real reason rather than a tuned one.
  *
  * <p>The noun form is preferred where a word is both, because a topical resource labels what a word is about
- * and English names its subjects with nouns.
+ * and English names its subjects with nouns. <b>Except where the noun was guessed and the verb was
+ * stated.</b> A base form is whatever the dictionary's morphology arrived at, and stripping the {@code s}
+ * from {@code was}, {@code does} and {@code has} yields {@code wa}, {@code doe} and {@code ha} — three
+ * nouns WordNet does carry, arrived at by a suffix rule, and rare enough that the three commonest
+ * auxiliaries in English were voting harder than {@code taxonomy}. WordNet's exception list <em>states</em>
+ * that those three surfaces are forms of {@code be}, {@code do} and {@code have}, and a citation outranks
+ * an inference. Where the surface is itself a noun the dictionary indexes — {@code left}, {@code saw} — no
+ * inference was made and the noun stands.
  *
  * <p>One- and two-letter forms are refused, and that is a rule about length rather than a list of words. The
  * dictionary's entries for them are symbol readings — {@code a} the ampere, {@code be} beryllium, {@code em}
@@ -52,7 +59,11 @@ public final class ContentWords {
             return Optional.empty();
         }
         final Optional<String> noun = lexicon.nounBase(word);
-        return noun.isPresent() ? noun : lexicon.verbBase(word);
+        if (noun.filter(word::equals).isPresent()) {
+            return noun;
+        }
+        final Optional<String> stated = lexicon.statedVerbInflection(word);
+        return stated.isPresent() ? stated : noun.or(() -> lexicon.verbBase(word));
     }
 
     /** The word's dictionary form where there is one, and the word as written where there is not. */

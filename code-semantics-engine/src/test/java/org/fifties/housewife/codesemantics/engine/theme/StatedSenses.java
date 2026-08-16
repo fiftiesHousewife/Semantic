@@ -46,6 +46,11 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
     }
 
     @Override
+    public Optional<String> statedVerbInflection(final String word) {
+        return Optional.empty();
+    }
+
+    @Override
     public Optional<String> abbreviationNoun(final String token) {
         throw new UnsupportedOperationException("a topical reading does not ask this");
     }

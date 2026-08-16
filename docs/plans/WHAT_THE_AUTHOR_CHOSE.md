@@ -124,7 +124,7 @@ already cites, so this is grammar and it needs no resource.
 **What settles it:** `s` leaves the prose ranking's top twenty. **Abandon if** it glues a genuine boundary —
 count the identifiers whose reading changes, which should be none, since an identifier carries no apostrophe.
 
-## 4. The lemmatiser stops manufacturing nouns
+## 4. The lemmatiser stops manufacturing nouns — two of three closed
 
 | Offered as | Occurrences | Rank in the frequency list | Weight it votes at | What it was |
 |---|--:|--:|--:|---|
@@ -140,9 +140,22 @@ auxiliary becomes a noun WordNet does carry. The rarer the accident, the higher 
 commonest auxiliaries in English vote harder than `taxonomy` does. Tika's reading is 77% prose, so the same
 defect there is larger by the ratio of the corpora.
 
-**What settles it:** `wa`, `doe` and `ha` leave the word table, and no word a WordNet open-class query would
-have kept leaves with them. **Abandon if** asking the question on the surface first costs a real lemma —
-measure how many words are offered under a different form.
+**WordNet's exception list is what answers it, and it answers two of the three.** The list *states* that
+`was` is a form of `be` and `has` a form of `have`; `wa` and `ha` are what a suffix rule *derived* when a
+caller asked for a noun. A citation outranks an inference, so a stated verb inflection is preferred over a
+derived noun — and where the surface is itself a noun the dictionary indexes, `left` and `saw`, nothing was
+inferred and the noun stands. `netball` has left the reading altogether, which was a topic `wa` carried
+alone, and `astronomy` is now carried by `blob`, `class`, `sha`, `intensity` and `node` rather than by `ha`.
+
+**`doe` 191 remains, and the reason is exact**: `does` is a *regular* `-es` form, so WordNet's exception list
+states nothing about it and both readings are derived — strip `es` for the verb `do`, strip `s` for the noun
+`doe`. The standing preference for the noun then decides it. What would settle the third is a rule for
+choosing between two derived readings, and every candidate so far is a threshold rather than a statement:
+preferring the commoner lemma reads `leaves` as `leave` rather than `leaf`, which is wrong in code.
+
+**What settles the rest:** `doe` leaves the word table, and no word a WordNet open-class query would have
+kept leaves with it. **Abandon if** the rule costs a real lemma — measure how many words are offered under a
+different form.
 
 ## 5. A published run is one row of the ranking
 

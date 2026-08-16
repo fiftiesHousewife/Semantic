@@ -200,6 +200,34 @@ class WordNetLexiconTest {
     }
 
     @Test
+    void statesTheVerbAnIrregularFormBelongsTo() {
+        assertAll(
+                () -> assertThat(lexicon.statedVerbInflection("was")).contains("be"),
+                () -> assertThat(lexicon.statedVerbInflection("has")).contains("have"),
+                () -> assertThat(lexicon.statedVerbInflection("left")).contains("leave"),
+                () -> assertThat(lexicon.statedVerbInflection("children")).isEmpty());
+    }
+
+    @Test
+    void statesNoVerbForASurfaceItsOwnRulesWouldHaveInflected() {
+        assertAll(
+                () -> assertThat(lexicon.statedVerbInflection("does"))
+                        .as("a regular -es form is left to the suffix rules, so nothing states it")
+                        .isEmpty(),
+                () -> assertThat(lexicon.statedVerbInflection("words")).isEmpty(),
+                () -> assertThat(lexicon.statedVerbInflection("abstains")).isEmpty(),
+                () -> assertThat(lexicon.statedVerbInflection("qzxfgh")).isEmpty());
+    }
+
+    @Test
+    void readsTheSuffixRuleThatTurnsAnAuxiliaryIntoARareNoun() {
+        assertAll(
+                () -> assertThat(lexicon.nounBase("was")).contains("wa"),
+                () -> assertThat(lexicon.nounBase("does")).contains("doe"),
+                () -> assertThat(lexicon.nounBase("has")).contains("ha"));
+    }
+
+    @Test
     void nounBaseResolvesRegularPlurals() {
         assertAll(
                 () -> assertThat(lexicon.nounBase("categories")).contains("category"),

@@ -1,6 +1,7 @@
 package org.fifties.housewife.bi.lexicon;
 
 import net.sf.extjwnl.JWNLException;
+import net.sf.extjwnl.data.Exc;
 import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
 import net.sf.extjwnl.data.Synset;
@@ -57,6 +58,22 @@ public final class WordNetLexicon implements Lexicon {
     @Override
     public Optional<String> adjectiveBase(final String word) {
         return baseForm(POS.ADJECTIVE, word);
+    }
+
+    @Override
+    public Optional<String> statedVerbInflection(final String word) {
+        final String lower = word.toLowerCase(Locale.ROOT);
+        if (!isSingleWord(lower)) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.ofNullable(dictionary.getException(POS.VERB, lower))
+                    .map(Exc::getExceptions)
+                    .filter(stated -> !stated.isEmpty())
+                    .map(List::getFirst);
+        } catch (final JWNLException e) {
+            throw new IllegalStateException("WordNet exception lookup failed for \"" + word + "\"", e);
+        }
     }
 
     // WordNet reads separators as collocation joiners ("hot_dog"), so a compound like "title_basics"

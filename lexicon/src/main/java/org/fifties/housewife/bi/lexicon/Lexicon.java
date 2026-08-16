@@ -45,6 +45,18 @@ public interface Lexicon {
     Optional<String> adjectiveBase(String word);
 
     /**
+     * The verb the dictionary's own exception list <em>states</em> this surface is an irregular form of, or
+     * empty where it states none.
+     *
+     * <p>It is separate from {@link #verbBase} because the two answer with different authority. A base form
+     * is whatever the lexicon's morphology arrived at, and morphology guesses: strip the {@code s} from
+     * {@code was} and a caller asking for a noun is handed {@code wa}, which the dictionary does carry.
+     * The exception list is a statement — {@code was be}, {@code does do}, {@code has have} — and a caller
+     * choosing between parts of speech needs to know which of the two it is looking at.
+     */
+    Optional<String> statedVerbInflection(String word);
+
+    /**
      * The noun an initialism stands in for, read from the dictionary's own entry for its written-out form:
      * a short token the dictionary does not know as a word, whose letter-dotted spelling it does carry
      * ({@code aka} → {@code a.k.a.}), resolves to the synonym in that entry's sense that is a noun in its
