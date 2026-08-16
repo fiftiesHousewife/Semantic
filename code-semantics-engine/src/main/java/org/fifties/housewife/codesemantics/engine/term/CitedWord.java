@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.fifties.housewife.bi.lexicon.WikidataInitialisms;
 import org.fifties.housewife.codesemantics.engine.reading.DictionaryWords;
 import org.fifties.housewife.codesemantics.name.WholeWords;
+import org.fifties.housewife.codesemantics.name.WordRanks;
 
 /**
  * Whether a published resource states a run of letters as a word at all.
@@ -36,25 +37,55 @@ import org.fifties.housewife.codesemantics.name.WholeWords;
  */
 public final class CitedWord {
 
+    /**
+     * The share of the frequency list at which a word is one English itself is written in rather than one an
+     * author reached for. It is a share of the list's own length rather than a count, so it moves with the
+     * resource; the list holds 20,000 words, so this is its first 200.
+     *
+     * <p><b>It is a stated expectation and not a derived bound</b>, which is the honest description. What
+     * would derive it is the vocabulary reading's own null — a word counts where this repository writes it
+     * more than English and the platform do, judged against a field of chance draws — and that reading is
+     * computed elsewhere in the tree and not yet joined to this one. {@link CitedWordTest} pins what the
+     * share keeps and refuses, so moving it is a deliberate change to a stated figure.
+     */
+    private static final double WRITTEN_BY_THE_LANGUAGE = 0.01;
+
     private final WholeWords dictionary;
     private final WikidataInitialisms initialisms;
+    private final WordRanks english;
 
-    public CitedWord(final WholeWords dictionary, final WikidataInitialisms initialisms) {
+    public CitedWord(final WholeWords dictionary, final WikidataInitialisms initialisms,
+                     final WordRanks english) {
         this.dictionary = dictionary;
         this.initialisms = initialisms;
+        this.english = english;
     }
 
     public static CitedWord fromClasspath() {
-        return new CitedWord(DictionaryWords.fromClasspath(), WikidataInitialisms.fromClasspath());
+        return new CitedWord(DictionaryWords.fromClasspath(), WikidataInitialisms.fromClasspath(),
+                WordRanks.fromClasspath());
     }
 
     /** Whether the dictionary carries it as a word, or the registry states it as a published initialism. */
     public boolean states(final String word) {
-        if (isASplitterArtefact(word)) {
+        if (isASplitterArtefact(word) || isWrittenByTheLanguage(word)) {
             return false;
         }
         return dictionary.carries(word.toLowerCase(Locale.ROOT))
                 || !initialisms.readingsOf(word.toUpperCase(Locale.ROOT)).isEmpty();
+    }
+
+    /**
+     * Whether English itself is written in this word, which is a different question from whether it is a
+     * word. {@code it} is rank 32 of the frequency list and {@code its} is 63; every term a field actually
+     * publishes sits far below — {@code email} 1,107, {@code server} 2,631, {@code encoding} 8,093,
+     * {@code semantics} 10,602 — or is not ranked at all, as {@code parse} is not. A taxonomy publishing
+     * {@code it} as a topic, which the Computer Science Ontology does, otherwise matches every repository
+     * ever written.
+     */
+    private boolean isWrittenByTheLanguage(final String word) {
+        final int rank = english.rank(word);
+        return rank > 0 && rank <= WRITTEN_BY_THE_LANGUAGE * english.size();
     }
 
     /**

@@ -18,6 +18,23 @@ class CitedWordTest {
     }
 
     @Test
+    void refusesAWordEnglishItselfIsWrittenIn() {
+        assertAll(
+                () -> assertThat(cited.states("it")).isFalse(),
+                () -> assertThat(cited.states("its")).isFalse(),
+                () -> assertThat(cited.states("the")).isFalse());
+    }
+
+    @Test
+    void keepsAWordCommonEnoughToBeRankedAndSpecificEnoughToMean() {
+        assertAll(
+                () -> assertThat(cited.states("email")).isTrue(),
+                () -> assertThat(cited.states("server")).isTrue(),
+                () -> assertThat(cited.states("encoding")).isTrue(),
+                () -> assertThat(cited.states("semantics")).isTrue());
+    }
+
+    @Test
     void statesAWordTheDictionaryCarries() {
         assertAll(
                 () -> assertThat(cited.states("verb")).isTrue(),

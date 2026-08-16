@@ -87,6 +87,11 @@ public final class InjectedTaxonomy implements PublishedTerms {
         return concepts;
     }
 
+    /** How this taxonomy can be read, which its own concepts decide rather than its caller. */
+    public TaxonomyShape shape() {
+        return TaxonomyShape.of(concepts);
+    }
+
     /** The file the concepts were read from, so a report can say what it placed against. */
     public String source() {
         return source;

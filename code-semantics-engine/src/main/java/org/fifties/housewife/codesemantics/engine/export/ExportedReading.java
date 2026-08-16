@@ -12,6 +12,7 @@ import org.fifties.housewife.codesemantics.engine.reading.WrittenWords;
 import org.fifties.housewife.codesemantics.engine.summary.ReadingSummary;
 import org.fifties.housewife.codesemantics.engine.term.CorroboratedReading;
 import org.fifties.housewife.codesemantics.engine.term.LinguisticTerms;
+import org.fifties.housewife.codesemantics.engine.term.TermIndex;
 import org.fifties.housewife.codesemantics.engine.theme.PlacedField;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.vocabulary.ChosenWord;
@@ -35,7 +36,20 @@ public final class ExportedReading {
     /** How many words and concepts the summary names before a consumer opens the evidence beneath it. */
     private static final int LEADING = 10;
 
+    /** The bundled vocabulary alone, which is what a caller naming no others gets. */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
+        return of(reading, commit, List.of());
+    }
+
+    /**
+     * The bundled vocabulary and any the caller supplies, each matched and reported as its own taxonomy.
+     *
+     * <p>A source the published jar does not carry is read by path — the Computer Science Ontology is
+     * 14,636 topics under CC BY 4.0 and nothing bundles it — so a consumer that wants it in the export
+     * hands it over rather than asking this class to find it.
+     */
+    public ReadingExport of(final RepositoryReading reading, final String commit,
+                            final List<TermIndex> alsoMatched) {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
         final RepositoryLegibility legibility = LegibilityReading.fromClasspath().of(parsed);
@@ -49,10 +63,13 @@ public final class ExportedReading {
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final ExportedTaxonomy taxonomy = new ExportedTaxonomies().of(
                 LinguisticTerms.fromClasspath().source(), terms.matched(), placement(field));
+        final List<ExportedTaxonomy> taxonomies = new java.util.ArrayList<>(List.of(taxonomy));
+        alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
+                CorroboratedReading.of(index, conceptsOf(index), parsed).matched(), placement(field))));
 
         return ReadingExport.of(
                 summarised(reading, commit, summary, signals, reported, taxonomy, field),
-                signals, reported, List.of(taxonomy),
+                signals, reported, List.copyOf(taxonomies),
                 setAside(summary, vocabulary, legibility, terms, parsed));
     }
 
@@ -87,6 +104,14 @@ public final class ExportedReading {
 
     private static List<LeadingWord> leading(final List<ExportedSignal> signals) {
         return signals.stream().limit(LEADING).map(LeadingWord::of).toList();
+    }
+
+    /**
+     * The concepts a supplied index publishes, which is what the branch rule needs to know what sits beside
+     * what. An index answers for its own terms, so nothing here has to know which publisher it came from.
+     */
+    private static List<org.fifties.housewife.bi.lexicon.SkosConcept> conceptsOf(final TermIndex index) {
+        return index.terms().stream().flatMap(words -> index.conceptsOf(words).stream()).distinct().toList();
     }
 
     private static List<String> leadingConcepts(final ExportedTaxonomy taxonomy) {

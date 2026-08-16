@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1374 | 143.13 | 116 | 349 | 5 |
-| FIBO | 1833 | 254 | 26.46 | 23 | 108 | 0 |
+| OLiA | 1312 | 1211 | 125.47 | 109 | 326 | 5 |
+| FIBO | 1833 | 248 | 25.69 | 22 | 107 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -23,7 +23,7 @@ declares in some other sense.
 | `occurrences` | 86 | Occurrence | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ExportedSignal.java:18 |
 | `occurrence` | 36 | Occurrence | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/behaviour/Behaviours.java:47 |
 | `claim` | 17 | Claim | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ChosenWord.java:23 |
-| `mean` | 15 | Mean | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/WrittenByDepth.java:62 |
+| `mean` | 16 | Mean | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/WrittenByDepth.java:62 |
 | `catalog` | 11 | Catalog | lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/NistCsfExtraction.java:45 |
 | `method` | 14 | Method | code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/symbol/SymbolKind.java:7 |
 | `median` | 10 | Median | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FieldOfStudy.java:84 |
@@ -31,7 +31,6 @@ declares in some other sense.
 | `methods` | 7 | Method | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ClassFileMethods.java:20 |
 | `scheme` | 6 | Strategy | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/export/ExportedPlacement.java:18 |
 | `meaning` | 6 | Mean | code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/SenseRunsTest.java:24 |
-| `right` | 7 | Right | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/pipeline/ShareDivergence.java:25 |
 | `claims` | 5 | Claim | code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/SenseCoverage.java:65 |
 | `requests` | 4 | Request | code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/RepositoryFacts.java:15 |
 | `request` | 4 | Request | code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/PullRequestFacts.java:17 |

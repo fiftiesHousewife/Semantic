@@ -37,9 +37,30 @@ public final class ReportFolder {
         this.folder = folder;
     }
 
-    /** Where a reading of this clone writes, against the tree the reader itself lives in. */
+    /**
+     * Where a reading of this clone writes, against the tree the reader itself lives in.
+     *
+     * <p>This is the convenience: it resolves the host tree and the output directory from where the reader
+     * is running and from {@code -Dcs.reports.dir}. A caller who knows both names them, which is the
+     * three-argument form, and nothing about a published reading depends on a property being set.
+     */
     public static ReportFolder forReadingOf(final Path clone) {
         return forReadingOf(clone, new HostTree().root(), Path.of(System.getProperty(PROPERTY, BESIDE_THE_MODULE)));
+    }
+
+    /**
+     * What renders the page beside each report.
+     *
+     * <p>The default writes the mechanical HTML twin every report in this repository has. A consumer wanting
+     * markdown alone supplies a renderer returning nothing, which costs it no dependency and no file.
+     */
+    private PageRendering rendering =
+            (title, markdown) -> java.util.Optional.of(new MarkdownRendering().of(title, markdown));
+
+    /** Every report this folder writes gets a page from this renderer as well as its markdown. */
+    public ReportFolder rendering(final PageRendering renderer) {
+        this.rendering = renderer;
+        return this;
     }
 
     static ReportFolder forReadingOf(final Path clone, final Path host, final Path base) {
@@ -68,7 +89,30 @@ public final class ReportFolder {
      * the page is a rendering of it, so the two cannot state different figures.
      */
     public void wrote(final String name, final String markdown, final String title) throws IOException {
-        Files.writeString(file(name + ".md"), markdown);
-        Files.writeString(file(name + ".html"), new MarkdownRendering().of(title, markdown));
+        wrote(name, markdown, title, rendering);
     }
+
+    /**
+     * The markdown, and the page a caller's own renderer makes of it.
+     *
+     * <p>The renderer is handed in rather than reached for, because the one this repository uses is built on
+     * a markup library the published jar deliberately does not carry. A consumer writing reports supplies
+     * its own or writes markdown alone; neither costs the jar a dependency it exists without.
+     */
+    public void wrote(final String name, final String markdown, final String title,
+                      final PageRendering renderer) throws IOException {
+        Files.writeString(file(name + ".md"), markdown);
+        final java.util.Optional<String> page = renderer.of(title, markdown);
+        if (page.isPresent()) {
+            Files.writeString(file(name + ".html"), page.get());
+        }
+    }
+
+    /** How a report's markdown becomes the page beside it, or nothing where a caller wants markdown alone. */
+    @FunctionalInterface
+    public interface PageRendering {
+        java.util.Optional<String> of(String title, String markdown);
+    }
+
+
 }

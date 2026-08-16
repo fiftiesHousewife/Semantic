@@ -3,7 +3,13 @@ package org.fifties.housewife.codesemantics.engine.export;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
+
+import org.fifties.housewife.codesemantics.engine.term.InjectedTerms;
+import org.fifties.housewife.codesemantics.engine.term.TermIndex;
+import org.fifties.housewife.codesemantics.engine.theme.InjectedTaxonomy;
+import org.fifties.housewife.codesemantics.engine.theme.TaxonomyShape;
 
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
@@ -23,6 +29,37 @@ public final class ExportCommand {
     /** What the reading writes beside the export to say what moved since the last one. */
     private static final String CHANGES = "changes";
 
+    /**
+     * Every taxonomy under this directory is read by path, because the published jar carries none of them.
+     *
+     * <p>Resolved against the host tree rather than the working directory. The forked test JVM runs inside
+     * the module, so a relative path finds nothing, and these are this repository's taxonomies whichever
+     * clone is being read.
+     */
+    private static final String UNBUNDLED = "taxonomies";
+
+    /**
+     * The vocabularies this repository keeps beside the bundled one and matches as well.
+     *
+     * <p>They are read from files rather than the classpath because nothing bundles them. Only the ones
+     * {@link TaxonomyShape} says can be matched are taken: a taxonomy stating prose has a placement reading
+     * of its own and is not a vocabulary of terms anybody declares, so BIAN's service domains are left to
+     * that arm and CSO's topics are matched here. A directory holding neither contributes nothing.
+     */
+    private static List<TermIndex> alsoMatched() throws IOException {
+        final Path directory = TreeReading.ofTheHostTree().root().resolve(UNBUNDLED);
+        if (!Files.isDirectory(directory)) {
+            return List.of();
+        }
+        try (var files = Files.list(directory)) {
+            return files.filter(file -> file.getFileName().toString().endsWith(".tsv")).sorted()
+                    .map(InjectedTaxonomy::named)
+                    .filter(taxonomy -> taxonomy.shape().isMatchedAgainstNames())
+                    .map(taxonomy -> (TermIndex) InjectedTerms.of(taxonomy, taxonomy.source()))
+                    .toList();
+        }
+    }
+
     public static void main(final String[] arguments) throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
@@ -30,7 +67,8 @@ public final class ExportCommand {
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = Files.exists(file)
                 ? Optional.of(exports.in(file)) : Optional.empty();
-        final ReadingExport current = new ExportedReading().of(reading.reading(), commitIn(arguments));
+        final ReadingExport current =
+                new ExportedReading().of(reading.reading(), commitIn(arguments), alsoMatched());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
     }

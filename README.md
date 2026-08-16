@@ -216,7 +216,18 @@ ReadingExport export = new ExportedReading().of(reading, "43cbdae6");
 
 It takes the directory rather than finding one: nothing in it reads a system property, asks which tree a test is running inside, or memoises across a JVM. A run of diagnostics does want a shared reading per tree, and `TreeReading` holds that on the test side — which is why the decision about how long a reading lives stays out of the API.
 
-**What is still test-side**: `ReportFolder` and the report writers. Those produce the markdown under `output/`, which is a diagnostic artefact rather than something a consumer acts on — the export is the contract.
+**Reports too.** `ReportFolder` takes a directory and writes a report's markdown, with the page beside it rendered by whatever the caller supplies — the default writes the HTML twin this repository's reports have, and a consumer wanting markdown alone passes a renderer returning nothing. That keeps the markup library out of the published jar while leaving the behaviour unchanged.
+
+**It says what it is doing.** A large tree takes minutes, and a caller watching silence cannot tell a slow parse from a hung one, so each stage logs what it is starting and what it found through SLF4J at `INFO` on `RepositoryReading`:
+
+```
+INFO  RepositoryReading - Parsing /path/to/repository — 9 source sets
+INFO  RepositoryReading - Parsed /path/to/repository in 12.4s
+INFO  RepositoryReading - Reading subjects over /path/to/repository — this is the slow stage, and it resamples 999 times
+INFO  RepositoryReading - Read 552 topics over 2,156 files in 141.8s
+```
+
+Nothing writes to a stream a caller cannot redirect. Turn the logger down for silence, up for more; the library declares no SLF4J provider, so a consumer binds its own.
 
 The taxonomy layer beneath it:
 
@@ -378,6 +389,16 @@ The words a Java program contains most of are the words *every* Java program con
 The second asks the running JDK to describe itself, the same delegation [`PlatformPackages`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java) uses to sort an import. [`ClassFileMethods`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ClassFileMethods.java) reads the method names from each class file's constant pool, loading no class. A word ranks high only where both references write it less often than this repository does; where a reference writes it more often, its score falls and it keeps its place in the table. [See the whole ranking](output/markdown/vocabulary.md).
 
 ## Matching against published taxonomies
+
+**Three kinds, and the difference decides what a reading can tell you.** Two of them are the same *shape* — prose per concept, compared as a distribution — and answer different questions; the third has no prose and can only be matched.
+
+| Kind | What it partitions | Shape | What it can tell you | What it cannot |
+|---|---|---|---|---|
+| **Subject scheme** | a field of study | prose per subject | which published subject this repository reads most like, against chance | nothing about software with no research field — payments, ledgers, build tooling |
+| **Functional taxonomy** | what an organisation *does* | prose per function | whether a repository's work looks like a stated capability — trade processing rather than wealth management | nothing about a repository outside the institution it partitions |
+| **Term taxonomy** | what a field's things are *called* | labels, often no prose | which of a field's published concepts this repository declares, as identifiers a reader can check | nothing about a repository that uses a field's ideas without writing its words |
+
+`TaxonomyShape` decides the last column from the file itself — prose present or absent — because that is all the code can know. **Subject and functional are the same shape**: arXiv's categories and BIAN's service domains are read by identical machinery and differ only in what their publisher was classifying, which is a fact about intent that no file states.
 
 | Kind | Example | How it is used |
 |---|---|---|

@@ -9,6 +9,8 @@ import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
 import org.fifties.housewife.codesemantics.engine.theme.ThemeReading;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * One directory of source, parsed and read. This is where a caller of this library starts.
  *
@@ -20,7 +22,13 @@ import org.fifties.housewife.codesemantics.engine.theme.ThemeReading;
  * <p>The reading is computed once per instance and shared by every accessor, so asking for the themes after
  * the parse costs nothing twice. It is deterministic over an unchanged tree at a given seed, which is what
  * makes the sharing sound.
+ *
+ * <p><b>It takes minutes on a large tree and says so.</b> Each stage logs what it is about to do and what it
+ * found at {@code INFO} on this class's logger, because a caller watching four silent minutes cannot tell a
+ * slow parse from a hung one. A consumer wanting silence turns the logger down; one wanting more turns it
+ * up, and nothing here prints to a stream nobody can redirect.
  */
+@Slf4j
 public final class RepositoryReading {
 
     /** The seed the nulls are drawn with, so two runs over one tree agree rather than placing it differently. */
@@ -63,15 +71,28 @@ public final class RepositoryReading {
 
     public synchronized ParsedRepository parsed() {
         if (parsed == null) {
-            parsed = ParsedRepository.of(root, scopesUnder(root));
+            final List<SourceScope> scopes = scopesUnder(root);
+            log.info("Parsing {} — {} source sets", root, scopes.size());
+            final long started = System.nanoTime();
+            parsed = ParsedRepository.of(root, scopes);
+            log.info("Parsed {} in {}s", root, seconds(started));
         }
         return parsed;
     }
 
     public synchronized RepositoryThemes themes() {
         if (themes == null) {
+            log.info("Reading subjects over {} — this is the slow stage, and it resamples 999 times", root);
+            final long started = System.nanoTime();
             themes = ThemeReading.fromClasspath(seed).of(parsed());
+            log.info("Read {} topics over {} files in {}s", themes.rankings().size(),
+                    themes.files().size(), seconds(started));
         }
         return themes;
+    }
+
+    /** Wall clock, because a caller watching a long stage wants the figure a stopwatch would give. */
+    private static String seconds(final long startedAt) {
+        return String.format(java.util.Locale.ROOT, "%.1f", (System.nanoTime() - startedAt) / 1e9);
     }
 }
