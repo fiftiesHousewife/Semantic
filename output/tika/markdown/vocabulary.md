@@ -42,9 +42,9 @@ gaps: the gap is where the reader should look for it.
 
 ## What it called things
 
-**92,658 occurrences of 4,530 distinct words**, read against ordinary English and the platform's own API. The 839 that clear the bar hold 60.9% of what was written and 87.2% of the divergence, and 100.0% of their occurrences are names. 1,439 words in the ranking are ones a reference writes more densely than this repository does, and 133 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**92,658 occurrences of 4,530 distinct words**, read against ordinary English and the platform's own API. The 837 that clear the bar hold 60.6% of what was written and 87.2% of the divergence, and 100.0% of their occurrences are names. 1,439 words in the ranking are ones a reference writes more densely than this repository does, and 133 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0021%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 12,758,697 scored words from that reference's own distribution. A word is here where it beats **0.0024%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 3,846,618 scored words from that reference's own distribution.
+A word is here where it beats **0.0021%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 12,763,327 scored words from that reference's own distribution. A word is here where it beats **0.0025%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,530, over 999 draws yielding 3,849,342 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -100,7 +100,7 @@ A word is here where it beats **0.0021%** of the maximum divergence against ordi
 | 52 | `zip` | 0.0623% | 159 | 100.0% | 0.1716% | 0.0010% | 0.0103% | `tika-core/src/main/java/org/apache/tika/metadata/Zip.java:24` |
 
 <details>
-<summary>789 more words, ranked</summary>
+<summary>787 more words, ranked</summary>
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -873,15 +873,11 @@ A word is here where it beats **0.0021%** of the maximum divergence against ordi
 | 841 | `alternate` | 0.0025% | 10 | 100.0% | 0.0108% | 0.0018% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/TikaCoreProperties.java:537` |
 | 842 | `created` | 0.0025% | 32 | 100.0% | 0.0345% | 0.0161% | 0.0043% | `tika-core/src/main/java/org/apache/tika/metadata/DublinCore.java:102` |
 | 843 | `dominant` | 0.0025% | 11 | 100.0% | 0.0119% | 0.0024% | 0.0000% | `tika-core/src/main/java/org/apache/tika/quality/TextQualityScore.java:75` |
-| 844 | `queue` | 0.0025% | 60 | 100.0% | 0.0648% | 0.0010% | 0.0383% | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ExtractComparerRunner.java:361` |
-| 845 | `input` | 0.0025% | 205 | 100.0% | 0.2212% | 0.0040% | 0.1697% | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:683` |
 | 846 | `warned` | 0.0025% | 12 | 100.0% | 0.0130% | 0.0029% | 0.0000% | `tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java:64` |
 | 847 | `reply` | 0.0025% | 10 | 100.0% | 0.0108% | 0.0019% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/MAPI.java:72` |
 | 848 | `latin` | 0.0024% | 15 | 100.0% | 0.0162% | 0.0046% | 0.0000% | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/main/java/org/apache/tika/ml/chardetect/CharsetConfusables.java:155` |
 | 849 | `recipient` | 0.0024% | 9 | 100.0% | 0.0097% | 0.0015% | 0.0004% | `tika-core/src/main/java/org/apache/tika/metadata/Message.java:35` |
 | 850 | `compressor` | 0.0024% | 7 | 100.0% | 0.0076% | 0.0007% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/XMPDM.java:90` |
-| 851 | `completed` | 0.0024% | 25 | 100.0% | 0.0270% | 0.0103% | 0.0112% | `tika-core/src/main/java/org/apache/tika/parser/multiple/AbstractMultipleParser.java:208` |
-| 852 | `duration` | 0.0024% | 28 | 100.0% | 0.0302% | 0.0024% | 0.0134% | `tika-core/src/main/java/org/apache/tika/metadata/Audio.java:106` |
 | 853 | `unseen` | 0.0024% | 7 | 100.0% | 0.0076% | 0.0007% | 0.0000% | `tika-core/src/main/java/org/apache/tika/detect/NNTrainedModel.java:60` |
 | 854 | `geographic` | 0.0024% | 9 | 100.0% | 0.0097% | 0.0015% | 0.0000% | `tika-core/src/main/java/org/apache/tika/metadata/Geographic.java:28` |
 | 857 | `dependent` | 0.0023% | 11 | 100.0% | 0.0119% | 0.0026% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/OneNotePtr.java:463` |
@@ -893,6 +889,8 @@ A word is here where it beats **0.0021%** of the maximum divergence against ordi
 | 872 | `cores` | 0.0022% | 7 | 100.0% | 0.0076% | 0.0008% | 0.0000% | `tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/PerClientServerManager.java:60` |
 | 1,005 | `packaging` | 0.0021% | 9 | 100.0% | 0.0097% | 0.0018% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/OneNoteHeader.java:410` |
 | 1,006 | `structural` | 0.0021% | 11 | 100.0% | 0.0119% | 0.0029% | 0.0009% | `tika-core/src/main/java/org/apache/tika/detect/EncodingResult.java:59` |
+| 1,008 | `dice` | 0.0021% | 7 | 100.0% | 0.0076% | 0.0010% | 0.0000% | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/db/Cols.java:43` |
+| 1,009 | `bullet` | 0.0021% | 8 | 100.0% | 0.0086% | 0.0014% | 0.0000% | `tika-core/src/main/java/org/apache/tika/sax/ToMarkdownContentHandler.java:568` |
 </details>
 
 ### What the language supplied
@@ -947,9 +945,9 @@ A word is here where it beats **0.0021%** of the maximum divergence against ordi
 
 ## What it called the things that check it
 
-**48,667 occurrences of 3,873 distinct words**, read against ordinary English and the platform's own API. The 580 that clear the bar hold 61.1% of what was written and 85.5% of the divergence, and 100.0% of their occurrences are names. 1,128 words in the ranking are ones a reference writes more densely than this repository does, and 136 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**48,667 occurrences of 3,873 distinct words**, read against ordinary English and the platform's own API. The 582 that clear the bar hold 61.1% of what was written and 85.6% of the divergence, and 100.0% of their occurrences are names. 1,128 words in the ranking are ones a reference writes more densely than this repository does, and 136 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0037%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 9,250,108 scored words from that reference's own distribution. A word is here where it beats **0.0045%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 3,198,667 scored words from that reference's own distribution.
+A word is here where it beats **0.0037%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 9,253,091 scored words from that reference's own distribution. A word is here where it beats **0.0045%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 3,873, over 999 draws yielding 3,200,643 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -1005,7 +1003,7 @@ A word is here where it beats **0.0037%** of the maximum divergence against ordi
 | 54 | `k` | 0.0583% | 70 | 100.0% | 0.1438% | 0.0025% | 0.0052% | `tika-app/src/test/java/org/apache/tika/cli/TikaCLIAsyncTest.java:148` |
 
 <details>
-<summary>530 more words, ranked</summary>
+<summary>532 more words, ranked</summary>
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -1519,6 +1517,7 @@ A word is here where it beats **0.0037%** of the maximum divergence against ordi
 | 582 | `passes` | 0.0046% | 9 | 100.0% | 0.0185% | 0.0029% | 0.0009% | `tika-core/src/test/java/org/apache/tika/metadata/filter/LegacyKeyMigrationFilterTest.java:47` |
 | 583 | `predict` | 0.0046% | 8 | 100.0% | 0.0164% | 0.0021% | 0.0000% | `tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/LinearModelTest.java:99` |
 | 584 | `strip` | 0.0045% | 15 | 100.0% | 0.0308% | 0.0026% | 0.0090% | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/HtmlByteStripperTest.java:38` |
+| 585 | `epoch` | 0.0045% | 20 | 100.0% | 0.0411% | 0.0006% | 0.0151% | `tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/Phase2Trainer.java:329` |
 | 586 | `outlook` | 0.0045% | 8 | 100.0% | 0.0164% | 0.0021% | 0.0000% | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java/org/apache/tika/parser/microsoft/OutlookParserTest.java:52` |
 | 587 | `mb` | 0.0045% | 6 | 100.0% | 0.0123% | 0.0007% | 0.0000% | `tika-core/src/test/java/org/apache/tika/parser/mock/MockParser.java:211` |
 | 590 | `links` | 0.0044% | 10 | 100.0% | 0.0205% | 0.0040% | 0.0004% | `tika-core/src/test/java/org/apache/tika/utils/RegexUtilsTest.java:38` |
@@ -1539,6 +1538,7 @@ A word is here where it beats **0.0037%** of the maximum divergence against ordi
 | 680 | `calibration` | 0.0038% | 6 | 100.0% | 0.0123% | 0.0012% | 0.0000% | `tika-ml/tika-ml-core/src/test/java/org/apache/tika/ml/LinearModelCalibrationTest.java:30` |
 | 684 | `fragmentation` | 0.0037% | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-ml/tika-ml-junkdetect/src/test/java/org/apache/tika/ml/junkdetect/TextQualityFeaturesTest.java:164` |
 | 689 | `gemini` | 0.0037% | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-parsers/tika-parsers-ml/tika-vlm/src/test/java/org/apache/tika/parser/vlm/GeminiVLMParserTest.java:42` |
+| 690 | `probes` | 0.0037% | 5 | 100.0% | 0.0103% | 0.0006% | 0.0000% | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/CalibrateTopK.java:68` |
 </details>
 
 ### What the language supplied
@@ -1595,7 +1595,7 @@ A word is here where it beats **0.0037%** of the maximum divergence against ordi
 
 **766,635 occurrences of 14,556 distinct words**, read against ordinary English and the platform's own API. The 1,890 that clear the bar hold 47.0% of what was written and 89.9% of the divergence, and 18.0% of their occurrences are names. 5,194 words in the ranking are ones a reference writes more densely than this repository does, and 511 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0004%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 19,884,095 scored words from that reference's own distribution. A word is here where it beats **0.0004%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 5,238,145 scored words from that reference's own distribution.
+A word is here where it beats **0.0004%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 19,884,199 scored words from that reference's own distribution. A word is here where it beats **0.0004%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 14,556, over 999 draws yielding 5,238,235 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|

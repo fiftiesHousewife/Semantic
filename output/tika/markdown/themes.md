@@ -37,6 +37,10 @@ Read over 2,156 files and 380,237 lines: 552 topics, 42 files no topic could be 
 
 ## What distinguishes each scope from the repository
 
+**A scope is a source set** — one `<module>/src/<set>/java` directory — so a module with a main and a test source set is two scopes here, not one. The repository's own markdown is one scope more.
+
+**Each is read against a null of its own, and that is what decides which of them is ranked.** Every source set differs from the repository somewhat, and a small one differs a great deal by accident, so a distance means nothing until it is read against the distances a random group of that many files reaches. A source set whose distance chance reaches is still read in full and still contributes to the repository's distribution; what it does not get is a ranking of its own topics, because that ranking would be of noise.
+
 The two share columns below are shares of the mass a topic was settled on, where ι above is a share of everything that was observed. A comparison is between what each side was placed in: a scope nothing could be read in is not a scope about something else, and counting what went unplaced as part of a divergence would report illegibility as a subject.
 
 ### `tika-annotation-processor/src/main/java`
@@ -1204,4 +1208,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 2.0% | `tennis` | 0.0000 | 0.0130 | under | `get` 4,191 `return` 1,431 `server` 670 `single` 447 |
 | 1.9% | `computer_science` | 0.0037 | 0.0244 | under | `parser` 2,583 `byte` 2,993 `url` 466 `format` 613 |
 
-Read, compared and resampled in 70.4 s, recorded rather than estimated.
+Read, compared and resampled in 70.5 s, recorded rather than estimated.

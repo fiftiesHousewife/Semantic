@@ -143,6 +143,8 @@ td code {
 </table>
 <p>Read over 2,156 files and 380,237 lines: 552 topics, 42 files no topic could be resolved for, and 68.3% of the repository's lines led by its single strongest topic. <strong>ι is a share of everything the reading observed</strong>, and the topics sum to 32.8% of it; the other 67.2% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. <strong>From names</strong> is how much of a theme the code itself carried rather than its prose.</p>
 <h2>What distinguishes each scope from the repository</h2>
+<p><strong>A scope is a source set</strong> — one <code>&lt;module&gt;/src/&lt;set&gt;/java</code> directory — so a module with a main and a test source set is two scopes here, not one. The repository's own markdown is one scope more.</p>
+<p><strong>Each is read against a null of its own, and that is what decides which of them is ranked.</strong> Every source set differs from the repository somewhat, and a small one differs a great deal by accident, so a distance means nothing until it is read against the distances a random group of that many files reaches. A source set whose distance chance reaches is still read in full and still contributes to the repository's distribution; what it does not get is a ranking of its own topics, because that ranking would be of noise.</p>
 <p>The two share columns below are shares of the mass a topic was settled on, where ι above is a share of everything that was observed. A comparison is between what each side was placed in: a scope nothing could be read in is not a scope about something else, and counting what went unplaced as part of a divergence would report illegibility as a subject.</p>
 <h3><code>tika-annotation-processor/src/main/java</code></h3>
 <p><strong>34.9%</strong> of the maximum divergence from the repository, against a null median of 28.2% over 999 resamples of the same size — an excess of +6.7 points, and 199 of those draws diverged at least as far. <strong>The scope does not stand outside its own null</strong>, so it has no topical content beyond its size and nothing is ranked.</p>
@@ -941,5 +943,5 @@ td code {
 <tr><td>2.0%</td><td><code>tennis</code></td><td>0.0000</td><td>0.0130</td><td>under</td><td><code>get</code> 4,191 <code>return</code> 1,431 <code>server</code> 670 <code>single</code> 447</td></tr>
 <tr><td>1.9%</td><td><code>computer_science</code></td><td>0.0037</td><td>0.0244</td><td>under</td><td><code>parser</code> 2,583 <code>byte</code> 2,993 <code>url</code> 466 <code>format</code> 613</td></tr>
 </table>
-<p>Read, compared and resampled in 70.4 s, recorded rather than estimated.</p>
+<p>Read, compared and resampled in 70.5 s, recorded rather than estimated.</p>
 </div>

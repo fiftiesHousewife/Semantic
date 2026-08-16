@@ -6,11 +6,11 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 86,025 |
+| Word occurrences read | 86,762 |
 | Files | 463 |
 | Prose share of those occurrences | 75% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
-| Evidence resolving to no subject | 75.9% |
+| Evidence resolving to no subject | 76.0% |
 
 λ is the denominator every figure below rests on. The second share counts something else: a phrase no resource places, or one whose words name so many subjects that none of them resolves. A word can have a dictionary entry and still say nothing about subject matter, so both shares run high together.
 
@@ -39,4 +39,4 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 
 ## Withheld
 
-- `documentation` — 24.4% of the maximum divergence, and 967 of 999 chance draws stood at least as far
+- `documentation` — 24.0% of the maximum divergence, and 972 of 999 chance draws stood at least as far

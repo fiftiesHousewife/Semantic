@@ -30,12 +30,16 @@ Only the topics that **earned a place**: a topic reaches this table where it mak
 
 | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
 |---|--:|--:|--:|--:|--:|--:|---|
-| `linguistics` | 0.0511 | 80.9% | 3,936 | 142 | 11,534 | 33.7% | `word` 1,424 `name` 655 `term` 314 `parse` 137 |
-| `computing` | 0.0136 | 83.2% | 5,783 | 28 | 1,661 | 4.9% | `repository` 419 `folder` 32 `read` 767 `parse` 137 |
+| `linguistics` | 0.0511 | 80.6% | 3,944 | 142 | 11,571 | 33.8% | `word` 1,430 `name` 656 `term` 313 `parse` 137 |
+| `computing` | 0.0136 | 82.9% | 5,817 | 28 | 1,661 | 4.9% | `repository` 423 `folder` 32 `read` 772 `parse` 137 |
 
-Read over 463 files and 34,186 lines: 463 topics, 1 files no topic could be resolved for, and 33.7% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 24.1% of it; the other 75.9% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
+Read over 463 files and 34,240 lines: 463 topics, 1 files no topic could be resolved for, and 33.8% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 24.0% of it; the other 76.0% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
 
 ## What distinguishes each scope from the repository
+
+**A scope is a source set** — one `<module>/src/<set>/java` directory — so a module with a main and a test source set is two scopes here, not one. The repository's own markdown is one scope more.
+
+**Each is read against a null of its own, and that is what decides which of them is ranked.** Every source set differs from the repository somewhat, and a small one differs a great deal by accident, so a distance means nothing until it is read against the distances a random group of that many files reaches. A source set whose distance chance reaches is still read in full and still contributes to the repository's distribution; what it does not get is a ranking of its own topics, because that ranking would be of noise.
 
 The two share columns below are shares of the mass a topic was settled on, where ι above is a share of everything that was observed. A comparison is between what each side was placed in: a scope nothing could be read in is not a scope about something else, and counting what went unplaced as part of a divergence would report illegibility as a subject.
 
@@ -45,14 +49,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 13.0% | `telecommunication` | 0.0002 | 0.0425 | under | `file` 233 `entry` 184 `copy` 27 `note` 7 |
-| 6.8% | `plants` | 0.0018 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
-| 6.7% | `publishing` | 0.0171 | 0.0645 | under | `publish` 277 `read` 154 `write` 637 `vocabulary` 152 |
-| 6.4% | `physics` | 0.0665 | 0.0191 | **over** | `mass` 131 `weight` 68 `length` 50 `radius` 3 |
+| 13.0% | `telecommunication` | 0.0002 | 0.0425 | under | `file` 233 `entry` 184 `copy` 26 `note` 7 |
+| 6.8% | `plants` | 0.0018 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
+| 6.7% | `publishing` | 0.0171 | 0.0644 | under | `publish` 278 `read` 154 `write` 637 `vocabulary` 152 |
+| 6.4% | `physics` | 0.0665 | 0.0190 | **over** | `mass` 131 `weight` 69 `length` 50 `radius` 3 |
 | 4.8% | `time_period` | 0.0292 | 0.0042 | **over** | `span` 19 `none` 5 `long` 21 `even` 4 |
-| 4.0% | `electronics` | 0.0008 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
+| 4.0% | `electronics` | 0.0008 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
 | 3.5% | `lexicography` | 0.0349 | 0.0095 | **over** | `citation` 96 `sense` 311 `gloss` 2 `lemma` 76 |
-| 2.6% | `philosophy` | 0.0001 | 0.0088 | under | `describe` 37 `lemma` 76 `each` 44 `explain` 13 |
+| 2.6% | `philosophy` | 0.0001 | 0.0088 | under | `describe` 37 `lemma` 76 `each` 44 `explain` 14 |
 
 ### `code-semantics-api/src/test/java`
 
@@ -60,14 +64,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 8.3% | `telecommunication` | 0.0017 | 0.0425 | under | `file` 233 `entry` 184 `copy` 27 `note` 7 |
+| 8.3% | `telecommunication` | 0.0017 | 0.0425 | under | `file` 233 `entry` 184 `copy` 26 `note` 7 |
 | 6.7% | `biology` | 0.0383 | 0.0024 | **over** | `morphology` 19 `owl` 22 `person` 23 `glob` 5 |
-| 6.6% | `plants` | 0.0004 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
-| 5.3% | `publishing` | 0.0167 | 0.0645 | under | `publish` 277 `read` 154 `write` 637 `vocabulary` 152 |
-| 4.7% | `politics` | 0.0552 | 0.0137 | **over** | `vote` 53 `normalisation` 19 `reading` 604 `name` 742 |
-| 4.2% | `literature` | 0.0016 | 0.0241 | under | `header` 80 `write` 636 `text` 80 `prose` 110 |
-| 3.7% | `linguistics` | 0.3029 | 0.2011 | **over** | `word` 1,424 `name` 655 `term` 314 `parse` 137 |
-| 3.4% | `law` | 0.0949 | 0.0435 | **over** | `file` 455 `witness` 70 `summary` 55 `claim` 111 |
+| 6.6% | `plants` | 0.0004 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
+| 5.3% | `publishing` | 0.0167 | 0.0644 | under | `publish` 278 `read` 154 `write` 637 `vocabulary` 152 |
+| 4.7% | `politics` | 0.0552 | 0.0137 | **over** | `vote` 53 `normalisation` 19 `reading` 604 `name` 743 |
+| 4.2% | `literature` | 0.0016 | 0.0241 | under | `header` 79 `write` 636 `text` 80 `prose` 110 |
+| 3.6% | `linguistics` | 0.3029 | 0.2012 | **over** | `word` 1,430 `name` 656 `term` 313 `parse` 137 |
+| 3.5% | `law` | 0.0949 | 0.0435 | **over** | `file` 457 `witness` 70 `summary` 55 `claim` 111 |
 
 ### `code-semantics-engine/src/main/java`
 
@@ -75,14 +79,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 13.7% | `electronics` | 0.0014 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
-| 10.0% | `chemistry` | 0.0019 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 221 |
-| 7.0% | `psychology` | 0.0015 | 0.0104 | under | `module` 71 `confidence` 20 `know` 70 `test` 221 |
+| 13.7% | `electronics` | 0.0014 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
+| 10.0% | `chemistry` | 0.0019 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 223 |
+| 7.0% | `psychology` | 0.0015 | 0.0105 | under | `module` 74 `confidence` 20 `know` 71 `test` 223 |
 | 4.2% | `animals` | 0.0004 | 0.0051 | under | `nest` 28 `owl` 22 `head` 13 `posterior` 6 |
 | 3.9% | `calculus` | 0.0156 | 0.0062 | **over** | `divergence` 159 |
 | 3.0% | `grammar` | 0.0467 | 0.0310 | **over** | `phrase` 151 `part_of_speech` 39 `occurrence` 180 `verb` 77 |
-| 2.8% | `literature` | 0.0135 | 0.0241 | under | `header` 80 `write` 636 `text` 80 `prose` 110 |
-| 2.4% | `plants` | 0.0186 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
+| 2.8% | `literature` | 0.0135 | 0.0241 | under | `header` 79 `write` 636 `text` 80 `prose` 110 |
+| 2.4% | `plants` | 0.0186 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
 
 ### `code-semantics-engine/src/test/java`
 
@@ -90,14 +94,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 16.2% | `electronics` | 0.0004 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
-| 13.8% | `plants` | 0.0699 | 0.0298 | **over** | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
+| 16.2% | `electronics` | 0.0004 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
+| 13.8% | `plants` | 0.0699 | 0.0298 | **over** | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
 | 4.7% | `animals` | 0.0002 | 0.0051 | under | `nest` 28 `owl` 22 `head` 13 `posterior` 6 |
-| 4.4% | `chemistry` | 0.0046 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 221 |
-| 4.3% | `mathematics` | 0.0283 | 0.0481 | under | `from` 138 `function` 57 `distribution` 86 `lemma` 76 |
-| 3.4% | `psychology` | 0.0032 | 0.0104 | under | `module` 71 `confidence` 20 `know` 70 `test` 221 |
-| 3.3% | `publishing` | 0.0889 | 0.0645 | **over** | `publish` 277 `read` 154 `write` 637 `vocabulary` 152 |
-| 3.1% | `computer-languages` | 0.0001 | 0.0032 | under | `json` 6 `sparql` 1 `owl` 22 `java` 62 |
+| 4.4% | `chemistry` | 0.0046 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 223 |
+| 4.3% | `mathematics` | 0.0283 | 0.0481 | under | `from` 138 `function` 57 `distribution` 87 `lemma` 76 |
+| 3.4% | `psychology` | 0.0032 | 0.0105 | under | `module` 74 `confidence` 20 `know` 71 `test` 223 |
+| 3.3% | `publishing` | 0.0889 | 0.0644 | **over** | `publish` 278 `read` 154 `write` 637 `vocabulary` 152 |
+| 3.1% | `computer-languages` | 0.0001 | 0.0032 | under | `json` 6 `sparql` 1 `owl` 22 `java` 66 |
 
 ### `lexicon-extraction/src/main/java`
 
@@ -105,14 +109,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 8.3% | `linguistics` | 0.0916 | 0.2011 | under | `word` 1,424 `name` 655 `term` 314 `parse` 137 |
-| 6.9% | `literature` | 0.0840 | 0.0241 | **over** | `header` 80 `write` 636 `text` 80 `prose` 110 |
+| 8.3% | `linguistics` | 0.0916 | 0.2012 | under | `word` 1,430 `name` 656 `term` 313 `parse` 137 |
+| 6.9% | `literature` | 0.0840 | 0.0241 | **over** | `header` 79 `write` 636 `text` 80 `prose` 110 |
 | 6.8% | `grammar` | 0.0012 | 0.0310 | under | `phrase` 151 `part_of_speech` 39 `occurrence` 180 `verb` 77 |
 | 6.4% | `animals` | 0.0414 | 0.0051 | **over** | `nest` 28 `owl` 22 `head` 13 `posterior` 6 |
-| 5.8% | `plants` | 0.0019 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
-| 5.1% | `electronics` | 0.0596 | 0.0164 | **over** | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
-| 4.5% | `computer-languages` | 0.0283 | 0.0032 | **over** | `json` 6 `sparql` 1 `owl` 22 `java` 62 |
-| 4.0% | `physics` | 0.0009 | 0.0191 | under | `mass` 131 `weight` 68 `length` 50 `radius` 3 |
+| 5.8% | `plants` | 0.0019 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
+| 5.1% | `electronics` | 0.0596 | 0.0164 | **over** | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
+| 4.5% | `computer-languages` | 0.0283 | 0.0032 | **over** | `json` 6 `sparql` 1 `owl` 22 `java` 66 |
+| 4.0% | `physics` | 0.0009 | 0.0190 | under | `mass` 131 `weight` 69 `length` 50 `radius` 3 |
 
 ### `lexicon-extraction/src/test/java`
 
@@ -120,13 +124,13 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 21.1% | `chemistry` | 0.1468 | 0.0144 | **over** | `extraction` 51 `fraction` 9 `extract` 7 `test` 221 |
-| 16.3% | `electronics` | 0.1281 | 0.0164 | **over** | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
-| 5.5% | `linguistics` | 0.1019 | 0.2011 | under | `word` 1,424 `name` 655 `term` 314 `parse` 137 |
-| 3.5% | `physics` | 0.0008 | 0.0191 | under | `mass` 131 `weight` 68 `length` 50 `radius` 3 |
+| 21.1% | `chemistry` | 0.1468 | 0.0144 | **over** | `extraction` 51 `fraction` 9 `extract` 7 `test` 223 |
+| 16.3% | `electronics` | 0.1281 | 0.0164 | **over** | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
+| 5.5% | `linguistics` | 0.1019 | 0.2012 | under | `word` 1,430 `name` 656 `term` 313 `parse` 137 |
+| 3.5% | `physics` | 0.0008 | 0.0190 | under | `mass` 131 `weight` 69 `length` 50 `radius` 3 |
 | 2.7% | `person` | 0.0028 | 0.0213 | under | `reader` 130 `child` 20 `host` 29 `bearer` 18 |
-| 2.6% | `psychology` | 0.0368 | 0.0104 | **over** | `module` 71 `confidence` 20 `know` 70 `test` 221 |
-| 2.5% | `law` | 0.0146 | 0.0435 | under | `file` 455 `witness` 70 `summary` 55 `claim` 111 |
+| 2.6% | `psychology` | 0.0368 | 0.0105 | **over** | `module` 74 `confidence` 20 `know` 71 `test` 223 |
+| 2.5% | `law` | 0.0146 | 0.0435 | under | `file` 457 `witness` 70 `summary` 55 `claim` 111 |
 | 2.2% | `grammar` | 0.0086 | 0.0310 | under | `phrase` 151 `part_of_speech` 39 `occurrence` 180 `verb` 77 |
 
 ### `lexicon/src/main/java`
@@ -135,14 +139,14 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 7.6% | `plants` | 0.0000 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
-| 6.4% | `publishing` | 0.0143 | 0.0645 | under | `publish` 277 `read` 154 `write` 637 `vocabulary` 152 |
-| 5.0% | `mathematics` | 0.1131 | 0.0481 | **over** | `from` 138 `function` 57 `distribution` 86 `lemma` 76 |
+| 7.6% | `plants` | 0.0000 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
+| 6.4% | `publishing` | 0.0143 | 0.0644 | under | `publish` 278 `read` 154 `write` 637 `vocabulary` 152 |
+| 5.0% | `mathematics` | 0.1131 | 0.0481 | **over** | `from` 138 `function` 57 `distribution` 87 `lemma` 76 |
 | 5.0% | `person` | 0.0693 | 0.0213 | **over** | `reader` 130 `child` 20 `host` 29 `bearer` 18 |
-| 4.2% | `networking` | 0.0327 | 0.0051 | **over** | `resource` 254 `preamble` 7 `request` 11 `node` 68 |
+| 4.2% | `networking` | 0.0327 | 0.0051 | **over** | `resource` 255 `preamble` 7 `request` 11 `node` 68 |
 | 4.1% | `grammar` | 0.0793 | 0.0310 | **over** | `phrase` 151 `part_of_speech` 39 `occurrence` 180 `verb` 77 |
-| 4.0% | `physics` | 0.0006 | 0.0191 | under | `mass` 131 `weight` 68 `length` 50 `radius` 3 |
-| 3.3% | `chemistry` | 0.0003 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 221 |
+| 4.0% | `physics` | 0.0006 | 0.0190 | under | `mass` 131 `weight` 69 `length` 50 `radius` 3 |
+| 3.3% | `chemistry` | 0.0003 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 223 |
 
 ### `lexicon/src/test/java`
 
@@ -150,17 +154,17 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 9.4% | `plants` | 0.0002 | 0.0298 | under | `root` 145 `tree` 167 `seed` 25 `leaf` 20 |
-| 8.5% | `linguistics` | 0.3387 | 0.2011 | **over** | `word` 1,424 `name` 655 `term` 314 `parse` 137 |
+| 9.4% | `plants` | 0.0002 | 0.0298 | under | `root` 146 `tree` 168 `seed` 25 `leaf` 19 |
+| 8.5% | `linguistics` | 0.3387 | 0.2012 | **over** | `word` 1,430 `name` 656 `term` 313 `parse` 137 |
 | 5.9% | `lexicography` | 0.0445 | 0.0095 | **over** | `citation` 96 `sense` 311 `gloss` 2 `lemma` 76 |
-| 5.4% | `electronics` | 0.0000 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 101 |
-| 2.8% | `politics` | 0.0013 | 0.0137 | under | `vote` 53 `normalisation` 19 `reading` 604 `name` 742 |
-| 2.7% | `chemistry` | 0.0018 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 221 |
+| 5.4% | `electronics` | 0.0000 | 0.0164 | under | `tsv` 38 `field` 188 `headroom` 2 `bar` 102 |
+| 2.8% | `politics` | 0.0013 | 0.0137 | under | `vote` 53 `normalisation` 19 `reading` 604 `name` 743 |
+| 2.7% | `chemistry` | 0.0018 | 0.0144 | under | `extraction` 51 `fraction` 9 `extract` 7 `test` 223 |
 | 2.1% | `calculus` | 0.0000 | 0.0062 | under | `divergence` 159 |
 | 2.0% | `information-science` | 0.0180 | 0.0046 | **over** | `synset` 26 `document` 65 `ontology` 104 `align` 1 |
 
 ### `documentation`
 
-**24.4%** of the maximum divergence from the repository, against a null median of 34.9% over 999 resamples of the same size — an excess of -10.5 points, and 967 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
+**24.0%** of the maximum divergence from the repository, against a null median of 34.8% over 999 resamples of the same size — an excess of -10.8 points, and 972 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
 Read, compared and resampled in 7.8 s, recorded rather than estimated.
