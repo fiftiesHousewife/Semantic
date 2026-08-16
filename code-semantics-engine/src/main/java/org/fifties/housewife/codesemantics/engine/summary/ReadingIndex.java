@@ -43,7 +43,7 @@ public record ReadingIndex(String repository, List<Entry> entries) {
         return new ReadingIndex(repository, List.of(
                 new Entry("summary.html", "Summary",
                         "what the reading shows, in one page",
-                        "every line cleared a bar; what did not is named and printed nowhere"),
+                        "every figure beat 999 resamples of its own size; what did not is named and printed nowhere"),
                 new Entry("themes-chart.html", "The charts",
                         "both pictures this reading draws: what the repository is about, and where in a "
                                 + "published field it writes",

@@ -53,7 +53,7 @@ class TermReportTest {
 
     @Test
     void namesWhatABranchsClaimRestsOn() {
-        assertThat(rendered).contains("`Phrase`&nbsp;34", "`NounPhrase`&nbsp;1");
+        assertThat(rendered).contains("`Phrase`\u00A034", "`NounPhrase`\u00A01");
     }
 
     @Test
@@ -65,7 +65,7 @@ class TermReportTest {
 
     @Test
     void leavesTheRungsToOneTableAtTheEnd() {
-        assertThat(rendered.substring(rendered.indexOf("## How the two sides")))
+        assertThat(rendered.substring(rendered.indexOf("## Matches per normalisation")))
                 .contains("| the words themselves | 34 | 1 | 100.0% |");
     }
 }

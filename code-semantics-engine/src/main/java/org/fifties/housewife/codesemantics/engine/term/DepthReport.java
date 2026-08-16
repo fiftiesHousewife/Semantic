@@ -94,12 +94,12 @@ public class DepthReport {
     private static String names(final StatedDepth depth, final List<TaxonomyTree.Node> written) {
         return written.stream()
                 .limit(CONCEPTS_NAMED)
-                .map(node -> "`%s`&nbsp;%s,&nbsp;%,d".formatted(node.label(),
+                .map(node -> "`%s`\u00A0%s,\u00A0%,d".formatted(node.label(),
                         rungs(depth.below(node.label())), node.written()))
                 .collect(Collectors.joining(" "));
     }
 
     private static String rungs(final int below) {
-        return below == 1 ? "1&nbsp;rung" : "%d&nbsp;rungs".formatted(below);
+        return below == 1 ? "1\u00A0rung" : "%d\u00A0rungs".formatted(below);
     }
 }

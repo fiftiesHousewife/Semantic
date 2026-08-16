@@ -57,12 +57,12 @@ class DepthReportTest {
 
     @Test
     void namesTheDeepestConceptsWrittenSoAReaderCanJudgeThemOneAtATime() {
-        assertThat(rendered()).contains("`Result`&nbsp;3&nbsp;rungs,&nbsp;836");
+        assertThat(rendered()).contains("`Result`\u00A03\u00A0rungs,\u00A0836");
     }
 
     @Test
     void countsOneRungInTheSingular() {
-        assertThat(rendered()).contains("`Noun`&nbsp;1&nbsp;rung,&nbsp;31");
+        assertThat(rendered()).contains("`Noun`\u00A01\u00A0rung,\u00A031");
     }
 
     @Test

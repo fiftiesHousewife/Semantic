@@ -173,6 +173,31 @@ Submodule build files are `plugins { id("cs.xxx") }` plus module-specific depend
 - **Never reference plan documents or section numbers in code comments.** State the reasoning itself. Strip
   any pre-existing reference you find.
 
+### Reader-facing prose: reports, README, headings
+
+Everything a reader outside this project sees — every file under `output/`, the README, and **every heading
+in either** — holds to this. It is stricter than the javadoc rule above, not looser.
+
+- **No metaphor, in a heading or anywhere else.** *How the two sides were made to meet* says nothing; **Matches
+  per normalisation** says what the table holds. State the mechanism in short, plain, factual phrases. The
+  same refusal applies to *abstains*, *votes*, *speaks* and *earns*: state the arithmetic — a weight of zero,
+  a share of the total.
+- **Define an ambiguous term where it first appears, and link the definition somebody else published.**
+  *Sense*, *scope*, *span*, *mass*, *rung* all carry an everyday meaning and a technical one. Give the
+  technical one in a clause at first use and link the publisher who states it — for *sense*, WordNet's own
+  documentation. Where no external definition exists, **use a commoner English word, or the standard term of
+  the relevant specialist field — never a meaning invented here.** A term this project genuinely coined
+  belongs in [`docs/GLOSSARY.md`](docs/GLOSSARY.md), defined, and linked at first use.
+- **Terse and structural.** Bullets and tables before paragraphs; a paragraph carrying three figures is a
+  table with three rows. No elaboration, no padding, no narrative of what the reading used to do.
+- **Active voice.** Name what does the thing. *The branch rule refuses 56 terms*, never *56 terms were
+  refused*. A passive sentence hides the actor, and the actor is what a reader needs to check the claim.
+- **A worked example beside anything specialist.** One named word, its two shares, and the arithmetic that
+  produced its figure.
+- **A link's text is the thing it names** — `TermSpans`, never the URL.
+- **Never write an HTML entity into markdown.** `&nbsp;` is escaped to text by the page renderer and appears
+  literally in the table. Write the character.
+
 ---
 
 ## Test standards

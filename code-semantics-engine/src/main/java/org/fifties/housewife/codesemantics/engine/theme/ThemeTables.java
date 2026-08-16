@@ -62,7 +62,7 @@ final class ThemeTables {
     static String witnesses(final List<Witness> carriedBy) {
         return carriedBy.stream()
                 .limit(WITNESSES_SHOWN)
-                .map(witness -> "`%s`&nbsp;%s".formatted(witness.word(), count(witness.occurrences())))
+                .map(witness -> "`%s`\u00A0%s".formatted(witness.word(), count(witness.occurrences())))
                 .collect(Collectors.joining(" "));
     }
 

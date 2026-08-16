@@ -25,8 +25,9 @@ public final class SummaryReport {
 
     private static String heading(final ReadingSummary summary) {
         return String.format("# What the reading shows — %s%n%n"
-                + "Every line below cleared a bar that follows from the size of the field it competed in. "
-                + "What did not clear one is named at the end and reported nowhere.%n", summary.repository());
+                + "Every figure below is larger than the largest of 999 resamples of the same size drawn "
+                + "from this same repository, which is the test each had to pass. Anything that failed that "
+                + "test is named at the end and reported nowhere.%n", summary.repository());
     }
 
     private static String legibility(final ReadingSummary summary) {

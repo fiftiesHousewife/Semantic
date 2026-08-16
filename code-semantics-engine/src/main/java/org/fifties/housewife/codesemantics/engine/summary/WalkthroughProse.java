@@ -105,9 +105,9 @@ final class WalkthroughProse {
             + "branch of the taxonomy. No match contributes to the distribution above: the matcher has been "
             + "run on this repository only, which is one tree and therefore not a measurement.";
 
-    static final String WITHHELD = "Everything that failed a bar above is named here and printed nowhere "
-            + "else. A reading that showed only its survivors would read as a reading with nothing wrong "
-            + "with it.";
+    static final String WITHHELD = "Everything that failed the test above — a figure no larger than "
+            + "chance resampling produced — is named here and printed nowhere else. A reading that showed "
+            + "only what passed would read as a reading with nothing wrong with it.";
 
     static final String FOOT = "Regenerate all of it with ./gradlew selfRead. Every figure is a reading of "
             + "one commit of one working tree, and the corpus includes these reports.";

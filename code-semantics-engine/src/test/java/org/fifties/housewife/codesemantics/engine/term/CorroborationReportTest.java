@@ -56,9 +56,9 @@ class CorroborationReportTest {
     void putsTheTwoReadingsSideBySideBecauseNeitherCanBeJudgedAlone() {
         assertAll(
                 () -> assertThat(rendered).contains("| every match | 442 | 3 | 100.0% | 2 of 2 | "
-                        + "`topic`&nbsp;388 |"),
+                        + "`topic`\u00A0388 |"),
                 () -> assertThat(rendered).contains("| only where the branch holds more than this one "
-                        + "concept | 54 | 2 | 100.0% | 1 of 2 | `phrase`&nbsp;48 |"));
+                        + "concept | 54 | 2 | 100.0% | 1 of 2 | `phrase`\u00A048 |"));
     }
 
     @Test

@@ -83,7 +83,7 @@ class ThemeReportTest {
                 () -> assertThat(report)
                         .as("nine units of fourteen observed, and not nine of the ten a topic took")
                         .contains("| `linguistics` | 0.6429 | 100.0% | 90 | 1 | 120 | 100.0% |"),
-                () -> assertThat(report).contains("`word`&nbsp;1"),
+                () -> assertThat(report).contains("`word`\u00A01"),
                 () -> assertThat(report)
                         .as("and the scope table still shows what music did there, under the topic that "
                                 + "earned the ranking — a topic refused a place is not a topic hidden")

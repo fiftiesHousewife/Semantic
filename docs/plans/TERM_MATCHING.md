@@ -186,6 +186,35 @@ which is a curated observation of a corpus, the one thing the doctrine refuses. 
 and lexicographically curated; this is algorithmically derived, and whether that crosses the line is a
 decision to take deliberately rather than by bundling it.
 
+### Two claims in the published term report do not hold
+
+A line-by-line check of `output/terms.md` against the tree it describes leaves the arithmetic, the bounds and
+the citations standing. Two claims fall.
+
+**1. A test method name is an English sentence, and the term matcher reads it as a name.** The vocabulary
+ranking already separates the source sets the build publishes from the ones it does not, precisely because
+"a test names the behaviour it checks in whole English sentences". `TermReading.of` does not: it reads every
+file's declared names into one tally. What comes through it is measurable —
+
+| Term | Spans | What it actually matched |
+|---|--:|---|
+| `Means` | 33 | the verb inside `refusesToAskADictionaryWhatADependencysNameMeans` and its neighbours |
+| `Given` | 24 | `givenTokens`, and test sentences beginning *given* |
+
+**2. The headline count reads as a claim about linguistic vocabulary, and 42% of it is ordinary English.**
+The largest branch is `LinguisticConcept` at 540 of 1,293 spans, led by `Source` 183
+(`SourceReader`, `ParsedSource`, `sourceSets`), `Set` 101, `Citation` 46, `Means` 33, `Evidence` 32,
+`Document` 30 and `Given` 24. The genuine matches are in the morphosyntax branches — `Verb` 41, `Noun` 38,
+`Phrase` 69, `Prefix` 15, `Suffix` 14, `Stem` 5, `Abbreviation` 23, `Initialism` 11 — and the report gives a
+reader no way to tell the two apart. It is the same defect the branch rule already measures from one side
+and the file-scope finding from another.
+
+**What settles both:** the report states published names and test names apart, as the vocabulary ranking
+does, and names the collision rate rather than leaving it to be inferred from the branch table.
+
+**One inconsistency to fix with them:** the opening says OLiA states **1,197** terms and the paragraph below
+says it publishes **1,311** concepts. Both are true of different populations and neither says which.
+
 ---
 
 ## Matching a single word is misleading — match in context

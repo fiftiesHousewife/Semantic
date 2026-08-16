@@ -58,18 +58,17 @@ public class TermReport {
     private static String wrote(final TaxonomyTree.Node root) {
         return root.writtenHere().stream()
                 .limit(CONCEPTS_SHOWN)
-                .map(node -> "`%s`&nbsp;%d".formatted(node.label(), node.written()))
+                .map(node -> "`%s`\u00A0%d".formatted(node.label(), node.written()))
                 .collect(Collectors.joining(" "));
     }
 
     /**
-     * How the two sides were made to meet, at the end and in one table, because it is a question about
-     * method. A rate per rung and none across them: a match on the words and a match on a shared dictionary
-     * sense are not the same evidence.
+     * What each side was reduced to before matching, at the end and in one table. A rate per rung and none
+     * across them: a match on the words and a match on a shared dictionary sense are not the same evidence.
      */
     private static String rungs(final MatchedTerms matched) {
         final StringBuilder table = new StringBuilder(String.format(
-                "%n## How the two sides were made to meet%n%n"
+                "%n## Matches per normalisation%n%n"
                 + "| Both sides became | Written | Distinct terms | One word long |%n|---|--:|--:|--:|%n"));
         Arrays.stream(TermRung.values()).forEach(rung -> table.append(String.format(
                 "| %s | %,d | %,d | %.1f%% |%n", rung.normalisation(), matched.at(rung).spansFound(),

@@ -69,7 +69,7 @@ public class CorroborationReport {
     private static String largest(final MatchedTerms matched) {
         return matched.sightings().stream()
                 .max(Comparator.comparingInt(TermSighting::occurrences).thenComparing(TermSighting::term))
-                .map(sighting -> "`%s`&nbsp;%,d".formatted(sighting.term(), sighting.occurrences()))
+                .map(sighting -> "`%s`\u00A0%,d".formatted(sighting.term(), sighting.occurrences()))
                 .orElse("—");
     }
 
