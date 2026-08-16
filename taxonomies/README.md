@@ -15,7 +15,9 @@ Point a reading at one with `-Dcs.taxonomy=<path>`:
 | `cso-topics.tsv` | [CSO](https://cso.kmi.open.ac.uk/), Knowledge Media Institute | 14,636 topics | a **term** taxonomy — CSO states no definition for any topic, so there is no prose to compare a scope against | CC BY 4.0, attribution required |
 | `bian-service-domains.tsv` | [BIAN](https://github.com/bian-official/artefacts) | 319 service domains under 8 business areas | a **functional** taxonomy — each states a role definition | Apache-2.0, stated in the publisher's own `LICENSE` |
 
-**`cso-topics.tsv` is lossy and its header says so.** CSO is a poly-hierarchy: 9,927 of its 14,624 topics with a parent have more than one, up to 33, and these eight columns hold a single `broader`. The alphabetically first is carried so a run reproduces, and 29,886 parent statements are dropped. Anything reading the hierarchy out of this file is reading a tree CSO did not publish — the shape has to change before branch corroboration rests on it.
+**What CSO finds.** Run against Apache Tika it corroborates 93 terms that describe a text-extraction toolkit — `encoding` 118, `detector` 181, `parse` 666, `xml` 354, `html` 264, `hyperlink` 47, `word processing`, and the metadata standards Tika reads in `gps` and `cad`. The bundled subject scheme places Tika and this repository under the same category, so CSO is the first source measured here that separates them. Two pronouns survive the citation rule — `it` and `its`, which WordNet carries as words and the registry states as *information technology*.
+
+**`cso-topics.tsv` was lossy and no longer is.** CSO is a poly-hierarchy: 9,927 of its 14,624 topics with a parent have more than one, up to 33. Every parent is carried, joined with the separator `SkosConcept` states for a repeated property, and `broaderConcepts` reads them back — nothing is dropped. **Carrying them made the reading worse before it made it better**: branch corroboration asks whether a sibling was written, which discriminates in a tree and barely discriminates in a dense poly-hierarchy, and on Tika the rule fell from removing 90% of matches to removing 29%.
 
 ## What a file here still owes
 

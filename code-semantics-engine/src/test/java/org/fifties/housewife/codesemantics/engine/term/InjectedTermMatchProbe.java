@@ -44,13 +44,13 @@ public final class InjectedTermMatchProbe {
                 every.spansFound(), every.perThousandNames(), every.distinctTerms());
         System.out.printf("corroborated     %6d spans, %6.2f per thousand names, %4d distinct%n%n",
                 matched.spansFound(), matched.perThousandNames(), matched.distinctTerms());
-        print("what the branch corroborated", matched);
-        print("what it refused, largest first", every);
+        print("what the branch corroborated", matched, Integer.MAX_VALUE);
+        print("what it refused, largest first", every, SHOWN);
     }
 
-    private static void print(final String heading, final MatchedTerms terms) {
+    private static void print(final String heading, final MatchedTerms terms, final int shown) {
         System.out.printf("%n%s%n%-34s %8s %6s  %s%n", heading, "term", "written", "words", "first site");
-        terms.byMass(SHOWN).forEach(sighting -> System.out.printf("%-34s %8d %6d  %s%n",
+        terms.byMass(shown).forEach(sighting -> System.out.printf("%-34s %8d %6d  %s%n",
                 sighting.term(), sighting.occurrences(), sighting.length(), sighting.firstSite()));
     }
 }

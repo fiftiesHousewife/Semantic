@@ -53,3 +53,11 @@ output/*/
 !output/html/
 !output/svg/
 !output/tika/
+
+### Taxonomy source archives, fetched by hand for a candidate reading
+# The converted TSV under taxonomies/ is what is committed; the archive it was read from is not,
+# because it is large, it is republished by its publisher, and its header names where it came from.
+CSO*.csv.zip
+CSO*.csv
+part_*.gz
+manifest.json
