@@ -220,7 +220,7 @@ That hazard is no longer a prediction. The sense rung's largest term is `subject
 
 ### What settles it, stated before it runs
 
-Three arms, all on the panel `-Dcs.panel.dir` is being built for, each reported at several depth cut-offs so the cut-off is a reported figure and not a chosen one:
+Three arms, all on the panel `-Dcs.evaluation.dir` is being built for, each reported at several depth cut-offs so the cut-off is a reported figure and not a chosen one:
 
 1. **Recall it should buy.** Terms this repository writes that OLiA states in other words. Hand-audit fifty near misses and record how many a hypernym reading recovers.
 2. **Precision it must not cost.** The out-of-domain arm, unchanged: a repository OLiA should say nothing about. If generalising raises the out-of-domain rate as fast as the in-domain one, it has bought nothing.

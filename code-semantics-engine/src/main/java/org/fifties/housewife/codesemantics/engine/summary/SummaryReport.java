@@ -5,11 +5,11 @@ import java.util.List;
 
 
 /**
- * The summary as a person reads it: one page, every line of which cleared a stated bar.
+ * The summary as a person reads it: one page, every line of which passed a stated test.
  *
- * <p>It carries no ranking of the whole repository, no list of verbs, no candidate metaphors and no term
- * match. Each of those is a measurement the detailed reports make and none of them has a bar, so printing
- * them here would be filling a summary with the material a summary exists to leave out.
+ * <p>It carries no ranking of the whole repository, no list of verbs and no term match. Each of those is a
+ * measurement the detailed reports make against no threshold, and a summary exists to leave that material
+ * out.
  */
 public final class SummaryReport {
 
@@ -25,23 +25,24 @@ public final class SummaryReport {
 
     private static String heading(final ReadingSummary summary) {
         return String.format("# What the reading shows — %s%n%n"
-                + "Every figure below is larger than the largest of 999 resamples of the same size drawn "
-                + "from this same repository, which is the test each had to pass. Anything that failed that "
-                + "test is named at the end and reported nowhere.%n", summary.repository());
+                + "Every figure below exceeds all 999 resamples of its own size drawn from this same "
+                + "repository. **Withheld** at the end names what did not.%n", summary.repository());
     }
 
     private static String legibility(final ReadingSummary summary) {
         final ReadingSummary.Legibility read = summary.legibility();
         return String.format("%n## How much of it could be read%n%n"
-                        + "**λ = %.3f** — a bundled resource can be cited for that share of %,d word "
-                        + "occurrences across %,d files, %.0f%% of them prose. It is the denominator "
-                        + "everything else rests on, not a finding.%n%n"
-                        + "Of the mass the topical reading then observed, **%.1f%% of it was settled on no "
-                        + "subject**: a phrase nothing could place, or one whose words named so many "
-                        + "subjects that none of them was settled. That share is in the denominator of "
-                        + "every ι reported anywhere, so a topic's intensity is a share of everything "
-                        + "written and not of the little that resolved.%n",
-                read.lambda(), read.words(), read.files(), 100.0 * read.proseShare(),
+                        + "| | |%n|---|--:|%n"
+                        + "| Word occurrences read | %,d |%n"
+                        + "| Files | %,d |%n"
+                        + "| Prose share of those occurrences | %.0f%% |%n"
+                        + "| **λ** — share a bundled resource has an entry for | **%.3f** |%n"
+                        + "| Evidence resolving to no subject | %.1f%% |%n%n"
+                        + "λ is the denominator every figure below rests on. The second share counts "
+                        + "something else: a phrase no resource places, or one whose words name so many "
+                        + "subjects that none of them resolves. A word can have a dictionary entry and "
+                        + "still say nothing about subject matter, so both shares run high together.%n",
+                read.words(), read.files(), 100.0 * read.proseShare(), read.lambda(),
                 100.0 * read.unplaced());
     }
 
@@ -57,11 +58,10 @@ public final class SummaryReport {
 
     private static String about(final ReadingSummary summary) {
         return String.format("%n## What it is about%n%n"
-                        + "The topics that make some part of this repository unlike the rest of it, "
+                        + "The topics distinguishing some part of this repository from the rest, "
                         + "commonest first: %s.%n%n"
-                        + "A topic held at the same density everywhere distinguishes nothing, so there is no "
-                        + "ranking of the repository as a whole here — a ranking has nothing to be compared "
-                        + "against.%n",
+                        + "A topic written at the same density everywhere distinguishes no part of it, so "
+                        + "this list ranks nothing about the repository as a whole.%n",
                 named(summary.about()));
     }
 
@@ -81,13 +81,10 @@ public final class SummaryReport {
         summary.withheld().stream()
                 .limit(SCOPES_NAMED)
                 .forEach(entry -> held.append(String.format("- `%s` — %s%n", entry.what(), entry.why())));
-        return held + rest(summary.withheld().size(), "did not clear the bar either");
+        return held + rest(summary.withheld().size(), "fell within chance as well");
     }
 
-    /**
-     * What the lists above left out, counted rather than dropped: a silent cap reads as coverage it does not
-     * have. The report holding every row is named.
-     */
+    /** What the lists above left out, as a count. A silent cap reads as coverage the list does not have. */
     private static String rest(final int held, final String what) {
         return held <= SCOPES_NAMED ? ""
                 : String.format("%n%d more %s — `themes.md` names every one.%n", held - SCOPES_NAMED, what);

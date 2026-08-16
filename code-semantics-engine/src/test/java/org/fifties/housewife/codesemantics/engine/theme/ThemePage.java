@@ -30,7 +30,7 @@ final class ThemePage {
 
     private static final String SCRIPT = "/sunburst.js";
 
-    private static final String TAXONOMY_PICTURE = "taxonomy-sunburst.svg";
+    private static final String TAXONOMY_PICTURE = "../svg/taxonomy-sunburst.svg";
 
     private static final String SVG = "image/svg+xml";
     private final ThemeSections sections = new ThemeSections();
@@ -72,7 +72,6 @@ final class ThemePage {
     private DomContent graphSection(final ThemeGraph graph) {
         return section(
                 sections.heading(PageProse.GRAPH_HEADING, PageProse.GRAPH),
-                div(new ThemeSunburst(graph.nodes()).chart()).withClass("panel sunburst-figure"),
                 p(denominator(graph)).withClass("note"),
                 taxonomySection());
     }

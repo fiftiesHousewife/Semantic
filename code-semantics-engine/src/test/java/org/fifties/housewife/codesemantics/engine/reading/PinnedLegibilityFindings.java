@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * none of them does. A tree can legitimately declare no Java where a build states its sources somewhere this
  * reading does not look; a tree can legitimately name no dependency outside itself; and a tree can
  * legitimately hold a file the parser refuses, which is the whole subject of the parse plan's recovery
- * question. On a panel each of those is a member to be reported, not a build to be failed — so what is
+ * question. On an evaluation set each of those is a member to be reported, not a build to be failed — so what is
  * asserted here is asserted of this tree, which parses end to end and does name its dependencies.
  */
 @Tag("pinned")

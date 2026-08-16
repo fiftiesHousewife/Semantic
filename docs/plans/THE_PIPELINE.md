@@ -43,6 +43,6 @@ The noise gate is the load-bearing one. A dependency bump has no semantic conten
 
 ## After those, the plan's own order resumes
 
-The polyglot parse, the store, and the first vertical slice against `junit-team/junit-framework` — the first time this library reads something that is not itself. `-Dcs.panel.dir` and the out-of-domain arm are what turn every figure here from an instrument reading itself into a measurement.
+The polyglot parse, the store, and the first vertical slice against `junit-team/junit-framework` — the first time this library reads something that is not itself. `-Dcs.evaluation.dir` and the out-of-domain arm are what turn every figure here from an instrument reading itself into a measurement.
 
 ---

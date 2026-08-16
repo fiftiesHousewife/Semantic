@@ -30,14 +30,16 @@ class ThemePageTest {
     }
 
     @Test
-    void carriesBothPicturesTheReadingDraws() {
+    void referencesTheFieldPictureTheTermReadingWrote() {
         final String page = new ThemePage().of(graphCiting(PERMALINK));
         assertAll(
-                () -> assertThat(page).contains("<svg id=\"sunburst\""),
                 () -> assertThat(page)
                         .as("the field is drawn by a different step over a different reading, so the page "
                                 + "references the file that step wrote rather than redrawing it")
-                        .contains("taxonomy-sunburst.svg"));
+                        .contains("taxonomy-sunburst.svg"),
+                () -> assertThat(page)
+                        .as("one picture per question, and the bar already carries the topics")
+                        .doesNotContain("id=\"sunburst\""));
     }
 
     @Test
@@ -68,7 +70,6 @@ class ThemePageTest {
                 () -> assertThat(page).contains("<title>Themes — tree</title>"),
                 () -> assertThat(page).contains("computing"),
                 () -> assertThat(page).contains("stands outside its own null"),
-                () -> assertThat(page).contains("<svg id=\"sunburst\""),
                 () -> assertThat(page)
                         .as("a share of 0.08 means nothing without the denominator it was taken over")
                         .contains("78.0%"),

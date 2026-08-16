@@ -57,7 +57,7 @@ final class ThemeBar {
         this.ranked = nodes.stream()
                 .sorted(Comparator.comparingDouble(ThemeGraph.Node::explains).reversed())
                 .toList();
-        this.broaderTopics = List.copyOf(ThemeSunburst.byBroaderTopic(nodes).keySet());
+        this.broaderTopics = List.copyOf(TopicBranches.of(nodes).keySet());
         this.drawn = nodes.stream().mapToDouble(ThemeGraph.Node::explains).sum();
     }
 

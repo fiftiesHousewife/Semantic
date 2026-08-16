@@ -5,12 +5,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.fifties.housewife.bi.lexicon.OliaTerms;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.CloneUnderReading;
-import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
 import org.fifties.housewife.codesemantics.engine.reading.JavaSourceScopes;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
+import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
+import org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy;
+import org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish;
+import org.fifties.housewife.codesemantics.engine.theme.PlacedField;
+import org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics;
+import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
+import org.fifties.housewife.codesemantics.engine.theme.TopicWitnesses;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -70,12 +77,13 @@ class TermReadingDiagnostic {
         final ParsedRepository parsed = ParsedRepository.of(root, scopes);
         final LinguisticTerms terms = LinguisticTerms.fromClasspath();
 
-        final MatchedTerms every = TermReading.over(terms).of(parsed);
-        final TaxonomyTree everyTree = treeOf(every);
-        final StatedSiblings siblings = StatedSiblings.of(everyTree);
-
-        final MatchedTerms matched = TermReading.corroboratedBy(terms, siblings).of(parsed);
-        final TaxonomyTree tree = treeOf(matched);
+        final CorroboratedReading reading = CorroboratedReading.of(terms,
+                OliaTerms.fromClasspath().concepts(), parsed);
+        final MatchedTerms every = reading.every();
+        final TaxonomyTree everyTree = reading.everyTree();
+        final StatedSiblings siblings = reading.siblings();
+        final MatchedTerms matched = reading.matched();
+        final TaxonomyTree tree = reading.tree();
 
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         write(reports, root, terms, matched, tree,
@@ -126,67 +134,30 @@ class TermReadingDiagnostic {
      * That reading covers the markdown as well as the Java, so this page agrees with every other report.
      */
     private static TaxonomyChoice chose(final String taxonomy) {
-        final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes =
-                org.fifties.housewife.codesemantics.engine.reading.TreeReading
-                        .ofTheCloneUnderReading().themes();
-        final org.fifties.housewife.bi.lexicon.ArxivSubjects arxiv =
-                org.fifties.housewife.bi.lexicon.ArxivSubjects.fromClasspath();
-        final java.util.List<org.fifties.housewife.bi.lexicon.SkosConcept> archives =
-                new org.fifties.housewife.codesemantics.engine.theme.PooledDescriptions()
-                        .broaderThan(arxiv.described(), arxiv);
-        final java.util.List<org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.Placement>
-                placed = org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement.byDivergence()
-                        .of(themes.repository().comparison(),
-                                org.fifties.housewife.codesemantics.engine.theme.SubjectAreas
-                                        .fromClasspath().of(archives));
-        final org.fifties.housewife.codesemantics.engine.theme.SubjectNull.Chance chance =
-                org.fifties.housewife.codesemantics.engine.theme.SubjectNull.seeded(SEED)
-                        .of(placed.getFirst().bits(), themes.repository().comparison(),
-                                archives.stream()
-                                        .map(org.fifties.housewife.bi.lexicon.SkosConcept::definition)
-                                        .toList());
-        return new TaxonomyChoice(themesCarriedBy(themes), placed.getFirst().label(),
-                placed.getFirst().bits(), chance.chanceNearest(), chance.standsApart(), taxonomy,
+        final RepositoryThemes themes = TreeReading.ofTheCloneUnderReading().themes();
+        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), SEED);
+        return new TaxonomyChoice(themesCarriedBy(themes), field.nearest().label(), field.nearest().bits(),
+                field.chance().chanceNearest(), field.chance().standsApart(), taxonomy,
                 "it is the vocabulary of linguistic annotation, whose concepts are already identifiers, so "
                         + "a match is identifier to identifier with no English in between");
     }
 
     /** Each qualified subject with the words that put it there, so the page can show its working. */
-    private static java.util.List<TaxonomyChoice.Theme> themesCarriedBy(
-            final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes) {
+    private static List<TaxonomyChoice.Theme> themesCarriedBy(final RepositoryThemes themes) {
         return qualifiedTopics(themes).stream()
                 .map(topic -> new TaxonomyChoice.Theme(topic,
                         themes.witnesses().forTopic(topic, WITNESSES_NAMED).stream()
-                                .map(org.fifties.housewife.codesemantics.engine.theme
-                                        .TopicWitnesses.Witness::word)
+                                .map(TopicWitnesses.Witness::word)
                                 .toList()))
                 .toList();
     }
 
-    private static java.util.List<String> qualifiedTopics(
-            final org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes themes) {
-        return new org.fifties.housewife.codesemantics.engine.theme.QualifiedTopics(themes.witnesses(),
-                org.fifties.housewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading(),
-                org.fifties.housewife.codesemantics.engine.theme.FieldOfStudy.fromClasspath()
-                        .nearestTo(themes.repository().comparison()))
+    private static List<String> qualifiedTopics(final RepositoryThemes themes) {
+        return new QualifiedTopics(themes.witnesses(), OrdinaryEnglish.fromClasspath().reading(),
+                FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison()))
                 .across(themes.divergences().stream()
                         .filter(scope -> scope.chance().exceedsChance()).toList(),
                         themes.repository().intensity(), themes.repository().comparison());
-    }
-
-    /** How often the repository wrote each concept, by the label the taxonomy states it under. */
-    private static java.util.Map<String, Integer> writtenByConcept(final MatchedTerms matched) {
-        final java.util.Map<String, Integer> written = new java.util.HashMap<>();
-        matched.sightings().forEach(sighting -> sighting.concepts().forEach(concept ->
-                written.merge(concept.prefLabel(), sighting.occurrences(), Integer::sum)));
-        return written;
-    }
-
-
-    private static TaxonomyTree treeOf(final MatchedTerms matched) {
-        return TaxonomyTree.of(org.fifties.housewife.bi.lexicon.OliaTerms.fromClasspath().concepts(),
-                writtenByConcept(matched),
-                label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
     }
 
     private static void write(final ReportFolder reports, final Path root, final LinguisticTerms terms,

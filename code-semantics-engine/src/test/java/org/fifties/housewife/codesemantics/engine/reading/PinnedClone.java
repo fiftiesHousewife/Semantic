@@ -9,17 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.fifties.housewife.codesemantics.engine.reading.PanelManifest.Member;
+import org.fifties.housewife.codesemantics.engine.reading.EvaluationSet.Member;
 
 /**
- * A panel member's working tree at the commit the manifest pins it to, fetched where it is not already
+ * A evaluation set member's working tree at the commit the manifest pins it to, fetched where it is not already
  * there.
  *
  * <p>A reading of a moving target is not reproducible, so the clone is checked out at the stated commit and
  * a tree sitting at any other commit is fetched again. Nothing is fetched when the tree is already pinned,
- * which is what makes a panel run repeatable at no cost.
+ * which is what makes an evaluation set run repeatable at no cost.
  *
- * <p>The fetch is the shallow one the panel plan measured: {@code git init}, {@code git fetch --depth 1}
+ * <p>The fetch is the shallow one the evaluation-set plan measured: {@code git init}, {@code git fetch --depth 1}
  * naming the commit, {@code git checkout FETCH_HEAD}. A blob filter makes it slower rather than faster,
  * because the filter defers each blob and the checkout then fetches the files one round trip at a time.
  */
@@ -35,9 +35,9 @@ public final class PinnedClone {
         this.member = Objects.requireNonNull(member, "member");
     }
 
-    /** The member's tree at its pinned commit, fetched if what is under the panel directory is not it. */
-    public Path under(final Path panel) {
-        final Path clone = member.under(panel);
+    /** The member's tree at its pinned commit, fetched if what is under the evaluation set directory is not it. */
+    public Path under(final Path evaluationSet) {
+        final Path clone = member.under(evaluationSet);
         if (isPinned(clone)) {
             return clone;
         }
@@ -72,7 +72,7 @@ public final class PinnedClone {
 
     /**
      * Git's own answer, with its error output attached where it fails. A member that will not fetch has to
-     * name itself: a panel run that quietly reads yesterday's tree reports a figure nobody can reproduce.
+     * name itself: an evaluation set run that quietly reads yesterday's tree reports a figure nobody can reproduce.
      */
     private String git(final Path clone, final String... arguments) {
         final List<String> command = new ArrayList<>(List.of("git", "-C", clone.toString()));

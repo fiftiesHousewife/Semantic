@@ -19,7 +19,7 @@ import java.nio.file.Path;
  * <p>What they are <b>named</b> is settled by what was read. This repository's reading of itself is the one
  * it publishes, so it writes into {@code output/} directly; a reading of any other clone writes into a folder
  * of that clone's own name beneath it. Without that a single {@code -Dcs.clone.dir} run silently replaces
- * every figure the README quotes with somebody else's, and a panel of thirty could keep only the last.
+ * every figure the README quotes with somebody else's, and an evaluation set of thirty could keep only the last.
  *
  * <p>{@code -Dcs.output.dir} overrides the base, and is the second of the two properties the test convention
  * forwards to a forked JVM. Without one the folder is resolved from the module directory the tests run in.
@@ -52,15 +52,20 @@ public final class ReportFolder {
         return folder;
     }
 
-    /** The named report, with its folder made — a reading that cannot write has nothing to say. */
+    /**
+     * The named artefact, with its folder made — a reading that cannot write has nothing to say. The folder
+     * is the one its own format states, so what a consumer parses, what a person reads and what a browser
+     * opens are not one heap of forty files.
+     */
     public Path file(final String name) throws IOException {
-        Files.createDirectories(folder);
-        return folder.resolve(name);
+        final Path kind = folder.resolve(PublishedFormat.of(name).folder());
+        Files.createDirectories(kind);
+        return kind.resolve(name);
     }
 
     /**
-     * Writes a report and the page a browser renders it as, side by side under one name. Markdown is what
-     * a renderer is easy to write and to assert against; HTML is what a reader opens.
+     * Writes a report and the page a browser renders it as, from one source. The markdown is the report and
+     * the page is a rendering of it, so the two cannot state different figures.
      */
     public void wrote(final String name, final String markdown, final String title) throws IOException {
         Files.writeString(file(name + ".md"), markdown);

@@ -24,6 +24,9 @@ assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }
 # publishes — so no consumer of this library resolves it.
 duckdb-jdbc = { module = "org.duckdb:duckdb_jdbc", version.ref = "duckdb" }
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+# The export states its own schema and is checked against it before it is written, so a document that does
+# not match the contract a consumer reads is never published in the first place.
+json-schema-validator = { module = "com.networknt:json-schema-validator", version = "1.5.9" }
 # The themes viewer's markup, as a typed DSL rather than a string. A page assembled from tags cannot emit
 # unbalanced markup or forget to escape a witness, and the alternative — HTML inside Java string literals —
 # is the thing this keeps out of the tree. Diagnostic-only, so it never reaches the published artefact.

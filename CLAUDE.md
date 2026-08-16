@@ -107,7 +107,7 @@ Multi-module structure with a `build-logic/` included build. The root `build.gra
 
 ### Reader-facing prose: reports, README, headings
 
-The long form of these rules, with the examples and a review checklist, is the `written-english` skill — [`docs/SKILLS.md`](docs/SKILLS.md) indexes it and states how to install it. What follows is the condensed form, which binds whether or not the skill is loaded.
+The long form of these rules, with the examples and a review checklist, is the `written-english` skill — [`docs/SKILLS.md`](.claude/skills/SKILLS.md) indexes it and states how to install it. What follows is the condensed form, which binds whether or not the skill is loaded.
 
 Everything a reader outside this project sees — every file under `output/`, the README, and **every heading in either** — holds to this. It is stricter than the javadoc rule above, not looser.
 
@@ -132,7 +132,7 @@ Everything a reader outside this project sees — every file under `output/`, th
 - **Never hand over a manual verification checklist.** Encode the scenario in the suite. Manual checking is for taste only.
 - **Never dismiss a flaky test.** Investigate immediately.
 - Tagged tests: `generate` and `diagnostic` are excluded by default. Run one with `-Dinclude.tags=diagnostic`, which also streams the forked JVM's console output.
-- **The self test is `./gradlew selfRead`.** It runs every `diagnostic`-tagged reading over this repository and echoes each report to the console, writing them under `code-semantics-engine/build/reports/self-reading/`: `self-reading.md` (what the code is legible as), `themes.md` (what it is about, scope by scope), `themes.json` (the same figures, as an export) and `themes.html` (the viewer over that export, rendered by `ThemePage` as typed tags — **markup never appears in a Java string literal**, and the page's stylesheet and script are their own files). Point it at another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the forked JVM. The README carries the current result, and the corpus it reports on is this repository — **including its own documentation**, so any commit that changes a source file *or a markdown file* moves every figure in it. The report is inside the thing it reports on, and there is no commit at which the two agree exactly: writing the figures down changes them. So quote them as a reading **of a named commit**, regenerate with `./gradlew selfRead` whenever the reading itself changes, and do not chase the fixed point. A figure that is a commit or two old is honest; one taken from a different version of the reader is not.
+- **The self test is `./gradlew read`.** It runs every `diagnostic`-tagged reading over this repository and echoes each report to the console, writing them under `code-semantics-engine/build/reports/self-reading/`: `self-reading.md` (what the code is legible as), `themes.md` (what it is about, scope by scope), `themes.json` (the same figures, as an export) and `themes.html` (the viewer over that export, rendered by `ThemePage` as typed tags — **markup never appears in a Java string literal**, and the page's stylesheet and script are their own files). Point it at another clone with `-Dcs.clone.dir=<path>`, the one system property the test convention forwards to the forked JVM. The README carries the current result, and the corpus it reports on is this repository — **including its own documentation**, so any commit that changes a source file *or a markdown file* moves every figure in it. The report is inside the thing it reports on, and there is no commit at which the two agree exactly: writing the figures down changes them. So quote them as a reading **of a named commit**, regenerate with `./gradlew read` whenever the reading itself changes, and do not chase the fixed point. A figure that is a commit or two old is honest; one taken from a different version of the reader is not.
 
 ### Measurement is the argument
 
@@ -145,7 +145,7 @@ This library's claims are measurements. A change that cannot be shown to move a 
 1. `./gradlew cleanTest checkAll` — **a cached `BUILD SUCCESSFUL` reads exactly like a real green.** Run `cleanTest` before trusting one.
 2. Gate on the actual `BUILD SUCCESSFUL` log line, not a background exit code.
 3. Never run Gradle concurrently with another Gradle invocation, and never pipe Gradle through `tail`.
-4. If the change adds, removes or renames a Java file — or changes how a name is read — run `./gradlew selfRead`, then land the regenerated figures in a follow-up commit that touches no Java.
+4. If the change adds, removes or renames a Java file — or changes how a name is read — run `./gradlew read`, then land the regenerated figures in a follow-up commit that touches no Java.
 5. **Never `git push` without explicit instruction.**
 
 ---

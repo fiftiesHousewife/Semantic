@@ -1,0 +1,44 @@
+# The backtest evaluation set: the repositories this reading is measured on, as opposed to the one it was
+# developed against. One row per member, and the answer for each comes from outside this project.
+#
+# Columns: name, origin, sha, licence, domain, stated-by, arm
+#   name        the directory the clone is expected under -Dcs.evaluation.dir
+#   origin      the URL it is cloned from
+#   sha         the commit it is pinned to. A reading of a moving target is not reproducible, and
+#               every figure this library publishes is a reading of a named commit.
+#   licence     Apache-2.0, MIT or BSD. Verified at the revision named above, not at HEAD.
+#   domain      what the repository is about
+#   stated-by   where that answer came from — the repository's own README one-liner, its GitHub
+#               topics, its package description, or the standards body publishing its field. It is
+#               recorded BEFORE the reading is run and never revised afterwards. An answer chosen
+#               after reading the tree is the same defect as choosing OLiA after reading this one.
+#   arm         in-domain | out-of-domain | no-taxonomy | degenerate
+#
+# Source: THIS PROJECT. That has to be said outright. Every other file bundled here is a curated
+#   statement of a published standard, which is citable; this is a curated observation of a corpus,
+#   which the doctrine refuses as evidence. IT IS A TEST FIXTURE AND IT NEVER VOTES. It is not on
+#   the published classpath and nothing in the library reads it — only the evaluation set diagnostic does.
+# Licence: this file is part of this project and carries its licence. The repositories it names
+#   carry their own, which is what the licence column is for.
+#
+# What a member costs to add is: verify the licence at the revision, record the stated domain and
+# who stated it, pin the SHA, and put it in an arm. Every domain needs at least one out-of-domain
+# member, because a vocabulary that fires in its domain proves nothing until it is shown not to
+# fire outside it, and the honest first result for those is silence.
+#
+# The domain column below is cited, not chosen: it is the category token the Apache Software
+#   Foundation states for the project in its own DOAP record, published separately from the code
+#   and written by the project rather than by anyone here. Cited rather than copied — one token
+#   per member is a fact about that project, where a wholesale copy of the category list would be
+#   an adaptation of a curated work.
+# Retrieved: 2026-08-15 from https://projects.apache.org/json/foundation/projects.json
+#   sha256 96fc9d38453d3ffe96b0875104c2d579ecc813fa500ec296c5a43ffece61a120, so a later run can
+#   tell whether it is reading the same statement. That aggregate holds 375 projects, 269 of them
+#   stating Java, across 644 category slots of which 115 are `retired` or `no-tlp-doap`.
+# Origins are the github.com/apache mirrors rather than the gitbox or svn URLs the DOAP records
+#   name, because those are what can be cloned without credentials.
+#
+# The arm is relative to the taxonomies this repository bundles, OLiA and FIBO. An Apache project
+#   about content extraction or big data is one neither vocabulary should say anything about, and
+#   that silence is the control the industry-vocabulary reading has been blocked on.
+tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	content	Apache DOAP category token, retrieved 2026-08-15	out-of-domain

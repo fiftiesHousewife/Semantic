@@ -6,10 +6,8 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.fifties.housewife.codesemantics.engine.reading.LegibilityReading;
-import org.fifties.housewife.codesemantics.engine.reading.PublishedSourceSets;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
 import org.fifties.housewife.codesemantics.engine.reading.RepositoryLegibility;
-import org.fifties.housewife.codesemantics.engine.reading.ScopeLegibility;
 import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.fifties.housewife.codesemantics.engine.reading.WrittenWords;
 import org.junit.jupiter.api.Tag;
@@ -84,9 +82,10 @@ class VocabularyReadingDiagnostic {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final Path root = reading.root();
         final RepositoryLegibility legibility = LegibilityReading.fromClasspath().of(reading.parsed());
+        final PublishedNames names = new PublishedNames();
         final WrittenWords written = legibility.repository().written();
-        final WrittenWords named = namesPublishedFrom(legibility);
-        final WrittenWords checked = namesThatCheckIt(legibility);
+        final WrittenWords named = names.published(legibility);
+        final WrittenWords checked = names.checking(legibility);
         final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
         final VocabularyNull chance = VocabularyNull.seeded(TreeReading.SEED);
         final List<ChosenWord> ranked = chosen.in(named);
@@ -114,21 +113,4 @@ class VocabularyReadingDiagnostic {
         return new VocabularyReport(chance.over(written, chosen.references()));
     }
 
-    /** What the source sets the build publishes called things — the repository as anyone else receives it. */
-    private static WrittenWords namesPublishedFrom(final RepositoryLegibility legibility) {
-        return names(legibility, true);
-    }
-
-    /** What everything else called things: a test names the behaviour it checks, in sentences. */
-    private static WrittenWords namesThatCheckIt(final RepositoryLegibility legibility) {
-        return names(legibility, false);
-    }
-
-    private static WrittenWords names(final RepositoryLegibility legibility, final boolean published) {
-        final PublishedSourceSets sets = new PublishedSourceSets();
-        return WrittenWords.pooling(legibility.scopes().stream()
-                .filter(scope -> sets.publishes(scope.name()) == published)
-                .map(ScopeLegibility::written)
-                .toList()).asNamesOnly();
-    }
 }

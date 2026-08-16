@@ -5,18 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.fifties.housewife.bi.lexicon.ArxivSubjects;
-import org.fifties.housewife.bi.lexicon.SkosConcept;
 import org.fifties.housewife.codesemantics.engine.parse.ParsedRepository;
 import org.fifties.housewife.codesemantics.engine.reading.TreeReading;
 import org.fifties.housewife.codesemantics.engine.reading.LegibilityReading;
 import org.fifties.housewife.codesemantics.engine.reading.ReportFolder;
-import org.fifties.housewife.codesemantics.engine.theme.PooledDescriptions;
+import org.fifties.housewife.codesemantics.engine.theme.PlacedField;
 import org.fifties.housewife.codesemantics.engine.theme.RepositoryThemes;
-import org.fifties.housewife.codesemantics.engine.theme.SubjectAreas;
-import org.fifties.housewife.codesemantics.engine.theme.SubjectNull;
-import org.fifties.housewife.codesemantics.engine.theme.SubjectPlacement;
-import org.fifties.housewife.codesemantics.engine.theme.ThemeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -52,17 +46,11 @@ class ReadingSummaryDiagnostic {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
 
-        final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
-        final List<SkosConcept> archives =
-                new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy);
-        final List<SubjectPlacement.Placement> field = SubjectPlacement.byDivergence()
-                .of(themes.repository().comparison(), SubjectAreas.fromClasspath().of(archives));
-        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(field.getFirst().bits(),
-                themes.repository().comparison(),
-                archives.stream().map(SkosConcept::definition).toList());
+        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), TreeReading.SEED);
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
-                LegibilityReading.fromClasspath().of(parsed), themes, field, chance, TOPICS_PER_SCOPE);
+                LegibilityReading.fromClasspath().of(parsed), themes, field.placements(), field.chance(),
+                TOPICS_PER_SCOPE);
         final String page = new SummaryReport().render(summary);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         reports.wrote(REPORT, page, "Summary");

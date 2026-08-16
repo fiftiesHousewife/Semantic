@@ -10,15 +10,21 @@ dependencies {
     api(project(":code-semantics-api"))
     implementation(project(":lexicon"))
     implementation(libs.javaparser.core)
+    // Every run writes the export, which is what a consumer reads instead of the reports, so the serialiser
+    // is the library's business and ships with it. The validator ships beside it because the export is
+    // checked against its own published schema before it is written: a contract a writer can break is a
+    // comment.
+    implementation(libs.jackson.databind)
+    // The schema is JSON, so the validator's YAML reader is weight in the artefact and is excluded.
+    implementation(libs.json.schema.validator) {
+        exclude(group = "com.fasterxml.jackson.dataformat", module = "jackson-dataformat-yaml")
+    }
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
     testCompileOnly(libs.lombok)
     testAnnotationProcessor(libs.lombok)
     testImplementation(libs.junit.jupiter)
-    // The theme diagnostic exports its graph for a viewer to render. A report format is a diagnostic's
-    // business and not the library's, so the serialiser stays out of the published artefact.
-    testImplementation(libs.jackson.databind)
     // And renders that graph as a page. Markup is a DSL of typed tags, never a string in a Java file.
     testImplementation(libs.j2html)
     testRuntimeOnly(libs.junit.platform.launcher)
@@ -69,17 +75,16 @@ tasks.register<JavaExec>("wordPlace") {
     args = (findProperty("words") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
-// The library's self test: reads this repository's own Java sources and reports how much of what they are
-// written in a bundled resource can be cited for. Point it at another clone with -Dcs.clone.dir=<path>.
-//   ./gradlew selfRead
-// Only the summary is echoed. The detailed reports are still written beside it — self-reading.md, themes.md,
-// subjects.md and terms.md — and each carries what it measured; the summary carries what cleared a bar, and
-// printing both to one console is how the second gets lost in the first.
+// Reads one repository: what its names are legible as, what they are about, and which published concepts
+// they write. With no property it reads the tree it is running in, which is this library reading itself.
+//   ./gradlew read
+//   ./gradlew read -Dcs.clone.dir=<path>
+// Only the summary is echoed. Every report is written beside it under output/, and the export with them.
 val readingOutput = rootProject.layout.projectDirectory.dir("output")
 
-tasks.register<Test>("selfRead") {
+tasks.register<Test>("read") {
     group = "verification"
-    description = "Reads this repository's own sources: what they are legible as, and what they are about"
+    description = "Reads one repository: what its names are legible as, and what they are about"
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
@@ -90,31 +95,56 @@ tasks.register<Test>("selfRead") {
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
+    finalizedBy("readingExport")
     doLast {
-        logger.lifecycle(readingOutput.file("summary.md").asFile.readText())
-        logger.lifecycle("Every report, with the bar each carries: " +
-            "file://${readingOutput.file("index.html").asFile.absolutePath}")
+        logger.lifecycle(readingOutput.file("markdown/summary.md").asFile.readText())
+        logger.lifecycle("Every report, with the test each row had to pass: " +
+            "file://${readingOutput.file("html/index.html").asFile.absolutePath}")
     }
 }
 
-// The backtest. Every figure selfRead reports is an instrument reading itself; this reads the panel the
-// reading was not written for, one report folder per member under output/<name>/.
-//   ./gradlew panelRead -Dcs.panel.dir=<directory holding the clones>
+// The export: one JSON file holding the signals, the themes and every taxonomy result, written without a
+// report being produced or a test framework being involved. That is what says the documents render this file
+// rather than the other way round.
+//   ./gradlew readingExport
+// The commit is passed in because the library reads no .git of its own.
+tasks.register<JavaExec>("readingExport") {
+    group = "verification"
+    description = "Writes the reading of this repository as one JSON file a consumer can act on"
+    mainClass = "org.fifties.housewife.codesemantics.engine.export.ExportCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
+    val tree = System.getProperty("cs.clone.dir") ?: rootProject.projectDir.absolutePath
+    argumentProviders.add(CommandLineArgumentProvider {
+        listOf(providers.exec {
+            commandLine("git", "-C", tree, "rev-parse", "HEAD")
+        }.standardOutput.asText.get().trim())
+    })
+    doLast {
+        logger.lifecycle("The export: file://${readingOutput.file("json/reading.json").asFile.absolutePath}")
+    }
+}
+
+// The backtest. Every figure `read` reports about this tree is an instrument measuring itself; this reads the
+// repositories the reading was never written for, one report folder per member under output/<name>/.
+//   ./gradlew evaluationRead -Dcs.evaluation.dir=<directory holding the clones>
 // One Test task per member, because a member is read by pointing the whole reading at it and a Test task
 // carries one set of system properties. A member the caller has not cloned is skipped and named, not
 // silently counted as read: a member that was never read and a member the vocabulary correctly said
 // nothing about produce the same empty row, and only one of them is a result.
-val panelDirectory: String? = System.getProperty("cs.panel.dir")
+val evaluationDirectory: String? = System.getProperty("cs.evaluation.dir")
 
-val panelMembers: List<String> = layout.projectDirectory.file("src/test/resources/panel.tsv").asFile
+val evaluationMembers: List<String> = layout.projectDirectory.file("src/test/resources/evaluation-set.tsv").asFile
     .readLines()
     .filter { it.isNotBlank() && !it.startsWith("#") }
     .map { it.substringBefore('\t') }
 
-val memberReadings = panelMembers.map { member ->
-    tasks.register<Test>("panelRead${member.replaceFirstChar(Char::uppercase)}") {
+val memberReadings = evaluationMembers.map { member ->
+    tasks.register<Test>("evaluationRead${member.replaceFirstChar(Char::uppercase)}") {
         group = "verification"
-        description = "Reads the panel member $member"
+        description = "Reads the evaluation-set member $member"
         testClassesDirs = sourceSets["test"].output.classesDirs
         classpath = sourceSets["test"].runtimeClasspath
         maxHeapSize = "3g"
@@ -122,11 +152,11 @@ val memberReadings = panelMembers.map { member ->
         outputs.upToDateWhen { false }
         testLogging.showStandardStreams = true
         systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
-        panelDirectory?.let { systemProperty("cs.clone.dir", "$it/$member") }
+        evaluationDirectory?.let { systemProperty("cs.clone.dir", "$it/$member") }
         onlyIf {
-            val cloned = panelDirectory != null && file("$panelDirectory/$member").isDirectory
+            val cloned = evaluationDirectory != null && file("$evaluationDirectory/$member").isDirectory
             if (!cloned) {
-                logger.lifecycle("Panel member $member is not cloned under ${panelDirectory ?: "(no -Dcs.panel.dir)"} — not read.")
+                logger.lifecycle("Evaluation-set member $member is not cloned under ${evaluationDirectory ?: "(no -Dcs.evaluation.dir)"} — not read.")
             }
             cloned
         }
@@ -134,37 +164,37 @@ val memberReadings = panelMembers.map { member ->
 }
 
 // The clones themselves, fetched at the commits the manifest pins. It reaches the network, so it is tagged
-// `backtest` and excluded from every ordinary run; a panel figure is otherwise a reading of a moving target.
-//   ./gradlew panelFetch -Dcs.panel.dir=<directory to hold the clones>
-tasks.register<Test>("panelFetch") {
+// `backtest` and excluded from every ordinary run; an evaluation set figure is otherwise a reading of a moving target.
+//   ./gradlew evaluationFetch -Dcs.evaluation.dir=<directory to hold the clones>
+tasks.register<Test>("evaluationFetch") {
     group = "verification"
-    description = "Fetches every panel member at the commit the manifest pins it to"
+    description = "Fetches every evaluation-set member at the commit the manifest pins it to"
     testClassesDirs = sourceSets["test"].output.classesDirs
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     useJUnitPlatform { includeTags("backtest") }
     outputs.upToDateWhen { false }
     testLogging.showStandardStreams = true
-    panelDirectory?.let { systemProperty("cs.panel.dir", it) }
+    evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
-tasks.register("panelRead") {
+tasks.register("evaluationRead") {
     group = "verification"
-    description = "Reads every cloned panel member, one report folder per member under output/"
+    description = "Reads every cloned evaluation set member, one report folder per member under output/"
     dependsOn(memberReadings)
     doFirst {
-        if (panelDirectory == null) {
-            throw GradleException("panelRead needs -Dcs.panel.dir=<directory holding the clones>.")
+        if (evaluationDirectory == null) {
+            throw GradleException("evaluationRead needs -Dcs.evaluation.dir=<directory holding the clones>.")
         }
-        if (panelMembers.isEmpty()) {
-            throw GradleException("The panel manifest names no member, so this would report an empty " +
-                "result table as a result. src/test/resources/panel.tsv states what a member costs " +
+        if (evaluationMembers.isEmpty()) {
+            throw GradleException("The evaluation-set manifest names no member, so this would report an empty " +
+                "result table as a result. src/test/resources/evaluation-set.tsv states what a member costs " +
                 "to add: a licence verified at the revision, a domain stated by somebody outside this " +
                 "project, a pinned SHA, and an arm.")
         }
     }
     doLast {
-        logger.lifecycle("Panel read. One report folder per member under " +
+        logger.lifecycle("EvaluationSet read. One report folder per member under " +
             "file://${readingOutput.asFile.absolutePath}")
     }
 }

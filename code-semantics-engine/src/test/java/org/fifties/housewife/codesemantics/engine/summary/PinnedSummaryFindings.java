@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * legitimately go the other way on a repository this reading was never written for: a tree whose every scope
  * reads alike has nothing distinctive to print, and a tree whose placement does not beat a taxonomy of chance
  * ought to be reported as placed nowhere. Abstention is a correct outcome, so it cannot be a failing build on
- * a panel member — it is only a failure <em>here</em>, where the answer is known.
+ * an evaluation-set member — it is only a failure <em>here</em>, where the answer is known.
  */
 @Tag("pinned")
 class PinnedSummaryFindings {

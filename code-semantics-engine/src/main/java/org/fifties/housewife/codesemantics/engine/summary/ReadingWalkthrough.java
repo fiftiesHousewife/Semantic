@@ -20,7 +20,7 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
             + "segment as wide as the share of the reading that topic explains";
 
     private static final int TOPICS_NAMED = 6;
-    private static final String CHART = "themes-bar.svg";
+    private static final String CHART = "../svg/themes-bar.svg";
 
     /** One step of the analysis: what it does, what it found here, and where the whole of it is. */
     public record Step(String title, String what, Optional<String> found, Optional<String> picture,

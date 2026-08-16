@@ -36,7 +36,7 @@ class WalkthroughPageTest {
 
     @Test
     void showsTheChartTheRunWroteRatherThanOneDrawnHere() {
-        assertThat(page).contains("src=\"themes-bar.svg\"", "alt=\"");
+        assertThat(page).contains("src=\"../svg/themes-bar.svg\"", "alt=\"");
     }
 
     @Test

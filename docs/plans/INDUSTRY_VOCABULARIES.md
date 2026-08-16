@@ -150,7 +150,7 @@ Header carries `Source:` naming the archive URL and each scheme's own `Version`,
 | `PhraseSpecificity` (engine) | an n-gram's surprisal off the bundled frequency list, the sibling of `WordSpecificity` |
 | `DomainTermDiagnostic` (engine, test, `@Tag("diagnostic")`) | runs the panel and writes `domain-terms.md` |
 
-`./gradlew domainRead`, modelled on `selfRead`, reading `-Dcs.panel.dir` — which `cs.java-conventions` must forward beside `cs.clone.dir`, the only two properties the test convention passes to the forked JVM.
+`./gradlew domainRead`, modelled on `read`, reading `-Dcs.evaluation.dir` — which `cs.java-conventions` must forward beside `cs.clone.dir`, the only two properties the test convention passes to the forked JVM.
 
 #### Tests that come first
 
@@ -170,7 +170,7 @@ Abandon if in-domain matching does not clear the pooled permutation null, or if 
 
 ### Staging
 
-1. **A term source and a diagnostic, with the reading untouched.** Landed for OLiA — `TermIndex`, `TermSpans`, `PhraseSpecificity` and `terms.md` under `selfRead` — and what remains of it is the arm that decides: a repository the vocabulary should say **nothing** about. That needs `./gradlew domainRead` behind `-Dcs.panel.dir`, which `cs.java-conventions` must forward beside `cs.clone.dir`. `extractFiboTerms` and `fibo-terms.tsv` are the same shape again for a domain this tree is outside of. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
+1. **A term source and a diagnostic, with the reading untouched.** Landed for OLiA — `TermIndex`, `TermSpans`, `PhraseSpecificity` and `terms.md` under `read` — and what remains of it is the arm that decides: a repository the vocabulary should say **nothing** about. That needs `./gradlew domainRead` behind `-Dcs.evaluation.dir`, which `cs.java-conventions` must forward beside `cs.clone.dir`. `extractFiboTerms` and `fibo-terms.tsv` are the same shape again for a domain this tree is outside of. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
 2. **The votes join the reading** — `MatchedTerms`, `TermCitations`, new `EvidenceSource` and `Weights` entries, and the FIBO module as the roll-up level the resource itself names.
 3. **CSO and the vocabulary-against-repository table**, which is also the first real attempt on `computing` versus `computer_science` — if CSO maps them, that mapping is CSO's statement rather than ours.
 4. **Synonymy and abbreviations**, and the surface-versus-lemma comparison as an A/B on the held-out panel.

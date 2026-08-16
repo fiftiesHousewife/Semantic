@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * the tree, which is exactly what the doctrine means by marking your own homework, and the out-of-domain arm
  * — the one that decides — needs repositories this reading was not written for. So these read
  * {@link HostTree} and not the clone {@code -Dcs.clone.dir} names: the terms `phrase` and `common noun` are
- * findings about this codebase, and the whole point of the panel is that they will not hold on the next one.
+ * findings about this codebase, and the whole point of the evaluation set is that they will not hold on the next one.
  */
 @Tag("pinned")
 class PinnedTermFindings {

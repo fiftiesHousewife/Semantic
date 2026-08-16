@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * The repositories the panel's own plan says it must contain, and which this reading has never been given:
+ * The repositories the evaluation set's own plan says it must contain, and which this reading has never been given:
  * one that does not wholly parse, one that is mostly not code at all, and one that imports nothing outside
  * itself.
  *
@@ -75,7 +75,7 @@ class AwkwardRepositoryTest {
                         + "declare sources and is what keeps generated output out of the reading with no "
                         + "list of directories to ignore. A repository laid out any other way — Bazel, "
                         + "Android, a bare java/ or src/ — therefore reads as having no Java in it at all, "
-                        + "and reads so silently. On a panel that is a member scoring zero for a reason "
+                        + "and reads so silently. In an evaluation set that is a member scoring zero for a reason "
                         + "that has nothing to do with what it is about, so the layout has to be recorded "
                         + "beside each member or the arm is measuring build conventions.")
                 .isEmpty();

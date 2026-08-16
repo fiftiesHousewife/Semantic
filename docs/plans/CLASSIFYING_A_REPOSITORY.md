@@ -120,7 +120,7 @@ Neither page is reachable from the build or from an agent's shell: `acm.org` ans
 
 ### Chunk 3 — Read the panel and report what happens
 
-Run the existing reading over the named members via `panelRead` and report per member: λ, the share of mass settling on no subject, files that did not parse, and wall clock. No classification yet.
+Run the existing reading over the named members via `evaluationRead` and report per member: λ, the share of mass settling on no subject, files that did not parse, and wall clock. No classification yet.
 
 **Measurement.** Does λ = 0.983 reproduce off this tree, and does the unplaced share stay near 75.5%? **Ends if** the reading fails rather than reports on a substantial fraction of members — that is a defect to fix before any finding rests on it. **Blocked on** chunk 2, and on the members being cloned locally, which is again the user's own shell rather than the build.
 

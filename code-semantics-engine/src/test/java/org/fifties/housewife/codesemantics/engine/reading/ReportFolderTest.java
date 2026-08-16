@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ReportFolderTest {
@@ -22,7 +23,7 @@ class ReportFolderTest {
     @Test
     void writesAnotherCloneBeneathAFolderNamedAfterIt(@TempDir final Path base) {
         final Path host = base.resolve("CodeSemantics");
-        final Path elsewhere = base.resolve("panel").resolve("gson");
+        final Path elsewhere = base.resolve("clones").resolve("gson");
 
         assertThat(ReportFolder.forReadingOf(elsewhere, host, base).root()).isEqualTo(base.resolve("gson"));
     }
@@ -45,8 +46,18 @@ class ReportFolderTest {
         final Path report = folder.file("themes.md");
 
         assertAll(
-                () -> assertThat(report).isEqualTo(base.resolve("gson").resolve("themes.md")),
+                () -> assertThat(report)
+                        .as("one folder per format, so what a person reads is not in with what a browser opens")
+                        .isEqualTo(base.resolve("gson").resolve("markdown").resolve("themes.md")),
                 () -> assertThat(report.getParent()).isDirectory());
+    }
+
+    @Test
+    void refusesToWriteAFormatNothingPublishes(@TempDir final Path base) {
+        final ReportFolder folder = ReportFolder.forReadingOf(base, base, base);
+
+        assertThatIllegalArgumentException().isThrownBy(() -> folder.file("themes.txt"))
+                .withMessageContaining("themes.txt");
     }
 
     @Test
@@ -57,7 +68,9 @@ class ReportFolderTest {
         folder.wrote("themes", "# Themes\n\nWhat it is about.\n", "Themes");
 
         assertAll(
-                () -> assertThat(Files.readString(base.resolve("themes.md"))).contains("What it is about."),
-                () -> assertThat(Files.readString(base.resolve("themes.html"))).contains("<title>"));
+                () -> assertThat(Files.readString(base.resolve("markdown").resolve("themes.md")))
+                        .contains("What it is about."),
+                () -> assertThat(Files.readString(base.resolve("html").resolve("themes.html")))
+                        .contains("<title>"));
     }
 }

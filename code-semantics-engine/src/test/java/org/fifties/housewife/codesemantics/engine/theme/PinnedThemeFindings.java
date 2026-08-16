@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * <p>These are claims about one named tree and not about Java, so they read the host tree directly rather
  * than the clone {@code -Dcs.clone.dir} names. A figure that is true of this codebase — that it leads
  * `linguistics`, that `law` and `music` left by a vote — says nothing about the next repository, and a
- * reading pointed at somebody else's tree that failed on them would be reporting the panel's job as a defect.
+ * reading pointed at somebody else's tree that failed on them would be reporting the evaluation set's job as a defect.
  * {@link ThemeReadingDiagnostic} keeps what must hold wherever it is pointed; this keeps what was measured
  * here.
  */

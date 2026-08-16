@@ -23,14 +23,16 @@ class SummaryReportTest {
 
     @Test
     void statesTheDenominatorBeforeAnythingRestingOnIt() {
-        assertThat(rendered).contains("λ = 0.979", "54,839 word occurrences", "300 files", "72% of them prose");
+        assertThat(rendered).contains("| **λ** — share a bundled resource has an entry for | **0.979** |",
+                "| Word occurrences read | 54,839 |", "| Files | 300 |",
+                "| Prose share of those occurrences | 72% |");
     }
 
     @Test
     void statesTheOtherDenominatorBesideIt() {
         assertThat(rendered)
                 .as("a reader meets λ and ι on one page and has to be told they count different things")
-                .contains("95.2% of it was settled on no subject");
+                .contains("| Evidence resolving to no subject | 95.2% |");
     }
 
     @Test
@@ -55,7 +57,7 @@ class SummaryReportTest {
                 () -> assertThat(rendered).contains("`semantics`, `grammar`, `networking`"),
                 () -> assertThat(rendered)
                         .as("a ranking of the whole has nothing to be compared against")
-                        .contains("no ranking of the repository as a whole"));
+                        .contains("ranks nothing about the repository as a whole"));
     }
 
     @Test
