@@ -175,6 +175,28 @@ class JavaSourceTest {
     }
 
     @Test
+    void readsACaughtExceptionApartFromAMethodsParameters() {
+        final String source = """
+                package example;
+                class Page {
+                    void read(final int offset) {
+                        try {
+                            cursor();
+                        } catch (final java.io.IOException e) {
+                            throw new IllegalStateException(e);
+                        }
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.PARAMETER)).containsExactly("offset"),
+                () -> assertThat(namesOf(source, NameForm.CAUGHT)).containsExactly("e"),
+                () -> assertThat(NameForm.CAUGHT.isChosenName())
+                        .as("the name stands for a type written beside it, and a type is a use").isFalse());
+    }
+
+    @Test
     void carriesTheLineEachDeclarationSitsOn() {
         final String source = "package example;\n\nclass Page {\n    int cursor;\n}\n";
 

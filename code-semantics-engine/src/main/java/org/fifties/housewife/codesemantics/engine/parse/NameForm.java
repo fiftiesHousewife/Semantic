@@ -16,40 +16,58 @@ package org.fifties.housewife.codesemantics.engine.parse;
 public enum NameForm {
 
     /** A type this repository declares — class, interface, enum, record or annotation. */
-    TYPE(Vocabulary.IDENTIFIER),
+    TYPE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A method this repository declares. In a test source set these are its sentences about behaviour. */
-    METHOD(Vocabulary.IDENTIFIER),
+    METHOD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A field this repository declares. */
-    FIELD(Vocabulary.IDENTIFIER),
-    /** A parameter of a method, constructor, lambda or catch clause. */
-    PARAMETER(Vocabulary.IDENTIFIER),
+    FIELD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
+    /** A parameter of a method, constructor or lambda. */
+    PARAMETER(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
+    /**
+     * The name a catch clause binds a caught exception to.
+     *
+     * <p>It is a declaration, so the parse hands it over, and it is not a word about a subject: the language
+     * requires the type to be written immediately beside it, and what the name stands for is that type —
+     * already read wherever it was declared. Every catch clause in this repository names it {@code e}, and
+     * {@code e} stood thirteenth of 843 words the ranking called this repository's own, because a dictionary
+     * carries the letters of the alphabet as nouns.
+     */
+    CAUGHT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** A local variable, including a loop variable and a pattern binding. */
-    LOCAL(Vocabulary.IDENTIFIER),
+    LOCAL(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** An enum constant or a record component — declared names that are neither field nor method. */
-    CONSTANT(Vocabulary.IDENTIFIER),
+    CONSTANT(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A type parameter. Usually one letter, and usually an abstention, which is the honest outcome. */
-    TYPE_PARAMETER(Vocabulary.IDENTIFIER),
+    TYPE_PARAMETER(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /**
      * The part of a file's package that distinguishes it from its neighbours — {@code theme}, {@code parse},
      * {@code term}. The coordinate every file shares is not read: it is the organisation's, chosen once, and
      * counting it once per file would say this repository is about its own domain name.
      */
-    PACKAGE(Vocabulary.IDENTIFIER),
+    PACKAGE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A label on a statement. Rare, and a name its author chose as deliberately as any other. */
-    LABEL(Vocabulary.IDENTIFIER),
+    LABEL(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A dependency this file names — kept only where it is neither the platform's nor this tree's own. */
-    IMPORT(Vocabulary.IDENTIFIER),
+    IMPORT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** Documentation the author wrote against a declaration. */
-    JAVADOC(Vocabulary.PROSE),
+    JAVADOC(Vocabulary.PROSE, Authorship.QUOTED),
     /** Any other comment. */
-    COMMENT(Vocabulary.PROSE),
+    COMMENT(Vocabulary.PROSE, Authorship.QUOTED),
     /** A line of the repository's own documentation — a README, a plan, a backlog. */
-    DOCUMENTATION(Vocabulary.PROSE);
+    DOCUMENTATION(Vocabulary.PROSE, Authorship.QUOTED);
+
+    /** Whether every word of a form was picked by this repository to name a thing, or stands for something
+     * somebody else declared. */
+    private enum Authorship {
+        CHOSEN, QUOTED
+    }
 
     private final Vocabulary vocabulary;
+    private final Authorship authorship;
 
-    NameForm(final Vocabulary vocabulary) {
+    NameForm(final Vocabulary vocabulary, final Authorship authorship) {
         this.vocabulary = vocabulary;
+        this.authorship = authorship;
     }
 
     public Vocabulary vocabulary() {
@@ -65,9 +83,10 @@ public enum NameForm {
      * Whether every word of it was chosen by this repository as the name of something. A declared name was:
      * nothing forced {@code cursor} on its author. A sentence was not — English requires articles and
      * conjunctions whatever it is about — and neither was a dependency's package path, whose leading segments
-     * are somebody else's coordinates. A reading weights the two differently, and this is where it asks.
+     * are somebody else's coordinates, nor a caught exception's name, which stands for the type the language
+     * requires beside it. A reading weights the two differently, and this is where it asks.
      */
     public boolean isChosenName() {
-        return vocabulary == Vocabulary.IDENTIFIER && this != IMPORT;
+        return authorship == Authorship.CHOSEN;
     }
 }

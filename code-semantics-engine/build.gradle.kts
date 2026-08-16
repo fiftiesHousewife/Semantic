@@ -172,3 +172,14 @@ tasks.register<JavaExec>("splitRuns") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
 }
+
+// Declared names too short for a dictionary entry about them to be about more than a symbol, by the kind of
+// declaration they are. It is what says whether `e` is a name an author meant or a catch parameter.
+//   ./gradlew shortNames
+tasks.register<JavaExec>("shortNames") {
+    group = "verification"
+    description = "Prints the shortest declared names by the kind of declaration they stand in"
+    mainClass = "org.fifties.housewife.codesemantics.engine.reading.ShortNamesProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+}

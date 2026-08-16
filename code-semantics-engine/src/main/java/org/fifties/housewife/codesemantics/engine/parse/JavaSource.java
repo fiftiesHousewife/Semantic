@@ -21,6 +21,7 @@ import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
+import com.github.javaparser.ast.stmt.CatchClause;
 import com.github.javaparser.ast.type.TypeParameter;
 
 /**
@@ -70,8 +71,15 @@ public final class JavaSource implements SourceReader {
         final List<NameOccurrence> occurrences = new ArrayList<>();
         declared(unit, TypeDeclaration.class, NameForm.TYPE, occurrences);
         declared(unit, MethodDeclaration.class, NameForm.METHOD, occurrences);
-        declared(unit, Parameter.class, NameForm.PARAMETER, occurrences);
+        unit.findAll(CatchClause.class).forEach(caught ->
+                add(caught.getParameter().getNameAsString(), NameForm.CAUGHT, caught, occurrences));
         // Parameter covers a lambda's parameters as well as a method's, so neither needs a pass of its own.
+        // A catch clause's is read above instead: the language requires the type beside it, and the name
+        // stands for that type.
+        unit.findAll(Parameter.class).stream()
+                .filter(parameter -> !isCaught(parameter))
+                .forEach(parameter ->
+                        add(parameter.getNameAsString(), NameForm.PARAMETER, parameter, occurrences));
         declared(unit, EnumConstantDeclaration.class, NameForm.CONSTANT, occurrences);
         declared(unit, TypeParameter.class, NameForm.TYPE_PARAMETER, occurrences);
         unit.findAll(RecordDeclaration.class).forEach(record ->
@@ -92,6 +100,10 @@ public final class JavaSource implements SourceReader {
         unit.getAllComments().forEach(comment -> prose(comment, occurrences));
         return new ParsedSource(unit.getPackageDeclaration()
                 .map(declaration -> declaration.getNameAsString()).orElse(""), occurrences, sound);
+    }
+
+    private static boolean isCaught(final Parameter parameter) {
+        return parameter.getParentNode().filter(CatchClause.class::isInstance).isPresent();
     }
 
     /**
