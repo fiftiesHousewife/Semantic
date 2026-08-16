@@ -65,12 +65,32 @@ public final class ExportCommand {
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
-        final Optional<ReadingExport> previous = Files.exists(file)
-                ? Optional.of(exports.in(file)) : Optional.empty();
+        final Optional<ReadingExport> previous = previousReading(exports, file);
         final ReadingExport current =
                 new ExportedReading().of(reading.reading(), commitIn(arguments), alsoMatched());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
+    }
+
+    /**
+     * The reading already on disk, where there is one this shape can read.
+     *
+     * <p>An export states its own schema version so a consumer can branch on a change rather than discover
+     * it by failing, and this consumer is the first one: a run after the shape moves would otherwise read
+     * the previous document into the new records and throw. A version it cannot read is a run with nothing
+     * to compare against, which is the same case as the first run ever.
+     */
+    private static Optional<ReadingExport> previousReading(final ExportFile exports, final Path file) {
+        if (!Files.exists(file)) {
+            return Optional.empty();
+        }
+        try {
+            final ReadingExport read = exports.in(file);
+            return ReadingExport.SCHEMA_VERSION.equals(read.schemaVersion())
+                    ? Optional.of(read) : Optional.empty();
+        } catch (final IOException | RuntimeException cannotRead) {
+            return Optional.empty();
+        }
     }
 
     /**

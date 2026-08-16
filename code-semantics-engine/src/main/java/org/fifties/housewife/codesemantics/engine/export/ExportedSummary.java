@@ -16,14 +16,19 @@ import java.util.Objects;
  * @param about                     the topics that make some part of this repository unlike the rest of it
  * @param placedIn                  where the scheme places it, at both the levels it states
  * @param leadingWords              the words scoring highest, with their scores, highest first
- * @param leadingConcepts           the published concepts the repository writes most of, most first
+ * @param aboutStatedBy             the resources whose labels the {@code about} topics are, so a consumer
+ *                                  reading a topic knows which vocabulary named it
+ * @param leadingConcepts           the published concepts the repository writes most of, most first, each
+ *                                  crediting the taxonomy that publishes it
  * @param distinctiveScopes         the parts that depart from the whole further than chance
  * @param shareOfWordsWithACitation of every word occurrence, how many a bundled resource can be cited for
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
  */
 public record ExportedSummary(String repository, String commit, List<String> about,
+                              List<String> aboutStatedBy,
                               ExportedPlacement placedIn, List<LeadingWord> leadingWords,
-                              List<String> leadingConcepts, List<DistinctiveScope> distinctiveScopes,
+                              List<LeadingConcept> leadingConcepts,
+                              List<DistinctiveScope> distinctiveScopes,
                               double shareOfWordsWithACitation, double shareOfMassOnNoSubject,
                               Counts counts) {
 
@@ -39,10 +44,21 @@ public record ExportedSummary(String repository, String commit, List<String> abo
     public record Counts(int signals, int themes, int concepts) {
     }
 
+    /**
+     * One concept and the taxonomy that publishes it.
+     *
+     * <p>A summary naming {@code ontology} beside {@code Verb} is naming two vocabularies' answers as though
+     * they were one list. Which published it decides what the concept means and how far a reader should
+     * trust it, so it travels with the name rather than being recoverable only by searching the taxonomies.
+     */
+    public record LeadingConcept(String concept, String publishedBy) {
+    }
+
     public ExportedSummary {
         Objects.requireNonNull(repository, "repository");
         Objects.requireNonNull(commit, "commit");
         about = List.copyOf(about);
+        aboutStatedBy = List.copyOf(aboutStatedBy);
         Objects.requireNonNull(placedIn, "placedIn");
         leadingWords = List.copyOf(leadingWords);
         leadingConcepts = List.copyOf(leadingConcepts);

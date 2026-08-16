@@ -15,7 +15,7 @@ under; a term written in more than one word counts unconditionally. The reading 
 match is kept at the end, beside the list of what the branch refused, because a rule that removes
 matches can only be judged as a comparison.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **66 of them, 1,211 times**, across 326 of 492 files — reaching **12 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy nine levels deep. This repository writes **66 of them, 1,212 times**, across 327 of 494 files — reaching **12 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -25,7 +25,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 |---|--:|--:|--:|---|
 | `LinguisticConcept` | 15 | 136 | 491 | `Source` 175 `Set` 78 `Means` 34 `Document` 32 `Evidence` 31 `Given` 29 `PartOf` 21 `Citation` 20 |
 | `MorphosyntacticCategory` | 13 | 288 | 164 | `Verb` 42 `Noun` 39 `Abbreviation` 21 `Symbol` 17 `Residual` 11 `Initialism` 10 `Foreign` 8 `Adjective` 6 |
-| `MorphologicalCategory` | 5 | 16 | 161 | `Root` 124 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
+| `MorphologicalCategory` | 5 | 16 | 162 | `Root` 125 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
 | `OrthographicEntity` | 4 | 37 | 142 | `Token` 87 `Text` 39 `Script` 14 `String` 2 |
 | `Constituent` | 4 | 37 | 84 | `Phrase` 66 `Fragment` 9 `Clause` 7 `Chunk` 2 |
 | `SemanticFeature` | 5 | 125 | 74 | `Function` 49 `Time` 10 `Amount` 8 `Plan` 4 `Object` 3 |
@@ -40,7 +40,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 910 | 53 | 97.5% |
+| the words themselves | 911 | 53 | 97.5% |
 | the dictionary form of each word | 180 | 36 | 99.4% |
 | the sense the dictionary carries each word in | 121 | 20 | 99.2% |
 
@@ -68,8 +68,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 2,080 | 174 | 98.8% | 22 of 70 | `topic` 212 |
-| only where the branch holds more than this one concept | 1,211 | 109 | 97.9% | 12 of 70 | `source` 149 |
+| every match | 2,082 | 174 | 98.8% | 22 of 70 | `topic` 213 |
+| only where the branch holds more than this one concept | 1,212 | 109 | 97.9% | 12 of 70 | `source` 149 |
 
 ### What the branch refused
 
@@ -77,7 +77,7 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Term | Times | Stood alone under |
 |---|--:|---|
-| `topic` | 212 | `PragmaticUnit` |
+| `topic` | 213 | `PragmaticUnit` |
 | `topics` | 93 | `PragmaticUnit` |
 | `subject` | 78 | `PragmaticUnit` |
 | `first` | 68 | `PersonFeature` |
@@ -105,8 +105,8 @@ Depth is read off the source's own edges and is a citation rather than a heurist
 | Rungs below the root | Concepts written | Times | Share of spans |
 |--:|--:|--:|--:|
 | 0 | 0 | 0 | 0.0% |
-| 1 | 25 | 358 | 29.6% |
-| 2 | 19 | 499 | 41.2% |
+| 1 | 25 | 358 | 29.5% |
+| 2 | 19 | 500 | 41.3% |
 | 3 | 8 | 124 | 10.2% |
 | 4 | 9 | 160 | 13.2% |
 | 5 | 2 | 32 | 2.6% |
@@ -114,8 +114,8 @@ Depth is read off the source's own edges and is a citation rather than a heurist
 
 | Admitted | Concepts | Times | Mean rungs per concept | Mean rungs per span |
 |---|--:|--:|--:|--:|
-| what the branch admitted | 66 | 1,211 | 2.29 | 2.28 |
-| what the branch refused | 38 | 779 | 3.05 | 2.21 |
+| what the branch admitted | 66 | 1,212 | 2.29 | 2.28 |
+| what the branch refused | 38 | 780 | 3.05 | 2.21 |
 
 The deepest of what was written: `Consequence` 6 rungs, 9 `Definition` 6 rungs, 21 `Evaluation` 6 rungs, 8 `Evidence` 5 rungs, 31 `Exception` 5 rungs, 1 `Active` 4 rungs, 2 `Attribution` 4 rungs, 3 `Comparison` 4 rungs, 10.
 

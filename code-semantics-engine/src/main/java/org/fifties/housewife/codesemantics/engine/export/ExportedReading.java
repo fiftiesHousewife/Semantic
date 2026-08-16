@@ -36,6 +36,14 @@ public final class ExportedReading {
     /** How many words and concepts the summary names before a consumer opens the evidence beneath it. */
     private static final int LEADING = 10;
 
+    /**
+     * What named the topics in {@code about}. They are not a taxonomy's concepts: they are the labels two
+     * dictionaries put on the senses of the words a repository declares, and a consumer reading
+     * {@code linguistics} beside {@code ontology} should be able to tell which kind of answer it has.
+     */
+    private static final List<String> ABOUT_STATED_BY =
+            List.of("WordNet Domains", "Wiktionary topics");
+
     /** The bundled vocabulary alone, which is what a caller naming no others gets. */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
         return of(reading, commit, List.of());
@@ -98,7 +106,8 @@ public final class ExportedReading {
                                               final List<ExportedTaxonomy> taxonomies,
                                               final PlacedField field) {
         return new ExportedSummary(reading.root().getFileName().toString(), commit, summary.about(),
-                placement(field), leading(signals), leadingConcepts(taxonomies), distinctive(summary),
+                ABOUT_STATED_BY, placement(field), leading(signals), leadingConcepts(taxonomies),
+                distinctive(summary),
                 summary.legibility().lambda(), summary.legibility().unplaced(),
                 new ExportedSummary.Counts(signals.size(), themes.size(),
                         taxonomies.stream().mapToInt(one -> one.concepts().size()).sum()));
@@ -123,14 +132,17 @@ public final class ExportedReading {
      * drawn from whichever happened to be bundled reports the duller of the two. Each is asked for its own
      * leaders and they are interleaved, so a reader sees both kinds before either runs out.
      */
-    private static List<String> leadingConcepts(final List<ExportedTaxonomy> taxonomies) {
-        final List<List<String>> perVocabulary = taxonomies.stream()
-                .map(taxonomy -> taxonomy.concepts().stream().map(ExportedTaxonomy.Concept::concept)
+    private static List<ExportedSummary.LeadingConcept> leadingConcepts(
+            final List<ExportedTaxonomy> taxonomies) {
+        final List<List<ExportedSummary.LeadingConcept>> perVocabulary = taxonomies.stream()
+                .map(taxonomy -> taxonomy.concepts().stream()
+                        .map(concept -> new ExportedSummary.LeadingConcept(concept.concept(),
+                                taxonomy.vocabulary()))
                         .distinct().limit(LEADING).toList())
                 .toList();
-        final List<String> leading = new java.util.ArrayList<>();
+        final List<ExportedSummary.LeadingConcept> leading = new java.util.ArrayList<>();
         for (int place = 0; leading.size() < LEADING && place < LEADING; place++) {
-            for (final List<String> concepts : perVocabulary) {
+            for (final List<ExportedSummary.LeadingConcept> concepts : perVocabulary) {
                 if (place < concepts.size() && !leading.contains(concepts.get(place))
                         && leading.size() < LEADING) {
                     leading.add(concepts.get(place));

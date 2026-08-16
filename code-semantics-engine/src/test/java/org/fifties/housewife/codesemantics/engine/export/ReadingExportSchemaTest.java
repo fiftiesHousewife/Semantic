@@ -25,8 +25,10 @@ class ReadingExportSchemaTest {
             ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455));
 
     private static final ReadingExport EXPORT = ReadingExport.of(
-            new ExportedSummary("CodeSemantics", "610c4e9", List.of("linguistics"), PLACEMENT,
-                    List.of(new LeadingWord("lemma", 0.02, 40)), List.of("Verb"),
+            new ExportedSummary("CodeSemantics", "610c4e9", List.of("linguistics"),
+                    List.of("WordNet Domains"), PLACEMENT,
+                    List.of(new LeadingWord("lemma", 0.02, 40)),
+                    List.of(new ExportedSummary.LeadingConcept("Verb", "OLiA")),
                     List.of(new ExportedSummary.DistinctiveScope("lexicon/src/main/java", 0.19,
                             List.of("linguistics"))),
                     0.98, 0.76, new ExportedSummary.Counts(1, 1, 1)),

@@ -1,0 +1,95 @@
+# Concepts Apache Tika at 43cbdae6 declares of the Computer Science Ontology, as the corroborated
+# term reading found them. Saved so the branch scoring can be iterated without re-reading a 2,149-file
+# tree each time: the matches are an input to that work, not part of it.
+# Columns: term, occurrences, words.
+parse	666	1
+id	778	1
+xml	354	1
+html	264	1
+detector	181	1
+server	165	1
+hash	124	1
+http	117	1
+encoding	118	1
+ns	82	1
+cs	80	1
+detectors	78	1
+print	68	1
+hyperlink	47	1
+parsing	43	1
+cache	41	1
+parsed	37	1
+file system	41	2
+java	37	1
+email	42	1
+target language	34	2
+ids	25	1
+source language	25	2
+descriptor	19	1
+multi threaded	17	2
+cached	16	1
+hyperlinks	15	1
+io	14	1
+nlp	13	1
+caching	12	1
+engine	16	1
+probabilities	12	1
+form	20	1
+encryption	12	1
+layer	14	1
+phone	13	1
+self configuring	9	2
+classifier	9	1
+encodings	9	1
+authentication	8	1
+hashes	7	1
+decoding	7	1
+back off	9	2
+cpu	6	1
+hashed	5	1
+multiplier	5	1
+ct	5	1
+servers	5	1
+mem	4	1
+emails	4	1
+probability	4	1
+decoder	3	1
+transformer	3	1
+internet	4	1
+ruby	3	1
+software	4	1
+source code	3	2
+statistics	3	1
+boost	3	1
+parses	2	1
+multi threading	2	2
+decodings	2	1
+https	2	1
+css	2	1
+gui	2	1
+statistic	2	1
+client server	2	2
+tag end	2	2
+math	2	1
+word processing	2	2
+vocabulary	2	1
+linux	2	1
+printing	2	1
+telephone	2	1
+forms	2	1
+ins	1	1
+adder	1	1
+dialog	1	1
+mat lab	1	2
+cad	1	1
+ontology	1	1
+data encryption	1	2
+semantics	1	1
+scale factor	1	2
+robots	1	1
+automation	1	1
+word class	1	2
+android	1	1
+gps	1	1
+printed	1	1
+on body	1	2

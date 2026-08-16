@@ -1,6 +1,6 @@
 # What moved since the last reading
 
-Read at `e5fe01e2`, against the reading committed at `e5fe01e2`.
+Read at `0a5bab76`, against the reading committed at `0a5bab76`.
 
 Every figure here moves whenever a source file or a markdown file does, because the reading covers this repository's own documentation. So the figures are stated before and after and nothing is called large. What is worth acting on is the second table: each of those names cleared a stated bar in one reading and not in the other.
 
@@ -9,18 +9,18 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Figure | Before | After | |
 |---|--:|--:|---|
 | λ — words a resource can be cited for | 98.3% | 98.3% |  |
-| Mass settled on no subject | 76.1% | 76.1% |  |
+| Mass settled on no subject | 76.0% | 76.0% |  |
 | Archive — nearest subject | Computer Science | Computer Science |  |
-| Archive — divergence | 34.2% | 34.2% |  |
-| Archive — chance reaches | 41.2% | 41.2% |  |
+| Archive — divergence | 34.3% | 34.3% |  |
+| Archive — chance reaches | 41.3% | 41.3% |  |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 40.0% | 40.0% |  |
-| Category — chance reaches | 44.9% | 44.9% |  |
+| Category — divergence | 40.2% | 40.2% |  |
+| Category — chance reaches | 45.1% | 45.1% |  |
 | Category — stands apart from chance | yes | yes |  |
-| Words above the bar | 257 | 257 |  |
+| Words above the bar | 258 | 258 |  |
 | Topics reported | 3 | 3 |  |
-| Concepts written | 109 | 134 | moved |
+| Concepts written | 134 | 134 |  |
 
 ## What entered and left
 

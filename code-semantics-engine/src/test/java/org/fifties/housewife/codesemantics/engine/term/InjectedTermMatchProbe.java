@@ -44,6 +44,12 @@ public final class InjectedTermMatchProbe {
                 every.spansFound(), every.perThousandNames(), every.distinctTerms());
         System.out.printf("corroborated     %6d spans, %6.2f per thousand names, %4d distinct%n%n",
                 matched.spansFound(), matched.perThousandNames(), matched.distinctTerms());
+        System.out.printf("%nwhere the matches concentrate — the branch, not the leaves%n");
+        System.out.printf("%-42s %8s %8s %8s%n", "branch", "written", "below", "reach");
+        WrittenSubtree.in(reading.tree()).stream().limit(SHOWN)
+                .forEach(branch -> System.out.printf("%-42s %8d %8d %7.1f%%%n", branch.concept(),
+                        branch.written(), branch.conceptsBelow(), 100.0 * branch.reach()));
+
         print("what the branch corroborated", matched, Integer.MAX_VALUE);
         print("what it refused, largest first", every, SHOWN);
     }

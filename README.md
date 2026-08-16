@@ -107,7 +107,7 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
 | `summary` | the result | run |
 | `signals` | the words and phrases the repository writes more of than English or the Java platform does | word or published phrase |
 | `themes` | the subjects distinguishing one part of the repository from the rest | topic, in the scope it distinguishes |
-| `taxonomies` | the published concepts the repository's names match, and where the reading places it | vocabulary matched against |
+| `taxonomies` | the published concepts the repository's names match, and the branches those concepts sit under | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
 **`taxonomies` holds one entry per vocabulary, not one per run.** A run matches the bundled term taxonomy and every unbundled one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
@@ -153,7 +153,13 @@ That is the granularity a subject scheme cannot reach. CSO states `document proc
     "category": { "subject": "Computation and Language", "divergenceBits": 0.3970, "standsApartFromChance": true }
   },
   "leadingWords": [{ "word": "word", "divergenceBits": 0.0158, "occurrences": 239 }, ...],
-  "leadingConcepts": ["Source", "ontology", "Root", "parsing", "Token", "part of speech"],
+  "aboutStatedBy": ["WordNet Domains", "Wiktionary topics"],
+  "leadingConcepts": [
+    { "concept": "Source",   "publishedBy": "OLiA" },
+    { "concept": "ontology", "publishedBy": "cso-topics.tsv" },
+    { "concept": "Root",     "publishedBy": "OLiA" },
+    { "concept": "parsing",  "publishedBy": "cso-topics.tsv" }, ...
+  ],
   "shareOfWordsWithACitation": 0.9830255639097745,
   "shareOfMassOnNoSubject": 0.7591515609169042,
   "counts": { "signals": 261, "themes": 5, "concepts": 115 }
@@ -201,6 +207,8 @@ Words English supplies inside a name are scored, ranked and left out of `signals
 [`reading-export.schema.json`](code-semantics-engine/src/main/resources/reading-export.schema.json) states the shape, with a description on every field. It ships inside the published jar at `/reading-export.schema.json`, so a consumer can generate types from it or validate against it.
 
 `ExportFile` validates every document against that schema before writing it, so a run produces a document matching the contract or produces none. `schemaVersion` rises when a field is added, renamed or removed, and `ReadingExportSchemaTest` fails the build on a change the schema does not state.
+
+**It is at `3.1`, and that version is what a consumer branches on rather than discovers by failing.** The run itself is the first such consumer: it reads the previous export to write `changes.md`, and a version it cannot read is treated as a run with nothing to compare against — the same case as the first run ever. `3.1` added `summary.aboutStatedBy`, which names the resources the topics in `about` come from, and turned `summary.leadingConcepts` from bare strings into `{ concept, publishedBy }`, because a summary naming `ontology` beside `Verb` was reporting two vocabularies' answers as one list.
 
 ### Producing it
 
@@ -418,6 +426,17 @@ The words a Java program contains most of are the words *every* Java program con
 The second asks the running JDK to describe itself, the same delegation [`PlatformPackages`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java) uses to sort an import. [`ClassFileMethods`](code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/vocabulary/ClassFileMethods.java) reads the method names from each class file's constant pool, loading no class. A word ranks high only where both references write it less often than this repository does; where a reference writes it more often, its score falls and it keeps its place in the table. [See the whole ranking](output/markdown/vocabulary.md).
 
 ## Matching against published taxonomies
+
+**Four readings, four words.** They answer different questions and the report names them apart, because a reader handed one list of "results" cannot tell which question it answers:
+
+| Reading | Called | Reads | Answers |
+|---|---|---|---|
+| Dictionary labels on the words a repository declares | **themes** — `themes`, `summary.about` | WordNet Domains, Wiktionary topics | what its words are about |
+| A published taxonomy's prose, compared as a distribution | **placement** — `summary.placedIn` | arXiv, NIST CSF, BIAN | which published subject it stands nearest, against chance |
+| A published taxonomy's terms, matched against declared names | **concepts** — `taxonomies[].concepts` | OLiA, FIBO, CSO | which published concepts it spells |
+| The branches those concepts concentrate in | **subjects** — `taxonomies[].subjects` | the same taxonomy's own hierarchy | what the concepts it spells are about |
+
+The fourth exists because the third has a hard limit: **a term match can only find a concept whose name the code writes.** Apache Tika does document processing and never declares an identifier reading *document processing*, so that concept is unreachable to the matcher while `xml`, `html`, `css` and `hyperlink` — which it does declare — all sit beneath it. Walking to the branch is how a reading reaches what a repository is about rather than what it happened to spell. **It is built and it does not work yet**: on Tika it reaches *network protocols* rather than *document processing*, because the score rewards branch size and Tika's matched leaves are dominated by generic web terms. [The backlog](BACKLOG.md) carries what is wrong with it.
 
 **Three kinds, and the difference decides what a reading can tell you.** Two of them are the same *shape* — prose per concept, compared as a distribution — and answer different questions; the third has no prose and can only be matched.
 

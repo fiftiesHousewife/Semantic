@@ -18,7 +18,7 @@
       "description": "The whole result. Every figure here also appears in a list below.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "commit", "about", "placedIn", "leadingWords", "leadingConcepts",
+      "required": ["repository", "commit", "about", "aboutStatedBy", "placedIn", "leadingWords", "leadingConcepts",
         "distinctiveScopes", "shareOfWordsWithACitation", "shareOfMassOnNoSubject", "counts"],
       "properties": {
         "repository": {
@@ -34,6 +34,12 @@
         "about": {
           "title": "Subjects that distinguish some part of the repository",
           "description": "The topics accounting for the departure of at least one scope from the whole repository. A topic written at the same density everywhere contributes almost nothing to a divergence and appears here for no scope.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "aboutStatedBy": {
+          "title": "What named the subjects",
+          "description": "The resources whose labels the `about` topics are. They are not a taxonomy's concepts: they are the labels dictionaries put on the senses of the words the repository declares, and a consumer reading `linguistics` beside a concept should be able to tell which kind of answer it has.",
           "type": "array",
           "items": { "type": "string" }
         },
@@ -61,9 +67,20 @@
         },
         "leadingConcepts": {
           "title": "Published concepts written most",
-          "description": "The concepts of a published vocabulary the repository writes most of, weighted by specificity. `taxonomies` carries each one with the concept its publisher places it under.",
+          "description": "The concepts of a published vocabulary the repository writes most of, weighted by specificity, taken across every vocabulary matched rather than the first. `taxonomies` carries each one with the concept its publisher places it under.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["concept", "publishedBy"],
+            "properties": {
+              "concept": { "type": "string" },
+              "publishedBy": {
+                "description": "The vocabulary publishing this concept, which decides what it means and how far to trust it.",
+                "type": "string"
+              }
+            }
+          }
         },
         "distinctiveScopes": {
           "title": "Scopes exceeding chance resampling",
