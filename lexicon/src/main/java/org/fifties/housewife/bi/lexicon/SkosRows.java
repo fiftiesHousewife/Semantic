@@ -4,14 +4,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
- * A bundled taxonomy read back off the classpath. Every taxonomy this library bundles is the same eight
+ * A taxonomy read back from the classpath or from a path. Every taxonomy this library bundles is the same eight
  * columns whatever its source published, so one reader serves all of them and a new source costs a
  * provenance header rather than a parser.
+ *
+ * <p>{@link #at} is what lets a taxonomy be injected rather than bundled. A source is a candidate long
+ * before anything decides to publish it, and a candidate has to be readable by the same reader as a bundled
+ * one or the measurement taken on it is not the measurement the bundled reading would take.
  *
  * <p>A row of the wrong width is refused rather than padded. The file is generated, so a short row means
  * the writer and the reader disagree about the shape — which is the one failure a taxonomy file can have
@@ -36,6 +44,18 @@ public final class SkosRows {
                     .map(line -> concept(line, resource)).toList();
         } catch (final IOException e) {
             throw new IllegalStateException("Failed to read the bundled taxonomy " + resource, e);
+        }
+    }
+
+    /** The same eight columns, read from a file the caller names rather than from the published jar. */
+    public static List<SkosConcept> at(final Path taxonomy) {
+        try (Stream<String> lines = Files.lines(taxonomy, StandardCharsets.UTF_8)) {
+            return lines.filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
+                    .map(line -> concept(line, taxonomy.getFileName().toString())).toList();
+        } catch (final IOException e) {
+            throw new IllegalStateException("Failed to read the taxonomy at " + taxonomy, e);
+        } catch (final UncheckedIOException e) {
+            throw new IllegalStateException("Failed to read the taxonomy at " + taxonomy, e);
         }
     }
 

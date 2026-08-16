@@ -64,7 +64,9 @@ tasks.register<JavaExec>("topicCarriers") {
 
 // Where this repository stands against a functional taxonomy held in a file rather than on the classpath,
 // so a candidate source can be measured before anything decides to bundle it.
-//   ./gradlew functionalPlacement -Ptaxonomy=/path/to/taxonomy.tsv
+//   ./gradlew functionalPlacement -Ptaxonomy=taxonomies/bian-service-domains.tsv
+// A relative path is resolved against the repository root rather than this module, because that is where a
+// caller typing the path is standing.
 tasks.register<JavaExec>("functionalPlacement") {
     group = "verification"
     description = "Places this repository against an unbundled functional taxonomy"
@@ -72,7 +74,9 @@ tasks.register<JavaExec>("functionalPlacement") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("taxonomy") as String?)
+    args = listOfNotNull((findProperty("taxonomy") as String?)?.let {
+        rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+    })
 }
 
 // Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The

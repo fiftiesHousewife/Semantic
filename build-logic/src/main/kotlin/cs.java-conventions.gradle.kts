@@ -52,6 +52,9 @@ tasks.test {
     // And the directory the backtest's clones sit under. These two are the only properties naming a tree
     // the reading is pointed at: one clone, or a set of them.
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
+    // And the taxonomy a reading places against, which is a file rather than a tree: a candidate source is
+    // measured by the reading that would bundle it, rather than by a copy of that reading written to try it.
+    System.getProperty("cs.taxonomy")?.let { systemProperty("cs.taxonomy", it) }
     // What this module publishes, as opposed to what it compiles to run its own tests. A test asking
     // whether a bundled resource is read has to ask it of the artefacts that ship, and the classpath a
     // test JVM runs on carries its own classes and fixtures besides. The build knows which is which and
