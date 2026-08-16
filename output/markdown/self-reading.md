@@ -14,31 +14,31 @@ one. λ is the share of those word occurrences at least one bundled resource can
 |---|--:|--:|--:|--:|--:|--:|
 | `code-semantics-api/src/main/java` | 25 | 352 | 557 | 3,711 (86.9%) | 4,176 | **0.978** |
 | `code-semantics-api/src/test/java` | 13 | 165 | 951 | 97 (9.3%) | 1,028 | **0.981** |
-| `code-semantics-engine/src/main/java` | 174 | 3,948 | 5,643 | 39,117 (87.4%) | 44,106 | **0.985** |
+| `code-semantics-engine/src/main/java` | 174 | 3,954 | 5,650 | 39,183 (87.4%) | 44,179 | **0.985** |
 | `code-semantics-engine/src/test/java` | 157 | 3,072 | 9,876 | 8,848 (47.3%) | 18,563 | **0.991** |
 | `lexicon-extraction/src/main/java` | 45 | 899 | 1,158 | 5,509 (82.6%) | 6,500 | **0.975** |
 | `lexicon-extraction/src/test/java` | 35 | 405 | 1,936 | 0 (0.0%) | 1,915 | **0.989** |
 | `lexicon/src/main/java` | 22 | 694 | 1,151 | 5,062 (81.5%) | 6,052 | **0.974** |
 | `lexicon/src/test/java` | 21 | 258 | 1,363 | 489 (26.4%) | 1,830 | **0.988** |
-| `documentation` | 3 | 0 | 0 | 8,478 (100.0%) | 8,190 | **0.966** |
-| **repository** | 495 | 9,793 | 22,635 | 71,311 (75.9%) | 92,360 | **0.983** |
+| `documentation` | 3 | 0 | 0 | 8,816 (100.0%) | 8,510 | **0.965** |
+| **repository** | 495 | 9,799 | 22,642 | 71,715 (76.0%) | 92,753 | **0.983** |
 
-The repository's own words are 93,946 occurrences of 3,941 distinct surfaces, 1,246 of them (31.6%) written exactly once. 216 glued runs no boundary divided were read by the segmenter; 1,586 occurrences across 457 surfaces nothing could be cited for at all.
+The repository's own words are 94,357 occurrences of 3,955 distinct surfaces, 1,256 of them (31.8%) written exactly once. 216 glued runs no boundary divided were read by the segmenter; 1,604 occurrences across 464 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 89,250 | 95.0% | 4,346 |
-| `lexicon:wordnet-sense` | 63,892 | 68.0% | 1,094 |
-| `lexicon:wiktionary-topic` | 52,703 | 56.1% | 216 |
-| `lexicon:wikidata-initialism` | 42,294 | 45.0% | 70 |
-| `lexicon:wikidata-name` | 37,584 | 40.0% | 29 |
-| `lexicon:wordnet-domain` | 37,289 | 39.7% | 118 |
-| `lexicon:wiktionary-abbreviation` | 32,613 | 34.7% | 10 |
-| `catalogue:query-language-function` | 1,409 | 1.5% | 1 |
+| `lexicon:word-frequency` | 89,608 | 95.0% | 4,361 |
+| `lexicon:wordnet-sense` | 64,136 | 68.0% | 1,103 |
+| `lexicon:wiktionary-topic` | 52,910 | 56.1% | 218 |
+| `lexicon:wikidata-initialism` | 42,459 | 45.0% | 70 |
+| `lexicon:wikidata-name` | 37,722 | 40.0% | 32 |
+| `lexicon:wordnet-domain` | 37,437 | 39.7% | 120 |
+| `lexicon:wiktionary-abbreviation` | 32,752 | 34.7% | 10 |
+| `catalogue:query-language-function` | 1,415 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
-| `repository's` | 71 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:10` |
+| `repository's` | 72 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:10` |
 | `word's` | 44 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:6` |
 | `commonest` | 43 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:10` |
 | `wiktionary` | 37 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41` |
@@ -54,6 +54,6 @@ The repository's own words are 93,946 occurrences of 3,941 distinct surfaces, 1,
 | `arxiv` | 21 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PlacedField.java:47` |
 | `net's` | 20 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:23` |
 
-Read 495 files in 1.6 s — 3.2 ms a file, recorded rather than estimated.
+Read 495 files in 1.5 s — 3.1 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 79. Set aside as the platform's own vocabulary: 1431. Set aside as this repository's own coordinates: 490. Set aside as the toolchain a source set nothing is published from is checked with: 799. Files the parser refused: 0.

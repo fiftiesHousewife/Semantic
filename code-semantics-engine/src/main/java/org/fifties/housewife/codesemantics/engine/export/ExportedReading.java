@@ -68,7 +68,7 @@ public final class ExportedReading {
                 CorroboratedReading.of(index, conceptsOf(index), parsed).matched(), placement(field))));
 
         return ReadingExport.of(
-                summarised(reading, commit, summary, signals, reported, taxonomy, field),
+                summarised(reading, commit, summary, signals, reported, List.copyOf(taxonomies), field),
                 signals, reported, List.copyOf(taxonomies),
                 setAside(summary, vocabulary, legibility, terms, parsed));
     }
@@ -95,11 +95,13 @@ public final class ExportedReading {
     private static ExportedSummary summarised(final RepositoryReading reading, final String commit,
                                               final ReadingSummary summary, final List<ExportedSignal> signals,
                                               final List<ExportedTheme> themes,
-                                              final ExportedTaxonomy taxonomy, final PlacedField field) {
+                                              final List<ExportedTaxonomy> taxonomies,
+                                              final PlacedField field) {
         return new ExportedSummary(reading.root().getFileName().toString(), commit, summary.about(),
-                placement(field), leading(signals), leadingConcepts(taxonomy), distinctive(summary),
+                placement(field), leading(signals), leadingConcepts(taxonomies), distinctive(summary),
                 summary.legibility().lambda(), summary.legibility().unplaced(),
-                new ExportedSummary.Counts(signals.size(), themes.size(), taxonomy.concepts().size()));
+                new ExportedSummary.Counts(signals.size(), themes.size(),
+                        taxonomies.stream().mapToInt(one -> one.concepts().size()).sum()));
     }
 
     private static List<LeadingWord> leading(final List<ExportedSignal> signals) {
@@ -114,9 +116,28 @@ public final class ExportedReading {
         return index.terms().stream().flatMap(words -> index.conceptsOf(words).stream()).distinct().toList();
     }
 
-    private static List<String> leadingConcepts(final ExportedTaxonomy taxonomy) {
-        return taxonomy.concepts().stream().limit(LEADING)
-                .map(ExportedTaxonomy.Concept::concept).distinct().toList();
+    /**
+     * The concepts the summary names, taken across every vocabulary rather than the first.
+     *
+     * <p>One vocabulary names the parts of a field and another names what the field is about, and a summary
+     * drawn from whichever happened to be bundled reports the duller of the two. Each is asked for its own
+     * leaders and they are interleaved, so a reader sees both kinds before either runs out.
+     */
+    private static List<String> leadingConcepts(final List<ExportedTaxonomy> taxonomies) {
+        final List<List<String>> perVocabulary = taxonomies.stream()
+                .map(taxonomy -> taxonomy.concepts().stream().map(ExportedTaxonomy.Concept::concept)
+                        .distinct().limit(LEADING).toList())
+                .toList();
+        final List<String> leading = new java.util.ArrayList<>();
+        for (int place = 0; leading.size() < LEADING && place < LEADING; place++) {
+            for (final List<String> concepts : perVocabulary) {
+                if (place < concepts.size() && !leading.contains(concepts.get(place))
+                        && leading.size() < LEADING) {
+                    leading.add(concepts.get(place));
+                }
+            }
+        }
+        return List.copyOf(leading);
     }
 
     private static List<ExportedSummary.DistinctiveScope> distinctive(final ReadingSummary summary) {

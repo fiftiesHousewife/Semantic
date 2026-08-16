@@ -6,7 +6,7 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 93,946 |
+| Word occurrences read | 94,357 |
 | Files | 495 |
 | Prose share of those occurrences | 76% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
@@ -39,4 +39,4 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 
 ## Withheld
 
-- `documentation` — 23.7% of the maximum divergence, and 982 of 999 chance draws stood at least as far
+- `documentation` — 24.0% of the maximum divergence, and 978 of 999 chance draws stood at least as far

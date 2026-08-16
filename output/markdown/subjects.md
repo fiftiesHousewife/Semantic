@@ -37,7 +37,7 @@ narrower than a repository and the vaguest description wins.
 | Subject | Group | Divergence | Kept | Why | Met on |
 |---|---|--:|---|---|---|
 | [`cs.CL` Computation and Language](https://arxiv.org/list/cs.CL/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 40.0% | keep | the nearest subject read, and nearer than chance reaches | linguistics, computing, law, grammar |
-| [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 41.1% | discard | nearer than chance reaches, but a nearer subject was read | linguistics, law, mathematics, computing |
+| [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 41.2% | discard | nearer than chance reaches, but a nearer subject was read | linguistics, law, mathematics, computing |
 | [`cs.LO` Logic in Computer Science](https://arxiv.org/list/cs.LO/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 45.2% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, grammar |
 | [`cs.AI` Artificial Intelligence](https://arxiv.org/list/cs.AI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 46.4% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, grammar |
 | [`math.MP` Mathematical Physics](https://arxiv.org/list/math.MP/recent) | [grp_math](https://arxiv.org/category_taxonomy) | 47.7% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, physics |
@@ -59,7 +59,7 @@ repository is also about.
 | Subject | Group | Divergence | Kept | Why | Met on |
 |---|---|--:|---|---|---|
 | [`cs.CL` Computation and Language](https://arxiv.org/list/cs.CL/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 55.7% | keep | the nearest subject read, and nearer than chance reaches | linguistics, computing, law, grammar |
-| [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 59.9% | discard | nearer than chance reaches, but a nearer subject was read | linguistics, law, mathematics, computing |
+| [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 60.0% | discard | nearer than chance reaches, but a nearer subject was read | linguistics, law, mathematics, computing |
 | [`math.MP` Mathematical Physics](https://arxiv.org/list/math.MP/recent) | [grp_math](https://arxiv.org/category_taxonomy) | 62.4% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, physics |
 | [`cs.AI` Artificial Intelligence](https://arxiv.org/list/cs.AI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 62.5% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, grammar |
 | [`cs.LO` Logic in Computer Science](https://arxiv.org/list/cs.LO/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 63.3% | discard | a taxonomy of chance reaches this far | linguistics, mathematics, law, grammar |

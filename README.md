@@ -110,6 +110,35 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
 | `taxonomies` | the published concepts the repository's names match, and where the reading places it | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
+**`taxonomies` holds one entry per vocabulary, not one per run.** A run matches the bundled term taxonomy and every unbundled one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
+
+```java
+ReadingExport export = new ExportedReading().of(reading, commit,
+        List.of(InjectedTerms.of(InjectedTaxonomy.named(path), "my-vocabulary")));
+```
+
+A taxonomy stating prose is left out of that list deliberately: it has a placement reading of its own and is not a vocabulary of terms anybody declares.
+
+**What a concept list looks like, and why the second one is the interesting one.** Read at commit `e5fe01e`, this repository matches two vocabularies. OLiA names the parts of a grammar; the Computer Science Ontology names what a piece of computer science is about, and 12,850 of its 14,636 topics are more than one word:
+
+| Vocabulary | Concepts this repository declares |
+|---|---|
+| OLiA | `Source` `Root` `Token` `Phrase` `Verb` `Noun` `Text` `Document` `Citation` `Evidence` |
+| **CSO** | **`ontology`** 38 · **`part of speech`** 21 · `parsing` 20 · **`semantics`** 15 · **`synsets`** 13 · `descriptor` 23 · `hypertext markup language` 5 · `xml` 3 · `rdf` 2 · **`word sense`** 1 · `computer science` 1 · `reasoning` 1 |
+
+OLiA's answer is that this repository writes about grammar, which is true and is what a vocabulary of grammar can say. CSO's answer is *ontology, part of speech, word sense, semantics, synsets* — which names the field rather than the parts, and is checkable concept by concept against what a publisher wrote.
+
+**The same vocabulary read against a different repository is what shows it working.** Apache Tika at `43cbdae6` is a text-extraction toolkit; this repository is a library of lemmas and senses. The bundled subject scheme places **both** under `cs.CL` Computation and Language. CSO does not:
+
+| | Concepts it declares |
+|---|---|
+| **This repository** | `ontology` · `part of speech` · `semantics` · `synsets` · `word sense` · `reasoning` · `rdf` |
+| **Apache Tika** | `parse` 666 · `xml` 354 · `html` 264 · `detector` 181 · `encoding` 118 · `hyperlink` 47 · `email` 42 · `cache` 41 · **`word processing`** · `nlp` 13 · `encryption` 12 · `classifier` 9 · `decoding` 7 · `transformer` 3 · **`data encryption`** · `css` · `https` · `gps` · `cad` |
+
+That is the granularity a subject scheme cannot reach. CSO states `document processing`, `document image analysis`, `character recognition` and `character sets` as topics in their own right, because it classifies what a piece of computer science is *about* rather than which journal would take the paper.
+
+**Figures move every run.** They are a reading of a named commit, not a property of the code; `./gradlew read` regenerates them and the reports under [`output/`](output) hold the current ones.
+
 ### Reading it
 
 `summary` answers the question on its own. Nothing under it is needed to know what the repository is about:
@@ -124,7 +153,7 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
     "category": { "subject": "Computation and Language", "divergenceBits": 0.3970, "standsApartFromChance": true }
   },
   "leadingWords": [{ "word": "word", "divergenceBits": 0.0158, "occurrences": 239 }, ...],
-  "leadingConcepts": ["Source", "Root", "Token", "Phrase", "Verb"],
+  "leadingConcepts": ["Source", "ontology", "Root", "parsing", "Token", "part of speech"],
   "shareOfWordsWithACitation": 0.9830255639097745,
   "shareOfMassOnNoSubject": 0.7591515609169042,
   "counts": { "signals": 261, "themes": 5, "concepts": 115 }

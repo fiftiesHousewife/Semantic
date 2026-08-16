@@ -68,7 +68,7 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 2,079 | 174 | 98.8% | 22 of 70 | `topic` 212 |
+| every match | 2,080 | 174 | 98.8% | 22 of 70 | `topic` 212 |
 | only where the branch holds more than this one concept | 1,211 | 109 | 97.9% | 12 of 70 | `source` 149 |
 
 ### What the branch refused
@@ -86,7 +86,7 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | `other` | 25 | `SameType` |
 | `set` | 24 | `PartWhole` |
 | `identifier` | 23 | `DiscourseEntity` |
-| `place` | 21 | `PartWhole` |
+| `place` | 22 | `PartWhole` |
 | `cited` | 19 | `Referentiality` |
 | `theme` | 19 | `PragmaticUnit` |
 | `themes` | 15 | `PragmaticUnit` |
