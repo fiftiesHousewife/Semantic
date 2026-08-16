@@ -3,6 +3,7 @@ package org.fifties.housewife.codesemantics.name;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -127,6 +128,35 @@ class WordSegmenterTest {
         assertAll(
                 () -> assertThat(segmenter.segment("openfoodfacts")).contains(List.of("open", "food", "facts")),
                 () -> assertThat(segmenter.segment("pushevents")).contains(List.of("push", "events"))
+        );
+    }
+
+    @Test
+    void leavesARunADictionaryCarriesWholeUnsegmentedHoweverCheaplyItsPiecesPrice() {
+        final WordSegmenter reading = WordSegmenter.reading(Set.of("abstains", "synset")::contains);
+
+        assertAll(
+                () -> assertThat(segmenter.segment("abstains")).contains(List.of("ab", "stains")),
+                () -> assertThat(segmenter.segment("synset")).contains(List.of("syn", "set")),
+                () -> assertThat(reading.segment("abstains")).isEmpty(),
+                () -> assertThat(reading.segment("synset")).isEmpty()
+        );
+    }
+
+    @Test
+    void stillSegmentsARunNoDictionaryCarriesWhole() {
+        final WordSegmenter reading = WordSegmenter.reading(Set.of("abstains")::contains);
+
+        assertThat(reading.segment("pushevent")).contains(List.of("push", "event"));
+    }
+
+    @Test
+    void refusesToReadAsWordsPiecesADictionaryCarriesAsOneRun() {
+        final WordSegmenter reading = WordSegmenter.reading(Set.of("headword")::contains);
+
+        assertAll(
+                () -> assertThat(segmenter.readAsWords(List.of("head", "word"))).isTrue(),
+                () -> assertThat(reading.readAsWords(List.of("head", "word"))).isFalse()
         );
     }
 }

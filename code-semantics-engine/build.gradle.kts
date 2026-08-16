@@ -161,3 +161,14 @@ tasks.register<JavaExec>("vocabularyMass") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
 }
+
+// Every glued run the segmenter took apart, with what the dictionary says about the run whole. It is what
+// says how far a whole-run rule reaches, and which readings it would make worse.
+//   ./gradlew splitRuns
+tasks.register<JavaExec>("splitRuns") {
+    group = "verification"
+    description = "Prints the runs the segmenter split that the dictionary carries whole"
+    mainClass = "org.fifties.housewife.codesemantics.engine.reading.SplitRunsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+}

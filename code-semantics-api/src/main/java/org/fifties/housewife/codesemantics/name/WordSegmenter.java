@@ -13,14 +13,20 @@ import java.util.Optional;
  * boundary divided.
  *
  * <p>One unrecognised two-or-three-letter run is tolerated at the leading edge — the branding initialism of
- * {@code gharchive}. A token the dictionary already knows, a token grown from a known word by
+ * {@code gharchive}. A token the frequency list already knows, a token grown from a known word by
  * {@link WordMorphology morphology}, a short token, or one without a convincing parse (whole-token coverage
  * in pieces averaging at least three letters) is refused rather than guessed at, so ordinary words and opaque
  * identifiers like {@code tconst} are never mangled. Refusal is the correct outcome and not a failure: a run
  * nothing can read stays whole and abstains.
  *
+ * <p>The frequency list is twenty thousand words long, and a run it does not carry is taken apart into pieces
+ * it does — {@code abstains} as ab / stains, {@code annotation} as an / notation. {@link WholeWords} is what
+ * refuses that: a run a dictionary carries as one word is one word, whatever the list says. Supply one
+ * through {@link #reading}, or the segmenter reads frequency alone.
+ *
  * @see CompoundParses the candidate parses it chooses between
  * @see PieceCost what one piece costs to read
+ * @see WholeWords the runs a dictionary carries as one word
  */
 public final class WordSegmenter {
 
@@ -31,26 +37,33 @@ public final class WordSegmenter {
 
     private final WordRanks words;
     private final CitedTokens cited;
+    private final WholeWords dictionary;
     private final WordMorphology morphology;
     private final PieceCost pieceCost;
     private final CompoundParses parses;
 
-    private WordSegmenter(final WordRanks words, final CitedTokens cited) {
+    private WordSegmenter(final WordRanks words, final CitedTokens cited, final WholeWords dictionary) {
         this.words = words;
         this.cited = cited;
+        this.dictionary = dictionary;
         this.morphology = new WordMorphology(words);
         this.pieceCost = new PieceCost(words, cited);
         this.parses = new CompoundParses(pieceCost);
     }
 
-    /** The segmenter reading frequency alone: no catalogue, so no token is recognised whole. */
+    /** The segmenter reading frequency alone: no catalogue and no dictionary, so nothing is known whole. */
     public static WordSegmenter fromClasspath() {
         return CLASSPATH_DEFAULTS;
     }
 
     /** The same segmenter, arbitrating candidate pieces against a catalogue of cited tokens. */
     public static WordSegmenter citing(final CitedTokens cited) {
-        return new WordSegmenter(WordRanks.fromClasspath(), cited);
+        return new WordSegmenter(WordRanks.fromClasspath(), cited, WholeWords.NONE);
+    }
+
+    /** The same segmenter, refusing to divide any run a dictionary carries as one word. */
+    public static WordSegmenter reading(final WholeWords dictionary) {
+        return new WordSegmenter(WordRanks.fromClasspath(), CitedTokens.NONE, dictionary);
     }
 
     /**
@@ -84,7 +97,8 @@ public final class WordSegmenter {
         if (pieces.isEmpty()) {
             return false;
         }
-        if (pieces.size() > 1 && words.knows(String.join("", pieces))) {
+        final String whole = String.join("", pieces);
+        if (pieces.size() > 1 && (words.knows(whole) || dictionary.carries(whole))) {
             return false;
         }
         return pieces.stream().allMatch(pieceCost::reads);
@@ -94,6 +108,7 @@ public final class WordSegmenter {
         return compound.length() < MIN_COMPOUND_LENGTH
                 || !lettersOnly(compound)
                 || words.knows(compound)
+                || dictionary.carries(compound)
                 || cited.recognises(compound)
                 || morphology.growsAKnownWord(compound);
     }
@@ -107,5 +122,5 @@ public final class WordSegmenter {
     }
 
     private static final WordSegmenter CLASSPATH_DEFAULTS =
-            new WordSegmenter(WordRanks.fromClasspath(), CitedTokens.NONE);
+            new WordSegmenter(WordRanks.fromClasspath(), CitedTokens.NONE, WholeWords.NONE);
 }

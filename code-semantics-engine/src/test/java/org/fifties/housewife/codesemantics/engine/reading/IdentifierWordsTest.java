@@ -31,6 +31,20 @@ class IdentifierWordsTest {
     }
 
     @Test
+    void readsARunTheDictionaryCarriesWholeAsOneWord() {
+        final IdentifierWords reading = IdentifierWords.fromClasspath();
+
+        assertAll(
+                () -> assertThat(words.of("abstainsFromVoting").words())
+                        .containsExactly("ab", "stains", "from", "voting"),
+                () -> assertThat(reading.of("abstainsFromVoting").words())
+                        .containsExactly("abstains", "from", "voting"),
+                () -> assertThat(reading.of("collocatedWords").words())
+                        .containsExactly("collocated", "words"),
+                () -> assertThat(reading.of("synsetOffset").words()).containsExactly("synset", "offset"));
+    }
+
+    @Test
     void keepsARunTheSegmenterRefusesWholeRatherThanDroppingIt() {
         final IdentifierReading reading = words.of("tconst");
 

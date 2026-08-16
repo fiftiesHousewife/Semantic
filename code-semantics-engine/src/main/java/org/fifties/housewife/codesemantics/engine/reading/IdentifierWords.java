@@ -13,6 +13,9 @@ import org.fifties.housewife.codesemantics.name.WordSegmenter;
  * word, because a run nothing can read is still something the repository wrote and the reading records it as
  * seen rather than dropping it.
  *
+ * <p>The segmenter is given the bundled dictionary through {@link DictionaryWords}, so a run the dictionary
+ * carries as one word is never divided into pieces the frequency list happens to be shorter than.
+ *
  * <p>Two rules live here that {@link Tokeniser} does not carry, and both are grammar rather than vocabulary.
  * The dot and the dollar are separators, which matters for a dependency an author named in full, where
  * {@code net.sf.extjwnl.data} is four words and not one unreadable token. And a run of capitals ends one word
@@ -50,7 +53,7 @@ public final class IdentifierWords {
     }
 
     public static IdentifierWords fromClasspath() {
-        return new IdentifierWords(WordSegmenter.fromClasspath());
+        return new IdentifierWords(WordSegmenter.reading(DictionaryWords.fromClasspath()));
     }
 
     public IdentifierReading of(final String identifier) {
