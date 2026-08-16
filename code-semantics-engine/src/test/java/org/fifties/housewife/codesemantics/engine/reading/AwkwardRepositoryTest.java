@@ -53,7 +53,7 @@ class AwkwardRepositoryTest {
 
         assertAll(
                 () -> assertThat(parsed.unsoundFiles()).isZero(),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL))
+                () -> assertThat(parsed.imports().read())
                         .as("a repository that names no dependency has named no dependency, which is a "
                                 + "reading and not a failure")
                         .isZero(),
@@ -88,7 +88,7 @@ class AwkwardRepositoryTest {
         final ParsedRepository parsed = parse(root);
 
         assertAll(
-                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL)).isZero(),
+                () -> assertThat(parsed.imports().read()).isZero(),
                 () -> assertThat(parsed.files()).isNotEmpty());
     }
 

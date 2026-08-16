@@ -4,6 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import org.fifties.housewife.codesemantics.engine.pipeline.ShareDivergence;
+
 /**
  * How far one scope's topical intensity stands from another's, in bits, with the per-topic decomposition that
  * says which topics account for the distance.
@@ -31,7 +33,7 @@ import java.util.Map;
  */
 public final class JensenShannon {
 
-    private static final double LOG_2 = Math.log(2.0);
+    private final ShareDivergence arithmetic = new ShareDivergence();
 
     /** One topic's share of the divergence, and which side it concentrates in. */
     public record Contribution(String topic, double bits, double shareOfDivergence, double scopeShare,
@@ -68,27 +70,13 @@ public final class JensenShannon {
                 .toList();
     }
 
-    private static double between(final TopicDistribution placed, final TopicDistribution against) {
-        return TopicDistribution.support(placed, against).stream()
-                .mapToDouble(topic -> bitsOf(topic, placed, against))
-                .sum();
+    private double between(final TopicDistribution placed, final TopicDistribution against) {
+        return arithmetic.between(placed.shareByTopic(), against.shareByTopic());
     }
 
-    private static double bitsOf(final String topic, final TopicDistribution scope,
-                                 final TopicDistribution reference) {
-        final double inScope = scope.shareOf(topic);
-        final double inReference = reference.shareOf(topic);
-        final double mixture = 0.5 * (inScope + inReference);
-        return 0.5 * relativeEntropy(inScope, mixture) + 0.5 * relativeEntropy(inReference, mixture);
-    }
-
-    /**
-     * One term of a Kullback–Leibler sum in bits. A topic absent from one side contributes nothing from that
-     * side — {@code 0·log(0/m)} is zero by the convention that follows from the limit, and it is the reason
-     * the mixture keeps the whole statistic finite where a bare KL would not.
-     */
-    private static double relativeEntropy(final double share, final double mixture) {
-        return share <= 0.0 ? 0.0 : share * Math.log(share / mixture) / LOG_2;
+    private double bitsOf(final String topic, final TopicDistribution scope,
+                          final TopicDistribution reference) {
+        return arithmetic.at(topic, scope.shareByTopic(), reference.shareByTopic());
     }
 
     /** The topics a distribution holds most of, largest first — a single-scope reading, and a weak one. */

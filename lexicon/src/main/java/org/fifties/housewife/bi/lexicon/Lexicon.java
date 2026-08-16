@@ -34,6 +34,17 @@ public interface Lexicon {
     Optional<String> verbBase(String word);
 
     /**
+     * The adjective's dictionary lemma — the positive form for a comparative or superlative in any
+     * declension, the word itself when it is already a lemma — or empty when the lexicon does not know the
+     * word as an adjective at all.
+     *
+     * <p>It is the third of the three classes a thing can be named for, beside {@link #nounBase} and
+     * {@link #verbBase}. A reading that asks only the first two cannot see {@code broader}, {@code nearest}
+     * or {@code canonical} at all.
+     */
+    Optional<String> adjectiveBase(String word);
+
+    /**
      * The noun an initialism stands in for, read from the dictionary's own entry for its written-out form:
      * a short token the dictionary does not know as a word, whose letter-dotted spelling it does carry
      * ({@code aka} → {@code a.k.a.}), resolves to the synonym in that entry's sense that is a noun in its

@@ -45,6 +45,25 @@ class ParsedRepositoryTest {
     }
 
     @Test
+    void readsAPackageOnceHoweverManyFilesAreFiledUnderIt(@TempDir final Path root) throws IOException {
+        final Path first = write(root, "First.java", "package org.acme.tool.theme;\nclass First {}\n");
+        final Path second = write(root, "Second.java", "package org.acme.tool.theme;\nclass Second {}\n");
+        final Path third = write(root, "Third.java", "package org.acme.tool.theme;\nclass Third {}\n");
+        final Path elsewhere = write(root, "Parse.java", "package org.acme.tool.parse;\nclass Parse {}\n");
+
+        final List<String> packages = of(root, first, second, third, elsewhere).files().stream()
+                .flatMap(file -> file.occurrences().stream())
+                .filter(occurrence -> occurrence.form() == NameForm.PACKAGE)
+                .map(NameOccurrence::text)
+                .toList();
+
+        assertThat(packages)
+                .as("a package is one naming decision, and reading it per file weights it by how big the "
+                        + "package grew rather than by what its author called it")
+                .containsExactlyInAnyOrder("theme", "parse");
+    }
+
+    @Test
     void readsEveryWordOfAPackageTailAndNotTheWholeTailAsOneToken(@TempDir final Path root)
             throws IOException {
         final Path deep = write(root, "Deep.java",
@@ -81,9 +100,33 @@ class ParsedRepositoryTest {
                         .filteredOn(occurrence -> occurrence.form() == NameForm.IMPORT)
                         .extracting(NameOccurrence::text)
                         .containsExactly("net.sf.extjwnl.data.POS"),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.PLATFORM)).isOne(),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.INTERNAL)).isOne(),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL)).isOne());
+                () -> assertThat(parsed.imports().from(ImportOrigin.PLATFORM)).isOne(),
+                () -> assertThat(parsed.imports().from(ImportOrigin.INTERNAL)).isOne(),
+                () -> assertThat(parsed.imports().from(ImportOrigin.EXTERNAL)).isOne());
+    }
+
+    @Test
+    void setsAsideTheToolchainASourceSetNothingIsPublishedFromNames(@TempDir final Path root)
+            throws IOException {
+        final Path checked = write(root, "ReadingTest.java", """
+                package example.engine;
+                import org.junit.jupiter.api.Test;
+                class ReadingTest { }
+                """);
+
+        final ParsedRepository parsed = ParsedRepository.of(root,
+                List.of(new SourceScope("engine/src/test/java", List.of(checked))));
+
+        assertAll(
+                () -> assertThat(parsed.files().getFirst().occurrences())
+                        .as("a test runner is what this repository is checked with, never what it is about")
+                        .filteredOn(occurrence -> occurrence.form() == NameForm.IMPORT)
+                        .isEmpty(),
+                () -> assertThat(parsed.imports().from(ImportOrigin.EXTERNAL)).isOne(),
+                () -> assertThat(parsed.imports().toolchain()).isOne(),
+                () -> assertThat(parsed.imports().read())
+                        .as("what was set aside is stated rather than quietly missing from a count")
+                        .isZero());
     }
 
     @Test
@@ -126,6 +169,6 @@ class ParsedRepositoryTest {
         assertAll(
                 () -> assertThat(parsed.files()).isEmpty(),
                 () -> assertThat(parsed.unsoundFiles()).isZero(),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL)).isZero());
+                () -> assertThat(parsed.imports().from(ImportOrigin.EXTERNAL)).isZero());
     }
 }

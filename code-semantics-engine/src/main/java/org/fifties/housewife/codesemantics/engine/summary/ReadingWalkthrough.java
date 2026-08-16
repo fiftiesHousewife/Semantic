@@ -43,7 +43,7 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
                         Optional.of("%,d files were read.".formatted(read.files())), Optional.empty(),
                         index.named("self-reading.html")),
                 new Step("Each name is split into words", WalkthroughProse.SPLIT,
-                        Optional.empty(), Optional.empty(), List.of()),
+                        Optional.empty(), Optional.empty(), index.named("vocabulary.html")),
                 new Step("Each word is looked up", WalkthroughProse.LOOKED_UP,
                         Optional.of(legibility(read)), Optional.empty(),
                         index.named("self-reading.html")),

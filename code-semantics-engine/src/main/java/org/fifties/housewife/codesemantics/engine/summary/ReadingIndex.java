@@ -66,6 +66,11 @@ public record ReadingIndex(String repository, List<Entry> entries) {
                 new Entry("terms.html", "Terms",
                         "which branches of the field the repository occupies, and what it wrote there",
                         "a branch is ranked by distinct concepts written, not by how often"),
+                new Entry("vocabulary.html", "The vocabulary",
+                        "the words this repository chose, against the words English and the platform "
+                                + "chose for it",
+                        "a word is ranked by the weakest claim any reference makes for it; nothing is "
+                                + "excluded, and what a reference refused sorts last"),
                 new Entry("self-reading.html", "Legibility",
                         "how much of the repository any resource can be cited for",
                         "a denominator, not a finding")));

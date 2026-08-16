@@ -1,5 +1,6 @@
 package org.fifties.housewife.codesemantics.engine.parse;
 
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,11 +20,19 @@ import com.github.javaparser.javadoc.description.JavadocSnippet;
  * declared. And what an inline tag points at — a linked type, a quoted literal — is a use of something
  * declared elsewhere, which is the one distinction the whole reading turns on.
  *
+ * <p>A fourth is markup. A doc comment is written in HTML, which the Javadoc specification states, so
+ * {@code <p>}, {@code <em>} and {@code <b>} are the format's own syntax standing where a word would be —
+ * and a lone {@code p} is a word to a resource that labels every letter of the alphabet. The tags go and
+ * what they mark up stays.
+ *
  * <p>Javadoc's structure is what says which is which, read through the parser's own model of it rather than
  * through a list of tags kept here. A comment the model cannot make sense of is read as the text it is,
  * which overstates what the author wrote rather than losing it.
  */
 public final class JavadocProse {
+
+    /** An HTML tag, which the specification allows a doc comment to be written in and an author to mean. */
+    private static final Pattern MARKUP = Pattern.compile("</?[A-Za-z][^>]*>");
 
     /** The author's own sentences, joined by the blank the reading splits them on again. */
     public String in(final JavadocComment comment) {
@@ -53,6 +62,7 @@ public final class JavadocProse {
                 .filter(JavadocSnippet.class::isInstance)
                 .map(JavadocSnippet.class::cast)
                 .map(JavadocSnippet::toText)
+                .map(text -> MARKUP.matcher(text).replaceAll(" "))
                 .collect(Collectors.joining(" "));
     }
 }

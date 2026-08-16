@@ -54,6 +54,18 @@ tasks.register<JavaExec>("topicCarriers") {
     args = (findProperty("topics") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
+// Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The
+// report prints a top; this answers for a word it never reached.
+//   ./gradlew wordPlace -Pwords="get set list"
+tasks.register<JavaExec>("wordPlace") {
+    group = "verification"
+    description = "Prints where the named words stand in the vocabulary ranking, and what refused them"
+    mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.ChosenWordProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    args = (findProperty("words") as String? ?: "").split(" ").filter { it.isNotBlank() }
+}
+
 // The library's self test: reads this repository's own Java sources and reports how much of what they are
 // written in a bundled resource can be cited for. Point it at another clone with -Dcs.clone.dir=<path>.
 //   ./gradlew selfRead
@@ -137,4 +149,15 @@ tasks.register("panelRead") {
         logger.lifecycle("Panel read. One report folder per member under " +
             "file://${readingOutput.asFile.absolutePath}")
     }
+}
+
+// How much of the ranking's divergence each prefix of it holds. The report prints a fixed number of rows;
+// this is what says whether that number is the right one, and what a different one would cost.
+//   ./gradlew vocabularyMass
+tasks.register<JavaExec>("vocabularyMass") {
+    group = "verification"
+    description = "Prints how much of the ranking's divergence each prefix of it holds"
+    mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.VocabularyMassProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
 }

@@ -28,6 +28,7 @@ public final class LegibilityTally {
 
     private final Map<String, Integer> occurrencesByWord = new HashMap<>();
     private final Map<String, String> firstSiteByWord = new HashMap<>();
+    private final WrittenWords written = new WrittenWords();
 
     private final Map<String, Integer> occurrencesByForm = new HashMap<>();
 
@@ -54,8 +55,14 @@ public final class LegibilityTally {
             phrase.words().forEach(word -> {
                 occurrencesByWord.merge(word, 1, Integer::sum);
                 firstSiteByWord.putIfAbsent(word, site + ":" + occurrence.line());
+                written.saw(word, site + ":" + occurrence.line(), form.isChosenName());
             });
         });
+    }
+
+    /** Every word the scope wrote, cited or not — what the vocabulary reading ranks. */
+    public WrittenWords written() {
+        return written;
     }
 
     /** How many word occurrences each syntactic form contributed — the mix behind every figure below. */
@@ -67,7 +74,7 @@ public final class LegibilityTally {
         final Map<String, Set<EvidenceSource>> sourcesByWord = occurrencesByWord.keySet().stream()
                 .collect(Collectors.toUnmodifiableMap(Function.identity(), cited::citing));
         return new ScopeLegibility(name, files, counts(sourcesByWord), occurrencesBySource(sourcesByWord),
-                soleOccurrencesBySource(sourcesByWord), unread(sourcesByWord));
+                soleOccurrencesBySource(sourcesByWord), unread(sourcesByWord), written);
     }
 
     private OccurrenceCounts counts(final Map<String, Set<EvidenceSource>> sourcesByWord) {

@@ -17,7 +17,8 @@ class LegibilityReportTest {
             Map.of(EvidenceSource.WORD_FREQUENCY, 1_500, EvidenceSource.WORDNET_SENSE, 900),
             Map.of(EvidenceSource.WORD_FREQUENCY, 700, EvidenceSource.WORDNET_SENSE, 100),
             new UnreadWords(Map.of("dsl", 30, "tconst", 4), Map.of("dsl", "Reading.java:7",
-                    "tconst", "Reading.java:9")));
+                    "tconst", "Reading.java:9")),
+            new WrittenWords());
 
     private final RepositoryLegibility reading =
             new RepositoryLegibility(List.of(SCOPE), SCOPE, Duration.ofMillis(2_400));

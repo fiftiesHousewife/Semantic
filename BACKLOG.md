@@ -144,13 +144,90 @@ opens with two licences to read.
 | HIGH | [Sense disambiguation](docs/plans/SENSE_DISAMBIGUATION.md) | 3 | The enclosing declaration and the file's pooled domain as context, and the resources that label only a word's specialist senses. **The out-of-domain reading gives it a list of concrete failures to be judged against**: on Tika, `pipe` 1,312 carries `hydraulics` at 10.9% of a scope's divergence, `root` 470 with `log` 491, `stub` 82 and `tree` 114 carry `plants`, `detector` 1,230 carries `electrotechnology`, and `stream` 1,743 carries `geography`. Every one is a word whose sense in code is not the sense the dictionary ranks first, and they are the same shape of defect the term matcher hits from the other side | — |
 | MEDIUM | [The taxonomy states more than we read](docs/plans/OLIA_DEFINITIONS.md) | 8 | The 1,271 definitions and 949 provenance notes are extracted, shipped, and now shown — the taxonomy page names every concept the field publishes with what its publisher says it means. What is left is *reading* them, so a concept is matchable by what it means, and OLiA's own annotation modules | — |
 | MEDIUM | [The parse](docs/plans/THE_PARSE.md) | 1 | String literals and text blocks, module declarations, the polyglot stage, and how far a parser recovers from a head commit that does not compile | literals need the prose reading |
-| MEDIUM | [The identifier splitter](docs/plans/THE_SPLITTER.md) | 2 | Byte offsets on every token, and the adjective edge — a run whose first word is an adjective the reading refuses alone, `geometric mean` and `lexical semantics`, is refused with it. **The letter/digit boundary is closed**: UAX #29 states no break between a letter and a digit, so a catalogue is what would override the standard rather than what was needed to obey it | nothing |
+| **NEXT** | [The words this repository chose](docs/plans/THE_VOCABULARY.md) | 2, 9 | **The ranking works and its cutoff is picked, which is the one thing the doctrine refuses outright.** 250 rows was chosen, and a count is not comparable across repositories, so the panel cannot report a vocabulary until the cutoff means one thing everywhere. **A share of the divergence is not the answer and the measurement says why**: over the published names, 632 words carry a positive claim and 0.2705 bits between them, half the bits sit in 50 words and three quarters in 139, so cutting at three quarters would drop 111 rows — `arxiv`, `fibo`, `json`, `csf`, `hypernym`, `olia`, `skos`, `nist`, `antonymous`, `credence` and `segmenter` among them, every one written 3 to 6 times. A word's term of the divergence scales with how often it was written, so a mass cutoff drops the rarest words first and the rarest words here are the proper nouns of every resource the library reads. **The derived cutoff is a permutation null over the vocabulary**, the rule this library already applies wherever a winner is declared: `PermutationNull` and `ChanceExpectedBest` need only a new resampling unit, a word where a scope stands today. Four smaller items sit beside it, each measured: a run the dictionary carries whole is split (`collocated` into `col` 14 and `located` 7, `synset` into `syn` 12, and WordNet carries both, so the citation is one the reading already stands on); `classpath` is the first live cost `CitedTokens.NONE` has been shown to carry, at `class` 68 and `path` 73; the prose ranking is led by symbol readings, `a` 3,787 and `s` 589, which needs the population a word was written in rather than a new rule; and the ranking counts `part` 26 and `speech` 16 apart though `CollocatedWords` folds them for every other reading | nothing |
+| **NEXT** | [The identifier splitter](docs/plans/THE_SPLITTER.md) | 2 | **The vocabulary ranking says what to widen and in what order, and every item is grammar.** UAX #29 rules WB6 and WB7 state that a letter, an apostrophe and a letter do not break, so the possessive is not two words — `s` is written 589 times in this tree's prose and stands fourth in it. **A run the dictionary carries whole is one word, whatever the frequency list says**: `collocated` and `synset` are broken into `col` 14 with `located` 7 and `syn` 12 with `set`, because `PieceCost` prices pieces against a 20,000-word frequency list and neither run is in it — WordNet carries `collocate` and would refuse the split, and it is the same citation the reading already stands on. A catch parameter is `e` 43 times, and a name a reader cannot read is a parse question rather than a splitter one. And `ab` 24 is a run the segmenter broke rather than refused, which is the one that costs a reading its citation. Also left: byte offsets on every token, and the adjective edge — a run whose first word is an adjective the reading refuses alone, `geometric mean` and `lexical semantics`, is refused with it. **The letter/digit boundary is closed**: UAX #29 states no break between a letter and a digit, so a catalogue is what would override the standard rather than what was needed to obey it | nothing |
 | MEDIUM | [The repository read, the store and the first slice](docs/plans/THE_PIPELINE.md) | 1, 9 | The blob as the unit of observation, DuckDB as the system of record, and the first reading of something that is not this repository | — |
 | LOW | [The Wiktionary topic hierarchy](docs/plans/WIKTIONARY_HIERARCHY.md) | 3 | Two label spaces that no bundled resource says are one, and 29 labels a root by omission cannot be told from a root by statement | a citation that maps between them |
 | LOW | [Visualisation](docs/plans/VISUALISATION.md) | 9 | A concept map laid out by the hypernym tree, and a divergence bar with a real axis maximum | — |
 | LOW | [The limits, and the open questions](docs/plans/LIMITS.md) | — | The dead-class half of the resource contract, and four questions each with the measurement that answers it. **It has produced its first live instance**: `PlatformPackages`' javadoc cites `JavaLanguageKeywords` as the precedent it follows, and no such class is in the tree | — |
 
 ## What has landed since this list was last true
+
+- **A word English put inside a name is told from a word the author chose, and neither reference could do
+  it.** `by` stood **fourth of 843** named words, written 173 times in `massByTopic` and `shareByWord`, and
+  both references argued for it: ordinary English writes it at 0.5613% against 2.70% here, and the platform's
+  own API at 0.0151%. A preposition is dense in this repository's names and thin in prose, and a reference
+  drawn from prose reads that as specialist vocabulary. `FunctionWords` answers it from two bundled resources
+  and no list: **a name names a thing, an action, or a property of one** — the noun, the verb and the
+  adjective — and a word the dictionary places in none of the three that the frequency list carries is one
+  the language supplied. It is a partition and not a gate: such a word keeps the place it earned and is
+  printed with it under **What the language supplied**, which is why the ranking's numbering has gaps.
+  38 of 843 named words are the language's, 191 of 3,404 across everything written, and the ones inside the
+  first 250 places were `by` 173, `from` 70 and `beside` 4.
+
+  **Asking for the adjective is what the change turned on, and the first run measured why.** A topical vote
+  asks the dictionary for a noun or a verb, so a first attempt on that coverage handed `broader` 35 — SKOS's
+  own relation, seventeenth of the ranking — along with `nearest`, `longest`, `canonical`, `foreign` and
+  `distinctive` to the language. Asking all four open classes instead fails the other way: WordNet carries
+  `by` as an adverb, `not` and `rather` too, so nothing at all was caught. Noun, verb or adjective is the
+  only one of the three that keeps every property this repository named things for and still refuses the
+  prepositions, and `adjectiveBase` was the missing third of the lexicon's own contract.
+
+  **The report's own cutoff was measured while this landed, and it is picked.** `./gradlew vocabularyMass`
+  prints how the divergence accumulates: the 250 rows hold **89.1%** of it against the 63.4% of *occurrences*
+  the summary line quotes, and three quarters of the bits sit in the first 139 words. What the other 111 hold
+  is the argument against ever cutting on mass — they are the words written three to six times, which is
+  where every resource this library reads is named. [The plan](docs/plans/THE_VOCABULARY.md) states the
+  permutation null that would derive the bound instead.
+
+  Two things it does not answer, both measured rather than asserted. **The dictionary is WordNet 3.1 and
+  ordinary English has moved**: `wiki` 6, `sql` 4, `login` 2, `api` 1 and `keyword` 1 are in the frequency
+  list and in no open class, so the reading calls them the language's — 17 occurrences over 8 words, one of
+  them (`wiki`, 168th) inside the first 250 places. And **the prose ranking is still led by symbol readings**:
+  `a` 3,787 and `s` 589 stand second and fourth of everything written, because the dictionary carries the
+  letters of the alphabet as nouns. `ContentWords` already states the rule that answers it — a one- or
+  two-letter word nothing chose is a symbol reading — but it is a rule about *prose*, and applying it here
+  needs the population a word was written in rather than the word. `s` is the possessive the splitter broke
+  at, so UAX #29 rules WB6 and WB7 close it at the other end.
+
+- **The words this repository chose are ranked, and three of the things crowding the top were not words it
+  chose at all.** [`output/vocabulary.md`](output/vocabulary.md) ranks every word of every declared name by
+  its term of the Jensen–Shannon divergence against two references that state their own contents: the bundled
+  frequency list read as ordinary English, and the type names the running platform declares in the packages
+  it exports, taken from `ModuleFinder.ofSystem()` and split by the same grammar this repository's names are.
+  A word is ranked by the **weakest** claim any reference makes for it — pooling the two would need a weight
+  nothing states, the weakest claim needs none — and nothing is excluded, since a word a reference writes
+  more densely sorts last carrying a negative claim. The table beside the ranking is the argument: `of` is
+  written 179 times and stands 822nd, `entry` 54 times and 310th, `file` 49 times and 635th, while `word`,
+  `topic`, `sense`, `concept`, `occurrences`, `rung`, `lemma`, `divergence` and `legibility` stand
+  where a reader would put them.
+
+  **The platform reference does the job it was built for, and `./gradlew wordPlace -Pwords="get set list"`
+  is how to check it on any word the report never reached.** `get` is never written as a name in this tree
+  at all. `set` 19, `value` 26, `map` 3, `object` 3, `list` 1 and `string` 1 are all written more densely by
+  the platform's own API than by this repository, so each carries that reference's claim as a negative and
+  stands past 670th of 838 — where ordinary English alone would have argued *for* five of the six, since a
+  frequency list of English finds `map` and `value` specialist. Neither reference could have done it alone.
+
+  Three defects it found on its first run are closed. **A doc comment is written in HTML**, so `<p>`, `<em>`
+  and `<b>` were arriving as the words p, em and b — 778 occurrences of markup read as prose, and a lone `p`
+  is a word to a resource that labels every letter of the alphabet. **A package was read once per file**,
+  which weighted a naming decision by how big the package grew and put this project's own coordinate into
+  every file: `semantics` 275 times, one per Java file, against 30 packages. And **an import is read only in
+  a source set the build publishes**, because `junit`, `assertj` and `j2html` are what the repository is
+  checked with, not what it is about — the same position rule the reading already uses for a declaration
+  against a use. λ moved from 0.984 to 0.992 as the toolchain and the markup left the corpus.
+
+  What the ranking still shows in its own top hundred is the next work, and every remaining item is a
+  splitter or a parse question rather than a vocabulary one: `s` 589 in the prose from the possessive that
+  UAX #29 rules WB6 and WB7 say is not a break at all, `e` 43 from a catch parameter, `col` 14 and `syn` 12
+  where the segmenter broke `collocated` and `synset` into pieces it could price, and `ab` 24 where it broke
+  a word it could not read whole. `by` 173 has left the list — it was neither, and the entry above says what
+  answered it. A test source set's names
+  are ranked apart from a published one's, because a test names the behaviour it checks in whole English
+  sentences: 11,711 name-word occurrences are in a source set nothing is published from against 6,367 in one
+  that is, and `test`, `a`, `its` and `every` stand in that ranking's top twenty where the
+  published one's holds none of them above two hundredth.
 
 - **Javadoc's own syntax was being read as the author's prose, and is not any more.** `JavadocProse` reads a
   javadoc through the parser's own model of it. A block tag's name is Javadoc's rather than a word about a

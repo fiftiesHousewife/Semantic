@@ -5,13 +5,14 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.fifties.housewife.codesemantics.engine.reading.PublishedSourceSets;
 import org.fifties.housewife.codesemantics.engine.reading.SourceScope;
 
 /**
@@ -28,13 +29,13 @@ public final class ParsedRepository {
 
     private final List<ParsedFile> files;
     private final int unsoundFiles;
-    private final Map<ImportOrigin, Integer> importsByOrigin;
+    private final ImportTally imports;
 
     private ParsedRepository(final List<ParsedFile> files, final int unsoundFiles,
-                             final Map<ImportOrigin, Integer> importsByOrigin) {
+                             final ImportTally imports) {
         this.files = List.copyOf(files);
         this.unsoundFiles = unsoundFiles;
-        this.importsByOrigin = Map.copyOf(importsByOrigin);
+        this.imports = imports;
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes) {
@@ -74,6 +75,13 @@ public final class ParsedRepository {
      * repository — {@code parse}, {@code reading}, {@code theme}, {@code term} — chosen once each to divide
      * the work, and until now read only to sort imports.
      *
+     * <p><b>Chosen once, so counted once.</b> A package is one naming decision however many files are filed
+     * under it, and reading it per file weights it by how big the package grew — which is a fact about where
+     * the work went and not about what the author called it. Read that way the organisation's own coordinate
+     * arrives once per file and outvotes every subject the repository is actually about, while the files
+     * themselves already carry their own names. So the words are counted at the first file read from each
+     * package and nowhere else.
+     *
      * <p><b>The separator stays the one the identifier grammar knows.</b> This handed on a tail with its
      * dots replaced by spaces, which reads well and was read by nothing: the identifier splitter divides at
      * case boundaries, underscores, hyphens and the qualifier dot, and a space is none of those, so a
@@ -101,14 +109,27 @@ public final class ParsedRepository {
                 .map(source -> source.parsed().packageName())
                 .filter(name -> !name.isEmpty())
                 .collect(Collectors.toUnmodifiableSet()));
-        final Map<ImportOrigin, Integer> imports = new EnumMap<>(ImportOrigin.class);
+        final ImportTally imports = new ImportTally();
+        final PublishedSourceSets published = new PublishedSourceSets();
         final String coordinate = sharedPackagePrefix(read);
+        final Set<String> declaresItsPackage = firstFileOfEachPackage(read);
         final List<ParsedFile> files = read.stream()
                 .map(source -> source.retaining(origins, imports,
-                        packageWords(source.parsed().packageName(), coordinate)))
+                        declaresItsPackage.contains(source.path())
+                                ? packageWords(source.parsed().packageName(), coordinate) : List.of(),
+                        published))
                 .toList();
         return new ParsedRepository(files,
                 (int) read.stream().filter(source -> !source.parsed().sound()).count(), imports);
+    }
+
+    /** The one file per package that its package's words are read at, so a package is named once. */
+    private static Set<String> firstFileOfEachPackage(final List<Read> read) {
+        final Set<String> packages = new HashSet<>();
+        return read.stream()
+                .filter(source -> packages.add(source.parsed().packageName()))
+                .map(Read::path)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     public List<ParsedFile> files() {
@@ -123,9 +144,9 @@ public final class ParsedRepository {
         return unsoundFiles;
     }
 
-    /** How many imports each origin accounted for, including the two the reading sets aside. */
-    public int importsFrom(final ImportOrigin origin) {
-        return importsByOrigin.getOrDefault(origin, 0);
+    /** What the parse did with every import it met, including the ones the reading sets aside. */
+    public ImportTally imports() {
+        return imports;
     }
 
     private static Read read(final Path root, final String scope, final Path file,
@@ -150,8 +171,8 @@ public final class ParsedRepository {
     /** One file after the parse and before its imports have been sorted. */
     private record Read(String scope, String path, int lines, ParsedSource parsed) {
 
-        ParsedFile retaining(final ImportOrigins origins, final Map<ImportOrigin, Integer> tally,
-                             final List<NameOccurrence> alsoDeclared) {
+        ParsedFile retaining(final ImportOrigins origins, final ImportTally tally,
+                             final List<NameOccurrence> alsoDeclared, final PublishedSourceSets published) {
             final List<NameOccurrence> kept = new ArrayList<>(alsoDeclared);
             parsed.occurrences().forEach(occurrence -> {
                 if (occurrence.form() != NameForm.IMPORT) {
@@ -159,9 +180,14 @@ public final class ParsedRepository {
                     return;
                 }
                 final ImportOrigin origin = origins.of(occurrence.text());
-                tally.merge(origin, 1, Integer::sum);
-                if (origin == ImportOrigin.EXTERNAL) {
+                tally.counted(origin);
+                if (origin != ImportOrigin.EXTERNAL) {
+                    return;
+                }
+                if (published.publishes(scope)) {
                     kept.add(occurrence);
+                } else {
+                    tally.setAsideAsToolchain();
                 }
             });
             return new ParsedFile(scope, path, lines, kept, parsed.sound());

@@ -40,6 +40,6 @@ class PinnedLegibilityFindings {
                         .as("every file in this tree parses cleanly, which is a fact about this tree and "
                                 + "the reason nothing here ever exercised the recovery path")
                         .isZero(),
-                () -> assertThat(parsed.importsFrom(ImportOrigin.EXTERNAL)).isPositive());
+                () -> assertThat(parsed.imports().read()).isPositive());
     }
 }

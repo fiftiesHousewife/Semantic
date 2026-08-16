@@ -246,6 +246,23 @@ class WordNetLexiconTest {
     }
 
     @Test
+    void adjectiveBaseResolvesComparativesAndSuperlativesToThePositiveForm() {
+        assertAll(
+                () -> assertThat(lexicon.adjectiveBase("broader")).contains("broad"),
+                () -> assertThat(lexicon.adjectiveBase("nearest")).contains("near"),
+                () -> assertThat(lexicon.adjectiveBase("shortest")).contains("short"),
+                () -> assertThat(lexicon.adjectiveBase("canonical")).contains("canonical"));
+    }
+
+    @Test
+    void adjectiveBaseIsEmptyForAWordTheDictionaryHoldsInNoOtherClassThanTheClosedOne() {
+        assertAll(
+                () -> assertThat(lexicon.adjectiveBase("by")).isEmpty(),
+                () -> assertThat(lexicon.adjectiveBase("from")).isEmpty(),
+                () -> assertThat(lexicon.adjectiveBase("than")).isEmpty());
+    }
+
+    @Test
     void verbBaseResolvesRegularInflections() {
         assertAll(
                 () -> assertThat(lexicon.verbBase("created")).contains("create"),

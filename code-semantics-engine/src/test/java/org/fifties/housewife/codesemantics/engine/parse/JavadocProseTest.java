@@ -49,6 +49,19 @@ class JavadocProseTest {
     }
 
     @Test
+    void leavesOutTheHtmlADocCommentIsWrittenInAndKeepsWhatItMarksUp() {
+        final String read = prose("""
+                 The first sentence.
+                 <p>A second one, <em>emphasised</em> and <b>bold</b>.
+                """);
+        assertAll(
+                () -> assertThat(read)
+                        .as("a lone p is a word to a resource that labels every letter of the alphabet")
+                        .doesNotContain("<p>", "<em>", "</em>", "<b>", "</b>"),
+                () -> assertThat(read).contains("A second one", "emphasised", "bold"));
+    }
+
+    @Test
     void keepsAParameterTagsSentenceWithoutTheParameterNameItAlreadyRead() {
         assertThat(prose(" @param separator the character between two words"))
                 .as("the parameter is a declared name and is read where it was declared")

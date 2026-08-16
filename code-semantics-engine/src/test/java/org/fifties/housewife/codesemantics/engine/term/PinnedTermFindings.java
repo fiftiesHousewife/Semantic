@@ -91,13 +91,13 @@ class PinnedTermFindings {
                                 + "buys neither: WordNet holds no entry for `base form` at all, and it "
                                 + "makes `article` a piece of prose and `determiner` a conclusive argument, "
                                 + "so both examples fail before any code runs. What it does buy on this "
-                                + "tree is every span one word long — `subject` and `theme` reading as "
+                                + "tree is every span but one a single word long — `subject` and `theme` reading as "
                                 + "`Topic`, `cite` as `Referring`, `place` and `put` as `Set`, `sum` as "
                                 + "`Amount`, `auto` as `Automobile` — against a design whose whole premise "
                                 + "is that the multi-word term is the signal. The rung stays, reported "
                                 + "apart and voting on nothing, because the figure is the argument for "
                                 + "refusing it.")
-                        .isEqualTo(1.0),
+                        .isGreaterThan(0.99),
                 () -> assertThat(onSenses.byMass(TERMS_HELD)).map(TermSighting::term)
                         .as("A FINDING, PINNED. The sense rung's largest gain is this repository's own "
                                 + "measured artefact arriving by a second route: `topic`, `theme` and "

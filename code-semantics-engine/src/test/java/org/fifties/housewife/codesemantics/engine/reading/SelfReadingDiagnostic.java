@@ -67,10 +67,12 @@ class SelfReadingDiagnostic {
     /** What the parse set aside, so a narrowed corpus is a reported figure rather than a silent one. */
     private static String imports(final ParsedRepository parsed) {
         return ("Imports read as this repository's own choice: %d. Set aside as the platform's own vocabulary: "
-                + "%d. Set aside as this repository's own coordinates: %d. Files the parser refused: %d.")
-                .formatted(parsed.importsFrom(ImportOrigin.EXTERNAL),
-                        parsed.importsFrom(ImportOrigin.PLATFORM),
-                        parsed.importsFrom(ImportOrigin.INTERNAL),
+                + "%d. Set aside as this repository's own coordinates: %d. Set aside as the toolchain a "
+                + "source set nothing is published from is checked with: %d. Files the parser refused: %d.")
+                .formatted(parsed.imports().read(),
+                        parsed.imports().from(ImportOrigin.PLATFORM),
+                        parsed.imports().from(ImportOrigin.INTERNAL),
+                        parsed.imports().toolchain(),
                         parsed.unsoundFiles());
     }
 }

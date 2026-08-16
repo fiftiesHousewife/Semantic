@@ -70,7 +70,14 @@ same sequence with the figures this repository produced at each step. Take the f
 **1. The parse decides what is a name.** `ParsedRepository` takes the declaration `citationSource` and the
 declaration of the type elsewhere. The type reference at this position is a use and is not counted again;
 otherwise a type used in fifty places would outvote fifty distinct names. The javadoc sentence above it is
-taken as prose. Files the parser cannot read are counted and reported.
+taken as prose, without the HTML a doc comment is written in — `<p>` is the format's syntax standing where a
+word would be. Files the parser cannot read are counted and reported.
+
+Two further positions decide whether a name was chosen for this repository or for the build around it. A
+package is one naming decision however many files are filed under it, so it is read once and not once per
+file. And an import is read only in a source set the build publishes: `junit`, `assertj` and `j2html` are the
+toolchain this repository is checked with rather than anything it is about, and `PublishedSourceSets` is the
+position rule that says so without naming a library.
 
 **2. The name is split into words.** `Tokeniser` applies case transitions and separators to yield `citation`,
 `source`. A letter next to a digit is **not** a boundary, and that is Unicode's rule rather than an omission:
@@ -154,6 +161,7 @@ by step, with each step's figures and a link to the report holding its whole tai
 | [`output/index.html`](output/index.html) | the analysis traced step by step, with the chart |
 | [`output/summary.md`](output/summary.md) | what cleared a bar; what did not is named at the end and reported nowhere |
 | [`output/self-reading.md`](output/self-reading.md) | how much of the repository could be read, and what the parse set aside |
+| [`output/vocabulary.md`](output/vocabulary.md) | the words this repository chose, against the words English and the platform chose for it |
 | [`output/themes.md`](output/themes.md) | what each scope is about, with the words that carried each topic |
 | [`output/themes-chart.html`](output/themes-chart.html) | the same reading drawn, with every wedge named on hover |
 | [`output/subjects.md`](output/subjects.md) | where the repository stands against a published subject scheme |

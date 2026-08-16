@@ -41,6 +41,11 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
     }
 
     @Override
+    public Optional<String> adjectiveBase(final String word) {
+        throw new UnsupportedOperationException("a topical reading does not ask this");
+    }
+
+    @Override
     public Optional<String> abbreviationNoun(final String token) {
         throw new UnsupportedOperationException("a topical reading does not ask this");
     }

@@ -54,6 +54,11 @@ public final class WordNetLexicon implements Lexicon {
         return baseForm(POS.VERB, word);
     }
 
+    @Override
+    public Optional<String> adjectiveBase(final String word) {
+        return baseForm(POS.ADJECTIVE, word);
+    }
+
     // WordNet reads separators as collocation joiners ("hot_dog"), so a compound like "title_basics"
     // would resolve through phrase lookup to its head word. Base forms answer for single words only.
     private Optional<String> baseForm(final POS partOfSpeech, final String word) {

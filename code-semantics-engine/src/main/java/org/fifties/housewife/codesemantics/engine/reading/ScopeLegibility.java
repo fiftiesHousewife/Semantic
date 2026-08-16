@@ -6,7 +6,8 @@ import java.util.Objects;
 import org.fifties.housewife.codesemantics.model.EvidenceSource;
 
 /**
- * One scope's finished reading: what was counted, which resources carried it, and what nothing could read.
+ * One scope's finished reading: what was counted, which resources carried it, what nothing could read, and
+ * every word it wrote.
  *
  * <p>{@code occurrencesBySource} overlaps by construction — a word both WordNet and the frequency list carry
  * is counted under each — so the shares do not sum to one and are not presented as if they did. Overlap is
@@ -15,10 +16,12 @@ import org.fifties.housewife.codesemantics.model.EvidenceSource;
  */
 public record ScopeLegibility(String name, int files, OccurrenceCounts counts,
                               Map<EvidenceSource, Integer> occurrencesBySource,
-                              Map<EvidenceSource, Integer> soleOccurrencesBySource, UnreadWords unread) {
+                              Map<EvidenceSource, Integer> soleOccurrencesBySource, UnreadWords unread,
+                              WrittenWords written) {
 
     public ScopeLegibility {
         Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(written, "written");
         occurrencesBySource = Map.copyOf(occurrencesBySource);
         soleOccurrencesBySource = Map.copyOf(soleOccurrencesBySource);
     }
