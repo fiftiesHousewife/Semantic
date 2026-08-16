@@ -197,6 +197,48 @@ class JavaSourceTest {
     }
 
     @Test
+    void readsANameThatIsTheInitialsOfItsOwnTypeApartFromTheNamesAnAuthorMeant() {
+        final String source = """
+                package example;
+                class Extraction {
+                    private final String id = "";
+                    void read(final TikaInputStream tis) {
+                        final StringBuilder sb = new StringBuilder();
+                        final InputStream is = tis.stream();
+                        final int cursor = 0;
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.ABBREVIATED_TYPE))
+                        .containsExactlyInAnyOrder("tis", "sb", "is"),
+                () -> assertThat(namesOf(source, NameForm.FIELD))
+                        .as("a length rule would take id with it, and String spells s")
+                        .containsExactly("id"),
+                () -> assertThat(namesOf(source, NameForm.LOCAL)).containsExactly("cursor"),
+                () -> assertThat(NameForm.ABBREVIATED_TYPE.isChosenName()).isFalse());
+    }
+
+    @Test
+    void refusesToClaimANameWhoseTypeWasNeverWritten() {
+        final String source = """
+                package example;
+                class Reading {
+                    void read(final java.util.List<String> rows) {
+                        rows.forEach(r -> System.out.println(r));
+                        var v = rows.size();
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.ABBREVIATED_TYPE)).isEmpty(),
+                () -> assertThat(namesOf(source, NameForm.PARAMETER)).contains("r"),
+                () -> assertThat(namesOf(source, NameForm.LOCAL)).contains("v"));
+    }
+
+    @Test
     void carriesTheLineEachDeclarationSitsOn() {
         final String source = "package example;\n\nclass Page {\n    int cursor;\n}\n";
 

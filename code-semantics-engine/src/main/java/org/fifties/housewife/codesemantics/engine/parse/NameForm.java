@@ -33,6 +33,15 @@ public enum NameForm {
      * carries the letters of the alphabet as nouns.
      */
     CAUGHT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
+    /**
+     * A declaration whose name is the initials of the words of its own type — {@code TikaInputStream tis},
+     * {@code StringBuilder sb}, {@code InputStream is}.
+     *
+     * <p>Nothing is named here: the letters stand for the type written beside them, and a type is a use,
+     * read wherever it was declared. It is {@link #CAUGHT}'s rule reaching the declarations that write their
+     * type out. {@link TypeInitials} states which they are, from the parse and without a length rule.
+     */
+    ABBREVIATED_TYPE(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** A local variable, including a loop variable and a pattern binding. */
     LOCAL(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** An enum constant or a record component — declared names that are neither field nor method. */
@@ -83,8 +92,8 @@ public enum NameForm {
      * Whether every word of it was chosen by this repository as the name of something. A declared name was:
      * nothing forced {@code cursor} on its author. A sentence was not — English requires articles and
      * conjunctions whatever it is about — and neither was a dependency's package path, whose leading segments
-     * are somebody else's coordinates, nor a caught exception's name, which stands for the type the language
-     * requires beside it. A reading weights the two differently, and this is where it asks.
+     * are somebody else's coordinates, nor a name that stands for the type written beside it. A reading
+     * weights the two differently, and this is where it asks.
      */
     public boolean isChosenName() {
         return authorship == Authorship.CHOSEN;

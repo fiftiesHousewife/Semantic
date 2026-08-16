@@ -52,7 +52,8 @@ copied comment and the restated type are measured on Apache Tika and are invisib
 | 9 | Step 8 consumes the partition | The term matcher reads the ranking | Spans lost, concept by concept |
 | — | A type restated in its own declaration's name | A parse pass over each declaration's own types | **21% of every OLiA span on Tika** |
 | — | A comment copied into more than one file weighs `1/n` | A second pass, which `ParsedRepository` already makes | **45.1% of Tika's comment word occurrences**, 0.3% here |
-| — | The platform's own method names | Unmeasured — the enumeration was too slow to sit in a test | The share of Tika's spans whose word the platform declares |
+| — | The platform's own method names | A class file read, 259 ms for the whole platform | **Landed.** `get` fell from **1st of 4,582** on Tika to last of 4,527, `set` from 21st to 4,507th |
+| — | A declared name that is its own type, abbreviated | One rule over the type the parse already holds | **Landed.** `tis` fell from **7th** to 147th, `sb` left the named ranking, `is` stands 4,422nd |
 
 ---
 
@@ -344,7 +345,7 @@ its own definition, and needs no bundled resource. `ParsedRepository` already re
 than the 0.3% the measurement predicts. **Abandon if** it removes a comment a single author genuinely wrote
 in two files and that removal changes a reported theme.
 
-### A declared name that is its own type, abbreviated
+### A declared name that is its own type, abbreviated — landed
 
 Measured on Tika by the kind of declaration each short name stands in: 4,964 short locals, 1,744 short catch
 parameters, 1,360 short method parameters, 379 lambda parameters, 175 fields, 81 type parameters. **1,675 of
@@ -366,7 +367,26 @@ what it replaces — `id` 101 on Tika and 8 here is a name an author meant, and 
 **Abandon if** it claims a name whose initials coincide with its type by accident — report every name it
 removes whose type it does not abbreviate.
 
-### The platform's own method names
+**It settled.** `TypeInitials` splits the declared type by the same grammar the declared name is split by and
+compares the first letter of each word with the name; `NameForm.ABBREVIATED_TYPE` records what it claims, so
+the word is still counted as written and only stops being counted as a name. `./gradlew abbreviatedTypes`
+prints every pair.
+
+| | Declarations claimed | Distinct names | Led by |
+|---|--:|--:|---|
+| this repository | 1 | 1 | `i` of an `int` |
+| Tika `43cbdae6` | 4,108 | 242 | `tis` of a `TikaInputStream` 1,080, `i` of an `int` 962, `m` of a `Metadata` 244, `is` of an `InputStream` 228, `sb` of a `StringBuilder` 155 |
+
+In Tika's published names `tis` fell from **7th on 498 occurrences to 147th on 39**, `sb` is no longer
+written as a name at all, and `is` stands 4,422nd. The 39 that remain are `tis` written inside some other
+name, which is the author using the abbreviation rather than the language handing it over.
+
+**The accident the abandon criterion asked for is one declaration in 4,108**: `id` of an `ImageDeskew`. Every
+other of the 242 abbreviates its type. `ch` is Tika's `ContentHandler` rather than the `char` this plan
+guessed, and `cp` a `CompositeParser` rather than a code point; both are claimed, and the guess is recorded
+as wrong because the rule was never about what the letters look like.
+
+### The platform's own method names — landed
 
 `set` as a setter's verb echoes no type, and neither do `get`, `is`, `has`, `to`, `from`, `of`, `new`,
 `builder`, `factory`, `iterator`.
@@ -385,6 +405,28 @@ inside a test; reading type names from `ModuleReader.list()` without loading the
 **What settles it:** the share of Tika's OLiA spans whose word the platform itself declares. **Abandon if**
 it also claims words the platform declares only incidentally and that a repository plainly chose — the JDK
 declares a `Character`, and Tika's `Character` is a real match against a linguistic ontology.
+
+**It settled, and the enumeration is cheap.** `ClassFileMethods` reads each exported class file's constant
+pool and its `method_info` name indices — nothing is loaded, linked, verified or initialised, and the whole
+platform enumerates in **259 ms**: 14,266 exported classes and 96,631 public or protected method names beside
+the 14,266 type names the reference already had. Reflection was what was slow, not the question.
+
+| Word | Declared here | Ordinary English | The platform's own API | Where it stands in Tika's published names |
+|---|--:|--:|--:|--:|
+| `get` | 2.8621% | 0.0892% | **9.2359%** | **4,527th of 4,527**, from 1st |
+| `set` | 1.4494% | 0.0654% | 2.7941% | 4,507th, from 21st |
+| `is` | 1.0005% | 1.3630% | 1.5297% | 4,422nd |
+
+**The subject matter is untouched, which is the abandon criterion**: `metadata` stands 1st, `config` 2nd,
+`extract` 11th, `detect` 20th. The platform writes `metadata` at 0.0413% against Tika's 1.7300%, so the
+reference argues *for* it. The one word the wider reference moved that a reader might argue about is
+`stream`, from 168th, which the platform declares at 0.2756% — Java's word as much as Tika's.
+
+**What it does not answer, and it is now the largest open question about this reference.** `ModuleFinder`
+`.ofSystem()` is the JVM *running the reading*, not the platform the read repository builds against. A tree
+targeting Java 8 is being read against Java 21's API. [Other languages](OTHER_LANGUAGES.md) states the fix —
+the clone's own stated release, read through `ModuleFinder.of(<that JDK>/jmods)` — and the measurement that
+says whether it matters.
 
 ---
 

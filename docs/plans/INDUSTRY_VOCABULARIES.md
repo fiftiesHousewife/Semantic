@@ -83,6 +83,33 @@ per scheme, so the extraction is a plain XML read and each scheme is a concept s
 **ISO 20022** remains open: read `iso20022.org/terms-use` and the IPR policy against the words *redistribute
 in a derived work*. If it clears, the External Code Sets are the interesting part.
 
+### The standard a repository implements, which is a stronger citation than the field it is in
+
+**Nothing below is extracted until [the extractors](THE_EXTRACTORS.md) are restructured.** That is the
+stated order: six extraction classes already repeat the same six steps, and each new source adds a seventh
+copy. The licence reading below can proceed in parallel, because it produces a verdict rather than a file.
+
+The panel member exposed the case directly. **Tika's subject matter is file formats and metadata standards,
+and it writes them as constants rather than as prose** — so a match against a registry Tika implements is the
+repository writing a term its publisher defined, not an English word a taxonomy happens to have claimed. It
+is the same argument that puts FpML ahead of a thesaurus, applied to a domain that is not finance.
+
+| Candidate | What it publishes | Where the repository writes it | Licence — **read before anything is bundled** |
+|---|---|---|---|
+| **IANA media types** | the registered type/subtype registry | `tika-mimetypes.xml`, thousands of entries | IANA registry terms; assertions about redistribution are unread here |
+| **DCMI terms** | Dublin Core, `dc:title`, `dc:creator`, `dc:subject` | Tika's metadata keys | DCMI states its own terms; unread here |
+| **XMP / EXIF / IPTC** | metadata property names | the same keys, by namespace | XMP is Adobe's, EXIF is JEITA's, IPTC is IPTC's — three separate reads |
+| **ISO** | format and metadata standards by number | referenced rather than reproduced | ISO sells its standards; a bundled extract is the least likely of these to clear |
+
+**Why it is worth the licence work:** a hit is verifiable rather than coincidental. The term-matching plan's
+whole difficulty is that OLiA's ordinary-English concepts collide with Java's naming conventions; a registry
+of media types collides with nothing, because no English sentence contains `application/vnd.ms-excel`.
+
+**What must happen first, and it is not code:** read each licence and record what it says about
+redistribution in a derived artefact, in the table above, in the same form the sources table uses. Nothing is
+extracted until a verdict is written down. **Abandon a candidate if** its terms permit use but not
+redistribution — that is where ACM CCS stopped, and it stops here for the same reason.
+
 ### One shape for every source
 
 Whatever a source publishes — OWL, SKOS, CSV, XSD — the extraction normalises it to the same

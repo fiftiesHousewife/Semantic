@@ -133,6 +133,21 @@ val memberReadings = panelMembers.map { member ->
     }
 }
 
+// The clones themselves, fetched at the commits the manifest pins. It reaches the network, so it is tagged
+// `backtest` and excluded from every ordinary run; a panel figure is otherwise a reading of a moving target.
+//   ./gradlew panelFetch -Dcs.panel.dir=<directory to hold the clones>
+tasks.register<Test>("panelFetch") {
+    group = "verification"
+    description = "Fetches every panel member at the commit the manifest pins it to"
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    useJUnitPlatform { includeTags("backtest") }
+    outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
+    panelDirectory?.let { systemProperty("cs.panel.dir", it) }
+}
+
 tasks.register("panelRead") {
     group = "verification"
     description = "Reads every cloned panel member, one report folder per member under output/"
@@ -173,6 +188,18 @@ tasks.register<JavaExec>("splitRuns") {
     group = "verification"
     description = "Prints the runs the segmenter split that the dictionary carries whole"
     mainClass = "org.fifties.housewife.codesemantics.engine.reading.SplitRunsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
+// Every declared name the initials of its own type spell, with the type beside it. It is what says whether
+// the rule claims a name an author meant, which is the only way it can be wrong.
+//   ./gradlew abbreviatedTypes
+tasks.register<JavaExec>("abbreviatedTypes") {
+    group = "verification"
+    description = "Prints every declared name that is the initials of its own type, with that type"
+    mainClass = "org.fifties.housewife.codesemantics.engine.reading.AbbreviatedTypesProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }

@@ -19,12 +19,23 @@ class PlatformVocabularyTest {
     }
 
     @Test
+    void readsTheMethodsTheseTypesDeclareAndNotOnlyTheTypeNames() {
+        assertAll(
+                () -> assertThat(names.declared()).contains("getName", "setTime", "isEmpty", "toString"),
+                () -> assertThat(vocabulary.shareOf("get"))
+                        .as("get echoes no type name, so a reference built from types alone is silent "
+                                + "about the word the platform declares most")
+                        .isPositive(),
+                () -> assertThat(vocabulary.shareOf("set")).isPositive());
+    }
+
+    @Test
     void refusesANameAJavaIdentifierCouldNotHold() {
         assertThat(names.declared())
-                .as("an anonymous class carries a number and the language mandates package-info; "
-                        + "neither is a name anybody chose")
+                .as("an anonymous class carries a number, the language mandates package-info, and the "
+                        + "class file spells a constructor <init>; none is a name anybody chose")
                 .noneMatch(name -> name.isEmpty() || Character.isDigit(name.charAt(0))
-                        || name.contains("-"));
+                        || name.contains("-") || name.startsWith("<"));
     }
 
     @Test

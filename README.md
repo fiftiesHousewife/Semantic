@@ -59,11 +59,14 @@ a declaration from a reference, so the analysis runs on a parse tree and takes t
 | Dependencies | imports belonging neither to the Java platform nor to the repository under analysis | 0.5 |
 | Prose | javadoc, comments, and markdown the repository has not declared to be a working note | 0.5 |
 
-Two declared names are read apart from the rest, because the syntax bound them rather than the author
+Three declared names are read apart from the rest, because the syntax bound them rather than the author
 choosing them. A **dependency's package path** carries somebody else's coordinates in its leading segments.
-And the name a **catch clause** gives a caught exception stands for the type the language requires it to
+The name a **catch clause** gives a caught exception stands for the type the language requires it to
 write immediately beside it — every catch clause in this repository names it `e`, and so do 1,675 of Apache
-Tika's 1,744 short ones.
+Tika's 1,744 short ones. And a name that is **the initials of the words of its own declared type** stands for
+that type: `TikaInputStream tis`, `StringBuilder sb`, `InputStream is`, which is 4,108 of Tika's declarations
+against one of this repository's. It is a rule about the parse and not about length, so `String id` — whose
+type spells `s` — keeps the place it earned.
 
 A **javadoc** is read through the parser's own model of the javadoc rather than as text. A block tag's name
 is Javadoc's word and not a subject — Tika writes `@param` 2,768 times and `@return` 1,430 — a `@param`
@@ -146,11 +149,12 @@ references because each covers a hole the other leaves:
 | Reference | What it states | What it refuses that the other cannot |
 |---|---|---|
 | The bundled frequency list | what ordinary English is written in, as a rank per word | `the`, `of`, `that` — the words English requires whatever it is about |
-| `PlatformVocabulary`, from `ModuleFinder.ofSystem()` | what ordinary Java is written in: every type name the running platform declares in the packages it exports, split by the same grammar | `set`, `value`, `map`, `object`, `list`, `string` — which a frequency list of English finds *specialist* |
+| `PlatformVocabulary`, from `ModuleFinder.ofSystem()` | what ordinary Java is written in: every type name and every public or protected method name the running platform declares in the packages it exports, split by the same grammar | `get`, `set`, `value`, `map`, `object`, `list`, `string` — which a frequency list of English finds *specialist*, and `get` most of all, at 9.2% of everything the platform declares |
 
 Neither is a list anybody wrote. The second is the running JDK being asked to describe itself, which is the
 same move `PlatformPackages` makes to decide whether an import is the platform's, and it cannot go stale
-against the JDK in use. A word rises only where both agree this repository writes it more densely than they
+against the JDK in use. The method names are read out of each class file's constant pool by
+`ClassFileMethods`, so no class is loaded and the whole platform enumerates in a fraction of a second. A word rises only where both agree this repository writes it more densely than they
 do; a reference that writes it more densely carries that as a claim *against* it rather than removing it.
 [`output/vocabulary.md`](output/vocabulary.md) is the ranking, and `./gradlew wordPlace -Pwords="get set
 list"` answers for a word it never reached.

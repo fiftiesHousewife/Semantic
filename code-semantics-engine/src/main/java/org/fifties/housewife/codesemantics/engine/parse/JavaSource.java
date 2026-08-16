@@ -22,6 +22,7 @@ import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
 import com.github.javaparser.ast.stmt.CatchClause;
+import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.type.TypeParameter;
 
 /**
@@ -41,15 +42,17 @@ import com.github.javaparser.ast.type.TypeParameter;
 public final class JavaSource implements SourceReader {
 
     private final JavaParser parser;
+    private final TypeInitials initials;
     private final JavadocProse javadoc = new JavadocProse();
 
-    public JavaSource(final ParserConfiguration configuration) {
+    public JavaSource(final ParserConfiguration configuration, final TypeInitials initials) {
         this.parser = new JavaParser(configuration);
+        this.initials = initials;
     }
 
     public static JavaSource newInstance() {
         return new JavaSource(new ParserConfiguration()
-                .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21));
+                .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21), TypeInitials.fromClasspath());
     }
 
     private static final String JAVA_SUFFIX = ".java";
@@ -78,21 +81,21 @@ public final class JavaSource implements SourceReader {
         // stands for that type.
         unit.findAll(Parameter.class).stream()
                 .filter(parameter -> !isCaught(parameter))
-                .forEach(parameter ->
-                        add(parameter.getNameAsString(), NameForm.PARAMETER, parameter, occurrences));
+                .forEach(parameter -> addNamed(parameter.getNameAsString(), parameter.getType(),
+                        NameForm.PARAMETER, parameter, occurrences));
         declared(unit, EnumConstantDeclaration.class, NameForm.CONSTANT, occurrences);
         declared(unit, TypeParameter.class, NameForm.TYPE_PARAMETER, occurrences);
         unit.findAll(RecordDeclaration.class).forEach(record ->
-                record.getParameters().forEach(component ->
-                        add(component.getNameAsString(), NameForm.CONSTANT, component, occurrences)));
+                record.getParameters().forEach(component -> addNamed(component.getNameAsString(),
+                        component.getType(), NameForm.CONSTANT, component, occurrences)));
         unit.findAll(FieldDeclaration.class).forEach(field ->
-                field.getVariables().forEach(variable ->
-                        add(variable.getNameAsString(), NameForm.FIELD, variable, occurrences)));
+                field.getVariables().forEach(variable -> addNamed(variable.getNameAsString(),
+                        variable.getType(), NameForm.FIELD, variable, occurrences)));
         unit.findAll(VariableDeclarationExpr.class).forEach(local ->
-                local.getVariables().forEach(variable ->
-                        add(variable.getNameAsString(), NameForm.LOCAL, variable, occurrences)));
+                local.getVariables().forEach(variable -> addNamed(variable.getNameAsString(),
+                        variable.getType(), NameForm.LOCAL, variable, occurrences)));
         unit.findAll(com.github.javaparser.ast.expr.TypePatternExpr.class).forEach(pattern ->
-                add(pattern.getNameAsString(), NameForm.LOCAL, pattern, occurrences));
+                addNamed(pattern.getNameAsString(), pattern.getType(), NameForm.LOCAL, pattern, occurrences));
         unit.findAll(com.github.javaparser.ast.stmt.LabeledStmt.class).forEach(labelled ->
                 add(labelled.getLabel().asString(), NameForm.LABEL, labelled, occurrences));
         unit.getImports().forEach(imported ->
@@ -128,6 +131,15 @@ public final class JavaSource implements SourceReader {
             return;
         }
         add(comment.getContent(), NameForm.COMMENT, comment, occurrences);
+    }
+
+    /**
+     * A declaration that writes its type beside its name. Where the name is the initials of that type's own
+     * words it stands for the type rather than naming anything, and is recorded as what it is.
+     */
+    private void addNamed(final String name, final Type type, final NameForm form, final Node node,
+                          final List<NameOccurrence> occurrences) {
+        add(name, initials.spell(name, type) ? NameForm.ABBREVIATED_TYPE : form, node, occurrences);
     }
 
     private static void add(final String text, final NameForm form, final Node node,
