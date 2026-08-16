@@ -344,6 +344,28 @@ its own definition, and needs no bundled resource. `ParsedRepository` already re
 than the 0.3% the measurement predicts. **Abandon if** it removes a comment a single author genuinely wrote
 in two files and that removal changes a reported theme.
 
+### A declared name that is its own type, abbreviated
+
+Measured on Tika by the kind of declaration each short name stands in: 4,964 short locals, 1,744 short catch
+parameters, 1,360 short method parameters, 379 lambda parameters, 175 fields, 81 type parameters. **1,675 of
+the 1,744 catch parameters are `e`**, which the `CAUGHT` rule already removed — `e` fell to 61st on 140
+occurrences.
+
+What is left divides in two, and only one half is scratch. `i` 942, `m` 318, `p` 240, `r` 218, `n` 145 and
+`j` 92 are loop indices. But `is` 146, `sb` 146, `ch` 118, `cp` 80 and `b` 108 are not: they are the
+declaration's own **type**, abbreviated — an `InputStream`, a `StringBuilder`, a `char`, a code point, a
+byte. So is `tis` **498**, seventh of Tika's whole ranking, which is `TikaInputStream`.
+
+That is the same defect as `List<Foo> getFooList()` seen from the other end, and it wants the same fix
+generalised: **a declared name whose letters are the initials of the words of its own declared type is that
+type quoted.** The parse knows the type. It needs no list and no rule about length, and a length rule is
+what it replaces — `id` 101 on Tika and 8 here is a name an author meant, and any threshold that removes
+`sb` removes `id` with it.
+
+**What settles it:** `tis`, `b`, `is`, `sb`, `cp` and `ch` leave Tika's ranking, and `id` does not.
+**Abandon if** it claims a name whose initials coincide with its type by accident — report every name it
+removes whose type it does not abbreviate.
+
 ### The platform's own method names
 
 `set` as a setter's verb echoes no type, and neither do `get`, `is`, `has`, `to`, `from`, `of`, `new`,

@@ -16,11 +16,11 @@ import java.util.Optional;
 public record ReadingWalkthrough(String repository, List<Step> steps) {
 
     /** What the chart shows, for a reader who is given the alternative text instead of the picture. */
-    public static final String CHART_DESCRIPTION = "The topics that earned a place, the broad subject each "
-            + "generalises to on the inner ring and the label it was stated as on the outer one";
+    public static final String CHART_DESCRIPTION = "The topics that earned a place, laid end to end, each "
+            + "segment as wide as the share of the reading that topic explains";
 
     private static final int TOPICS_NAMED = 6;
-    private static final String CHART = "themes-sunburst.svg";
+    private static final String CHART = "themes-bar.svg";
 
     /** One step of the analysis: what it does, what it found here, and where the whole of it is. */
     public record Step(String title, String what, Optional<String> found, Optional<String> picture,

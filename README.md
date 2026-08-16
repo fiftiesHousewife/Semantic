@@ -11,11 +11,18 @@ dictionaries and classification schemes, and aggregates the results into a distr
 categories. That distribution is then compared against another: another part of the same repository, a
 published subject taxonomy, or ordinary English.
 
-![Topics that earned a place, the broad subject inside and the stated label outside](output/themes-sunburst.svg)
+![Topics that earned a place, laid end to end, each segment the share of the reading it explains](output/themes-bar.svg)
 
-The picture above is written by `./gradlew selfRead` and is a reading of this repository. Read it alongside
-[`output/index.html`](output/index.html), which traces the same analysis step by step with the figures each
-step produced.
+The bar above is written by `./gradlew selfRead` and is a reading of this repository: every topic that
+departed from chance, laid end to end, each segment as wide as the share of the reading it explains. It is
+short because three topics earned a place, not because three were found — what earned none is a figure and
+is stated in words rather than drawn as a segment. The same reading is drawn as a sunburst on
+[`output/themes.html`](output/themes.html), where there is room for the publisher's own hierarchy on an
+inner ring.
+
+Read it alongside [`output/index.html`](output/index.html), which traces the analysis step by step with the
+figures each step produced, and [`output/vocabulary.md`](output/vocabulary.md), which ranks every word this
+repository chose against what ordinary English and the Java platform's own API are written in.
 
 ## The constraint
 
@@ -52,6 +59,18 @@ a declaration from a reference, so the analysis runs on a parse tree and takes t
 | Dependencies | imports belonging neither to the Java platform nor to the repository under analysis | 0.5 |
 | Prose | javadoc, comments, and markdown the repository has not declared to be a working note | 0.5 |
 
+Two declared names are read apart from the rest, because the syntax bound them rather than the author
+choosing them. A **dependency's package path** carries somebody else's coordinates in its leading segments.
+And the name a **catch clause** gives a caught exception stands for the type the language requires it to
+write immediately beside it — every catch clause in this repository names it `e`, and so do 1,675 of Apache
+Tika's 1,744 short ones.
+
+A **javadoc** is read through the parser's own model of the javadoc rather than as text. A block tag's name
+is Javadoc's word and not a subject — Tika writes `@param` 2,768 times and `@return` 1,430 — a `@param`
+tag's name is a parameter already read where it was declared, and what an inline `{@link}` or `{@code}`
+points at is a use of something declared elsewhere. No tag list is kept; the structure says which part is
+which.
+
 The unit of evidence is the phrase. One declared name is one phrase and one sentence of prose is one phrase,
 each contributing a single unit whatever its length. Without this a long javadoc sentence would outweigh a
 short field name by containing more words.
@@ -82,9 +101,18 @@ position rule that says so without naming a library.
 **2. The name is split into words.** `Tokeniser` applies case transitions and separators to yield `citation`,
 `source`. A letter next to a digit is **not** a boundary, and that is Unicode's rule rather than an omission:
 [UAX #29](https://www.unicode.org/reports/tr29/) states "do not break within sequences of digits, or digits
-adjacent to letters" (WB9, WB10), which is why `utf8Decode` reads as `utf8` and `decode`. Where a compound has no such boundary, `WordSegmenter` scores candidate splits
-against a published frequency list and `PieceCost` prices each piece, so `userid` reads as `user` and `id`
-rather than `use` and `rid`.
+adjacent to letters" (WB9, WB10), which is why `utf8Decode` reads as `utf8` and `decode`. Nor is a letter
+either side of an apostrophe: rules WB6 and WB7 of the same annex are why `resource's` is one word and not
+`resource` followed by the nineteenth letter of the alphabet, which a dictionary carries as a noun and which
+this repository's prose contained 589 times.
+
+Where a compound has no boundary at all, `WordSegmenter` prices candidate splits against a published
+frequency list through `PieceCost`, so `userid` reads as `user` and `id` rather than `use` and `rid`. **That
+list is twenty thousand words long, so a run it does not carry is taken apart into pieces it does** —
+`abstains` as `ab` and `stains`, `annotation` as `an` and `notation`, `splitter` as `sp` and `litter`. The
+dictionary is asked first and a run it carries as one word is one word, whatever the list says. Over this
+repository's declared names that changes 31 of 49 split runs; over Apache Tika it changes 91 of 325,
+including `extractor`, read as `extract` and `or` 244 times on a library whose subject is extraction.
 
 **Where a resource publishes a run of those words as one entry, the run is one word.**
 `CollocatedWords` takes the longest published run at each position, left to right, with no two overlapping,
@@ -106,6 +134,26 @@ is worth:
 ```bash
 ./gradlew wordVotes -Pwords="cite source citation"
 ```
+
+**A frequency table is what makes any of this readable, and the analysis uses two.** A frequency table is a
+published count of how often each word is written in some body of text, given as an ordering: the commonest
+word first, and a word's rank standing in for its rate. It is needed because a count taken on its own cannot
+answer the question it is asked — the words a Java program contains most of are the words *every* Java
+program contains most of, so a raw ranking of any repository returns the language rather than the subject.
+Each word is therefore scored against what it would be if the repository were unremarkable, and there are two
+references because each covers a hole the other leaves:
+
+| Reference | What it states | What it refuses that the other cannot |
+|---|---|---|
+| The bundled frequency list | what ordinary English is written in, as a rank per word | `the`, `of`, `that` — the words English requires whatever it is about |
+| `PlatformVocabulary`, from `ModuleFinder.ofSystem()` | what ordinary Java is written in: every type name the running platform declares in the packages it exports, split by the same grammar | `set`, `value`, `map`, `object`, `list`, `string` — which a frequency list of English finds *specialist* |
+
+Neither is a list anybody wrote. The second is the running JDK being asked to describe itself, which is the
+same move `PlatformPackages` makes to decide whether an import is the platform's, and it cannot go stale
+against the JDK in use. A word rises only where both agree this repository writes it more densely than they
+do; a reference that writes it more densely carries that as a claim *against* it rather than removing it.
+[`output/vocabulary.md`](output/vocabulary.md) is the ranking, and `./gradlew wordPlace -Pwords="get set
+list"` answers for a word it never reached.
 
 **5. Each vote is weighted, and every weight is read off a resource rather than chosen.**
 

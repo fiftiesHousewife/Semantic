@@ -146,7 +146,7 @@ final class ThemeSunburst {
      * A theme sits under the broadest subject the hierarchy generalises it to, and under itself where the
      * hierarchy says nothing — the same map the reading folds a derived label through.
      */
-    private static Map<String, List<ThemeGraph.Node>> byBroaderTopic(final List<ThemeGraph.Node> nodes) {
+    static Map<String, List<ThemeGraph.Node>> byBroaderTopic(final List<ThemeGraph.Node> nodes) {
         final Map<String, List<ThemeGraph.Node>> grouped = new LinkedHashMap<>();
         nodes.forEach(node -> grouped.computeIfAbsent(node.broader(), broad -> new ArrayList<>()).add(node));
         return grouped;

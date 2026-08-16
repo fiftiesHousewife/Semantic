@@ -33,6 +33,7 @@ class ThemeReadingDiagnostic {
     private static final String GRAPH = "themes.json";
     private static final String PAGE = "themes-chart.html";
     private static final String PICTURE = "themes-sunburst.svg";
+    private static final String BAR = "themes-bar.svg";
 
     private static final int TOPICS_GRAPHED = 18;
     private static final int WITNESSES_HELD = 8;
@@ -88,7 +89,10 @@ class ThemeReadingDiagnostic {
                         .contains("What this repository is about"),
                 () -> assertThat(Files.readString(reports.file(PICTURE)))
                         .as("the picture the README shows is written by the run, never drawn by hand")
-                        .contains("<svg", "wedge"));
+                        .contains("<svg", "wedge"),
+                () -> assertThat(Files.readString(reports.file(BAR)))
+                        .as("and so is the one the walkthrough shows")
+                        .contains("<svg", "segment"));
     }
 
     private void write(final ReportFolder reports, final RepositoryThemes themes, final Path root)
@@ -100,5 +104,6 @@ class ThemeReadingDiagnostic {
         new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(reports.file(GRAPH).toFile(), graph);
         Files.writeString(reports.file(PAGE), new ThemePage().of(graph));
         Files.writeString(reports.file(PICTURE), new SunburstDocument().of(graph.nodes()));
+        Files.writeString(reports.file(BAR), new BarDocument().of(graph.nodes()));
     }
 }

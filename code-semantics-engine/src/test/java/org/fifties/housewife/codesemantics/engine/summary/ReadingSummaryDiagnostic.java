@@ -76,7 +76,7 @@ class ReadingSummaryDiagnostic {
                         .hasSizeLessThan(4_000),
                 () -> assertThat(Files.readString(reports.file(INDEX)))
                         .as("the walkthrough traces the analysis and names the report behind each step")
-                        .contains("The files are parsed", "themes-sunburst.svg", "themes-chart.html",
+                        .contains("The files are parsed", "themes-bar.svg", "themes-chart.html",
                                 "What it takes to be printed:"),
                 () -> assertThat(summary.repository())
                         .as("the page says which repository it summarises, and it is the one that was read")

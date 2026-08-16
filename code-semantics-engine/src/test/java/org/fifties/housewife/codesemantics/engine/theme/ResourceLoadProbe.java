@@ -7,6 +7,10 @@ import java.util.function.Supplier;
 import org.fifties.housewife.bi.lexicon.ArxivSubjects;
 import org.fifties.housewife.bi.lexicon.WordNetLexicon;
 import org.fifties.housewife.codesemantics.engine.reading.IdentifierWords;
+import org.fifties.housewife.codesemantics.engine.vocabulary.ChosenWords;
+import org.fifties.housewife.codesemantics.engine.vocabulary.EnglishVocabulary;
+import org.fifties.housewife.codesemantics.engine.vocabulary.PlatformNames;
+import org.fifties.housewife.codesemantics.engine.vocabulary.PlatformVocabulary;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +34,10 @@ class ResourceLoadProbe {
         LOADERS.put("OrdinaryEnglish", OrdinaryEnglish::fromClasspath);
         LOADERS.put("SubjectAreas", SubjectAreas::fromClasspath);
         LOADERS.put("FieldOfStudy", FieldOfStudy::fromClasspath);
+        LOADERS.put("PlatformNames", PlatformNames::ofSystem);
+        LOADERS.put("PlatformVocabulary", PlatformVocabulary::ofSystem);
+        LOADERS.put("EnglishVocabulary", EnglishVocabulary::fromClasspath);
+        LOADERS.put("ChosenWords", ChosenWords::againstEnglishAndThePlatform);
     }
 
     @Test
