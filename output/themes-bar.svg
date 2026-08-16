@@ -1,15 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 96" width="720" height="96" role="img" aria-label="Themes as one bar, each segment the share of the reading that topic explains, grouped by the broad subject the publisher&#x27;s hierarchy places it under"><style>/*
- * The segment rules for a stacked bar that travels as a file. A markdown reader renders an image and not a
- * page, so the picture cannot reach the page's stylesheet and carries its own. Each segment states its own
- * two colours as custom properties; these rules choose between them by the reader's colour scheme.
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 104" width="720" height="104" role="img" aria-label="Themes as one bar per topic, longest first, each as long as the share of the reading that topic explains"><style>/*
+ * The rules for a bar chart that travels as a file. A markdown reader renders an image and not a page, so
+ * the picture cannot reach the page's stylesheet and carries its own. Each row states its own two colours as
+ * custom properties; these rules choose between them by the reader's colour scheme.
  */
-.segment rect { fill:var(--c); stroke:#ffffff; stroke-width:1; }
-.segment-tick { stroke:var(--c); stroke-width:1; }
+.segment rect { fill:var(--c); rx:2; }
 .segment-label { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  font-size:11px; fill:#3c4650; text-anchor:middle; }
+  font-size:13px; fill:#3c4650; text-anchor:end; }
+.segment-value { font-family:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-size:12px; fill:#5c6773; text-anchor:start; }
 @media (prefers-color-scheme: dark) {
-  .segment rect { fill:var(--cd); stroke:#0e1216; }
-  .segment-tick { stroke:var(--cd); }
-  .segment-label { fill:#b6c2cf; }
+  .segment rect { fill:var(--cd); }
+  .segment-label { fill:#dbe3ea; }
+  .segment-value { fill:#93a1af; }
 }
-</style><g class="segment" style="--c:#2a78d6;--cd:#3987e5" opacity="0.90"><rect x="0.00" y="8.00" width="514.04" height="40.00"><title>linguistics — 71.4% of what the chart draws</title></rect><g><line class="segment-tick" x1="257.02" x2="257.02" y1="52.00" y2="48.00"></line><text class="segment-label" x="257.02" y="72.00">linguistics</text></g></g><g class="segment" style="--c:#2a78d6;--cd:#3987e5" opacity="0.80"><rect x="514.04" y="8.00" width="192.10" height="40.00"><title>grammar — 26.7% of what the chart draws</title></rect><g><line class="segment-tick" x1="610.10" x2="610.10" y1="52.00" y2="48.00"></line><text class="segment-label" x="610.10" y="72.00">grammar</text></g></g><g class="segment" style="--c:#eb6834;--cd:#d95926" opacity="0.90"><rect x="706.15" y="8.00" width="13.85" height="40.00"><title>computing — 1.9% of what the chart draws</title></rect><g></g></g></svg>
+</style><g class="segment" style="--c:#2a78d6;--cd:#3987e5"><text class="segment-label" x="166.00" y="23.00">linguistics</text><rect x="176.00" y="10.00" width="343.43" height="18.00"><title>linguistics — 71.5% of what the chart draws</title></rect><text class="segment-value" x="527.43" y="23.00">71.5%</text></g><g class="segment" style="--c:#2a78d6;--cd:#3987e5"><text class="segment-label" x="166.00" y="51.00">grammar</text><rect x="176.00" y="38.00" width="127.58" height="18.00"><title>grammar — 26.6% of what the chart draws</title></rect><text class="segment-value" x="311.58" y="51.00">26.6%</text></g><g class="segment" style="--c:#eb6834;--cd:#d95926"><text class="segment-label" x="166.00" y="79.00">computing</text><rect x="176.00" y="66.00" width="8.99" height="18.00"><title>computing — 1.9% of what the chart draws</title></rect><text class="segment-value" x="192.99" y="79.00">1.9%</text></g></svg>
