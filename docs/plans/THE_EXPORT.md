@@ -18,7 +18,7 @@ One JSON file, written by every run, holding everything a consumer would act on:
 
 **The three questions it was to settle are answerable from the file alone**, with no other artefact open: which words carry the signal and how strongly, what the repository is about and how far from chance each answer is, and which published concepts it writes and where that places it.
 
-**Signals and not refusals**, as specified: what was set aside is five counts in `header.setAside` and no list.
+**Signals and not refusals**, as specified: what was set aside is five counts in `setAside` and no list.
 
 **It does not render a report to produce the file.** `ExportCommand` reads the tree, composes and writes, and touches no renderer — the abandon criterion is met from the other side.
 
@@ -30,7 +30,7 @@ One JSON file, written by every run, holding everything a consumer would act on:
 
 | | What | Why it is not done |
 |---|---|---|
-| 1 | **The pull request arm** | The second source. `ReadingSource` names `CLONE` alone, and `PULL_REQUEST` arrives as a constant beside it at the schema version that adds it. It needs a GitHub read — the API, a token, and the filter, starting at author id — and the safeguard [supplied text](SUPPLIED_TEXT.md) states: a pull request is its own scope, reported with the repository's reading beside it and without it. **The check it has to pass**: with the filter selecting every file, the arm reproduces the repository reading, same signals and same scores, which is what says the two paths share one pipeline |
+| 1 | **The pull request arm** | The second source. `ReadingSource` names `CLONE` alone, and `PULL_REQUEST` arrives as a constant beside it at the schema version that adds it. It needs a GitHub read — the API, a token, and the filter, starting at author id — and the safeguard [supplied text](SUPPLIED_TEXT.md) states: a pull request is its own scope, reported with the repository's reading beside it and without it. **One task reads both**, so `./gradlew read` produces one file covering the working tree and the pull requests the filter selects, each signal stating which it came from; two tasks would produce two files a consumer has to join. **The check it has to pass**: with the filter selecting every file, the arm reproduces the repository reading, same signals and same scores, which is what says the two paths share one pipeline |
 | 2 | **The taxonomy's version** | `TermIndex.source()` states `OLiA` and nothing states which OLiA. The revision is in the bundled TSV's own provenance header — `d3bd4f1a` — and no published class reads that header; `BundledVocabulary` is test-side in `lexicon`. A consumer cannot currently tell two runs against two revisions apart |
 | 3 | **A signal's declaration kind** | The plan asked for it and the reading does not carry it. `WrittenWords` tracks whether an occurrence was a name or prose, so the export states `occurrences` and `inNames`; which *kind* of declaration — a type, a method, a parameter — is on `NameForm` per occurrence and is not accumulated per word. Carrying it means tallying by form in `LegibilityTally` |
 | 4 | **Permalinks** | A site is a file and a line. `SourceLinks` renders a permalink where a remote is known and lives with the diagnostics; the export holds the components a caller needs to build one and builds none |
