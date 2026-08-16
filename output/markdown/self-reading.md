@@ -14,27 +14,27 @@ one. λ is the share of those word occurrences at least one bundled resource can
 |---|--:|--:|--:|--:|--:|--:|
 | `code-semantics-api/src/main/java` | 25 | 352 | 557 | 3,711 (86.9%) | 4,176 | **0.978** |
 | `code-semantics-api/src/test/java` | 13 | 165 | 951 | 97 (9.3%) | 1,028 | **0.981** |
-| `code-semantics-engine/src/main/java` | 166 | 3,729 | 5,360 | 36,796 (87.3%) | 41,545 | **0.986** |
-| `code-semantics-engine/src/test/java` | 159 | 3,156 | 9,837 | 9,362 (48.8%) | 19,033 | **0.991** |
+| `code-semantics-engine/src/main/java` | 167 | 3,755 | 5,398 | 37,355 (87.4%) | 42,136 | **0.986** |
+| `code-semantics-engine/src/test/java` | 161 | 3,182 | 9,951 | 9,374 (48.5%) | 19,159 | **0.991** |
 | `lexicon-extraction/src/main/java` | 45 | 899 | 1,158 | 5,509 (82.6%) | 6,500 | **0.975** |
 | `lexicon-extraction/src/test/java` | 35 | 405 | 1,936 | 0 (0.0%) | 1,915 | **0.989** |
-| `lexicon/src/main/java` | 22 | 692 | 1,148 | 4,967 (81.2%) | 5,954 | **0.974** |
-| `lexicon/src/test/java` | 20 | 251 | 1,326 | 489 (26.9%) | 1,793 | **0.988** |
-| `documentation` | 3 | 0 | 0 | 8,098 (100.0%) | 7,819 | **0.966** |
-| **repository** | 488 | 9,649 | 22,273 | 69,029 (75.6%) | 89,763 | **0.983** |
+| `lexicon/src/main/java` | 22 | 694 | 1,151 | 5,062 (81.5%) | 6,052 | **0.974** |
+| `lexicon/src/test/java` | 21 | 258 | 1,363 | 489 (26.4%) | 1,830 | **0.988** |
+| `documentation` | 3 | 0 | 0 | 8,102 (100.0%) | 7,823 | **0.966** |
+| **repository** | 492 | 9,710 | 22,465 | 69,699 (75.6%) | 90,619 | **0.983** |
 
-The repository's own words are 91,302 occurrences of 3,887 distinct surfaces, 1,235 of them (31.8%) written exactly once. 211 glued runs no boundary divided were read by the segmenter; 1,539 occurrences across 440 surfaces nothing could be cited for at all.
+The repository's own words are 92,164 occurrences of 3,906 distinct surfaces, 1,244 of them (31.8%) written exactly once. 212 glued runs no boundary divided were read by the segmenter; 1,545 occurrences across 445 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 86,751 | 95.0% | 4,204 |
-| `lexicon:wordnet-sense` | 62,142 | 68.1% | 1,071 |
-| `lexicon:wiktionary-topic` | 51,281 | 56.2% | 195 |
-| `lexicon:wikidata-initialism` | 41,137 | 45.1% | 68 |
-| `lexicon:wikidata-name` | 36,482 | 40.0% | 29 |
-| `lexicon:wordnet-domain` | 36,262 | 39.7% | 116 |
-| `lexicon:wiktionary-abbreviation` | 31,703 | 34.7% | 10 |
-| `catalogue:query-language-function` | 1,393 | 1.5% | 1 |
+| `lexicon:word-frequency` | 87,580 | 95.0% | 4,258 |
+| `lexicon:wordnet-sense` | 62,721 | 68.1% | 1,080 |
+| `lexicon:wiktionary-topic` | 51,731 | 56.1% | 196 |
+| `lexicon:wikidata-initialism` | 41,506 | 45.0% | 69 |
+| `lexicon:wikidata-name` | 36,847 | 40.0% | 29 |
+| `lexicon:wordnet-domain` | 36,589 | 39.7% | 116 |
+| `lexicon:wiktionary-abbreviation` | 31,995 | 34.7% | 10 |
+| `catalogue:query-language-function` | 1,398 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
@@ -54,6 +54,6 @@ The repository's own words are 91,302 occurrences of 3,887 distinct surfaces, 1,
 | `net's` | 20 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:23` |
 | `xiv's` | 20 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:11` |
 
-Read 488 files in 1.6 s — 3.3 ms a file, recorded rather than estimated.
+Read 492 files in 1.6 s — 3.2 ms a file, recorded rather than estimated.
 
-Imports read as this repository's own choice: 78. Set aside as the platform's own vocabulary: 1418. Set aside as this repository's own coordinates: 476. Set aside as the toolchain a source set nothing is published from is checked with: 785. Files the parser refused: 0.
+Imports read as this repository's own choice: 78. Set aside as the platform's own vocabulary: 1421. Set aside as this repository's own coordinates: 480. Set aside as the toolchain a source set nothing is published from is checked with: 794. Files the parser refused: 0.
