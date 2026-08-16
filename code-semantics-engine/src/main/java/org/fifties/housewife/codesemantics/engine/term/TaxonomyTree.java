@@ -102,16 +102,16 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
                                   final java.util.function.Function<String, String> asWords) {
         final List<SkosConcept> concepts = oncePerLabel(published);
         final Map<String, List<SkosConcept>> byParent = new LinkedHashMap<>();
-        concepts.forEach(concept -> byParent.computeIfAbsent(concept.broader(), parent -> new ArrayList<>())
-                .add(concept));
+        concepts.forEach(concept -> concept.broaderConcepts().forEach(parent ->
+                byParent.computeIfAbsent(parent, stated -> new ArrayList<>()).add(concept)));
         final List<Node> roots = concepts.stream()
                 .filter(concept -> isRoot(concept, concepts))
-                .map(concept -> node(concept, byParent, written, asWords))
+                .map(concept -> node(concept, byParent, written, asWords, new java.util.HashSet<>()))
                 .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
                         .thenComparing(Node::label))
                 .toList();
-        return new TaxonomyTree(roots, concepts.size(),
-                roots.stream().mapToInt(Node::writtenBelow).sum());
+        return new TaxonomyTree(roots, concepts.size(), concepts.stream()
+                .mapToInt(concept -> written.getOrDefault(concept.prefLabel(), 0)).sum());
     }
 
     /**
@@ -128,20 +128,33 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         return List.copyOf(byLabel.values());
     }
 
-    /** A concept whose stated parent the source does not itself carry stands at its own root. */
+    /**
+     * A concept none of whose stated parents the source itself carries stands at its own root.
+     *
+     * <p>A poly-hierarchical source states several, and one of them being carried is enough to place the
+     * concept: a topic under both {@code machine learning} and something the file does not hold is not a
+     * root, it is a child of the parent that is there.
+     */
     private static boolean isRoot(final SkosConcept concept, final List<SkosConcept> concepts) {
-        return concept.broader().isBlank()
-                || concepts.stream().noneMatch(other -> other.prefLabel().equals(concept.broader()));
+        return concept.broaderConcepts().stream().noneMatch(parent ->
+                concepts.stream().anyMatch(other -> other.prefLabel().equals(parent)));
     }
 
+    /**
+     * {@code onThePath} is what stops a poly-hierarchy from recursing forever. A source stating two concepts
+     * beneath each other is a fact about the publication, and the tree drawn from it has to terminate.
+     */
     private static Node node(final SkosConcept concept, final Map<String, List<SkosConcept>> byParent,
                              final Map<String, Integer> written,
-                             final java.util.function.Function<String, String> asWords) {
+                             final java.util.function.Function<String, String> asWords,
+                             final java.util.Set<String> onThePath) {
+        final java.util.Set<String> walked = new java.util.HashSet<>(onThePath);
+        walked.add(concept.prefLabel());
         return new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
                 concept.definition(), written.getOrDefault(concept.prefLabel(), 0),
                 byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
-                        .filter(child -> !child.prefLabel().equals(concept.prefLabel()))
-                        .map(child -> node(child, byParent, written, asWords))
+                        .filter(child -> !walked.contains(child.prefLabel()))
+                        .map(child -> node(child, byParent, written, asWords, walked))
                         .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
                                 .thenComparing(Node::label))
                         .toList());

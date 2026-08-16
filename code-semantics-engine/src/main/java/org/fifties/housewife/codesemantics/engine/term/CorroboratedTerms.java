@@ -30,20 +30,40 @@ public final class CorroboratedTerms implements TermIndex {
 
     private final TermIndex published;
     private final StatedSiblings siblings;
+    private final CitedWord cited;
 
-    private CorroboratedTerms(final TermIndex published, final StatedSiblings siblings) {
+    private CorroboratedTerms(final TermIndex published, final StatedSiblings siblings,
+                              final CitedWord cited) {
         this.published = published;
         this.siblings = siblings;
+        this.cited = cited;
     }
 
     public static CorroboratedTerms of(final TermIndex published, final StatedSiblings siblings) {
-        return new CorroboratedTerms(published, siblings);
+        return new CorroboratedTerms(published, siblings, CitedWord.fromClasspath());
+    }
+
+    static CorroboratedTerms of(final TermIndex published, final StatedSiblings siblings,
+                                final CitedWord cited) {
+        return new CorroboratedTerms(published, siblings, cited);
     }
 
     @Override
     public List<SkosConcept> conceptsOf(final List<String> words) {
         final List<SkosConcept> stated = published.conceptsOf(words);
-        return words.size() > 1 ? stated : stated.stream().filter(this::accompanied).toList();
+        if (words.size() > 1) {
+            return stated;
+        }
+        return isAWord(words) ? stated.stream().filter(this::accompanied).toList() : List.of();
+    }
+
+    /**
+     * Whether any resource states the single word as a word at all. A taxonomy may publish anything as a
+     * concept — CSO publishes {@code n}, {@code c} and {@code p} — and a term no resource calls a word is
+     * one the reading cannot cite, so it abstains before the branch is ever asked.
+     */
+    private boolean isAWord(final List<String> words) {
+        return cited.states(words.getFirst());
     }
 
     /** Whether the repository writes anything else in the branch the source states this concept under. */

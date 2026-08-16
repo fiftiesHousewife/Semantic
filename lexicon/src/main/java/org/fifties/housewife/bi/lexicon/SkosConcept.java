@@ -34,4 +34,20 @@ public record SkosConcept(String concept, String prefLabel, String altLabel, Str
 
     /** What separates two statements of one property, chosen because no statement in any bundled source has one. */
     public static final String STATEMENTS = " | ";
+
+    /**
+     * Every concept this one is stated beneath, in the order the source wrote them.
+     *
+     * <p>{@code broader} is one column and SKOS permits many parents, so a poly-hierarchical source joins
+     * them with {@value #STATEMENTS} like any other repeated property. Reading the column as a single key
+     * is what silently truncates such a source: the Computer Science Ontology states more than one parent
+     * for two thirds of its topics, and a reader taking the first sees a tree its publisher never drew.
+     *
+     * <p>Empty where the source states no parent, which is a fact about the publication rather than a gap.
+     */
+    public java.util.List<String> broaderConcepts() {
+        return broader.isBlank() ? java.util.List.of()
+                : java.util.Arrays.stream(broader.split(java.util.regex.Pattern.quote(STATEMENTS)))
+                        .map(String::strip).filter(stated -> !stated.isEmpty()).toList();
+    }
 }
