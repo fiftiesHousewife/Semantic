@@ -4,13 +4,13 @@ Every line below cleared a bar that follows from the size of the field it compet
 
 ## How much of it could be read
 
-**λ = 0.992** — a bundled resource can be cited for that share of 74,179 word occurrences across 406 files, 75% of them prose. It is the denominator everything else rests on, not a finding.
+**λ = 0.984** — a bundled resource can be cited for that share of 74,698 word occurrences across 411 files, 75% of them prose. It is the denominator everything else rests on, not a finding.
 
-Of the mass the topical reading then observed, **76.0% of it was settled on no subject**: a phrase nothing could place, or one whose words named so many subjects that none of them was settled. That share is in the denominator of every ι reported anywhere, so a topic's intensity is a share of everything written and not of the little that resolved.
+Of the mass the topical reading then observed, **75.8% of it was settled on no subject**: a phrase nothing could place, or one whose words named so many subjects that none of them was settled. That share is in the denominator of every ι reported anywhere, so a topic's intensity is a share of everything written and not of the little that resolved.
 
 ## The field it is in
 
-**Computer Science**, 0.3447 bits away. A taxonomy of chance placed its nearest subject at 0.4100 bits over 999 draws, so this stands apart from chance. The runner-up is Electrical Engineering and Systems Science at 0.4931.
+**Computer Science**, 0.3415 bits away. A taxonomy of chance placed its nearest subject at 0.4110 bits over 999 draws, so this stands apart from chance. The runner-up is Electrical Engineering and Systems Science at 0.4870.
 
 ## What it is about
 
@@ -22,11 +22,11 @@ A topic held at the same density everywhere distinguishes nothing, so there is n
 
 | Scope | Bits from the repository | Writes more of |
 |---|--:|---|
-| `code-semantics-api/src/test/java` | 0.1990 | `linguistics` |
-| `lexicon/src/main/java` | 0.1751 | `grammar` |
-| `lexicon/src/test/java` | 0.1517 | `linguistics` |
-| `code-semantics-engine/src/main/java` | 0.0493 | `grammar`, `linguistics` |
+| `code-semantics-api/src/test/java` | 0.2012 | `linguistics` |
+| `lexicon/src/main/java` | 0.1881 | `grammar` |
+| `lexicon/src/test/java` | 0.1453 | `linguistics` |
+| `code-semantics-engine/src/main/java` | 0.0483 | `grammar`, `linguistics` |
 
 ## Withheld
 
-- `documentation` — 0.2457 bits, and 969 of 999 chance draws stood at least as far
+- `documentation` — 0.2402 bits, and 969 of 999 chance draws stood at least as far

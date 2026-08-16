@@ -12,48 +12,48 @@ one. λ is the share of those word occurrences at least one bundled resource can
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 24 | 342 | 556 | 3,357 (85.8%) | 3,865 | **0.988** |
-| `code-semantics-api/src/test/java` | 13 | 157 | 901 | 99 (9.9%) | 982 | **0.982** |
-| `code-semantics-engine/src/main/java` | 124 | 2,760 | 3,945 | 29,338 (88.1%) | 33,088 | **0.994** |
-| `code-semantics-engine/src/test/java` | 122 | 2,500 | 7,811 | 7,803 (50.0%) | 15,548 | **0.996** |
-| `lexicon-extraction/src/main/java` | 45 | 899 | 1,168 | 5,591 (82.7%) | 6,671 | **0.987** |
-| `lexicon-extraction/src/test/java` | 35 | 405 | 1,950 | 0 (0.0%) | 1,930 | **0.990** |
-| `lexicon/src/main/java` | 21 | 673 | 1,139 | 4,779 (80.8%) | 5,831 | **0.985** |
-| `lexicon/src/test/java` | 19 | 236 | 1,260 | 492 (28.1%) | 1,733 | **0.989** |
-| `documentation` | 3 | 0 | 0 | 3,990 (100.0%) | 3,911 | **0.980** |
-| **repository** | 406 | 7,972 | 18,730 | 55,449 (74.8%) | 73,559 | **0.992** |
+| `code-semantics-api/src/main/java` | 25 | 352 | 557 | 3,711 (86.9%) | 4,176 | **0.978** |
+| `code-semantics-api/src/test/java` | 13 | 165 | 951 | 97 (9.3%) | 1,028 | **0.981** |
+| `code-semantics-engine/src/main/java` | 125 | 2,781 | 3,952 | 29,355 (88.1%) | 32,828 | **0.986** |
+| `code-semantics-engine/src/test/java` | 125 | 2,580 | 7,914 | 8,051 (50.4%) | 15,821 | **0.991** |
+| `lexicon-extraction/src/main/java` | 45 | 899 | 1,158 | 5,509 (82.6%) | 6,500 | **0.975** |
+| `lexicon-extraction/src/test/java` | 35 | 405 | 1,936 | 0 (0.0%) | 1,915 | **0.989** |
+| `lexicon/src/main/java` | 21 | 673 | 1,119 | 4,707 (80.8%) | 5,668 | **0.973** |
+| `lexicon/src/test/java` | 19 | 236 | 1,241 | 489 (28.3%) | 1,708 | **0.987** |
+| `documentation` | 3 | 0 | 0 | 3,951 (100.0%) | 3,837 | **0.971** |
+| **repository** | 411 | 8,091 | 18,828 | 55,870 (74.8%) | 73,481 | **0.984** |
 
-The repository's own words are 74,179 occurrences of 3,406 distinct surfaces, 1,072 of them (31.5%) written exactly once. 322 glued runs no boundary divided were read by the segmenter; 620 occurrences across 194 surfaces nothing could be cited for at all.
+The repository's own words are 74,698 occurrences of 3,571 distinct surfaces, 1,146 of them (32.1%) written exactly once. 185 glued runs no boundary divided were read by the segmenter; 1,217 occurrences across 361 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 71,135 | 95.9% | 3,342 |
-| `lexicon:wordnet-sense` | 51,300 | 69.2% | 872 |
-| `lexicon:wiktionary-topic` | 41,941 | 56.5% | 180 |
-| `lexicon:wikidata-initialism` | 33,457 | 45.1% | 64 |
-| `lexicon:wikidata-name` | 30,455 | 41.1% | 18 |
-| `lexicon:wordnet-domain` | 30,377 | 41.0% | 73 |
-| `lexicon:wiktionary-abbreviation` | 26,526 | 35.8% | 1 |
-| `catalogue:query-language-function` | 1,076 | 1.5% | 1 |
+| `lexicon:word-frequency` | 70,968 | 95.0% | 3,402 |
+| `lexicon:wordnet-sense` | 50,934 | 68.2% | 930 |
+| `lexicon:wiktionary-topic` | 42,035 | 56.3% | 177 |
+| `lexicon:wikidata-initialism` | 33,679 | 45.1% | 58 |
+| `lexicon:wikidata-name` | 30,012 | 40.2% | 14 |
+| `lexicon:wordnet-domain` | 29,782 | 39.9% | 78 |
+| `lexicon:wiktionary-abbreviation` | 26,091 | 34.9% | 5 |
+| `catalogue:query-language-function` | 1,087 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
+| `repository's` | 50 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:10` |
 | `commonest` | 42 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/CollocatedWords.java:8` |
-| `wiktionary` | 36 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41` |
-| `javadoc` | 31 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34` |
-| `extjwnl` | 30 | `lexicon/src/main/java/org/fifties/housewife/bi/lexicon/CountedSense.java:3` |
+| `word's` | 38 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordMorphology.java:6` |
+| `segmenter` | 34 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3` |
+| `wiktionary` | 33 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:41` |
+| `extjwnl` | 28 | `lexicon/src/main/java/org/fifties/housewife/bi/lexicon/CountedSense.java:3` |
 | `permalink` | 28 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/repository/SourceAnchor.java:50` |
-| `segmenter` | 21 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/CitedTokens.java:3` |
+| `javadoc` | 27 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/Weights.java:34` |
+| `net's` | 21 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:23` |
 | `arxiv` | 20 | `code-semantics-engine/src/test/java/org/fifties/housewife/codesemantics/engine/term/TermReadingDiagnostic.java:132` |
-| `unreadable` | 16 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:36` |
-| `resamples` | 14 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/PermutationNull.java:34` |
-| `wikidata` | 14 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/model/EvidenceSource.java:44` |
-| `wiktextract` | 12 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:14` |
-| `fasterxml` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/AbbreviationSenses.java:3` |
-| `olia` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/OliaConcepts.java:32` |
-| `oscal` | 8 | `lexicon-extraction/src/main/java/org/fifties/housewife/bi/lexicon/extraction/CsfConcepts.java:26` |
-| `furthest` | 7 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/summary/ReadingSummary.java:15` |
+| `scope's` | 18 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/reading/LegibilityTally.java:15` |
+| `file's` | 16 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/WordRanks.java:14` |
+| `unreadable` | 16 | `code-semantics-api/src/main/java/org/fifties/housewife/codesemantics/name/Tokeniser.java:52` |
+| `topic's` | 15 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/FileTopics.java:41` |
+| `xiv's` | 15 | `code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java:11` |
 
-Read 406 files in 0.2 s — 0.5 ms a file, recorded rather than estimated.
+Read 411 files in 0.2 s — 0.5 ms a file, recorded rather than estimated.
 
-Imports read as this repository's own choice: 62. Set aside as the platform's own vocabulary: 1180. Set aside as this repository's own coordinates: 349. Set aside as the toolchain a source set nothing is published from is checked with: 648. Files the parser refused: 0.
+Imports read as this repository's own choice: 63. Set aside as the platform's own vocabulary: 1195. Set aside as this repository's own coordinates: 356. Set aside as the toolchain a source set nothing is published from is checked with: 660. Files the parser refused: 0.

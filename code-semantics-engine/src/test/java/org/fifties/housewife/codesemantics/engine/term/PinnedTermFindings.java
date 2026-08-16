@@ -72,11 +72,14 @@ class PinnedTermFindings {
                                 + "to discriminate, and only the out-of-domain arm can settle it.")
                         .isGreaterThan(0.9),
                 () -> assertThat(longer)
-                        .as("A DEFECT, PINNED. `Collocation` reads as col / location because the frequency "
-                                + "list does not carry the compound, and it matches only because the "
-                                + "ontology's own term broke the same way on the same grammar. When the "
-                                + "splitter learns the boundary this must fail and be rewritten.")
-                        .contains("col location"),
+                        .as("A DEFECT, PINNED AND NOW CLOSED. `Collocation` read as col / location because "
+                                + "the frequency list does not carry the compound, and it matched only "
+                                + "because the ontology's own term broke the same way on the same grammar "
+                                + "— a span manufactured by the splitter on both sides of the comparison. "
+                                + "The dictionary carries `collocation` whole and the segmenter no longer "
+                                + "divides it, so a published term is now met by the word its author wrote "
+                                + "or not at all.")
+                        .doesNotContain("col location"),
                 () -> assertThat(onLemmas.longerThanOneWord()).map(TermSighting::term)
                         .as("A FINDING, PINNED. The dictionary form is the free half of the "
                                 + "generalisation: the ontology publishes singulars and a program declares "

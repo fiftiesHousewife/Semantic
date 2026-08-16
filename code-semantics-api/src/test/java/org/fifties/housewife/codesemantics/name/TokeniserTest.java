@@ -39,6 +39,28 @@ class TokeniserTest {
     }
 
     @Test
+    void doesNotBreakAWordAtAnApostropheBetweenLetters() {
+        assertAll(
+                () -> assertThat(Tokeniser.words("the resource's own header"))
+                        .containsExactly("the", "resource's", "own", "header"),
+                () -> assertThat(Tokeniser.words("what it doesn't carry"))
+                        .containsExactly("what", "it", "doesn't", "carry"),
+                () -> assertThat(Tokeniser.words("the resource’s own header"))
+                        .containsExactly("the", "resource’s", "own", "header")
+        );
+    }
+
+    @Test
+    void breaksAtAnApostropheThatIsNotBetweenLetters() {
+        assertAll(
+                () -> assertThat(Tokeniser.words("the authors' names"))
+                        .containsExactly("the", "authors", "names"),
+                () -> assertThat(Tokeniser.words("'quoted'")).containsExactly("quoted"),
+                () -> assertThat(Tokeniser.words("the 90's")).containsExactly("the", "90", "s")
+        );
+    }
+
+    @Test
     void namesTheLastTokenOfACompoundNameAndNothingForASingleWord() {
         assertAll(
                 () -> assertThat(Tokeniser.lastToken("resolveNextPageCursor")).contains("cursor"),

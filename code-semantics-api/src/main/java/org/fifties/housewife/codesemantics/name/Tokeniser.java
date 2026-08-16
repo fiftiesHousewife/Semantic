@@ -21,7 +21,23 @@ import java.util.regex.Pattern;
 public final class Tokeniser {
 
     private static final Pattern TOKEN_SPLITTER = Pattern.compile("(?<=[a-z])(?=[A-Z])|[_\\-]");
-    private static final Pattern PHRASE_SEPARATOR = Pattern.compile("[^\\p{L}\\p{N}_-]+");
+
+    /**
+     * What separates one word of prose from the next. Everything that is not a letter, a digit, an
+     * underscore or a hyphen — and an apostrophe too, <b>except between two letters</b>.
+     *
+     * <p><a href="https://www.unicode.org/reports/tr29/">UAX #29</a> states it: rules WB6
+     * {@code AHLetter × (MidLetter | MidNumLetQ) AHLetter} and WB7
+     * {@code AHLetter (MidLetter | MidNumLetQ) × AHLetter}, where {@code ×} is defined in the annex's own
+     * Table 1 as <i>do not allow break here</i> and the apostrophe is {@code MidNumLetQ}. So the possessive
+     * is not a word boundary and {@code doesn't} is one word, which is a boundary rule a standards body
+     * published rather than anything decided here.
+     *
+     * <p>A digit on either side is not a letter, so {@code 90's} does break — the standard joins numbers
+     * across a separator only through WB11 and WB12, and neither reaches a letter.
+     */
+    private static final Pattern PHRASE_SEPARATOR = Pattern.compile(
+            "(?:[^\\p{L}\\p{N}_'\\u2019-]|(?<!\\p{L})['\\u2019]|['\\u2019](?!\\p{L}))+");
 
     private Tokeniser() {
     }
