@@ -24,26 +24,64 @@ One bar per topic whose figure exceeds all 999 chance resamples, longest first, 
 - **Compares distributions**: a scope against the whole repository, the repository against a [published subject scheme](#subject-scheme), and every declared name against a [published term taxonomy](#term-taxonomy).
 - **Reports nothing that chance would have produced.** Every reported figure has passed a [permutation test](#references), described below.
 
+### What a divergence in bits is
+
+Every distance these reports state is a **divergence in bits**.
+
+The reading turns each scope into a distribution over subjects — for `lexicon/src/main/java`, so much `grammar`, so much `computing`, so much `linguistics`, summing to 1 across everything observed. The whole repository is another such distribution. A divergence measures how far two of them stand apart.
+
+The measure is the [Jensen–Shannon divergence](#references), and it has three properties the reading depends on:
+
+| | |
+|---|---|
+| **0 bits** | the two distributions are identical — the scope writes every subject at exactly the repository's rate |
+| **1 bit** | they share nothing — every subject one writes, the other never writes |
+| **bounded at 1** | the maximum follows from the definition under base-2 logarithms, so no figure here needs a scale explained beside it |
+
+That last property is why this measure and not another. [Kullback–Leibler divergence](#references) answers a similar question and is unbounded above, so 4.2 of it means nothing without knowing what the maximum was — and there is no maximum.
+
+**Worked example.** Take two readings over two subjects. One is three-quarters `grammar` and one-quarter `computing`; the other is the reverse.
+
+| | `grammar` | `computing` |
+|---|--:|--:|
+| The scope, *P* | 0.75 | 0.25 |
+| The repository, *Q* | 0.25 | 0.75 |
+| Their midpoint, *M* | 0.50 | 0.50 |
+
+Score each side against the midpoint, then average the two:
+
+```
+D(P‖M) = 0.75·log₂(0.75/0.50) + 0.25·log₂(0.25/0.50)
+       = 0.75·(0.585)          + 0.25·(−1)
+       = 0.4387 − 0.25         = 0.1887
+
+D(Q‖M) = 0.1887   (by symmetry)
+
+JSD    = ½(0.1887) + ½(0.1887) = 0.1887 bits
+```
+
+So **0.1887 bits is what a three-to-one preference reversed between two subjects looks like.** `lexicon/src/main/java` sits at 0.1945 bits from this repository — about that far apart, spread over more subjects than two.
+
+Each topic's own term of that sum is reported separately, which is what says *which* subjects carried the distance. `grammar` accounts for 0.0076 bits of `lexicon/src/main/java`'s 0.1945.
+
 ### What the 999 resamples are for
 
-A scope's distribution over subjects always differs somewhat from the whole repository's. The question is whether the difference means anything, and a small scope makes a large difference by accident: read 4 files and they will look unlike the other 447 whatever they contain.
+A scope's distribution always differs somewhat from the whole repository's. The question is whether the difference means anything, and a small scope produces a large difference by accident: read 4 files and they will look unlike the other 447 whatever they contain.
 
 So the reading builds the distribution of differences chance alone produces, and asks where the real one falls in it:
 
 | | Step |
 |--:|---|
-| 1 | Measure the real figure: the [divergence](#references) between this scope's distribution and the whole repository's, in bits |
+| 1 | Measure the real figure: the divergence between this scope's distribution and the whole repository's |
 | 2 | Draw 999 fake scopes of exactly the same number of files, at random, from the same repository |
 | 3 | Measure the same divergence for each of the 999 |
 | 4 | Report the real scope only if its divergence is larger than **all** 999 |
 
-Worked example: `lexicon/src/main/java` sits 0.1928 bits from the whole repository. Drawing 999 random groups of the same number of files from this repository, the largest divergence any of them reached was smaller, so the scope is reported. `documentation` sits 0.2408 bits away — further — and is **not** reported, because 967 of the 999 random draws reached at least that far. Distance alone is not evidence; distance a random group of that size does not reach is.
+Worked example: `lexicon/src/main/java` sits 0.1945 bits from the whole repository, and no random group of the same number of files reached that far, so the reading reports it. `documentation` sits 0.2490 bits away — **further** — and the reading does not report it, because 960 of the 999 random draws reached at least that far. Distance alone is not evidence. Distance a random group of that size does not reach is.
 
 Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile is what keeps the whole table honest. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
 Failures are named. Every scope that did not pass is printed with its figure and how many draws beat it, at the end of [the summary](output/markdown/summary.md).
-
-
 
 ## The export
 
@@ -223,6 +261,7 @@ Each term below has an everyday meaning too. The technical one is meant. [`docs/
 | **headword** | the word itself, with its senses pooled — the form a dictionary indexes |
 | **lemma** | the dictionary form of an inflected word, as [WordNet](https://wordnet.princeton.edu/) indexes it: `citations` → `citation` |
 | **λ (legibility)** | the share of word occurrences any bundled resource could be cited for |
+| **divergence** | how far two distributions over subjects stand apart, in bits, bounded at 1. [Defined with a worked example above](#what-a-divergence-in-bits-is) |
 | **span** | one match of a published taxonomy term inside a declared name |
 | **rung** | one step a publisher states between a concept and the root of its branch |
 
