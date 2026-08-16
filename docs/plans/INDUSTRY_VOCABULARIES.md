@@ -254,3 +254,36 @@ hierarchy subtracts what was derived; here the resource states one concept and t
 Same interface shape, opposite direction, and the javadoc has to say so.
 
 ---
+
+## The lexicon module is one flat package, and four more sources are queued for it
+
+`lexicon` holds **21 classes in one package** over **12 bundled resources totalling some 35 MB**, and
+`lexicon-extraction` holds **44 more**, also flat. The publisher is written into every class name because
+there is nowhere else to put it: `WordNet` prefixes five classes, `Wiktionary` three, and `Wikidata`,
+`Arxiv`, `Fibo`, `Olia`, `NistCsf` and `Sql` one each. **A naming convention is doing a package's job**, and
+the staging above adds FpML beside FIBO, CSO at stage 3 and STW at stage 5 — with PyPI Trove arriving from
+the classification run — so the flat package is about to take four more publishers.
+
+**The split is by source, with one shared core, and the core is not a guess.** `SkosRows` and `SkosConcept`
+are already read by `ArxivSubjects`, `FiboTerms`, `NistCsfFunctions` and `OliaTerms` — four publishers, one
+format — so a split purely by publisher would either duplicate them or leave them stranded. What stays in
+`lexicon` is what a consumer asks rather than what a publisher states: the `Lexicon` contract, the SKOS row
+shape, `WordSense` and `CountedSense`. What moves is one package per publisher.
+
+**The module boundary must not follow the split.** One `lexicon` module, packages within it. A consumer asks
+the `Lexicon` contract and must not have to know which publisher answered, which is the same reason
+`TermIndex`, `TaxonomyTree` and `StatedSiblings` are source-agnostic by design.
+
+**The resources are a separate question with a real cost attached, and the answer is probably not yet.**
+`BundledVocabulary.files()` reads each resource directory with `Files.list`, which does not recurse, so
+moving `fibo-terms.tsv` into a `fibo/` directory silently empties the list that
+`VocabularyProvenanceTest` and `BundledResourceReachabilityTest` walk — and a provenance test that checks
+nothing passes. Splitting the resources therefore means changing that walk to recurse **first**, and
+changing every `getResourceAsStream` path with it. It buys legibility and no correctness, so it goes after
+the classes, or not at all.
+
+**What settles it:** no class outside its publisher's package names that publisher, and both halves of the
+bundled-resource contract still fail the build when a resource loses its provenance header or its reader.
+**Abandon if** the split forces a publisher's class to reach into another publisher's package — that would
+mean the shared core was drawn in the wrong place, and the right response is to widen the core rather than
+to flatten the packages again.
