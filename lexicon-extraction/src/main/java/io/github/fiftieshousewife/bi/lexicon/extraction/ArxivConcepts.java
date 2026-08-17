@@ -1,8 +1,10 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -48,7 +50,19 @@ public class ArxivConcepts {
     }
 
     private static boolean live(final ArxivEntry entry, final Map<String, ArxivEntry> byId) {
-        return entry.published() && (entry.broader().isEmpty() || live(broaderOf(entry, byId), byId));
+        final Set<String> walked = new LinkedHashSet<>();
+        ArxivEntry current = entry;
+        while (current.published()) {
+            if (!walked.add(current.id())) {
+                throw new IllegalArgumentException("The module nests " + entry.id()
+                        + " inside a cycle of subjects: " + String.join(" -> ", walked));
+            }
+            if (current.broader().isEmpty()) {
+                return true;
+            }
+            current = broaderOf(current, byId);
+        }
+        return false;
     }
 
     private static ArxivEntry broaderOf(final ArxivEntry entry, final Map<String, ArxivEntry> byId) {

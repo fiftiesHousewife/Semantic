@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,6 +46,11 @@ public final class WrittenWords {
         asNames.forEach((word, times) ->
                 IntStream.range(0, times).forEach(each -> names.saw(word, firstNameSite.get(word), true)));
         return names;
+    }
+
+    /** An independent copy, so a finished reading cannot be moved by whatever tallied it. */
+    public WrittenWords copied() {
+        return pooling(List.of(this));
     }
 
     /**

@@ -12,10 +12,10 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
  * The Financial Industry Business Ontology as a {@link TermIndex}, read the same way {@link LinguisticTerms}
  * is and for the opposite purpose.
  *
- * <p>It is the arm that can fail. A domain vocabulary is worth something only if it stays quiet on a
- * repository outside its domain, and an in-domain vocabulary cannot show that however well it fires. Run
- * against a library of lemmas, senses and word frequencies, FIBO's own answer should be close to nothing,
- * and what it does match names the words this matcher reads as a field's when they are Java's.
+ * <p>It is the negative control. A domain vocabulary is worth something only if it produces close to
+ * nothing on a repository outside its domain, and an in-domain vocabulary cannot show that. What FIBO does
+ * match on a library of lemmas, senses and word frequencies names the words this matcher reads as a
+ * field's when they are Java's.
  */
 public final class FinanceTerms implements TermIndex {
 

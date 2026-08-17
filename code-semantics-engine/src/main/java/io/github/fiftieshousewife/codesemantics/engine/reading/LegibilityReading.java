@@ -11,13 +11,10 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.CollocatedWords;
 
 /**
  * Reads a working tree's Java sources and reports how much of what they are written in some bundled resource
- * can be cited for. This is the plan's legibility λ, taken over a working tree by a lexical scan — the
- * cheapest honest reading the library can make of itself before the parse, the store and the concept
- * resolution land.
+ * can be cited for — legibility λ, taken by a lexical scan.
  *
- * <p>What it is not: it is not a git read, so nothing here is pinned by a commit SHA and no permalink is
- * rendered, and it casts no votes, because a vote requires an anchor and an anchor requires a revision. It
- * counts, cites and abstains.
+ * <p>It is not a git read: nothing is pinned by a commit SHA, no permalink is rendered, and no vote is cast,
+ * because a vote requires an anchor and an anchor requires a revision. It counts, cites and abstains.
  */
 public final class LegibilityReading {
 

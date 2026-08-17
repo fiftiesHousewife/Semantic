@@ -4,17 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Why <em>this</em> taxonomy was the one matched, carried with the reading it produced.
- *
- * <p>A term match is only as good as the choice of what to match against, and that choice is the step most
- * easily smuggled past a reader. OLiA fits this repository — but it was reached by a chain of readings that
- * each stand on their own evidence, and a page that showed the match without the chain would be asking to be
- * believed rather than checked. Every field here is a figure some other reading already had to defend.
- *
- * <p>The order is the order of inference. What the repository is about is read from its own names and prose;
- * that reading places it against a published subject scheme; the placement has to beat a taxonomy of chance
- * before it counts; and only then does the field select a term vocabulary. Break any link and the match
- * below is an assertion.
+ * The chain of readings that selected the taxonomy a term match ran against, carried with the match so a
+ * reader can check each link: the qualified themes, the subject placement, its distance and the permutation
+ * bar that distance had to beat, and the vocabulary that subject selects.
  *
  * @param themes      the subjects the theme reading qualified, each with the words that carried it
  * @param field       the published subject the repository stands nearest to

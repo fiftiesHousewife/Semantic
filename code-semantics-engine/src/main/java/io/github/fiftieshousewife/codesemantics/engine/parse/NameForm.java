@@ -28,9 +28,7 @@ public enum NameForm {
      *
      * <p>It is a declaration, so the parse hands it over, and it is not a word about a subject: the language
      * requires the type to be written immediately beside it, and what the name stands for is that type —
-     * already read wherever it was declared. Every catch clause in this repository names it {@code e}, and
-     * {@code e} stood thirteenth of 843 words the ranking called this repository's own, because a dictionary
-     * carries the letters of the alphabet as nouns.
+     * already read wherever it was declared.
      */
     CAUGHT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /**

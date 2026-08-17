@@ -22,9 +22,9 @@ import java.util.List;
  * can only be written entirely or not at all, which is not a measurement of where. A root scores near zero
  * the other way, holding everything and reaching almost none of it.
  *
- * <p>The second share is what stops one concept from carrying a branch. Apache Tika writes {@code id} 778
- * times and CSO states {@code ids} as an intrusion detection system, so a fifth of the repository's writing
- * sits beneath {@code intrusion detection} on the strength of that one concept.
+ * <p>The second share is what stops one concept from carrying a branch: an ordinary word a taxonomy claims
+ * as a leaf can put a large share of a repository's writing beneath a branch on the strength of that one
+ * concept.
  *
  * <p>{@code reach} is reported over the whole subtree, the branch included, because that is the figure a
  * reader compares with the publisher's own subtree size. The score uses the concepts below.

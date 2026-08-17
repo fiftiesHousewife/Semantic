@@ -18,10 +18,10 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
  * written in and what a reference is written in — non-negative, summing to the total, and bounded at one bit
  * by the statistic's own definition.
  *
- * <p><b>A word is ranked by the weakest claim any reference makes for it.</b> The alternative was to pool the
- * references, and pooling needs a weight per reference that nothing states; the weakest claim needs none and
- * errs the only safe way, since a word one reference calls ordinary is ordinary however loudly the other
- * shouts. A word a reference writes more densely than this repository does carries that reference's claim as
+ * <p><b>A word is ranked by the weakest claim any reference makes for it.</b> Pooling the references would
+ * need a weight per reference that nothing states; the weakest claim needs none and errs the only safe way,
+ * since a word one reference calls ordinary is ordinary whatever the other says.
+ * A word a reference writes more densely than this repository does carries that reference's claim as
  * a negative, so it sorts below every word that survived rather than being removed: nothing here is a gate.
  *
  * <p>Each word also carries whether {@link FunctionWords} places it in the language rather than in this

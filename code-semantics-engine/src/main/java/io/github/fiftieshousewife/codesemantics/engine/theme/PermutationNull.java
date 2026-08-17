@@ -16,10 +16,8 @@ import java.util.Random;
  * null has no topical content beyond its size, and the honest report says so instead of ranking its topics.
  *
  * <p><b>The bar is {@link ChanceExpectedBest}, not the median.</b> Every scope of a repository is tested, so
- * the scopes are a field competing to look remarkable and the bar has to follow from how many of them there
- * are — nine scopes get nine attempts, and a scope clearing only the middle of its own draws has cleared a
- * coin flip. This class read the median until that was measured: two of the nine scopes qualified at a rate
- * chance alone produced in more than a quarter of draws, and each then printed eight ranked topics.
+ * the scopes are a field competing to look remarkable, and the bar has to follow from how many of them there
+ * are — a scope clearing only the middle of its own draws has cleared a coin flip.
  *
  * <p>The draw is seeded, so a report is reproducible and two runs of the same tree can be compared without
  * wondering whether the instrument moved.

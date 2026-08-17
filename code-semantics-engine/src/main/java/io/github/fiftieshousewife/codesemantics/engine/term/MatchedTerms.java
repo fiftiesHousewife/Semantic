@@ -67,7 +67,7 @@ public record MatchedTerms(List<TermSighting> sightings, int namesRead, int file
 
     /** The rate a repository in the domain has to beat one outside it on, and the reason it is a rate. */
     public double perThousandNames() {
-        return spansFound() * 1000.0 / namesRead;
+        return namesRead == 0 ? 0.0 : spansFound() * 1000.0 / namesRead;
     }
 
     /** How many spans each term length accounted for, shortest first. */

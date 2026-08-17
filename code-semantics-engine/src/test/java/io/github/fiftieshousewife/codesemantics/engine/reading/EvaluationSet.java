@@ -11,17 +11,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The evaluation set the reading is measured on: which repositories, pinned to which commits, said by whom to be
- * about what, and in which arm of the confusion matrix.
+ * The evaluation set the reading is measured on: which repositories, pinned to which commits, said by whom
+ * to be about what, and as which expected result. The manifest states each answer <em>before</em> the
+ * reading runs; an answer chosen after reading a tree is the same defect as choosing a taxonomy after
+ * reading this one.
  *
- * <p>Every figure this library reports today is an instrument reading itself, and the evaluation set is what turns
- * each of them from a demonstration into a measurement. The manifest is where the evaluation set is stated, and it is
- * stated <em>before</em> the reading is run: an answer chosen after reading a tree is the same defect as
- * choosing a taxonomy after reading this one.
- *
- * <p><b>It is a test fixture and it never votes.</b> Its provenance is this project, which makes it a curated
- * observation of a corpus — the one thing the doctrine refuses as evidence. It lives in test resources so it
- * is not on the published classpath at all, and nothing in the library can reach it.
+ * <p><b>It is a test fixture and it never votes.</b> Its provenance is this project — a curated observation
+ * of a corpus, which the doctrine refuses as evidence — so it lives in test resources, off the published
+ * classpath, where nothing in the library can reach it.
  */
 public final class EvaluationSet {
 
@@ -65,15 +62,16 @@ public final class EvaluationSet {
     }
 
     /**
-     * Where the clones are, or nothing where the caller has not said. A evaluation set run without an evaluation set is not a
-     * run with an empty evaluation set — it is a question that was never asked, and the difference matters because an
-     * empty confusion matrix looks exactly like a perfect one.
+     * Where the clones are, or nothing where the caller has not said. An evaluation-set run without an
+     * evaluation set is not a run with an empty one — it is a question that was never asked, and the
+     * difference matters because an empty confusion matrix looks exactly like a perfect one.
      */
     public static Path directory() {
         final String supplied = System.getProperty(EVALUATION_DIRECTORY_PROPERTY, "");
         if (supplied.isBlank()) {
-            throw new IllegalStateException("No " + EVALUATION_DIRECTORY_PROPERTY + ". An evaluation-set run reads clones "
-                    + "the caller has made; point it at the directory holding them.");
+            throw new IllegalStateException("No " + EVALUATION_DIRECTORY_PROPERTY
+                    + ". An evaluation-set run reads clones the caller has made; point it at the directory"
+                    + " holding them.");
         }
         return Path.of(supplied).toAbsolutePath().normalize();
     }

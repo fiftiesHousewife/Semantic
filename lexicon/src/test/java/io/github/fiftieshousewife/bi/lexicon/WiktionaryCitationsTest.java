@@ -2,9 +2,11 @@ package io.github.fiftieshousewife.bi.lexicon;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class WiktionaryCitationsTest {
@@ -45,6 +47,14 @@ class WiktionaryCitationsTest {
     void anOrdinaryAbbreviationCarriesNoQuantity() {
         assertThat(citations.citationsOf("kcal"))
                 .allMatch(citation -> citation.quantity().isEmpty());
+    }
+
+    @Test
+    void refusesARowStatingFewerColumnsThanTheShape() {
+        assertThatThrownBy(() -> WiktionaryCitations.index("kj\tkilojoule\tsymbol\tphysics",
+                new HashMap<>(), new HashMap<>()))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("4 columns");
     }
 
     @Test

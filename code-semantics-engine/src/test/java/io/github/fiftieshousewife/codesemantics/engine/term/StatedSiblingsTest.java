@@ -69,6 +69,24 @@ class StatedSiblingsTest {
     }
 
     @Test
+    void keepsTheAccompaniedPlacementOfAConceptItsPublisherStatesUnderTwoParents() {
+        final List<SkosConcept> polyHierarchy = List.of(
+                concept("Accompanied", ""),
+                concept("Alone", ""),
+                concept("Term", "Accompanied | Alone"),
+                concept("Sibling", "Accompanied"));
+        final StatedSiblings siblings = StatedSiblings.of(TaxonomyTree.of(polyHierarchy,
+                Map.of("Term", 1, "Sibling", 1), StatedSiblingsTest::asWords));
+
+        assertAll(
+                () -> assertThat(siblings.writtenBeside("Term"))
+                        .as("Sibling stands written beside Term under Accompanied, whichever parent the "
+                                + "walk met last")
+                        .isEqualTo(1),
+                () -> assertThat(siblings.branchOf("Term")).isEqualTo("Accompanied"));
+    }
+
+    @Test
     void findsNothingBesideATermTheTaxonomyDoesNotCarry() {
         assertThat(after(Map.of("Verb", 33)).writtenBeside("SomethingImported")).isZero();
     }

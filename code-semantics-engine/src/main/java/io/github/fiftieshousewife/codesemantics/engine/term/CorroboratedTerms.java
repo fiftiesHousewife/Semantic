@@ -10,21 +10,17 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * A published taxonomy answering only where the repository writes more than one concept in the branch the
  * source states the term under.
  *
- * <p><b>Matching {@code preferred} means nothing unless the branch above it was matched too.</b> A concept deep
- * in a taxonomy is a leaf of a subject, and a repository that writes one leaf of a subject it otherwise never
- * touches has written an English word the taxonomy happens to have claimed. That is the largest measured defect
- * in the term reading: 97% of its matches are one word long and the single largest is {@code topic}, which OLiA
- * states as information structure and this repository means as a subject label in a distribution. The two are
- * not the same concept and a string comparison cannot tell.
+ * <p><b>Matching a one-word term means nothing unless the branch around it was matched too.</b> A concept
+ * deep in a taxonomy is a leaf of a subject, and a repository that writes one leaf of a subject it
+ * otherwise never touches has written an English word the taxonomy happens to have claimed — OLiA states
+ * {@code topic} as information structure, and a string comparison cannot tell that from a subject label.
  *
- * <p>It is a citation and not a heuristic. The publisher stated the parent, the publisher stated the siblings,
- * and {@link StatedSiblings} counts which of them the repository wrote. Nothing here decided that {@code Topic}
- * belongs beside {@code Focus} and {@code DiscourseEntity}.
+ * <p>It is a citation and not a heuristic. The publisher stated the parent and the siblings, and
+ * {@link StatedSiblings} counts which of them the repository wrote.
  *
  * <p><b>A term written in more than one word is admitted unconditionally.</b> {@code common noun} and
- * {@code base form} are nobody's everyday English, and needing no corroboration is the whole reason term length
- * was worth measuring in the first place. A one-word term standing alone in its branch does not vote zero — it
- * abstains, and the reading that consumes this index never sees it.
+ * {@code base form} are nobody's everyday English. A one-word term standing alone in its branch does not
+ * vote zero — it abstains, and the reading that consumes this index never sees it.
  */
 public final class CorroboratedTerms implements TermIndex {
 

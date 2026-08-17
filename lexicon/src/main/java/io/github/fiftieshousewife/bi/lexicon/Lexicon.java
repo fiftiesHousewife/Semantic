@@ -94,33 +94,26 @@ public interface Lexicon {
     Set<String> domainsOf(String word);
 
     /**
-     * The subjects assigned to the one sense the word is most often written in, or empty where that sense
-     * carries none.
-     *
-     * <p>It is the plan's own stated baseline for disambiguation and it is a different claim from
-     * {@link #senseDomainsOf}, which pools every labelled sense equally. Pooling reads a word as its rarest
-     * meaning: {@code cite} has eight senses, exactly one of which — being summoned before a court — carries
-     * a subject, so a pooled reading says {@code cite} is entirely about law with no evidence that the
-     * courtroom sense was ever meant. Asking for the commonest sense instead lets a word whose dominant
-     * meaning nothing labelled say <em>nothing</em>, which is the correct outcome and the one a pooled
-     * reading cannot reach.
+     * The subjects assigned to the one sense the word is most often written in, or empty where that
+     * sense carries none. {@link #senseDomainsOf} pools every labelled sense equally, which reads a word
+     * as its rarest meaning: {@code cite} has eight senses and only the courtroom one carries a subject,
+     * so a pooled reading calls {@code cite} law. Asking the commonest sense lets a word whose dominant
+     * meaning carries no label answer with nothing.
      */
     Set<String> commonestSenseDomains(String word);
 
     /**
-     * The same reading taken of the word's commonest <b>verb</b> sense, for a word the grammar says is being
-     * used as one. A method name is a clause and its first word is what the method does, so {@code read} in
-     * {@code readRepository} is the verb — whose senses WordNet Domains labels {@code linguistics} and
-     * {@code school}, never {@code publishing}, which is what its noun carries. Reading every word as a noun
-     * made this repository's most-written verb evidence for the publishing trade.
+     * The same reading taken of the word's commonest <b>verb</b> sense, for a word the grammar says is
+     * being used as one. A method name is a clause whose first word is the verb: {@code read} in
+     * {@code readRepository} carries its verb's domains ({@code linguistics}, {@code school}), where its
+     * noun carries {@code publishing}.
      */
     Set<String> commonestVerbSenseDomains(String word);
 
     /**
      * The same reading taken of the word's commonest sense whichever part of speech carries it, by the
-     * tagged corpus's own counts. It is the reading for prose: an identifier is a noun phrase and its words
-     * are nouns, but a sentence is not, and forcing {@code read} into its noun made a library that reads
-     * repositories evidence for the publishing trade.
+     * tagged corpus's own counts. The reading for prose: a sentence, unlike an identifier, is not a noun
+     * phrase, so its words are not forced into their noun senses.
      */
     Set<String> commonestAnySenseDomains(String word);
 

@@ -8,11 +8,9 @@ import java.util.Set;
 /**
  * The distinct concepts beneath each concept of a tree, and how often the repository wrote each.
  *
- * <p>A poly-hierarchy states two thirds of CSO's topics beneath more than one parent, so a tree drawn from
- * it reaches one concept by many routes and a walk counting nodes counts routes. {@code network protocols}
- * stands over 1,143 nodes and far fewer topics, and a share taken over nodes is a share of something the
- * publisher never stated. Counting the labels instead is what makes the denominator the publisher's own
- * subtree.
+ * <p>A poly-hierarchy reaches one concept by many routes, so a walk counting nodes counts routes, and a
+ * share taken over nodes is a share of something the publisher never stated. Counting labels makes the
+ * denominator the publisher's own subtree.
  *
  * <p>The subtree beneath a concept is the same whichever parent was followed to it, so each label is walked
  * once and the answer reused.
@@ -86,10 +84,8 @@ final class Descendants {
     /**
      * The share of the concepts beneath this one that the repository wrote.
      *
-     * <p>It is what stops one written concept from carrying a branch. Apache Tika writes {@code id} 778
-     * times and CSO states {@code ids} as an intrusion detection system, so the mass beneath
-     * {@code intrusion detection} is a fifth of the repository and rests on that single concept. A branch
-     * several of whose concepts were written is a repository working in that part of the field.
+     * <p>It is what stops one written concept from carrying a branch. A branch several of whose concepts
+     * were written is a repository working in that part of the field.
      */
     double reachBelow(final String label) {
         final Set<String> descendants = properDescendantsOf(label);

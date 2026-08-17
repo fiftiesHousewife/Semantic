@@ -7,7 +7,6 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibil
 import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.theme.FieldOfStudy;
 import io.github.fiftieshousewife.codesemantics.engine.theme.QualifiedTopics;
-import io.github.fiftieshousewife.codesemantics.engine.theme.TopicCitations;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ScopeDivergence;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;

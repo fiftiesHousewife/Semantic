@@ -39,4 +39,14 @@ class RollUpTest {
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("missing");
     }
+
+    @Test
+    void refusesACycleOfConceptsRatherThanClimbingForever() {
+        final Concept tick = new Concept("tick", "tock");
+        final Concept tock = new Concept("tock", "tick");
+        assertThatThrownBy(() -> rollUp.topOf(tick, Map.of(tick.id(), tick, tock.id(), tock)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("tick")
+                .hasMessageContaining("tock");
+    }
 }

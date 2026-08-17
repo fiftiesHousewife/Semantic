@@ -13,7 +13,7 @@ import java.util.List;
 @FunctionalInterface
 public interface PublishedRuns {
 
-    /** Every word as written. The honest default until a resource is supplied. */
+    /** Every word as written; the default until a resource is supplied. */
     PublishedRuns NONE = words -> words;
 
     List<String> of(List<String> words);

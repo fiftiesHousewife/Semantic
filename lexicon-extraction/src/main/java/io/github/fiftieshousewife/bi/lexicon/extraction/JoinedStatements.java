@@ -11,10 +11,9 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * Every statement a source makes of one property about one concept, as the single field a taxonomy row has
  * for it.
  *
- * <p>A row has one definition column and OLiA writes two definitions for fifty-six of its concepts. Keeping
- * the first is what a reader does when the shape is in the way, and it is how 627 superclass statements were
- * lost from this same ontology once already. So the statements are joined, in the order the source wrote
- * them, and the extraction reports how many it carried rather than how many concepts it touched.
+ * <p>A row has one column per property and a source may state a property several times — OLiA writes
+ * two definitions for some concepts. The statements are joined in the order the source wrote them, and
+ * the extraction reports how many statements it carried rather than how many concepts it touched.
  *
  * <p>Two things are refused rather than smoothed over. A statement carrying the separator itself would be
  * read back as two statements that nobody wrote. And a statement carrying a tab or a line break would be

@@ -20,10 +20,8 @@ import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
  * read.
  *
  * <p><b>A word the sense-labelled resource says nothing about is not fully covered — it is uncovered.</b>
- * This class returned one in that case, which read as complete confidence on no evidence at all and was the
- * amplifier under every reading resting on a headword label alone: {@code look} and {@code inside} are
- * labelled by nothing in WordNet Domains, reported coverage {@code 1.000}, and carried a third of
- * {@code baseball} between them at full strength.
+ * Reporting full coverage there is complete confidence on no evidence at all, and it amplifies every
+ * reading that rests on a headword label alone.
  *
  * <p>A headword resource still speaks, and what it speaks for is measurable at its floor. A topic attached
  * to a headword is a claim about <em>some</em> sense of the word without saying which, so it covers at least

@@ -29,7 +29,8 @@ class TermReportTest {
             concept("PragmaticRelation", ""),
             concept("Contrast", "PragmaticRelation"));
 
-    private final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("Phrase", 34, "NounPhrase", 1), TermReportTest::asWords);
+    private final TaxonomyTree tree =
+            TaxonomyTree.of(TAXONOMY, Map.of("Phrase", 34, "NounPhrase", 1), TermReportTest::asWords);
 
     private final String rendered = new TermReport().render("OLiA", new MatchedTerms(List.of(
             new TermSighting(List.of("phrase"), List.of(concept("Phrase", "Constituent")), TermRung.WORDS,
@@ -42,6 +43,13 @@ class TermReportTest {
                 () -> assertThat(rendered).contains("publishes **5 concepts**"),
                 () -> assertThat(rendered).contains("writes **2 of them, 35 times**"),
                 () -> assertThat(rendered).contains("**1 of the taxonomy's 2 root branches**"));
+    }
+
+    @Test
+    void derivesTheHierarchyDepthFromTheEdgesTheTaxonomyStates() {
+        assertThat(rendered)
+                .as("Constituent to NounPhrase is the deepest chain this taxonomy states")
+                .contains("in a hierarchy 2 rungs deep");
     }
 
     @Test

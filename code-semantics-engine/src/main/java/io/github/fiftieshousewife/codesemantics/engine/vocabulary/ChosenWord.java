@@ -40,10 +40,18 @@ public record ChosenWord(String word, int occurrences, int inNames, double claim
     /**
      * Whether every reference's claim for this word stands outside what that reference's own null produced
      * by chance. It is the weakest-claim rule applied to the bound: a word one reference calls ordinary is
-     * ordinary however loudly the other shouts, so a word clears each bar in turn or it clears none.
+     * ordinary whatever the other says, so a word clears each bar in turn or it clears none.
      */
     public boolean clears(final Map<String, Double> barByReference) {
         return against.stream()
-                .allMatch(claim -> claim.claim() > barByReference.getOrDefault(claim.reference(), 0.0));
+                .allMatch(claim -> claim.claim() > barFor(claim.reference(), barByReference));
+    }
+
+    /** A reference with no derived bar is a defect in the caller, never a bar of zero. */
+    private static double barFor(final String reference, final Map<String, Double> barByReference) {
+        if (!barByReference.containsKey(reference)) {
+            throw new IllegalArgumentException("no bar was derived for " + reference);
+        }
+        return barByReference.get(reference);
     }
 }

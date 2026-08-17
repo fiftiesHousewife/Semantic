@@ -17,20 +17,9 @@ import static j2html.TagCreator.summary;
  * One concept of a taxonomy and everything the publisher put beneath it, drawn as a branch a reader can
  * open.
  *
- * <p><b>Every concept is named, whether or not this repository writes it, and each carries the publisher's
- * own definition.</b> The concepts a codebase does not write are the reading's most useful output and were
- * the one thing the page would not show: a branch used to report {@code 121 more here go unwritten} and
- * leave a reader to open the resource file to find out what they were. A count says how much of a field went
- * unentered; only the names and the definitions say what was in it.
- *
- * <p>What was written stays first and open, and what was not is grouped behind one closed fold per branch,
- * because a reader arrives asking what this codebase does and stays asking what the field has besides. That
- * is the ordering of the two questions and not a judgement about which concepts matter — nothing is dropped
- * at any depth, and an unwritten branch keeps the shape its publisher gave it rather than flattening into a
- * list.
- *
- * <p>The folding is {@code details} and {@code summary}, which every browser implements, so no script is
- * written for it.
+ * <p>Written concepts come first and open; unwritten ones keep the publisher's shape behind one closed fold
+ * per branch, each named with the publisher's own definition. Nothing is dropped at any depth. The folding
+ * is {@code details} and {@code summary}, which every browser implements, so no script is written for it.
  */
 final class TaxonomyBranch {
 

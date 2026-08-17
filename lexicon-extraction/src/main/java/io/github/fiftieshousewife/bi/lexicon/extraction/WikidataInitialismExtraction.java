@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,6 +22,7 @@ import java.util.TreeMap;
  * study shorthand, not readings a schema means. The whole dataset is CC0, so the derived file
  * carries no share-alike obligation.
  */
+@Slf4j
 public final class WikidataInitialismExtraction {
 
     private static final String CAPITALS = "^[A-Z]{2,4}$";
@@ -43,16 +46,16 @@ public final class WikidataInitialismExtraction {
         final Map<String, String[]> labelAndLinks = labels(items);
         final Map<String, String> rows = new TreeMap<>();
         tokensByItem.forEach((item, tokens) -> {
-            final String[] meta = labelAndLinks.get(item);
-            if (meta == null || excluded.contains(item)) {
+            if (!labelAndLinks.containsKey(item) || excluded.contains(item)) {
                 return;
             }
+            final String[] meta = labelAndLinks.get(item);
             tokens.forEach(token -> rows.merge(token + "\t" + meta[0].toLowerCase(Locale.ROOT),
                     token + "\t" + meta[0] + "\t" + meta[1],
                     (kept, offered) -> linksOf(offered) > linksOf(kept) ? offered : kept));
         });
         Files.writeString(tsv, header() + String.join("\n", rows.values()) + "\n", StandardCharsets.UTF_8);
-        System.out.println("Wrote " + rows.size() + " readings to " + tsv);
+        log.info("Wrote {} readings to {}", rows.size(), tsv);
     }
 
     private Map<String, Set<String>> tokensByItem() throws IOException, InterruptedException {

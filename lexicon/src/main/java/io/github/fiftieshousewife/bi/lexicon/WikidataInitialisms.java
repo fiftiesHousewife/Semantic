@@ -45,9 +45,8 @@ public final class WikidataInitialisms {
     }
 
     /**
-     * Every token the registry carries, so what this catalogue would say yes to can be measured rather than
-     * assumed. A caller weighing it as a source of evidence needs to see its shape, and a registry of what
-     * readers write for an entity is a wider thing than it looks.
+     * Every token the registry carries, so what this catalogue would say yes to can be measured rather
+     * than assumed.
      */
     public Set<String> tokens() {
         return readingsByToken.keySet();

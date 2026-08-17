@@ -22,10 +22,10 @@ import io.github.fiftieshousewife.codesemantics.name.WordRanks;
  * {@code part} and {@code first}, which a program may well be about. Only a word placed outside the
  * dictionary and inside the language is one its author had no choice about.
  *
- * <p>The adjective is asked because a topical vote does not ask it: {@code broader}, {@code nearest} and
- * {@code canonical} are properties this repository named things for, and a reading that saw only nouns and
- * verbs would hand all three to the language. The dictionary carries {@code e} and {@code s} as nouns, so a
- * single letter written as a catch parameter or left behind by a possessive is not answered here.
+ * <p>The adjective is asked because {@code broader}, {@code nearest} and {@code canonical} name properties,
+ * and a reading of nouns and verbs alone would hand all three to the language. The dictionary carries
+ * {@code e} and {@code s} as nouns, so a single letter left by a catch parameter or a possessive is not
+ * answered here.
  */
 public final class FunctionWords {
 

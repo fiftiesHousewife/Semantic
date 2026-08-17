@@ -13,22 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * Where the placement put this repository, held in place.
+ * Holds this repository's subject placement to the known answer: natural language processing and information
+ * retrieval, never Category Theory — which {@code site}, {@code source}, {@code graph} and {@code object},
+ * Java words carrying no mathematics, put into the themes. The assertions state the placement rather than
+ * the figures behind it, so figures may move and the placement may not.
  *
- * <p>The known answer is what makes this worth running here. A library about lemmas, senses, word
- * frequencies and divergences belongs under natural language processing and information retrieval, and a
- * reading that cannot say so on the easiest case it will ever be given does not get to be trusted on a hard
- * one. The assertions state that expectation rather than the numbers behind it, so a change that moves the
- * figures is free and a change that moves the <em>placement</em> is not.
- *
- * <p>And the trap is asserted too. This repository's themes carry `category-theory`, put there by `site`,
- * `source`, `graph` and `object` — four Java words, no mathematics. A placement that reaches for Category
- * Theory has been fooled by exactly the ambiguity the theme report warns about on its own front page, so
- * that subject is required to stay out of the running.
- *
- * <p>Every one of those is a claim about one named tree, so this reads the host tree and not the clone
- * {@code -Dcs.clone.dir} names. Where a placement must stand for any repository at all —
- * that its divergence is a number of bits between none and one, that the null was drawn — is
+ * <p>Every claim is about one named tree, so this reads the host tree and not the clone
+ * {@code -Dcs.clone.dir} names. What a placement must satisfy for any repository is
  * {@link SubjectPlacementDiagnostic}.
  */
 @Tag("pinned")

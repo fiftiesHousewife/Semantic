@@ -15,20 +15,16 @@ import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.title;
 
 /**
- * A published taxonomy drawn as the tree it is, with the concepts a repository writes lit up inside it.
+ * A published taxonomy drawn as the tree it is, with the concepts a repository writes lit up inside it. It
+ * reads any {@link TaxonomyTree}, so the same page draws a subject scheme or a control framework the day
+ * one is bundled.
  *
- * <p>It reads any {@link TaxonomyTree}, so it is a viewer for SKOS rather than a viewer for OLiA: the same
- * page will draw a subject scheme or a control framework the day one is bundled.
+ * <p>A branch nothing was written under is closed rather than removed — dropping it would show a taxonomy
+ * shaped like the repository instead of the repository placed in a taxonomy — and {@link TaxonomyBranch}
+ * draws each, down to the leaf and its definition.
  *
- * <p><b>A branch nothing was written under is closed, not hidden.</b> That is the whole of the interaction
- * and it is the honest shape for this reading — most of a field is a region any one codebase never enters,
- * and a viewer that dropped those branches would show a taxonomy shaped like the repository rather than the
- * repository placed in a taxonomy. Opening one is how a reader sees what the field has that this code does
- * not, and {@link TaxonomyBranch} is what draws each of them, down to the leaf and its definition.
- *
- * <p>The one script the page carries is there because the document cannot express it: a wedge is as wide as
- * its share of the field, so most wedges are far too thin to hold their own name, and the native tooltip
- * that would say it arrives after a delay a reader hunting for a name does not wait out.
+ * <p>The one script exists because the document cannot express it: most wedges are too thin to hold their
+ * own name, and the native tooltip arrives after a delay a reader hunting for a name does not wait out.
  */
 final class TaxonomyPage {
 
@@ -45,7 +41,7 @@ final class TaxonomyPage {
             + "chart page, beside the other one this reading draws.";
 
     private static final String FOOT = "Drawn from the same match the report is written from. Regenerate "
-            + "with ./gradlew selfRead.";
+            + "with ./gradlew read.";
 
     String of(final String repository, final String source, final TaxonomyTree tree,
               final TaxonomyChoice choice) {

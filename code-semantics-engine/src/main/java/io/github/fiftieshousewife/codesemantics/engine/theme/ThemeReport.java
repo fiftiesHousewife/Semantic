@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 /**
  * Renders a {@link RepositoryThemes} as markdown, in the order that keeps a reader honest: the ranking a
  * consumer asked for, immediately followed by the words carrying it, and then the comparison that is the
@@ -14,7 +13,6 @@ import java.util.Locale;
  * one under a caveat would be printing it, and the caveat is not what gets quoted.
  */
 public final class ThemeReport {
-
 
     private static final TopicDistribution ORDINARY_ENGLISH =
             OrdinaryEnglish.fromClasspath().reading();
@@ -46,11 +44,10 @@ public final class ThemeReport {
     }
 
     /**
-     * The topics that earned a place, most-distinguishing first — not the topics with the most mass. A raw
-     * ranking is led by whatever ambiguous word a codebase writes most, and this report printed one for most
-     * of its life: {@code baseball} on {@code first}, {@code astronomy} on an import of JUnit Jupiter. A
-     * topic reaches this table only where it makes some part of the repository unlike the rest of it and
-     * where more than one word carries it.
+     * The topics that earned a place, most-distinguishing first — never the topics with the most mass. A
+     * raw ranking is led by whatever ambiguous word a codebase writes most: {@code baseball} on
+     * {@code first}, {@code astronomy} on an import of JUnit Jupiter. A topic reaches this table only where
+     * it makes some part of the repository unlike the rest of it and more than one word carries it.
      */
     private List<String> ranked(final RepositoryThemes themes) {
         final List<String> qualified = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
@@ -64,12 +61,6 @@ public final class ThemeReport {
                         themes.witnesses().carrying(ranking.topic(), WITNESSES_HELD)))
                 .toList();
     }
-
-
-    /**
-     * The words whose own subject is furthest from this repository's — where a metaphor shows up, because a
-     * metaphor is a word carried in from somewhere else. Candidates, with the evidence to dismiss them by.
-     */
 
     private List<String> scopeSection(final RepositoryThemes themes, final ScopeDivergence divergence) {
         final List<String> lines = new ArrayList<>();

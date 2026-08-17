@@ -16,6 +16,7 @@ duckdb = "1.5.5.1"
 extjwnl = { module = "net.sf.extjwnl:extjwnl", version = "2.0.5" }
 extjwnl-data-wn31 = { module = "net.sf.extjwnl:extjwnl-data-wn31", version = "1.2" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.17" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }

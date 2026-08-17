@@ -34,16 +34,11 @@ public class Weights {
     /**
      * What a sentence of prose is worth — a javadoc statement, a comment, a line of documentation.
      *
-     * <p>It was a quarter while the unit was the word, because prose is most of the words in this repository
-     * and at parity it would have decided every theme by volume alone. The unit is now the <em>phrase</em>,
-     * so a twenty-word sentence and a two-word field name each commit once and volume no longer decides
-     * anything. What is left for this number to express is the difference in kind, which is real but smaller:
-     * a name is the code and a sentence is commentary on it, chosen with less deliberation and read by fewer
-     * people.
-     *
-     * <p>A half is a stated starting point and not a finding. The measurement that would move it is the one
-     * the report prints beside every theme — what share of it came from names — and the case to watch is a
-     * theme that exists only in the prose, which is a theme the code does not carry.
+     * <p>The unit is the <em>phrase</em>, so a twenty-word sentence and a two-word field name each commit
+     * once and volume decides nothing; what this number expresses is the difference in kind, since a name is
+     * the code and a sentence is commentary on it. A half is a stated starting point and not a finding — the
+     * measurement that would move it is the share the report prints beside every theme, and the case to
+     * watch is a theme that exists only in the prose.
      */
     @Builder.Default double prose = 0.5;
 

@@ -114,12 +114,10 @@ public final class ThemeReading {
     /**
      * The words this file declared <em>as nouns</em>, in the form the resources are asked about them.
      *
-     * <p>The leading word of a method name is left out, and leaving it in was a defect with a measurable
-     * cost. A method name is a clause and its first word is what the method does, so a file declaring
-     * {@code readRepository} has declared no noun called {@code read} — but the rule that reads a file's
-     * prose as its declarations do then read every sentence's {@code read} as the noun, which WordNet
-     * Domains labels {@code publishing}. This library's most-written verb became evidence for the
-     * publishing trade twice over, once through the rule meant to stop exactly that.
+     * <p>The leading word of a method name is left out. A method name is a clause and its first word is
+     * what the method does, so a file declaring {@code readRepository} has declared no noun called
+     * {@code read} — and a rule that read it as one would turn every sentence's {@code read} into the
+     * noun WordNet Domains labels {@code publishing}.
      */
     private java.util.Set<String> declaredIn(final ParsedFile file) {
         return file.occurrences().stream()

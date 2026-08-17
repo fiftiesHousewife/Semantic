@@ -13,11 +13,6 @@ import java.util.stream.Collectors;
  * them for subjects nothing said — and it divides the word's mass six ways, so the subject the resource
  * named comes out worth a sixth of the word.
  *
- * <p>Measured on this repository before the fold, {@code sciences}, {@code natural-sciences},
- * {@code physical-sciences}, {@code engineering}, {@code computing} and {@code human-sciences} held 23% of
- * all topical mass between them; four had identical witnesses and four led no file at all. That is one theme
- * counted six times, and the resource itself says so.
- *
  * <p>So a label another label of the same word already implies is not a second reading of the word, and the
  * mass stays with the label that implied it. Nothing is excluded and no list is written: the hierarchy
  * doing the folding is the same published map that did the deriving, and where it is silent every label the

@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import io.github.fiftieshousewife.bi.lexicon.Scripts;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.lang.Character.UnicodeScript;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  * and 亚历山大 — which is what makes the file usable where capitalisation and whitespace cannot
  * speak. The whole dataset is CC0, so the derived file carries no share-alike obligation.
  */
+@Slf4j
 public final class WikidataNameExtraction {
 
     private static final int BEARER_FLOOR = 5;
@@ -46,8 +48,8 @@ public final class WikidataNameExtraction {
         index(givenBearers, "given", labels, bearersByRow);
         index(familyBearers, "family", labels, bearersByRow);
         Files.writeString(tsv, header() + render(bearersByRow) + "\n", StandardCharsets.UTF_8);
-        System.out.println("Wrote " + bearersByRow.size() + " name tokens to " + tsv);
-        System.out.println(perScriptSummary(bearersByRow));
+        log.info("Wrote {} name tokens to {}", bearersByRow.size(), tsv);
+        log.info(perScriptSummary(bearersByRow));
     }
 
     private Map<String, Long> bearersByItem(final String nameProperty)

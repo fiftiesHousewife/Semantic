@@ -64,4 +64,9 @@ class WalkthroughPageTest {
     void saysThatAnUnreadWordCastsNoVoteRatherThanAVoteOfZero() {
         assertThat(page).contains("not a vote of zero");
     }
+
+    @Test
+    void namesTheGradleTaskTheBuildRegistersInItsFoot() {
+        assertThat(page).contains("./gradlew read").doesNotContain("selfRead");
+    }
 }

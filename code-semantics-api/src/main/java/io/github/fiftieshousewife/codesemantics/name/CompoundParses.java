@@ -60,8 +60,8 @@ final class CompoundParses {
 
     /**
      * The cheapest full cover of the text by pieces something reads. A text something reads whole covers
-     * itself in one piece, which is the honest answer to what it costs; refusing to segment a token the
-     * vocabulary already knows is {@link WordSegmenter}'s judgement to make and not this search's.
+     * itself in one piece; refusing to segment a token the vocabulary already knows is
+     * {@link WordSegmenter}'s judgement, never this search's.
      */
     private Optional<Parse> cheapestCover(final String text) {
         final int length = text.length();

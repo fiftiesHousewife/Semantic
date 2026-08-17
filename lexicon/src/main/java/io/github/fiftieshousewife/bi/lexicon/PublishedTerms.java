@@ -3,12 +3,8 @@ package io.github.fiftieshousewife.bi.lexicon;
 import java.util.List;
 
 /**
- * What a bundled taxonomy answers about the terms it publishes, so a reading that matches terms against code
- * needs one implementation per source and not one reading per source.
- *
- * <p>{@link OliaTerms} and {@link FiboTerms} already answered exactly this, in the same two methods, because
- * the measurement they exist for needs an in-domain vocabulary and an out-of-domain one read the same way. A
- * reading that treated them differently could not compare them.
+ * What a bundled taxonomy answers about the terms it publishes, so a reading that matches terms against
+ * code needs one implementation per source rather than one reading per source.
  */
 public interface PublishedTerms {
 

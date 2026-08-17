@@ -11,19 +11,12 @@ import static j2html.TagCreator.tag;
 
 /**
  * The themes as one horizontal bar per topic, longest first, each bar as long as the share of the reported
- * divergence that topic accounts for, with the topic's name to its left and its percentage at its end.
+ * divergence that topic accounts for across the scopes that exceeded chance, with the topic's name to its
+ * left and its percentage at its end.
  *
- * <p>One bar per row is what lets two topics be compared: the eye reads two lengths from a common baseline,
- * where a stacked bar asks it to compare two segments starting at different offsets and a ring asks it to
- * compare two angles at different radii. The ring belongs on the theme page, where the inner ring carries
- * the publisher's own hierarchy and there is room to read it.
- *
- * <p><b>A bar's length is the divergence its topic accounts for</b> across the scopes that departed further
- * than chance, as a share of the divergence the chart draws. It is what the reading found and not how much
- * of the codebase was typed.
- *
- * <p>Colour groups the topics the publisher's hierarchy places under one broad subject, so the grouping the
- * stacked bar carried by adjacency is still readable when the order is by length.
+ * <p>One bar per row from a common baseline is what lets two topics be compared by length. Colour groups
+ * the topics the publisher's hierarchy places under one broad subject, so the grouping survives ordering
+ * by length.
  */
 final class ThemeBar {
 

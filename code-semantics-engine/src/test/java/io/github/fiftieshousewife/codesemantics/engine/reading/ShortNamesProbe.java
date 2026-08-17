@@ -18,18 +18,12 @@ import com.github.javaparser.ast.stmt.CatchClause;
 import com.github.javaparser.ast.type.TypeParameter;
 
 /**
- * Every declared name short enough that a dictionary entry for it can only be a symbol reading, tallied by
- * the kind of declaration it is.
+ * Every declared name short enough that a dictionary entry for it can only be a symbol reading — {@code e},
+ * {@code i}, {@code r} — tallied by the kind of declaration it is, to say whether such names are catch
+ * parameters, loop indices and type parameters the parse could report apart, or names an author meant.
  *
- * <p>{@code e} stands thirteenth in this tree's vocabulary ranking on 43 occurrences, and the ranking has no
- * way to say what it is: the dictionary carries {@code e} as a noun, so nothing refuses it. The question the
- * plan asks is whether such names are almost all catch parameters, loop indices and type parameters — in
- * which case the parse can report them apart on the same grounds it already reads declarations rather than
- * uses — or whether they are names an author meant, in which case they stay where they are.
- *
- * <p>It parses the tree itself rather than reading the pipeline's occurrences, because the pipeline's
- * {@code PARAMETER} covers a method's, a lambda's and a catch clause's alike, and which of the three a name
- * is standing in is the whole question.
+ * <p>It parses the tree itself because the pipeline's {@code PARAMETER} covers a method's, a lambda's and a
+ * catch clause's alike, and which of the three a name stands in is the question.
  */
 public final class ShortNamesProbe {
 

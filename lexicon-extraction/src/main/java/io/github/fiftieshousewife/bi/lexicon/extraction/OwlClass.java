@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * One named class of an OWL ontology, read to what a taxonomy row needs of it: the identifier it is
@@ -24,7 +25,8 @@ public record OwlClass(String concept, String id, String broader, Map<String, Li
         implements Nested {
 
     public OwlClass {
-        annotations = Map.copyOf(annotations);
+        annotations = annotations.entrySet().stream().collect(
+                Collectors.toUnmodifiableMap(Map.Entry::getKey, entry -> List.copyOf(entry.getValue())));
     }
 
     /** Every value the ontology states for this property, in the order it stated them. */

@@ -12,8 +12,8 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
  * The Ontologies of Linguistic Annotation as a {@link TermIndex}: the vocabulary a program writing about
  * grammar writes, keyed by the words its own identifiers read as.
  *
- * <p>It is the in-domain arm of the measurement. A vocabulary of the field this repository works in can only
- * ever show a vocabulary firing where it belongs, so {@link FinanceTerms} is read beside it.
+ * <p>It is the positive control. A vocabulary of the field this repository works in can only ever show
+ * matches where they belong, so {@link FinanceTerms} is read beside it.
  */
 public final class LinguisticTerms implements TermIndex {
 

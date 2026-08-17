@@ -23,11 +23,9 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * <p>{@code module} is the ontology document the class's own identifier names — OLiA publishes its top
  * level, its core and its system vocabulary as separate ontologies, and the namespace says which is which.
  *
- * <p>{@code definition} is the ontology's {@code rdfs:comment} and {@code note} is its {@code owl:versionInfo}
- * — what a concept means and where its publisher took it from. Both were written empty here for as long as
- * this class existed, which discarded 1,272 definitions and 949 notes the ontology had gone to the trouble of
- * publishing, and left every OLiA concept matchable only by the string it is called. A definition is prose,
- * and prose is the one thing this library already knows how to read into topics.
+ * <p>{@code definition} is the ontology's {@code rdfs:comment} and {@code note} is its
+ * {@code owl:versionInfo} — what a concept means and where its publisher took it from. A definition is
+ * prose, and prose is what this library reads into topics.
  */
 public class OliaConcepts {
 

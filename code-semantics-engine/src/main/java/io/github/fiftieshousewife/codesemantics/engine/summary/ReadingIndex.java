@@ -4,16 +4,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * What a reader is handed first: the summary, and then every other report with the bar it carries stated
- * beside it.
- *
- * <p>A folder of six files with no index is a folder nobody reads in the right order, and the wrong order
- * here is expensive — the detailed reports print what was <em>measured</em> and the summary prints what was
- * <em>shown</em>, so a reader who opens {@code themes.md} first meets four hundred and eighty-nine topics
- * before meeting the six that earned a place.
- *
- * <p>Every entry names its bar, because a report with a bar and a report without one are different kinds of
- * document and a reader has no way to tell by looking.
+ * What a reader is handed first: the summary, then every other report, each entry stating what the report
+ * answers and the test a row in it had to pass to be printed. The detailed reports print what was
+ * <em>measured</em> and the summary prints what <em>passed</em>, and a reader cannot tell the two kinds
+ * apart by looking.
  */
 public record ReadingIndex(String repository, List<Entry> entries) {
 

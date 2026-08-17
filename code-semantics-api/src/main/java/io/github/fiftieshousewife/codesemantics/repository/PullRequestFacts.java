@@ -10,9 +10,8 @@ import java.util.Optional;
  * {@code headSha} — and not the union of its commits' diffs, because a commit that adds a line and a later
  * commit in the same request that removes it net to nothing, and the merge diff says so.
  *
- * <p>{@code labels} is routinely empty: measured over the 100 most recently closed pull requests of one
- * large public repository, only 5 carried any label at all. A label is therefore only ever a light
- * corroborating vote, never a primary signal.
+ * <p>{@code labels} is routinely empty on public repositories, so a label is only ever a light corroborating
+ * vote, never a primary signal.
  */
 public record PullRequestFacts(int number, String title, String body, String state,
                                Instant mergedAt, String mergeCommitSha, String baseSha, String headSha,

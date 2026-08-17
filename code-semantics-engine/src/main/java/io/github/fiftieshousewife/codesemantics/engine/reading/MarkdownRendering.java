@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * spans. That is the whole of it, and a general markdown library would be a dependency taken to parse text
  * this project already controls the shape of.
  *
- * <p>Escaping runs before any markup is added, so a report that happens to contain a angle bracket is text
+ * <p>Escaping runs before any markup is added, so a report that happens to contain an angle bracket is text
  * rather than a tag. It is the one thing a hand-written converter usually gets wrong and the one thing that
  * matters when the input is a corpus of somebody's identifiers.
  */

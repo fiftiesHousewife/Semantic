@@ -86,9 +86,10 @@ public final class JavaSource implements SourceReader {
                 add(caught.getParameter().getNameAsString(), NameForm.CAUGHT, caught, occurrences));
         // Parameter covers a lambda's parameters as well as a method's, so neither needs a pass of its own.
         // A catch clause's is read above instead: the language requires the type beside it, and the name
-        // stands for that type.
+        // stands for that type. A record's components are Parameter nodes too and are read as constants
+        // below, so reading them here as well would count each one twice.
         unit.findAll(Parameter.class).stream()
-                .filter(parameter -> !isCaught(parameter))
+                .filter(parameter -> !isCaught(parameter) && !isRecordComponent(parameter))
                 .forEach(parameter -> addNamed(parameter.getNameAsString(), parameter.getType(),
                         NameForm.PARAMETER, parameter, occurrences));
         declared(unit, EnumConstantDeclaration.class, NameForm.CONSTANT, occurrences);
@@ -115,6 +116,10 @@ public final class JavaSource implements SourceReader {
 
     private static boolean isCaught(final Parameter parameter) {
         return parameter.getParentNode().filter(CatchClause.class::isInstance).isPresent();
+    }
+
+    private static boolean isRecordComponent(final Parameter parameter) {
+        return parameter.getParentNode().filter(RecordDeclaration.class::isInstance).isPresent();
     }
 
     /**

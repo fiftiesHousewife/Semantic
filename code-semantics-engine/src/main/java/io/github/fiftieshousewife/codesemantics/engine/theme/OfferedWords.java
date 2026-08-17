@@ -16,14 +16,12 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
  *       about, and an open-class dictionary is what says so.</li>
  *   <li>A word of symbol length is refused whichever it is, because a dictionary entry for a one- or
  *       two-letter form is about a symbol and a name can be a sentence with an article in it.</li>
- *   <li><b>A dependency's own name is not offered at all.</b> A coordinate denotes an artefact somebody else
- *       published, so asking a dictionary what it means is a category error and not an inaccuracy — and the
- *       dictionary answers. {@code org.junit.jupiter} yields {@code jupiter}, which this tree writes 230
- *       times and which votes <em>astronomy</em>, <em>mythology</em> and <em>chemistry</em> as the Roman god;
- *       it was the largest single carrier of two of the worst labels in the report. {@code owl} is an
- *       ontology language read as a bird. What a dependency states about a repository is real and it is
- *       stated by the artefact rather than by its spelling, so it belongs to a reading of coordinates and
- *       not to a reading of English.</li>
+ *   <li><b>A dependency's own name is not offered at all.</b> A coordinate denotes an artefact somebody
+ *       else published, so asking a dictionary what it means is a category error — and the dictionary
+ *       answers: {@code org.junit.jupiter} yields {@code jupiter}, the Roman god, and {@code owl} is an
+ *       ontology language read as a bird. What a dependency states about a repository is stated by the
+ *       artefact rather than by its spelling, so it belongs to a reading of coordinates and not to a
+ *       reading of English.</li>
  *   <li>What survives is worth what its {@link NameForm form} is worth, and — where nothing chose it — how
  *       much it narrows a subject at all.</li>
  * </ul>

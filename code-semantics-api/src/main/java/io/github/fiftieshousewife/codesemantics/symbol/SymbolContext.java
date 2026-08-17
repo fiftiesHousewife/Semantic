@@ -6,10 +6,8 @@ import java.util.Objects;
 import io.github.fiftieshousewife.codesemantics.repository.SourceAnchor;
 
 /**
- * Everything a stage is given about one declaration. The shape is deliberately the same as the column
- * context a table pipeline reads — an immutable record consumed by a side-effect-free stage — but the
- * contents are entirely different, because code has no value distribution to profile. What it has instead is
- * a kind, a span, the declarations enclosing it, and the identifiers visible from it.
+ * Everything a stage is given about one declaration: a kind, a name, the declarations enclosing it, and the
+ * identifiers visible from it — an immutable record consumed by a side-effect-free stage.
  *
  * <p>{@code enclosingNames} runs nearest first, so a stage that decays a vote with scope distance reads the
  * list in order rather than computing a depth.

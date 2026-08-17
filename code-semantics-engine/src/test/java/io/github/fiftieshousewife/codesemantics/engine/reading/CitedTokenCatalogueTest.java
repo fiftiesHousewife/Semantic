@@ -13,26 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * Why the word segmenter still runs on {@link CitedTokens#NONE}, as a measurement rather than as a comment.
+ * Why the word segmenter still runs on {@link CitedTokens#NONE}, as a measurement: the one bundled catalogue
+ * that could fill the seam finds a reading for very nearly any run of letters.
  *
- * <p>The seam has been open since it was cut, and this library bundles exactly one catalogue that looks like
- * it would fill it: 74,397 tokens the Wikidata registry records as somebody's short name or alias. Filling it
- * would be one line. The reason not to is that the registry is a record of what readers write for an entity,
- * which is not the same question as whether a run of letters in an identifier is one thing.
- *
- * <p>What that difference costs is measured below. The catalogue carries 1,195 of the ten thousand commonest
- * English words — {@code the}, {@code of}, {@code and}, {@code to}, {@code is} among them — and 14,322 of its
- * tokens are three letters long. A segmenter arbitrating candidate pieces against it would find a reading for
- * very nearly any run of letters, which is the failure {@code PieceCost} already holds short pieces to a
- * rarity floor to avoid. A catalogue that says yes to everything is not a citation.
- *
- * <p><b>This is not an argument for a hand-written list</b>, which the doctrine refuses outright. It is the
- * statement of what a catalogue would have to be to fill the seam: a published standard's own token table,
- * or this same registry narrowed by something the registry itself states — its prominence column is right
- * there — with the narrowing measured on repositories this reading was not written for. Choosing a threshold
- * against this tree would be marking our own homework.
- *
- * <p>If a future extraction narrows the registry, this test fails and the seam can be filled.
+ * <p>The Wikidata initialism registry records what readers write for an entity, a different question from
+ * whether a run of letters in an identifier is one thing. An admissible catalogue is a published standard's
+ * own token table, or this registry narrowed by its own prominence column, with the narrowing measured on
+ * repositories this reading was not written for. If an extraction narrows the registry, this test fails and
+ * the seam can be filled.
  */
 class CitedTokenCatalogueTest {
 

@@ -110,8 +110,7 @@ public record TopicDistribution(Map<String, Double> shareByTopic, double unplace
     }
 
     /**
-     * The same reading among the mass a topic actually took, summing to one — what a comparison is between,
-     * and the reading this class held before what nothing could place was given a term of its own.
+     * The same reading among the mass a topic actually took, summing to one — what a comparison is between.
      */
     public TopicDistribution amongWhatWasPlaced() {
         if (isEmpty()) {

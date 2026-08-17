@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
  *
  * <p>Prose standing in {@code n} files was written once and copied into the other {@code n - 1}, so each
  * occurrence is worth {@code 1/n} and the {@code n} of them together are worth what their author wrote: one.
- * A licence header is the case that forces it — one legal instrument, repeated once per file, counted once
- * per file, outvoting whatever the repository is for.
+ * A licence header is the case that forces it — one legal instrument, repeated once per file, which counted
+ * once per file would outweigh whatever the repository is for.
  *
  * <p>The weight is derived from the tree in hand, bounded in {@code (0, 1]} by its own definition, and needs
  * no bundled resource: a repository that copies nothing reads exactly as it did before. Repeating a comment

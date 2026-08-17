@@ -12,18 +12,13 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.ChanceExpectedBest;
 
 /**
  * What claim a word of a repository this size would attain against a reference <em>by chance</em>, and
- * therefore where the vocabulary's cutoff is.
+ * therefore where the vocabulary's cutoff is — a bound derived from a null, never a chosen row count.
  *
- * <p>The report used to print a fixed number of rows. The number was chosen, and a chosen bound is the one
- * thing the doctrine refuses outright. A count is not comparable either: 250 of one repository's words is a
- * different slice from 250 of another's, so no figure taken at such a cutoff means the same thing twice.
- *
- * <p>So the bar is derived the way this library derives every other bar. Draw a repository of this one's
- * size from the reference's own distribution — the null that this repository writes what the reference
- * writes — score each drawn word by the same term of the same divergence the ranking uses, and read the
- * quantile {@link ChanceExpectedBest} gives for a field of this many words. Every word is tested at once, so
- * the bar follows from how many of them there are. A word above it is vocabulary; a word below it is what a
- * repository of this size and shape would have produced against this reference anyway.
+ * <p>Draw a repository of this one's size from the reference's own distribution — the null that this
+ * repository writes what the reference writes — score each drawn word by the same term of the same
+ * divergence the ranking uses, and read the quantile {@link ChanceExpectedBest} gives for a field of this
+ * many words. A word above it is vocabulary; a word below it is what a repository of this size and shape
+ * would have produced against this reference anyway.
  *
  * <p><b>One bar per reference, and a word must clear each.</b> That is the ranking's own weakest-claim rule
  * applied to the bound: pooling the references would need a weight nothing states, and clearing each in turn

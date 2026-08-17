@@ -24,16 +24,13 @@ public interface SenseDomains {
      * The bundled WordNet Domains reading of the sense each word is <b>most often written in</b>, through
      * the ported lexicon.
      *
-     * <p>It pooled every labelled sense equally until this was measured, and pooling reads a word as its
-     * rarest meaning. {@code cite} has eight senses and exactly one carries a subject — being summoned
-     * before a court — so a pooled reading called this repository's citations {@code law} with no evidence
-     * that the courtroom sense was ever meant, and {@code law} became its second theme. Asked for the
-     * commonest sense instead, {@code cite} says nothing at all, which is the correct outcome: the dominant
-     * meaning is one the resource never labelled, and a reading that cannot cite abstains.
+     * <p>Pooling every labelled sense instead reads a word as its rarest meaning: {@code cite} carries a
+     * subject on exactly one sense — being summoned before a court — so a pooled reading calls citations
+     * {@code law} with no evidence the courtroom sense was ever meant. Asked for the commonest sense,
+     * {@code cite} says nothing at all, which is the correct outcome: a reading that cannot cite abstains.
      *
-     * <p>The list has one entry or none, because there is one commonest sense. That keeps the contract a
-     * per-sense one, so a reading that pools and a reading that disambiguates are the same shape and can be
-     * compared.
+     * <p>The list has one entry or none, because there is one commonest sense. That keeps the contract
+     * per-sense, so a reading that pools and a reading that disambiguates are the same shape.
      */
     static SenseDomains fromClasspath() {
         final Lexicon lexicon = WordNetLexicon.fromClasspath();

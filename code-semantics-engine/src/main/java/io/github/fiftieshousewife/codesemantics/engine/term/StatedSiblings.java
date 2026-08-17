@@ -7,27 +7,18 @@ import java.util.Map;
  * How many <em>other</em> concepts a repository writes in the branch the taxonomy states one under.
  *
  * <p>It is the answer to the question a single-word match cannot answer for itself. OLiA states
- * {@code Preferred} under {@code UsageAndFrequencyFeature}; this repository writes it once and writes nothing
- * else under that feature, so the match is an English word a taxonomy happens to have claimed. It states
- * {@code Verb} under {@code MorphosyntacticCategory}, where this repository also writes {@code Noun},
- * {@code Clause} and {@code Phrase} — and that company is what makes the first match mean something the second
- * does not.
+ * {@code Preferred} under {@code UsageAndFrequencyFeature}; a repository writing it once and nothing else
+ * under that feature has written an English word a taxonomy happens to claim. It states {@code Verb} under
+ * {@code MorphosyntacticCategory}, beside {@code Noun}, {@code Clause} and {@code Phrase} — and that
+ * company is what makes the match mean something.
  *
- * <p><b>The company is the parent's own children, and that was measured rather than assumed.</b> Counting
- * everything beneath the parent instead was tried first and it fails on the case the rule exists for:
- * {@code Topic} sits under {@code PragmaticUnit}, this repository writes {@code Identifier} two levels below
- * it, and the subtree reading admits {@code Topic} on that strength — leaving it the largest single match at
- * 177, which is the defect unchanged. That is the trap the design already names: climb far enough and
- * everything meets. Siblings share the deepest subsumer a taxonomy can offer, which is why they are the ones
- * asked.
+ * <p>The company is the parent's own children. Siblings share the deepest subsumer a taxonomy can offer:
+ * taken to the root the test refuses nothing, and taken at the concept itself it refuses everything,
+ * because the nodes directly above a term are technical names nobody declares.
  *
- * <p>Taken to the root the test refuses nothing, because every linguistic concept OLiA states sits under a
- * handful of enormous branches. Taken at the concept itself it refuses everything, because the nodes directly
- * above a term are technical names nobody declares — no program writes a {@code morphosyntacticCategory}.
- *
- * <p>A concept the source states no parent for stands as its own branch, which is the same rule
- * {@link StatedAncestry} obeys and for the same reason: a chain that ends is a fact about the publication.
- * Its company is then whatever the repository writes directly beneath it.
+ * <p>A concept the source states no parent for stands as its own branch — the rule {@link StatedAncestry}
+ * obeys, for the same reason: a chain that ends is a fact about the publication. Its company is then
+ * whatever the repository writes directly beneath it.
  */
 public final class StatedSiblings {
 
@@ -55,9 +46,19 @@ public final class StatedSiblings {
 
     private static void record(final TaxonomyTree.Node node, final TaxonomyTree.Node branch,
                                final Map<String, Placement> byConcept) {
-        byConcept.put(node.label(), new Placement(branch.label(), writtenAmongChildren(branch),
-                node.written()));
+        byConcept.merge(node.label(), new Placement(branch.label(), writtenAmongChildren(branch),
+                node.written()), StatedSiblings::mostAccompanied);
         node.children().forEach(child -> record(child, node, byConcept));
+    }
+
+    /**
+     * A poly-hierarchical source states one concept under several parents, so the walk meets it once per
+     * parent. The placement kept is the one with the most written company, because corroboration asks
+     * whether the repository writes anything beside the concept in <em>some</em> branch its publisher put
+     * it in.
+     */
+    private static Placement mostAccompanied(final Placement kept, final Placement offered) {
+        return offered.writtenInBranch() > kept.writtenInBranch() ? offered : kept;
     }
 
     /** The concepts a publisher states directly under one, plus that one, counted where they were written. */

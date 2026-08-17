@@ -11,13 +11,10 @@ import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
  * What the bundled topical resources say a word is about, as votes carrying mass. Two resources answer, and
  * they answer differently:
  *
- * <p><b>The unit is the observation, not the resource.</b> That distinction is the whole of how mass is
- * allotted here, and getting it wrong the other way was measurable: while each resource was normalised to
- * one unit, a resource stating a <em>single</em> label handed that label the entire unit, so the fewer
- * things a resource said about a word the louder each one became. `first` is written 116 times in this
- * tree; Wiktionary states exactly one topic for it, `baseball`; WordNet labels five senses. Under
- * resource-parity `baseball` took <b>81%</b> of the word and led a whole scope. Precision in a resource had
- * become volume in the reading, which is the opposite of what evidence does.
+ * <p><b>The unit is the observation, not the resource.</b> Normalising each resource to one unit hands a
+ * resource stating a <em>single</em> label the entire unit, so the fewer things a resource says about a
+ * word the louder each one becomes — precision in a resource becomes volume in the reading, which is the
+ * opposite of what evidence does.
  *
  * <ul>
  *   <li><b>WordNet Domains</b> labels each of a word's <em>senses</em>, so each labelled sense is one
@@ -141,9 +138,8 @@ public final class TopicCitations {
      * <p>The rule is deliberately narrow, and every clause of it is load-bearing. It needs a taxonomy to
      * have claimed the word, and it needs the sense-labelled resource to be silent — so {@code phrase},
      * which OLiA also publishes and whose commonest sense WordNet labels {@code grammar}, is untouched.
-     * Refusing flat sets without the taxonomy clause was measured and reverted three times: it takes the
-     * same shape out of the arXiv descriptions that form the field reference, which are too short to spare
-     * it, and costs {@code computing} and {@code grammar}.
+     * Without the taxonomy clause the refusal also strips the arXiv descriptions that form the field
+     * reference, which are too short to spare it, and costs {@code computing} and {@code grammar}.
      */
     private List<TopicVote> readAs(final SenseDomains reading, final String word) {
         final List<TopicVote> sensed = senseLabelled(reading, word);

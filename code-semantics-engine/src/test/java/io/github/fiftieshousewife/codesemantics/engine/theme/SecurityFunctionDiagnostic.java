@@ -19,18 +19,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * Reads the repository under reading against the six functions NIST partitions security activity into.
+ * Reads the repository under reading against the six functions NIST partitions security activity into,
+ * with the same {@link SubjectAreas} and divergence that read arXiv; only the null differs, because a
+ * framework's functions share one document's vocabulary by construction and the partition is what is tested.
  *
- * <p>It is the second functional taxonomy this machinery has been pointed at, and that is most of the point:
- * a placement that only ever ran against arXiv could be arXiv's rather than the reading's. Nothing here is
- * specialised for NIST — the same {@link SubjectAreas} reads its statements, the same divergence compares
- * them, and only the null differs, because a framework's functions share one document's vocabulary by
- * construction and what has to be tested is its partition rather than its words.
- *
- * <p><b>Silence is the expected result on most repositories and it is not a failure.</b> A library of
- * lemmas and senses has no security surface, so a function clearing its null here would say the reading
- * places by everyday English. What is asserted is what must hold anywhere; where this tree landed is a
- * finding about this tree and is reported rather than pinned.
+ * <p>Few or no matches is the expected result on most repositories: a library of lemmas and senses has no
+ * security surface, so a function exceeding its null here would say the reading places by everyday English.
+ * The assertions hold for any repository; where this tree landed is reported, never pinned.
  */
 @Tag("diagnostic")
 class SecurityFunctionDiagnostic {

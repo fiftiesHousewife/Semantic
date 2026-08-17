@@ -9,11 +9,10 @@ import java.util.stream.Collectors;
  * The Financial Industry Business Ontology as a term index: for a term written in code, the concepts FIBO
  * publishes under that name.
  *
- * <p>It is the sibling of {@link OliaTerms} and deliberately the same shape, because the measurement both
- * exist for needs two vocabularies and not one. OLiA is the field <em>this</em> repository works in, so it
- * can only ever show a vocabulary firing where it belongs. FIBO is a field this repository has nothing to do
- * with, which makes it the arm that decides: a domain vocabulary is worth something only if it stays quiet
- * on a repository outside its domain, and that cannot be shown with an in-domain vocabulary alone.
+ * <p>It is the sibling of {@link OliaTerms} and deliberately the same shape: the measurement both exist
+ * for needs an in-domain vocabulary and an out-of-domain one read the same way. OLiA is the field this
+ * repository works in; FIBO is not, so FIBO is the negative control — a domain vocabulary is trusted
+ * only if it matches little or nothing on a repository outside its domain.
  *
  * <p>A term is matched case-insensitively on the concept's own local name, which for this ontology is
  * already an identifier — {@code InterestRateSwap}, {@code AssetBackedSecurity} — so a match is identifier

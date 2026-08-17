@@ -122,8 +122,13 @@ class JavaSourceTest {
                 enum BlobOrigin { HAND_WRITTEN, GENERATED }
                 """;
 
-        assertThat(namesOf(source, NameForm.CONSTANT))
-                .containsExactlyInAnyOrder("commitSha", "startLine", "HAND_WRITTEN", "GENERATED");
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.CONSTANT))
+                        .containsExactlyInAnyOrder("commitSha", "startLine", "HAND_WRITTEN", "GENERATED"),
+                () -> assertThat(namesOf(source, NameForm.PARAMETER))
+                        .as("a record component is a constant, and reading it as a parameter as well "
+                                + "would count it twice")
+                        .isEmpty());
     }
 
     @Test

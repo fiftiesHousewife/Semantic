@@ -8,6 +8,7 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord.Ref
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedSignalsTest {
@@ -58,6 +59,15 @@ class ExportedSignalsTest {
         assertThat(signals.in(List.of(word("entry", 0.050, 0.014))))
                 .as("0.014 bits against the platform's threshold of 0.015")
                 .isEmpty();
+    }
+
+    @Test
+    void refusesAThresholdSetThatNamesNoThresholdForOneReference() {
+        final ExportedSignals missing = new ExportedSignals(Map.of(ENGLISH, 0.010), ReadingSource.CLONE);
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> missing.in(List.of(word("lemma", 0.050, 0.020))))
+                .withMessageContaining(PLATFORM);
     }
 
     @Test

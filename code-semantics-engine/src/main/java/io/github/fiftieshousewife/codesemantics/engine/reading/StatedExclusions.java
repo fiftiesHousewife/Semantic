@@ -9,22 +9,13 @@ import java.nio.file.PathMatcher;
 import java.util.List;
 
 /**
- * What a repository states is not part of what it is, read from its own {@code .readingignore}.
+ * What a repository states is not part of what it is, read from its own {@code .readingignore}: one glob per
+ * line, matched against the path relative to the root, so {@code CLAUDE.md} names a file at the root and
+ * {@code docs/plans/**} names a directory's whole contents.
  *
- * <p>Every reading in this library refuses a list of names chosen here, and the documentation scope used to
- * carry one anyway — a set of five markdown filenames this library had decided were working notes rather than
- * documentation. That was a curated observation wearing a rule's clothes, and it was wrong in both directions:
- * it excluded another repository's {@code CONTRIBUTING.md}, which is that repository's own statement about
- * itself, and it could not exclude a plan document filed under {@code docs/}.
- *
- * <p><b>The repository is the one entitled to say.</b> A file at the root of the tree under reading, one glob
- * per line, is the author stating which of their own artefacts are notes about the work rather than the work —
- * and a statement by the corpus about the corpus is a citation in exactly the way a curated list inside the
- * reader is not. A repository that states nothing excludes nothing, which is the honest default: silence is
- * not permission to guess.
- *
- * <p>The globs are matched against the path relative to the root, so {@code CLAUDE.md} names a file at the
- * root and {@code docs/plans/**} names a directory's whole contents.
+ * <p><b>The repository is the one entitled to say.</b> A statement by the corpus about the corpus is a
+ * citation in exactly the way a curated list inside the reader is not, and a repository that states nothing
+ * excludes nothing: silence is not permission to guess.
  */
 public final class StatedExclusions {
 

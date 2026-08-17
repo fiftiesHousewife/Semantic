@@ -83,15 +83,12 @@ public final class WordSegmenter {
     }
 
     /**
-     * Whether an already-separated token reads as words — the same judgement {@link #segment} applies to a
-     * glued compound, asked of pieces someone else has split on case or punctuation the segmenter cannot see.
-     * Two things must hold, and the first is what keeps a name from being taken apart: <b>the dictionary must
-     * not already know the token whole</b>. {@code mcdonald} is a word the frequency list carries, so it is
-     * not a compound of mc + donald however well those pieces score — a token the vocabulary knows as one
-     * thing is one thing. {@code pushevent} it does not know, so that one is free to be read as its pieces,
-     * and then the second condition applies: every piece must be a genuinely common word or a recognised
-     * acronym. A single piece has no split to discourage, so the whole-token veto does not apply to it; an
-     * empty list reads as nothing.
+     * Whether an already-separated token reads as words — the judgement {@link #segment} applies to a glued
+     * compound, asked of pieces split on case or punctuation the segmenter cannot see. A multi-piece list
+     * whose joined form the vocabulary knows whole is refused however well the pieces score ({@code mcdonald}
+     * is never mc / donald); otherwise every piece must be a genuinely common word or a recognised acronym.
+     * A single piece has no split to discourage, so the whole-token veto does not apply to it; an empty list
+     * reads as nothing.
      */
     public boolean readAsWords(final List<String> pieces) {
         if (pieces.isEmpty()) {

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * whole reading — scan, split, cite, abstain, tally — runs over real source rather than over fixtures.
  *
  * <p>Tagged {@code diagnostic} because its output is a report for a person to read and its cost is seconds
- * rather than milliseconds. Run it with {@code ./gradlew selfRead}, which streams the report to the console
+ * rather than milliseconds. Run it with {@code ./gradlew read}, which streams the report to the console
  * and leaves it at the path below.
  */
 @Tag("diagnostic")

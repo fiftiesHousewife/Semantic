@@ -37,6 +37,7 @@ public final class WiktionaryCitations {
 
     private static final String RESOURCE = "wiktionary-abbreviations.tsv";
     private static final String COMMENT = "#";
+    private static final int COLUMNS = 5;
 
     private final Map<String, List<Citation>> citationsByToken;
 
@@ -67,15 +68,19 @@ public final class WiktionaryCitations {
         }
     }
 
-    private static void index(final String line, final Map<String, List<Citation>> citations,
-                              final Map<String, String> canonicalTopics) {
+    static void index(final String line, final Map<String, List<Citation>> citations,
+                      final Map<String, String> canonicalTopics) {
         final String[] fields = line.split("\t", -1);
+        if (fields.length != COLUMNS) {
+            throw new IllegalStateException("A row of " + RESOURCE + " states " + fields.length
+                    + " columns where the shape has " + COLUMNS + ": " + line);
+        }
         final Set<String> topics = Arrays.stream(fields[3].split(",", -1))
                 .filter(topic -> !topic.isBlank())
                 .map(topic -> canonicalTopics.computeIfAbsent(topic, same -> same))
                 .collect(Collectors.toUnmodifiableSet());
         citations.computeIfAbsent(fields[0], token -> new ArrayList<>())
-                .add(new Citation(fields[1], topics, fields.length > 4 ? fields[4] : ""));
+                .add(new Citation(fields[1], topics, fields[4]));
     }
 
     private static Map<String, List<Citation>> freeze(final Map<String, List<Citation>> citations) {

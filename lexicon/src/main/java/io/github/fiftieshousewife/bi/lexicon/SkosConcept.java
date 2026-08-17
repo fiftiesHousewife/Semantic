@@ -13,12 +13,10 @@ package io.github.fiftieshousewife.bi.lexicon;
  * what a body of code is compared against, so dropping it would leave the file unreadable for the one
  * purpose it exists to serve.
  *
- * <p>{@code note} is what a source states about a concept that is neither its meaning nor its place — where
- * the publisher took it from, which tagset it was adopted to cover, which other scheme it answers to. OLiA
- * writes 949 such statements in {@code owl:versionInfo} and they are the only thing in this shape that makes
- * a match citable to a scheme outside the taxonomy. They were being dropped on the floor, which is why the
- * column exists: a conversion that reaches this shape must be able to put everything its source stated
- * somewhere, or the shape is the reason for the loss.
+ * <p>{@code note} is what a source states about a concept that is neither its meaning nor its place —
+ * where the publisher took it from, which tagset it was adopted to cover, which other scheme it answers
+ * to. It is what makes a match citable to a scheme outside the taxonomy, so a conversion reaching this
+ * shape has somewhere to put everything its source stated.
  *
  * <p>A property the source does not state is empty, never inferred. An absent {@code altLabel} means the
  * publisher states no other label for the concept, which is a fact about the taxonomy rather than an

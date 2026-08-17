@@ -8,16 +8,13 @@ import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 
 /**
  * The theme reading in the shape a viewer draws: topics as nodes, the words two topics share as edges, the
- * scopes with what distinguishes each, and every file with the topic that leads it.
+ * scopes with what distinguishes each, and every file with the topic that leads it. Every figure is copied
+ * from {@link RepositoryThemes} unchanged, so the picture and the report behind it cannot disagree.
  *
- * <p>It is a projection and not a second reading — every figure here is copied from {@link RepositoryThemes}
- * unchanged, so a picture and the report behind it can never disagree.
- *
- * <p>It draws the topics that <b>earned a place</b>, in the order of how much they account for, and not the
- * topics with the most mass. A picture of a raw ranking is a picture of whichever ambiguous word the codebase
- * writes most often — which is what put `baseball` and `astronomy` in it — and a picture ordered by mass puts
- * the loudest artefact first even after the bar removes the worst of them. {@code topicsShown} is a ceiling
- * on a set that is already bounded by the bar rather than the count that decides what is drawn.
+ * <p>It draws the topics that exceeded their null, ordered by how much divergence each accounts for; a
+ * picture ordered by mass shows whichever ambiguous word the codebase writes most often.
+ * {@code topicsShown} is a ceiling on a set the null already bounds, never the count that decides what is
+ * drawn.
  */
 record ThemeGraph(String repository, int files, int lines, int topics, double unplaced,
                   long elapsedMillis, String linkage,

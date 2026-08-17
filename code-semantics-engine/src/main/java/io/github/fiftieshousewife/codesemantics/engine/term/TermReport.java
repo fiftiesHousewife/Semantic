@@ -8,16 +8,10 @@ import java.util.stream.Collectors;
  * Where a repository sits inside a published taxonomy, read by the <b>branches it occupies</b> rather than
  * by the words it happens to share with one.
  *
- * <p>Two earlier versions of this report were wrong in the same way and it is worth saying how. The first
- * led with a rate — matches per thousand declared names — which is uninterpretable on its own. The second
- * split matches by whether the taxonomy stated a parent for the concept, and called that the publisher's own
- * structure; it was an artefact of an extraction that could read only one of RDF's two spellings of a
- * superclass and had lost 627 of the ontology's 1,422 edges.
- *
- * <p>With the hierarchy recovered the reading can be what it should always have been. A branch is evidenced
- * by everything beneath it, and it is ranked by <b>how many distinct concepts</b> under it a repository
- * writes — not by how often. One ordinary word the taxonomy happens to claim, written four hundred times, is
- * one concept; five different concepts under one branch is a codebase working in that part of the field.
+ * <p>A branch is evidenced by everything beneath it and ranked by <b>how many distinct concepts</b> under
+ * it a repository writes, never by how often. One ordinary word the taxonomy happens to claim, written
+ * four hundred times, is one concept; five different concepts under one branch is a codebase working in
+ * that part of the field.
  */
 public class TermReport {
 
@@ -51,15 +45,20 @@ public class TermReport {
 
     private static String placed(final String source, final MatchedTerms matched, final TaxonomyTree tree) {
         final long occupied = tree.roots().stream().filter(TaxonomyTree.Node::touched).count();
-        return String.format("**%s** publishes **%,d concepts** in a hierarchy nine levels deep. This "
+        return String.format("**%s** publishes **%,d concepts** in a hierarchy %s deep. This "
                         + "repository writes **%,d of them, %,d times**, across %,d of %,d files — reaching "
                         + "**%,d of the taxonomy's %,d root branches**.%n%n"
                         + "A branch is evidenced by everything beneath it and ranked by how many distinct "
                         + "concepts under it were written, because one ordinary word a taxonomy happens to "
                         + "claim is one concept however often a codebase writes it.%n",
-                source, tree.concepts(),
+                source, tree.concepts(), rungs(StatedDepth.of(tree).deepest()),
                 tree.roots().stream().mapToInt(TaxonomyTree.Node::conceptsWritten).sum(),
                 tree.written(), matched.filesMatched(), matched.filesRead(), occupied, tree.roots().size());
+    }
+
+    /** The deepest chain the source itself states, so the depth is the taxonomy's own figure. */
+    private static String rungs(final int deepest) {
+        return deepest == 1 ? "1 rung" : "%,d rungs".formatted(deepest);
     }
 
     private static String branches(final TaxonomyTree tree) {

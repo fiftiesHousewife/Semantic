@@ -10,6 +10,9 @@ dependencies {
     implementation(project(":lexicon"))
     implementation(libs.jackson.databind)
     implementation(libs.duckdb.jdbc)
+    implementation(libs.slf4j.api)
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
 
     testImplementation(libs.junit.jupiter)
     testRuntimeOnly(libs.junit.platform.launcher)

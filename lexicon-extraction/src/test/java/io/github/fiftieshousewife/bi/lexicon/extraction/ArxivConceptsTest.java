@@ -6,6 +6,7 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ArxivConceptsTest {
 
@@ -43,5 +44,15 @@ class ArxivConceptsTest {
         assertThat(concepts).extracting(SkosConcept::concept)
                 .containsExactly("grp_cs", "cs", "cs.CL")
                 .doesNotContain("cmp-lg", "grp_test");
+    }
+
+    @Test
+    void refusesACycleOfSubjectsRatherThanClimbingForever() {
+        final ArxivEntry tick = new ArxivEntry("tick", "archive", "Tick", "", "tock", "", true, false);
+        final ArxivEntry tock = new ArxivEntry("tock", "archive", "Tock", "", "tick", "", true, false);
+        assertThatThrownBy(() -> new ArxivConcepts().in(List.of(tick, tock)))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("tick")
+                .hasMessageContaining("tock");
     }
 }

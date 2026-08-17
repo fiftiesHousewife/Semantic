@@ -4,21 +4,12 @@ import static j2html.TagCreator.styleWithInlineFile;
 import static j2html.TagCreator.tag;
 
 /**
- * The taxonomy sunburst as a file of its own, so a page that draws both of this reading's pictures can carry
- * this one without holding the reading behind it.
+ * The taxonomy sunburst as a standalone SVG file, so one page can draw both of this reading's pictures
+ * without either step waiting on the other; the stylesheet travels inside the file and the size is stated on
+ * the root element.
  *
- * <p>The two pictures come from two different steps and two different readings, and nothing runs them
- * together. A file is what lets one page show both without either step waiting on the other: each writes its
- * own picture, and the page that draws them references what is on disk. The sibling of the theme reading's
- * own standalone sunburst, and it makes the same trade — an image is fetched on its own, so the stylesheet
- * travels inside it and the size is stated on the root element. Nothing is recomputed here, so the file and
- * the tree it was drawn from cannot disagree.
- *
- * <p>The stylesheet is the picture's own and not the page's, and that is not a saving. <b>An SVG file is
- * parsed as XML</b>, where a page's markup is not: the page stylesheet carries a comment mentioning a tag
- * by name, which inside an XML {@code style} element opens an element nothing closes, and a browser renders
- * the file up to that point and then stops. {@code TaxonomySunburstDocumentTest} parses what this produces
- * rather than trusting it.
+ * <p><b>An SVG file is parsed as XML</b>, so a stylesheet comment naming a tag opens an element nothing
+ * closes and the browser stops rendering there. {@code TaxonomySunburstDocumentTest} parses the output.
  */
 final class TaxonomySunburstDocument {
 

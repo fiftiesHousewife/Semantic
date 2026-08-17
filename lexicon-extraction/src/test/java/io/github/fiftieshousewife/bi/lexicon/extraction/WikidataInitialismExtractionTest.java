@@ -18,7 +18,7 @@ class WikidataInitialismExtractionTest {
 
     private final SparqlEndpoint endpoint = query -> {
         if (query.contains("skos:altLabel") && query.contains("\"en\")")) {
-            return rows("Q1\t\"WB\"@en", "Q2\t\"WB\"@en", "Q3\t\"SNA\"@en");
+            return rows("Q1\t\"WB\"@en", "Q2\t\"WB\"@en", "Q3\t\"SNA\"@en", "Q6\t\"XYZ\"@en");
         }
         if (query.contains("skos:altLabel")) {
             return rows("Q4\t\"BP\"@mul");
@@ -54,6 +54,11 @@ class WikidataInitialismExtractionTest {
     @Test
     void aClinicalTrialsRegisteredAcronymIsExcluded() throws IOException, InterruptedException {
         assertThat(extract()).noneMatch(line -> line.contains("Blood Pressure"));
+    }
+
+    @Test
+    void anItemTheRegistryStatesNoEnglishLabelForIsSkipped() throws IOException, InterruptedException {
+        assertThat(extract()).noneMatch(line -> line.startsWith("XYZ"));
     }
 
     @Test

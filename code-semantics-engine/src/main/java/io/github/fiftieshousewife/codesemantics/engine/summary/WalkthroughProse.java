@@ -109,7 +109,7 @@ final class WalkthroughProse {
             + "chance resampling produced — is named here and printed nowhere else. A reading that showed "
             + "only what passed would read as a reading with nothing wrong with it.";
 
-    static final String FOOT = "Regenerate all of it with ./gradlew selfRead. Every figure is a reading of "
+    static final String FOOT = "Regenerate all of it with ./gradlew read. Every figure is a reading of "
             + "one commit of one working tree, and the corpus includes these reports.";
 
     private WalkthroughProse() {

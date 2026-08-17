@@ -5,21 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Where a reading writes what it found.
+ * Where a reading writes what it found: {@code output/} at the root of the reader's own tree, kept out of
+ * {@code build/} so a published report survives {@code clean} and sits where a person looks.
  *
- * <p>It is {@code output/} at the root of this project rather than somewhere under {@code build/}, because
- * these are reports a person is meant to open and keep open. A path under {@code build/} says "an artefact
- * of compiling" to everyone who reads it, is deleted by {@code clean} without warning, and is buried four
- * directories deep in a module nobody was looking in.
- *
- * <p>The folder is <b>this project's</b> and not the read repository's. A reading pointed at another clone
- * must not write its findings into somebody else's working tree, so where the reports go is settled by where
- * the reader lives and never by what it is reading.
- *
- * <p>What they are <b>named</b> is settled by what was read. This repository's reading of itself is the one
- * it publishes, so it writes into {@code output/} directly; a reading of any other clone writes into a folder
- * of that clone's own name beneath it. Without that a single {@code -Dcs.clone.dir} run silently replaces
- * every figure the README quotes with somebody else's, and an evaluation set of thirty could keep only the last.
+ * <p>The folder is <b>this project's</b> and not the read repository's, so a reading pointed at another
+ * clone never writes into somebody else's working tree. What the reports are <b>named</b> is settled by what
+ * was read: this repository's reading of itself writes into {@code output/} directly, and a reading of any
+ * other clone writes into a folder of that clone's own name beneath it, so a {@code -Dcs.clone.dir} run
+ * cannot silently replace the published figures.
  *
  * <p>{@code -Dcs.output.dir} overrides the base, and is the second of the two properties the test convention
  * forwards to a forked JVM. Without one the folder is resolved from the module directory the tests run in.
@@ -41,7 +34,7 @@ public final class ReportFolder {
      * Where a reading of this clone writes, against the tree the reader itself lives in.
      *
      * <p>This is the convenience: it resolves the host tree and the output directory from where the reader
-     * is running and from {@code -Dcs.reports.dir}. A caller who knows both names them, which is the
+     * is running and from {@code -Dcs.output.dir}. A caller who knows both names them, which is the
      * three-argument form, and nothing about a published reading depends on a property being set.
      */
     public static ReportFolder forReadingOf(final Path clone) {

@@ -11,16 +11,12 @@ import java.util.regex.Pattern;
 import io.github.fiftieshousewife.codesemantics.repository.SourceAnchor;
 
 /**
- * Turns a {@code path:line} into something a reader can click.
+ * Turns a {@code path:line} into something a reader can click: a {@link SourceAnchor} permalink — full
+ * forty-hex SHA, the host the remote names, the line as a fragment — where the repository has a remote and
+ * a commit, and a link opening the file in the reader's own editor where it does not.
  *
- * <p>Where the repository has a remote and a commit, that is a permalink, rendered by {@link SourceAnchor}
- * from components rather than assembled here — the full forty-hex SHA, the host the remote names, and the
- * line as a fragment. Where it does not, there is no honest permalink to render and the link opens the file
- * in the reader's own editor instead. Neither case invents a URL that would resolve to the wrong lines,
- * which is the whole reason the anchor is a type and not a string.
- *
- * <p>This is a caller's job and lives with the diagnostic rather than in the library: the library is handed
- * the facts about a repository and never reads {@code .git} itself.
+ * <p>It lives with the diagnostic because the library is handed the facts about a repository and never
+ * reads {@code .git} itself.
  */
 final class SourceLinks {
 

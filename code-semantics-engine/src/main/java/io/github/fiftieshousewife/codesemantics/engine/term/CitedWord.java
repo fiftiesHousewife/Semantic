@@ -10,30 +10,20 @@ import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 /**
  * Whether a published resource states a run of letters as a word at all.
  *
- * <p>A taxonomy may publish anything as a concept. The Computer Science Ontology states {@code n},
- * {@code c} and {@code p} among its topics, and matching them against declared names produced 1,574 spans
- * on a text-extraction toolkit from three letters a splitter had produced. Nothing about those spans is
- * evidence: no resource says the letter is a word, so the reading cannot cite one and must abstain.
+ * <p>A taxonomy may publish anything as a concept — the Computer Science Ontology states {@code n},
+ * {@code c} and {@code p} among its topics — and a run no resource calls a word is one the reading cannot
+ * cite, so it abstains.
  *
- * <p><b>No sense-based rule can refuse them, and that was measured rather than assumed.</b> WordNet does
- * state that these are letters: {@code n}, {@code c} and {@code p} each carry a noun sense whose direct
- * hypernym is the synset {@code letter, letter_of_the_alphabet, alphabetic_character}. Asking that question
- * looks like the citable way to refuse them and it is not, because they carry other senses that are
- * ordinary words — {@code n} is nitrogen, {@code c} is carbon, centigrade, one hundred and a programming
- * language, {@code p} is phosphorus. Every one of those is a real entry, so a reading that refused a word
- * for having a letter sense would refuse nitrogen too.
+ * <p>No sense-based rule can refuse them. WordNet does state that these are letters, but each also carries
+ * ordinary-word senses — {@code n} is nitrogen, {@code c} is carbon — so refusing a word for having a
+ * letter sense would refuse nitrogen too. What separates the artefact from the word is the parse: the
+ * splitter emits a single letter at a camel-case boundary, so the length is asked before the dictionary is.
  *
- * <p>What separates the artefact from the word is the parse rather than the dictionary. The identifier
- * splitter emits a single letter at a camel-case boundary, so {@code parseN} yields {@code n} because of
- * where the capital fell and not because an author wrote a word. That is a statement about the grammar this
- * library already applies, and it is why the length is asked before the dictionary is.
+ * <p>The initialism registry is what keeps the real terms. A dictionary refuses {@code xml}, {@code html}
+ * and {@code http}, and the registry states them, so they survive on a citation rather than on length.
  *
- * <p><b>The registry is what keeps the real terms.</b> A dictionary refuses {@code xml}, {@code html} and
- * {@code http}, and those three are exactly what a document toolkit should match. The published initialism
- * registry states them, so they survive on a citation rather than on their length.
- *
- * <p>This admits nothing on its own. A term still has to be one the taxonomy published, and a one-word term
- * still has to be corroborated by its branch; this only refuses a run neither resource calls a word.
+ * <p>This admits nothing on its own: a term still has to be one the taxonomy published, and a one-word
+ * term still has to be corroborated by its branch.
  */
 public final class CitedWord {
 
@@ -77,11 +67,9 @@ public final class CitedWord {
 
     /**
      * Whether English itself is written in this word, which is a different question from whether it is a
-     * word. {@code it} is rank 32 of the frequency list and {@code its} is 63; every term a field actually
-     * publishes sits far below — {@code email} 1,107, {@code server} 2,631, {@code encoding} 8,093,
-     * {@code semantics} 10,602 — or is not ranked at all, as {@code parse} is not. A taxonomy publishing
-     * {@code it} as a topic, which the Computer Science Ontology does, otherwise matches every repository
-     * ever written.
+     * word. The commonest words of the frequency list hold sentences together, and the terms a field
+     * publishes sit far down the list or off it. A taxonomy publishing {@code it} as a topic, which the
+     * Computer Science Ontology does, otherwise matches every repository ever written.
      */
     private boolean isWrittenByTheLanguage(final String word) {
         final int rank = english.rank(word);

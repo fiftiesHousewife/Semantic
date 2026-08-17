@@ -13,7 +13,7 @@ package io.github.fiftieshousewife.codesemantics.name;
 @FunctionalInterface
 public interface CitedTokens {
 
-    /** Recognises nothing. The honest default until a catalogue is bundled. */
+    /** Recognises nothing; the default until a catalogue is bundled. */
     CitedTokens NONE = token -> false;
 
     boolean recognises(String token);

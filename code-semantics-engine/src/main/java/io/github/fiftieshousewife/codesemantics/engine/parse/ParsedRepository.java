@@ -72,23 +72,16 @@ public final class ParsedRepository {
     }
 
     /**
-     * What a file's package says that its neighbours' do not. These are the most deliberate names in a
-     * repository — {@code parse}, {@code reading}, {@code theme}, {@code term} — chosen once each to divide
-     * the work, and until now read only to sort imports.
+     * What a file's package says that its neighbours' do not — the most deliberate names in a repository,
+     * chosen once each to divide the work.
      *
      * <p><b>Chosen once, so counted once.</b> A package is one naming decision however many files are filed
-     * under it, and reading it per file weights it by how big the package grew — which is a fact about where
-     * the work went and not about what the author called it. Read that way the organisation's own coordinate
-     * arrives once per file and outvotes every subject the repository is actually about, while the files
-     * themselves already carry their own names. So the words are counted at the first file read from each
-     * package and nowhere else.
+     * under it. Read per file, the organisation's own coordinate outvotes every subject the repository is
+     * about, while the files already carry their own names. So the words are counted at the first file read
+     * from each package and nowhere else.
      *
-     * <p><b>The separator stays the one the identifier grammar knows.</b> This handed on a tail with its
-     * dots replaced by spaces, which reads well and was read by nothing: the identifier splitter divides at
-     * case boundaries, underscores, hyphens and the qualifier dot, and a space is none of those, so a
-     * two-rung tail arrived as one token nothing could be cited for. Every deep package in this tree was in
-     * the unread tail on that account — {@code codesemantics engine theme} eighty-one times — and the words
-     * an author chose to divide their work by were the words the reading never saw.
+     * <p>The tail keeps its qualifier dots, which the identifier splitter divides at; a separator the
+     * grammar does not know would leave the tail one token nothing could be cited for.
      */
     private static List<NameOccurrence> packageWords(final String declared, final String coordinate) {
         if (declared.isEmpty() || !declared.startsWith(coordinate)) {

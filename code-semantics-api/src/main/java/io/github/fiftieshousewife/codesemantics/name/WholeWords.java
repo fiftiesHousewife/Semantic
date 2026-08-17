@@ -20,7 +20,7 @@ package io.github.fiftieshousewife.codesemantics.name;
 @FunctionalInterface
 public interface WholeWords {
 
-    /** Carries nothing. The honest default until a dictionary is supplied. */
+    /** Carries nothing; the default until a dictionary is supplied. */
     WholeWords NONE = word -> false;
 
     boolean carries(String word);

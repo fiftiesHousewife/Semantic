@@ -49,13 +49,9 @@ final class WordNetSenses {
     }
 
     /**
-     * The commonest of the word's verb senses, and <b>nothing at all</b> where the dictionary knows no verb
-     * by that name.
-     *
-     * <p>It falls back to the commonest sense in any part of speech where the dictionary knows no verb.
-     * Refusing instead was measured: it is the rule {@code Behaviours} states for the same position, and
-     * applying it here cost {@code computing} its place in the reading while making {@code music} larger,
-     * because most method heads that are not dictionary verbs are perfectly good nouns.
+     * The commonest of the word's verb senses, falling back to the commonest sense in any part of
+     * speech where the dictionary knows no verb by that name — most method heads that are not
+     * dictionary verbs are ordinary nouns.
      */
     Optional<WordSense> commonestSenseAsVerb(final String word) {
         return commonestAmong(Stream.of(POS.VERB), written(word)).or(() -> commonestSense(word));

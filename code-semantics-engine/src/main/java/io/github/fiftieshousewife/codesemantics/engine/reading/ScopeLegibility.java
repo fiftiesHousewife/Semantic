@@ -21,7 +21,7 @@ public record ScopeLegibility(String name, int files, OccurrenceCounts counts,
 
     public ScopeLegibility {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(written, "written");
+        written = Objects.requireNonNull(written, "written").copied();
         occurrencesBySource = Map.copyOf(occurrencesBySource);
         soleOccurrencesBySource = Map.copyOf(soleOccurrencesBySource);
     }

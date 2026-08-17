@@ -112,6 +112,16 @@ class LegibilityTallyTest {
     }
 
     @Test
+    void keepsAFinishedReadingStillWhenTheTallyKeepsCounting() {
+        add("page", 1);
+
+        final ScopeLegibility reading = tally.reading("scope", 1);
+        add("cursor", 2);
+
+        assertThat(reading.written().occurrencesOf("cursor")).isZero();
+    }
+
+    @Test
     void readsNothingFromAScopeWithNoFilesAndCallsItNeitherAReadingNorAFailure() {
         final ScopeLegibility reading = tally.reading("empty", 0);
 

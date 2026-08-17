@@ -22,9 +22,9 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull
 
 /**
  * One working tree read into the export a consumer receives. With {@link RepositoryReading} it is the whole
- * of what a program embedding this library has to call: a directory in, one validated document out. Every reading it composes is one the reports
- * also run, at the same seed, so the file and the documents state the same figures — and none of the
- * documents has to be written for the file to exist.
+ * of what a program embedding this library has to call: a directory in, one validated document out. Every
+ * reading it composes is one the reports also run, at the same seed, so the file and the documents state the
+ * same figures — and none of the documents has to be written for the file to exist.
  */
 public final class ExportedReading {
 

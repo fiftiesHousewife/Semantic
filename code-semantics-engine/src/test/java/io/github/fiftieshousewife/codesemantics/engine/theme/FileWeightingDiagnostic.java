@@ -13,18 +13,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * What weighting each file by its legible fraction was doing to the order of the reading.
+ * Composes a scope's comparison distribution two ways off the same file readings — the uniform mean of what
+ * each file placed, which the reading uses, and the legible-fraction weighting
+ * {@code Σ(1 − u) · r ⁄ Σ(1 − u)} — and reports Spearman's ρ between the orders they produce.
  *
- * <p>A scope's comparison distribution used to be its intensity renormalised — the mean of its files' shares
- * of everything observed, divided through by one minus the mean unplaced. That composition is
- * {@code Σ(1 − u) · r ⁄ Σ(1 − u)}: every file weighted by the share of itself the resources could read, on a
- * tree where three quarters of the observed mass settles on no subject. It is now the uniform mean of what
- * each file placed, so a file is one observation in a comparison as the class had always claimed.
- *
- * <p>This composes both ways off the same file readings and reports Spearman's ρ between the orders they
- * produce. It asserts what must hold of any repository — that the two compositions are distinct, and that ρ
- * has a value inside its own bound — and prints the figure rather than pinning it, because the figure is a
- * measurement of this tree and not a contract the reading has to keep.
+ * <p>It asserts what must hold of any repository — the two compositions are distinct and ρ sits inside its
+ * own bound — and prints the figure, because the figure is a measurement of this tree.
  */
 @Tag("diagnostic")
 class FileWeightingDiagnostic {

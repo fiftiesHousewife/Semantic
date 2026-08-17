@@ -15,8 +15,9 @@ import java.util.regex.Pattern;
  * xml / http / request; {@code parseHTTPResponse} reads parse / httpresponse; {@code toJSONString} reads
  * to / jsonstring; {@code getDSLContext} reads get / dslcontext; {@code IPv6Address} does not split at all.
  * The missing rules are grammar rather than vocabulary — an acronym-run boundary, and a letter/digit
- * boundary that proposes a split for a citation to dispose of — and adding them is the first slice of the
- * identifier-splitting work, at which point this class is superseded rather than extended.
+ * boundary that proposes a split for a citation to dispose of. The acronym-run rule lives beside this class
+ * in the engine's {@code IdentifierWords}, so the mis-splits above are this grammar's own and not the
+ * composed reading's.
  */
 public final class Tokeniser {
 

@@ -9,22 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * The other half of the resource contract: a bundled vocabulary nothing reads fails the build.
+ * A bundled vocabulary nothing reads fails the build: the complement of {@code VocabularyProvenanceTest}.
  *
- * <p>The provenance half has been enforced since the frequency list arrived with no source cited. This half
- * is the one that catches the opposite mistake — a file that keeps its header, keeps its licence obligation
- * and keeps its place in the jar long after the last thing that read it was deleted. Nothing fails when that
- * happens. The jar quietly grows, the attribution is still owed, and a reader looking for what the library
- * knows is handed a file the library stopped consulting.
- *
- * <p>A resource is read if some class this project ships names it. That is checked against the constant
- * pools of the compiled classes rather than against the source, because the source says what was written and
- * the constant pool says what is asked for at run time — a resource name spelled in a comment passes a grep
- * and answers nothing.
- *
- * <p>The one thing it cannot see is a name assembled at run time from pieces. If a resource is ever loaded
- * that way this test will call it unread, and the fix is to name it as a constant, which is the better
- * spelling in any case.
+ * <p>A resource counts as read if a shipped class names it in its constant pool — the source says what was
+ * written, the constant pool says what is asked for at run time. A name assembled at run time from pieces is
+ * invisible here; load such a resource through a constant instead.
  */
 class BundledResourceReachabilityTest {
 

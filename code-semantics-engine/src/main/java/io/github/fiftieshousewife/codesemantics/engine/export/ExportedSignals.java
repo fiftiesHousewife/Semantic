@@ -55,6 +55,9 @@ public final class ExportedSignals {
     }
 
     private double margin(final ChosenWord.ReferenceClaim claim) {
-        return claim.claim() - thresholdByReference.getOrDefault(claim.reference(), 0.0);
+        if (!thresholdByReference.containsKey(claim.reference())) {
+            throw new IllegalStateException("no threshold was derived for " + claim.reference());
+        }
+        return claim.claim() - thresholdByReference.get(claim.reference());
     }
 }

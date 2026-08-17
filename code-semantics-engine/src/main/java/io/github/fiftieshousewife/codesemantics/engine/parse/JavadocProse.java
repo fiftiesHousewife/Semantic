@@ -13,21 +13,18 @@ import com.github.javaparser.javadoc.description.JavadocSnippet;
 /**
  * The sentences an author wrote in a javadoc comment, without the parts Javadoc's own syntax put there.
  *
- * <p>Three things are left out and each is the declaration-against-use rule arriving inside prose.
- * {@code @param}, {@code @return} and {@code @throws} are the tool's tag names rather than words about a
- * subject — Tika writes them 2,768, 1,430 and 746 times, and {@code return} is a word about finance to a
- * topical resource. The name a {@code @param} tag carries is the parameter, already read where it was
- * declared. And what an inline tag points at — a linked type, a quoted literal — is a use of something
- * declared elsewhere, which is the one distinction the whole reading turns on.
+ * <p>Three things are left out, each by the declaration-against-use rule. {@code @param}, {@code @return}
+ * and {@code @throws} are the tool's tag names rather than words about a subject. The name a {@code @param}
+ * tag carries is the parameter, already read where it was declared. And what an inline tag points at — a
+ * linked type, a quoted literal — is a use of something declared elsewhere.
  *
  * <p>A fourth is markup. A doc comment is written in HTML, which the Javadoc specification states, so
- * {@code <p>}, {@code <em>} and {@code <b>} are the format's own syntax standing where a word would be —
- * and a lone {@code p} is a word to a resource that labels every letter of the alphabet. The tags go and
+ * {@code <p>} and {@code <em>} are the format's own syntax standing where a word would be. The tags go and
  * what they mark up stays.
  *
- * <p>Javadoc's structure is what says which is which, read through the parser's own model of it rather than
- * through a list of tags kept here. A comment the model cannot make sense of is read as the text it is,
- * which overstates what the author wrote rather than losing it.
+ * <p>Javadoc's structure says which is which, read through the parser's own model rather than a list of
+ * tags kept here. A comment the model cannot make sense of is read as the text it is, which overstates
+ * what the author wrote rather than losing it.
  */
 public final class JavadocProse {
 

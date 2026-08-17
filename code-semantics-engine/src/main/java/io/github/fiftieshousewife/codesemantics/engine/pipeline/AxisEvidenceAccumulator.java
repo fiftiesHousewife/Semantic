@@ -15,12 +15,11 @@ import java.util.Map;
  * Resolves a single <em>closed</em> axis {@code A} from its {@link AxisVote}s by <em>log-linear (geometric)
  * pooling</em>.
  *
- * <p>Closed is the load-bearing word. {@link #posterior} partitions over the axis's enum constants, so every
- * value the axis declares but nothing voted for sits at the neutral prior and contributes {@code e⁰ = 1} to
- * the denominator. Over a handful of constants that is the honest reading; over an open value space — the
- * order of 10⁵ WordNet synsets — the partition would be almost entirely neutral prior and the posterior
- * would mean nothing. An open space needs a sibling accumulator whose partition runs over the voted values
- * plus one explicit abstention mass, so that confidence reads as the winner's share among contenders.
+ * <p>Closed is the load-bearing word: {@link #posterior} partitions over the axis's enum constants, so every
+ * value nothing voted for sits at the neutral prior and contributes {@code e⁰ = 1} to the denominator, which
+ * is the honest reading over a handful of constants. An open value space resolves through
+ * {@link OpenSpaceAccumulator} instead, whose partition runs over the voted values plus one explicit
+ * abstention mass.
  *
  * <p>Each vote's {@link AxisVote#weight() weight} is a signed log-odds contribution — positive
  * <em>for</em> a candidate value, negative <em>against</em> it. A value's pooled log-odds is the sum of

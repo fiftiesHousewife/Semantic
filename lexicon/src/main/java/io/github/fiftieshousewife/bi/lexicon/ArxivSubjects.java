@@ -26,11 +26,9 @@ public final class ArxivSubjects {
     private final Map<String, SkosConcept> byConcept;
 
     /**
-     * The publisher's own order is kept, and that is not tidiness. An immutable map randomises its iteration
-     * order once per JVM, so a reading that pools several of these descriptions joined them differently on
-     * every run: this repository's archive-level placement read Mathematics at 0.3660 bits in one run and
-     * 0.5306 in the next over an unchanged tree, which changed the field it reported. A citation's own order
-     * is part of the citation.
+     * The publisher's own order is kept. An immutable map randomises its iteration order once per JVM,
+     * so a reading pooling several descriptions would join them differently on every run and could
+     * report a different field. A citation's own order is part of the citation.
      */
     private ArxivSubjects(final Map<String, SkosConcept> byConcept) {
         this.byConcept = Collections.unmodifiableMap(new LinkedHashMap<>(byConcept));

@@ -43,6 +43,6 @@ public final class ExportFile {
 
     /** The same object back, which is what says the shape survives a round trip. */
     public ReadingExport in(final Path file) throws IOException {
-        return mapper.readValue(file.toFile(), ReadingExport.class);
+        return mapper.readValue(Files.readString(file), ReadingExport.class);
     }
 }

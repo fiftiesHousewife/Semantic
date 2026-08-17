@@ -10,21 +10,12 @@ import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 /**
- * What this project actually ships, read off the classpath the tests run on rather than off the source tree.
+ * The entries this module publishes, read from the classpath the build hands over as
+ * {@code cs.published.artefacts} — a jar or a directory of classes, read the same way.
  *
- * <p>The two questions asked of a bundled resource — does it say where it came from, and does anything read
- * it — are questions about the published artefact. A source directory answers neither: a file can sit in
- * {@code src/main/resources} and be excluded from the jar, and a class can name a resource that the module
- * bundling it never sees.
- *
- * <p>So the entries come from what the build says this module publishes, which the test convention hands
- * over as {@code cs.published.artefacts}. The test JVM's own classpath will not do: it carries the test
- * classes and their fixtures too, and a test that scans itself finds every name it mentions — including the
- * one it mentions to prove it can say no. Narrowing that to the artefacts under this project is then what
- * separates this library's own vocabulary from a dependency's.
- *
- * <p>Both a jar and a directory of classes appear on that path depending on how the build assembled a
- * module, and both are read the same way here.
+ * <p>Neither the source tree (a file can be excluded from the jar) nor the test JVM's own classpath (it
+ * carries the test classes and their fixtures, including the name a test mentions to prove it can say no)
+ * answers what ships.
  */
 public final class BundledArtefacts {
 

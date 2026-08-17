@@ -18,18 +18,12 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * The risk a most-frequent-sense reading runs, measured rather than assumed.
+ * Measures how far the bundled domains file's sense numbers have drifted from the bundled dictionary: the
+ * file is WordNet Domains 3.2 lifted to WordNet <b>3.0</b>, the dictionary is WordNet <b>3.1</b>, and its own
+ * header warns that a per-sense join is version-sensitive.
  *
- * <p>The bundled domains file is WordNet Domains 3.2 lifted to WordNet <b>3.0</b>, and the dictionary beside
- * it is WordNet <b>3.1</b>. Its own header says consumers should join on the lemma because that is
- * version-stable, and warns that "only per-sense weighting would be version-sensitive". Reading the subjects
- * of one named sense is exactly that per-sense join, so the alignment is a thing to check and not a thing to
- * hope for.
- *
- * <p>What is checkable without a second database is whether the sense numbers the file uses exist in the
- * dictionary at all. A file naming {@code lemma#n#7} where the bundled dictionary knows six noun senses has
- * certainly drifted; one naming a sense the dictionary has may still have drifted silently, so this is a
- * floor on the damage and is reported as one.
+ * <p>A file naming {@code lemma#n#7} where the dictionary knows six noun senses has certainly drifted; one
+ * naming a sense the dictionary has may still have drifted silently, so this is a floor on the damage.
  */
 class SenseNumberAlignmentTest {
 

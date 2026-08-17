@@ -6,10 +6,9 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
  * What a concept's writing is worth: how often the repository wrote it, weighed by how much the label
  * narrows a subject.
  *
- * <p>Apache Tika writes {@code id} 778 times and {@code extensible markup language} not at all, reaching that
- * concept through {@code xml}. Counted as spans the first is the larger part of the repository, and it is one
- * of the commonest words a program writes. The weight is {@link PhraseSpecificity}'s, read from the bundled
- * frequency list, so which words are ordinary is a resource's answer and not one given here.
+ * <p>Counted as bare spans, the commonest words a program writes are the larger part of any repository.
+ * The weight is {@link PhraseSpecificity}'s, read from the bundled frequency list, so which words are
+ * ordinary is a resource's answer and not one given here.
  */
 public final class WrittenMass {
 

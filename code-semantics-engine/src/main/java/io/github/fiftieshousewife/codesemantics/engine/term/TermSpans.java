@@ -12,11 +12,10 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * The published terms a phrase contains: the longest match at each position, taken left to right, with no two
  * spans overlapping.
  *
- * <p>This is where word <em>order</em> is finally read. The topical reading treats a phrase as a bag of words
- * that corroborate one another, which is the right shape for asking what a name is about and the wrong one for
- * asking whether it is a term someone published: {@code phraseNoun} is not {@code NounPhrase}, and a taxonomy
- * that states the second states nothing about the first. The ordered word list has been sitting in every
- * identifier reading unused, and this is what uses it.
+ * <p>This is where word <em>order</em> is read. The topical reading treats a phrase as a bag of words that
+ * corroborate one another — the right shape for asking what a name is about, and the wrong one for asking
+ * whether it is a term someone published: {@code phraseNoun} is not {@code NounPhrase}, and a taxonomy that
+ * states the second states nothing about the first.
  *
  * <p>It runs over the words the repository actually wrote, not the dictionary forms the topical reading
  * offers. Those forms are filtered — a word holding a sentence together is dropped before the resources see

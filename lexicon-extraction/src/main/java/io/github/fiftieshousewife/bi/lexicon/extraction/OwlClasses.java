@@ -22,23 +22,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * The named classes of an OWL ontology published as RDF/XML, read with an XML parser rather than by pattern.
- *
- * <p>RDF/XML nests: a class states its superclasses beside anonymous restriction blocks that are themselves
- * classes, and the same class is written out again wherever the document has more to say about it. A grammar
- * over the text would have to know which of those it was looking at. The parse knows — which is the same
- * argument this library makes for reading Java with a parser instead of a regular expression, and it is why
- * no RDF library is needed to answer a question this narrow.
+ * The named classes of an OWL ontology published as RDF/XML, read with an XML parser rather than by
+ * pattern: the parse tells a class statement from an anonymous restriction and from a repeat, which a
+ * grammar over the text cannot.
  *
  * <p>A class element with no {@code rdf:about} is anonymous — a restriction states a condition, not a
  * concept — and is passed over. Where a class is written more than once, the first statement of each
  * single-valued property stands and every statement of a repeated one is kept.
- *
- * <p>Which properties are read is the whole question, because what is not read is not lost loudly. Two were
- * missed for as long as this class existed: {@code rdfs:comment}, where the ontology states what a concept
- * <em>means</em>, and {@code owl:versionInfo}, where it states which scheme it took the concept from. Both
- * are now read, and {@code OliaTermsExtractionTest} counts them against the document rather than trusting
- * that they arrived.
  */
 public class OwlClasses {
 
@@ -116,15 +106,9 @@ public class OwlClasses {
     }
 
     /**
-     * A reference written as a bare fragment is relative to the document's own {@code xml:base}, and
-     * resolving it is what makes {@code #Noun} the same concept as the one written out in full. Left
-     * unresolved it is a second concept with the same name — and a first column beginning with {@code #}
-     * that every reader of a bundled file would take for a comment.
-     *
-     * <p>An absolute reference is already resolved and is left exactly as the ontology wrote it. Appending
-     * it to the base instead produced concepts named {@code <base>#<whole URI>} for every FIBO class, whose
-     * URIs separate with {@code /} and carry no fragment at all — so every identifier read out of that
-     * ontology was the URI rather than the term.
+     * A reference written as a bare fragment is relative to the document's own {@code xml:base};
+     * resolving it makes {@code #Noun} the same concept as the one written out in full. An absolute
+     * reference — one carrying a scheme or a fragment — is left exactly as the ontology wrote it.
      */
     private static String resolved(final String reference, final String base) {
         if (reference.startsWith(FRAGMENT)) {
@@ -138,15 +122,10 @@ public class OwlClasses {
     }
 
     /**
-     * The first superclass stated by name, however the ontology chose to write it; an anonymous restriction
-     * states a condition, not a parent.
-     *
-     * <p>RDF/XML offers two spellings of the same statement and OLiA uses both: an {@code rdf:resource}
-     * attribute on the {@code rdfs:subClassOf}, and a nested {@code owl:Class} naming the parent. Reading
-     * only the attribute lost <b>627 of the ontology's 1,422 superclass statements</b> — more than half its
-     * hierarchy — and left the concepts a program actually writes, {@code Verb} and {@code Noun} and
-     * {@code Phrase} among them, looking like roots of their own. A taxonomy read that way is a list of
-     * words, and this library then described the wreckage as the publisher's own structure.
+     * The first superclass stated by name, however the ontology chose to write it; an anonymous
+     * restriction states a condition, not a parent. RDF/XML offers two spellings of the same statement
+     * and OLiA uses both: an {@code rdf:resource} attribute on the {@code rdfs:subClassOf}, and a
+     * nested {@code owl:Class} naming the parent, so both are read.
      */
     private static String namedSuperclass(final Element element) {
         return children(element, RDFS, SUBCLASS_OF)

@@ -31,8 +31,8 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
      * One step of the analysis: what it does, what it found here, and where the whole of it is.
      *
      * <p>A finding is a sentence or a table and never both. A step naming one figure says it in a sentence;
-     * a step naming a figure for each of nineteen scopes needs columns, because a reader looking for one
-     * scope in a paragraph of nineteen is reading it end to end.
+     * a step naming a figure per scope needs columns, because a reader looking for one scope in a paragraph
+     * reads it end to end.
      */
     public record Step(String title, String what, Optional<String> found, Optional<Found> table,
                        Optional<String> picture, List<ReadingIndex.Entry> reports) {
@@ -119,8 +119,8 @@ public record ReadingWalkthrough(String repository, List<Step> steps) {
     }
 
     /**
-     * One row per scope. Tika departs from itself in nineteen scopes whose paths run to eighty characters,
-     * and a reader looking for one of them in a paragraph of nineteen reads the paragraph end to end.
+     * One row per scope: a reader looking for one long path among many needs columns, and a paragraph makes
+     * them read it end to end.
      */
     private static Found distinctive(final ReadingSummary summary) {
         return new Found(List.of("Scope", "Divergence from the repository", "Writes more of"),

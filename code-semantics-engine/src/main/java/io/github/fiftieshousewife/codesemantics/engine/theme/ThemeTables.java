@@ -63,12 +63,9 @@ final class ThemeTables {
     }
 
     /**
-     * The words behind a topic, the largest share of it first, each with the share it carried and how often
-     * it was written.
-     *
-     * <p>Both figures are printed because they disagree, and the disagreement is what a reader needs. This
-     * column showed occurrences alone against a mass ordering, so {@code file} stood first on 457
-     * occurrences while carrying almost none of {@code law}, and nothing on the row said why it led.
+     * The words behind a topic, the largest share of it first, each with the share it carried and how
+     * often it was written. Both figures are printed because they disagree: a word can lead on occurrences
+     * while carrying almost none of the topic's mass, and the row has to say why it leads.
      */
     static String witnesses(final List<TopicWitnesses.CarriedTopic> carriedBy) {
         return carriedBy.stream()
