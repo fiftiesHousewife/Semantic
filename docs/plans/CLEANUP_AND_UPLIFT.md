@@ -8,20 +8,16 @@ The remainder of the 2026-08-17 whole-tree review, ordered for attack. What that
 
 **Landed at `043083f` and `74dc734`.** `RepositoryReading` memoises parse, legibility and themes per instance; `TreeReading` memoises the reading, the bundled-vocabulary `CorroboratedReading` and the arXiv `PlacedField` per tree; `SubjectAreas` reads the described and archive subject sets once per JVM; the export runs as `ReadingExportDiagnostic` in the `read` JVM over the shared readings, with `readingExport` kept as the standalone path; `slf4j-simple` is bound on the engine test and extraction classpaths; the four small hot spots (`placeOf`, `asNamesOnly`, `deepest()`, the `ORDINARY_ENGLISH` statics) are fixed.
 
-Measured on this tree: `./gradlew read` fell from 6m13s to 4m25s. The shared pipeline itself is ~13s (parse 1.3s, themes 9.2s, legibility 2.6s), so the assumption that the parse was recomputed per diagnostic explained little here — the remaining minutes are per-class work the sharing cannot reach:
+Measured on this tree: `./gradlew read` fell from 6m13s to 4m25s at `74dc734`, and to 3m04s at `af2f303`. The shared pipeline itself is ~13s (parse 1.3s, themes 9.2s, legibility 2.6s); the remaining minutes are per-class work the sharing cannot reach.
 
-| Class | Cost | What it is |
-|---|--:|---|
-| `ReadingExportDiagnostic` | 125s | Runs first, so it pays the first computation of every shared piece (~30s); the rest is the CSO injected-taxonomy match, the names-population `VocabularyNull`, and the writing |
-| `SecurityFunctionDiagnostic` | 77s | 999 permuted-assignment draws, each re-reading the pooled NIST statements through `SubjectAreas.topicsIn` |
-| `VocabularyReadingDiagnostic` | 31s | Three populations, each with its own `VocabularyNull` resample |
-| `ReachedSubjectTest` | 17s | CSO fixture matching |
+Landed at `af2f303`, with the mechanism changes the leads predicted:
 
-Remaining leads, none landed:
+1. **The security-function null reads each statement once** and pools a permuted function as the sum of its statements' committed mass, normalised once. `SecurityFunctionDiagnostic` fell from 77s to ~1s beyond the shared pipeline. The figures moved as predicted — the NIST statements carry no terminal punctuation, so the joined-text pooling had been merging sentences across every join — and the verdict held: the placement still says only that the framework has six functions.
+2. **The names-population `VocabularyNull` is drawn once per JVM**: `ChosenWords.chanceFor` is the draw, `TreeReading.namesChance()` memoises it, and both `VocabularyReadingDiagnostic` and the export take the memo.
+3. **The CSO index is built once per JVM**: `InjectedIndexes` memoises the word-keyed index per taxonomy source, shared by `ExportCommand` and `MatchedFixture`.
 
-1. **The security-function null re-reads unchanged text.** A permutation reassigns statements; the statements themselves never change. Reading each statement once and pooling per draw needs the per-statement raw topic mass to be additive under `TopicDistribution`'s normalisation, and joining statements can create phrase runs across the join, so the figures may move — state the mechanism change and regenerate. Expected: 77s to ~1s.
-2. **The names-population `VocabularyNull` is drawn twice**, once by `VocabularyReadingDiagnostic` and once by the export. A `TreeReading` memo for it saves one draw (~10s).
-3. **The CSO index is built and matched in the export and again in `ReachedSubjectTest`** (different corpora, so only the index build is shareable).
+Remaining:
+
 4. **The Tika measurement is outstanding.** The plan's baseline was ~20 minutes at `43cbdae6`; on a large tree the shared parse and themes dominate, so the win there should be far larger than on this tree. Needs a clone: `git clone --depth 1 https://github.com/apache/tika` fetched at the pinned commit, then `./gradlew read -Dcs.clone.dir=<path>`.
 
 ## 2. Test coverage policy
