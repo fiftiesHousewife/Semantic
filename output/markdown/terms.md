@@ -15,7 +15,7 @@ under; a term written in more than one word counts unconditionally. The reading 
 match is kept at the end, beside the list of what the branch refused, because a rule that removes
 matches can only be judged as a comparison.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **66 of them, 1,187 times**, across 332 of 505 files — reaching **12 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **66 of them, 1,185 times**, across 332 of 510 files — reaching **12 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -23,9 +23,9 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `LinguisticConcept` | 15 | 136 | 479 | `Source` 174 `Set` 76 `Means` 34 `Document` 33 `Evidence` 31 `Given` 29 `Heading` 20 `Citation` 19 |
+| `LinguisticConcept` | 15 | 136 | 480 | `Source` 174 `Set` 77 `Means` 34 `Document` 33 `Evidence` 31 `Given` 29 `Heading` 20 `Citation` 19 |
 | `MorphosyntacticCategory` | 13 | 288 | 163 | `Verb` 41 `Noun` 39 `Abbreviation` 21 `Symbol` 17 `Residual` 11 `Initialism` 10 `Foreign` 8 `Adjective` 6 |
-| `MorphologicalCategory` | 5 | 16 | 162 | `Root` 125 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
+| `MorphologicalCategory` | 5 | 16 | 159 | `Root` 122 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
 | `OrthographicEntity` | 4 | 37 | 142 | `Token` 87 `Text` 39 `Script` 14 `String` 2 |
 | `Constituent` | 4 | 37 | 79 | `Phrase` 61 `Fragment` 9 `Clause` 7 `Chunk` 2 |
 | `SemanticFeature` | 5 | 125 | 73 | `Function` 49 `Time` 10 `Amount` 8 `Plan` 4 `Object` 2 |
@@ -40,9 +40,9 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 895 | 53 | 97.7% |
+| the words themselves | 892 | 53 | 97.6% |
 | the dictionary form of each word | 174 | 36 | 99.4% |
-| the sense the dictionary carries each word in | 118 | 20 | 99.2% |
+| the sense the dictionary carries each word in | 119 | 20 | 99.2% |
 
 ## Refused as the type written beside the name
 
@@ -69,7 +69,7 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
 | every match | 2,026 | 174 | 98.9% | 22 of 70 | `topic` 199 |
-| only where the branch holds more than this one concept | 1,187 | 109 | 98.1% | 12 of 70 | `source` 151 |
+| only where the branch holds more than this one concept | 1,185 | 109 | 98.1% | 12 of 70 | `source` 151 |
 
 ### What the branch refused
 
@@ -81,13 +81,13 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | `topics` | 88 | `PragmaticUnit` |
 | `subject` | 75 | `PragmaticUnit` |
 | `first` | 65 | `PersonFeature` |
-| `subjects` | 32 | `PragmaticUnit` |
+| `subjects` | 31 | `PragmaticUnit` |
 | `second` | 27 | `PersonFeature` |
 | `set` | 26 | `PartWhole` |
-| `other` | 24 | `SameType` |
+| `other` | 25 | `SameType` |
 | `identifier` | 23 | `DiscourseEntity` |
-| `place` | 22 | `PartWhole` |
-| `cited` | 19 | `Referentiality` |
+| `place` | 23 | `PartWhole` |
+| `cited` | 20 | `Referentiality` |
 | `theme` | 19 | `PragmaticUnit` |
 | `letter` | 14 | `Character` |
 | `citation` | 13 | `TextStructuralUnit` |
@@ -106,16 +106,16 @@ Depth is read off the source's own edges and is a citation rather than a heurist
 |--:|--:|--:|--:|
 | 0 | 0 | 0 | 0.0% |
 | 1 | 25 | 352 | 29.7% |
-| 2 | 19 | 493 | 41.5% |
+| 2 | 19 | 490 | 41.4% |
 | 3 | 8 | 123 | 10.4% |
-| 4 | 9 | 152 | 12.8% |
+| 4 | 9 | 153 | 12.9% |
 | 5 | 2 | 32 | 2.7% |
-| 6 | 3 | 35 | 2.9% |
+| 6 | 3 | 35 | 3.0% |
 
 | Admitted | Concepts | Times | Mean rungs per concept | Mean rungs per span |
 |---|--:|--:|--:|--:|
-| what the branch admitted | 66 | 1,187 | 2.29 | 2.26 |
-| what the branch refused | 38 | 748 | 3.05 | 2.22 |
+| what the branch admitted | 66 | 1,185 | 2.29 | 2.26 |
+| what the branch refused | 38 | 749 | 3.05 | 2.22 |
 
 The deepest of what was written: `Consequence` 6 rungs, 9 `Definition` 6 rungs, 18 `Evaluation` 6 rungs, 8 `Evidence` 5 rungs, 31 `Exception` 5 rungs, 1 `Active` 4 rungs, 1 `Attribution` 4 rungs, 3 `Comparison` 4 rungs, 9.
 
