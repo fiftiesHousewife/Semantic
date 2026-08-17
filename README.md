@@ -480,6 +480,8 @@ A functional taxonomy names what an organisation does rather than what things in
 
 **Silence is a correct outcome.** A repository with no security surface should land nowhere, and this one does — [`security-functions.md`](output/markdown/security-functions.md) carries the figures.
 
+**It is compared and never matched because this reading produces only nouns.** A functional taxonomy publishes verb phrases — BIAN states `Manage Enterprise Risk` — and every signal here is a noun an author chose for a thing. Nobody writes `ManageEnterpriseRisk`, and plenty of repositories write `manage` and `risk` in one method signature: the methods are verbs applied to the nouns the term arm already matches, and reading them is what would let a functional taxonomy be matched identifier to identifier like a term taxonomy. [What a repository does, not what it says](docs/plans/WHAT_IT_ACTUALLY_DOES.md) states the steps, the blocker — a term's declaring node does not survive the tally — and what settles it.
+
 ### Reading against a taxonomy the published jar does not carry
 
 A source is a candidate long before anything decides to publish it, and a candidate has to be read by the same reading that would bundle it, or the measurement is not the one the bundled reading would take.
@@ -514,6 +516,10 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 **Level 2 is reported apart from level 3 so that a plural cannot be counted as a shared meaning.** Level 3 is the widest claim and carries the risk with it: WordNet reads `topic`, `theme` and `subject` as one entry, so a repository writing about topics meets a taxonomy stating subjects whether or not either meant the other. Every match records the level that found it, and [the term report](output/markdown/terms.md) prints the levels apart.
 
 **A run is offered to the dictionary whole before its words.** `SenseRuns` asks WordNet for `document processing` first, and falls back to a run of two senses only where the dictionary carries no entry for the pair.
+
+**A level that cannot read a run stops the ladder.** A level that searched and found nothing and a level that could not look are different answers, and only the first is a reason to ask a wider one. WordNet holds no dictionary form for `id` and does hold the psychoanalytic noun, so without this rule a name written `id` reaches a term spelled `ids` — which the Computer Science Ontology states for an intrusion detection system — through a level that had no business answering. **It removes the match rather than weakening it, and weakening it is what the doctrine asks for**; the [backlog](BACKLOG.md) carries the weight this should become and what it costs.
+
+**A taxonomy's own labels are read as words.** A declared name cannot hold a space, and a taxonomy written in English is full of them: the Computer Science Ontology states 12,850 of its 14,636 topics as several words. `IdentifierWords` treats a space as a separator alongside the dot and the dollar, so `natural language processing` is three words and `naturalLanguageProcessing` can meet it.
 
 **Corroboration by branch.** A taxonomy is a tree: every concept sits under a parent, beside sibling concepts the publisher placed there. A match on a single word counts only where the repository also writes at least one of that concept's siblings. Writing several concepts from one part of a field is evidence of working in it; writing a single one is what an ordinary English word the taxonomy has claimed produces.
 
