@@ -1,0 +1,100 @@
+package io.github.fiftieshousewife.codesemantics.engine.theme;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+import io.github.fiftieshousewife.codesemantics.engine.DivergenceShare;
+import io.github.fiftieshousewife.codesemantics.engine.behaviour.Behaviour;
+import io.github.fiftieshousewife.codesemantics.engine.theme.JensenShannon.Contribution;
+
+/** The markdown rows a theme report is made of, each keeping a figure beside the count it came from. */
+final class ThemeTables {
+
+    static final String RANKING_HEADER = """
+            | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
+            |---|--:|--:|--:|--:|--:|--:|---|""";
+
+    static final String BEHAVIOUR_HEADER = """
+            | Verb | Times | What it acts on, and where |
+            |---|--:|---|""";
+
+    static final String FOREIGN_HEADER = """
+            | Word | Distance | Occurrences | The dictionary places it in | First seen |
+            |---|--:|--:|---|---|""";
+
+    static final String CONTRIBUTION_HEADER = """
+            | Share of the divergence | Topic | In scope | In repository | | Carried by |
+            |--:|---|--:|--:|---|---|""";
+
+    private static final DivergenceShare DIVERGENCE = new DivergenceShare();
+
+    private static final int WITNESSES_SHOWN = 4;
+
+    private ThemeTables() {
+    }
+
+    static String rankingRow(final TopicRanking ranking, final int totalLines,
+                             final List<TopicWitnesses.CarriedTopic> carriedBy) {
+        return "| `%s` | %s | %s | %s | %s | %s | %s | %s |".formatted(ranking.topic(),
+                share(ranking.intensity()), percentage(ranking.nameShare()), count(ranking.references()),
+                count(ranking.dominantFiles()), count(ranking.linesDominated()),
+                percentage(ranking.lineShare(totalLines)), witnesses(carriedBy));
+    }
+
+    static String behaviourRow(final String verb, final List<Behaviour> clauses, final int shown) {
+        return "| **%s** | %s | %s |".formatted(verb, count(clauses.size()),
+                clauses.stream()
+                        .limit(shown)
+                        .map(clause -> "%s <sub>`%s`</sub>".formatted(clause.sentence(), clause.site()))
+                        .collect(Collectors.joining("; ")));
+    }
+
+    static String foreignRow(final ForeignWords.ForeignWord foreign) {
+        return "| `%s` | %s | %s | %s | `%s` |".formatted(foreign.word(), divergence(foreign.bits()),
+                count(foreign.occurrences()), String.join(", ", foreign.subjects()), foreign.site());
+    }
+
+    static String contributionRow(final Contribution contribution,
+                                  final List<TopicWitnesses.CarriedTopic> carriedBy) {
+        return "| %s | `%s` | %s | %s | %s | %s |".formatted(percentage(contribution.shareOfDivergence()),
+                contribution.topic(), share(contribution.scopeShare()), share(contribution.referenceShare()),
+                contribution.concentratedInScope() ? "**over**" : "under", witnesses(carriedBy));
+    }
+
+    /**
+     * The words behind a topic, the largest share of it first, each with the share it carried and how often
+     * it was written.
+     *
+     * <p>Both figures are printed because they disagree, and the disagreement is what a reader needs. This
+     * column showed occurrences alone against a mass ordering, so {@code file} stood first on 457
+     * occurrences while carrying almost none of {@code law}, and nothing on the row said why it led.
+     */
+    static String witnesses(final List<TopicWitnesses.CarriedTopic> carriedBy) {
+        return carriedBy.stream()
+                .limit(WITNESSES_SHOWN)
+                .map(witness -> "`%s`\u00A0%s\u00A0(%s)".formatted(witness.word(),
+                        percentage(witness.share()), count(witness.occurrences())))
+                .collect(Collectors.joining(" "));
+    }
+
+    static String count(final int value) {
+        return String.format(Locale.ROOT, "%,d", value);
+    }
+
+    static String share(final double value) {
+        return String.format(Locale.ROOT, "%.4f", value);
+    }
+
+    static String percentage(final double value) {
+        return String.format(Locale.ROOT, "%.1f%%", value * 100.0);
+    }
+
+    /**
+     * A divergence as the share of its own maximum it holds. The statistic is bounded at one bit by its own
+     * definition, so the percentage is the same number with the bound stated.
+     */
+    static String divergence(final double value) {
+        return DIVERGENCE.of(value);
+    }
+}

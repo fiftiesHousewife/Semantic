@@ -13,13 +13,13 @@ The first is the prerequisite. It is also the only route to a **functional taxon
 
 ## Why a functional taxonomy needs verbs
 
-A term taxonomy publishes nouns: CSO states `parsing`, OLiA states `AdjectivePhrase`. A **functional** taxonomy publishes verb phrases — BIAN states `Manage Enterprise Risk`, NIST states `GV.OC-01` with a sentence defining it. [`SkosConcept`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TaxonomyTree.java)'s own javadoc records the consequence: *"nobody writes `ManageEnterpriseRisk` in code"*, so a functional taxonomy is compared as a **distribution against prose** and never matched term to term.
+A term taxonomy publishes nouns: CSO states `parsing`, OLiA states `AdjectivePhrase`. A **functional** taxonomy publishes verb phrases — BIAN states `Manage Enterprise Risk`, NIST states `GV.OC-01` with a sentence defining it. [`SkosConcept`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TaxonomyTree.java)'s own javadoc records the consequence: *"nobody writes `ManageEnterpriseRisk` in code"*, so a functional taxonomy is compared as a **distribution against prose** and never matched term to term.
 
 That is a weaker reading than the term arm, and it is weaker for a reason that can be removed. **Nobody writes `ManageEnterpriseRisk`, but plenty of repositories write `manage` and `risk` in one method signature.** A reading that produced verb phrases could match a functional taxonomy the way the term arm matches CSO — identifier to identifier, with the publisher stating the hit.
 
 ## Step 1 — provenance on every nominal signal
 
-**This is the blocker and it is not done.** The reading tallies a term by its words and loses where it stood. [`TermSighting`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/term/TermSighting.java) keeps twelve `file:line` strings for a reader to check, which is enough to argue with a figure and not enough to attach a verb to a noun.
+**This is the blocker and it is not done.** The reading tallies a term by its words and loses where it stood. [`TermSighting`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermSighting.java) keeps twelve `file:line` strings for a reader to check, which is enough to argue with a figure and not enough to attach a verb to a noun.
 
 What a verb phrase needs, per matched span:
 
@@ -27,8 +27,8 @@ What a verb phrase needs, per matched span:
 |---|---|
 | the words | the words |
 | `file:line`, up to twelve | the declaration it sat in, as a node — not a string |
-| the [`NameForm`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/NameForm.java) | the enclosing type and method |
-| | the declared type beside the name, which [`DeclaredTypeWords`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/DeclaredTypeWords.java) already reads |
+| the [`NameForm`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java) | the enclosing type and method |
+| | the declared type beside the name, which [`DeclaredTypeWords`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclaredTypeWords.java) already reads |
 
 `ParsedRepository` walks a real syntax tree and throws the structure away at the tally. Keeping a handle to the declaring node is the change; everything below depends on it.
 
@@ -36,7 +36,7 @@ What a verb phrase needs, per matched span:
 
 A Java method name is already a verb phrase by convention, and the splitter already produces its words. `detectEncoding` reads as *detect* / *encoding*; `parse` / *encoding* is a verb applied to a noun the term arm has already matched.
 
-**Which word is the verb is citable, not guessable.** WordNet indexes verbs separately from nouns, and [`ContentWords`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/theme/ContentWords.java) already asks it for a noun base and a verb base and prefers the noun. The same lookup states which words of a method name are verbs. No list is written here.
+**Which word is the verb is citable, not guessable.** WordNet indexes verbs separately from nouns, and [`ContentWords`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ContentWords.java) already asks it for a noun base and a verb base and prefers the noun. The same lookup states which words of a method name are verbs. No list is written here.
 
 Three sources of the object the verb applies to, cheapest first:
 
@@ -52,7 +52,7 @@ Take them in that order. The first alone is worth measuring before the others ar
 
 ## Step 3 — what the libraries say it does
 
-A repository's imports are already read. [`NameForm.IMPORT`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/NameForm.java) keeps a dependency a file names, *"only where it is neither the platform's nor this tree's own"*, and [`PlatformPackages`](../../code-semantics-engine/src/main/java/org/fifties/housewife/codesemantics/engine/parse/PlatformPackages.java) decides which is which by asking `ModuleFinder.ofSystem()`. So `org.apache.pdfbox` and `com.fasterxml.jackson` are already in hand, and nothing yet asks what they are for.
+A repository's imports are already read. [`NameForm.IMPORT`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java) keeps a dependency a file names, *"only where it is neither the platform's nor this tree's own"*, and [`PlatformPackages`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/PlatformPackages.java) decides which is which by asking `ModuleFinder.ofSystem()`. So `org.apache.pdfbox` and `com.fasterxml.jackson` are already in hand, and nothing yet asks what they are for.
 
 **The constraint that shapes this step**: the reading takes *"a directory of Java source. No clone, no build, no type resolution, no network."* Reading a dependency's own javadoc means having its sources, which means a build and a fetch. That is a different product and it must not be smuggled in.
 

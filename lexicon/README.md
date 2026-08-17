@@ -1,6 +1,6 @@
 # The `lexicon` module is a port
 
-Copied from the Business Intelligence project, package names (`org.fifties.housewife.bi.lexicon`) included,
+Copied from the Business Intelligence project, package names (`io.github.fiftieshousewife.bi.lexicon`) included,
 so that a fix in either repository transfers as a straight diff. Prefer re-syncing it over diverging it.
 
 ## Where it has diverged, and why

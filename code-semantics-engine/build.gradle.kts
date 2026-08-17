@@ -42,7 +42,7 @@ tasks.test {
 tasks.register<JavaExec>("wordVotes") {
     group = "verification"
     description = "Prints every topical vote the bundled resources cast for the named words"
-    mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicVoteProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.TopicVoteProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -55,7 +55,7 @@ tasks.register<JavaExec>("wordVotes") {
 tasks.register<JavaExec>("topicCarriers") {
     group = "verification"
     description = "Prints every word carrying the named topics, with its frequency and mass"
-    mainClass = "org.fifties.housewife.codesemantics.engine.theme.TopicCarriersProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.TopicCarriersProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -70,7 +70,7 @@ tasks.register<JavaExec>("topicCarriers") {
 tasks.register<JavaExec>("functionalPlacement") {
     group = "verification"
     description = "Places this repository against an unbundled functional taxonomy"
-    mainClass = "org.fifties.housewife.codesemantics.engine.theme.FunctionalPlacementProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.FunctionalPlacementProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -86,7 +86,7 @@ tasks.register<JavaExec>("functionalPlacement") {
 tasks.register<JavaExec>("injectedTermMatch") {
     group = "verification"
     description = "Matches declared names against an unbundled term taxonomy"
-    mainClass = "org.fifties.housewife.codesemantics.engine.term.InjectedTermMatchProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.InjectedTermMatchProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -101,7 +101,7 @@ tasks.register<JavaExec>("injectedTermMatch") {
 tasks.register<JavaExec>("wordPlace") {
     group = "verification"
     description = "Prints where the named words stand in the vocabulary ranking, and what refused them"
-    mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.ChosenWordProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWordProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -144,7 +144,7 @@ tasks.register<Test>("read") {
 tasks.register<JavaExec>("readingExport") {
     group = "verification"
     description = "Writes the reading of this repository as one JSON file a consumer can act on"
-    mainClass = "org.fifties.housewife.codesemantics.engine.export.ExportCommand"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.export.ExportCommand"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -238,7 +238,7 @@ tasks.register("evaluationRead") {
 tasks.register<JavaExec>("vocabularyMass") {
     group = "verification"
     description = "Prints how much of the ranking's divergence each prefix of it holds"
-    mainClass = "org.fifties.housewife.codesemantics.engine.vocabulary.VocabularyMassProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyMassProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -250,7 +250,7 @@ tasks.register<JavaExec>("vocabularyMass") {
 tasks.register<JavaExec>("splitRuns") {
     group = "verification"
     description = "Prints the runs the segmenter split that the dictionary carries whole"
-    mainClass = "org.fifties.housewife.codesemantics.engine.reading.SplitRunsProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.SplitRunsProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -262,7 +262,7 @@ tasks.register<JavaExec>("splitRuns") {
 tasks.register<JavaExec>("abbreviatedTypes") {
     group = "verification"
     description = "Prints every declared name that is the initials of its own type, with that type"
-    mainClass = "org.fifties.housewife.codesemantics.engine.reading.AbbreviatedTypesProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.AbbreviatedTypesProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
@@ -274,7 +274,7 @@ tasks.register<JavaExec>("abbreviatedTypes") {
 tasks.register<JavaExec>("shortNames") {
     group = "verification"
     description = "Prints the shortest declared names by the kind of declaration they stand in"
-    mainClass = "org.fifties.housewife.codesemantics.engine.reading.ShortNamesProbe"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.ShortNamesProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }

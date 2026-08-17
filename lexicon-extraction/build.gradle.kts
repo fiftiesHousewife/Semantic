@@ -23,7 +23,7 @@ tasks.register<JavaExec>("extractWiktionary") {
     group = "build"
     description = "Extracts the abbreviation and topic TSVs from the kaikki.org JSONL dumps " +
         "(-Pdump=<path>, -PtranslingualDump=<path> optional)"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.WiktionaryExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.WiktionaryExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("dump") as String?).orEmpty(),
@@ -42,7 +42,7 @@ tasks.register<JavaExec>("extractWiktionary") {
 tasks.register<JavaExec>("extractTopicHierarchy") {
     group = "build"
     description = "Extracts the Wiktionary topic hierarchy TSV from wiktextract's published topic module"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.TopicHierarchyExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.TopicHierarchyExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("module") as String?).orEmpty(),
@@ -59,7 +59,7 @@ tasks.register<JavaExec>("extractNistCsf") {
     group = "build"
     description = "Extracts the NIST Cybersecurity Framework functional-taxonomy TSV from NIST's OSCAL " +
         "catalogue (-Pcatalog=<path> optional)"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.NistCsfExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.NistCsfExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("catalog") as String?).orEmpty(),
@@ -76,7 +76,7 @@ tasks.register<JavaExec>("extractArxivTaxonomy") {
     group = "build"
     description = "Extracts the arXiv subject-taxonomy TSV from arXiv's own taxonomy definitions " +
         "(-Pmodule=<path> optional)"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.ArxivTaxonomyExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.ArxivTaxonomyExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("module") as String?).orEmpty(),
@@ -93,7 +93,7 @@ tasks.register<JavaExec>("extractOliaTerms") {
     group = "build"
     description = "Extracts the OLiA linguistic-term TSV from OLiA's own core ontology " +
         "(-Pontology=<path> optional)"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.OliaTermsExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.OliaTermsExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("ontology") as String?).orEmpty(),
@@ -109,7 +109,7 @@ tasks.register<JavaExec>("extractOliaTerms") {
 tasks.register<JavaExec>("extractWikidataInitialisms") {
     group = "build"
     description = "Extracts the Wikidata capitals-initialism TSV via the QLever SPARQL endpoint"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.WikidataInitialismExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.WikidataInitialismExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         rootProject.layout.projectDirectory
@@ -123,7 +123,7 @@ tasks.register<JavaExec>("extractWikidataInitialisms") {
 tasks.register<JavaExec>("extractWikidataNames") {
     group = "build"
     description = "Extracts the Wikidata given/family name-token TSV via the QLever SPARQL endpoint"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.WikidataNameExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.WikidataNameExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         rootProject.layout.projectDirectory
@@ -139,7 +139,7 @@ tasks.register<JavaExec>("extractWikidataNames") {
 tasks.register<JavaExec>("extractSqlFunctions") {
     group = "build"
     description = "Extracts the SQL function catalogue TSV from the embedded query engine"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.SqlFunctionExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.SqlFunctionExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         rootProject.layout.projectDirectory
@@ -154,7 +154,7 @@ tasks.register<JavaExec>("extractSqlFunctions") {
 tasks.register<JavaExec>("extractFiboTerms") {
     group = "build"
     description = "Extracts the FIBO finance-vocabulary TSV from a FIBO checkout (-Pfibo=<path>)"
-    mainClass = "org.fifties.housewife.bi.lexicon.extraction.FiboTermsExtraction"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.FiboTermsExtraction"
     classpath = sourceSets["main"].runtimeClasspath
     args = listOf(
         (findProperty("fibo") as String?).orEmpty(),

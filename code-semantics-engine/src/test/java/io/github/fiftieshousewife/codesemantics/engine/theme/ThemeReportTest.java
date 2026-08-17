@@ -1,0 +1,147 @@
+package io.github.fiftieshousewife.codesemantics.engine.theme;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import io.github.fiftieshousewife.codesemantics.engine.behaviour.Behaviour;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
+import io.github.fiftieshousewife.codesemantics.engine.theme.JensenShannon.Contribution;
+import io.github.fiftieshousewife.codesemantics.engine.theme.PermutationNull.Chance;
+import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+class ThemeReportTest {
+
+    private static final FileTopics FILE = new FileTopics("engine/src/main/java/Reading.java", 120,
+            Map.of("linguistics", 9.0, "music", 1.0), 4.0, Map.of("linguistics", 9.0, "music", 0.5),
+            Map.of("linguistics", 90, "music", 10), 4, 104);
+
+    private final TopicWitnesses witnesses = new TopicWitnesses();
+
+    private RepositoryThemes themes(final Chance chance) {
+        witnesses.record("linguistics", "word", "word segmenter", "Reading.java:7",
+                EvidenceSource.WORDNET_DOMAIN, 1.0);
+        witnesses.record("linguistics", "lemma", "lemma of a word", "Reading.java:8",
+                EvidenceSource.WIKTIONARY_TOPIC, 1.0);
+        witnesses.record("music", "string", "string builder", "Reading.java:9",
+                EvidenceSource.WIKTIONARY_TOPIC, 1.0);
+        final TopicDistribution intensity = FILE.distribution();
+        final TopicDistribution comparison = intensity.amongWhatWasPlaced();
+        final ScopeThemes scope = new ScopeThemes("engine/src/main/java", 1, 1, 120, intensity, comparison);
+        return new RepositoryThemes(List.of(scope),
+                new ScopeThemes("repository", 1, 1, 120, intensity, comparison),
+                List.of(new ScopeDivergence("engine/src/main/java", 0.25,
+                        List.of(new Contribution("linguistics", 0.20, 0.80, 0.9, 0.5),
+                                new Contribution("music", 0.05, 0.20, 0.1, 0.5)),
+                        chance)),
+                new TopicRankings(List.of(FILE),
+                        Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)), witnesses)
+                        .of(intensity),
+                List.of(FILE), Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)),
+                witnesses, sightings(), List.of(new ForeignWords.ForeignWord("harvest", 0.87, 4,
+                        List.of("agriculture"), "Reading.java:11")),
+                List.of(new Behaviour("refuse", List.of("a", "line", "range", "that", "runs", "backwards"),
+                        "refusesALineRangeThatRunsBackwards", "SourceAnchorTest.java:71")),
+                Duration.ofMillis(2_500));
+    }
+
+
+    private static WordSightings sightings() {
+        final WordSightings seen = new WordSightings();
+        seen.saw("harvest", "Reading.java:11", true);
+        return seen;
+    }
+
+    private static Chance beatingChance() {
+        return new Chance(0.25, 0.05, 0.20, 0.10, 0, 999);
+    }
+
+    private static Chance withinChance() {
+        return new Chance(0.25, 0.30, -0.05, 0.40, 640, 999);
+    }
+
+    @Test
+    void keepsATopicOutOfTheRankingWhereOneWordCarriesAMajorityOfIt() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertThat(report.substring(0, report.indexOf("Read over")))
+                .as("music rests entirely on `string`, and a topic one word holds is that word's opinion")
+                .contains("`linguistics`")
+                .doesNotContain("`music`");
+    }
+
+    @Test
+    void ranksTheRepositorysTopicsWithTheWordsCarryingThem() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertAll(
+                () -> assertThat(report)
+                        .as("nine units of fourteen observed, and not nine of the ten a topic took")
+                        .contains("| `linguistics` | 0.6429 | 100.0% | 90 | 1 | 120 | 100.0% |"),
+                () -> assertThat(report)
+                        .as("a witness states the share of the topic it carried, which is what the column "
+                                + "is ordered by, and the occurrences beside it")
+                        .contains("`word`\u00A050.0%\u00A0(1)"),
+                () -> assertThat(report)
+                        .as("and the scope table still shows what music did there, under the topic that "
+                                + "earned the ranking — a topic refused a place is not a topic hidden")
+                        .contains("| 20.0% | `music` |"));
+    }
+
+    @Test
+    void saysWhichDenominatorTheComparisonColumnsAreOut() {
+        assertThat(new ThemeReport().render(themes(beatingChance())))
+                .as("one document carrying two denominators has to say which is which")
+                .contains("shares of the mass a topic was settled on, where ι above is a share of "
+                        + "everything that was observed");
+    }
+
+    @Test
+    void statesTheDivergenceBesideTheFieldItHadToBeat() {
+        assertThat(new ThemeReport().render(themes(beatingChance())))
+                .contains("**25.0%** of the maximum divergence from the repository, against a null median of "
+                        + "5.0% over 999 "
+                        + "resamples of the same size — an excess of +20.0 points, and 0 of those draws "
+                        + "diverged "
+                        + "at least as far.");
+    }
+
+    @Test
+    void ranksAScopesTopicsOnlyWhenItStoodOutsideItsOwnNull() {
+        assertAll(
+                () -> assertThat(new ThemeReport().render(themes(beatingChance())))
+                        .contains("| 80.0% | `linguistics` | 0.9000 | 0.5000 | **over** |"),
+                () -> assertThat(new ThemeReport().render(themes(withinChance())))
+                        .as("a caveat is not what gets quoted, so nothing is ranked at all")
+                        .doesNotContain("| 80.0% | `linguistics` |")
+                        .contains("no topical content beyond its size"));
+    }
+
+    @Test
+    void reportsWhatTheReadingCostAndWhatItCouldNotResolve() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertAll(
+                () -> assertThat(report).contains("Read, compared and resampled in 2.5 s"),
+                () -> assertThat(report).contains("0 files no topic could be resolved for"));
+    }
+
+    @Test
+    void saysWhatShareOfWhatItReadNoTopicWasSettledOn() {
+        final String report = new ThemeReport().render(themes(beatingChance()));
+
+        assertAll(
+                () -> assertThat(report)
+                        .as("a reader cannot judge a share of 0.6429 without the denominator it is out of")
+                        .contains("the topics sum to 71.4% of it")
+                        .contains("the other 28.6%"),
+                () -> assertThat(report)
+                        .as("the old claim was that ι summed to one, which it does not and did not")
+                        .doesNotContain("sums to 1 across every topic"));
+    }
+}
