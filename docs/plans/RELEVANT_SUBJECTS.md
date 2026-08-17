@@ -50,7 +50,7 @@ They are an **input** to the scoring work and not part of it, so a change to the
 
 ## Do this before OpenAlex
 
-[OpenAlex](../../BACKLOG.md) is the better subject scheme — CC0, 4,516 topics, prose per topic — and it is blocked on a fetch this project cannot make from its own shell. This is not blocked on anything, iterates against saved fixtures in a second rather than a five-minute tree read, and improves the arm that has already shown it can tell two repositories apart. OpenAlex improves the placement; this improves the concepts, and the concepts are where the discrimination is.
+[OpenAlex](../../BACKLOG.md) is the better subject scheme — CC0, 4,516 topics, prose per topic — and its snapshot now sits in `OpenAlex/`, so what is left of it is an extraction rather than a fetch. This is not blocked on anything, iterates against saved fixtures in a second rather than a five-minute tree read, and improves the arm that has already shown it can tell two repositories apart. OpenAlex improves the placement; this improves the concepts, and the concepts are where the discrimination is.
 
 ## What settles it
 

@@ -61,3 +61,6 @@ CSO*.csv.zip
 CSO*.csv
 part_*.gz
 manifest.json
+
+# The OpenAlex topics snapshot: 4,516 topics as gzipped JSONL, read from a path and never committed.
+OpenAlex/
