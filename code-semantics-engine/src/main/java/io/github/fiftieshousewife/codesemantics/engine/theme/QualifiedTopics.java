@@ -154,10 +154,6 @@ public final class QualifiedTopics {
                 .toList();
     }
 
-    /**
-     * The contributions that account for a scope's departure: concentrated in it, and holding more of the
-     * divergence than an even spread across the contributing topics would give.
-     */
     /** A topic that distinguishes this repository from ordinary English, where a reference is available. */
     private java.util.function.Predicate<String> unlikeEnglish(final TopicDistribution repository) {
         this.repository = repository.amongWhatWasPlaced();

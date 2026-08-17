@@ -38,12 +38,12 @@ public final class OliaTerms implements PublishedTerms {
         return byTerm.getOrDefault(term.toLowerCase(Locale.ROOT), List.of());
     }
 
-    /** Every term the ontology states, in the case it states them in. */
     /** Every concept the ontology publishes, which is what a viewer of the taxonomy draws. */
     public List<SkosConcept> concepts() {
         return byTerm.values().stream().flatMap(List::stream).distinct().toList();
     }
 
+    /** Every term the ontology states, in the case it states them in. */
     @Override
     public List<String> terms() {
         return byTerm.values().stream().flatMap(List::stream).map(SkosConcept::prefLabel).sorted().toList();
