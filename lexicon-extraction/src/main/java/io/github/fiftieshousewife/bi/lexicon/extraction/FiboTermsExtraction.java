@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -41,7 +42,9 @@ public final class FiboTermsExtraction {
 
     private final FiboTermsTsv tsv = new FiboTermsTsv();
 
-    private final GitBlobId blobId = new GitBlobId();
+    private final PinnedSource source = new PinnedSource(
+            URI.create("https://raw.githubusercontent.com/edmcouncil/fibo/" + REVISION + "/" + MANIFEST),
+            REVISION, MANIFEST_BLOB);
 
     private final ContentDigest digest = new ContentDigest();
 
@@ -53,22 +56,16 @@ public final class FiboTermsExtraction {
     }
 
     public void extract(final Path checkout, final Path output) throws IOException {
-        final byte[] read = Files.readAllBytes(checkout.resolve(MANIFEST));
-        final List<String> ontologies = manifest.ontologiesIn(pinned(read));
+        final byte[] read = source.pinned(Files.readAllBytes(checkout.resolve(MANIFEST)));
+        final List<String> ontologies = manifest.ontologiesIn(read);
         final List<ContentDigest.Member> members = membersOf(checkout, ontologies);
         final List<OwlClass> owl = merged(members);
         Files.createDirectories(output.toAbsolutePath().getParent());
         Files.writeString(output, tsv.render(concepts.in(owl), SOURCE, ontologies.size(), asRecorded(members)));
     }
 
-    /** What was read is the pinned revision's manifest only if git would give it that revision's blob id. */
-    byte[] pinned(final byte[] read) {
-        final String found = blobId.of(read);
-        if (!MANIFEST_BLOB.equals(found)) {
-            throw new IllegalArgumentException("The manifest read is blob " + found + ", where revision "
-                    + REVISION + " holds blob " + MANIFEST_BLOB);
-        }
-        return read;
+    PinnedSource source() {
+        return source;
     }
 
     /** And the ontologies it names are that revision's only if together they digest to what was recorded. */

@@ -13,7 +13,7 @@ class FiboTermsExtractionTest {
 
     @Test
     void refusesAManifestThatIsNotTheRevisionTheHeaderWouldCite() {
-        assertThatThrownBy(() -> extraction.pinned("<rdf:RDF/>".getBytes(StandardCharsets.UTF_8)))
+        assertThatThrownBy(() -> extraction.source().pinned("<rdf:RDF/>".getBytes(StandardCharsets.UTF_8)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("119fa8c091aa4beece7d22aefa6fe138021a4355");
     }

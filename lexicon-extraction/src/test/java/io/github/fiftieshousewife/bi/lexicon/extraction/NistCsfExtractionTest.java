@@ -12,7 +12,8 @@ class NistCsfExtractionTest {
 
     @Test
     void refusesACatalogueThatIsNotTheRevisionTheHeaderWouldCite() {
-        assertThatThrownBy(() -> extraction.pinned("{\"catalog\": {}}".getBytes(StandardCharsets.UTF_8)))
+        assertThatThrownBy(() -> extraction.source()
+                .pinned("{\"catalog\": {}}".getBytes(StandardCharsets.UTF_8)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("78650f02ad9321bb7b817846f8fbd4f2bcd620de");
     }

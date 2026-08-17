@@ -2,9 +2,6 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +30,7 @@ public final class NistCsfExtraction {
 
     private final NistCsfTsv tsv = new NistCsfTsv();
 
-    private final GitBlobId blobId = new GitBlobId();
+    private final PinnedSource source = new PinnedSource(CATALOG, REVISION, CATALOG_BLOB);
 
     public static void main(final String[] args) throws IOException {
         if (args.length < 2) {
@@ -43,34 +40,14 @@ public final class NistCsfExtraction {
     }
 
     public void extract(final String catalog, final Path output) throws IOException {
-        final byte[] read = catalog.isBlank() ? published() : Files.readAllBytes(Path.of(catalog));
-        final OscalCatalog document = new OscalCatalog(pinned(read));
+        final OscalCatalog document =
+                new OscalCatalog(new String(source.read(catalog), StandardCharsets.UTF_8));
         Files.createDirectories(output.toAbsolutePath().getParent());
         Files.writeString(output, tsv.render(concepts.in(document.controls()), document.version(),
-                CATALOG.toString()));
+                source.permalink()));
     }
 
-    /** What was read is the pinned revision's catalogue only if git would give it that revision's blob id. */
-    String pinned(final byte[] catalog) {
-        final String read = blobId.of(catalog);
-        if (!CATALOG_BLOB.equals(read)) {
-            throw new IllegalArgumentException("The catalogue read is blob " + read + ", where revision "
-                    + REVISION + " holds blob " + CATALOG_BLOB);
-        }
-        return new String(catalog, StandardCharsets.UTF_8);
-    }
-
-    private static byte[] published() throws IOException {
-        try (HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()) {
-            final HttpResponse<byte[]> response = client.send(HttpRequest.newBuilder(CATALOG).build(),
-                    HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() != 200) {
-                throw new IOException("Fetch failed with HTTP " + response.statusCode() + ": " + CATALOG);
-            }
-            return response.body();
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IOException("Fetch interrupted: " + CATALOG, e);
-        }
+    PinnedSource source() {
+        return source;
     }
 }

@@ -12,7 +12,7 @@ class TopicHierarchyExtractionTest {
 
     @Test
     void refusesAModuleThatIsNotTheRevisionTheHeaderWouldCite() {
-        assertThatThrownBy(() -> extraction.pinned("topic_generalize_map = {}\n"
+        assertThatThrownBy(() -> extraction.source().pinned("topic_generalize_map = {}\n"
                 .getBytes(StandardCharsets.UTF_8)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("872fc7bfc15c388eca84591268d6f35759c42290");

@@ -12,7 +12,7 @@ class OliaTermsExtractionTest {
 
     @Test
     void refusesAnOntologyThatIsNotTheRevisionTheHeaderWouldCite() {
-        assertThatThrownBy(() -> extraction.pinned("<rdf:RDF/>".getBytes(StandardCharsets.UTF_8)))
+        assertThatThrownBy(() -> extraction.source().pinned("<rdf:RDF/>".getBytes(StandardCharsets.UTF_8)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("d3bd4f1aef9047b33186bfb2a1795401f3f1a4a6");
     }

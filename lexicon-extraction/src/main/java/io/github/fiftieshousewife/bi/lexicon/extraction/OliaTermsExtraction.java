@@ -2,9 +2,6 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -33,7 +30,7 @@ public final class OliaTermsExtraction {
 
     private final OliaTermsTsv tsv = new OliaTermsTsv();
 
-    private final GitBlobId blobId = new GitBlobId();
+    private final PinnedSource source = new PinnedSource(ONTOLOGY, REVISION, ONTOLOGY_BLOB);
 
     public static void main(final String[] args) throws IOException {
         if (args.length < 2) {
@@ -43,33 +40,12 @@ public final class OliaTermsExtraction {
     }
 
     public void extract(final String ontology, final Path output) throws IOException {
-        final byte[] read = ontology.isBlank() ? published() : Files.readAllBytes(Path.of(ontology));
+        final byte[] read = source.read(ontology);
         Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output,
-                tsv.render(concepts.in(classes.in(pinned(read))), ONTOLOGY.toString()));
+        Files.writeString(output, tsv.render(concepts.in(classes.in(read)), source.permalink()));
     }
 
-    /** What was read is the pinned revision's ontology only if git would give it that revision's blob id. */
-    byte[] pinned(final byte[] ontology) {
-        final String read = blobId.of(ontology);
-        if (!ONTOLOGY_BLOB.equals(read)) {
-            throw new IllegalArgumentException("The ontology read is blob " + read + ", where revision "
-                    + REVISION + " holds blob " + ONTOLOGY_BLOB);
-        }
-        return ontology;
-    }
-
-    private static byte[] published() throws IOException {
-        try (HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()) {
-            final HttpResponse<byte[]> response = client.send(HttpRequest.newBuilder(ONTOLOGY).build(),
-                    HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() != 200) {
-                throw new IOException("Fetch failed with HTTP " + response.statusCode() + ": " + ONTOLOGY);
-            }
-            return response.body();
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IOException("Fetch interrupted: " + ONTOLOGY, e);
-        }
+    PinnedSource source() {
+        return source;
     }
 }

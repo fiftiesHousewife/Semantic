@@ -2,9 +2,6 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,7 +31,7 @@ public final class ArxivTaxonomyExtraction {
 
     private final ArxivTaxonomyTsv tsv = new ArxivTaxonomyTsv();
 
-    private final GitBlobId blobId = new GitBlobId();
+    private final PinnedSource source = new PinnedSource(MODULE, REVISION, MODULE_BLOB);
 
     public static void main(final String[] args) throws IOException {
         if (args.length < 2) {
@@ -44,32 +41,12 @@ public final class ArxivTaxonomyExtraction {
     }
 
     public void extract(final String module, final Path output) throws IOException {
-        final byte[] read = module.isBlank() ? published() : Files.readAllBytes(Path.of(module));
+        final String read = new String(source.read(module), StandardCharsets.UTF_8);
         Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(concepts.in(taxonomy.in(pinned(read))), MODULE.toString()));
+        Files.writeString(output, tsv.render(concepts.in(taxonomy.in(read)), source.permalink()));
     }
 
-    /** What was read is the pinned revision's module only if git would give it that revision's blob id. */
-    String pinned(final byte[] module) {
-        final String read = blobId.of(module);
-        if (!MODULE_BLOB.equals(read)) {
-            throw new IllegalArgumentException("The module read is blob " + read + ", where revision "
-                    + REVISION + " holds blob " + MODULE_BLOB);
-        }
-        return new String(module, StandardCharsets.UTF_8);
-    }
-
-    private static byte[] published() throws IOException {
-        try (HttpClient client = HttpClient.newBuilder().followRedirects(HttpClient.Redirect.NORMAL).build()) {
-            final HttpResponse<byte[]> response = client.send(HttpRequest.newBuilder(MODULE).build(),
-                    HttpResponse.BodyHandlers.ofByteArray());
-            if (response.statusCode() != 200) {
-                throw new IOException("Fetch failed with HTTP " + response.statusCode() + ": " + MODULE);
-            }
-            return response.body();
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IOException("Fetch interrupted: " + MODULE, e);
-        }
+    PinnedSource source() {
+        return source;
     }
 }
