@@ -7,7 +7,6 @@ import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
@@ -70,11 +69,23 @@ public final class ExportedReading {
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched, final CorroboratedReading terms,
                             final PlacedField field) {
+        return of(reading, commit, alsoMatched, terms, field,
+                ChosenWords.againstEnglishAndThePlatform()
+                        .chanceFor(new PublishedNames().published(reading.legibility()), reading.seed()));
+    }
+
+    /**
+     * The same again, over chance bars the caller already drew — they must be over this reading's published
+     * names at its seed, or the signals are cut where another tree's null puts the bar.
+     */
+    public ReadingExport of(final RepositoryReading reading, final String commit,
+                            final List<TermIndex> alsoMatched, final CorroboratedReading terms,
+                            final PlacedField field, final List<VocabularyNull.Bar> namesChance) {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
         final RepositoryLegibility legibility = reading.legibility();
         final ReadingSummary summary = summaryOf(reading, legibility, themes, field);
-        final Vocabulary vocabulary = vocabularyOf(legibility, reading.seed());
+        final Vocabulary vocabulary = vocabularyOf(legibility, namesChance);
 
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
@@ -94,12 +105,11 @@ public final class ExportedReading {
     private record Vocabulary(List<ChosenWord> ranked, List<ExportedSignal> signals) {
     }
 
-    private static Vocabulary vocabularyOf(final RepositoryLegibility legibility, final long seed) {
-        final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
-        final WrittenWords names = new PublishedNames().published(legibility);
-        final List<ChosenWord> ranked = chosen.in(names);
-        final Map<String, Double> thresholds = VocabularyNull.byReference(
-                VocabularyNull.seeded(seed).over(names, chosen.references()));
+    private static Vocabulary vocabularyOf(final RepositoryLegibility legibility,
+                                           final List<VocabularyNull.Bar> namesChance) {
+        final List<ChosenWord> ranked = ChosenWords.againstEnglishAndThePlatform()
+                .in(new PublishedNames().published(legibility));
+        final Map<String, Double> thresholds = VocabularyNull.byReference(namesChance);
         return new Vocabulary(ranked, new ExportedSignals(thresholds, ReadingSource.CLONE).in(ranked));
     }
 

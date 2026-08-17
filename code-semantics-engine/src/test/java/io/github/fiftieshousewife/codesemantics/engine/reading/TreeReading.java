@@ -13,6 +13,9 @@ import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ThemeReading;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
  * The parse and the topical reading of one working tree, computed once per JVM and shared.
@@ -42,6 +45,9 @@ public final class TreeReading {
 
     /** Each tree's arXiv placement at the shared seed, with both chance draws inside it. */
     private static final Map<Path, PlacedField> FIELDS = new ConcurrentHashMap<>();
+
+    /** The chance bars over each tree's published names at the shared seed, drawn once and shared. */
+    private static final Map<Path, List<VocabularyNull.Bar>> NAME_BARS = new ConcurrentHashMap<>();
 
     private final Path root;
 
@@ -88,6 +94,12 @@ public final class TreeReading {
     public CorroboratedReading terms() {
         return TERMS.computeIfAbsent(root, tree -> CorroboratedReading.of(LinguisticTerms.fromClasspath(),
                 OliaTerms.fromClasspath().concepts(), parsed()));
+    }
+
+    /** The chance bars over this tree's published names at the shared seed, computed once per JVM. */
+    public List<VocabularyNull.Bar> namesChance() {
+        return NAME_BARS.computeIfAbsent(root, tree -> ChosenWords.againstEnglishAndThePlatform()
+                .chanceFor(new PublishedNames().published(legibility()), SEED));
     }
 
     /** Where this tree stands among arXiv's subjects at the shared seed, computed once per JVM. */

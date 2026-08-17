@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -42,6 +43,25 @@ class FunctionPlacementTest {
     void statesEveryDivergenceInsideTheBoundItsOwnDefinitionGivesIt() {
         assertThat(placement.of(CODE, FRAMEWORK))
                 .allSatisfy(placed -> assertThat(placed.bits()).isBetween(0.0, 1.0));
+    }
+
+    @Test
+    void poolsAFunctionFromWhatEachStatementCommitsReadOnItsOwn() {
+        final SubjectAreas areas = SubjectAreas.fromClasspath();
+        final List<FileTopics> readings = FRAMEWORK.get("DE").stream()
+                .map(statement -> areas.topicsIn("DE", statement))
+                .toList();
+        final TopicDistribution pooled = TopicDistribution.of(readings.stream()
+                        .flatMap(reading -> reading.massByTopic().entrySet().stream())
+                        .collect(Collectors.groupingBy(Map.Entry::getKey,
+                                Collectors.summingDouble(Map.Entry::getValue))),
+                readings.stream().mapToDouble(FileTopics::unplacedMass).sum());
+
+        assertThat(placement.of(CODE, FRAMEWORK))
+                .filteredOn(placed -> placed.concept().equals("DE"))
+                .singleElement()
+                .extracting(SubjectPlacement.Placement::bits)
+                .isEqualTo(new JensenShannon().divergence(CODE, pooled));
     }
 
     @Test

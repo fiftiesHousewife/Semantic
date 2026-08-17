@@ -51,6 +51,11 @@ public final class ChosenWords {
         return references;
     }
 
+    /** The bar each reference sets against a repository that wrote this much, at this seed. */
+    public List<VocabularyNull.Bar> chanceFor(final WrittenWords written, final long seed) {
+        return VocabularyNull.seeded(seed).over(written, references);
+    }
+
     /** The strongest claims first, and every word the repository wrote is somewhere in the ranking. */
     public List<ChosenWord> in(final WrittenWords written) {
         final Map<String, Double> here = written.shareByWord();

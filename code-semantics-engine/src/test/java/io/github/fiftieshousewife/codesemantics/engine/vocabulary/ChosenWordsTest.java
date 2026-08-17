@@ -83,6 +83,18 @@ class ChosenWordsTest {
     }
 
     @Test
+    void drawsOneChanceBarPerReferenceReproduciblyFromTheSeed() {
+        final WrittenWords written = wrote(Map.of("synset", 40, "the", 40, "list", 40));
+
+        final List<VocabularyNull.Bar> bars = chosen.chanceFor(written, 11L);
+
+        assertAll(
+                () -> assertThat(bars).extracting(VocabularyNull.Bar::reference)
+                        .containsExactly("English", "the platform"),
+                () -> assertThat(bars).isEqualTo(chosen.chanceFor(written, 11L)));
+    }
+
+    @Test
     void carriesTheCountsAndTheSiteAReaderNeedsToArgueWithARow() {
         final WrittenWords written = wrote(Map.of("synset", 3));
         written.saw("synset", "Prose.java:2", false);

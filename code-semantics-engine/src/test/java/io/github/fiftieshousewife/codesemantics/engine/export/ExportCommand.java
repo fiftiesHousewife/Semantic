@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.InjectedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.InjectedIndexes;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TaxonomyShape;
@@ -55,7 +55,7 @@ public final class ExportCommand {
             return files.filter(file -> file.getFileName().toString().endsWith(".tsv")).sorted()
                     .map(InjectedTaxonomy::named)
                     .filter(taxonomy -> taxonomy.shape().isMatchedAgainstNames())
-                    .map(taxonomy -> (TermIndex) InjectedTerms.of(taxonomy, taxonomy.source()))
+                    .map(InjectedIndexes::of)
                     .toList();
         }
     }
@@ -72,7 +72,7 @@ public final class ExportCommand {
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = previousReading(exports, file);
         final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched(),
-                reading.terms(), reading.arxivField());
+                reading.terms(), reading.arxivField(), reading.namesChance());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
         return file;

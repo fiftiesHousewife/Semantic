@@ -86,14 +86,13 @@ class VocabularyReadingDiagnostic {
         final WrittenWords named = names.published(legibility);
         final WrittenWords checked = names.checking(legibility);
         final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
-        final VocabularyNull chance = VocabularyNull.seeded(TreeReading.SEED);
         final List<ChosenWord> ranked = chosen.in(named);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
         reports.wrote(REPORT, "# The vocabulary — %s%n%n%s%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                report(chance, chosen, named).render(NAMES, ranked, named),
-                report(chance, chosen, checked).render(CHECKS, chosen.in(checked), checked),
-                report(chance, chosen, written).render(PROSE, chosen.in(written), written)),
+                new VocabularyReport(reading.namesChance()).render(NAMES, ranked, named),
+                report(chosen, checked).render(CHECKS, chosen.in(checked), checked),
+                report(chosen, written).render(PROSE, chosen.in(written), written)),
                 "The vocabulary");
 
         assertAll(
@@ -107,9 +106,8 @@ class VocabularyReadingDiagnostic {
     }
 
     /** One population's report, cut where that population's own null puts the bar rather than at a count. */
-    private static VocabularyReport report(final VocabularyNull chance, final ChosenWords chosen,
-                                           final WrittenWords written) {
-        return new VocabularyReport(chance.over(written, chosen.references()));
+    private static VocabularyReport report(final ChosenWords chosen, final WrittenWords written) {
+        return new VocabularyReport(chosen.chanceFor(written, TreeReading.SEED));
     }
 
 }

@@ -34,7 +34,7 @@ final class MatchedFixture {
     private final IdentifierWords words;
 
     MatchedFixture(final InjectedTaxonomy taxonomy) {
-        final TermIndex published = InjectedTerms.of(taxonomy, taxonomy.source());
+        final TermIndex published = InjectedIndexes.of(taxonomy);
         this.ladder = List.of(published,
                 NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
                 NormalisedTerms.over(published, SenseRuns.fromClasspath()));
