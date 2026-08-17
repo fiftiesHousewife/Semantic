@@ -31,8 +31,8 @@ public final class TermTally {
         this.specificity = specificity;
     }
 
-    public void readName() {
-        namesRead++;
+    public void readNames(final int count) {
+        namesRead += count;
     }
 
     /**

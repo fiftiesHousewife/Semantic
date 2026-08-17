@@ -29,10 +29,11 @@ public record CorroboratedReading(MatchedTerms every, MatchedTerms matched, Taxo
     public static CorroboratedReading of(final TermIndex terms, final List<SkosConcept> published,
                                          final ParsedRepository parsed) {
         final IdentifierWords words = IdentifierWords.fromClasspath();
-        final MatchedTerms every = TermReading.over(terms).of(parsed);
+        final RecordedSpans sighted = TermReading.over(terms).sighted(parsed);
+        final MatchedTerms every = sighted.matched();
         final TaxonomyTree everyTree = treeOf(published, every, words);
         final StatedSiblings siblings = StatedSiblings.of(everyTree);
-        final MatchedTerms matched = TermReading.corroboratedBy(terms, siblings).of(parsed);
+        final MatchedTerms matched = sighted.rereadBy(TermReading.corroboratedBy(terms, siblings));
         return new CorroboratedReading(every, matched, everyTree, treeOf(published, matched, words),
                 siblings);
     }

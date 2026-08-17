@@ -81,6 +81,11 @@ public final class TermSpans {
     private Optional<TermSpan> spanOf(final List<String> phrase, final int from, final int to) {
         final List<String> run = phrase.subList(from, to).stream()
                 .map(word -> word.toLowerCase(Locale.ROOT)).toList();
+        return answerFor(run, from, to);
+    }
+
+    /** The narrowest rung that answers for a run already folded to lower case, of the rungs that read it. */
+    Optional<TermSpan> answerFor(final List<String> run, final int from, final int to) {
         return rungsReading(run).stream()
                 .map(rung -> statedBy(rung, run, from, to))
                 .flatMap(Optional::stream)

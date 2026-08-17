@@ -1,6 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
@@ -71,38 +73,41 @@ public final class TermReading {
     }
 
     public MatchedTerms of(final ParsedRepository parsed) {
-        final TermTally tally = new TermTally(specificity);
-        parsed.files().forEach(file -> read(file, tally));
-        return tally.matched();
+        return sighted(parsed).matched();
     }
 
-    private void read(final ParsedFile file, final TermTally tally) {
-        file.occurrences().stream()
+    /** Every span this reading finds, recorded so a narrower index can be tallied without a second pass. */
+    public RecordedSpans sighted(final ParsedRepository parsed) {
+        return new RecordedSpans(specificity, parsed.files().stream().map(this::read).toList());
+    }
+
+    private RecordedSpans.ReadFile read(final ParsedFile file) {
+        final List<NameOccurrence> names = file.occurrences().stream()
                 .filter(occurrence -> occurrence.form().isChosenName())
-                .forEach(occurrence -> readName(file, occurrence, tally));
-        tally.readFile();
-    }
-
-    private void readName(final ParsedFile file, final NameOccurrence occurrence, final TermTally tally) {
-        tally.readName();
-        final String site = file.path() + ":" + occurrence.line();
-        occurrence.form().vocabulary().phrasesOf(occurrence.text(), words)
-                .forEach(phrase -> spans.in(phrase.words())
-                        .forEach(span -> record(span, occurrence, site, tally)));
+                .toList();
+        final List<RecordedSpans.Sighting> sightings = new ArrayList<>();
+        names.forEach(occurrence -> readName(file, occurrence, sightings));
+        return new RecordedSpans.ReadFile(names.size(), sightings);
     }
 
     /**
      * A span whose every word is the type written beside the name is that type spelled again, not a term the
      * author reached for. {@code Set<String> mimeSet} declares {@code set} because Java asks for the type on
      * the line, and a taxonomy claiming the English noun {@code set} is matching the language rather than the
-     * field. The refusal is counted, because a rule that removes matches can only be judged as a comparison.
+     * field. The refusal is recorded rather than dropped, because a rule that removes matches can only be
+     * judged as a comparison.
      */
-    private void record(final TermSpan span, final NameOccurrence occurrence, final String site,
-                        final TermTally tally) {
-        if (occurrence.restatesItsType(span.words())) {
-            tally.refusedAsItsOwnType(span);
-            return;
-        }
-        tally.saw(span, site);
+    private void readName(final ParsedFile file, final NameOccurrence occurrence,
+                          final List<RecordedSpans.Sighting> sightings) {
+        final String site = file.path() + ":" + occurrence.line();
+        occurrence.form().vocabulary().phrasesOf(occurrence.text(), words)
+                .forEach(phrase -> spans.in(phrase.words())
+                        .forEach(span -> sightings.add(new RecordedSpans.Sighting(span, site,
+                                occurrence.restatesItsType(span.words())))));
+    }
+
+    /** The ladder's answer for one already-folded run, which is what a recorded reading rereads. */
+    Optional<TermSpan> answerFor(final List<String> run) {
+        return spans.answerFor(run, 0, run.size());
     }
 }
