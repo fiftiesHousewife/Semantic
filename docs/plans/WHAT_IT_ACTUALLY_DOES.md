@@ -76,9 +76,11 @@ The existing arm reads what an author **named**. This one reads what the code **
 
 They are blended by being reported side by side and by **agreeing or disagreeing**, which is the finding either way. A repository whose names say *linguistics* and whose calls are all `pdfbox` and `poi` is a repository that says one thing and does another, and that is worth stating rather than averaging away.
 
-## `Allium`
+## Condensing to a specification, parked
 
-The note asks whether the syntactic stream could be condensed **"to something like Allium"**. I have not been able to place the reference and will not guess at it in a plan — if it is [Alloy](https://alloytools.org/), the modelling language, then the shape is a condensed relational model of what the code does, and that is a much larger piece of work than either step above. **This section needs one sentence from its author before it is worth planning.**
+The question is whether the syntactic stream could be condensed to something like `Allium` — a **language-neutral specification style**. It is parked, and the order is the reason: a specification format is a target for what the streams find, and choosing one before either stream produces anything would be fixing the shape of evidence that does not exist yet.
+
+Steps 1 to 3 stand without it and are what such a format would carry. Two of their outputs are already in the right shape for one: a verb phrase is a predicate over a noun the term arm has matched to a published concept, and a call is a relation between a declared type and a coordinate a registry describes. **Neither depends on Java** — both come from the parse, and [the plan for other languages](OTHER_LANGUAGES.md) already keeps `NameForm` and the statistics free of any one grammar.
 
 ## What settles it
 
