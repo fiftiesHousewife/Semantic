@@ -39,6 +39,18 @@ public interface TermIndex {
     int longestTerm();
 
     /**
+     * Whether this index can read the run at all, which is a different answer from publishing no term for it.
+     *
+     * <p>An index keyed by a normalisation abstains where the normalisation cannot be taken: a run of words
+     * the dictionary carries no entry for has no dictionary form and no sense, and the index has not searched
+     * and found nothing, it has been unable to look. A string comparison can always look, so an index keyed by
+     * the words themselves always reads.
+     */
+    default boolean reads(final List<String> words) {
+        return true;
+    }
+
+    /**
      * The concept this source states the named one sits directly beneath, or nothing where it names none.
      *
      * <p>A label rather than a concept, because that is what a taxonomy publishes in the column: OLiA states

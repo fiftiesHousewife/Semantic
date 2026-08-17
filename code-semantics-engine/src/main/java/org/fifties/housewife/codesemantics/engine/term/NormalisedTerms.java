@@ -74,6 +74,12 @@ public final class NormalisedTerms<K> implements TermIndex {
         return published.longestTerm();
     }
 
+    /** Whether the normalisation can be taken at all, which is not the same as finding no term. */
+    @Override
+    public boolean reads(final List<String> words) {
+        return normalisation.of(words).isPresent();
+    }
+
     @Override
     public String source() {
         return published.source();

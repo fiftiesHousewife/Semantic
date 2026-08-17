@@ -82,10 +82,23 @@ public final class TermSpans {
     private Optional<TermSpan> spanOf(final List<String> phrase, final int from, final int to) {
         final List<String> run = phrase.subList(from, to).stream()
                 .map(word -> word.toLowerCase(Locale.ROOT)).toList();
-        return rungs.stream()
+        return rungsReading(run).stream()
                 .map(rung -> statedBy(rung, run, from, to))
                 .flatMap(Optional::stream)
                 .findFirst();
+    }
+
+    /**
+     * The rungs up to the first that cannot read the run, which is where the ladder stops.
+     *
+     * <p>A rung that abstains has not searched and found nothing — it could not look, and a broader rung must
+     * not answer in its place. WordNet carries no dictionary form for {@code id}, so the rung that compares
+     * dictionary forms abstains; letting the rung that compares meanings answer anyway is how a name written
+     * {@code id} reaches a term spelled {@code ids} through the psychoanalytic noun. The narrowest rung that
+     * <em>answers</em> is the one that answers, and a rung that cannot read has not answered.
+     */
+    private List<TermIndex> rungsReading(final List<String> run) {
+        return rungs.stream().takeWhile(rung -> rung.reads(run)).toList();
     }
 
     private static Optional<TermSpan> statedBy(final TermIndex rung, final List<String> run,

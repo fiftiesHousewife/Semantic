@@ -86,6 +86,12 @@ public final class CorroboratedTerms implements TermIndex {
         return published.longestTerm();
     }
 
+    /** Whether the index beneath can read the run at all. The branch rule judges matches, not readability. */
+    @Override
+    public boolean reads(final List<String> words) {
+        return published.reads(words);
+    }
+
     @Override
     public String source() {
         return published.source();

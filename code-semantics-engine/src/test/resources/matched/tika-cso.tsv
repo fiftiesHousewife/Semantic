@@ -14,17 +14,18 @@ detectors	78	1
 print	68	1
 hyperlink	47	1
 parsing	43	1
+gram	44	1
 audio	54	1
 parsed	37	1
 file system	41	2
-java	37	1
 cache	35	1
 email	42	1
 target language	34	2
 ids	25	1
+grams	26	1
+bit rate	27	2
 block length	25	2
 source language	25	2
-bit rate	25	2
 queue	23	1
 descriptor	19	1
 multi threaded	17	2
@@ -113,9 +114,6 @@ printing	2	1
 telephone	2	1
 forms	2	1
 ins	1	1
-mp3variable bit rate	1	3
-embedded jbig2image	1	2
-mp3constant bit rate	1	3
 cached size	1	2
 adder	1	1
 skew angle	1	2

@@ -91,6 +91,6 @@ What is left for the phrase case is morphology rather than a dictionary — a su
 
 | What to try | Why it is the next thing |
 |---|---|
-| **Weigh a match by the rung that found it.** `parse` reaches `parsing` at the lemma rung; `xml` and `html` match at the words rung. `TermRung` already states that a wider rung is a weaker claim, and the reading already records which rung answered every span | it is the one discount already justified by a class in this tree, and it demotes the exact span that carries Tika to the wrong branch |
+| **Weigh a match by the rung that found it, rather than stopping the ladder.** A rung that cannot read a run now stops the ladder, so `id`, `ns`, `cs`, `io` and `ct` reach nothing. That is a gate; the doctrine wants a weight, and `io` is a package Apache Tika names twice over | the derived weight is the share of the source's terms a rung keeps as distinct normal forms, which `NormalisedTerms.normalForms` already counts. Carrying it needs `TaxonomyTree` to hold mass rather than a count of spans |
 | **An initialism a repository never meant.** `ids` is CSO's intrusion detection system and 803 spans of Apache Tika | this is `CitedTokens.NONE`, which [CLAUDE.md](../../CLAUDE.md) already holds open, seen from the other side |
 | **Draw the null.** Change 3 above, still not done | without it neither answer above can be told from what any Java repository would produce |
