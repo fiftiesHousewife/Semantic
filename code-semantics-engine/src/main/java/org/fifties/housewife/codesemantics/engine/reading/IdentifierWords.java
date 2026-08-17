@@ -16,11 +16,17 @@ import org.fifties.housewife.codesemantics.name.WordSegmenter;
  * <p>The segmenter is given the bundled dictionary through {@link DictionaryWords}, so a run the dictionary
  * carries as one word is never divided into pieces the frequency list happens to be shorter than.
  *
- * <p>Two rules live here that {@link Tokeniser} does not carry, and both are grammar rather than vocabulary.
+ * <p>Three rules live here that {@link Tokeniser} does not carry, and all are grammar rather than vocabulary.
  * The dot and the dollar are separators, which matters for a dependency an author named in full, where
  * {@code net.sf.extjwnl.data} is four words and not one unreadable token. And a run of capitals ends one word
  * before the last of them, which is the rule whose absence the self-reading kept finding in its own tail:
  * {@code carriesAPrefix} was reading as carries / aprefix and {@code JWNLException} as jwnlexception.
+ *
+ * <p><b>A space is a separator.</b> A declared name cannot hold one, but a published taxonomy's label is
+ * written in English and most of them do — the Computer Science Ontology states
+ * {@code natural language processing}. Split at its spaces that label is three words, which is what
+ * {@code naturalLanguageProcessing} reads as, so the two sides meet. Held whole it is one token no declared
+ * name can equal.
  *
  * <p>They are added alongside the ported tokeniser and not inside it. That class is shared with the project
  * this library's evidence machinery came from, where it reads schema identifiers, and a widening measured
@@ -36,7 +42,7 @@ import org.fifties.housewife.codesemantics.name.WordSegmenter;
  */
 public final class IdentifierWords {
 
-    private static final Pattern QUALIFIER = Pattern.compile("[.$]");
+    private static final Pattern SEPARATOR = Pattern.compile("[.$\\s]+");
 
     /**
      * The boundary at the end of a run of capitals: the last capital of the run begins the next word.
@@ -59,7 +65,7 @@ public final class IdentifierWords {
     public IdentifierReading of(final String identifier) {
         final List<String> words = new ArrayList<>();
         int gluedRunsRead = 0;
-        for (final String qualified : QUALIFIER.split(identifier, -1)) {
+        for (final String qualified : SEPARATOR.split(identifier, -1)) {
             for (final String run : ACRONYM_RUN.split(qualified, -1)) {
                 for (final String token : Tokeniser.tokenise(run)) {
                     final List<String> pieces = segmenter.segment(token).orElse(List.of());

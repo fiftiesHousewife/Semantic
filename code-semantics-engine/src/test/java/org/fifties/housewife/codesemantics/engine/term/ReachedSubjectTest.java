@@ -65,9 +65,23 @@ class ReachedSubjectTest {
         final int concepts = written.size();
         final int occurrences = written.values().stream().mapToInt(Integer::intValue).sum();
         System.out.printf("%n%s — %d concepts written, %d occurrences%n", fixture, concepts, occurrences);
+        dropped(fixture);
         rank("reached", ranked, concepts, occurrences);
         rank("target, and where each stands", ranked.stream()
                 .filter(branch -> target.contains(branch.concept())).toList(), concepts, occurrences);
+    }
+
+    private static void dropped(final String fixture) {
+        final Map<String, Integer> reached = MATCHED.conceptsPerRun(fixture);
+        final Map<String, Integer> raw = MATCHED.writtenByConcept(fixture);
+        final Map<String, Integer> pooled = POOLED.writtenUnder(raw, CSO.concepts());
+        System.out.printf("%n  %d runs recorded, %d reach a concept, %d reach more than one,"
+                        + " %d concepts before pooling, %d after%n",
+                reached.size(), reached.values().stream().filter(count -> count > 0).count(),
+                reached.values().stream().filter(count -> count > 1).count(), raw.size(), pooled.size());
+        System.out.printf("  reaching no concept: %s%n", MATCHED.unresolvedIn(fixture));
+        System.out.printf("  reaching several: %s%n", reached.entrySet().stream()
+                .filter(run -> run.getValue() > 1).toList());
     }
 
     private static void rank(final String heading, final List<WrittenSubtree> ranked, final int concepts,
@@ -102,7 +116,7 @@ class ReachedSubjectTest {
 
         assertAll(
                 () -> assertThat(ranked.getFirst().concept()).isEqualTo("natural language"),
-                () -> assertThat(ranked.getFirst().conceptsWritten()).isEqualTo(6));
+                () -> assertThat(ranked.getFirst().conceptsWritten()).isEqualTo(11));
     }
 
     @Test

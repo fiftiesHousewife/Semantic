@@ -1,29 +1,33 @@
 # Concepts this repository declares of the Computer Science Ontology, as the corroborated term reading
 # found them. Saved beside Tika's so the branch scoring can be goal-sought against two known repositories
 # without re-reading either tree: the matches are an input to that work, not part of it.
-# Columns: term, occurrences.
-ontology	38
-parsing	20
-part of speech	21
-semantics	15
-synsets	13
-descriptor	23
-descriptors	23
-parsing	10
-ontologies	8
-parsing	5
-descriptor	7
-descriptors	7
-hypertext markup language	5
-ontology	4
-ontologies	4
-xml	3
-servers	3
-descriptor	2
-rdf	2
-libraries	2
-fault-tolerance	1
-computer science	1
-word sense	1
-reasoning	1
-part of speech	1
+# Columns: term, occurrences, words.
+ontology	38	1
+vocabulary	41	1
+parse	20	1
+part of speech	21	3
+semantics	15	1
+form	24	1
+synset	13	1
+parsed	10	1
+ontologies	8	1
+parses	5	1
+forms	7	1
+html	5	1
+ontologys	4	1
+style sheet	3	2
+xml	3	1
+library	3	1
+rdf	2	1
+descriptor	2	1
+query language	2	2
+linguistic terms	2	2
+parsing	1	1
+error tolerance	1	2
+handing over	1	2
+scope size	1	2
+computer science	1	2
+word sense	1	2
+reasoning	1	1
+word class	1	2
+value function	1	2

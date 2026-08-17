@@ -49,6 +49,22 @@ final class MatchedFixture {
         return written;
     }
 
+    /** What the file records as matched that reaches no concept of the taxonomy, most-written first. */
+    List<String> unresolvedIn(final String resource) {
+        return rowsIn(resource).stream()
+                .filter(row -> conceptsOf(row.term()).isEmpty())
+                .sorted(java.util.Comparator.comparingInt(Row::occurrences).reversed())
+                .map(row -> row.term() + " " + row.occurrences())
+                .toList();
+    }
+
+    /** How many concepts each run reaches, which is where one run standing for several shows up. */
+    Map<String, Integer> conceptsPerRun(final String resource) {
+        final Map<String, Integer> reached = new java.util.LinkedHashMap<>();
+        rowsIn(resource).forEach(row -> reached.put(row.term(), conceptsOf(row.term()).size()));
+        return reached;
+    }
+
     /** The narrowest rung that answers is the one that answers, which is the order the reading asks in. */
     private List<SkosConcept> conceptsOf(final String term) {
         final List<String> run = words.of(term).words();

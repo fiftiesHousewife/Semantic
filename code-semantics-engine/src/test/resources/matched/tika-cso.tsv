@@ -3,93 +3,166 @@
 # tree each time: the matches are an input to that work, not part of it.
 # Columns: term, occurrences, words.
 parse	666	1
-id	778	1
 xml	354	1
 html	264	1
-detector	181	1
+detector	180	1
 server	165	1
-hash	124	1
 http	117	1
+hash	120	1
 encoding	118	1
-ns	82	1
-cs	80	1
 detectors	78	1
 print	68	1
 hyperlink	47	1
 parsing	43	1
-cache	41	1
+audio	54	1
 parsed	37	1
 file system	41	2
 java	37	1
+cache	35	1
 email	42	1
 target language	34	2
 ids	25	1
+block length	25	2
 source language	25	2
+bit rate	25	2
+queue	23	1
 descriptor	19	1
 multi threaded	17	2
-cached	16	1
+test set	19	2
+queue size	16	2
+private key	18	2
+cached	15	1
 hyperlinks	15	1
-io	14	1
 nlp	13	1
+data package	14	2
 caching	12	1
 engine	16	1
 probabilities	12	1
 form	20	1
-encryption	12	1
 layer	14	1
+encryption	11	1
 phone	13	1
-self configuring	9	2
 classifier	9	1
 encodings	9	1
+self configuring	9	2
+secret key	9	2
+intermediate node	8	2
 authentication	8	1
 hashes	7	1
 decoding	7	1
 back off	9	2
+extract info	6	2
+shared secret	6	2
 cpu	6	1
 hashed	5	1
 multiplier	5	1
-ct	5	1
+dublin core	5	2
+cache size	5	2
+named entity	5	2
 servers	5	1
 mem	4	1
+regression test	4	2
+name entity	4	2
+name entities	4	2
+data stream	4	2
 emails	4	1
+image quality	4	2
 probability	4	1
+process control	4	2
 decoder	3	1
+hash values	3	2
+variable bit rate	3	3
 transformer	3	1
+embedded images	3	2
+embedded image	3	2
+test vector	3	2
+audio file	3	2
 internet	4	1
+linear model	3	2
+access permission	3	2
 ruby	3	1
-software	4	1
 source code	3	2
+test result	3	2
+test put	3	2
 statistics	3	1
 boost	3	1
-parses	2	1
-multi threading	2	2
+software	3	1
 decodings	2	1
+parses	2	1
+naive bayes	2	2
+multi threading	2	2
 https	2	1
 css	2	1
+access permissions	2	2
+priority queue	2	2
 gui	2	1
 statistic	2	1
+feature extraction	2	2
+compression ratio	2	2
+compression method	2	2
+ip address	2	2
 client server	2	2
+feature settings	2	2
 tag end	2	2
 math	2	1
 word processing	2	2
-vocabulary	2	1
 linux	2	1
+service class	2	2
+character set	2	2
 printing	2	1
 telephone	2	1
 forms	2	1
 ins	1	1
+mp3variable bit rate	1	3
+embedded jbig2image	1	2
+mp3constant bit rate	1	3
+cached size	1	2
 adder	1	1
+skew angle	1	2
 dialog	1	1
+ontology concept	1	2
+zero padded	1	2
 mat lab	1	2
 cad	1	1
-ontology	1	1
+referenced images	1	2
+info contents	1	2
+encrypted data	1	2
+controlled vocabulary	1	2
+hash value	1	2
+entropy rate	1	2
+encryption key	1	2
+info confidence	1	2
+detector data	1	2
+local detector	1	2
 data encryption	1	2
-semantics	1	1
+data cache	1	2
+audio stream	1	2
+visual representation	1	2
+block boundaries	1	2
+feature vector	1	2
+class label	1	2
 scale factor	1	2
+text document	1	2
+software agent	1	2
+message delivery	1	2
+object location	1	2
+structure element	1	2
+data detection	1	2
+text message	1	2
+text feature	1	2
 robots	1	1
+target languages	1	2
+vocabulary	1	1
+digital image	1	2
+release date	1	2
 automation	1	1
 word class	1	2
-android	1	1
+single image	1	2
+model test	1	2
+type class	1	2
+text data	1	2
+language model	1	2
 gps	1	1
+classification	1	1
 printed	1	1
 on body	1	2
