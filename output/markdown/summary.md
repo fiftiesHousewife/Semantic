@@ -6,8 +6,8 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 96,715 |
-| Files | 504 |
+| Word occurrences read | 97,437 |
+| Files | 505 |
 | Prose share of those occurrences | 76% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
 | Evidence resolving to no subject | 76.1% |
@@ -19,9 +19,9 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 | Level | Nearest subject | Divergence | Chance reaches | |
 |---|---|--:|--:|---|
 | Archive | **Computer Science** | 34.5% | 41.3% | apart from chance |
-| Category | **Computation and Language** | 40.3% | 45.1% | apart from chance |
+| Category | **Computation and Language** | 40.2% | 45.2% | apart from chance |
 
-A divergence is written as the share of its own maximum it holds: 0% is two readings that are identical, 100% two sharing no subject at all. The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 49.2%.
+A divergence is written as the share of its own maximum it holds: 0% is two readings that are identical, 100% two sharing no subject at all. The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 49.3%.
 
 ## What it is about
 
@@ -34,9 +34,9 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 | Scope | Divergence from the repository | Writes more of |
 |---|--:|---|
 | `code-semantics-api/src/test/java` | 20.6% | `linguistics` |
-| `lexicon/src/test/java` | 13.7% | `linguistics` |
+| `lexicon/src/test/java` | 13.6% | `linguistics` |
 | `code-semantics-engine/src/main/java` | 3.4% | `linguistics` |
 
 ## Withheld
 
-- `documentation` — 24.0% of the maximum divergence, and 964 of 999 chance draws stood at least as far
+- `documentation` — 23.9% of the maximum divergence, and 962 of 999 chance draws stood at least as far
