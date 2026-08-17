@@ -16,7 +16,7 @@ spread, to be read beside how many words touched the topic at all.
 | `computing` | 0.0131 | 311 | 41.0 | 0.021 | `repository` 7.5% |
 | `mathematics` | 0.0119 | 133 | 8.8 | 0.107 | `from` 28.5% |
 | `telecommunication` | 0.0119 | 18 | 2.0 | 0.479 | `file` 65.1% |
-| `law` | 0.0093 | 235 | 19.9 | 0.046 | `file` 11.3% |
+| `law` | 0.0093 | 235 | 19.8 | 0.046 | `file` 11.3% |
 | `plants` | 0.0080 | 11 | 2.3 | 0.389 | `root` 55.2% |
 | `grammar` | 0.0079 | 98 | 7.7 | 0.120 | `phrase` 21.3% |
 | `literature` | 0.0059 | 36 | 5.5 | 0.158 | `header` 34.6% |
@@ -24,7 +24,7 @@ spread, to be read beside how many words touched the topic at all.
 | `geography` | 0.0053 | 31 | 4.5 | 0.198 | `state` 43.0% |
 | `physics` | 0.0042 | 66 | 3.0 | 0.324 | `mass` 49.3% |
 | `electronics` | 0.0042 | 44 | 1.3 | 0.751 | `tsv` 86.7% |
-| `chemistry` | 0.0042 | 76 | 6.4 | 0.145 | `extraction` 32.9% |
+| `chemistry` | 0.0042 | 76 | 6.4 | 0.146 | `extraction` 33.0% |
 | `politics` | 0.0031 | 47 | 3.1 | 0.312 | `vote` 51.0% |
 | `military` | 0.0030 | 118 | 6.4 | 0.149 | `repository` 24.7% |
 | `programming` | 0.0025 | 137 | 22.0 | 0.039 | `evaluation` 10.5% |

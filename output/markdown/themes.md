@@ -30,10 +30,10 @@ Only the topics that **earned a place**: a topic reaches this table where it mak
 
 | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
 |---|--:|--:|--:|--:|--:|--:|---|
-| `linguistics` | 0.0510 | 80.4% | 4,314 | 156 | 12,701 | 33.8% | `word` 32.1% (1,550) `name` 15.7% (713) `term` 12.7% (365) `parse` 4.9% (149) |
+| `linguistics` | 0.0510 | 80.4% | 4,314 | 156 | 12,697 | 33.8% | `word` 32.1% (1,550) `name` 15.7% (713) `term` 12.7% (365) `parse` 4.9% (149) |
 | `computing` | 0.0131 | 81.6% | 6,480 | 26 | 1,555 | 4.1% | `repository` 7.5% (485) `folder` 4.5% (33) `read` 4.5% (876) `dictionary` 4.1% (230) |
 
-Read over 505 files and 37,583 lines: 467 topics, 1 files no topic could be resolved for, and 33.8% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 23.9% of it; the other 76.1% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
+Read over 505 files and 37,579 lines: 467 topics, 1 files no topic could be resolved for, and 33.8% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 23.9% of it; the other 76.1% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
 
 ## What distinguishes each scope from the repository
 
@@ -53,7 +53,7 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 7.6% | `publishing` | 0.0171 | 0.0691 | under | `publish` 25.9% (343) `read` 12.8% (171) `write` 12.2% (730) `vocabulary` 9.9% (186) |
 | 7.4% | `plants` | 0.0018 | 0.0320 | under | `root` 55.2% (164) `tree` 37.0% (198) `seed` 5.1% (38) `leaf` 1.9% (31) |
 | 5.5% | `physics` | 0.0665 | 0.0213 | **over** | `mass` 49.3% (150) `weight` 29.4% (73) `length` 5.7% (74) `radius` 3.2% (3) |
-| 4.9% | `time_period` | 0.0292 | 0.0040 | **over** | `span` 46.3% (19) `none` 24.4% (9) `long` 5.4% (27) `even` 4.9% (4) |
+| 4.9% | `time_period` | 0.0292 | 0.0040 | **over** | `span` 46.4% (19) `none` 24.4% (9) `long` 5.4% (27) `even` 4.9% (3) |
 | 3.8% | `lexicography` | 0.0349 | 0.0087 | **over** | `citation` 85.6% (97) `sense` 10.8% (323) `gloss` 1.7% (2) `lemma` 1.3% (81) |
 | 3.6% | `electronics` | 0.0008 | 0.0150 | under | `tsv` 86.7% (38) `field` 6.5% (207) `headroom` 3.1% (2) `bar` 1.2% (103) |
 | 2.7% | `astrology` | 0.0000 | 0.0088 | under | `placement` 95.5% (107) `term` 1.5% (376) `figure` 1.2% (111) `descendant` 1.1% (7) |
@@ -80,10 +80,10 @@ The two share columns below are shares of the mass a topic was settled on, where
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
 | 14.5% | `electronics` | 0.0012 | 0.0150 | under | `tsv` 86.7% (38) `field` 6.5% (207) `headroom` 3.1% (2) `bar` 1.2% (103) |
-| 11.6% | `chemistry` | 0.0019 | 0.0144 | under | `extraction` 32.9% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
+| 11.6% | `chemistry` | 0.0019 | 0.0144 | under | `extraction` 33.0% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
 | 6.8% | `psychology` | 0.0015 | 0.0095 | under | `module` 80.7% (76) `confidence` 5.9% (20) `know` 3.7% (79) `test` 3.5% (246) |
 | 5.1% | `animals` | 0.0004 | 0.0051 | under | `nest` 60.6% (29) `owl` 25.8% (22) `head` 7.3% (14) `posterior` 3.2% (6) |
-| 3.5% | `calculus` | 0.0137 | 0.0058 | **over** | `divergence` 100.0% (167) |
+| 3.5% | `calculus` | 0.0137 | 0.0058 | **over** | `divergence` 100.0% (166) |
 | 2.5% | `literature` | 0.0135 | 0.0227 | under | `header` 34.6% (82) `write` 16.7% (729) `text` 12.1% (85) `prose` 8.2% (126) |
 | 2.5% | `grammar` | 0.0423 | 0.0294 | **over** | `phrase` 21.3% (152) `occurrence` 17.1% (196) `part_of_speech` 15.5% (40) `verb` 13.5% (79) |
 | 2.2% | `information-science` | 0.0011 | 0.0042 | under | `synset` 71.5% (29) `document` 22.2% (78) `ontology` 5.7% (121) `align` 0.4% (1) |
@@ -124,7 +124,7 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 | Share of the divergence | Topic | In scope | In repository | | Carried by |
 |--:|---|--:|--:|---|---|
-| 20.6% | `chemistry` | 0.1468 | 0.0144 | **over** | `extraction` 32.9% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
+| 20.6% | `chemistry` | 0.1468 | 0.0144 | **over** | `extraction` 33.0% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
 | 16.6% | `electronics` | 0.1281 | 0.0150 | **over** | `tsv` 86.7% (38) `field` 6.5% (207) `headroom` 3.1% (2) `bar` 1.2% (103) |
 | 5.4% | `linguistics` | 0.1019 | 0.2017 | under | `word` 32.1% (1,550) `name` 15.7% (713) `term` 12.7% (365) `parse` 4.9% (149) |
 | 3.9% | `physics` | 0.0008 | 0.0213 | under | `mass` 49.3% (150) `weight` 29.4% (73) `length` 5.7% (74) `radius` 3.2% (3) |
@@ -159,12 +159,12 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 5.8% | `linguistics` | 0.3064 | 0.2017 | **over** | `word` 32.1% (1,550) `name` 15.7% (713) `term` 12.7% (365) `parse` 4.9% (149) |
 | 5.4% | `electronics` | 0.0000 | 0.0150 | under | `tsv` 86.7% (38) `field` 6.5% (207) `headroom` 3.1% (2) `bar` 1.2% (103) |
 | 3.2% | `astrology` | 0.0000 | 0.0088 | under | `placement` 95.5% (107) `term` 1.5% (376) `figure` 1.2% (111) `descendant` 1.1% (7) |
-| 2.5% | `chemistry` | 0.0024 | 0.0144 | under | `extraction` 32.9% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
+| 2.5% | `chemistry` | 0.0024 | 0.0144 | under | `extraction` 33.0% (56) `fraction` 14.5% (13) `extract` 10.0% (7) `test` 8.2% (246) |
 | 2.4% | `administration` | 0.0001 | 0.0071 | under | `branch` 68.7% (144) `title` 12.4% (16) `foreign` 9.8% (12) `resolution` 3.3% (12) |
-| 2.1% | `calculus` | 0.0000 | 0.0058 | under | `divergence` 100.0% (167) |
+| 2.1% | `calculus` | 0.0000 | 0.0058 | under | `divergence` 100.0% (166) |
 
 ### `documentation`
 
 **23.9%** of the maximum divergence from the repository, against a null median of 34.7% over 999 resamples of the same size — an excess of -10.7 points, and 962 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
-Read, compared and resampled in 8.8 s, recorded rather than estimated.
+Read, compared and resampled in 8.5 s, recorded rather than estimated.
