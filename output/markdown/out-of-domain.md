@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1198 | 124.53 | 111 | 332 | 7 |
-| FIBO | 1833 | 233 | 24.22 | 22 | 113 | 0 |
+| OLiA | 1312 | 1209 | 125.19 | 112 | 340 | 7 |
+| FIBO | 1833 | 232 | 24.02 | 22 | 113 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -24,8 +24,8 @@ declares in some other sense.
 | `occurrence` | 36 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java:47 |
 | `claim` | 18 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ChosenWord.java:23 |
 | `mean` | 16 | Mean | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/WrittenByDepth.java:62 |
-| `catalog` | 11 | Catalog | lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/NistCsfExtraction.java:45 |
 | `method` | 14 | Method | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolKind.java:7 |
+| `catalog` | 10 | Catalog | lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/NistCsfExtraction.java:42 |
 | `means` | 10 | Mean | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/OfferedWordsTest.java:95 |
 | `median` | 7 | Median | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FieldOfStudy.java:84 |
 | `methods` | 7 | Method | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ClassFileMethods.java:20 |
