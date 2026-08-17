@@ -7,7 +7,7 @@ A Java library that states what subject matter a source repository is concerned 
 It works in the terms of lexical semantics and information theory, and expects no prior knowledge of either. The [glossary](docs/GLOSSARY.md) defines every term it uses — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
 
 - **Takes** — a directory of Java source. No clone, no build, no type resolution, no network.
-- **Gives** — one export per run, [`reading.json`](output/json/reading.json): the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare. A run also writes `themes.json`, which is not part of the export — it is the graph the themes viewer draws from, and [where it belongs is an open question](BACKLOG.md).
+- **Gives** — one export per run, [`reading.json`](output/json/reading.json): the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare. A run also writes `themes.json`, the graph the themes viewer draws from.
 - **Decides by** — published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here.
 - **Run** — `./gradlew read`, then read the [summary](output/markdown/summary.md).
 
@@ -38,7 +38,7 @@ The measure is the [Jensen–Shannon divergence](#references), and it has three 
 - **100%** — they share nothing: every subject one writes, the other never writes.
 - **The maximum follows from the definition** under base-2 logarithms — one bit — so the percentage is a share of a bound nobody chose, and no figure here needs a scale explained beside it.
 
-That last property is why this measure and not another. [Kullback–Leibler divergence](#references) answers a similar question and is unbounded above, so 4.2 of it means nothing without knowing what the maximum was — and there is no maximum.
+That last property is the reason for choosing this measure. [Kullback–Leibler divergence](#references) answers a similar question and is unbounded above, so 4.2 of it means nothing without knowing what the maximum was — and there is no maximum.
 
 **Which way is close.** A **small** percentage is high overlap: the two readings are about the same subjects at about the same rates. A **large** one is low overlap, and 100% is no subject in common. So `code-semantics-engine/src/main/java` at 3.9% writes very nearly what the whole repository writes, and `documentation` at 24.0% writes something noticeably different.
 
@@ -72,7 +72,7 @@ Each topic's own term of that sum is reported separately, which is what says *wh
 
 **They decide which source sets are signal.** Every source set's distribution differs somewhat from the whole repository's, so a table of distances alone would report every one of them as if it meant something. The resamples say which of those distances a random group of files of that size would have produced anyway — and a source set whose distance chance reaches has its topics withheld rather than ranked.
 
-The problem is size. A small source set produces a large distance by accident: read 4 files and they will look unlike the other 447 whatever is in them. A distance is therefore uninterpretable until it is read against the distances a group of *that size* reaches by chance, which is a different bar for each source set and is why one is built per source set rather than one for the repository.
+The problem is size. A small source set produces a large distance by accident: read 4 files and they will look unlike the other 447 whatever is in them. A distance is therefore uninterpretable until it is read against the distances a group of *that size* reaches by chance, so a null distribution is built per source set.
 
 So the reading builds the distribution of differences chance alone produces, and asks where the real one falls in it:
 
@@ -90,17 +90,17 @@ So the reading builds the distribution of differences chance alone produces, and
 | `code-semantics-engine/src/main/java` | 3.9% | 0 of 999 | kept — its topics are ranked |
 | `documentation` | 24.0% | 972 of 999 | discarded — nothing is ranked for it |
 
-`documentation` stands six times further from the repository than the engine's main source set and is the one discarded, because it is small: 972 of the 999 random groups of that many files reached at least as far, so chance explains the whole of its distance. The engine's main source set is the largest in the tree, and a random group of that many files never once reached 3.9%. **Distance alone is not evidence. Distance a random group of that size does not reach is.**
+`documentation` stands six times further from the repository than the engine's main source set and is the one discarded, because it is small: 972 of the 999 random groups of that many files reached at least as far, so chance explains the whole of its distance. The engine's main source set is the largest in the tree, and a random group of that many files never once reached 3.9%. **Evidence is distance a random group of that size does not reach.**
 
 Kept on this reading: `code-semantics-api/src/test/java`, `lexicon/src/test/java` and `code-semantics-engine/src/main/java`. Discarded: `documentation`.
 
-Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile is what keeps the whole table honest. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
+Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile holds the family-wise error at the stated level. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
-**What the test decides is what gets reported, not what gets read.** A source set inside its own null is read in full and contributes to the repository's distribution exactly as any other does; what it does not get is a ranking of its own topics, because the ranking would be of noise. Failures are named: every source set that did not pass is printed with its figure and how many of the 999 draws beat it, at the end of [the summary](output/markdown/summary.md).
+**The test decides only what is reported.** A source set inside its own null is read in full and contributes to the repository's distribution exactly as any other does; what it does not get is a ranking of its own topics, because the ranking would be of noise. Failures are named: every source set that did not pass is printed with its figure and how many of the 999 draws beat it, at the end of [the summary](output/markdown/summary.md).
 
 ## The export
 
-Every run writes [`output/json/reading.json`](output/json/reading.json). It carries the result and the evidence for it, so a consumer needs no HTML, no markdown and no second run.
+Every run writes [`reading.json`](output/json/reading.json). It carries the result and the evidence for it, so a consumer needs no HTML, no markdown and no second run.
 
 | Section | Holds | One entry per |
 |---|---|---|
@@ -110,7 +110,7 @@ Every run writes [`output/json/reading.json`](output/json/reading.json). It carr
 | `taxonomies` | the published concepts the repository's names match, and the branches those concepts sit under | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
-**`taxonomies` holds one entry per vocabulary, not one per run.** A run matches the bundled term taxonomy and every unbundled one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
+**`taxonomies` holds one entry per vocabulary matched.** A run matches the bundled term taxonomy and every unbundled one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
 
 ```java
 ReadingExport export = new ExportedReading().of(reading, commit,
@@ -137,7 +137,7 @@ OLiA's answer is that this repository writes about grammar, which is true and is
 
 That is the granularity a subject scheme cannot reach. CSO states `document processing`, `document image analysis`, `character recognition` and `character sets` as topics in their own right, because it classifies what a piece of computer science is *about* rather than which journal would take the paper.
 
-**Figures move every run.** They are a reading of a named commit, not a property of the code; `./gradlew read` regenerates them and the reports under [`output/`](output) hold the current ones.
+**Figures move every run.** They are a reading of the named commit; `./gradlew read` regenerates them, and [the committed reports](output) hold the current ones.
 
 ### Reading it
 
@@ -198,13 +198,13 @@ One signal, in full:
 
 `divergenceBits` is this word's term of the [Jensen–Shannon divergence](#references) between the repository's word distribution and the reference's, bounded at 1 bit. `closestReference` names the reference scoring the word lowest, which is the score reported: `get` scores high against ordinary English and low against the Java platform's own API, so the platform is its closest reference. Each reference's threshold comes from that reference's own [permutation null](#references), so the number of rows follows from the repository's size.
 
-Words English supplies inside a name are scored, ranked and left out of `signals`. `massByTopic` is a name about mass and about topics, and `by` is what the language puts between them: against a frequency list drawn from prose it reads as specialist, because prose is not where a program's prepositions are written. Two bundled resources place such a word between them — WordNet carries no noun, verb or adjective entry for it, and the frequency list carries it as a word English is written in — and [the vocabulary report](output/markdown/vocabulary.md) prints it under its own heading with the rank it earned.
+Words English supplies inside a name are scored, ranked and left out of `signals`. `massByTopic` is a name about mass and about topics, and `by` is what the language puts between them: against a frequency list drawn from prose it reads as specialist, because prose is not where a program's prepositions are written. Two bundled resources place such a word between them — WordNet carries no noun, verb or adjective entry for it, and the frequency list carries it as a word English is written in — and [the vocabulary report](output/markdown/vocabulary.md) prints it under its own heading with its rank.
 
 **Signals only.** A word no resource covers, a match the branch rule discarded and a topic within chance appear in no list, and `setAside` counts each. 261 signals out of 895 words scored is a different claim from 261 out of 8,000, and the counts are what tell the two apart.
 
 ### The schema
 
-[`reading-export.schema.json`](code-semantics-engine/src/main/resources/reading-export.schema.json) states the shape, with a description on every field. It ships inside the published jar at `/reading-export.schema.json`, so a consumer can generate types from it or validate against it.
+[The export's schema](code-semantics-engine/src/main/resources/reading-export.schema.json) states the shape, with a description on every field. It ships inside the published jar at `/reading-export.schema.json`, so a consumer can generate types from it or validate against it.
 
 `ExportFile` validates every document against that schema before writing it, so a run produces a document matching the contract or produces none. `schemaVersion` rises when a field is added, renamed or removed, and `ReadingExportSchemaTest` fails the build on a change the schema does not state.
 
@@ -226,9 +226,9 @@ Words English supplies inside a name are scored, ranked and left out of `signals
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and keeps its reports separate |
 | `./gradlew checkAll` | tests and coverage verification — what [the build](.github/workflows/build.yml) runs on every push and pull request |
 
-The commands that answer a question about one word, one topic or one panel member are in [the appendix](#appendix-diagnostics-and-analysis).
+The commands that answer a question about one word, one topic or one evaluation-set member are in [the appendix](#appendix-diagnostics-and-analysis).
 
-Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, an 80% JaCoCo instruction floor per module.
+Java 25 toolchain, `-Xlint:all -Werror`, Error Prone, an 80% JaCoCo instruction floor per module.
 
 ### What a run tells you
 
@@ -238,7 +238,7 @@ Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, an 80% JaCoCo instruction 
 - [**What each scope is about**](output/markdown/themes.md) — with the words that produced each topic's score, and the line each was written on.
 - [**Where it stands among published subjects**](output/markdown/subjects.md) — the nearest of the 152 subject categories [arXiv](https://arxiv.org/category_taxonomy) publishes to classify scientific papers, from `cs.CL` Computation and Language to `math.AG` Algebraic Geometry. The nearest real category must be nearer than the nearest of a set of categories built by shuffling the real ones.
 - [**Which published taxonomy terms the declared names match**](output/markdown/terms.md) — per normalisation level, and every one-word match discarded for standing alone in its part of the taxonomy (see [corroboration by branch](#matching-against-published-taxonomies)).
-- [**The field drawn as a sunburst**](output/svg/taxonomy-sunburst.svg) — the whole published taxonomy, lit where this repository writes a concept.
+- [**The field drawn as a sunburst**](output/svg/taxonomy-sunburst.svg) — the whole published taxonomy, with the concepts this repository writes marked.
 
 A run writes four pages beside those files: `output/html/index.html` traces the nine steps in order with each step's figures, `taxonomy.html` draws the field as a tree with every concept and its publisher's definition, `evidence.html` lists every match with a link to the line, and `themes-chart.html` carries both charts. **They are pages, so they render in a browser and not on this site** — open them from `output/` after a run. The markdown above and the two SVGs are what renders here.
 
@@ -294,7 +294,7 @@ List<SubjectPlacement.Placement> nearest =
 
 ## Backtesting
 
-Every figure this repository reports about itself is an instrument measuring itself. The taxonomies, the resources and the rules were all chosen while reading this tree, so a reading that works here establishes nothing on its own. A backtest reads a repository the reading was never written for.
+The taxonomies, the resources and the rules were all chosen while reading this tree, so a reading that works here establishes nothing on its own. A backtest reads a repository the reading was never written for.
 
 `./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` fetches each member at the commit the manifest pins; `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` reads them, one report folder per member under `output/`.
 
@@ -324,11 +324,11 @@ Every figure this repository reports about itself is an instrument measuring its
 
 **The category level does not separate the two.** Both repositories' nearest single subject is `cs.CL` Computation and Language, and Tika is the nearer at 39.2% against 39.7%. That is defensible — Tika extracts text and detects languages — and it is exactly why the evaluation set needs a member with no text in its subject matter. A scheme placing a text-extraction toolkit and a linguistics library in one category has not been shown to tell them apart.
 
-**A name repeating its own declared type is the language, not the author.** `Set<String> mimeSet` writes `set` because Java asks for the type on the line. [`DeclaredTypeWords`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads those words off the parse and the matcher refuses a span made only of them: **1,850 spans on Tika**, led by `string` 407, `result` 355, `object` 234, `writer` 175 and `document` 125, against 90 here. The word stays in the name, because dropping one closes a gap between two words the author never wrote next to each other; only the match is refused, and [the term report](output/tika/markdown/terms.md) names every term it removes.
+**A name repeating its own declared type is the language's word.** `Set<String> mimeSet` writes `set` because Java asks for the type on the line. [`DeclaredTypeWords`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads those words off the parse and the matcher refuses a span made only of them: **1,850 spans on Tika**, led by `string` 407, `result` 355, `object` 234, `writer` 175 and `document` 125, against 90 here. The word stays in the name, because dropping one closes a gap between two words the author never wrote next to each other; only the match is refused, and [the term report](output/tika/markdown/terms.md) names every term it removes.
 
 **108 concepts on a text-extraction toolkit is a great many for a vocabulary of linguistic annotation.** Tika reaches 13 of OLiA's 70 root branches against this repository's 12. Tika extracts text and OLiA annotates text, so the two agree about something real — which is the next section's problem.
 
-The whole reading is snapshotted under [`output/tika/`](output/tika): [the summary](output/tika/markdown/summary.md), [what each scope is about](output/tika/markdown/themes.md), [the words it chose](output/tika/markdown/vocabulary.md), [the taxonomy terms it writes](output/tika/markdown/terms.md) and [where it stands among published subjects](output/tika/markdown/subjects.md).
+The whole reading is snapshotted under [the Tika report folder](output/tika): [the summary](output/tika/markdown/summary.md), [what each scope is about](output/tika/markdown/themes.md), [the words it chose](output/tika/markdown/vocabulary.md), [the taxonomy terms it writes](output/tika/markdown/terms.md) and [where it stands among published subjects](output/tika/markdown/subjects.md).
 
 ### What one member cannot settle
 
@@ -436,7 +436,7 @@ The second asks the running JDK to describe itself, the same delegation [`Platfo
 | A published taxonomy's terms, matched against declared names | **concepts** — `taxonomies[].concepts` | OLiA, FIBO, CSO | which published concepts it spells |
 | The branches those concepts concentrate in | **subjects** — `taxonomies[].subjects` | the same taxonomy's own hierarchy | what the concepts it spells are about |
 
-The fourth exists because the third has a hard limit: **a term match can only find a concept whose name the code writes.** Apache Tika does document processing and never declares an identifier reading *document processing*, so that concept is unreachable to the matcher while `xml`, `html`, `css` and `hyperlink` — which it does declare — all sit beneath it. Walking to the branch is how a reading reaches what a repository is about rather than what it happened to spell. **It is built and it does not work yet**: on Tika it reaches *network protocols* rather than *document processing*, because the score rewards branch size and Tika's matched leaves are dominated by generic web terms. [The backlog](BACKLOG.md) carries what is wrong with it.
+The fourth exists because the third has a hard limit: **a term match can only find a concept whose name the code writes.** Apache Tika does document processing and never declares an identifier reading *document processing*, so that concept is unreachable to the matcher while `xml`, `html`, `css` and `hyperlink` — which it does declare — all sit beneath it. Walking to the branch is how a reading reaches what a repository is about rather than what it happened to spell. **The walk does not work yet**: on Tika it reaches *network protocols* where its stated domain is *document processing*, because the score rewards branch size and Tika's matched leaves are dominated by generic web terms.
 
 **Three kinds, and the difference decides what a reading can tell you.** Two of them are the same *shape* — prose per concept, compared as a distribution — and answer different questions; the third has no prose and can only be matched.
 
@@ -465,7 +465,7 @@ The bundled one is the [arXiv category taxonomy](https://arxiv.org/category_taxo
 - **It classifies research, so commercial software is placed by resemblance to a research field.** Finance and economics take 12 of the 174 rows — Trading and Market Microstructure, Risk Management, Pricing of Securities, Portfolio Management — and a trading system is placed against those.
 - **Whole domains have no category at all**: payments and settlement, ledgers, e-commerce and order management, health records, logistics, telecommunications operations, identity, and deployment tooling. Something is always nearest, and the reading cannot state that the right answer was absent from the list.
 
-[PyPI's 321 `Topic ::` classifiers](https://pypi.org/classifiers/) cover much of what arXiv does not — `Office/Business :: Financial :: Point-Of-Sale`, `Communications :: Telephony`, `System :: Logging` — and a swap is [planned](docs/plans/CLASSIFYING_A_REPOSITORY.md). **It is not a swap of one file for another, and two measurements say why.**
+[PyPI's 321 `Topic ::` classifiers](https://pypi.org/classifiers/) cover much of what arXiv does not — `Office/Business :: Financial :: Point-Of-Sale`, `Communications :: Telephony`, `System :: Logging` — and could replace it. **Two measurements shape the swap.**
 
 - **Trove states no definition for any classifier**, so it cannot be read as a subject scheme at all: this section compares a repository's distribution against a category's *prose*, and there is none. Trove is a term taxonomy of activity names, matched against declared names, which is a different mechanism and a different chunk of the plan.
 - **Half its leaf names are single ordinary words** — 153 of 298, including `System`, `Session`, `Testing`, `Unit`, `General`, `Libraries`, `Filters` and `Analysis`. Every Java repository declares a dozen of them, which is what the corroboration rule below exists to survive.
@@ -476,11 +476,11 @@ What settles the swap is the share of repositories whose stated category has a n
 
 A functional taxonomy names what an organisation does rather than what things in its field are called, so it is compared as a distribution and never matched term by term. The bundled one is the [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework), read from [`nist-csf-functions.tsv`](lexicon/src/main/resources/nist-csf-functions.tsv): six functions, and every category and subcategory NIST files under one of them. [`FunctionPlacement`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java) pools each function's statements and compares them with a scope's own reading.
 
-**Its null is not the subject scheme's, and the difference is the point.** A framework's functions all come from one document in one register, so they share a vocabulary by construction — asking whether their words could have arisen by chance is already answered. [`PermutedAssignment`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PermutedAssignment.java) instead reassigns the framework's own statements to its own functions, each function keeping the number its publisher gave it. Every statement is real and every function keeps its size; only which statements pool together is chance. So a function clears its null only where the *partition* carries something.
+**A framework needs a different null from a subject scheme.** A framework's functions all come from one document in one register, so they share a vocabulary by construction — asking whether their words could have arisen by chance is already answered. [`PermutedAssignment`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PermutedAssignment.java) instead reassigns the framework's own statements to its own functions, each function keeping the number its publisher gave it. Every statement is real and every function keeps its size; only which statements pool together is chance. So a function clears its null only where the *partition* carries something.
 
-**Silence is a correct outcome.** A repository with no security surface should land nowhere, and this one does — [`security-functions.md`](output/markdown/security-functions.md) carries the figures.
+**No function reported is a correct outcome.** A repository with no security surface should land nowhere, and this one does — [the security-functions report](output/markdown/security-functions.md) carries the figures.
 
-**It is compared and never matched because this reading produces only nouns.** A functional taxonomy publishes verb phrases — BIAN states `Manage Enterprise Risk` — and every signal here is a noun an author chose for a thing. Nobody writes `ManageEnterpriseRisk`, and plenty of repositories write `manage` and `risk` in one method signature: the methods are verbs applied to the nouns the term arm already matches, and reading them is what would let a functional taxonomy be matched identifier to identifier like a term taxonomy. [What a repository does, not what it says](docs/plans/WHAT_IT_ACTUALLY_DOES.md) states the steps, the blocker — a term's declaring node does not survive the tally — and what settles it.
+**It is compared and never matched because this reading produces only nouns.** A functional taxonomy publishes verb phrases — BIAN states `Manage Enterprise Risk` — and every signal here is a noun an author chose for a thing. Nobody writes `ManageEnterpriseRisk`, and plenty of repositories write `manage` and `risk` in one method signature: the methods are verbs applied to the nouns the term matching already covers, and reading them is what would let a functional taxonomy be matched identifier to identifier like a term taxonomy.
 
 ### Reading against a taxonomy the published jar does not carry
 
@@ -493,7 +493,7 @@ A source is a candidate long before anything decides to publish it, and a candid
 
 A named file that cannot be read **fails rather than falling back** to the bundled taxonomy: a caller who asked for one taxonomy and silently got another would read the wrong answer without being told.
 
-[`taxonomies/`](taxonomies) holds converted taxonomies that are committed without being bundled. A file under `lexicon/src/main/resources` ships inside the published jar, and no further vocabulary ships until [the extractors](docs/plans/THE_EXTRACTORS.md) are one runner — so a file there is diffable and reproducible without being published. What it still owes is the extraction that would regenerate it from the pinned revision its header names.
+[The unbundled taxonomies](taxonomies) are committed without being bundled. A file under `lexicon/src/main/resources` ships inside the published jar; a file under `taxonomies/` is diffable and reproducible without being published. What it still owes is the extraction that would regenerate it from the pinned revision its header names.
 
 | Taxonomy | Field | Licence |
 |---|---|---|
@@ -517,7 +517,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 **A run is offered to the dictionary whole before its words.** `SenseRuns` asks WordNet for `document processing` first, and falls back to a run of two senses only where the dictionary carries no entry for the pair.
 
-**A level that cannot read a run stops the ladder.** A level that searched and found nothing and a level that could not look are different answers, and only the first is a reason to ask a wider one. WordNet holds no dictionary form for `id` and does hold the psychoanalytic noun, so without this rule a name written `id` reaches a term spelled `ids` — which the Computer Science Ontology states for an intrusion detection system — through a level that had no business answering. **It removes the match rather than weakening it, and weakening it is what the doctrine asks for**; the [backlog](BACKLOG.md) carries the weight this should become and what it costs.
+**A level that cannot read a run stops the ladder.** A level that searched and found nothing and a level that could not look are different answers, and only the first is a reason to ask a wider one. WordNet holds no dictionary form for `id` and does hold the psychoanalytic noun, so without this rule a name written `id` reaches a term spelled `ids` — which the Computer Science Ontology states for an intrusion detection system — through a level that had no business answering. The rule removes the match outright.
 
 **A taxonomy's own labels are read as words.** A declared name cannot hold a space, and a taxonomy written in English is full of them: the Computer Science Ontology states 12,850 of its 14,636 topics as several words. `IdentifierWords` treats a space as a separator alongside the dot and the dollar, so `natural language processing` is three words and `naturalLanguageProcessing` can meet it.
 
@@ -525,7 +525,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb` survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's `AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less likely than one.
 
-**The two bundled term taxonomies** — the functional ones are above, and [`taxonomies/`](taxonomies) holds those read by path:
+**The two bundled term taxonomies** — the functional ones are above, and [the unbundled ones](taxonomies) are read by path:
 
 | Taxonomy | Field | What it tests |
 |---|---|---|
@@ -559,9 +559,9 @@ docs/plans/**
 ## Limitations
 
 - **Java only, for now.** The parse, the platform reference and the declaration rules are all Java's. SQL and TypeScript are the next two languages, and each needs its own parse and its own reference.
-- **A word is resolved from its phrase alone.** The words of one declared name are read together and nothing else votes — not the type the name is declared on, not the class it sits in, not what the rest of the file is about. `citationSource` resolves correctly because `citation` and `source` both carry publishing and neither carries law; a field named `source` on its own gets whatever the dictionary lists, and the surrounding code cannot correct it. Reading Apache Tika is where that shows: `stream` there is read as *geography*, `pipe` as *hydraulics*, and `detector` as *electrotechnology*. In each case the sense a program means is not the sense the resources carry.
+- **A word is resolved from its phrase alone.** The words of one declared name are read together and nothing else contributes evidence — the type the name is declared on, the class it sits in and the rest of the file all play no part. `citationSource` resolves correctly because `citation` and `source` both carry publishing and neither carries law; a field named `source` on its own gets whatever the dictionary lists, and the surrounding code cannot correct it. Reading Apache Tika is where that shows: `stream` there is read as *geography*, `pipe` as *hydraulics*, and `detector` as *electrotechnology*. In each case the sense a program means is not the sense the resources carry.
 - **The domain-label resources cover specialist senses only.** [WordNet Domains](https://wndomains.fbk.eu/) states in its own header that it omits domain-less senses, so a word used in its everyday meaning is either unlabelled — contributing nothing — or labelled with the one specialist sense somebody recorded for it. `log`, `root`, `stub` and `tree` are all read as *plants*, because the timber is a sense a domain resource labels and the file a program appends to is not.
-- **The taxonomies were chosen after examining this codebase**, so the term matching has not yet been shown to discriminate. One out-of-domain repository has been read; a panel of them is what would settle it.
+- **The taxonomies were chosen after examining this codebase**, so the term matching has not yet been shown to discriminate. One out-of-domain repository has been read; an evaluation set of them is what would settle it.
 - **The splitter has known failure cases**, each pinned by a test. The one bundled catalogue that would arbitrate them was measured and rejected: the Wikidata initialism registry lists `THE`, `OF` and `AND` beside the tokens a Java file is made of — `CODE`, `DATA`, `NAME`, `TYPE`, `LIST`, `NODE`, `SIZE`.
 - **A scope is a source-set directory.** That keeps generated output out of the reading with no list of directories to ignore, but a repository laid out any other way reads as having no Java in it, silently.
 
@@ -576,7 +576,7 @@ Each one answers a question the reports raise but do not settle: why a word scor
 | `./gradlew topicCarriers -Ptopics="linguistics"` | every word that produced a topic's score, with its share |
 | `./gradlew abbreviatedTypes` | every declared name that is the initials of its own type, with that type |
 | `./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` | fetches each backtest member at the commit the manifest pins it to |
-| `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` | reads every member of the backtest panel, one report folder per member |
+| `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` | reads every member of the evaluation set, one report folder per member |
 
 ## Appendix: what the reading discarded
 
@@ -587,11 +587,11 @@ Each report names what it did not use, at the end of that report and nowhere els
 | | Reference |
 |---|---|
 | Banking capabilities | [BIAN Service Landscape](https://github.com/bian-official/artefacts), Banking Industry Architecture Network. 319 service domains, Apache-2.0 |
-| Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |
 | Computer science topics | [CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, Knowledge Media Institute, The Open University. 14,636 topics, CC BY 4.0, and no definition for any of them |
+| Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |
 | Jensen–Shannon divergence | Lin, J. (1991), *Divergence measures based on the Shannon entropy*, IEEE Transactions on Information Theory 37(1), 145–151. Bounded at 1 bit under base-2 logarithms |
-| Linguistic annotation terms | [OLiA](https://github.com/acoli-repo/olia), Ontologies of Linguistic Annotation |
 | Kullback–Leibler divergence | Kullback, S. and Leibler, R. A. (1951), *On information and sufficiency*, Annals of Mathematical Statistics 22(1), 79–86. Unbounded above, which is why no figure here is reported in it |
+| Linguistic annotation terms | [OLiA](https://github.com/acoli-repo/olia), Ontologies of Linguistic Annotation |
 | Partitioned security activity | [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework), read from NIST's own OSCAL edition. A US Government work |
 | Permutation test | Good, P. (2005), *Permutation, Parametric and Bootstrap Tests of Hypotheses*, 3rd ed., Springer |
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
