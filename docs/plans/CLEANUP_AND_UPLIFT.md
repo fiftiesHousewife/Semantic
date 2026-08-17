@@ -2,18 +2,27 @@
 
 The remainder of the 2026-08-17 whole-tree review, ordered for attack. What that session already landed: a javadoc compression pass over ~76 files (history narration, quoted measurements and plan references removed; `arm` replaced with control terminology in `FinanceTerms`, `LinguisticTerms`, `FiboTerms`), fifteen defect fixes each with a test written first, a README pass to the written-english rules, and regenerated self and Tika readings from the fixed reader. `cleanTest checkAll` green with all four suites executed; the `pinned` findings run separately and hold.
 
-**Standing instruction: do not regenerate the self reading until the performance work below lands.** A full `./gradlew read` costs ~6 minutes on this tree and ~20 on Tika, almost all of it avoidable rework. The committed figures are a reading of the commit their reports name, which is the convention; regenerate once per reading-behaviour change after the rework is fixed, never per prose edit.
+**The standing instruction is discharged**: the performance work landed at `74dc734` and the reading was regenerated once at that commit. From here, regenerate once per reading-behaviour change, never per prose edit.
 
 ## 1. Performance — first
 
-The diagnostics and the export each build their own reading of the same clone. One `./gradlew read` runs the full pipeline roughly ten times: each diagnostic report lands ~2 minutes apart on Tika, and `readingExport` then reruns everything once more in a fresh JVM, silently.
+**Landed at `043083f` and `74dc734`.** `RepositoryReading` memoises parse, legibility and themes per instance; `TreeReading` memoises the reading, the bundled-vocabulary `CorroboratedReading` and the arXiv `PlacedField` per tree; `SubjectAreas` reads the described and archive subject sets once per JVM; the export runs as `ReadingExportDiagnostic` in the `read` JVM over the shared readings, with `readingExport` kept as the standalone path; `slf4j-simple` is bound on the engine test and extraction classpaths; the four small hot spots (`placeOf`, `asNamesOnly`, `deepest()`, the `ORDINARY_ENGLISH` statics) are fixed.
 
-1. **Share one reading per clone across the diagnostics.** They already share a forked JVM; `TreeReading` on the test side is the stated home for the decision. Expected win: wall clock divided by roughly the number of diagnostics.
-2. **Let the export consume the shared reading** instead of reparsing — or run it in the same JVM. Same fix extended across the task boundary.
-3. **Bind a logger for `read`/`readingExport` and the extraction mains.** Engine logging currently falls to SLF4J's no-operation provider, so the export phase shows nothing for minutes and the extraction mains lost their progress lines when `System.out` was removed. `slf4j-simple` as `runtimeOnly` on the tasks' classpaths.
-4. Smaller, measure before and after: `RankedWordTable.placeOf` calls `ranked.indexOf` per row (quadratic; 3,431 rows on Tika); `WrittenWords.asNamesOnly` replays one `saw()` per occurrence; `StatedDepth.deepest()` re-streams the whole map per call and `share()` calls it per concept; `ThemeReport`'s static `ORDINARY_ENGLISH` initialiser runs a full frequency-list reading in every JVM that loads the class, the export JVM included.
+Measured on this tree: `./gradlew read` fell from 6m13s to 4m25s. The shared pipeline itself is ~13s (parse 1.3s, themes 9.2s, legibility 2.6s), so the assumption that the parse was recomputed per diagnostic explained little here — the remaining minutes are per-class work the sharing cannot reach:
 
-Measurement that settles it: wall-clock of `./gradlew read` on this tree and on the Tika clone at `43cbdae6`, before and after.
+| Class | Cost | What it is |
+|---|--:|---|
+| `ReadingExportDiagnostic` | 125s | Runs first, so it pays the first computation of every shared piece (~30s); the rest is the CSO injected-taxonomy match, the names-population `VocabularyNull`, and the writing |
+| `SecurityFunctionDiagnostic` | 77s | 999 permuted-assignment draws, each re-reading the pooled NIST statements through `SubjectAreas.topicsIn` |
+| `VocabularyReadingDiagnostic` | 31s | Three populations, each with its own `VocabularyNull` resample |
+| `ReachedSubjectTest` | 17s | CSO fixture matching |
+
+Remaining leads, none landed:
+
+1. **The security-function null re-reads unchanged text.** A permutation reassigns statements; the statements themselves never change. Reading each statement once and pooling per draw needs the per-statement raw topic mass to be additive under `TopicDistribution`'s normalisation, and joining statements can create phrase runs across the join, so the figures may move — state the mechanism change and regenerate. Expected: 77s to ~1s.
+2. **The names-population `VocabularyNull` is drawn twice**, once by `VocabularyReadingDiagnostic` and once by the export. A `TreeReading` memo for it saves one draw (~10s).
+3. **The CSO index is built and matched in the export and again in `ReachedSubjectTest`** (different corpora, so only the index build is shareable).
+4. **The Tika measurement is outstanding.** The plan's baseline was ~20 minutes at `43cbdae6`; on a large tree the shared parse and themes dominate, so the win there should be far larger than on this tree. Needs a clone: `git clone --depth 1 https://github.com/apache/tika` fetched at the pinned commit, then `./gradlew read -Dcs.clone.dir=<path>`.
 
 ## 2. Test coverage policy
 
