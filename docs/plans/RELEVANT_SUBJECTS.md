@@ -10,8 +10,8 @@ Walking from the matched leaves to the branch they concentrate in is how a readi
 
 | Repository | Target | Reached | Concepts written below | Share of the repository's writing |
 |---|---|---|--:|--:|
-| This library | language or knowledge representation | **`semantics`** | 8 of 322 | 65.0% |
-| Apache Tika `43cbdae6` | documents, formats or text | **`natural language`** | 6 of 188 | 18.8% |
+| This library | language or knowledge representation | **`semantics`** | 9 of 310 | 53.8% |
+| Apache Tika `43cbdae6` | documents, formats or text | **`natural language`** | 11 of 180 | 22.5% |
 
 `network protocols` is gone from both rankings. This repository's answer is met and the whole top of its ranking is `semantics`, `natural language processing`, `formal languages`, `linguistics`. **Apache Tika's is not met**, and the reason is stated below.
 
@@ -30,7 +30,7 @@ Walking from the matched leaves to the branch they concentrate in is how a readi
 
 ## Why Apache Tika reaches language
 
-`parse` is 748 of Tika's 4,387 spans — a sixth of everything it writes. **CSO states `parsing` beneath computational linguistics, formal languages and natural language processing, and beneath nothing about documents.** There is no document-parsing concept for it to reach. The document branches CSO does publish are almost empty of Tika: `text processing` holds 1 of its concepts and 2 spans, and `document-processing`, `information extraction`, `character recognition` and `text mining` hold none at all.
+`parse` is 748 of Tika's 3,798 spans — a fifth of everything it writes. **CSO states `parsing` beneath computational linguistics, formal languages and natural language processing, and beneath nothing about documents.** There is no document-parsing concept for it to reach. The document branches CSO publishes are no longer empty of it — `information retrieval` holds 7 of its concepts and `text processing` 4 — and none of them holds enough to win.
 
 So the walk is reporting the truth about the leaves it was given. That is the abandon condition stated below, and it names the next piece of work: **which leaves are admitted**, not how they are aggregated. Two are measured and specific:
 
@@ -43,8 +43,8 @@ Re-reading a 2,149-file tree costs five minutes and the matches do not change wh
 
 | File | Holds |
 |---|---|
-| `code-semantics-engine/src/test/resources/matched/tika-cso.tsv` | 91 concepts Apache Tika declares, with occurrences and word counts |
-| `code-semantics-engine/src/test/resources/matched/code-semantics-cso.tsv` | 25 concepts this repository declares |
+| `code-semantics-engine/src/test/resources/matched/tika-cso.tsv` | 162 terms Apache Tika declares, with occurrences and word counts |
+| `code-semantics-engine/src/test/resources/matched/code-semantics-cso.tsv` | 29 terms this repository declares |
 
 They are an **input** to the scoring work and not part of it, so a change to the branch score is a change to one class measured against two fixed inputs in under a second.
 
