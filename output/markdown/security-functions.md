@@ -12,15 +12,15 @@ What is left to ask is whether the partition carries anything.
 
 | Function | Statements | Divergence |
 |---|--:|--:|
-| `PR` PROTECT | 28 | 41.3% |
-| `GV` GOVERN | 38 | 43.8% |
-| `RC` RECOVER | 11 | 45.4% |
-| `ID` IDENTIFY | 25 | 46.7% |
-| `RS` RESPOND | 18 | 47.0% |
-| `DE` DETECT | 14 | 54.5% |
+| `RC` RECOVER | 11 | 49.3% |
+| `RS` RESPOND | 18 | 50.3% |
+| `GV` GOVERN | 38 | 51.0% |
+| `PR` PROTECT | 28 | 54.2% |
+| `DE` DETECT | 14 | 55.8% |
+| `ID` IDENTIFY | 25 | 56.4% |
 
-The nearest function stands **41.3%** of the maximum divergence away, where a chance partition
-of the same statements reaches **38.6%** over 999 draws. This placement **says only that the framework has six functions**.
+The nearest function stands **49.3%** of the maximum divergence away, where a chance partition
+of the same statements reaches **44.1%** over 999 draws. This placement **says only that the framework has six functions**.
 
 A repository with no security surface should land here saying nothing, and saying nothing is
 the correct outcome rather than a failure of the reading.

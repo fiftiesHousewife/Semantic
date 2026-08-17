@@ -6,8 +6,8 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 92,485 |
-| Files | 510 |
+| Word occurrences read | 92,717 |
+| Files | 511 |
 | Prose share of those occurrences | 75% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
 | Evidence resolving to no subject | 76.2% |
@@ -18,8 +18,8 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | Level | Nearest subject | Divergence | Chance reaches | |
 |---|---|--:|--:|---|
-| Archive | **Computer Science** | 34.4% | 41.3% | apart from chance |
-| Category | **Computation and Language** | 40.0% | 45.3% | apart from chance |
+| Archive | **Computer Science** | 34.4% | 41.2% | apart from chance |
+| Category | **Computation and Language** | 39.9% | 45.2% | apart from chance |
 
 A divergence is written as the share of its own maximum it holds: 0% is two readings that are identical, 100% two sharing no subject at all. The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 49.2%.
 
@@ -33,11 +33,11 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 
 | Scope | Divergence from the repository | Writes more of |
 |---|--:|---|
-| `code-semantics-api/src/test/java` | 20.5% | `linguistics` |
+| `code-semantics-api/src/test/java` | 20.4% | `linguistics` |
 | `lexicon/src/main/java` | 19.3% | `linguistics` |
 | `lexicon/src/test/java` | 13.6% | `linguistics` |
 | `code-semantics-engine/src/main/java` | 3.4% | `linguistics` |
 
 ## Withheld
 
-- `documentation` — 23.6% of the maximum divergence, and 968 of 999 chance draws stood at least as far
+- `documentation` — 23.6% of the maximum divergence, and 975 of 999 chance draws stood at least as far

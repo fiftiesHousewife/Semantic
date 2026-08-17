@@ -1,6 +1,6 @@
 # What moved since the last reading
 
-Read at `74dc734b`, against the reading committed at `043083f5`.
+Read at `852fce55`, against the reading committed at `74dc734b`.
 
 Every figure here moves whenever a source file or a markdown file does, because the reading covers this repository's own documentation. So the figures are stated before and after and nothing is called large. What is worth acting on is the second table: each of those names cleared a stated bar in one reading and not in the other.
 
@@ -12,16 +12,20 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Mass settled on no subject | 76.2% | 76.2% |  |
 | Archive — nearest subject | Computer Science | Computer Science |  |
 | Archive — divergence | 34.4% | 34.4% |  |
-| Archive — chance reaches | 41.3% | 41.3% |  |
+| Archive — chance reaches | 41.3% | 41.2% | moved |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 40.0% | 40.0% |  |
-| Category — chance reaches | 45.3% | 45.3% |  |
+| Category — divergence | 40.0% | 39.9% | moved |
+| Category — chance reaches | 45.3% | 45.2% | moved |
 | Category — stands apart from chance | yes | yes |  |
-| Words above the bar | 250 | 250 |  |
+| Words above the bar | 250 | 251 | moved |
 | Topics reported | 4 | 4 |  |
 | Concepts written | 145 | 145 |  |
 
 ## What entered and left
 
-Nothing entered or left. Every topic, word and concept the previous reading reported is reported by this one.
+| Population | Entered | Left |
+|---|---|---|
+| Topics | — | — |
+| Words | `anchor` | — |
+| Concepts | — | — |
