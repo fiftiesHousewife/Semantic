@@ -8,6 +8,7 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
 
 class DrawnVocabularyTest {
 
@@ -29,6 +30,21 @@ class DrawnVocabularyTest {
                 .of(200, new Random(SEED));
 
         assertThat(drawn).isEqualTo(drawnFromReversed);
+    }
+
+    @Test
+    void drawsEachWordAtTheShareTheReferenceStates() {
+        final Map<String, Double> shares = new LinkedHashMap<>();
+        shares.put("mass", 0.5);
+        shares.put("topic", 0.25);
+        shares.put("sense", 0.125);
+        shares.put("share", 0.0625);
+        shares.put("scope", 0.0625);
+
+        final Map<String, Double> drawn = new DrawnVocabulary(shares).of(200_000, new Random(SEED));
+
+        shares.forEach((word, share) ->
+                assertThat(drawn.get(word)).as(word).isCloseTo(share, within(0.01)));
     }
 
     @Test
