@@ -1208,4 +1208,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 2.0% | `tennis` | 0.0000 | 0.0130 | under | `get` 98.2% (4,191) `return` 0.8% (1,431) `server` 0.3% (669) `single` 0.3% (447) |
 | 1.9% | `computer_science` | 0.0037 | 0.0243 | under | `parser` 21.2% (2,583) `byte` 21.0% (2,991) `url` 12.2% (460) `format` 9.7% (613) |
 
-Read, compared and resampled in 68.3 s, recorded rather than estimated.
+Read, compared and resampled in 65.8 s, recorded rather than estimated.
