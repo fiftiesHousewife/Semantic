@@ -18,7 +18,7 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-app/src/test/java` | 4 | 349 | 738 | 1,925 (72.3%) | 2,618 | **0.983** |
 | `tika-bundles/tika-bundle-standard/src/main/java` | 1 | 11 | 24 | 134 (84.8%) | 158 | **1.000** |
 | `tika-bundles/tika-bundle-standard/src/test/java` | 1 | 44 | 84 | 235 (73.7%) | 314 | **0.984** |
-| `tika-core/src/main/java` | 323 | 8,187 | 15,068 | 101,361 (87.1%) | 114,905 | **0.987** |
+| `tika-core/src/main/java` | 323 | 8,183 | 15,063 | 101,361 (87.1%) | 114,901 | **0.987** |
 | `tika-core/src/test/java` | 83 | 3,080 | 6,255 | 18,531 (74.8%) | 24,353 | **0.983** |
 | `tika-detectors/tika-detector-magika/src/main/java` | 1 | 104 | 212 | 315 (59.8%) | 493 | **0.935** |
 | `tika-detectors/tika-detector-magika/src/test/java` | 2 | 19 | 43 | 495 (92.0%) | 516 | **0.959** |
@@ -30,7 +30,7 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-encoding-detectors/tika-encoding-detector-html/src/test/java` | 2 | 129 | 254 | 815 (76.2%) | 1,022 | **0.956** |
 | `tika-encoding-detectors/tika-encoding-detector-icu4j/src/main/java` | 9 | 592 | 1,121 | 4,884 (81.3%) | 5,681 | **0.946** |
 | `tika-encoding-detectors/tika-encoding-detector-icu4j/src/test/java` | 1 | 33 | 62 | 184 (74.8%) | 237 | **0.963** |
-| `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/main/java` | 13 | 900 | 1,425 | 14,010 (90.8%) | 14,569 | **0.944** |
+| `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/main/java` | 13 | 897 | 1,420 | 14,010 (90.8%) | 14,564 | **0.944** |
 | `tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java` | 17 | 742 | 1,484 | 5,325 (78.2%) | 6,378 | **0.937** |
 | `tika-encoding-detectors/tika-encoding-detector-universal/src/main/java` | 2 | 46 | 92 | 400 (81.3%) | 461 | **0.937** |
 | `tika-eval/tika-eval-app/src/main/java` | 31 | 1,611 | 3,318 | 5,679 (63.1%) | 8,856 | **0.984** |
@@ -74,7 +74,7 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-ml/tika-ml-junkdetect/src/main/java` | 6 | 747 | 1,225 | 9,303 (88.4%) | 9,771 | **0.928** |
 | `tika-ml/tika-ml-junkdetect/src/test/java` | 8 | 493 | 973 | 4,064 (80.7%) | 4,764 | **0.946** |
 | `tika-parsers/tika-http-jdk/src/main/java` | 1 | 74 | 146 | 707 (82.9%) | 828 | **0.971** |
-| `tika-parsers/tika-http-jdk/src/test/java` | 2 | 121 | 214 | 790 (78.7%) | 987 | **0.983** |
+| `tika-parsers/tika-http-jdk/src/test/java` | 2 | 113 | 199 | 790 (79.9%) | 972 | **0.983** |
 | `tika-parsers/tika-parsers-extended/tika-parser-ocr-encode-module/src/main/java` | 2 | 114 | 252 | 600 (70.4%) | 848 | **0.995** |
 | `tika-parsers/tika-parsers-extended/tika-parser-ocr-encode-module/src/test/java` | 2 | 134 | 249 | 378 (60.3%) | 617 | **0.984** |
 | `tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/main/java` | 9 | 535 | 1,123 | 2,048 (64.6%) | 3,065 | **0.967** |
@@ -91,7 +91,7 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-parsers/tika-parsers-ml/tika-parser-tess4j-module/src/test/java` | 4 | 161 | 337 | 936 (73.5%) | 1,248 | **0.980** |
 | `tika-parsers/tika-parsers-ml/tika-transcribe-aws/src/main/java` | 2 | 129 | 453 | 686 (60.2%) | 1,097 | **0.963** |
 | `tika-parsers/tika-parsers-ml/tika-transcribe-aws/src/test/java` | 1 | 89 | 202 | 719 (78.1%) | 898 | **0.975** |
-| `tika-parsers/tika-parsers-ml/tika-vlm/src/main/java` | 6 | 471 | 1,145 | 2,002 (63.6%) | 3,077 | **0.978** |
+| `tika-parsers/tika-parsers-ml/tika-vlm/src/main/java` | 6 | 468 | 1,142 | 2,002 (63.7%) | 3,074 | **0.978** |
 | `tika-parsers/tika-parsers-ml/tika-vlm/src/test/java` | 5 | 251 | 491 | 778 (61.3%) | 1,257 | **0.991** |
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java` | 75 | 2,180 | 4,207 | 17,385 (80.5%) | 21,065 | **0.976** |
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/main/java` | 11 | 599 | 1,191 | 2,362 (66.5%) | 3,440 | **0.968** |
@@ -143,10 +143,10 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-pipes/tika-async-cli/src/main/java` | 5 | 304 | 661 | 1,446 (68.6%) | 2,051 | **0.973** |
 | `tika-pipes/tika-async-cli/src/test/java` | 4 | 141 | 310 | 1,042 (77.1%) | 1,316 | **0.973** |
 | `tika-pipes/tika-httpclient-commons/src/main/java` | 3 | 194 | 630 | 465 (42.5%) | 1,090 | **0.995** |
-| `tika-pipes/tika-pipes-api/src/main/java` | 22 | 245 | 485 | 4,096 (89.4%) | 4,533 | **0.990** |
+| `tika-pipes/tika-pipes-api/src/main/java` | 22 | 242 | 481 | 4,096 (89.5%) | 4,529 | **0.990** |
 | `tika-pipes/tika-pipes-config-store-ignite/src/main/java` | 5 | 142 | 294 | 768 (72.3%) | 1,058 | **0.996** |
 | `tika-pipes/tika-pipes-config-store-ignite/src/test/java` | 1 | 38 | 79 | 130 (62.2%) | 205 | **0.981** |
-| `tika-pipes/tika-pipes-core/src/main/java` | 72 | 2,674 | 5,936 | 22,721 (79.3%) | 28,119 | **0.981** |
+| `tika-pipes/tika-pipes-core/src/main/java` | 72 | 2,642 | 5,888 | 22,721 (79.4%) | 28,074 | **0.981** |
 | `tika-pipes/tika-pipes-core/src/test/java` | 15 | 445 | 978 | 3,638 (78.8%) | 4,499 | **0.975** |
 | `tika-pipes/tika-pipes-fork-parser/src/main/java` | 4 | 121 | 261 | 2,970 (91.9%) | 3,160 | **0.978** |
 | `tika-pipes/tika-pipes-fork-parser/src/test/java` | 1 | 167 | 309 | 529 (63.1%) | 810 | **0.967** |
@@ -154,40 +154,40 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-pipes/tika-pipes-iterator-commons/src/main/java` | 2 | 48 | 95 | 419 (81.5%) | 501 | **0.975** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/main/java` | 6 | 266 | 699 | 889 (56.0%) | 1,539 | **0.969** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/test/java` | 1 | 5 | 13 | 129 (90.8%) | 137 | **0.965** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/main/java` | 10 | 255 | 650 | 1,486 (69.6%) | 2,098 | **0.982** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/main/java` | 10 | 249 | 641 | 1,486 (69.9%) | 2,089 | **0.982** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/test/java` | 4 | 54 | 99 | 557 (84.9%) | 646 | **0.985** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-csv/src/main/java` | 4 | 102 | 237 | 780 (76.7%) | 999 | **0.982** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-csv/src/test/java` | 2 | 52 | 89 | 277 (75.7%) | 361 | **0.986** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-es/src/main/java` | 10 | 325 | 728 | 1,697 (70.0%) | 2,396 | **0.988** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-es/src/main/java` | 10 | 302 | 677 | 1,697 (71.5%) | 2,345 | **0.988** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-es/src/test/java` | 2 | 54 | 110 | 391 (78.0%) | 495 | **0.988** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java` | 15 | 337 | 760 | 2,205 (74.4%) | 2,914 | **0.983** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java` | 15 | 330 | 744 | 2,205 (74.8%) | 2,898 | **0.983** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/test/java` | 7 | 180 | 370 | 1,396 (79.0%) | 1,725 | **0.977** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/main/java` | 10 | 191 | 453 | 1,377 (75.2%) | 1,800 | **0.984** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/main/java` | 10 | 187 | 447 | 1,377 (75.5%) | 1,794 | **0.984** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/test/java` | 4 | 66 | 111 | 548 (83.2%) | 649 | **0.985** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-google-drive/src/main/java` | 4 | 99 | 283 | 512 (64.4%) | 776 | **0.976** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-google-drive/src/test/java` | 1 | 5 | 14 | 129 (90.2%) | 141 | **0.986** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-http/src/main/java` | 9 | 361 | 996 | 1,373 (58.0%) | 2,309 | **0.975** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-http/src/test/java` | 4 | 92 | 181 | 640 (78.0%) | 798 | **0.972** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/main/java` | 10 | 473 | 931 | 1,810 (66.0%) | 2,701 | **0.985** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/main/java` | 10 | 452 | 887 | 1,810 (67.1%) | 2,657 | **0.985** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/test/java` | 4 | 245 | 375 | 611 (62.0%) | 977 | **0.991** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-json/src/main/java` | 4 | 47 | 106 | 524 (83.2%) | 621 | **0.986** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-json/src/test/java` | 2 | 19 | 41 | 258 (86.3%) | 297 | **0.993** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/main/java` | 7 | 187 | 469 | 934 (66.6%) | 1,382 | **0.985** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/main/java` | 7 | 164 | 411 | 934 (69.4%) | 1,324 | **0.984** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/test/java` | 2 | 35 | 56 | 288 (83.7%) | 340 | **0.988** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-microsoft-graph/src/main/java` | 8 | 131 | 353 | 1,017 (74.2%) | 1,354 | **0.988** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-microsoft-graph/src/test/java` | 2 | 25 | 66 | 249 (79.0%) | 310 | **0.984** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/main/java` | 13 | 365 | 852 | 2,050 (70.6%) | 2,870 | **0.989** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/main/java` | 13 | 338 | 788 | 2,050 (72.2%) | 2,806 | **0.989** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/test/java` | 2 | 19 | 40 | 269 (87.1%) | 309 | **1.000** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/main/java` | 10 | 370 | 1,024 | 1,426 (58.2%) | 2,342 | **0.956** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/main/java` | 10 | 358 | 1,000 | 1,426 (58.8%) | 2,318 | **0.955** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/test/java` | 3 | 52 | 79 | 416 (84.0%) | 482 | **0.974** |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/main/java` | 8 | 267 | 792 | 1,350 (63.0%) | 1,996 | **0.932** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/main/java` | 8 | 250 | 750 | 1,350 (64.3%) | 1,958 | **0.932** |
 | `tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/test/java` | 3 | 49 | 176 | 514 (74.5%) | 678 | **0.983** |
 | `tika-pipes/tika-pipes-reporter-commons/src/main/java` | 1 | 31 | 47 | 137 (74.5%) | 184 | **1.000** |
-| `tika-plugins-core/src/main/java` | 7 | 173 | 394 | 1,868 (82.6%) | 2,177 | **0.962** |
+| `tika-plugins-core/src/main/java` | 7 | 170 | 391 | 1,868 (82.7%) | 2,174 | **0.962** |
 | `tika-plugins-core/src/test/java` | 3 | 130 | 324 | 590 (64.6%) | 908 | **0.993** |
-| `tika-serialization/src/main/java` | 34 | 1,196 | 2,567 | 13,365 (83.9%) | 15,555 | **0.976** |
+| `tika-serialization/src/main/java` | 34 | 1,186 | 2,550 | 13,365 (84.0%) | 15,538 | **0.976** |
 | `tika-serialization/src/test/java` | 35 | 1,328 | 2,682 | 7,895 (74.6%) | 10,397 | **0.983** |
-| `tika-server/tika-server-core/src/main/java` | 42 | 1,628 | 3,992 | 11,837 (74.8%) | 15,591 | **0.985** |
+| `tika-server/tika-server-core/src/main/java` | 42 | 1,626 | 3,988 | 11,837 (74.8%) | 15,587 | **0.985** |
 | `tika-server/tika-server-core/src/test/java` | 27 | 1,149 | 2,391 | 6,215 (72.2%) | 8,430 | **0.980** |
 | `tika-server/tika-server-standard/src/main/java` | 2 | 63 | 167 | 281 (62.7%) | 446 | **0.996** |
 | `tika-server/tika-server-standard/src/test/java` | 16 | 810 | 1,706 | 3,856 (69.3%) | 5,477 | **0.985** |
@@ -196,28 +196,28 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-xmp/src/main/java` | 10 | 294 | 695 | 3,077 (81.6%) | 3,701 | **0.981** |
 | `tika-xmp/src/test/java` | 2 | 86 | 266 | 344 (56.4%) | 603 | **0.989** |
 | `documentation` | 8 | 0 | 0 | 7,374 (100.0%) | 6,615 | **0.897** |
-| **repository** | 2,156 | 81,479 | 167,110 | 602,918 (78.3%) | 748,672 | **0.972** |
+| **repository** | 2,156 | 81,271 | 166,692 | 602,918 (78.3%) | 748,262 | **0.972** |
 
-The repository's own words are 770,028 occurrences of 14,116 distinct surfaces, 4,917 of them (34.8%) written exactly once. 2,685 glued runs no boundary divided were read by the segmenter; 21,356 occurrences across 4,887 surfaces nothing could be cited for at all.
+The repository's own words are 769,610 occurrences of 14,116 distinct surfaces, 4,919 of them (34.8%) written exactly once. 2,669 glued runs no boundary divided were read by the segmenter; 21,348 occurrences across 4,887 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 663,309 | 86.1% | 19,094 |
-| `lexicon:wordnet-sense` | 506,095 | 65.7% | 9,639 |
-| `lexicon:wiktionary-topic` | 495,022 | 64.3% | 8,041 |
-| `lexicon:wordnet-domain` | 355,890 | 46.2% | 5,882 |
-| `lexicon:wikidata-initialism` | 340,854 | 44.3% | 2,257 |
-| `lexicon:wiktionary-abbreviation` | 290,291 | 37.7% | 1,885 |
-| `lexicon:wikidata-name` | 276,154 | 35.9% | 3,279 |
-| `catalogue:query-language-function` | 18,247 | 2.4% | 148 |
+| `lexicon:word-frequency` | 662,943 | 86.1% | 19,093 |
+| `lexicon:wordnet-sense` | 505,737 | 65.7% | 9,631 |
+| `lexicon:wiktionary-topic` | 494,665 | 64.3% | 8,030 |
+| `lexicon:wordnet-domain` | 355,631 | 46.2% | 5,882 |
+| `lexicon:wikidata-initialism` | 340,687 | 44.3% | 2,256 |
+| `lexicon:wiktionary-abbreviation` | 290,120 | 37.7% | 1,885 |
+| `lexicon:wikidata-name` | 276,053 | 35.9% | 3,279 |
+| `catalogue:query-language-function` | 18,230 | 2.4% | 148 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
-| `fetcher` | 563 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:350` |
+| `fetcher` | 561 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:350` |
 | `fasterxml` | 339 | `tika-app/src/main/java/org/apache/tika/cli/XmlToJsonConfigConverter.java:36` |
 | `utils` | 236 | `tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:69` |
 | `doesn't` | 179 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:223` |
-| `solr` | 148 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
+| `solr` | 144 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
 | `poifs` | 139 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/config/ComponentRegistryIntegrationTest.java:51` |
 | `charsets` | 138 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:59` |
 | `can't` | 135 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:1180` |
@@ -229,6 +229,6 @@ The repository's own words are 770,028 occurrences of 14,116 distinct surfaces, 
 | `langs` | 121 | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/tools/CommonTokenOverlapCounter.java:57` |
 | `configs` | 118 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:1019` |
 
-Read 2,156 files in 13.0 s — 6.0 ms a file, recorded rather than estimated.
+Read 2,156 files in 15.0 s — 7.0 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.

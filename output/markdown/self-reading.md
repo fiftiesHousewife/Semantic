@@ -12,48 +12,48 @@ one. λ is the share of those word occurrences at least one bundled resource can
 
 | Scope | Files | Declarations | Words in names | Words in prose | Read | λ |
 |---|--:|--:|--:|--:|--:|--:|
-| `code-semantics-api/src/main/java` | 25 | 352 | 557 | 3,711 (86.9%) | 4,176 | **0.978** |
+| `code-semantics-api/src/main/java` | 25 | 301 | 486 | 3,590 (88.1%) | 3,982 | **0.977** |
 | `code-semantics-api/src/test/java` | 13 | 165 | 951 | 97 (9.3%) | 1,028 | **0.981** |
-| `code-semantics-engine/src/main/java` | 178 | 4,090 | 5,821 | 40,466 (87.4%) | 45,608 | **0.985** |
-| `code-semantics-engine/src/test/java` | 163 | 3,217 | 10,261 | 9,316 (47.6%) | 19,406 | **0.991** |
-| `lexicon-extraction/src/main/java` | 45 | 899 | 1,158 | 5,509 (82.6%) | 6,500 | **0.975** |
-| `lexicon-extraction/src/test/java` | 35 | 405 | 1,936 | 0 (0.0%) | 1,915 | **0.989** |
-| `lexicon/src/main/java` | 22 | 694 | 1,151 | 5,062 (81.5%) | 6,052 | **0.974** |
-| `lexicon/src/test/java` | 21 | 258 | 1,363 | 489 (26.4%) | 1,830 | **0.988** |
+| `code-semantics-engine/src/main/java` | 178 | 3,771 | 5,358 | 38,120 (87.7%) | 42,861 | **0.986** |
+| `code-semantics-engine/src/test/java` | 165 | 3,151 | 10,255 | 7,830 (43.3%) | 17,937 | **0.992** |
+| `lexicon-extraction/src/main/java` | 45 | 879 | 1,144 | 5,206 (82.0%) | 6,189 | **0.975** |
+| `lexicon-extraction/src/test/java` | 36 | 415 | 1,983 | 0 (0.0%) | 1,962 | **0.989** |
+| `lexicon/src/main/java` | 22 | 674 | 1,123 | 4,768 (80.9%) | 5,735 | **0.974** |
+| `lexicon/src/test/java` | 21 | 259 | 1,372 | 419 (23.4%) | 1,768 | **0.987** |
 | `documentation` | 3 | 0 | 0 | 9,562 (100.0%) | 9,241 | **0.966** |
-| **repository** | 505 | 10,080 | 23,198 | 74,212 (76.2%) | 95,756 | **0.983** |
+| **repository** | 508 | 9,615 | 22,672 | 69,592 (75.4%) | 90,703 | **0.983** |
 
-The repository's own words are 97,410 occurrences of 3,995 distinct surfaces, 1,263 of them (31.6%) written exactly once. 218 glued runs no boundary divided were read by the segmenter; 1,654 occurrences across 472 surfaces nothing could be cited for at all.
+The repository's own words are 92,264 occurrences of 3,883 distinct surfaces, 1,225 of them (31.5%) written exactly once. 216 glued runs no boundary divided were read by the segmenter; 1,561 occurrences across 438 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 92,506 | 95.0% | 4,529 |
-| `lexicon:wordnet-sense` | 66,164 | 67.9% | 1,138 |
-| `lexicon:wiktionary-topic` | 54,484 | 55.9% | 231 |
-| `lexicon:wikidata-initialism` | 43,761 | 44.9% | 71 |
-| `lexicon:wikidata-name` | 38,916 | 40.0% | 42 |
-| `lexicon:wordnet-domain` | 38,540 | 39.6% | 120 |
-| `lexicon:wiktionary-abbreviation` | 33,764 | 34.7% | 10 |
-| `catalogue:query-language-function` | 1,445 | 1.5% | 1 |
+| `lexicon:word-frequency` | 87,586 | 94.9% | 4,274 |
+| `lexicon:wordnet-sense` | 62,884 | 68.2% | 1,102 |
+| `lexicon:wiktionary-topic` | 51,527 | 55.8% | 210 |
+| `lexicon:wikidata-initialism` | 41,282 | 44.7% | 71 |
+| `lexicon:wikidata-name` | 36,871 | 40.0% | 38 |
+| `lexicon:wordnet-domain` | 36,712 | 39.8% | 119 |
+| `lexicon:wiktionary-abbreviation` | 31,935 | 34.6% | 9 |
+| `catalogue:query-language-function` | 1,374 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
-| `repository's` | 79 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java:10` |
-| `commonest` | 44 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/WrittenMass.java:5` |
-| `word's` | 44 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordMorphology.java:6` |
-| `wiktionary` | 38 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java:41` |
-| `segmenter` | 35 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CitedTokens.java:3` |
+| `repository's` | 70 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java:10` |
+| `commonest` | 44 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/CitedWord.java:68` |
+| `word's` | 43 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordMorphology.java:6` |
+| `wiktionary` | 36 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java:41` |
+| `segmenter` | 34 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CitedTokens.java:3` |
 | `extjwnl` | 29 | `lexicon/src/main/java/io/github/fiftieshousewife/bi/lexicon/CountedSense.java:3` |
-| `permalink` | 28 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/SourceAnchor.java:50` |
+| `permalink` | 27 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/SourceAnchor.java:50` |
 | `javadoc` | 26 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/Weights.java:34` |
-| `publisher's` | 26 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java:14` |
-| `resamples` | 26 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/SetAside.java:3` |
-| `topic's` | 25 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTheme.java:6` |
-| `scope's` | 22 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTheme.java:6` |
-| `xiv's` | 22 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TaxonomyTree.java:11` |
+| `topic's` | 26 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTheme.java:6` |
+| `publisher's` | 24 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java:14` |
+| `resamples` | 22 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/SetAside.java:3` |
 | `arxiv` | 21 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PlacedField.java:47` |
 | `net's` | 21 | `code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java:23` |
+| `scope's` | 21 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTheme.java:6` |
+| `xiv's` | 20 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TaxonomyTree.java:11` |
 
-Read 505 files in 1.5 s — 3.0 ms a file, recorded rather than estimated.
+Read 508 files in 1.5 s — 2.9 ms a file, recorded rather than estimated.
 
-Imports read as this repository's own choice: 79. Set aside as the platform's own vocabulary: 1459. Set aside as this repository's own coordinates: 504. Set aside as the toolchain a source set nothing is published from is checked with: 814. Files the parser refused: 0.
+Imports read as this repository's own choice: 81. Set aside as the platform's own vocabulary: 1473. Set aside as this repository's own coordinates: 503. Set aside as the toolchain a source set nothing is published from is checked with: 824. Files the parser refused: 0.

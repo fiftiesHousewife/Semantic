@@ -6,7 +6,7 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 770,028 |
+| Word occurrences read | 769,610 |
 | Files | 2,156 |
 | Prose share of those occurrences | 78% |
 | **λ** — share a bundled resource has an entry for | **0.972** |
@@ -39,20 +39,20 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java` | 27.0% | `computing` |
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/java` | 25.4% | `computing` |
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java` | 22.5% | `computing` |
-| `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java` | 20.9% | `computing` |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java` | 21.1% | `computing` |
 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java` | 20.9% | `linguistics` |
 
 11 more departed further than chance — `themes.md` names every one.
 
 ## Withheld
 
-- `tika-annotation-processor/src/main/java` — 34.9% of the maximum divergence, and 199 of 999 chance draws stood at least as far
+- `tika-annotation-processor/src/main/java` — 34.9% of the maximum divergence, and 197 of 999 chance draws stood at least as far
 - `tika-annotation-processor/src/test/java` — 71.0% of the maximum divergence, and 101 of 999 chance draws stood at least as far
 - `tika-app/src/main/java` — 13.8% of the maximum divergence, and 979 of 999 chance draws stood at least as far
-- `tika-app/src/test/java` — 25.7% of the maximum divergence, and 453 of 999 chance draws stood at least as far
+- `tika-app/src/test/java` — 25.6% of the maximum divergence, and 452 of 999 chance draws stood at least as far
 - `tika-bundles/tika-bundle-standard/src/main/java` — 40.7% of the maximum divergence, and 520 of 999 chance draws stood at least as far
 - `tika-bundles/tika-bundle-standard/src/test/java` — 40.9% of the maximum divergence, and 511 of 999 chance draws stood at least as far
-- `tika-detectors/tika-detector-magika/src/main/java` — 28.6% of the maximum divergence, and 881 of 999 chance draws stood at least as far
-- `tika-detectors/tika-detector-magika/src/test/java` — 33.0% of the maximum divergence, and 502 of 999 chance draws stood at least as far
+- `tika-detectors/tika-detector-magika/src/main/java` — 28.6% of the maximum divergence, and 880 of 999 chance draws stood at least as far
+- `tika-detectors/tika-detector-magika/src/test/java` — 32.9% of the maximum divergence, and 504 of 999 chance draws stood at least as far
 
 137 more fell within chance as well — `themes.md` names every one.

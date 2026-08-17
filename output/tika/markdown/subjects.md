@@ -24,7 +24,7 @@ vocabulary of every description — and a field of 152 subjects must be read aga
 | [`cond-mat` Condensed Matter](https://arxiv.org/list/cond-mat/recent) | [grp_physics](https://arxiv.org/category_taxonomy) | 57.0% | discard | a taxonomy of chance reaches this far | computing, telecommunication, medicine, mathematics |
 | [`q-fin` Quantitative Finance](https://arxiv.org/list/q-fin/recent) | [grp_q-fin](https://arxiv.org/category_taxonomy) | 57.9% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, mathematics |
 | [`physics` Physics](https://arxiv.org/list/physics/recent) | [grp_physics](https://arxiv.org/category_taxonomy) | 60.3% | discard | a taxonomy of chance reaches this far | telecommunication, mathematics, industry, medicine |
-| [`astro-ph` Astrophysics](https://arxiv.org/list/astro-ph/recent) | [grp_physics](https://arxiv.org/category_taxonomy) | 61.1% | discard | a taxonomy of chance reaches this far | telecommunication, computing, programming, geography |
+| [`astro-ph` Astrophysics](https://arxiv.org/list/astro-ph/recent) | [grp_physics](https://arxiv.org/category_taxonomy) | 61.1% | discard | a taxonomy of chance reaches this far | computing, telecommunication, programming, geography |
 | [`math` Mathematics](https://arxiv.org/list/math/recent) | [grp_math](https://arxiv.org/category_taxonomy) | 62.1% | discard | a taxonomy of chance reaches this far | mathematics, programming, law, geography |
 
 The nearest subject stands **37.2%** of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 999 draws, the nearest a taxonomy of chance offered a field of 12 subjects was **42.5%**, so this placement **stands apart from chance**.
@@ -43,11 +43,11 @@ narrower than a repository and the vaguest description wins.
 | [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 47.3% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, computer_science |
 | [`astro-ph.IM` Instrumentation and Methods for Astrophysics](https://arxiv.org/list/astro-ph.IM/recent) | [grp_physics](https://arxiv.org/category_taxonomy) | 48.1% | discard | a taxonomy of chance reaches this far | computing, law, computer_science, industry |
 | [`eess.IV` Image and Video Processing](https://arxiv.org/list/eess.IV/recent) | [grp_eess](https://arxiv.org/category_taxonomy) | 49.4% | discard | a taxonomy of chance reaches this far | computing, programming, mathematics, telecommunication |
-| [`cs.SI` Social and Information Networks](https://arxiv.org/list/cs.SI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 50.2% | discard | a taxonomy of chance reaches this far | computing, programming, law, mathematics |
+| [`cs.SI` Social and Information Networks](https://arxiv.org/list/cs.SI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 50.3% | discard | a taxonomy of chance reaches this far | computing, programming, law, mathematics |
 | [`cs.DB` Databases](https://arxiv.org/list/cs.DB/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 50.4% | discard | a taxonomy of chance reaches this far | computing, programming, law, computer_science |
 | [`cs.AI` Artificial Intelligence](https://arxiv.org/list/cs.AI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 50.8% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, mathematics |
 | [`cs.LO` Logic in Computer Science](https://arxiv.org/list/cs.LO/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 52.1% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, mathematics |
-| [`cs.GR` Graphics](https://arxiv.org/list/cs.GR/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 52.7% | discard | a taxonomy of chance reaches this far | computing, programming, law, computer_science |
+| [`cs.GR` Graphics](https://arxiv.org/list/cs.GR/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 52.8% | discard | a taxonomy of chance reaches this far | computing, programming, law, computer_science |
 
 The nearest subject stands **39.2%** of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **43.1%**, so this placement **stands apart from chance**.
 
@@ -66,9 +66,24 @@ repository is also about.
 | [`stat.CO` Computation](https://arxiv.org/list/stat.CO/recent) | [grp_stat](https://arxiv.org/category_taxonomy) | 64.0% | discard | a taxonomy of chance reaches this far | computing, mathematics, video-games, soccer |
 | [`cs.SY` Systems and Control](https://arxiv.org/list/cs.SY/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 67.1% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, computer_science |
 | [`cs.AI` Artificial Intelligence](https://arxiv.org/list/cs.AI/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 67.3% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, mathematics |
-| [`cs.GR` Graphics](https://arxiv.org/list/cs.GR/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 68.3% | discard | a taxonomy of chance reaches this far | computing, programming, law, computer_science |
+| [`cs.GR` Graphics](https://arxiv.org/list/cs.GR/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 68.4% | discard | a taxonomy of chance reaches this far | computing, programming, law, computer_science |
 | [`eess.SY` Systems and Control](https://arxiv.org/list/eess.SY/recent) | [grp_eess](https://arxiv.org/category_taxonomy) | 68.5% | discard | a taxonomy of chance reaches this far | programming, computing, mathematics, computer_science |
 | [`eess.IV` Image and Video Processing](https://arxiv.org/list/eess.IV/recent) | [grp_eess](https://arxiv.org/category_taxonomy) | 68.9% | discard | a taxonomy of chance reaches this far | computing, programming, mathematics, telecommunication |
 | [`cs.LO` Logic in Computer Science](https://arxiv.org/list/cs.LO/recent) | [grp_cs](https://arxiv.org/category_taxonomy) | 69.1% | discard | a taxonomy of chance reaches this far | linguistics, programming, law, mathematics |
 
 The nearest subject stands **57.5%** of the maximum divergence away — 0% is two readings that are identical and 100% is two sharing no subject at all. Across 995 draws, the nearest a taxonomy of chance offered a field of 152 subjects was **56.7%**, so this placement **says only that the taxonomy is large**.
+
+## Whether the placement reads subject matter or description length
+
+The same repository, the same dictionaries and the same divergence at every row. Only the
+descriptions get shorter, so a subject that changes places changed because of the words that
+left it.
+
+| Share of each description | Median words | Nearest subject | Divergence |
+|---|--:|---|--:|
+| full | 18 | `cs.CL` Computation and Language | 39.2% |
+| 1/2 | 9 | `cs.NI` Networking and Internet Architecture | 41.4% |
+| 1/4 | 5 | `cs.CL` Computation and Language | 43.3% |
+| 1/16 | 2 | `cs.DB` Databases | 52.8% |
+
+The nearest subject changes to **`cs.NI` Networking and Internet Architecture** once each description is cut to 1/2 of the words arXiv wrote, so the placement **reads description length rather than subject matter**.
