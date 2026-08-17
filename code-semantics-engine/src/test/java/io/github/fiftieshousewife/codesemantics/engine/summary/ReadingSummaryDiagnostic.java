@@ -5,9 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
@@ -43,13 +41,12 @@ class ReadingSummaryDiagnostic {
     void writesEverythingTheReadingShowedAndNothingItOnlyMeasured() throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final Path root = reading.root();
-        final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
 
         final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), TreeReading.SEED);
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
-                LegibilityReading.fromClasspath().of(parsed), themes, field, TOPICS_PER_SCOPE);
+                reading.legibility(), themes, field, TOPICS_PER_SCOPE);
         final String page = new SummaryReport().render(summary);
         final ReportFolder reports = ReportFolder.forReadingOf(root);
         reports.wrote(REPORT, page, "Summary");

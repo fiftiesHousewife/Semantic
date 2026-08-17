@@ -3,9 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.summary;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ThemeReading;
@@ -33,14 +31,13 @@ class PinnedSummaryFindings {
     void printsAFieldAToneAndABarNothingSoftEnoughToPassEveryScope() {
         final TreeReading reading = TreeReading.ofTheHostTree();
         final Path root = reading.root();
-        final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
 
         final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(),
                 TreeReading.SEED);
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
-                LegibilityReading.fromClasspath().of(parsed), themes, field, TOPICS_PER_SCOPE);
+                reading.legibility(), themes, field, TOPICS_PER_SCOPE);
 
         assertAll(
                 () -> assertThat(summary.field().standsApart())

@@ -7,10 +7,7 @@ import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
-import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
-import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.theme.FieldOfStudy;
 import io.github.fiftieshousewife.codesemantics.engine.theme.OrdinaryEnglish;
@@ -72,9 +69,9 @@ class TermReadingDiagnostic {
 
     @Test
     void matchesThisRepositoryAgainstThePublishedTermsOfItsOwnField() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = new JavaSourceScopes().under(root);
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final TreeReading clone = TreeReading.ofTheCloneUnderReading();
+        final Path root = clone.root();
+        final ParsedRepository parsed = clone.parsed();
         final LinguisticTerms terms = LinguisticTerms.fromClasspath();
 
         final CorroboratedReading reading = CorroboratedReading.of(terms,
@@ -154,7 +151,7 @@ class TermReadingDiagnostic {
     }
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {
-        return new QualifiedTopics(themes.witnesses(), OrdinaryEnglish.fromClasspath().reading(),
+        return new QualifiedTopics(themes.witnesses(), OrdinaryEnglish.readingFromClasspath(),
                 FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison()))
                 .across(themes.divergences().stream()
                         .filter(scope -> scope.chance().exceedsChance()).toList(),

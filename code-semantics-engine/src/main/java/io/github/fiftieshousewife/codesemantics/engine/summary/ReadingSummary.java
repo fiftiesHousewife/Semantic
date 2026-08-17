@@ -6,6 +6,7 @@ import io.github.fiftieshousewife.codesemantics.engine.DivergenceShare;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.theme.FieldOfStudy;
+import io.github.fiftieshousewife.codesemantics.engine.theme.OrdinaryEnglish;
 import io.github.fiftieshousewife.codesemantics.engine.theme.QualifiedTopics;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ScopeDivergence;
@@ -29,9 +30,6 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
                              List<Distinctive> distinctive, List<String> about, List<Withheld> withheld) {
 
     private static final DivergenceShare DIVERGENCE = new DivergenceShare();
-
-    private static final io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution ORDINARY_ENGLISH =
-            io.github.fiftieshousewife.codesemantics.engine.theme.OrdinaryEnglish.fromClasspath().reading();
 
     /* A scope names only topics the whole reading qualified, so one table cannot contradict the other. */
 
@@ -90,7 +88,8 @@ public record ReadingSummary(String repository, Legibility legibility, Field fie
         final List<ScopeDivergence> qualified = themes.divergences().stream()
                 .filter(scope -> scope.chance().exceedsChance())
                 .toList();
-        final QualifiedTopics topics = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,
+        final QualifiedTopics topics = new QualifiedTopics(themes.witnesses(),
+                OrdinaryEnglish.readingFromClasspath(),
                 FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison()));
         final List<String> about = topics.across(qualified, themes.repository().intensity(),
                 themes.repository().comparison());

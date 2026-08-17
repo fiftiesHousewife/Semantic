@@ -44,6 +44,13 @@ class RepositoryReadingTest {
     }
 
     @Test
+    void sharesOneLegibilityReadingBetweenEveryAccessorSoTheWordsAreCitedOnce() throws IOException {
+        final RepositoryReading reading = RepositoryReading.of(tree());
+
+        assertThat(reading.legibility()).isSameAs(reading.legibility());
+    }
+
+    @Test
     void carriesTheSeedACallerChoosesRatherThanOneOnlyItKnows() throws IOException {
         final Path tree = tree();
 

@@ -22,9 +22,11 @@ import java.util.Map;
 public final class StatedDepth {
 
     private final Map<String, Integer> rungsBelowRoot;
+    private final int deepest;
 
     private StatedDepth(final Map<String, Integer> rungsBelowRoot) {
         this.rungsBelowRoot = Map.copyOf(rungsBelowRoot);
+        this.deepest = this.rungsBelowRoot.values().stream().mapToInt(Integer::intValue).max().orElse(0);
     }
 
     public static StatedDepth of(final TaxonomyTree tree) {
@@ -46,7 +48,7 @@ public final class StatedDepth {
 
     /** The deepest the source states anything, which is what bounds a depth read as a share. */
     public int deepest() {
-        return rungsBelowRoot.values().stream().mapToInt(Integer::intValue).max().orElse(0);
+        return deepest;
     }
 
     /** Where the source puts this concept, in {@code [0, 1]} against its own deepest chain. */

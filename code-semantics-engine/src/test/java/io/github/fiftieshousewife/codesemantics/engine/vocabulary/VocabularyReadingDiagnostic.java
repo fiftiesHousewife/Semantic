@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
@@ -81,7 +80,7 @@ class VocabularyReadingDiagnostic {
     void ranksTheWordsThisRepositoryChoseAndWritesTheReport() throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final Path root = reading.root();
-        final RepositoryLegibility legibility = LegibilityReading.fromClasspath().of(reading.parsed());
+        final RepositoryLegibility legibility = reading.legibility();
         final PublishedNames names = new PublishedNames();
         final WrittenWords written = legibility.repository().written();
         final WrittenWords named = names.published(legibility);

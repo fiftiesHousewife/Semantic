@@ -28,7 +28,7 @@ record ThemeGraph(String repository, int files, int lines, int topics, double un
      * measures how much was written and divergence measures what was found.
      */
     private static final TopicDistribution ORDINARY_ENGLISH =
-            OrdinaryEnglish.fromClasspath().reading();
+            OrdinaryEnglish.readingFromClasspath();
 
     record Node(String topic, double intensity, double explains, double nameShare, int references, int files,
                 int leads, int linesLed, double lineShare, int wordsBehind, String broader,

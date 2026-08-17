@@ -41,6 +41,19 @@ public final class OrdinaryEnglish {
         return new OrdinaryEnglish(TopicCitations.fromClasspath(), WordRanks.fromClasspath());
     }
 
+    /**
+     * The classpath reading, computed on first use and then shared for the life of the JVM. The bundled list
+     * and the resources reading it cannot change under a running program, and the reading costs enough that a
+     * static initialiser in every class wanting the reference is a cost per class rather than per JVM.
+     */
+    public static TopicDistribution readingFromClasspath() {
+        return ClasspathReading.SHARED;
+    }
+
+    private static final class ClasspathReading {
+        private static final TopicDistribution SHARED = fromClasspath().reading();
+    }
+
     /** The subjects ordinary English is about, as a distribution over the same topic space a scope reads in. */
     public TopicDistribution reading() {
         final Map<String, Double> massByTopic = new HashMap<>();

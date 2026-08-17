@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Every word this repository wrote, how often, how much of that was as the name of something, and one place
@@ -43,8 +42,13 @@ public final class WrittenWords {
      */
     public WrittenWords asNamesOnly() {
         final WrittenWords names = new WrittenWords();
-        asNames.forEach((word, times) ->
-                IntStream.range(0, times).forEach(each -> names.saw(word, firstNameSite.get(word), true)));
+        asNames.forEach((word, times) -> {
+            final String site = firstNameSite.get(word);
+            names.occurrences.put(word, times);
+            names.asNames.put(word, times);
+            names.firstSite.put(word, site);
+            names.firstNameSite.put(word, site);
+        });
         return names;
     }
 

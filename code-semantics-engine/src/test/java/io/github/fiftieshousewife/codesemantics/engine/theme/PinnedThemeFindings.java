@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("pinned")
 class PinnedThemeFindings {
 
-    private static final TopicDistribution ORDINARY_ENGLISH = OrdinaryEnglish.fromClasspath().reading();
+    private static final TopicDistribution ORDINARY_ENGLISH = OrdinaryEnglish.readingFromClasspath();
 
     private static final int WITNESSES_HELD = 8;
 

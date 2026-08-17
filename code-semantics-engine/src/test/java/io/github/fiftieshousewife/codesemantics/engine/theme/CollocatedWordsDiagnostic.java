@@ -13,12 +13,9 @@ import java.util.stream.Stream;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
-import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.DocumentationScope;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
-import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
-import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
+import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -51,10 +48,9 @@ class CollocatedWordsDiagnostic {
 
     @Test
     void countsThePublishedRunsThisRepositoryWritesAndWhatTheySay() {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final TreeReading tree = TreeReading.ofTheCloneUnderReading();
+        final Path root = tree.root();
+        final ParsedRepository parsed = tree.parsed();
 
         final Counted everything = counted(parsed, form -> true);
 

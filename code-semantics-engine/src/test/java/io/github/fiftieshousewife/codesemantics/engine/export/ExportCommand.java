@@ -61,15 +61,20 @@ public final class ExportCommand {
     }
 
     public static void main(final String[] arguments) throws IOException {
+        wrote(commitIn(arguments));
+    }
+
+    /** Reads the clone under reading — shared with any reading already taken in this JVM — and writes the export. */
+    static Path wrote(final String commit) throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = previousReading(exports, file);
-        final ReadingExport current =
-                new ExportedReading().of(reading.reading(), commitIn(arguments), alsoMatched());
+        final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
+        return file;
     }
 
     /**

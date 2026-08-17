@@ -2,7 +2,6 @@ package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
@@ -22,8 +21,7 @@ public final class ChosenWordProbe {
     }
 
     public static void main(final String[] args) {
-        final RepositoryLegibility legibility =
-                LegibilityReading.fromClasspath().of(TreeReading.ofTheCloneUnderReading().parsed());
+        final RepositoryLegibility legibility = TreeReading.ofTheCloneUnderReading().legibility();
         report("names in a source set the build publishes", published(legibility), args);
         report("names in every other source set", checking(legibility), args);
         report("everything written, names and prose", legibility.repository().written(), args);

@@ -11,6 +11,9 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.duckdb.jdbc)
     implementation(libs.slf4j.api)
+    // The extraction mains report progress through their loggers, and every task here runs on this
+    // classpath. Nothing is published from this module, so the binding travels no further.
+    runtimeOnly(libs.slf4j.simple)
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 

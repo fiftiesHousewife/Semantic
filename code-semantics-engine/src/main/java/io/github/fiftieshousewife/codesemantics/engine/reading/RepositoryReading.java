@@ -38,6 +38,7 @@ public final class RepositoryReading {
     private final long seed;
 
     private ParsedRepository parsed;
+    private RepositoryLegibility legibility;
     private RepositoryThemes themes;
 
     private RepositoryReading(final Path root, final long seed) {
@@ -78,6 +79,16 @@ public final class RepositoryReading {
             log.info("Parsed {} in {}s", root, seconds(started));
         }
         return parsed;
+    }
+
+    public synchronized RepositoryLegibility legibility() {
+        if (legibility == null) {
+            log.info("Citing the words of {}", root);
+            final long started = System.nanoTime();
+            legibility = LegibilityReading.fromClasspath().of(parsed());
+            log.info("Cited {} in {}s", root, seconds(started));
+        }
+        return legibility;
     }
 
     public synchronized RepositoryThemes themes() {

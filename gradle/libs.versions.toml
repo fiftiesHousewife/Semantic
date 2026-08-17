@@ -5,6 +5,7 @@ errorprone = "2.38.0"
 errorprone-plugin = "4.2.0"
 junit = "6.0.3"
 jackson = "2.21.2"
+slf4j = "2.0.17"
 j2html = "1.6.0"
 javaparser = "3.28.2"
 duckdb = "1.5.5.1"
@@ -16,7 +17,11 @@ duckdb = "1.5.5.1"
 extjwnl = { module = "net.sf.extjwnl:extjwnl", version = "2.0.5" }
 extjwnl-data-wn31 = { module = "net.sf.extjwnl:extjwnl-data-wn31", version = "1.2" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
-slf4j-api = { module = "org.slf4j:slf4j-api", version = "2.0.17" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+# The binding the reading and extraction entry points run with, so their progress lines reach the console
+# instead of SLF4J's no-operation provider. Test and extraction classpaths only; the published artefacts
+# stay binding-free, which is the library's side of the logging contract.
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
 assertj-core = { module = "org.assertj:assertj-core", version = "3.27.3" }

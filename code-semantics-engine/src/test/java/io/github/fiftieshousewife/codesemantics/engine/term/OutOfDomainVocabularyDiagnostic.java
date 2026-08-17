@@ -7,10 +7,8 @@ import java.util.List;
 import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
-import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
-import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
+import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -47,9 +45,9 @@ class OutOfDomainVocabularyDiagnostic {
 
     @Test
     void readsThisRepositoryAgainstAVocabularyOfItsFieldAndAVocabularyOfAnother() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = new JavaSourceScopes().under(root);
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final TreeReading tree = TreeReading.ofTheCloneUnderReading();
+        final Path root = tree.root();
+        final ParsedRepository parsed = tree.parsed();
 
         final CorroboratedReading field = CorroboratedReading.of(LinguisticTerms.fromClasspath(),
                 OliaTerms.fromClasspath().concepts(), parsed);

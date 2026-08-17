@@ -1,10 +1,13 @@
 package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.DivergenceShare;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * One table of a vocabulary ranking: the header the references name, and a row per word.
@@ -19,9 +22,14 @@ final class RankedWordTable {
     private static final DivergenceShare DIVERGENCE = new DivergenceShare();
 
     private final List<ChosenWord> ranked;
+    private final Map<ChosenWord, Integer> places;
 
     RankedWordTable(final List<ChosenWord> ranked) {
         this.ranked = List.copyOf(ranked);
+        final Map<ChosenWord, Integer> counted = new HashMap<>();
+        IntStream.range(0, this.ranked.size())
+                .forEach(place -> counted.putIfAbsent(this.ranked.get(place), place + 1));
+        this.places = Map.copyOf(counted);
     }
 
     String of(final List<ChosenWord> rows) {
@@ -58,9 +66,9 @@ final class RankedWordTable {
                 share(word.share()), references, word.site());
     }
 
-    /** Where the word stands in the ranking it was taken from, counting from one. */
+    /** Where the word stands in the ranking it was taken from, counting from one. Zero for a word outside it. */
     int placeOf(final ChosenWord word) {
-        return ranked.indexOf(word) + 1;
+        return places.getOrDefault(word, 0);
     }
 
     private List<ChosenWord.ReferenceClaim> claims() {

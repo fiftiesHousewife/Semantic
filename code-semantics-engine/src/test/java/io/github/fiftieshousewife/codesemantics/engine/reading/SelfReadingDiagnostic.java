@@ -3,8 +3,6 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.ImportOrigin;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
@@ -42,11 +40,10 @@ class SelfReadingDiagnostic {
 
     @Test
     void readsThisRepositoryAndWritesTheLegibilityReport() throws IOException {
-        final Path root = new CloneUnderReading().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final RepositoryLegibility reading = LegibilityReading.fromClasspath().of(parsed);
+        final TreeReading tree = TreeReading.ofTheCloneUnderReading();
+        final Path root = tree.root();
+        final ParsedRepository parsed = tree.parsed();
+        final RepositoryLegibility reading = tree.legibility();
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
         write(reports, reading, root, parsed);

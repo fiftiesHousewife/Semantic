@@ -1,9 +1,5 @@
 package io.github.fiftieshousewife.codesemantics.engine.reading;
 
-import java.nio.file.Path;
-import java.util.List;
-import java.util.stream.Stream;
-
 import io.github.fiftieshousewife.codesemantics.engine.parse.ImportOrigin;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import org.junit.jupiter.api.Tag;
@@ -27,15 +23,13 @@ class PinnedLegibilityFindings {
 
     @Test
     void parsesThisTreeEndToEndAndNamesWhatItDependsOn() {
-        final Path root = new HostTree().root();
-        final List<SourceScope> scopes = Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
+        final TreeReading tree = TreeReading.ofTheHostTree();
+        final ParsedRepository parsed = tree.parsed();
 
         assertAll(
-                () -> assertThat(scopes).as("a repository with no Java sources cannot be read").isNotEmpty(),
-                () -> assertThat(LegibilityReading.fromClasspath().of(parsed).repository().counts()
-                        .declarations()).isPositive(),
+                () -> assertThat(TreeReading.scopesUnder(tree.root()))
+                        .as("a repository with no Java sources cannot be read").isNotEmpty(),
+                () -> assertThat(tree.legibility().repository().counts().declarations()).isPositive(),
                 () -> assertThat(parsed.unsoundFiles())
                         .as("every file in this tree parses cleanly, which is a fact about this tree and "
                                 + "the reason nothing here ever exercised the recovery path")

@@ -28,6 +28,9 @@ dependencies {
     // And renders that graph as a page. Markup is a DSL of typed tags, never a string in a Java file.
     testImplementation(libs.j2html)
     testRuntimeOnly(libs.junit.platform.launcher)
+    // The reading logs its stages at INFO, and `read`, the probes and the export run on this classpath.
+    // Without a binding those minutes pass silently on SLF4J's no-operation provider.
+    testRuntimeOnly(libs.slf4j.simple)
 }
 
 // The bundled lexical resources total some 34 MB of TSVs and the WordNet database on top of them, so any
@@ -128,11 +131,19 @@ tasks.register<Test>("read") {
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
-    finalizedBy("readingExport")
+    // The export is written by a diagnostic in this same JVM, over the same shared reading, rather than by
+    // finalizing with the readingExport JavaExec — a fresh JVM would read the whole tree a second time.
+    val readTree = System.getProperty("cs.clone.dir") ?: rootProject.projectDir.absolutePath
+    jvmArgumentProviders.add(CommandLineArgumentProvider {
+        listOf("-Dcs.commit=" + providers.exec {
+            commandLine("git", "-C", readTree, "rev-parse", "HEAD")
+        }.standardOutput.asText.get().trim())
+    })
     doLast {
         logger.lifecycle(readingOutput.file("markdown/summary.md").asFile.readText())
         logger.lifecycle("Every report, with the test each row had to pass: " +
             "file://${readingOutput.file("html/index.html").asFile.absolutePath}")
+        logger.lifecycle("The export: file://${readingOutput.file("json/reading.json").asFile.absolutePath}")
     }
 }
 
@@ -140,7 +151,8 @@ tasks.register<Test>("read") {
 // report being produced or a test framework being involved. That is what says the documents render this file
 // rather than the other way round.
 //   ./gradlew readingExport
-// The commit is passed in because the library reads no .git of its own.
+// The commit is passed in because the library reads no .git of its own. `read` writes the same file from its
+// own JVM over the run's shared reading, so this task is the standalone path, not a step of `read`.
 tasks.register<JavaExec>("readingExport") {
     group = "verification"
     description = "Writes the reading of this repository as one JSON file a consumer can act on"

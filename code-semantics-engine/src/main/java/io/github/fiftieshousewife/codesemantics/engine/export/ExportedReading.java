@@ -5,7 +5,6 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
@@ -60,7 +59,7 @@ public final class ExportedReading {
                             final List<TermIndex> alsoMatched) {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
-        final RepositoryLegibility legibility = LegibilityReading.fromClasspath().of(parsed);
+        final RepositoryLegibility legibility = reading.legibility();
         final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), reading.seed());
         final ReadingSummary summary = summaryOf(reading, legibility, themes, field);
         final Vocabulary vocabulary = vocabularyOf(legibility, reading.seed());

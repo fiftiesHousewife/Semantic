@@ -2,7 +2,6 @@ package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
@@ -18,8 +17,7 @@ public final class VocabularyMassProbe {
     }
 
     public static void main(final String[] args) {
-        final RepositoryLegibility legibility =
-                LegibilityReading.fromClasspath().of(TreeReading.ofTheCloneUnderReading().parsed());
+        final RepositoryLegibility legibility = TreeReading.ofTheCloneUnderReading().legibility();
         report("names in a source set the build publishes", names(legibility, true));
         report("names in every other source set", names(legibility, false));
         report("everything written, names and prose", legibility.repository().written());

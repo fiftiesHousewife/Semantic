@@ -70,6 +70,10 @@ public final class TreeReading {
         return reading().parsed();
     }
 
+    public RepositoryLegibility legibility() {
+        return reading().legibility();
+    }
+
     public RepositoryThemes themes() {
         return reading().themes();
     }
