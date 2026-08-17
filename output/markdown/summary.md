@@ -6,8 +6,8 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 92,856 |
-| Files | 512 |
+| Word occurrences read | 93,328 |
+| Files | 513 |
 | Prose share of those occurrences | 75% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
 | Evidence resolving to no subject | 76.2% |
@@ -33,11 +33,9 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 
 | Scope | Divergence from the repository | Writes more of |
 |---|--:|---|
-| `code-semantics-api/src/test/java` | 20.4% | `linguistics` |
 | `lexicon/src/main/java` | 19.3% | `linguistics` |
 | `lexicon/src/test/java` | 13.6% | `linguistics` |
-| `code-semantics-engine/src/main/java` | 3.4% | `linguistics` |
 
 ## Withheld
 
-- `documentation` — 23.6% of the maximum divergence, and 972 of 999 chance draws stood at least as far
+- `documentation` — 23.6% of the maximum divergence, and 974 of 999 chance draws stood at least as far

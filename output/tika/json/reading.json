@@ -15,8 +15,8 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.39207002772344873,
-        "nearestByChanceBits" : 0.43135936471317726,
+        "divergenceBits" : 0.3920700277234487,
+        "nearestByChanceBits" : 0.4313593647131773,
         "standsApartFromChance" : true
       }
     },
@@ -83,13 +83,13 @@
       "concept" : "Support",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "sensor",
+      "concept" : "sensors",
       "publishedBy" : "cso-topics.tsv"
     }, {
       "concept" : "URL",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "publishedBy" : "cso-topics.tsv"
     } ],
     "distinctiveScopes" : [ {
@@ -106,15 +106,15 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-      "divergenceBits" : 0.11681757920021597,
+      "divergenceBits" : 0.11681757920021596,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java",
-      "divergenceBits" : 0.18797006636622035,
+      "divergenceBits" : 0.18797006636622038,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java",
-      "divergenceBits" : 0.26994202907873516,
+      "divergenceBits" : 0.2699420290787352,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
@@ -122,7 +122,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/main/java",
-      "divergenceBits" : 0.09510680655437724,
+      "divergenceBits" : 0.0951068065543773,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/java",
@@ -130,7 +130,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java",
-      "divergenceBits" : 0.22540114043542847,
+      "divergenceBits" : 0.2254011404354285,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java",
@@ -146,7 +146,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java",
-      "divergenceBits" : 0.2110375179339768,
+      "divergenceBits" : 0.2110375179339767,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-serialization/src/main/java",
@@ -172,7 +172,7 @@
     "shareOfWordsWithACitation" : 0.9722612751913307,
     "shareOfMassOnNoSubject" : 0.672315807015124,
     "counts" : {
-      "signals" : 832,
+      "signals" : 831,
       "themes" : 21,
       "concepts" : 359
     }
@@ -9133,17 +9133,6 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "bits",
-    "occurrences" : 31,
-    "occurrencesInNames" : 31,
-    "divergenceBits" : 2.497503928716697E-5,
-    "closestReference" : "the platform's own API",
-    "firstWrittenAt" : {
-      "file" : "tika-core/src/main/java/org/apache/tika/metadata/Audio.java",
-      "line" : 85
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "warned",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
@@ -9340,7 +9329,7 @@
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java",
     "shareOfRepository" : 0.12159785416549931,
-    "divergenceBits" : 0.05198874963089649,
+    "divergenceBits" : 0.0519887496308965,
     "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "charset", "path" ]
   }, {
     "topic" : "linguistics",
@@ -9394,13 +9383,13 @@
     "topic" : "computing",
     "scope" : "tika-serialization/src/test/java",
     "shareOfRepository" : 0.12159785416549931,
-    "divergenceBits" : 0.006771762880710457,
+    "divergenceBits" : 0.00677176288071045,
     "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "charset", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/main/java",
     "shareOfRepository" : 0.025223853612013195,
-    "divergenceBits" : 0.005915934547297351,
+    "divergenceBits" : 0.005915934547297361,
     "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
@@ -9412,7 +9401,7 @@
     "topic" : "computing",
     "scope" : "tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java",
     "shareOfRepository" : 0.12159785416549931,
-    "divergenceBits" : 0.0037689143216088593,
+    "divergenceBits" : 0.003768914321608797,
     "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "charset", "path" ]
   }, {
     "topic" : "computing",
@@ -9448,7 +9437,7 @@
     "topic" : "linguistics",
     "scope" : "tika-serialization/src/test/java",
     "shareOfRepository" : 0.025223853612013195,
-    "divergenceBits" : 0.0011312030180412012,
+    "divergenceBits" : 0.0011312030180411874,
     "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
@@ -11161,9 +11150,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "words" : 4634,
       "senses" : 207,
-      "lemmas" : 1431
+      "lemmas" : 1431,
+      "words" : 4634
     },
     "placement" : {
       "scheme" : "arXiv",
@@ -11175,8 +11164,8 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.39207002772344873,
-        "nearestByChanceBits" : 0.43135936471317726,
+        "divergenceBits" : 0.3920700277234487,
+        "nearestByChanceBits" : 0.4313593647131773,
         "standsApartFromChance" : true
       }
     }
@@ -11213,7 +11202,7 @@
         "line" : 280
       }
     }, {
-      "concept" : "sensor",
+      "concept" : "sensors",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 180,
       "specificity" : 0.9276912513497423,
@@ -11223,7 +11212,7 @@
         "line" : 1125
       }
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 180,
       "specificity" : 0.9276912513497423,
@@ -11263,16 +11252,6 @@
         "line" : 214
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
-      "occurrences" : 118,
-      "specificity" : 0.908420200496641,
-      "wordsInTerm" : 1,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-        "line" : 390
-      }
-    }, {
       "concept" : "encryption",
       "placedUnder" : "cryptography | security of data",
       "occurrences" : 118,
@@ -11283,7 +11262,17 @@
         "line" : 390
       }
     }, {
-      "concept" : "sensor",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
+      "occurrences" : 118,
+      "specificity" : 0.908420200496641,
+      "wordsInTerm" : 1,
+      "firstWrittenAt" : {
+        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+        "line" : 390
+      }
+    }, {
+      "concept" : "sensors",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 78,
       "specificity" : 0.9614062668054615,
@@ -11293,7 +11282,7 @@
         "line" : 1120
       }
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 78,
       "specificity" : 0.9614062668054615,
@@ -11573,8 +11562,8 @@
         "line" : 221
       }
     }, {
-      "concept" : "caching",
-      "placedUnder" : "cache memories | cache memory",
+      "concept" : "cache",
+      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11583,8 +11572,8 @@
         "line" : 188
       }
     }, {
-      "concept" : "cache",
-      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
+      "concept" : "caching",
+      "placedUnder" : "cache memories | cache memory",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11663,7 +11652,7 @@
         "line" : 146
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11673,7 +11662,7 @@
         "line" : 67
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11733,8 +11722,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
+      "concept" : "encryption",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11743,8 +11732,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11803,8 +11792,8 @@
         "line" : 68
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
+      "concept" : "hash",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11813,8 +11802,8 @@
         "line" : 358
       }
     }, {
-      "concept" : "hash",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database | database systems | hash | hash function | hash functions",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11883,8 +11872,8 @@
         "line" : 210
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
+      "concept" : "hash",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11893,8 +11882,8 @@
         "line" : 55
       }
     }, {
-      "concept" : "hash",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database | database systems | hash | hash function | hash functions",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -12513,7 +12502,7 @@
         "line" : 919
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -12523,7 +12512,7 @@
         "line" : 47
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -13074,9 +13063,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "words" : 1583,
       "senses" : 693,
-      "lemmas" : 1066
+      "lemmas" : 1066,
+      "words" : 1583
     },
     "placement" : {
       "scheme" : "arXiv",
@@ -13088,15 +13077,15 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.39207002772344873,
-        "nearestByChanceBits" : 0.43135936471317726,
+        "divergenceBits" : 0.3920700277234487,
+        "nearestByChanceBits" : 0.4313593647131773,
         "standsApartFromChance" : true
       }
     }
   } ],
   "setAside" : {
     "wordOccurrencesNoResourceCovers" : 21348,
-    "wordsBelowEveryThreshold" : 3698,
+    "wordsBelowEveryThreshold" : 3699,
     "scopesWithinChance" : 145,
     "matchesDiscardedByBranchRule" : 82,
     "filesTheParserCouldNotRead" : 0
