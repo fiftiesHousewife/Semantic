@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class WordNetAbbreviationsTest {
 
-    private final WordNetAbbreviations abbreviations = new WordNetAbbreviations(dictionary());
+    private final WordNetAbbreviations abbreviations =
+            new WordNetAbbreviations(new WordNetEntries(dictionary()));
 
     private static Dictionary dictionary() {
         try {

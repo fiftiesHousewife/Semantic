@@ -1,14 +1,12 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
 import net.sf.extjwnl.JWNLException;
-import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
 import net.sf.extjwnl.data.Pointer;
 import net.sf.extjwnl.data.PointerTarget;
 import net.sf.extjwnl.data.PointerType;
 import net.sf.extjwnl.data.Synset;
 import net.sf.extjwnl.data.Word;
-import net.sf.extjwnl.dictionary.Dictionary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,10 +28,10 @@ final class WordNetContrast {
     /** Above this the taxonomy speaks only in abstractions no category label could carry. */
     private static final int CHAIN_CEILING = 6;
 
-    private final Dictionary dictionary;
+    private final WordNetEntries entries;
 
-    WordNetContrast(final Dictionary dictionary) {
-        this.dictionary = dictionary;
+    WordNetContrast(final WordNetEntries entries) {
+        this.entries = entries;
     }
 
     Set<String> sharedHypernyms(final String first, final String second) {
@@ -89,24 +87,18 @@ final class WordNetContrast {
     }
 
     private List<Synset> directHypernyms(final String word) {
-        final IndexWord entry = entry(POS.NOUN, word);
-        if (entry == null) {
-            return List.of();
-        }
-        return entry.getSenses().stream()
+        return entries.exact(POS.NOUN, word).stream()
+                .flatMap(entry -> entry.getSenses().stream())
                 .flatMap(sense -> sense.getPointers(PointerType.HYPERNYM).stream())
                 .map(this::targetSynset)
                 .toList();
     }
 
+    // Synset.getPointers carries the lexical antonym links of every word in the synset alongside the
+    // semantic ones, so one traversal reads both kinds of declared opposition.
     private boolean opposes(final POS partOfSpeech, final String word, final String other) {
-        final IndexWord entry = entry(partOfSpeech, word);
-        if (entry == null) {
-            return false;
-        }
-        // Synset.getPointers carries the lexical antonym links of every word in the synset alongside the
-        // semantic ones, so one traversal reads both kinds of declared opposition.
-        return entry.getSenses().stream()
+        return entries.exact(partOfSpeech, word).stream()
+                .flatMap(entry -> entry.getSenses().stream())
                 .flatMap(sense -> sense.getPointers(PointerType.ANTONYM).stream())
                 .anyMatch(pointer -> pointsAt(pointer, other));
     }
@@ -115,14 +107,6 @@ final class WordNetContrast {
         final PointerTarget target = target(pointer);
         final List<Word> words = target instanceof Word word ? List.of(word) : ((Synset) target).getWords();
         return words.stream().anyMatch(word -> word.getLemma().equalsIgnoreCase(lemma));
-    }
-
-    private IndexWord entry(final POS partOfSpeech, final String word) {
-        try {
-            return dictionary.getIndexWord(partOfSpeech, word);
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + word + "\"", e);
-        }
     }
 
     private Synset targetSynset(final Pointer pointer) {

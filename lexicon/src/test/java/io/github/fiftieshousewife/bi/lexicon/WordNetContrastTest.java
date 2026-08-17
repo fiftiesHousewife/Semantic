@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class WordNetContrastTest {
 
-    private final WordNetContrast contrast = new WordNetContrast(dictionary());
+    private final WordNetContrast contrast = new WordNetContrast(new WordNetEntries(dictionary()));
 
     private static Dictionary dictionary() {
         try {

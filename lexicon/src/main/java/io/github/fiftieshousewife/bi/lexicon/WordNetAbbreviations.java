@@ -1,15 +1,12 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import net.sf.extjwnl.JWNLException;
-import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
 import net.sf.extjwnl.data.Word;
-import net.sf.extjwnl.dictionary.Dictionary;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Resolves an initialism through the dictionary's own entry for its letter-dotted spelling: a short
@@ -22,10 +19,10 @@ final class WordNetAbbreviations {
 
     private static final int LONGEST_INITIALISM = 4;
 
-    private final Dictionary dictionary;
+    private final WordNetEntries entries;
 
-    WordNetAbbreviations(final Dictionary dictionary) {
-        this.dictionary = dictionary;
+    WordNetAbbreviations(final WordNetEntries entries) {
+        this.entries = entries;
     }
 
     Optional<String> abbreviationNoun(final String token) {
@@ -39,7 +36,7 @@ final class WordNetAbbreviations {
                 .toString();
         return senseWords(dotted).stream()
                 .map(Word::getLemma)
-                .filter(lemma -> !lemma.equals(dotted) && exactNounEntry(lemma) != null)
+                .filter(lemma -> !lemma.equals(dotted) && entries.exact(POS.NOUN, lemma).isPresent())
                 .findFirst();
     }
 
@@ -49,48 +46,23 @@ final class WordNetAbbreviations {
 
     /** A word any part of speech knows is a word, not an abbreviation, however it is used in a schema. */
     private boolean isKnownWord(final String lower) {
-        try {
-            for (final POS partOfSpeech : POS.values()) {
-                if (dictionary.lookupIndexWord(partOfSpeech, lower) != null) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + lower + "\"", e);
-        }
+        return Stream.of(POS.values())
+                .anyMatch(partOfSpeech -> entries.inflected(partOfSpeech, lower).isPresent());
     }
 
     /**
      * The words of every sense the dotted form carries in any part of speech, by exact entry — the
      * morphological lookup would resolve a dotted unknown to an unrelated word through its detachment
      * rules ({@code a.k.a.} to Alaska), where an exact miss honestly says the dictionary has no entry.
+     * The senses list loads its synsets lazily in iterator()/spliterator() but not in forEach() or
+     * toArray(), which walk the still-empty backing array — traverse it only through a stream.
      */
     private List<Word> senseWords(final String dotted) {
-        try {
-            final List<Word> words = new ArrayList<>();
-            for (final POS partOfSpeech : POS.values()) {
-                final IndexWord entry = dictionary.getIndexWord(partOfSpeech, dotted);
-                if (entry != null) {
-                    // The senses list loads its synsets lazily in iterator()/spliterator() but not in
-                    // forEach() or toArray(), which walk the still-empty backing array — traverse it
-                    // only through a stream.
-                    entry.getSenses().stream()
-                            .flatMap(sense -> sense.getWords().stream())
-                            .forEach(words::add);
-                }
-            }
-            return words;
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + dotted + "\"", e);
-        }
-    }
-
-    private IndexWord exactNounEntry(final String lemma) {
-        try {
-            return dictionary.getIndexWord(POS.NOUN, lemma);
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + lemma + "\"", e);
-        }
+        return Stream.of(POS.values())
+                .map(partOfSpeech -> entries.exact(partOfSpeech, dotted))
+                .flatMap(Optional::stream)
+                .flatMap(entry -> entry.getSenses().stream())
+                .flatMap(sense -> sense.getWords().stream())
+                .toList();
     }
 }

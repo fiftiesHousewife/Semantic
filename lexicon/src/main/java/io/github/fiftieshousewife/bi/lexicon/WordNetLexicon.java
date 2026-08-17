@@ -28,6 +28,7 @@ public final class WordNetLexicon implements Lexicon {
     private static final String PERSON_LEX_FILE = "noun.person";
 
     private final Dictionary dictionary;
+    private final WordNetEntries entries;
     private final WordNetDomains domains;
     private final WordNetAbbreviations abbreviations;
     private final WordNetContrast contrast;
@@ -35,10 +36,11 @@ public final class WordNetLexicon implements Lexicon {
 
     WordNetLexicon(final Dictionary dictionary, final WordNetDomains domains) {
         this.dictionary = dictionary;
+        this.entries = new WordNetEntries(dictionary);
         this.domains = domains;
-        this.abbreviations = new WordNetAbbreviations(dictionary);
-        this.contrast = new WordNetContrast(dictionary);
-        this.senses = new WordNetSenses(dictionary);
+        this.abbreviations = new WordNetAbbreviations(entries);
+        this.contrast = new WordNetContrast(entries);
+        this.senses = new WordNetSenses(entries);
     }
 
     public static WordNetLexicon fromClasspath() {
@@ -173,10 +175,13 @@ public final class WordNetLexicon implements Lexicon {
 
     @Override
     public boolean denotesPerson(final String noun) {
-        final IndexWord word = indexWord(noun);
-        if (word == null || word.getSenses().isEmpty()) {
-            return false;
-        }
+        return entries.inflected(POS.NOUN, noun.toLowerCase(Locale.ROOT))
+                .filter(word -> !word.getSenses().isEmpty())
+                .map(WordNetLexicon::sensesDenoteAPerson)
+                .orElse(false);
+    }
+
+    private static boolean sensesDenoteAPerson(final IndexWord word) {
         int personUse = 0;
         int otherUse = 0;
         boolean everyNounSenseIsAPerson = true;
@@ -197,14 +202,6 @@ public final class WordNetLexicon implements Lexicon {
                 .mapToInt(Word::getUseCount)
                 .max()
                 .orElse(0);
-    }
-
-    private IndexWord indexWord(final String noun) {
-        try {
-            return dictionary.lookupIndexWord(POS.NOUN, noun.toLowerCase(Locale.ROOT));
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + noun + "\"", e);
-        }
     }
 
     private static WordNetLexicon loadFromClasspath() {

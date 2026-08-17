@@ -1,9 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
-import net.sf.extjwnl.dictionary.Dictionary;
 
 import java.util.Comparator;
 import java.util.Locale;
@@ -27,10 +25,10 @@ import java.util.stream.Stream;
  */
 final class WordNetSenses {
 
-    private final Dictionary dictionary;
+    private final WordNetEntries entries;
 
-    WordNetSenses(final Dictionary dictionary) {
-        this.dictionary = dictionary;
+    WordNetSenses(final WordNetEntries entries) {
+        this.entries = entries;
     }
 
     /**
@@ -97,29 +95,13 @@ final class WordNetSenses {
     }
 
     private Optional<IndexWord> entry(final POS partOfSpeech, final String written) {
-        return Optional.ofNullable(isCollocation(written)
-                ? exactEntry(partOfSpeech, written)
-                : inflectedEntry(partOfSpeech, written));
+        return isCollocation(written)
+                ? entries.exact(partOfSpeech, written)
+                : entries.inflected(partOfSpeech, written);
     }
 
     private static boolean isCollocation(final String written) {
         return written.indexOf(' ') >= 0;
-    }
-
-    private IndexWord exactEntry(final POS partOfSpeech, final String written) {
-        try {
-            return dictionary.getIndexWord(partOfSpeech, written);
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet sense lookup failed for \"" + written + "\"", e);
-        }
-    }
-
-    private IndexWord inflectedEntry(final POS partOfSpeech, final String written) {
-        try {
-            return dictionary.lookupIndexWord(partOfSpeech, written);
-        } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet sense lookup failed for \"" + written + "\"", e);
-        }
     }
 
     /** WordNet writes collocations with spaces where a schema and an identifier write underscores. */
