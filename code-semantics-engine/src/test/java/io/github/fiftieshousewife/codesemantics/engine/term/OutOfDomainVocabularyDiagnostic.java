@@ -49,8 +49,7 @@ class OutOfDomainVocabularyDiagnostic {
         final Path root = tree.root();
         final ParsedRepository parsed = tree.parsed();
 
-        final CorroboratedReading field = CorroboratedReading.of(LinguisticTerms.fromClasspath(),
-                OliaTerms.fromClasspath().concepts(), parsed);
+        final CorroboratedReading field = tree.terms();
         final CorroboratedReading other = CorroboratedReading.of(FinanceTerms.fromClasspath(),
                 FiboTerms.fromClasspath().concepts(), parsed);
 

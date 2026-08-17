@@ -57,14 +57,24 @@ public final class ExportedReading {
      */
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched) {
+        return of(reading, commit, alsoMatched,
+                CorroboratedReading.of(LinguisticTerms.fromClasspath(),
+                        OliaTerms.fromClasspath().concepts(), reading.parsed()),
+                PlacedField.ofArxiv(reading.themes().repository().comparison(), reading.seed()));
+    }
+
+    /**
+     * The same, over a term reading and a field placement the caller already holds, so a run whose
+     * diagnostics took them does not take them again. They must be of this reading's tree at its seed.
+     */
+    public ReadingExport of(final RepositoryReading reading, final String commit,
+                            final List<TermIndex> alsoMatched, final CorroboratedReading terms,
+                            final PlacedField field) {
         final ParsedRepository parsed = reading.parsed();
         final RepositoryThemes themes = reading.themes();
         final RepositoryLegibility legibility = reading.legibility();
-        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), reading.seed());
         final ReadingSummary summary = summaryOf(reading, legibility, themes, field);
         final Vocabulary vocabulary = vocabularyOf(legibility, reading.seed());
-        final CorroboratedReading terms = CorroboratedReading.of(LinguisticTerms.fromClasspath(),
-                OliaTerms.fromClasspath().concepts(), parsed);
 
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);

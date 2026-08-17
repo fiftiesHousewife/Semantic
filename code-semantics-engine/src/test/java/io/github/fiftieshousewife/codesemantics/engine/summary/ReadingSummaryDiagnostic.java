@@ -43,7 +43,7 @@ class ReadingSummaryDiagnostic {
         final Path root = reading.root();
         final RepositoryThemes themes = reading.themes();
 
-        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), TreeReading.SEED);
+        final PlacedField field = reading.arxivField();
 
         final ReadingSummary summary = ReadingSummary.of(root.getFileName().toString(),
                 reading.legibility(), themes, field, TOPICS_PER_SCOPE);

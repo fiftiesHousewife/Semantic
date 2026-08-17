@@ -71,7 +71,8 @@ public final class ExportCommand {
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = previousReading(exports, file);
-        final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched());
+        final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched(),
+                reading.terms(), reading.arxivField());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
         return file;

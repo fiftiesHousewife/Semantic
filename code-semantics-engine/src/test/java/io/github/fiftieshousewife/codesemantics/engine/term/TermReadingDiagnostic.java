@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
-import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.theme.FieldOfStudy;
@@ -46,8 +44,6 @@ class TermReadingDiagnostic {
 
     private static final int TERMS_HELD = 100;
 
-    private static final long SEED = 20260813L;
-
     private static final int WITNESSES_NAMED = 6;
 
     private static final String PREAMBLE = """
@@ -71,11 +67,9 @@ class TermReadingDiagnostic {
     void matchesThisRepositoryAgainstThePublishedTermsOfItsOwnField() throws IOException {
         final TreeReading clone = TreeReading.ofTheCloneUnderReading();
         final Path root = clone.root();
-        final ParsedRepository parsed = clone.parsed();
         final LinguisticTerms terms = LinguisticTerms.fromClasspath();
 
-        final CorroboratedReading reading = CorroboratedReading.of(terms,
-                OliaTerms.fromClasspath().concepts(), parsed);
+        final CorroboratedReading reading = clone.terms();
         final MatchedTerms every = reading.every();
         final TaxonomyTree everyTree = reading.everyTree();
         final StatedSiblings siblings = reading.siblings();
@@ -131,8 +125,9 @@ class TermReadingDiagnostic {
      * That reading covers the markdown as well as the Java, so this page agrees with every other report.
      */
     private static TaxonomyChoice chose(final String taxonomy) {
-        final RepositoryThemes themes = TreeReading.ofTheCloneUnderReading().themes();
-        final PlacedField field = PlacedField.ofArxiv(themes.repository().comparison(), SEED);
+        final TreeReading clone = TreeReading.ofTheCloneUnderReading();
+        final RepositoryThemes themes = clone.themes();
+        final PlacedField field = clone.arxivField();
         return new TaxonomyChoice(themesCarriedBy(themes), field.nearestArchive().label(),
                 field.nearestArchive().bits(), field.archiveChance().chanceNearest(),
                 field.archiveChance().standsApart(), taxonomy,

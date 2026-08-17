@@ -1,17 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
-import java.nio.file.Path;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
-import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.HostTree;
-import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
-import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
-import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
+import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -39,14 +32,9 @@ class PinnedTermFindings {
 
     @Test
     void writesTheOntologysOwnTermsAndIsCarriedByTheShortestOfThem() {
-        final Path root = new HostTree().root();
-        final List<SourceScope> scopes = new JavaSourceScopes().under(root);
-        final ParsedRepository parsed = ParsedRepository.of(root, scopes);
-        final LinguisticTerms terms = LinguisticTerms.fromClasspath();
-
-        final MatchedTerms matched = TermReading.over(terms).of(parsed);
-        final StatedSiblings siblings = StatedSiblings.of(treeOf(matched));
-        final MatchedTerms corroborated = TermReading.corroboratedBy(terms, siblings).of(parsed);
+        final CorroboratedReading reading = TreeReading.ofTheHostTree().terms();
+        final MatchedTerms matched = reading.every();
+        final MatchedTerms corroborated = reading.matched();
 
         final MatchedTerms onWords = matched.at(TermRung.WORDS);
         final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);
@@ -123,14 +111,9 @@ class PinnedTermFindings {
 
     @Test
     void placesTheOrdinaryEnglishItMatchedDeeperThanTheFieldsOwnVocabulary() {
-        final Path root = new HostTree().root();
-        final ParsedRepository parsed = ParsedRepository.of(root, new JavaSourceScopes().under(root));
-        final LinguisticTerms terms = LinguisticTerms.fromClasspath();
-
-        final MatchedTerms every = TermReading.over(terms).of(parsed);
-        final TaxonomyTree everyTree = treeOf(every);
-        final TaxonomyTree corroborated =
-                treeOf(TermReading.corroboratedBy(terms, StatedSiblings.of(everyTree)).of(parsed));
+        final CorroboratedReading reading = TreeReading.ofTheHostTree().terms();
+        final TaxonomyTree everyTree = reading.everyTree();
+        final TaxonomyTree corroborated = reading.tree();
         final StatedDepth depth = StatedDepth.of(everyTree);
         final WrittenByDepth admitted = WrittenByDepth.of(corroborated.writtenHere(), depth);
         final WrittenByDepth refused = WrittenByDepth.of(everyTree.writtenHere().stream()
@@ -162,19 +145,6 @@ class PinnedTermFindings {
                                 + "`Phrase` and `Diacritic` are all one rung down, which is the rung a "
                                 + "depth weight would have discounted hardest.")
                         .isPositive());
-    }
-
-    private static TaxonomyTree treeOf(final MatchedTerms matched) {
-        return TaxonomyTree.of(OliaTerms.fromClasspath().concepts(), writtenByConcept(matched),
-                label -> String.join(" ", IdentifierWords.fromClasspath().of(label).words()));
-    }
-
-    /** How often the repository wrote each concept, by the label the taxonomy states it under. */
-    private static Map<String, Integer> writtenByConcept(final MatchedTerms matched) {
-        final Map<String, Integer> written = new HashMap<>();
-        matched.sightings().forEach(sighting -> sighting.concepts().forEach(concept ->
-                written.merge(concept.prefLabel(), sighting.occurrences(), Integer::sum)));
-        return written;
     }
 
     private static double oneWordShare(final MatchedTerms matched) {

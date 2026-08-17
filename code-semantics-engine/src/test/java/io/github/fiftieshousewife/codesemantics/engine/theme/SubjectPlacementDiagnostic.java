@@ -63,19 +63,15 @@ class SubjectPlacementDiagnostic {
 
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
         final List<SkosConcept> described = taxonomy.described();
-        final List<SkosConcept> archives = new PooledDescriptions().broaderThan(described, taxonomy);
-        final List<SubjectTopics> subjects = SubjectAreas.fromClasspath().of(described);
+        final List<SubjectTopics> subjects = SubjectAreas.publishedFromClasspath();
         final List<String> descriptions = described.stream().map(SkosConcept::definition).toList();
-        final List<SubjectPlacement.Placement> placements =
-                SubjectPlacement.byDivergence().of(repository, subjects);
-        final List<SubjectPlacement.Placement> pooled = SubjectPlacement.byDivergence()
-                .of(repository, SubjectAreas.fromClasspath().of(archives));
+        final PlacedField field = reading.arxivField();
+        final List<SubjectPlacement.Placement> placements = field.categories();
+        final List<SubjectPlacement.Placement> pooled = field.archives();
         final List<SubjectPlacement.Placement> shared =
                 SubjectPlacement.bySharedMass().of(repository, subjects);
-        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(placements.getFirst().bits(),
-                repository, descriptions);
-        final SubjectNull.Chance pooledChance = SubjectNull.seeded(TreeReading.SEED).of(pooled.getFirst().bits(),
-                repository, archives.stream().map(SkosConcept::definition).toList());
+        final SubjectNull.Chance chance = field.categoryChance();
+        final SubjectNull.Chance pooledChance = field.archiveChance();
         final SubjectNull.Chance sharedChance = SubjectNull.seeded(TreeReading.SEED, new SharedMass())
                 .of(shared.getFirst().bits(), repository, descriptions);
 

@@ -3,8 +3,6 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.io.IOException;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,23 +31,17 @@ class PinnedSubjectFindings {
 
     @Test
     void placesThisRepositoryInComputationAndLanguage() throws IOException {
-        final TopicDistribution repository =
-                TreeReading.ofTheHostTree().themes().repository().comparison();
+        final TreeReading host = TreeReading.ofTheHostTree();
+        final TopicDistribution repository = host.themes().repository().comparison();
 
-        final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
-        final List<SkosConcept> described = taxonomy.described();
-        final List<SkosConcept> archives = new PooledDescriptions().broaderThan(described, taxonomy);
-        final List<SubjectTopics> subjects = SubjectAreas.fromClasspath().of(described);
-        final List<SubjectPlacement.Placement> placements =
-                SubjectPlacement.byDivergence().of(repository, subjects);
-        final List<SubjectPlacement.Placement> pooled = SubjectPlacement.byDivergence()
-                .of(repository, SubjectAreas.fromClasspath().of(archives));
+        final List<SubjectTopics> subjects = SubjectAreas.publishedFromClasspath();
+        final PlacedField field = host.arxivField();
+        final List<SubjectPlacement.Placement> placements = field.categories();
+        final List<SubjectPlacement.Placement> pooled = field.archives();
         final List<SubjectPlacement.Placement> shared =
                 SubjectPlacement.bySharedMass().of(repository, subjects);
-        final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(placements.getFirst().bits(),
-                repository, described.stream().map(SkosConcept::definition).toList());
-        final SubjectNull.Chance pooledChance = SubjectNull.seeded(TreeReading.SEED).of(pooled.getFirst().bits(),
-                repository, archives.stream().map(SkosConcept::definition).toList());
+        final SubjectNull.Chance chance = field.categoryChance();
+        final SubjectNull.Chance pooledChance = field.archiveChance();
 
         final List<String> nearest = placements.stream().limit(SUBJECTS_HELD)
                 .map(SubjectPlacement.Placement::concept).toList();

@@ -6,7 +6,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
+import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
+import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ThemeReading;
 
@@ -32,6 +36,12 @@ public final class TreeReading {
      * what keeps the decision out of the API.
      */
     private static final Map<Path, RepositoryReading> READINGS = new ConcurrentHashMap<>();
+
+    /** The bundled term vocabulary's reading of each tree, shared for the same reason as the reading. */
+    private static final Map<Path, CorroboratedReading> TERMS = new ConcurrentHashMap<>();
+
+    /** Each tree's arXiv placement at the shared seed, with both chance draws inside it. */
+    private static final Map<Path, PlacedField> FIELDS = new ConcurrentHashMap<>();
 
     private final Path root;
 
@@ -72,6 +82,18 @@ public final class TreeReading {
 
     public RepositoryLegibility legibility() {
         return reading().legibility();
+    }
+
+    /** The bundled term vocabulary read over this tree, computed once per JVM like the reading itself. */
+    public CorroboratedReading terms() {
+        return TERMS.computeIfAbsent(root, tree -> CorroboratedReading.of(LinguisticTerms.fromClasspath(),
+                OliaTerms.fromClasspath().concepts(), parsed()));
+    }
+
+    /** Where this tree stands among arXiv's subjects at the shared seed, computed once per JVM. */
+    public PlacedField arxivField() {
+        return FIELDS.computeIfAbsent(root,
+                tree -> PlacedField.ofArxiv(themes().repository().comparison(), SEED));
     }
 
     public RepositoryThemes themes() {

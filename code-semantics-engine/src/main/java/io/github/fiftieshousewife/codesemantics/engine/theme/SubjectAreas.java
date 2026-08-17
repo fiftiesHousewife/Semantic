@@ -50,6 +50,30 @@ public final class SubjectAreas {
         return of(ArxivSubjects.fromClasspath().described());
     }
 
+    /**
+     * {@link #published()} computed once per JVM and shared: the bundled taxonomy cannot change under a
+     * running program, and reading its hundred-odd descriptions costs seconds per caller otherwise.
+     */
+    public static List<SubjectTopics> publishedFromClasspath() {
+        return ClasspathReadings.DESCRIBED;
+    }
+
+    /** The same descriptions pooled to the archive level, computed once per JVM for the same reason. */
+    public static List<SubjectTopics> archivesFromClasspath() {
+        return ClasspathReadings.ARCHIVES;
+    }
+
+    private static final class ClasspathReadings {
+        private static final List<SubjectTopics> DESCRIBED = fromClasspath().published();
+        private static final List<SubjectTopics> ARCHIVES = archives();
+
+        private static List<SubjectTopics> archives() {
+            final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
+            return fromClasspath()
+                    .of(new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy));
+        }
+    }
+
     public List<SubjectTopics> of(final List<SkosConcept> subjects) {
         return subjects.stream().map(this::read).filter(subject -> !subject.distribution().isEmpty())
                 .toList();

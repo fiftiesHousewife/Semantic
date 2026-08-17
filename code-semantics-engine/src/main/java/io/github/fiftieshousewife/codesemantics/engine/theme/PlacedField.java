@@ -48,19 +48,19 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
         final List<SkosConcept> described = taxonomy.described();
         final List<SkosConcept> archives = new PooledDescriptions().broaderThan(described, taxonomy);
+        final List<SubjectPlacement.Placement> byArchive =
+                SubjectPlacement.byDivergence().of(reading, SubjectAreas.archivesFromClasspath());
+        final List<SubjectPlacement.Placement> byCategory =
+                SubjectPlacement.byDivergence().of(reading, SubjectAreas.publishedFromClasspath());
         return new PlacedField(ARXIV,
-                placed(reading, archives), chance(reading, archives, seed),
-                placed(reading, described), chance(reading, described, seed));
-    }
-
-    private static List<SubjectPlacement.Placement> placed(final TopicDistribution reading,
-                                                           final List<SkosConcept> subjects) {
-        return SubjectPlacement.byDivergence().of(reading, SubjectAreas.fromClasspath().of(subjects));
+                byArchive, chance(reading, byArchive, archives, seed),
+                byCategory, chance(reading, byCategory, described, seed));
     }
 
     private static SubjectNull.Chance chance(final TopicDistribution reading,
+                                             final List<SubjectPlacement.Placement> placed,
                                              final List<SkosConcept> subjects, final long seed) {
-        return SubjectNull.seeded(seed).of(placed(reading, subjects).getFirst().bits(), reading,
+        return SubjectNull.seeded(seed).of(placed.getFirst().bits(), reading,
                 subjects.stream().map(SkosConcept::definition).toList());
     }
 }
