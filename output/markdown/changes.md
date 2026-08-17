@@ -1,6 +1,6 @@
 # What moved since the last reading
 
-Read at `d88e16e5`, against the reading committed at `fd5297ef`.
+Read at `7acbcbaf`, against the reading committed at `d88e16e5`.
 
 Every figure here moves whenever a source file or a markdown file does, because the reading covers this repository's own documentation. So the figures are stated before and after and nothing is called large. What is worth acting on is the second table: each of those names cleared a stated bar in one reading and not in the other.
 
@@ -15,17 +15,13 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Archive — chance reaches | 41.3% | 41.3% |  |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 40.3% | 40.2% | moved |
-| Category — chance reaches | 45.1% | 45.2% | moved |
+| Category — divergence | 40.2% | 40.2% |  |
+| Category — chance reaches | 45.2% | 45.2% |  |
 | Category — stands apart from chance | yes | yes |  |
 | Words above the bar | 259 | 259 |  |
 | Topics reported | 3 | 3 |  |
-| Concepts written | 135 | 142 | moved |
+| Concepts written | 142 | 142 |  |
 
 ## What entered and left
 
-| Population | Entered | Left |
-|---|---|---|
-| Topics | — | — |
-| Words | — | — |
-| Concepts | `fault tolerance` `hand over` `linguistic terms` `query languages` `range size` `style sheets` `value function` `vocabulary` | `servers` |
+Nothing entered or left. Every topic, word and concept the previous reading reported is reported by this one.

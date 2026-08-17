@@ -44,7 +44,7 @@ gaps: the gap is where the reader should look for it.
 
 **8,054 occurrences of 959 distinct words**, read against ordinary English and the platform's own API. The 259 that clear the bar hold 62.5% of what was written and 86.5% of the divergence, and 100.0% of their occurrences are names. 228 words in the ranking are ones a reference writes more densely than this repository does, and 39 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0159%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 959, over 999 draws yielding 2,840,096 scored words from that reference's own distribution. A word is here where it beats **0.0192%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 959, over 999 draws yielding 1,590,092 scored words from that reference's own distribution.
+A word is here where it beats **0.0161%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 959, over 999 draws yielding 2,841,008 scored words from that reference's own distribution. A word is here where it beats **0.0191%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 959, over 999 draws yielding 1,590,012 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -367,9 +367,9 @@ A word is here where it beats **0.0159%** of the maximum divergence against ordi
 
 ## What it called the things that check it
 
-**14,452 occurrences of 1,585 distinct words**, read against ordinary English and the platform's own API. The 285 that clear the bar hold 51.9% of what was written and 81.4% of the divergence, and 100.0% of their occurrences are names. 440 words in the ranking are ones a reference writes more densely than this repository does, and 102 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
+**14,452 occurrences of 1,585 distinct words**, read against ordinary English and the platform's own API. The 284 that clear the bar hold 51.8% of what was written and 81.3% of the divergence, and 100.0% of their occurrences are names. 440 words in the ranking are ones a reference writes more densely than this repository does, and 102 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0098%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 1,585, over 999 draws yielding 4,310,577 scored words from that reference's own distribution. A word is here where it beats **0.0120%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 1,585, over 999 draws yielding 2,057,351 scored words from that reference's own distribution.
+A word is here where it beats **0.0100%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 1,585, over 999 draws yielding 4,312,555 scored words from that reference's own distribution. A word is here where it beats **0.0121%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 1,585, over 999 draws yielding 2,058,917 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -425,7 +425,7 @@ A word is here where it beats **0.0098%** of the maximum divergence against ordi
 | 54 | `does` | 0.0884% | 49 | 100.0% | 0.3391% | 0.0484% | 0.0052% | `code-semantics-api/src/test/java/io/github/fiftieshousewife/codesemantics/name/TokeniserTest.java:41` |
 
 <details>
-<summary>235 more words, ranked</summary>
+<summary>234 more words, ranked</summary>
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|
@@ -663,7 +663,6 @@ A word is here where it beats **0.0098%** of the maximum divergence against ordi
 | 336 | `findings` | 0.0103% | 5 | 100.0% | 0.0346% | 0.0037% | 0.0000% | `code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/reading/PinnedLegibilityFindings.java:25` |
 | 337 | `carriers` | 0.0102% | 4 | 100.0% | 0.0277% | 0.0016% | 0.0004% | `code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/CarrierConcentrationTest.java:20` |
 | 338 | `defines` | 0.0102% | 4 | 100.0% | 0.0277% | 0.0016% | 0.0000% | `lexicon-extraction/src/test/java/io/github/fiftieshousewife/bi/lexicon/extraction/CsfConceptsTest.java:28` |
-| 341 | `concentrated` | 0.0099% | 4 | 100.0% | 0.0277% | 0.0018% | 0.0000% | `code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/CarrierConcentrationDiagnostic.java:34` |
 </details>
 
 ### What the language supplied
@@ -720,7 +719,7 @@ A word is here where it beats **0.0098%** of the maximum divergence against ordi
 
 **97,044 occurrences of 4,080 distinct words**, read against ordinary English and the platform's own API. The 695 that clear the bar hold 48.5% of what was written and 84.1% of the divergence, and 26.9% of their occurrences are names. 1,586 words in the ranking are ones a reference writes more densely than this repository does, and 198 are ones English supplied rather than the author choosing them; both are shown below rather than removed.
 
-A word is here where it beats **0.0020%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,080, over 999 draws yielding 13,021,764 scored words from that reference's own distribution. A word is here where it beats **0.0023%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,080, over 999 draws yielding 3,894,007 scored words from that reference's own distribution.
+A word is here where it beats **0.0020%** of the maximum divergence against ordinary English — the claim a word of a repository this size reaches by chance in the best of a field of 4,080, over 999 draws yielding 13,021,718 scored words from that reference's own distribution. A word is here where it beats **0.0023%** of the maximum divergence against the platform's own API — the claim a word of a repository this size reaches by chance in the best of a field of 4,080, over 999 draws yielding 3,894,073 scored words from that reference's own distribution.
 
 | # | Word | Claim | Occurrences | In names | Here | In ordinary English | In the platform's own API | First seen |
 |--:|---|--:|--:|--:|--:|--:|--:|---|

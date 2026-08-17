@@ -2,7 +2,7 @@
   "schemaVersion" : "3.1",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "d88e16e5742c4dbe93fd2326b96c4a01a1a212a4",
+    "commit" : "7acbcbafe280bb1064ed8b073736cbb895ee9043",
     "about" : [ "linguistics", "computing" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
     "placedIn" : {
@@ -15,7 +15,7 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4021442302581331,
+        "divergenceBits" : 0.4021442302581332,
         "nearestByChanceBits" : 0.45176471191243345,
         "standsApartFromChance" : true
       }
@@ -94,11 +94,11 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-api/src/test/java",
-      "divergenceBits" : 0.20560663245074476,
+      "divergenceBits" : 0.2056066324507448,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.034203112257111645,
+      "divergenceBits" : 0.03420311225711165,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "lexicon/src/test/java",
@@ -284,7 +284,7 @@
     "occurrences" : 45,
     "occurrencesInNames" : 45,
     "divergenceBits" : 0.002760821429944932,
-    "closestReference" : "ordinary English",
+    "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/DivergenceShare.java",
       "line" : 15
@@ -1032,7 +1032,7 @@
     "occurrences" : 13,
     "occurrencesInNames" : 13,
     "divergenceBits" : 7.75028073293263E-4,
-    "closestReference" : "ordinary English",
+    "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingChanges.java",
       "line" : 113
@@ -1450,7 +1450,7 @@
     "occurrences" : 9,
     "occurrencesInNames" : 9,
     "divergenceBits" : 5.25530466818731E-4,
-    "closestReference" : "ordinary English",
+    "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTerms.java",
       "line" : 47
@@ -2363,7 +2363,7 @@
     "occurrences" : 5,
     "occurrencesInNames" : 5,
     "divergenceBits" : 2.7882964470781683E-4,
-    "closestReference" : "ordinary English",
+    "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
       "line" : 25
@@ -2770,7 +2770,7 @@
     "occurrences" : 4,
     "occurrencesInNames" : 4,
     "divergenceBits" : 2.1696823651628006E-4,
-    "closestReference" : "ordinary English",
+    "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/CopiedComments.java",
       "line" : 21
@@ -2966,19 +2966,19 @@
   "themes" : [ {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.050992215611673074,
+    "shareOfRepository" : 0.05099221561167307,
     "divergenceBits" : 0.007840562530833733,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "english" ]
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-api/src/test/java",
-    "shareOfRepository" : 0.050992215611673074,
+    "shareOfRepository" : 0.05099221561167307,
     "divergenceBits" : 0.007365031859758037,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "english" ]
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.050992215611673074,
+    "shareOfRepository" : 0.05099221561167307,
     "divergenceBits" : 4.839326353776874E-4,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "scope", "english" ]
   } ],
@@ -4076,9 +4076,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "senses" : 121,
+      "words" : 917,
       "lemmas" : 181,
-      "words" : 917
+      "senses" : 121
     },
     "placement" : {
       "scheme" : "arXiv",
@@ -4090,7 +4090,7 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4021442302581331,
+        "divergenceBits" : 0.4021442302581332,
         "nearestByChanceBits" : 0.45176471191243345,
         "standsApartFromChance" : true
       }
@@ -4429,9 +4429,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "senses" : 39,
+      "words" : 137,
       "lemmas" : 61,
-      "words" : 137
+      "senses" : 39
     },
     "placement" : {
       "scheme" : "arXiv",
@@ -4443,7 +4443,7 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4021442302581331,
+        "divergenceBits" : 0.4021442302581332,
         "nearestByChanceBits" : 0.45176471191243345,
         "standsApartFromChance" : true
       }
