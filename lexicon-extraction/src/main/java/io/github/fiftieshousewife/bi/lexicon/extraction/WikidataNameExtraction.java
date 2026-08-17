@@ -32,6 +32,8 @@ public final class WikidataNameExtraction {
 
     private final SparqlEndpoint endpoint;
 
+    private final ValueBatches batches = new ValueBatches(BATCH);
+
     WikidataNameExtraction(final SparqlEndpoint endpoint) {
         this.endpoint = endpoint;
     }
@@ -68,7 +70,7 @@ public final class WikidataNameExtraction {
     private Map<String, List<String>> labelsOf(final List<String> items)
             throws IOException, InterruptedException {
         final Map<String, List<String>> labels = new HashMap<>();
-        for (final List<String> batch : batches(items)) {
+        for (final List<String> batch : batches.of(items)) {
             final String query = QleverWikidata.prefixed(
                     "SELECT ?item ?label WHERE {",
                     "VALUES ?item { " + QleverWikidata.valuesClause(batch) + " }",
@@ -116,14 +118,6 @@ public final class WikidataNameExtraction {
         final TreeSet<String> items = new TreeSet<>(givenBearers.keySet());
         items.addAll(familyBearers.keySet());
         return List.copyOf(items);
-    }
-
-    private static List<List<String>> batches(final List<String> items) {
-        final List<List<String>> batches = new ArrayList<>();
-        for (int start = 0; start < items.size(); start += BATCH) {
-            batches.add(items.subList(start, Math.min(start + BATCH, items.size())));
-        }
-        return batches;
     }
 
     private static long bearersOf(final String[] row) {

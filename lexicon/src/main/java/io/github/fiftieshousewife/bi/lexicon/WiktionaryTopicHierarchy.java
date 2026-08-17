@@ -1,10 +1,5 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
@@ -12,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +22,6 @@ import java.util.stream.Collectors;
 public final class WiktionaryTopicHierarchy {
 
     private static final String RESOURCE = "wiktionary-topic-hierarchy.tsv";
-    private static final String COMMENT = "#";
 
     private final Map<String, Set<String>> broaderByTopic;
     private final Map<String, Set<String>> ancestorsByTopic;
@@ -68,17 +61,9 @@ public final class WiktionaryTopicHierarchy {
     }
 
     private static WiktionaryTopicHierarchy load() {
-        final InputStream stream = Objects.requireNonNull(
-                WiktionaryTopicHierarchy.class.getResourceAsStream("/" + RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            final Map<String, Set<String>> broaderByTopic = new HashMap<>();
-            reader.lines()
-                    .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .forEach(line -> index(line, broaderByTopic));
-            return new WiktionaryTopicHierarchy(freeze(broaderByTopic));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled Wiktionary topic hierarchy", e);
-        }
+        final Map<String, Set<String>> broaderByTopic = new HashMap<>();
+        BundledLines.of(RESOURCE).forEach(line -> index(line, broaderByTopic));
+        return new WiktionaryTopicHierarchy(freeze(broaderByTopic));
     }
 
     private static void index(final String line, final Map<String, Set<String>> broaderByTopic) {

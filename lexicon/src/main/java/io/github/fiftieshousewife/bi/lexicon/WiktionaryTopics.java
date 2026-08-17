@@ -1,16 +1,10 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +17,6 @@ import java.util.stream.Collectors;
 public final class WiktionaryTopics {
 
     private static final String RESOURCE = "wiktionary-topics.tsv";
-    private static final String COMMENT = "#";
     private static final char COLLOCATION_JOINER = '_';
 
     private final Map<String, Set<String>> topicsByWord;
@@ -59,19 +52,11 @@ public final class WiktionaryTopics {
     }
 
     private static WiktionaryTopics load() {
-        final InputStream stream = Objects.requireNonNull(
-                WiktionaryTopics.class.getResourceAsStream("/" + RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            final Map<String, Set<String>> topicsByWord = new HashMap<>();
-            final Map<String, Set<String>> wordsByTopic = new HashMap<>();
-            final Map<String, String> canonicalTopics = new HashMap<>();
-            reader.lines()
-                    .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .forEach(line -> index(line, topicsByWord, wordsByTopic, canonicalTopics));
-            return new WiktionaryTopics(freeze(topicsByWord), freeze(wordsByTopic));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled Wiktionary topics resource", e);
-        }
+        final Map<String, Set<String>> topicsByWord = new HashMap<>();
+        final Map<String, Set<String>> wordsByTopic = new HashMap<>();
+        final Map<String, String> canonicalTopics = new HashMap<>();
+        BundledLines.of(RESOURCE).forEach(line -> index(line, topicsByWord, wordsByTopic, canonicalTopics));
+        return new WiktionaryTopics(freeze(topicsByWord), freeze(wordsByTopic));
     }
 
     private static void index(final String line, final Map<String, Set<String>> topicsByWord,

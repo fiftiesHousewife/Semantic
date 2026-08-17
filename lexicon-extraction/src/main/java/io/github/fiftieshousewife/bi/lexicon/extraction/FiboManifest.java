@@ -1,20 +1,8 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.List;
-import java.util.stream.IntStream;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * Which ontologies make up FIBO's production vocabulary, according to FIBO.
@@ -44,8 +32,8 @@ public final class FiboManifest {
 
     /** The repository-relative path of every FIBO ontology the manifest imports, in the order stated. */
     public List<String> ontologiesIn(final byte[] manifest) {
-        final Document parsed = parse(manifest);
-        final List<String> paths = elements(parsed.getElementsByTagNameNS(OWL, IMPORTS))
+        final Document parsed = RdfXml.parsed(manifest);
+        final List<String> paths = RdfXml.elements(parsed.getElementsByTagNameNS(OWL, IMPORTS))
                 .map(element -> element.getAttributeNS(RDF, RESOURCE))
                 .filter(uri -> uri.startsWith(PUBLISHED_UNDER))
                 .map(FiboManifest::fileFor)
@@ -64,27 +52,5 @@ public final class FiboManifest {
 
     private static String trimmed(final String path) {
         return path.endsWith("/") ? path.substring(0, path.length() - 1) : path;
-    }
-
-    private static java.util.stream.Stream<Element> elements(final NodeList nodes) {
-        return IntStream.range(0, nodes.getLength()).mapToObj(nodes::item)
-                .filter(node -> node.getNodeType() == Node.ELEMENT_NODE)
-                .map(Element.class::cast);
-    }
-
-    private static Document parse(final byte[] document) {
-        try {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            factory.setNamespaceAware(true);
-            return factory.newDocumentBuilder().parse(new ByteArrayInputStream(document));
-        } catch (final SAXException e) {
-            throw new IllegalArgumentException("Malformed RDF/XML", e);
-        } catch (final ParserConfigurationException e) {
-            throw new IllegalStateException("The platform states no namespace-aware XML parser", e);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(e);
-        }
     }
 }

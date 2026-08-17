@@ -1,15 +1,9 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.Character.UnicodeScript;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -28,7 +22,6 @@ import java.util.stream.IntStream;
 public final class NameTokens {
 
     private static final String RESOURCE = "wikidata-names.tsv";
-    private static final String COMMENT = "#";
     private static final String GIVEN = "given";
     private static final String FAMILY = "family";
     private static final Pattern INTERPUNCTS = Pattern.compile("[·・‧]");
@@ -75,18 +68,10 @@ public final class NameTokens {
     }
 
     private static NameTokens load() {
-        final InputStream stream = Objects.requireNonNull(
-                NameTokens.class.getResourceAsStream("/" + RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            final Set<String> given = new HashSet<>();
-            final Set<String> family = new HashSet<>();
-            reader.lines()
-                    .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .forEach(line -> index(line, given, family));
-            return new NameTokens(Set.copyOf(given), Set.copyOf(family));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled Wikidata name-token resource", e);
-        }
+        final Set<String> given = new HashSet<>();
+        final Set<String> family = new HashSet<>();
+        BundledLines.of(RESOURCE).forEach(line -> index(line, given, family));
+        return new NameTokens(Set.copyOf(given), Set.copyOf(family));
     }
 
     private static void index(final String line, final Set<String> given, final Set<String> family) {

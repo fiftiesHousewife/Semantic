@@ -1,17 +1,11 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +21,6 @@ import java.util.stream.Collectors;
 final class WordNetDomains {
 
     private static final String RESOURCE = "wordnet-domains.txt";
-    private static final String COMMENT = "#";
     private static final char COLLOCATION_JOINER = '_';
 
     private final Map<String, List<Set<String>>> sensesByLemma;
@@ -84,22 +77,14 @@ final class WordNetDomains {
     }
 
     private static WordNetDomains load() {
-        final InputStream stream = Objects.requireNonNull(
-                WordNetDomains.class.getResourceAsStream("/" + RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            final Map<String, String> canonicalDomains = new HashMap<>();
-            final Map<String, List<Set<String>>> sensesByLemma = new HashMap<>();
-            final Map<String, Set<String>> lemmasByDomain = new HashMap<>();
-            final Map<String, Set<String>> domainsBySense = new HashMap<>();
-            reader.lines()
-                    .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .forEach(line -> index(line, sensesByLemma, lemmasByDomain, canonicalDomains,
-                            domainsBySense));
-            return new WordNetDomains(freezeSenses(sensesByLemma), freezeLemmas(lemmasByDomain),
-                    Map.copyOf(domainsBySense));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled WordNet Domains resource", e);
-        }
+        final Map<String, String> canonicalDomains = new HashMap<>();
+        final Map<String, List<Set<String>>> sensesByLemma = new HashMap<>();
+        final Map<String, Set<String>> lemmasByDomain = new HashMap<>();
+        final Map<String, Set<String>> domainsBySense = new HashMap<>();
+        BundledLines.of(RESOURCE).forEach(line -> index(line, sensesByLemma, lemmasByDomain,
+                canonicalDomains, domainsBySense));
+        return new WordNetDomains(freezeSenses(sensesByLemma), freezeLemmas(lemmasByDomain),
+                Map.copyOf(domainsBySense));
     }
 
     private static void index(final String line, final Map<String, List<Set<String>>> sensesByLemma,

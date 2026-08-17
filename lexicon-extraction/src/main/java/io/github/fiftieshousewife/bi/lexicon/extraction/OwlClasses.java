@@ -1,25 +1,16 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  * The named classes of an OWL ontology published as RDF/XML, read with an XML parser rather than by
@@ -53,7 +44,7 @@ public class OwlClasses {
     private static final String NOTHING = "";
 
     public List<OwlClass> in(final byte[] document) {
-        final Document parsed = parse(document);
+        final Document parsed = RdfXml.parsed(document);
         final String base = parsed.getDocumentElement().getAttributeNS(XMLConstants.XML_NS_URI, BASE);
         final Map<String, OwlClass> byConcept = new LinkedHashMap<>();
         named(parsed).forEach(element -> read(element, base, byConcept));
@@ -173,30 +164,6 @@ public class OwlClasses {
     }
 
     private static Stream<Element> elements(final NodeList nodes) {
-        return IntStream.range(0, nodes.getLength()).mapToObj(nodes::item)
-                .filter(node -> node.getNodeType() == Node.ELEMENT_NODE)
-                .map(Element.class::cast);
-    }
-
-    private static Document parse(final byte[] document) {
-        try {
-            return builder().parse(new ByteArrayInputStream(document));
-        } catch (final SAXException e) {
-            throw new IllegalArgumentException("Malformed RDF/XML", e);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private static DocumentBuilder builder() {
-        try {
-            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, NOTHING);
-            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, NOTHING);
-            factory.setNamespaceAware(true);
-            return factory.newDocumentBuilder();
-        } catch (final ParserConfigurationException e) {
-            throw new IllegalStateException("The platform states no namespace-aware XML parser", e);
-        }
+        return RdfXml.elements(nodes);
     }
 }

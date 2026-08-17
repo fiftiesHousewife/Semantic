@@ -1,17 +1,11 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,7 +21,6 @@ import java.util.stream.Collectors;
 public final class SqlFunctions {
 
     private static final String RESOURCE = "sql-functions.tsv";
-    private static final String COMMENT = "#";
     private static final int SHORTEST_CONTENT_WORD = 2;
 
     private final Map<String, Set<String>> wordsByFunction;
@@ -41,11 +34,7 @@ public final class SqlFunctions {
     }
 
     public static SqlFunctions fromFile(final Path tsv) {
-        try (BufferedReader reader = Files.newBufferedReader(tsv, StandardCharsets.UTF_8)) {
-            return new SqlFunctions(index(reader));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the SQL function catalogue at " + tsv, e);
-        }
+        return new SqlFunctions(index(BundledLines.at(tsv)));
     }
 
     /** Whether the catalogue names the token as a function of the language. */
@@ -72,24 +61,15 @@ public final class SqlFunctions {
     }
 
     private static SqlFunctions load() {
-        final InputStream stream = Objects.requireNonNull(
-                SqlFunctions.class.getResourceAsStream("/" + RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            return new SqlFunctions(index(reader));
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled SQL function catalogue", e);
-        }
+        return new SqlFunctions(index(BundledLines.of(RESOURCE)));
     }
 
-    private static Map<String, Set<String>> index(final BufferedReader reader) {
+    private static Map<String, Set<String>> index(final List<String> lines) {
         final Map<String, Set<String>> words = new HashMap<>();
-        reader.lines()
-                .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                .forEach(line -> {
-                    final String[] fields = line.split("\t", -1);
-                    words.put(fields[0].toLowerCase(Locale.ROOT),
-                            contentWords(fields[0] + " " + fields[1]));
-                });
+        lines.forEach(line -> {
+            final String[] fields = line.split("\t", -1);
+            words.put(fields[0].toLowerCase(Locale.ROOT), contentWords(fields[0] + " " + fields[1]));
+        });
         return Map.copyOf(words);
     }
 

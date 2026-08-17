@@ -1,16 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * A taxonomy read back from the classpath or from a path. Every taxonomy this library bundles is the same eight
@@ -27,8 +18,6 @@ import java.util.stream.Stream;
  */
 public final class SkosRows {
 
-    private static final String COMMENT = "#";
-
     private static final String COLUMN = "\t";
 
     private static final int COLUMNS = 8;
@@ -37,26 +26,13 @@ public final class SkosRows {
     }
 
     public static List<SkosConcept> in(final String resource) {
-        final InputStream stream = Objects.requireNonNull(
-                SkosRows.class.getResourceAsStream("/" + resource), resource);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            return reader.lines().filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .map(line -> concept(line, resource)).toList();
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled taxonomy " + resource, e);
-        }
+        return BundledLines.of(resource).stream().map(line -> concept(line, resource)).toList();
     }
 
     /** The same eight columns, read from a file the caller names rather than from the published jar. */
     public static List<SkosConcept> at(final Path taxonomy) {
-        try (Stream<String> lines = Files.lines(taxonomy, StandardCharsets.UTF_8)) {
-            return lines.filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
-                    .map(line -> concept(line, taxonomy.getFileName().toString())).toList();
-        } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the taxonomy at " + taxonomy, e);
-        } catch (final UncheckedIOException e) {
-            throw new IllegalStateException("Failed to read the taxonomy at " + taxonomy, e);
-        }
+        return BundledLines.at(taxonomy).stream()
+                .map(line -> concept(line, taxonomy.getFileName().toString())).toList();
     }
 
     private static SkosConcept concept(final String line, final String resource) {

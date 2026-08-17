@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +29,8 @@ public final class WikidataInitialismExtraction {
     private static final int BATCH = 10_000;
 
     private final SparqlEndpoint endpoint;
+
+    private final ValueBatches batches = new ValueBatches(BATCH);
 
     WikidataInitialismExtraction(final SparqlEndpoint endpoint) {
         this.endpoint = endpoint;
@@ -78,7 +79,7 @@ public final class WikidataInitialismExtraction {
 
     private Set<String> excludedItems(final List<String> items) throws IOException, InterruptedException {
         final Set<String> excluded = new HashSet<>();
-        for (final List<String> batch : batches(items)) {
+        for (final List<String> batch : batches.of(items)) {
             final String query = QleverWikidata.prefixed(
                     "SELECT DISTINCT ?item WHERE {",
                     "VALUES ?item { " + QleverWikidata.valuesClause(batch) + " }",
@@ -92,7 +93,7 @@ public final class WikidataInitialismExtraction {
 
     private Map<String, String[]> labels(final List<String> items) throws IOException, InterruptedException {
         final Map<String, String[]> labels = new HashMap<>();
-        for (final List<String> batch : batches(items)) {
+        for (final List<String> batch : batches.of(items)) {
             final String query = QleverWikidata.prefixed(
                     "SELECT ?item ?label ?links WHERE {",
                     "VALUES ?item { " + QleverWikidata.valuesClause(batch) + " }",
@@ -103,14 +104,6 @@ public final class WikidataInitialismExtraction {
                     new String[] {QleverWikidata.literalOf(row[1]), sitelinksOf(row[2])}));
         }
         return labels;
-    }
-
-    private static List<List<String>> batches(final List<String> items) {
-        final List<List<String>> batches = new ArrayList<>();
-        for (int start = 0; start < items.size(); start += BATCH) {
-            batches.add(items.subList(start, Math.min(start + BATCH, items.size())));
-        }
-        return batches;
     }
 
     private static String sitelinksOf(final String field) {
