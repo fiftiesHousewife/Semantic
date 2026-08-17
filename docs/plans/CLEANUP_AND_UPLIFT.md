@@ -16,9 +16,20 @@ Landed at `af2f303`, with the mechanism changes the leads predicted:
 2. **The names-population `VocabularyNull` is drawn once per JVM**: `ChosenWords.chanceFor` is the draw, `TreeReading.namesChance()` memoises it, and both `VocabularyReadingDiagnostic` and the export take the memo.
 3. **The CSO index is built once per JVM**: `InjectedIndexes` memoises the word-keyed index per taxonomy source, shared by `ExportCommand` and `MatchedFixture`.
 
-Remaining:
+4. **The Tika measurement is taken**: `./gradlew read -Dcs.clone.dir=<tika at 43cbdae6>` runs in 13m51s against the ~20-minute baseline. The shared pipeline is ~84s of it (parse 6.5s, themes 66.4s, citing 11s); the statement-pooled security null holds at 0.8s on a tree this size. The remainder is per-class:
 
-4. **The Tika measurement is outstanding.** The plan's baseline was ~20 minutes at `43cbdae6`; on a large tree the shared parse and themes dominate, so the win there should be far larger than on this tree. Needs a clone: `git clone --depth 1 https://github.com/apache/tika` fetched at the pinned commit, then `./gradlew read -Dcs.clone.dir=<path>`.
+   | Class | Cost | What it is |
+   |---|--:|---|
+   | `ReadingExportDiagnostic` | 576s | Pays the first computation of every shared piece, then the CSO injected-taxonomy match — `CorroboratedReading.of` runs `TermReading` twice over the full parse, once admitting every match and once corroborated — and the writing |
+   | `VocabularyReadingDiagnostic` | 139s | The checked and written populations' nulls: 999 draws of up to 766k occurrences against each of two references |
+   | `OutOfDomainVocabularyDiagnostic` | 50s | Its own population sweep |
+
+5. **`DrawnVocabulary` lays words out in sorted order and counts draws by index** (landed with the regeneration after `af2f303`). The sort fixed a defect the speedup exposed: an unmodifiable map salts its iteration order per JVM, so the seeded null had never drawn the same words in two JVMs — `VocabularyNullTest` pinned within-JVM reproducibility only. The index counting removed the string hash per drawn occurrence; two fresh JVMs now produce byte-identical vocabulary reports over the unchanged Tika clone.
+
+Remaining leads, none landed:
+
+6. **The export's double term pass.** `CorroboratedReading.of` reads the whole parse through `TermReading` twice per taxonomy (every match, then corroborated); recording term sightings once and filtering by the sibling rule would halve the dominant cost of the 576s.
+7. **The null's draw is still one uniform and one binary search per occurrence** — 999 × 766k × 2 references for Tika's prose population. An alias-method layout or a conditional-binomial decomposition cuts the log factor or the occurrence loop, but either changes the random stream, so the figures move once more and must say so.
 
 ## 2. Test coverage policy
 
