@@ -26,10 +26,12 @@ Landed at `af2f303`, with the mechanism changes the leads predicted:
 
 5. **`DrawnVocabulary` lays words out in sorted order and counts draws by index** (landed with the regeneration after `af2f303`). The sort fixed a defect the speedup exposed: an unmodifiable map salts its iteration order per JVM, so the seeded null had never drawn the same words in two JVMs — `VocabularyNullTest` pinned within-JVM reproducibility only. The index counting removed the string hash per drawn occurrence; two fresh JVMs now produce byte-identical vocabulary reports over the unchanged Tika clone.
 
-Remaining leads, none landed:
+Landed at `90fdb2a` and `dac4e11`, regenerated at `9a9f377`:
 
-6. **The export's double term pass.** `CorroboratedReading.of` reads the whole parse through `TermReading` twice per taxonomy (every match, then corroborated); recording term sightings once and filtering by the sibling rule would halve the dominant cost of the 576s.
-7. **The null's draw is still one uniform and one binary search per occurrence** — 999 × 766k × 2 references for Tika's prose population. An alias-method layout or a conditional-binomial decomposition cuts the log factor or the occurrence loop, but either changes the random stream, so the figures move once more and must say so.
+6. **The export's term pass runs once.** `TermReading` records every span it finds with its site and restated-type flag, kept per file in reading order, and both tallies replay from the record; the corroborated tally asks the sibling-filtered ladder once per distinct run. The record is faithful because narrowing cannot move the walk: a multi-word term survives every narrowing, and refusing a one-word span advances the walk by one word exactly as matching it does. `CorroboratedReadingTest` prices the reading in index asks and pins agreement with a second pass; the pinned findings held unchanged.
+7. **The null's reference is laid out as an alias table** (Vose's pairing over the sorted layout): a drawn occurrence is one uniform whose integer part names a column and whose fraction chooses between the column's own word and its alias, so the binary search per occurrence is gone. The multinomial is exact and the draw is still one uniform per occurrence, but the mapping from uniforms to words changed, so every null-derived figure moved once with the regeneration; Tika's summary verdicts held on its unchanged tree.
+
+Measured after both: the self read is 2m11s (from 2m58s), and the Tika read (pinned `43cbdae6`) is 8m13s (from 13m51s) — `ReadingExportDiagnostic` 356s (from 576s), `VocabularyReadingDiagnostic` 48s (from 139s), `OutOfDomainVocabularyDiagnostic` 28s (from 50s). What remains of the export's 356s is the first computation of the shared readings, the CSO injected-taxonomy match and the writing, now with no second parse pass in it.
 
 ## 2. Test coverage policy
 
