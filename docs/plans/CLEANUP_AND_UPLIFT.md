@@ -36,16 +36,16 @@ Measured after both: the self read is 2m11s (from 2m58s), and the Tika read (pin
 ## 2. Test coverage policy
 
 5. `ReachedSubjectTest` carries real subject-placement assertions but is tagged `diagnostic`, so `checkAll` never runs it; the five `Pinned*Findings` classes are excluded the same way by the `pinned` tag. Decide what runs them in CI, and correct CLAUDE.md's tagged-tests bullet — the build excludes four tags (`generate`, `diagnostic`, `pinned`, `backtest`), the doc names two.
-6. Direct tests for the behaviour-bearing classes reached only through facades: `WordNetContrast`, `WordNetDomains`, `WordNetAbbreviations`, `DeclaredTypeWords`.
+6. **Landed.** Direct tests for the behaviour-bearing classes reached only through facades: `WordNetContrast`, `WordNetDomains`, `WordNetAbbreviations`, `DeclaredTypeWords` — including the per-sense domain lookup, the labelled-sense count, the initialism length cap and the chain ceiling, which no facade reaches.
 7. JaCoCo holds one module-total floor; a wholly untested class hides behind well-tested neighbours. Consider a per-class floor.
 
 ## 3. Structure
 
 8. Split the classes over the 150-line limit: `OwlClasses` (223), `PhraseTopics` (220), `WordNetLexicon` (219), `ParsedRepository` (206), `ThemeReading` (191), `ExportedReading` (178), `WikidataNameExtraction` (153).
 9. Break the `theme`↔`term` package cycle: `ContentWords`, `WordSpecificity` and the published-term seam want a package both can depend on.
-10. Deduplicate: the `published()`/`pinned()` fetch pasted across five extraction classes (one `PinnedSource` class); the bundled-TSV load pattern pasted across seven lexicon classes; `batches()` in both Wikidata extractors; the XML parse boilerplate in `OwlClasses` and `FiboManifest`.
+10. **Landed.** `PinnedSource` carries the permalink fetch and blob-id acceptance for the five pinned extractions; `BundledLines` reads a bundled resource's data lines for the eight classes that each carried the loop; `ValueBatches` cuts query values for both Wikidata extractors; `RdfXml` parses and streams elements for `OwlClasses` and `FiboManifest`.
 11. `MarkdownRendering` builds HTML in string literals against the tree's own typed-tags convention.
-12. `WordNetContrast`, `WordNetLexicon` and `WordNetAbbreviations` null-check extjwnl's returns at five sites; one package-private `Optional`-returning lookup (as `WordNetSenses.entry` already does) removes all of them.
+12. **Landed.** `WordNetEntries` is the one `Optional`-returning lookup — exact and inflected — and `WordNetContrast`, `WordNetLexicon`, `WordNetAbbreviations` and `WordNetSenses` all ask it, so the null checks and the duplicated catch blocks are gone.
 13. Small items: stringly-typed rows in the two Wikidata extractors want records; fully-qualified inline types across ~15 files want imports; six report classes and ~14 extraction classes want `final`; `QleverWikidata` retries non-retryable failures and does not unescape `\"` in TSV literals.
 
 ## 4. Doctrine
