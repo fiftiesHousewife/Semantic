@@ -564,6 +564,17 @@ docs/plans/**
 - **The taxonomies were chosen after examining this codebase**, so the term matching has not yet been shown to discriminate. One out-of-domain repository has been read; an evaluation set of them is what would settle it.
 - **The splitter has known failure cases**, each pinned by a test. The one bundled catalogue that would arbitrate them was measured and rejected: the Wikidata initialism registry lists `THE`, `OF` and `AND` beside the tokens a Java file is made of — `CODE`, `DATA`, `NAME`, `TYPE`, `LIST`, `NODE`, `SIZE`.
 - **A scope is a source-set directory.** That keeps generated output out of the reading with no list of directories to ignore, but a repository laid out any other way reads as having no Java in it, silently.
+- **A read takes minutes.** Every reported bar is derived by resampling — 999 seeded chance draws per scope, per reference and per subject scheme — and every declared name is matched against every taxonomy, so the cost grows with the repository and no result is kept between runs. Measured on one laptop, reader at `dac4e11`:
+
+| | This repository | [Apache Tika](https://github.com/apache/tika) at `43cbdae6` |
+|---|--:|--:|
+| `./gradlew read`, the whole run | 2m 11s | 8m 13s |
+| The parse, the topic and legibility readings, the term match against every taxonomy, and writing the reports and the export | 91s | 356s |
+| The vocabulary chance draws | 13s | 48s |
+| The out-of-domain taxonomy contrast | 5s | 28s |
+| Loading the bundled resources, a constant | 17s | 16s |
+
+Within the largest row, the topic reading with its per-scope chance draws is ~66s of Tika's 356s, and the term match against the [CSO](https://cso.kmi.open.ac.uk/)'s 14,636 topics holds most of the rest. Loading is constant, so a repository with eight times the word occurrences reads in under four times the time.
 
 ## Appendix: diagnostics and analysis
 
