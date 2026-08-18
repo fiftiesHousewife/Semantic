@@ -1,6 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class TermSpansTest {
 
     private static final String SOURCE = "a taxonomy";
+
+    @Test
+    void asksARungItsLongestTermOnceHoweverManyPositionsThePhraseHas() {
+        final ReachCountingIndex rung = new ReachCountingIndex();
+        new TermSpans(rung).in(List.of("read", "common", "noun", "at"));
+
+        assertThat(rung.reachAskings()).isEqualTo(1);
+    }
 
     @Test
     void findsATermTheSourcePublishesAmongWordsItDoesNot() {
@@ -112,5 +124,45 @@ class TermSpansTest {
         return new TermSpans(published,
                 NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
                 NormalisedTerms.over(published, SenseRuns.fromClasspath()));
+    }
+
+    private static final class ReachCountingIndex implements TermIndex {
+
+        private int reachAskings;
+
+        @Override
+        public List<SkosConcept> conceptsOf(final List<String> words) {
+            return List.of();
+        }
+
+        @Override
+        public Set<List<String>> terms() {
+            return Set.of();
+        }
+
+        @Override
+        public int longestTerm() {
+            reachAskings++;
+            return 2;
+        }
+
+        @Override
+        public Optional<String> broaderOf(final String prefLabel) {
+            return Optional.empty();
+        }
+
+        @Override
+        public String source() {
+            return SOURCE;
+        }
+
+        @Override
+        public TermRung rung() {
+            return TermRung.WORDS;
+        }
+
+        int reachAskings() {
+            return reachAskings;
+        }
     }
 }

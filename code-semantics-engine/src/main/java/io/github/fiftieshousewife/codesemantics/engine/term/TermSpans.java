@@ -36,9 +36,11 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 public final class TermSpans {
 
     private final List<TermIndex> rungs;
+    private final int longestTerm;
 
     public TermSpans(final TermIndex... rungs) {
         this.rungs = List.of(rungs);
+        this.longestTerm = this.rungs.stream().mapToInt(TermIndex::longestTerm).max().orElse(0);
     }
 
     /** Every term the source publishes within this phrase, in the order the phrase states them. */
@@ -66,11 +68,7 @@ public final class TermSpans {
     }
 
     private int reachFrom(final List<String> phrase, final int from) {
-        return Math.min(longestTerm(), phrase.size() - from);
-    }
-
-    private int longestTerm() {
-        return rungs.stream().mapToInt(TermIndex::longestTerm).max().orElse(0);
+        return Math.min(longestTerm, phrase.size() - from);
     }
 
     /**
