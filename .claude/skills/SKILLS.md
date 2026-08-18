@@ -4,15 +4,14 @@ Skills are instructions an agent loads when a task matches them. They live in `.
 
 | Skill | Loads when | What it holds |
 |---|---|---|
-| [`written-english`](../../install-written-english-skill.sh) | writing or editing any prose a reader outside the project sees, and reviewing prose for machine-writing habits | the house style: no metaphor in text or headings, no contrastive negation, no self-reference, no padding, no invented senses; active voice, an ambiguous term defined and linked at first use, a worked example beside anything specialist, links named for the thing rather than the path, no hard-wrapped markdown, and a review checklist |
+| [`written-english`](written-english/SKILL.md) | writing or editing any prose a reader outside the project sees, and reviewing prose for machine-writing habits | the house style: no metaphor in text or headings, no contrastive negation, no self-reference, no padding, no invented senses; active voice, an ambiguous term defined and linked at first use, a worked example beside anything specialist, links named for the thing rather than the path, no hard-wrapped markdown, and a review checklist |
 
 ## Installing
 
-Each skill ships as a script that writes it into place, so no path has to be typed.
+A skill is one file, so installing it is copying it. This project already carries its skills under `.claude/skills/`; to hold one on every project on the machine, copy it to the user directory.
 
 ```bash
-bash install-written-english-skill.sh          # this project
-bash install-written-english-skill.sh --user   # every project on this machine
+cp -r .claude/skills/written-english ~/.claude/skills/
 ```
 
 ## Where the rules also live
