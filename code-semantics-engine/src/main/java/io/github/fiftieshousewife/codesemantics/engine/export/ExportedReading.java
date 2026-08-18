@@ -1,7 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
@@ -89,7 +91,7 @@ public final class ExportedReading {
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final ExportedTaxonomy taxonomy = new ExportedTaxonomies().of(
                 LinguisticTerms.fromClasspath().source(), terms.matched(), placement(field));
-        final List<ExportedTaxonomy> taxonomies = new java.util.ArrayList<>(List.of(taxonomy));
+        final List<ExportedTaxonomy> taxonomies = new ArrayList<>(List.of(taxonomy));
         alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
                 CorroboratedReading.of(index, conceptsOf(index), parsed).matched(), placement(field))));
 
@@ -122,12 +124,23 @@ public final class ExportedReading {
                                               final List<ExportedTheme> themes,
                                               final List<ExportedTaxonomy> taxonomies,
                                               final PlacedField field) {
-        return new ExportedSummary(reading.root().getFileName().toString(), commit, summary.about(),
-                ABOUT_STATED_BY, placement(field), leading(signals), leadingConcepts(taxonomies),
-                distinctive(summary),
-                summary.legibility().lambda(), summary.legibility().unplaced(),
-                new ExportedSummary.Counts(signals.size(), themes.size(),
-                        taxonomies.stream().mapToInt(one -> one.concepts().size()).sum()));
+        return ExportedSummary.builder()
+                .repository(reading.root().getFileName().toString())
+                .commit(commit)
+                .about(summary.about())
+                .aboutStatedBy(ABOUT_STATED_BY)
+                .placedIn(placement(field))
+                .leadingWords(leading(signals))
+                .leadingConcepts(leadingConcepts(taxonomies))
+                .distinctiveScopes(distinctive(summary))
+                .shareOfWordsWithACitation(summary.legibility().lambda())
+                .shareOfMassOnNoSubject(summary.legibility().unplaced())
+                .counts(ExportedSummary.Counts.builder()
+                        .signals(signals.size())
+                        .themes(themes.size())
+                        .concepts(taxonomies.stream().mapToInt(one -> one.concepts().size()).sum())
+                        .build())
+                .build();
     }
 
     private static List<LeadingWord> leading(final List<ExportedSignal> signals) {
@@ -157,7 +170,7 @@ public final class ExportedReading {
                                 taxonomy.vocabulary()))
                         .distinct().limit(LEADING).toList())
                 .toList();
-        return java.util.stream.IntStream.range(0, LEADING).boxed()
+        return IntStream.range(0, LEADING).boxed()
                 .flatMap(place -> perVocabulary.stream()
                         .filter(concepts -> place < concepts.size())
                         .map(concepts -> concepts.get(place)))

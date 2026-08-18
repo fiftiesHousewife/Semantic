@@ -3,6 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.Builder;
+
 /**
  * The answer, with none of the evidence under it. A consumer that reads this object alone knows what the
  * repository is about, where it was placed, which words and concepts carried it, and how much of it could be
@@ -24,6 +26,7 @@ import java.util.Objects;
  * @param shareOfWordsWithACitation of every word occurrence, how many a bundled resource can be cited for
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
  */
+@Builder
 public record ExportedSummary(String repository, String commit, List<String> about,
                               List<String> aboutStatedBy,
                               ExportedPlacement placedIn, List<LeadingWord> leadingWords,
@@ -41,6 +44,7 @@ public record ExportedSummary(String repository, String commit, List<String> abo
     }
 
     /** How long each section below is, so a consumer can size the read before making it. */
+    @Builder
     public record Counts(int signals, int themes, int concepts) {
     }
 
