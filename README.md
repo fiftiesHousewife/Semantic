@@ -13,9 +13,9 @@ It works in the terms of lexical semantics and information theory, and expects n
 
 ![One bar per topic, each as long as the share of the divergence between this repository's parts that the topic accounts for](output/svg/themes-bar.svg)
 
-One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar's length is the share of the [divergence](#step-1--measuring-the-difference-what-a-divergence-is-and-why-it-is-a-percentage) between this repository's parts that the topic accounts for** — which is a different question from how much of the repository the topic is. `linguistics` carries 97.6% of what makes the parts differ and is 5.1% of everything written, because three quarters of what this repository writes resolves to no subject at all.
+One bar per topic whose figure exceeds all 999 chance resamples, longest first. **A bar measures signal, not volume.** The signal is the [divergence](#step-1--measuring-the-difference-what-a-divergence-is-and-why-it-is-a-percentage) between this repository's parts — how far one source set's reading stands from the rest — and a bar's length is the share of that divergence the topic accounts for. Volume is mostly noise here: a topic written at the same density everywhere cancels out of the comparison, so `linguistics` accounts for 81.6% of what separates the parts while being 5.0% of everything the reading observed.
 
-Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above both `linguistics` and `grammar`, and `natural-sciences` above `computing`, so the first two share a colour and the third does not.
+Colour groups the topics the topic resource places under one broad subject: Wiktionary states `sciences` above `linguistics` and `natural-sciences` above `computing`, so the two bars take different colours, and two topics under one broad subject would share one.
 
 ## What it does
 
