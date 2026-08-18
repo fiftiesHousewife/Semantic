@@ -15,7 +15,7 @@ under; a term written in more than one word counts unconditionally. The reading 
 match is kept at the end, beside the list of what the branch refused, because a rule that removes
 matches can only be judged as a comparison.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **99 of them, 6,272 times**, across 1,349 of 2,156 files — reaching **12 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **98 of them, 5,930 times**, across 1,303 of 2,156 files — reaching **12 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -23,41 +23,41 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `OrthographicEntity` | 8 | 37 | 1,852 | `Text` 887 `Script` 344 `Token` 262 `String` 162 `Character` 125 `Letter` 44 `Country` 16 `Diacritic` 12 |
-| `LinguisticConcept` | 23 | 136 | 1,334 | `Support` 362 `Document` 245 `Source` 171 `Author` 148 `Title` 104 `Topic` 64 `Sentence` 63 `Abstract` 52 |
-| `Relation` | 8 | 203 | 777 | `Result` 456 `Exception` 202 `Example` 63 `Alternative` 29 `Expansion` 14 `Comparison` 8 `Instantiation` 4 `Background` 1 |
-| `SemanticFeature` | 17 | 125 | 731 | `Object` 240 `URL` 225 `Amount` 68 `Address` 35 `Movie` 29 `Organization` 24 `Album` 21 `Artist` 21 |
-| `MorphosyntacticCategory` | 24 | 288 | 643 | `Image` 270 `Date` 147 `Unique` 48 `Slash` 38 `Quote` 29 `Symbol` 22 `Acronym` 13 `Colon` 11 |
-| `MorphologicalCategory` | 2 | 16 | 419 | `Prefix` 348 `Suffix` 71 |
-| `Constituent` | 4 | 37 | 247 | `Chunk` 215 `Fragment` 19 `Clause` 12 `Phrase` 1 |
+| `OrthographicEntity` | 8 | 37 | 1,758 | `Text` 863 `Script` 344 `Token` 261 `String` 157 `Character` 61 `Letter` 44 `Country` 16 `Diacritic` 12 |
+| `LinguisticConcept` | 23 | 136 | 1,142 | `Support` 246 `Document` 172 `Source` 171 `Author` 148 `Title` 104 `Topic` 64 `Sentence` 63 `Abstract` 50 |
+| `Relation` | 8 | 203 | 776 | `Result` 456 `Exception` 201 `Example` 63 `Alternative` 29 `Expansion` 14 `Comparison` 8 `Instantiation` 4 `Background` 1 |
+| `SemanticFeature` | 17 | 125 | 720 | `Object` 240 `URL` 218 `Amount` 68 `Address` 35 `Movie` 28 `Organization` 24 `Album` 21 `Artist` 21 |
+| `MorphosyntacticCategory` | 24 | 288 | 633 | `Image` 262 `Date` 146 `Unique` 47 `Slash` 38 `Quote` 29 `Symbol` 22 `Acronym` 13 `Colon` 11 |
+| `MorphologicalCategory` | 2 | 16 | 393 | `Prefix` 322 `Suffix` 71 |
+| `Constituent` | 3 | 37 | 242 | `Chunk` 211 `Fragment` 19 `Clause` 12 |
 | `CoordTypeFeature` | 2 | 5 | 89 | `Simple` 73 `Initial` 16 |
 | `PersonFeature` | 2 | 10 | 60 | `Second` 57 `Third` 3 |
 | `TenseFeature` | 4 | 35 | 55 | `Present` 25 `Future` 22 `Perfect` 6 `Past` 2 |
-| `SyntacticRole` | 3 | 33 | 35 | `Head` 33 `Modifier` 1 `Qualifier` 1 |
+| `SyntacticRole` | 3 | 33 | 32 | `Head` 30 `Modifier` 1 `Qualifier` 1 |
 | `NullElement` | 2 | 7 | 30 | `Trace` 26 `Gapping` 4 |
 
 ## Matches per normalisation
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 4,634 | 87 | 99.7% |
-| the dictionary form of each word | 1,431 | 62 | 97.7% |
-| the sense the dictionary carries each word in | 207 | 21 | 96.6% |
+| the words themselves | 4,483 | 86 | 99.7% |
+| the dictionary form of each word | 1,242 | 62 | 97.6% |
+| the sense the dictionary carries each word in | 205 | 21 | 96.6% |
 
 ## Refused as the type written beside the name
 
-**1,824 spans** repeated the declared type and nothing else. The words stay in the name — removing one would close a gap between two words the author never wrote next to each other — and only the match is refused.
+**552 spans** repeated the declared type and nothing else. The words stay in the name — removing one would close a gap between two words the author never wrote next to each other — and only the match is refused.
 
 | Term | Spans refused |
 |---|--:|
-| `string` | 406 |
-| `result` | 352 |
-| `object` | 234 |
-| `writer` | 175 |
-| `document` | 125 |
-| `exception` | 64 |
-| `date` | 57 |
-| `image` | 54 |
+| `string` | 274 |
+| `object` | 56 |
+| `result` | 33 |
+| `date` | 32 |
+| `url` | 31 |
+| `chunk` | 22 |
+| `document` | 19 |
+| `image` | 15 |
 
 
 ## Whether the branch corroborates the match
@@ -68,8 +68,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 9,714 | 252 | 99.4% | 24 of 70 | `set` 1,547 |
-| only where the branch holds more than this one concept | 6,272 | 170 | 99.1% | 12 of 70 | `text` 879 |
+| every match | 9,086 | 251 | 99.4% | 24 of 70 | `set` 1,326 |
+| only where the branch holds more than this one concept | 5,930 | 169 | 99.1% | 12 of 70 | `text` 855 |
 
 ### What the branch refused
 
@@ -77,24 +77,24 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Term | Times | Stood alone under |
 |---|--:|---|
-| `set` | 1,547 | `PartWhole` |
-| `list` | 256 | `Conjunction` |
-| `space` | 256 | `GraphicalSeparator` |
+| `set` | 1,326 | `PartWhole` |
 | `root` | 242 | `Morpheme` |
-| `time` | 122 | `EntityType` |
-| `new` | 104 | `InformationStatus` |
+| `space` | 233 | `GraphicalSeparator` |
+| `list` | 230 | `Conjunction` |
+| `time` | 121 | `EntityType` |
+| `new` | 102 | `InformationStatus` |
 | `first` | 84 | `PersonFeature` |
 | `control` | 69 | `MovementFeature` |
 | `auto` | 59 | `Vehicle` |
 | `frame` | 50 | `LexicalUnit` |
 | `other` | 49 | `SameType` |
-| `point` | 36 | `SentenceFinalPunctuation` |
-| `spaces` | 36 | `GraphicalSeparator` |
+| `point` | 35 | `SentenceFinalPunctuation` |
 | `second` | 34 | `PersonFeature` |
-| `put` | 32 | `PartWhole` |
+| `spaces` | 32 | `GraphicalSeparator` |
 | `place` | 31 | `PartWhole` |
+| `put` | 28 | `PartWhole` |
 | `relation` | 28 | `Relation` |
-| `cause` | 26 | `Contigency` |
+| `cause` | 25 | `Contigency` |
 | `settings` | 25 | `PartWhole` |
 | `identifier` | 24 | `DiscourseEntity` |
 
@@ -105,18 +105,18 @@ Depth is read off the source's own edges and is a citation rather than a heurist
 | Rungs below the root | Concepts written | Times | Share of spans |
 |--:|--:|--:|--:|
 | 0 | 0 | 0 | 0.0% |
-| 1 | 23 | 2,326 | 37.1% |
-| 2 | 29 | 1,288 | 20.5% |
-| 3 | 16 | 1,055 | 16.8% |
-| 4 | 13 | 476 | 7.6% |
-| 5 | 10 | 316 | 5.0% |
-| 6 | 8 | 811 | 12.9% |
+| 1 | 22 | 2,220 | 37.4% |
+| 2 | 29 | 1,211 | 20.4% |
+| 3 | 16 | 1,021 | 17.2% |
+| 4 | 13 | 360 | 6.1% |
+| 5 | 10 | 315 | 5.3% |
+| 6 | 8 | 803 | 13.5% |
 
 | Admitted | Concepts | Times | Mean rungs per concept | Mean rungs per span |
 |---|--:|--:|--:|--:|
-| what the branch admitted | 99 | 6,272 | 2.82 | 2.62 |
-| what the branch refused | 45 | 3,282 | 3.33 | 3.38 |
+| what the branch admitted | 98 | 5,930 | 2.84 | 2.62 |
+| what the branch refused | 45 | 2,997 | 3.33 | 3.34 |
 
-The deepest of what was written: `Album` 6 rungs, 21 `Book` 6 rungs, 8 `EmailAddress` 6 rungs, 2 `Example` 6 rungs, 63 `Movie` 6 rungs, 29 `PhoneNumber` 6 rungs, 7 `Result` 6 rungs, 456 `URL` 6 rungs, 225.
+The deepest of what was written: `Album` 6 rungs, 21 `Book` 6 rungs, 8 `EmailAddress` 6 rungs, 2 `Example` 6 rungs, 63 `Movie` 6 rungs, 28 `PhoneNumber` 6 rungs, 7 `Result` 6 rungs, 456 `URL` 6 rungs, 218.
 
-The shallowest: `Unique` 1 rung, 48 `Trace` 1 rung, 26 `Token` 1 rung, 262 `Third` 1 rung, 3 `Text` 1 rung, 887 `String` 1 rung, 162 `Simple` 1 rung, 73 `Second` 1 rung, 57.
+The shallowest: `Unique` 1 rung, 47 `Trace` 1 rung, 26 `Token` 1 rung, 261 `Third` 1 rung, 3 `Text` 1 rung, 863 `String` 1 rung, 157 `Simple` 1 rung, 73 `Second` 1 rung, 57.

@@ -13,11 +13,11 @@ What is left to ask is whether the partition carries anything.
 | Function | Statements | Divergence |
 |---|--:|--:|
 | `RC` RECOVER | 11 | 49.3% |
-| `RS` RESPOND | 18 | 50.7% |
+| `RS` RESPOND | 18 | 50.6% |
 | `GV` GOVERN | 38 | 51.0% |
-| `PR` PROTECT | 28 | 53.8% |
-| `DE` DETECT | 14 | 55.7% |
-| `ID` IDENTIFY | 25 | 55.9% |
+| `PR` PROTECT | 28 | 53.9% |
+| `DE` DETECT | 14 | 55.8% |
+| `ID` IDENTIFY | 25 | 56.1% |
 
 The nearest function stands **49.3%** of the maximum divergence away, where a chance partition
 of the same statements reaches **44.0%** over 999 draws. This placement **says only that the framework has six functions**.

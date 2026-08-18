@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 6272 | 86.59 | 170 | 1349 | 16 |
-| FIBO | 1833 | 1193 | 16.47 | 61 | 409 | 12 |
+| OLiA | 1312 | 5930 | 105.86 | 169 | 1303 | 16 |
+| FIBO | 1833 | 1186 | 21.17 | 61 | 405 | 12 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -20,8 +20,8 @@ declares in some other sense.
 
 | Term | Occurrences | Concept FIBO publishes under it | First site |
 |---|--:|---|---|
-| `index` | 482 | Index | tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java:206 |
-| `request` | 176 | Request | tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:628 |
+| `index` | 481 | Index | tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java:206 |
+| `request` | 170 | Request | tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:628 |
 | `control` | 69 | Control | tika-core/src/main/java/org/apache/tika/detect/TextDetector.java:76 |
 | `strategy` | 42 | Strategy | tika-core/src/main/java/org/apache/tika/io/SpoolingStrategy.java:46 |
 | `requested` | 36 | Request | tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java:178 |

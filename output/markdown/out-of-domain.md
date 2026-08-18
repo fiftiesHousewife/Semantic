@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1244 | 124.81 | 117 | 354 | 7 |
-| FIBO | 1833 | 232 | 23.28 | 22 | 113 | 0 |
+| OLiA | 1312 | 1253 | 144.70 | 120 | 355 | 8 |
+| FIBO | 1833 | 242 | 27.95 | 22 | 118 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -21,23 +21,23 @@ declares in some other sense.
 | Term | Occurrences | Concept FIBO publishes under it | First site |
 |---|--:|---|---|
 | `occurrences` | 76 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java:21 |
-| `occurrence` | 36 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java:47 |
+| `occurrence` | 41 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java:55 |
 | `claim` | 18 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ChosenWord.java:23 |
+| `method` | 16 | Method | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolKind.java:7 |
 | `mean` | 16 | Mean | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/WrittenByDepth.java:62 |
-| `method` | 14 | Method | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolKind.java:7 |
 | `catalog` | 10 | Catalog | lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/NistCsfExtraction.java:42 |
 | `means` | 10 | Mean | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/OfferedWordsTest.java:95 |
 | `median` | 7 | Median | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FieldOfStudy.java:84 |
-| `methods` | 7 | Method | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ClassFileMethods.java:20 |
+| `methods` | 8 | Method | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ClassFileMethods.java:20 |
+| `claims` | 7 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/PropertyAccessors.java:27 |
 | `meaning` | 6 | Mean | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/term/SenseRunsTest.java:24 |
-| `claims` | 5 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SenseCoverage.java:63 |
 | `scheme` | 4 | Strategy | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java:18 |
 | `request` | 4 | Request | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/PullRequestFacts.java:16 |
 | `claimed` | 4 | Claim | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSourceTest.java:21 |
 | `requests` | 3 | Request | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/RepositoryFacts.java:15 |
 | `claiming` | 3 | Claim | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/term/TermReadingTest.java:145 |
 | `publication` | 3 | Publication | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/term/CorroboratedTermsTest.java:71 |
-| `meant` | 2 | Mean | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSourceTest.java:204 |
+| `meant` | 2 | Mean | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSourceTest.java:259 |
 | `computation` | 1 | Calculation | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/PinnedSubjectFindings.java:32 |
 | `approaches` | 1 | Approach | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/pipeline/AxisEvidenceAccumulatorTest.java:97 |
 | `difference` | 1 | Difference | code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/JensenShannonTest.java:72 |
