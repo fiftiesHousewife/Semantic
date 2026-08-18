@@ -18,14 +18,10 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Category — divergence | 39.2% | 39.2% |  |
 | Category — chance reaches | 43.1% | 43.1% |  |
 | Category — stands apart from chance | yes | yes |  |
-| Words above the bar | 832 | 831 | moved |
+| Words above the bar | 831 | 831 |  |
 | Topics reported | 21 | 21 |  |
 | Concepts written | 359 | 359 |  |
 
 ## What entered and left
 
-| Population | Entered | Left |
-|---|---|---|
-| Topics | — | — |
-| Words | — | `bits` |
-| Concepts | — | — |
+Nothing entered or left. Every topic, word and concept the previous reading reported is reported by this one.

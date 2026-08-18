@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1209 | 125.19 | 112 | 340 | 7 |
-| FIBO | 1833 | 232 | 24.02 | 22 | 113 | 0 |
+| OLiA | 1312 | 1242 | 125.10 | 117 | 354 | 7 |
+| FIBO | 1833 | 232 | 23.37 | 22 | 113 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -20,7 +20,7 @@ declares in some other sense.
 
 | Term | Occurrences | Concept FIBO publishes under it | First site |
 |---|--:|---|---|
-| `occurrences` | 76 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java:18 |
+| `occurrences` | 76 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java:21 |
 | `occurrence` | 36 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java:47 |
 | `claim` | 18 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ChosenWord.java:23 |
 | `mean` | 16 | Mean | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/WrittenByDepth.java:62 |
