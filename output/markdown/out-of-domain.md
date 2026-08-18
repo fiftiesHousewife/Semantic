@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1244 | 125.14 | 117 | 354 | 7 |
-| FIBO | 1833 | 232 | 23.34 | 22 | 113 | 0 |
+| OLiA | 1312 | 1244 | 124.81 | 117 | 354 | 7 |
+| FIBO | 1833 | 232 | 23.28 | 22 | 113 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 

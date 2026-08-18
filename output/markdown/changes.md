@@ -1,6 +1,6 @@
 # What moved since the last reading
 
-Read at `0ad24caf`, against the reading committed at `7f7a2953`.
+Read at `ee0ed8d7`, against the reading committed at `0ad24caf`.
 
 Every figure here moves whenever a source file or a markdown file does, because the reading covers this repository's own documentation. So the figures are stated before and after and nothing is called large. What is worth acting on is the second table: each of those names cleared a stated bar in one reading and not in the other.
 
@@ -18,10 +18,14 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Category — divergence | 39.8% | 39.8% |  |
 | Category — chance reaches | 45.0% | 45.0% |  |
 | Category — stands apart from chance | yes | yes |  |
-| Words above the bar | 261 | 261 |  |
+| Words above the bar | 261 | 262 | moved |
 | Topics reported | 6 | 6 |  |
 | Concepts written | 154 | 154 |  |
 
 ## What entered and left
 
-Nothing entered or left. Every topic, word and concept the previous reading reported is reported by this one.
+| Population | Entered | Left |
+|---|---|---|
+| Topics | — | — |
+| Words | `weighted` | — |
+| Concepts | — | — |

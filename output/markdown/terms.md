@@ -25,10 +25,10 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 |---|--:|--:|--:|---|
 | `LinguisticConcept` | 16 | 136 | 499 | `Source` 190 `Set` 78 `Document` 34 `Means` 34 `Evidence` 31 `Given` 30 `Heading` 20 `Citation` 19 |
 | `MorphosyntacticCategory` | 14 | 288 | 166 | `Verb` 41 `Noun` 38 `Abbreviation` 22 `Symbol` 17 `Initialism` 11 `Residual` 11 `Foreign` 8 `Adjective` 6 |
-| `MorphologicalCategory` | 5 | 16 | 163 | `Root` 126 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
+| `MorphologicalCategory` | 5 | 16 | 162 | `Root` 125 `Suffix` 16 `Prefix` 15 `Stem` 5 `Affix` 1 |
 | `OrthographicEntity` | 4 | 37 | 151 | `Token` 91 `Text` 44 `Script` 14 `String` 2 |
 | `Constituent` | 4 | 37 | 80 | `Phrase` 62 `Fragment` 9 `Clause` 7 `Chunk` 2 |
-| `SemanticFeature` | 5 | 125 | 77 | `Function` 50 `Time` 11 `Amount` 8 `Object` 4 `Plan` 4 |
+| `SemanticFeature` | 5 | 125 | 78 | `Function` 50 `Time` 12 `Amount` 8 `Object` 4 `Plan` 4 |
 | `Relation` | 9 | 203 | 61 | `Definition` 21 `Comparison` 9 `Consequence` 9 `Evaluation` 8 `Expansion` 8 `Attribution` 3 `Alternative` 1 `Exception` 1 |
 | `SyntacticRole` | 2 | 33 | 13 | `Head` 10 `Predicate` 3 |
 | `CoordTypeFeature` | 2 | 5 | 11 | `Initial` 8 `Simple` 3 |
@@ -40,8 +40,8 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 944 | 58 | 97.7% |
-| the dictionary form of each word | 179 | 39 | 99.4% |
+| the words themselves | 943 | 58 | 97.7% |
+| the dictionary form of each word | 180 | 39 | 99.4% |
 | the sense the dictionary carries each word in | 121 | 20 | 99.2% |
 
 ## Refused as the type written beside the name
@@ -80,11 +80,11 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 | `topic` | 218 | `PragmaticUnit` |
 | `topics` | 95 | `PragmaticUnit` |
 | `subject` | 79 | `PragmaticUnit` |
-| `first` | 65 | `PersonFeature` |
+| `first` | 66 | `PersonFeature` |
 | `subjects` | 31 | `PragmaticUnit` |
 | `second` | 29 | `PersonFeature` |
-| `other` | 28 | `SameType` |
 | `set` | 28 | `PartWhole` |
+| `other` | 27 | `SameType` |
 | `identifier` | 23 | `DiscourseEntity` |
 | `place` | 23 | `PartWhole` |
 | `cited` | 20 | `Referentiality` |
