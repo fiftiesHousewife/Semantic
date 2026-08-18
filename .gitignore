@@ -64,3 +64,6 @@ manifest.json
 
 # The OpenAlex topics snapshot: 4,516 topics as gzipped JSONL, read from a path and never committed.
 OpenAlex/
+
+### Skill install scripts are personal tooling, not repository content ###
+install-*-skill.sh
