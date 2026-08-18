@@ -1,43 +1,26 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 /**
- * What a piece of text <em>is</em> in the syntax — and therefore whether this repository chose it.
- *
- * <p>The distinction the whole reading turns on is declaration against use. {@code String}, {@code assertThat}
- * and {@code List} are written everywhere in a Java file, and not one of those occurrences is a word this
- * codebase picked: they are the platform's and the test framework's vocabulary, invoked. What this codebase
- * picked is the name it <em>declared</em> — the field it called {@code massByTopic}, the method it called
- * {@code refusesAReadingThatWouldArgueAgainstATopic} — and the prose it wrote around them.
- *
- * <p>A lexical scan cannot tell the two apart, which is why the reading needs a parse. Nothing here is a list
- * of names to ignore; it is a rule about the position a name holds in the grammar, and grammar is permitted
- * where vocabulary is not.
+ * What a piece of text is in the syntax, and therefore whether this repository chose it. The words a
+ * repository chose are the names it declared and the prose it wrote around them; a use — {@code String},
+ * {@code assertThat} — is somebody else's vocabulary, and only a parse tells the two apart. Each form
+ * carries that verdict as its {@link Authorship}.
  */
 public enum NameForm {
 
     /** A type this repository declares — class, interface, enum, record or annotation. */
     TYPE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
-    /** A method this repository declares. In a test source set these are its sentences about behaviour. */
+    /** A method this repository declares; in a test source set, its sentences about behaviour. */
     METHOD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A field this repository declares. */
     FIELD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A parameter of a method, constructor or lambda. */
     PARAMETER(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
-    /**
-     * The name a catch clause binds a caught exception to.
-     *
-     * <p>It is a declaration, so the parse hands it over, and it is not a word about a subject: the language
-     * requires the type to be written immediately beside it, and what the name stands for is that type —
-     * already read wherever it was declared.
-     */
+    /** The name a catch clause binds. It stands for the type the language requires beside it, so nothing is named. */
     CAUGHT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /**
-     * A declaration whose name is the initials of the words of its own type — {@code TikaInputStream tis},
-     * {@code StringBuilder sb}, {@code InputStream is}.
-     *
-     * <p>Nothing is named here: the letters stand for the type written beside them, and a type is a use,
-     * read wherever it was declared. It is {@link #CAUGHT}'s rule reaching the declarations that write their
-     * type out. {@link TypeInitials} states which they are, from the parse and without a length rule.
+     * A name that is the initials of its own type — {@code StringBuilder sb}. {@link #CAUGHT}'s rule for the
+     * declarations that write their type out; {@link TypeInitials} states which they are.
      */
     ABBREVIATED_TYPE(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** A local variable, including a loop variable and a pattern binding. */
@@ -47,9 +30,8 @@ public enum NameForm {
     /** A type parameter. Usually one letter, and usually an abstention, which is the honest outcome. */
     TYPE_PARAMETER(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /**
-     * The part of a file's package that distinguishes it from its neighbours — {@code theme}, {@code parse},
-     * {@code term}. The coordinate every file shares is not read: it is the organisation's, chosen once, and
-     * counting it once per file would say this repository is about its own domain name.
+     * The part of a file's package that distinguishes it from its neighbours — {@code theme}, {@code parse}.
+     * The coordinate every file shares is the organisation's, and it is not read.
      */
     PACKAGE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A label on a statement. Rare, and a name its author chose as deliberately as any other. */
@@ -63,8 +45,7 @@ public enum NameForm {
     /** A line of the repository's own documentation — a README, a plan, a backlog. */
     DOCUMENTATION(Vocabulary.PROSE, Authorship.QUOTED);
 
-    /** Whether every word of a form was picked by this repository to name a thing, or stands for something
-     * somebody else declared. */
+    /** Whether a form's words were picked by this repository to name a thing, or stand for something somebody else declared. */
     private enum Authorship {
         CHOSEN, QUOTED
     }
@@ -87,11 +68,9 @@ public enum NameForm {
     }
 
     /**
-     * Whether every word of it was chosen by this repository as the name of something. A declared name was:
-     * nothing forced {@code cursor} on its author. A sentence was not — English requires articles and
-     * conjunctions whatever it is about — and neither was a dependency's package path, whose leading segments
-     * are somebody else's coordinates, nor a name that stands for the type written beside it. A reading
-     * weights the two differently, and this is where it asks.
+     * Whether every word of it was chosen by this repository as the name of something. A sentence was not —
+     * English requires its function words — and neither was a name standing for the type beside it, nor a
+     * dependency's coordinates.
      */
     public boolean isChosenName() {
         return authorship == Authorship.CHOSEN;
