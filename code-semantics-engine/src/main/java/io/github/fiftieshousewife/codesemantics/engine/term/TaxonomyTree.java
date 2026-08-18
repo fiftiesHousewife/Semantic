@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -101,11 +103,13 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
     public static TaxonomyTree of(final List<SkosConcept> published, final Map<String, Integer> written,
                                   final java.util.function.Function<String, String> asWords) {
         final List<SkosConcept> concepts = oncePerLabel(published);
+        final Set<String> carried = concepts.stream().map(SkosConcept::prefLabel)
+                .collect(Collectors.toUnmodifiableSet());
         final Map<String, List<SkosConcept>> byParent = new LinkedHashMap<>();
         concepts.forEach(concept -> concept.broaderConcepts().forEach(parent ->
                 byParent.computeIfAbsent(parent, stated -> new ArrayList<>()).add(concept)));
         final List<Node> roots = concepts.stream()
-                .filter(concept -> isRoot(concept, concepts))
+                .filter(concept -> isRoot(concept, carried))
                 .map(concept -> node(concept, byParent, written, asWords, new java.util.HashSet<>()))
                 .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
                         .thenComparing(Node::label))
@@ -135,9 +139,8 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
      * concept: a topic under both {@code machine learning} and something the file does not hold is not a
      * root, it is a child of the parent that is there.
      */
-    private static boolean isRoot(final SkosConcept concept, final List<SkosConcept> concepts) {
-        return concept.broaderConcepts().stream().noneMatch(parent ->
-                concepts.stream().anyMatch(other -> other.prefLabel().equals(parent)));
+    private static boolean isRoot(final SkosConcept concept, final Set<String> carried) {
+        return concept.broaderConcepts().stream().noneMatch(carried::contains);
     }
 
     /**
