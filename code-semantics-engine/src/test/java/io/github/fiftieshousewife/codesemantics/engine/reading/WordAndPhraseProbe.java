@@ -70,10 +70,15 @@ public final class WordAndPhraseProbe {
             if (chosen.isEmpty()) {
                 return;
             }
+            final String layout = PublishedSourceSets.sourceSetOf(file.scope());
             if (occurrence.form() == NameForm.METHOD) {
                 final Optional<Behaviour> clause = behaviours.of(occurrence, file);
                 if (clause.isPresent()) {
-                    phraseOf(clause.get().verb(), clause.get().object());
+                    final List<String> object = clause.get().object().stream()
+                            .map(word -> word.toLowerCase(Locale.ROOT))
+                            .filter(word -> !word.equals(layout))
+                            .toList();
+                    phraseOf(clause.get().verb().equals(layout) ? "" : clause.get().verb(), object);
                     return;
                 }
                 if (accessors.claims(chosen)) {
