@@ -108,12 +108,10 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         final Map<String, List<SkosConcept>> byParent = new LinkedHashMap<>();
         concepts.forEach(concept -> concept.broaderConcepts().forEach(parent ->
                 byParent.computeIfAbsent(parent, stated -> new ArrayList<>()).add(concept)));
-        final List<Node> roots = concepts.stream()
+        final List<Node> roots = mostWrittenBelowFirst(concepts.stream()
                 .filter(concept -> isRoot(concept, carried))
                 .map(concept -> node(concept, byParent, written, asWords, new java.util.HashSet<>()))
-                .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
-                        .thenComparing(Node::label))
-                .toList();
+                .toList());
         return new TaxonomyTree(roots, concepts.size(), concepts.stream()
                 .mapToInt(concept -> written.getOrDefault(concept.prefLabel(), 0)).sum());
     }
@@ -155,11 +153,23 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         walked.add(concept.prefLabel());
         return new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
                 concept.definition(), written.getOrDefault(concept.prefLabel(), 0),
-                byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
+                mostWrittenBelowFirst(byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
                         .filter(child -> !walked.contains(child.prefLabel()))
                         .map(child -> node(child, byParent, written, asWords, walked))
-                        .sorted(Comparator.comparingInt(Node::writtenBelow).reversed()
-                                .thenComparing(Node::label))
-                        .toList());
+                        .toList()));
+    }
+
+    /**
+     * Sorted by {@link Node#writtenBelow()} descending, then label. The figure recurses over the subtree,
+     * so it is computed once per node rather than once per comparison.
+     */
+    private static List<Node> mostWrittenBelowFirst(final List<Node> nodes) {
+        record Weighted(Node node, int writtenBelow) {}
+        return nodes.stream()
+                .map(node -> new Weighted(node, node.writtenBelow()))
+                .sorted(Comparator.comparingInt(Weighted::writtenBelow).reversed()
+                        .thenComparing(weighted -> weighted.node().label()))
+                .map(Weighted::node)
+                .toList();
     }
 }
