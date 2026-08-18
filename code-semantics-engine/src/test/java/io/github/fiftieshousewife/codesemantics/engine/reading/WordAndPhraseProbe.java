@@ -12,7 +12,9 @@ import io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccesso
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
+import io.github.fiftieshousewife.bi.lexicon.WiktionaryCitations;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
+import io.github.fiftieshousewife.codesemantics.engine.theme.WordSpecificity;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.FunctionWords;
 
 /**
@@ -47,9 +49,12 @@ public final class WordAndPhraseProbe {
         private final Behaviours behaviours = Behaviours.fromClasspath();
         private final PropertyAccessors accessors = new PropertyAccessors();
         private final FunctionWords language = FunctionWords.fromClasspath();
+        private final WiktionaryCitations abbreviations = WiktionaryCitations.fromClasspath();
+        private final WordSpecificity specificity = WordSpecificity.fromClasspath();
         private final Map<String, Integer> words = new HashMap<>();
         private final Map<String, Integer> phrases = new HashMap<>();
         private int languageSupplied;
+        private int expanded;
 
         void read(final ParsedFile file) {
             file.occurrences().stream()
@@ -85,7 +90,20 @@ public final class WordAndPhraseProbe {
                 languageSupplied++;
                 return;
             }
-            words.merge(dictionary.lemmaOrSurface(word), 1, Integer::sum);
+            words.merge(dictionary.lemmaOf(word).orElseGet(() -> expansionOf(word)), 1, Integer::sum);
+        }
+
+        /** The one expansion the abbreviations resource states, or the word: an ambiguous entry abstains. */
+        private String expansionOf(final String word) {
+            final List<String> stated = abbreviations.citationsOf(word).stream()
+                    .map(WiktionaryCitations.Citation::expansion)
+                    .distinct()
+                    .toList();
+            if (stated.size() != 1 || stated.getFirst().contains(" ")) {
+                return word;
+            }
+            expanded++;
+            return stated.getFirst();
         }
 
         /** One name's contribution: each word to the word count, the whole run to the phrase count. */
@@ -102,19 +120,21 @@ public final class WordAndPhraseProbe {
         }
 
         void print() {
-            System.out.printf("  %,d word occurrences were the language's own, set apart as the ranking sets them%n",
-                    languageSupplied);
+            System.out.printf("  %,d word occurrences were the language's own, set apart as the ranking "
+                            + "sets them; %,d were an abbreviation its resource states one expansion for%n",
+                    languageSupplied, expanded);
             printed(words, "word, as its dictionary form");
             printed(phrases, "phrase — a clause verb first, any other name as written");
         }
 
         private void printed(final Map<String, Integer> counts, final String label) {
-            System.out.printf("%n  %-52s %s%n", label, "written");
+            System.out.printf("%n  %-52s %7s %9s%n", label, "written", "weighted");
             counts.entrySet().stream()
                     .filter(entry -> entry.getValue() >= LEAST_WRITTEN)
                     .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()
                             .thenComparing(Map.Entry.comparingByKey()))
-                    .forEach(entry -> System.out.printf("  %-52s %7d%n", entry.getKey(), entry.getValue()));
+                    .forEach(entry -> System.out.printf("  %-52s %7d %9.1f%n", entry.getKey(),
+                            entry.getValue(), entry.getValue() * specificity.of(entry.getKey())));
         }
     }
 }

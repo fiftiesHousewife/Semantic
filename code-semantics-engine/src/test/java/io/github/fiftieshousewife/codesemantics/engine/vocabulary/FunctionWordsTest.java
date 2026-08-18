@@ -52,6 +52,11 @@ class FunctionWordsTest {
     }
 
     @Test
+    void handsThePossessiveToTheLanguageRatherThanTheNounItsSuffixRuleReaches() {
+        assertThat(language.includes("its")).isTrue();
+    }
+
+    @Test
     void answersForNoSingleLetterBecauseTheDictionaryCarriesTheAlphabetAsNouns() {
         assertAll(
                 () -> assertThat(language.includes("e")).isFalse(),

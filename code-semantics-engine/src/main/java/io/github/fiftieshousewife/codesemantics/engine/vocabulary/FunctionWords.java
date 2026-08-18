@@ -1,7 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
+import java.util.Optional;
+
 import io.github.fiftieshousewife.bi.lexicon.Lexicon;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 
 /**
@@ -31,14 +34,17 @@ public final class FunctionWords {
 
     private final Lexicon dictionary;
     private final WordRanks english;
+    private final int shortestProseWord;
 
-    public FunctionWords(final Lexicon dictionary, final WordRanks english) {
+    public FunctionWords(final Lexicon dictionary, final WordRanks english, final Thresholds thresholds) {
         this.dictionary = dictionary;
         this.english = english;
+        this.shortestProseWord = thresholds.shortestProseWord();
     }
 
     public static FunctionWords fromClasspath() {
-        return new FunctionWords(WordNetLexicon.fromClasspath(), WordRanks.fromClasspath());
+        return new FunctionWords(WordNetLexicon.fromClasspath(), WordRanks.fromClasspath(),
+                Thresholds.defaults());
     }
 
     /** Whether the language supplied the word, so that writing it was not a choice about a subject. */
@@ -47,8 +53,18 @@ public final class FunctionWords {
     }
 
     private boolean namesNothing(final String word) {
-        return dictionary.nounBase(word).isEmpty()
-                && dictionary.verbBase(word).isEmpty()
-                && dictionary.adjectiveBase(word).isEmpty();
+        return placesNothing(word, dictionary.nounBase(word))
+                && placesNothing(word, dictionary.verbBase(word))
+                && placesNothing(word, dictionary.adjectiveBase(word));
+    }
+
+    /**
+     * Whether the entry fails to place the word. A base the surface's own entry states always places it; one
+     * reached by a suffix rule that lands on an entry too short to be about more than a symbol places
+     * nothing — {@code its} detaches to {@code it}, and reading a possessive as that noun sets an inference
+     * over the absence of a statement.
+     */
+    private boolean placesNothing(final String word, final Optional<String> base) {
+        return base.filter(stated -> stated.equals(word) || stated.length() >= shortestProseWord).isEmpty();
     }
 }
