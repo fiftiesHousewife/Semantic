@@ -2,21 +2,21 @@
   "schemaVersion" : "3.1",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "7f7a295362446da1234f231447dad53ef1bcc8f1",
+    "commit" : "0ad24cafb3d6a41f5e46b5b87651a5b549e4502b",
     "about" : [ "linguistics", "computing" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
     "placedIn" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.344734171371655,
-        "nearestByChanceBits" : 0.4100682271003938,
+        "divergenceBits" : 0.3447145271140178,
+        "nearestByChanceBits" : 0.41040728022059303,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3978692156481028,
-        "nearestByChanceBits" : 0.4498866565903505,
+        "divergenceBits" : 0.3979122047302534,
+        "nearestByChanceBits" : 0.45010799117471967,
         "standsApartFromChance" : true
       }
     },
@@ -94,27 +94,27 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-api/src/test/java",
-      "divergenceBits" : 0.2061403439999659,
+      "divergenceBits" : 0.20618223397175273,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.03623378600687577,
+      "divergenceBits" : 0.03620362393395991,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "lexicon-extraction/src/test/java",
-      "divergenceBits" : 0.19891778320723733,
+      "divergenceBits" : 0.1989153812907097,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.184531764358884,
+      "divergenceBits" : 0.18450774745569287,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.12097486853573965,
+      "divergenceBits" : 0.12100070714629275,
       "writesMoreOf" : [ "linguistics", "computing" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9830287069839378,
-    "shareOfMassOnNoSubject" : 0.7636060038544173,
+    "shareOfWordsWithACitation" : 0.983027125265038,
+    "shareOfMassOnNoSubject" : 0.7637963783231265,
     "counts" : {
       "signals" : 261,
       "themes" : 6,
@@ -2996,38 +2996,38 @@
   "themes" : [ {
     "topic" : "linguistics",
     "scope" : "code-semantics-api/src/test/java",
-    "shareOfRepository" : 0.049479707205220394,
-    "divergenceBits" : 0.008123364373696214,
+    "shareOfRepository" : 0.0493873547505242,
+    "divergenceBits" : 0.008120428389556199,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "english", "scope" ]
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.049479707205220394,
-    "divergenceBits" : 0.008057425533272336,
+    "shareOfRepository" : 0.0493873547505242,
+    "divergenceBits" : 0.008054501355578898,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "english", "scope" ]
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.049479707205220394,
-    "divergenceBits" : 0.004487215069364926,
+    "shareOfRepository" : 0.0493873547505242,
+    "divergenceBits" : 0.0044850273329730475,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "english", "scope" ]
   }, {
     "topic" : "computing",
     "scope" : "lexicon-extraction/src/test/java",
-    "shareOfRepository" : 0.014755047644088934,
-    "divergenceBits" : 0.0031536234900755595,
+    "shareOfRepository" : 0.014750951348754069,
+    "divergenceBits" : 0.003157246880139651,
     "carriedBy" : [ "repository", "read", "folder", "dictionary", "parse", "name", "byte", "own" ]
   }, {
     "topic" : "computing",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.014755047644088934,
-    "divergenceBits" : 0.001309210982845377,
+    "shareOfRepository" : 0.014750951348754069,
+    "divergenceBits" : 0.0013115556068630171,
     "carriedBy" : [ "repository", "read", "folder", "dictionary", "parse", "name", "byte", "own" ]
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.049479707205220394,
-    "divergenceBits" : 6.385320013648256E-4,
+    "shareOfRepository" : 0.0493873547505242,
+    "divergenceBits" : 6.377044328666672E-4,
     "carriedBy" : [ "word", "name", "term", "parse", "reading", "noun", "english", "scope" ]
   } ],
   "taxonomies" : [ {
@@ -3035,7 +3035,7 @@
     "concepts" : [ {
       "concept" : "Source",
       "placedUnder" : "TextStructuralUnit",
-      "occurrences" : 166,
+      "occurrences" : 167,
       "specificity" : 0.6664188210670001,
       "wordsInTerm" : 1,
       "firstWrittenAt" : {
@@ -3065,7 +3065,7 @@
     }, {
       "concept" : "Phrase",
       "placedUnder" : "Constituent",
-      "occurrences" : 46,
+      "occurrences" : 47,
       "specificity" : 0.8343340559412276,
       "wordsInTerm" : 1,
       "firstWrittenAt" : {
@@ -3980,7 +3980,7 @@
       "wordsInTerm" : 1,
       "firstWrittenAt" : {
         "file" : "code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadStageTimingsProbe.java",
-        "line" : 53
+        "line" : 60
       }
     }, {
       "concept" : "CommonNoun",
@@ -4204,22 +4204,22 @@
       }
     } ],
     "matchesByNormalisation" : {
+      "lemmas" : 179,
       "senses" : 121,
-      "words" : 942,
-      "lemmas" : 179
+      "words" : 944
     },
     "placement" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.344734171371655,
-        "nearestByChanceBits" : 0.4100682271003938,
+        "divergenceBits" : 0.3447145271140178,
+        "nearestByChanceBits" : 0.41040728022059303,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3978692156481028,
-        "nearestByChanceBits" : 0.4498866565903505,
+        "divergenceBits" : 0.3979122047302534,
+        "nearestByChanceBits" : 0.45010799117471967,
         "standsApartFromChance" : true
       }
     }
@@ -4276,7 +4276,7 @@
         "line" : 1
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 25,
       "specificity" : 0.5591297245181585,
@@ -4286,7 +4286,7 @@
         "line" : 16
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 25,
       "specificity" : 0.5591297245181585,
@@ -4356,7 +4356,7 @@
         "line" : 41
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 7,
       "specificity" : 0.6963904680080683,
@@ -4366,7 +4366,7 @@
         "line" : 94
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 7,
       "specificity" : 0.6963904680080683,
@@ -4396,7 +4396,7 @@
         "line" : 24
       }
     }, {
-      "concept" : "ontologies",
+      "concept" : "ontology",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -4406,7 +4406,7 @@
         "line" : 24
       }
     }, {
-      "concept" : "ontology",
+      "concept" : "ontologies",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -4597,28 +4597,28 @@
       }
     } ],
     "matchesByNormalisation" : {
+      "lemmas" : 69,
       "senses" : 35,
-      "words" : 155,
-      "lemmas" : 69
+      "words" : 155
     },
     "placement" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.344734171371655,
-        "nearestByChanceBits" : 0.4100682271003938,
+        "divergenceBits" : 0.3447145271140178,
+        "nearestByChanceBits" : 0.41040728022059303,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3978692156481028,
-        "nearestByChanceBits" : 0.4498866565903505,
+        "divergenceBits" : 0.3979122047302534,
+        "nearestByChanceBits" : 0.45010799117471967,
         "standsApartFromChance" : true
       }
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 1624,
+    "wordOccurrencesNoResourceCovers" : 1625,
     "wordsBelowEveryThreshold" : 732,
     "scopesWithinChance" : 1,
     "matchesDiscardedByBranchRule" : 67,

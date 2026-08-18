@@ -6,7 +6,7 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 95,691 |
+| Word occurrences read | 95,741 |
 | Files | 544 |
 | Prose share of those occurrences | 75% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
