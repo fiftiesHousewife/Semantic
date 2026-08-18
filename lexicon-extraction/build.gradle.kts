@@ -153,6 +153,37 @@ tasks.register<JavaExec>("extractSqlFunctions") {
     )
 }
 
+// Reads the Computer Science Ontology's published CSV into the bundled topics TSV. CSO's download states
+// no revision, so the archive is the citation and a digest pins it; the CSV is read from a local copy
+// because the publisher serves it inside a zip. -Pcso=<path to CSO.3.5.csv> is required.
+//   ./gradlew :lexicon-extraction:extractCsoTopics -Pcso=/path/to/CSO.3.5.csv
+tasks.register<JavaExec>("extractCsoTopics") {
+    group = "build"
+    description = "Extracts the CSO topics TSV from the published CSV (-Pcso=<path>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.CsoTopicsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("cso") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("taxonomies/cso-topics.tsv").asFile.absolutePath
+    )
+}
+
+// Reads the BIAN Service Landscape — one specification file per service domain in the artefacts
+// repository — into the bundled service-domains TSV. -Pbian=<path to an artefacts checkout> is required.
+//   ./gradlew :lexicon-extraction:extractBianServiceDomains -Pbian=/path/to/artefacts
+tasks.register<JavaExec>("extractBianServiceDomains") {
+    group = "build"
+    description = "Extracts the BIAN service-domains TSV from an artefacts checkout (-Pbian=<path>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.BianServiceDomainsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("bian") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("taxonomies/bian-service-domains.tsv").asFile.absolutePath
+    )
+}
+
 // Reads FIBO's production T-Box — the hundred-odd ontologies its own manifest names — into the bundled
 // finance vocabulary TSV. FIBO publishes no merged document and is far too large to fetch file by file, so
 // this reads a checkout; -Pfibo=<path> is required.
