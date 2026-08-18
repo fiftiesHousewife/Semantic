@@ -229,6 +229,6 @@ The repository's own words are 769,610 occurrences of 14,116 distinct surfaces, 
 | `langs` | 121 | `tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/tools/CommonTokenOverlapCounter.java:57` |
 | `configs` | 118 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:1019` |
 
-Read 2,156 files in 11.3 s — 5.2 ms a file, recorded rather than estimated.
+Read 2,156 files in 11.6 s — 5.4 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.

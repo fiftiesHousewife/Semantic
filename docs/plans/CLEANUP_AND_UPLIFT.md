@@ -35,6 +35,17 @@ Leads 8 and 9 as first stated on 2026-08-18 — build the rungs once per JVM, th
 
 Measured after both: the self read is 2m11s (from 2m58s), and the Tika read (pinned `43cbdae6`) is 8m13s (from 13m51s) — `ReadingExportDiagnostic` 356s (from 576s), `VocabularyReadingDiagnostic` 48s (from 139s), `OutOfDomainVocabularyDiagnostic` 28s (from 50s). What remains of the export's 356s is the first computation of the shared readings, the CSO injected-taxonomy match and the writing, now with no second parse pass in it.
 
+Lead 8′ was built red-first, measured four ways and **refuted** at `639a8c3`: the CSO row held (58.7s to 58.3s masked, 27.0s against 27.3s unmasked on this tree, 31.2s against 29.1s on Tika), so it was not shipped. What the flight recording found instead landed as three fixes, each with its own probe row:
+
+| Change | CSO row on this tree |
+|---|--:|
+| The reach settled once at `TermSpans` construction (`fa87a5c`) | 58.7s to 27.0s (365.6s to 29.1s on Tika) |
+| `isRoot` asks a set of carried labels (`57d4ab2`) | 27.0s to 24.1s |
+| The sort key computed once per node (`6b1199f`) | 24.1s to 16.0s |
+| A poly-hierarchical subtree built once, cached where the path never cut it (`0d230f0`) | 16.0s to 2.9s |
+
+The probe total fell 86.6s to 29.3s on this tree; `readTimings` records every run under Flight Recorder since `e4eccc3`, so rows from there on carry its ~2% overhead. The head of the probe is now the arXiv row (~9.4s): `SubjectNull.of` reads 999 synthetic descriptions through the full prose pipeline per chance field and `PlacedField.ofArxiv` draws two fields, 1,998 readings per read. Raising the extjwnl dictionary cache capacity is **measured and refuted** — unbounded worsened the row (9.4s to 11.7s), 65,536 moved nothing — because the dictionary reads are first lookups of distinct entries. The two live options, deliberately left unattacked: memoise word-level lookups inside the draw loop (result-identical, sized by the fixed description pool), or precompute the chance field as a derived bundled resource, which must be keyed to the reader version or a read quotes a stale instrument.
+
 ## 2. Test coverage policy
 
 5. `ReachedSubjectTest` carries real subject-placement assertions but is tagged `diagnostic`, so `checkAll` never runs it; the five `Pinned*Findings` classes are excluded the same way by the `pinned` tag. Decide what runs them in CI, and correct CLAUDE.md's tagged-tests bullet — the build excludes four tags (`generate`, `diagnostic`, `pinned`, `backtest`), the doc names two.
@@ -48,7 +59,7 @@ Measured after both: the self read is 2m11s (from 2m58s), and the Tika read (pin
 10. **Landed.** `PinnedSource` carries the permalink fetch and blob-id acceptance for the five pinned extractions; `BundledLines` reads a bundled resource's data lines for the eight classes that each carried the loop; `ValueBatches` cuts query values for both Wikidata extractors; `RdfXml` parses and streams elements for `OwlClasses` and `FiboManifest`.
 11. `MarkdownRendering` builds HTML in string literals against the tree's own typed-tags convention. Non-urgent, filed with it (2026-08-18): the twelve extraction TSV renderers hold their provenance headers as text blocks — `FiboTermsTsv` (22 lines) down to `SqlFunctionTsv` (9) — and want them as classpath resource templates with format slots, byte-identity gated by the renderer tests and the unchanged committed TSVs, one regeneration at the end because string-literal prose leaves the corpus.
 12. **Landed.** `WordNetEntries` is the one `Optional`-returning lookup — exact and inflected — and `WordNetContrast`, `WordNetLexicon`, `WordNetAbbreviations` and `WordNetSenses` all ask it, so the null checks and the duplicated catch blocks are gone.
-13. Small items: stringly-typed rows in the two Wikidata extractors want records; fully-qualified inline types across ~15 files want imports; six report classes and ~14 extraction classes want `final`; `QleverWikidata` retries non-retryable failures and does not unescape `\"` in TSV literals.
+13. Small items: stringly-typed rows in the two Wikidata extractors want records; fully-qualified inline types across ~15 files want imports; six report classes and ~14 extraction classes want `final`; `QleverWikidata` retries non-retryable failures and does not unescape `\"` in TSV literals. Two exports serialise in JVM-salted order — `ExportedTaxonomies.matchesByNormalisation` is an unmodifiable map, and equal-mass concept rows swap between runs — so two reads of one pinned tree differ by a row and key swap; both want a total order.
 
 ## 4. Doctrine
 
