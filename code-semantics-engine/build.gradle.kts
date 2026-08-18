@@ -116,6 +116,21 @@ tasks.register<JavaExec>("readTimings") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// The same probe recorded under Java Flight Recorder, for when a row of readTimings needs explaining.
+// Writes build/reports/read-profile.jfr; read it with `jfr view hot-methods <file>` or JDK Mission Control.
+//   ./gradlew readProfile
+//   ./gradlew readProfile -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("readProfile") {
+    group = "verification"
+    description = "Records where the time of a read goes, as a flight recording"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.export.ReadStageTimingsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    val recording = layout.buildDirectory.file("reports/read-profile.jfr")
+    jvmArgs("-XX:StartFlightRecording=filename=${recording.get().asFile.absolutePath},settings=profile")
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 tasks.register<JavaExec>("wordPlace") {
     group = "verification"
     description = "Prints where the named words stand in the vocabulary ranking, and what refused them"
