@@ -92,7 +92,7 @@ The problem is size. A small source set produces a large distance by accident: r
 
 Kept on this reading: `code-semantics-api/src/test/java`, `lexicon/src/test/java` and `code-semantics-engine/src/main/java`. Discarded: `documentation`.
 
-**Why each source set is tested, when the question is about the whole repository.** The repository cannot be read this way against itself — its distance from itself is zero — so the statistic exists only for a part read against the rest, and each part needs its own null distribution because the distances chance reaches depend on the part's size. The parts are also where the repository-level answer comes from: a topic enters *what the repository is about* only by accounting for some surviving source set's distance. Every Java file writes the same ambiguous words, so a topic held at one density through the whole tree cannot be told apart from the language; a topic concentrated in one part is subject matter its author put there. Both sides of that comparison are read by one parser and one set of dictionaries, so the dictionaries' own biases cancel — which no comparison against an outside corpus can offer.
+**Why each source set is tested, when the question is about the whole repository.** The repository cannot be read this way against itself — its distance from itself is zero — so the statistic exists only for a part read against the rest, and each part needs its own null distribution because the distances chance reaches depend on the part's size. The parts are also where the repository-level answer comes from: a topic enters *what the repository is about* only by accounting for some surviving source set's distance. Every Java file writes the same ambiguous words, so a topic held at one density through the whole tree cannot be told apart from the language; a topic concentrated in one part is subject matter its author put there. Both sides of that comparison are read by one parser and one set of dictionaries, so the dictionaries' own biases cancel.
 
 Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile holds the family-wise error at the stated level. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
@@ -508,9 +508,9 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 | Level | Both sides reduced to | Source |
 |--:|---|---|
-| 1 | the sequence of words itself | a string comparison, which invents nothing |
-| 2 | the [lemma](docs/GLOSSARY.md) of each word | WordNet's lemma index. `phrases` matching `Phrase` is one word and its plural, not two words a dictionary calls alike |
-| 3 | the [synset](https://wordnet.princeton.edu/) each word belongs to — the set of words WordNet records under one meaning | WordNet's sense index. `nominal phrase` meets `noun phrase` because the dictionary wrote both spellings into one entry, which no comparison of words can do |
+| 1 | the sequence of words itself | a string comparison |
+| 2 | the [lemma](docs/GLOSSARY.md) of each word | WordNet's lemma index. `phrases` matching `Phrase` is one word and its plural |
+| 3 | the [synset](https://wordnet.princeton.edu/) each word belongs to — the set of words WordNet records under one meaning | WordNet's sense index. `nominal phrase` meets `noun phrase` because the dictionary wrote both spellings into one entry |
 
 **Both sides go through one normalisation.** [`LemmaRuns`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/LemmaRuns.java) and [`SenseRuns`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/SenseRuns.java) are put over the publisher's terms when the index is built and over the repository's runs when they are asked about, so neither side is privileged.
 

@@ -63,6 +63,19 @@ A word used in a sense only this project uses has to be taught to every reader.
 - Where the field has no term, use plain English that says the mechanism.
 - Never coin a meaning for an ordinary word.
 
+### 6. No justifying tail
+
+A clause bolted onto a finished statement to say what the thing does *not* do, or is *not*, defends against a misreading nobody had yet — and the defence is what plants the doubt. The main clause already carries the fact. Delete the tail; where the distinction genuinely changes what the reader does, give it its own sentence with its own subject.
+
+| Refused | Write |
+|---|---|
+| a string comparison, which invents nothing | a string comparison |
+| the dictionary wrote both spellings into one entry, which no comparison of words can do | the dictionary wrote both spellings into one entry |
+| one word and its plural, not two words a dictionary calls alike | one word and its plural |
+| the biases cancel — which no outside corpus can offer | the biases cancel |
+
+The same test as rule 2 separates a tail from a rule: *a letter next to a digit is not a boundary* states the rule itself and stays; a trailing *which invents nothing* explains a phrase the sentence already finished.
+
 ## The requirements
 
 ### Terse and structural
@@ -121,6 +134,7 @@ Read the draft once for each line:
 
 - [ ] Every metaphor removed, headings included
 - [ ] No "X, not Y" pairing
+- [ ] No trailing clause saying what the thing does not do
 - [ ] Nothing about the document itself, its history, or planned work
 - [ ] Every sentence carries information the previous one did not
 - [ ] Every ambiguous term defined at first use and linked
