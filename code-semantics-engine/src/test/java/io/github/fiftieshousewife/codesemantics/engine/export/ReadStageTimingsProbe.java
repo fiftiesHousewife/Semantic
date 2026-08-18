@@ -7,6 +7,9 @@ import java.util.List;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
+import io.github.fiftieshousewife.codesemantics.engine.term.LemmaRuns;
+import io.github.fiftieshousewife.codesemantics.engine.term.NormalisedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.SenseRuns;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 
 /**
@@ -33,8 +36,12 @@ public final class ReadStageTimingsProbe {
         timed("bundled term vocabulary, every match and corroborated", reading::terms);
         timed("arXiv subject placement, with its chance draws", reading::arxivField);
         timed("published-names chance draws", reading::namesChance);
-        final List<TermIndex> injected = timed("injected taxonomy indexes", ExportCommand::alsoMatched);
-        for (final TermIndex index : injected) {
+        final List<TermIndex> matched = timed("matched taxonomy indexes", ExportCommand::alsoMatched);
+        for (final TermIndex index : matched) {
+            timed(index.source() + " lemma rung build (the reading builds each rung twice)",
+                    () -> NormalisedTerms.over(index, LemmaRuns.fromClasspath()));
+            timed(index.source() + " sense rung build (the reading builds each rung twice)",
+                    () -> NormalisedTerms.over(index, SenseRuns.fromClasspath()));
             timed(index.source() + ", every match and corroborated",
                     () -> CorroboratedReading.of(index, ExportedReading.conceptsOf(index),
                             reading.parsed()));
