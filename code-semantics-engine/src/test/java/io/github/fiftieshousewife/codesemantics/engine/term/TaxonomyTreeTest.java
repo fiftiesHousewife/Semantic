@@ -75,6 +75,23 @@ class TaxonomyTreeTest {
     }
 
     @Test
+    void readsEachLabelOnceHoweverManyParentsStateTheConcept() {
+        final Map<String, Integer> read = new java.util.HashMap<>();
+        TaxonomyTree.of(List.of(
+                concept("Root", ""),
+                concept("Left", "Root"),
+                concept("Right", "Root"),
+                concept("Shared", "Left | Right"),
+                concept("Beneath", "Shared")),
+                Map.of(), label -> {
+                    read.merge(label, 1, Integer::sum);
+                    return label;
+                });
+
+        assertThat(read).allSatisfy((label, times) -> assertThat(times).as(label).isEqualTo(1));
+    }
+
+    @Test
     void standsAConceptAtItsOwnRootWhereTheSourceDoesNotCarryItsStatedParent() {
         final TaxonomyTree tree = TaxonomyTree.of(List.of(concept("Orphan", "SomethingImported")), Map.of(), TaxonomyTreeTest::asWords);
 

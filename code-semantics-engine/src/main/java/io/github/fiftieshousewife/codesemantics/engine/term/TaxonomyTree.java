@@ -108,9 +108,10 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         final Map<String, List<SkosConcept>> byParent = new LinkedHashMap<>();
         concepts.forEach(concept -> concept.broaderConcepts().forEach(parent ->
                 byParent.computeIfAbsent(parent, stated -> new ArrayList<>()).add(concept)));
+        final Map<String, Node> built = new LinkedHashMap<>();
         final List<Node> roots = mostWrittenBelowFirst(concepts.stream()
                 .filter(concept -> isRoot(concept, carried))
-                .map(concept -> node(concept, byParent, written, asWords, new java.util.HashSet<>()))
+                .map(concept -> node(concept, byParent, written, asWords, new java.util.HashSet<>(), built).node())
                 .toList());
         return new TaxonomyTree(roots, concepts.size(), concepts.stream()
                 .mapToInt(concept -> written.getOrDefault(concept.prefLabel(), 0)).sum());
@@ -141,22 +142,39 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
         return concept.broaderConcepts().stream().noneMatch(carried::contains);
     }
 
+    /** A subtree, and whether the path it was built on cut a child from it. */
+    private record Built(Node node, boolean cutByPath) {}
+
     /**
      * {@code onThePath} is what stops a poly-hierarchy from recursing forever. A source stating two concepts
      * beneath each other is a fact about the publication, and the tree drawn from it has to terminate.
+     *
+     * <p>{@code built} holds every subtree the path never cut, keyed by label, so a poly-hierarchical
+     * concept is built once and stated under each of its parents. A cut subtree depends on the path that
+     * cut it, so it is rebuilt where it recurs and never cached.
      */
-    private static Node node(final SkosConcept concept, final Map<String, List<SkosConcept>> byParent,
-                             final Map<String, Integer> written,
-                             final java.util.function.Function<String, String> asWords,
-                             final java.util.Set<String> onThePath) {
-        final java.util.Set<String> walked = new java.util.HashSet<>(onThePath);
-        walked.add(concept.prefLabel());
-        return new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
+    private static Built node(final SkosConcept concept, final Map<String, List<SkosConcept>> byParent,
+                              final Map<String, Integer> written,
+                              final java.util.function.Function<String, String> asWords,
+                              final java.util.Set<String> onThePath, final Map<String, Node> built) {
+        if (built.containsKey(concept.prefLabel())) {
+            return new Built(built.get(concept.prefLabel()), false);
+        }
+        onThePath.add(concept.prefLabel());
+        final List<SkosConcept> stated = byParent.getOrDefault(concept.prefLabel(), List.of());
+        final List<Built> children = stated.stream()
+                .filter(child -> !onThePath.contains(child.prefLabel()))
+                .map(child -> node(child, byParent, written, asWords, onThePath, built))
+                .toList();
+        onThePath.remove(concept.prefLabel());
+        final boolean cut = children.size() < stated.size() || children.stream().anyMatch(Built::cutByPath);
+        final Node node = new Node(concept.concept(), concept.prefLabel(), asWords.apply(concept.prefLabel()),
                 concept.definition(), written.getOrDefault(concept.prefLabel(), 0),
-                mostWrittenBelowFirst(byParent.getOrDefault(concept.prefLabel(), List.of()).stream()
-                        .filter(child -> !walked.contains(child.prefLabel()))
-                        .map(child -> node(child, byParent, written, asWords, walked))
-                        .toList()));
+                mostWrittenBelowFirst(children.stream().map(Built::node).toList()));
+        if (!cut) {
+            built.put(concept.prefLabel(), node);
+        }
+        return new Built(node, cut);
     }
 
     /**
