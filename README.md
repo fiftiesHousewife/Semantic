@@ -72,9 +72,7 @@ Each topic's own term of that sum is reported separately, which is what says *wh
 
 **They decide which source sets are signal.** Every source set's distribution differs somewhat from the whole repository's, so a table of distances alone would report every one of them as if it meant something. The resamples say which of those distances a random group of files of that size would have produced anyway — and a source set whose distance chance reaches has its topics withheld rather than ranked.
 
-The problem is size. A small source set produces a large distance by accident: read 4 files and they will look unlike the other 447 whatever is in them. A distance is therefore uninterpretable until it is read against the distances a group of *that size* reaches by chance, so a null distribution is built per source set.
-
-So the reading builds the distribution of differences chance alone produces, and asks where the real one falls in it:
+The problem is size. A small source set produces a large distance by accident: read 4 files and they will look unlike the other 447 whatever is in them. A distance is therefore uninterpretable until it is read against the distances a random group of *that size* reaches, so the reading builds each source set its own **null distribution** — the spread of values a statistic takes when chance alone is at work, the term from Good's [permutation test](#references). Where the real distance falls in that spread is the test:
 
 | | Step |
 |--:|---|
@@ -94,9 +92,11 @@ So the reading builds the distribution of differences chance alone produces, and
 
 Kept on this reading: `code-semantics-api/src/test/java`, `lexicon/src/test/java` and `code-semantics-engine/src/main/java`. Discarded: `documentation`.
 
+**Why each source set is tested, when the question is about the whole repository.** The repository cannot be read this way against itself — its distance from itself is zero — so the statistic exists only for a part read against the rest, and each part needs its own null distribution because the distances chance reaches depend on the part's size. The parts are also where the repository-level answer comes from: a topic enters *what the repository is about* only by accounting for some surviving source set's distance. Every Java file writes the same ambiguous words, so a topic held at one density through the whole tree cannot be told apart from the language; a topic concentrated in one part is subject matter its author put there. Both sides of that comparison are read by one parser and one set of dictionaries, so the dictionaries' own biases cancel — which no comparison against an outside corpus can offer.
+
 Step 4 uses all 999 rather than the usual 95th percentile because every scope is tested at once. Testing 40 scopes at the 95th percentile would report two by chance alone; the `1/(n+1)` quantile holds the family-wise error at the stated level. The method is Good's [permutation test](#references), and it assumes nothing about the shape of the distribution — which matters, because nothing here is normally distributed.
 
-**The test decides only what is reported.** A source set inside its own null is read in full and contributes to the repository's distribution exactly as any other does; what it does not get is a ranking of its own topics, because the ranking would be of noise. Failures are named: every source set that did not pass is printed with its figure and how many of the 999 draws beat it, at the end of [the summary](output/markdown/summary.md).
+**The test decides only what is reported.** A source set whose distance its null distribution reaches is read in full and contributes to the repository's distribution exactly as any other does; what it does not get is a ranking of its own topics, because the ranking would be of noise. Failures are named: every source set that did not pass is printed with its figure and how many of the 999 draws beat it, at the end of [the summary](output/markdown/summary.md).
 
 ## The export
 
@@ -110,7 +110,7 @@ Every run writes [`reading.json`](output/json/reading.json). It carries the resu
 | `taxonomies` | the published concepts the repository's names match, and the branches those concepts sit under | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
-**`taxonomies` holds one entry per vocabulary matched.** A run matches the bundled term taxonomy and every unbundled one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
+**`taxonomies` holds one entry per vocabulary matched.** A run matches the bundled term taxonomy and every one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
 
 ```java
 ReadingExport export = new ExportedReading().of(reading, commit,
@@ -451,7 +451,7 @@ The fourth exists because the third has a hard limit: **a term match can only fi
 | Kind | Example | How it is used |
 |---|---|---|
 | **Subject scheme** — classifies whole documents | the [arXiv category taxonomy](https://arxiv.org/category_taxonomy): 152 categories the preprint archive uses to file scientific papers, each with a published description | as a reference distribution. Its category names never appear in code, so the reading pools each category's own description through the same pipeline and compares distribution against distribution |
-| **Term taxonomy** — names the terms a field's practitioners use | [OLiA](https://github.com/acoli-repo/olia), [FIBO](https://spec.edmcouncil.org/fibo/) | matched against declared names. OLiA publishes `AdjectivePhrase`; a repository may declare `adjectivePhrase`, and both split into the same two words |
+| **Term taxonomy** — names the terms a field's practitioners use | [OLiA](https://github.com/acoli-repo/olia), [FIBO](https://spec.edmcouncil.org/fibo/), [CSO](https://cso.kmi.open.ac.uk/) | matched against declared names. OLiA publishes `AdjectivePhrase`; a repository may declare `adjectivePhrase`, and both split into the same two words |
 | **Functional taxonomy** — partitions what an organisation *does* | the [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework), the [BIAN Service Landscape](https://github.com/bian-official/artefacts) | as a reference distribution, like a subject scheme. Nobody writes `GV.OC-01` in code and nobody writes Organizational Context either, so each function is read from the statements its publisher files under it |
 
 **Every taxonomy is converted to [SKOS](https://www.w3.org/TR/skos-reference/) before it is read** — the W3C model for published vocabularies: each concept has a preferred label, any number of alternative labels, and `broader`/`narrower` links to its neighbours. OLiA arrives as OWL and FIBO as RDF/XML; both become the same rows, so the matcher and the branch rule work the same way whatever the publisher used.
@@ -493,11 +493,12 @@ A source is a candidate long before anything decides to publish it, and a candid
 
 A named file that cannot be read **fails rather than falling back** to the bundled taxonomy: a caller who asked for one taxonomy and silently got another would read the wrong answer without being told.
 
-[The unbundled taxonomies](taxonomies) are committed without being bundled. A file under `lexicon/src/main/resources` ships inside the published jar; a file under `taxonomies/` is diffable and reproducible without being published. What it still owes is the extraction that would regenerate it from the pinned revision its header names.
+[The taxonomies under `taxonomies/`](taxonomies) are committed to this repository like the bundled ones, and the difference is only where a consumer gets them: a file under `lexicon/src/main/resources` ships inside the published jar, and a file under `taxonomies/` is handed to the jar by path. What each still owes is the extraction that would regenerate it from the pinned revision its header names.
 
 | Taxonomy | Field | Licence |
 |---|---|---|
 | [BIAN Service Landscape](https://github.com/bian-official/artefacts) — 319 service domains under 8 business areas, each with a role definition | banking capabilities | Apache-2.0, stated in the publisher's own `LICENSE` |
+| [CSO](https://cso.kmi.open.ac.uk/) — the Computer Science Ontology, 14,636 topics, no definition for any of them | computer science | CC BY 4.0 |
 
 ### Term taxonomy
 
@@ -525,7 +526,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb` survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's `AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less likely than one.
 
-**The two bundled term taxonomies** — the functional ones are above, and [the unbundled ones](taxonomies) are read by path:
+**The two bundled term taxonomies** — the functional ones are above, and [those under `taxonomies/`](taxonomies) are read by path:
 
 | Taxonomy | Field | What it tests |
 |---|---|---|
@@ -574,7 +575,7 @@ docs/plans/**
 | The out-of-domain taxonomy contrast | 5s | 28s |
 | Loading the bundled resources, a constant | 17s | 16s |
 
-Within the largest row, the topic reading with its per-scope chance draws is ~66s of Tika's 356s, and the term match against the [CSO](https://cso.kmi.open.ac.uk/)'s 14,636 topics holds most of the rest. Loading is constant, so a repository with eight times the word occurrences reads in under four times the time.
+Within the largest row, the topic reading with its per-scope chance draws is ~66s of Tika's 356s, and the term match holds most of the rest. Matching cost grows with the size of the taxonomy: every declared name is offered to each of a taxonomy's three normalisation levels, and the taxonomy's own terms are normalised through the dictionary once per level, so the [CSO](https://cso.kmi.open.ac.uk/)'s 14,636 topics carry most of that cost against [OLiA](https://github.com/acoli-repo/olia)'s 1,311 concepts. `./gradlew readTimings` prints the split, one stage per row. Loading the bundled resources is constant, so a repository with eight times the word occurrences reads in under four times the time.
 
 ## Appendix: diagnostics and analysis
 
@@ -586,6 +587,7 @@ Each one answers a question the reports raise but do not settle: why a word scor
 | `./gradlew wordPlace -Pwords="get set list"` | where those words stand in the vocabulary ranking, and which reference scored each of them down |
 | `./gradlew topicCarriers -Ptopics="linguistics"` | every word that produced a topic's score, with its share |
 | `./gradlew abbreviatedTypes` | every declared name that is the initials of its own type, with that type |
+| `./gradlew readTimings` | where the time of a read goes, one stage per row — the finer split of the table in [Limitations](#limitations) |
 | `./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` | fetches each backtest member at the commit the manifest pins it to |
 | `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` | reads every member of the evaluation set, one report folder per member |
 
