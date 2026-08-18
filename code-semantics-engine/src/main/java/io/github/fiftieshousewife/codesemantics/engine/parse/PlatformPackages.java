@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
+import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReference;
 import java.util.Set;
@@ -44,7 +45,7 @@ public final class PlatformPackages {
         return new PlatformPackages(ModuleFinder.ofSystem().findAll().stream()
                 .map(ModuleReference::descriptor)
                 .flatMap(descriptor -> descriptor.exports().stream())
-                .map(export -> export.source())
+                .map(ModuleDescriptor.Exports::source)
                 .collect(Collectors.toUnmodifiableSet()));
     }
 

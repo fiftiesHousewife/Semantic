@@ -40,8 +40,4 @@ public final class WordSightings {
     public String siteOf(final String word) {
         return firstSite.getOrDefault(word, "");
     }
-
-    public int distinctWords() {
-        return occurrences.size();
-    }
 }

@@ -39,6 +39,61 @@ class JavaSourceTest {
     }
 
     @Test
+    void readsANameThatRestatesItsWholeTypeAsThatTypeRestated() {
+        final String source = """
+                package example;
+                class Reading {
+                    ParseContext parseContext;
+                    java.util.List<Metadata> metadataList;
+                    String citedText;
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.RESTATED_TYPE))
+                        .containsExactly("parseContext", "metadataList"),
+                () -> assertThat(namesOf(source, NameForm.FIELD)).containsExactly("citedText"),
+                () -> assertThat(NameForm.RESTATED_TYPE.isChosenName()).isFalse());
+    }
+
+    @Test
+    void readsASpecificationRequiredNameAsRequiredRatherThanChosen() {
+        final String source = """
+                package example;
+                class Reading {
+                    private static final long serialVersionUID = 1L;
+                    public static void main(String[] args) { }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.SPECIFIED))
+                        .containsExactlyInAnyOrder("serialVersionUID", "main"),
+                () -> assertThat(NameForm.SPECIFIED.isChosenName()).isFalse());
+    }
+
+    @Test
+    void readsAnOverrideAsTheSupertypesNameRatherThanAChosenOne() {
+        final String source = """
+                package example;
+                class Reading {
+                    @Override
+                    public String toString() {
+                        return "";
+                    }
+                    String render() {
+                        return "";
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(namesOf(source, NameForm.OVERRIDDEN)).containsExactly("toString"),
+                () -> assertThat(namesOf(source, NameForm.METHOD)).containsExactly("render"),
+                () -> assertThat(NameForm.OVERRIDDEN.isChosenName()).isFalse());
+    }
+
+    @Test
     void readsALabelBecauseAnAuthorChoseIt() {
         final String source = """
                 package example;

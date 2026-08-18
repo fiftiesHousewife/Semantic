@@ -26,9 +26,9 @@ class JavaSourceErrorToleranceTest {
                 """);
 
         assertAll(
-                () -> assertThat(unsound.sound())
+                () -> assertThat(unsound.outcome())
                         .as("a file that does not compile must not read as cleanly parsed")
-                        .isFalse(),
+                        .isEqualTo(ParseOutcome.RECOVERED),
                 () -> assertThat(unsound.occurrences())
                         .as("the commits that most need reading are the ones that do not compile")
                         .extracting(NameOccurrence::text)
@@ -49,6 +49,9 @@ class JavaSourceErrorToleranceTest {
                 () -> assertThat(parser.read("package a;\nclass Page { int cursor;\n").occurrences())
                         .as("an unclosed type takes its declarations with it")
                         .isEmpty(),
-                () -> assertThat(parser.read("(((").sound()).isFalse());
+                () -> assertThat(parser.read("(((").outcome())
+                        .as("the parser yields an empty unit around the wreckage rather than refusing "
+                                + "the file, so even this reads as recovered")
+                        .isEqualTo(ParseOutcome.RECOVERED));
     }
 }

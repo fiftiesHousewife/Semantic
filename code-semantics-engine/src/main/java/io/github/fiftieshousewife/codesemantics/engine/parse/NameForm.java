@@ -12,6 +12,22 @@ public enum NameForm {
     TYPE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A method this repository declares; in a test source set, its sentences about behaviour. */
     METHOD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
+    /**
+     * A method declaration marked {@code @Override}. The name is the supertype's requirement restated, so
+     * the choice was made once, where that supertype declared it — and is read there when the supertype is
+     * this repository's own. An override the author left unmarked reads as chosen, because only the
+     * annotation is in the text and the reading has no type resolution to see past it.
+     */
+    OVERRIDDEN(Vocabulary.IDENTIFIER, Authorship.QUOTED),
+    /**
+     * A name whose every word its declared type writes beside it — {@code parseContext} on a
+     * {@code ParseContext}, {@code metadataList} on a {@code List<Metadata>}. {@link #ABBREVIATED_TYPE}'s
+     * rule with the words written out: the type was named once where it was declared, and nothing new is
+     * named here.
+     */
+    RESTATED_TYPE(Vocabulary.IDENTIFIER, Authorship.QUOTED),
+    /** A name a published specification requires as spelled; {@link SpecifiedNames} cites each. */
+    SPECIFIED(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** A field this repository declares. */
     FIELD(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A parameter of a method, constructor or lambda. */

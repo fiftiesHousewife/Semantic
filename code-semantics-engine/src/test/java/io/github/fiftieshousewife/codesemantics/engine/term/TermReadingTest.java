@@ -147,7 +147,7 @@ class TermReadingTest {
         final MatchedTerms matched = claiming.of(parsed(root, "Page.java", """
                 package example;
                 class Page {
-                    private java.util.Set<String> set;
+                    private java.util.Set<String> mimeSet;
                 }
                 """));
 

@@ -38,7 +38,7 @@ public final class MarkdownSource implements SourceReader {
                 .mapToObj(line -> new NameOccurrence(readable(lines[line]), NameForm.DOCUMENTATION, line + 1))
                 .filter(occurrence -> !occurrence.text().isBlank())
                 .toList();
-        return new ParsedSource("", prose, true);
+        return new ParsedSource("", prose, ParseOutcome.CLEAN);
     }
 
     /**

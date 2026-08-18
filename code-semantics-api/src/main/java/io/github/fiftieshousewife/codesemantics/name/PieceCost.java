@@ -7,9 +7,10 @@ package io.github.fiftieshousewife.codesemantics.name;
  * {@code userid} is user / id and not use / rid because the first pieces are cheaper.
  *
  * <p>A short piece is held to a rarity floor. The frequency list carries junk fragments (tc, ri, ars, ity)
- * that would let any identifier "parse", so a two- or three-letter run only counts as a word when it is
- * genuinely common, and two-letter runs demand more than three-letter ones because almost any two letters
- * appear somewhere in the list.
+ * that would let any identifier "parse", so a three-letter run only counts as a word when it is genuinely
+ * common — and a two-letter run only where a catalogue cites it, never on frequency alone. The commonest
+ * two-letter entries of the list are the words English supplies to hold a sentence together, and a split
+ * evidenced by one — {@code millis} as mill / is — reads a clause into a compound.
  */
 final class PieceCost {
 
@@ -24,7 +25,6 @@ final class PieceCost {
 
     private static final int TWO_LETTERS = 2;
     private static final int SHORT_PIECE_MAX_LENGTH = 3;
-    private static final int COMMON_TWO_LETTER_RANK = 1000;
     private static final int COMMON_THREE_LETTER_RANK = 6000;
 
     private final WordRanks words;
@@ -57,9 +57,9 @@ final class PieceCost {
     }
 
     private static boolean genuinelyCommon(final String piece, final int rank) {
-        if (piece.length() > SHORT_PIECE_MAX_LENGTH) {
-            return true;
+        if (piece.length() <= TWO_LETTERS) {
+            return false;
         }
-        return rank <= (piece.length() == TWO_LETTERS ? COMMON_TWO_LETTER_RANK : COMMON_THREE_LETTER_RANK);
+        return piece.length() > SHORT_PIECE_MAX_LENGTH || rank <= COMMON_THREE_LETTER_RANK;
     }
 }

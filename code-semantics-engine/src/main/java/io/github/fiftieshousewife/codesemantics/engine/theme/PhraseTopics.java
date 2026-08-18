@@ -46,6 +46,10 @@ public final class PhraseTopics {
     private final TopicDistribution prior;
     private final Set<String> declaredHere;
 
+    /** The JavaBeans accessor grammar, a pure statement of the specification, so it is not injected. */
+    private final io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccessors accessors =
+            new io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccessors();
+
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
         this(citations, commitment, coverage, TopicDistribution.NOTHING, Set.of());
@@ -141,9 +145,14 @@ public final class PhraseTopics {
         if (form.isProse()) {
             return word -> declaredHere.contains(word) ? citations.of(word) : citations.inProse(word);
         }
-        final Set<String> verbs = form == NameForm.METHOD ? Set.of(words.getFirst()) : Set.of();
+        final boolean accessor = form == NameForm.METHOD && accessors.claims(words);
+        final Set<String> verbs = form == NameForm.METHOD && !accessor ? Set.of(words.getFirst()) : Set.of();
+        final String prefix = accessor ? words.getFirst() : "";
         final String head = words.getLast();
         return word -> {
+            if (word.equals(prefix)) {
+                return List.of();
+            }
             if (verbs.contains(word)) {
                 return citations.ofVerb(word);
             }

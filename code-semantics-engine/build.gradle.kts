@@ -288,6 +288,30 @@ tasks.register<JavaExec>("splitRuns") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Every verb phrase the declared method names state, with the leading words WordNet states no verb for.
+// It is what the verb reading would be built over, printed before anything is.
+//   ./gradlew verbPhrases
+tasks.register<JavaExec>("verbPhrases") {
+    group = "verification"
+    description = "Prints the verb phrases the declared method names state, published and test scopes apart"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.VerbPhraseProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
+// The words and multi-word phrases the chosen names state, ranked by raw count — the flat view of the
+// vocabulary the reports rank with weights.
+//   ./gradlew wordsAndPhrases
+tasks.register<JavaExec>("wordsAndPhrases") {
+    group = "verification"
+    description = "Prints the top words and multi-word phrases of the chosen names, by raw count"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.WordAndPhraseProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Every declared name the initials of its own type spell, with the type beside it. It is what says whether
 // the rule claims a name an author meant, which is the only way it can be wrong.
 //   ./gradlew abbreviatedTypes

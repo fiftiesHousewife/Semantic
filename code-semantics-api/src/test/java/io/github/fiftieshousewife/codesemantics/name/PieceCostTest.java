@@ -23,12 +23,13 @@ class PieceCostTest {
     }
 
     @Test
-    void refusesATwoLetterPieceTooRareToCountAsAWord() {
+    void refusesATwoLetterPieceWithoutACitationWhateverItsRank() {
         assertAll(
-                () -> assertThat(frequencyAlone.of("id"))
-                        .as("id ranks 4690, and a two-letter piece must rank inside 1000 to count")
-                        .isEqualTo(PieceCost.UNPARSEABLE),
-                () -> assertThat(frequencyAlone.reads("of")).isTrue());
+                () -> assertThat(frequencyAlone.of("id")).isEqualTo(PieceCost.UNPARSEABLE),
+                () -> assertThat(frequencyAlone.of("of"))
+                        .as("the commonest two-letter entries are the words English supplies, and a "
+                                + "function word evidences no split")
+                        .isEqualTo(PieceCost.UNPARSEABLE));
     }
 
     @Test

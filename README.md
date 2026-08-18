@@ -583,6 +583,8 @@ Each one answers a question the reports raise but do not settle: why a word scor
 | `./gradlew wordPlace -Pwords="get set list"` | where those words stand in the vocabulary ranking, and which reference scored each of them down |
 | `./gradlew topicCarriers -Ptopics="linguistics"` | every word that produced a topic's score, with its share |
 | `./gradlew abbreviatedTypes` | every declared name that is the initials of its own type, with that type |
+| `./gradlew verbPhrases` | every clause the declared method names state — verb, then what it acts on — with the leading words WordNet has no verb for, published and test scopes apart |
+| `./gradlew wordsAndPhrases` | every word and multi-word phrase the chosen names state four or more times, clauses included, by raw count — the flat view the weighted rankings rest on |
 | `./gradlew readTimings` | where the time of a read goes, one stage per row — the finer split of the table in [Limitations](#limitations) |
 | `./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` | fetches each backtest member at the commit the manifest pins it to |
 | `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` | reads every member of the evaluation set, one report folder per member |
@@ -606,6 +608,7 @@ Each report names what it did not use, at the end of that report and nowhere els
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |
 | Subject labels per sense | [WordNet Domains](https://wndomains.fbk.eu/), Fondazione Bruno Kessler |
+| Property accessor names | [JavaBeans specification 1.01](https://www.oracle.com/java/technologies/javase/javabeans-spec.html), section 8.3, design patterns for properties — `get`, `set` and `is` |
 | The platform's own vocabulary | `java.lang.module.ModuleFinder.ofSystem()`, and the class file format, [JVMS §4.4](https://docs.oracle.com/javase/specs/jvms/se21/html/jvms-4.html) |
 | Topic labels per headword | [Wiktionary](https://en.wiktionary.org/), read through [wiktextract](https://github.com/tatuylonen/wiktextract) |
 | Word boundaries | [UAX #29, Unicode Text Segmentation](https://www.unicode.org/reports/tr29/), rules WB6, WB7, WB9, WB10 |

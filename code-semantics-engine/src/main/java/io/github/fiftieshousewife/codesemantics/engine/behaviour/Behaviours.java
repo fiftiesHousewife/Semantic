@@ -26,19 +26,27 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
  * <p>A test method is the best-behaved case of this and not a special one, because a test name is written to
  * be read as a sentence in the first place. Where the convention holds, the suite is a specification and this
  * reading recovers it; where it does not, the verb is simply absent and the reading says so by omitting it.
+ *
+ * <p>The names the source language's own convention claims are refused before the dictionary is asked:
+ * {@link PropertyAccessors} states which, and cites the specification that claims them. It arrives by
+ * injection because it is Java's and a reading of another language would inject that language's own.
  */
 public final class Behaviours {
 
     private final Lexicon lexicon;
     private final IdentifierWords words;
+    private final PropertyAccessors accessors;
 
-    public Behaviours(final Lexicon lexicon, final IdentifierWords words) {
+    public Behaviours(final Lexicon lexicon, final IdentifierWords words,
+                      final PropertyAccessors accessors) {
         this.lexicon = lexicon;
         this.words = words;
+        this.accessors = accessors;
     }
 
     public static Behaviours fromClasspath() {
-        return new Behaviours(WordNetLexicon.fromClasspath(), IdentifierWords.fromClasspath());
+        return new Behaviours(WordNetLexicon.fromClasspath(), IdentifierWords.fromClasspath(),
+                new PropertyAccessors());
     }
 
     public List<Behaviour> in(final List<ParsedFile> files) {
@@ -49,15 +57,29 @@ public final class Behaviours {
         return List.copyOf(read);
     }
 
-    /** The clause one declaration states, or nothing where its first word is not a verb the dictionary has. */
+    /**
+     * The clause one declaration states, or nothing where its first word is not a verb the dictionary has —
+     * or where the name is a property accessor the language's specification claims.
+     */
     public Optional<Behaviour> of(final NameOccurrence occurrence, final ParsedFile file) {
         final List<String> clause = words.of(occurrence.text()).words();
-        if (clause.isEmpty()) {
+        if (clause.isEmpty() || accessors.claims(clause)) {
             return Optional.empty();
         }
         return lexicon.verbBase(clause.getFirst())
+                .filter(verb -> outranksTheNounReading(clause.getFirst(), verb))
                 .map(verb -> new Behaviour(verb, clause.subList(1, clause.size()), occurrence.text(),
                         file.path() + ":" + occurrence.line()));
+    }
+
+    /**
+     * Whether the verb reading stands. A surface the verb index carries as written always does; one reached
+     * only through an inflection loses to a noun the dictionary indexes directly — {@code rung} is the noun,
+     * and reading it as ring sets an inference over a stated entry.
+     */
+    private boolean outranksTheNounReading(final String written, final String verb) {
+        return verb.equals(written)
+                || lexicon.nounBase(written).filter(written::equals).isEmpty();
     }
 
     /** The verbs a set of behaviours performs, the most performed first, each with what it acts on. */

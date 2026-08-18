@@ -8,7 +8,7 @@ import java.util.Objects;
  * it declared — imports already sorted, so what remains is what this repository chose to say.
  */
 public record ParsedFile(String scope, String path, int lines, List<NameOccurrence> occurrences,
-                         boolean sound) {
+                         ParseOutcome outcome) {
 
     public ParsedFile {
         Objects.requireNonNull(scope, "scope");

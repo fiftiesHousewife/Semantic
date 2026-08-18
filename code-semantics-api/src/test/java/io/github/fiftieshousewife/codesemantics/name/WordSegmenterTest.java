@@ -33,7 +33,14 @@ class WordSegmenterTest {
     @Test
     void refusesAShortPieceTooRareToCountAsAWordWithoutACitation() {
         assertThat(segmenter.segment("userid"))
-                .as("id ranks 4690, and a two-letter piece must rank inside 1000 to count")
+                .as("a two-letter piece counts only where a catalogue cites it, never on frequency alone")
+                .isEmpty();
+    }
+
+    @Test
+    void refusesASplitEvidencedOnlyByATwoLetterFunctionWord() {
+        assertThat(segmenter.segment("millis"))
+                .as("mill / is reads a clause into a compound, and is can cite nothing")
                 .isEmpty();
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.JavaSource;
+import io.github.fiftieshousewife.codesemantics.engine.parse.ParseOutcome;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ class BehavioursTest {
 
     private List<Behaviour> read(final String source) {
         return behaviours.in(List.of(new ParsedFile("main", "Reading.java", 40,
-                JavaSource.newInstance().read(source).occurrences(), true)));
+                JavaSource.newInstance().read(source).occurrences(), ParseOutcome.CLEAN)));
     }
 
     @Test
@@ -34,6 +35,55 @@ class BehavioursTest {
                         () -> assertThat(behaviour.sentence()).isEqualTo("resolve next page"),
                         () -> assertThat(behaviour.subject()).isEqualTo("resolveNextPage"),
                         () -> assertThat(behaviour.site()).isEqualTo("Reading.java:3")));
+    }
+
+    @Test
+    void refusesAPropertyAccessorAsJavasIdiomRatherThanAClause() {
+        assertThat(read("""
+                package example;
+                class Reading {
+                    String getName() { return ""; }
+                    void setName(String name) { }
+                    boolean isEmpty() { return true; }
+                }
+                """))
+                .isEmpty();
+    }
+
+    @Test
+    void refusesAnOverrideAsANameTheSupertypeChose() {
+        assertThat(read("""
+                package example;
+                class Reading {
+                    @Override
+                    public void startElement() { }
+                }
+                """))
+                .isEmpty();
+    }
+
+    @Test
+    void readsANounTheDictionaryIndexesDirectlyOverAVerbReachedByInflection() {
+        assertThat(read("""
+                package example;
+                class Reading {
+                    int rung() { return 0; }
+                }
+                """))
+                .isEmpty();
+    }
+
+    @Test
+    void keepsAMethodWhoseFirstWordMerelyBeginsWithAnAccessorsLetters() {
+        assertThat(read("""
+                package example;
+                class Reading {
+                    void settleBalance() { }
+                }
+                """))
+                .singleElement()
+                .extracting(Behaviour::sentence)
+                .isEqualTo("settle balance");
     }
 
     @Test

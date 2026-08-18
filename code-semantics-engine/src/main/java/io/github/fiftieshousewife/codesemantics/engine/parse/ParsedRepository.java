@@ -117,7 +117,8 @@ public final class ParsedRepository {
                         published, copied))
                 .toList();
         return new ParsedRepository(files,
-                (int) read.stream().filter(source -> !source.parsed().sound()).count(), imports);
+                (int) read.stream().filter(source -> !source.parsed().outcome().readCleanly()).count(),
+                imports);
     }
 
     /** The one file per package that its package's words are read at, so a package is named once. */
@@ -188,7 +189,7 @@ public final class ParsedRepository {
                     tally.setAsideAsToolchain();
                 }
             });
-            return new ParsedFile(scope, path, lines, kept, parsed.sound());
+            return new ParsedFile(scope, path, lines, kept, parsed.outcome());
         }
     }
 

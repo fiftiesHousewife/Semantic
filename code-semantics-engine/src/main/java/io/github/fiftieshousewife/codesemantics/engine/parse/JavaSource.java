@@ -37,8 +37,8 @@ import com.github.javaparser.ast.type.TypeParameter;
  *
  * <p>Error tolerance is a requirement and not a nicety, because the commits that most need reading are the
  * ones that do not compile. A file the parser had problems with keeps whatever it recovered and is reported
- * as unsound; only a file it could make nothing at all of reads as {@link ParsedSource#unreadable()}. Neither
- * throws, and neither is silently dropped.
+ * as {@link ParseOutcome#RECOVERED}; only a file it could make nothing at all of reads as
+ * {@link ParsedSource#unreadable()}. Neither throws, and neither is silently dropped.
  */
 public final class JavaSource implements SourceReader {
 
@@ -46,6 +46,9 @@ public final class JavaSource implements SourceReader {
     private final TypeInitials initials;
     private final DeclaredTypeWords typeWords;
     private final JavadocProse javadoc = new JavadocProse();
+    private final SpecifiedNames specified = new SpecifiedNames();
+    private final io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords names =
+            io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords.fromClasspath();
 
     public JavaSource(final ParserConfiguration configuration, final DeclaredTypeWords typeWords) {
         this.parser = new JavaParser(configuration);
@@ -70,18 +73,19 @@ public final class JavaSource implements SourceReader {
     public ParsedSource read(final String source) {
         final ParseResult<CompilationUnit> result = parser.parse(source);
         return result.getResult()
-                .map(unit -> occurrencesIn(unit, result.getProblems().isEmpty()))
+                .map(unit -> occurrencesIn(unit,
+                        result.getProblems().isEmpty() ? ParseOutcome.CLEAN : ParseOutcome.RECOVERED))
                 .orElseGet(ParsedSource::unreadable);
     }
 
-    private ParsedSource occurrencesIn(final CompilationUnit unit, final boolean sound) {
+    private ParsedSource occurrencesIn(final CompilationUnit unit, final ParseOutcome outcome) {
         final List<NameOccurrence> occurrences = new ArrayList<>();
         declared(unit, TypeDeclaration.class, NameForm.TYPE, occurrences);
         // A method writes its return type beside its name, so `List<Foo> getFooList()` says `list` twice.
         // The initials rule is not asked of it: a method named for the whole of its type is not the pattern
         // that rule was measured on, and claiming one here would change what it means without measuring it.
         unit.findAll(MethodDeclaration.class).forEach(method ->
-                add(method.getNameAsString(), NameForm.METHOD, method, occurrences,
+                add(method.getNameAsString(), formOf(method), method, occurrences,
                         typeWords.of(method.getType())));
         unit.findAll(CatchClause.class).forEach(caught ->
                 add(caught.getParameter().getNameAsString(), NameForm.CAUGHT, caught, occurrences));
@@ -112,7 +116,7 @@ public final class JavaSource implements SourceReader {
                 add(imported.getNameAsString(), NameForm.IMPORT, imported, occurrences));
         unit.getAllComments().forEach(comment -> prose(comment, occurrences));
         return new ParsedSource(unit.getPackageDeclaration()
-                .map(NodeWithName::getNameAsString).orElse(""), occurrences, sound);
+                .map(NodeWithName::getNameAsString).orElse(""), occurrences, outcome);
     }
 
     private static boolean isCaught(final Parameter parameter) {
@@ -153,8 +157,41 @@ public final class JavaSource implements SourceReader {
      */
     private void addNamed(final String name, final Type type, final NameForm form, final Node node,
                           final List<NameOccurrence> occurrences) {
-        add(name, initials.spell(name, type) ? NameForm.ABBREVIATED_TYPE : form, node, occurrences,
-                typeWords.of(type));
+        add(name, formOf(name, type, form), node, occurrences, typeWords.of(type));
+    }
+
+    /** What a declaration beside a type reads as: initials of it, the whole of it, a specified name, or its own. */
+    private NameForm formOf(final String name, final Type type, final NameForm form) {
+        if (initials.spell(name, type)) {
+            return NameForm.ABBREVIATED_TYPE;
+        }
+        if (restatesTheWholeType(name, type)) {
+            return NameForm.RESTATED_TYPE;
+        }
+        return specified.claims(name, form) ? NameForm.SPECIFIED : form;
+    }
+
+    /** Whether every word of the name is one its declared type writes, so the name is the type restated. */
+    private boolean restatesTheWholeType(final String name, final Type type) {
+        final List<String> stated = typeWords.of(type).stream()
+                .map(word -> word.toLowerCase(java.util.Locale.ROOT))
+                .toList();
+        final List<String> written = names.of(name).words().stream()
+                .map(word -> word.toLowerCase(java.util.Locale.ROOT))
+                .toList();
+        return !stated.isEmpty() && !written.isEmpty() && stated.containsAll(written);
+    }
+
+    /** Which form a method declaration is: the author's own name, or somebody else's requirement restated. */
+    private NameForm formOf(final MethodDeclaration method) {
+        if (method.isAnnotationPresent(Override.class)) {
+            return NameForm.OVERRIDDEN;
+        }
+        if (restatesTheWholeType(method.getNameAsString(), method.getType())) {
+            return NameForm.RESTATED_TYPE;
+        }
+        return specified.claims(method.getNameAsString(), NameForm.METHOD) ? NameForm.SPECIFIED
+                : NameForm.METHOD;
     }
 
     private static void add(final String text, final NameForm form, final Node node,

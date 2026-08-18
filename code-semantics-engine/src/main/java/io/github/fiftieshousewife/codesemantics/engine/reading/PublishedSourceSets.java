@@ -32,7 +32,7 @@ public final class PublishedSourceSets {
      * The rung after {@code src} in {@code <module>/src/<set>/java}, or the scope's own name where the layout
      * states none — a scope that is not a source set names itself, and nothing is published from it.
      */
-    private static String sourceSetOf(final String scope) {
+    public static String sourceSetOf(final String scope) {
         final List<String> rungs = SEPARATOR.splitAsStream(scope).toList();
         return IntStream.range(0, Math.max(rungs.size() - 1, 0))
                 .filter(rung -> SOURCE_SET_ROOT.equals(rungs.get(rung)))

@@ -140,7 +140,7 @@ class ParsedRepositoryTest {
                         () -> assertThat(parsed.scope()).isEqualTo("main"),
                         () -> assertThat(parsed.path()).isEqualTo("Reading.java"),
                         () -> assertThat(parsed.lines()).isEqualTo(2),
-                        () -> assertThat(parsed.sound()).isTrue(),
+                        () -> assertThat(parsed.outcome()).isEqualTo(ParseOutcome.CLEAN),
                         () -> assertThat(parsed.occurrencesOf(NameForm.TYPE)).isOne()));
     }
 
