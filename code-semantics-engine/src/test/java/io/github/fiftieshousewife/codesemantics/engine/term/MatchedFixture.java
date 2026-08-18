@@ -12,7 +12,6 @@ import java.util.Objects;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 
 /**
  * A saved set of matches, resolved back to the concepts of the taxonomy that states them.
@@ -33,8 +32,7 @@ final class MatchedFixture {
 
     private final IdentifierWords words;
 
-    MatchedFixture(final InjectedTaxonomy taxonomy) {
-        final TermIndex published = InjectedIndexes.of(taxonomy);
+    MatchedFixture(final TermIndex published) {
         this.ladder = List.of(published,
                 NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
                 NormalisedTerms.over(published, SenseRuns.fromClasspath()));

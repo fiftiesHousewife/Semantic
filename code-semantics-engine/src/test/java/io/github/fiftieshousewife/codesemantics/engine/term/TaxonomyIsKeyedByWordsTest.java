@@ -2,9 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.HostTree;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,10 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  */
 class TaxonomyIsKeyedByWordsTest {
 
-    private static final InjectedTaxonomy CSO =
-            InjectedTaxonomy.named(new HostTree().root().resolve("taxonomies/cso-topics.tsv"));
-
-    private static final TermIndex INDEX = InjectedTerms.of(CSO, CSO.source());
+    private static final TermIndex INDEX = ComputingTerms.fromClasspath();
 
     private static final IdentifierWords WORDS = IdentifierWords.fromClasspath();
 

@@ -110,7 +110,7 @@ Every run writes [`reading.json`](output/json/reading.json). It carries the resu
 | `taxonomies` | the published concepts the repository's names match, and the branches those concepts sit under | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
-**`taxonomies` holds one entry per vocabulary matched.** A run matches the bundled term taxonomy and every one under [`taxonomies/`](taxonomies) that `TaxonomyShape` says can be matched — so this repository's export carries OLiA and the Computer Science Ontology side by side, each with its own concepts and counts. A consumer adds its own:
+**`taxonomies` holds one entry per vocabulary matched.** A run matches every taxonomy [`MatchedTaxonomies`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTaxonomies.java) enumerates — OLiA and the Computer Science Ontology — so the export carries both side by side, each with its own concepts and counts. A consumer adds its own:
 
 ```java
 ReadingExport export = new ExportedReading().of(reading, commit,
@@ -270,7 +270,7 @@ The taxonomy layer beneath it:
 
 | To | Call |
 |---|---|
-| read a taxonomy the jar does not carry | `InjectedTaxonomy.named(Path.of("taxonomies/cso-topics.tsv"))` |
+| read a taxonomy the jar does not carry | `InjectedTaxonomy.named(Path.of("my-vocabulary.tsv"))` |
 | take the same taxonomy a build would | `InjectedTaxonomy.fromCommandLineOrBundled()` — honours `-Dcs.taxonomy`, falls back to the bundled scheme |
 | read any eight-column taxonomy file | `SkosRows.at(Path)`, the same reader the bundled ones go through |
 | place a reading against subjects | `SubjectAreas.of(concepts)`, then `SubjectPlacement.byDivergence().of(distribution, subjects)` |
@@ -284,7 +284,7 @@ The taxonomy layer beneath it:
 Worked example — place a repository's reading against BIAN rather than arXiv:
 
 ```java
-InjectedTaxonomy bian = InjectedTaxonomy.named(Path.of("taxonomies/bian-service-domains.tsv"));
+InjectedTaxonomy bian = InjectedTaxonomy.of(BianServiceDomains.fromClasspath().concepts(), "BIAN");
 List<SubjectTopics> domains = SubjectAreas.fromClasspath().of(bian.described());
 List<SubjectPlacement.Placement> nearest =
         SubjectPlacement.byDivergence().of(repositoryDistribution, domains);
@@ -488,17 +488,10 @@ A source is a candidate long before anything decides to publish it, and a candid
 
 | From | How |
 |---|---|
-| a build | `./gradlew functionalPlacement -Ptaxonomy=taxonomies/bian-service-domains.tsv`, or `-Dcs.taxonomy=<path>` on any reading |
+| a build | `./gradlew functionalPlacement -Ptaxonomy=<path>`, or `-Dcs.taxonomy=<path>` on any reading |
 | a program | `InjectedTaxonomy.named(Path)`, or `InjectedTaxonomy.fromCommandLineOrBundled()` for the same resolution a build gets |
 
 A named file that cannot be read **fails rather than falling back** to the bundled taxonomy: a caller who asked for one taxonomy and silently got another would read the wrong answer without being told.
-
-[The taxonomies under `taxonomies/`](taxonomies) are committed to this repository like the bundled ones, and the difference is only where a consumer gets them: a file under `lexicon/src/main/resources` ships inside the published jar, and a file under `taxonomies/` is handed to the jar by path. What each still owes is the extraction that would regenerate it from the pinned revision its header names.
-
-| Taxonomy | Field | Licence |
-|---|---|---|
-| [BIAN Service Landscape](https://github.com/bian-official/artefacts) — 319 service domains under 8 business areas, each with a role definition | banking capabilities | Apache-2.0, stated in the publisher's own `LICENSE` |
-| [CSO](https://cso.kmi.open.ac.uk/) — the Computer Science Ontology, 14,636 topics, no definition for any of them | computer science | CC BY 4.0 |
 
 ### Term taxonomy
 
@@ -526,11 +519,12 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb` survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's `AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less likely than one.
 
-**The two bundled term taxonomies** — the functional ones are above, and [those under `taxonomies/`](taxonomies) are read by path:
+**The three bundled term taxonomies** — the functional ones are above:
 
 | Taxonomy | Field | What it tests |
 |---|---|---|
 | [OLiA](https://github.com/acoli-repo/olia) — Ontologies of Linguistic Annotation | linguistic annotation | the in-domain case: a vocabulary of grammar should match a library built from lemmas and senses |
+| [CSO](https://cso.kmi.open.ac.uk/) — the Computer Science Ontology, 14,636 topics | computer science | the near-domain case: the first source measured here that separates this repository from Apache Tika, which the subject scheme files under one category |
 | [FIBO](https://spec.edmcouncil.org/fibo/) — Financial Industry Business Ontology | finance | the out-of-domain case: a vocabulary of finance should match almost nothing in it |
 
 A vocabulary matching inside its own domain establishes nothing, because any sufficiently large word list matches something somewhere. What has to be shown is that it produces few or no matches outside that domain.

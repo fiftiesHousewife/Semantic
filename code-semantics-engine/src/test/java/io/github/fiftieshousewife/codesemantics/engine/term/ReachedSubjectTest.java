@@ -6,8 +6,6 @@ import java.util.Set;
 import java.util.function.Function;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.codesemantics.engine.reading.HostTree;
-import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -41,8 +39,7 @@ class ReachedSubjectTest {
 
     private static final String NETWORKING = "network protocols";
 
-    private static final InjectedTaxonomy CSO =
-            InjectedTaxonomy.named(new HostTree().root().resolve("taxonomies/cso-topics.tsv"));
+    private static final ComputingTerms CSO = ComputingTerms.fromClasspath();
 
     private static final MatchedFixture MATCHED = new MatchedFixture(CSO);
 
@@ -51,9 +48,9 @@ class ReachedSubjectTest {
     private static final PooledConcepts POOLED = PooledConcepts.fromClasspath();
 
     private static List<WrittenSubtree> reached(final String fixture, final Set<String> target) {
-        final List<SkosConcept> published = POOLED.in(CSO.concepts());
+        final List<SkosConcept> published = POOLED.in(CSO.published());
         final Map<String, Integer> written =
-                POOLED.writtenUnder(MATCHED.writtenByConcept(fixture), CSO.concepts());
+                POOLED.writtenUnder(MATCHED.writtenByConcept(fixture), CSO.published());
         final List<WrittenSubtree> ranked =
                 WrittenSubtree.in(TaxonomyTree.of(published, written, Function.identity()), MASS);
         report(fixture, written, ranked, target);
@@ -74,7 +71,7 @@ class ReachedSubjectTest {
     private static void dropped(final String fixture) {
         final Map<String, Integer> reached = MATCHED.conceptsPerRun(fixture);
         final Map<String, Integer> raw = MATCHED.writtenByConcept(fixture);
-        final Map<String, Integer> pooled = POOLED.writtenUnder(raw, CSO.concepts());
+        final Map<String, Integer> pooled = POOLED.writtenUnder(raw, CSO.published());
         System.out.printf("%n  %d runs recorded, %d reach a concept, %d reach more than one,"
                         + " %d concepts before pooling, %d after%n",
                 reached.size(), reached.values().stream().filter(count -> count > 0).count(),

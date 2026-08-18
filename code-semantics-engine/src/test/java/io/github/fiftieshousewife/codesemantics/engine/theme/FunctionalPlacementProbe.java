@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 
 /**
- * Places the repository under reading against a functional taxonomy held in a file rather than on the
- * classpath, so a candidate source can be measured before anything decides to bundle it.
+ * Places the repository under reading against a functional taxonomy: the bundled BIAN Service Landscape,
+ * or the file a caller names, so a candidate source is measured by the same reading that would bundle it.
  *
  * <p>The placement machinery is source-agnostic already — {@link SubjectAreas#of} takes concepts and asks
- * where they came from — so this adds no reading. It exists to keep an unbundled source out of the
- * classpath while it is still a candidate, which is what the extractor plan requires.
+ * where they came from — so this adds no reading.
  *
  * <p>Run it against a vocabulary of a field the repository has nothing to do with and the honest result is
  * that nothing clears the null. That is the control, and a source failing it is not thereby a bad source.
@@ -26,10 +26,9 @@ public final class FunctionalPlacementProbe {
     }
 
     public static void main(final String[] args) throws IOException {
-        if (args.length < 1) {
-            throw new IllegalArgumentException("Usage: FunctionalPlacementProbe <taxonomy tsv>");
-        }
-        final InjectedTaxonomy taxonomy = InjectedTaxonomy.named(Path.of(args[0]));
+        final InjectedTaxonomy taxonomy = args.length < 1
+                ? InjectedTaxonomy.of(BianServiceDomains.fromClasspath().concepts(), "BIAN")
+                : InjectedTaxonomy.named(Path.of(args[0]));
         final List<SkosConcept> published = taxonomy.described();
         final TopicDistribution repository =
                 TreeReading.ofTheCloneUnderReading().themes().repository().comparison();

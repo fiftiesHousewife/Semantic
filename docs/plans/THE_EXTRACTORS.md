@@ -1,6 +1,6 @@
 # The extractors
 
-**This is a prerequisite. No further vocabulary is bundled until it lands** — not the standards a repository implements, not a second linguistics taxonomy, not the classification run's Trove classifiers. Every one of them would otherwise arrive as another copy of the same six steps, and the copy is what the restructure removes.
+**This remains the debt, and the queue behind it is unchanged** — the standards a repository implements, a second linguistics taxonomy, the classification run's Trove classifiers would each arrive as another copy of the same steps, and the copy is what the restructure removes. Two arrivals were taken ahead of it on an explicit decision (2026-08-18): CSO and BIAN were bundled with extractors of their own — `CsoTopicsExtraction`, `BianServiceDomainsExtraction` — because both files already existed unregenerable, which was the worse debt.
 
 `lexicon-extraction` holds 44 classes and every source is extracted by the same six steps, written out again each time. Six `*Extraction` classes state them; the next four sources the plans name would state them twice more each.
 

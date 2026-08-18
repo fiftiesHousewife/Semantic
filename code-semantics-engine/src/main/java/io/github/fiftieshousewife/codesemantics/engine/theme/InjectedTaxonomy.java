@@ -45,6 +45,11 @@ public final class InjectedTaxonomy implements PublishedTerms {
         return new InjectedTaxonomy(SkosRows.at(taxonomy), taxonomy.getFileName().toString());
     }
 
+    /** Concepts a caller already holds — a bundled taxonomy's, usually — behind the same reading. */
+    public static InjectedTaxonomy of(final List<SkosConcept> concepts, final String source) {
+        return new InjectedTaxonomy(concepts, source);
+    }
+
     /** The bundled subject taxonomy, which is what a reading places against unless told otherwise. */
     public static InjectedTaxonomy bundled() {
         return new InjectedTaxonomy(ArxivSubjects.fromClasspath().described(), "arxiv-taxonomy.tsv");

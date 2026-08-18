@@ -6,10 +6,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.InjectedIndexes;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
-import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
-import io.github.fiftieshousewife.codesemantics.engine.theme.TaxonomyShape;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
@@ -29,35 +27,9 @@ public final class ExportCommand {
     /** What the reading writes beside the export to say what moved since the last one. */
     private static final String CHANGES = "changes";
 
-    /**
-     * Every taxonomy under this directory is read by path, because the published jar carries none of them.
-     *
-     * <p>Resolved against the host tree rather than the working directory. The forked test JVM runs inside
-     * the module, so a relative path finds nothing, and these are this repository's taxonomies whichever
-     * clone is being read.
-     */
-    private static final String UNBUNDLED = "taxonomies";
-
-    /**
-     * The vocabularies this repository keeps beside the bundled one and matches as well.
-     *
-     * <p>They are read from files rather than the classpath because nothing bundles them. Only the ones
-     * {@link TaxonomyShape} says can be matched are taken: a taxonomy stating prose has a placement reading
-     * of its own and is not a vocabulary of terms anybody declares, so BIAN's service domains are left to
-     * that arm and CSO's topics are matched here. A directory holding neither contributes nothing.
-     */
-    static List<TermIndex> alsoMatched() throws IOException {
-        final Path directory = TreeReading.ofTheHostTree().root().resolve(UNBUNDLED);
-        if (!Files.isDirectory(directory)) {
-            return List.of();
-        }
-        try (var files = Files.list(directory)) {
-            return files.filter(file -> file.getFileName().toString().endsWith(".tsv")).sorted()
-                    .map(InjectedTaxonomy::named)
-                    .filter(taxonomy -> taxonomy.shape().isMatchedAgainstNames())
-                    .map(InjectedIndexes::of)
-                    .toList();
-        }
+    /** The taxonomies matched beside the bundled vocabulary the shared reading already holds. */
+    static List<TermIndex> alsoMatched() {
+        return MatchedTaxonomies.besides(MatchedTaxonomies.OLIA);
     }
 
     public static void main(final String[] arguments) throws IOException {

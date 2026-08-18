@@ -165,7 +165,7 @@ tasks.register<JavaExec>("extractCsoTopics") {
     args = listOf(
         (findProperty("cso") as String?).orEmpty(),
         rootProject.layout.projectDirectory
-            .file("taxonomies/cso-topics.tsv").asFile.absolutePath
+            .file("lexicon/src/main/resources/cso-topics.tsv").asFile.absolutePath
     )
 }
 
@@ -180,7 +180,7 @@ tasks.register<JavaExec>("extractBianServiceDomains") {
     args = listOf(
         (findProperty("bian") as String?).orEmpty(),
         rootProject.layout.projectDirectory
-            .file("taxonomies/bian-service-domains.tsv").asFile.absolutePath
+            .file("lexicon/src/main/resources/bian-service-domains.tsv").asFile.absolutePath
     )
 }
 

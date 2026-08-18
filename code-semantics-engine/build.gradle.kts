@@ -65,14 +65,15 @@ tasks.register<JavaExec>("topicCarriers") {
     args = (findProperty("topics") as String? ?: "").split(" ").filter { it.isNotBlank() }
 }
 
-// Where this repository stands against a functional taxonomy held in a file rather than on the classpath,
-// so a candidate source can be measured before anything decides to bundle it.
-//   ./gradlew functionalPlacement -Ptaxonomy=taxonomies/bian-service-domains.tsv
+// Where this repository stands against a functional taxonomy: the bundled BIAN Service Landscape, or a
+// candidate held in a file, measured by the same reading that would bundle it.
+//   ./gradlew functionalPlacement            # the bundled BIAN Service Landscape
+//   ./gradlew functionalPlacement -Ptaxonomy=<path to a candidate taxonomy tsv>
 // A relative path is resolved against the repository root rather than this module, because that is where a
 // caller typing the path is standing.
 tasks.register<JavaExec>("functionalPlacement") {
     group = "verification"
-    description = "Places this repository against an unbundled functional taxonomy"
+    description = "Places this repository against a functional taxonomy: bundled BIAN, or -Ptaxonomy=<path>"
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.FunctionalPlacementProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
@@ -85,7 +86,7 @@ tasks.register<JavaExec>("functionalPlacement") {
 // Which concepts of a term taxonomy held in a file this repository declares, so a candidate vocabulary
 // can be tried before anything decides to bundle it. A taxonomy stating no definition can be read no
 // other way.
-//   ./gradlew injectedTermMatch -Ptaxonomy=taxonomies/cso-topics.tsv
+//   ./gradlew injectedTermMatch -Ptaxonomy=<path to a candidate taxonomy tsv>
 tasks.register<JavaExec>("injectedTermMatch") {
     group = "verification"
     description = "Matches declared names against an unbundled term taxonomy"

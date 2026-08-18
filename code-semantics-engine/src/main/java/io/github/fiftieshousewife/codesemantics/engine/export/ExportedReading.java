@@ -10,6 +10,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
@@ -42,17 +43,14 @@ public final class ExportedReading {
     private static final List<String> ABOUT_STATED_BY =
             List.of("WordNet Domains", "Wiktionary topics");
 
-    /** The bundled vocabulary alone, which is what a caller naming no others gets. */
+    /** Every taxonomy {@link MatchedTaxonomies} enumerates, which is what a caller naming no others gets. */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
-        return of(reading, commit, List.of());
+        return of(reading, commit, MatchedTaxonomies.besides(MatchedTaxonomies.OLIA));
     }
 
     /**
-     * The bundled vocabulary and any the caller supplies, each matched and reported as its own taxonomy.
-     *
-     * <p>A source the published jar does not carry is read by path — the Computer Science Ontology is
-     * 14,636 topics under CC BY 4.0 and nothing bundles it — so a consumer that wants it in the export
-     * hands it over rather than asking this class to find it.
+     * The enumerated taxonomies and any the caller supplies, each matched and reported as its own taxonomy.
+     * A consumer injects its own by path and passes the index here.
      */
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched) {
@@ -159,16 +157,13 @@ public final class ExportedReading {
                                 taxonomy.vocabulary()))
                         .distinct().limit(LEADING).toList())
                 .toList();
-        final List<ExportedSummary.LeadingConcept> leading = new java.util.ArrayList<>();
-        for (int place = 0; leading.size() < LEADING && place < LEADING; place++) {
-            for (final List<ExportedSummary.LeadingConcept> concepts : perVocabulary) {
-                if (place < concepts.size() && !leading.contains(concepts.get(place))
-                        && leading.size() < LEADING) {
-                    leading.add(concepts.get(place));
-                }
-            }
-        }
-        return List.copyOf(leading);
+        return java.util.stream.IntStream.range(0, LEADING).boxed()
+                .flatMap(place -> perVocabulary.stream()
+                        .filter(concepts -> place < concepts.size())
+                        .map(concepts -> concepts.get(place)))
+                .distinct()
+                .limit(LEADING)
+                .toList();
     }
 
     private static List<ExportedSummary.DistinctiveScope> distinctive(final ReadingSummary summary) {
