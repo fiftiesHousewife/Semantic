@@ -5,7 +5,7 @@ Skills are instructions an agent loads when a task matches them. They live in `.
 | Skill | Loads when | What it holds |
 |---|---|---|
 | [`adding-a-taxonomy`](adding-a-taxonomy/SKILL.md) | adding, promoting or re-extracting any vocabulary resource | the invariants every bundled taxonomy holds — pinned source, digest acceptance, byte reproducibility, the eight columns, the provenance header — and the eight files a new one touches, from extraction class to regenerated readings |
-| [`profiling-a-read`](profiling-a-read/SKILL.md) | a read is slow, a stage regressed, or a performance change needs its number | the two probe tasks — `readTimings` for the stage, `readProfile` and `jfr` for the method — how to read a profile, the attribution experiment that gives each change its own number, what this sandbox permits, and the verification sequence a performance change passes |
+| [`profiling-a-read`](profiling-a-read/SKILL.md) | a read is slow, a stage regressed, or a performance change needs its number | the probe — `readTimings` for the stage rows and the flight recording, `jfr` for the method — how to read a profile, the attribution experiment, and the verification sequence a performance change passes |
 | [`written-english`](written-english/SKILL.md) | writing or editing any prose a reader outside the project sees, and reviewing prose for machine-writing habits | the house style: no metaphor in text or headings, no contrastive negation, no self-reference, no padding, no invented senses; active voice, an ambiguous term defined and linked at first use, a worked example beside anything specialist, links named for the thing rather than the path, no hard-wrapped markdown, and a review checklist |
 
 ## Installing

@@ -103,26 +103,14 @@ tasks.register<JavaExec>("injectedTermMatch") {
 // report prints a top; this answers for a word it never reached.
 //   ./gradlew wordPlace -Pwords="get set list"
 // Where the time of one read goes, stage by stage: each shared stage is computed once in dependency order,
-// so a row is that stage's own first cost and the rows sum to what the export diagnostic pays. Nothing under
-// output/ is touched.
+// so a row is that stage's own first cost and the rows sum to what the export diagnostic pays. The same run
+// is recorded under Java Flight Recorder to build/reports/read-profile.jfr; read it with
+// `jfr view hot-methods <file>` or JDK Mission Control. Nothing under output/ is touched.
 //   ./gradlew readTimings
 //   ./gradlew readTimings -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("readTimings") {
     group = "verification"
-    description = "Prints where the time of a read goes, one stage per row"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.export.ReadStageTimingsProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-}
-
-// The same probe recorded under Java Flight Recorder, for when a row of readTimings needs explaining.
-// Writes build/reports/read-profile.jfr; read it with `jfr view hot-methods <file>` or JDK Mission Control.
-//   ./gradlew readProfile
-//   ./gradlew readProfile -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("readProfile") {
-    group = "verification"
-    description = "Records where the time of a read goes, as a flight recording"
+    description = "Prints where the time of a read goes, one stage per row, and records it under Flight Recorder"
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.export.ReadStageTimingsProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
