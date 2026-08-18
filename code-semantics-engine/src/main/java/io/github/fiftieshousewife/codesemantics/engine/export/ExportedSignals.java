@@ -39,8 +39,15 @@ public final class ExportedSignals {
     }
 
     private ExportedSignal signal(final ChosenWord word) {
-        return new ExportedSignal(source, word.word(), word.occurrences(), word.inNames(), word.claim(),
-                closestReference(word), SightingSite.of(word.site()));
+        return ExportedSignal.builder()
+                .readFrom(source)
+                .word(word.word())
+                .occurrences(word.occurrences())
+                .occurrencesInNames(word.inNames())
+                .divergenceBits(word.claim())
+                .closestReference(closestReference(word))
+                .firstWrittenAt(SightingSite.of(word.site()))
+                .build();
     }
 
     /**

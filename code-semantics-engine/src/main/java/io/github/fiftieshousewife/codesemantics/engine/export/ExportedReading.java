@@ -95,10 +95,14 @@ public final class ExportedReading {
         alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
                 CorroboratedReading.of(index, conceptsOf(index), parsed).matched(), placement(field))));
 
-        return ReadingExport.of(
-                summarised(reading, commit, summary, signals, reported, List.copyOf(taxonomies), field),
-                signals, reported, List.copyOf(taxonomies),
-                setAside(summary, vocabulary, legibility, terms, parsed));
+        return ReadingExport.builder()
+                .summary(summarised(reading, commit, summary, signals, reported,
+                        List.copyOf(taxonomies), field))
+                .signals(signals)
+                .themes(reported)
+                .taxonomies(List.copyOf(taxonomies))
+                .setAside(setAside(summary, vocabulary, legibility, terms, parsed))
+                .build();
     }
 
     /** The ranking and the signals it produced, kept together so the counts can be taken from both. */

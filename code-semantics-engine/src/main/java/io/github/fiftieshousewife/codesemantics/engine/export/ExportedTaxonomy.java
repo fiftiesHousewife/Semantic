@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.Builder;
+
 /**
  * One taxonomy evaluated against the repository: the concepts it writes, how the match was reached, and where
  * the same reading places it among published subjects.
@@ -31,6 +33,7 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
      * @param wordsInTerm    how many words the term is written in; a one-word term cleared the branch rule
      * @param firstWrittenAt the file and line it was first written at
      */
+    @Builder
     public record Concept(String concept, String placedUnder, int occurrences, double specificity,
                           int wordsInTerm, SightingSite firstWrittenAt) {
     }

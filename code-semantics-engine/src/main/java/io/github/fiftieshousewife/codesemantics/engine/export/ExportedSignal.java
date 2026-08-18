@@ -2,6 +2,8 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.Objects;
 
+import lombok.Builder;
+
 /**
  * One word or published phrase this repository writes more of than every reference it is read against.
  *
@@ -15,6 +17,7 @@ import java.util.Objects;
  * @param closestReference       the reference scoring this word lowest, which is the score reported
  * @param firstWrittenAt         the file and line it was first written at
  */
+@Builder
 public record ExportedSignal(ReadingSource readFrom, String word, int occurrences, int occurrencesInNames,
                              double divergenceBits, String closestReference,
                              SightingSite firstWrittenAt) {

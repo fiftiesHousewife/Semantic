@@ -43,8 +43,14 @@ public final class ExportedTaxonomies {
     }
 
     private static ExportedTaxonomy.Concept row(final TermSighting sighting, final SkosConcept concept) {
-        return new ExportedTaxonomy.Concept(concept.prefLabel(), concept.broader(), sighting.occurrences(),
-                sighting.specificity(), sighting.length(), SightingSite.of(sighting.firstSite()));
+        return ExportedTaxonomy.Concept.builder()
+                .concept(concept.prefLabel())
+                .placedUnder(concept.broader())
+                .occurrences(sighting.occurrences())
+                .specificity(sighting.specificity())
+                .wordsInTerm(sighting.length())
+                .firstWrittenAt(SightingSite.of(sighting.firstSite()))
+                .build();
     }
 
     private static Map<String, Integer> matchesByNormalisation(final MatchedTerms matched) {

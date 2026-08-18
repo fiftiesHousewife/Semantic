@@ -3,6 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.Builder;
+
 /**
  * Everything one run of the reading produced that a consumer would act on: the answer first, then the
  * evidence under it.
@@ -39,6 +41,7 @@ public record ReadingExport(String schemaVersion, ExportedSummary summary, List<
     }
 
     /** The document at the version this build states, which is the only version it knows how to write. */
+    @Builder
     public static ReadingExport of(final ExportedSummary summary, final List<ExportedSignal> signals,
                                    final List<ExportedTheme> themes, final List<ExportedTaxonomy> taxonomies,
                                    final SetAside setAside) {
