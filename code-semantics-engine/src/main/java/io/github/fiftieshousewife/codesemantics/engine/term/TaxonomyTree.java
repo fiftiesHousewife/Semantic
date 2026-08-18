@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -74,22 +75,24 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
 
         /** The concepts written in this subtree, most-written first — what a branch's claim rests on. */
         public List<Node> writtenHere() {
-            final List<Node> found = new ArrayList<>();
-            if (written > 0) {
-                found.add(this);
-            }
-            children.forEach(child -> found.addAll(child.writtenHere()));
-            return found.stream()
+            return descendants()
+                    .filter(node -> node.written() > 0)
                     .sorted(Comparator.comparingInt(Node::written).reversed()
                             .thenComparing(Node::label))
                     .toList();
+        }
+
+        /** This node and every node beneath it. */
+        Stream<Node> descendants() {
+            return Stream.concat(Stream.of(this), children.stream().flatMap(Node::descendants));
         }
     }
 
     /** Every concept the repository wrote, wherever the publisher placed it, most-written first. */
     public List<Node> writtenHere() {
         return roots.stream()
-                .flatMap(root -> root.writtenHere().stream())
+                .flatMap(Node::descendants)
+                .filter(node -> node.written() > 0)
                 .sorted(Comparator.comparingInt(Node::written).reversed().thenComparing(Node::label))
                 .toList();
     }
@@ -157,9 +160,15 @@ public record TaxonomyTree(List<Node> roots, int concepts, int written) {
                               final Map<String, Integer> written,
                               final java.util.function.Function<String, String> asWords,
                               final java.util.Set<String> onThePath, final Map<String, Node> built) {
-        if (built.containsKey(concept.prefLabel())) {
-            return new Built(built.get(concept.prefLabel()), false);
-        }
+        return built.containsKey(concept.prefLabel())
+                ? new Built(built.get(concept.prefLabel()), false)
+                : freshBuild(concept, byParent, written, asWords, onThePath, built);
+    }
+
+    private static Built freshBuild(final SkosConcept concept, final Map<String, List<SkosConcept>> byParent,
+                                    final Map<String, Integer> written,
+                                    final java.util.function.Function<String, String> asWords,
+                                    final java.util.Set<String> onThePath, final Map<String, Node> built) {
         onThePath.add(concept.prefLabel());
         final List<SkosConcept> stated = byParent.getOrDefault(concept.prefLabel(), List.of());
         final List<Built> children = stated.stream()
