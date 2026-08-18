@@ -1,9 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.IntStream;
 
 /**
  * Reads a repository's own documentation as the prose it is: a README, a plan, a backlog. These are where a
@@ -34,13 +34,10 @@ public final class MarkdownSource implements SourceReader {
     @Override
     public ParsedSource read(final String source) {
         final String[] lines = withoutCode(source).split("\n", -1);
-        final List<NameOccurrence> prose = new ArrayList<>();
-        for (int line = 0; line < lines.length; line++) {
-            final String text = readable(lines[line]);
-            if (!text.isBlank()) {
-                prose.add(new NameOccurrence(text, NameForm.DOCUMENTATION, line + 1));
-            }
-        }
+        final List<NameOccurrence> prose = IntStream.range(0, lines.length)
+                .mapToObj(line -> new NameOccurrence(readable(lines[line]), NameForm.DOCUMENTATION, line + 1))
+                .filter(occurrence -> !occurrence.text().isBlank())
+                .toList();
         return new ParsedSource("", prose, true);
     }
 
@@ -50,12 +47,13 @@ public final class MarkdownSource implements SourceReader {
      */
     private static String withoutCode(final String source) {
         return FENCED_BLOCK.matcher(source)
-                .replaceAll(block -> block.group().replaceAll("[^\n]", ""));
+                .replaceAll(block -> block.group()
+                        .replaceAll("[^\n]", ""));
     }
 
     private static String readable(final String line) {
-        return MARKDOWN_FURNITURE.matcher(
-                        LINK_TARGET.matcher(INLINE_CODE.matcher(line).replaceAll(" ")).replaceAll(" "))
-                .replaceAll(" ");
+        final String withoutInlineCode = INLINE_CODE.matcher(line).replaceAll(" ");
+        final String withoutLinkTargets = LINK_TARGET.matcher(withoutInlineCode).replaceAll(" ");
+        return MARKDOWN_FURNITURE.matcher(withoutLinkTargets).replaceAll(" ");
     }
 }

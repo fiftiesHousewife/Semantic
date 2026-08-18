@@ -20,6 +20,7 @@ import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.VariableDeclarationExpr;
+import com.github.javaparser.ast.nodeTypes.NodeWithName;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
 import com.github.javaparser.ast.stmt.CatchClause;
 import com.github.javaparser.ast.type.Type;
@@ -111,7 +112,7 @@ public final class JavaSource implements SourceReader {
                 add(imported.getNameAsString(), NameForm.IMPORT, imported, occurrences));
         unit.getAllComments().forEach(comment -> prose(comment, occurrences));
         return new ParsedSource(unit.getPackageDeclaration()
-                .map(declaration -> declaration.getNameAsString()).orElse(""), occurrences, sound);
+                .map(NodeWithName::getNameAsString).orElse(""), occurrences, sound);
     }
 
     private static boolean isCaught(final Parameter parameter) {
