@@ -101,6 +101,20 @@ tasks.register<JavaExec>("injectedTermMatch") {
 // Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The
 // report prints a top; this answers for a word it never reached.
 //   ./gradlew wordPlace -Pwords="get set list"
+// Where the time of one read goes, stage by stage: each shared stage is computed once in dependency order,
+// so a row is that stage's own first cost and the rows sum to what the export diagnostic pays. Nothing under
+// output/ is touched.
+//   ./gradlew readTimings
+//   ./gradlew readTimings -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("readTimings") {
+    group = "verification"
+    description = "Prints where the time of a read goes, one stage per row"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.export.ReadStageTimingsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 tasks.register<JavaExec>("wordPlace") {
     group = "verification"
     description = "Prints where the named words stand in the vocabulary ranking, and what refused them"
@@ -125,7 +139,9 @@ tasks.register<Test>("read") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     useJUnitPlatform {
-        includeTags("diagnostic | pinned")
+        // The pinned findings assert this tree's own figures, so they run where the tree being read is the
+        // one they pin. A clone read would spend its minutes re-reading the host tree to check them.
+        includeTags(if (System.getProperty("cs.clone.dir") == null) "diagnostic | pinned" else "diagnostic")
     }
     outputs.upToDateWhen { false }
     testLogging.showStandardStreams = true

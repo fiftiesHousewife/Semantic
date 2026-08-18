@@ -46,7 +46,7 @@ public final class ExportCommand {
      * of its own and is not a vocabulary of terms anybody declares, so BIAN's service domains are left to
      * that arm and CSO's topics are matched here. A directory holding neither contributes nothing.
      */
-    private static List<TermIndex> alsoMatched() throws IOException {
+    static List<TermIndex> alsoMatched() throws IOException {
         final Path directory = TreeReading.ofTheHostTree().root().resolve(UNBUNDLED);
         if (!Files.isDirectory(directory)) {
             return List.of();

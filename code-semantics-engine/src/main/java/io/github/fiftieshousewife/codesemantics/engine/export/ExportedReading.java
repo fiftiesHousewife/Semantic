@@ -140,7 +140,7 @@ public final class ExportedReading {
      * The concepts a supplied index publishes, which is what the branch rule needs to know what sits beside
      * what. An index answers for its own terms, so nothing here has to know which publisher it came from.
      */
-    private static List<io.github.fiftieshousewife.bi.lexicon.SkosConcept> conceptsOf(final TermIndex index) {
+    static List<io.github.fiftieshousewife.bi.lexicon.SkosConcept> conceptsOf(final TermIndex index) {
         return index.terms().stream().flatMap(words -> index.conceptsOf(words).stream()).distinct().toList();
     }
 
