@@ -58,10 +58,27 @@ The test that this step succeeded is therefore the next step's first action: run
 
 1. ~~**Count what `scopes[].contributions` costs and who reads it.**~~ **Done** — the table above. It settled the split rather than ending it.
 2. ~~**Split the export.**~~ **Done** — `reading.json` carries the answers at `schemaVersion` 4.0, with `carriedBy` widened from words to witnesses; `evidence.json` carries the workings at its own `schemaVersion` 1.0, which nothing validates and which says so.
-3. **Delete the renderers**, in one commit, with the catalog entry and the `.gitignore` exceptions. `ThemeTables` stays — `ThemeBar` formats the SVG's figures with it. `TaxonomyBranch` goes, its only caller being `TaxonomyPage`.
-4. **Fix what pointed at them** — the README's 15 `output/markdown/` links, its 2 `output/html/` links and the `output/svg/taxonomy-sunburst.svg` link that `TaxonomySunburst` will stop writing, and the CLAUDE.md sentence stating that measurements live in committed `output/`.
+3. ~~**Delete the renderers.**~~ **Done** — 104 files, in `59d7afd`.
+4. ~~**Fix what pointed at them.**~~ **Done** — the README's 19 links and the CLAUDE.md self-test paragraph.
 
-Step 3 is the large one: eight diagnostics call `ReportFolder.wrote(...)`, so deleting the report classes rewrites each of them and `ReportFolder` loses `wrote`, `PageRendering` and two of `PublishedFormat`'s four folders.
+### What the list above missed
+
+It named 14 classes. Thirteen more had to go with them, and finding them is the reason this step was larger than it looked.
+
+| Missed | Why it goes |
+|---|---|
+| `SummaryReport`, `TermReport`, `CorroborationReport`, `DepthReport`, `SubjectReport`, `DescriptionLengthReport` | each renders markdown; none was named |
+| `ThemeBar`, `BarDocument`, `ThemeRankingTable`, `PageProse`, `SeriesColours`, `WalkthroughPage`, `ReadingIndex` | each is j2html, and the entry could not go while they stayed |
+
+**`ThemeTables` did not stay after all.** `ThemeBar` formats the SVG's figures with it, and `ThemeBar` is j2html — so dropping the catalog entry takes the bar chart, and the README loses the only picture it had. That was a decision, not a consequence noticed late: the alternative was keeping j2html alive for three classes.
+
+Nine diagnostics called `ReportFolder.wrote(...)`. Each keeps its reading and asserts it directly instead of printing it, so the pooled archive placement, the by-length placement, the service registrations and the media-type literals are now checked rather than merely rendered. `ReportFolder` lost `wrote` and `PageRendering`; `PublishedFormat` went from four folders to one.
+
+**`ChangeReport` was replaced, not deleted.** `ChangeFile` writes `ReadingChanges` as `changes.json` whenever a run has a previous reading of the same `schemaVersion`. The diff is the export's own business now, which is what the whole plan was for.
+
+### Left unpublished
+
+Three readings ran only into a report and now go nowhere: carrier concentration, the NIST security-function placement, and the out-of-domain vocabulary comparison. Each still runs and asserts under `read`. **Each is a candidate for the export**, and until one is added the reading is measured and not reported.
 
 ## What settles it
 
