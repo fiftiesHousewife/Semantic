@@ -15,6 +15,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
@@ -99,7 +100,7 @@ public final class ExportedReading {
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,
-                        List.copyOf(taxonomies), behaviours, field))
+                        List.copyOf(taxonomies), behaviours, placedIn(reading, themes, field)))
                 .signals(signals)
                 .themes(reported)
                 .taxonomies(List.copyOf(taxonomies))
@@ -136,13 +137,13 @@ public final class ExportedReading {
                                               final List<ExportedTheme> themes,
                                               final List<ExportedTaxonomy> taxonomies,
                                               final List<ExportedBehaviour> behaviours,
-                                              final PlacedField field) {
+                                              final List<ExportedPlacement> placedIn) {
         return ExportedSummary.builder()
                 .repository(reading.root().getFileName().toString())
                 .commit(commit)
                 .about(summary.about())
                 .aboutStatedBy(ABOUT_STATED_BY)
-                .placedIn(placement(field))
+                .placedIn(placedIn)
                 .leadingWords(leading(signals))
                 .leadingConcepts(leadingConcepts(taxonomies))
                 .leadingBehaviours(leadingBehaviours(behaviours))
@@ -207,12 +208,39 @@ public final class ExportedReading {
                 .toList();
     }
 
-    private static ExportedPlacement placement(final PlacedField field) {
+    /**
+     * Every bundled scheme's placement of the same reading, each drawn against its own null.
+     *
+     * <p>The arXiv field arrives from the caller because the summary's own bars were computed against it;
+     * every other scheme is placed here. No scheme is picked, and a scheme reporting nothing reports it.
+     */
+    private static List<ExportedPlacement> placedIn(final RepositoryReading reading,
+                                                    final RepositoryThemes themes, final PlacedField field) {
+        return List.of(placement(field),
+                placement(PlacedField.ofOpenAlex(themes.repository().comparison(), reading.seed())));
+    }
+
+    /** One placement per scheme, each level carrying what it rests on and what chance cannot separate. */
+    static ExportedPlacement placement(final PlacedField field) {
         return new ExportedPlacement(field.scheme(),
-                ExportedPlacement.Level.of(field.nearestArchive().label(), field.nearestArchive().bits(),
-                        field.archiveChance().chanceNearest()),
-                ExportedPlacement.Level.of(field.nearestCategory().label(), field.nearestCategory().bits(),
-                        field.categoryChance().chanceNearest()));
+                level(field.archives(), field.archiveChance().chanceNearest()),
+                level(field.categories(), field.categoryChance().chanceNearest()));
+    }
+
+    /**
+     * One level: the nearest subject, and every subject standing nearer than chance did with it. The band is
+     * the chance figure's own, so nothing here chooses how wide a tie has to be to count as one.
+     */
+    private static ExportedPlacement.Level level(final List<SubjectPlacement.Placement> ranked,
+                                                 final double chanceNearest) {
+        final SubjectPlacement.Placement nearest = ranked.getFirst();
+        return ExportedPlacement.Level.of(nearest.label(), nearest.bits(), chanceNearest,
+                nearest.carriedBy(),
+                ranked.stream()
+                        .filter(placed -> placed.bits() < chanceNearest)
+                        .map(placed -> new ExportedPlacement.Contender(placed.label(), placed.bits(),
+                                placed.carriedBy()))
+                        .toList());
     }
 
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,

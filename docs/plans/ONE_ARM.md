@@ -149,6 +149,23 @@ The export carries all of them. `summary.placedIn` becomes a list, and each plac
 | Settles it | a reader can answer *why this subject* from `reading.json` alone |
 | Ends it | nothing; this is reporting what is already computed |
 
+**Landed, at schema 8.0.** `summary.placedIn` is a list, one entry per bundled scheme, each level carrying the topics it rests on and every subject standing nearer than its own chance figure. **The band is the chance figure's own** — a subject nearer than chance is one the instrument cannot rule out — so D8 is closed without a margin being chosen. `ReadingChanges` names each figure by its scheme and reports how the band's size moved.
+
+Read at `29a893d`, one line per subject the reading cannot separate from the leader:
+
+| Scheme | Level | Subjects nearer than chance | Nearest | Divergence | Chance |
+|---|---|--:|---|--:|--:|
+| arXiv | archive | 1 | Computer Science | 0.3405 | 0.4069 |
+| arXiv | category | 2 | Computation and Language, Systems and Control | 0.3876 | 0.4412 |
+| OpenAlex | subfield | 4 | Language and Linguistics, Communication, Artificial Intelligence, Computer Networks and Communications | 0.2854 | 0.3333 |
+| OpenAlex | topic | 4 | Linguistics and language evolution, Natural Language Processing Techniques, Medical Research and Practices, Authorship Attribution and Profiling | 0.3649 | 0.3806 |
+
+**The band is small, so no cap is needed and none is applied.** Four of 4,516 OpenAlex topics stand nearer than chance, and `Natural Language Processing Techniques` — one of the three topics [recorded as the expected result](EVERY_SIGNAL_REACHES_A_SUBJECT.md) before any arm was built — is among them, 0.0002 bits behind the leader.
+
+**D5 is now readable off the file.** *Medical Research and Practices* is in the band and its `carriedBy` states `linguistics, publishing, mathematics, law` — this project's own machinery vocabulary, named in the placement it produced.
+
+Placing against the second scheme costs the second null: the self read goes from about one minute to 2m 15s. That is the price of not picking a scheme.
+
 ### 6. Delete what the above orphans
 
 `BehaviourTopics`, `ExportedBehaviours`, `ExportedBehaviour`, the `behaviours` export section, `ThemeReading.nounsOf`, and `Behaviours` as an arm — it survives as the nominalisation rule of step 1. `MatchedTaxonomies` states each taxonomy's shape; every bundled one is **nominal**, including BIAN and NIST, whose labels are noun phrases (`ATM Network Management`, `Adverse Event Analysis`) whatever their definitions say. Schema 8.0.

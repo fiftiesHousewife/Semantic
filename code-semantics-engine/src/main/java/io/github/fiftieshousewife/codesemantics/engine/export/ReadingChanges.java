@@ -3,6 +3,9 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.Map;
 import java.util.Locale;
 import java.util.Set;
 
@@ -58,10 +61,7 @@ public record ReadingChanges(String previousCommit, String commit, List<Moved> m
                 after.summary().shareOfWordsWithACitation()));
         moved.add(share("Mass settled on no subject", before.summary().shareOfMassOnNoSubject(),
                 after.summary().shareOfMassOnNoSubject()));
-        moved.addAll(placement(divergence, "Archive", before.summary().placedIn().archive(),
-                after.summary().placedIn().archive()));
-        moved.addAll(placement(divergence, "Category", before.summary().placedIn().category(),
-                after.summary().placedIn().category()));
+        moved.addAll(placements(divergence, before, after));
         moved.add(tally("Words above the bar", before.summary().counts().signals(),
                 after.summary().counts().signals()));
         moved.add(tally("Topics reported", before.summary().counts().themes(),
@@ -72,9 +72,28 @@ public record ReadingChanges(String previousCommit, String commit, List<Moved> m
     }
 
     /**
-     * A placement is three statements and each can move on its own: which subject came nearest, how far it
-     * stood, and whether that beat what a taxonomy of chance reaches. A reading that moved nearer a subject
-     * and stopped standing apart from chance has got worse, and one figure would hide it.
+     * Every scheme both readings placed against, matched by name. A scheme only one of them holds is a
+     * change to what the reading reports rather than to where it stands, so it is left to the crossings.
+     */
+    private static List<Moved> placements(final DivergenceShare divergence, final ReadingExport before,
+                                          final ReadingExport after) {
+        final Map<String, ExportedPlacement> was = before.summary().placedIn().stream()
+                .collect(Collectors.toMap(ExportedPlacement::scheme, placed -> placed));
+        return after.summary().placedIn().stream()
+                .filter(placed -> was.containsKey(placed.scheme()))
+                .flatMap(placed -> Stream.concat(
+                        placement(divergence, placed.scheme() + " archive",
+                                was.get(placed.scheme()).archive(), placed.archive()).stream(),
+                        placement(divergence, placed.scheme() + " category",
+                                was.get(placed.scheme()).category(), placed.category()).stream()))
+                .toList();
+    }
+
+    /**
+     * A placement is four statements and each can move on its own: which subject came nearest, how far it
+     * stood, whether that beat what a taxonomy of chance reaches, and how many subjects chance could not
+     * separate from it. A reading that moved nearer a subject and stopped standing apart from chance has got
+     * worse, and one figure would hide it.
      */
     private static List<Moved> placement(final DivergenceShare divergence, final String level,
                                          final ExportedPlacement.Level before,
@@ -86,7 +105,9 @@ public record ReadingChanges(String previousCommit, String commit, List<Moved> m
                 new Moved(level + " — chance reaches", divergence.of(before.nearestByChanceBits()),
                         divergence.of(after.nearestByChanceBits())),
                 new Moved(level + " — stands apart from chance", stated(before.standsApartFromChance()),
-                        stated(after.standsApartFromChance())));
+                        stated(after.standsApartFromChance())),
+                tally(level + " — subjects nearer than chance", before.nearerThanChance().size(),
+                        after.nearerThanChance().size()));
     }
 
     private static List<Crossing> crossingsBetween(final ReadingExport before, final ReadingExport after) {

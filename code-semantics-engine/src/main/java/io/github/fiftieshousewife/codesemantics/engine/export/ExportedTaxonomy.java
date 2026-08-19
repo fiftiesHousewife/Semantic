@@ -9,9 +9,9 @@ import lombok.Builder;
 /**
  * One taxonomy evaluated against the repository: the concepts it writes and how each match was reached.
  *
- * <p><b>No subject placement.</b> The only placement this reading computes is the vocabulary reading's, over
- * the dictionary topics of the words a repository declares, and it is stated once under
- * {@link ExportedSummary#placedIn()}. Repeating it here put a figure under a taxonomy that the taxonomy's own
+ * <p><b>No subject placement.</b> The placements this reading computes are the vocabulary reading's, over
+ * the dictionary topics of the words a repository declares, and they are stated once each under
+ * {@link ExportedSummary#placedIn()}. Repeating one here put a figure under a taxonomy that the taxonomy's own
  * matches contributed nothing to, and a consumer had no way to tell. A taxonomy carries a placement again
  * when the concepts it matched are what produced one.
  *

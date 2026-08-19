@@ -68,7 +68,12 @@
           }
         },
         "placedIn": {
-          "$ref": "#/$defs/placement"
+          "title": "Where every bundled scheme places it",
+          "description": "One entry per published subject scheme, each drawn against its own null. No scheme is picked: a scheme whose nearest subject is no nearer than chance stands here saying so, which is a result rather than an omission.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/placement"
+          }
         },
         "leadingWords": {
           "title": "Words with the highest scores",
@@ -330,7 +335,7 @@
     },
     "taxonomies": {
       "title": "Taxonomy evaluations",
-      "description": "One entry per published vocabulary the repository's declared names were matched against. No entry states a subject placement: the only placement this reading computes is the vocabulary reading's, over the dictionary topics of the words a repository declares, and it is stated once under `summary.placedIn`.",
+      "description": "One entry per published vocabulary the repository's declared names were matched against. No entry states a subject placement: the placements this reading computes are the vocabulary reading's, over the dictionary topics of the words a repository declares, and they are stated under `summary.placedIn`, one per scheme.",
       "type": "array",
       "items": {
         "type": "object",
@@ -552,7 +557,7 @@
     },
     "placement": {
       "title": "Subject placement",
-      "description": "Where the reading places the repository in a published subject scheme, at both levels the scheme states. Some subject is always nearest, so `standsApartFromChance` is what makes a placement a result.",
+      "description": "Where the reading places the repository in one published subject scheme, at both levels the scheme states. Some subject is always nearest, so `standsApartFromChance` is what makes a placement a result, and `nearerThanChance` is every subject that result cannot be told apart from.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -584,7 +589,9 @@
         "subject",
         "divergenceBits",
         "nearestByChanceBits",
-        "standsApartFromChance"
+        "standsApartFromChance",
+        "carriedBy",
+        "nearerThanChance"
       ],
       "properties": {
         "subject": {
@@ -606,6 +613,47 @@
         "standsApartFromChance": {
           "description": "True where `divergenceBits` is below `nearestByChanceBits`.",
           "type": "boolean"
+        },
+        "carriedBy": {
+          "title": "Topics the placement rests on",
+          "description": "The dictionary topics the repository's reading and this subject's own description both put mass in, most shared first. Two readings are near because of the mass they put in the same places, so this is what makes the row arguable with.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nearerThanChance": {
+          "title": "Every subject chance cannot separate from the nearest",
+          "description": "Every subject standing nearer than `nearestByChanceBits`, nearest first, this level's own `subject` among them. Naming one subject out of these states a precision the instrument does not have. The bound is the chance figure itself and no margin is chosen here; a consumer refining a match against a deeper taxonomy should condition on all of them rather than on the leader.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "subject",
+              "divergenceBits",
+              "carriedBy"
+            ],
+            "properties": {
+              "subject": {
+                "description": "The subject's own label, as the scheme publishes it.",
+                "type": "string"
+              },
+              "divergenceBits": {
+                "description": "The Jensen-Shannon divergence between the repository's distribution and that subject's, in bits.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "carriedBy": {
+                "description": "The dictionary topics it and the repository both put mass in.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       }
     },

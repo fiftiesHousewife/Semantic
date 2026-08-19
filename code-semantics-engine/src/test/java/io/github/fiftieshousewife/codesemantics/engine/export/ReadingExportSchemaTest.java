@@ -20,9 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  */
 class ReadingExportSchemaTest {
 
-    private static final ExportedPlacement PLACEMENT = new ExportedPlacement("arXiv",
-            ExportedPlacement.Level.of("Computer Science", 0.34, 0.41),
-            ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455));
+    private static final List<String> MEETS_ON = List.of("linguistics");
+
+    private static final List<ExportedPlacement> PLACEMENT = List.of(new ExportedPlacement("arXiv",
+            ExportedPlacement.Level.of("Computer Science", 0.34, 0.41, MEETS_ON, List.of()),
+            ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455, MEETS_ON,
+                    List.of(new ExportedPlacement.Contender("cs.CL Computation and Language", 0.3950,
+                            MEETS_ON)))));
 
     private static final ReadingExport EXPORT = ReadingExport.of(
             new ExportedSummary("CodeSemantics", "610c4e9", List.of("linguistics"),
@@ -108,7 +112,8 @@ class ReadingExportSchemaTest {
     @Test
     void refusesAPlacementStatingSomethingItsOwnFiguresContradict() {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new ExportedPlacement.Level("cs", 0.42, 0.40, true))
+                .isThrownBy(() -> new ExportedPlacement.Level("cs", 0.42, 0.40, true, List.of(),
+                        List.of()))
                 .withMessageContaining("standsApartFromChance=true");
     }
 

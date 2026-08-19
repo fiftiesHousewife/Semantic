@@ -35,7 +35,7 @@ public record ReadingExport(String schemaVersion, ExportedSummary summary, List<
      * The version of this file's shape. It rises when a field is added, renamed or removed, so a consumer's
      * code can branch on it rather than discover a change by failing.
      */
-    public static final String SCHEMA_VERSION = "7.1";
+    public static final String SCHEMA_VERSION = "8.0";
 
     public ReadingExport {
         Objects.requireNonNull(schemaVersion, "schemaVersion");

@@ -19,9 +19,11 @@ class ReadingChangesTest {
                                          final boolean apart, final List<String> topics) {
         return ReadingExport.of(
                 new ExportedSummary("CodeSemantics", commit, topics, List.of("WordNet Domains"),
-                        new ExportedPlacement("arXiv",
-                                new ExportedPlacement.Level(nearestArchive, archiveBits, 0.41, apart),
-                                new ExportedPlacement.Level("cs.CL", 0.39, 0.44, true)),
+                        List.of(new ExportedPlacement("arXiv",
+                                new ExportedPlacement.Level(nearestArchive, archiveBits, 0.41, apart,
+                                        List.of("linguistics"), List.of()),
+                                new ExportedPlacement.Level("cs.CL", 0.39, 0.44, true,
+                                        List.of("linguistics"), List.of()))),
                         List.of(), List.of(), List.of(), List.of(), legibility, 0.75,
                         new ExportedSummary.Counts(0, topics.size(), 0, 0)),
                 List.of(),
@@ -45,10 +47,10 @@ class ReadingChangesTest {
         assertAll(
                 () -> assertThat(changes.moved())
                         .extracting(ReadingChanges.Moved::figure)
-                        .contains("λ — words a resource can be cited for", "Archive — divergence",
-                                "Archive — stands apart from chance", "Topics reported"),
+                        .contains("λ — words a resource can be cited for", "arXiv archive — divergence",
+                                "arXiv archive — stands apart from chance", "Topics reported"),
                 () -> assertThat(changes.moved())
-                        .filteredOn(moved -> moved.figure().equals("Archive — divergence"))
+                        .filteredOn(moved -> moved.figure().equals("arXiv archive — divergence"))
                         .singleElement()
                         .extracting(ReadingChanges.Moved::before, ReadingChanges.Moved::after)
                         .containsExactly("34.0%", "34.1%"));
@@ -79,12 +81,12 @@ class ReadingChangesTest {
 
         assertAll(
                 () -> assertThat(changes.moved())
-                        .filteredOn(moved -> moved.figure().equals("Archive — stands apart from chance"))
+                        .filteredOn(moved -> moved.figure().equals("arXiv archive — stands apart from chance"))
                         .singleElement()
                         .extracting(ReadingChanges.Moved::before, ReadingChanges.Moved::after)
                         .containsExactly("yes", "no"),
                 () -> assertThat(changes.moved())
-                        .filteredOn(moved -> moved.figure().equals("Archive — nearest subject"))
+                        .filteredOn(moved -> moved.figure().equals("arXiv archive — nearest subject"))
                         .singleElement()
                         .extracting(ReadingChanges.Moved::after)
                         .isEqualTo("eess"));
@@ -109,7 +111,7 @@ class ReadingChangesTest {
                 () -> assertThat(new ChangeFile().in(file).moved())
                         .filteredOn(ReadingChanges.Moved::changed)
                         .extracting(ReadingChanges.Moved::figure)
-                        .contains("Archive — divergence"),
+                        .contains("arXiv archive — divergence"),
                 () -> assertThat(new ChangeFile().in(file).crossings())
                         .extracting(ReadingChanges.Crossing::name)
                         .contains("grammar", "law"));

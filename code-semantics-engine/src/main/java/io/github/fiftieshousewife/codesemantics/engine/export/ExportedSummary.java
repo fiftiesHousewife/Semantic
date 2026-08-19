@@ -16,7 +16,9 @@ import lombok.Builder;
  * @param repository                the directory the reading was pointed at
  * @param commit                    the commit the working tree stood on, stated by the caller
  * @param about                     the topics that make some part of this repository unlike the rest of it
- * @param placedIn                  where the scheme places it, at both the levels it states
+ * @param placedIn                  where every bundled scheme places it, at both the levels each states.
+ *                                  No scheme is picked; a scheme whose nearest subject is no nearer than
+ *                                  chance stands in the list saying so
  * @param leadingWords              the words scoring highest, with their scores, highest first
  * @param aboutStatedBy             the resources whose labels the {@code about} topics are, so a consumer
  *                                  reading a topic knows which vocabulary named it
@@ -31,7 +33,7 @@ import lombok.Builder;
 @Builder
 public record ExportedSummary(String repository, String commit, List<String> about,
                               List<String> aboutStatedBy,
-                              ExportedPlacement placedIn, List<LeadingWord> leadingWords,
+                              List<ExportedPlacement> placedIn, List<LeadingWord> leadingWords,
                               List<LeadingConcept> leadingConcepts, List<String> leadingBehaviours,
                               List<DistinctiveScope> distinctiveScopes,
                               double shareOfWordsWithACitation, double shareOfMassOnNoSubject,
@@ -65,7 +67,7 @@ public record ExportedSummary(String repository, String commit, List<String> abo
         Objects.requireNonNull(commit, "commit");
         about = List.copyOf(about);
         aboutStatedBy = List.copyOf(aboutStatedBy);
-        Objects.requireNonNull(placedIn, "placedIn");
+        placedIn = List.copyOf(placedIn);
         leadingWords = List.copyOf(leadingWords);
         leadingConcepts = List.copyOf(leadingConcepts);
         leadingBehaviours = List.copyOf(leadingBehaviours);
