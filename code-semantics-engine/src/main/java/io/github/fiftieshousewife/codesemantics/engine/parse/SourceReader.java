@@ -11,5 +11,15 @@ public interface SourceReader {
     /** Whether this reader is the one for the file. */
     boolean reads(Path file);
 
-    ParsedSource read(String source);
+    /**
+     * Whether reading needs the file's bytes. A reader of chosen file names refuses them, so a fixture
+     * corpus is read without a document in it being opened — and a corpus the character decoder could not
+     * survive stays readable.
+     */
+    default boolean opensTheFile() {
+        return true;
+    }
+
+    /** The file as its author's names and prose; {@code source} is empty where {@link #opensTheFile()} is false. */
+    ParsedSource read(Path file, String source);
 }

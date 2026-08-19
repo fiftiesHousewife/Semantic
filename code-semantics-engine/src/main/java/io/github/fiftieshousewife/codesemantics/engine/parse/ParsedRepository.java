@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -42,8 +43,8 @@ public final class ParsedRepository {
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes) {
-        return of(root, scopes, List.of(JavaSource.newInstance(), new MarkdownSource(), new AsciiDocSource(),
-                new PomSource()), PlatformPackages.ofSystem());
+        return of(root, scopes, List.of(new FixtureNameSource(), JavaSource.newInstance(), new MarkdownSource(),
+                new AsciiDocSource(), new PomSource()), PlatformPackages.ofSystem());
     }
 
     /**
@@ -156,12 +157,14 @@ public final class ParsedRepository {
 
     private static Read read(final Path root, final String scope, final Path file,
                              final List<SourceReader> readers) {
-        final String source = contentOf(file);
+        final Optional<SourceReader> reader = readers.stream()
+                .filter(candidate -> candidate.reads(file))
+                .findFirst();
+        final String source = reader.filter(SourceReader::opensTheFile)
+                .map(found -> contentOf(file))
+                .orElse("");
         return new Read(scope, root.relativize(file).toString(), (int) source.lines().count(),
-                readers.stream()
-                        .filter(reader -> reader.reads(file))
-                        .findFirst()
-                        .map(reader -> reader.read(source))
+                reader.map(found -> found.read(file, source))
                         .orElseGet(ParsedSource::unreadable));
     }
 

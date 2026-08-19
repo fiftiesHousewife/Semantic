@@ -14,7 +14,7 @@ class AsciiDocSourceTest {
     private final AsciiDocSource source = new AsciiDocSource();
 
     private List<NameOccurrence> read(final String text) {
-        return source.read(text).occurrences();
+        return source.read(Path.of("index.adoc"), text).occurrences();
     }
 
     private List<String> lines(final String text) {

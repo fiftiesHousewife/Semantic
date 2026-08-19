@@ -33,7 +33,7 @@ public final class PomSource implements SourceReader {
     }
 
     @Override
-    public ParsedSource read(final String source) {
+    public ParsedSource read(final Path file, final String source) {
         final List<NameOccurrence> read = new ArrayList<>();
         final Matcher modules = MODULE_ENTRY.matcher(source);
         while (modules.find()) {

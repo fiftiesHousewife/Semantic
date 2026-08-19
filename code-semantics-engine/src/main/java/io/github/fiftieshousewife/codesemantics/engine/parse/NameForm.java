@@ -57,6 +57,11 @@ public enum NameForm {
      * counted once, like a package.
      */
     MODULE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
+    /**
+     * A test fixture's file name. The fixture's contents are somebody else's document and are never opened;
+     * the name is this repository's own word for what the document is, chosen like any other.
+     */
+    FIXTURE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A dependency this file names — kept only where it is neither the platform's nor this tree's own. */
     IMPORT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** Documentation the author wrote against a declaration. */

@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.behaviour;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ class BehavioursTest {
 
     private List<Behaviour> read(final String source) {
         return behaviours.in(List.of(new ParsedFile("main", "Reading.java", 40,
-                JavaSource.newInstance().read(source).occurrences(), ParseOutcome.CLEAN)));
+                JavaSource.newInstance().read(Path.of("Sample.java"), source).occurrences(), ParseOutcome.CLEAN)));
     }
 
     @Test
@@ -65,7 +66,7 @@ class BehavioursTest {
     @Test
     void readsAJUnitThreeNameAsTheSentenceAfterTheLayoutsWord() {
         assertThat(behaviours.in(List.of(new ParsedFile("engine/src/test/java", "ReadingTest.java", 12,
-                JavaSource.newInstance().read("""
+                JavaSource.newInstance().read(Path.of("Sample.java"), """
                         package example;
                         class ReadingTest {
                             void testParsesXml() { }

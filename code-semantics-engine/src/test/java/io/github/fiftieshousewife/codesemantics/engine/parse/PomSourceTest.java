@@ -14,7 +14,7 @@ class PomSourceTest {
     private final PomSource source = new PomSource();
 
     private List<NameOccurrence> read(final String text) {
-        return source.read(text).occurrences();
+        return source.read(Path.of("pom.xml"), text).occurrences();
     }
 
     @Test

@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
+import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class JavaSourceTest {
     private final JavaSource parser = JavaSource.newInstance();
 
     private List<String> namesOf(final String source, final NameForm form) {
-        return parser.read(source).occurrences().stream()
+        return parser.read(Path.of("Sample.java"), source).occurrences().stream()
                 .filter(occurrence -> occurrence.form() == form)
                 .map(NameOccurrence::text)
                 .toList();
@@ -143,7 +144,7 @@ class JavaSourceTest {
                 }
                 """;
 
-        assertThat(parser.read(source).occurrences())
+        assertThat(parser.read(Path.of("Sample.java"), source).occurrences())
                 .as("String and List are the platform's declarations, quoted")
                 .extracting(NameOccurrence::text)
                 .doesNotContain("String", "List", "valueOf", "of");
@@ -230,7 +231,7 @@ class JavaSourceTest {
 
     @Test
     void namesThePackageTheFileDeclares() {
-        assertThat(parser.read("package org.example.http;\nclass Page { }\n").packageName())
+        assertThat(parser.read(Path.of("Sample.java"), "package org.example.http;\nclass Page { }\n").packageName())
                 .isEqualTo("org.example.http");
     }
 
@@ -302,13 +303,13 @@ class JavaSourceTest {
     void carriesTheLineEachDeclarationSitsOn() {
         final String source = "package example;\n\nclass Page {\n    int cursor;\n}\n";
 
-        assertThat(parser.read(source).occurrences())
+        assertThat(parser.read(Path.of("Sample.java"), source).occurrences())
                 .contains(new NameOccurrence("Page", NameForm.TYPE, 3),
                         new NameOccurrence("cursor", NameForm.FIELD, 4, 1.0, List.of("int")));
     }
 
     private List<String> typeWordsOf(final String source, final String name) {
-        return parser.read(source).occurrences().stream()
+        return parser.read(Path.of("Sample.java"), source).occurrences().stream()
                 .filter(occurrence -> occurrence.text().equals(name))
                 .findFirst()
                 .orElseThrow()

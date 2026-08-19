@@ -32,7 +32,7 @@ public final class MarkdownSource implements SourceReader {
     }
 
     @Override
-    public ParsedSource read(final String source) {
+    public ParsedSource read(final Path file, final String source) {
         final String[] lines = withoutCode(source).split("\n", -1);
         final List<NameOccurrence> prose = IntStream.range(0, lines.length)
                 .mapToObj(line -> new NameOccurrence(readable(lines[line]), NameForm.DOCUMENTATION, line + 1))

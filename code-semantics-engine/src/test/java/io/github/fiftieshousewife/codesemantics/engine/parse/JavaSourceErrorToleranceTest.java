@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
+import java.nio.file.Path;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +19,7 @@ class JavaSourceErrorToleranceTest {
 
     @Test
     void keepsTheDeclarationsAroundAnErrorInsideAMethodBody() {
-        final ParsedSource unsound = parser.read("""
+        final ParsedSource unsound = parser.read(Path.of("Sample.java"), """
                 package example;
                 class Page {
                     int cursor;
@@ -44,12 +46,12 @@ class JavaSourceErrorToleranceTest {
     @Test
     void recoversNothingFromAnErrorInTheStructureRatherThanInABody() {
         assertAll(
-                () -> assertThat(parser.read("package a;\nclass Page { void read( { } }\n").occurrences())
+                () -> assertThat(parser.read(Path.of("Sample.java"), "package a;\nclass Page { void read( { } }\n").occurrences())
                         .isEmpty(),
-                () -> assertThat(parser.read("package a;\nclass Page { int cursor;\n").occurrences())
+                () -> assertThat(parser.read(Path.of("Sample.java"), "package a;\nclass Page { int cursor;\n").occurrences())
                         .as("an unclosed type takes its declarations with it")
                         .isEmpty(),
-                () -> assertThat(parser.read("(((").outcome())
+                () -> assertThat(parser.read(Path.of("Sample.java"), "(((").outcome())
                         .as("the parser yields an empty unit around the wreckage rather than refusing "
                                 + "the file, so even this reads as recovered")
                         .isEqualTo(ParseOutcome.RECOVERED));

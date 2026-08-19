@@ -70,7 +70,7 @@ public final class JavaSource implements SourceReader {
     }
 
     @Override
-    public ParsedSource read(final String source) {
+    public ParsedSource read(final Path file, final String source) {
         final ParseResult<CompilationUnit> result = parser.parse(source);
         return result.getResult()
                 .map(unit -> occurrencesIn(unit,

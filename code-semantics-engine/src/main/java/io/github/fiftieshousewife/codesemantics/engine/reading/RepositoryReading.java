@@ -67,7 +67,7 @@ public final class RepositoryReading {
     /** Every Java source set and the markdown beside it, filtered by whatever {@code .readingignore} states. */
     public static List<SourceScope> scopesUnder(final Path root) {
         return Stream.of(new JavaSourceScopes().under(root), new DocumentationScope().under(root),
-                new MavenModuleScope().under(root))
+                new MavenModuleScope().under(root), new TestResourceScope().under(root))
                 .flatMap(List::stream)
                 .toList();
     }

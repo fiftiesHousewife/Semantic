@@ -44,6 +44,8 @@ A literal is somebody's vocabulary quoted unless a registry claims it, so the ru
 |---|---|
 | Module names carry subject matter | the vocabulary and placement movement on Tika with module rungs read as one occurrence each |
 
+**Landed.** `MavenModuleScope` follows the module chain each pom's own `<module>` entries state — the build's statement, never a directory sweep — and `PomSource` reads a module's name where its parent states it, once, with the `<description>` as publisher prose. On Tika that is 127 poms and a `modules` scope at 24.8% of the maximum divergence against a 6.3% null median, with the placement unmoved. The scope's over-weighted topics are sense placements of real module words — `pipe`, `detector`, `server` — which is [sense disambiguation's](SENSE_DISAMBIGUATION.md) standing problem, not this reader's. A Gradle tree has no root pom and no scope, which is abstention, not an error.
+
 ## 5. The test corpus's own filenames
 
 Tika's fixtures state the domain by extension without a byte being opened: 79 `.pdf`, 74 `.docx`, 54 `.doc`, 44 `.rtf`, 35 `.xlsx`. The fixture's *content* is somebody else's document and stays unread; the chosen path words and the extension — which maps to the same IANA registry as item 2 — are the signal.
