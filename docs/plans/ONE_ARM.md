@@ -11,15 +11,15 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 | | Defect | Measured | The fix, and why it is derived |
 |---|---|---|---|
 | **D1** | A one-word term is matched inside a longer compound and counted whole. `Source` is 189 occurrences and every one is `EvidenceSource`, `SourceAnchor`, `ReadingSource`, `AsciiDocSource` — never the name itself | the term matches in `evidence.json` | ~~**Coverage.** Weight a match by the share of the declared run it covers~~ — **built, measured and reverted.** Two derived denominators both lower the ranking on the evaluation members and neither demotes `Source` here; the [figures are below](#coverage-was-built-measured-and-reverted). The share is reported as `shareOfEachName` and weights nothing |
-| **D2** | The branch rule corroborates noise with noise. `Source` is admitted because eight siblings under `TextStructuralUnit` were written — `Abstract`, `Author`, `Citation`, `Document`, `Heading`, `Headline`, `Sentence`, `Title`, every one ordinary English a documentation-reading codebase writes anyway | the siblings, read off the same file | **Corroboration by strength, not by count.** A sibling corroborates only where the word carrying it clears the vocabulary null, which the reading already computes per word. It also removes the stated 1% bar the backlog already objects to |
-| **D3** | A publisher's paragraph is read for a term the repository never meant. OLiA's `Source` is a news-article attribution schema; this repository means origin-of-data | the concept reading's leading contributors | Falls out of D1 and D2. What is left after both is measured before anything further is built |
+| **D2** | The branch rule corroborates noise with noise. `Source` is admitted because eight siblings under `TextStructuralUnit` were written — `Abstract`, `Author`, `Citation`, `Document`, `Heading`, `Headline`, `Sentence`, `Title` | the siblings, read off the same file | ~~**Corroboration by strength, not by count**~~ — **built twice, measured twice and reverted.** The siblings are not ordinary English by the vocabulary reading's own measure: this repository writes `document` and `citation` more densely than English and the platform do, so both clear the null and the branch stays occupied. The [figures are below](#corroboration-by-strength-was-built-twice-measured-twice-and-reverted) |
+| **D3** | A publisher's paragraph is read for a term the repository never meant. OLiA's `Source` is a news-article attribution schema; this repository means origin-of-data | the concept reading's leading contributors | ~~Falls out of D1 and D2~~ — **it does not, and that is now measured.** Four rules were built across D1 and D2 and `Source` leads under all four, because the two sides agree on the string, the branch and the vocabulary and differ only in sense. **D3 is the defect**, and it needs [sense disambiguation](SENSE_DISAMBIGUATION.md) rather than a weight |
 | **D4** | Half of what the concept rung reads is citation apparatus | 48% of OLiA's 1,216 definitions carry a URL, 47% a bracketed citation, 15% are under eight words; the commonest bracketed tokens are `http`, `org`, `www`, `purl`, `isocat`, and `Carlson` 79 times | Read the statement a publisher makes about subject matter, not the statement it makes about provenance. **Unsettled**: whether that separation can be derived from what SKOS distinguishes, or is a rule about one publisher's formatting and therefore refused |
 | **D5** | `law` 3.8% and `publishing` 7.1% are this project's own machinery vocabulary — `file`, `witness`, `summary`, `claim`, `verdict`, `cite`, `evidence` — and they reach three of the top eight subjects | this plan's baseline, and the witnesses behind it | **Unsettled.** A reading cannot refuse a word for being the reader's own without a list. What can be measured is how much of the placement rests on them, which the placement's `carriedBy` states once step 3 exports it |
 | **D6** | Mass counts occurrences without asking what the match was worth | `PhraseSpecificity` is computed on every sighting and votes on nothing | Weight the pooled mass by it. Already bounded in `[0,1]` by the frequency list's own length |
 | **D7** | CSO reaches no rung above the dictionary, and its structure is unextracted | 0 of 14,636 rows state prose; `sameAs` 19,297, `relatedEquivalent` 10,181, `relatedLink` 8,803 unextracted | Re-extract for the structure. **Prose is not available at any price** — CSO publishes none, so its abstention at the concept rung is permanent and is reported as a result |
 | **D8** | The leader is inside a tie band the instrument cannot resolve | eight OpenAlex topics within 0.033 bits, the first two separated by 0.0001 | Report the band rather than the leader. A placement that names one subject out of a tie is stating a precision it does not have |
 
-**D1 and D2 are the two that decide the rest**, because both change which concepts survive at all, and every figure downstream of the term match moves with them. They are measured together and separately, so that a change reported as a repair is not two changes cancelling.
+~~**D1 and D2 are the two that decide the rest**~~ — **both are now measured and both are refused.** Four rules were built between them, each a bound derived from a resource already in the tree, and every one either lowers the ranking on the evaluation members or trips the abandon criterion, while none removes `Source`. The reading is unchanged by all four. **What decides the rest is D3**, which the two of them were expected to close and do not.
 
 ## What exists today, and why it is four things
 
@@ -55,11 +55,9 @@ Two things this fixes by construction rather than by rule. **A citation outranks
 
 ## The repairs
 
-### 1. Coverage and corroboration by strength — D1, D2
+### 1. Coverage and corroboration by strength — D1, D2. Both refused
 
-Both change which concepts survive the term match, so they land first and are measured together and separately.
-
-`TermSpan` already carries where a run began and ended; what it does not carry to the sighting is how long the declared run was, which is the denominator coverage needs. `CorroboratedTerms` already asks which siblings were written; what it asks for instead is which of those siblings the vocabulary reading admits.
+Four rules were built, one at a time, each a bound derived from a resource already in the tree. Every one was measured on this repository and on the evaluation members, separately, so that a change reported as a repair could not be two changes cancelling. **All four are reverted**, and what they measured is below.
 
 #### Coverage was built, measured and reverted
 
@@ -75,13 +73,29 @@ Neither denominator raises both members, and both empty Santuario's top ten of t
 
 **It also fails its own criterion on this tree.** `Source` stays first among OLiA's concepts under both denominators: `EvidenceSource` and `SourceAnchor` are two-word names in which `source` carries most of what the name narrows.
 
-The weighting is reverted and the figure is kept. `TermSighting.coverage` is computed on every sighting and the export states it per concept as `shareOfEachName`, at schema 7.1. It weights nothing. **D1 stands as a measured defect with no derived fix**, and what is left for it is D2.
+The weighting is reverted and the figure is kept. `TermSighting.coverage` is computed on every sighting and the export states it per concept as `shareOfEachName`, at schema 7.1. It weights nothing. **D1 stands as a measured defect with no derived fix**, and what is left for it was D2.
 
-| | |
-|---|---|
-| Measures | how many concepts survive, and how much mass, before and after each and after both |
-| Settles it | `Source` leaves or is demoted below the concepts this repository means, and the multi-word matches are untouched |
-| Ends it | the two together remove so much that no branch of any bundled taxonomy stays occupied — the abandon criterion `TermReadingDiagnostic` already asserts |
+#### Corroboration by strength was built twice, measured twice and reverted
+
+Both forms of D2 were built. The first counts as company only the concepts reached through a run the vocabulary reading admits. The second removes `CitedWord`'s stated 1% bar and asks the same null instead, which is what [the backlog](../../BACKLOG.md) had already objected to the constant for. `AdmittedWords` was the join: every word whose weakest claim stands above each reference's own chance bar.
+
+| | The reading as it stood | Company by strength | The derived bar in `CitedWord` |
+|---|--:|--:|--:|
+| OLiA concepts reported | 133 | 64 | 34 |
+| OLiA branches occupied | 37 | 18 | 19 |
+| CSO concepts reported | 39 | 26 | 19 |
+| Matches the branch rule discards | 62 | 131 | 161 |
+| `Source`, the stated target | first | first | first |
+| Tika, corroborated arm | 34 spans | 34 spans | 34 spans |
+| Santuario, corroborated arm | 9 spans, 0.5976 | 9 spans, 0.5976 | 9 spans, 0.5976 |
+
+**Neither moves a single figure on either evaluation member**, and both trip the abandon criterion `TermReadingDiagnostic` asserts — corroboration must leave at least half the branches occupied, and both leave fewer. Both are reverted.
+
+#### What the two refutations say, and how the plan changes
+
+`Source` survives every one of the four rules because **the rules are all right about it and none of them is asking the question the defect is.** OLiA places `Source` beside `Document`, `Citation`, `Heading` and `Title`; this repository writes `document` and `citation` far more densely than ordinary English and the platform do, so the vocabulary reading admits them and the branch is genuinely occupied by words this repository chose. `source` clears every bar for the same reason. Coverage cannot demote it either, because `EvidenceSource` is two words of which `source` carries most of what the name narrows.
+
+**So D3 is not downstream of D1 and D2.** OLiA's `Source` is a news-article attribution schema and this repository means origin-of-data: the two sides agree on the string, on the branch and on the vocabulary, and disagree only on the sense. That is a sense mismatch, and neither a share of a name nor a chance bar over word frequencies can reach one. D1 and D2 are closed as measured and refuted; **D3 is the defect, and what it needs is [sense disambiguation](SENSE_DISAMBIGUATION.md), not a weight.**
 
 ### 2. Weight the pooled mass by specificity — D6
 
