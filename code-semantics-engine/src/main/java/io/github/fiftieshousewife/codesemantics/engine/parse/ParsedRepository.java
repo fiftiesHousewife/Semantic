@@ -31,12 +31,14 @@ public final class ParsedRepository {
     private final List<ParsedFile> files;
     private final int unsoundFiles;
     private final ImportTally imports;
+    private final ImportOrigins origins;
 
     private ParsedRepository(final List<ParsedFile> files, final int unsoundFiles,
-                             final ImportTally imports) {
+                             final ImportTally imports, final ImportOrigins origins) {
         this.files = List.copyOf(files);
         this.unsoundFiles = unsoundFiles;
         this.imports = imports;
+        this.origins = origins;
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes) {
@@ -118,7 +120,7 @@ public final class ParsedRepository {
                 .toList();
         return new ParsedRepository(files,
                 (int) read.stream().filter(source -> !source.parsed().outcome().readCleanly()).count(),
-                imports);
+                imports, origins);
     }
 
     /** The one file per package that its package's words are read at, so a package is named once. */
@@ -145,6 +147,11 @@ public final class ParsedRepository {
     /** What the parse did with every import it met, including the ones the reading sets aside. */
     public ImportTally imports() {
         return imports;
+    }
+
+    /** The sorting of a fully qualified name into platform, own and external, as the imports were sorted. */
+    public ImportOrigins origins() {
+        return origins;
     }
 
     private static Read read(final Path root, final String scope, final Path file,

@@ -57,8 +57,9 @@ class SelfReadingDiagnostic {
 
     private void write(final ReportFolder reports, final RepositoryLegibility reading, final Path root,
             final ParsedRepository parsed) throws IOException {
-                reports.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s".formatted(root.getFileName(), PREAMBLE,
-                new LegibilityReport().render(reading), imports(parsed)), "Legibility");
+                reports.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s%n%n%s".formatted(root.getFileName(),
+                PREAMBLE, new LegibilityReport().render(reading), imports(parsed),
+                provided(ProvidedServices.statedUnder(root), parsed)), "Legibility");
     }
 
     /** What the parse set aside, so a narrowed corpus is a reported figure rather than a silent one. */
@@ -71,5 +72,34 @@ class SelfReadingDiagnostic {
                         parsed.imports().from(ImportOrigin.INTERNAL),
                         parsed.imports().toolchain(),
                         parsed.unsoundFiles());
+    }
+
+    /**
+     * What the tree provides, beside what it calls, and never summed with it: each {@code META-INF/services}
+     * registry names a service interface, sorted into own, platform and external by the same rule the
+     * imports were.
+     */
+    private static String provided(final ProvidedServices services, final ParsedRepository parsed) {
+        if (services.registrations().isEmpty()) {
+            return "Service interfaces this tree registers providers for under the `ServiceLoader` "
+                    + "contract: none.";
+        }
+        final int providers = services.registrations().stream()
+                .mapToInt(ProvidedServices.Registration::providers)
+                .sum();
+        return ("Service interfaces this tree registers providers for under the `ServiceLoader` contract: "
+                + "%d, carrying %d provider entries. Of the interfaces, its own: %d, the platform's: %d, "
+                + "external: %d.")
+                .formatted(services.registrations().size(), providers,
+                        countedAs(services, parsed, ImportOrigin.INTERNAL),
+                        countedAs(services, parsed, ImportOrigin.PLATFORM),
+                        countedAs(services, parsed, ImportOrigin.EXTERNAL));
+    }
+
+    private static int countedAs(final ProvidedServices services, final ParsedRepository parsed,
+            final ImportOrigin origin) {
+        return (int) services.registrations().stream()
+                .filter(registration -> parsed.origins().of(registration.serviceInterface()) == origin)
+                .count();
     }
 }
