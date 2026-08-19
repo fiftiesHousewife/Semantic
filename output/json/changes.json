@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "59d7afd61e6936ccf66780230685fcff8efe7d71",
-  "commit" : "157d348217460a8516fbf9e7e3277ee7f9b36402",
+  "previousCommit" : "157d348217460a8516fbf9e7e3277ee7f9b36402",
+  "commit" : "fb3427c197f237bba332d8633c6429901a070313",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
     "after" : "98.2%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "75.7%",
+    "before" : "75.8%",
     "after" : "75.8%"
   }, {
     "figure" : "Archive — nearest subject",
@@ -15,11 +15,11 @@
     "after" : "Computer Science"
   }, {
     "figure" : "Archive — divergence",
-    "before" : "34.5%",
-    "after" : "34.4%"
+    "before" : "34.4%",
+    "after" : "34.1%"
   }, {
     "figure" : "Archive — chance reaches",
-    "before" : "40.6%",
+    "before" : "40.5%",
     "after" : "40.5%"
   }, {
     "figure" : "Archive — stands apart from chance",
@@ -32,47 +32,31 @@
   }, {
     "figure" : "Category — divergence",
     "before" : "39.2%",
-    "after" : "39.2%"
+    "after" : "38.9%"
   }, {
     "figure" : "Category — chance reaches",
     "before" : "44.4%",
-    "after" : "44.4%"
+    "after" : "44.0%"
   }, {
     "figure" : "Category — stands apart from chance",
     "before" : "yes",
     "after" : "yes"
   }, {
     "figure" : "Words above the bar",
-    "before" : "232",
-    "after" : "234"
+    "before" : "234",
+    "after" : "235"
   }, {
     "figure" : "Topics reported",
     "before" : "4",
     "after" : "4"
   }, {
     "figure" : "Concepts written",
-    "before" : "171",
+    "before" : "172",
     "after" : "172"
   } ],
   "crossings" : [ {
     "population" : "WORD",
-    "name" : "declarations",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "describes",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "reached",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "pool",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "Perfect",
+    "name" : "declaration",
     "entered" : true
   } ]
 }
