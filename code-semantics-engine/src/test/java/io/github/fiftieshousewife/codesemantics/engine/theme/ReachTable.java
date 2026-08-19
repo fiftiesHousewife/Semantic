@@ -8,7 +8,10 @@ import java.util.Set;
  */
 final class ReachTable {
 
-    private static final String ROW = "%-38s %8d %7.2f%%%n";
+    private static final String ROW = "%-44s %8d %7.2f%%%n";
+
+    /** Enough of a bucket to read what is in it; the count above it is the whole of it. */
+    private static final int NAMED = 12;
 
     private final Set<String> matched;
 
@@ -19,13 +22,27 @@ final class ReachTable {
     void print(final String population, final List<KeywordReach> reached) {
         final ReachCensus census = ReachCensus.over(reached);
         System.out.printf("%n== %s — %d published keywords%n", population, census.keywords());
-        System.out.printf("%-38s %8s %8s%n", "how far the declared names got", "keywords", "share");
+        System.out.printf("%-44s %8s %8s%n", "how far the declared names got", "keywords", "share");
         java.util.Arrays.stream(FurthestWritten.Reach.values()).forEach(reach ->
                 System.out.printf(ROW, reach.describes(), census.declared(reach),
                         census.shareDeclared(reach) * 100.0));
         System.out.printf(ROW, "written as this run only in prose", census.onlyInProse(),
                 census.shareOnlyInProse() * 100.0);
         matcherDefects(reached);
+        scattered(reached);
+    }
+
+    /**
+     * The keywords every word of which the repository declared and never adjacently, named rather than
+     * counted. The count alone bounds what a reading assembling runs could reach and says nothing about
+     * whether any bounded assembly could reach it; the words do.
+     */
+    private static void scattered(final List<KeywordReach> reached) {
+        reached.stream()
+                .filter(keyword -> keyword.inDeclarations()
+                        == FurthestWritten.Reach.EVERY_WORD_NEVER_ADJACENT)
+                .limit(NAMED)
+                .forEach(keyword -> System.out.printf("      %s%n", keyword.keyword()));
     }
 
     /**

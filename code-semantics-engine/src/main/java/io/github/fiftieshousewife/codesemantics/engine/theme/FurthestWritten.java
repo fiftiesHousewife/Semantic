@@ -14,6 +14,11 @@ import java.util.stream.IntStream;
  * all written but never adjacent is a naming convention rather than an absence, and a run written exactly as
  * published that still did not match is a defect in the matcher. Reporting them apart is what keeps the
  * three from being read as one.
+ *
+ * <p>Between the first two sits the run a declaration writes and no single name does — a type called one
+ * thing with a member called another. It is counted on its own because it is the one bucket a reading can be
+ * changed to reach, and pooling it with the words scattered over a whole repository reports a bound where an
+ * estimate is available.
  */
 public final class FurthestWritten {
 
@@ -25,6 +30,9 @@ public final class FurthestWritten {
 
         /** Written as this run of adjacent words, inside some declared name. */
         AS_THIS_RUN("written as this run"),
+
+        /** Written as this run across one declaration, outermost name first, and inside no single name. */
+        ACROSS_ONE_DECLARATION("written as this run across one declaration"),
 
         /** Every word written somewhere, and never next to the others in this order. */
         EVERY_WORD_NEVER_ADJACENT("every word written, never adjacent"),
@@ -56,16 +64,29 @@ public final class FurthestWritten {
     }
 
     private final Set<List<String>> adjacent;
+    private final Set<List<String>> acrossADeclaration;
     private final Set<String> words;
 
-    private FurthestWritten(final Set<List<String>> adjacent, final Set<String> words) {
+    private FurthestWritten(final Set<List<String>> adjacent, final Set<List<String>> acrossADeclaration,
+                            final Set<String> words) {
         this.adjacent = adjacent;
+        this.acrossADeclaration = acrossADeclaration;
         this.words = words;
     }
 
     /** Read from the declared names of one repository, each already split into its words. */
     public static FurthestWritten in(final List<List<String>> declaredNames) {
-        return new FurthestWritten(adjacentRuns(declaredNames),
+        return in(declaredNames, List.of());
+    }
+
+    /**
+     * The same, with the words each declaration writes as a whole — its enclosing names and then its own.
+     * A run adjacent there and in no single name is what a reading assembling across a declaration would
+     * reach, and counting it needs the declarations rather than the names alone.
+     */
+    public static FurthestWritten in(final List<List<String>> declaredNames,
+                                     final List<List<String>> declarations) {
+        return new FurthestWritten(adjacentRuns(declaredNames), adjacentRuns(declarations),
                 declaredNames.stream().flatMap(List::stream).collect(Collectors.toUnmodifiableSet()));
     }
 
@@ -73,6 +94,9 @@ public final class FurthestWritten {
     public Reached of(final List<String> run) {
         if (adjacent.contains(run)) {
             return new Reached(Reach.AS_THIS_RUN, List.of());
+        }
+        if (acrossADeclaration.contains(run)) {
+            return new Reached(Reach.ACROSS_ONE_DECLARATION, List.of());
         }
         final List<String> missing = run.stream().filter(word -> !words.contains(word)).toList();
         if (missing.size() == run.size()) {

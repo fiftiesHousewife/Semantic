@@ -305,7 +305,8 @@ class JavaSourceTest {
 
         assertThat(parser.read(Path.of("Sample.java"), source).occurrences())
                 .contains(new NameOccurrence("Page", NameForm.TYPE, 3),
-                        new NameOccurrence("cursor", NameForm.FIELD, 4, 1.0, List.of("int")));
+                        new NameOccurrence("cursor", NameForm.FIELD, 4, 1.0, List.of("int"),
+                                List.of("Page")));
     }
 
     private List<String> typeWordsOf(final String source, final String name) {
@@ -376,5 +377,54 @@ class JavaSourceTest {
                 .as("the initials rule was measured on declarations that bind a name to a value, and "
                         + "claiming a method here would change what it means without measuring it")
                 .contains("sb");
+    }
+
+    private List<String> enclosingOf(final String source, final String name) {
+        return parser.read(Path.of("Sample.java"), source).occurrences().stream()
+                .filter(occurrence -> occurrence.text().equals(name))
+                .map(NameOccurrence::enclosing)
+                .findFirst()
+                .orElseThrow();
+    }
+
+    @Test
+    void keepsTheDeclarationsANameWasWrittenInsideOutermostFirst() {
+        final String source = """
+                package example;
+                class SourceCode {
+                    static final class Fragment {
+                        int analysis(final String reading) {
+                            final int span = 0;
+                            return span;
+                        }
+                    }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(enclosingOf(source, "SourceCode")).isEmpty(),
+                () -> assertThat(enclosingOf(source, "Fragment")).containsExactly("SourceCode"),
+                () -> assertThat(enclosingOf(source, "analysis"))
+                        .containsExactly("SourceCode", "Fragment"),
+                () -> assertThat(enclosingOf(source, "reading"))
+                        .containsExactly("SourceCode", "Fragment", "analysis"),
+                () -> assertThat(enclosingOf(source, "span"))
+                        .containsExactly("SourceCode", "Fragment", "analysis"));
+    }
+
+    @Test
+    void keepsNoDeclarationAroundAProseOccurrenceOrAnImport() {
+        final String source = """
+                package example;
+                import org.apache.tika.Tika;
+                class Reading {
+                    /** A sentence about the reading. */
+                    void read() { }
+                }
+                """;
+
+        assertAll(
+                () -> assertThat(enclosingOf(source, "org.apache.tika.Tika")).isEmpty(),
+                () -> assertThat(enclosingOf(source, "read")).containsExactly("Reading"));
     }
 }

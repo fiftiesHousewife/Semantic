@@ -16,6 +16,10 @@ class FurthestWrittenTest {
             List.of("semantic", "reading"),
             List.of("web", "client")));
 
+    private final FurthestWritten acrossDeclarations = FurthestWritten.in(
+            List.of(List.of("source", "code"), List.of("analysis"), List.of("web", "client")),
+            List.of(List.of("source", "code", "analysis"), List.of("web", "client")));
+
     @Test
     void findsARunTheRepositoryWroteExactly() {
         assertThat(written.of(List.of("knowledge", "representation")).reach())
@@ -68,5 +72,28 @@ class FurthestWrittenTest {
     @Test
     void readsAnEmptyRunAsUnwrittenRatherThanAsFound() {
         assertThat(written.of(List.of()).reach()).isEqualTo(Reach.NOT_WRITTEN);
+    }
+
+    @Test
+    void findsARunOneDeclarationWritesAndNoSingleNameDoes() {
+        assertThat(acrossDeclarations.of(List.of("source", "code", "analysis")).reach())
+                .isEqualTo(Reach.ACROSS_ONE_DECLARATION);
+    }
+
+    @Test
+    void prefersTheNameOverTheDeclarationWhereBothWriteTheRun() {
+        assertThat(acrossDeclarations.of(List.of("web", "client")).reach()).isEqualTo(Reach.AS_THIS_RUN);
+    }
+
+    @Test
+    void leavesARunNoDeclarationAssemblesWhereItWas() {
+        assertThat(acrossDeclarations.of(List.of("analysis", "source")).reach())
+                .isEqualTo(Reach.EVERY_WORD_NEVER_ADJACENT);
+    }
+
+    @Test
+    void assemblesNothingWhereNoDeclarationsAreOffered() {
+        assertThat(written.of(List.of("semantic", "web")).reach())
+                .isEqualTo(Reach.EVERY_WORD_NEVER_ADJACENT);
     }
 }

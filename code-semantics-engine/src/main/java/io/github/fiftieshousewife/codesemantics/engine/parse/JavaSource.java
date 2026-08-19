@@ -45,6 +45,7 @@ public final class JavaSource implements SourceReader {
     private final JavaParser parser;
     private final TypeInitials initials;
     private final DeclaredTypeWords typeWords;
+    private final EnclosingDeclarations enclosing = new EnclosingDeclarations();
     private final JavadocProse javadoc = new JavadocProse();
     private final SpecifiedNames specified = new SpecifiedNames();
     private final io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords names =
@@ -131,7 +132,7 @@ public final class JavaSource implements SourceReader {
      * A constructor is not collected as a method: its name is its type's name, already read at the type's own
      * declaration, and counting it again would make every class say its own name twice.
      */
-    private static <T extends Node & NodeWithSimpleName<?>> void declared(
+    private <T extends Node & NodeWithSimpleName<?>> void declared(
             final CompilationUnit unit, final Class<T> declaration, final NameForm form,
             final List<NameOccurrence> occurrences) {
         unit.findAll(declaration).stream()
@@ -194,17 +195,18 @@ public final class JavaSource implements SourceReader {
                 : NameForm.METHOD;
     }
 
-    private static void add(final String text, final NameForm form, final Node node,
-                            final List<NameOccurrence> occurrences) {
+    private void add(final String text, final NameForm form, final Node node,
+                     final List<NameOccurrence> occurrences) {
         add(text, form, node, occurrences, List.of());
     }
 
-    private static void add(final String text, final NameForm form, final Node node,
-                            final List<NameOccurrence> occurrences, final List<String> typeWords) {
+    private void add(final String text, final NameForm form, final Node node,
+                     final List<NameOccurrence> occurrences, final List<String> typeWords) {
         if (text.isBlank()) {
             return;
         }
-        occurrences.add(new NameOccurrence(text, form, lineOf(node), 1.0, typeWords));
+        occurrences.add(new NameOccurrence(text, form, lineOf(node), 1.0, typeWords,
+                enclosing.around(node)));
     }
 
     private static int lineOf(final Node node) {

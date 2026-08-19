@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
@@ -47,9 +46,10 @@ public final class KeywordReachProbe {
         final Path root = new CloneUnderReading().root();
         final ParsedRepository parsed = ParsedRepository.of(root, new JavaSourceScopes().under(root));
         final IdentifierWords identifiers = IdentifierWords.fromClasspath();
-        final FurthestWritten declared = FurthestWritten.in(runsOf(parsed, identifiers,
-                form -> !form.isProse()));
-        final FurthestWritten prose = FurthestWritten.in(runsOf(parsed, identifiers, NameForm::isProse));
+        final WrittenRuns runs = WrittenRuns.fromClasspath();
+        final FurthestWritten declared = FurthestWritten.in(
+                runs.ofNames(parsed, form -> !form.isProse()), runs.ofDeclarations(parsed));
+        final FurthestWritten prose = FurthestWritten.in(runs.ofNames(parsed, NameForm::isProse));
 
         final CorroboratedReading reading = CorroboratedReading.of(
                 InjectedTerms.of(InjectedTaxonomy.of(keywords, KEYWORDS_OF_OPENALEX), KEYWORDS_OF_OPENALEX),
@@ -83,17 +83,5 @@ public final class KeywordReachProbe {
                 .flatMap(sighting -> sighting.concepts().stream())
                 .map(SkosConcept::concept)
                 .collect(Collectors.toUnmodifiableSet());
-    }
-
-    private static List<List<String>> runsOf(final ParsedRepository parsed,
-                                             final IdentifierWords identifiers,
-                                             final Predicate<NameForm> wanted) {
-        return parsed.files().stream()
-                .flatMap(file -> file.occurrences().stream())
-                .filter(occurrence -> wanted.test(occurrence.form()))
-                .map(occurrence -> identifiers.of(occurrence.text()).words())
-                .filter(words -> !words.isEmpty())
-                .distinct()
-                .toList();
     }
 }

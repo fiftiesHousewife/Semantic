@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -53,9 +52,10 @@ public final class TopicMatchProbe {
                 keywords, parsed);
 
         final IdentifierWords identifiers = IdentifierWords.fromClasspath();
-        final List<List<String>> declared = declaredRuns(parsed);
-        final List<List<String>> prose = proseRuns(parsed);
-        final FurthestWritten written = FurthestWritten.in(declared);
+        final WrittenRuns runs = WrittenRuns.fromClasspath();
+        final List<List<String>> declared = runs.ofNames(parsed, form -> !form.isProse());
+        final List<List<String>> prose = runs.ofNames(parsed, NameForm::isProse);
+        final FurthestWritten written = FurthestWritten.in(declared, runs.ofDeclarations(parsed));
         final FurthestWritten inProse = FurthestWritten.in(prose);
         final Map<String, String> rungByConcept = matchedRungs(reading);
         final Map<String, Double> massByTopic = new java.util.HashMap<>();
@@ -103,6 +103,7 @@ public final class TopicMatchProbe {
         final FurthestWritten.Reached reached = written.of(words);
         return switch (reached.reach()) {
             case AS_THIS_RUN -> "declared as this run, and no rung matched it";
+            case ACROSS_ONE_DECLARATION -> "declared across one declaration, never inside one name";
             case EVERY_WORD_NEVER_ADJACENT -> "every word declared, never adjacent"
                     + (inProse.of(words).reach() == FurthestWritten.Reach.AS_THIS_RUN
                             ? " — WRITTEN IN PROSE" : "");
@@ -112,28 +113,6 @@ public final class TopicMatchProbe {
             case NOT_WRITTEN -> inProse.of(words).reach() == FurthestWritten.Reach.AS_THIS_RUN
                     ? "never declared — WRITTEN IN PROSE" : "no word of it declared";
         };
-    }
-
-    /** The word runs of every name this repository declares. */
-    private static List<List<String>> declaredRuns(final ParsedRepository parsed) {
-        return runsOf(parsed, form -> !form.isProse());
-    }
-
-    /** The word runs of every sentence of prose this repository writes. */
-    private static List<List<String>> proseRuns(final ParsedRepository parsed) {
-        return runsOf(parsed, NameForm::isProse);
-    }
-
-    private static List<List<String>> runsOf(final ParsedRepository parsed,
-                                             final Predicate<NameForm> wanted) {
-        final IdentifierWords identifiers = IdentifierWords.fromClasspath();
-        return parsed.files().stream()
-                .flatMap(file -> file.occurrences().stream())
-                .filter(occurrence -> wanted.test(occurrence.form()))
-                .map(occurrence -> identifiers.of(occurrence.text()).words())
-                .filter(words -> !words.isEmpty())
-                .distinct()
-                .toList();
     }
 
     /** Which keyword concepts were matched, and what both sides were normalised to when they met. */

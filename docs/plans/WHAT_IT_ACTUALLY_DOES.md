@@ -17,20 +17,25 @@ A term taxonomy publishes nouns: CSO states `parsing`, OLiA states `AdjectivePhr
 
 That is a weaker reading than the term arm, and it is weaker for a reason that can be removed. **Nobody writes `ManageEnterpriseRisk`, but plenty of repositories write `manage` and `risk` in one method signature.** A reading that produced verb phrases could match a functional taxonomy the way the term arm matches CSO — identifier to identifier, with the publisher stating the hit.
 
-## Step 1 — provenance on every nominal signal
+## Step 1 — provenance on every nominal signal — done at the parse, open at the tally
 
-**This is the blocker and it is not done.** The reading tallies a term by its words and loses where it stood. [`TermSighting`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermSighting.java) keeps twelve `file:line` strings for a reader to check, which is enough to argue with a figure and not enough to attach a verb to a noun.
+**The walk now keeps the declaration.** [`EnclosingDeclarations`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/EnclosingDeclarations.java) reads the types and methods a node sits inside, [`NameOccurrence`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameOccurrence.java) carries them outermost first beside the declared type's words, and [`DeclarationWords`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclarationWords.java) writes one declaration's words in the order the file writes them.
 
-What a verb phrase needs, per matched span:
+What a name occurrence carries, and what it still does not:
 
-| Kept now | Needed |
+| | Per occurrence |
 |---|---|
-| the words | the words |
-| `file:line`, up to twelve | the declaration it sat in, as a node — not a string |
-| the [`NameForm`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java) | the enclosing type and method |
-| | the declared type beside the name, which [`DeclaredTypeWords`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclaredTypeWords.java) already reads |
+| kept | the words |
+| kept | `file:line`, up to twelve |
+| kept | the [`NameForm`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java) |
+| kept | the enclosing types and methods, outermost first |
+| kept | the declared type beside the name, which [`DeclaredTypeWords`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclaredTypeWords.java) reads |
+| open | the declaration carried through to the **matched span**, which `RecordedSpans` still reduces to a `file:line` string |
+| open | the receiver of a call, which needs the call site |
 
-`ParsedRepository` walks a real syntax tree and throws the structure away at the tally. Keeping a handle to the declaring node is the change; everything below depends on it.
+**What that leaves.** Step 2 reads a method's own name and needs nothing more, so it is unblocked. The third source of an object below still needs the call site, which the parse has and the tally discards.
+
+**The first use of it measured a repair to zero.** [The phrase arm's repairs](PHRASE_ARM_REPAIRS.md) assembled a published run across one declaration and reached 0 marked keywords on this repository, 0 on Tika and 1 on Santuario. That is a finding about noun runs and says nothing about verbs, which are what this plan wants the declaration for.
 
 ## Step 2 — the verbs
 

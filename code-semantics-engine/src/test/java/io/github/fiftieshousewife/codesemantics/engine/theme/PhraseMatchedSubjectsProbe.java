@@ -2,9 +2,11 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.bi.lexicon.RegisteredFormats;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
@@ -35,10 +37,19 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
  * <p>Each is printed under both scorings for the same reason. Summed occurrence mass ranks a topic by how
  * often its keywords were written; two shares rank it by how many of them were written. Which one places a
  * repository better is what the probe is run to find out.
+ *
+ * <p>Two further arms split every match by whether the IANA media type registry states each of its words as
+ * a format name. A repository that parses a format writes that format's name as freely as one that studies
+ * it, so the split says how much of a placement rests on the formats a tool reads. The registry also states
+ * ordinary English — {@code index}, {@code collection}, {@code node} — so the split is a measurement and
+ * never a vote, and the runs it caught are printed for a reader to argue with.
  */
 public final class PhraseMatchedSubjectsProbe {
 
     private static final String KEYWORDS_OF_OPENALEX = "openalex keywords";
+
+    /** Enough of the caught runs to see what the registry claimed; the count above them is all of them. */
+    private static final int FORMAT_RUNS_SHOWN = 25;
 
     private PhraseMatchedSubjectsProbe() {
     }
@@ -79,5 +90,27 @@ public final class PhraseMatchedSubjectsProbe {
         });
         arms.print("corroborated by the branch rule", corroborated);
         arms.print("runs of more than one word", runs);
+
+        final RegisteredFormats formats = RegisteredFormats.fromClasspath();
+        final List<TermSighting> namingFormats = every.stream()
+                .filter(sighting -> formats.namesAll(sighting.words()))
+                .toList();
+        final List<TermSighting> namingNothingRegistered = every.stream()
+                .filter(sighting -> !formats.namesAll(sighting.words()))
+                .toList();
+        printFormatRuns(namingFormats);
+        arms.print("every match, less the runs the media type registry names", namingNothingRegistered);
+        arms.print("only the runs the media type registry names", namingFormats);
+    }
+
+    /** The runs the registry caught, most-written first, so a reader can see what the split rests on. */
+    private static void printFormatRuns(final List<TermSighting> namingFormats) {
+        System.out.printf("%n== runs every word of which the IANA media type registry states — %d of them%n",
+                namingFormats.size());
+        namingFormats.stream()
+                .sorted(Comparator.comparingDouble(TermSighting::mass).reversed())
+                .limit(FORMAT_RUNS_SHOWN)
+                .forEach(sighting -> System.out.printf("%-28s %6d occurrences  mass %8.2f  %s%n",
+                        sighting.term(), sighting.occurrences(), sighting.mass(), sighting.firstSite()));
     }
 }

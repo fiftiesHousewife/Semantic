@@ -11,16 +11,25 @@ import java.util.Objects;
  * <p>The line is carried because a reading that cannot say where it read something can be neither checked nor
  * cited. The weight is carried because a piece of text standing in several files was written once. The type's
  * words are carried because a word of a name repeating the type declared beside it is that type spelled
- * again, and only the parse can say so.
+ * again, and only the parse can say so. The enclosing declarations are carried because a published run of
+ * words is often split across a declaration and written into no single name.
  *
  * @param weight    a share of one occurrence, in {@code (0, 1]} — one for anything written where it stands
  * @param typeWords the words of every type the declaration names, in lower case, empty where it names none
+ * @param enclosing the names of the types and methods this one was written inside, outermost first
  */
-public record NameOccurrence(String text, NameForm form, int line, double weight, List<String> typeWords) {
+public record NameOccurrence(String text, NameForm form, int line, double weight, List<String> typeWords,
+                             List<String> enclosing) {
 
     /** Text written where it stands, with no type beside it — the ordinary case. */
     public NameOccurrence(final String text, final NameForm form, final int line) {
         this(text, form, line, 1.0, List.of());
+    }
+
+    /** Text written outside any declaration this reading names — a comment, an import, a file's own name. */
+    public NameOccurrence(final String text, final NameForm form, final int line, final double weight,
+                          final List<String> typeWords) {
+        this(text, form, line, weight, typeWords, List.of());
     }
 
     public NameOccurrence {
@@ -33,11 +42,12 @@ public record NameOccurrence(String text, NameForm form, int line, double weight
             throw new IllegalArgumentException("a weight is a share of one occurrence: " + weight);
         }
         typeWords = typeWords.stream().map(word -> word.toLowerCase(Locale.ROOT)).distinct().toList();
+        enclosing = List.copyOf(enclosing);
     }
 
     /** The same occurrence at a share of its worth — what prose standing in several files is worth in one. */
     public NameOccurrence weighing(final double share) {
-        return new NameOccurrence(text, form, line, share, typeWords);
+        return new NameOccurrence(text, form, line, share, typeWords, enclosing);
     }
 
     /**

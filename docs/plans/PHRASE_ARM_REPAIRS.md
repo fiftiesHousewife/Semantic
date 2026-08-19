@@ -4,15 +4,15 @@
 
 ## What the census found, and it reverses the order below
 
-`./gradlew keywordReach -Ptoken=<token>` counts all 45,154 published keywords into the four buckets `FurthestWritten` names, per member, with the topics the expected result marks reported apart from the ones it does not. The split is the point: a census pooled over the whole scheme reports the same figures whether or not the topics a repository ought to reach are reachable.
+`./gradlew keywordReach -Ptoken=<token>` counts all 45,154 published keywords into the buckets `FurthestWritten` names, per member, with the topics the expected result marks reported apart from the ones it does not. The split is the point: a census pooled over the whole scheme reports the same figures whether or not the topics a repository ought to reach are reachable.
 
 Keywords belonging to marked topics, which are the ones the arm has to reach:
 
-| Member | Token | Marked keywords | Declared as this run | Every word written, never adjacent | Reached only in prose | Declared and unmatched |
-|---|---|--:|--:|--:|--:|--:|
-| CodeSemantics | linguistics | 240 | 16 (6.67%) | 3 (1.25%) | 11 (4.58%) | 0 |
-| Santuario | security | 1,505 | 40 (2.66%) | 30 (1.99%) | 12 (0.80%) | 0 |
-| Tika | content | 480 | 4 (0.83%) | 73 (15.21%) | 8 (1.67%) | 1 |
+| Member | Token | Marked keywords | Declared as this run | Declared across one declaration | Every word written, never adjacent | Reached only in prose | Declared and unmatched |
+|---|---|--:|--:|--:|--:|--:|--:|
+| CodeSemantics | linguistics | 240 | 16 (6.67%) | 0 | 3 (1.25%) | 11 (4.58%) | 0 |
+| Santuario | security | 1,505 | 40 (2.66%) | 1 (0.07%) | 29 (1.93%) | 12 (0.80%) | 0 |
+| Tika | content | 480 | 4 (0.83%) | 0 | 73 (15.21%) | 8 (1.67%) | 1 |
 
 The same shares over the topics the expectation does not mark, which is what each row above is read against:
 
@@ -22,15 +22,15 @@ The same shares over the topics the expectation does not mark, which is what eac
 | Santuario | 0.64% | 0.63% | 0.39% |
 | Tika | 2.33% | 6.90% | 1.60% |
 
-**Repair 3 is the largest effect measured, and only the held-out members show it.** Assembling a run across a declaration raises the marked keywords in reach from 4 to 77 on Tika, from 40 to 70 on Santuario, and from 16 to 19 on this repository. It is ranked last in the order below and marked blocked. A repair chosen from this tree alone would have been chosen wrongly, which is what holding repositories out is for.
+**Repair 3 is built, measured, and it fails its own abandon condition.** The *declared across one declaration* column is what a reading assembling runs across a declaration would reach, and it is 0 marked keywords on this repository, 0 on Tika and 1 on Santuario. Scheme-wide it is 0 of 45,154 here, 12 on Tika and 1 on Santuario. The ceiling of 77 in the column beside it is not a yield.
 
 **One figure explains Tika.** Its `content` keywords are declared as a run less often than the rest of the scheme — 0.83% against 2.33% — and carry every word written but never adjacent more often — 15.21% against 6.90%. Tika declares `document`, `processing`, `content`, `extraction` and `metadata`, and never writes them adjacent inside one name.
 
-**The prediction about prose does not hold.** [The parent plan](PHRASE_MATCHED_SUBJECTS.md) expects the prose fork to *"move the result more than everything in the next two sections combined"*. Prose reaches 11, 12 and 8 marked keywords across the three members, against repair 3's 3, 30 and 73.
+**The prediction about prose does not hold, and it now outranks every other repair.** [The parent plan](PHRASE_MATCHED_SUBJECTS.md) expects the prose fork to *"move the result more than everything in the next two sections combined"*. Prose reaches 11, 12 and 8 marked keywords across the three members, against repair 3's measured 0, 1 and 0. The prediction was wrong about the size and right about the order.
 
 **A run declared and unmatched is rare.** None among the marked topics of two members, one on Tika's. Scheme-wide Tika holds 59 and this repository 7, over three distinct labels — `Processing`, `Validation`, `Client`. Those belong to the preemption log, diagnostic 4 below, and not to a matcher repair.
 
-**The figure bounds repair 3 above and does not estimate it.** `EVERY_WORD_NEVER_ADJACENT` holds a keyword whose every word appears in some declared name anywhere in the repository. Repair 3 assembles a run across one declaring node, which is narrower. Tika's 73 is therefore a ceiling and the yield lies between 0 and 73. Narrowing the bucket to the words written within one declaring node turns the bound into an estimate, and costs nothing once the node survives the walk.
+**The bound was 73 and the estimate is 0, and the keywords say why.** `EVERY_WORD_NEVER_ADJACENT` holds a keyword whose every word appears in some declared name anywhere in the repository, so a repository large enough fills the bucket by vocabulary breadth alone. Tika's 73 include `Stock Returns`, `Market Microstructure`, `Click-Through Rate Prediction`, `Peer-to-Peer`, `News Media` and `Twitter`. Tika writes `stock`, `returns`, `market`, `news` and `media` across 3,000 files and would never put any pair of them in one declaration. The census now names the first twelve of the bucket beside the count, because the count on its own reads as a prize.
 
 ### Repair 0's verdict
 
@@ -99,13 +99,15 @@ Writing one word very often beats writing five different ones. That is backwards
 
 **The example.** `Software Engineering Research` publishes the keyword `Source Code Analysis`. This repository declares `source`, `code` and `analysis` — every word — and never those three adjacent inside one name. They sit in different places: a type called one thing with a member called another.
 
-**Why no dictionary fixes it.** Nothing is missing and nothing is misspelled. Only the adjacency is absent, and the run would have to be assembled across a declaration rather than read out of one name. This is the expensive repair and it is blocked on other work.
+**Why no dictionary fixes it.** Nothing is missing and nothing is misspelled. Only the adjacency is absent, and the run would have to be assembled across a declaration rather than read out of one name.
+
+**Built and measured, and the assembled run reaches 0 marked keywords here, 0 on Tika and 1 on Santuario.** See the verdict below.
 
 ### Repair 4 — reading a format is not studying it
 
 **The example.** This repository declares `RdfXml`, `OwlClasses` and `SparqlEndpoint`, all in `lexicon-extraction`, because RDF and OWL are the **file formats it parses** to pull published vocabularies in. That is not the same as being a project about the Semantic Web. Tika has the same problem far worse: it declares a parser for every document format there is.
 
-**Nothing currently separates the two**, and no weighting can, because the names are identical either way.
+**Measured, and the effect is a hundredth of the statistic.** See the verdict below.
 
 ### The three diagnostics, as rows they would print
 
@@ -175,31 +177,51 @@ The first would have shown repair 0 on the day the arm was built. Reading one to
 
 **Abandon if** the prose arm clears chance on this repository and not on Santuario. That is the arm working only where it was written, which is the parent plan's stated abandon condition.
 
-## Repair 3 — read a run across a declaration, not only inside one name
+## Repair 3 — read a run across a declaration, not only inside one name — measured, and abandoned
 
-**The evidence, and it carries the same caveat.** `Schema Matching`: every word declared, never adjacent. The mechanism is real — a run split across a type and its member exists in the code and not inside any single identifier, and the arm cannot see it. But schema matching is not this repository's subject either, so the named case is an illustration and not a loss. **The census below is what turns it into a measurement**, and it must be read on Santuario and Tika before this repair is costed.
+**The blocker is cleared.** `EnclosingDeclarations` reads the types and methods a node sits inside, `NameOccurrence` carries them outermost first, and `DeclarationWords` writes one declaration's words in the order the file writes them: the enclosing names, then the type beside the name, then the name itself. `class SourceCode { Analysis span; }` reads as source, code, analysis, span. That is step 1 of [What a repository does, not what it says](WHAT_IT_ACTUALLY_DOES.md), and the verb work needs it whatever happens to this repair.
 
-**The change.** The run has to be assembled from the declaring node rather than from a name in isolation. The provenance step [What a repository does, not what it says](WHAT_IT_ACTUALLY_DOES.md) already specifies exactly this and states the blocker: *"the tally keeps a term's words and twelve `file:line` strings, which is enough to check a figure and not enough to attach a verb to a noun, so the declaring node has to survive the walk."*
+**The yield is what the abandon condition asked for, and it is zero.** `FurthestWritten` gained the *written as this run across one declaration* bucket, and the census counted every one of the 45,154 published keywords into it on all three members.
 
-**So this repair is blocked on that one**, and it is the largest of the three. No lexical resource reaches it: the words are present, the dictionary reads them, and only their adjacency is missing.
+| Member | Marked keywords a declaration assembles | Every published keyword a declaration assembles |
+|---|--:|--:|
+| CodeSemantics | 0 of 240 | 0 of 45,154 |
+| Santuario | 1 of 1,505 | 1 of 45,154 |
+| Tika | 0 of 480 | 12 of 45,154 |
 
-| What settles it | |
-|---|---|
-| How many published keywords are in reach at all | the census below, run before anything is built |
-| Runs become reachable on a member with a cited answer | Santuario's `security` topics, not this tree's illustrations |
+**Why the ceiling was so much larger than the yield.** `EVERY_WORD_NEVER_ADJACENT` asks whether each word appears in *some* declared name anywhere, so a repository with a wide vocabulary fills it without any two of the words ever meeting. Tika's 73 marked keywords in that bucket include `Stock Returns`, `Market Microstructure`, `News Media` and `Twitter`. The bucket measures repository size.
 
-**Abandon if** the census shows the *every word declared, never adjacent* bucket is small. The repair is expensive and its prize is exactly the size of that bucket.
+**Abandoned on its own condition.** The prize was exactly the size of the bucket, the bucket is 0, 1 and 0, and no weighting or resource changes that — the adjacency is absent from the source, not from the reading. What is kept is the machinery, because the declaring node was owed to the verb work regardless: the enclosing names, the type beside the name, the assembled run, and the census bucket that reports what they reach.
+
+## Repair 4 — reading a format is not studying it — measured, and refused as specified
+
+**A format name is citable and the IANA media type registry states it.** `RegisteredFormats` reads the subtype of every registered identifier in the standards tree, and each part of a structured suffix: `application/pdf` states `pdf`, `application/rdf+xml` states `rdf` and `xml`. RFC 6838 §3 names the other three trees by their prefixes — `vnd.`, `prs.`, `x.` — so the standards tree is what remains when those are set aside, and the bound is the specification's.
+
+**It cannot be asked about a declared name, and the resource's own header already said so.** `media-types.tsv` states *"nothing here is an English label, so this is never matched against a declared name and never placed as prose"*. `RegisteredFormatCatalogueTest` measures what ignoring that would cost: of 847 standards-tree format names, 53 are among the ten thousand commonest English words, and they include the ones a Java file is full of — `node`, `index`, `collection`, `parameters`, `strings`, `its`, `example`, `calendar`, `directory`, `plain`. A reading voting on this catalogue would claim a great deal of ordinary code as evidence about a format. That is the same finding `CitedTokenCatalogueTest` records for the Wikidata initialism registry, and it has the same consequence: the catalogue measures and never votes.
+
+**Used as a measurement, the premise does not hold.** `PhraseMatchedSubjectsProbe` prints two further arms — every match less the runs the registry names, and only those runs.
+
+| Member | Runs naming formats | Of all matched runs | Probability of superiority over the topics reached, every match then less the format runs | Marked topics the format runs reach |
+|---|--:|--:|---|--:|
+| CodeSemantics | 5 | 192 | 0.706 then 0.766 | 0 of 36 |
+| Santuario | 4 | 128 | 0.887 then 0.889 | 0 of 6 |
+| Tika | 9 | 451 | 0.832 then 0.840 | 0 of 49 |
+
+**The gain on the held-out members is under a hundredth, and the gain on this tree is the registry's English collisions rather than its format names.** What the split removed here was `its` at 165 occurrences and `index` at 22 — `its` is a format name only because the ITS media type is registered — against `rdf` at 4, `xml` at 4 and `html` at 1. Tika's nine are the same shape: `index` at 481 occurrences and `global` at 46 beside `xml` at 354, `html` at 264 and `rdf` at 15.
+
+**The worked example is refuted.** `./gradlew topicMatch -Ptopic="Advanced Data Storage" -Dcs.clone.dir=<tika>` places that topic **180th of 863 reached**, on mass 35.47 against the leader's 1,401.76. It is reached by one keyword, `File Systems`, matched on the dictionary form of each word. Not one of its ten keywords is a format name. Tika does not reach it because it parses those formats; it reaches it faintly through two ordinary English words, which is repair 1's defect and not this one.
+
+**Refused as specified, not abandoned as a question.** The confusion between *processes X* and *is about X* is real and unmeasured; what is measured is that the phrase arm's placements do not currently rest on format names, so no separator has anything to separate. The candidate signal the trace proposed — a format named in an import or a fixture is a tool's input — is untested and now cheap: imports are already set aside as quoted vocabulary, and `NameForm.FIXTURE` is not, so splitting the arm by form would cost a field on the recorded span. It is worth doing when a member is found whose placement a format name actually carries.
 
 ## Order, and why
 
-**The census has run and it reverses what this section said.** [The export is the output](JSON_ONLY_OUTPUT.md) has landed, so `ReadingChanges` has two exports to compare and every repair below can be judged on what moved. The order is what the measurement supports, not what the repairs cost.
+**Four of the six are now measured, and only two are open.** [The export is the output](JSON_ONLY_OUTPUT.md) has landed, so `ReadingChanges` has two exports to compare and every repair below is judged on what moved. The order is what the measurement supports, not what the repairs cost.
 
-1. **Narrow the reach bucket to one declaring node.** It turns Tika's 73 from a ceiling into an estimate and it decides whether repair 3 earns its price. Cheap once the declaring node survives the walk.
-2. **Repair 3.** The largest effect the census measures, on both held-out members. Blocked on [What a repository does, not what it says](WHAT_IT_ACTUALLY_DOES.md), and unblocking that is now the substantial next piece of work rather than a prerequisite nobody reached.
-3. **Repair 4** — *processes X* against *is about X*. Repair 3 raises Tika's reach up to nineteenfold and every run it adds carries the same ambiguity, so the two are one piece of work rather than a repair and a footnote.
-4. **Repair 2.** Small on all three members. A reporting change over a population already parsed, worth doing because it is cheap and not because it was predicted to be large.
-5. **Repair 1.** Unrun. `PhraseSpecificity` already weighs every match, so the open question is whether the divergence term beats it — and that is a question about ordering, which the census says is not where any member is failing.
-6. **Repair 0.** Measured, failed its bar, left in the tree beside summed mass.
+1. **Repair 2 — decide whether the arm reads prose.** The only repair still credited with reaching keywords no other route does: 11 marked keywords here, 12 on Santuario, 8 on Tika, against repair 3's measured 0, 1 and 0. It is now the largest unrun effect as well as the cheapest, being a reporting change over a population already parsed.
+2. **Repair 1 — weight a match by how much it narrows the subject.** Unrun. `PhraseSpecificity` already weighs every match, so the open question is whether the divergence term beats it. The census says ordering is not where any member is failing, but repair 4's trace found the sharpest instance of the defect it addresses: Tika reaches `Advanced Data Storage Technologies` through `File Systems` and nothing else.
+3. **Repair 4 — *processes X* against *is about X*.** Refused as specified. The IANA registry cannot be asked about a declared name, and the phrase arm's placements do not rest on format names in any of the three members. It stays open as a question and has no measured prize.
+4. **Repair 3 — read a run across a declaration.** Built, measured, abandoned. The declaring node now survives the walk and is owed to the verb work regardless.
+5. **Repair 0 — two shares in place of summed mass.** Measured, failed its bar, left in the tree beside summed mass.
 
 ## What would have surfaced all of this sooner
 
@@ -215,7 +237,7 @@ For each ranked topic, the keywords that carried it and each one's share of its 
 
 ### 3. A reach census over the whole scheme — built
 
-`KeywordReach`, `ReachCensus` and `./gradlew keywordReach -Ptoken=<token>`. `FurthestWritten` over all 45,154 published keywords rather than one topic's ten, counted into its four buckets per repository, split by whether the expected result marks the topic. The split is what the plan's own version lacked: pooled over the whole scheme, the census reports the same figures whether or not the topics a repository ought to reach are reachable. Its findings are in the first section above, and they reordered every repair below.
+`KeywordReach`, `ReachCensus` and `./gradlew keywordReach -Ptoken=<token>`. `FurthestWritten` over all 45,154 published keywords rather than one topic's ten, counted into its five buckets per repository, split by whether the expected result marks the topic. It names the first twelve keywords of the *every word written, never adjacent* bucket beside the count, because that count is what made repair 3 look like a prize. The split is what the plan's own version lacked: pooled over the whole scheme, the census reports the same figures whether or not the topics a repository ought to reach are reachable. Its findings are in the first section above, and they reordered every repair below.
 
 ### 4. A preemption log — now evidenced
 
@@ -229,7 +251,9 @@ Which spans `TermSpans` discarded because a longer or overlapping run won at tha
 
 The parent plan's bar is unchanged and no repair here reaches it on its own: **better than TF-IDF and BM25 over the same descriptions**, on repositories this reading was not written for. Those two baselines are still unrun, and until they are, a phrase arm that ranks `Semantic Web and Ontologies` 55th instead of 1,172nd has beaten its predecessor and nothing else.
 
-**The census adds a second bar, and it is the one the members currently fail.** All three order the topics they reach above chance — 0.707, 0.887 and 0.832 — and reach between 0.83% and 6.67% of the keywords the marked topics publish. Ordering is not where the arm is failing. Reach is, and repair 3 is the only repair measured large enough to change it.
+**The census adds a second bar, and it is the one the members currently fail.** All three order the topics they reach above chance — 0.707, 0.887 and 0.832 — and reach between 0.83% and 6.67% of the keywords the marked topics publish. Ordering is not where the arm is failing. Reach is.
+
+**No repair now proposed changes reach by much.** Repair 3 was the one measured large enough and its yield is 0, 1 and 0. Prose is the largest remaining route at 11, 12 and 8 marked keywords, and it is a tenth of what the marked topics publish. A phrase arm reading only declared names reaches a few per cent of a subject scheme, and the next question is whether that is a defect of this reading or a fact about identifiers.
 
 ## Repair 0 — the ranking currently measures the publisher's keyword style, not subject matter
 
