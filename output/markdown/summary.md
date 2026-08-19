@@ -6,11 +6,11 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | | |
 |---|--:|
-| Word occurrences read | 101,503 |
-| Files | 598 |
+| Word occurrences read | 104,019 |
+| Files | 610 |
 | Prose share of those occurrences | 74% |
 | **λ** — share a bundled resource has an entry for | **0.983** |
-| Evidence resolving to no subject | 76.0% |
+| Evidence resolving to no subject | 76.1% |
 
 λ is the denominator every figure below rests on. The second share counts something else: a phrase no resource places, or one whose words name so many subjects that none of them resolves. A word can have a dictionary entry and still say nothing about subject matter, so both shares run high together.
 
@@ -18,10 +18,10 @@ Every figure below exceeds all 999 resamples of its own size drawn from this sam
 
 | Level | Nearest subject | Divergence | Chance reaches | |
 |---|---|--:|--:|---|
-| Archive | **Computer Science** | 34.4% | 40.7% | apart from chance |
+| Archive | **Computer Science** | 34.4% | 40.8% | apart from chance |
 | Category | **Computation and Language** | 39.8% | 45.0% | apart from chance |
 
-A divergence is written as the share of its own maximum it holds: 0% is two readings that are identical, 100% two sharing no subject at all. The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 48.4%.
+A divergence is written as the share of its own maximum it holds: 0% is two readings that are identical, 100% two sharing no subject at all. The archive is compared against every category's description pooled under it, which is enough prose for the divergence to be stable. The category is compared against the few dozen words the scheme states for it alone, which is the weaker measurement and the sharper answer. The archive behind the leading one is Electrical Engineering and Systems Science at 48.6%.
 
 ## What it is about
 
@@ -33,12 +33,12 @@ A topic written at the same density everywhere distinguishes no part of it, so t
 
 | Scope | Divergence from the repository | Writes more of |
 |---|--:|---|
-| `code-semantics-api/src/test/java` | 21.8% | `linguistics` |
-| `lexicon/src/main/java` | 18.3% | `linguistics` |
-| `lexicon-extraction/src/test/java` | 17.1% | `computing` |
-| `lexicon/src/test/java` | 11.8% | `linguistics` |
-| `code-semantics-engine/src/main/java` | 3.6% | `linguistics` |
+| `code-semantics-api/src/test/java` | 22.0% | `linguistics` |
+| `lexicon/src/main/java` | 17.9% | `linguistics` |
+| `lexicon-extraction/src/test/java` | 17.2% | `computing` |
+| `lexicon/src/test/java` | 11.6% | `linguistics` |
+| `code-semantics-engine/src/main/java` | 3.5% | `linguistics` |
 
 ## Withheld
 
-- `documentation` — 23.1% of the maximum divergence, and 987 of 999 chance draws stood at least as far
+- `documentation` — 22.9% of the maximum divergence, and 983 of 999 chance draws stood at least as far
