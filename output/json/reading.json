@@ -2,7 +2,7 @@
   "schemaVersion" : "7.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "cbc8215c8ec8f12cd4da46c353bf69f5dd8d719a",
+    "commit" : "e0f39d883920f67c5279cda2f10ab6fcb9860315",
     "about" : [ "linguistics", "computing", "grammar" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
     "placedIn" : {
@@ -95,7 +95,7 @@
     "leadingBehaviours" : [ "mass of", "share of", "content of", "file in", "name in", "reach from", "stand apart", "word of", "answer for", "bar for" ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.034350320680873826,
+      "divergenceBits" : 0.03435032068087383,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon-extraction/src/test/java",
@@ -2765,7 +2765,7 @@
     }, {
       "word" : "verb",
       "occurrences" : 102,
-      "mass" : 22.380527284522763,
+      "mass" : 22.380527284522756,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -3101,7 +3101,7 @@
     }, {
       "word" : "dictionary",
       "occurrences" : 252,
-      "mass" : 6.814666033903001,
+      "mass" : 6.814666033903002,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a published dictionary or registry",
@@ -3407,7 +3407,7 @@
     }, {
       "word" : "noun",
       "occurrences" : 93,
-      "mass" : 14.588336883873595,
+      "mass" : 14.588336883873597,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -3503,7 +3503,7 @@
     }, {
       "word" : "verb",
       "occurrences" : 102,
-      "mass" : 22.380527284522763,
+      "mass" : 22.380527284522756,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -3899,7 +3899,7 @@
     }, {
       "word" : "noun",
       "occurrences" : 93,
-      "mass" : 14.588336883873595,
+      "mass" : 14.588336883873597,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -5292,9 +5292,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "lemmas" : 203,
       "words" : 1039,
-      "senses" : 117
+      "senses" : 117,
+      "lemmas" : 203
     }
   }, {
     "vocabulary" : "CSO",
@@ -5690,9 +5690,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "lemmas" : 67,
       "words" : 151,
-      "senses" : 38
+      "senses" : 38,
+      "lemmas" : 67
     }
   } ],
   "behaviours" : [ {

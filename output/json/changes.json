@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "2d74d07e03ec5f2336577c231814c680d5bdb56e",
-  "commit" : "cbc8215c8ec8f12cd4da46c353bf69f5dd8d719a",
+  "previousCommit" : "cbc8215c8ec8f12cd4da46c353bf69f5dd8d719a",
+  "commit" : "e0f39d883920f67c5279cda2f10ab6fcb9860315",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -15,11 +15,11 @@
     "after" : "Computer Science"
   }, {
     "figure" : "Archive — divergence",
-    "before" : "34.2%",
+    "before" : "34.1%",
     "after" : "34.1%"
   }, {
     "figure" : "Archive — chance reaches",
-    "before" : "40.8%",
+    "before" : "40.7%",
     "after" : "40.7%"
   }, {
     "figure" : "Archive — stands apart from chance",
@@ -35,7 +35,7 @@
     "after" : "38.8%"
   }, {
     "figure" : "Category — chance reaches",
-    "before" : "44.2%",
+    "before" : "44.1%",
     "after" : "44.1%"
   }, {
     "figure" : "Category — stands apart from chance",
@@ -47,32 +47,12 @@
     "after" : "237"
   }, {
     "figure" : "Topics reported",
-    "before" : "3",
+    "before" : "5",
     "after" : "5"
   }, {
     "figure" : "Concepts written",
     "before" : "172",
     "after" : "172"
   } ],
-  "crossings" : [ {
-    "population" : "TOPIC",
-    "name" : "grammar",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "clause",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "scheme",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "archives",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "load",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }

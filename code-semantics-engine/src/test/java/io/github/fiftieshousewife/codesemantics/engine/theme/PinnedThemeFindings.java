@@ -69,13 +69,15 @@ class PinnedThemeFindings {
                                 + "so they are subjects of the field rather than of this codebase.")
                         .doesNotContain("biology", "law", "publishing", "music"),
                 () -> assertThat(qualifiedTopics(themes))
-                        .as("and what is left must be what this repository is actually about. Only the two "
-                                + "topics that lead a scope clearing its own null are pinned. A topic at an "
-                                + "intensity of a hundredth of a percent qualifies or does not on whether "
-                                + "one scope of a few files clears its null that run, so pinning a third "
-                                + "asserts the corpus rather than the reading, and this reading's corpus "
-                                + "includes the file stating the expectation.")
-                        .containsExactly("linguistics", "computing"));
+                        .as("and what is left must be what this repository is actually about. The two "
+                                + "leading topics are asserted and the tail is not. A topic at an intensity "
+                                + "of a hundredth of a percent qualifies or does not on whether one scope "
+                                + "of a few files clears its null that run: `grammar` left the set, then "
+                                + "re-entered when seven files were added to one module, with no arithmetic "
+                                + "changed either time. Asserting the tail asserts the corpus rather than "
+                                + "the reading, and this reading's corpus includes the file stating the "
+                                + "expectation.")
+                        .startsWith("linguistics", "computing"));
     }
 
     private static List<String> qualifiedTopics(final RepositoryThemes themes) {
