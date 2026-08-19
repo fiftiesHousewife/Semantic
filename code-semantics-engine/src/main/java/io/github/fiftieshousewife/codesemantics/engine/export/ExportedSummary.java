@@ -22,6 +22,8 @@ import lombok.Builder;
  *                                  reading a topic knows which vocabulary named it
  * @param leadingConcepts           the published concepts the repository writes most of, most first, each
  *                                  crediting the taxonomy that publishes it
+ * @param leadingBehaviours         the clauses its published method names state most often, most first —
+ *                                  what it does, as against what the words above say it is named after
  * @param distinctiveScopes         the parts that depart from the whole further than chance
  * @param shareOfWordsWithACitation of every word occurrence, how many a bundled resource can be cited for
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
@@ -30,7 +32,7 @@ import lombok.Builder;
 public record ExportedSummary(String repository, String commit, List<String> about,
                               List<String> aboutStatedBy,
                               ExportedPlacement placedIn, List<LeadingWord> leadingWords,
-                              List<LeadingConcept> leadingConcepts,
+                              List<LeadingConcept> leadingConcepts, List<String> leadingBehaviours,
                               List<DistinctiveScope> distinctiveScopes,
                               double shareOfWordsWithACitation, double shareOfMassOnNoSubject,
                               Counts counts) {
@@ -45,7 +47,7 @@ public record ExportedSummary(String repository, String commit, List<String> abo
 
     /** How long each section below is, so a consumer can size the read before making it. */
     @Builder
-    public record Counts(int signals, int themes, int concepts) {
+    public record Counts(int signals, int themes, int concepts, int behaviours) {
     }
 
     /**
@@ -66,6 +68,7 @@ public record ExportedSummary(String repository, String commit, List<String> abo
         Objects.requireNonNull(placedIn, "placedIn");
         leadingWords = List.copyOf(leadingWords);
         leadingConcepts = List.copyOf(leadingConcepts);
+        leadingBehaviours = List.copyOf(leadingBehaviours);
         distinctiveScopes = List.copyOf(distinctiveScopes);
         Objects.requireNonNull(counts, "counts");
     }

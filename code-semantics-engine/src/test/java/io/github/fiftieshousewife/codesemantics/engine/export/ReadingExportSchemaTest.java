@@ -29,9 +29,10 @@ class ReadingExportSchemaTest {
                     List.of("WordNet Domains"), PLACEMENT,
                     List.of(new LeadingWord("lemma", 0.02, 40)),
                     List.of(new ExportedSummary.LeadingConcept("Verb", "OLiA")),
+                    List.of("read declaration"),
                     List.of(new ExportedSummary.DistinctiveScope("lexicon/src/main/java", 0.19,
                             List.of("linguistics"))),
-                    0.98, 0.76, new ExportedSummary.Counts(1, 1, 1)),
+                    0.98, 0.76, new ExportedSummary.Counts(1, 1, 1, 1)),
             List.of(new ExportedSignal(ReadingSource.CLONE, "lemma", 40, 30, 0.02, "ordinary English",
                     new SightingSite("Reading.java", 12))),
             List.of(new ExportedTheme("linguistics", "lexicon/src/main/java", 0.05, 0.012,
@@ -42,6 +43,8 @@ class ReadingExportSchemaTest {
                     List.of(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1,
                             new SightingSite("Reading.java", 9))),
                     Map.of("words", 973, "lemmas", 201, "senses", 130), PLACEMENT)),
+            List.of(new ExportedBehaviour("read declaration", "read", List.of("declaration"), 3,
+                    new SightingSite("Reading.java", 21))),
             new SetAside(1_325, 625, 1, 56, 0));
 
     private final ExportFile file = new ExportFile();
@@ -72,7 +75,7 @@ class ReadingExportSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final ReadingExport unversioned = new ReadingExport("two", EXPORT.summary(), EXPORT.signals(),
-                EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
+                EXPORT.themes(), EXPORT.taxonomies(), EXPORT.behaviours(), EXPORT.setAside());
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(ExportFile.NAME), unversioned))

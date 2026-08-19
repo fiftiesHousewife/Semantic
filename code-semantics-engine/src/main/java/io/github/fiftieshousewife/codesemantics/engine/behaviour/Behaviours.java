@@ -21,8 +21,12 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSe
  * <p>Every declared method is offered to the dictionary as a clause: the leading word is a verb where WordNet
  * carries a verb entry for it, and everything after it is what the verb acts on. Nothing here knows any verbs
  * — the dictionary is asked, and a name whose first word is not a verb yields no behaviour at all rather than
- * a guessed one. That is why {@code massByTopic} produces nothing and {@code resolveNextPage} produces
- * resolve / next page.
+ * a guessed one. {@code resolveNextPage} produces resolve / next page; {@code taxonomyOfConcept} produces
+ * nothing, because WordNet carries no verb entry for taxonomy.
+ *
+ * <p><b>The dictionary decides, not the author's intent.</b> {@code massByTopic} produces mass / by topic,
+ * because WordNet carries {@code mass} as a verb. The clause is what the words state, and a reading that
+ * second-guessed it would be writing a grammar of its own.
  *
  * <p>A test method is the best-behaved case of this and not a special one, because a test name is written to
  * be read as a sentence in the first place. Where the convention holds, the suite is a specification and this

@@ -11,6 +11,7 @@
     "signals",
     "themes",
     "taxonomies",
+    "behaviours",
     "setAside"
   ],
   "properties": {
@@ -33,6 +34,7 @@
         "placedIn",
         "leadingWords",
         "leadingConcepts",
+        "leadingBehaviours",
         "distinctiveScopes",
         "shareOfWordsWithACitation",
         "shareOfMassOnNoSubject",
@@ -121,6 +123,14 @@
             }
           }
         },
+        "leadingBehaviours": {
+          "title": "Leading behaviours",
+          "description": "The clauses the published method names state most often, most-stated first \u2014 what the repository does, as against what `leadingWords` says it is named after. Only clauses stating what the verb acts on are named here: a bare `read` repeats far more often than `read declaration` and says far less, so a summary ranked on count alone would answer every repository with the same half-dozen verbs. The whole list, bare verbs included, is in `behaviours`.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "distinctiveScopes": {
           "title": "Scopes exceeding chance resampling",
           "description": "The scopes whose divergence from the whole repository exceeds all 999 resamples of a scope of their own size.",
@@ -179,7 +189,8 @@
           "required": [
             "signals",
             "themes",
-            "concepts"
+            "concepts",
+            "behaviours"
           ],
           "properties": {
             "signals": {
@@ -194,6 +205,12 @@
             },
             "concepts": {
               "description": "Concept entries across `taxonomies`.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "behaviours": {
+              "title": "Behaviours",
+              "description": "How many distinct clauses `behaviours` holds.",
               "type": "integer",
               "minimum": 0
             }
@@ -411,6 +428,51 @@
           },
           "placement": {
             "$ref": "#/$defs/placement"
+          }
+        }
+      }
+    },
+    "behaviours": {
+      "title": "Behaviours",
+      "description": "What the repository states it does, as clauses read from the method names its published source sets declare. A method name is a clause \u2014 a verb and what it acts on \u2014 and WordNet states which of its words is the verb, so a name whose first word it carries no verb entry for yields nothing rather than a guess. This is evidence of a different kind from `signals`, `themes` and `taxonomies`, which say what the repository calls things: these say what it does. The two are reported side by side and never summed. Test source sets are not read, because a test method name is a sentence about behaviour rather than the behaviour.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phrase",
+          "verb",
+          "object",
+          "occurrences",
+          "firstWrittenAt"
+        ],
+        "properties": {
+          "phrase": {
+            "title": "Phrase",
+            "description": "The clause as a reader would say it aloud \u2014 `resolve dependencies`, `encrypt key`, `extract metadata`.",
+            "type": "string"
+          },
+          "verb": {
+            "title": "Verb",
+            "description": "The dictionary form of the leading verb, as WordNet states it. `resolves` and `resolving` both report `resolve`.",
+            "type": "string"
+          },
+          "object": {
+            "title": "Object",
+            "description": "The words the verb acts on, in the order the name wrote them. Empty where the name states a verb and nothing else.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "occurrences": {
+            "title": "Occurrences",
+            "description": "How many declared method names state this clause. A clause stated once is kept: unlike a word, it is a statement its author made, and repeating it says only that several methods do the same thing.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "firstWrittenAt": {
+            "$ref": "#/$defs/site"
           }
         }
       }
