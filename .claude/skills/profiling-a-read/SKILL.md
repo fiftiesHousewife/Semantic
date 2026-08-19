@@ -33,6 +33,6 @@ A performance change ships with the row before, the row after, and — where two
 3. `./gradlew :code-semantics-engine:test -Dinclude.tags=pinned`.
 4. `./gradlew readTimings` — the number the change claims.
 5. `./gradlew read`, then `git status` — `output/` must show no diff.
-6. The evaluation clone for the headline figure: `PinnedClone` fetches each member at its `evaluation-set.tsv` pin; point the probe at it with `-Dcs.clone.dir=<path>`.
+6. The evaluation clone for the headline figure: the members named in `evaluation-set.tsv` are already cloned at their pins under `~/evaluation` — `tika`, `maven`, `santuario`. Point the probe at one with `-Dcs.clone.dir=~/evaluation/tika`. **Do not re-clone**: `PinnedClone` fetches only where a tree is not already at its pinned commit, and a member runs to hundreds of megabytes.
 
 Baselines and their history live in the plan and the backlog, never in javadoc.

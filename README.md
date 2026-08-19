@@ -296,9 +296,19 @@ List<SubjectPlacement.Placement> nearest =
 
 The taxonomies, the resources and the rules were all chosen while reading this tree, so a reading that works here establishes nothing on its own. A backtest reads a repository the reading was never written for.
 
-`./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` fetches each member at the commit the manifest pins; `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` reads them, one report folder per member under `output/`.
+`./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` fetches each member at the commit the manifest pins; `./gradlew evaluationRead -Dcs.evaluation.dir=<dir>` reads them, one report folder per member under `output/`. A fetch does nothing where the tree is already at its pinned commit, so a member is downloaded once and read as often as wanted.
 
-### One member so far: Apache Tika
+### The members
+
+Three, named in [`evaluation-set.tsv`](code-semantics-engine/src/test/resources/evaluation-set.tsv). Each domain is the category token the Apache Software Foundation states in its own DOAP record, published separately from the code and recorded **before** the reading runs; each licence is verified at the pinned revision rather than at HEAD.
+
+| Member | Pinned at | Stated domain | Why it is there | Read |
+|---|---|---|---|---|
+| [Apache Tika](https://github.com/apache/tika) | `43cbdae6` | `content` | text and metadata extraction, five times this repository's size and outside its subject matter | yes |
+| [Apache Maven](https://github.com/apache/maven) | `7ff92c68` | `build-management` | the negative control: no bundled vocabulary should say anything about it, and silence is the correct result | not yet |
+| [Apache Santuario](https://github.com/apache/santuario-xml-security-java) | `6e978eea` | `security`, `xml` | the first member the bundled NIST Cybersecurity Framework partitions, which until now had no repository to fire on at all | not yet |
+
+### What has been read: Apache Tika
 
 [Apache Tika](https://github.com/apache/tika) at `43cbdae6`, Apache-2.0. Its domain is the category token the Apache Software Foundation states in its own DOAP record, written down before the reading ran. It is a text and metadata extraction toolkit — five times this repository's size and outside its subject matter.
 
@@ -330,9 +340,11 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 
 The whole reading is snapshotted under [the Tika report folder](output/tika): [the summary](output/tika/markdown/summary.md), [what each scope is about](output/tika/markdown/themes.md), [the words it chose](output/tika/markdown/vocabulary.md), [the taxonomy terms it writes](output/tika/markdown/terms.md) and [where it stands among published subjects](output/tika/markdown/subjects.md).
 
-### What one member cannot settle
+### What is not settled yet
 
-A vocabulary must match inside its domain **and** produce few or no matches outside it. Tika extracts text and OLiA annotates text, so it is a poor negative control by construction. The member that would settle it is one with no text in its subject matter — `maven` or `ant`, which Apache states as `build-management`. Naming one costs a licence verified at a pinned revision, a domain stated by somebody outside this project and recorded before the reading runs, and an expected result.
+A vocabulary must match inside its domain **and** produce few or no matches outside it. Tika extracts text and OLiA annotates text, so it is a poor negative control by construction, and no bundled taxonomy had a member inside its own domain at all.
+
+Both gaps now have a member named, fetched and pinned, and **neither has been read**. Maven is the negative control — a build tool has no text in its subject matter, so the honest result is silence. Santuario is the positive control for the NIST Cybersecurity Framework, and its second stated token `xml` overlaps Tika's `content`, which also asks whether the reading separates two neighbouring domains. Until `evaluationRead` has run over all three, the figures above are one repository's.
 
 ## Definitions
 

@@ -24,7 +24,7 @@ Every bundled taxonomy is the same shape and arrives the same way. CSO and BIAN 
 5. **If it is matched against declared names**: an engine `TermIndex` (`ComputingTerms` is the model) and an entry in `MatchedTaxonomies`, which is the one list of what every run matches. If it is prose, it is placement-read instead and nothing joins the enum.
 6. **`NOTICE.md`**: a row in the bundled-data table, with the attribution the licence requires.
 7. **README**: the four-readings table, the term-taxonomy table if matched, References.
-8. **Regenerate the readings** (`./gradlew read`, and the Tika clone at its pinned commit) in a follow-up commit touching no Java — a new matched taxonomy changes the export and the reports.
+8. **Regenerate the readings** in a follow-up commit touching no Java — a new matched taxonomy changes the export and the reports. `./gradlew read` for this tree, then `./gradlew evaluationRead -Dcs.evaluation.dir=~/evaluation` for the evaluation set. Its members are already cloned at their pinned commits, and a fetch does nothing where a tree is already pinned, so **never re-clone a member**.
 
 ## What decides matched against placement
 
