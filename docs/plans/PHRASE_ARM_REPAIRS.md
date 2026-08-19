@@ -2,6 +2,73 @@
 
 [Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) built the arm and ran it on three evaluation members. `./gradlew topicMatch -Ptopic="Semantic Web"` then traced one topic keyword by keyword. The topic was a poor choice and the trace is kept for what it exposed about the mechanism rather than for its verdict — see the correction below. It separates three defects the ranking alone reports as one bad answer. Each has its own evidence, its own repair and its own abandon condition.
 
+## Each repair in one example
+
+The rest of this plan is written in the terms the code uses. This section says the same things in plain ones, with a real figure from this repository beside each.
+
+### The terms that recur
+
+| Term | In plain words | Worked example |
+|---|---|---|
+| **Keyword** | One of the ten short phrases OpenAlex publishes to say what a topic covers | `Semantic Web and Ontologies` publishes `RDF`, `OWL`, `SPARQL`, `Ontology`, `Linked Data`, `Schema Matching` and four more |
+| **Run** | Two or more words next to each other, on either side | The keyword `Word Sense Disambiguation` is a run of three; the class name `RdfXmlReader` is a run of three |
+| **Match** | The repository declared the same run the topic published | This repository declares `SparqlEndpoint`, so it matched `SPARQL` |
+| **Mass** | How much a topic scored — today, how many times its matched keywords were written | `Names, Identity, and Discrimination Research` scored 257.20 because this repository writes `name` constantly |
+| **Probability of superiority** | Pick one topic that mentions the repository's stated subject and one that does not, at random. How often does the first rank higher? | Santuario scores 0.596 — a security topic beats a non-security topic about 60% of the time. 0.5 would be a coin toss |
+
+### Repair 0 — stop counting how often, start counting how many
+
+**What is wrong, in one comparison.** Two topics, both with ten published keywords:
+
+| Topic | Keywords this repository wrote | How often it wrote them | Score today |
+|---|---|---|--:|
+| Lexicography and Language Studies | **five** — `Dictionaries`, `Language`, `Usage`, `Corpus`, `Meaning` | a moderate number of times each | 160.74, rank 7 |
+| Names, Identity, and Discrimination Research | **one** — `Names` | hundreds of times | 257.20, **rank 1** |
+
+Writing one word very often beats writing five different ones. That is backwards: five separate agreements are stronger evidence than one word repeated.
+
+**The repair.** Score a topic by *what share of its ten keywords the repository wrote*, not by how many times. Lexicography becomes 5 of 10; Names becomes 1 of 10. Lexicography wins, which is the right way round. A share cannot exceed 1 by its own definition, so no amount of repetition can inflate it — that is what "a bound must be derived" means here.
+
+**Why a second share is needed too.** A topic publishing one keyword the repository happens to write would score 1 of 1, a perfect score on a single word. The second share — of everything this repository writes, how much does this topic account for? — refuses that. One share alone is the mistake `WrittenSubtree` already made.
+
+**What this repair does *not* fix, and I conflated the two earlier.** It removes the advantage of repetition. It does **not** make a topic reachable whose keywords are all phrases: `Natural Language Processing Techniques` scores 0 of 10 today and would still score 0 of 10, because the repository never writes `Word Sense Disambiguation` as a run. Making that reachable is repair 3, not this one.
+
+### Repair 1 — a rare word should count for more than a common one
+
+**The example.** This repository declares both `name` and `sparql`. `name` is among the commonest few thousand words in English and appears in almost every program ever written. `sparql` is not in the frequency list at all. Today a match on each counts the same.
+
+**The repair.** Weigh each match by how rare its words are, which `PhraseSpecificity` already computes for every match and currently uses only to sort a report.
+
+**The catch, which has to be measured rather than argued.** Rarity is measured against *English*. `taxonomy` is rare in English and extremely common in this repository — it names `TaxonomyTree`, `TaxonomyShape` and more — so this weight would treat it as strong evidence when it is really this project's own furniture. The alternative measures a word against how often *this* repository writes it compared to ordinary English. Run both and compare.
+
+### Repair 2 — should a javadoc sentence count?
+
+**The example.** This repository writes the phrase `knowledge representation` in a javadoc sentence. It never declares a class, method or field called `KnowledgeRepresentation`. Today the arm reads only declarations, so that sentence counts for nothing.
+
+**The question.** A sentence an author wrote about their own code is not borrowed vocabulary the way `String` or `assertThat` is. Whether it counts as the author's own word is the decision, and it is not obvious either way.
+
+### Repair 3 — the words are there, just not next to each other
+
+**The example.** `Software Engineering Research` publishes the keyword `Source Code Analysis`. This repository declares `source`, `code` and `analysis` — every word — and never those three adjacent inside one name. They sit in different places: a type called one thing with a member called another.
+
+**Why no dictionary fixes it.** Nothing is missing and nothing is misspelled. Only the adjacency is absent, and the run would have to be assembled across a declaration rather than read out of one name. This is the expensive repair and it is blocked on other work.
+
+### Repair 4 — reading a format is not studying it
+
+**The example.** This repository declares `RdfXml`, `OwlClasses` and `SparqlEndpoint`, all in `lexicon-extraction`, because RDF and OWL are the **file formats it parses** to pull published vocabularies in. That is not the same as being a project about the Semantic Web. Tika has the same problem far worse: it declares a parser for every document format there is.
+
+**Nothing currently separates the two**, and no weighting can, because the names are identical either way.
+
+### The three diagnostics, as rows they would print
+
+| Diagnostic | One row of it |
+|---|---|
+| **Span ledger** — every match, one row | `name` · 312 times · rarity 0.21 · credited `Names, Identity…` and 8 other topics · first at `TopicTally.java:44` |
+| **Per-topic witnesses** — why a topic ranks where it does | `Lexicography and Language Studies` rank 7 · carried by `Dictionaries` 40%, `Corpus` 25%, `Meaning` 20%, `Language` 10%, `Usage` 5% |
+| **Reachability census** — how much of the scheme is in reach | of 45,154 keywords: *n* declared exactly · *n* every word declared but never adjacent · *n* partly written · *n* never written |
+
+The first would have shown repair 0 on the day the arm was built. Reading one topic at a time, as the current probes do, cannot show it.
+
 ## What the trace found
 
 `Semantic Web and Ontologies` holds mass 55.94 and ranks **55th of 357 topics reached**, against the placement arm's 1,172nd of 4,499. Four of its ten keywords match. It still loses to `Names, Identity, and Discrimination Research` at 257.20, which matches **one** keyword, `Names`.
