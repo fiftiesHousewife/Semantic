@@ -45,6 +45,7 @@ public final class PhraseTopics {
     private final SenseCoverage coverage;
     private final TopicDistribution prior;
     private final Set<String> declaredHere;
+    private final String layoutWord;
 
     /** The JavaBeans accessor grammar, a pure statement of the specification, so it is not injected. */
     private final io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccessors accessors =
@@ -52,17 +53,18 @@ public final class PhraseTopics {
 
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
-        this(citations, commitment, coverage, TopicDistribution.NOTHING, Set.of());
+        this(citations, commitment, coverage, TopicDistribution.NOTHING, Set.of(), "");
     }
 
     private PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                          final SenseCoverage coverage, final TopicDistribution prior,
-                         final Set<String> declaredHere) {
+                         final Set<String> declaredHere, final String layoutWord) {
         this.citations = citations;
         this.commitment = commitment;
         this.coverage = coverage;
         this.prior = prior;
         this.declaredHere = declaredHere;
+        this.layoutWord = layoutWord;
     }
 
     /**
@@ -82,9 +84,14 @@ public final class PhraseTopics {
      * word this file <em>declared</em> is one the file has already committed to a meaning for, and the
      * prose around a declaration is prose about that declaration. Without it {@code file} in a sentence
      * reads as the verb, which is a legal act, and a library documenting parsed files documents litigation.
+     *
+     * <p>The word the file's source set is named by comes with it too. A name's word spelling the source
+     * set restates the layout — Maven's, not the author's — so it votes nothing while staying in the
+     * phrase it was written in.
      */
-    public PhraseTopics under(final TopicDistribution fileReading, final Set<String> declaredHere) {
-        return new PhraseTopics(citations, commitment, coverage, fileReading, declaredHere);
+    public PhraseTopics under(final TopicDistribution fileReading, final Set<String> declaredHere,
+                              final String layoutWord) {
+        return new PhraseTopics(citations, commitment, coverage, fileReading, declaredHere, layoutWord);
     }
 
     /** One phrase's reading: the subjects it is about, which words agreed, and how much was spoken for. */
@@ -150,7 +157,7 @@ public final class PhraseTopics {
         final String prefix = accessor ? words.getFirst() : "";
         final String head = words.getLast();
         return word -> {
-            if (word.equals(prefix)) {
+            if (word.equals(prefix) || word.equals(layoutWord)) {
                 return List.of();
             }
             if (verbs.contains(word)) {

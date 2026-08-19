@@ -13,6 +13,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
 
 /**
  * What this repository does, read from the names of the things that do it.
@@ -62,7 +63,7 @@ public final class Behaviours {
      * or where the name is a property accessor the language's specification claims.
      */
     public Optional<Behaviour> of(final NameOccurrence occurrence, final ParsedFile file) {
-        final List<String> clause = words.of(occurrence.text()).words();
+        final List<String> clause = withoutTheLayoutsPrefix(words.of(occurrence.text()).words(), file);
         if (clause.isEmpty() || accessors.claims(clause)) {
             return Optional.empty();
         }
@@ -70,6 +71,18 @@ public final class Behaviours {
                 .filter(verb -> outranksTheNounReading(clause.getFirst(), verb))
                 .map(verb -> new Behaviour(verb, clause.subList(1, clause.size()), occurrence.text(),
                         file.path() + ":" + occurrence.line()));
+    }
+
+    /**
+     * The clause without a leading word that spells the source set the file sits in. {@code testParsesXml}
+     * in {@code src/test/java} carries the layout's own word in front of the sentence its author wrote, so
+     * the sentence is what is left — parse xml — and a name that is only the layout's word yields nothing.
+     */
+    private static List<String> withoutTheLayoutsPrefix(final List<String> written, final ParsedFile file) {
+        final String layout = PublishedSourceSets.sourceSetOf(file.scope());
+        return !written.isEmpty() && written.getFirst().toLowerCase(java.util.Locale.ROOT).equals(layout)
+                ? written.subList(1, written.size())
+                : written;
     }
 
     /**

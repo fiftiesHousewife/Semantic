@@ -63,6 +63,20 @@ class BehavioursTest {
     }
 
     @Test
+    void readsAJUnitThreeNameAsTheSentenceAfterTheLayoutsWord() {
+        assertThat(behaviours.in(List.of(new ParsedFile("engine/src/test/java", "ReadingTest.java", 12,
+                JavaSource.newInstance().read("""
+                        package example;
+                        class ReadingTest {
+                            void testParsesXml() { }
+                        }
+                        """).occurrences(), ParseOutcome.CLEAN))))
+                .singleElement()
+                .extracting(Behaviour::sentence)
+                .isEqualTo("parse xml");
+    }
+
+    @Test
     void readsANounTheDictionaryIndexesDirectlyOverAVerbReachedByInflection() {
         assertThat(read("""
                 package example;

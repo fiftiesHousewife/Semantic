@@ -16,6 +16,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
 
 /**
  * Reads what a working tree's scopes are about, and — the part that matters — what each is about
@@ -107,8 +108,12 @@ public final class ThemeReading {
      */
     private FileTopics read(final ParsedFile file, final TopicWitnesses witnesses,
                             final WordSightings sightings) {
-        final FileTopics alone = tallied(file, phrases, new TopicWitnesses(), new WordSightings());
-        return tallied(file, phrases.under(alone.distribution(), declaredIn(file)), witnesses, sightings);
+        final String layout = PublishedSourceSets.sourceSetOf(file.scope());
+        final FileTopics alone = tallied(file,
+                phrases.under(TopicDistribution.NOTHING, java.util.Set.of(), layout),
+                new TopicWitnesses(), new WordSightings());
+        return tallied(file, phrases.under(alone.distribution(), declaredIn(file), layout),
+                witnesses, sightings);
     }
 
     /**
