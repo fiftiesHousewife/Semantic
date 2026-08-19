@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 /**
@@ -29,7 +29,7 @@ public class PooledDescriptions {
 
     private static final String POOLED = "archive";
 
-    public List<SkosConcept> broaderThan(final List<SkosConcept> described, final ArxivSubjects taxonomy) {
+    public List<SkosConcept> broaderThan(final List<SkosConcept> described, final PublishedSubjects taxonomy) {
         final Map<String, List<SkosConcept>> byBroader = described.stream().collect(Collectors.groupingBy(
                 SkosConcept::broader, LinkedHashMap::new, Collectors.toList()));
         return byBroader.entrySet().stream().map(entry -> pooled(entry.getKey(), entry.getValue(), taxonomy))
@@ -37,7 +37,7 @@ public class PooledDescriptions {
     }
 
     private static SkosConcept pooled(final String broader, final List<SkosConcept> under,
-                                      final ArxivSubjects taxonomy) {
+                                      final PublishedSubjects taxonomy) {
         final SkosConcept stated = taxonomy.conceptOf(broader);
         return new SkosConcept(broader, stated.prefLabel(), stated.altLabel(), stated.broader(), POOLED,
                 stated.module(),

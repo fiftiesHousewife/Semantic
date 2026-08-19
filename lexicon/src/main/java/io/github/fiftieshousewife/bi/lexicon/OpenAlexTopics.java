@@ -17,7 +17,15 @@ import java.util.stream.Collectors;
  * distributions over one topic space and nothing has to be matched term to term. OpenAlex describes no
  * subfield, field or domain, so those rows say where a topic sits and are never candidates themselves.
  */
-public final class OpenAlexTopics {
+public final class OpenAlexTopics implements PublishedSubjects {
+
+    private static final String SCHEME = "OpenAlex";
+
+    @Override
+    public String scheme() {
+        return SCHEME;
+    }
+
 
     private static final String RESOURCE = "openalex-topics.tsv";
 
@@ -36,15 +44,18 @@ public final class OpenAlexTopics {
         return CLASSPATH_DEFAULTS;
     }
 
+    @Override
     public List<SkosConcept> concepts() {
         return List.copyOf(byConcept.values());
     }
 
     /** The topics OpenAlex states a description for — the subjects a scope can be placed against. */
+    @Override
     public List<SkosConcept> described() {
         return byConcept.values().stream().filter(concept -> !concept.definition().isBlank()).toList();
     }
 
+    @Override
     public SkosConcept conceptOf(final String concept) {
         return Objects.requireNonNull(byConcept.get(concept),
                 () -> "The taxonomy states no topic " + concept);

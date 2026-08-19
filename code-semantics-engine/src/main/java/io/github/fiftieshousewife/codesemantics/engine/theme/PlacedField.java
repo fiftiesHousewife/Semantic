@@ -3,6 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 /**
@@ -20,8 +22,6 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 public record PlacedField(String scheme, List<SubjectPlacement.Placement> archives,
                           SubjectNull.Chance archiveChance, List<SubjectPlacement.Placement> categories,
                           SubjectNull.Chance categoryChance) {
-
-    private static final String ARXIV = "arXiv";
 
     public PlacedField {
         archives = List.copyOf(archives);
@@ -45,16 +45,40 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
 
     /** Placed against arXiv's own taxonomy at both levels, each drawn against chance at the stated seed. */
     public static PlacedField ofArxiv(final TopicDistribution reading, final long seed) {
-        final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
+        return of(ArxivSubjects.fromClasspath(), reading, SubjectAreas.archivesFromClasspath(),
+                SubjectAreas.publishedFromClasspath(), seed);
+    }
+
+    /**
+     * Placed against OpenAlex's topics, pooled to the subfield for the broader level.
+     *
+     * <p><b>It is not the default and has not earned being one.</b> On Apache Tika the best of 4,516 chance
+     * subjects came nearer than the best real one, so the placement reported nothing on the one repository
+     * this reading was not written for, while arXiv cleared its null on both. Two properties of the scheme
+     * raise what chance reaches and neither is a defect in the data: 4,516 subjects against 152, and a median
+     * description of 69 words against 18.
+     */
+    public static PlacedField ofOpenAlex(final TopicDistribution reading, final long seed) {
+        return of(OpenAlexTopics.fromClasspath(), reading, SubjectAreas.subfieldsFromClasspath(),
+                SubjectAreas.topicsFromClasspath(), seed);
+    }
+
+    /**
+     * Any scheme stating prose per subject, at the two levels it states them at. The broader level is the
+     * scheme's own {@code broader} column pooled, so nothing here decides which subjects belong together.
+     */
+    public static PlacedField of(final PublishedSubjects taxonomy, final TopicDistribution reading,
+                                 final List<SubjectTopics> broaderRead,
+                                 final List<SubjectTopics> leavesRead, final long seed) {
         final List<SkosConcept> described = taxonomy.described();
-        final List<SkosConcept> archives = new PooledDescriptions().broaderThan(described, taxonomy);
-        final List<SubjectPlacement.Placement> byArchive =
-                SubjectPlacement.byDivergence().of(reading, SubjectAreas.archivesFromClasspath());
-        final List<SubjectPlacement.Placement> byCategory =
-                SubjectPlacement.byDivergence().of(reading, SubjectAreas.publishedFromClasspath());
-        return new PlacedField(ARXIV,
-                byArchive, chance(reading, byArchive, archives, seed),
-                byCategory, chance(reading, byCategory, described, seed));
+        final List<SkosConcept> broader = new PooledDescriptions().broaderThan(described, taxonomy);
+        final List<SubjectPlacement.Placement> byBroader =
+                SubjectPlacement.byDivergence().of(reading, broaderRead);
+        final List<SubjectPlacement.Placement> byLeaf =
+                SubjectPlacement.byDivergence().of(reading, leavesRead);
+        return new PlacedField(taxonomy.scheme(),
+                byBroader, chance(reading, byBroader, broader, seed),
+                byLeaf, chance(reading, byLeaf, described, seed));
     }
 
     private static SubjectNull.Chance chance(final TopicDistribution reading,

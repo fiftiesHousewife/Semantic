@@ -387,3 +387,26 @@ tasks.register<JavaExec>("shortNames") {
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
+
+// Every arm of the reading placed against every bundled subject scheme, side by side, with how far the
+// arms agree. Nothing here votes; it prints.
+//   ./gradlew armPlacement -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("armPlacement") {
+    group = "verification"
+    description = "Places the vocabulary, concept and behaviour arms against arXiv and OpenAlex alike"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.ArmPlacementProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
+// Why a subject came first: the topics the repository and that subject's description share. No null.
+//   ./gradlew subjectWitnesses -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("subjectWitnesses") {
+    group = "verification"
+    description = "Prints the topics behind the leading subjects of every bundled scheme"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.SubjectWitnessProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}

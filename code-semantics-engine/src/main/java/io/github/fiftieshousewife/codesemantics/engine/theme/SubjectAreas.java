@@ -3,6 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
@@ -51,26 +53,50 @@ public final class SubjectAreas {
     }
 
     /**
-     * {@link #published()} computed once per JVM and shared: the bundled taxonomy cannot change under a
-     * running program, and reading its hundred-odd descriptions costs seconds per caller otherwise.
+     * The leaves of one scheme, computed once per JVM and shared: a bundled taxonomy cannot change under a
+     * running program, and reading four thousand descriptions costs minutes per caller otherwise.
      */
     public static List<SubjectTopics> publishedFromClasspath() {
-        return ClasspathReadings.DESCRIBED;
+        return ClasspathReadings.leavesOf(ArxivSubjects.fromClasspath());
     }
 
-    /** The same descriptions pooled to the archive level, computed once per JVM for the same reason. */
+    /** The same descriptions pooled a level up, computed once per JVM for the same reason. */
     public static List<SubjectTopics> archivesFromClasspath() {
-        return ClasspathReadings.ARCHIVES;
+        return ClasspathReadings.pooledOf(ArxivSubjects.fromClasspath());
     }
 
-    private static final class ClasspathReadings {
-        private static final List<SubjectTopics> DESCRIBED = fromClasspath().published();
-        private static final List<SubjectTopics> ARCHIVES = archives();
+    /** Every topic OpenAlex describes, read by the same instrument that reads arXiv's categories. */
+    public static List<SubjectTopics> topicsFromClasspath() {
+        return ClasspathReadings.leavesOf(OpenAlexTopics.fromClasspath());
+    }
 
-        private static List<SubjectTopics> archives() {
-            final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
-            return fromClasspath()
-                    .of(new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy));
+    /** OpenAlex's topics pooled to the subfield each is stated in. */
+    public static List<SubjectTopics> subfieldsFromClasspath() {
+        return ClasspathReadings.pooledOf(OpenAlexTopics.fromClasspath());
+    }
+
+    /**
+     * One reading per scheme per level, kept for the life of the JVM. A scheme is read the first time it is
+     * asked for rather than at class-load, so a run placing against arXiv alone never reads OpenAlex's four
+     * thousand descriptions.
+     */
+    private static final class ClasspathReadings {
+        private static final java.util.Map<String, List<SubjectTopics>> LEAVES =
+                new java.util.concurrent.ConcurrentHashMap<>();
+        private static final java.util.Map<String, List<SubjectTopics>> POOLED =
+                new java.util.concurrent.ConcurrentHashMap<>();
+
+        private ClasspathReadings() {
+        }
+
+        static List<SubjectTopics> leavesOf(final PublishedSubjects taxonomy) {
+            return LEAVES.computeIfAbsent(taxonomy.scheme(),
+                    scheme -> fromClasspath().of(taxonomy.described()));
+        }
+
+        static List<SubjectTopics> pooledOf(final PublishedSubjects taxonomy) {
+            return POOLED.computeIfAbsent(taxonomy.scheme(), scheme -> fromClasspath()
+                    .of(new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy)));
         }
     }
 

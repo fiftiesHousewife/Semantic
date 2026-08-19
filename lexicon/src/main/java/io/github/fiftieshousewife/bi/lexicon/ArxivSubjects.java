@@ -17,7 +17,15 @@ import java.util.stream.Collectors;
  * two distributions over one topic space and nothing has to be matched term to term. An area arXiv states
  * no description for is not a candidate — it would be a name with nothing behind it to compare.
  */
-public final class ArxivSubjects {
+public final class ArxivSubjects implements PublishedSubjects {
+
+    private static final String SCHEME = "arXiv";
+
+    @Override
+    public String scheme() {
+        return SCHEME;
+    }
+
 
     private static final String RESOURCE = "arxiv-taxonomy.tsv";
 
@@ -38,16 +46,19 @@ public final class ArxivSubjects {
         return CLASSPATH_DEFAULTS;
     }
 
+    @Override
     public List<SkosConcept> concepts() {
         return List.copyOf(byConcept.values());
     }
 
     /** The categories arXiv states a subject description for — the areas a scope can be placed against. */
+    @Override
     public List<SkosConcept> described() {
         return byConcept.values().stream().filter(concept -> CATEGORY.equals(concept.kind()))
                 .filter(concept -> !concept.definition().isBlank()).toList();
     }
 
+    @Override
     public SkosConcept conceptOf(final String concept) {
         return Objects.requireNonNull(byConcept.get(concept),
                 () -> "The taxonomy states no subject " + concept);
