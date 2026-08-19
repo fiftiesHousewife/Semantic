@@ -9,6 +9,8 @@ import java.util.stream.StreamSupport;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+
 /**
  * One topic record of an OpenAlex snapshot: what the publisher calls it, what it says the topic is about,
  * where it places it and which Wikipedia article it links it to.
@@ -16,9 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * <p>The concept is the path of the publisher's own identifier — {@code T11347}, {@code subfields/1705} —
  * so a row can be taken back to the URL it came from without anything here inventing a key.
  *
- * <p>{@link #subjectMatter} joins the description and the keywords because both are OpenAlex's account of
- * what the topic covers, and a placement reads that account as prose. The Wikipedia link is not part of it:
- * it identifies the topic in another scheme rather than describing it.
+ * <p>{@link #subjectMatter} carries the description and the keywords because both are OpenAlex's account of
+ * what the topic covers. They are joined as two statements of one property rather than run together, so a
+ * placement can read the whole account as prose while a reading that matches runs of words can take the two
+ * apart. The Wikipedia link is not part of it: it identifies the topic in another scheme rather than
+ * describing it.
  */
 public record OpenAlexTopic(String concept, String label, String description, List<String> keywords,
         String wikipedia, List<OpenAlexLevel> above) {
@@ -54,9 +58,17 @@ public record OpenAlexTopic(String concept, String label, String description, Li
                 stated.path(IDS).path(WIKIPEDIA).asText(), levelsAbove(stated, concept));
     }
 
-    /** The description and the keywords, which is everything the publisher states the topic covers. */
+    /**
+     * The description and the keywords, which is everything the publisher states the topic covers.
+     *
+     * <p>They are two statements of one property rather than one statement, so they are joined the way
+     * every repeated property here is joined and {@link SkosConcept#definitions()} takes them apart again.
+     * Fifty words of prose and ten high-specificity noun phrases are not the same evidence, and a reading
+     * that matches runs of words has to be able to say which of the two it matched.
+     */
     public String subjectMatter() {
-        return keywords.isEmpty() ? description : description + " " + String.join(KEYWORDS, keywords);
+        return keywords.isEmpty() ? description
+                : description + SkosConcept.STATEMENTS + String.join(KEYWORDS, keywords);
     }
 
     private static List<OpenAlexLevel> levelsAbove(final JsonNode stated, final String concept) {

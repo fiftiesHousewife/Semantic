@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,9 +33,17 @@ class OpenAlexTopicTest {
     }
 
     @Test
-    void joinsTheDescriptionAndTheKeywordsIntoWhatThePublisherStatesTheTopicIsAbout() {
-        assertThat(topic.subjectMatter()).isEqualTo("This cluster of papers focuses on synchronization. "
-                + "Synchronization, Complex Networks");
+    void statesTheDescriptionAndTheKeywordsAsTwoAccountsOfWhatTheTopicCovers() {
+        assertThat(topic.subjectMatter()).isEqualTo("This cluster of papers focuses on synchronization."
+                + " | Synchronization, Complex Networks");
+    }
+
+    @Test
+    void leavesTheTwoAccountsSeparableByTheReaderThatSplitsAnyRepeatedProperty() {
+        assertThat(new SkosConcept("T11347", topic.label(), "", "", "topic", "", topic.subjectMatter(), "")
+                .definitions())
+                .containsExactly("This cluster of papers focuses on synchronization.",
+                        "Synchronization, Complex Networks");
     }
 
     @Test

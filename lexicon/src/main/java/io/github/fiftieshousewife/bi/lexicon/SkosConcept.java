@@ -44,8 +44,27 @@ public record SkosConcept(String concept, String prefLabel, String altLabel, Str
      * <p>Empty where the source states no parent, which is a fact about the publication rather than a gap.
      */
     public java.util.List<String> broaderConcepts() {
-        return broader.isBlank() ? java.util.List.of()
-                : java.util.Arrays.stream(broader.split(java.util.regex.Pattern.quote(STATEMENTS)))
+        return statements(broader);
+    }
+
+    /**
+     * Every account a source gives of what this concept covers, in the order the source wrote them.
+     *
+     * <p>One statement for most sources. OpenAlex gives two — the prose description and the ten keywords —
+     * and they behave differently enough that a reading matching runs of words has to be able to take them
+     * apart. Joining them into one string is what makes that impossible without a rule about where a
+     * sentence ends, which would be a rule about the publisher's formatting rather than about its meaning.
+     *
+     * <p>Empty where the source defines nothing, which is the ordinary case above leaf level.
+     */
+    public java.util.List<String> definitions() {
+        return statements(definition);
+    }
+
+    /** A repeated property split back into the statements it was joined from, blanks discarded. */
+    private static java.util.List<String> statements(final String property) {
+        return property.isBlank() ? java.util.List.of()
+                : java.util.Arrays.stream(property.split(java.util.regex.Pattern.quote(STATEMENTS)))
                         .map(String::strip).filter(stated -> !stated.isEmpty()).toList();
     }
 }

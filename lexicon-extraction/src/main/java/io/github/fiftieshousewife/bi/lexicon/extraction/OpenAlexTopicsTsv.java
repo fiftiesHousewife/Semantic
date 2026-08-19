@@ -31,7 +31,9 @@ public class OpenAlexTopicsTsv {
                 # broader is the subfield a topic is stated in, the field a subfield is stated in, the domain
                 # a field is stated in, and empty for a domain; module is the domain a concept rolls up to.
                 # definition is the description and the keywords, which are both OpenAlex's statement of what
-                # the topic covers, and it is empty above topic level because OpenAlex describes no subfield,
+                # the topic covers, separated by the same " | " that separates any repeated property here so
+                # that a reading can take the prose and the keywords apart; it is empty above topic level
+                # because OpenAlex describes no subfield,
                 # field or domain. note is the Wikipedia article OpenAlex links the topic to, which
                 # identifies it in a scheme outside this one. altLabel is empty: OpenAlex states no second
                 # label for anything.

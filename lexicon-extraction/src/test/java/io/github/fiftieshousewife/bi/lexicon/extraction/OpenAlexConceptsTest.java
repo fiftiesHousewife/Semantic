@@ -43,9 +43,9 @@ class OpenAlexConceptsTest {
     @Test
     void statesTheProseAndTheArticleOnTheTopicAndNeitherOnTheLevelsAboveIt() {
         assertAll(
-                () -> assertThat(conceptOf("T11347").definition())
-                        .isEqualTo("This cluster of papers focuses on synchronization. "
-                                + "Synchronization, Complex Networks"),
+                () -> assertThat(conceptOf("T11347").definitions())
+                        .containsExactly("This cluster of papers focuses on synchronization.",
+                                "Synchronization, Complex Networks"),
                 () -> assertThat(conceptOf("T11347").note())
                         .isEqualTo("https://en.wikipedia.org/wiki/Synchronization_of_coupled_oscillators"),
                 () -> assertThat(conceptOf("fields/17").definition()).isEmpty(),
