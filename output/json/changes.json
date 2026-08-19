@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "d6d0959138847dd3cf3bbd5709b556e423e3641a",
-  "commit" : "50c417e8bb41d36b8bd26f5eeee5ed23ea99694f",
+  "previousCommit" : "b1be399c27c47a82d363cd8098b0d7d5d9c86d7f",
+  "commit" : "64e1496e735c505659f2e670f53a30e0a7159333",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -31,20 +31,20 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "Category — divergence",
-    "before" : "38.9%",
-    "after" : "38.9%"
+    "before" : "38.8%",
+    "after" : "38.8%"
   }, {
     "figure" : "Category — chance reaches",
-    "before" : "44.1%",
-    "after" : "44.1%"
+    "before" : "44.2%",
+    "after" : "44.2%"
   }, {
     "figure" : "Category — stands apart from chance",
     "before" : "yes",
     "after" : "yes"
   }, {
     "figure" : "Words above the bar",
-    "before" : "235",
-    "after" : "235"
+    "before" : "238",
+    "after" : "238"
   }, {
     "figure" : "Topics reported",
     "before" : "4",
