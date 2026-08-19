@@ -75,7 +75,32 @@ class ExportedThemesTest {
                 () -> assertThat(exported.getFirst().shareOfRepository())
                         .as("a share is of everything observed, so the mass nothing placed stays in it")
                         .isCloseTo(9.0 / 14.0, offset(1e-9)),
-                () -> assertThat(exported.getFirst().carriedBy()).containsExactly("word", "lemma"));
+                () -> assertThat(exported.getFirst().carriedBy()).map(ExportedWitness::word)
+                        .containsExactly("word", "lemma"));
+    }
+
+    @Test
+    void carriesEachWitnessesOccurrencesMassAndNamingResource() {
+        final ExportedWitness carried =
+                themes.in(summary(List.of("linguistics")), reading()).getFirst().carriedBy().getFirst();
+
+        assertAll(
+                () -> assertThat(carried.word()).isEqualTo("word"),
+                () -> assertThat(carried.occurrences()).isEqualTo(1),
+                () -> assertThat(carried.mass()).isEqualTo(3.0),
+                () -> assertThat(carried.sources())
+                        .containsExactly(EvidenceSource.WORDNET_DOMAIN.displayName()));
+    }
+
+    @Test
+    void quotesThePhraseAWordWasReadInWithTheFileAndLineItWasWrittenAt() {
+        final ExportedQuotation quoted = themes.in(summary(List.of("linguistics")), reading())
+                .getFirst().carriedBy().getFirst().quotations().getFirst();
+
+        assertAll(
+                () -> assertThat(quoted.phrase()).isEqualTo("word segmenter"),
+                () -> assertThat(quoted.site().file()).isEqualTo("Reading.java"),
+                () -> assertThat(quoted.site().line()).isEqualTo(7));
     }
 
     @Test

@@ -11,27 +11,27 @@ spread, to be read beside how many words touched the topic at all.
 
 | Topic | ι | Words touching it | Effective carriers | Concentration | Largest carrier |
 |---|--:|--:|--:|--:|---|
-| `linguistics` | 0.0493 | 131 | 6.7 | 0.142 | `word` 30.4% |
+| `linguistics` | 0.0492 | 131 | 6.7 | 0.142 | `word` 30.5% |
 | `publishing` | 0.0194 | 45 | 8.7 | 0.095 | `publish` 23.1% |
-| `computing` | 0.0149 | 327 | 45.4 | 0.019 | `repository` 6.0% |
-| `telecommunication` | 0.0140 | 19 | 2.2 | 0.415 | `file` 61.1% |
+| `computing` | 0.0149 | 328 | 45.3 | 0.019 | `repository` 6.1% |
+| `telecommunication` | 0.0140 | 19 | 2.2 | 0.416 | `file` 61.2% |
 | `mathematics` | 0.0109 | 135 | 9.6 | 0.098 | `from` 27.0% |
-| `law` | 0.0089 | 237 | 21.0 | 0.044 | `file` 11.0% |
+| `law` | 0.0090 | 237 | 20.8 | 0.044 | `file` 10.9% |
+| `grammar` | 0.0076 | 101 | 8.0 | 0.116 | `phrase` 21.9% |
 | `plants` | 0.0075 | 11 | 2.2 | 0.391 | `root` 54.3% |
-| `grammar` | 0.0073 | 101 | 8.1 | 0.115 | `phrase` 21.4% |
-| `geography` | 0.0068 | 29 | 3.5 | 0.261 | `state` 51.0% |
+| `geography` | 0.0067 | 29 | 3.5 | 0.261 | `state` 51.0% |
 | `literature` | 0.0058 | 35 | 5.0 | 0.175 | `header` 36.7% |
 | `chemistry` | 0.0051 | 78 | 3.5 | 0.277 | `extraction` 50.5% |
 | `electronics` | 0.0049 | 45 | 1.5 | 0.678 | `tsv` 82.3% |
 | `person` | 0.0049 | 42 | 10.4 | 0.074 | `reader` 18.1% |
-| `physics` | 0.0035 | 67 | 3.4 | 0.283 | `mass` 45.3% |
-| `military` | 0.0034 | 125 | 6.8 | 0.141 | `column` 22.3% |
+| `physics` | 0.0036 | 67 | 3.4 | 0.287 | `mass` 46.1% |
+| `military` | 0.0034 | 125 | 6.8 | 0.141 | `column` 22.1% |
 | `programming` | 0.0030 | 139 | 22.5 | 0.038 | `evaluation` 10.9% |
-| `politics` | 0.0029 | 51 | 3.2 | 0.301 | `vote` 50.9% |
+| `politics` | 0.0029 | 52 | 3.2 | 0.300 | `vote` 50.8% |
 | `money` | 0.0024 | 14 | 2.2 | 0.405 | `share` 63.9% |
 | `economy` | 0.0023 | 31 | 4.6 | 0.191 | `mark_down` 30.3% |
 | `psychology` | 0.0022 | 30 | 1.4 | 0.724 | `module` 85.5% |
-| `music` | 0.0020 | 183 | 18.0 | 0.050 | `label` 14.4% |
+| `music` | 0.0020 | 183 | 18.1 | 0.050 | `label` 14.3% |
 | `lexicography` | 0.0019 | 6 | 1.3 | 0.704 | `citation` 86.1% |
 | `medicine` | 0.0018 | 103 | 11.1 | 0.081 | `uri` 22.9% |
 | `number` | 0.0018 | 12 | 3.0 | 0.269 | `first` 39.8% |

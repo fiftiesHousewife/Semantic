@@ -23,9 +23,12 @@ class ReadingChangesTest {
                         new ExportedSummary.Counts(0, topics.size(), 0)),
                 List.of(),
                 topics.stream().map(topic -> new ExportedTheme(topic, "repository", 0.05, 0.02,
-                        List.of("word"))).toList(),
+                        List.of(CARRIED))).toList(),
                 List.of(), NOTHING_SET_ASIDE);
     }
+
+    private static final ExportedWitness CARRIED = new ExportedWitness("word", 40, 12.5,
+            List.of("WordNet Domains"), List.of());
 
     private static ReadingExport before() {
         return reading("aaaaaaaaaaaa", 0.983, "cs", 0.3401, true, List.of("linguistics", "law"));

@@ -7,7 +7,7 @@ A Java library that states what subject matter a source repository is concerned 
 It works in the terms of lexical semantics and information theory, and expects no prior knowledge of either. The [glossary](docs/GLOSSARY.md) defines every term it uses — *lemma*, *sense*, *synset*, *divergence*, *permutation null* — with what it is called in this tree and a reference for each.
 
 - **Takes** — a directory of Java source. No clone, no build, no type resolution, no network.
-- **Gives** — one export per run, [`reading.json`](output/json/reading.json): the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare. A run also writes `themes.json`, the graph the themes viewer draws from.
+- **Gives** — one export per run, [`reading.json`](output/json/reading.json): the words this repository writes more of than English or the Java platform does, the subjects those words place it in, and the concepts of a published taxonomy its names declare. A run also writes [`evidence.json`](output/json/evidence.json): the workings behind those answers — each scope with the topics accounting for its divergence, the words two topics share, and every file with the topic leading it. The answers are versioned and validated; the workings are not, and say so in their own `schemaVersion`.
 - **Decides by** — published resources only. A dictionary says which words carry subject matter, a frequency list says which are ordinary, and 999 resamples say which figures chance would have produced. No word list is written here.
 - **Run** — `./gradlew read`, then read the [summary](output/markdown/summary.md).
 

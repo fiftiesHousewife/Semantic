@@ -27,9 +27,24 @@ So the renderers go, the export stays and is split by audience.
 | `reading.json` — the answers, versioned, validated | `summary`, `nodes` with `carriedBy`, `signals`, `taxonomies`, `setAside`, `schemaVersion` | ~140 KB |
 | `evidence.json` — the workings, free to grow | `scopes`, `filesRead`, `edges`, `elapsedMillis` | ~1.1 MB |
 
-`scopes` is 968 KB of the 1.1 MB and `contributions` is almost all of it. **Count that before splitting**: if nothing needs per-scope contributions the evidence file collapses and the answer is one file, not two.
-
 `elapsedMillis` leaves the answers because it is a fact about the machine, not the repository, and it makes two runs of one tree differ when the reading did not.
+
+### What step 1 counted, and what it settled
+
+| | Bytes | Reader |
+|---|--:|---|
+| `scopes[].contributions` | 974,838 | `ScopeCards`, a renderer on the list above |
+| the rest of `scopes` | 2,297 | the same |
+| `filesRead` | 109,504 | `ThemePage` |
+| `nodes` | 28,995 | `ThemePage`, `BarDocument` |
+
+`contributions` is 99.8% of `scopes` and 72% of the whole file, over ten scopes. Nothing reads `themes.json` back: `ThemePage` and `BarDocument` render from the in-memory `ThemeGraph`, so the file was written and never opened.
+
+**That is the argument for the split, not against it.** 974 KB of per-scope workings is exactly what should not sit beside the answers a consumer acts on. So `themes.json` is not deleted, it is renamed and narrowed: the answers in it — `nodes`, with the words that carried each topic — move into `reading.json`, and what remains is the path that reached them.
+
+`nodes` carried what `reading.json` did not: each witness's occurrences, mass, naming resource and the phrases it was read in. `carriedBy` was a list of words and is now a list of witnesses, which is what makes a topic answerable back to the line that produced it. `SightingSite` states the file and line, matching `ExportedSignal.firstWrittenAt`; the permalink stays in the diagnostic, because the library is handed the facts about a repository and never reads `.git`.
+
+`ThemeGraph` keeps its `nodes` in memory — `BarDocument` draws `themes-bar.svg` from them, which is the picture the README embeds.
 
 ## Why this goes before the phrase arm's repairs
 
@@ -41,10 +56,12 @@ The test that this step succeeded is therefore the next step's first action: run
 
 ## Order
 
-1. **Count what `scopes[].contributions` costs and who reads it.** It decides whether this is a split or a deletion.
-2. **Delete the renderers**, in one commit, with the catalog entry and the `.gitignore` exceptions.
-3. **Fix what pointed at them** — the README's seven markdown links and its `output/html/index.html` link, and the CLAUDE.md sentence stating that measurements live in committed `output/`, which becomes the committed JSON.
-4. **Split the export**, and give `evidence.json` a `schemaVersion` or state in the file that it promises none.
+1. ~~**Count what `scopes[].contributions` costs and who reads it.**~~ **Done** — the table above. It settled the split rather than ending it.
+2. ~~**Split the export.**~~ **Done** — `reading.json` carries the answers at `schemaVersion` 4.0, with `carriedBy` widened from words to witnesses; `evidence.json` carries the workings at its own `schemaVersion` 1.0, which nothing validates and which says so.
+3. **Delete the renderers**, in one commit, with the catalog entry and the `.gitignore` exceptions. `ThemeTables` stays — `ThemeBar` formats the SVG's figures with it. `TaxonomyBranch` goes, its only caller being `TaxonomyPage`.
+4. **Fix what pointed at them** — the README's 15 `output/markdown/` links, its 2 `output/html/` links and the `output/svg/taxonomy-sunburst.svg` link that `TaxonomySunburst` will stop writing, and the CLAUDE.md sentence stating that measurements live in committed `output/`.
+
+Step 3 is the large one: eight diagnostics call `ReportFolder.wrote(...)`, so deleting the report classes rewrites each of them and `ReportFolder` loses `wrote`, `PageRendering` and two of `PublishedFormat`'s four folders.
 
 ## What settles it
 
@@ -54,4 +71,4 @@ The test that this step succeeded is therefore the next step's first action: run
 | The tree got smaller | 1.6 MB of committed artefacts and the whole rendering surface, against a catalog entry removed |
 | A reading can still be audited | a topic's `carriedBy` answers *why is this here* without a report being rendered |
 
-**Abandon the split if** step 1 shows the evidence keys are small. Two files nobody needs are worse than one file that is honest about what it holds.
+The split was conditional on step 1 and step 1 confirmed it: the workings are 1.3 MB against 217 KB of answers, and a consumer acting on the reading needs none of them.

@@ -13,10 +13,10 @@ import java.util.Objects;
  * @param scope             the scope that departs from the repository on it
  * @param shareOfRepository the topic's share of everything the repository placed
  * @param divergenceBits    the topic's term of that scope's divergence from the repository
- * @param carriedBy         the words that produced its score, most first
+ * @param carriedBy         the words that produced its score with the evidence for each, most first
  */
 public record ExportedTheme(String topic, String scope, double shareOfRepository, double divergenceBits,
-                            List<String> carriedBy) {
+                            List<ExportedWitness> carriedBy) {
 
     public ExportedTheme {
         Objects.requireNonNull(topic, "topic");

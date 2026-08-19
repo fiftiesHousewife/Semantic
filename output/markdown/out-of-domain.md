@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 1404 | 147.19 | 134 | 395 | 9 |
-| FIBO | 1833 | 254 | 26.63 | 24 | 125 | 0 |
+| OLiA | 1312 | 1410 | 147.38 | 134 | 398 | 9 |
+| FIBO | 1833 | 256 | 26.76 | 24 | 127 | 0 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -20,7 +20,7 @@ declares in some other sense.
 
 | Term | Occurrences | Concept FIBO publishes under it | First site |
 |---|--:|---|---|
-| `occurrences` | 78 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java:21 |
+| `occurrences` | 80 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java:21 |
 | `occurrence` | 45 | Occurrence | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java:56 |
 | `claim` | 18 | Claim | code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ChosenWord.java:23 |
 | `method` | 16 | Method | code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolKind.java:7 |

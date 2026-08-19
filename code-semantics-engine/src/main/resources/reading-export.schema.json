@@ -5,7 +5,14 @@
   "description": "One run of the code-semantics reading: what subject matter a repository is concerned with, and the evidence for it. `summary` carries the result. `signals`, `themes` and `taxonomies` carry one piece of evidence per entry. `setAside` counts what the reading measured and these lists omit.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "summary", "signals", "themes", "taxonomies", "setAside"],
+  "required": [
+    "schemaVersion",
+    "summary",
+    "signals",
+    "themes",
+    "taxonomies",
+    "setAside"
+  ],
   "properties": {
     "schemaVersion": {
       "title": "Schema version",
@@ -18,8 +25,19 @@
       "description": "The whole result. Every figure here also appears in a list below.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "commit", "about", "aboutStatedBy", "placedIn", "leadingWords", "leadingConcepts",
-        "distinctiveScopes", "shareOfWordsWithACitation", "shareOfMassOnNoSubject", "counts"],
+      "required": [
+        "repository",
+        "commit",
+        "about",
+        "aboutStatedBy",
+        "placedIn",
+        "leadingWords",
+        "leadingConcepts",
+        "distinctiveScopes",
+        "shareOfWordsWithACitation",
+        "shareOfMassOnNoSubject",
+        "counts"
+      ],
       "properties": {
         "repository": {
           "title": "Repository",
@@ -35,15 +53,21 @@
           "title": "Subjects that distinguish some part of the repository",
           "description": "The topics accounting for the departure of at least one scope from the whole repository. A topic written at the same density everywhere contributes almost nothing to a divergence and appears here for no scope.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "aboutStatedBy": {
           "title": "What named the subjects",
           "description": "The resources whose labels the `about` topics are. They are not a taxonomy's concepts: they are the labels dictionaries put on the senses of the words the repository declares, and a consumer reading `linguistics` beside a concept should be able to tell which kind of answer it has.",
           "type": "array",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
-        "placedIn": { "$ref": "#/$defs/placement" },
+        "placedIn": {
+          "$ref": "#/$defs/placement"
+        },
         "leadingWords": {
           "title": "Words with the highest scores",
           "description": "The words scoring highest against every reference, highest first, each with the score that put it there. `signals` carries the same words with the line each was first written on.",
@@ -51,16 +75,26 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["word", "divergenceBits", "occurrences"],
+            "required": [
+              "word",
+              "divergenceBits",
+              "occurrences"
+            ],
             "properties": {
-              "word": { "description": "The word as the identifier splitter produced it.", "type": "string" },
+              "word": {
+                "description": "The word as the identifier splitter produced it.",
+                "type": "string"
+              },
               "divergenceBits": {
                 "description": "Its term of the Jensen-Shannon divergence against the reference scoring it lowest, bounded at 1 bit.",
-                "type": "number", "minimum": 0, "maximum": 1
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
               },
               "occurrences": {
                 "description": "How many times the repository writes it.",
-                "type": "integer", "minimum": 1
+                "type": "integer",
+                "minimum": 1
               }
             }
           }
@@ -72,9 +106,14 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["concept", "publishedBy"],
+            "required": [
+              "concept",
+              "publishedBy"
+            ],
             "properties": {
-              "concept": { "type": "string" },
+              "concept": {
+                "type": "string"
+              },
               "publishedBy": {
                 "description": "The vocabulary publishing this concept, which decides what it means and how far to trust it.",
                 "type": "string"
@@ -89,7 +128,11 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["scope", "divergenceBits", "writesMoreOf"],
+            "required": [
+              "scope",
+              "divergenceBits",
+              "writesMoreOf"
+            ],
             "properties": {
               "scope": {
                 "title": "Scope",
@@ -107,7 +150,9 @@
                 "title": "Topics accounting for the divergence",
                 "description": "The topics this scope writes at a higher density than the repository does. Each also appears in `summary.about`.",
                 "type": "array",
-                "items": { "type": "string" }
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -131,30 +176,55 @@
           "description": "How many entries each list below holds.",
           "type": "object",
           "additionalProperties": false,
-          "required": ["signals", "themes", "concepts"],
+          "required": [
+            "signals",
+            "themes",
+            "concepts"
+          ],
           "properties": {
-            "signals": { "description": "Entries in `signals`.", "type": "integer", "minimum": 0 },
-            "themes": { "description": "Entries in `themes`.", "type": "integer", "minimum": 0 },
-            "concepts": { "description": "Concept entries across `taxonomies`.", "type": "integer", "minimum": 0 }
+            "signals": {
+              "description": "Entries in `signals`.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "themes": {
+              "description": "Entries in `themes`.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "concepts": {
+              "description": "Concept entries across `taxonomies`.",
+              "type": "integer",
+              "minimum": 0
+            }
           }
         }
       }
     },
     "signals": {
       "title": "Signals",
-      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name — `by`, `from`, `beside` — are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
+      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["readFrom", "word", "occurrences", "occurrencesInNames", "divergenceBits",
-          "closestReference", "firstWrittenAt"],
+        "required": [
+          "readFrom",
+          "word",
+          "occurrences",
+          "occurrencesInNames",
+          "divergenceBits",
+          "closestReference",
+          "firstWrittenAt"
+        ],
         "properties": {
           "readFrom": {
             "title": "Source read",
             "description": "Which source supplied the signal. CLONE is the working tree.",
             "type": "string",
-            "enum": ["CLONE"]
+            "enum": [
+              "CLONE"
+            ]
           },
           "word": {
             "title": "Word",
@@ -185,7 +255,9 @@
             "description": "The reference scoring this word lowest, which is the score reported. `get` scores high against ordinary English and low against the Java platform's own API, so the platform is its closest reference.",
             "type": "string"
           },
-          "firstWrittenAt": { "$ref": "#/$defs/site" }
+          "firstWrittenAt": {
+            "$ref": "#/$defs/site"
+          }
         }
       }
     },
@@ -196,7 +268,13 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["topic", "scope", "shareOfRepository", "divergenceBits", "carriedBy"],
+        "required": [
+          "topic",
+          "scope",
+          "shareOfRepository",
+          "divergenceBits",
+          "carriedBy"
+        ],
         "properties": {
           "topic": {
             "title": "Topic",
@@ -224,9 +302,11 @@
           },
           "carriedBy": {
             "title": "Words producing the score",
-            "description": "The words contributing most of this topic's score, largest contribution first. One word here means one word produced the topic.",
+            "description": "The words contributing most of this topic's score with the evidence for each, largest contribution first. One word here means one word produced the topic.",
             "type": "array",
-            "items": { "type": "string" }
+            "items": {
+              "$ref": "#/$defs/witness"
+            }
           }
         }
       }
@@ -238,7 +318,12 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["vocabulary", "concepts", "matchesByNormalisation", "placement"],
+        "required": [
+          "vocabulary",
+          "concepts",
+          "matchesByNormalisation",
+          "placement"
+        ],
         "properties": {
           "vocabulary": {
             "title": "Vocabulary matched against",
@@ -252,8 +337,14 @@
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["concept", "placedUnder", "occurrences", "specificity", "wordsInTerm",
-                "firstWrittenAt"],
+              "required": [
+                "concept",
+                "placedUnder",
+                "occurrences",
+                "specificity",
+                "wordsInTerm",
+                "firstWrittenAt"
+              ],
               "properties": {
                 "concept": {
                   "title": "Concept",
@@ -284,7 +375,9 @@
                   "type": "integer",
                   "minimum": 1
                 },
-                "firstWrittenAt": { "$ref": "#/$defs/site" }
+                "firstWrittenAt": {
+                  "$ref": "#/$defs/site"
+                }
               }
             }
           },
@@ -293,7 +386,11 @@
             "description": "How many matches each level produced. The levels are reported separately and never summed: a term found in the words themselves and a term found in what a dictionary says those words mean carry different weight as evidence.",
             "type": "object",
             "additionalProperties": false,
-            "required": ["words", "lemmas", "senses"],
+            "required": [
+              "words",
+              "lemmas",
+              "senses"
+            ],
             "properties": {
               "words": {
                 "description": "Both sides compared as the sequence of words each writes. `adjectivePhrase` matches OLiA's `AdjectivePhrase`.",
@@ -312,7 +409,9 @@
               }
             }
           },
-          "placement": { "$ref": "#/$defs/placement" }
+          "placement": {
+            "$ref": "#/$defs/placement"
+          }
         }
       }
     },
@@ -321,8 +420,13 @@
       "description": "Counts of what the reading measured and the three lists above omit. The rows themselves are in the generated reports.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["wordOccurrencesNoResourceCovers", "wordsBelowEveryThreshold", "scopesWithinChance",
-        "matchesDiscardedByBranchRule", "filesTheParserCouldNotRead"],
+      "required": [
+        "wordOccurrencesNoResourceCovers",
+        "wordsBelowEveryThreshold",
+        "scopesWithinChance",
+        "matchesDiscardedByBranchRule",
+        "filesTheParserCouldNotRead"
+      ],
       "properties": {
         "wordOccurrencesNoResourceCovers": {
           "description": "Word occurrences no bundled resource has an entry for. They remain in the denominator of `summary.shareOfWordsWithACitation`.",
@@ -358,7 +462,10 @@
       "description": "Where to read the evidence behind a figure.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["file", "line"],
+      "required": [
+        "file",
+        "line"
+      ],
       "properties": {
         "file": {
           "description": "The path relative to the root of the repository that was read.",
@@ -376,7 +483,11 @@
       "description": "Where the reading places the repository in a published subject scheme, at both levels the scheme states. Some subject is always nearest, so `standsApartFromChance` is what makes a placement a result.",
       "type": "object",
       "additionalProperties": false,
-      "required": ["scheme", "archive", "category"],
+      "required": [
+        "scheme",
+        "archive",
+        "category"
+      ],
       "properties": {
         "scheme": {
           "description": "The published subject scheme both levels come from, such as the arXiv category taxonomy.",
@@ -397,7 +508,12 @@
     "placementLevel": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["subject", "divergenceBits", "nearestByChanceBits", "standsApartFromChance"],
+      "required": [
+        "subject",
+        "divergenceBits",
+        "nearestByChanceBits",
+        "standsApartFromChance"
+      ],
       "properties": {
         "subject": {
           "description": "The subject's own label, as the scheme publishes it.",
@@ -418,6 +534,68 @@
         "standsApartFromChance": {
           "description": "True where `divergenceBits` is below `nearestByChanceBits`.",
           "type": "boolean"
+        }
+      }
+    },
+    "quotation": {
+      "title": "Quotation",
+      "description": "The phrase a word was read in, and where it was written. The unit of the reading is the phrase and never the word, so the evidence shown is the phrase too.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phrase",
+        "site"
+      ],
+      "properties": {
+        "phrase": {
+          "description": "The phrase the word was read in.",
+          "type": "string"
+        },
+        "site": {
+          "$ref": "#/$defs/site"
+        }
+      }
+    },
+    "witness": {
+      "title": "Witness",
+      "description": "One word's testimony for a topic. Occurrences and mass disagree and both are stated: a word written five hundred times can carry almost no mass where the frequency list says it narrows nothing.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "word",
+        "occurrences",
+        "mass",
+        "sources",
+        "quotations"
+      ],
+      "properties": {
+        "word": {
+          "description": "The word as the splitter produced it.",
+          "type": "string"
+        },
+        "occurrences": {
+          "description": "How often the word was written.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "mass": {
+          "description": "How much of the topic's mass this word carried.",
+          "type": "number",
+          "minimum": 0
+        },
+        "sources": {
+          "description": "The resources naming this topic for this word, in their own published spelling. One resource here means one resource read the topic, which no other corroborated.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quotations": {
+          "description": "The phrases the word was read in, with where each was written.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/quotation"
+          }
         }
       }
     }

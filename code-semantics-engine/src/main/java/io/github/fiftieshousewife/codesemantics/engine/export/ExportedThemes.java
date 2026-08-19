@@ -8,7 +8,9 @@ import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ScopeDivergence;
+import io.github.fiftieshousewife.codesemantics.engine.theme.TopicWitnesses.Quotation;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicWitnesses.Witness;
+import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 
 /**
  * The topics the reading reports, taken from the same filtering the summary applies rather than from a second
@@ -46,8 +48,24 @@ public final class ExportedThemes {
         return themes.repository().intensity().shareByTopic().getOrDefault(topic, 0.0);
     }
 
-    private List<String> carriedBy(final String topic, final RepositoryThemes themes) {
-        return themes.witnesses().forTopic(topic, witnessesHeld).stream().map(Witness::word).toList();
+    private List<ExportedWitness> carriedBy(final String topic, final RepositoryThemes themes) {
+        return themes.witnesses().forTopic(topic, witnessesHeld).stream()
+                .map(ExportedThemes::testimony)
+                .toList();
+    }
+
+    /**
+     * One word's testimony as the export states it. The resources are named in their own published
+     * spelling and sorted, so two runs naming the same pair cannot order them differently.
+     */
+    private static ExportedWitness testimony(final Witness witness) {
+        return new ExportedWitness(witness.word(), witness.occurrences(), witness.mass(),
+                witness.sources().stream().map(EvidenceSource::displayName).sorted().toList(),
+                witness.quotations().stream().map(ExportedThemes::quoted).toList());
+    }
+
+    private static ExportedQuotation quoted(final Quotation quotation) {
+        return new ExportedQuotation(quotation.phrase(), SightingSite.of(quotation.site()));
     }
 
     private static ScopeDivergence divergenceOf(final String scope, final RepositoryThemes themes) {

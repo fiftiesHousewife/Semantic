@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ThemeReadingDiagnostic {
 
     private static final String REPORT = "themes";
-    private static final String GRAPH = "themes.json";
+    private static final String EVIDENCE = "evidence.json";
     private static final String PAGE = "themes-chart.html";
     private static final String BAR = "themes-bar.svg";
 
@@ -82,7 +82,10 @@ class ThemeReadingDiagnostic {
                 () -> assertThat(themes.divergences()).allSatisfy(divergence ->
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
                 () -> assertThat(Files.readString(reports.file(REPORT + ".md"))).contains("What distinguishes each scope"),
-                () -> assertThat(Files.readString(reports.file(GRAPH))).contains("\"nodes\""),
+                () -> assertThat(Files.readString(reports.file(EVIDENCE)))
+                        .as("the workings state the path to the answers, and not the answers themselves")
+                        .contains("\"scopes\"", "\"schemaVersion\"")
+                        .doesNotContain("\"nodes\""),
                 () -> assertThat(Files.readString(reports.file(PAGE)))
                         .as("the page draws the same reading the report states")
                         .contains("What this repository is about"),
@@ -97,7 +100,8 @@ class ThemeReadingDiagnostic {
                 new ThemeReport().render(themes)), "Themes");
         final ThemeGraph graph = ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED,
                 WITNESSES_HELD, new SourceLinks(root));
-        new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(reports.file(GRAPH).toFile(), graph);
+        new ObjectMapper().writerWithDefaultPrettyPrinter()
+                .writeValue(reports.file(EVIDENCE).toFile(), graph.evidence());
         Files.writeString(reports.file(PAGE), new ThemePage().of(graph));
         Files.writeString(reports.file(BAR), new BarDocument().of(graph.nodes()));
     }
