@@ -20,7 +20,7 @@ What is left to ask is whether the partition carries anything.
 | `RS` RESPOND | 18 | 59.2% |
 
 The nearest function stands **43.4%** of the maximum divergence away, where a chance partition
-of the same statements reaches **39.6%** over 999 draws. This placement **says only that the framework has six functions**.
+of the same statements reaches **39.7%** over 999 draws. This placement **says only that the framework has six functions**.
 
 A repository with no security surface should land here saying nothing, and saying nothing is
 the correct outcome rather than a failure of the reading.

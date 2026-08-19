@@ -94,11 +94,11 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
-      "divergenceBits" : 0.09575409976044669,
+      "divergenceBits" : 0.09575409976044667,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
-      "divergenceBits" : 0.10643868547407669,
+      "divergenceBits" : 0.1064386854740767,
       "writesMoreOf" : [ "linguistics", "computing" ]
     }, {
       "scope" : "tika-example/src/main/java",
@@ -138,7 +138,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources",
-      "divergenceBits" : 0.4140409065081104,
+      "divergenceBits" : 0.41404090650811054,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
@@ -146,7 +146,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-server/tika-server-standard/src/test/resources",
-      "divergenceBits" : 0.3503031404099673,
+      "divergenceBits" : 0.35030314040996724,
       "writesMoreOf" : [ "software" ]
     } ],
     "shareOfWordsWithACitation" : 0.9705486751856746,
@@ -8896,7 +8896,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources",
     "shareOfRepository" : 0.007662697316981481,
-    "divergenceBits" : 0.07270769915192196,
+    "divergenceBits" : 0.07270769915192202,
     "carriedBy" : [ "excel", "pdf", "shift_jis", "factory_class", "mock", "mif", "update", "comment" ]
   }, {
     "topic" : "computing",
@@ -8956,7 +8956,7 @@
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
     "shareOfRepository" : 0.019756163255456424,
-    "divergenceBits" : 0.006686360787273134,
+    "divergenceBits" : 0.006686360787273152,
     "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "linguistics",
@@ -10703,9 +10703,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "lemmas" : 1283,
+      "senses" : 214,
       "words" : 4585,
-      "senses" : 214
+      "lemmas" : 1283
     },
     "placement" : {
       "scheme" : "arXiv",
@@ -10785,8 +10785,8 @@
         "line" : 44
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
+      "concept" : "encryption",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 136,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -10795,8 +10795,8 @@
         "line" : 390
       }
     }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
       "occurrences" : 136,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -10895,8 +10895,8 @@
         "line" : 27
       }
     }, {
-      "concept" : "3g",
-      "placedUnder" : "wireless network | wireless networks",
+      "concept" : "4g",
+      "placedUnder" : "3g | 3g networks | lte",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -10905,8 +10905,8 @@
         "line" : 54
       }
     }, {
-      "concept" : "4g",
-      "placedUnder" : "3g | 3g networks | lte",
+      "concept" : "3g",
+      "placedUnder" : "wireless network | wireless networks",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -11005,8 +11005,8 @@
         "line" : 30
       }
     }, {
-      "concept" : "3g",
-      "placedUnder" : "wireless network | wireless networks",
+      "concept" : "4g",
+      "placedUnder" : "3g | 3g networks | lte",
       "occurrences" : 26,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -11015,8 +11015,8 @@
         "line" : 315
       }
     }, {
-      "concept" : "4g",
-      "placedUnder" : "3g | 3g networks | lte",
+      "concept" : "3g",
+      "placedUnder" : "wireless network | wireless networks",
       "occurrences" : 26,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -11125,8 +11125,8 @@
         "line" : 221
       }
     }, {
-      "concept" : "caching",
-      "placedUnder" : "cache memories | cache memory",
+      "concept" : "cache",
+      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11135,8 +11135,8 @@
         "line" : 188
       }
     }, {
-      "concept" : "cache",
-      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
+      "concept" : "caching",
+      "placedUnder" : "cache memories | cache memory",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11225,7 +11225,7 @@
         "line" : 146
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11235,7 +11235,7 @@
         "line" : 67
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11275,8 +11275,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
+      "concept" : "encryption",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11285,8 +11285,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11585,16 +11585,6 @@
         "line" : 1
       }
     }, {
-      "concept" : "named entities",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
-      "occurrences" : 4,
-      "specificity" : 0.9382566242285576,
-      "wordsInTerm" : 2,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/NameEntityExtractor.java",
-        "line" : 35
-      }
-    }, {
       "concept" : "named entity",
       "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
       "occurrences" : 4,
@@ -11606,6 +11596,16 @@
       }
     }, {
       "concept" : "named entities",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "occurrences" : 4,
+      "specificity" : 0.9382566242285576,
+      "wordsInTerm" : 2,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/NameEntityExtractor.java",
+        "line" : 35
+      }
+    }, {
+      "concept" : "named entity",
       "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
       "occurrences" : 4,
       "specificity" : 0.9364043024226218,
@@ -11615,7 +11615,7 @@
         "line" : 179
       }
     }, {
-      "concept" : "named entity",
+      "concept" : "named entities",
       "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
       "occurrences" : 4,
       "specificity" : 0.9364043024226218,
@@ -12135,7 +12135,7 @@
         "line" : 919
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -12145,7 +12145,7 @@
         "line" : 47
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -12726,9 +12726,9 @@
       }
     } ],
     "matchesByNormalisation" : {
-      "lemmas" : 1000,
+      "senses" : 758,
       "words" : 1801,
-      "senses" : 758
+      "lemmas" : 1000
     },
     "placement" : {
       "scheme" : "arXiv",

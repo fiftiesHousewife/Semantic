@@ -30,11 +30,11 @@ Only the topics that **earned a place**: a topic reaches this table where it mak
 
 | Topic | ι | From names | References | Leads | Lines led | Share of lines | Carried by |
 |---|--:|--:|--:|--:|--:|--:|---|
-| `computing` | 0.0985 | 50.9% | 77,249 | 1,366 | 270,125 | 64.7% | `metadata` 24.7% (4,371) `config` 6.2% (1,484) `parser` 6.0% (2,892) `byte` 3.4% (3,174) |
-| `linguistics` | 0.0198 | 56.8% | 32,308 | 189 | 28,998 | 6.9% | `name` 31.4% (4,005) `context` 18.4% (2,286) `prefix` 6.1% (660) `parse` 6.1% (3,081) |
-| `software` | 0.0077 | 76.7% | 5,526 | 14 | 213 | 0.1% | `excel` 22.8% (151) `pdf` 16.5% (245) `shift_jis` 8.4% (62) `factory_class` 7.0% (20) |
+| `computing` | 0.0985 | 50.9% | 77,249 | 1,332 | 270,190 | 64.7% | `metadata` 24.7% (4,371) `config` 6.2% (1,484) `parser` 6.0% (2,892) `byte` 3.4% (3,174) |
+| `linguistics` | 0.0198 | 56.8% | 32,308 | 190 | 28,998 | 6.9% | `name` 31.4% (4,005) `context` 18.4% (2,286) `prefix` 6.1% (660) `parse` 6.1% (3,081) |
+| `software` | 0.0077 | 76.7% | 5,526 | 32 | 213 | 0.1% | `excel` 22.8% (151) `pdf` 16.5% (245) `shift_jis` 8.4% (62) `factory_class` 7.0% (20) |
 
-Read over 4,189 files and 417,750 lines: 558 topics, 1,547 files no topic could be resolved for, and 64.7% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 34.8% of it; the other 65.2% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
+Read over 4,189 files and 417,750 lines: 558 topics, 1,556 files no topic could be resolved for, and 64.7% of the repository's lines led by its single strongest topic. **ι is a share of everything the reading observed**, and the topics sum to 34.8% of it; the other 65.2% is mass no topic was settled on — a phrase nothing could place at all, or one the resources named so many subjects for that none of them was settled. The columns beside ι are counts and do not sum. **From names** is how much of a theme the code itself carried rather than its prose.
 
 ## What distinguishes each scope from the repository
 
@@ -1600,4 +1600,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 
 **82.2%** of the maximum divergence from the repository, against a null median of 56.9% over 999 resamples of the same size — an excess of +25.2 points, and 162 of those draws diverged at least as far. **The scope does not stand outside its own null**, so it has no topical content beyond its size and nothing is ranked.
 
-Read, compared and resampled in 78.0 s, recorded rather than estimated.
+Read, compared and resampled in 77.6 s, recorded rather than estimated.

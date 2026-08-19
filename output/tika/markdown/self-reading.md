@@ -302,8 +302,10 @@ The repository's own words are 837,891 occurrences of 15,339 distinct surfaces, 
 | `fetchers` | 138 | `tika-e2e-tests/tika-grpc/src/test/java/org/apache/tika/pipes/filesystem/HandlerTypeTest.java:51` |
 | `8859` | 133 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
 
-Read 4,189 files in 12.0 s — 2.9 ms a file, recorded rather than estimated.
+Read 4,189 files in 12.1 s — 2.9 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.
 
 Service interfaces this tree registers providers for under the `ServiceLoader` contract: 25, carrying 32 provider entries. Of the interfaces, its own: 22, the platform's: 2, external: 1.
+
+Registered media types written as string literals: 446 distinct identifiers of the IANA registry, across 1850 occurrences. Most written: `application/json` 128, `text/plain` 128, `application/pdf` 79, `text/html` 78, `image/png` 68.
