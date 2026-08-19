@@ -8,18 +8,18 @@ Every figure here moves whenever a source file or a markdown file does, because 
 
 | Figure | Before | After | |
 |---|--:|--:|---|
-| λ — words a resource can be cited for | 97.2% | 97.2% |  |
-| Mass settled on no subject | 67.3% | 66.4% | moved |
+| λ — words a resource can be cited for | 97.1% | 97.1% |  |
+| Mass settled on no subject | 66.8% | 66.8% |  |
 | Archive — nearest subject | Computer Science | Computer Science |  |
-| Archive — divergence | 36.4% | 36.2% | moved |
-| Archive — chance reaches | 41.8% | 42.3% | moved |
+| Archive — divergence | 35.9% | 35.9% |  |
+| Archive — chance reaches | 42.0% | 42.0% |  |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 39.1% | 38.5% | moved |
-| Category — chance reaches | 43.0% | 43.0% |  |
+| Category — divergence | 38.5% | 38.5% |  |
+| Category — chance reaches | 43.1% | 43.1% |  |
 | Category — stands apart from chance | yes | yes |  |
 | Words above the bar | 794 | 794 |  |
-| Topics reported | 19 | 18 | moved |
+| Topics reported | 18 | 18 |  |
 | Concepts written | 358 | 358 |  |
 
 ## What entered and left

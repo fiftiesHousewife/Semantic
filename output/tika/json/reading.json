@@ -9,14 +9,14 @@
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.36156888545880084,
-        "nearestByChanceBits" : 0.42271509947829566,
+        "divergenceBits" : 0.3592082512754768,
+        "nearestByChanceBits" : 0.419647934933926,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3849652431510164,
-        "nearestByChanceBits" : 0.4298413837606998,
+        "divergenceBits" : 0.3846177999166996,
+        "nearestByChanceBits" : 0.43066837140612313,
         "standsApartFromChance" : true
       }
     },
@@ -83,86 +83,86 @@
       "concept" : "URL",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "publishedBy" : "CSO"
     }, {
       "concept" : "Result",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "sensor",
+      "concept" : "sensors",
       "publishedBy" : "CSO"
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
-      "divergenceBits" : 0.04204731147426288,
+      "divergenceBits" : 0.0421482273831177,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
-      "divergenceBits" : 0.0623809969603416,
+      "divergenceBits" : 0.0633453412707083,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
-      "divergenceBits" : 0.20284395746559777,
+      "divergenceBits" : 0.20293555766935908,
+      "writesMoreOf" : [ "linguistics" ]
+    }, {
+      "scope" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java",
+      "divergenceBits" : 0.12869817024785743,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-      "divergenceBits" : 0.1154384421792631,
-      "writesMoreOf" : [ "computing" ]
-    }, {
-      "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java",
-      "divergenceBits" : 0.18741690465596264,
+      "divergenceBits" : 0.11744836621167297,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java",
-      "divergenceBits" : 0.27465038744364334,
+      "divergenceBits" : 0.27552695661020843,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
-      "divergenceBits" : 0.13582794180654303,
+      "divergenceBits" : 0.1379185255291424,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/main/java",
-      "divergenceBits" : 0.09749613015770878,
+      "divergenceBits" : 0.1000051107169621,
       "writesMoreOf" : [ "linguistics" ]
     }, {
+      "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/java",
+      "divergenceBits" : 0.19429954069008099,
+      "writesMoreOf" : [ "computing" ]
+    }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java",
-      "divergenceBits" : 0.23041576821274098,
+      "divergenceBits" : 0.23395540063075282,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java",
-      "divergenceBits" : 0.21237800359298664,
+      "divergenceBits" : 0.21320653736788073,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/java",
-      "divergenceBits" : 0.17809439446492262,
+      "divergenceBits" : 0.17794469647223887,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java",
-      "divergenceBits" : 0.22461381792751473,
+      "divergenceBits" : 0.2242894725503662,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-serialization/src/main/java",
-      "divergenceBits" : 0.1488023155622531,
+      "divergenceBits" : 0.1501091634105728,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-serialization/src/test/java",
-      "divergenceBits" : 0.13502840440674913,
+      "divergenceBits" : 0.13714204664619067,
       "writesMoreOf" : [ "computing", "linguistics" ]
     }, {
       "scope" : "tika-server/tika-server-standard/src/test/java",
-      "divergenceBits" : 0.2171609146942883,
+      "divergenceBits" : 0.21753194568916634,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-translate/src/test/java",
-      "divergenceBits" : 0.41096036700660954,
-      "writesMoreOf" : [ "linguistics" ]
-    }, {
-      "scope" : "documentation",
-      "divergenceBits" : 0.3100998559817542,
+      "divergenceBits" : 0.41288925268111815,
       "writesMoreOf" : [ "linguistics" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9718982041378952,
-    "shareOfMassOnNoSubject" : 0.6635660757313041,
+    "shareOfWordsWithACitation" : 0.971347143390815,
+    "shareOfMassOnNoSubject" : 0.6678491905058711,
     "counts" : {
       "signals" : 794,
       "themes" : 18,
@@ -8907,111 +8907,111 @@
   "themes" : [ {
     "topic" : "linguistics",
     "scope" : "tika-translate/src/test/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.07003009305744146,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.07106465041119034,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.05472556197917784,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.05514086020929472,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.03112225713574849,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.03183961305949114,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
-    "topic" : "linguistics",
-    "scope" : "documentation",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.02097799126491634,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "topic" : "computing",
+    "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/java",
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.02681525758753775,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.016376271674334343,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
-  }, {
-    "topic" : "computing",
-    "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.01463841504529282,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.01660719362083033,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.009736469935679008,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.01015051171514714,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
+  }, {
+    "topic" : "linguistics",
+    "scope" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java",
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.009724293469211033,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.009472823708319568,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.009649183612277457,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/main/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.005632087573326755,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.005958456554838575,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.005505452774143799,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.005640344279380469,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-serialization/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.005371784823381805,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.00550504723598258,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.004987738389275027,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.005116202223800118,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-server/tika-server-standard/src/test/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.004604200724489187,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.0047276815100141326,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-serialization/src/main/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.003351673899645125,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.0035988539106214853,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-serialization/src/test/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.002031082075838962,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.00222492617478196,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "computing",
     "scope" : "tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/main/java",
-    "shareOfRepository" : 0.1193514755192923,
-    "divergenceBits" : 0.0018546220623220921,
-    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "path", "embed" ]
+    "shareOfRepository" : 0.11716378876627832,
+    "divergenceBits" : 0.0019333985166432553,
+    "carriedBy" : [ "metadata", "config", "parser", "byte", "parse", "dir", "embed", "path" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-core/src/main/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 0.001734343344533722,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.0019139014866822752,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   }, {
     "topic" : "linguistics",
     "scope" : "tika-core/src/test/java",
-    "shareOfRepository" : 0.027157848262925263,
-    "divergenceBits" : 8.765341697256875E-4,
-    "carriedBy" : [ "name", "context", "parse", "prefix", "language", "bigram", "word", "sentence" ]
+    "shareOfRepository" : 0.02657969778716012,
+    "divergenceBits" : 0.0010057241130923484,
+    "carriedBy" : [ "name", "context", "prefix", "parse", "language", "bigram", "word", "sentence" ]
   } ],
   "taxonomies" : [ {
     "vocabulary" : "OLiA",
@@ -10707,22 +10707,22 @@
       }
     } ],
     "matchesByNormalisation" : {
+      "words" : 4483,
       "senses" : 205,
-      "lemmas" : 1242,
-      "words" : 4483
+      "lemmas" : 1242
     },
     "placement" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.36156888545880084,
-        "nearestByChanceBits" : 0.42271509947829566,
+        "divergenceBits" : 0.3592082512754768,
+        "nearestByChanceBits" : 0.419647934933926,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3849652431510164,
-        "nearestByChanceBits" : 0.4298413837606998,
+        "divergenceBits" : 0.3846177999166996,
+        "nearestByChanceBits" : 0.43066837140612313,
         "standsApartFromChance" : true
       }
     }
@@ -10759,7 +10759,7 @@
         "line" : 280
       }
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 180,
       "specificity" : 0.9276912513497423,
@@ -10769,7 +10769,7 @@
         "line" : 1125
       }
     }, {
-      "concept" : "sensor",
+      "concept" : "sensors",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 180,
       "specificity" : 0.9276912513497423,
@@ -10819,7 +10819,7 @@
         "line" : 390
       }
     }, {
-      "concept" : "sensors",
+      "concept" : "sensor",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 76,
       "specificity" : 0.9614062668054615,
@@ -10829,7 +10829,7 @@
         "line" : 1120
       }
     }, {
-      "concept" : "sensor",
+      "concept" : "sensors",
       "placedUnder" : "computer hardware | hardware",
       "occurrences" : 76,
       "specificity" : 0.9614062668054615,
@@ -11209,7 +11209,7 @@
         "line" : 146
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11219,7 +11219,7 @@
         "line" : 67
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 20,
       "specificity" : 0.5591297245181585,
@@ -11349,8 +11349,8 @@
         "line" : 68
       }
     }, {
-      "concept" : "hash",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database | database systems | hash | hash function | hash functions",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11359,8 +11359,8 @@
         "line" : 358
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
+      "concept" : "hash",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11429,8 +11429,8 @@
         "line" : 210
       }
     }, {
-      "concept" : "hash",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database | database systems | hash | hash function | hash functions",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -11439,8 +11439,8 @@
         "line" : 55
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
+      "concept" : "hash",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -12059,7 +12059,7 @@
         "line" : 919
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -12069,7 +12069,7 @@
         "line" : 47
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 2,
       "specificity" : 0.6963904680080683,
@@ -12620,30 +12620,30 @@
       }
     } ],
     "matchesByNormalisation" : {
+      "words" : 1519,
       "senses" : 690,
-      "lemmas" : 954,
-      "words" : 1519
+      "lemmas" : 954
     },
     "placement" : {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.36156888545880084,
-        "nearestByChanceBits" : 0.42271509947829566,
+        "divergenceBits" : 0.3592082512754768,
+        "nearestByChanceBits" : 0.419647934933926,
         "standsApartFromChance" : true
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.3849652431510164,
-        "nearestByChanceBits" : 0.4298413837606998,
+        "divergenceBits" : 0.3846177999166996,
+        "nearestByChanceBits" : 0.43066837140612313,
         "standsApartFromChance" : true
       }
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 21610,
+    "wordOccurrencesNoResourceCovers" : 23777,
     "wordsBelowEveryThreshold" : 3689,
-    "scopesWithinChance" : 145,
+    "scopesWithinChance" : 142,
     "matchesDiscardedByBranchRule" : 82,
     "filesTheParserCouldNotRead" : 0
   }
