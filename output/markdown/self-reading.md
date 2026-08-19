@@ -20,21 +20,21 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `lexicon-extraction/src/test/java` | 53 | 607 | 2,848 | 18 (0.6%) | 2,842 | **0.992** |
 | `lexicon/src/main/java` | 28 | 680 | 1,141 | 5,455 (82.7%) | 6,429 | **0.975** |
 | `lexicon/src/test/java` | 29 | 324 | 1,760 | 453 (20.5%) | 2,189 | **0.989** |
-| `documentation` | 3 | 0 | 0 | 10,387 (100.0%) | 10,012 | **0.964** |
+| `documentation` | 3 | 0 | 0 | 10,423 (100.0%) | 10,048 | **0.964** |
 | `code-semantics-engine/src/test/resources` | 10 | 10 | 27 | 0 (0.0%) | 27 | **1.000** |
-| **repository** | 612 | 11,261 | 26,708 | 77,740 (74.4%) | 102,640 | **0.983** |
+| **repository** | 612 | 11,261 | 26,708 | 77,776 (74.4%) | 102,676 | **0.983** |
 
-The repository's own words are 104,448 occurrences of 4,104 distinct surfaces, 1,273 of them (31.0%) written exactly once. 238 glued runs no boundary divided were read by the segmenter; 1,808 occurrences across 491 surfaces nothing could be cited for at all.
+The repository's own words are 104,484 occurrences of 4,104 distinct surfaces, 1,272 of them (31.0%) written exactly once. 238 glued runs no boundary divided were read by the segmenter; 1,808 occurrences across 491 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 99,067 | 94.8% | 4,768 |
-| `lexicon:wordnet-sense` | 71,264 | 68.2% | 1,262 |
-| `lexicon:wiktionary-topic` | 58,298 | 55.8% | 237 |
-| `lexicon:wikidata-initialism` | 46,711 | 44.7% | 86 |
-| `lexicon:wikidata-name` | 41,711 | 39.9% | 48 |
-| `lexicon:wordnet-domain` | 41,417 | 39.7% | 121 |
-| `lexicon:wiktionary-abbreviation` | 35,979 | 34.4% | 13 |
+| `lexicon:word-frequency` | 99,102 | 94.8% | 4,770 |
+| `lexicon:wordnet-sense` | 71,285 | 68.2% | 1,262 |
+| `lexicon:wiktionary-topic` | 58,317 | 55.8% | 238 |
+| `lexicon:wikidata-initialism` | 46,732 | 44.7% | 86 |
+| `lexicon:wikidata-name` | 41,727 | 39.9% | 48 |
+| `lexicon:wordnet-domain` | 41,429 | 39.7% | 121 |
+| `lexicon:wiktionary-abbreviation` | 35,992 | 34.4% | 13 |
 | `catalogue:query-language-function` | 1,548 | 1.5% | 1 |
 
 | Word | Occurrences | First seen |
@@ -55,7 +55,7 @@ The repository's own words are 104,448 occurrences of 4,104 distinct surfaces, 1
 | `resamples` | 22 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/SetAside.java:3` |
 | `scope's` | 22 | `code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTheme.java:6` |
 
-Read 612 files in 1.7 s — 2.8 ms a file, recorded rather than estimated.
+Read 612 files in 1.8 s — 2.9 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 87. Set aside as the platform's own vocabulary: 1712. Set aside as this repository's own coordinates: 569. Set aside as the toolchain a source set nothing is published from is checked with: 974. Files the parser refused: 0.
 

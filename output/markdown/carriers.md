@@ -16,7 +16,7 @@ spread, to be read beside how many words touched the topic at all.
 | `computing` | 0.0149 | 328 | 45.3 | 0.019 | `repository` 6.1% |
 | `telecommunication` | 0.0140 | 19 | 2.2 | 0.416 | `file` 61.2% |
 | `mathematics` | 0.0109 | 135 | 9.6 | 0.098 | `from` 27.0% |
-| `law` | 0.0090 | 237 | 20.8 | 0.044 | `file` 10.9% |
+| `law` | 0.0090 | 237 | 20.9 | 0.044 | `file` 10.9% |
 | `grammar` | 0.0076 | 101 | 8.0 | 0.116 | `phrase` 21.9% |
 | `plants` | 0.0075 | 11 | 2.2 | 0.391 | `root` 54.3% |
 | `geography` | 0.0067 | 29 | 3.5 | 0.261 | `state` 51.0% |
