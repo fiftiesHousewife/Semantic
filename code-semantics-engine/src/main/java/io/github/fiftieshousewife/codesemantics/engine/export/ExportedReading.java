@@ -94,7 +94,7 @@ public final class ExportedReading {
                 LinguisticTerms.fromClasspath().source(), terms.matched());
         final List<ExportedTaxonomy> taxonomies = new ArrayList<>(List.of(taxonomy));
         alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
-                CorroboratedReading.of(index, conceptsOf(index), parsed).matched())));
+                CorroboratedReading.of(index, index.publishedConcepts(), parsed).matched())));
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,
@@ -168,14 +168,6 @@ public final class ExportedReading {
 
     private static List<LeadingWord> leading(final List<ExportedSignal> signals) {
         return signals.stream().limit(LEADING).map(LeadingWord::of).toList();
-    }
-
-    /**
-     * The concepts a supplied index publishes, which is what the branch rule needs to know what sits beside
-     * what. An index answers for its own terms, so nothing here has to know which publisher it came from.
-     */
-    static List<io.github.fiftieshousewife.bi.lexicon.SkosConcept> conceptsOf(final TermIndex index) {
-        return index.terms().stream().flatMap(words -> index.conceptsOf(words).stream()).distinct().toList();
     }
 
     /**

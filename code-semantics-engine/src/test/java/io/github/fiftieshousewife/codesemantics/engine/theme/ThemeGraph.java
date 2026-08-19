@@ -64,31 +64,6 @@ record ThemeGraph(String repository, int files, int lines, int topics, double un
     record File(String path, int lines, String dominant, double share) {
     }
 
-    /**
-     * The workings, as {@code evidence.json} states them: every scope with the topics accounting for its
-     * divergence, the words two topics share, and every file with the topic leading it.
-     *
-     * <p>The answers are not here. A topic with the words that carried it is in {@code reading.json}, which
-     * is versioned and validated; this file is the path that reached them, and it is free to change shape
-     * with the reading. {@code schemaVersion} says which shape a reader has, and nothing validates it.
-     *
-     * <p>{@code elapsedMillis} is a fact about the machine rather than the repository, so it sits here: two
-     * runs of one unchanged tree differ on it and on nothing a reading reports.
-     */
-    record Evidence(String schemaVersion, String repository, int files, int lines, int topics,
-                    double unplaced, long elapsedMillis, String linkage, List<Edge> edges,
-                    List<Scope> scopes, List<File> filesRead) {
-    }
-
-    /** What the workings state, which is this graph without the answers the export already carries. */
-    Evidence evidence() {
-        return new Evidence(EVIDENCE_VERSION, repository, files, lines, topics, unplaced, elapsedMillis,
-                linkage, edges, scopes, filesRead);
-    }
-
-    /** Rises when a key here is added, renamed or removed. No schema checks it. */
-    static final String EVIDENCE_VERSION = "1.0";
-
     static ThemeGraph of(final String repository, final RepositoryThemes themes, final int topicsShown,
                          final int witnessesShown, final SourceLinks links) {
         final QualifiedTopics qualifying = new QualifiedTopics(themes.witnesses(), ORDINARY_ENGLISH,

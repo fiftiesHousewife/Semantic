@@ -6,10 +6,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
-import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ThemeReading;
@@ -40,8 +39,17 @@ public final class TreeReading {
      */
     private static final Map<Path, RepositoryReading> READINGS = new ConcurrentHashMap<>();
 
-    /** The bundled term vocabulary's reading of each tree, shared for the same reason as the reading. */
-    private static final Map<Path, CorroboratedReading> TERMS = new ConcurrentHashMap<>();
+    /**
+     * Each bundled taxonomy's reading of each tree, shared for the same reason as the reading.
+     *
+     * <p>Keyed on the tree and the taxonomy together. A run that writes the export and the workings matches
+     * every taxonomy once between them rather than once each.
+     */
+    private static final Map<Match, CorroboratedReading> TERMS = new ConcurrentHashMap<>();
+
+    /** One tree read against one taxonomy, which is what a corroborated reading is of. */
+    private record Match(Path root, MatchedTaxonomies taxonomy) {
+    }
 
     /** Each tree's arXiv placement at the shared seed, with both chance draws inside it. */
     private static final Map<Path, PlacedField> FIELDS = new ConcurrentHashMap<>();
@@ -90,10 +98,16 @@ public final class TreeReading {
         return reading().legibility();
     }
 
-    /** The bundled term vocabulary read over this tree, computed once per JVM like the reading itself. */
+    /** The in-domain term vocabulary read over this tree, computed once per JVM like the reading itself. */
     public CorroboratedReading terms() {
-        return TERMS.computeIfAbsent(root, tree -> CorroboratedReading.of(LinguisticTerms.fromClasspath(),
-                OliaTerms.fromClasspath().concepts(), parsed()));
+        return terms(MatchedTaxonomies.OLIA);
+    }
+
+    /** One bundled taxonomy read over this tree, computed once per JVM and per taxonomy. */
+    public CorroboratedReading terms(final MatchedTaxonomies taxonomy) {
+        return TERMS.computeIfAbsent(new Match(root, taxonomy),
+                match -> CorroboratedReading.of(match.taxonomy().index(),
+                        match.taxonomy().publishedConcepts(), parsed()));
     }
 
     /** The chance bars over this tree's published names at the shared seed, computed once per JVM. */

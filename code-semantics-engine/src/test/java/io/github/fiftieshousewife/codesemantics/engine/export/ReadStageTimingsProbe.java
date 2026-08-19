@@ -43,7 +43,7 @@ public final class ReadStageTimingsProbe {
             timed(index.source() + " sense rung build (the reading builds each rung twice)",
                     () -> NormalisedTerms.over(index, SenseRuns.fromClasspath()));
             timed(index.source() + ", every match and corroborated",
-                    () -> CorroboratedReading.of(index, ExportedReading.conceptsOf(index),
+                    () -> CorroboratedReading.of(index, index.publishedConcepts(),
                             reading.parsed()));
         }
         timed("export assembly and serialisation", () -> written(reading));

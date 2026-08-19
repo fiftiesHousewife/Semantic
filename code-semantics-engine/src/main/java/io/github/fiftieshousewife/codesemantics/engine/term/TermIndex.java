@@ -39,6 +39,16 @@ public interface TermIndex {
     int longestTerm();
 
     /**
+     * Every concept this index reaches through its own terms, distinct and in the order the source states
+     * them. It is what the branch rule is told the publisher states, so a concept no term of this index
+     * reaches is absent from the branch it would otherwise sit in — a fact about the index rather than a gap
+     * to fill, and one a source publishing its own concept list answers better.
+     */
+    default List<SkosConcept> publishedConcepts() {
+        return terms().stream().flatMap(words -> conceptsOf(words).stream()).distinct().toList();
+    }
+
+    /**
      * Whether this index can read the run at all, which is a different answer from publishing no term for it.
      *
      * <p>An index keyed by a normalisation abstains where the normalisation cannot be taken: a run of words
