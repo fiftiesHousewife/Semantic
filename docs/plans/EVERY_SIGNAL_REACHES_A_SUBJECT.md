@@ -79,7 +79,7 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 ## The work, in order
 
-### 1. Record the matching in `evidence.json`, and stop the export stating a placement it did not make
+### 1. ~~Record the matching in `evidence.json`, and stop the export stating a placement it did not make~~ — landed at `64e1496`
 
 **What changes.** `evidence.json` gains a `matches` section — one entry per term span, carrying the run, the rung, the taxonomy, the concept, the concept's specificity, the occurrences and the file and line — and an `unplaced` section carrying the 1,793 uncovered occurrences and the 792 cut words with the rule that refused each. `ExportedTaxonomy.placement` either carries the arm's own placement or names whose answer it is.
 
@@ -87,7 +87,35 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 **What settles it.** The four probes above can be answered from `evidence.json` without re-running them, and `reading.json` no longer states a figure under a taxonomy that the taxonomy did not produce.
 
-**What would end it.** The file exceeding what a consumer will open. `scopes[].contributions` was 974,838 bytes before it was narrowed; a spans section on a tree the size of Tika is larger. If it does, the spans go to their own file at their own schema version rather than being cut.
+**What would end it.** The file exceeding what a consumer will open. `scopes[].contributions` was 974,838 bytes before it was narrowed; a spans section on a tree the size of Tika is larger. If it does, the spans go to their own file at their own schema version rather than being cut. **It did not**: `evidence.json` went from 1,303,806 to 2,022,740 bytes.
+
+#### What it found
+
+`reading.json` is schema 6.0 and states no placement under a taxonomy. `evidence.json` is 3.0 and carries `matches` and `setAside`. Read at `64e1496`.
+
+| | On this tree |
+|---|--:|
+| Term matches recorded | 266 — 196 OLiA, 70 CSO |
+| Refused by the branch rule | 98 |
+| By rung | 138 words, 80 lemmas, 48 senses |
+| Matches of more than one word | 20 |
+| Words no bundled resource covers | 482, over 1,815 occurrences |
+| Words a reference's own bar refused | 786 |
+| Words English supplies | 9 |
+
+**The highest-mass match in the reading is not in the answer.** OLiA's `Topic`, written 288 times at specificity 0.79, is refused by the branch rule because no other concept of its branch is written — on a repository whose second-leading word is `topic`. It was previously visible only inside the count 62.
+
+**Two counts did not reconcile, and both reasons are defects the count concealed.**
+
+`setAside.matchesDiscardedByBranchRule` is 62 and the refusals list 63. `refusedByBranch()` subtracts one reading's size from the other's, so a term the corroborated re-read reaches at a *different rung* nets out of it: `result` is refused at the words rung and admitted at the senses rung. Both are true, both are now recorded, and `TermMatchesTest` pins it.
+
+`setAside.wordsBelowEveryThreshold` is 795 and only 786 are below any threshold. `ExportedSignals` removes words English supplies as well as words below a bar, and the count subtracts the signals from the ranking, so **a figure named for one rule carries two**. The nine are listed separately and the arithmetic reconciles. **The export's field is misnamed and this plan did not rename it** — that is a schema change and the user's call.
+
+**`theLanguages` admits words that are not English holding a sentence together.** The nine are `by`, `from`, `below`, `without`, `keyword`, `keywords`, `alex`, `wiki`. The first four are the rule working. `keyword` and `keywords` are subject matter on a repository that reads published keywords. `alex` and `wiki` are the splitter cutting `OpenAlex` and `Wiktionary`, which is [the splitter's own known gap](../../CLAUDE.md) arriving in a second place. Measuring what that rule costs belongs with the vocabulary reading, not here.
+
+**`MatchedTaxonomies` now states each taxonomy's published concepts, and stating it showed the two disagree.** OLiA reads its own published concept list; CSO derives one from the terms its index carries, so a CSO concept no term reaches sits in no branch. Both are preserved exactly — making them agree moves CSO's reading, which is a measurement.
+
+**The pinned findings are green, including the one the backlog records as failing.** `PinnedThemeFindings` expects `grammar` among the qualified topics and it is there at 3.43%. The cause of its earlier absence was never established, so the movement is unexplained rather than fixed.
 
 ### 2. Give the concept arm and the behaviour arm a distribution, and place all three against both schemes
 
@@ -124,7 +152,7 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 **The gold set is still the binding constraint.** [Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) names it as blocking and it is unanswered: which OpenAlex topic should *this* repository reach. The rank predicate over Apache DOAP category tokens works for the three evaluation members, and this repository publishes no DOAP record, so its rows are printed for contrast and nothing here is judged. The doctrine is *do not mark your own homework*, and it is unmet on this tree.
 
-**`./gradlew read` is recorded as red and unexplained.** `PinnedThemeFindings.readsThisRepositoryAsTheFieldItWorksIn` expects `grammar` among the qualified topics and it left, with no arithmetic changed in the interval. `checkAll` is green because `pinned` is excluded from it. Every figure produced after this point sits on top of that change until it is explained.
+**`./gradlew read` was recorded as red and is now green, with the cause still unestablished.** `PinnedThemeFindings.readsThisRepositoryAsTheFieldItWorksIn` expects `grammar` among the qualified topics; it left, and at `64e1496` it is back at 3.43%. What moved it either way is unmeasured, and the reading offers no way to ask. Deciding whether to close the backlog row or keep it as an unexplained movement is the user's call.
 
 ## Housekeeping found while taking stock
 
