@@ -117,6 +117,22 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 **The pinned findings are green, including the one the backlog records as failing.** `PinnedThemeFindings` expects `grammar` among the qualified topics and it is there at 3.43%. The cause of its earlier absence was never established, so the movement is unexplained rather than fixed.
 
+### The expected result for this repository, recorded 2026-08-19 before any of it was run
+
+**Chosen by Pippa Newbold from a menu of six, at `85fa670`, before step 2 existed.** The library reads code semantically, and a repository doing that could land in any of three published topics without any of them being wrong, so the expectation names all three:
+
+| Topic | OpenAlex subfield |
+|---|---|
+| `linguistics and terminology studies` T12881 | 1203 Language and Linguistics |
+| `Semantic Web and Ontologies` T10215 | 1702 Artificial Intelligence |
+| `Natural Language Processing Techniques` T10181 | 1702 Artificial Intelligence |
+
+**A hit is any one of the three reaching the top ten of the topics reached** — the topics reached, not all 4,516, because 4,155 of them score zero and tie, and a rank taken over the tied part measures how many topics were reached rather than how the reached ones were ordered. That is the same denominator `SuperiorityFigures` reports precision at ten against.
+
+**This is a weaker expectation than one topic and the plan says so rather than discovering it later.** Three chances at the top ten is three times the licence one topic would give, and the count of how many of the three land is reported beside the verdict so a reader can see whether it scraped in on one or held all three.
+
+**It does not replace the evaluation members' expectation.** Tika, Maven and Santuario are judged on the rank predicate over the Apache DOAP category tokens their publisher states, which this project had no hand in choosing. This repository publishes no DOAP record, so its expectation is ours, stated in advance, and named as ours wherever it is reported. The doctrine's *do not mark your own homework* is met by the three members and not by this row.
+
 ### 2. Give the concept arm and the behaviour arm a distribution, and place all three against both schemes
 
 **What changes.** `SubjectPlacement` already takes a `TopicDistribution` and a list of `SkosConcept`, so it is scheme-agnostic and arm-agnostic today. What is missing is a distribution from the other two arms and a second factory beside `PlacedField.ofArxiv`. `AxisEvidenceAccumulator` partitions over a closed enum and cannot hold this; `OpenSpaceAccumulator` is the sibling that can, and it exists.
@@ -150,7 +166,7 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 ## Two decisions this plan cannot take
 
-**The gold set is still the binding constraint.** [Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) names it as blocking and it is unanswered: which OpenAlex topic should *this* repository reach. The rank predicate over Apache DOAP category tokens works for the three evaluation members, and this repository publishes no DOAP record, so its rows are printed for contrast and nothing here is judged. The doctrine is *do not mark your own homework*, and it is unmet on this tree.
+**~~The gold set is still the binding constraint.~~ Answered above** for this repository, before step 2 was written. The three evaluation members keep the rank predicate over the Apache DOAP category tokens their publisher states. What remains unmet is that this tree's own expectation is this project's choice — recorded in advance, and named as ours wherever it is reported.
 
 **`./gradlew read` was recorded as red and is now green, with the cause still unestablished.** `PinnedThemeFindings.readsThisRepositoryAsTheFieldItWorksIn` expects `grammar` among the qualified topics; it left, and at `64e1496` it is back at 3.43%. What moved it either way is unmeasured, and the reading offers no way to ask. Deciding whether to close the backlog row or keep it as an unexplained movement is the user's call.
 
