@@ -45,7 +45,7 @@ class ReadingExportSchemaTest {
                     Map.of("words", 973, "lemmas", 201, "senses", 130))),
             List.of(new ExportedBehaviour("read declaration", "read", List.of("declaration"), 3,
                     new SightingSite("Reading.java", 21))),
-            new SetAside(1_325, 625, 1, 56, 0));
+            new SetAside(1_325, 625, 9, 1, 56, 0));
 
     private final ExportFile file = new ExportFile();
 
@@ -131,5 +131,13 @@ class ReadingExportSchemaTest {
 
     private static int occurrencesOf(final String key, final String document) {
         return document.split(key, -1).length - 1;
+    }
+
+    @Test
+    void namesApartTheTwoRulesThatSetAWordAside() throws IOException {
+        assertThat(file.of(EXPORT))
+                .as("a word English supplies cleared every threshold, so one figure covering both rules is "
+                        + "named for a bar the second kind of word is not below")
+                .contains("\"wordsBelowEveryThreshold\"", "\"wordsTheLanguageSupplies\"");
     }
 }

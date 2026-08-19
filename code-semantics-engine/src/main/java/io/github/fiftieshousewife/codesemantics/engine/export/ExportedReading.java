@@ -19,6 +19,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
@@ -107,8 +108,12 @@ public final class ExportedReading {
                 .build();
     }
 
-    /** The ranking and the signals it produced, kept together so the counts can be taken from both. */
-    private record Vocabulary(List<ChosenWord> ranked, List<ExportedSignal> signals) {
+    /**
+     * The ranking, the signals it produced and the bars they were cut at, kept together so every count is
+     * taken from the rule that produced it rather than from a subtraction that pools two.
+     */
+    private record Vocabulary(List<ChosenWord> ranked, List<ExportedSignal> signals,
+                              Map<String, Double> bars) {
     }
 
     private static Vocabulary vocabularyOf(final RepositoryLegibility legibility,
@@ -116,7 +121,8 @@ public final class ExportedReading {
         final List<ChosenWord> ranked = ChosenWords.againstEnglishAndThePlatform()
                 .in(new PublishedNames().published(legibility));
         final Map<String, Double> thresholds = VocabularyNull.byReference(namesChance);
-        return new Vocabulary(ranked, new ExportedSignals(thresholds, ReadingSource.CLONE).in(ranked));
+        return new Vocabulary(ranked, new ExportedSignals(thresholds, ReadingSource.CLONE).in(ranked),
+                thresholds);
     }
 
     private static ReadingSummary summaryOf(final RepositoryReading reading, final RepositoryLegibility legibility,
@@ -212,9 +218,11 @@ public final class ExportedReading {
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,
                                      final RepositoryLegibility legibility, final CorroboratedReading terms,
                                      final ParsedRepository parsed) {
+        final RefusedWords refused = new RefusedWords();
         return new SetAside(
                 legibility.repository().counts().words() - legibility.repository().counts().read(),
-                vocabulary.ranked().size() - vocabulary.signals().size(),
+                refused.in(vocabulary.ranked(), vocabulary.bars()).size(),
+                refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
                 summary.withheld().size(), terms.refusedByBranch(), parsed.unsoundFiles());
     }
 }

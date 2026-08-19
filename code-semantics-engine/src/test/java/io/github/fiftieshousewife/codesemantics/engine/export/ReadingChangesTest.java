@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ReadingChangesTest {
 
-    private static final SetAside NOTHING_SET_ASIDE = new SetAside(0, 0, 0, 0, 0);
+    private static final SetAside NOTHING_SET_ASIDE = new SetAside(0, 0, 0, 0, 0, 0);
 
     private static ReadingExport reading(final String commit, final double legibility,
                                          final String nearestArchive, final double archiveBits,

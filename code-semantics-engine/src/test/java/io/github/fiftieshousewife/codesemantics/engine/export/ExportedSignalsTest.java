@@ -5,6 +5,9 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord.ReferenceClaim;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWord;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.SuppliedWord;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,6 +22,14 @@ class ExportedSignalsTest {
     private static final Map<String, Double> THRESHOLDS = Map.of(ENGLISH, 0.010, PLATFORM, 0.015);
 
     private final ExportedSignals signals = new ExportedSignals(THRESHOLDS, ReadingSource.CLONE);
+
+    private static ChosenWord englishSupplied(final String surface, final double english,
+                                              final double platform) {
+        return new ChosenWord(surface, 40, 30, Math.min(english, platform), 0.004,
+                List.of(new ReferenceClaim(ENGLISH, 0.001, Math.abs(english), english > 0),
+                        new ReferenceClaim(PLATFORM, 0.002, Math.abs(platform), platform > 0)),
+                "engine/src/main/java/Reading.java:12", true);
+    }
 
     private static ChosenWord word(final String surface, final double english, final double platform) {
         return new ChosenWord(surface, 40, 30, Math.min(english, platform), 0.004,
@@ -75,5 +86,28 @@ class ExportedSignalsTest {
         assertThat(signals.in(List.of(word("lemma", 0.050, 0.040), word("synset", 0.030, 0.020))))
                 .map(ExportedSignal::word)
                 .containsExactly("lemma", "synset");
+    }
+
+    @Test
+    void partitionsTheRankingIntoWhatItReportsAndWhatEachRuleSetAside() {
+        final List<ChosenWord> ranked = List.of(
+                word("lemma", 0.050, 0.020),
+                word("the", -0.004, -0.003),
+                englishSupplied("beside", 0.050, 0.020));
+
+        final RefusedWords refused = new RefusedWords();
+
+        assertAll(
+                () -> assertThat(signals.in(ranked)).extracting(ExportedSignal::word)
+                        .containsExactly("lemma"),
+                () -> assertThat(refused.in(ranked, THRESHOLDS)).extracting(RefusedWord::word)
+                        .as("a word English supplies is below no threshold and belongs to the other rule")
+                        .containsExactly("the"),
+                () -> assertThat(refused.suppliedByTheLanguage(ranked, THRESHOLDS))
+                        .extracting(SuppliedWord::word).containsExactly("beside"),
+                () -> assertThat(signals.in(ranked).size() + refused.in(ranked, THRESHOLDS).size()
+                        + refused.suppliedByTheLanguage(ranked, THRESHOLDS).size())
+                        .as("every ranked word is reported or set aside by exactly one rule")
+                        .isEqualTo(ranked.size()));
     }
 }

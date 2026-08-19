@@ -220,7 +220,7 @@
     },
     "signals": {
       "title": "Signals",
-      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
+      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsTheLanguageSupplies` counts them; `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
       "type": "array",
       "items": {
         "type": "object",
@@ -481,6 +481,7 @@
       "required": [
         "wordOccurrencesNoResourceCovers",
         "wordsBelowEveryThreshold",
+        "wordsTheLanguageSupplies",
         "scopesWithinChance",
         "matchesDiscardedByBranchRule",
         "filesTheParserCouldNotRead"
@@ -492,7 +493,12 @@
           "minimum": 0
         },
         "wordsBelowEveryThreshold": {
-          "description": "Words the reading scored that fall below the threshold at least one reference's own permutation null produced. Adding this to `summary.counts.signals` gives every word the ranking scored.",
+          "description": "Words the reading scored that fall below the threshold at least one reference's own permutation null produced. This and `wordsTheLanguageSupplies` are the two rules that remove a word, and adding both to `summary.counts.signals` gives every word the ranking scored. The words themselves, with the references that refused each and by how much, are in `evidence.json`.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "wordsTheLanguageSupplies": {
+          "description": "Words that cleared every reference's threshold and are omitted anyway, because two published resources place them inside the language rather than in the dictionary \u2014 `by`, `from`, `beside`. English put the word inside a name, so writing it was not a choice about subject matter. It is below no threshold, which is why it is counted apart.",
           "type": "integer",
           "minimum": 0
         },
