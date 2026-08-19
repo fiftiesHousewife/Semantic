@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "b1be399c27c47a82d363cd8098b0d7d5d9c86d7f",
-  "commit" : "64e1496e735c505659f2e670f53a30e0a7159333",
+  "previousCommit" : "1a815f130655d157b8c907af82d7b7c353cf513c",
+  "commit" : "2d74d07e03ec5f2336577c231814c680d5bdb56e",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -19,8 +19,8 @@
     "after" : "34.2%"
   }, {
     "figure" : "Archive — chance reaches",
-    "before" : "40.7%",
-    "after" : "40.7%"
+    "before" : "40.8%",
+    "after" : "40.8%"
   }, {
     "figure" : "Archive — stands apart from chance",
     "before" : "yes",
@@ -43,12 +43,12 @@
     "after" : "yes"
   }, {
     "figure" : "Words above the bar",
-    "before" : "238",
-    "after" : "238"
+    "before" : "237",
+    "after" : "237"
   }, {
     "figure" : "Topics reported",
-    "before" : "4",
-    "after" : "4"
+    "before" : "3",
+    "after" : "3"
   }, {
     "figure" : "Concepts written",
     "before" : "172",
