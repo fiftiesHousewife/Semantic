@@ -11,6 +11,8 @@ The reading consumes four things: the names a Java file declares, the javadoc an
 | The gap is real prose | Tika's prose share and λ before and after |
 | It moves the reading | the documentation scope's divergence, and the placement, before and after |
 
+**Landed.** `AsciiDocSource` reads `.adoc` beside `MarkdownSource`, and the documentation scope lists both suffixes. On Tika, against the reading committed at `fdc645f`: 86 files and 60,932 word occurrences arrive, the prose share moves 78% to 80%, λ holds at 0.971, and the placement holds at Computer Science / Computation and Language. The documentation scope's divergence falls 31.0% to 8.9% and its `linguistics` lean disappears — that lean was an artefact of which quarter of the documentation was markdown, so the reading before this item was wrong about the member's documentation and is no longer. A macro whose bracketed text wraps onto the next line loses its target rather than reading the path as prose; the six occurrences of `xref` Tika's own PDF sources write stay, because the rule is a parse rule and not a word list.
+
 ## 2. String literal values against published registries
 
 `JavaSource` visits no literal. **Tika writes 764 distinct IANA media types as Java string constants** — the parse reads the constant's name and discards `"application/pdf"`. A literal equal to a published registry's own identifier is a citation, and a stronger one than any English word: the publisher defined the string. IANA's media type registry licence is the pre-work, read before anything is extracted — [the industry plan](INDUSTRY_VOCABULARIES.md) holds the licence table and [term matching](TERM_MATCHING.md) already names registries a repository *implements* as the stronger candidate class.

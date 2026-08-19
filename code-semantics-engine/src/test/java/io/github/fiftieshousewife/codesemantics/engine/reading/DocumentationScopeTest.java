@@ -41,6 +41,17 @@ class DocumentationScopeTest {
     }
 
     @Test
+    void readsAsciiDocBesideTheMarkdown() throws IOException {
+        write("README.adoc", "what this is for");
+        write("docs/detection.adoc", "how detection works");
+        write("docs/index.md", "the index");
+        assertThat(read())
+                .containsExactlyInAnyOrder("README.adoc",
+                        Path.of("docs", "detection.adoc").toString(),
+                        Path.of("docs", "index.md").toString());
+    }
+
+    @Test
     void refusesTheWorkingNotesTheRepositoryItselfStatesAreWorkingNotes() throws IOException {
         write(".readingignore", "BACKLOG.md\nCLAUDE.md\n");
         write("README.md", "what this is for");

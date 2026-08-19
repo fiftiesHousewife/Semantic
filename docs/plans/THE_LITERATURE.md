@@ -44,7 +44,7 @@ The contrast with the state of the art is instructive. Ronin, the current best-p
 
 `TopicDistribution.meanOf` averages the per-file share vectors uniformly and averages `unplaced` separately. `amongWhatWasPlaced` then divides by (1 − ū). The composition of the two is
 
-&nbsp;&nbsp;&nbsp;&nbsp;Σ_f (1 − u_f) · p_f ⁄ Σ_f (1 − u_f)
+    Σ_f (1 − u_f) · p_f ⁄ Σ_f (1 − u_f)
 
 so each file's weight in the comparison is its own legible fraction, not 1/N. At the recorded 75.5% unplaced mass and the observed file-to-file variation, a file legible at 60% carries approximately 2.4 times the weight of one legible at 25%. The class javadoc states that each file is one observation; that holds for the intensity reading and does not hold for any divergence computed from it, which includes every figure in the scope comparison and the field placement.
 

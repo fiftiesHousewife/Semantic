@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * A repository's own documentation, as one scope: the markdown at its root and everything under its
- * documentation directory. These are where a codebase states outright what it is for, and a reading that
+ * A repository's own documentation, as one scope: the markdown and AsciiDoc at its root and everything
+ * under its documentation directory. These are where a codebase states outright what it is for, and a reading that
  * only ever saw source would be reading around the clearest evidence in the tree.
  *
  * <p>It is one scope rather than one per file, because what makes it worth reading is what it says as a
@@ -28,38 +28,39 @@ import java.util.stream.Stream;
 public final class DocumentationScope {
 
     private static final String NAME = "documentation";
-    private static final String MARKDOWN_SUFFIX = ".md";
+    private static final List<String> PROSE_SUFFIXES = List.of(".md", ".adoc");
     private static final String DOCUMENTATION_DIRECTORY = "docs";
 
     public List<SourceScope> under(final Path root) {
         final StatedExclusions excluded = StatedExclusions.statedUnder(root);
-        final List<Path> files = Stream.concat(markdownIn(root), markdownUnder(root.resolve(DOCUMENTATION_DIRECTORY)))
+        final List<Path> files = Stream.concat(proseIn(root), proseUnder(root.resolve(DOCUMENTATION_DIRECTORY)))
                 .filter(file -> !excluded.excludes(root.relativize(file)))
                 .sorted()
                 .toList();
         return files.isEmpty() ? List.of() : List.of(new SourceScope(NAME, files));
     }
 
-    private static Stream<Path> markdownIn(final Path directory) {
+    private static Stream<Path> proseIn(final Path directory) {
         try (Stream<Path> entries = Files.list(directory)) {
-            return entries.filter(Files::isRegularFile).filter(DocumentationScope::isMarkdown).toList().stream();
+            return entries.filter(Files::isRegularFile).filter(DocumentationScope::isProse).toList().stream();
         } catch (final IOException e) {
             throw new UncheckedIOException("Failed to list " + directory, e);
         }
     }
 
-    private static Stream<Path> markdownUnder(final Path directory) {
+    private static Stream<Path> proseUnder(final Path directory) {
         if (!Files.isDirectory(directory)) {
             return Stream.empty();
         }
         try (Stream<Path> tree = Files.walk(directory)) {
-            return tree.filter(Files::isRegularFile).filter(DocumentationScope::isMarkdown).toList().stream();
+            return tree.filter(Files::isRegularFile).filter(DocumentationScope::isProse).toList().stream();
         } catch (final IOException e) {
             throw new UncheckedIOException("Failed to walk " + directory, e);
         }
     }
 
-    private static boolean isMarkdown(final Path file) {
-        return file.getFileName().toString().endsWith(MARKDOWN_SUFFIX);
+    private static boolean isProse(final Path file) {
+        final String name = file.getFileName().toString();
+        return PROSE_SUFFIXES.stream().anyMatch(name::endsWith);
     }
 }
