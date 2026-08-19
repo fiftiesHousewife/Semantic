@@ -86,6 +86,43 @@ tasks.register<JavaExec>("functionalPlacement") {
     )
 }
 
+// Where the repository under reading stands among OpenAlex's topics by the runs of words it declares, and
+// whether the topics stating its publisher's own DOAP category token outrank the ones that do not.
+//   ./gradlew phraseMatchedSubjects -Ptoken=content -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("phraseMatchedSubjects") {
+    group = "verification"
+    description = "Places a repository among OpenAlex topics by matched phrases (-Ptoken=<DOAP category>)"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PhraseMatchedSubjectsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("token") as String?)
+}
+
+// Which words stop a subject scheme's published keyword being read as a run of senses, so a decision to
+// bundle a catalogue of abbreviations is taken against the words it would actually buy.
+//   ./gradlew unreadRuns
+tasks.register<JavaExec>("unreadRuns") {
+    group = "verification"
+    description = "Names the words that stop a published keyword being read as senses"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.UnreadRunsProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+}
+
+// Why one named OpenAlex topic is or is not reached: its keywords one at a time, with the furthest the
+// repository got towards writing each.
+//   ./gradlew topicMatch -Ptopic="Semantic Web"
+tasks.register<JavaExec>("topicMatch") {
+    group = "verification"
+    description = "Traces one OpenAlex topic keyword by keyword against the repository under reading"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.TopicMatchProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("topic") as String?)
+}
+
 // Which concepts of a term taxonomy held in a file this repository declares, so a candidate vocabulary
 // can be tried before anything decides to bundle it. A taxonomy stating no definition can be read no
 // other way.

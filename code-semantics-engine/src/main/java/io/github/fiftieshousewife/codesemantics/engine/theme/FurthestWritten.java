@@ -1,0 +1,78 @@
+package io.github.fiftieshousewife.codesemantics.engine.theme;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+/**
+ * How far a repository got towards writing a run of words somebody else published.
+ *
+ * <p>A ranking says which subjects were reached and cannot say why an expected one was not. The answers are
+ * different repairs: a run nobody wrote is a subject the code has nothing to do with, a run whose words are
+ * all written but never adjacent is a naming convention rather than an absence, and a run written exactly as
+ * published that still did not match is a defect in the matcher. Reporting them apart is what keeps the
+ * three from being read as one.
+ */
+public final class FurthestWritten {
+
+    /** The longest published run worth looking for inside one declared name. */
+    private static final int LONGEST_RUN = 6;
+
+    /** How far the repository got, narrowest first. */
+    public enum Reach {
+        /** Written as this run of adjacent words, inside some declared name. */
+        AS_THIS_RUN,
+        /** Every word written somewhere, and never next to the others in this order. */
+        EVERY_WORD_NEVER_ADJACENT,
+        /** Some of its words written and some never written at all. */
+        PARTLY_WRITTEN,
+        /** No word of it written anywhere. */
+        NOT_WRITTEN
+    }
+
+    /** What was reached, and the words the repository never wrote at all. */
+    public record Reached(Reach reach, List<String> missing) {
+
+        public Reached {
+            missing = List.copyOf(missing);
+        }
+    }
+
+    private final Set<List<String>> adjacent;
+    private final Set<String> words;
+
+    private FurthestWritten(final Set<List<String>> adjacent, final Set<String> words) {
+        this.adjacent = adjacent;
+        this.words = words;
+    }
+
+    /** Read from the declared names of one repository, each already split into its words. */
+    public static FurthestWritten in(final List<List<String>> declaredNames) {
+        return new FurthestWritten(adjacentRuns(declaredNames),
+                declaredNames.stream().flatMap(List::stream).collect(Collectors.toUnmodifiableSet()));
+    }
+
+    /** The furthest this run got, and no further. */
+    public Reached of(final List<String> run) {
+        if (adjacent.contains(run)) {
+            return new Reached(Reach.AS_THIS_RUN, List.of());
+        }
+        final List<String> missing = run.stream().filter(word -> !words.contains(word)).toList();
+        if (missing.size() == run.size()) {
+            return new Reached(Reach.NOT_WRITTEN, missing);
+        }
+        return missing.isEmpty() ? new Reached(Reach.EVERY_WORD_NEVER_ADJACENT, List.of())
+                : new Reached(Reach.PARTLY_WRITTEN, missing);
+    }
+
+    /** Every contiguous run of words inside a declared name, which is what a published run could meet. */
+    private static Set<List<String>> adjacentRuns(final List<List<String>> declaredNames) {
+        final Set<List<String>> runs = new HashSet<>();
+        declaredNames.forEach(name -> IntStream.range(0, name.size()).forEach(start ->
+                IntStream.rangeClosed(start + 1, Math.min(name.size(), start + LONGEST_RUN))
+                        .forEach(end -> runs.add(name.subList(start, end)))));
+        return runs;
+    }
+}

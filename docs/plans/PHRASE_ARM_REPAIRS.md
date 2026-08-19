@@ -1,0 +1,155 @@
+# Three repairs the phrase arm's worked example named
+
+[Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) built the arm and ran it on three evaluation members. `./gradlew topicMatch -Ptopic="Semantic Web"` then traced one topic keyword by keyword. The topic was a poor choice and the trace is kept for what it exposed about the mechanism rather than for its verdict — see the correction below. It separates three defects the ranking alone reports as one bad answer. Each has its own evidence, its own repair and its own abandon condition.
+
+## What the trace found
+
+`Semantic Web and Ontologies` holds mass 55.94 and ranks **55th of 357 topics reached**, against the placement arm's 1,172nd of 4,499. Four of its ten keywords match. It still loses to `Names, Identity, and Discrimination Research` at 257.20, which matches **one** keyword, `Names`.
+
+| Published keyword | How far this repository got |
+|---|---|
+| `Ontology`, `RDF`, `OWL`, `SPARQL` | matched, each on the words themselves |
+| `Knowledge Representation` | never declared — written in prose |
+| `Semantic Web` | no word of it declared — both words appear only in prose |
+| `Schema Matching` | every word declared, never adjacent |
+| `Linked Data` | declared except `linked` |
+| `Data Integration` | declared except `integration` |
+| `Description Logics` | declared except `logics` |
+
+**`Semantic Web and Ontologies` is not the right answer for this repository, and must not be treated as one.** This library reads code semantics; it is not about the Semantic Web. `semantic` occurs in 423 files because the project is named CodeSemantics, `web` occurs separately and unrelatedly, and the two are never adjacent — which the trace reports correctly. **The four matched keywords are a false positive of a second kind**: `RDF`, `OWL` and `SPARQL` are all declared in `lexicon-extraction`, where they name the **input formats the extraction parses** to pull OLiA and FIBO into the bundled TSVs. A repository that reads a format is not a repository about that format. So 55th of 357 is not a suppressed right answer being rescued, and the earlier reading of 1,172nd as a defect does not survive either.
+
+**What the trace is good for is mechanism, not verdicts.** It shows exactly why a topic sits where it does. It cannot say where a topic ought to sit, and on this repository nothing can, because this tree publishes no DOAP record and is the tree the reading was developed against. **Every claim below that needs a right answer is therefore re-evidenced on Santuario**, the one member with a cited expected result and the one that clears chance.
+
+**The distinction this surfaced is worth its own line, because the arm will hit it constantly.** *Processes X* and *is about X* produce the same declared names. Tika reaches `Advanced Data Storage Technologies` because it parses those formats, not because it studies them. No weighting separates the two; only the parse position might — a format named in an import or a fixture is a tool's input, where the same word in a type the repository defines is its subject. That is unbuilt and unmeasured, and it is a fourth repair rather than a footnote to these three.
+
+**A correction this plan exists partly to record.** The first trace reported `Knowledge Representation` as *written as this run and matched by no rung*, which read as a matcher defect. It was not. `FurthestWritten` was built over every name occurrence, and name occurrences include prose, so a javadoc sentence counted as a declaration. Separating the two populations turned a phantom matcher defect into the strongest evidence for repair 2. **A diagnostic that does not name the population its figures came from will produce this error again**, which is why the diagnostics section below is part of this plan rather than an afterthought.
+
+## Repair 1 — weight a match by how much it narrows the subject
+
+**The evidence, and it is the one repair that does not depend on any topic being the right answer.** A topic matched on **one** ordinary English word, `Names`, outscores a topic matched on **four** distinct keywords by a factor of four and a half. That ordering is wrong whichever topic deserves to win, because it says a single common word is stronger evidence than four terms agreeing. The winning topic's other nine keywords are `Discrimination`, `Labor Market`, `Ethnic`, `Hiring`, `Racial`, `Gender`, `Employment`, `Field Experiment`, `Audit Study`, and this repository writes essentially none of them. A library that declares names for a living matches a subject about personal names.
+
+**The change.** Rank by specificity-weighted mass rather than by summed occurrence mass. `PhraseSpecificity` is `1 - Π(1 - sᵢ)`, bounded in `[0, 1]` by the frequency list's own length, already computed on every sighting, and it votes on nothing. This is [The vote](THE_VOTE.md)'s standing open item, seen at the point where it decides the answer.
+
+**The known objection, and it must be measured rather than argued.** `WordSpecificity` measures rarity **in English**, not this author's rate. `taxonomy` is rare in English and constant here, so it is not obvious the weight demotes the artefacts. The vocabulary ranking already computes the right statistic — this repository's share of a word against a reference's share, as a term of the Jensen–Shannon divergence, bounded at one bit. **Run both**: `PhraseSpecificity` as it stands, and the divergence term in its place.
+
+| What settles it | |
+|---|---|
+| `Names, Identity, and Discrimination Research` falls | it is carried by one common word and nothing else |
+| Santuario's probability of superiority rises above 0.596 | it is the only member above chance, so it is the only one that can show a gain |
+| Tika and Maven are not made worse | both currently sit at or below chance |
+
+**Abandon if** the two weightings disagree about which is better and neither moves Santuario. A weight that cannot be shown to move a number is not shipped on the strength of being reasonable.
+
+## Repair 2 — decide whether the arm reads prose
+
+**The evidence, and it is weaker than the first trace suggested.** `Knowledge Representation` is written in prose and never declared; `Semantic Web` has no word of it declared. But this repository is about neither, so those two absences are the arm being right rather than the arm missing something. **What stands is the mechanism**: a run this repository does write about itself in prose, and never inside one identifier, is invisible to a declarations-only arm. Whether that costs anything real has to be shown on a member with a cited answer, not here.
+
+**So this repair is not yet evidenced.** The measurement that would evidence it: run the trace on Santuario against the topics its DOAP token `security` marks, and count how many of their keywords are prose-only. If that count is near zero, the prose fork buys nothing and the parent plan's prediction is wrong.
+
+**This is not a new question.** [The parent plan](PHRASE_MATCHED_SUBJECTS.md) already names it and predicts its size: *"Declared names are the doctrine-clean side — read declarations, not uses — but prose is 72% of what the reading has… Expect this fork to move the result more than everything in the next two sections combined."* The trace does not yet evidence that prediction either way, for the reason above.
+
+**The tension is real and must be stated, not resolved by preference.** *Read declarations, not uses* exists because most of what a Java file contains is somebody else's vocabulary quoted, and the parse is what tells an author's word from a borrowed one. A javadoc sentence is not quoted vocabulary — it is the author writing English about their own code. Whether that makes it a declaration for this arm's purposes is the decision.
+
+**The change.** Report the arm over three populations, never summed: declarations only, prose only, and both. `NameForm.isProse` already partitions them and `TopicMatchProbe` already reads both.
+
+| What settles it | |
+|---|---|
+| The prose arm reaches subjects the declaration arm cannot | on Santuario, against the topics its own token marks |
+| It does not simply raise everything | the probability of superiority is the test: prose that adds noise evenly moves nothing |
+| Tika is the discriminating member | `document processing` appears in Tika's prose and never in its identifiers |
+
+**Abandon if** the prose arm clears chance on this repository and not on Santuario. That is the arm working only where it was written, which is the parent plan's stated abandon condition.
+
+## Repair 3 — read a run across a declaration, not only inside one name
+
+**The evidence, and it carries the same caveat.** `Schema Matching`: every word declared, never adjacent. The mechanism is real — a run split across a type and its member exists in the code and not inside any single identifier, and the arm cannot see it. But schema matching is not this repository's subject either, so the named case is an illustration and not a loss. **The census below is what turns it into a measurement**, and it must be read on Santuario and Tika before this repair is costed.
+
+**The change.** The run has to be assembled from the declaring node rather than from a name in isolation. The provenance step [What a repository does, not what it says](WHAT_IT_ACTUALLY_DOES.md) already specifies exactly this and states the blocker: *"the tally keeps a term's words and twelve `file:line` strings, which is enough to check a figure and not enough to attach a verb to a noun, so the declaring node has to survive the walk."*
+
+**So this repair is blocked on that one**, and it is the largest of the three. No lexical resource reaches it: the words are present, the dictionary reads them, and only their adjacency is missing.
+
+| What settles it | |
+|---|---|
+| How many published keywords are in reach at all | the census below, run before anything is built |
+| Runs become reachable on a member with a cited answer | Santuario's `security` topics, not this tree's illustrations |
+
+**Abandon if** the census shows the *every word declared, never adjacent* bucket is small. The repair is expensive and its prize is exactly the size of that bucket.
+
+## Order, and why
+
+0. **Re-run the trace on Santuario against the topics its own token marks.** Repairs 2 and 3 currently rest on illustrations from a tree with no cited answer, and that is the defect this plan opens by describing. Nothing below is costed until they rest on a judged member.
+1. **The census** (diagnostic 3 below). It costs almost nothing and it sizes repairs 2 and 3 before either is built. Running it first is what stops the expensive repair being chosen by argument.
+2. **Repair 1.** Self-contained, the weight already exists, and it is the one the evidence is strongest for. It also changes every figure the other two would be judged against, so it goes before them.
+3. **Repair 2.** A reporting change over a population that is already parsed. No new machinery.
+4. **Repair 3.** Blocked on the provenance step, and the census decides whether it is worth unblocking.
+
+## What would have surfaced all of this sooner
+
+The worked example needed a bespoke probe, and a bespoke probe is what a missing diagnostic looks like. Four artefacts, cheapest first.
+
+### 1. A span ledger — the single highest-value one
+
+One row per matched sighting, written under `output/`: the run, the rung both sides were normalised to, occurrences, its `PhraseSpecificity`, its raw mass, its weighted mass, every topic it credited, and its first site. **`Names` carrying 257.20 of one topic on one word would have been the first row anyone read**, and no probe would have been needed to find it. It is also the artefact repair 1 is judged on, because it shows both weightings side by side.
+
+### 2. Per-topic witnesses
+
+For each ranked topic, the keywords that carried it and each one's share of its mass. `TopicWitnesses` already does this for the theme arm and the phrase arm has no equivalent, which is the whole reason *why is this topic here* required new code. The theme arm's own experience is the argument: the witness column was reported without shares, nothing on the row explained the order, and adding the share changed the diagnosis of `law`.
+
+### 3. A reach census over the whole scheme
+
+`FurthestWritten` over all 45,154 published keywords rather than one topic's ten, counted into its four buckets, per repository. It answers *how much of this scheme is reachable at all, and by which repair* in one table, and it is the input to the ordering above. It needs no new logic — the class is written and tested.
+
+### 4. A preemption log
+
+Which spans `TermSpans` discarded because a longer or overlapping run won at that position. This is the diagnostic whose absence let a prose occurrence be misread as a matcher defect for an afternoon: with it, *the run was never a declaration* and *the run was declared and beaten* are distinguishable without reading source.
+
+**A rule for all four, and it is the lesson of the correction above.** Every row states the population it came from — declaration or prose, which rung, which repository. A figure that does not say where it came from is what produced the phantom defect this plan opens with.
+
+## What settles the whole of it
+
+The parent plan's bar is unchanged and none of these three repairs reaches it on its own: **better than TF-IDF and BM25 over the same descriptions**, on repositories this reading was not written for. Those two baselines are still unrun, and until they are, a phrase arm that ranks `Semantic Web and Ontologies` 55th instead of 1,172nd has beaten its predecessor and nothing else.
+
+## Repair 0 — the ranking currently measures the publisher's keyword style, not subject matter
+
+Found by ranking the plausible candidates for this repository rather than reading the top of the list. `./gradlew topicMatch -Ptopic="Ontolog;Natural Language;Lexico;Software Engineering;Authorship;Topic Model;Information Retrieval"`.
+
+| Candidate topic | Mass | Rank of 357 reached |
+|---|--:|--:|
+| Lexicography and Language Studies | 160.74 | **7** |
+| Semantic Web and Ontologies | 55.94 | 55 |
+| Syntax, Semantics, Linguistic Variation | 30.73 | 68 |
+| linguistics and terminology studies | 12.00 | 114 |
+| Natural Language Processing Techniques | 0.00 | not reached |
+| Software Engineering Research | 0.00 | not reached |
+| Advanced Software Engineering Methodologies | 0.00 | not reached |
+| Model-Driven Software Engineering Techniques | 0.00 | not reached |
+| Software Engineering Techniques and Practices | 0.00 | not reached |
+| Software Engineering and Design Patterns | 0.00 | not reached |
+| Information Retrieval and Search Behavior | 0.00 | not reached |
+| Authorship Attribution and Profiling | 0.00 | not reached |
+| Topic Modeling | 0.00 | not reached |
+| Biomedical Text Mining and Ontologies | 0.00 | not reached |
+
+**Every software engineering topic scores zero on a Java library**, and so does the best-fitting subject in the scheme. The keyword traces say why, and the cause is not subject matter.
+
+| Topic | Its ten published keywords | Result |
+|---|---|---|
+| Lexicography and Language Studies | `Dictionaries`, `Language`, `Usage`, `Corpus`, `Meaning`, `Lexicography`, `Electronic`, `Bilingual`, `Learners`, `History` — **single words** | five matched, rank 7 |
+| Natural Language Processing Techniques | `Word Sense Disambiguation`, `Part-of-Speech Tagging`, `Dependency Parsing`, `Statistical Machine Translation`, `Lexical Database` — **every one a phrase** | none matched, rank nil |
+| Software Engineering Research | `Code Clone Detection`, `Software Defect Prediction`, `Source Code Analysis`, `Bug Localization`, `API Usage Patterns` — **every one a phrase** | none matched, rank nil |
+
+**So a topic is reachable to the extent its publisher happened to write one-word keywords.** OpenAlex states ten keywords per topic and nothing constrains their length; a topic described in noun phrases cannot be reached by an arm matching runs against identifiers, however exactly it fits. The ranking is then a measurement of OpenAlex's editorial style with the repository as a filter, which is not what any of it claims to report.
+
+**This subsumes the entertainment at the top of the list.** `Names, Identity, and Discrimination Research` did not win because one common word outweighed four specialist ones; it won because it is one of the few topics whose keywords are short enough to be reachable at all. The entomology topics that lead this repository's every-match ranking are the same effect — `Taxonomy`, `Species`, `Distribution` are one word each.
+
+**The repair is the parent plan's own open question, and this is the evidence that settles it.** [Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) asks *"One share or two?"* and names the pair: of the topic's terms, the specificity-weighted share this repository declares; of this repository's vocabulary, the specificity-weighted share the topic states. **A share bounds itself at 1 by its own definition**, which is the doctrine's derived bound, and dividing by what a topic *could* have scored is what removes the publisher's keyword length from the answer. Summed mass has no such bound and cannot.
+
+| What settles it | |
+|---|---|
+| `Natural Language Processing Techniques` and the software engineering topics become reachable, or are shown to be genuinely unreachable | on this repository, where all six currently score zero |
+| Santuario's probability of superiority rises above 0.596 | the only member above chance |
+| The reachability census reports how much of the scheme is reachable at any weighting | diagnostic 3, and it must be run before this is costed |
+
+**Abandon if** normalising by the topic's own reachable mass simply promotes topics with one reachable keyword out of ten. That is the failure mode `WrittenSubtree` already met — one share lets a single concept carry a branch — and it is why the parent plan names **two** shares rather than one.
+
+**This goes before repair 1.** A weighting applied to a ranking that cannot reach the right topics at all is tuning the order of the wrong list.
