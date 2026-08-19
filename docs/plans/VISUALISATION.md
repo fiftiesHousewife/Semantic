@@ -1,5 +1,7 @@
 # Visualisation
 
+> **Nothing is drawn now.** [The JSON-only output](JSON_ONLY_OUTPUT.md) removed `j2html` and every SVG writer, so this plan starts from no chart rather than from the bar and the sunburst it was written against. A chart drawn from `reading.json` would need the dependency back.
+
 ## Visualisation
 
 **A first viewer exists** for the theme reading — `ThemePage` renders the same `ThemeGraph` the export is written from, so the picture and the report cannot disagree. It is written the way everything else here is: markup is a DSL of typed tags and never a string in a Java file, the stylesheet and the script are their own files, and the page carries no document wrapper so whatever renders it supplies one. Its layout is deterministic (themes on rows ordered by intensity, arcs joining two themes when the same word was read as both), which is the same discipline the concept map below demands and for the same reason: no force simulation, because readability is not a layout parameter. What it draws is the shared *word*, which makes the polysemy that dominates a raw ranking visible instead of hiding it.

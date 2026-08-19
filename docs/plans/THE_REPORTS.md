@@ -1,5 +1,7 @@
 # The reports
 
+> **Superseded.** There are no reports. [The JSON-only output](JSON_ONLY_OUTPUT.md) deleted every renderer, `j2html` and the committed `output/markdown/`, `output/html/` and `output/svg/` folders, so the style defects below have no artefact to apply to. What survives the change is the README, which the style rules in `CLAUDE.md` still bind, and the charting defects, which belong to [Visualisation](VISUALISATION.md) if a chart is ever drawn again.
+
 Everything under [`output/`](../../output) is a published artefact, and the reading is judged on them before it is judged on anything else. They are currently written in three styles by five classes, and a reader has to be taught each one.
 
 **One statement of style, applied to every generated page and every generated markdown file.** The rules below are the statement; the work is making each writer obey it and deleting what obeys nothing.
