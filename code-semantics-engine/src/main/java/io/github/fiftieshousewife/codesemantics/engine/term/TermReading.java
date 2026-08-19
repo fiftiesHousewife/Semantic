@@ -103,7 +103,22 @@ public final class TermReading {
         occurrence.form().vocabulary().phrasesOf(occurrence.text(), words)
                 .forEach(phrase -> spans.in(phrase.words())
                         .forEach(span -> sightings.add(new RecordedSpans.Sighting(span, site,
-                                occurrence.restatesItsType(span.words())))));
+                                occurrence.restatesItsType(span.words()),
+                                coverageOf(span, phrase.words())))));
+    }
+
+    /**
+     * The share of what a declared name narrows that one span of it accounts for.
+     *
+     * <p>A term is evidence to the extent that the name it was found in is about it. The denominator is the
+     * whole name's specificity rather than its word count, because a name's words do not narrow equally:
+     * {@code signature} is nearly all of what {@code XMLSignatureInput} narrows, and {@code source} is two
+     * thirds of what {@code EvidenceSource} does. Adding words only raises specificity, so the ratio is
+     * bounded at 1 by the definition and reaches it exactly where the span is the whole name.
+     */
+    private double coverageOf(final TermSpan span, final List<String> name) {
+        final double narrowedByTheName = specificity.of(name);
+        return narrowedByTheName == 0.0 ? 0.0 : specificity.of(span.words()) / narrowedByTheName;
     }
 
     /** The ladder's answer for one already-folded run, which is what a recorded reading rereads. */

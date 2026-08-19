@@ -22,7 +22,7 @@ class ExportedTaxonomiesTest {
     private static TermSighting sighting(final List<String> words, final double specificity,
                                          final int occurrences, final SkosConcept... concepts) {
         return new TermSighting(words, List.of(concepts), TermRung.WORDS, specificity, occurrences,
-                List.of("engine/src/main/java/Reading.java:9"));
+                occurrences, List.of("engine/src/main/java/Reading.java:9"));
     }
 
     private static MatchedTerms matched(final TermSighting... sightings) {
@@ -39,7 +39,7 @@ class ExportedTaxonomiesTest {
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
-                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1,
+                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 

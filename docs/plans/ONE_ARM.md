@@ -10,7 +10,7 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 
 | | Defect | Measured | The fix, and why it is derived |
 |---|---|---|---|
-| **D1** | A one-word term is matched inside a longer compound and counted whole. `Source` is 189 occurrences and every one is `EvidenceSource`, `SourceAnchor`, `ReadingSource`, `AsciiDocSource` — never the name itself | the term matches in `evidence.json` | **Coverage.** Weight a match by the share of the declared run it covers: `Source` inside `EvidenceSource` covers 1 of 2. A share, bounded at 1 by its own definition, no constant chosen |
+| **D1** | A one-word term is matched inside a longer compound and counted whole. `Source` is 189 occurrences and every one is `EvidenceSource`, `SourceAnchor`, `ReadingSource`, `AsciiDocSource` — never the name itself | the term matches in `evidence.json` | ~~**Coverage.** Weight a match by the share of the declared run it covers~~ — **built, measured and reverted.** Two derived denominators both lower the ranking on the evaluation members and neither demotes `Source` here; the [figures are below](#coverage-was-built-measured-and-reverted). The share is reported as `shareOfEachName` and weights nothing |
 | **D2** | The branch rule corroborates noise with noise. `Source` is admitted because eight siblings under `TextStructuralUnit` were written — `Abstract`, `Author`, `Citation`, `Document`, `Heading`, `Headline`, `Sentence`, `Title`, every one ordinary English a documentation-reading codebase writes anyway | the siblings, read off the same file | **Corroboration by strength, not by count.** A sibling corroborates only where the word carrying it clears the vocabulary null, which the reading already computes per word. It also removes the stated 1% bar the backlog already objects to |
 | **D3** | A publisher's paragraph is read for a term the repository never meant. OLiA's `Source` is a news-article attribution schema; this repository means origin-of-data | the concept reading's leading contributors | Falls out of D1 and D2. What is left after both is measured before anything further is built |
 | **D4** | Half of what the concept rung reads is citation apparatus | 48% of OLiA's 1,216 definitions carry a URL, 47% a bracketed citation, 15% are under eight words; the commonest bracketed tokens are `http`, `org`, `www`, `purl`, `isocat`, and `Carlson` 79 times | Read the statement a publisher makes about subject matter, not the statement it makes about provenance. **Unsettled**: whether that separation can be derived from what SKOS distinguishes, or is a rule about one publisher's formatting and therefore refused |
@@ -60,6 +60,22 @@ Two things this fixes by construction rather than by rule. **A citation outranks
 Both change which concepts survive the term match, so they land first and are measured together and separately.
 
 `TermSpan` already carries where a run began and ended; what it does not carry to the sighting is how long the declared run was, which is the denominator coverage needs. `CorroboratedTerms` already asks which siblings were written; what it asks for instead is which of those siblings the vocabulary reading admits.
+
+#### Coverage was built, measured and reverted
+
+Two denominators were tried, each a share bounded at 1 by its own definition: the share of the name's **words** the term filled, and the share of what the name **narrows** that the term accounted for. Each ran against the Apache DOAP category token on the evaluation members, at the commits the manifest pins. The figure is the probability of superiority over the topics each member reaches.
+
+| Weighting | Tika, `content` | Santuario, `security` | Santuario, of the top ten |
+|---|--:|--:|--:|
+| none — the reading as it stood | 0.8322 | 0.8870 | 3 |
+| the share of the name's words | 0.8273 | 0.8673 | 0 |
+| the share of what the name narrows | 0.8639 | 0.8731 | 0 |
+
+Neither denominator raises both members, and both empty Santuario's top ten of the topics stating `security`. **The specific terms are the embedded ones, which is why.** Santuario writes `signature` inside `XMLSignatureInput` and writes `name` as a whole declared name, so weighting a term by how much of a name it filled promotes the generic term over the specific one. It moved *Names, Identity, and Discrimination Research* from 553 to 272 and left *Empathy and Medical Education* at 494, first.
+
+**It also fails its own criterion on this tree.** `Source` stays first among OLiA's concepts under both denominators: `EvidenceSource` and `SourceAnchor` are two-word names in which `source` carries most of what the name narrows.
+
+The weighting is reverted and the figure is kept. `TermSighting.coverage` is computed on every sighting and the export states it per concept as `shareOfEachName`, at schema 7.1. It weights nothing. **D1 stands as a measured defect with no derived fix**, and what is left for it is D2.
 
 | | |
 |---|---|
@@ -132,6 +148,22 @@ The export carries all of them. `summary.placedIn` becomes a list, and each plac
 Apache Tika, Maven and Santuario, on the rank predicate over the Apache DOAP category tokens their publisher states.
 
 ## The baseline, recorded before any of it
+
+### On the evaluation members, which is what the loop is judged on
+
+Every member read against OpenAlex's own published keywords, scored against the Apache DOAP category token its publisher states. Two figures, because the pooled one over all 4,516 topics mostly reports how many marked topics were reached at all.
+
+| Member | Token | Topics reached | Superiority over them | Of the top ten |
+|---|---|--:|--:|--:|
+| Tika | `content` | 863 | 0.8322 | 0 of 10 |
+| Maven | `build-management` | 559 | no pair to compare | 0 of 10 |
+| Santuario | `security` | 361 | 0.8870 | 3 of 10 |
+
+**OpenAlex states `build` in none of its 4,516 topic accounts**, so Maven has no pair to compare and is a negative control scored by whether the reading stays quiet.
+
+**The rung that cites nothing outranks the ladder that cites a dictionary.** Read on the words both sides wrote, Tika scores 0.8357 and Santuario 0.9322 with 6 of the top ten stating `security` — above the pooled reading on both members. The dictionary-form and sense rungs score at or below chance on Santuario, 0.4286 and 0.4743. Whatever the ladder buys, it is not ranking.
+
+### On this repository
 
 This repository at `21fcede`, vocabulary reading, both schemes. Nothing below has been iterated on.
 

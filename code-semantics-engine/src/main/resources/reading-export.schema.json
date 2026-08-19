@@ -359,6 +359,7 @@
                 "occurrences",
                 "specificity",
                 "wordsInTerm",
+                "shareOfEachName",
                 "firstWrittenAt"
               ],
               "properties": {
@@ -390,6 +391,13 @@
                   "description": "How many words the published term is written in. A term of one word is what a repository outside the vocabulary's domain matches by accident, so those terms carry the branch condition described under `concepts`.",
                   "type": "integer",
                   "minimum": 1
+                },
+                "shareOfEachName": {
+                  "title": "Share of each name the term accounted for",
+                  "description": "The mean share of what each declared name narrows that this term accounted for. `Source` inside `EvidenceSource` accounts for two thirds of what that name narrows; a term written as a whole name accounts for all of it. It weights nothing: weighting the term's mass by it was measured on the evaluation set and lowered the ranking, so the figure is reported and not applied.",
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
                 },
                 "firstWrittenAt": {
                   "$ref": "#/$defs/site"

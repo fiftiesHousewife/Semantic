@@ -34,7 +34,7 @@ class WrittenKeywordsTest {
     private static TermSighting written(final SkosConcept matched, final double narrows,
                                         final int occurrences) {
         return new TermSighting(List.of(matched.prefLabel().toLowerCase(java.util.Locale.ROOT)),
-                List.of(matched), TermRung.WORDS, narrows, occurrences, ONE_SITE);
+                List.of(matched), TermRung.WORDS, narrows, occurrences, occurrences, ONE_SITE);
     }
 
     private static WrittenKeywords scoredAs(final List<WrittenKeywords> ranked, final String topic) {
@@ -106,9 +106,9 @@ class WrittenKeywordsTest {
         final SkosConcept dictionaries = keywords.get(10);
         final List<TermSighting> sightings = List.of(
                 new TermSighting(List.of("dictionaries"), List.of(dictionaries), TermRung.WORDS, 0.9, 3,
-                        ONE_SITE),
+                        3, ONE_SITE),
                 new TermSighting(List.of("dictionary"), List.of(dictionaries), TermRung.LEMMAS, 0.9, 5,
-                        ONE_SITE));
+                        5, ONE_SITE));
 
         final WrittenKeywords reached = scoredAs(
                 WrittenKeywords.in(keywords, sightings, specificity), LEXICOGRAPHY);

@@ -31,11 +31,14 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
      * @param specificity    how much writing the term narrows, bounded in {@code [0, 1]} by the frequency
      *                       list's own length
      * @param wordsInTerm    how many words the term is written in; a one-word term cleared the branch rule
+     * @param shareOfEachName the mean share of what each declared name narrows that this term accounted for.
+     *                       It votes on nothing: weighting the mass by it was measured on the evaluation set
+     *                       and lowered the ranking on Santuario, so it is reported and not applied
      * @param firstWrittenAt the file and line it was first written at
      */
     @Builder
     public record Concept(String concept, String placedUnder, int occurrences, double specificity,
-                          int wordsInTerm, SightingSite firstWrittenAt) {
+                          int wordsInTerm, double shareOfEachName, SightingSite firstWrittenAt) {
     }
 
     public ExportedTaxonomy {

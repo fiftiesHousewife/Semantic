@@ -47,6 +47,7 @@ public final class ExportedTaxonomies {
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())
                 .wordsInTerm(sighting.length())
+                .shareOfEachName(sighting.meanCoverage())
                 .firstWrittenAt(SightingSite.of(sighting.firstSite()))
                 .build();
     }

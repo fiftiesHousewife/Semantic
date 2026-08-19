@@ -17,8 +17,16 @@ import java.util.function.Function;
  */
 public final class RecordedSpans {
 
-    /** One span as it was met: where it can be checked, and whether the name restates its declared type. */
-    record Sighting(TermSpan span, String site, boolean restatesItsType) {
+    /**
+     * One span as it was met: where it can be checked, whether the name restates its declared type, and the
+     * share of that name the span filled.
+     *
+     * <p>Coverage sits here rather than on the span because it is a fact about the meeting rather than about
+     * the term: the same term covers the whole of one declared name and a third of another. A narrower index
+     * rereading this sighting answers about the same run in the same name, so the share it was met at
+     * carries over unchanged.
+     */
+    record Sighting(TermSpan span, String site, boolean restatesItsType, double coverage) {
     }
 
     /** One file's reading: how many names it offered, and every span found in them. */
@@ -66,7 +74,7 @@ public final class RecordedSpans {
         if (sighting.restatesItsType()) {
             tally.refusedAsItsOwnType(span);
         } else {
-            tally.saw(span, sighting.site());
+            tally.saw(span, sighting.site(), sighting.coverage());
         }
     }
 }

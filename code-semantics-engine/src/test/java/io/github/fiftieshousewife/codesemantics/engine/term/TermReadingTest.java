@@ -141,6 +141,67 @@ class TermReadingTest {
     }
 
     @Test
+    void statesTheShareOfEachNameATermAccountedFor(@TempDir final Path root) throws IOException {
+        final TermReading claiming = TermReading.over(publishing(SOURCE, "phrase"));
+
+        final MatchedTerms matched = claiming.of(parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private String phrase;
+                    private String sourcePhrase;
+                    private String theLeadingSourcePhrase;
+                }
+                """));
+
+        assertAll(
+                () -> assertThat(matched.byMass(1).getFirst().occurrences()).isEqualTo(3),
+                () -> assertThat(matched.byMass(1).getFirst().meanCoverage())
+                        .as("the whole of the first name and a part of each of the others")
+                        .isLessThan(1.0)
+                        .isGreaterThan(0.0));
+    }
+
+    @Test
+    void statesAWholeNameAsAllOfWhatThatNameNarrows(@TempDir final Path root) throws IOException {
+        final TermReading claiming = TermReading.over(publishing(SOURCE, "phrase"));
+
+        final MatchedTerms matched = claiming.of(parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private String phrase;
+                    void write(final String phrase) {
+                    }
+                }
+                """));
+
+        assertThat(matched.byMass(1).getFirst().meanCoverage())
+                .as("a term written as the whole of a name accounts for all of what it narrows")
+                .isEqualTo(1.0);
+    }
+
+    @Test
+    void carriesTheShareItWasMetAtThroughANarrowerIndex(@TempDir final Path root) throws IOException {
+        final TermIndex published = publishing(SOURCE, "phrase").stating("phrase", "constituent");
+        final ParsedRepository parsed = parsed(root, "Page.java", """
+                package example;
+                class Page {
+                    private String sourcePhrase;
+                    private String constituent;
+                }
+                """);
+        final RecordedSpans sighted = TermReading.over(published).sighted(parsed);
+
+        final MatchedTerms reread = sighted.rereadBy(
+                TermReading.corroboratedBy(published, StatedSiblings.of(TaxonomyTree.of(
+                        List.of(), Map.of(), label -> label))));
+
+        assertThat(reread.sightings())
+                .as("a narrower index answers about the same run in the same name, so the share it filled "
+                        + "there is unchanged by which index answered")
+                .allSatisfy(sighting -> assertThat(sighting.meanCoverage()).isLessThan(1.0));
+    }
+
+    @Test
     void refusesASpanThatIsTheTypeWrittenBesideTheName(@TempDir final Path root) throws IOException {
         final TermReading claiming = TermReading.over(publishing(SOURCE, "set"));
 

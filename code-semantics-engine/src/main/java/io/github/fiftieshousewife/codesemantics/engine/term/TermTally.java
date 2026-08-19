@@ -47,12 +47,16 @@ public final class TermTally {
         rungsInThisFile.clear();
     }
 
-    public void saw(final TermSpan span, final String site) {
+    /**
+     * One sighting of a term, covering that share of the declared name it was found in. A term filling the
+     * whole name covers 1; {@code Source} inside {@code EvidenceSource} covers a half.
+     */
+    public void saw(final TermSpan span, final String site, final double coverage) {
         rungsInThisFile.add(span.rung());
         byTerm.merge(span.words(),
                 new TermSighting(span.words(), span.concepts(), span.rung(), specificity.of(span.words()),
-                        1, List.of(site)),
-                (seen, arrived) -> seen.seenAgain(site));
+                        1, coverage, List.of(site)),
+                (seen, arrived) -> seen.seenAgain(site, coverage));
     }
 
     /**

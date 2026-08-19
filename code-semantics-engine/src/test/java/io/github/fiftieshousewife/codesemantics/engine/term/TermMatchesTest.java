@@ -19,7 +19,7 @@ class TermMatchesTest {
     private static TermSighting sighting(final List<String> words, final TermRung rung,
                                          final double specificity, final int occurrences,
                                          final SkosConcept... concepts) {
-        return new TermSighting(words, List.of(concepts), rung, specificity, occurrences,
+        return new TermSighting(words, List.of(concepts), rung, specificity, occurrences, occurrences,
                 List.of("lexicon/src/main/java/Reading.java:9"));
     }
 

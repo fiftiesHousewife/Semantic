@@ -22,7 +22,7 @@ class ConceptTopicsTest {
     private static TermSighting sighting(final String term, final double specificity, final int occurrences,
                                          final SkosConcept... concepts) {
         return new TermSighting(List.of(term), List.of(concepts), TermRung.WORDS, specificity, occurrences,
-                List.of("lexicon/src/main/java/Reading.java:9"));
+                occurrences, List.of("lexicon/src/main/java/Reading.java:9"));
     }
 
     private static MatchedTerms matched(final TermSighting... sightings) {
