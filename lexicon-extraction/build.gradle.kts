@@ -199,3 +199,18 @@ tasks.register<JavaExec>("extractFiboTerms") {
             .file("lexicon/src/main/resources/fibo-terms.tsv").asFile.absolutePath
     )
 }
+
+// Reads the IANA media type registry — one published CSV per registry — into the bundled media-types TSV.
+// -Pmediatypes=<directory holding the ten CSVs> is required.
+//   ./gradlew :lexicon-extraction:extractMediaTypes -Pmediatypes=/path/to/csvs
+tasks.register<JavaExec>("extractMediaTypes") {
+    group = "build"
+    description = "Extracts the IANA media types TSV from the registry's published CSVs (-Pmediatypes=<dir>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.MediaTypeExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("mediatypes") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/media-types.tsv").asFile.absolutePath
+    )
+}

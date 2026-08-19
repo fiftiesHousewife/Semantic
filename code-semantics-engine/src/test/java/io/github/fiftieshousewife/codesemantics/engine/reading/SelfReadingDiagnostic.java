@@ -3,7 +3,9 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
+import io.github.fiftieshousewife.bi.lexicon.MediaTypes;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ImportOrigin;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import org.junit.jupiter.api.Tag;
@@ -57,9 +59,10 @@ class SelfReadingDiagnostic {
 
     private void write(final ReportFolder reports, final RepositoryLegibility reading, final Path root,
             final ParsedRepository parsed) throws IOException {
-                reports.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s%n%n%s".formatted(root.getFileName(),
+                reports.wrote(REPORT, "# Self-reading — %s%n%n%s%n%s%n%s%n%n%s%n%n%s".formatted(root.getFileName(),
                 PREAMBLE, new LegibilityReport().render(reading), imports(parsed),
-                provided(ProvidedServices.statedUnder(root), parsed)), "Legibility");
+                provided(ProvidedServices.statedUnder(root), parsed),
+                mediaTypes(WrittenMediaTypes.writtenUnder(root, MediaTypes.fromClasspath()))), "Legibility");
     }
 
     /** What the parse set aside, so a narrowed corpus is a reported figure rather than a silent one. */
@@ -101,5 +104,22 @@ class SelfReadingDiagnostic {
         return (int) services.registrations().stream()
                 .filter(registration -> parsed.origins().of(registration.serviceInterface()) == origin)
                 .count();
+    }
+
+    /**
+     * The registry identifiers written as string literals — the publisher's own strings, counted beside the
+     * reading and summed into no vote. The parse discards every other literal.
+     */
+    private static String mediaTypes(final WrittenMediaTypes written) {
+        if (written.sightings().isEmpty()) {
+            return "Registered media types written as string literals: none.";
+        }
+        final String leading = written.sightings().stream()
+                .limit(5)
+                .map(sighting -> "`%s` %d".formatted(sighting.identifier(), sighting.occurrences()))
+                .collect(Collectors.joining(", "));
+        return ("Registered media types written as string literals: %d distinct identifiers of the IANA "
+                + "registry, across %d occurrences. Most written: %s.")
+                .formatted(written.sightings().size(), written.occurrences(), leading);
     }
 }

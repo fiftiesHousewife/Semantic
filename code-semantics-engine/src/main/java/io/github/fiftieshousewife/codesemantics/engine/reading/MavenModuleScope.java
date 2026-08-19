@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -40,13 +39,10 @@ public final class MavenModuleScope {
         if (excluded.excludes(root.relativize(pom)) || !chain.add(pom)) {
             return;
         }
-        final Matcher modules = MODULE_ENTRY.matcher(contentOf(pom));
-        while (modules.find()) {
-            final Path stated = pom.getParent().resolve(modules.group(1)).resolve(POM_FILE).normalize();
-            if (Files.isRegularFile(stated)) {
-                collect(root, stated, excluded, chain);
-            }
-        }
+        MODULE_ENTRY.matcher(contentOf(pom)).results()
+                .map(module -> pom.getParent().resolve(module.group(1)).resolve(POM_FILE).normalize())
+                .filter(Files::isRegularFile)
+                .forEach(stated -> collect(root, stated, excluded, chain));
     }
 
     private static String contentOf(final Path pom) {

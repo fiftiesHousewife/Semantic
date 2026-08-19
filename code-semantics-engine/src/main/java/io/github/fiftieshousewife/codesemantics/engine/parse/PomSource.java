@@ -1,12 +1,11 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Reads a Maven pom for the two things in it an author chose for a reader: the {@code <module>} entries,
@@ -34,18 +33,15 @@ public final class PomSource implements SourceReader {
 
     @Override
     public ParsedSource read(final Path file, final String source) {
-        final List<NameOccurrence> read = new ArrayList<>();
-        final Matcher modules = MODULE_ENTRY.matcher(source);
-        while (modules.find()) {
-            read.add(new NameOccurrence(modules.group(1).replace(PATH_SEPARATOR, QUALIFIER), NameForm.MODULE,
-                    lineOf(source, modules.start(1))));
-        }
-        final Matcher descriptions = DESCRIPTION.matcher(source);
-        while (descriptions.find()) {
-            read.addAll(proseLines(descriptions.group(1), lineOf(source, descriptions.start(1))));
-        }
-        read.sort(Comparator.comparingInt(NameOccurrence::line));
-        return new ParsedSource("", read, ParseOutcome.CLEAN);
+        final Stream<NameOccurrence> modules = MODULE_ENTRY.matcher(source).results()
+                .map(module -> new NameOccurrence(module.group(1).replace(PATH_SEPARATOR, QUALIFIER),
+                        NameForm.MODULE, lineOf(source, module.start(1))));
+        final Stream<NameOccurrence> descriptions = DESCRIPTION.matcher(source).results()
+                .flatMap(description -> proseLines(description.group(1),
+                        lineOf(source, description.start(1))).stream());
+        return new ParsedSource("", Stream.concat(modules, descriptions)
+                .sorted(Comparator.comparingInt(NameOccurrence::line))
+                .toList(), ParseOutcome.CLEAN);
     }
 
     private static List<NameOccurrence> proseLines(final String description, final int firstLine) {

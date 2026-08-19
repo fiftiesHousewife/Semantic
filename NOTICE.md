@@ -24,6 +24,7 @@ The library's own dependencies are declared in `gradle/libs.versions.toml`, with
 | `lexicon/src/main/resources/nist-csf-functions.tsv` | 134 | NIST's OSCAL edition of the Cybersecurity Framework 2.0, at a pinned revision | a US Government work, with copyright waived worldwide through CC0 1.0 |
 | `lexicon/src/main/resources/cso-topics.tsv` | 14,636 | the Computer Science Ontology 3.5, read from the CSV distribution, the archive pinned by digest | **CC BY 4.0 — attribution required.** Credit: the Computer Science Ontology, Knowledge Media Institute, The Open University. The downloaded archive states no licence and carries no licence file; the terms were supplied by this repository's maintainer rather than read from the archive, and the file's header records that |
 | `lexicon/src/main/resources/bian-service-domains.tsv` | 319 | the BIAN Service Landscape, one specification file per service domain, at a pinned commit | Apache-2.0 (BIAN), stated in the publisher's own `LICENSE` |
+| `lexicon/src/main/resources/media-types.tsv` | 2,344 | the IANA media type registry, read from the ten per-registry CSVs IANA publishes, the file set pinned by digest | CC0 1.0 — IANA's licensing terms state the protocol registries "may be freely used by any party for any purpose" |
 
 ## WordNet, and a gap stated rather than papered over
 
