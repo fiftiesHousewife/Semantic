@@ -144,6 +144,9 @@ The first would have shown repair 0 on the day the arm was built. Reading one to
 
 ## Order, and why
 
+**Nothing here starts until [the export is the output](JSON_ONLY_OUTPUT.md) has landed.** Every repair below moves every figure the reading reports, so each one has to be judged on *what moved and what did not*. `ReadingChanges` answers that from two exports and is already built; what it lacks is an export worth comparing. Until then a repair would be judged by eye against a markdown report, which is the manual verification check `CLAUDE.md` refuses. The cleanup is not a detour before the interesting work — it is what makes the interesting work measurable.
+
+
 0. **Re-run the trace on Santuario against the topics its own token marks.** Repairs 2 and 3 currently rest on illustrations from a tree with no cited answer, and that is the defect this plan opens by describing. Nothing below is costed until they rest on a judged member.
 1. **The census** (diagnostic 3 below). It costs almost nothing and it sizes repairs 2 and 3 before either is built. Running it first is what stops the expensive repair being chosen by argument.
 2. **Repair 1.** Self-contained, the weight already exists, and it is the one the evidence is strongest for. It also changes every figure the other two would be judged against, so it goes before them.

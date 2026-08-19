@@ -31,6 +31,14 @@ So the renderers go, the export stays and is split by audience.
 
 `elapsedMillis` leaves the answers because it is a fact about the machine, not the repository, and it makes two runs of one tree differ when the reading did not.
 
+## Why this goes before the phrase arm's repairs
+
+[The phrase arm's repairs](PHRASE_ARM_REPAIRS.md) are five changes that each move every figure the reading reports. Judging one means answering *did this move the figure it was meant to move, and nothing else* — and today that is answered by reading a markdown diff, which is a manual verification check and is refused outright by `CLAUDE.md`.
+
+`ReadingChanges` already answers it properly, from two exports. What it does not yet have is an export worth comparing: `themes.json` carries no `schemaVersion`, is not validated, and buries the 29 KB of answers under 1.1 MB of per-scope detail. **So this work is not housekeeping deferred until after the interesting part. It is what makes the interesting part measurable**, and the repairs are sequenced behind it deliberately.
+
+The test that this step succeeded is therefore the next step's first action: run a repair, run the diff, and have it name what moved without anything being read by eye.
+
 ## Order
 
 1. **Count what `scopes[].contributions` costs and who reads it.** It decides whether this is a split or a deletion.
