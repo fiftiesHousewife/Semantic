@@ -214,3 +214,19 @@ tasks.register<JavaExec>("extractMediaTypes") {
             .file("lexicon/src/main/resources/media-types.tsv").asFile.absolutePath
     )
 }
+
+// Reads an OpenAlex topics snapshot — the manifest and the gzipped JSONL parts it names — into the bundled
+// topics TSV. OpenAlex serves the snapshot from S3 rather than from a permalink, so it is read from a local
+// directory and the manifest and its parts are pinned together by a digest.
+//   ./gradlew :lexicon-extraction:extractOpenAlexTopics -Popenalex=/path/to/snapshot
+tasks.register<JavaExec>("extractOpenAlexTopics") {
+    group = "build"
+    description = "Extracts the OpenAlex topics TSV from a downloaded snapshot (-Popenalex=<dir>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.OpenAlexTopicsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("openalex") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/openalex-topics.tsv").asFile.absolutePath
+    )
+}

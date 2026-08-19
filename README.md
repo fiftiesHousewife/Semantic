@@ -472,6 +472,19 @@ The bundled one is the [arXiv category taxonomy](https://arxiv.org/category_taxo
 
 What settles the swap is the share of repositories whose stated category has a nearest subject at all under each scheme.
 
+#### A second subject scheme is bundled, and it is not the default
+
+[OpenAlex](https://openalex.org/) publishes 4,516 research topics under 252 subfields, 26 fields and 4 domains, each topic carrying a description and ten keywords. It is read from [`openalex-topics.tsv`](lexicon/src/main/resources/openalex-topics.tsv) — 4,798 rows, CC0 — extracted from a snapshot pinned by digest, and it answers arXiv's second gap in part: it names *Personal Information Management*, *Library Science and Information Systems* and *Caching and Content Delivery*, where arXiv names none of them. Its descriptions run to a 69-word median against arXiv's 18.
+
+**It stays out of the default placement until it clears the out-of-domain control.** Placed against a repository the reading was not written for, the best of 4,516 chance subjects comes nearer than the best real one, so the reading reports nothing — while arXiv clears its null on the same repository. Both are two commands, and the figures are in [`BACKLOG.md`](BACKLOG.md):
+
+```
+./gradlew functionalPlacement -Ptaxonomy=lexicon/src/main/resources/openalex-topics.tsv
+./gradlew functionalPlacement -Ptaxonomy=lexicon/src/main/resources/arxiv-taxonomy.tsv
+```
+
+[`SubjectNull`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectNull.java) keeps the field size and the real description lengths and draws the words from the pooled vocabulary of every description, so a chance subject under OpenAlex is 69 words of generic academic English drawn from all of science, where under arXiv it is 18 words drawn from a physics-heavy pool of 152. **Two explanations fit and one measurement separates them**: a random 152-topic subsample of OpenAlex, placed against the same repository. If chance still wins, the pooled vocabulary is the cause; if it stops, the field size is.
+
 ### Functional taxonomy
 
 A functional taxonomy names what an organisation does rather than what things in its field are called, so it is compared as a distribution and never matched term by term. The bundled one is the [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework), read from [`nist-csf-functions.tsv`](lexicon/src/main/resources/nist-csf-functions.tsv): six functions, and every category and subcategory NIST files under one of them. [`FunctionPlacement`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java) pools each function's statements and compares them with a scope's own reading.
@@ -607,6 +620,7 @@ Each report names what it did not use, at the end of that report and nowhere els
 | Permutation test | Good, P. (2005), *Permutation, Parametric and Bootstrap Tests of Hypotheses*, 3rd ed., Springer |
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |
+| Research topics | [OpenAlex](https://openalex.org/), 4,516 topics under 252 subfields, 26 fields and 4 domains, CC0 |
 | Subject labels per sense | [WordNet Domains](https://wndomains.fbk.eu/), Fondazione Bruno Kessler |
 | Property accessor names | [JavaBeans specification 1.01](https://www.oracle.com/java/technologies/javase/javabeans-spec.html), section 8.3, design patterns for properties — `get`, `set` and `is` |
 | The platform's own vocabulary | `java.lang.module.ModuleFinder.ofSystem()`, and the class file format, [JVMS §4.4](https://docs.oracle.com/javase/specs/jvms/se21/html/jvms-4.html) |

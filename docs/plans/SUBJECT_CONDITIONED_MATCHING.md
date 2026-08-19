@@ -30,7 +30,40 @@ A match in a branch whose placed subject holds no mass in the repository's place
 
 ## Order
 
-1. The OpenAlex extraction lands first ([backlog item 5](../../BACKLOG.md)) — it is the subject scheme both routes condition against, and prose per subject is what route 1 pools.
+1. ~~The OpenAlex extraction lands first~~ — done, and the section below states what it measured. Route 2 has its scheme; the swap of the default placement does not follow from it.
 2. Route 1 as a diagnostic probe: the branch→subject table for the three bundled taxonomies, printed and eyeballed before anything votes.
 3. The CSO re-extraction carrying `sameAs`, and the route-2 join with its agreement figure.
 4. Conditioning as a reported partition on the term reading, with the three measurements above.
+
+## What the OpenAlex extraction measured
+
+`OpenAlexTopicsExtraction` bundles [`openalex-topics.tsv`](../../lexicon/src/main/resources/openalex-topics.tsv): 4,798 rows — 4 domains, 26 fields, 252 subfields and 4,516 topics, each topic carrying its description and its ten keywords as the definition and its Wikipedia article as the note. That gives route 2 the cross-scheme identifier it joins on, and it makes OpenAlex a candidate to replace arXiv as the default subject scheme. **The second does not follow from the first.**
+
+`./gradlew functionalPlacement -Ptaxonomy=<path>` places a repository against a taxonomy in a file, through the same reading and the same null that a bundled one gets. Both schemes, both repositories, at `cb91e65`:
+
+| Repository | Scheme | Subjects | Nearest subject | Divergence | Best chance subject | Clears chance |
+|---|---|--:|---|--:|--:|---|
+| This library | arXiv | 152 | Computation and Language | 39.8% | 44.9% | yes |
+| This library | OpenAlex | 4,516 | Authorship Attribution and Profiling | 37.2% | 42.7% | yes |
+| Apache Tika `43cbdae6` | arXiv | 152 | Computation and Language | 42.2% | 46.4% | yes |
+| Apache Tika `43cbdae6` | OpenAlex | 4,516 | Personal Information Management and User Behavior | 42.3% | 37.0% | **no** |
+
+**OpenAlex fails on the one repository this reading was not written for.** The best of 4,516 chance subjects comes 5.3 points nearer than the best real one, so the placement reports nothing on Apache Tika. arXiv clears its null on both repositories and names Computation and Language both times. On this library OpenAlex is nearer than arXiv in absolute terms — 37.2% against 39.8% — and its second-ranked subject is *Medical Research and Practices*, so the ranking is not obviously better either.
+
+Two properties of the scheme raise what chance reaches, and neither is a defect in the data:
+
+| Property | arXiv | OpenAlex |
+|---|--:|--:|
+| Subjects a placement runs over | 152 | 4,516 |
+| Words per description, median | 18 | 69 |
+
+[`SubjectNull`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectNull.java) keeps the field size, keeps the real description lengths and draws the words from the pooled vocabulary of every description. So a chance subject under OpenAlex is 69 words drawn from all of science, and under arXiv 18 words drawn from a physics-heavy pool of 152 — which reads as generic academic prose in the first case and as physics in the second.
+
+**Two explanations fit the result and one control separates them:**
+
+| Explanation | What it says | What would show it |
+|---|---|---|
+| Pooled vocabulary | a chance OpenAlex subject reads as generic academic English, which sits closer to a broad repository than any one narrow topic does | chance still beats the real subject on a 152-topic subsample |
+| Field size | 4,516 attempts at being nearest against 152 | chance stops beating it on a 152-topic subsample |
+
+A random 152-topic subsample of OpenAlex, placed against Apache Tika, runs both in one command and needs no code change. Until it does, the two schemes cannot be compared and the default stays arXiv.

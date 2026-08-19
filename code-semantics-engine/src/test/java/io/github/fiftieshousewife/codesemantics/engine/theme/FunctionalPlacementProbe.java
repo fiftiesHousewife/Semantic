@@ -26,9 +26,10 @@ public final class FunctionalPlacementProbe {
     }
 
     public static void main(final String[] args) throws IOException {
-        final InjectedTaxonomy taxonomy = args.length < 1
+        final InjectedTaxonomy taxonomy = args.length < 1 || args[0].isBlank()
                 ? InjectedTaxonomy.of(BianServiceDomains.fromClasspath().concepts(), "BIAN")
                 : InjectedTaxonomy.named(Path.of(args[0]));
+        final int held = args.length < 2 ? HELD : Integer.parseInt(args[1]);
         final List<SkosConcept> published = taxonomy.described();
         final TopicDistribution repository =
                 TreeReading.ofTheCloneUnderReading().themes().repository().comparison();
@@ -43,7 +44,7 @@ public final class FunctionalPlacementProbe {
         System.out.printf("%n%s — %d concepts stated, %d the reading could place%n", taxonomy.source(),
                 published.size(), read.size());
         System.out.printf("%-52s %10s  %s%n", "subject", "divergence", "met on");
-        placements.stream().limit(HELD).forEach(placement -> System.out.printf("%-52s %9.1f%%  %s%n",
+        placements.stream().limit(held).forEach(placement -> System.out.printf("%-52s %9.1f%%  %s%n",
                 placement.label().isBlank() ? placement.concept() : placement.label(),
                 100.0 * placement.bits(), String.join(", ", placement.carriedBy())));
         System.out.printf("%nnearest %.1f%%, chance reaches %.1f%% over %d draws of a field of %d — %s%n",

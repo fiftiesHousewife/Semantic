@@ -78,9 +78,12 @@ tasks.register<JavaExec>("functionalPlacement") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull((findProperty("taxonomy") as String?)?.let {
-        rootProject.layout.projectDirectory.file(it).asFile.absolutePath
-    })
+    args = listOfNotNull(
+        (findProperty("taxonomy") as String?)?.let {
+            rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+        },
+        findProperty("held") as String?
+    )
 }
 
 // Which concepts of a term taxonomy held in a file this repository declares, so a candidate vocabulary
