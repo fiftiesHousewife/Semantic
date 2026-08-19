@@ -229,6 +229,8 @@ The repository's own words are 829,830 occurrences of 14,901 distinct surfaces, 
 | `fetchers` | 136 | `tika-e2e-tests/tika-grpc/src/test/java/org/apache/tika/pipes/filesystem/HandlerTypeTest.java:51` |
 | `8859` | 131 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
 
-Read 2,242 files in 11.1 s — 5.0 ms a file, recorded rather than estimated.
+Read 2,242 files in 11.2 s — 5.0 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.
+
+Service interfaces this tree registers providers for under the `ServiceLoader` contract: 25, carrying 32 provider entries. Of the interfaces, its own: 22, the platform's: 2, external: 1.

@@ -1241,4 +1241,4 @@ The two share columns below are shares of the mass a topic was settled on, where
 | 2.8% | `medicine` | 0.0055 | 0.0178 | under | `uri` 40.5% (301) `type` 11.9% (3,570) `start` 5.5% (1,276) `doc` 5.4% (475) |
 | 2.7% | `dentistry` | 0.0062 | 0.0003 | **over** | `maintainer` 83.3% (4) `extraction` 7.9% (241) `post` 2.9% (185) `do` 2.1% (136) |
 
-Read, compared and resampled in 66.6 s, recorded rather than estimated.
+Read, compared and resampled in 68.4 s, recorded rather than estimated.
