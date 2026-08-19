@@ -1,26 +1,26 @@
 {
-  "previousCommit" : "157d348217460a8516fbf9e7e3277ee7f9b36402",
-  "commit" : "fb3427c197f237bba332d8633c6429901a070313",
+  "previousCommit" : "e9c4cdac716c697de9fb7686d35382e020212e5f",
+  "commit" : "e9c4cdac716c697de9fb7686d35382e020212e5f",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
     "after" : "98.2%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "75.8%",
-    "after" : "75.8%"
+    "before" : "75.7%",
+    "after" : "75.7%"
   }, {
     "figure" : "Archive — nearest subject",
     "before" : "Computer Science",
     "after" : "Computer Science"
   }, {
     "figure" : "Archive — divergence",
-    "before" : "34.4%",
+    "before" : "34.1%",
     "after" : "34.1%"
   }, {
     "figure" : "Archive — chance reaches",
-    "before" : "40.5%",
-    "after" : "40.5%"
+    "before" : "40.6%",
+    "after" : "40.6%"
   }, {
     "figure" : "Archive — stands apart from chance",
     "before" : "yes",
@@ -31,11 +31,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "Category — divergence",
-    "before" : "39.2%",
+    "before" : "38.9%",
     "after" : "38.9%"
   }, {
     "figure" : "Category — chance reaches",
-    "before" : "44.4%",
+    "before" : "44.0%",
     "after" : "44.0%"
   }, {
     "figure" : "Category — stands apart from chance",
@@ -43,8 +43,8 @@
     "after" : "yes"
   }, {
     "figure" : "Words above the bar",
-    "before" : "234",
-    "after" : "235"
+    "before" : "237",
+    "after" : "237"
   }, {
     "figure" : "Topics reported",
     "before" : "4",
@@ -54,9 +54,5 @@
     "before" : "172",
     "after" : "172"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "declaration",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }
