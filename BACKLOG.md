@@ -53,6 +53,16 @@ Each chunk lands on its own and states the number that judges it. **Chunks 1–4
 | 7 | The dependency arm | Coordinates as evidence in their own right — an artefact denotes one published thing, so nothing is disambiguated | The same counts as chunk 5 from coordinates alone, and **whether it is wrong in different places**, which is what makes combining worthwhile |
 | 8 | Combine the arms and measure | Pooled log-linearly, each arm weighted by a figure it reports about itself rather than a constant fitted here | The combination against its best single arm, with the per-arm figures beside it and the smallest categories reported rather than hidden |
 
+## One arm
+
+[The plan](docs/plans/ONE_ARM.md) condenses the three readings that reach a subject, and the fourth that reads verbs, into one. There is one unit — a run of words from a declared name — and one reading of it: a verbal run is nominalised through WordNet's own derivationally related nouns, then every run climbs one ladder, a published term and its publisher's prose first, the dictionaries' labels second, abstention third and counted. What were arms become rungs, so nothing has to weight one against another.
+
+**The nominalisation is measured before the plan commits to it.** Of 322 verbs this repository writes, WordNet states a derivationally related noun for 315; filtering to the forms sharing the verb's stem leaves 216, and that filter is what separates `read` to `reading` from `write` to `pen`. The 33% that abstain are `parse`, `tokenize`, `download` — the verbs a dictionary is least able to place.
+
+**Every bundled taxonomy is nominal**, BIAN and NIST included: their labels are noun phrases whatever their definitions say. So no verbal taxonomy exists to match against, and nominalising is what makes a verb's evidence usable at all.
+
+The plan carries a baseline recorded before any iteration, and a loop with a stated stopping rule. **The loop is judged on Tika, Maven and Santuario**, never on this tree's own placement, because a rule changed to improve the figure it is read against is goal-seeking.
+
 ## Every signal through one pipeline
 
 [The stock-take](docs/plans/EVERY_SIGNAL_REACHES_A_SUBJECT.md) states where each of the three arms stops, what is lost, which matches fail and the order the repairs are to be taken in. **Three kinds of signal are read and one reaches a subject.** The words arm places against arXiv and clears its null at both levels; the 172 concepts and the 319 clauses reach no subject at all, and `ExportedReading` copies the words arm's placement under each taxonomy, so the export states a figure the concept arm did not produce. The behaviour reading is computed twice — once in `ThemeReading` where nothing reads it, once in `ExportedReading` where nothing scores it.
