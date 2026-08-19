@@ -9,19 +9,23 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Figure | Before | After | |
 |---|--:|--:|---|
 | λ — words a resource can be cited for | 97.1% | 97.1% |  |
-| Mass settled on no subject | 66.8% | 66.8% |  |
+| Mass settled on no subject | 66.8% | 65.2% | moved |
 | Archive — nearest subject | Computer Science | Computer Science |  |
-| Archive — divergence | 35.9% | 35.9% |  |
-| Archive — chance reaches | 42.0% | 41.9% | moved |
+| Archive — divergence | 35.9% | 37.0% | moved |
+| Archive — chance reaches | 41.9% | 42.8% | moved |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 38.5% | 38.6% | moved |
-| Category — chance reaches | 43.1% | 43.2% | moved |
+| Category — divergence | 38.6% | 42.2% | moved |
+| Category — chance reaches | 43.2% | 46.4% | moved |
 | Category — stands apart from chance | yes | yes |  |
 | Words above the bar | 794 | 794 |  |
-| Topics reported | 18 | 17 | moved |
-| Concepts written | 358 | 358 |  |
+| Topics reported | 17 | 16 | moved |
+| Concepts written | 358 | 371 | moved |
 
 ## What entered and left
 
-Nothing entered or left. Every topic, word and concept the previous reading reported is reported by this one.
+| Population | Entered | Left |
+|---|---|---|
+| Topics | `software` | — |
+| Words | — | — |
+| Concepts | `data matrices` `firefox` `lossless` `radar` `rsa` `small files` `style sheets` `word embedding` `word embeddings` | — |

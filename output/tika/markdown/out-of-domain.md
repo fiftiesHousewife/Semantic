@@ -9,8 +9,8 @@ about how many terms a publisher wrote than about this repository.
 
 | Vocabulary | Terms published | Spans | Per thousand names | Distinct terms | Files matched | Longer than one word |
 |---|--:|--:|--:|--:|--:|--:|
-| OLiA | 1312 | 5934 | 105.69 | 169 | 1306 | 16 |
-| FIBO | 1833 | 1186 | 21.12 | 61 | 405 | 12 |
+| OLiA | 1312 | 6082 | 104.93 | 171 | 1453 | 17 |
+| FIBO | 1833 | 1195 | 20.62 | 62 | 414 | 13 |
 
 ## Every term the out-of-domain vocabulary matched
 
@@ -22,11 +22,11 @@ declares in some other sense.
 |---|--:|---|---|
 | `index` | 481 | Index | tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java:206 |
 | `request` | 170 | Request | tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:628 |
-| `control` | 69 | Control | tika-core/src/main/java/org/apache/tika/detect/TextDetector.java:76 |
+| `control` | 75 | Control | tika-core/src/main/java/org/apache/tika/detect/TextDetector.java:76 |
 | `strategy` | 42 | Strategy | tika-core/src/main/java/org/apache/tika/io/SpoolingStrategy.java:46 |
 | `requested` | 36 | Request | tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java:178 |
 | `scheme` | 33 | Strategy | tika-core/src/main/java/org/apache/tika/metadata/XMPIdq.java:34 |
-| `action` | 36 | Action | tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:264 |
+| `action` | 37 | Action | tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:264 |
 | `address` | 32 | Address | tika-core/src/main/java/org/apache/tika/metadata/IPTC.java:410 |
 | `futures` | 19 | Future | tika-core/src/test/java/org/apache/tika/detect/MagicDetectorTest.java:291 |
 | `indices` | 18 | Index | tika-core/src/main/java/org/apache/tika/metadata/PageAnchoring.java:106 |
@@ -48,9 +48,9 @@ declares in some other sense.
 | `responsible party` | 5 | ResponsibleParty | tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java:40 |
 | `option` | 6 | Option | tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java:633 |
 | `median` | 5 | Median | tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/BucketSaturationAnalyzer.java:134 |
+| `controls` | 5 | Control | tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/Utf16ColumnFeatureExtractorTest.java:331 |
 | `set window` | 4 | PutWindow | tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/chm/ChmLzxState.java:206 |
 | `addresses` | 4 | Address | tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java:286 |
-| `controls` | 4 | Control | tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/Utf16ColumnFeatureExtractorTest.java:331 |
 | `interest` | 5 | Interest | tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ProfilerBase.java:98 |
 | `persons` | 3 | Person | tika-core/src/main/java/org/apache/tika/metadata/Office.java:193 |
 | `methods` | 3 | Method | tika-serialization/src/test/java/org/apache/tika/config/AllLimitsTest.java:125 |
@@ -69,6 +69,7 @@ declares in some other sense.
 | `street address` | 1 | StreetAddress | tika-core/src/main/java/org/apache/tika/metadata/IPTC.java:909 |
 | `schemes` | 1 | Strategy | tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/main/java/org/apache/tika/parser/html/HtmlHandler.java:402 |
 | `balanced` | 1 | Balance | tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java:1061 |
+| `phone number` | 1 | TelephoneNumber | tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testPhoneNumberExtractor.odt:1 |
 | `service resources` | 1 | ServiceResource | tika-core/src/main/java/org/apache/tika/config/ServiceLoader.java:213 |
 | `set feature` | 1 | PutFeature | tika-serialization/src/test/java/org/apache/tika/config/loader/ConfigLoaderTest.java:116 |
 | `asset` | 1 | Asset | tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/AndroidBinaryXMLTest.java:99 |

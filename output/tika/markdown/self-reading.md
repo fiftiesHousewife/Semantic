@@ -197,40 +197,112 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-xmp/src/test/java` | 2 | 86 | 266 | 344 (56.4%) | 603 | **0.989** |
 | `documentation` | 94 | 0 | 0 | 68,214 (100.0%) | 65,288 | **0.957** |
 | `modules` | 127 | 126 | 438 | 594 (57.6%) | 990 | **0.959** |
-| **repository** | 2,369 | 81,397 | 166,510 | 664,352 (80.0%) | 807,043 | **0.971** |
+| `tika-app/src/test/resources` | 28 | 28 | 115 | 0 (0.0%) | 111 | **0.965** |
+| `tika-bundles/tika-bundle-standard/src/test/resources` | 4 | 4 | 11 | 0 (0.0%) | 10 | **0.909** |
+| `tika-core/src/test/resources` | 56 | 56 | 227 | 0 (0.0%) | 177 | **0.780** |
+| `tika-detectors/tika-detector-magika/src/test/resources` | 4 | 4 | 15 | 0 (0.0%) | 15 | **1.000** |
+| `tika-detectors/tika-detector-siegfried/src/test/resources` | 5 | 5 | 15 | 0 (0.0%) | 15 | **1.000** |
+| `tika-e2e-tests/tika-grpc/src/test/resources` | 8 | 8 | 26 | 0 (0.0%) | 26 | **1.000** |
+| `tika-encoding-detectors/tika-encoding-detector-icu4j/src/test/resources` | 6 | 6 | 23 | 0 (0.0%) | 21 | **0.913** |
+| `tika-eval/tika-eval-app/src/test/resources` | 57 | 57 | 244 | 0 (0.0%) | 192 | **0.787** |
+| `tika-eval/tika-eval-core/src/test/resources` | 204 | 204 | 210 | 0 (0.0%) | 206 | **0.981** |
+| `tika-example/src/test/resources` | 1 | 1 | 3 | 0 (0.0%) | 2 | **0.667** |
+| `tika-grpc/src/test/resources` | 14 | 14 | 33 | 0 (0.0%) | 26 | **0.788** |
+| `tika-integration-tests/tika-pipes-es-integration-tests/src/test/resources` | 9 | 9 | 35 | 0 (0.0%) | 33 | **0.943** |
+| `tika-integration-tests/tika-pipes-kafka-integration-tests/src/test/resources` | 3 | 3 | 11 | 0 (0.0%) | 8 | **0.727** |
+| `tika-integration-tests/tika-pipes-opensearch-integration-tests/src/test/resources` | 9 | 9 | 35 | 0 (0.0%) | 33 | **0.943** |
+| `tika-integration-tests/tika-pipes-s3-integration-tests/src/test/resources` | 5 | 5 | 18 | 0 (0.0%) | 15 | **0.833** |
+| `tika-integration-tests/tika-pipes-solr-integration-tests/src/test/resources` | 7 | 7 | 25 | 0 (0.0%) | 20 | **0.800** |
+| `tika-java7/src/test/resources` | 1 | 1 | 2 | 0 (0.0%) | 2 | **1.000** |
+| `tika-langdetect/tika-langdetect-charsoup/src/test/resources` | 1 | 1 | 3 | 0 (0.0%) | 3 | **1.000** |
+| `tika-langdetect/tika-langdetect-optimaize/src/test/resources` | 3 | 3 | 9 | 0 (0.0%) | 9 | **1.000** |
+| `tika-metadata-schema/src/test/resources` | 2 | 2 | 7 | 0 (0.0%) | 6 | **0.857** |
+| `tika-parsers/tika-parsers-extended/tika-parser-ocr-encode-module/src/test/resources` | 8 | 8 | 38 | 0 (0.0%) | 32 | **0.842** |
+| `tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources` | 20 | 20 | 85 | 0 (0.0%) | 59 | **0.694** |
+| `tika-parsers/tika-parsers-extended/tika-parser-scientific-package/src/test/resources` | 4 | 4 | 22 | 0 (0.0%) | 22 | **1.000** |
+| `tika-parsers/tika-parsers-extended/tika-parser-sqlite3-module/src/test/resources` | 2 | 2 | 6 | 0 (0.0%) | 4 | **0.667** |
+| `tika-parsers/tika-parsers-extended/tika-parsers-extended-integration-tests/src/test/resources` | 3 | 3 | 11 | 0 (0.0%) | 11 | **1.000** |
+| `tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/test/resources` | 8 | 8 | 29 | 0 (0.0%) | 27 | **0.931** |
+| `tika-parsers/tika-parsers-ml/tika-parser-tess4j-module/src/test/resources` | 3 | 3 | 9 | 0 (0.0%) | 7 | **0.778** |
+| `tika-parsers/tika-parsers-ml/tika-transcribe-aws/src/test/resources` | 13 | 13 | 83 | 0 (0.0%) | 56 | **0.675** |
+| `tika-parsers/tika-parsers-ml/tika-vlm/src/test/resources` | 7 | 7 | 28 | 0 (0.0%) | 28 | **1.000** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources` | 266 | 266 | 1,146 | 0 (0.0%) | 1,007 | **0.879** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/test/resources` | 27 | 27 | 118 | 0 (0.0%) | 113 | **0.958** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/resources` | 41 | 41 | 159 | 0 (0.0%) | 117 | **0.736** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-cad-module/src/test/resources` | 25 | 25 | 101 | 0 (0.0%) | 80 | **0.792** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources` | 31 | 31 | 121 | 0 (0.0%) | 100 | **0.826** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-crypto-module/src/test/resources` | 33 | 33 | 139 | 0 (0.0%) | 103 | **0.741** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/test/resources` | 2 | 2 | 7 | 0 (0.0%) | 6 | **0.857** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources` | 26 | 26 | 128 | 0 (0.0%) | 124 | **0.969** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/test/resources` | 35 | 35 | 136 | 0 (0.0%) | 121 | **0.890** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources` | 33 | 33 | 124 | 0 (0.0%) | 99 | **0.798** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources` | 368 | 368 | 1,622 | 0 (0.0%) | 1,436 | **0.885** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources` | 63 | 63 | 289 | 0 (0.0%) | 258 | **0.893** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-news-module/src/test/resources` | 3 | 3 | 11 | 0 (0.0%) | 10 | **0.909** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-ocr-module/src/test/resources` | 13 | 13 | 54 | 0 (0.0%) | 50 | **0.926** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources` | 65 | 65 | 333 | 0 (0.0%) | 319 | **0.958** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pkg-module/src/test/resources` | 49 | 49 | 174 | 0 (0.0%) | 150 | **0.862** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-text-module/src/test/resources` | 16 | 16 | 65 | 0 (0.0%) | 60 | **0.923** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-webarchive-module/src/test/resources` | 8 | 8 | 28 | 0 (0.0%) | 28 | **1.000** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/test/resources` | 8 | 8 | 23 | 0 (0.0%) | 17 | **0.739** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources` | 4 | 4 | 17 | 0 (0.0%) | 15 | **0.882** |
+| `tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/test/resources` | 3 | 3 | 9 | 0 (0.0%) | 9 | **1.000** |
+| `tika-pipes/tika-async-cli/src/test/resources` | 6 | 6 | 24 | 0 (0.0%) | 23 | **0.958** |
+| `tika-pipes/tika-pipes-core/src/test/resources` | 7 | 7 | 20 | 0 (0.0%) | 18 | **0.900** |
+| `tika-pipes/tika-pipes-integration-tests/src/test/resources` | 21 | 21 | 93 | 0 (0.0%) | 91 | **0.978** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/test/resources` | 1 | 1 | 4 | 0 (0.0%) | 2 | **0.500** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-az-blob/src/test/resources` | 4 | 4 | 17 | 0 (0.0%) | 16 | **0.941** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-csv/src/test/resources` | 3 | 3 | 11 | 0 (0.0%) | 11 | **1.000** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-es/src/test/resources` | 3 | 3 | 9 | 0 (0.0%) | 9 | **1.000** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-file-system/src/test/resources` | 3 | 3 | 12 | 0 (0.0%) | 11 | **0.917** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-gcs/src/test/resources` | 5 | 5 | 15 | 0 (0.0%) | 13 | **0.867** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-google-drive/src/test/resources` | 1 | 1 | 4 | 0 (0.0%) | 3 | **0.750** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-http/src/test/resources` | 2 | 2 | 7 | 0 (0.0%) | 6 | **0.857** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/test/resources` | 5 | 5 | 15 | 0 (0.0%) | 14 | **0.933** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-json/src/test/resources` | 3 | 3 | 10 | 0 (0.0%) | 10 | **1.000** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-kafka/src/test/resources` | 4 | 4 | 12 | 0 (0.0%) | 11 | **0.917** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-microsoft-graph/src/test/resources` | 2 | 2 | 6 | 0 (0.0%) | 4 | **0.667** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-opensearch/src/test/resources` | 3 | 3 | 12 | 0 (0.0%) | 12 | **1.000** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-s3/src/test/resources` | 4 | 4 | 13 | 0 (0.0%) | 12 | **0.923** |
+| `tika-pipes/tika-pipes-plugins/tika-pipes-solr/src/test/resources` | 5 | 5 | 16 | 0 (0.0%) | 11 | **0.688** |
+| `tika-serialization/src/test/resources` | 46 | 46 | 209 | 0 (0.0%) | 189 | **0.904** |
+| `tika-server/tika-server-core/src/test/resources` | 48 | 48 | 220 | 0 (0.0%) | 208 | **0.945** |
+| `tika-server/tika-server-standard/src/test/resources` | 29 | 29 | 115 | 0 (0.0%) | 97 | **0.843** |
+| `tika-translate/src/test/resources` | 1 | 1 | 3 | 0 (0.0%) | 2 | **0.667** |
+| **repository** | 4,189 | 83,217 | 173,539 | 664,352 (79.3%) | 813,214 | **0.971** |
 
-The repository's own words are 830,862 occurrences of 14,912 distinct surfaces, 5,129 of them (34.4%) written exactly once. 2,074 glued runs no boundary divided were read by the segmenter; 23,819 occurrences across 5,134 surfaces nothing could be cited for at all.
+The repository's own words are 837,891 occurrences of 15,339 distinct surfaces, 5,314 of them (34.6%) written exactly once. 2,165 glued runs no boundary divided were read by the segmenter; 24,677 occurrences across 5,370 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 714,558 | 86.0% | 20,982 |
-| `lexicon:wordnet-sense` | 544,227 | 65.5% | 11,063 |
-| `lexicon:wiktionary-topic` | 529,701 | 63.8% | 8,760 |
-| `lexicon:wordnet-domain` | 379,454 | 45.7% | 6,099 |
-| `lexicon:wikidata-initialism` | 364,359 | 43.9% | 2,289 |
-| `lexicon:wiktionary-abbreviation` | 309,858 | 37.3% | 2,046 |
-| `lexicon:wikidata-name` | 297,900 | 35.9% | 4,300 |
-| `catalogue:query-language-function` | 19,282 | 2.3% | 165 |
+| `lexicon:word-frequency` | 718,399 | 85.7% | 21,008 |
+| `lexicon:wordnet-sense` | 547,857 | 65.4% | 11,124 |
+| `lexicon:wiktionary-topic` | 534,315 | 63.8% | 8,965 |
+| `lexicon:wordnet-domain` | 382,175 | 45.6% | 6,121 |
+| `lexicon:wikidata-initialism` | 368,307 | 44.0% | 2,592 |
+| `lexicon:wiktionary-abbreviation` | 313,569 | 37.4% | 2,082 |
+| `lexicon:wikidata-name` | 300,239 | 35.8% | 4,502 |
+| `catalogue:query-language-function` | 19,364 | 2.3% | 166 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
-| `fetcher` | 666 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:350` |
+| `fetcher` | 677 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:350` |
 | `plugin` | 403 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:350` |
 | `fasterxml` | 339 | `tika-app/src/main/java/org/apache/tika/cli/XmlToJsonConfigConverter.java:36` |
 | `utils` | 237 | `tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:69` |
 | `doesn't` | 195 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:223` |
-| `solr` | 185 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
-| `1252` | 145 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:133` |
+| `solr` | 190 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
+| `plugins` | 148 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:242` |
+| `1252` | 147 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:133` |
 | `charsets` | 143 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:59` |
-| `plugins` | 143 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:242` |
+| `32` | 142 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:51` |
 | `poifs` | 141 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/config/ComponentRegistryIntegrationTest.java:51` |
 | `can't` | 140 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:1180` |
-| `32` | 139 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:51` |
 | `codepoints` | 139 | `tika-core/src/main/java/org/apache/tika/detect/HighByteLetterStats.java:56` |
-| `fetchers` | 136 | `tika-e2e-tests/tika-grpc/src/test/java/org/apache/tika/pipes/filesystem/HandlerTypeTest.java:51` |
-| `8859` | 132 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
+| `fetchers` | 138 | `tika-e2e-tests/tika-grpc/src/test/java/org/apache/tika/pipes/filesystem/HandlerTypeTest.java:51` |
+| `8859` | 133 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
 
-Read 2,369 files in 12.0 s — 5.0 ms a file, recorded rather than estimated.
+Read 4,189 files in 12.0 s — 2.9 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.
 
