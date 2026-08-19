@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "f1d19a77dc03246e0e1ac20fbcab3c56a70c87d1",
-  "commit" : "1fca6b786ccbc45f9ab16f6ae4a025dde041d7f0",
+  "previousCommit" : "1fca6b786ccbc45f9ab16f6ae4a025dde041d7f0",
+  "commit" : "59d7afd61e6936ccf66780230685fcff8efe7d71",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
-    "before" : "98.3%",
+    "before" : "98.2%",
     "after" : "98.2%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "76.1%",
+    "before" : "75.7%",
     "after" : "75.7%"
   }, {
     "figure" : "Archive — nearest subject",
@@ -15,11 +15,11 @@
     "after" : "Computer Science"
   }, {
     "figure" : "Archive — divergence",
-    "before" : "34.4%",
+    "before" : "34.5%",
     "after" : "34.5%"
   }, {
     "figure" : "Archive — chance reaches",
-    "before" : "40.8%",
+    "before" : "40.6%",
     "after" : "40.6%"
   }, {
     "figure" : "Archive — stands apart from chance",
@@ -31,11 +31,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "Category — divergence",
-    "before" : "39.8%",
+    "before" : "39.2%",
     "after" : "39.2%"
   }, {
     "figure" : "Category — chance reaches",
-    "before" : "45.0%",
+    "before" : "44.4%",
     "after" : "44.4%"
   }, {
     "figure" : "Category — stands apart from chance",
@@ -43,168 +43,16 @@
     "after" : "yes"
   }, {
     "figure" : "Words above the bar",
-    "before" : "254",
+    "before" : "232",
     "after" : "232"
   }, {
     "figure" : "Topics reported",
-    "before" : "5",
+    "before" : "4",
     "after" : "4"
   }, {
     "figure" : "Concepts written",
-    "before" : "176",
+    "before" : "171",
     "after" : "171"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "descendants",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "load",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "pool",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "registry",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "resources",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "run",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "separator",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "admitted",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "behaviour",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "chose",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "comparison",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "contributions",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "corroborated",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "cost",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "counted",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "deepest",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "description",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "distinctive",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "every",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "foreign",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "heading",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "length",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "level",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "mark_down",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "percentage",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "placements",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "ranking",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "reads",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "refused",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "report",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "sentence",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "shown",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "summary",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "theme",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "verdict",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "withheld",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "css",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "style sheets",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }
