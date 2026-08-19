@@ -20,8 +20,16 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet.Mem
  * which is what makes an evaluation set run repeatable at no cost.
  *
  * <p>The fetch is the shallow one the evaluation-set plan measured: {@code git init}, {@code git fetch --depth 1}
- * naming the commit, {@code git checkout FETCH_HEAD}. A blob filter makes it slower rather than faster,
- * because the filter defers each blob and the checkout then fetches the files one round trip at a time.
+ * naming the commit, {@code git checkout FETCH_HEAD}. The whole tree arrives even though most of it is never
+ * opened, and that is deliberate rather than an oversight.
+ *
+ * <p><b>A blob filter with a sparse checkout is far cheaper and is not equivalent.</b> Filtering blobs and
+ * checking out only the source suffixes fetches a small fraction of the bytes in a fraction of the time, and
+ * what it produces is a different reading: {@link TestResourceScope} reads the fixture corpus's file names,
+ * a sparse checkout leaves those files off the disk, and the placement moves because a signal the reading is
+ * meant to carry is missing. A filter <em>without</em> a sparse checkout is slower than no filter, because
+ * the checkout then fetches every deferred blob one round trip at a time. Fetching the whole tree once is
+ * what makes a member's reading the same reading every time.
  */
 public final class PinnedClone {
 
