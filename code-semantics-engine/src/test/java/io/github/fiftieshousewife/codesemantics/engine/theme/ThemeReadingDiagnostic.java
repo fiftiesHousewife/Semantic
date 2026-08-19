@@ -10,6 +10,8 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatch;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermOutcome;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -57,8 +59,10 @@ class ThemeReadingDiagnostic {
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
                 () -> assertThat(Files.readString(reports.file(EVIDENCE)))
                         .as("the workings state the path to the answers, and not the answers themselves")
-                        .contains("\"scopes\"", "\"schemaVersion\"", "\"matches\"")
-                        .doesNotContain("\"nodes\""),
+                        .contains("\"scopes\"", "\"schemaVersion\"", "\"matches\"", "\"setAside\"")
+                        .as("the drawing's own node list is an answer and stays out — the key, because the "
+                                + "repository writes the word and the set-aside lists quote it")
+                        .doesNotContain("\"nodes\" :"),
                 () -> assertThat(matching(reading))
                         .as("a reading that recorded only what it admitted could not be asked why a term "
                                 + "the repository plainly writes is absent from the answer")
@@ -71,11 +75,19 @@ class ThemeReadingDiagnostic {
                 WITNESSES_HELD, new SourceLinks(root));
         new ObjectMapper().writerWithDefaultPrettyPrinter()
                 .writeValue(reports.file(EVIDENCE).toFile(),
-                        ReadingEvidence.of(graph, matching(reading)));
+                        ReadingEvidence.of(graph, matching(reading), setAside(reading)));
     }
 
     /** Every bundled taxonomy's matching, over the readings this JVM has already taken where it has. */
     private static List<TermMatch> matching(final TreeReading reading) {
         return ReadingEvidence.matching(reading::terms);
+    }
+
+    /** The words behind two of the counts the export states, at the bars this run's own null drew. */
+    private static EvidenceSetAside setAside(final TreeReading reading) {
+        return EvidenceSetAside.of(reading.legibility(),
+                ChosenWords.againstEnglishAndThePlatform()
+                        .in(new PublishedNames().published(reading.legibility())),
+                reading.namesChance());
     }
 }
