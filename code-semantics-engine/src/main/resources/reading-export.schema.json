@@ -330,7 +330,7 @@
     },
     "taxonomies": {
       "title": "Taxonomy evaluations",
-      "description": "One entry per published vocabulary the repository's declared names were matched against.",
+      "description": "One entry per published vocabulary the repository's declared names were matched against. No entry states a subject placement: the only placement this reading computes is the vocabulary reading's, over the dictionary topics of the words a repository declares, and it is stated once under `summary.placedIn`.",
       "type": "array",
       "items": {
         "type": "object",
@@ -338,8 +338,7 @@
         "required": [
           "vocabulary",
           "concepts",
-          "matchesByNormalisation",
-          "placement"
+          "matchesByNormalisation"
         ],
         "properties": {
           "vocabulary": {
@@ -425,9 +424,6 @@
                 "minimum": 0
               }
             }
-          },
-          "placement": {
-            "$ref": "#/$defs/placement"
           }
         }
       }

@@ -91,10 +91,10 @@ public final class ExportedReading {
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final ExportedTaxonomy taxonomy = new ExportedTaxonomies().of(
-                LinguisticTerms.fromClasspath().source(), terms.matched(), placement(field));
+                LinguisticTerms.fromClasspath().source(), terms.matched());
         final List<ExportedTaxonomy> taxonomies = new ArrayList<>(List.of(taxonomy));
         alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
-                CorroboratedReading.of(index, conceptsOf(index), parsed).matched(), placement(field))));
+                CorroboratedReading.of(index, conceptsOf(index), parsed).matched())));
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,

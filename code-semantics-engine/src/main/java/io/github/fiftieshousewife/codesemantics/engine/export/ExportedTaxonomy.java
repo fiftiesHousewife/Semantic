@@ -7,20 +7,20 @@ import java.util.Objects;
 import lombok.Builder;
 
 /**
- * One taxonomy evaluated against the repository: the concepts it writes, how the match was reached, and where
- * the same reading places it among published subjects.
+ * One taxonomy evaluated against the repository: the concepts it writes and how each match was reached.
  *
- * <p>The placement travels with the evaluation because neither settles anything alone. A nearest subject
- * states nothing without the nearest a taxonomy of chance offers, and a list of matched concepts is a word
- * list hit until a reader can see what field the whole reading landed in.
+ * <p><b>No subject placement.</b> The only placement this reading computes is the vocabulary reading's, over
+ * the dictionary topics of the words a repository declares, and it is stated once under
+ * {@link ExportedSummary#placedIn()}. Repeating it here put a figure under a taxonomy that the taxonomy's own
+ * matches contributed nothing to, and a consumer had no way to tell. A taxonomy carries a placement again
+ * when the concepts it matched are what produced one.
  *
  * @param vocabulary              the published vocabulary the concepts come from
  * @param concepts                what the repository writes, most-carried first
  * @param matchesByNormalisation  how many spans each level accounted for, never summed across levels
- * @param placement               where the repository stands among published subjects
  */
 public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
-                               Map<String, Integer> matchesByNormalisation, ExportedPlacement placement) {
+                               Map<String, Integer> matchesByNormalisation) {
 
     /**
      * One published concept as the repository wrote it.
@@ -42,6 +42,5 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts,
         Objects.requireNonNull(vocabulary, "vocabulary");
         concepts = List.copyOf(concepts);
         matchesByNormalisation = Map.copyOf(matchesByNormalisation);
-        Objects.requireNonNull(placement, "placement");
     }
 }

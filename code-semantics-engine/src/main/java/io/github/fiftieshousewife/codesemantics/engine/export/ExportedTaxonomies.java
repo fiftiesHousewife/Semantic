@@ -25,10 +25,8 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 public final class ExportedTaxonomies {
 
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
-    public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
-                               final ExportedPlacement placement) {
-        return new ExportedTaxonomy(vocabulary, concepts(matched), matchesByNormalisation(matched),
-                placement);
+    public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched) {
+        return new ExportedTaxonomy(vocabulary, concepts(matched), matchesByNormalisation(matched));
     }
 
     /** Ordered by what each term is worth — how often it was written, weighed by how much it narrows. */

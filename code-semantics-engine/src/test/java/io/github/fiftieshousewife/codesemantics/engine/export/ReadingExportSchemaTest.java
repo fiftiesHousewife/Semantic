@@ -42,7 +42,7 @@ class ReadingExportSchemaTest {
             List.of(new ExportedTaxonomy("OLiA",
                     List.of(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1,
                             new SightingSite("Reading.java", 9))),
-                    Map.of("words", 973, "lemmas", 201, "senses", 130), PLACEMENT)),
+                    Map.of("words", 973, "lemmas", 201, "senses", 130))),
             List.of(new ExportedBehaviour("read declaration", "read", List.of("declaration"), 3,
                     new SightingSite("Reading.java", 21))),
             new SetAside(1_325, 625, 1, 56, 0));
@@ -110,5 +110,26 @@ class ReadingExportSchemaTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> new ExportedPlacement.Level("cs", 0.42, 0.40, true))
                 .withMessageContaining("standsApartFromChance=true");
+    }
+
+    @Test
+    void statesTheSubjectPlacementOnceAndUnderTheReadingThatMadeIt() throws IOException {
+        final String written = file.of(twoTaxonomies());
+
+        assertThat(occurrencesOf("\"scheme\"", written))
+                .as("one reading placed this repository and the summary states it, so a placement repeated "
+                        + "under each taxonomy reads as that taxonomy's own answer and is not")
+                .isEqualTo(1);
+    }
+
+    private static ReadingExport twoTaxonomies() {
+        final List<ExportedTaxonomy> both = List.of(EXPORT.taxonomies().getFirst(),
+                new ExportedTaxonomy("CSO", List.of(), Map.of("words", 0, "lemmas", 0, "senses", 0)));
+        return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(), EXPORT.themes(),
+                both, EXPORT.behaviours(), EXPORT.setAside());
+    }
+
+    private static int occurrencesOf(final String key, final String document) {
+        return document.split(key, -1).length - 1;
     }
 }

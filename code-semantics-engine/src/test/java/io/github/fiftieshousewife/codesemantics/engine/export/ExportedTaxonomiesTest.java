@@ -14,10 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedTaxonomiesTest {
 
-    private static final ExportedPlacement PLACEMENT = new ExportedPlacement("arXiv",
-            ExportedPlacement.Level.of("Computer Science", 0.3408, 0.4124),
-            ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455));
-
     private static SkosConcept concept(final String label, final String broader) {
         return new SkosConcept("http://purl.org/olia/olia.owl#" + label, label, "", broader, "class",
                 "olia", "what the publisher says it means", "");
@@ -38,7 +34,7 @@ class ExportedTaxonomiesTest {
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), PLACEMENT);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))));
 
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
@@ -51,7 +47,7 @@ class ExportedTaxonomiesTest {
     void writesATermTwoConceptsReadAsTwice() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("root"), 0.9, 4, concept("Root", "Morpheme"),
-                        concept("Root", "SyntacticHead"))), PLACEMENT);
+                        concept("Root", "SyntacticHead"))));
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::placedUnder)
                 .as("which concept the repository meant is a question about evidence")
@@ -62,7 +58,7 @@ class ExportedTaxonomiesTest {
     void ordersTheConceptsBySpecificityTimesOccurrences() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("clause"), 0.9, 2, concept("Clause", "Constituent")),
-                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), PLACEMENT);
+                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))));
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::concept)
                 .containsExactly("Noun", "Clause");
@@ -71,7 +67,7 @@ class ExportedTaxonomiesTest {
     @Test
     void countsEveryNormalisationLevelIncludingTheOnesProducingNoMatch() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), PLACEMENT);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))));
 
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())
@@ -79,14 +75,5 @@ class ExportedTaxonomiesTest {
                         .containsOnlyKeys("words", "lemmas", "senses"),
                 () -> assertThat(exported.matchesByNormalisation()).containsEntry("words", 20)
                         .containsEntry("lemmas", 0).containsEntry("senses", 0));
-    }
-
-    @Test
-    void statesWhetherEachLevelStandsApartFromChance() {
-        assertAll(
-                () -> assertThat(PLACEMENT.archive().standsApartFromChance()).isTrue(),
-                () -> assertThat(PLACEMENT.category().standsApartFromChance()).isTrue(),
-                () -> assertThat(ExportedPlacement.Level.of("cs", 0.42, 0.40).standsApartFromChance())
-                        .isFalse());
     }
 }
