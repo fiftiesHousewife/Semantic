@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "1a815f130655d157b8c907af82d7b7c353cf513c",
-  "commit" : "2d74d07e03ec5f2336577c231814c680d5bdb56e",
+  "previousCommit" : "2d74d07e03ec5f2336577c231814c680d5bdb56e",
+  "commit" : "cbc8215c8ec8f12cd4da46c353bf69f5dd8d719a",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -16,11 +16,11 @@
   }, {
     "figure" : "Archive — divergence",
     "before" : "34.2%",
-    "after" : "34.2%"
+    "after" : "34.1%"
   }, {
     "figure" : "Archive — chance reaches",
     "before" : "40.8%",
-    "after" : "40.8%"
+    "after" : "40.7%"
   }, {
     "figure" : "Archive — stands apart from chance",
     "before" : "yes",
@@ -36,7 +36,7 @@
   }, {
     "figure" : "Category — chance reaches",
     "before" : "44.2%",
-    "after" : "44.2%"
+    "after" : "44.1%"
   }, {
     "figure" : "Category — stands apart from chance",
     "before" : "yes",
@@ -48,11 +48,31 @@
   }, {
     "figure" : "Topics reported",
     "before" : "3",
-    "after" : "3"
+    "after" : "5"
   }, {
     "figure" : "Concepts written",
     "before" : "172",
     "after" : "172"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "TOPIC",
+    "name" : "grammar",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "clause",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "scheme",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "archives",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "load",
+    "entered" : false
+  } ]
 }
