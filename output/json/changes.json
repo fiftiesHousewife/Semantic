@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "1fca6b786ccbc45f9ab16f6ae4a025dde041d7f0",
-  "commit" : "59d7afd61e6936ccf66780230685fcff8efe7d71",
+  "previousCommit" : "59d7afd61e6936ccf66780230685fcff8efe7d71",
+  "commit" : "157d348217460a8516fbf9e7e3277ee7f9b36402",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -8,7 +8,7 @@
   }, {
     "figure" : "Mass settled on no subject",
     "before" : "75.7%",
-    "after" : "75.7%"
+    "after" : "75.8%"
   }, {
     "figure" : "Archive — nearest subject",
     "before" : "Computer Science",
@@ -16,11 +16,11 @@
   }, {
     "figure" : "Archive — divergence",
     "before" : "34.5%",
-    "after" : "34.5%"
+    "after" : "34.4%"
   }, {
     "figure" : "Archive — chance reaches",
     "before" : "40.6%",
-    "after" : "40.6%"
+    "after" : "40.5%"
   }, {
     "figure" : "Archive — stands apart from chance",
     "before" : "yes",
@@ -44,7 +44,7 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "232",
-    "after" : "232"
+    "after" : "234"
   }, {
     "figure" : "Topics reported",
     "before" : "4",
@@ -52,7 +52,27 @@
   }, {
     "figure" : "Concepts written",
     "before" : "171",
-    "after" : "171"
+    "after" : "172"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "declarations",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "describes",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "reached",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "pool",
+    "entered" : false
+  }, {
+    "population" : "CONCEPT",
+    "name" : "Perfect",
+    "entered" : true
+  } ]
 }
