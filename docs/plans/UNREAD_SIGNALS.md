@@ -34,6 +34,8 @@ A literal is somebody's vocabulary quoted unless a registry claims it, so the ru
 |---|---|
 | Provision is its own evidence | the provided-interface vocabulary beside the import vocabulary, agreement or disagreement reported, never summed |
 
+**Landed.** `ProvidedServices` follows the `ServiceLoader` deployment contract's own path under each source set's resources, and the self-reading report states the provision beside the imports, sorted into own, platform and external by the same `ImportOrigins` rule, never summed. On Tika: 25 interfaces carrying 32 provider entries — 22 its own, 2 the platform's, 1 external. The two platform ones are `java.nio.file.spi.FileTypeDetector` and `javax.annotation.processing.Processor` and the external one is Lucene's `TokenFilterFactory`: the tree states in the platform's own grammar that it is a file-type detector, which no import can say. The vocabulary comparison against the import stream lands with [the verb-phrase plan's](WHAT_IT_ACTUALLY_DOES.md) registry of what a coordinate is for, which is where the import side gains a vocabulary to compare against.
+
 ## 4. Module names and their stated descriptions
 
 **Tika is 127 Maven modules** named `tika-parser-pdf-module`, `tika-detector-siegfried` — chosen names the reading never splits, because package words are read and directory rungs above `src` are not. The pom `<description>` elements beside them are publisher prose. A module name is one naming decision, counted once like a package.

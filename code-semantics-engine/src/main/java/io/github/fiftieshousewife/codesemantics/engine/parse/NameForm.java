@@ -52,6 +52,11 @@ public enum NameForm {
     PACKAGE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A label on a statement. Rare, and a name its author chose as deliberately as any other. */
     LABEL(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
+    /**
+     * A build module's name, read where its parent's own module list states it — one naming decision,
+     * counted once, like a package.
+     */
+    MODULE(Vocabulary.IDENTIFIER, Authorship.CHOSEN),
     /** A dependency this file names — kept only where it is neither the platform's nor this tree's own. */
     IMPORT(Vocabulary.IDENTIFIER, Authorship.QUOTED),
     /** Documentation the author wrote against a declaration. */

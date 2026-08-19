@@ -66,8 +66,10 @@ public final class RepositoryReading {
 
     /** Every Java source set and the markdown beside it, filtered by whatever {@code .readingignore} states. */
     public static List<SourceScope> scopesUnder(final Path root) {
-        return Stream.concat(new JavaSourceScopes().under(root).stream(),
-                new DocumentationScope().under(root).stream()).toList();
+        return Stream.of(new JavaSourceScopes().under(root), new DocumentationScope().under(root),
+                new MavenModuleScope().under(root))
+                .flatMap(List::stream)
+                .toList();
     }
 
     public synchronized ParsedRepository parsed() {

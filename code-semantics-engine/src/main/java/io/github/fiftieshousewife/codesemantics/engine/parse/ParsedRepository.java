@@ -42,8 +42,8 @@ public final class ParsedRepository {
     }
 
     public static ParsedRepository of(final Path root, final List<SourceScope> scopes) {
-        return of(root, scopes, List.of(JavaSource.newInstance(), new MarkdownSource(), new AsciiDocSource()),
-                PlatformPackages.ofSystem());
+        return of(root, scopes, List.of(JavaSource.newInstance(), new MarkdownSource(), new AsciiDocSource(),
+                new PomSource()), PlatformPackages.ofSystem());
     }
 
     /**
