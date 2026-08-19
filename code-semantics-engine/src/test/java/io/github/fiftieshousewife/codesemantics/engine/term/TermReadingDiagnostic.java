@@ -37,54 +37,15 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class TermReadingDiagnostic {
 
-    private static final String REPORT = "terms";
-    private static final String TAXONOMY = "taxonomy.html";
-    private static final String EVIDENCE = "evidence.html";
-    private static final String PICTURE = "taxonomy-sunburst.svg";
-
-    private static final int TERMS_HELD = 100;
-
-    private static final int WITNESSES_NAMED = 6;
-
-    private static final String PREAMBLE = """
-            Does this repository write the vocabulary of a published field? The Ontologies of Linguistic
-            Annotation state 1,197 terms whose names are already identifiers, so the match is identifier to
-            identifier with no English in between: OLiA's `AdjectivePhrase` and this repository's
-            `adjectivePhrase` read as the same two words, and a hit is the ontology saying this is a term of
-            its field rather than anyone here deciding so.
-
-            Only **declared names** are read. A term in a sentence is an author writing about a field; a term
-            in a name is a program working in one.
-
-            **What is reported below is the corroborated reading.** A term written in one word counts only
-            where this repository writes another concept in the branch the publisher placed that concept
-            under; a term written in more than one word counts unconditionally. The reading that admits every
-            match is kept at the end, beside the list of what the branch refused, because a rule that removes
-            matches can only be judged as a comparison.
-            """;
-
     @Test
     void matchesThisRepositoryAgainstThePublishedTermsOfItsOwnField() throws IOException {
         final TreeReading clone = TreeReading.ofTheCloneUnderReading();
-        final Path root = clone.root();
-        final LinguisticTerms terms = LinguisticTerms.fromClasspath();
-
         final CorroboratedReading reading = clone.terms();
         final MatchedTerms every = reading.every();
         final TaxonomyTree everyTree = reading.everyTree();
         final StatedSiblings siblings = reading.siblings();
         final MatchedTerms matched = reading.matched();
         final TaxonomyTree tree = reading.tree();
-
-        final ReportFolder reports = ReportFolder.forReadingOf(root);
-        write(reports, root, terms, matched, tree,
-                new CorroborationReport(siblings).render(every, everyTree, matched, tree)
-                        + new DepthReport().render(StatedDepth.of(everyTree), everyTree, tree));
-        Files.writeString(reports.file(EVIDENCE), new EvidencePage()
-                .of(root.getFileName().toString(), terms.source(), matched.byMass(TERMS_HELD)));
-        Files.writeString(reports.file(TAXONOMY), new TaxonomyPage()
-                .of(root.getFileName().toString(), terms.source(), tree, chose(terms.source())));
-        Files.writeString(reports.file(PICTURE), new TaxonomySunburstDocument().of(tree));
 
         assertAll(
                 () -> assertThat(matched.filesWithNoMatch())
@@ -118,50 +79,5 @@ class TermReadingDiagnostic {
 
     private static long branchesOccupied(final TaxonomyTree tree) {
         return tree.roots().stream().filter(TaxonomyTree.Node::touched).count();
-    }
-
-    /**
-     * The chain that selected this taxonomy, over the shared reading rather than a second one of its own.
-     * That reading covers the markdown as well as the Java, so this page agrees with every other report.
-     */
-    private static TaxonomyChoice chose(final String taxonomy) {
-        final TreeReading clone = TreeReading.ofTheCloneUnderReading();
-        final RepositoryThemes themes = clone.themes();
-        final PlacedField field = clone.arxivField();
-        return new TaxonomyChoice(themesCarriedBy(themes), field.nearestArchive().label(),
-                field.nearestArchive().bits(), field.archiveChance().chanceNearest(),
-                field.archiveChance().standsApart(), taxonomy,
-                "it is the vocabulary of linguistic annotation, whose concepts are already identifiers, so "
-                        + "a match is identifier to identifier with no English in between");
-    }
-
-    /** Each qualified subject with the words that put it there, so the page can show its working. */
-    private static List<TaxonomyChoice.Theme> themesCarriedBy(final RepositoryThemes themes) {
-        return qualifiedTopics(themes).stream()
-                .map(topic -> new TaxonomyChoice.Theme(topic,
-                        themes.witnesses().forTopic(topic, WITNESSES_NAMED).stream()
-                                .map(TopicWitnesses.Witness::word)
-                                .toList()))
-                .toList();
-    }
-
-    private static List<String> qualifiedTopics(final RepositoryThemes themes) {
-        return new QualifiedTopics(themes.witnesses(), OrdinaryEnglish.readingFromClasspath(),
-                FieldOfStudy.fromClasspath().nearestTo(themes.repository().comparison()))
-                .across(themes.divergences().stream()
-                        .filter(scope -> scope.chance().exceedsChance()).toList(),
-                        themes.repository().intensity(), themes.repository().comparison());
-    }
-
-    private static void write(final ReportFolder reports, final Path root, final LinguisticTerms terms,
-                              final MatchedTerms matched, final TaxonomyTree tree, final String corroboration)
-            throws IOException {
-        reports.wrote(REPORT, """
-                # Terms — %s
-
-                %s
-                %s
-                %s""".formatted(root.getFileName(), PREAMBLE,
-                new TermReport().render(terms.source(), matched, tree), corroboration), "Terms");
     }
 }

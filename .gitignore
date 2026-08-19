@@ -49,9 +49,6 @@ docs/clean-code/
 ### backtest snapshot the README links.
 output/*/
 !output/json/
-!output/markdown/
-!output/html/
-!output/svg/
 !output/tika/
 
 ### Taxonomy source archives, fetched by hand for a candidate reading

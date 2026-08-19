@@ -25,7 +25,7 @@ public final class ExportCommand {
     }
 
     /** What the reading writes beside the export to say what moved since the last one. */
-    private static final String CHANGES = "changes";
+    private static final String CHANGES = ChangeFile.NAME;
 
     /** The taxonomies matched beside the bundled vocabulary the shared reading already holds. */
     static List<TermIndex> alsoMatched() {
@@ -73,16 +73,15 @@ public final class ExportCommand {
 
     /**
      * The comparison is written only where there is something to compare against. A first run has no previous
-     * reading, and a report saying every figure moved from nothing would be a report about that rather than
-     * about the repository.
+     * reading, and a file saying every figure moved from nothing would be about that rather than about the
+     * repository.
      */
     private static void wroteChanges(final ReportFolder folder, final Optional<ReadingExport> previous,
                                      final ReadingExport current) throws IOException {
         if (previous.isEmpty()) {
             return;
         }
-        folder.wrote(CHANGES, new ChangeReport().render(ReadingChanges.between(previous.get(), current)),
-                "What moved since the last reading");
+        new ChangeFile().wrote(folder.file(CHANGES), ReadingChanges.between(previous.get(), current));
     }
 
     /** The commit the caller states, or nothing where it states none — an empty field, never a guess. */

@@ -1,8 +1,11 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -93,14 +96,22 @@ class ReadingChangesTest {
     }
 
     @Test
-    void rendersTheFiguresAndTheCrossingsApart() {
-        final String report = new ChangeReport().render(ReadingChanges.between(before(),
-                reading("bbbbbbbbbbbb", 0.981, "cs", 0.3407, true, List.of("linguistics", "grammar"))));
+    void writesTheFiguresAndTheCrossingsAsOneDocumentAndReadsItBack(@TempDir final Path folder)
+            throws IOException {
+        final ReadingChanges changes = ReadingChanges.between(before(),
+                reading("bbbbbbbbbbbb", 0.981, "cs", 0.3407, true, List.of("linguistics", "grammar")));
+        final Path file = folder.resolve(ChangeFile.NAME);
+
+        new ChangeFile().wrote(file, changes);
 
         assertAll(
-                () -> assertThat(report).contains("| Archive — divergence | 34.0% | 34.1% | moved |"),
-                () -> assertThat(report).contains("| Topics | `grammar` | `law` |"),
-                () -> assertThat(report).contains("Read at `bbbbbbbb`, against the reading committed at "
-                        + "`aaaaaaaa`."));
+                () -> assertThat(new ChangeFile().in(file)).isEqualTo(changes),
+                () -> assertThat(new ChangeFile().in(file).moved())
+                        .filteredOn(ReadingChanges.Moved::changed)
+                        .extracting(ReadingChanges.Moved::figure)
+                        .contains("Archive — divergence"),
+                () -> assertThat(new ChangeFile().in(file).crossings())
+                        .extracting(ReadingChanges.Crossing::name)
+                        .contains("grammar", "law"));
     }
 }

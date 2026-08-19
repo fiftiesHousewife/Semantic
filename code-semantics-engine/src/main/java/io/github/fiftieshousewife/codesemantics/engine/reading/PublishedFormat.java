@@ -3,25 +3,15 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 import java.util.stream.Stream;
 
 /**
- * What a written artefact is, and the folder a reading writes it into. One folder per format, because the
- * four are read by four different things: a consumer parses the JSON, a person reads the markdown, a browser
- * opens the pages, and a markdown renderer shows the pictures.
+ * What a written artefact is, and the folder a reading writes it into.
  *
- * <p>A name whose suffix is none of these is refused rather than written somewhere arbitrary.
+ * <p>A reading writes JSON and nothing else: the export a consumer acts on, and the workings behind it. A
+ * name whose suffix is not one this states is refused rather than written somewhere arbitrary.
  */
 public enum PublishedFormat {
 
-    /** The export a consumer acts on. */
-    JSON("json", "json"),
-
-    /** The reports, which are what every page is rendered from. */
-    MARKDOWN("md", "markdown"),
-
-    /** The pages a browser opens. */
-    HTML("html", "html"),
-
-    /** The pictures, each carrying its own stylesheet so it renders wherever it is shown. */
-    SVG("svg", "svg");
+    /** The export a consumer acts on, and the evidence beneath it. */
+    JSON("json", "json");
 
     private final String suffix;
     private final String folder;

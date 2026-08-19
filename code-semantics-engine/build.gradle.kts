@@ -25,8 +25,6 @@ dependencies {
     testCompileOnly(libs.lombok)
     testAnnotationProcessor(libs.lombok)
     testImplementation(libs.junit.jupiter)
-    // And renders that graph as a page. Markup is a DSL of typed tags, never a string in a Java file.
-    testImplementation(libs.j2html)
     testRuntimeOnly(libs.junit.platform.launcher)
     // The reading logs its stages at INFO, and `read`, the probes and the export run on this classpath.
     // Without a binding those minutes pass silently on SLF4J's no-operation provider.
@@ -173,7 +171,7 @@ tasks.register<JavaExec>("wordPlace") {
 // they write. With no property it reads the tree it is running in, which is this library reading itself.
 //   ./gradlew read
 //   ./gradlew read -Dcs.clone.dir=<path>
-// Only the summary is echoed. Every report is written beside it under output/, and the export with them.
+// The export and the workings behind it are written under output/json/, and their paths are echoed.
 val readingOutput = rootProject.layout.projectDirectory.dir("output")
 
 tasks.register<Test>("read") {
@@ -200,16 +198,17 @@ tasks.register<Test>("read") {
         }.standardOutput.asText.get().trim())
     })
     doLast {
-        logger.lifecycle(readingOutput.file("markdown/summary.md").asFile.readText())
-        logger.lifecycle("Every report, with the test each row had to pass: " +
-            "file://${readingOutput.file("html/index.html").asFile.absolutePath}")
-        logger.lifecycle("The export: file://${readingOutput.file("json/reading.json").asFile.absolutePath}")
+        logger.lifecycle("The reading: file://${readingOutput.file("json/reading.json").asFile.absolutePath}")
+        logger.lifecycle("The workings: file://${readingOutput.file("json/evidence.json").asFile.absolutePath}")
+        val changes = readingOutput.file("json/changes.json").asFile
+        if (changes.isFile) {
+            logger.lifecycle("What moved: file://${changes.absolutePath}")
+        }
     }
 }
 
 // The export: one JSON file holding the signals, the themes and every taxonomy result, written without a
-// report being produced or a test framework being involved. That is what says the documents render this file
-// rather than the other way round.
+// test framework being involved.
 //   ./gradlew readingExport
 // The commit is passed in because the library reads no .git of its own. `read` writes the same file from its
 // own JVM over the run's shared reading, so this task is the standalone path, not a step of `read`.
@@ -285,7 +284,7 @@ tasks.register<Test>("evaluationFetch") {
 
 tasks.register("evaluationRead") {
     group = "verification"
-    description = "Reads every cloned evaluation set member, one report folder per member under output/"
+    description = "Reads every cloned evaluation set member, one folder per member under output/"
     dependsOn(memberReadings)
     doFirst {
         if (evaluationDirectory == null) {
@@ -299,7 +298,7 @@ tasks.register("evaluationRead") {
         }
     }
     doLast {
-        logger.lifecycle("EvaluationSet read. One report folder per member under " +
+        logger.lifecycle("EvaluationSet read. One folder per member under " +
             "file://${readingOutput.asFile.absolutePath}")
     }
 }

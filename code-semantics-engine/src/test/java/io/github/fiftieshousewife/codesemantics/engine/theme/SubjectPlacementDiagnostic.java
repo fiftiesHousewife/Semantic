@@ -8,7 +8,6 @@ import java.util.List;
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -31,34 +30,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class SubjectPlacementDiagnostic {
 
-    private static final String REPORT = "subjects";
-
-    private static final int SUBJECTS_HELD = 12;
-    private static final int ARCHIVES_HELD = 8;
-
     /** Full, a half, a quarter and a sixteenth — the lengths Song and Roth truncated their own study to. */
     private static final List<Double> SHARES = List.of(1.0, 0.5, 0.25, 0.0625);
 
-    private static final String PREAMBLE = """
-            Where this repository stands against arXiv's published subject taxonomy — 152 subject areas, each
-            read from the description arXiv states its subject matter in.
-
-            **Nothing here is matched.** No identifier is compared with a subject name, and no word of a
-            description has to appear in the code. A description is prose, so it goes through the reading
-            this repository's own prose goes through, and comes back as an intensity over the same
-            dictionary topics. The themes are the hop: once a scope and a subject are distributions over one
-            space, the divergence already used between two scopes places one against the other.
-
-            A ranking on its own would be a horoscope, because something is always nearest. The bar is what
-            a taxonomy of chance achieves — real description lengths filled with words drawn from the pooled
-            vocabulary of every description — and a field of 152 subjects must be read against the best of
-            152 chance attempts, not against an average one.
-            """;
-
     @Test
-    void placesThisRepositoryAgainstAPublishedSubjectTaxonomy() throws IOException {
+    void placesThisRepositoryAgainstAPublishedSubjectTaxonomy() {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
-        final Path root = reading.root();
         final TopicDistribution repository = reading.themes().repository().comparison();
 
         final ArxivSubjects taxonomy = ArxivSubjects.fromClasspath();
@@ -78,8 +55,6 @@ class SubjectPlacementDiagnostic {
         final List<PlacementByDescriptionLength.Placed> byLength =
                 PlacementByDescriptionLength.fromClasspath().of(repository, described, SHARES);
 
-        write(ReportFolder.forReadingOf(root), root, placements, chance, pooled, pooledChance, shared,
-                sharedChance, new DescriptionLengthReport().render(byLength));
 
         assertAll(
                 () -> assertThat(subjects).as("a taxonomy this reading cannot read places nothing")
@@ -93,46 +68,15 @@ class SubjectPlacementDiagnostic {
                                 + "rather than being handed a direction. It sits within a hundredth of a "
                                 + "bit of its bar on this tree and flips when one file is added. A null "
                                 + "drawn at each subject's own description length is what would settle it.")
-                        .isPositive());
-    }
-
-    private static void write(final ReportFolder reports, final Path root,
-                              final List<SubjectPlacement.Placement> placements,
-                              final SubjectNull.Chance chance,
-                              final List<SubjectPlacement.Placement> pooled,
-                              final SubjectNull.Chance pooledChance,
-                              final List<SubjectPlacement.Placement> shared,
-                              final SubjectNull.Chance sharedChance,
-                              final String byLength) throws IOException {
-        final SubjectReport rendered = new SubjectReport();
-        reports.wrote(REPORT, """
-                # Subjects — %s
-
-                %s
-                ## At the level the taxonomy reports at, by divergence
-
-                %s
-                ## At its leaves, by divergence
-
-                Every topic either side holds counts, so a thirty-word description is punished for being
-                narrower than a repository and the vaguest description wins.
-
-                %s
-                ## At its leaves, by the mass both hold
-
-                The same readings and the same null, asking instead how much of what a subject is about this
-                repository is also about.
-
-                %s
-                ## Whether the placement reads subject matter or description length
-
-                The same repository, the same dictionaries and the same divergence at every row. Only the
-                descriptions get shorter, so a subject that changes places changed because of the words that
-                left it.
-
-                %s""".formatted(root.getFileName(), PREAMBLE,
-                rendered.render(pooled, pooledChance, ARCHIVES_HELD),
-                rendered.render(placements, chance, SUBJECTS_HELD),
-                rendered.render(shared, sharedChance, SUBJECTS_HELD), byLength), "Subjects");
+                        .isPositive(),
+                () -> assertThat(pooled).as("the archive level is placed by the same reading the leaves are")
+                        .allSatisfy(placement -> assertThat(placement.bits()).isBetween(0.0, 1.0)),
+                () -> assertThat(pooledChance.chanceNearest())
+                        .as("and is judged against a null of its own, never against the leaves'")
+                        .isPositive(),
+                () -> assertThat(byLength)
+                        .as("a placement is read at each truncation Song and Roth used, so a winner that "
+                                + "survives only at full length is visible as one that does not")
+                        .hasSameSizeAs(SHARES));
     }
 }

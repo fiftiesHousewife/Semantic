@@ -10,7 +10,6 @@ import java.util.Random;
 
 import io.github.fiftieshousewife.bi.lexicon.NistCsfFunctions;
 import io.github.fiftieshousewife.codesemantics.engine.DivergenceShare;
-import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -30,14 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class SecurityFunctionDiagnostic {
 
-    private static final String REPORT = "security-functions";
-
-    private final DivergenceShare divergence = new DivergenceShare();
 
     @Test
     void readsThisRepositoryAgainstAPublishedPartitionOfSecurityActivity() throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
-        final Path root = reading.root();
         final TopicDistribution repository = reading.themes().repository().comparison();
 
         final NistCsfFunctions framework = NistCsfFunctions.fromClasspath();
@@ -50,7 +45,6 @@ class SecurityFunctionDiagnostic {
         final SubjectNull.Chance chance = placement.chance(placements.getFirst().bits(), repository,
                 statedByFunction, new Random(TreeReading.SEED));
 
-        write(ReportFolder.forReadingOf(root), root, framework, statedByFunction, placements, chance);
 
         assertAll(
                 () -> assertThat(statedByFunction).as("the framework states six functions").hasSize(6),
@@ -61,41 +55,5 @@ class SecurityFunctionDiagnostic {
                         .as("the permuted-assignment null is drawn and reported, because a nearest "
                                 + "function on its own is a horoscope")
                         .isPositive());
-    }
-
-    private void write(final ReportFolder reports, final Path root, final NistCsfFunctions framework,
-                       final Map<String, List<String>> statedByFunction,
-                       final List<SubjectPlacement.Placement> placements,
-                       final SubjectNull.Chance chance) throws IOException {
-        final StringBuilder rows = new StringBuilder();
-        placements.forEach(placed -> rows.append(String.format(Locale.ROOT, "| `%s` %s | %d | %s |%n",
-                placed.concept(), framework.conceptOf(placed.concept()).prefLabel(),
-                statedByFunction.get(placed.concept()).size(), divergence.of(placed.bits()))));
-
-        reports.wrote(REPORT, """
-                # Security functions — %s
-
-                The [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework) partitions what
-                a security function does into six functions. Each is read from every statement NIST files
-                under it — its own overview and each outcome beneath it, pooled — through the same reading
-                this repository's own prose goes through, so the two are distributions over one topic space.
-
-                **The null permutes which statements belong to which function**, keeping every statement and
-                every function's size. A framework's functions share one document's vocabulary by
-                construction, so asking whether their words could have arisen by chance is already answered.
-                What is left to ask is whether the partition carries anything.
-
-                | Function | Statements | Divergence |
-                |---|--:|--:|
-                %s
-                The nearest function stands **%s** of the maximum divergence away, where a chance partition
-                of the same statements reaches **%s** over %d draws. This placement **%s**.
-
-                A repository with no security surface should land here saying nothing, and saying nothing is
-                the correct outcome rather than a failure of the reading.
-                """.formatted(root.getFileName(), rows, divergence.of(chance.nearest()),
-                divergence.of(chance.chanceNearest()), chance.resamples(),
-                chance.standsApart() ? "stands apart from a chance partition"
-                        : "says only that the framework has six functions"), "Security functions");
     }
 }

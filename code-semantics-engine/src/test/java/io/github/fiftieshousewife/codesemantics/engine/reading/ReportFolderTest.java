@@ -43,34 +43,23 @@ class ReportFolderTest {
         final Path host = base.resolve("CodeSemantics");
         final ReportFolder folder = ReportFolder.forReadingOf(base.resolve("gson"), host, base);
 
-        final Path report = folder.file("themes.md");
+        final Path written = folder.file("reading.json");
 
         assertAll(
-                () -> assertThat(report)
-                        .as("one folder per format, so what a person reads is not in with what a browser opens")
-                        .isEqualTo(base.resolve("gson").resolve("markdown").resolve("themes.md")),
-                () -> assertThat(report.getParent()).isDirectory());
+                () -> assertThat(written)
+                        .as("the folder a format states is the one its name is resolved into")
+                        .isEqualTo(base.resolve("gson").resolve("json").resolve("reading.json")),
+                () -> assertThat(written.getParent()).isDirectory());
     }
 
     @Test
     void refusesToWriteAFormatNothingPublishes(@TempDir final Path base) {
         final ReportFolder folder = ReportFolder.forReadingOf(base, base, base);
 
-        assertThatIllegalArgumentException().isThrownBy(() -> folder.file("themes.txt"))
-                .withMessageContaining("themes.txt");
+        assertThatIllegalArgumentException()
+                .as("a reading writes JSON, so a name it does not publish is refused rather than written")
+                .isThrownBy(() -> folder.file("themes.md"))
+                .withMessageContaining("themes.md");
     }
 
-    @Test
-    void writesTheReportAndThePageItRendersAsUnderOneName(@TempDir final Path base) throws IOException {
-        final Path host = base.resolve("CodeSemantics");
-        final ReportFolder folder = ReportFolder.forReadingOf(host, host, base);
-
-        folder.wrote("themes", "# Themes\n\nWhat it is about.\n", "Themes");
-
-        assertAll(
-                () -> assertThat(Files.readString(base.resolve("markdown").resolve("themes.md")))
-                        .contains("What it is about."),
-                () -> assertThat(Files.readString(base.resolve("html").resolve("themes.html")))
-                        .contains("<title>"));
-    }
 }

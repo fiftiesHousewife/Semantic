@@ -6,7 +6,6 @@ errorprone-plugin = "4.2.0"
 junit = "6.0.3"
 jackson = "2.21.2"
 slf4j = "2.0.17"
-j2html = "1.6.0"
 javaparser = "3.28.2"
 duckdb = "1.5.5.1"
 
@@ -36,7 +35,6 @@ json-schema-validator = { module = "com.networknt:json-schema-validator", versio
 # The themes viewer's markup, as a typed DSL rather than a string. A page assembled from tags cannot emit
 # unbalanced markup or forget to escape a witness, and the alternative — HTML inside Java string literals —
 # is the thing this keeps out of the tree. Diagnostic-only, so it never reaches the published artefact.
-j2html = { module = "com.j2html:j2html", version.ref = "j2html" }
 # The Java parse the self-read runs on. Pure Java, no grammar binary and no JNI, and no symbol solving —
 # a declaration is a declaration in the syntax, and resolving what a name refers to is a separate decision.
 javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
