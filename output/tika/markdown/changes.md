@@ -12,14 +12,14 @@ Every figure here moves whenever a source file or a markdown file does, because 
 | Mass settled on no subject | 66.8% | 66.8% |  |
 | Archive — nearest subject | Computer Science | Computer Science |  |
 | Archive — divergence | 35.9% | 35.9% |  |
-| Archive — chance reaches | 42.0% | 42.0% |  |
+| Archive — chance reaches | 42.0% | 41.9% | moved |
 | Archive — stands apart from chance | yes | yes |  |
 | Category — nearest subject | Computation and Language | Computation and Language |  |
-| Category — divergence | 38.5% | 38.5% |  |
-| Category — chance reaches | 43.1% | 43.1% |  |
+| Category — divergence | 38.5% | 38.6% | moved |
+| Category — chance reaches | 43.1% | 43.2% | moved |
 | Category — stands apart from chance | yes | yes |  |
 | Words above the bar | 794 | 794 |  |
-| Topics reported | 18 | 18 |  |
+| Topics reported | 18 | 17 | moved |
 | Concepts written | 358 | 358 |  |
 
 ## What entered and left

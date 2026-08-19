@@ -196,20 +196,21 @@ one. λ is the share of those word occurrences at least one bundled resource can
 | `tika-xmp/src/main/java` | 10 | 294 | 695 | 3,077 (81.6%) | 3,701 | **0.981** |
 | `tika-xmp/src/test/java` | 2 | 86 | 266 | 344 (56.4%) | 603 | **0.989** |
 | `documentation` | 94 | 0 | 0 | 68,214 (100.0%) | 65,288 | **0.957** |
-| **repository** | 2,242 | 81,271 | 166,072 | 663,758 (80.0%) | 806,053 | **0.971** |
+| `modules` | 127 | 126 | 438 | 594 (57.6%) | 990 | **0.959** |
+| **repository** | 2,369 | 81,397 | 166,510 | 664,352 (80.0%) | 807,043 | **0.971** |
 
-The repository's own words are 829,830 occurrences of 14,901 distinct surfaces, 5,121 of them (34.4%) written exactly once. 2,058 glued runs no boundary divided were read by the segmenter; 23,777 occurrences across 5,128 surfaces nothing could be cited for at all.
+The repository's own words are 830,862 occurrences of 14,912 distinct surfaces, 5,129 of them (34.4%) written exactly once. 2,074 glued runs no boundary divided were read by the segmenter; 23,819 occurrences across 5,134 surfaces nothing could be cited for at all.
 
 | Resource | Occurrences it can be cited for | Share | Resting on it alone |
 |---|--:|--:|--:|
-| `lexicon:word-frequency` | 713,818 | 86.0% | 20,959 |
-| `lexicon:wordnet-sense` | 543,621 | 65.5% | 11,043 |
-| `lexicon:wiktionary-topic` | 529,160 | 63.8% | 8,749 |
-| `lexicon:wordnet-domain` | 379,089 | 45.7% | 6,099 |
-| `lexicon:wikidata-initialism` | 364,081 | 43.9% | 2,289 |
-| `lexicon:wiktionary-abbreviation` | 309,577 | 37.3% | 2,042 |
-| `lexicon:wikidata-name` | 297,522 | 35.9% | 4,155 |
-| `catalogue:query-language-function` | 19,274 | 2.3% | 165 |
+| `lexicon:word-frequency` | 714,558 | 86.0% | 20,982 |
+| `lexicon:wordnet-sense` | 544,227 | 65.5% | 11,063 |
+| `lexicon:wiktionary-topic` | 529,701 | 63.8% | 8,760 |
+| `lexicon:wordnet-domain` | 379,454 | 45.7% | 6,099 |
+| `lexicon:wikidata-initialism` | 364,359 | 43.9% | 2,289 |
+| `lexicon:wiktionary-abbreviation` | 309,858 | 37.3% | 2,046 |
+| `lexicon:wikidata-name` | 297,900 | 35.9% | 4,300 |
+| `catalogue:query-language-function` | 19,282 | 2.3% | 165 |
 
 | Word | Occurrences | First seen |
 |---|--:|---|
@@ -218,18 +219,18 @@ The repository's own words are 829,830 occurrences of 14,901 distinct surfaces, 
 | `fasterxml` | 339 | `tika-app/src/main/java/org/apache/tika/cli/XmlToJsonConfigConverter.java:36` |
 | `utils` | 237 | `tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java:69` |
 | `doesn't` | 195 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:223` |
-| `solr` | 183 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
+| `solr` | 185 | `tika-core/src/test/java/org/apache/tika/MultiThreadedTikaTest.java:58` |
 | `1252` | 145 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:133` |
 | `charsets` | 143 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:59` |
-| `plugins` | 141 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:242` |
+| `plugins` | 143 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:242` |
 | `poifs` | 141 | `tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/config/ComponentRegistryIntegrationTest.java:51` |
 | `can't` | 140 | `tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java:1180` |
+| `32` | 139 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:51` |
 | `codepoints` | 139 | `tika-core/src/main/java/org/apache/tika/detect/HighByteLetterStats.java:56` |
-| `32` | 138 | `tika-core/src/main/java/org/apache/tika/detect/BOMDetector.java:51` |
 | `fetchers` | 136 | `tika-e2e-tests/tika-grpc/src/test/java/org/apache/tika/pipes/filesystem/HandlerTypeTest.java:51` |
-| `8859` | 131 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
+| `8859` | 132 | `tika-core/src/main/java/org/apache/tika/detect/AutoDetectReader.java:129` |
 
-Read 2,242 files in 11.2 s — 5.0 ms a file, recorded rather than estimated.
+Read 2,369 files in 12.0 s — 5.0 ms a file, recorded rather than estimated.
 
 Imports read as this repository's own choice: 2908. Set aside as the platform's own vocabulary: 9240. Set aside as this repository's own coordinates: 8745. Set aside as the toolchain a source set nothing is published from is checked with: 3061. Files the parser refused: 0.
 

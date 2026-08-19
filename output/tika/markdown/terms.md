@@ -15,7 +15,7 @@ under; a term written in more than one word counts unconditionally. The reading 
 match is kept at the end, beside the list of what the branch refused, because a rule that removes
 matches can only be judged as a comparison.
 
-**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **98 of them, 5,930 times**, across 1,303 of 2,242 files — reaching **12 of the taxonomy's 70 root branches**.
+**OLiA** publishes **1,311 concepts** in a hierarchy 9 rungs deep. This repository writes **98 of them, 5,934 times**, across 1,306 of 2,369 files — reaching **12 of the taxonomy's 70 root branches**.
 
 A branch is evidenced by everything beneath it and ranked by how many distinct concepts under it were written, because one ordinary word a taxonomy happens to claim is one concept however often a codebase writes it.
 
@@ -23,11 +23,11 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Branch | Concepts written | Of published | Times | What it wrote there |
 |---|--:|--:|--:|---|
-| `OrthographicEntity` | 8 | 37 | 1,758 | `Text` 863 `Script` 344 `Token` 261 `String` 157 `Character` 61 `Letter` 44 `Country` 16 `Diacritic` 12 |
+| `OrthographicEntity` | 8 | 37 | 1,760 | `Text` 865 `Script` 344 `Token` 261 `String` 157 `Character` 61 `Letter` 44 `Country` 16 `Diacritic` 12 |
 | `LinguisticConcept` | 23 | 136 | 1,142 | `Support` 246 `Document` 172 `Source` 171 `Author` 148 `Title` 104 `Topic` 64 `Sentence` 63 `Abstract` 50 |
-| `Relation` | 8 | 203 | 776 | `Result` 456 `Exception` 201 `Example` 63 `Alternative` 29 `Expansion` 14 `Comparison` 8 `Instantiation` 4 `Background` 1 |
+| `Relation` | 8 | 203 | 777 | `Result` 456 `Exception` 201 `Example` 64 `Alternative` 29 `Expansion` 14 `Comparison` 8 `Instantiation` 4 `Background` 1 |
 | `SemanticFeature` | 17 | 125 | 720 | `Object` 240 `URL` 218 `Amount` 68 `Address` 35 `Movie` 28 `Organization` 24 `Album` 21 `Artist` 21 |
-| `MorphosyntacticCategory` | 24 | 288 | 633 | `Image` 262 `Date` 146 `Unique` 47 `Slash` 38 `Quote` 29 `Symbol` 22 `Acronym` 13 `Colon` 11 |
+| `MorphosyntacticCategory` | 24 | 288 | 634 | `Image` 263 `Date` 146 `Unique` 47 `Slash` 38 `Quote` 29 `Symbol` 22 `Acronym` 13 `Colon` 11 |
 | `MorphologicalCategory` | 2 | 16 | 393 | `Prefix` 322 `Suffix` 71 |
 | `Constituent` | 3 | 37 | 242 | `Chunk` 211 `Fragment` 19 `Clause` 12 |
 | `CoordTypeFeature` | 2 | 5 | 89 | `Simple` 73 `Initial` 16 |
@@ -40,7 +40,7 @@ A branch is evidenced by everything beneath it and ranked by how many distinct c
 
 | Both sides became | Written | Distinct terms | One word long |
 |---|--:|--:|--:|
-| the words themselves | 4,483 | 86 | 99.7% |
+| the words themselves | 4,487 | 86 | 99.7% |
 | the dictionary form of each word | 1,242 | 62 | 97.6% |
 | the sense the dictionary carries each word in | 205 | 21 | 96.6% |
 
@@ -68,8 +68,8 @@ Taken to the root the rule would refuse nothing and taken at the concept itself 
 
 | Admitted | Spans | Distinct terms | One word long | Branches occupied | Largest single term |
 |---|--:|--:|--:|--:|---|
-| every match | 9,086 | 251 | 99.4% | 24 of 70 | `set` 1,326 |
-| only where the branch holds more than this one concept | 5,930 | 169 | 99.1% | 12 of 70 | `text` 855 |
+| every match | 9,090 | 251 | 99.4% | 24 of 70 | `set` 1,326 |
+| only where the branch holds more than this one concept | 5,934 | 169 | 99.1% | 12 of 70 | `text` 857 |
 
 ### What the branch refused
 
@@ -105,18 +105,18 @@ Depth is read off the source's own edges and is a citation rather than a heurist
 | Rungs below the root | Concepts written | Times | Share of spans |
 |--:|--:|--:|--:|
 | 0 | 0 | 0 | 0.0% |
-| 1 | 22 | 2,220 | 37.4% |
+| 1 | 22 | 2,222 | 37.4% |
 | 2 | 29 | 1,211 | 20.4% |
-| 3 | 16 | 1,021 | 17.2% |
+| 3 | 16 | 1,022 | 17.2% |
 | 4 | 13 | 360 | 6.1% |
 | 5 | 10 | 315 | 5.3% |
-| 6 | 8 | 803 | 13.5% |
+| 6 | 8 | 804 | 13.5% |
 
 | Admitted | Concepts | Times | Mean rungs per concept | Mean rungs per span |
 |---|--:|--:|--:|--:|
-| what the branch admitted | 98 | 5,930 | 2.84 | 2.62 |
+| what the branch admitted | 98 | 5,934 | 2.84 | 2.62 |
 | what the branch refused | 45 | 2,997 | 3.33 | 3.34 |
 
-The deepest of what was written: `Album` 6 rungs, 21 `Book` 6 rungs, 8 `EmailAddress` 6 rungs, 2 `Example` 6 rungs, 63 `Movie` 6 rungs, 28 `PhoneNumber` 6 rungs, 7 `Result` 6 rungs, 456 `URL` 6 rungs, 218.
+The deepest of what was written: `Album` 6 rungs, 21 `Book` 6 rungs, 8 `EmailAddress` 6 rungs, 2 `Example` 6 rungs, 64 `Movie` 6 rungs, 28 `PhoneNumber` 6 rungs, 7 `Result` 6 rungs, 456 `URL` 6 rungs, 218.
 
-The shallowest: `Unique` 1 rung, 47 `Trace` 1 rung, 26 `Token` 1 rung, 261 `Third` 1 rung, 3 `Text` 1 rung, 863 `String` 1 rung, 157 `Simple` 1 rung, 73 `Second` 1 rung, 57.
+The shallowest: `Unique` 1 rung, 47 `Trace` 1 rung, 26 `Token` 1 rung, 261 `Third` 1 rung, 3 `Text` 1 rung, 865 `String` 1 rung, 157 `Simple` 1 rung, 73 `Second` 1 rung, 57.
