@@ -50,6 +50,8 @@ A literal is somebody's vocabulary quoted unless a registry claims it, so the ru
 
 Tika's fixtures state the domain by extension without a byte being opened: 79 `.pdf`, 74 `.docx`, 54 `.doc`, 44 `.rtf`, 35 `.xlsx`. The fixture's *content* is somebody else's document and stays unread; the chosen path words and the extension — which maps to the same IANA registry as item 2 — are the signal.
 
+**Landed, with item 2 owed its second half.** `FixtureNameSource` reads a fixture by its name alone and refuses the bytes, `TestResourceScope` anchors on `src/test/resources` the way the Java scopes anchor on a source set, and `META-INF` is left out because the JAR File Specification reserves it. On Tika that is 1,820 files whose names put 132 words into the test-name ranking the declared names never wrote — `rfc822`, `pkcs7`, `ole`, `mbox`, `epub`, `visio`, `flac` — `document` at 1,808 occurrences now carries `information-science`, and the placement holds. The recorded cost: extension words reach the resources through their general senses until the registry lands, so `ppt` reads as surgery and `tsv` as electronics — initialisms the repository never meant, the same seam [the cited catalogues](WHAT_THE_AUTHOR_CHOSE.md) and item 2's registry both close from their own sides.
+
 ## 6. Type hierarchy edges
 
 **1,621 `extends`/`implements` clauses on Tika, 25 in this engine's main sources.** A declaration that a chosen name is-a another chosen name is the strongest structural relation in either tree, and the tally discards it. This is not a separate effort: it is the declaring-node provenance [the verb-phrase plan's step 1](WHAT_IT_ACTUALLY_DOES.md) already requires, and it lands there.
