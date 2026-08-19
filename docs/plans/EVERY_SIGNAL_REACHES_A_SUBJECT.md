@@ -91,7 +91,7 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 #### What it found
 
-`reading.json` is schema 6.0 and states no placement under a taxonomy. `evidence.json` is 3.0 and carries `matches` and `setAside`. Read at `64e1496`.
+`reading.json` is schema 7.0 and states no placement under a taxonomy. `evidence.json` is 3.0 and carries `matches` and `setAside`. Read at `64e1496`.
 
 | | On this tree |
 |---|--:|
@@ -109,7 +109,7 @@ Every finding in [the phrase arm's repairs](PHRASE_ARM_REPAIRS.md) and [placing 
 
 `setAside.matchesDiscardedByBranchRule` is 62 and the refusals list 63. `refusedByBranch()` subtracts one reading's size from the other's, so a term the corroborated re-read reaches at a *different rung* nets out of it: `result` is refused at the words rung and admitted at the senses rung. Both are true, both are now recorded, and `TermMatchesTest` pins it.
 
-`setAside.wordsBelowEveryThreshold` is 795 and only 786 are below any threshold. `ExportedSignals` removes words English supplies as well as words below a bar, and the count subtracts the signals from the ranking, so **a figure named for one rule carries two**. The nine are listed separately and the arithmetic reconciles. **The export's field is misnamed and this plan did not rename it** — that is a schema change and the user's call.
+`setAside.wordsBelowEveryThreshold` was 795 and only 786 were below any threshold. `ExportedSignals` removes words English supplies as well as words below a bar, and the count subtracted the signals from the ranking, so **a figure named for one rule carried two**. **Split at schema 7.0**: both counts now come from `RefusedWords`, which is what produces the rows in `evidence.json`, so the counts and the lists cannot drift, and `ExportedSignalsTest` asserts the partition directly — every ranked word is reported or set aside by exactly one rule.
 
 **`theLanguages` admits words that are not English holding a sentence together.** The nine are `by`, `from`, `below`, `without`, `keyword`, `keywords`, `alex`, `wiki`. The first four are the rule working. `keyword` and `keywords` are subject matter on a repository that reads published keywords. `alex` and `wiki` are the splitter cutting `OpenAlex` and `Wiktionary`, which is [the splitter's own known gap](../../CLAUDE.md) arriving in a second place. Measuring what that rule costs belongs with the vocabulary reading, not here.
 
