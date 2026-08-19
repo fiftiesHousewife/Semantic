@@ -2,10 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -34,10 +31,12 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
  * <p>Three readings are printed rather than one, because which of them to vote on is the open question and
  * a probe that answered it silently would have decided it. Every match, the matches the branch rule
  * corroborates, and the runs of more than one word.
+ *
+ * <p>Each is printed under both scorings for the same reason. Summed occurrence mass ranks a topic by how
+ * often its keywords were written; two shares rank it by how many of them were written. Which one places a
+ * repository better is what the probe is run to find out.
  */
 public final class PhraseMatchedSubjectsProbe {
-
-    private static final int SHOWN = 10;
 
     private static final String KEYWORDS_OF_OPENALEX = "openalex keywords";
 
@@ -69,61 +68,16 @@ public final class PhraseMatchedSubjectsProbe {
         System.out.printf("%d topics, %d keywords published%n", topics.size(), keywords.size());
         System.out.printf("expected result: a topic stating %s outranks one that does not%n", token);
 
-        final StatedDomainToken expectation = new StatedDomainToken(token);
-        arm("every match", every, topics, expectation, token);
+        final SubjectArms arms = new SubjectArms(topics, keywords, new StatedDomainToken(token), token,
+                KeywordSpecificity.fromClasspath());
+        arms.print("every match", every);
         java.util.Arrays.stream(TermRung.values()).forEach(rung -> {
             final List<TermSighting> found = reading.every().at(rung).sightings();
-            arm("rung: " + rung.normalisation(), found, topics, expectation, token);
-            arm("rung: " + rung.normalisation() + ", runs of more than one word",
-                    found.stream().filter(sighting -> sighting.length() > 1).toList(),
-                    topics, expectation, token);
+            arms.print("rung: " + rung.normalisation(), found);
+            arms.print("rung: " + rung.normalisation() + ", runs of more than one word",
+                    found.stream().filter(sighting -> sighting.length() > 1).toList());
         });
-        arm("corroborated by the branch rule", corroborated, topics, expectation, token);
-        arm("runs of more than one word", runs, topics, expectation, token);
-    }
-
-    private static void arm(final String heading, final List<TermSighting> sightings,
-                            final List<SkosConcept> topics, final StatedDomainToken expectation,
-                            final String token) {
-        final Map<String, Double> byTopic = massByTopic(sightings);
-        final List<ProbabilityOfSuperiority.Scored> scored = topics.stream()
-                .map(topic -> new ProbabilityOfSuperiority.Scored(topic.prefLabel(),
-                        byTopic.getOrDefault(topic.concept(), 0.0), expectation.of(topic)))
-                .toList();
-
-        System.out.printf("%n== %s — %d spans, %d topics reached%n", heading, sightings.size(),
-                byTopic.size());
-        System.out.printf("%-56s %10s%n", "topic", "mass");
-        scored.stream()
-                .sorted(Comparator.comparingDouble(ProbabilityOfSuperiority.Scored::score).reversed())
-                .limit(SHOWN)
-                .forEach(topic -> System.out.printf("%-56s %10.2f%s%n", topic.topic(), topic.score(),
-                        topic.expectation() == ProbabilityOfSuperiority.Expectation.MEETS_IT
-                                ? "   <- states " + token : ""));
-
-        if (sightings.isEmpty()) {
-            System.out.printf("no span answered on this reading%n");
-            return;
-        }
-        final long marked = scored.stream()
-                .filter(topic -> topic.expectation() == ProbabilityOfSuperiority.Expectation.MEETS_IT)
-                .count();
-        if (marked == 0 || marked == scored.size()) {
-            System.out.printf("the expectation marks %d of %d topics, so the scheme states nothing to "
-                    + "score against and the ranking above is all there is%n", marked, scored.size());
-            return;
-        }
-        final ProbabilityOfSuperiority.Superiority found = new ProbabilityOfSuperiority().of(scored);
-        System.out.printf("%d state %s, %d do not; chance %.3f against 0.5 — %s%n", found.meeting(), token,
-                found.notMeeting(), found.chance(),
-                found.beatsChance() ? "ABOVE CHANCE" : "at or below chance");
-    }
-
-    /** What each topic's keywords were worth where the repository declared them, summed over its sightings. */
-    private static Map<String, Double> massByTopic(final List<TermSighting> sightings) {
-        final Map<String, Double> byTopic = new HashMap<>();
-        sightings.forEach(sighting -> sighting.concepts().forEach(keyword ->
-                byTopic.merge(keyword.broader(), sighting.mass(), Double::sum)));
-        return byTopic;
+        arms.print("corroborated by the branch rule", corroborated);
+        arms.print("runs of more than one word", runs);
     }
 }

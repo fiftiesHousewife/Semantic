@@ -1,6 +1,54 @@
-# Three repairs the phrase arm's worked example named
+# The phrase arm's repairs, and what the reach census measured
 
 [Placing a repository by the phrases it declares](PHRASE_MATCHED_SUBJECTS.md) built the arm and ran it on three evaluation members. `./gradlew topicMatch -Ptopic="Semantic Web"` then traced one topic keyword by keyword. The topic was a poor choice and the trace is kept for what it exposed about the mechanism rather than for its verdict — see the correction below. It separates three defects the ranking alone reports as one bad answer. Each has its own evidence, its own repair and its own abandon condition.
+
+## What the census found, and it reverses the order below
+
+`./gradlew keywordReach -Ptoken=<token>` counts all 45,154 published keywords into the four buckets `FurthestWritten` names, per member, with the topics the expected result marks reported apart from the ones it does not. The split is the point: a census pooled over the whole scheme reports the same figures whether or not the topics a repository ought to reach are reachable.
+
+Keywords belonging to marked topics, which are the ones the arm has to reach:
+
+| Member | Token | Marked keywords | Declared as this run | Every word written, never adjacent | Reached only in prose | Declared and unmatched |
+|---|---|--:|--:|--:|--:|--:|
+| CodeSemantics | linguistics | 240 | 16 (6.67%) | 3 (1.25%) | 11 (4.58%) | 0 |
+| Santuario | security | 1,505 | 40 (2.66%) | 30 (1.99%) | 12 (0.80%) | 0 |
+| Tika | content | 480 | 4 (0.83%) | 73 (15.21%) | 8 (1.67%) | 1 |
+
+The same shares over the topics the expectation does not mark, which is what each row above is read against:
+
+| Member | Declared as this run | Every word, never adjacent | Only in prose |
+|---|--:|--:|--:|
+| CodeSemantics | 0.67% | 1.03% | 0.71% |
+| Santuario | 0.64% | 0.63% | 0.39% |
+| Tika | 2.33% | 6.90% | 1.60% |
+
+**Repair 3 is the largest effect measured, and only the held-out members show it.** Assembling a run across a declaration raises the marked keywords in reach from 4 to 77 on Tika, from 40 to 70 on Santuario, and from 16 to 19 on this repository. It is ranked last in the order below and marked blocked. A repair chosen from this tree alone would have been chosen wrongly, which is what holding repositories out is for.
+
+**One figure explains Tika.** Its `content` keywords are declared as a run less often than the rest of the scheme — 0.83% against 2.33% — and carry every word written but never adjacent more often — 15.21% against 6.90%. Tika declares `document`, `processing`, `content`, `extraction` and `metadata`, and never writes them adjacent inside one name.
+
+**The prediction about prose does not hold.** [The parent plan](PHRASE_MATCHED_SUBJECTS.md) expects the prose fork to *"move the result more than everything in the next two sections combined"*. Prose reaches 11, 12 and 8 marked keywords across the three members, against repair 3's 3, 30 and 73.
+
+**A run declared and unmatched is rare.** None among the marked topics of two members, one on Tika's. Scheme-wide Tika holds 59 and this repository 7, over three distinct labels — `Processing`, `Validation`, `Client`. Those belong to the preemption log, diagnostic 4 below, and not to a matcher repair.
+
+**The figure bounds repair 3 above and does not estimate it.** `EVERY_WORD_NEVER_ADJACENT` holds a keyword whose every word appears in some declared name anywhere in the repository. Repair 3 assembles a run across one declaring node, which is narrower. Tika's 73 is therefore a ceiling and the yield lies between 0 and 73. Narrowing the bucket to the words written within one declaring node turns the bound into an estimate, and costs nothing once the node survives the walk.
+
+### Repair 0's verdict
+
+`WrittenKeywords` scores a topic by two shares multiplied, following `WrittenSubtree`. It is measured and it does not clear its stated bar.
+
+| Member | Probability of superiority over the topics reached, summed mass then two shares | Topics stating the token in the top ten |
+|---|---|---|
+| CodeSemantics | 0.707 then 0.743 | 1 then 1 |
+| Santuario | 0.887 then 0.872 | 3 then 5 |
+| Tika | 0.832 then 0.804 | 0 then 0 |
+
+It raises the ordering on the tree it was written for and lowers it on both held-out members, which is this plan's own abandon condition. It stays in the tree because `PhraseMatchedSubjectsProbe` prints it beside summed mass and neither votes on anything, and because the census says why it cannot work: Santuario and Tika reach almost every topic on one keyword of ten, so the first share is near-constant and the product orders the field as mass does.
+
+### The statistic it was judged on needed repairing first
+
+The probability of superiority over the whole scheme could not see repair 0 at all. It was identical to three decimals on all nine readings while the head of the ranking changed completely. 4,155 of 4,516 topics score zero and tie, and both scorings read the same spans and so reach the same topics, so the tied part of the field fixes the figure. It measures how many marked topics were reached, not how the reached ones were ordered.
+
+`SuperiorityFigures` reports the same statistic a second time over the topics reached, and precision at ten against the count the field's own composition would put there. The pooled figure had also mislabelled Tika: 0.451 over the whole scheme, below chance, against 0.832 over the topics it reaches. Tika orders well and reaches badly, and one figure reported that as a failure to rank.
 
 ## Each repair in one example
 
@@ -144,14 +192,14 @@ The first would have shown repair 0 on the day the arm was built. Reading one to
 
 ## Order, and why
 
-**Nothing here starts until [the export is the output](JSON_ONLY_OUTPUT.md) has landed.** Every repair below moves every figure the reading reports, so each one has to be judged on *what moved and what did not*. `ReadingChanges` answers that from two exports and is already built; what it lacks is an export worth comparing. Until then a repair would be judged by eye against a markdown report, which is the manual verification check `CLAUDE.md` refuses. The cleanup is not a detour before the interesting work — it is what makes the interesting work measurable.
+**The census has run and it reverses what this section said.** [The export is the output](JSON_ONLY_OUTPUT.md) has landed, so `ReadingChanges` has two exports to compare and every repair below can be judged on what moved. The order is what the measurement supports, not what the repairs cost.
 
-
-0. **Re-run the trace on Santuario against the topics its own token marks.** Repairs 2 and 3 currently rest on illustrations from a tree with no cited answer, and that is the defect this plan opens by describing. Nothing below is costed until they rest on a judged member.
-1. **The census** (diagnostic 3 below). It costs almost nothing and it sizes repairs 2 and 3 before either is built. Running it first is what stops the expensive repair being chosen by argument.
-2. **Repair 1.** Self-contained, the weight already exists, and it is the one the evidence is strongest for. It also changes every figure the other two would be judged against, so it goes before them.
-3. **Repair 2.** A reporting change over a population that is already parsed. No new machinery.
-4. **Repair 3.** Blocked on the provenance step, and the census decides whether it is worth unblocking.
+1. **Narrow the reach bucket to one declaring node.** It turns Tika's 73 from a ceiling into an estimate and it decides whether repair 3 earns its price. Cheap once the declaring node survives the walk.
+2. **Repair 3.** The largest effect the census measures, on both held-out members. Blocked on [What a repository does, not what it says](WHAT_IT_ACTUALLY_DOES.md), and unblocking that is now the substantial next piece of work rather than a prerequisite nobody reached.
+3. **Repair 4** — *processes X* against *is about X*. Repair 3 raises Tika's reach up to nineteenfold and every run it adds carries the same ambiguity, so the two are one piece of work rather than a repair and a footnote.
+4. **Repair 2.** Small on all three members. A reporting change over a population already parsed, worth doing because it is cheap and not because it was predicted to be large.
+5. **Repair 1.** Unrun. `PhraseSpecificity` already weighs every match, so the open question is whether the divergence term beats it — and that is a question about ordering, which the census says is not where any member is failing.
+6. **Repair 0.** Measured, failed its bar, left in the tree beside summed mass.
 
 ## What would have surfaced all of this sooner
 
@@ -165,11 +213,13 @@ One row per matched sighting, written under `output/`: the run, the rung both si
 
 For each ranked topic, the keywords that carried it and each one's share of its mass. `TopicWitnesses` already does this for the theme arm and the phrase arm has no equivalent, which is the whole reason *why is this topic here* required new code. The theme arm's own experience is the argument: the witness column was reported without shares, nothing on the row explained the order, and adding the share changed the diagnosis of `law`.
 
-### 3. A reach census over the whole scheme
+### 3. A reach census over the whole scheme — built
 
-`FurthestWritten` over all 45,154 published keywords rather than one topic's ten, counted into its four buckets, per repository. It answers *how much of this scheme is reachable at all, and by which repair* in one table, and it is the input to the ordering above. It needs no new logic — the class is written and tested.
+`KeywordReach`, `ReachCensus` and `./gradlew keywordReach -Ptoken=<token>`. `FurthestWritten` over all 45,154 published keywords rather than one topic's ten, counted into its four buckets per repository, split by whether the expected result marks the topic. The split is what the plan's own version lacked: pooled over the whole scheme, the census reports the same figures whether or not the topics a repository ought to reach are reachable. Its findings are in the first section above, and they reordered every repair below.
 
-### 4. A preemption log
+### 4. A preemption log — now evidenced
+
+The census names the candidates. Tika declares 59 published keywords as runs that no rung matched, and this repository 7, over three distinct labels — `Processing`, `Validation`, `Client`. A run written and not found is either a matcher defect or a span a longer overlapping run won at the same position, and nothing in the tree currently tells the two apart.
 
 Which spans `TermSpans` discarded because a longer or overlapping run won at that position. This is the diagnostic whose absence let a prose occurrence be misread as a matcher defect for an afternoon: with it, *the run was never a declaration* and *the run was declared and beaten* are distinguishable without reading source.
 
@@ -177,7 +227,9 @@ Which spans `TermSpans` discarded because a longer or overlapping run won at tha
 
 ## What settles the whole of it
 
-The parent plan's bar is unchanged and none of these three repairs reaches it on its own: **better than TF-IDF and BM25 over the same descriptions**, on repositories this reading was not written for. Those two baselines are still unrun, and until they are, a phrase arm that ranks `Semantic Web and Ontologies` 55th instead of 1,172nd has beaten its predecessor and nothing else.
+The parent plan's bar is unchanged and no repair here reaches it on its own: **better than TF-IDF and BM25 over the same descriptions**, on repositories this reading was not written for. Those two baselines are still unrun, and until they are, a phrase arm that ranks `Semantic Web and Ontologies` 55th instead of 1,172nd has beaten its predecessor and nothing else.
+
+**The census adds a second bar, and it is the one the members currently fail.** All three order the topics they reach above chance — 0.707, 0.887 and 0.832 — and reach between 0.83% and 6.67% of the keywords the marked topics publish. Ordering is not where the arm is failing. Reach is, and repair 3 is the only repair measured large enough to change it.
 
 ## Repair 0 — the ranking currently measures the publisher's keyword style, not subject matter
 

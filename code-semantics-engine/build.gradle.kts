@@ -97,6 +97,19 @@ tasks.register<JavaExec>("phraseMatchedSubjects") {
     args = listOfNotNull(findProperty("token") as String?)
 }
 
+// How much of a subject scheme a repository could reach at all, counted into the buckets that name the
+// repair each unreached keyword would need, with the topics the expected result marks reported apart.
+//   ./gradlew keywordReach -Ptoken=security -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("keywordReach") {
+    group = "verification"
+    description = "Counts how far a repository got towards every keyword a subject scheme publishes"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.KeywordReachProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("token") as String?)
+}
+
 // Which words stop a subject scheme's published keyword being read as a run of senses, so a decision to
 // bundle a catalogue of abbreviations is taken against the words it would actually buy.
 //   ./gradlew unreadRuns

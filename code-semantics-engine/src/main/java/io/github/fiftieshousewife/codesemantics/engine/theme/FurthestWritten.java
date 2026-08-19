@@ -22,14 +22,29 @@ public final class FurthestWritten {
 
     /** How far the repository got, narrowest first. */
     public enum Reach {
+
         /** Written as this run of adjacent words, inside some declared name. */
-        AS_THIS_RUN,
+        AS_THIS_RUN("written as this run"),
+
         /** Every word written somewhere, and never next to the others in this order. */
-        EVERY_WORD_NEVER_ADJACENT,
+        EVERY_WORD_NEVER_ADJACENT("every word written, never adjacent"),
+
         /** Some of its words written and some never written at all. */
-        PARTLY_WRITTEN,
+        PARTLY_WRITTEN("some words written, some never"),
+
         /** No word of it written anywhere. */
-        NOT_WRITTEN
+        NOT_WRITTEN("no word of it written");
+
+        private final String describes;
+
+        Reach(final String describes) {
+            this.describes = describes;
+        }
+
+        /** How far this is, in words a table can print. */
+        public String describes() {
+            return describes;
+        }
     }
 
     /** What was reached, and the words the repository never wrote at all. */
