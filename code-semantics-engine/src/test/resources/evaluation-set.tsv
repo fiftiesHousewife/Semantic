@@ -6,7 +6,11 @@
 #   origin      the URL it is cloned from
 #   sha         the commit it is pinned to. A reading of a moving target is not reproducible, and
 #               every figure this library publishes is a reading of a named commit.
-#   licence     Apache-2.0, MIT or BSD. Verified at the revision named above, not at HEAD.
+#   licence     The SPDX identifier, verified at the revision named above and not at HEAD. A member is
+#               read, never redistributed, so a copyleft licence is recorded rather than refused — jPOS
+#               is AGPL-3.0. Where the publisher states a licence SPDX has no identifier for, the file
+#               name is recorded instead: QuickFIX/J publishes "The QuickFIX Software License, Version
+#               1.0", which is BSD-4-clause-shaped and not copyleft.
 #   area        the subject area the reading is expected to place the member under, named exactly as
 #               the scheme states it — a field such as Computer Science, or a subfield such as
 #               Finance. It is an identifier in somebody else's hierarchy, so it cannot collide with
@@ -59,3 +63,9 @@
 tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	Computer Science	its own GitHub description: a toolkit that detects and extracts metadata and text from files	out-of-domain
 maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	Computer Science	its own GitHub description: a software project management and comprehension tool	out-of-domain
 santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	Computer Science	its own GitHub description: a library implementing XML digital signature and encryption	in-domain
+strata	https://github.com/OpenGamma/Strata.git	39c46e342a4a95ac083d66287f038f6ae276692a	Apache-2.0	Finance	its own GitHub topics: market-risk, quantitative-finance, derivatives, otc, etd	in-domain
+fineract	https://github.com/apache/fineract.git	aae4feb2921db141374ca70303a5ba746fe180a1	Apache-2.0	Finance	its own GitHub topics: banking, microfinance, lending, savings	in-domain
+quickfixj	https://github.com/quickfix-j/quickfixj.git	369182d9dbf34399ee5942c8b267c279edaa3fba	LicenseRef-QuickFIX-1.0	Finance	its own GitHub topics: fixprotocol, financial-information-exchange, trading-systems	in-domain
+jpos	https://github.com/jpos/jPOS.git	9465cbdeb5d81e6e3e21066880de9495a150a554	AGPL-3.0	Finance	its own GitHub topics: iso-8583, iso8583 — card payment messages	in-domain
+besu	https://github.com/besu-eth/besu.git	a2da1185ad85c1f0c41341a4ed197a81cf93f17e	Apache-2.0	Computer Science	its own GitHub topics: blockchain, ethereum, p2p — a node, not a finance application	out-of-domain
+aeron	https://github.com/aeron-io/aeron.git	673430af82cecac2b66e7040f792c33464a5df2d	Apache-2.0	Computer Science	its own GitHub topics: messaging, ipc, multicast-streams	out-of-domain

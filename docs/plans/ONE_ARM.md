@@ -26,6 +26,39 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 
 ~~**D1 and D2 are the two that decide the rest**~~ — **both are now measured and both are refused.** Four rules were built between them, each a bound derived from a resource already in the tree, and every one either lowers the ranking on the evaluation members or trips the abandon criterion, while none removes `Source`. The reading is unchanged by all four. **What decides the rest is D3**, which the two of them were expected to close and do not.
 
+## What the published literature says this is worth, and it is not encouraging
+
+Read out of [the research note](../reference/SEMANTIC_ANALYSIS.md) after the fact, and it reframes what a good figure here would look like.
+
+**The architecture is the recognised one.** *"Label-description similarity — embed `skos:prefLabel` + `skos:definition`, cosine against the document — is cheaper and often as good"* is the divergence path, minus embeddings.
+
+**The scale is where published methods collapse.** On EURLEX57K with 4,271 EuroVoc labels, BERT-BASE reports RP@5 of **0.835 on frequent labels and 0.028 on zero-shot labels**, a thirty-fold collapse. Song & Roth's dataless classification reaches micro-F1 0.682 at **26 labels** and 0.371 at **103**. This reading places among **4,516** labels, zero-shot.
+
+That is independent confirmation of [D10](#the-defects-and-what-fixes-each), reached from the literature rather than from our own null: **field level (26) is where these methods work and topic level (4,516) is where they do not.** Seven to nine of ten in the right field is respectable by that standard; naming the right topic out of 4,516 may not be achievable at all.
+
+**The metric flatters us.** `PSP@k` — propensity-scored precision, Jain, Prabhu & Varma (KDD 2016) — reweights by inverse label propensity and is what exposes tail failure; AttentionXML on EUR-Lex reports P@1 87.12 against PSP@1 44.97. This plan quotes precision at ten with no propensity correction.
+
+**Two baselines are unrun and are the floor.** TF-IDF and BM25 over the same descriptions. The note is blunt about it — plain TF-IDF beats every graph-based keyphrase method on Inspec, and *"if you have not run FirstPhrases and TF-IDF on your own data, you have established nothing."*
+
+**Annif's design point** is a harness over many weak indexers with an ensemble on top, evaluated against a gold set — which is the opposite of the single-arm condensation this plan is doing, and worth knowing before the condensation is called finished.
+
+## What the reading cannot currently be argued with
+
+`evidence.json` exists to hold the workings, and it holds the workings of the **path being deleted**. Its `matches` list is 268 term matches with their rung, specificity and outcome; the divergence path — the one that actually places — contributes `filesRead`, `scopes` and `edges`, and **nothing about which word voted for what, or what was dropped and by which rule**.
+
+Every finding in this plan was reached by writing a probe and reading a console. That is the defect: a reader who disagrees with a placement cannot check it from the files the reading publishes.
+
+**What the evidence has to carry**, and it is not a debug mode — it is the file's stated job:
+
+| | |
+|---|---|
+| Per word | every vote the resources cast, what each was worth, the sense coverage behind it, and the specificity that scaled it |
+| Per phrase | which words agreed on which topic, and the credence that came out |
+| **Per drop** | a topic a phrase would have voted for and did not, **naming the rule that removed it** — the pass-2 gate above all, since that is the rule this session found by inspection rather than from any file |
+| Per abstention | a run nothing read, kept as a run rather than a count. `setAside` currently states six integers and no names |
+
+The measurement that justifies it is already stated by the defects: [D13](A_VOTE_NOT_A_GATE.md) is a rule that deletes topics silently, and it could only be found by reading source. A second such rule would be found the same way, which is the argument for the section rather than a number.
+
 ## What D9's fix is judged on, written before it ran
 
 **Judged on the leader and the band**: the subject the reading names, and how many of the topics the expected result marks stand among the ten nearest. Those are what the reading publishes.

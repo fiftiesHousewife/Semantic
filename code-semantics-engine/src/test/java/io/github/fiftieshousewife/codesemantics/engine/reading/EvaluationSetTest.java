@@ -49,8 +49,10 @@ class EvaluationSetTest {
     @Test
     void drawsEveryMemberFromOneStatementOfWhatItIsAbout() {
         assertThat(manifest.members())
-                .as("mixing sources would let the reading be scored against whichever answer suited it")
-                .allSatisfy(member -> assertThat(member.statedBy()).contains("its own GitHub description"));
+                .as("mixing sources would let the reading be scored against whichever answer suited it: "
+                        + "every member's area is judged from what the project publishes about itself on "
+                        + "GitHub, its description or its topics, and from nothing else")
+                .allSatisfy(member -> assertThat(member.statedBy()).startsWith("its own GitHub"));
     }
 
     @Test
