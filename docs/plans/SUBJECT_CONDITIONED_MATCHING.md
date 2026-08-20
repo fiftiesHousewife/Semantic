@@ -50,7 +50,41 @@ CSO's abstention is D7 of [the one-arm plan](ONE_ARM.md) printed rather than pre
 
 That is the result the whole plan turns on, and it is also **the first thing to reach D3**. `Source` survives coverage, survives corroboration by strength and survives the derived vocabulary bar, because every one of those rules is right about the word and none of them asks what OLiA's branch is about. Its branch is about news-article structure and literary text, and this repository's placement holds no mass there.
 
-**Next is the weight itself**, against the band `summary.placedIn` now exports: a branch's mass scaled by the share the repository's own placement puts on the subjects that branch places in, reported apart with the count of what was set apart. Zero share silences a branch, a small share quietens it, and both come from figures the reading already computes.
+## What the weight measured, and why it goes direct
+
+**The subject scheme drops out of the middle.** Route 1 places a branch among OpenAlex's topics and the repository among them too, but both are already distributions over the same dictionary topics — the scheme is an intermediate the comparison does not need, and route 1's table is noisy enough that passing through it would add that noise. So `BranchAgreement` is [`SharedMass`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SharedMass.java) between the repository's own reading and the branch's own prose, read by the instrument that reads a repository. It is bounded in `[0, 1]` by the shared mass's own definition, no scheme is picked, and a branch whose publisher states no prose is **absent** rather than zero.
+
+`./gradlew subjectConditioning -Dcs.clone.dir=<path>` prints what the weight would keep. It votes on nothing and no published figure moves.
+
+### The three rows that settle it
+
+**Conditioning removes the noise.** On Apache Tika `43cbdae6`, out of 4,722.93 of matched mass, the weight keeps 30.2%.
+
+| Tika's branch | What it matched | Mass | Agreement |
+|---|---|--:|--:|
+| `OrthographicEntity` | text, token, script, string, character | 1,353.34 | **0.4504** |
+| `Cause` | result, results | 273.79 | 0.2192 |
+| `HypotacticDiscourseRelation` | mean, means, supports | 191.39 | 0.1661 |
+| `Affix` | prefix, suffix | 371.10 | 0.1619 |
+| `LayoutElement` | image, bullet | 191.50 | 0.0740 |
+
+`OrthographicEntity` carries the most mass on Tika **and** scores the highest agreement of any branch there, which is the row the plan wrote down in advance: a text-extraction library really is about text, tokens and scripts. The English nouns matched into discourse analysis quieten to a fifth or less.
+
+**It does not remove the signal, and the rate is the test.** This repository keeps 35.6% of its matched mass against Tika's 30.2%, and branch by branch the same branch weighs more on the repository it is about:
+
+| Branch | Agreement here | Agreement on Tika |
+|---|--:|--:|
+| `MorphosyntacticCategory` — verb, noun, adjective | **0.5178** | 0.3102 |
+| `Constituent` — phrase, clause | **0.4563** | 0.2497 |
+| `OrthographicEntity` — token, text, script | 0.4202 | **0.4504** |
+
+The last row is the control passing rather than failing: Tika is the text-extraction library and this one is not.
+
+### What it does not fix, stated plainly
+
+**`TextStructuralUnit` is quietened and stays first here**, 218.47 to 89.02, where `MorphosyntacticCategory` goes 93.49 to 48.40. The ordering does not change, because this repository genuinely writes `document`, `author`, `citation`, `heading` and `title` — the branch's subject matter really does overlap its own. Conditioning is doing what it was built to do; the residue is [D3](ONE_ARM.md), and a sense mismatch between two readings that agree on the subject matter is not reachable by a weight over subject matter.
+
+**Next is the vote**, as a reported partition: the kept and set-apart mass in the export, per taxonomy, with the branch weights beside them. Nothing is deleted from the evidence.
 
 ## Order
 

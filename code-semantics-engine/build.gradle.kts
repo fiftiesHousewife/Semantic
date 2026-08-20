@@ -400,6 +400,18 @@ tasks.register<JavaExec>("armPlacement") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// What conditioning a term match on its branch's subject matter would keep and what it would quieten. It
+// prints; nothing votes on it and no published figure moves.
+//   ./gradlew subjectConditioning -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("subjectConditioning") {
+    group = "verification"
+    description = "Prints what weighting a term match by its branch's subject matter would keep"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.SubjectConditioningProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Where each branch of a bundled term taxonomy stands among OpenAlex's topics, read from its publisher's own
 // prose. It is the cross-reference a match has to be read against, printed before anything conditions on it.
 //   ./gradlew branchSubjects
