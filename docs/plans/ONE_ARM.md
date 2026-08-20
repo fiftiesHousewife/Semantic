@@ -18,8 +18,26 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 | **D6** | Mass counts occurrences without asking what the match was worth | `PhraseSpecificity` is computed on every sighting and votes on nothing | Weight the pooled mass by it. Already bounded in `[0,1]` by the frequency list's own length |
 | **D7** | CSO reaches no rung above the dictionary, and its structure is unextracted | 0 of 14,636 rows state prose; `sameAs` 19,297, `relatedEquivalent` 10,181, `relatedLink` 8,803 unextracted | Re-extract for the structure. **Prose is not available at any price** — CSO publishes none, so its abstention at the concept rung is permanent and is reported as a result |
 | **D8** | The leader is inside a tie band the instrument cannot resolve | eight OpenAlex topics within 0.033 bits, the first two separated by 0.0001 | Report the band rather than the leader. A placement that names one subject out of a tie is stating a precision it does not have |
+| **D9** | OpenAlex's own description template is read as subject matter | all 4,516 descriptions open *This cluster of papers*; the 14 words in more than half of them carry 36% of every description's word tokens, against arXiv's one (`and`, which WordNet refuses). Eight labels sit on **100%** of topics — music, chemistry, rock-paper-scissors, military, phonetics, astronomy, epidemiology, finance — which is the dictionary reading `cluster` and `paper`. Two topics stand 0.6147 bits apart read from the prose and 0.7986 from the keywords | Read the keyword statement, which OpenAlex publishes as its second account and the extraction already separates. **Measured and not settled**: keywords raise Tika 0.658 → 0.701 and lower Santuario 0.680 → 0.636, and D10 stops the null arbitrating |
+| **D10** | At topic level the chance bar cannot be computed | `999 / (4516 + 1) = 0`, so the bar is the single minimum of 999 draws. Across four seeds it moves 0.5225, 0.5763, 0.5608, 0.5523 with Santuario's observation at 0.5362 inside the spread — *within chance* at one seed and *stands apart* at three. arXiv reads the 7th of 999 and is steady | Derive the resample count from the field, or report topic level as unresolved and place at subfield, where 999 draws read the 3rd. **Blocking**: the instrument's jitter is 0.054 bits and the effects being tested are 0.03 to 0.04 |
 
 ~~**D1 and D2 are the two that decide the rest**~~ — **both are now measured and both are refused.** Four rules were built between them, each a bound derived from a resource already in the tree, and every one either lowers the ranking on the evaluation members or trips the abandon criterion, while none removes `Source`. The reading is unchanged by all four. **What decides the rest is D3**, which the two of them were expected to close and do not.
+
+## The lexical path does not place, and is out of the placement
+
+The plan's ladder puts a published term at rung 1 and a dictionary label at rung 2, on the principle that a citation outranks an assertion. **For placement that is measured and false.** Scored on the same field — every topic in the scheme, against the DOAP category token each publisher states:
+
+| Path | Tika `content` | Santuario `security` |
+|---|--:|--:|
+| Divergence, both statements | 0.6583 | 0.6798 |
+| Divergence, keywords only | 0.7007 | 0.6360 |
+| Lexical, summed occurrence mass | **0.4509 — below chance** | 0.5960 |
+
+The lexical path's published figures — 0.8322 and 0.8870 — are taken over *topics reached*, which is a field it selects for itself, and what it discards first is most of the answer: it reaches **4 of Tika's 48** marked topics and **38 of Santuario's 151**. Conditioning on reach hides a recall failure rather than isolating a ranking one, and a placement must choose among all 4,516.
+
+**So the divergence path places and the lexical path does not.** It keeps two jobs it is the only source of: the taxonomy readings — which published concepts a repository writes, a different question — and quotable spans in the evidence.
+
+**What that does to the defect list.** D1, D2, D3 and D6 are all defects of the term matcher. They stop being placement defects and stay as defects of the taxonomy reading, which is where `Source` was always the complaint. **What is left for the placement is D5, D9 and D10**, and D10 blocks the other two because the instrument cannot currently resolve the difference either of them makes.
 
 ## What exists today, and why it is four things
 
@@ -224,7 +242,7 @@ An iteration that reads this repository's own placement and changes a rule to im
 | | |
 |---|---|
 | What one iteration is | one change, stated as a hypothesis about a named defect, with the figure it should move written down first |
-| What it is judged on | the probability of superiority over the topics reached on **Tika, Maven and Santuario**, against the DOAP token their publisher states. This repository's own figures are printed for contrast and never decide |
+| What it is judged on | the probability of superiority over **every topic in the scheme** on **Tika, Maven and Santuario**, against the DOAP token their publisher states. ~~Over the topics reached~~ — that field is chosen by the reading itself and hides how few marked topics it reaches at all. This repository's own figures are printed for contrast and never decide |
 | What may not be tuned | anything whose only evidence is this tree. A change that improves here and not on the members is reverted, as repair 0 was |
 | Stops when | two consecutive iterations move no member's figure by more than the run-to-run jitter of the null, which is measured once and stated |
 | Also stops when | the change list is exhausted. The loop looks for better matches among defects already named, and does not invent new rules to try |
