@@ -4,7 +4,11 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
+import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedUnder;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -31,11 +35,13 @@ class EvaluationSetTest {
                                         + "reproducible and every figure here is a reading of a named one")
                                 .matches("[0-9a-f]{40}"),
                         () -> assertThat(member.licence()).isNotBlank(),
-                        () -> assertThat(member.domain())
-                                .as("what it is about, said by somebody outside this project")
+                        () -> assertThat(member.area())
+                                .as("a subject area named exactly as the scheme states it, so the "
+                                        + "expectation is an identifier rather than a word that could "
+                                        + "carry another sense")
                                 .isNotBlank(),
                         () -> assertThat(member.statedBy())
-                                .as("and who said so, recorded before the reading was run")
+                                .as("what the area was judged from, recorded before the reading was run")
                                 .isNotBlank(),
                         () -> assertThat(member.arm()).isNotBlank()));
     }
@@ -44,7 +50,16 @@ class EvaluationSetTest {
     void drawsEveryMemberFromOneStatementOfWhatItIsAbout() {
         assertThat(manifest.members())
                 .as("mixing sources would let the reading be scored against whichever answer suited it")
-                .allSatisfy(member -> assertThat(member.statedBy()).contains("Apache DOAP"));
+                .allSatisfy(member -> assertThat(member.statedBy()).contains("its own GitHub description"));
+    }
+
+    @Test
+    void namesAnAreaTheSchemeItselfStatesForEveryMember() {
+        assertThat(manifest.members())
+                .as("an area the scheme does not state would mark no topic, and a reading scored against "
+                        + "nothing reads exactly like a reading that failed")
+                .allSatisfy(member -> assertThatCode(() -> PlacedUnder.in(
+                        OpenAlexTopics.fromClasspath(), member.area())).doesNotThrowAnyException());
     }
 
     @Test

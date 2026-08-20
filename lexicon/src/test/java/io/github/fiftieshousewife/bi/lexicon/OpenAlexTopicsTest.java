@@ -78,4 +78,28 @@ class OpenAlexTopicsTest {
                 .isInstanceOf(NullPointerException.class)
                 .hasMessageContaining("T99999");
     }
+
+    @Test
+    void describesASubjectByTheKeywordsAndNotByTheAccountOfTheClusterItWasBuiltFrom() {
+        final SkosConcept subject = OpenAlexTopics.fromClasspath().describedBySubjectMatter().stream()
+                .filter(topic -> topic.concept().equals("T10001"))
+                .findFirst().orElseThrow();
+        assertAll(
+                () -> assertThat(subject.definition()).doesNotContain("This cluster of papers"),
+                () -> assertThat(subject.definition()).isEqualTo(OpenAlexTopics.fromClasspath()
+                        .conceptOf("T10001").definitions().get(1)));
+    }
+
+    @Test
+    void keepsBothAccountsOnDescribedSoTheExpectedResultDoesNotMoveWithWhatIsRead() {
+        assertThat(OpenAlexTopics.fromClasspath().described().stream()
+                .filter(topic -> topic.definition().contains("This cluster of papers")).count())
+                .isEqualTo(OpenAlexTopics.fromClasspath().described().size());
+    }
+
+    @Test
+    void readsEveryDescribedTopicBySubjectMatterOrNoneOfThem() {
+        assertThat(OpenAlexTopics.fromClasspath().describedBySubjectMatter())
+                .hasSameSizeAs(OpenAlexTopics.fromClasspath().described());
+    }
 }

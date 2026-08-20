@@ -23,6 +23,16 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 
 ~~**D1 and D2 are the two that decide the rest**~~ — **both are now measured and both are refused.** Four rules were built between them, each a bound derived from a resource already in the tree, and every one either lowers the ranking on the evaluation members or trips the abandon criterion, while none removes `Source`. The reading is unchanged by all four. **What decides the rest is D3**, which the two of them were expected to close and do not.
 
+## What D9's fix is judged on, written before it ran
+
+**Judged on the leader and the band**: the subject the reading names, and how many of the topics the expected result marks stand among the ten nearest. Those are what the reading publishes.
+
+**The expected result is an identifier, not a word.** Marking a topic by whether its prose states the publisher's category token cannot tell one sense from another: `security` marked 151 topics including Food Security, Pesticide Exposure and Retirement and Disability; `content` marked Peanut Plant Research and Hibiscus Plant Research, where the word means concentration; `risk management` marked 122, every one clinical. **It also marked against the reading** — Tika's nearest topic under keywords is *Natural Language Processing Techniques*, a fair answer for a text-extraction toolkit, scored wrong for stating no `content`. `PlacedUnder` marks a topic by the area of the publisher's own hierarchy it descends from, and an identifier cannot carry a second sense.
+
+**Not on the probability of superiority over the whole scheme.** That statistic orders all 4,437 topics and the reading shows nobody the body of that ordering; judging a reading on output it does not produce is how the lexical path came to be credited with 0.887 over a field it selected for itself. It is reported beside the criterion, never as it.
+
+**Ends it** if the leader is no better on either member, or if a member the expected result marks nothing for stops being quiet.
+
 ## The lexical path does not place, and is out of the placement
 
 The plan's ladder puts a published term at rung 1 and a dictionary label at rung 2, on the principle that a citation outranks an assertion. **For placement that is measured and false.** Scored on the same field — every topic in the scheme, against the DOAP category token each publisher states:
@@ -242,7 +252,7 @@ An iteration that reads this repository's own placement and changes a rule to im
 | | |
 |---|---|
 | What one iteration is | one change, stated as a hypothesis about a named defect, with the figure it should move written down first |
-| What it is judged on | the probability of superiority over **every topic in the scheme** on **Tika, Maven and Santuario**, against the DOAP token their publisher states. ~~Over the topics reached~~ — that field is chosen by the reading itself and hides how few marked topics it reaches at all. This repository's own figures are printed for contrast and never decide |
+| What it is judged on | the probability of superiority over **every topic in the scheme** on **Tika, Maven and Santuario**, against the **subject area of the scheme's own hierarchy** the manifest names for each. ~~Against the DOAP category token their publisher states~~ — that test cannot tell one sense of a word from another and marked against the reading; the figures are below. ~~Over the topics reached~~ — that field is chosen by the reading itself. This repository's own figures are printed for contrast and never decide |
 | What may not be tuned | anything whose only evidence is this tree. A change that improves here and not on the members is reverted, as repair 0 was |
 | Stops when | two consecutive iterations move no member's figure by more than the run-to-run jitter of the null, which is measured once and stated |
 | Also stops when | the change list is exhausted. The loop looks for better matches among defects already named, and does not invent new rules to try |

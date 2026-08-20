@@ -27,7 +27,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
  * nothing new written for it.
  *
  * <p>The expected result is stated as a rank rather than as a named topic: given the Apache DOAP category
- * token the project publishes for itself, do the topics whose own account states that token outrank the
+ * area the project publishes for itself, do the topics whose own account states that area outrank the
  * topics that do not? Nobody here picks a winner, and the bar is fixed at 0.5 by the statistic's own
  * definition.
  *
@@ -57,11 +57,11 @@ public final class PhraseMatchedSubjectsProbe {
 
     public static void main(final String[] args) throws IOException {
         if (args.length < 1 || args[0].isBlank()) {
-            throw new IllegalArgumentException("Usage: PhraseMatchedSubjectsProbe <domain token>. The token "
+            throw new IllegalArgumentException("Usage: PhraseMatchedSubjectsProbe <subject area>. The area "
                     + "is the expected result and is stated by the project's own publisher, never chosen "
-                    + "here — an Apache DOAP category token such as content, build-management or security.");
+                    + "here — an Apache DOAP category area such as content, build-management or security.");
         }
-        final String token = args[0];
+        final String area = args[0];
         final List<SkosConcept> topics = OpenAlexTopics.fromClasspath().described();
         final List<SkosConcept> keywords = new PublishedKeywords().in(topics);
 
@@ -78,9 +78,9 @@ public final class PhraseMatchedSubjectsProbe {
 
         System.out.printf("%n%s%n", root);
         System.out.printf("%d topics, %d keywords published%n", topics.size(), keywords.size());
-        System.out.printf("expected result: a topic stating %s outranks one that does not%n", token);
+        System.out.printf("expected result: a topic under %s outranks one that is not%n", area);
 
-        final SubjectArms arms = new SubjectArms(topics, keywords, new StatedDomainToken(token), token,
+        final SubjectArms arms = new SubjectArms(topics, keywords, PlacedUnder.in(OpenAlexTopics.fromClasspath(), area), area,
                 KeywordSpecificity.fromClasspath());
         arms.print("every match", every);
         breadth(arms, every);

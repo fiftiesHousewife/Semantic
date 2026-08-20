@@ -36,10 +36,10 @@ public final class KeywordReachProbe {
 
     public static void main(final String[] args) throws IOException {
         if (args.length < 1 || args[0].isBlank()) {
-            throw new IllegalArgumentException("Usage: KeywordReachProbe <domain token>. The token is the "
+            throw new IllegalArgumentException("Usage: KeywordReachProbe <subject area>. The area is the "
                     + "expected result and is stated by the project's own publisher, never chosen here.");
         }
-        final String token = args[0];
+        final String area = args[0];
         final List<SkosConcept> topics = OpenAlexTopics.fromClasspath().described();
         final List<SkosConcept> keywords = new PublishedKeywords().in(topics);
 
@@ -56,7 +56,7 @@ public final class KeywordReachProbe {
                 keywords, parsed);
         final ReachTable table = new ReachTable(matchedConcepts(reading));
 
-        final StatedDomainToken expectation = new StatedDomainToken(token);
+        final PlacedUnder expectation = PlacedUnder.in(OpenAlexTopics.fromClasspath(), area);
         final Set<String> marked = topics.stream()
                 .filter(topic -> expectation.of(topic) == ProbabilityOfSuperiority.Expectation.MEETS_IT)
                 .map(SkosConcept::concept)
@@ -68,12 +68,12 @@ public final class KeywordReachProbe {
 
         System.out.printf("%n%s%n", root);
         System.out.printf("%d topics, %d keywords published; %d topics state %s%n", topics.size(),
-                keywords.size(), marked.size(), token);
+                keywords.size(), marked.size(), area);
 
         table.print("every topic", reached);
-        table.print("topics stating " + token, reached.stream()
+        table.print("topics stating " + area, reached.stream()
                 .filter(keyword -> marked.contains(keyword.topic())).toList());
-        table.print("topics not stating " + token, reached.stream()
+        table.print("topics not stating " + area, reached.stream()
                 .filter(keyword -> !marked.contains(keyword.topic())).toList());
     }
 

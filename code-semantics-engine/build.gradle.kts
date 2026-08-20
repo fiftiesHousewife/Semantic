@@ -86,20 +86,20 @@ tasks.register<JavaExec>("functionalPlacement") {
 
 // Where the repository under reading stands among OpenAlex's topics by the runs of words it declares, and
 // whether the topics stating its publisher's own DOAP category token outrank the ones that do not.
-//   ./gradlew phraseMatchedSubjects -Ptoken=content -Dcs.clone.dir=<path>
+//   ./gradlew phraseMatchedSubjects -Parea="Computer Science" -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("phraseMatchedSubjects") {
     group = "verification"
-    description = "Places a repository among OpenAlex topics by matched phrases (-Ptoken=<DOAP category>)"
+    description = "Places a repository among OpenAlex topics by matched phrases (-Parea=<subject area>)"
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PhraseMatchedSubjectsProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("token") as String?)
+    args = listOfNotNull(findProperty("area") as String?)
 }
 
 // How much of a subject scheme a repository could reach at all, counted into the buckets that name the
 // repair each unreached keyword would need, with the topics the expected result marks reported apart.
-//   ./gradlew keywordReach -Ptoken=security -Dcs.clone.dir=<path>
+//   ./gradlew keywordReach -Parea="Computer Science" -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("keywordReach") {
     group = "verification"
     description = "Counts how far a repository got towards every keyword a subject scheme publishes"
@@ -107,7 +107,7 @@ tasks.register<JavaExec>("keywordReach") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("token") as String?)
+    args = listOfNotNull(findProperty("area") as String?)
 }
 
 // Which words stop a subject scheme's published keyword being read as a run of senses, so a decision to
@@ -436,13 +436,13 @@ tasks.register<JavaExec>("subjectWitnesses") {
 
 // Which of the two statements OpenAlex makes about a topic places a repository better: the prose, the
 // keywords, or both together as the reading takes them today.
-//   ./gradlew publishedStatements -Ptoken=content -Dcs.clone.dir=<path>
+//   ./gradlew publishedStatements -Parea="Computer Science" -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("publishedStatements") {
     group = "verification"
-    description = "Places a repository against each statement OpenAlex publishes (-Ptoken=<DOAP category>)"
+    description = "Places a repository against each statement OpenAlex publishes (-Parea=<subject area>)"
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PublishedStatementProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("token") as String?)
+    args = listOfNotNull(findProperty("area") as String?)
 }

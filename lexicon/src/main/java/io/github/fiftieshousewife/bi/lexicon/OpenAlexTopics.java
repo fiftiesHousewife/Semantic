@@ -29,6 +29,9 @@ public final class OpenAlexTopics implements PublishedSubjects {
 
     private static final String RESOURCE = "openalex-topics.tsv";
 
+    /** OpenAlex writes the cluster's description first and the topic's keywords second. */
+    private static final int SUBJECT_MATTER = 1;
+
     private final Map<String, SkosConcept> byConcept;
 
     /**
@@ -53,6 +56,35 @@ public final class OpenAlexTopics implements PublishedSubjects {
     @Override
     public List<SkosConcept> described() {
         return byConcept.values().stream().filter(concept -> !concept.definition().isBlank()).toList();
+    }
+
+    /**
+     * Each topic described by its keywords alone, which is OpenAlex's account of the subject.
+     *
+     * <p>OpenAlex states two accounts. The first is about the <em>cluster</em>: every one of the 4,516
+     * opens {@code This cluster of papers}, and the words appearing in more than half of them carry a third
+     * of every description's word tokens, so eight dictionary labels sit on 100% of topics — music,
+     * chemistry, military, phonetics, astronomy among them — reading {@code cluster} and {@code paper}
+     * rather than anything the topic covers. Two topics stand 0.6147 bits apart read from that account and
+     * 0.7986 read from the keywords.
+     *
+     * <p>The second is about the subject. Taking it is not a rule about the publisher's formatting: the
+     * publisher stated the two apart and the extraction kept them apart, and this reads the one it labelled.
+     *
+     * <p>{@link #described()} still states both, because the expected result a placement is scored against
+     * is read off everything the publisher published and must not move with what the placement reads.
+     */
+    @Override
+    public List<SkosConcept> describedBySubjectMatter() {
+        return described().stream()
+                .filter(topic -> topic.definitions().size() > SUBJECT_MATTER)
+                .map(topic -> statedBy(topic, topic.definitions().get(SUBJECT_MATTER)))
+                .toList();
+    }
+
+    private static SkosConcept statedBy(final SkosConcept topic, final String account) {
+        return new SkosConcept(topic.concept(), topic.prefLabel(), topic.altLabel(), topic.broader(),
+                topic.kind(), topic.module(), account, topic.note());
     }
 
     @Override

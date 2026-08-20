@@ -52,11 +52,10 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
     /**
      * Placed against OpenAlex's topics, pooled to the subfield for the broader level.
      *
-     * <p><b>It is not the default and has not earned being one.</b> On Apache Tika the best of 4,516 chance
-     * subjects came nearer than the best real one, so the placement reported nothing on the one repository
-     * this reading was not written for, while arXiv cleared its null on both. Two properties of the scheme
-     * raise what chance reaches and neither is a defect in the data: 4,516 subjects against 152, and a median
-     * description of 69 words against 18.
+     * <p><b>The topics are read from OpenAlex's keywords</b>, which is its account of the subject; its other
+     * account describes the cluster the topic was built from and every one of the 4,516 opens with the same
+     * four words. The null is drawn from the same account, so chance is filled from the vocabulary the
+     * comparison runs on.
      */
     public static PlacedField ofOpenAlex(final TopicDistribution reading, final long seed) {
         return of(OpenAlexTopics.fromClasspath(), reading, SubjectAreas.subfieldsFromClasspath(),
@@ -70,7 +69,7 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
     public static PlacedField of(final PublishedSubjects taxonomy, final TopicDistribution reading,
                                  final List<SubjectTopics> broaderRead,
                                  final List<SubjectTopics> leavesRead, final long seed) {
-        final List<SkosConcept> described = taxonomy.described();
+        final List<SkosConcept> described = taxonomy.describedBySubjectMatter();
         final List<SkosConcept> broader = new PooledDescriptions().broaderThan(described, taxonomy);
         final List<SubjectPlacement.Placement> byBroader =
                 SubjectPlacement.byDivergence().of(reading, broaderRead);

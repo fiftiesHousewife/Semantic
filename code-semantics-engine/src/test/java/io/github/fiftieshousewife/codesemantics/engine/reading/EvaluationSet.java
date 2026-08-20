@@ -30,7 +30,7 @@ public final class EvaluationSet {
     private static final String EVALUATION_DIRECTORY_PROPERTY = "cs.evaluation.dir";
 
     /** One member: where it came from, what it is pinned at, and what it is here to answer. */
-    public record Member(String name, String origin, String sha, String licence, String domain,
+    public record Member(String name, String origin, String sha, String licence, String area,
             String statedBy, String arm) {
 
         /** Where the clone of this member is expected, beneath the directory the evaluation set run names. */

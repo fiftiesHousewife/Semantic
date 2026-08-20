@@ -20,10 +20,10 @@ final class SuperiorityFigures {
 
     private static final int TOP = 10;
 
-    private final String token;
+    private final String area;
 
-    SuperiorityFigures(final String token) {
-        this.token = token;
+    SuperiorityFigures(final String area) {
+        this.area = area;
     }
 
     void print(final List<ProbabilityOfSuperiority.Scored> scored) {
@@ -49,12 +49,12 @@ final class SuperiorityFigures {
         }
         final ProbabilityOfSuperiority.Superiority found = new ProbabilityOfSuperiority().of(scored);
         System.out.printf("  %-16s %d state %s of %d; chance %.5f against 0.5 — %s%n", field, found.meeting(),
-                token, scored.size(), found.chance(),
+                area, scored.size(), found.chance(),
                 found.beatsChance() ? "ABOVE CHANCE" : "at or below chance");
     }
 
     /**
-     * How many of the ten highest-scoring topics state the token, against the number the same field would
+     * How many of the ten highest-scoring topics state the area, against the number the same field would
      * put there at random. The expected count is the marked share of the field times ten, which follows from
      * the field's own composition and is not a bar chosen here.
      */
@@ -69,7 +69,7 @@ final class SuperiorityFigures {
         final long inTop = marked(reached.stream().limit(TOP).toList());
         final double expected = TOP * marked(reached) / (double) reached.size();
         System.out.printf("  %-16s %d of the top %d state %s; chance would put %.2f there%n", "precision@10",
-                inTop, Math.min(TOP, reached.size()), token, expected);
+                inTop, Math.min(TOP, reached.size()), area, expected);
     }
 
     private static long marked(final List<ProbabilityOfSuperiority.Scored> scored) {

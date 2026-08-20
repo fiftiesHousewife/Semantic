@@ -21,9 +21,9 @@ final class SubjectArms {
 
     private final List<SkosConcept> keywords;
 
-    private final StatedDomainToken expectation;
+    private final PlacedUnder expectation;
 
-    private final String token;
+    private final String area;
 
     private final KeywordSpecificity narrows;
 
@@ -32,15 +32,15 @@ final class SubjectArms {
     private final SuperiorityFigures figures;
 
     SubjectArms(final List<SkosConcept> topics, final List<SkosConcept> keywords,
-                final StatedDomainToken expectation, final String token, final KeywordSpecificity narrows) {
+                final PlacedUnder expectation, final String area, final KeywordSpecificity narrows) {
         this.topics = topics;
         this.keywords = keywords;
         this.expectation = expectation;
-        this.token = token;
+        this.area = area;
         this.narrows = narrows;
         this.labelByConcept = topics.stream().collect(Collectors.toMap(SkosConcept::concept,
                 SkosConcept::prefLabel, (first, again) -> first));
-        this.figures = new SuperiorityFigures(token);
+        this.figures = new SuperiorityFigures(area);
     }
 
     void print(final String heading, final List<TermSighting> sightings) {
@@ -113,7 +113,7 @@ final class SubjectArms {
 
     private String marked(final ProbabilityOfSuperiority.Scored topic) {
         return topic.expectation() == ProbabilityOfSuperiority.Expectation.MEETS_IT
-                ? "   <- states " + token : "";
+                ? "   <- under " + area : "";
     }
 
     private void statistic(final List<TermSighting> sightings,

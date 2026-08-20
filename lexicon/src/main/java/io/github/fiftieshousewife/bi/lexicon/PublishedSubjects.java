@@ -21,6 +21,18 @@ public interface PublishedSubjects {
     /** The subjects stating prose, which are the only ones a placement can compare against. */
     List<SkosConcept> described();
 
+    /**
+     * The subjects as the placement reads them: each described by the publisher's account of its
+     * <em>subject matter</em>, where the publisher states more than one account.
+     *
+     * <p>Most schemes state one account and this is {@link #described()}. A scheme stating several has to
+     * say which of them is about the subject, because an account of how the scheme was built is not an
+     * account of what a subject covers, and a divergence cannot tell the two apart.
+     */
+    default List<SkosConcept> describedBySubjectMatter() {
+        return described();
+    }
+
     /** One subject by its own identifier — what a pooled level looks up to name itself. */
     SkosConcept conceptOf(String concept);
 }

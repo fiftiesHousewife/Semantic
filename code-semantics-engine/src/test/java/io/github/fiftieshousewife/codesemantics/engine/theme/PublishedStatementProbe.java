@@ -14,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
  *
  * <p>OpenAlex states two accounts of a topic and arXiv states one. All 4,516 of the descriptions open with
  * the same four words, and the words appearing in more than half of them carry a third of every
- * description's word tokens — {@code cluster}, {@code papers}, {@code topics}, {@code focuses}. The
+ * description's word areas — {@code cluster}, {@code papers}, {@code topics}, {@code focuses}. The
  * dictionary labels those, so a share of every topic's reading is the template rather than the subject. The
  * keywords carry no template. Which of the two places a repository better is what this is run to find out.
  *
@@ -38,20 +38,25 @@ public final class PublishedStatementProbe {
 
     private static final int COMMONEST = 8;
 
+    /** Enough of the ranking to see what the reading would report. */
+    private static final int SHOWN = 15;
+
+    private static final int TEN = 10;
+
     private PublishedStatementProbe() {
     }
 
     public static void main(final String[] args) {
         if (args.length < 1 || args[0].isBlank()) {
-            throw new IllegalArgumentException("Usage: PublishedStatementProbe <domain token>. The token is "
-                    + "the expected result and is stated by the project's own publisher, never chosen here "
-                    + "— an Apache DOAP category token such as content, build-management or security. A "
+            throw new IllegalArgumentException("Usage: PublishedStatementProbe <subject area>. The area is a "
+                    + "subject area the scheme itself states — a field such as Computer Science or a subfield "
+                    + "such as Finance — recorded in the evaluation manifest before the reading runs. A "
                     + "second argument draws the null at that seed instead of the reading's own.");
         }
-        final String token = args[0];
+        final String area = args[0];
         final long seed = args.length > 1 ? Long.parseLong(args[1]) : TreeReading.SEED;
         final List<SkosConcept> published = OpenAlexTopics.fromClasspath().described();
-        final StatedDomainToken expectation = new StatedDomainToken(token);
+        final PlacedUnder expectation = PlacedUnder.in(OpenAlexTopics.fromClasspath(), area);
         final Map<String, ProbabilityOfSuperiority.Expectation> marked = published.stream()
                 .collect(Collectors.toMap(SkosConcept::concept, expectation::of));
 
@@ -61,12 +66,12 @@ public final class PublishedStatementProbe {
         System.out.printf("%d topics described; the expectation marks %d of them%n", published.size(),
                 marked.values().stream()
                         .filter(met -> met == ProbabilityOfSuperiority.Expectation.MEETS_IT).count());
-        System.out.printf("expected result: a topic stating %s outranks one that does not%n", token);
+        System.out.printf("expected result: a topic under %s outranks one that is not%n", area);
 
         System.out.printf("the null is drawn at seed %d%n", seed);
-        place("both statements, as the reading takes them", published, read, marked, token, seed);
-        place("the prose statement alone", statedAs(published, PROSE), read, marked, token, seed);
-        place("the keyword statement alone", statedAs(published, KEYWORDS), read, marked, token, seed);
+        place("both statements, as the reading takes them", published, read, marked, area, seed);
+        place("the prose statement alone", statedAs(published, PROSE), read, marked, area, seed);
+        place("the keyword statement alone", statedAs(published, KEYWORDS), read, marked, area, seed);
     }
 
     /**
@@ -88,7 +93,7 @@ public final class PublishedStatementProbe {
     private static void place(final String heading, final List<SkosConcept> subjects,
                               final TopicDistribution read,
                               final Map<String, ProbabilityOfSuperiority.Expectation> marked,
-                              final String token, final long seed) {
+                              final String area, final long seed) {
         final List<SubjectTopics> areas = SubjectAreas.fromClasspath().of(subjects);
         System.out.printf("%n== %s — %d of %d topics read%n", heading, areas.size(), subjects.size());
         census(areas, seed);
@@ -100,7 +105,68 @@ public final class PublishedStatementProbe {
                 chance.standsApart() ? "STANDS APART" : "within chance");
         System.out.printf("  carried by %s%n", String.join(", ", placed.getFirst().carriedBy().stream()
                 .map(SharedMass.Shared::topic).toList()));
-        new SuperiorityFigures(token).print(scored(placed, marked));
+        ranked(placed, marked, chance.chanceNearest(), area);
+        new SuperiorityFigures(area).print(scored(placed, marked));
+    }
+
+    /**
+     * The nearest subjects in order, with the band chance cannot separate marked off, so a reader can see
+     * what the reading would actually report rather than one label and a statistic over four thousand rows.
+     */
+    private static void ranked(final List<SubjectPlacement.Placement> placed,
+                               final Map<String, ProbabilityOfSuperiority.Expectation> marked,
+                               final double chanceNearest, final String area) {
+        final long band = placed.stream().filter(one -> one.bits() < chanceNearest).count();
+        System.out.printf("  %d nearer than chance; the %d nearest:%n", band, SHOWN);
+        consolidation(placed, chanceNearest);
+        placed.stream().limit(SHOWN).forEach(one -> System.out.printf("     %-56s %.4f%s%s%n", one.label(),
+                one.bits(), one.bits() < chanceNearest ? "  in band" : "        ",
+                marked.getOrDefault(one.concept(), ProbabilityOfSuperiority.Expectation.DOES_NOT)
+                        == ProbabilityOfSuperiority.Expectation.MEETS_IT ? "  <- under " + area : ""));
+    }
+
+    /**
+     * Where the band and the ten nearest sit in the publisher's own hierarchy.
+     *
+     * <p>The band is the subjects the instrument cannot separate, so the question is whether they agree
+     * about anything coarser. If they concentrate in one subfield the reading has an answer it cannot state
+     * at topic level; if they only agree at field level, that is the level it can speak at.
+     */
+    private static void consolidation(final List<SubjectPlacement.Placement> placed,
+                                      final double chanceNearest) {
+        final OpenAlexTopics scheme = OpenAlexTopics.fromClasspath();
+        final List<SubjectPlacement.Placement> band = placed.stream()
+                .filter(one -> one.bits() < chanceNearest).toList();
+        concentration("band", band.isEmpty() ? placed.stream().limit(SHOWN).toList() : band, scheme);
+        concentration("ten nearest", placed.stream().limit(TEN).toList(), scheme);
+    }
+
+    private static void concentration(final String of, final List<SubjectPlacement.Placement> among,
+                                      final OpenAlexTopics scheme) {
+        final Map<String, Long> subfields = groupedBy(among, scheme, 1);
+        final Map<String, Long> fields = groupedBy(among, scheme, 2);
+        System.out.printf("  %-12s of %d: %s%n", of, among.size(), leading(subfields, among.size()));
+        System.out.printf("  %-12s          %s%n", "", leading(fields, among.size()));
+    }
+
+    /** The label a topic rolls up to, walked the stated number of steps up the publisher's own chain. */
+    private static Map<String, Long> groupedBy(final List<SubjectPlacement.Placement> among,
+                                               final OpenAlexTopics scheme, final int steps) {
+        return among.stream().collect(Collectors.groupingBy(one -> {
+            String at = one.concept();
+            for (int step = 0; step < steps; step++) {
+                at = scheme.conceptOf(at).broader();
+            }
+            return scheme.conceptOf(at).prefLabel();
+        }, Collectors.counting()));
+    }
+
+    private static String leading(final Map<String, Long> grouped, final int of) {
+        return grouped.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(3)
+                .map(one -> String.format("%s %d/%d", one.getKey(), one.getValue(), of))
+                .collect(Collectors.joining(", "));
     }
 
     /**

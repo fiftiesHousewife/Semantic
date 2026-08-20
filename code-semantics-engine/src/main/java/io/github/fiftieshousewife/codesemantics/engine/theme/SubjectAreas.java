@@ -13,6 +13,10 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 /**
  * The bundled subject taxonomy, read into distributions a scope can be compared with.
  *
+ * <p>What is read is the publisher's account of the subject's <em>subject matter</em>, which for a scheme
+ * stating one account is that account. A scheme stating several says which, because an account of how the
+ * scheme was built is not an account of what a subject covers.
+ *
  * <p>A subject's description is prose that somebody wrote about a subject, so it is read as prose — the
  * same {@link TopicTally}, the same {@link OfferedWords}, the same dictionaries, and one unit of mass per
  * sentence. That identity is the point: two readings are only comparable when they were taken with one
@@ -49,7 +53,7 @@ public final class SubjectAreas {
 
     /** Every subject area the taxonomy describes and the reading could place. */
     public List<SubjectTopics> published() {
-        return of(ArxivSubjects.fromClasspath().described());
+        return of(ArxivSubjects.fromClasspath().describedBySubjectMatter());
     }
 
     /**
@@ -91,12 +95,13 @@ public final class SubjectAreas {
 
         static List<SubjectTopics> leavesOf(final PublishedSubjects taxonomy) {
             return LEAVES.computeIfAbsent(taxonomy.scheme(),
-                    scheme -> fromClasspath().of(taxonomy.described()));
+                    scheme -> fromClasspath().of(taxonomy.describedBySubjectMatter()));
         }
 
         static List<SubjectTopics> pooledOf(final PublishedSubjects taxonomy) {
             return POOLED.computeIfAbsent(taxonomy.scheme(), scheme -> fromClasspath()
-                    .of(new PooledDescriptions().broaderThan(taxonomy.described(), taxonomy)));
+                    .of(new PooledDescriptions()
+                            .broaderThan(taxonomy.describedBySubjectMatter(), taxonomy)));
         }
     }
 

@@ -1,17 +1,25 @@
 # The backtest evaluation set: the repositories this reading is measured on, as opposed to the one it was
 # developed against. One row per member, and the answer for each comes from outside this project.
 #
-# Columns: name, origin, sha, licence, domain, stated-by, arm
+# Columns: name, origin, sha, licence, area, stated-by, arm
 #   name        the directory the clone is expected under -Dcs.evaluation.dir
 #   origin      the URL it is cloned from
 #   sha         the commit it is pinned to. A reading of a moving target is not reproducible, and
 #               every figure this library publishes is a reading of a named commit.
 #   licence     Apache-2.0, MIT or BSD. Verified at the revision named above, not at HEAD.
-#   domain      what the repository is about
-#   stated-by   where that answer came from — the repository's own README one-liner, its GitHub
-#               topics, its package description, or the standards body publishing its field. It is
-#               recorded BEFORE the reading is run and never revised afterwards. An answer chosen
-#               after reading the tree is the same defect as choosing OLiA after reading this one.
+#   area        the subject area the reading is expected to place the member under, named exactly as
+#               the scheme states it — a field such as Computer Science, or a subfield such as
+#               Finance. It is an identifier in somebody else's hierarchy, so it cannot collide with
+#               another sense of a word. What it replaced could: marking a topic by whether its prose
+#               said "security" marked Food Security, Pesticide Exposure and Retirement and
+#               Disability, and marking by "content" marked Peanut Plant Research, where the word
+#               means concentration. Worse, it marked against the reading — Tika's nearest topic is
+#               Natural Language Processing Techniques, which says no "content" and was scored wrong.
+#   stated-by   what the area was judged from — the repository's own README one-liner, its GitHub
+#               topics or its package description. The judgement is THIS PROJECT'S and the safeguard
+#               is that it is recorded BEFORE the reading is run and never revised afterwards. An
+#               answer chosen after reading the tree is the same defect as choosing OLiA after
+#               reading this one.
 #   arm         in-domain | out-of-domain | no-taxonomy | degenerate
 #
 # Source: THIS PROJECT. That has to be said outright. Every other file bundled here is a curated
@@ -48,6 +56,6 @@
 #   is marked in-domain for one taxonomy only: the bundled NIST Cybersecurity Framework partitions what
 #   a security project does, and until this member there was no repository to fire it on. It is
 #   out-of-domain for OLiA and FIBO like every other member.
-tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	content	Apache DOAP category token, retrieved 2026-08-15	out-of-domain
-maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	build-management	Apache DOAP category token, retrieved 2026-08-19	out-of-domain
-santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	security	Apache DOAP category token, retrieved 2026-08-19	in-domain
+tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	Computer Science	its own GitHub description: a toolkit that detects and extracts metadata and text from files	out-of-domain
+maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	Computer Science	its own GitHub description: a software project management and comprehension tool	out-of-domain
+santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	Computer Science	its own GitHub description: a library implementing XML digital signature and encryption	in-domain
