@@ -33,7 +33,7 @@ public final class SubjectWitnessProbe {
         System.out.printf("== %s, nearest %d of %d%n", scheme, SHOWN, subjects.size());
         SubjectPlacement.byDivergence().of(repository, subjects).stream().limit(SHOWN)
                 .forEach(placed -> System.out.printf("   %.4f  %-46s  meets on %s%n",
-                        placed.bits(), placed.label(), String.join(", ", placed.carriedBy())));
+                        placed.bits(), placed.label(), String.join(", ", placed.carriedBy().stream().map(SharedMass.Shared::topic).toList())));
         System.out.println();
     }
 

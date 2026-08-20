@@ -600,10 +600,10 @@
         },
         "carriedBy": {
           "title": "Topics the placement rests on",
-          "description": "The dictionary topics the repository's reading and this subject's own description both put mass in, most shared first. Two readings are near because of the mass they put in the same places, so this is what makes the row arguable with.",
+          "description": "The dictionary topics the repository's reading and this subject's own description both put mass in, most shared first. Two readings are near because of the mass they put in the same places, so this is what makes the row arguable with — and each names the shares and the words behind it, so the row can be checked without reading another section.",
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/$defs/carryingTopic"
           }
         },
         "nearerThanChance": {
@@ -699,6 +699,47 @@
           "type": "array",
           "items": {
             "$ref": "#/$defs/quotation"
+          }
+        }
+      }
+    },
+    "carryingTopic": {
+      "title": "One topic a placement rests on",
+      "description": "A dictionary topic the repository's reading and the subject's own description both put mass in, with the two shares it met on and the words that put the repository's mass there. Stated in full rather than left to a join against `themes`, which reports only the scopes that depart from the whole: a label carries the same words wherever it appears, so they repeat across levels and a reader following one placement gets the whole answer in one place.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic",
+        "shareOfRepository",
+        "shareOfSubject",
+        "carriedBy"
+      ],
+      "properties": {
+        "topic": {
+          "title": "Topic",
+          "description": "The dictionary label the two met on.",
+          "type": "string"
+        },
+        "shareOfRepository": {
+          "title": "Share of the repository",
+          "description": "The topic's share of everything the repository placed.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "shareOfSubject": {
+          "title": "Share of the subject",
+          "description": "The topic's share of the subject's own description, read by the same instrument.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "carriedBy": {
+          "title": "Words that carried it",
+          "description": "The words that put the repository's mass in this topic, most first. Fewer than a `themes` row holds: the placement is the answer and the whole tail is in `themes` and in the evidence beside it.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/witness"
           }
         }
       }

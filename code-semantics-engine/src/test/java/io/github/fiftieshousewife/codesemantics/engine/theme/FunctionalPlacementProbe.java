@@ -46,7 +46,7 @@ public final class FunctionalPlacementProbe {
         System.out.printf("%-52s %10s  %s%n", "subject", "divergence", "met on");
         placements.stream().limit(held).forEach(placement -> System.out.printf("%-52s %9.1f%%  %s%n",
                 placement.label().isBlank() ? placement.concept() : placement.label(),
-                100.0 * placement.bits(), String.join(", ", placement.carriedBy())));
+                100.0 * placement.bits(), String.join(", ", placement.carriedBy().stream().map(SharedMass.Shared::topic).toList())));
         System.out.printf("%nnearest %.1f%%, chance reaches %.1f%% over %d draws of a field of %d — %s%n",
                 100.0 * chance.nearest(), 100.0 * chance.chanceNearest(), chance.resamples(),
                 chance.subjects(),

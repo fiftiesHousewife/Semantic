@@ -98,7 +98,8 @@ public final class PublishedStatementProbe {
         System.out.printf("  nearest %s %.4f bits; chance reaches %.4f — %s%n",
                 placed.getFirst().label(), placed.getFirst().bits(), chance.chanceNearest(),
                 chance.standsApart() ? "STANDS APART" : "within chance");
-        System.out.printf("  carried by %s%n", String.join(", ", placed.getFirst().carriedBy()));
+        System.out.printf("  carried by %s%n", String.join(", ", placed.getFirst().carriedBy().stream()
+                .map(SharedMass.Shared::topic).toList()));
         new SuperiorityFigures(token).print(scored(placed, marked));
     }
 

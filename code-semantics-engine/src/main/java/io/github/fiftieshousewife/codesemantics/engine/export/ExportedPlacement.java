@@ -33,13 +33,15 @@ public record ExportedPlacement(String scheme, Level archive, Level category) {
      * @param nearestByChanceBits   how near the nearest subject of a scheme of chance stood
      * @param standsApartFromChance whether the real placement is the nearer of the two
      * @param carriedBy             the topics the repository's reading and this subject's own description
-     *                              both put mass in, which is what the placement rests on
+     *                              both put mass in, each with the shares it met on and the words that
+     *                              produced it — which is what the placement rests on, and all a reader
+     *                              needs to check it without joining against another section
      * @param nearerThanChance      every subject standing nearer than chance did, this one first. Naming one
      *                              subject out of them states a precision the instrument does not have: the
      *                              bound is the chance figure beside it and nothing here chooses a margin
      */
     public record Level(String subject, double divergenceBits, double nearestByChanceBits,
-                        boolean standsApartFromChance, List<String> carriedBy,
+                        boolean standsApartFromChance, List<CarryingTopic> carriedBy,
                         List<Contender> nearerThanChance) {
 
         public Level {
@@ -54,10 +56,32 @@ public record ExportedPlacement(String scheme, Level archive, Level category) {
 
         /** The level, with whether it stands apart read off the two figures rather than asserted. */
         public static Level of(final String subject, final double divergenceBits,
-                               final double nearestByChanceBits, final List<String> carriedBy,
+                               final double nearestByChanceBits, final List<CarryingTopic> carriedBy,
                                final List<Contender> nearerThanChance) {
             return new Level(subject, divergenceBits, nearestByChanceBits,
                     divergenceBits < nearestByChanceBits, carriedBy, nearerThanChance);
+        }
+    }
+
+    /**
+     * One topic a placement rests on: how much of the repository sat there, how much of the subject's own
+     * description did, and the words that put the repository's mass there.
+     *
+     * <p>The words are stated here rather than left to a join. A label carries the same words wherever it
+     * appears, so this repeats them across levels; a reader following one placement gets the whole answer
+     * in one place, which is what the section is for.
+     *
+     * @param topic             the dictionary label the two met on
+     * @param shareOfRepository the topic's share of everything the repository placed
+     * @param shareOfSubject    the topic's share of the subject's own description
+     * @param carriedBy         the words that put the repository's mass there, most first
+     */
+    public record CarryingTopic(String topic, double shareOfRepository, double shareOfSubject,
+                                List<ExportedWitness> carriedBy) {
+
+        public CarryingTopic {
+            Objects.requireNonNull(topic, "topic");
+            carriedBy = List.copyOf(carriedBy);
         }
     }
 

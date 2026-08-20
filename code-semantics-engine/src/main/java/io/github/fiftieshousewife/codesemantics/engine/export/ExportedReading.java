@@ -18,6 +18,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SharedMass;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
@@ -36,6 +37,9 @@ public final class ExportedReading {
 
     /** Enough words behind a topic to check the row; the whole tail is in the reports. */
     private static final int WITNESSES_HELD = 8;
+
+    /** Enough words to see what a placement rests on; the whole tail is in {@code themes}. */
+    private static final int PLACEMENT_WITNESSES = 3;
 
     private static final int TOPICS_PER_SCOPE = 3;
 
@@ -204,15 +208,16 @@ public final class ExportedReading {
      */
     private static List<ExportedPlacement> placedIn(final RepositoryReading reading,
                                                     final RepositoryThemes themes, final PlacedField field) {
-        return List.of(placement(field),
-                placement(PlacedField.ofOpenAlex(themes.repository().comparison(), reading.seed())));
+        return List.of(placement(field, themes),
+                placement(PlacedField.ofOpenAlex(themes.repository().comparison(), reading.seed()),
+                        themes));
     }
 
     /** One placement per scheme, each level carrying what it rests on and what chance cannot separate. */
-    static ExportedPlacement placement(final PlacedField field) {
+    static ExportedPlacement placement(final PlacedField field, final RepositoryThemes themes) {
         return new ExportedPlacement(field.scheme(),
-                level(field.archives(), field.archiveChance().chanceNearest()),
-                level(field.categories(), field.categoryChance().chanceNearest()));
+                level(field.archives(), field.archiveChance().chanceNearest(), themes),
+                level(field.categories(), field.categoryChance().chanceNearest(), themes));
     }
 
     /**
@@ -220,15 +225,31 @@ public final class ExportedReading {
      * the chance figure's own, so nothing here chooses how wide a tie has to be to count as one.
      */
     private static ExportedPlacement.Level level(final List<SubjectPlacement.Placement> ranked,
-                                                 final double chanceNearest) {
+                                                 final double chanceNearest,
+                                                 final RepositoryThemes themes) {
         final SubjectPlacement.Placement nearest = ranked.getFirst();
         return ExportedPlacement.Level.of(nearest.label(), nearest.bits(), chanceNearest,
-                nearest.carriedBy(),
+                carrying(nearest, themes),
                 ranked.stream()
                         .filter(placed -> placed.bits() < chanceNearest)
                         .map(placed -> new ExportedPlacement.Contender(placed.label(), placed.bits(),
-                                placed.carriedBy()))
+                                placed.carriedBy().stream().map(SharedMass.Shared::topic).toList()))
                         .toList());
+    }
+
+    /**
+     * What each meeting topic is worth to the placement, with the words that put the repository's mass
+     * there. Fewer words than a theme row holds: a placement is the answer and the whole tail is in
+     * {@code themes} and in the evidence beside it.
+     */
+    private static List<ExportedPlacement.CarryingTopic> carrying(final SubjectPlacement.Placement placed,
+                                                                  final RepositoryThemes themes) {
+        return placed.carriedBy().stream()
+                .map(met -> new ExportedPlacement.CarryingTopic(met.topic(), met.scopeShare(),
+                        met.subjectShare(),
+                        themes.witnesses().forTopic(met.topic(), PLACEMENT_WITNESSES).stream()
+                                .map(ExportedThemes::testimony).toList()))
+                .toList();
     }
 
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,

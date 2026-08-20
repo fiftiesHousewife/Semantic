@@ -9,7 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedPlacementTest {
 
-    private static final List<String> MEETS_ON = List.of("linguistics", "computing");
+    private static final List<String> MET_ON = List.of("linguistics", "computing");
+
+    private static final List<ExportedPlacement.CarryingTopic> MEETS_ON = List.of(
+            new ExportedPlacement.CarryingTopic("linguistics", 0.21, 0.34, List.of()),
+            new ExportedPlacement.CarryingTopic("computing", 0.11, 0.09, List.of()));
 
     @Test
     void standsApartOnlyWhereTheSubjectIsNearerThanTheNearestChanceOneIs() {
@@ -24,8 +28,8 @@ class ExportedPlacementTest {
     void holdsEverySubjectStandingNearerThanChanceDidAndNotOnlyTheNearest() {
         final ExportedPlacement.Level placed = ExportedPlacement.Level.of("Computation and Language",
                 0.3650, 0.3801, MEETS_ON, List.of(
-                        new ExportedPlacement.Contender("Computation and Language", 0.3650, MEETS_ON),
-                        new ExportedPlacement.Contender("Medical Research and Practices", 0.3712, MEETS_ON)));
+                        new ExportedPlacement.Contender("Computation and Language", 0.3650, MET_ON),
+                        new ExportedPlacement.Contender("Medical Research and Practices", 0.3712, MET_ON)));
 
         assertAll(
                 () -> assertThat(placed.nearerThanChance()).hasSize(2),

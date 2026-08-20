@@ -11,13 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class PlacedFieldTest {
 
     private static final Placement ARCHIVE =
-            new Placement("cs", "Computer Science", "grp_cs", 0.3399, List.of("linguistics"));
+            new Placement("cs", "Computer Science", "grp_cs", 0.3399, List.of(new SharedMass.Shared("linguistics", 0.2, 0.3, 0.4)));
 
     private static final Placement RUNNER_UP =
-            new Placement("eess", "Electrical Engineering", "grp_eess", 0.4848, List.of("computing"));
+            new Placement("eess", "Electrical Engineering", "grp_eess", 0.4848, List.of(new SharedMass.Shared("computing", 0.2, 0.3, 0.4)));
 
     private static final Placement CATEGORY =
-            new Placement("cs.CL", "Computation and Language", "grp_cs", 0.3950, List.of("linguistics"));
+            new Placement("cs.CL", "Computation and Language", "grp_cs", 0.3950, List.of(new SharedMass.Shared("linguistics", 0.2, 0.3, 0.4)));
 
     private static PlacedField placed(final double archiveChance, final double categoryChance) {
         return new PlacedField("arXiv", List.of(ARCHIVE, RUNNER_UP),

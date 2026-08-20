@@ -18,9 +18,15 @@ import java.util.List;
  */
 public final class SubjectPlacement {
 
-    /** How far a scope stands from one subject area, and the topics the two actually meet on. */
+    /**
+     * How far a scope stands from one subject area, and the topics the two actually meet on.
+     *
+     * <p>{@code carriedBy} keeps each meeting topic's two shares rather than its name alone. A placement is
+     * only arguable with if a reader can see how much of the repository and how much of the subject sat in
+     * the topic they met on, and both figures are computed to rank the placement in the first place.
+     */
     public record Placement(String concept, String label, String group, double bits,
-            List<String> carriedBy) {
+            List<SharedMass.Shared> carriedBy) {
     }
 
     /** Enough of them to see what a placement rests on, few enough to read across a row. */
@@ -57,8 +63,8 @@ public final class SubjectPlacement {
      * The topics a placement rests on, whichever statistic ranked it: two readings are near because of the
      * mass they put in the same places, so that is what a row has to show to be arguable with.
      */
-    private List<String> carriedBy(final TopicDistribution scope, final TopicDistribution subject) {
-        return shared.contributions(scope, subject).stream().limit(WITNESSES)
-                .map(SharedMass.Shared::topic).toList();
+    private List<SharedMass.Shared> carriedBy(final TopicDistribution scope,
+                                              final TopicDistribution subject) {
+        return shared.contributions(scope, subject).stream().limit(WITNESSES).toList();
     }
 }

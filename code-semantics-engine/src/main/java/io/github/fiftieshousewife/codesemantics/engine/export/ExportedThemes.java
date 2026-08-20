@@ -58,7 +58,7 @@ public final class ExportedThemes {
      * One word's testimony as the export states it. The resources are named in their own published
      * spelling and sorted, so two runs naming the same pair cannot order them differently.
      */
-    private static ExportedWitness testimony(final Witness witness) {
+    static ExportedWitness testimony(final Witness witness) {
         return new ExportedWitness(witness.word(), witness.occurrences(), witness.mass(),
                 witness.sources().stream().map(EvidenceSource::displayName).sorted().toList(),
                 witness.quotations().stream().map(ExportedThemes::quoted).toList());

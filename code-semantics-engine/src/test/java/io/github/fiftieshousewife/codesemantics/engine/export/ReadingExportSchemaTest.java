@@ -20,13 +20,16 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  */
 class ReadingExportSchemaTest {
 
-    private static final List<String> MEETS_ON = List.of("linguistics");
+    private static final List<String> MET_ON = List.of("linguistics");
+
+    private static final List<ExportedPlacement.CarryingTopic> MEETS_ON = List.of(
+            new ExportedPlacement.CarryingTopic("linguistics", 0.21, 0.34, List.of()));
 
     private static final List<ExportedPlacement> PLACEMENT = List.of(new ExportedPlacement("arXiv",
             ExportedPlacement.Level.of("Computer Science", 0.34, 0.41, MEETS_ON, List.of()),
             ExportedPlacement.Level.of("cs.CL Computation and Language", 0.3950, 0.4455, MEETS_ON,
                     List.of(new ExportedPlacement.Contender("cs.CL Computation and Language", 0.3950,
-                            MEETS_ON)))));
+                            MET_ON)))));
 
     private static final ReadingExport EXPORT = ReadingExport.of(
             new ExportedSummary("CodeSemantics", "610c4e9", List.of("linguistics"),

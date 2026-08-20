@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ReadingChangesTest {
 
+    private static final List<ExportedPlacement.CarryingTopic> MEETS_ON = List.of(
+            new ExportedPlacement.CarryingTopic("linguistics", 0.21, 0.34, List.of()));
+
     private static final SetAside NOTHING_SET_ASIDE = new SetAside(0, 0, 0, 0, 0, 0);
 
     private static ReadingExport reading(final String commit, final double legibility,
@@ -21,9 +24,9 @@ class ReadingChangesTest {
                 new ExportedSummary("CodeSemantics", commit, topics, List.of("WordNet Domains"),
                         List.of(new ExportedPlacement("arXiv",
                                 new ExportedPlacement.Level(nearestArchive, archiveBits, 0.41, apart,
-                                        List.of("linguistics"), List.of()),
+                                        MEETS_ON, List.of()),
                                 new ExportedPlacement.Level("cs.CL", 0.39, 0.44, true,
-                                        List.of("linguistics"), List.of()))),
+                                        MEETS_ON, List.of()))),
                         List.of(), List.of(), List.of(), legibility, 0.75,
                         new ExportedSummary.Counts(0, topics.size(), 0)),
                 List.of(),
