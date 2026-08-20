@@ -49,8 +49,16 @@ final class SubjectArms {
     }
 
     private void summedMass(final String heading, final List<TermSighting> sightings) {
-        final Map<String, Double> byTopic = massByTopic(sightings);
-        System.out.printf("%n== %s — summed occurrence mass — %d spans, %d topics reached%n", heading,
+        massWeighted(heading, "summed occurrence mass", sightings, topic -> 1.0);
+    }
+
+    /** The same summed mass with a factor over the topic itself, so the grid is complete either scoring. */
+    void massWeighted(final String heading, final String scoring, final List<TermSighting> sightings,
+                      final java.util.function.ToDoubleFunction<String> byTopicWeight) {
+        final Map<String, Double> byTopic = new HashMap<>();
+        massByTopic(sightings).forEach((topic, mass) ->
+                byTopic.put(topic, mass * byTopicWeight.applyAsDouble(topic)));
+        System.out.printf("%n== %s — %s — %d spans, %d topics reached%n", heading, scoring,
                 sightings.size(), byTopic.size());
         System.out.printf("%-52s %10s%n", "topic", "mass");
         ranked(byTopic).stream().limit(SHOWN).forEach(topic ->
@@ -59,16 +67,24 @@ final class SubjectArms {
     }
 
     private void twoShares(final String heading, final List<TermSighting> sightings) {
+        weighted(heading, "two shares", sightings, topic -> 1.0);
+    }
+
+    /**
+     * The same two shares with a third factor over the topic itself, so a candidate weighting is measured
+     * beside the reading it would replace rather than adopted and then reported.
+     */
+    void weighted(final String heading, final String scoring, final List<TermSighting> sightings,
+                  final java.util.function.ToDoubleFunction<String> byTopicWeight) {
         final List<WrittenKeywords> written = WrittenKeywords.in(keywords, sightings, narrows);
         final Map<String, Double> byTopic = written.stream()
-                .collect(Collectors.toMap(WrittenKeywords::topic, WrittenKeywords::weight));
-        System.out.printf("%n== %s — two shares — %d spans, %d topics reached%n", heading, sightings.size(),
+                .collect(Collectors.toMap(WrittenKeywords::topic,
+                        reached -> reached.weight() * byTopicWeight.applyAsDouble(reached.topic())));
+        System.out.printf("%n== %s — %s — %d spans, %d topics reached%n", heading, scoring, sightings.size(),
                 byTopic.size());
-        System.out.printf("%-52s %5s %6s %8s %8s%n", "topic", "wrote", "stated", "of topic", "of code");
-        written.stream().limit(SHOWN).forEach(reached ->
-                System.out.printf("%-52s %5d %6d %8.4f %8.4f%s%n", label(reached.topic()),
-                        reached.keywordsWritten(), reached.keywordsPublished(), reached.statedShare(),
-                        reached.writingShare(), marked(scored(reached.topic(), reached.weight()))));
+        System.out.printf("%-52s %8s%n", "topic", "score");
+        ranked(byTopic).stream().limit(SHOWN).forEach(reached ->
+                System.out.printf("%-52s %8.6f%s%n", reached.topic(), reached.score(), marked(reached)));
         statistic(sightings, ranked(byTopic));
     }
 

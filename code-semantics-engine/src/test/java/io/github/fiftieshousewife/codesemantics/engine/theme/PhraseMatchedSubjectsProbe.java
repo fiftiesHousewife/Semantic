@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 
+import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopicSizes;
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.RegisteredFormats;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -82,6 +83,7 @@ public final class PhraseMatchedSubjectsProbe {
         final SubjectArms arms = new SubjectArms(topics, keywords, new StatedDomainToken(token), token,
                 KeywordSpecificity.fromClasspath());
         arms.print("every match", every);
+        breadth(arms, every);
         java.util.Arrays.stream(TermRung.values()).forEach(rung -> {
             final List<TermSighting> found = reading.every().at(rung).sightings();
             arms.print("rung: " + rung.normalisation(), found);
@@ -101,6 +103,32 @@ public final class PhraseMatchedSubjectsProbe {
         printFormatRuns(namingFormats);
         arms.print("every match, less the runs the media type registry names", namingNothingRegistered);
         arms.print("only the runs the media type registry names", namingFormats);
+    }
+
+    /**
+     * The same match under each candidate use of the counts OpenAlex sizes a topic by, printed beside the
+     * unweighted reading so neither is adopted on the strength of being reasonable.
+     *
+     * <p>The share favours a broad topic and the specificity a narrow one, and they are opposite readings of
+     * one figure. The specificity is {@code log(rank + 1) / log(size + 1)} over the topics ordered by the
+     * works counted under them, which is the scale {@link WordSpecificity} takes over a frequency list with
+     * one difference: the offset. {@code log(rank) / log(size)} gives the top-ranked entry a weight of
+     * exactly zero, which silences it rather than weighing it — measured here as Tika reaching 862 topics
+     * under that form against 863 under every other. The offset leaves the bound derived from the file's own
+     * length and puts the result in {@code (0, 1]}, so the broadest topic still votes at the smallest weight
+     * the file can express.
+     */
+    private static void breadth(final SubjectArms arms, final List<TermSighting> every) {
+        final OpenAlexTopicSizes sizes = OpenAlexTopicSizes.fromClasspath();
+        final double largest = Math.log(sizes.size() + 1.0);
+        final java.util.function.ToDoubleFunction<String> narrowness =
+                topic -> Math.log(sizes.rankOf(topic) + 1.0) / largest;
+        arms.massWeighted("every match", "summed mass by the topic's share of the literature", every,
+                sizes::share);
+        arms.massWeighted("every match", "summed mass by how little the topic covers", every, narrowness);
+        arms.weighted("every match", "two shares by the topic's share of the literature", every,
+                sizes::share);
+        arms.weighted("every match", "two shares by how little the topic covers", every, narrowness);
     }
 
     /** The runs the registry caught, most-written first, so a reader can see what the split rests on. */
