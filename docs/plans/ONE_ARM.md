@@ -23,7 +23,123 @@ Three readings reach a subject by three different mechanisms and a fourth reads 
 - Verbs already reach the reading, so the nominalisation step is dropped rather than deferred — and the verbs are D5's evidence: `read` votes `publishing` 1.00, `validate` votes `law` 0.25.
 - CSO needs no prose. A subject needs noun phrases and CSO publishes 14,636 at a median of two words, the same as an OpenAlex keyword.
 - Two classes state they weigh a signal and compute zero — `PhraseTopics.under` and `WordSpecificity`. [The plan for the first](A_VOTE_NOT_A_GATE.md) runs before everything else in this document.
-- The reading cannot be argued with from the files it publishes, which is now the first item in the queue.
+- The reading could not be argued with from the files it publishes. **That is now closed** — `evidence.json` carries the per-word statements, the removals with the rule that made each, and the unread runs.
+
+## Where the work stands, and the order it now runs in
+
+Measured on the nine evaluation-set members, each change on its own. Nothing below was tuned on this repository.
+
+### What landed
+
+| | State |
+|---|---|
+| The workings in `evidence.json` | **landed at evidence schema 4.0.** `rules`, `words`, `removed`, `unread`. The reading is unchanged by it — every figure `subjectWitnesses` prints for a held-out clone is identical before and after |
+| [D13](A_VOTE_NOT_A_GATE.md), the second pass's gate | **landed.** `expectedIn` is `1 + prior.shareOf(topic)`, bounded in `[1, 2]` by what a share is. `THE_FILE_READ_NOTHING_OF_IT` is deleted with it: the factor can no longer be zero, and a rule reporting no removals when it cannot fire is a false statement in the evidence |
+| The parallel backtest | **built.** `evaluationReadAll` reads every cloned member in one JVM, four at a time on a 12 GB heap, against `evaluationRead`'s 31 minutes. One JVM is most of the saving — a bundled scheme is read into distributions once instead of nine times. **31m 36s becomes 6m 33s.** Verified against the serial run on all nine members: every subject, stands-apart verdict, `carriedBy` list and band identical, and of 72 placement figures 50 are bit-for-bit identical with the largest difference 1.67e-16 — the last-place drift any two runs show, because addition over doubles is not associative. Byte-identity is not available and never was: `Map.copyOf` salts iteration order once per JVM, so nine JVMs and one JVM order ties differently |
+
+### D13 is a contract fix and not an accuracy gain, and both verdicts are recorded
+
+Over all 36 level readings, and against the subject area the manifest states for each member:
+
+| | Before | After |
+|---|--:|--:|
+| stands apart from chance | 31 | **29** |
+| mean margin, chance less divergence | 0.0362 | 0.0348 |
+| mean divergence | 0.4007 | 0.3860 |
+| mean chance bar | 0.4369 | 0.4208 |
+| subjects in the bands | 113 | 96 |
+| subfield leader in the stated area | 5/9 | 5/9 |
+| topic leader in the stated area | 5/9 | 5/9 |
+| subfield band reaches it | 6/9 | **5/9** |
+| topic band reaches it | 3/9 | **5/9** |
+
+Three readings stopped standing apart — besu, santuario and strata, all at arXiv category — and one started, santuario at OpenAlex topic, whose band went from 0 to 3 subjects, every one of them under Computer Science.
+
+**The divergence and the chance bar fell together**, 0.4007 to 0.3860 against 0.4369 to 0.4208, which is the whole field moving rather than the observation. And **the criterion was written against the wrong mechanism**: the plan expected Santuario to gain `cryptography` "reaching the reading at all", and `cryptography` already reached it through `encryption`, 502 occurrences at a share of 1.00, which the gate never touched. The word `cryptography` itself occurs once, carries no subject, and is untouched by D13.
+
+The stated accuracy criterion — no member's field concentration falls — is **not met**: fineract's subfield band went from 1 of 9 to 0 of 8. The change stays because the javadoc stated a vote and the code was a gate, and it is credited with no improvement.
+
+### D11 is refuted before it was built, on the members
+
+D11 says the dictionaries silence the vocabulary that would identify a repository, and that a label the vocabulary publishes is a word carrying that topic. The first half holds. The second reaches almost none of it.
+
+| Over the nine members | Words no resource states a subject for | Reached by a one-word published label |
+|---|--:|--:|
+| distinct words | 19,059 | **59 — 0.3%** |
+| occurrences | 603,894 | **8,987 — 1.5%** |
+
+The vocabulary that is actually missing is not label-shaped: `market` 5,990 in a market-risk library, `date` 16,752, `identifier` 4,789, `control` 1,828, `event` 862, `result`, `set`. Not one is a subject label in any bundled vocabulary. `time` is, and it is most of the 8,987.
+
+**The figure is in the wrong unit and that is the next thing to fix**, not a reason to discount it: the denominator counts sightings, and copied prose contributes `1/n` of a sighting. So 1.5% is a floor and the mass measure decides.
+
+### The defects the low-level pass found
+
+| | Defect | Measured |
+|---|---|---|
+| **N1** | Every Finance member places under Computer Science | 4 of 4 miss the stated area at both levels; three lead on an *Artificial Intelligence* subfield. Their finance vocabulary reads correctly — `trade` carries commerce 0.92, `currency` money 1.00, `charge` commerce 0.98, `loan` finance 0.33 and banking 0.33 — and is outweighed by Java and licence boilerplate |
+| **N2** | `SenseCoverage.of` states `(0, 1]` and returns `0.0` | `concept`, 641 occurrences here, coverage 0.000. `max(sensesLabelled, headwordClaims)` is zero where WordNet knows the word, labels no sense of it, and no headword topic names it. Third instance of the javadoc-against-code class |
+| **N3** | A word English put inside a name is weighed as one the author chose | `OfferedWords.narrowing` returns `1.0` for every word of a declared name and consults `WordSpecificity` only for prose. `from` carries mathematics at 1.00, 169 times. The vocabulary reading has `ChosenWords.theLanguages()` for exactly this and the topical reading has nothing |
+| **N4** | OLiA's `part of` is matched as a published term | 19 occurrences, reported, beside CSO's `part of speech` on the same site |
+| **N5** | A word the accessor-prefix or source-set rule removes is dropped silently | `PhraseTopics:169`. The same class of rule as D13, and still not in the workings. It is what let `get` be read as carrying `tennis` when `tennis` is in no reading at all |
+| **N6** | `workings.words` states a sighting count and not a contribution | `TopicTally:101` records the sighting; `TopicTally:102` then computes what the occurrence is worth, and `CopiedComments` weights copied prose at `1/n`. So the commonest apparently-unread words on every member are Apache Licence 2.0 — `require`, `specific`, `condition`, `except`, `notice`, `fitness` — and 13 to 18% of occurrences look unread because one legal instrument is counted once per file |
+
+### What the low-level pass measured, in mass rather than in sightings
+
+With N6 landed, every figure below is what a word **carried**, not how often it was seen. The two disagree by two orders of magnitude: 4,068,610 occurrences across the nine members carry 169,335 of mass, so an average occurrence is worth 0.04.
+
+**The biggest carriers are each repository's own subject matter, and no boilerplate is among them.**
+
+| Member | Top carriers by mass |
+|---|---|
+| fineract | `client` 1848, `transaction` 1521, `loan` 1362, `charge` 1049, `amount` 1035 |
+| strata | `trade` 1350, `compute` 1061, `builder` 1031, `name` 968 |
+| besu | `transaction` 750, `header` 696, `gas` 464, `world_state` 433, `peer` 425 |
+| tika | `metadata` 2312, `handler` 568, `parser` 432 |
+| santuario | `algorithm` 324, `uri` 264, `xml` 241, `cert` 230, `c14n` 133 |
+| maven | `dir` 1055, `verifier` 1009, `pom` 733, `artifact` 486, `dependency` 358 |
+
+`property`, `get`, `test`, `value`, `date`, `require` and `specific` are in no member's top six. **The reading already weighs boilerplate down to nothing**, and every claim that it does not was taken from a sighting count.
+
+**Two named defects die here.**
+
+| | Verdict |
+|---|---|
+| **D11** | **Refused.** Words that carried nothing: 19,373 distinct over 587,919 occurrences. Reachable by a one-word published label: **72 distinct, 9,081 occurrences — 0.22% at the ceiling**, and the ceiling assumes each reached word would carry like an average one. None of `market`, `date`, `identifier`, `control` or `event` is a label anywhere. The dictionaries do silence the vocabulary that identifies a repository, and relabelling the labels does not reach it |
+| **N2** | **Not live.** Zero words across nine members carried mass with a sense coverage of zero. `SenseCoverage.of` returns zero only for words nothing asks about, so the stated `(0, 1]` holds wherever the value is read. The javadoc states its domain wider than its use, which is a note and not a defect |
+
+**N3 is live, small, and the leading witness of a placement topic.** English function words carry 0.80% of all mass, every occurrence written as a name so `narrowing` gives it 1.0. `from` carries 569 in fineract and 193 in besu, and **`from` is the largest single witness for `mathematics`** — a topic reaching every placement of both finance members.
+
+### N1's mechanism, and the fix is a map already bundled
+
+The finance members' finance vocabulary reaches the placement and reads correctly. It is **split across six labels while the software signal concentrates in one**.
+
+| Member | Topics reaching any placement |
+|---|---|
+| fineract | `computing` 10.1%, `law` 6.9%, `economy` 5.3%, `linguistics` 4.6%, `mathematics` 4.3%, `finance` 3.1% |
+| strata | `computing` 8.4%, `mathematics` 7.7%, `linguistics` 4.4%, `finance` 4.1% |
+
+Read the witnesses and the split is plain. Fineract's `finance` rests on `loan` ×31,589, `transaction` ×12,695 and `interest_rate`; its `law` rests on `loan` ×31,589, `client` ×8,835 and `approve`; its `economy` on `repayment` ×5,330 and `disbursement`. **`loan` votes `finance` 0.33, `banking` 0.33 and `law` 0.33**, so two thirds of the strongest finance signal in the tree arrives under two other headings. Strata's `finance` rests on `time_to_expiry`, `volatility` and `strike_price`, which is exactly right, and is outweighed by a `computing` carried by `hash_code` and `metadata`.
+
+**The publisher states the relation and the reading does not use it.** From the bundled topic hierarchy:
+
+| Label | Generalises to |
+|---|---|
+| `finance`, `banking`, `commerce` | `business` |
+| `money` | `business`, `finance` |
+| `economy`, `law` | nothing stated |
+
+So a repository writing `banking` and a subject description writing `finance` share `business` in the publisher's own map, and never meet, because the comparison runs over literal labels. `StatedTopics` walks that map to **fold implied labels away**, which is right for counting one word's observations and is the opposite of what a comparison between two distributions needs.
+
+That is the half of [D13](A_VOTE_NOT_A_GATE.md) that was written and not built — *the bonus runs through the published hierarchy* — pointed at the comparison rather than at the prior. It is derived from a bundled resource, nothing is chosen, and it is the first candidate for N1.
+
+### The order
+
+1. ~~**N6**~~ — **landed.** `workings.words` states what each word carried and whether it was ever written as a name, beside how often it was seen.
+2. ~~**The D11 pre-check in mass**~~ — **run, and D11 is refused at a ceiling of 0.22%.**
+3. ~~**N2**~~ — **not live.**
+4. **N5**, which costs no measurement: the accessor-prefix and source-set rules remove a word from its phrase and write nothing down. It is what let `get` be read as carrying `tennis`.
+5. **N3**, measured on its own. Small at 0.80% of mass and it leads `mathematics` on the member where `mathematics` reaches every placement.
+6. **N1 through the published generalisation map**, which is the one candidate with a bundled resource behind it. Not a new scheme and not a synthesised taxonomy: neither touches the repository's own distribution, which is where the dilution is.
 
 ## The defects, and what fixes each
 
@@ -41,7 +157,7 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 | **D8** | The leader is inside a tie band the instrument cannot resolve | eight OpenAlex topics within 0.033 bits, the first two separated by 0.0001 | Report the band rather than the leader. A placement that names one subject out of a tie is stating a precision it does not have |
 | **D9** | OpenAlex's own description template is read as subject matter | all 4,516 descriptions open *This cluster of papers*; the 14 words in more than half of them carry 36% of every description's word tokens, against arXiv's one (`and`, which WordNet refuses). Eight labels sit on **100%** of topics — music, chemistry, rock-paper-scissors, military, phonetics, astronomy, epidemiology, finance — which is the dictionary reading `cluster` and `paper`. Two topics stand 0.6147 bits apart read from the prose and 0.7986 from the keywords | Read the keyword statement, which OpenAlex publishes as its second account and the extraction already separates. **Measured and not settled**: keywords raise Tika 0.658 → 0.701 and lower Santuario 0.680 → 0.636, and D10 stops the null arbitrating |
 | **D11** | The dictionaries silence the vocabulary that would identify a repository | `cryptography` votes nothing — 0 votes, coverage 0.000 — and 470 of the topic vocabulary's 719 labels are not headwords of themselves. `signature` votes `linguistics` 0.42, `law` 0.42, `cryptography` 0.04 | A label the vocabulary publishes is a word carrying that topic, read through the same splitter as everything else. Derived from the resource; measured on the members |
-| **D13** | The second pass is a gate that states it is a vote | `PhraseTopics.under`'s javadoc says *a topic the file has never read at all is not in the prior and so cannot be conditioned on*; `expectedIn` returns `prior.shareOf(topic)`, which is `0.0`, and `if (score > 0.0)` drops it | `1 + prior.shareOf(topic)`, bounded in `[1, 2]` by the share's own definition, the bonus walked through the generalisation map. [The plan is written](A_VOTE_NOT_A_GATE.md) and it runs before D11 and D12 |
+| **D13** | The second pass is a gate that states it is a vote | `PhraseTopics.under`'s javadoc says *a topic the file has never read at all is not in the prior and so cannot be conditioned on*; `expectedIn` returns `prior.shareOf(topic)`, which is `0.0`, and `if (score > 0.0)` drops it. **Now measured**: 511 readings over 201 topics on this tree, every one of them a topic pass 2 introduced | `1 + prior.shareOf(topic)`, bounded in `[1, 2]` by the share's own definition, the bonus walked through the generalisation map. [The plan is written](A_VOTE_NOT_A_GATE.md) and it runs before D11 and D12 |
 | **D12** | No sense is ever selected, and both sides lose the same vocabulary | `sign` votes `telecommunication` 1.00 in the signal sense; `read` votes `publishing` 1.00; `validate` votes `law` 0.25 | Withhold a sense the file's own first pass does not support. The two-pass prior already exists in `PhraseTopics.under`. **The risk is self-reinforcement** — a first pass landing on `publishing` would entrench D5 — so a seed set and a confidence floor come with it, as Yarowsky's own method does |
 | **D10** | At topic level the chance bar cannot be computed | `999 / (4516 + 1) = 0`, so the bar is the single minimum of 999 draws. Across four seeds it moves 0.5225, 0.5763, 0.5608, 0.5523 with Santuario's observation at 0.5362 inside the spread — *within chance* at one seed and *stands apart* at three. arXiv reads the 7th of 999 and is steady | Derive the resample count from the field, or report topic level as unresolved and place at subfield, where 999 draws read the 3rd. **Blocking**: the instrument's jitter is 0.054 bits and the effects being tested are 0.03 to 0.04 |
 
@@ -63,22 +179,32 @@ That is independent confirmation of [D10](#the-defects-and-what-fixes-each), rea
 
 **Annif's design point** is a harness over many weak indexers with an ensemble on top, evaluated against a gold set — which is the opposite of the single-arm condensation this plan is doing, and worth knowing before the condensation is called finished.
 
-## What the reading cannot currently be argued with
+## The reading is now arguable from the files it publishes
 
-`evidence.json` exists to hold the workings, and it holds the workings of the **path being deleted**. Its `matches` list is 268 term matches with their rung, specificity and outcome; the divergence path — the one that actually places — contributes `filesRead`, `scopes` and `edges`, and **nothing about which word voted for what, or what was dropped and by which rule**.
+**Landed, at evidence schema 4.0.** `evidence.json` carries a `workings` section for the divergence path — the one that places — beside the `matches` that document the term path. The reading is unchanged by it: every figure the `subjectWitnesses` probe prints for a held-out clone is identical before and after.
 
-Every finding in this plan was reached by writing a probe and reading a console. That is the defect: a reader who disagrees with a placement cannot check it from the files the reading publishes.
+| Key | What it holds | Rows on this tree |
+|---|---|--:|
+| `rules` | every rule that can remove a topic, with the topics and the readings it removed | 2 |
+| `words` | each word offered, its occurrences, first site, sense coverage and specificity, and what the resources state about it read as a head word, in a sentence and as a verb, with the shares those came to | 2,299 |
+| `removed` | one row per rule and topic, with a handful of the phrases | 201 |
+| `unread` | every run nothing placed, kept as a run | 391 |
 
-**What the evidence has to carry**, and it is not a debug mode — it is the file's stated job:
+**Three of the defects below are now readable off the file rather than off a console.**
 
-| | |
+| Defect | What the file states |
 |---|---|
-| Per word | every vote the resources cast, what each was worth, the sense coverage behind it, and the specificity that scaled it |
-| Per phrase | which words agreed on which topic, and the credence that came out |
-| **Per drop** | a topic a phrase would have voted for and did not, **naming the rule that removed it** — the pass-2 gate above all, since that is the rule this session found by inspection rather than from any file |
-| Per abstention | a run nothing read, kept as a run rather than a count. `setAside` currently states six integers and no names |
+| [D13](A_VOTE_NOT_A_GATE.md) | `THE_FILE_READ_NOTHING_OF_IT` removed **511 readings over 201 topics**; `EVERY_AGREEING_WORD_WEIGHED_ZERO` removed **none**. The gate is real and it is narrower than the plan supposed — see below |
+| [D11](#the-defects-and-what-fixes-each) | `topic` at 983 occurrences, `concept` at 641 and `source` at 450 are this repository's three commonest words and **no resource states any subject for any of them**. They are the top of the `unread` list |
+| [D5](#the-defects-and-what-fixes-each) | `read` carries `publishing` at a share of **0.92** and `file` carries `telecommunication` at **0.90**, stated per word with the sense coverage behind each |
 
-The measurement that justifies it is already stated by the defects: [D13](A_VOTE_NOT_A_GATE.md) is a rule that deletes topics silently, and it could only be found by reading source. A second such rule would be found the same way, which is the argument for the section rather than a number.
+### D13's gate is narrower than the plan supposed, and the file says why
+
+The gate can only remove a topic the file's **first** pass never reached. Pass 1 runs with an empty prior, so every topic any phrase votes for lands in the file's distribution with some mass, however small — `TopicDistribution.of` thresholds nothing. A topic the gate removes must therefore be one **pass 2 introduced**, and pass 2 differs from pass 1 in exactly one way: a word the file declared is read as the noun it declared rather than by the corpus's own counts.
+
+So the worked case in [the fix's own plan](A_VOTE_NOT_A_GATE.md) is wrong in its mechanism. `cryptography` at 0.04 of `signature` is not deleted by the gate — it is in the prior at 0.04 and quietened to near nothing. What the gate deletes is the 511 readings the declared-noun rule brought in.
+
+**That does not refute the fix and it changes what settles it.** `1 + prior.shareOf(topic)` still turns a multiplication by zero into a multiplication by one, and it still turns quietening into promotion for everything else — which is the larger of the two effects and the one the measurement has to isolate. The 511 is the size of the part the plan named.
 
 ## What D9's fix is judged on, written before it ran
 

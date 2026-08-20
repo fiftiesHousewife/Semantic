@@ -27,23 +27,28 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermMatches;
  * fell below every threshold, and this states which words those were and, for the second, which reference
  * refused each and by how much.
  *
+ * <p>{@code workings} is the same for the path that places: every word the reading offered with what the
+ * resources state about it, every topic a rule removed with the rule that removed it, and every run nothing
+ * read kept as a run. {@code matches} and {@code setAside} document the term-matching path, which does not
+ * place.
+ *
  * <p>{@code elapsedMillis} is a fact about the machine rather than the repository, so it sits here: two runs
  * of one unchanged tree differ on it and on nothing a reading reports.
  */
 record ReadingEvidence(String schemaVersion, String repository, int files, int lines, int topics,
                        double unplaced, long elapsedMillis, String linkage, List<ThemeGraph.Edge> edges,
                        List<ThemeGraph.Scope> scopes, List<ThemeGraph.File> filesRead,
-                       List<TermMatch> matches, EvidenceSetAside setAside) {
+                       List<TermMatch> matches, EvidenceSetAside setAside, EvidenceWorkings workings) {
 
     /** Rises when a key here is added, renamed or removed. No schema checks it. */
-    static final String VERSION = "3.0";
+    static final String VERSION = "4.0";
 
     /** The theme workings with every bundled taxonomy's matching and what the reading set aside beside them. */
     static ReadingEvidence of(final ThemeGraph graph, final List<TermMatch> matches,
-                              final EvidenceSetAside setAside) {
+                              final EvidenceSetAside setAside, final EvidenceWorkings workings) {
         return new ReadingEvidence(VERSION, graph.repository(), graph.files(), graph.lines(), graph.topics(),
                 graph.unplaced(), graph.elapsedMillis(), graph.linkage(), graph.edges(), graph.scopes(),
-                graph.filesRead(), matches, setAside);
+                graph.filesRead(), matches, setAside, workings);
     }
 
     /**

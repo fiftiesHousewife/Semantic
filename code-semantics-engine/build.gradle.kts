@@ -295,6 +295,26 @@ tasks.register<Test>("evaluationFetch") {
     evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
+// The same backtest in one JVM, several members at a time. One JVM is most of the saving: a bundled subject
+// scheme is read into distributions once and shared, where nine forks read OpenAlex's 4,516 descriptions nine
+// times. How many run at once follows from this JVM's heap divided by the three gigabytes the per-member fork
+// above is given, so it is derived from what the build already states rather than chosen.
+//   ./gradlew evaluationReadAll -Dcs.evaluation.dir=<directory holding the clones>
+tasks.register<JavaExec>("evaluationReadAll") {
+    group = "verification"
+    description = "Reads every cloned evaluation-set member in one JVM, several at a time"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationReadCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "12g"
+    systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
+    evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
+    doFirst {
+        if (evaluationDirectory == null) {
+            throw GradleException("evaluationReadAll needs -Dcs.evaluation.dir=<directory holding the clones>.")
+        }
+    }
+}
+
 tasks.register("evaluationRead") {
     group = "verification"
     description = "Reads every cloned evaluation set member, one folder per member under output/"

@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,9 +76,11 @@ public final class PhraseTopics {
      * who has seen the file. The file is the context a single word does not carry, and it costs nothing —
      * the first pass over the file has already computed it.
      *
-     * <p>It is a vote and not a gate. A topic the file barely holds is quietened rather than removed, and a
-     * topic the file has never read at all is not in the prior and so cannot be conditioned on: an empty
-     * prior leaves the reading exactly as it was, which is what makes the first pass safe.
+     * <p>It is a vote and not a gate. The factor is {@code 1 + the file's share of the topic}, so it lies in
+     * {@code [1, 2]} by the definition of a share and nothing here chooses a bound: a topic the file is a
+     * third about is worth a third more, a topic it barely holds is worth barely more, and a topic the first
+     * pass never reached is worth exactly what the phrase read it as. An empty prior leaves the reading as
+     * it was, which is what makes the first pass safe.
      *
      * <p>The file's own declared names come with it, and they settle a part of speech no tagger is needed
      * for. A sentence is not a noun phrase, so a word in prose is read by the corpus's own counts — but a
@@ -94,13 +97,21 @@ public final class PhraseTopics {
         return new PhraseTopics(citations, commitment, coverage, fileReading, declaredHere, layoutWord);
     }
 
-    /** One phrase's reading: the subjects it is about, which words agreed, and how much was spoken for. */
+    /**
+     * One phrase's reading: the subjects it is about, which words agreed, how much was spoken for, and the
+     * subjects its words voted for that a rule then removed.
+     *
+     * <p>{@code refused} is the half a reader cannot reconstruct from the rest. A topic absent from
+     * {@code shareByTopic} was either never voted for or was voted for and taken out, and only the reading
+     * itself knows which.
+     */
     public record Reading(Map<String, Double> shareByTopic, Map<String, Set<String>> agreementByTopic,
-                          double credence) {
+                          double credence, List<RefusedTopic> refused) {
 
         public Reading {
             shareByTopic = Map.copyOf(shareByTopic);
             agreementByTopic = Map.copyOf(agreementByTopic);
+            refused = List.copyOf(refused);
         }
 
         public boolean isEmpty() {
@@ -119,7 +130,7 @@ public final class PhraseTopics {
         }
     }
 
-    private static final Reading NOTHING = new Reading(Map.of(), Map.of(), 0.0);
+    private static final Reading NOTHING = new Reading(Map.of(), Map.of(), 0.0, List.of());
 
     /**
      * What the phrase is about, as a distribution summing to one over the subjects its words agree on.
@@ -177,26 +188,33 @@ public final class PhraseTopics {
                         word -> commitment.of(cite.apply(word))));
         final Map<String, Double> scores = new HashMap<>();
         final Map<String, Set<String>> agreement = new HashMap<>();
+        final List<RefusedTopic> refused = new ArrayList<>();
+        final long inPhrase = words.stream().distinct().count();
         topicsIn(commitments).forEach(topic -> {
             final Set<String> agreeing = words.stream().distinct()
                     .filter(word -> commitments.get(word).containsKey(topic))
                     .collect(Collectors.toUnmodifiableSet());
-            final double score = agreed(agreeing, topic, commitments, weightByWord)
-                    * agreeing.size() / words.stream().distinct().count()
-                    * expectedIn(topic);
-            if (score > 0.0) {
-                scores.put(topic, score);
+            final TopicScore score = new TopicScore(agreed(agreeing, topic, commitments, weightByWord),
+                    agreeing.size(), inPhrase, expectedIn(topic));
+            if (score.stands()) {
+                scores.put(topic, score.value());
                 agreement.put(topic, agreeing);
+                return;
             }
+            score.refusals().forEach(rule -> refused.add(new RefusedTopic(topic, rule)));
         });
-        return scores.isEmpty() ? NOTHING
+        return scores.isEmpty() ? new Reading(Map.of(), Map.of(), 0.0, refused)
                 : new Reading(normalised(scores), agreement, credenceOf(agreement.values().stream()
-                        .flatMap(Set::stream).collect(Collectors.toUnmodifiableSet())));
+                        .flatMap(Set::stream).collect(Collectors.toUnmodifiableSet())), refused);
     }
 
-    /** How much the file this phrase sits in is already about the topic, and one where nothing says. */
+    /**
+     * How much the file this phrase sits in is already about the topic, as a factor bounded in
+     * {@code [1, 2]} by what a share is. Context promotes and never removes: a topic the file holds a third
+     * of is worth a third more, and a topic the file has not reached is left exactly as the phrase read it.
+     */
     private double expectedIn(final String topic) {
-        return prior.isEmpty() ? 1.0 : prior.shareOf(topic);
+        return prior.isEmpty() ? 1.0 : 1.0 + prior.shareOf(topic);
     }
 
     /**

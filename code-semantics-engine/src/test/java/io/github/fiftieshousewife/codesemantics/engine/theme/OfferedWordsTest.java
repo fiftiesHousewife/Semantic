@@ -19,7 +19,7 @@ class OfferedWordsTest {
 
     private static final String SITE = "engine/src/main/java/Reading.java";
 
-    private final TopicWitnesses witnesses = new TopicWitnesses();
+    private final Workings workings = Workings.newInstance();
 
     private final SenseDomains senses = word -> switch (word) {
         case "word" -> List.of(Set.of("linguistics"));
@@ -30,8 +30,7 @@ class OfferedWordsTest {
     private final TopicTally tally = new TopicTally(
             new IdentifierWords(WordSegmenter.fromClasspath()), noPublishedRuns(),
             OfferedWords.fromClasspath(),
-            new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), witnesses,
-            new WordSightings());
+            new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), workings);
 
     /** A fixture says what it means: a run read as one word is not what these tests are about. */
     private static CollocatedWords noPublishedRuns() {

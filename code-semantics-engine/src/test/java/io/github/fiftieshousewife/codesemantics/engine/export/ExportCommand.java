@@ -38,7 +38,11 @@ public final class ExportCommand {
 
     /** Reads the clone under reading — shared with any reading already taken in this JVM — and writes the export. */
     static Path wrote(final String commit) throws IOException {
-        final TreeReading reading = TreeReading.ofTheCloneUnderReading();
+        return wrote(TreeReading.ofTheCloneUnderReading(), commit);
+    }
+
+    /** The same for a tree the caller names, which is what lets one JVM write the export for several. */
+    public static Path wrote(final TreeReading reading, final String commit) throws IOException {
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();

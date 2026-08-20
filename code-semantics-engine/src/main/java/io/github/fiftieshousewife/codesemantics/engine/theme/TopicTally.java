@@ -39,8 +39,7 @@ public final class TopicTally {
     private final CollocatedWords collocated;
     private final OfferedWords offered;
     private final PhraseTopics phrases;
-    private final TopicWitnesses witnesses;
-    private final WordSightings sightings;
+    private final Workings workings;
 
     private final Map<String, Double> massByTopic = new HashMap<>();
     private final Map<String, Double> nameMassByTopic = new HashMap<>();
@@ -51,14 +50,12 @@ public final class TopicTally {
     private int phraseOccurrences;
 
     public TopicTally(final IdentifierWords words, final CollocatedWords collocated,
-                      final OfferedWords offered, final PhraseTopics phrases,
-                      final TopicWitnesses witnesses, final WordSightings sightings) {
+                      final OfferedWords offered, final PhraseTopics phrases, final Workings workings) {
         this.words = words;
         this.collocated = collocated;
         this.offered = offered;
         this.phrases = phrases;
-        this.witnesses = witnesses;
-        this.sightings = sightings;
+        this.workings = workings;
     }
 
     public void add(final String site, final NameOccurrence occurrence) {
@@ -91,18 +88,22 @@ public final class TopicTally {
      */
     private void read(final List<String> phrase, final NameForm form, final String site,
                       final double weight) {
+        final String run = String.join(" ", phrase);
         final List<String> lemmas = phrase.stream()
                 .map(word -> offered.of(form, word))
                 .flatMap(Optional::stream)
                 .toList();
         if (lemmas.isEmpty()) {
+            workings.unread().record(UnreadReason.NO_WORD_REACHED_A_RESOURCE, run, site);
             return;
         }
         phraseOccurrences++;
-        lemmas.forEach(lemma -> sightings.saw(lemma, site, form.isChosenName()));
+        lemmas.forEach(lemma -> workings.sightings().saw(lemma, site, form.isChosenName()));
         final double worth = offered.formWorth(form) * weight;
         final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas), form);
+        refused(reading, run, site);
         if (reading.isEmpty()) {
+            workings.unread().record(UnreadReason.NO_RESOURCE_STATED_A_TOPIC, run, site);
             unreadableOccurrences++;
             unplacedMass += worth;
             return;
@@ -116,7 +117,7 @@ public final class TopicTally {
             if (form.isChosenName()) {
                 nameMassByTopic.merge(topic, said, Double::sum);
             }
-            witness(topic, said, reading.agreementByTopic().get(topic), String.join(" ", phrase), site);
+            witness(topic, said, reading.agreementByTopic().get(topic), run, site);
         });
     }
 
@@ -126,8 +127,18 @@ public final class TopicTally {
      */
     private void witness(final String topic, final double said, final Set<String> agreeing,
                          final String phrase, final String site) {
-        agreeing.forEach(word -> witnesses.record(topic, word, phrase, site, EvidenceSource.TOPICAL_DOMAIN,
-                said / agreeing.size()));
+        agreeing.forEach(word -> workings.witnesses().record(topic, word, phrase, site,
+                EvidenceSource.TOPICAL_DOMAIN, said / agreeing.size()));
+    }
+
+    /**
+     * A topic this phrase's words voted for and a rule removed, recorded against the rule that removed it.
+     * Kept for the same reason the witnesses are: a reading stating only what it admitted cannot be asked
+     * why a subject the words plainly name is absent from it.
+     */
+    private void refused(final PhraseTopics.Reading reading, final String phrase, final String site) {
+        reading.refused().forEach(refused ->
+                workings.refused().record(refused.rule(), refused.topic(), phrase, site));
     }
 
 

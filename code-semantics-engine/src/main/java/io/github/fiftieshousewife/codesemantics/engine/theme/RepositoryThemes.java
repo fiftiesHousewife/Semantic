@@ -11,6 +11,9 @@ import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
  * A whole working tree's topical reading: what each scope is about, how each differs from the repository as
  * a whole, what the topics rank as, which file leads on what, and the witnesses behind all of it.
  *
+ * <p>{@link Workings} carries the account of how it got there — the witnesses, the words offered, the topics
+ * a rule removed and the runs nothing placed.
+ *
  * <p>{@code dominantByFile} omits a file rather than mapping it to nothing: a file whose words carried too
  * little topical mass has no dominant topic, and an absent key says exactly that where a sentinel value
  * would have to be interpreted.
@@ -18,8 +21,7 @@ import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 public record RepositoryThemes(List<ScopeThemes> scopes, ScopeThemes repository,
                                List<ScopeDivergence> divergences, List<TopicRanking> rankings,
                                List<FileTopics> files, Map<String, ValueShare<String>> dominantByFile,
-                               TopicWitnesses witnesses, WordSightings sightings,
-                               List<ForeignWords.ForeignWord> foreignWords,
+                               Workings workings, List<ForeignWords.ForeignWord> foreignWords,
                                Duration elapsed) {
 
     public RepositoryThemes {
@@ -30,9 +32,18 @@ public record RepositoryThemes(List<ScopeThemes> scopes, ScopeThemes repository,
         dominantByFile = Map.copyOf(dominantByFile);
         foreignWords = List.copyOf(foreignWords);
         Objects.requireNonNull(repository, "repository");
-        Objects.requireNonNull(sightings, "sightings");
-        Objects.requireNonNull(witnesses, "witnesses");
+        Objects.requireNonNull(workings, "workings");
         Objects.requireNonNull(elapsed, "elapsed");
+    }
+
+    /** The words that carried each topic, with the phrases they were read in. */
+    public TopicWitnesses witnesses() {
+        return workings.witnesses();
+    }
+
+    /** Every word the reading offered to the resources, with how often each was written. */
+    public WordSightings sightings() {
+        return workings.sightings();
     }
 
     public int lines() {

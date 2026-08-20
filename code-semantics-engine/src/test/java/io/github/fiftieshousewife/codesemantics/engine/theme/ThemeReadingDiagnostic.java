@@ -5,13 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatch;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermOutcome;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -36,9 +33,6 @@ class ThemeReadingDiagnostic {
 
     private static final String EVIDENCE = "evidence.json";
 
-    private static final int TOPICS_GRAPHED = 18;
-    private static final int WITNESSES_HELD = 8;
-
     @Test
     void readsThisRepositorysThemesAndWritesTheWorkingsBehindThem() throws IOException {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
@@ -46,7 +40,7 @@ class ThemeReadingDiagnostic {
         final RepositoryThemes themes = reading.themes();
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
-        write(reports, reading, themes, root);
+        EvidenceCommand.wrote(reading);
 
         assertAll(
                 () -> assertThat(themes.rankings()).as("a repository of names reads as some subject").isNotEmpty(),
@@ -59,7 +53,8 @@ class ThemeReadingDiagnostic {
                         assertThat(divergence.bits()).isBetween(0.0, 1.0)),
                 () -> assertThat(Files.readString(reports.file(EVIDENCE)))
                         .as("the workings state the path to the answers, and not the answers themselves")
-                        .contains("\"scopes\"", "\"schemaVersion\"", "\"matches\"", "\"setAside\"")
+                        .contains("\"scopes\"", "\"schemaVersion\"", "\"matches\"", "\"setAside\"",
+                                "\"workings\"", "\"removed\"", "\"unread\"")
                         .as("the drawing's own node list is an answer and stays out — the key, because the "
                                 + "repository writes the word and the set-aside lists quote it")
                         .doesNotContain("\"nodes\" :"),
@@ -69,25 +64,9 @@ class ThemeReadingDiagnostic {
                         .anyMatch(match -> match.outcome() == TermOutcome.REFUSED_BY_BRANCH_RULE));
     }
 
-    private void write(final ReportFolder reports, final TreeReading reading, final RepositoryThemes themes,
-                       final Path root) throws IOException {
-        final ThemeGraph graph = ThemeGraph.of(root.getFileName().toString(), themes, TOPICS_GRAPHED,
-                WITNESSES_HELD, new SourceLinks(root));
-        new ObjectMapper().writerWithDefaultPrettyPrinter()
-                .writeValue(reports.file(EVIDENCE).toFile(),
-                        ReadingEvidence.of(graph, matching(reading), setAside(reading)));
-    }
-
     /** Every bundled taxonomy's matching, over the readings this JVM has already taken where it has. */
     private static List<TermMatch> matching(final TreeReading reading) {
         return ReadingEvidence.matching(reading::terms);
     }
 
-    /** The words behind two of the counts the export states, at the bars this run's own null drew. */
-    private static EvidenceSetAside setAside(final TreeReading reading) {
-        return EvidenceSetAside.of(reading.legibility(),
-                ChosenWords.againstEnglishAndThePlatform()
-                        .in(new PublishedNames().published(reading.legibility())),
-                reading.namesChance());
-    }
 }

@@ -69,12 +69,11 @@ public final class ThemeReading {
 
     public RepositoryThemes of(final ParsedRepository parsed) {
         final long startedAt = System.nanoTime();
-        final TopicWitnesses witnesses = new TopicWitnesses();
-        final WordSightings sightings = new WordSightings();
+        final Workings workings = Workings.newInstance();
         final Map<String, List<FileTopics>> byScope = new LinkedHashMap<>();
         final List<FileTopics> everyFile = new ArrayList<>();
         parsed.files().forEach(file -> {
-            final FileTopics read = read(file, witnesses, sightings);
+            final FileTopics read = read(file, workings);
             byScope.computeIfAbsent(file.scope(), scope -> new ArrayList<>()).add(read);
             everyFile.add(read);
         });
@@ -89,10 +88,10 @@ public final class ThemeReading {
                         .map(scope -> divergenceOf(scope.getKey(), scope.getValue(), byScope.size(), pool,
                                 repository.comparison()))
                         .toList(),
-                new TopicRankings(everyFile, dominant, witnesses).of(repository.intensity()),
-                everyFile, dominant, witnesses, sightings,
+                new TopicRankings(everyFile, dominant, workings.witnesses()).of(repository.intensity()),
+                everyFile, dominant, workings,
                 new ForeignWords(citations, divergence, LEAST_SIGHTINGS)
-                        .in(sightings, repository.comparison(), FOREIGN_WORDS_HELD),
+                        .in(workings.sightings(), repository.comparison(), FOREIGN_WORDS_HELD),
                 Duration.ofNanos(System.nanoTime() - startedAt));
     }
 
@@ -102,14 +101,12 @@ public final class ThemeReading {
      * has. Only the second pass records witnesses and sightings, so the evidence a reader is shown is the
      * evidence the reading actually used.
      */
-    private FileTopics read(final ParsedFile file, final TopicWitnesses witnesses,
-                            final WordSightings sightings) {
+    private FileTopics read(final ParsedFile file, final Workings workings) {
         final String layout = PublishedSourceSets.sourceSetOf(file.scope());
         final FileTopics alone = tallied(file,
                 phrases.under(TopicDistribution.NOTHING, java.util.Set.of(), layout),
-                new TopicWitnesses(), new WordSightings());
-        return tallied(file, phrases.under(alone.distribution(), declaredIn(file), layout),
-                witnesses, sightings);
+                Workings.newInstance());
+        return tallied(file, phrases.under(alone.distribution(), declaredIn(file), layout), workings);
     }
 
     /**
@@ -140,8 +137,8 @@ public final class ThemeReading {
     }
 
     private FileTopics tallied(final ParsedFile file, final PhraseTopics reading,
-                               final TopicWitnesses witnesses, final WordSightings sightings) {
-        final TopicTally tally = new TopicTally(words, collocated, offered, reading, witnesses, sightings);
+                               final Workings workings) {
+        final TopicTally tally = new TopicTally(words, collocated, offered, reading, workings);
         file.occurrences().forEach(occurrence -> tally.add(file.path(), occurrence));
         return tally.reading(file.path(), file.lines());
     }

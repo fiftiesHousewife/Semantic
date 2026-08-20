@@ -68,6 +68,14 @@ public final class TreeReading {
         return READINGS.computeIfAbsent(root, RepositoryReading::of);
     }
 
+    /**
+     * The tree at a named path, for a runner reading several in one JVM. The memos above are keyed on the
+     * root, so two trees read at once share every bundled resource and share nothing about each other.
+     */
+    public static TreeReading of(final Path root) {
+        return new TreeReading(root.toAbsolutePath().normalize());
+    }
+
     /** The tree {@code -Dcs.clone.dir} names, or the one the test is running inside where it does not. */
     public static TreeReading ofTheCloneUnderReading() {
         return new TreeReading(new CloneUnderReading().root());

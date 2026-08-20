@@ -15,6 +15,7 @@ import io.github.fiftieshousewife.codesemantics.name.WordSegmenter;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.assertj.core.data.Offset.offset;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -22,7 +23,7 @@ class TopicTallyTest {
 
     private static final String SITE = "engine/src/main/java/Reading.java";
 
-    private final TopicWitnesses witnesses = new TopicWitnesses();
+    private final Workings workings = Workings.newInstance();
 
     /** word → senses, so the fixture states exactly what each word is claimed to be about. */
     private final SenseDomains senses = word -> switch (word) {
@@ -35,15 +36,14 @@ class TopicTallyTest {
     /** A fixture says what it means: no resource publishes a run, unless a test says one does. */
     private static final PublishedPhrases NOTHING_PUBLISHED = new PublishedPhrases(Set.of());
 
-    private final TopicTally tally = tallyOver(NOTHING_PUBLISHED, witnesses);
+    private final TopicTally tally = tallyOver(NOTHING_PUBLISHED, workings);
 
-    private TopicTally tallyOver(final PublishedPhrases published, final TopicWitnesses into) {
+    private TopicTally tallyOver(final PublishedPhrases published, final Workings into) {
         return new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
                 new CollocatedWords(published, ContentWords.fromClasspath()),
                 new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(), published,
                         Weights.defaults()),
-                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), into,
-                new WordSightings());
+                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), into);
     }
 
     private TopicCitations citations() {
@@ -83,11 +83,51 @@ class TopicTallyTest {
     }
 
     @Test
+    void keepsARunNoResourceStatedATopicForAsARunRatherThanACount() {
+        add("gradle", 7);
+
+        assertThat(workings.unread().all())
+                .as("a name the resources say nothing about is what a reader has to see to act on it")
+                .extracting(UnreadPhrases.UnreadPhrase::phrase, UnreadPhrases.UnreadPhrase::reason)
+                .contains(tuple("gradle", UnreadReason.NO_RESOURCE_STATED_A_TOPIC));
+    }
+
+    @Test
+    void keepsARunNoWordOfWhichReachedAResourceApartFromOneNothingSpokeFor() {
+        add("id", 3);
+
+        assertThat(workings.unread().all())
+                .extracting(UnreadPhrases.UnreadPhrase::phrase, UnreadPhrases.UnreadPhrase::reason)
+                .containsExactly(tuple("id", UnreadReason.NO_WORD_REACHED_A_RESOURCE));
+    }
+
+    @Test
+    void promotesTheTopicTheFileIsAboutAndRemovesNoneOfTheOthers() {
+        final Workings conditioned = Workings.newInstance();
+        final TopicTally second = new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
+                new CollocatedWords(NOTHING_PUBLISHED, ContentWords.fromClasspath()),
+                new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
+                        NOTHING_PUBLISHED, Weights.defaults()),
+                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered())
+                        .under(TopicDistribution.of(Map.of("computing", 1.0), 0.0), Set.of(), ""),
+                conditioned);
+        second.add(SITE, new NameOccurrence("cursor", NameForm.FIELD, 4));
+        final Map<String, Double> mass = second.reading(SITE, 40).massByTopic();
+
+        assertAll(
+                () -> assertThat(conditioned.refused().all())
+                        .as("a topic the file has not read is worth what the phrase read it as, not nothing")
+                        .isEmpty(),
+                () -> assertThat(mass).containsOnlyKeys("computing", "typography"),
+                () -> assertThat(mass.get("computing")).isGreaterThan(mass.get("typography")));
+    }
+
+    @Test
     void weighsAWordByWhatTheRestOfItsPhraseAgreesWith() {
         add("word", 3);
         final double alone = tally.reading(SITE, 40).massByTopic().get("linguistics");
 
-        final TopicTally amongStrangers = tallyOver(NOTHING_PUBLISHED, new TopicWitnesses());
+        final TopicTally amongStrangers = tallyOver(NOTHING_PUBLISHED, Workings.newInstance());
         amongStrangers.add(SITE, new NameOccurrence("wordCursor", NameForm.FIELD, 4));
 
         assertThat(amongStrangers.reading(SITE, 40).massByTopic().get("linguistics"))
@@ -98,7 +138,7 @@ class TopicTallyTest {
     @Test
     void readsARunAResourcePublishesAsOneWordRatherThanAsItsWordsApart() {
         final TopicTally asATerm = tallyOver(new PublishedPhrases(Set.of("word_cursor")),
-                new TopicWitnesses());
+                Workings.newInstance());
         asATerm.add(SITE, new NameOccurrence("wordCursor", NameForm.FIELD, 4));
 
         assertAll(
@@ -158,7 +198,7 @@ class TopicTallyTest {
     void recordsTheWordAndTheSiteBehindEveryTopicItRead() {
         add("word", 7);
 
-        assertThat(witnesses.forTopic("linguistics", 3))
+        assertThat(workings.witnesses().forTopic("linguistics", 3))
                 .singleElement()
                 .satisfies(witness -> assertAll(
                         () -> assertThat(witness.word()).isEqualTo("word"),

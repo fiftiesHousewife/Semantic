@@ -148,6 +148,22 @@ public final class TopicWitnesses {
                 .count() <= 1;
     }
 
+    /**
+     * How much each word carried in total, over every topic it witnessed.
+     *
+     * <p>It is not the number of times the word was seen and the two disagree by design. A sighting is
+     * counted once per occurrence; what an occurrence is <em>worth</em> is settled afterwards — prose
+     * standing in a hundred files is worth a hundredth of a sighting each, and a word a rule removed from
+     * its phrase is worth nothing at all. A reader shown only the count reads a licence header as the
+     * repository's largest subject.
+     */
+    public Map<String, Double> carriedByWord() {
+        return witnessesByTopic.values().stream()
+                .flatMap(byWord -> byWord.values().stream())
+                .collect(Collectors.groupingBy(Witness::word,
+                        Collectors.summingDouble(Witness::mass)));
+    }
+
     /** How much mass each word carried into the topic — what the witnesses are ordered by. */
     public Map<String, Double> massByWord(final String topic) {
         return witnessesByTopic.getOrDefault(topic, Map.of()).values().stream()

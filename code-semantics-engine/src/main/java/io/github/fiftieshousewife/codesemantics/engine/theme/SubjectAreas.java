@@ -119,8 +119,8 @@ public final class SubjectAreas {
 
     /** Any prose read the way a subject's description is, which is what lets a null be drawn the same way. */
     public FileTopics topicsIn(final String concept, final String description) {
-        final TopicTally tally = new TopicTally(words, collocated, offered, phrases, new TopicWitnesses(),
-                new WordSightings());
+        final TopicTally tally = new TopicTally(words, collocated, offered, phrases,
+                Workings.newInstance());
         tally.add(concept, new NameOccurrence(description, NameForm.DOCUMENTATION, FIRST_LINE));
         return tally.reading(concept, FIRST_LINE);
     }
