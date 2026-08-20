@@ -33,11 +33,19 @@ public final class OpenAlexConcepts {
     private static final String NO_BROADER = "";
 
     public List<SkosConcept> in(final List<String> records) {
-        final Map<String, OpenAlexTopic> byConcept = new LinkedHashMap<>();
-        records.stream().map(OpenAlexTopic::of).forEach(topic -> byConcept.put(topic.concept(), topic));
-        final List<OpenAlexTopic> topics = List.copyOf(byConcept.values());
+        final List<OpenAlexTopic> topics = topicsIn(records);
         return Stream.concat(placements(topics).stream(), topics.stream().map(OpenAlexConcepts::topic))
                 .toList();
+    }
+
+    /**
+     * The topics themselves, which is what a reading of the counts needs and the SKOS shape cannot carry.
+     * The de-duplication is here rather than in each caller so that both files state the same topics.
+     */
+    public List<OpenAlexTopic> topicsIn(final List<String> records) {
+        final Map<String, OpenAlexTopic> byConcept = new LinkedHashMap<>();
+        records.stream().map(OpenAlexTopic::of).forEach(topic -> byConcept.put(topic.concept(), topic));
+        return List.copyOf(byConcept.values());
     }
 
     /** One row per level the topics are stated in, in the order they were first stated. */

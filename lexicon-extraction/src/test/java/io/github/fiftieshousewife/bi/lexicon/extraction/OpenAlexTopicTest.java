@@ -20,7 +20,8 @@ class OpenAlexTopicTest {
              "subfield":{"id":"https://openalex.org/subfields/1705",
                          "display_name":"Computer Networks and Communications"},
              "field":{"id":"https://openalex.org/fields/17","display_name":"Computer Science"},
-             "domain":{"id":"https://openalex.org/domains/3","display_name":"Physical Sciences"}}
+             "domain":{"id":"https://openalex.org/domains/3","display_name":"Physical Sciences"},
+             "works_count":28830,"cited_by_count":528321}
             """;
 
     private final OpenAlexTopic topic = OpenAlexTopic.of(RECORD);
@@ -50,6 +51,29 @@ class OpenAlexTopicTest {
     void carriesTheArticleThePublisherLinksTheTopicTo() {
         assertThat(topic.wikipedia())
                 .isEqualTo("https://en.wikipedia.org/wiki/Synchronization_of_coupled_oscillators");
+    }
+
+    @Test
+    void refusesAnArticleLinkTheUriGrammarCannotReadAsOne() {
+        assertThat(OpenAlexTopic.of(RECORD.replace(
+                "https://en.wikipedia.org/wiki/Synchronization_of_coupled_oscillators", "NaN")).wikipedia())
+                .isEmpty();
+    }
+
+    @Test
+    void carriesTheCountsThePublisherSizesTheTopicBy() {
+        assertAll(
+                () -> assertThat(topic.worksCount()).isEqualTo(28830L),
+                () -> assertThat(topic.citedByCount()).isEqualTo(528321L));
+    }
+
+    @Test
+    void countsNothingWhereThePublisherStatesNoCount() {
+        assertAll(
+                () -> assertThat(OpenAlexTopic.of(RECORD.replace("\"works_count\":28830,", "")).worksCount())
+                        .isZero(),
+                () -> assertThat(OpenAlexTopic.of(RECORD.replace(",\"cited_by_count\":528321", ""))
+                        .citedByCount()).isZero());
     }
 
     @Test

@@ -26,6 +26,7 @@ The library's own dependencies are declared in `gradle/libs.versions.toml`, with
 | `lexicon/src/main/resources/bian-service-domains.tsv` | 319 | the BIAN Service Landscape, one specification file per service domain, at a pinned commit | Apache-2.0 (BIAN), stated in the publisher's own `LICENSE` |
 | `lexicon/src/main/resources/media-types.tsv` | 2,344 | the IANA media type registry, read from the ten per-registry CSVs IANA publishes, the file set pinned by digest | CC0 1.0 — IANA's licensing terms state the protocol registries "may be freely used by any party for any purpose" |
 | `lexicon/src/main/resources/openalex-topics.tsv` | 4,798 | OpenAlex's topics snapshot, the manifest and the six gzipped JSONL parts it names, the download pinned by digest | CC0 1.0 — OpenAlex places its data in the public domain and asks to be cited rather than requiring it |
+| `lexicon/src/main/resources/openalex-topic-sizes.tsv` | 4,516 | The same snapshot, same pass, same digest: the works and citations OpenAlex counts under each topic | CC0 1.0 — as above |
 
 ## WordNet, and a gap stated rather than papered over
 

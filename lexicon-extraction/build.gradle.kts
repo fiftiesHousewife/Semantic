@@ -227,6 +227,8 @@ tasks.register<JavaExec>("extractOpenAlexTopics") {
     args = listOf(
         (findProperty("openalex") as String?).orEmpty(),
         rootProject.layout.projectDirectory
-            .file("lexicon/src/main/resources/openalex-topics.tsv").asFile.absolutePath
+            .file("lexicon/src/main/resources/openalex-topics.tsv").asFile.absolutePath,
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/openalex-topic-sizes.tsv").asFile.absolutePath
     )
 }

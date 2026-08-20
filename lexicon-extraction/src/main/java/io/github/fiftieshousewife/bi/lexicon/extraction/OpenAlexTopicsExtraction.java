@@ -10,7 +10,12 @@ import java.util.stream.Stream;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 /**
- * Reads an OpenAlex topics snapshot into the bundled TSV.
+ * Reads an OpenAlex topics snapshot into the two TSVs the lexicon bundles: the taxonomy, and the counts
+ * OpenAlex sizes each topic by.
+ *
+ * <p>One pass writes both, from one snapshot, under one digest. A count cannot go in the taxonomy file —
+ * its eight columns are SKOS's own text properties and SKOS states no property for the size of a concept's
+ * corpus — and two files written by two runs could pin two snapshots, so they are written together.
  *
  * <p>OpenAlex states no revision for a snapshot beyond the day it was taken, so the download itself is the
  * citation: the manifest and the parts it names are accepted only if together they digest to the value
@@ -38,6 +43,8 @@ public final class OpenAlexTopicsExtraction {
 
     private final OpenAlexTopicsTsv tsv = new OpenAlexTopicsTsv();
 
+    private final OpenAlexTopicSizesTsv sizes = new OpenAlexTopicSizesTsv();
+
     private final ContentDigest digest = new ContentDigest();
 
     private final String setDigest;
@@ -52,20 +59,29 @@ public final class OpenAlexTopicsExtraction {
     }
 
     public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: OpenAlexTopicsExtraction <snapshot directory> <tsv>");
+        if (args.length < 3) {
+            throw new IllegalArgumentException(
+                    "Usage: OpenAlexTopicsExtraction <snapshot directory> <taxonomy tsv> <sizes tsv>");
         }
-        new OpenAlexTopicsExtraction().extract(Path.of(args[0]), Path.of(args[1]));
+        new OpenAlexTopicsExtraction().extract(Path.of(args[0]), Path.of(args[1]), Path.of(args[2]));
     }
 
-    public void extract(final Path directory, final Path output) throws IOException {
+    public void extract(final Path directory, final Path taxonomyOutput, final Path sizesOutput)
+            throws IOException {
         final byte[] stated = Files.readAllBytes(manifestIn(directory));
         final OpenAlexManifest manifest = OpenAlexManifest.of(stated);
         final List<ContentDigest.Member> parts = snapshot.in(directory, manifest);
         pinned(Stream.concat(Stream.of(new ContentDigest.Member(MANIFEST, stated)), parts.stream()).toList());
-        final List<SkosConcept> read = concepts.in(recordsIn(parts));
+        final List<String> records = recordsIn(parts);
+        final List<SkosConcept> read = concepts.in(records);
+        final String source = source(manifest);
+        written(taxonomyOutput, tsv.render(read, source, setDigest));
+        written(sizesOutput, sizes.render(concepts.topicsIn(records), source, setDigest));
+    }
+
+    private static void written(final Path output, final String rendered) throws IOException {
         Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(read, source(manifest), setDigest));
+        Files.writeString(output, rendered);
     }
 
     /** What was read is the cited snapshot only if the manifest and its parts digest to the recorded value. */
