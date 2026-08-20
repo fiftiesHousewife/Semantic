@@ -433,3 +433,16 @@ tasks.register<JavaExec>("subjectWitnesses") {
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
+
+// Which of the two statements OpenAlex makes about a topic places a repository better: the prose, the
+// keywords, or both together as the reading takes them today.
+//   ./gradlew publishedStatements -Ptoken=content -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("publishedStatements") {
+    group = "verification"
+    description = "Places a repository against each statement OpenAlex publishes (-Ptoken=<DOAP category>)"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PublishedStatementProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("token") as String?)
+}
