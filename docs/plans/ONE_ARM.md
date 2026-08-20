@@ -33,6 +33,24 @@ Every one is measured, and the measurement is named beside it. The plan runs in 
 
 **Ends it** if the leader is no better on either member, or if a member the expected result marks nothing for stops being quiet.
 
+## Keyword specificity was built, measured and reverted
+
+The false positives sit at the generic end of OpenAlex's own keyword graph, and that much is measured: against a corpus mean keyword degree of 10.37, *Economic Zones and Regional Development* reaches Maven's top ten at 17.3 on `Sustainable Development`, which 113 topics state, and *Image Retrieval and Classification* reaches Tika's at 11.0 on `Machine Learning`, which 97 state. The answers that look right sit at 1.3 to 1.8.
+
+So each keyword was made its own account and weighted by `log((N + 1) / stating) / log(N + 1)` over the scheme's own subjects — bounded in `(0, 1]` by the field size, nothing chosen. **It is worse on all three members.**
+
+| Member | Leader unweighted | Leader weighted | Computer Science in the ten nearest |
+|---|---|---|--:|
+| Tika | Natural Language Processing Techniques | Speech and dialogue systems | 9 → **7** |
+| Santuario | Advanced Software Engineering Methodologies | Mobile Agent-Based Network Management | 8 → 8 |
+| Maven | Data Visualization and Analytics | Physical Unclonable Functions and Hardware Security | 7 → 7 |
+
+Santuario's leader becomes the magnet the weighting was built to demote, and Maven — a build tool — leads on hardware security. All three verdicts move to *stands apart*, and that is the weak-test signature rather than a gain: topics stand 0.8406 bits apart instead of 0.7986, so the chance bar moves further off and everything clears a lower hurdle.
+
+**The remedy does not follow from the diagnosis.** Down-weighting a topic's generic keywords does not remove noise; it makes each topic's distribution sparser, so distance is decided by a handful of rare labels and whichever topic's surviving keywords collide with the repository's rare labels wins. *Physical Unclonable Functions* has a mean keyword degree of 1.0 — maximally specific — which is why it rose. The weighting rewards idiosyncrasy rather than relevance.
+
+Reverted. One defect it exposed is real and independent: `PooledDescriptions` joins subject descriptions with a space, so one subject's last word is glued to the next subject's first.
+
 ## The lexical path does not place, and is out of the placement
 
 The plan's ladder puts a published term at rung 1 and a dictionary label at rung 2, on the principle that a citation outranks an assertion. **For placement that is measured and false.** Scored on the same field — every topic in the scheme, against the DOAP category token each publisher states:
