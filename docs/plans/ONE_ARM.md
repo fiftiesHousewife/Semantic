@@ -132,6 +132,21 @@ So a repository writing `banking` and a subject description writing `finance` sh
 
 That is the half of [D13](A_VOTE_NOT_A_GATE.md) that was written and not built — *the bonus runs through the published hierarchy* — pointed at the comparison rather than at the prior. It is derived from a bundled resource, nothing is chosen, and it is the first candidate for N1.
 
+### What is outstanding, written down so a new session picks it up
+
+Pushed at `97f9807`. Everything below is asked for and unstarted.
+
+| | Work | What it needs |
+|---|---|---|
+| 1 | **N5** — the accessor-prefix and source-set rules remove a word from its phrase and record nothing | `PhraseTopics:169`. Evidence only, so no measurement round. It is what let `get` be read as carrying `tennis` when `tennis` is in no reading |
+| 2 | **N3** — a word English put inside a name is weighed as one the author chose | `OfferedWords.narrowing` returns 1.0 for every word of a declared name. 0.80% of all carried mass, and `from` is the largest single witness for `mathematics` on both finance members. One measured round |
+| 3 | **N1 through the published generalisation map** | `finance`, `banking`, `commerce` and `money` all generalise to `business` in the bundled hierarchy, and the comparison runs over literal labels so they never meet. One measured round |
+| 4 | **The reading with the sense-labelled resource and without it** | WordNet Domains labels a word's senses; the Wiktionary topic vocabulary labels headwords with no sense structure. Place the nine members on both resources and on the headword resource alone, and report what the sense half is worth. Two runs of `evaluationReadAll` |
+| 5 | **The README** | Delete what is no longer true, and refresh every figure from `output/json/` rather than by hand |
+| 6 | **A presentation of the results** | Every interesting finding, summarised per subject |
+
+The backtest is now cheap enough to be the default: `./gradlew evaluationReadAll -Dcs.evaluation.dir=~/evaluation` reads all nine in about six and a half minutes.
+
 ### The order
 
 1. ~~**N6**~~ — **landed.** `workings.words` states what each word carried and whether it was ever written as a name, beside how often it was seen.
