@@ -28,10 +28,34 @@ A match in a branch whose placed subject holds no mass in the repository's place
 
 **Abandon if** the third row fails: a rule that silences in-domain branches as readily as out-of-domain ones is measuring the cross-reference's own noise, and the work then belongs in the placement rather than in the matcher.
 
+## What route 1 measured
+
+`./gradlew branchSubjects` places every branch of every bundled term taxonomy among OpenAlex's 4,498 topics, reading the publisher's own prose about that branch through the instrument that reads a repository. It votes on nothing.
+
+| Taxonomy | Concepts | Stating prose | Branches | Result |
+|---|--:|--:|--:|---|
+| OLiA | 1,312 | 1,216 | 260 | placed |
+| CSO | 14,636 | 0 | 2,545 | **abstains** — its publisher states no prose, so no branch can be placed at any price |
+
+CSO's abstention is D7 of [the one-arm plan](ONE_ARM.md) printed rather than predicted. Route 1 is closed for CSO and route 2 is the only one left for it.
+
+**48 of OLiA's 260 branches name one of this repository's four viable OpenAlex topics among their nearest three.** The rest place on prose too short and too technical to read: `CaseFeature` lands on *Metalloenzymes and iron-sulfur proteins*, `Particle` on *Water Resources and Sustainability*, `NumberFeature` on *Environmental Science and Water Management*. A branch→subject table this noisy cannot be a gate, which is why conditioning was specified as a weight.
+
+**It separates the two cases the plan said it had to.**
+
+| Branch | What it admits here | Nearest topics by its own prose | In this repository's band |
+|---|---|---|---|
+| `MorphosyntacticCategory` | `Verb`, `Noun` | Natural Language Processing Techniques 0.3447; Linguistics and language evolution 0.3875 | yes, both |
+| `TextStructuralUnit` | `Source` | Franz Kafka Literary Studies 0.4788; Medical and Biological Sciences 0.4794; Discourse Analysis in Language Studies 0.4856 | no, none |
+
+That is the result the whole plan turns on, and it is also **the first thing to reach D3**. `Source` survives coverage, survives corroboration by strength and survives the derived vocabulary bar, because every one of those rules is right about the word and none of them asks what OLiA's branch is about. Its branch is about news-article structure and literary text, and this repository's placement holds no mass there.
+
+**Next is the weight itself**, against the band `summary.placedIn` now exports: a branch's mass scaled by the share the repository's own placement puts on the subjects that branch places in, reported apart with the count of what was set apart. Zero share silences a branch, a small share quietens it, and both come from figures the reading already computes.
+
 ## Order
 
 1. ~~The OpenAlex extraction lands first~~ — done, and the section below states what it measured. Route 2 has its scheme; the swap of the default placement does not follow from it.
-2. Route 1 as a diagnostic probe: the branch→subject table for the three bundled taxonomies, printed and eyeballed before anything votes.
+2. ~~Route 1 as a diagnostic probe: the branch→subject table for the three bundled taxonomies, printed and eyeballed before anything votes.~~ — done, and the section above states what it found.
 3. The CSO re-extraction carrying `sameAs`, and the route-2 join with its agreement figure.
 4. Conditioning as a reported partition on the term reading, with the three measurements above.
 

@@ -400,6 +400,17 @@ tasks.register<JavaExec>("armPlacement") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Where each branch of a bundled term taxonomy stands among OpenAlex's topics, read from its publisher's own
+// prose. It is the cross-reference a match has to be read against, printed before anything conditions on it.
+//   ./gradlew branchSubjects
+tasks.register<JavaExec>("branchSubjects") {
+    group = "verification"
+    description = "Places each bundled taxonomy's branches among OpenAlex topics by their publisher's prose"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.BranchSubjectProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+}
+
 // Why a subject came first: the topics the repository and that subject's description share. No null.
 //   ./gradlew subjectWitnesses -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("subjectWitnesses") {
