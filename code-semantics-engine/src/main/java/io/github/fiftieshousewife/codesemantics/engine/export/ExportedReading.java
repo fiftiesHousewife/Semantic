@@ -14,7 +14,10 @@ import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
+import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
+import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
@@ -92,11 +95,15 @@ public final class ExportedReading {
         final List<ExportedBehaviour> behaviours = ExportedBehaviours.fromClasspath().in(parsed.files());
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
+        final TopicDistribution reads = themes.repository().comparison();
+        final SubjectAreas areas = SubjectAreas.fromClasspath();
         final ExportedTaxonomy taxonomy = new ExportedTaxonomies().of(
-                LinguisticTerms.fromClasspath().source(), terms.matched());
+                LinguisticTerms.fromClasspath().source(), terms.matched(),
+                BranchAgreement.between(reads, OliaTerms.fromClasspath().concepts(), areas));
         final List<ExportedTaxonomy> taxonomies = new ArrayList<>(List.of(taxonomy));
         alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
-                CorroboratedReading.of(index, index.publishedConcepts(), parsed).matched())));
+                CorroboratedReading.of(index, index.publishedConcepts(), parsed).matched(),
+                BranchAgreement.between(reads, index.publishedConcepts(), areas))));
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,

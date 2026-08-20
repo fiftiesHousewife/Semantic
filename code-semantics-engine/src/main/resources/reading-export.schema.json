@@ -343,6 +343,7 @@
         "required": [
           "vocabulary",
           "concepts",
+          "branches",
           "matchesByNormalisation"
         ],
         "properties": {
@@ -406,6 +407,51 @@
                 },
                 "firstWrittenAt": {
                   "$ref": "#/$defs/site"
+                }
+              }
+            }
+          },
+          "branches": {
+            "title": "What each branch is worth against this repository",
+            "description": "One entry per branch the repository wrote a concept in, most-carried first. `agreesWithTheRepository` is the mass this repository's reading and the prose the publisher states beneath that branch put in the same dictionary topics, bounded in [0, 1] by that statistic's own definition. It is reported and applied to nothing: `concepts` above is ordered by unconditioned mass, and `kept` states what conditioning on this weight would leave. Empty where the publisher states no prose \u2014 CSO describes none of its 14,636 rows, so its branches cannot be weighed, which is not the same as weighing zero.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "branch",
+                "agreesWithTheRepository",
+                "mass",
+                "kept",
+                "terms"
+              ],
+              "properties": {
+                "branch": {
+                  "description": "The concept the publisher places these under.",
+                  "type": "string"
+                },
+                "agreesWithTheRepository": {
+                  "description": "How much of what the branch is about the repository is also about.",
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "mass": {
+                  "description": "What the repository wrote in this branch: occurrences weighed by how much each term narrows, unconditioned.",
+                  "type": "number",
+                  "minimum": 0
+                },
+                "kept": {
+                  "description": "That mass at this branch's weight. The difference from `mass` is what conditioning would set apart, and nothing is removed from the evidence.",
+                  "type": "number",
+                  "minimum": 0
+                },
+                "terms": {
+                  "description": "The terms matched in this branch, most-carried first.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
