@@ -2,6 +2,17 @@
 
 This document is the authoritative reference for code style, architecture decisions and the pre-push checklist in this repository. It carries the conventions of the Business Intelligence project, from which this library's evidence machinery is ported, plus the doctrine that is specific to reading code.
 
+## The skills
+
+Four, indexed in [`.claude/skills/SKILLS.md`](.claude/skills/SKILLS.md), each stating its own rules. Load the one that matches before starting, not after.
+
+| Skill | Load it when |
+|---|---|
+| [`debugging-a-reading`](.claude/skills/debugging-a-reading/SKILL.md) | a placement, topic or match looks wrong, a change moves nothing, or a figure needs explaining before it is trusted |
+| [`adding-a-taxonomy`](.claude/skills/adding-a-taxonomy/SKILL.md) | adding, promoting or re-extracting any vocabulary resource |
+| [`profiling-a-read`](.claude/skills/profiling-a-read/SKILL.md) | a read is slow, a stage regressed, or a performance change needs its number |
+| [`written-english`](.claude/skills/written-english/SKILL.md) | writing or editing any prose a reader outside the project sees |
+
 ---
 
 ## The doctrine

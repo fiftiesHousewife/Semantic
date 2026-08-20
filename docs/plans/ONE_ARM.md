@@ -4,6 +4,27 @@ Three readings reach a subject by three different mechanisms and a fourth reads 
 
 **The plan runs in three parts, in this order.** First the eight measured defects, because a simplification laid over a defect carries it forward and an iteration judged on a broken figure tunes the breakage. Then the condensation into one arm. Then the loop that looks for better matches, judged on repositories this reading was not written for.
 
+## What the 2026-08-20 session settled, before the defect list
+
+**Topic-level matching is not viable, and three independent lines say so.** Placing a repository among 4,516 OpenAlex topics cannot be made to work, and the plan should stop trying.
+
+| Line of evidence | Figure |
+|---|---|
+| The null cannot be computed | `999 / (4516 + 1) = 0`, so the bar is the single minimum of 999 draws; across four seeds it moves 0.5225, 0.5763, 0.5608, 0.5523 with the observation inside that spread. arXiv reads the 7th of 999 and is steady |
+| The literature says methods collapse at this scale | EURLEX57K, 4,271 labels: BERT-BASE RP@5 **0.835 on frequent labels, 0.028 zero-shot**. Song & Roth's dataless classification: micro-F1 0.682 at **26** labels, 0.371 at **103** |
+| The band does not consolidate below field | the modal subfield of a band reaches 4 of 15 at best; every member of Tika's and Maven's bands is under one **field** |
+
+**So the reading places at field, and reports the topic band as context it cannot separate.** Seven to nine of ten in the right field out of 26 is respectable by the published standard; naming one topic out of 4,516 states a precision no instrument here has. This is [D8](#the-defects-and-what-fixes-each) and [D10](#the-defects-and-what-fixes-each) reaching the same conclusion from three directions.
+
+**The other things the session settled**, each with its own entry below or in [the backlog](../../BACKLOG.md):
+
+- The divergence path places and the lexical path does not — 0.4509 against 0.6583 on Tika, **below chance**, once both are scored over the whole scheme rather than over the topics each reading selected for itself.
+- The expected result is an identifier in the publisher's hierarchy, never a word in its prose. `security` marked Food Security and Pesticide Exposure; `content` marked Peanut Plant Research.
+- Verbs already reach the reading, so the nominalisation step is dropped rather than deferred — and the verbs are D5's evidence: `read` votes `publishing` 1.00, `validate` votes `law` 0.25.
+- CSO needs no prose. A subject needs noun phrases and CSO publishes 14,636 at a median of two words, the same as an OpenAlex keyword.
+- Two classes state they weigh a signal and compute zero — `PhraseTopics.under` and `WordSpecificity`. [The plan for the first](A_VOTE_NOT_A_GATE.md) runs before everything else in this document.
+- The reading cannot be argued with from the files it publishes, which is now the first item in the queue.
+
 ## The defects, and what fixes each
 
 Every one is measured, and the measurement is named beside it. The plan runs in this order — fix what is known broken, then condense, then iterate — because a simplification laid over a defect carries it forward, and an iteration judged on a broken figure tunes the breakage.
