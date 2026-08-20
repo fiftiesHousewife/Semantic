@@ -92,7 +92,6 @@ public final class ExportedReading {
         final ReadingSummary summary = summaryOf(reading, legibility, themes, field);
         final Vocabulary vocabulary = vocabularyOf(legibility, namesChance);
 
-        final List<ExportedBehaviour> behaviours = ExportedBehaviours.fromClasspath().in(parsed.files());
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final TopicDistribution reads = themes.repository().comparison();
@@ -107,11 +106,10 @@ public final class ExportedReading {
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,
-                        List.copyOf(taxonomies), behaviours, placedIn(reading, themes, field)))
+                        List.copyOf(taxonomies), placedIn(reading, themes, field)))
                 .signals(signals)
                 .themes(reported)
                 .taxonomies(List.copyOf(taxonomies))
-                .behaviours(behaviours)
                 .setAside(setAside(summary, vocabulary, legibility, terms, parsed))
                 .build();
     }
@@ -143,7 +141,6 @@ public final class ExportedReading {
                                               final ReadingSummary summary, final List<ExportedSignal> signals,
                                               final List<ExportedTheme> themes,
                                               final List<ExportedTaxonomy> taxonomies,
-                                              final List<ExportedBehaviour> behaviours,
                                               final List<ExportedPlacement> placedIn) {
         return ExportedSummary.builder()
                 .repository(reading.root().getFileName().toString())
@@ -153,7 +150,6 @@ public final class ExportedReading {
                 .placedIn(placedIn)
                 .leadingWords(leading(signals))
                 .leadingConcepts(leadingConcepts(taxonomies))
-                .leadingBehaviours(leadingBehaviours(behaviours))
                 .distinctiveScopes(distinctive(summary))
                 .shareOfWordsWithACitation(summary.legibility().lambda())
                 .shareOfMassOnNoSubject(summary.legibility().unplaced())
@@ -161,23 +157,8 @@ public final class ExportedReading {
                         .signals(signals.size())
                         .themes(themes.size())
                         .concepts(taxonomies.stream().mapToInt(one -> one.concepts().size()).sum())
-                        .behaviours(behaviours.size())
                         .build())
                 .build();
-    }
-
-    /**
-     * The clauses the summary names. Only those stating what the verb acts on are drawn: a bare {@code read}
-     * repeats far more often than {@code read declaration} and says far less, so a summary ranked on count
-     * alone would answer every repository with the same half-dozen verbs. The whole list, bare verbs
-     * included, is in {@code behaviours}.
-     */
-    private static List<String> leadingBehaviours(final List<ExportedBehaviour> behaviours) {
-        return behaviours.stream()
-                .filter(behaviour -> !behaviour.object().isEmpty())
-                .limit(LEADING)
-                .map(ExportedBehaviour::phrase)
-                .toList();
     }
 
     private static List<LeadingWord> leading(final List<ExportedSignal> signals) {

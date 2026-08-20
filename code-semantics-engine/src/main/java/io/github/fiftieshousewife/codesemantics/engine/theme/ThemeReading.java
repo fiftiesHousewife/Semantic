@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
-import io.github.fiftieshousewife.codesemantics.engine.behaviour.Behaviours;
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
-import io.github.fiftieshousewife.codesemantics.engine.behaviour.Behaviour;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
@@ -44,7 +42,6 @@ public final class ThemeReading {
     private final OpenSpaceAccumulator<String> accumulator;
     private final JensenShannon divergence;
     private final PermutationNull chance;
-    private final Behaviours behaviours = Behaviours.fromClasspath();
 
     public ThemeReading(final TopicCitations citations, final IdentifierWords words,
                         final CollocatedWords collocated, final OfferedWords offered,
@@ -71,7 +68,6 @@ public final class ThemeReading {
     }
 
     public RepositoryThemes of(final ParsedRepository parsed) {
-        final List<Behaviour> stated = behaviours.in(parsed.files());
         final long startedAt = System.nanoTime();
         final TopicWitnesses witnesses = new TopicWitnesses();
         final WordSightings sightings = new WordSightings();
@@ -97,7 +93,7 @@ public final class ThemeReading {
                 everyFile, dominant, witnesses, sightings,
                 new ForeignWords(citations, divergence, LEAST_SIGHTINGS)
                         .in(sightings, repository.comparison(), FOREIGN_WORDS_HELD),
-                stated, Duration.ofNanos(System.nanoTime() - startedAt));
+                Duration.ofNanos(System.nanoTime() - startedAt));
     }
 
     /**

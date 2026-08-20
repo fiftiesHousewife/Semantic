@@ -168,7 +168,15 @@ Placing against the second scheme costs the second null: the self read goes from
 
 ### 6. Delete what the above orphans
 
-`BehaviourTopics`, `ExportedBehaviours`, `ExportedBehaviour`, the `behaviours` export section, `ThemeReading.nounsOf`, and `Behaviours` as an arm — it survives as the nominalisation rule of step 1. `MatchedTaxonomies` states each taxonomy's shape; every bundled one is **nominal**, including BIAN and NIST, whose labels are noun phrases (`ATM Network Management`, `Adverse Event Analysis`) whatever their definitions say. Schema 8.0.
+**The arm is deleted, at schema 9.0.** `BehaviourTopics`, `ExportedBehaviours`, `ExportedBehaviour`, the `behaviours` export section, `summary.leadingBehaviours` and `summary.counts.behaviours` are gone, with `RepositoryThemes.behaviours` and `ThemeReading`'s call into it. Five classes and 10 tests removed; the remaining 1,223 pass.
+
+**Two named pieces are deliberately kept, and step 6 was wrong to list one of them.**
+
+`ThemeReading.nounsOf` **stays**, because step 6 runs after step 1 and step 1 has not landed. `nounsOf` drops a method name's leading word so `readRepository` declares no noun `read`; its own javadoc states what removing it does — every sentence's `read` becomes the noun WordNet Domains labels `publishing` — and `law` and `publishing` are already [D5](#the-defects-and-what-fixes-each). Deleting it before the nominalisation exists is not a simplification but a regression the plan predicted in writing.
+
+`Behaviours`, `Behaviour` and `PropertyAccessors` **stay** as the parse-side clause reading step 1 nominalises. They are read by `VerbPhraseProbe` and `WordAndPhraseProbe` and by nothing that votes, which is the state the plan intends for them.
+
+`MatchedTaxonomies` states each taxonomy's shape; every bundled one is **nominal**, including BIAN and NIST, whose labels are noun phrases (`ATM Network Management`, `Adverse Event Analysis`) whatever their definitions say.
 
 | | |
 |---|---|

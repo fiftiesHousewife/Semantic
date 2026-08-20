@@ -24,12 +24,12 @@ class ReadingChangesTest {
                                         List.of("linguistics"), List.of()),
                                 new ExportedPlacement.Level("cs.CL", 0.39, 0.44, true,
                                         List.of("linguistics"), List.of()))),
-                        List.of(), List.of(), List.of(), List.of(), legibility, 0.75,
-                        new ExportedSummary.Counts(0, topics.size(), 0, 0)),
+                        List.of(), List.of(), List.of(), legibility, 0.75,
+                        new ExportedSummary.Counts(0, topics.size(), 0)),
                 List.of(),
                 topics.stream().map(topic -> new ExportedTheme(topic, "repository", 0.05, 0.02,
                         List.of(CARRIED))).toList(),
-                List.of(), List.of(), NOTHING_SET_ASIDE);
+                List.of(), NOTHING_SET_ASIDE);
     }
 
     private static final ExportedWitness CARRIED = new ExportedWitness("word", 40, 12.5,

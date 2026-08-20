@@ -33,10 +33,9 @@ class ReadingExportSchemaTest {
                     List.of("WordNet Domains"), PLACEMENT,
                     List.of(new LeadingWord("lemma", 0.02, 40)),
                     List.of(new ExportedSummary.LeadingConcept("Verb", "OLiA")),
-                    List.of("read declaration"),
                     List.of(new ExportedSummary.DistinctiveScope("lexicon/src/main/java", 0.19,
                             List.of("linguistics"))),
-                    0.98, 0.76, new ExportedSummary.Counts(1, 1, 1, 1)),
+                    0.98, 0.76, new ExportedSummary.Counts(1, 1, 1)),
             List.of(new ExportedSignal(ReadingSource.CLONE, "lemma", 40, 30, 0.02, "ordinary English",
                     new SightingSite("Reading.java", 12))),
             List.of(new ExportedTheme("linguistics", "lexicon/src/main/java", 0.05, 0.012,
@@ -48,8 +47,6 @@ class ReadingExportSchemaTest {
                             new SightingSite("Reading.java", 9))),
                     List.of(new ExportedTaxonomy.Branch("WordClass", 0.52, 16.0, 8.32, List.of("verb"))),
                     Map.of("words", 973, "lemmas", 201, "senses", 130))),
-            List.of(new ExportedBehaviour("read declaration", "read", List.of("declaration"), 3,
-                    new SightingSite("Reading.java", 21))),
             new SetAside(1_325, 625, 9, 1, 56, 0));
 
     private final ExportFile file = new ExportFile();
@@ -80,7 +77,7 @@ class ReadingExportSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final ReadingExport unversioned = new ReadingExport("two", EXPORT.summary(), EXPORT.signals(),
-                EXPORT.themes(), EXPORT.taxonomies(), EXPORT.behaviours(), EXPORT.setAside());
+                EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(ExportFile.NAME), unversioned))
@@ -133,7 +130,7 @@ class ReadingExportSchemaTest {
                 new ExportedTaxonomy("CSO", List.of(), List.of(),
                         Map.of("words", 0, "lemmas", 0, "senses", 0)));
         return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(), EXPORT.themes(),
-                both, EXPORT.behaviours(), EXPORT.setAside());
+                both, EXPORT.setAside());
     }
 
     private static int occurrencesOf(final String key, final String document) {

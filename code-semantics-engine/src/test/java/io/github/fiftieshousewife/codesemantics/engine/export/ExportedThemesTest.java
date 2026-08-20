@@ -53,7 +53,7 @@ class ExportedThemesTest {
                                 new Contribution("music", 0.05, 0.20, 0.1, 0.5)),
                         new Chance(0.25, 0.05, 0.20, 0.10, 0, 999))),
                 List.of(), List.of(FILE), Map.of(FILE.path(), new ValueShare<>("linguistics", 0.9, 9.0)),
-                witnesses, new WordSightings(), List.of(), List.of(), Duration.ofMillis(1));
+                witnesses, new WordSightings(), List.of(), Duration.ofMillis(1));
     }
 
     private static ReadingSummary summary(final List<String> topics) {

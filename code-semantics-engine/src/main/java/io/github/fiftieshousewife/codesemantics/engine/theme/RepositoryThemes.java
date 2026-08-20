@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import io.github.fiftieshousewife.codesemantics.engine.behaviour.Behaviour;
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 
 /**
@@ -20,7 +19,7 @@ public record RepositoryThemes(List<ScopeThemes> scopes, ScopeThemes repository,
                                List<ScopeDivergence> divergences, List<TopicRanking> rankings,
                                List<FileTopics> files, Map<String, ValueShare<String>> dominantByFile,
                                TopicWitnesses witnesses, WordSightings sightings,
-                               List<ForeignWords.ForeignWord> foreignWords, List<Behaviour> behaviours,
+                               List<ForeignWords.ForeignWord> foreignWords,
                                Duration elapsed) {
 
     public RepositoryThemes {
@@ -30,7 +29,6 @@ public record RepositoryThemes(List<ScopeThemes> scopes, ScopeThemes repository,
         files = List.copyOf(files);
         dominantByFile = Map.copyOf(dominantByFile);
         foreignWords = List.copyOf(foreignWords);
-        behaviours = List.copyOf(behaviours);
         Objects.requireNonNull(repository, "repository");
         Objects.requireNonNull(sightings, "sightings");
         Objects.requireNonNull(witnesses, "witnesses");

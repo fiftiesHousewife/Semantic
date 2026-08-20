@@ -9,10 +9,10 @@ import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 /**
  * Every arm of the reading placed against every bundled subject scheme, printed side by side.
  *
- * <p>Three arms reach a subject and only one of them used to. The vocabulary arm reads the words a repository
- * declares; the concept arm reads the publisher's prose about the concepts it writes; the behaviour arm reads
- * the clauses its method names state. Each becomes a distribution over the same dictionary topics, so one
- * placement compares all three, and each is drawn against its own scheme's own null.
+ * <p>Two arms reach a subject and only one of them used to. The vocabulary arm reads the words a repository
+ * declares; the concept arm reads the publisher's prose about the concepts it writes. Each becomes a
+ * distribution over the same dictionary topics, so one placement compares both, and each is drawn against
+ * its own scheme's own null.
  *
  * <p>Nothing here votes. It prints, and the expected result it prints against was written down before it was
  * built.
@@ -42,9 +42,6 @@ public final class ArmPlacementProbe {
                             concepts.describedAmong(matched), matched.sightings().stream()
                                     .mapToInt(sighting -> sighting.concepts().size()).sum())));
         });
-        arms.add(new Arm("behaviours", BehaviourTopics.fromClasspath()
-                .of(reading.themes().behaviours()), ""));
-
         arms.forEach(arm -> report(arm, TreeReading.SEED));
         agreement(arms);
     }
