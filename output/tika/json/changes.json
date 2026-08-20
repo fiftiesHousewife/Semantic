@@ -1,0 +1,106 @@
+{
+  "previousCommit" : "",
+  "commit" : "",
+  "moved" : [ {
+    "figure" : "λ — words a resource can be cited for",
+    "before" : "97.1%",
+    "after" : "97.1%"
+  }, {
+    "figure" : "Mass settled on no subject",
+    "before" : "73.3%",
+    "after" : "73.3%"
+  }, {
+    "figure" : "arXiv archive — nearest subject",
+    "before" : "Computer Science",
+    "after" : "Computer Science"
+  }, {
+    "figure" : "arXiv archive — divergence",
+    "before" : "34.7%",
+    "after" : "34.7%"
+  }, {
+    "figure" : "arXiv archive — chance reaches",
+    "before" : "40.3%",
+    "after" : "40.3%"
+  }, {
+    "figure" : "arXiv archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv archive — subjects nearer than chance",
+    "before" : "2",
+    "after" : "2"
+  }, {
+    "figure" : "arXiv category — nearest subject",
+    "before" : "Networking and Internet Architecture",
+    "after" : "Networking and Internet Architecture"
+  }, {
+    "figure" : "arXiv category — divergence",
+    "before" : "41.7%",
+    "after" : "41.7%"
+  }, {
+    "figure" : "arXiv category — chance reaches",
+    "before" : "45.8%",
+    "after" : "45.8%"
+  }, {
+    "figure" : "arXiv category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv category — subjects nearer than chance",
+    "before" : "2",
+    "after" : "2"
+  }, {
+    "figure" : "OpenAlex archive — nearest subject",
+    "before" : "Artificial Intelligence",
+    "after" : "Artificial Intelligence"
+  }, {
+    "figure" : "OpenAlex archive — divergence",
+    "before" : "21.6%",
+    "after" : "21.6%"
+  }, {
+    "figure" : "OpenAlex archive — chance reaches",
+    "before" : "29.9%",
+    "after" : "29.9%"
+  }, {
+    "figure" : "OpenAlex archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex archive — subjects nearer than chance",
+    "before" : "3",
+    "after" : "3"
+  }, {
+    "figure" : "OpenAlex category — nearest subject",
+    "before" : "Natural Language Processing Techniques",
+    "after" : "Natural Language Processing Techniques"
+  }, {
+    "figure" : "OpenAlex category — divergence",
+    "before" : "44.9%",
+    "after" : "44.9%"
+  }, {
+    "figure" : "OpenAlex category — chance reaches",
+    "before" : "49.0%",
+    "after" : "49.0%"
+  }, {
+    "figure" : "OpenAlex category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex category — subjects nearer than chance",
+    "before" : "10",
+    "after" : "10"
+  }, {
+    "figure" : "Words above the bar",
+    "before" : "794",
+    "after" : "794"
+  }, {
+    "figure" : "Topics reported",
+    "before" : "17",
+    "after" : "17"
+  }, {
+    "figure" : "Concepts written",
+    "before" : "371",
+    "after" : "371"
+  } ],
+  "crossings" : [ ]
+}
