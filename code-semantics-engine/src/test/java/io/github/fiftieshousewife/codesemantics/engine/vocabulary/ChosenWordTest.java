@@ -14,7 +14,7 @@ class ChosenWordTest {
 
     private static final ChosenWord WORD = new ChosenWord("lemma", 4, 3, 0.02, 0.001,
             List.of(new ChosenWord.ReferenceClaim(ENGLISH, 0.0001, 0.02, true)),
-            "engine/src/main/java/Reading.java:12", false);
+            "engine/src/main/java/Reading.java:12", false, null);
 
     @Test
     void clearsABarBelowItsWeakestClaim() {

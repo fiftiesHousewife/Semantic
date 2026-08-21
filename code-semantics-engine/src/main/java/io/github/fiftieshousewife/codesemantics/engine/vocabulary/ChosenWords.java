@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
+import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
 
 /**
@@ -24,26 +27,30 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
  * A word a reference writes more densely than this repository does carries that reference's claim as
  * a negative, so it sorts below every word that survived rather than being removed: nothing here is a gate.
  *
- * <p>Each word also carries whether {@link FunctionWords} places it in the language rather than in this
- * repository's choices. It changes no claim and no place — a reader who wants to know where {@code by} stood
- * is told — and the report shows the two populations apart rather than pooling them.
+ * <p>Each word also carries two facts about what it is, neither of which changes a claim or a place — a
+ * reader who wants to know where {@code by} or {@code buf} stood is told, and the report shows the
+ * populations apart rather than pooling them. {@link FunctionWords} says English supplied the word;
+ * {@link CitedExpansions} says the dictionaries cite the form for more different things than it means as a
+ * word, which is the same question the topical reading abstains on. <b>One rule, asked once.</b> A
+ * repository's meaningful vocabulary is one thing, and two paths deciding it separately is how {@code buf}
+ * came to be the fourth most distinctive word in a derivatives library while carrying no subject at all.
  */
 public final class ChosenWords {
 
     private final List<ReferenceVocabulary> references;
     private final ShareDivergence divergence;
-    private final FunctionWords language;
+    private final WordPipeline pipeline;
 
     public ChosenWords(final List<ReferenceVocabulary> references, final ShareDivergence divergence,
-                       final FunctionWords language) {
+                       final WordPipeline pipeline) {
         this.references = List.copyOf(references);
         this.divergence = divergence;
-        this.language = language;
+        this.pipeline = pipeline;
     }
 
     public static ChosenWords againstEnglishAndThePlatform() {
         return new ChosenWords(List.of(EnglishVocabulary.fromClasspath(), PlatformVocabulary.ofSystem()),
-                new ShareDivergence(), FunctionWords.fromClasspath());
+                new ShareDivergence(), WordPipelines.overJava(ContentWords.fromClasspath()));
     }
 
     /** What the ranking is read against, which is what a null has to be drawn from to bound it. */
@@ -73,7 +80,9 @@ public final class ChosenWords {
                 .toList();
         return new ChosenWord(word, written.occurrencesOf(word), written.namedOccurrencesOf(word),
                 claims.stream().mapToDouble(ChosenWord.ReferenceClaim::claim).min().orElse(0.0),
-                here.getOrDefault(word, 0.0), claims, written.siteOf(word), language.includes(word));
+                here.getOrDefault(word, 0.0), claims, written.siteOf(word),
+                pipeline.theLanguagesOwn(word),
+                pipeline.leavesAt(word).orElse(null));
     }
 
     private ChosenWord.ReferenceClaim claim(final String word, final Map<String, Double> here,

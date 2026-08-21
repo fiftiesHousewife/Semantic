@@ -28,14 +28,14 @@ class ExportedSignalsTest {
         return new ChosenWord(surface, 40, 30, Math.min(english, platform), 0.004,
                 List.of(new ReferenceClaim(ENGLISH, 0.001, Math.abs(english), english > 0),
                         new ReferenceClaim(PLATFORM, 0.002, Math.abs(platform), platform > 0)),
-                "engine/src/main/java/Reading.java:12", true);
+                "engine/src/main/java/Reading.java:12", true, null);
     }
 
     private static ChosenWord word(final String surface, final double english, final double platform) {
         return new ChosenWord(surface, 40, 30, Math.min(english, platform), 0.004,
                 List.of(new ReferenceClaim(ENGLISH, 0.001, Math.abs(english), english > 0),
                         new ReferenceClaim(PLATFORM, 0.002, Math.abs(platform), platform > 0)),
-                "engine/src/main/java/Reading.java:12", false);
+                "engine/src/main/java/Reading.java:12", false, null);
     }
 
     @Test

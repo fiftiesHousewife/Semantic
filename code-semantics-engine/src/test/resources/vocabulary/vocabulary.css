@@ -1,0 +1,291 @@
+:root {
+    color-scheme: light dark;
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+    --accent: #0e5e5a;
+    --accent-soft: #7fb3ae;
+    --mark: #9a5b18;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #10151800;
+        --paper: #101518;
+        --raised: #171e22;
+        --ink: #eaf0ee;
+        --ink-soft: #9fb0b4;
+        --ink-faint: #6d8085;
+        --rule: #262f34;
+        --accent: #5fd3c9;
+        --accent-soft: #2c6b68;
+        --mark: #e0a45f;
+    }
+}
+
+:root[data-theme="dark"] {
+    --paper: #101518;
+    --raised: #171e22;
+    --ink: #eaf0ee;
+    --ink-soft: #9fb0b4;
+    --ink-faint: #6d8085;
+    --rule: #262f34;
+    --accent: #5fd3c9;
+    --accent-soft: #2c6b68;
+    --mark: #e0a45f;
+}
+
+:root[data-theme="light"] {
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+    --accent: #0e5e5a;
+    --accent-soft: #7fb3ae;
+    --mark: #9a5b18;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.sheet {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+h1 {
+    font: 400 2.1rem/1.15 Georgia, "Times New Roman", serif;
+    margin: 0;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+}
+
+.lede {
+    margin: 0;
+    max-width: 66ch;
+    color: var(--ink-soft);
+}
+
+.lede code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86em;
+    color: var(--ink);
+}
+
+.cloud b:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 0;
+}
+
+.summary div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.summary dt {
+    font: 500 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.summary dd {
+    margin: 0;
+    font: 400 1.5rem/1 Georgia, serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.counts {
+    font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--ink-faint);
+}
+
+.stages {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.5rem 1.5rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.step {
+    font: 500 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+}
+
+.head h2 {
+    font: 400 1.5rem/1.2 Georgia, serif;
+    margin: 0;
+}
+
+.removes {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 70ch;
+}
+
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+}
+
+.steps button {
+    font: 500 0.82rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    background: var(--accent);
+    color: var(--paper);
+    cursor: pointer;
+}
+
+.steps button:disabled {
+    background: transparent;
+    border-color: var(--rule);
+    color: var(--ink-faint);
+    cursor: default;
+}
+
+.steps button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.dots {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-soft);
+}
+
+.repository {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86em;
+    color: var(--accent);
+}
+
+.stage {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    min-width: 0;
+}
+
+.stage h2 {
+    font: 400 1.15rem/1.2 Georgia, serif;
+    margin: 0;
+}
+
+.stage h2 span {
+    display: block;
+    font: 500 0.68rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.stage p {
+    margin: 0;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+}
+
+.cloud {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.2rem 0.7rem;
+    padding: 1rem 0;
+    min-height: 20rem;
+    align-content: center;
+}
+
+.cloud b {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+    line-height: 1.25;
+    cursor: default;
+    color: var(--ink-faint);
+}
+
+/* A run of several words is one word of the repository's vocabulary and must not read as two. The hairline
+   joins its parts without spending a colour, which is reserved for weight. */
+.cloud b.run {
+    border-bottom: 1px solid var(--accent-soft);
+    padding-bottom: 0.05em;
+}
+
+.cloud b[data-band="4"] { color: var(--accent); font-weight: 600; }
+.cloud b[data-band="3"] { color: var(--ink); }
+.cloud b[data-band="2"] { color: var(--ink-soft); }
+
+.readout {
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+    font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--ink-soft);
+    min-height: 3rem;
+}
+
+.readout strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.readout em {
+    color: var(--mark);
+    font-style: normal;
+}
+
+.foot {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    margin: 0;
+    font-size: 0.84rem;
+    color: var(--ink-faint);
+    max-width: 72ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

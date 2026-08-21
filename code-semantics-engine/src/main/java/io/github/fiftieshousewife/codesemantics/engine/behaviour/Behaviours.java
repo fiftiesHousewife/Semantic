@@ -33,25 +33,25 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSe
  * reading recovers it; where it does not, the verb is simply absent and the reading says so by omitting it.
  *
  * <p>The names the source language's own convention claims are refused before the dictionary is asked:
- * {@link PropertyAccessors} states which, and cites the specification that claims them. It arrives by
+ * The {@link io.github.fiftieshousewife.codesemantics.engine.reading.Dialect} states which, and cites the specification that claims them. It arrives by
  * injection because it is Java's and a reading of another language would inject that language's own.
  */
 public final class Behaviours {
 
     private final Lexicon lexicon;
     private final IdentifierWords words;
-    private final PropertyAccessors accessors;
+    private final io.github.fiftieshousewife.codesemantics.engine.reading.Dialect dialect;
 
     public Behaviours(final Lexicon lexicon, final IdentifierWords words,
-                      final PropertyAccessors accessors) {
+                      final io.github.fiftieshousewife.codesemantics.engine.reading.Dialect dialect) {
         this.lexicon = lexicon;
         this.words = words;
-        this.accessors = accessors;
+        this.dialect = dialect;
     }
 
     public static Behaviours fromClasspath() {
         return new Behaviours(WordNetLexicon.fromClasspath(), IdentifierWords.fromClasspath(),
-                new PropertyAccessors());
+                io.github.fiftieshousewife.codesemantics.engine.reading.Dialect.java());
     }
 
     public List<Behaviour> in(final List<ParsedFile> files) {
@@ -68,7 +68,7 @@ public final class Behaviours {
      */
     public Optional<Behaviour> of(final NameOccurrence occurrence, final ParsedFile file) {
         final List<String> clause = withoutTheLayoutsPrefix(words.of(occurrence.text()).words(), file);
-        if (clause.isEmpty() || accessors.claims(clause)) {
+        if (clause.isEmpty() || dialect.namesAConvention(clause)) {
             return Optional.empty();
         }
         return lexicon.verbBase(clause.getFirst())

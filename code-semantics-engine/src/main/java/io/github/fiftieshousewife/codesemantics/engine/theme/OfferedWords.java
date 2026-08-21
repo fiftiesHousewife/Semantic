@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
 
 /**
  * Which words a reading offers to the resources at all, in what dictionary form, and what one occurrence of
@@ -31,19 +33,23 @@ public final class OfferedWords {
     private final ContentWords content;
     private final WordSpecificity specificity;
     private final PublishedPhrases phrases;
+    private final WordPipeline pipeline;
     private final Weights weights;
 
     public OfferedWords(final ContentWords content, final WordSpecificity specificity,
-                        final PublishedPhrases phrases, final Weights weights) {
+                        final PublishedPhrases phrases, final WordPipeline pipeline,
+                        final Weights weights) {
         this.content = content;
         this.specificity = specificity;
         this.phrases = phrases;
+        this.pipeline = pipeline;
         this.weights = weights;
     }
 
     public static OfferedWords fromClasspath() {
-        return new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
-                PublishedPhrases.fromClasspath(), Weights.defaults());
+        final ContentWords content = ContentWords.fromClasspath();
+        return new OfferedWords(content, WordSpecificity.fromClasspath(),
+                PublishedPhrases.fromClasspath(), WordPipelines.overJava(content), Weights.defaults());
     }
 
     /**
@@ -58,7 +64,7 @@ public final class OfferedWords {
      * its head word — which would offer {@code base} for {@code base form} and lose the entry that was found.
      */
     public Optional<String> of(final NameForm form, final String word) {
-        if (form == NameForm.IMPORT || content.tooShortToMean(word)) {
+        if (form == NameForm.IMPORT || !pipeline.keeps(word)) {
             return Optional.empty();
         }
         if (phrases.states(word)) {

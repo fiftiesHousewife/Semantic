@@ -71,6 +71,18 @@ Four steps, in order. **1** records the matching in `evidence.json` — the span
 
 It sequences queue items 4, 5 and 6 rather than displacing them, and it takes neither of the two decisions that block it: the gold set, still unanswered for this repository, and the pinned finding that fails with no arithmetic changed.
 
+## The live plan
+
+[`RANK_DO_NOT_GATE.md`](docs/plans/RANK_DO_NOT_GATE.md) is where a session starts. It states what is in the working tree and uncommitted, the ordered work, the open defects, and what was measured and refused. It supersedes the word-filtering half of [`ONE_ARM.md`](docs/plans/ONE_ARM.md) and puts [`AGREED_SENSES.md`](docs/plans/AGREED_SENSES.md) on hold.
+
+## The reference is an index where it should be a corpus
+
+[The plan](docs/plans/A_CORPUS_NOT_AN_INDEX.md) states it in full. `PlatformVocabulary` reads the JDK's **declared type names**, where each name appears about once, so a word working Java writes thousands of times diverges enormously from a reference that names it once. `id` is the highest claim in fineract at 0.0193 bits and in aeron at 0.0317 — the most distinctive word in two of the nine members, against *the platform's own API*.
+
+**Every gate in the word pipeline exists to patch this.** Steps 3, 4 and 5 remove `id`, `buf` and `the` by rule because the ranking promotes them, and the doctrine's first line refuses that: signals are votes, never gates. Ten Java repositories drawn at random, pinned and read as a second reference put the density back, and `ChosenWords` already ranks by the weakest claim any reference makes, so nothing but the reference changes. The gates then come out one at a time, each with its own run, and the picture sizes a word by its claim in bits rather than by a count.
+
+The risk the plan has to bound is the draw: ten is small, and one blockchain repository in the reference would demote `transaction`, `gas` and `block` for besu, which is the signal rather than the noise. So each reference's claim is reported separately, the draw's composition is stated before the reading, and a draw is never re-rolled for landing badly.
+
 ## The queue
 
 **In the order they are to be taken.** 1 goes first because every measurement after it is cheaper and because a rule that removes evidence silently is otherwise found by reading source, which is how the last one was found. 2 and 3 are housekeeping and move every file: the toolchain, and a package namespace that matches the coordinate this library publishes under. 4 is the defects the term arm's two new rules left behind, and it is small. 5 is the only route to a functional taxonomy, because every signal this library produces is a noun and a functional taxonomy publishes verb phrases. 5 replaces the subject scheme with one that states prose per subject, which every arm downstream of it is thin on. 6 places the verbs a dictionary cannot, and needs 4 first. [The stock-take above](docs/plans/EVERY_SIGNAL_REACHES_A_SUBJECT.md) sequences 4, 5 and 6 and puts one step in front of all three: nothing about the matching is recorded as JSON, so no figure any of them produce can be checked without re-running the probe that produced it. Everything below them is ranked, not scheduled.

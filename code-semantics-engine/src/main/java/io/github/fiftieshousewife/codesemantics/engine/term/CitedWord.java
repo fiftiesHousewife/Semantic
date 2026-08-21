@@ -77,10 +77,22 @@ public final class CitedWord {
     }
 
     /**
-     * A run of one letter, which the splitter produces at a camel-case boundary rather than reading out of
-     * what an author wrote. WordNet carries the letters of the alphabet, so this is asked before it.
+     * A run the pipeline removes on its spelling alone — a single letter the splitter produced at a
+     * camel-case boundary, or somebody's shorthand. WordNet carries the letters of the alphabet, so this is
+     * asked before it.
+     *
+     * <p><b>Only that stage.</b> A term reading asks the pipeline the question it needs and not every
+     * question the pipeline can answer: a form the dictionaries cite for several things is still a term
+     * where a published registry names it, which is what this reading exists to find.
      */
     private boolean isASplitterArtefact(final String word) {
-        return word.strip().length() < 2;
+        return PIPELINE.leavesAt(word.strip())
+                .filter(io.github.fiftieshousewife.codesemantics.engine.reading.WordStage.SYMBOL::equals)
+                .isPresent();
     }
+
+    /** The one pipeline that states what a word of a repository is. */
+    private static final io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline PIPELINE =
+            io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines.overJava(
+                    io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords.fromClasspath());
 }

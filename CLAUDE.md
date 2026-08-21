@@ -4,13 +4,14 @@ This document is the authoritative reference for code style, architecture decisi
 
 ## The skills
 
-Four, indexed in [`.claude/skills/SKILLS.md`](.claude/skills/SKILLS.md), each stating its own rules. Load the one that matches before starting, not after.
+Five, indexed in [`.claude/skills/SKILLS.md`](.claude/skills/SKILLS.md), each stating its own rules. Load the one that matches before starting, not after.
 
 | Skill | Load it when |
 |---|---|
 | [`debugging-a-reading`](.claude/skills/debugging-a-reading/SKILL.md) | a placement, topic or match looks wrong, a change moves nothing, or a figure needs explaining before it is trusted |
 | [`adding-a-taxonomy`](.claude/skills/adding-a-taxonomy/SKILL.md) | adding, promoting or re-extracting any vocabulary resource |
 | [`profiling-a-read`](.claude/skills/profiling-a-read/SKILL.md) | a read is slow, a stage regressed, or a performance change needs its number |
+| [`running-the-backtest`](.claude/skills/running-the-backtest/SKILL.md) | a change to the reading needs its number on the nine repositories it was not developed against |
 | [`written-english`](.claude/skills/written-english/SKILL.md) | writing or editing any prose a reader outside the project sees |
 
 ---

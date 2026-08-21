@@ -52,6 +52,41 @@ public final class WrittenWords {
         return names;
     }
 
+    /** The same tally over the words a rule keeps, with every count and site carried across. */
+    public WrittenWords retaining(final java.util.function.Predicate<String> kept) {
+        final WrittenWords keeping = new WrittenWords();
+        occurrences.keySet().stream().filter(kept).forEach(word -> {
+            keeping.occurrences.put(word, occurrences.get(word));
+            keeping.asNames.put(word, asNames.getOrDefault(word, 0));
+            keeping.firstSite.put(word, firstSite.get(word));
+            firstNameSite.computeIfPresent(word, (same, site) -> {
+                keeping.firstNameSite.put(word, site);
+                return site;
+            });
+        });
+        return keeping;
+    }
+
+    /**
+     * The same tally with every word rewritten to the form a rule spells it, counts summed where two
+     * spellings become one. It is a merge and not a filter: nothing is lost, and two words becoming one is
+     * what the morphology was asked for.
+     */
+    public WrittenWords mergedBy(final java.util.function.UnaryOperator<String> form) {
+        final WrittenWords merged = new WrittenWords();
+        occurrences.forEach((word, times) -> {
+            final String to = form.apply(word);
+            merged.occurrences.merge(to, times, Integer::sum);
+            merged.asNames.merge(to, asNames.getOrDefault(word, 0), Integer::sum);
+            merged.firstSite.putIfAbsent(to, firstSite.get(word));
+            firstNameSite.computeIfPresent(word, (same, site) -> {
+                merged.firstNameSite.putIfAbsent(to, site);
+                return site;
+            });
+        });
+        return merged;
+    }
+
     /** An independent copy, so a finished reading cannot be moved by whatever tallied it. */
     public WrittenWords copied() {
         return pooling(List.of(this));

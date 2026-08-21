@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
+import io.github.fiftieshousewife.codesemantics.engine.reading.CitedExpansions;
+import io.github.fiftieshousewife.codesemantics.engine.reading.Dialect;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +45,9 @@ class ChosenWordsTest {
     private final ChosenWords chosen = new ChosenWords(
             List.of(reference("English", Map.of("the", 0.9, "word", 0.05, "list", 0.05)),
                     reference("the platform", Map.of("list", 0.9, "word", 0.05, "the", 0.05))),
-            new ShareDivergence(), FunctionWords.fromClasspath());
+            new ShareDivergence(),
+            new WordPipeline(word -> word.length() < 3, CitedExpansions.NONE,
+                    FunctionWords.fromClasspath()::includes, word -> word, Dialect.none()));
 
     @Test
     void ranksAWordNeitherReferenceWritesAboveOneBothDo() {

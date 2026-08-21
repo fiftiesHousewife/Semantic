@@ -5,6 +5,7 @@ errorprone = "2.38.0"
 errorprone-plugin = "4.2.0"
 junit = "6.0.3"
 jackson = "2.21.2"
+j2html = "1.6.0"
 slf4j = "2.0.17"
 javaparser = "3.28.2"
 duckdb = "1.5.5.1"
@@ -37,6 +38,10 @@ json-schema-validator = { module = "com.networknt:json-schema-validator", versio
 # is the thing this keeps out of the tree. Diagnostic-only, so it never reaches the published artefact.
 # The Java parse the self-read runs on. Pure Java, no grammar binary and no JNI, and no symbol solving —
 # a declaration is a declaration in the syntax, and resolving what a name refers to is a separate decision.
+# Typed tags for the diagnostic vocabulary page. A page assembled from tags cannot leave markup
+# unbalanced or forget to escape a word, and the alternative — HTML inside Java string literals — is the
+# thing this keeps out of the tree. Diagnostic-only, so it never reaches the published artefact.
+j2html = { module = "com.j2html:j2html", version.ref = "j2html" }
 javaparser-core = { module = "com.github.javaparser:javaparser-core", version.ref = "javaparser" }
 
 # --- plugin artifacts, used as implementation deps in build-logic ---

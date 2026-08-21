@@ -11,6 +11,7 @@ import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
 import io.github.fiftieshousewife.codesemantics.name.WordSegmenter;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +43,7 @@ class TopicTallyTest {
         return new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
                 new CollocatedWords(published, ContentWords.fromClasspath()),
                 new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(), published,
-                        Weights.defaults()),
+                        WordPipelines.overJava(ContentWords.fromClasspath()), Weights.defaults()),
                 new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), into);
     }
 
@@ -107,7 +108,8 @@ class TopicTallyTest {
         final TopicTally second = new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
                 new CollocatedWords(NOTHING_PUBLISHED, ContentWords.fromClasspath()),
                 new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
-                        NOTHING_PUBLISHED, Weights.defaults()),
+                        NOTHING_PUBLISHED, WordPipelines.overJava(ContentWords.fromClasspath()),
+                        Weights.defaults()),
                 new PhraseTopics(citations(), new TopicCommitment(), fullyCovered())
                         .under(TopicDistribution.of(Map.of("computing", 1.0), 0.0), Set.of(), ""),
                 conditioned);

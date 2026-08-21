@@ -26,13 +26,13 @@ class RefusedWordsTest {
     private static ChosenWord holding(final String surface, final int occurrences, final double share,
                                       final ChosenWord.ReferenceClaim... against) {
         return new ChosenWord(surface, occurrences, occurrences, 0.0, share, List.of(against),
-                "lexicon/src/main/java/Reading.java:9", false);
+                "lexicon/src/main/java/Reading.java:9", false, null);
     }
 
     private static ChosenWord englishSupplied(final String surface,
                                               final ChosenWord.ReferenceClaim... against) {
         return new ChosenWord(surface, 30, 30, 0.0, 0.004, List.of(against),
-                "lexicon/src/main/java/Reading.java:9", true);
+                "lexicon/src/main/java/Reading.java:9", true, null);
     }
 
     private final RefusedWords refused = new RefusedWords();

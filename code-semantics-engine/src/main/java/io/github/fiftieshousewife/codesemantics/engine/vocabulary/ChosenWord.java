@@ -15,9 +15,19 @@ import java.util.Map;
  * @param share         the share of every word occurrence in the repository this word holds
  * @param inNames       how many of its occurrences were the name of something rather than prose about it
  * @param theLanguages  whether English supplied the word, so writing it was not a choice about a subject
+ * @param removedAt     the pipeline stage that removes the word, or {@code null} where every stage keeps
+ *                      it. {@code SYMBOL} for {@code x} and {@code id}, {@code SHORTHAND} for {@code buf}
+ *                      and {@code ref}. It states where a word left the reading that places, so the two
+ *                      readings can be shown against each other instead of quietly disagreeing
  */
 public record ChosenWord(String word, int occurrences, int inNames, double claim, double share,
-                         List<ReferenceClaim> against, String site, boolean theLanguages) {
+                         List<ReferenceClaim> against, String site, boolean theLanguages,
+                         io.github.fiftieshousewife.codesemantics.engine.reading.WordStage removedAt) {
+
+    /** Whether the pipeline that decides what the reading places keeps this word at every stage. */
+    public boolean survivesThePipeline() {
+        return removedAt == null;
+    }
 
     /** What one reference says: the share it writes the word at, and the bits between that and this tree. */
     public record ReferenceClaim(String reference, double share, double bits, boolean writtenMoreHere) {

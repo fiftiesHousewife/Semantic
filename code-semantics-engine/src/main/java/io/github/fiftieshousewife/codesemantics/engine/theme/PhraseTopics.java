@@ -48,9 +48,12 @@ public final class PhraseTopics {
     private final Set<String> declaredHere;
     private final String layoutWord;
 
-    /** The JavaBeans accessor grammar, a pure statement of the specification, so it is not injected. */
-    private final io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccessors accessors =
-            new io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccessors();
+    /**
+     * The language whose naming conventions this reading may cite. It arrives from the pipeline rather than
+     * being built here, so the one place that states what a convention is states it for every reading.
+     */
+    private final io.github.fiftieshousewife.codesemantics.engine.reading.Dialect dialect =
+            io.github.fiftieshousewife.codesemantics.engine.reading.Dialect.java();
 
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
@@ -163,7 +166,7 @@ public final class PhraseTopics {
         if (form.isProse()) {
             return word -> declaredHere.contains(word) ? citations.of(word) : citations.inProse(word);
         }
-        final boolean accessor = form == NameForm.METHOD && accessors.claims(words);
+        final boolean accessor = form == NameForm.METHOD && dialect.namesAConvention(words);
         final Set<String> verbs = form == NameForm.METHOD && !accessor ? Set.of(words.getFirst()) : Set.of();
         final String prefix = accessor ? words.getFirst() : "";
         final String head = words.getLast();

@@ -25,6 +25,9 @@ dependencies {
     testCompileOnly(libs.lombok)
     testAnnotationProcessor(libs.lombok)
     testImplementation(libs.junit.jupiter)
+    // The vocabulary page is a diagnostic and is assembled from typed tags, so it is on the test
+    // classpath alone and no consumer of the library ever resolves it.
+    testImplementation(libs.j2html)
     testRuntimeOnly(libs.junit.platform.launcher)
     // The reading logs its stages at INFO, and `read`, the probes and the export run on this classpath.
     // Without a binding those minutes pass silently on SLF4J's no-operation provider.
@@ -119,6 +122,30 @@ tasks.register<JavaExec>("unreadRuns") {
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.UnreadRunsProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
+}
+
+// One repository's vocabulary at each of the three stages the reading puts it through, drawn from the JSON
+// already published. A diagnostic: it writes into the module's reports folder and never near output/.
+//   ./gradlew vocabularyPage
+tasks.register<JavaExec>("vocabularyPage") {
+    group = "verification"
+    description = "Draws every published reading's vocabulary as written, as lemmas and against English"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyPageCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+}
+
+// How much of what no dictionary could read a subject scheme states in its own words, scheme by scheme.
+// It prints; nothing votes on it and no published figure moves.
+//   ./gradlew unplacedRuns -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("unplacedRuns") {
+    group = "verification"
+    description = "Counts what each bundled subject scheme states of the runs no dictionary read"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.UnplacedRunProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
 // Why one named OpenAlex topic is or is not reached: its keywords one at a time, with the furthest the
