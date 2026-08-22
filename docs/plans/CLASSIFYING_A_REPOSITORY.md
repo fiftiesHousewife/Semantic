@@ -160,7 +160,7 @@ Two changes, both from the same finding. Draw the null **at each category's own 
 
 Before either, run the truncation study, which needs no panel and no new resource: truncate each arXiv description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. **Measurement.** If the ranking changes before 1/4, the present placement is measuring description length, and that is a finding to publish in the reports whether or not the fix lands. **Blocked on** nothing.
 
-**The truncation study has run, and the placement clears the bar by one step.** `TruncatedDescriptions` cuts a description to the first ⌈share × words⌉ words and leaves every other property the publisher stated; `PlacementByDescriptionLength` places the repository again at each share off the same repository reading, the same dictionaries and the same divergence, so only the words that left can move a subject. `DescriptionLengthReport` writes it as a section of [`subjects.md`](../../output/markdown/subjects.md), which means it runs on any clone rather than only here.
+**The truncation study has run, and the placement clears the bar by one step.** `TruncatedDescriptions` cuts a description to the first ⌈share × words⌉ words and leaves every other property the publisher stated; `PlacementByDescriptionLength` places the repository again at each share off the same repository reading, the same dictionaries and the same divergence, so only the words that left can move a subject. `DescriptionLengthReport` writes it as a section of [`subjects.md`](../../output/json/reading.json), which means it runs on any clone rather than only here.
 
 | Share of each description | Median words | Nearest subject |
 |---|--:|---|

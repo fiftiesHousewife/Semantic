@@ -1,6 +1,8 @@
 # Rank, do not gate: the reference is the missing denominator
 
-**This is the live plan.** It supersedes the word-filtering half of [`ONE_ARM.md`](ONE_ARM.md) and puts [`AGREED_SENSES.md`](AGREED_SENSES.md) on hold. Written 2026-08-21, at `ad15196` plus an uncommitted working tree.
+**Superseded from its fourth step by [`POOL_THE_CORPUS.md`](POOL_THE_CORPUS.md)**, which is where a session now starts. Steps 1 to 3 below are closed: the tree is committed, the backtest of it was deferred, and the corpus is drawn.
+
+**This was the live plan.** It supersedes the word-filtering half of [`ONE_ARM.md`](ONE_ARM.md) and puts [`AGREED_SENSES.md`](AGREED_SENSES.md) on hold. Written 2026-08-21, at `ad15196` plus an uncommitted working tree.
 
 ## The one idea
 
@@ -55,11 +57,11 @@ On this repository: 4,247 words and 114,169 occurrences narrow to 1,254 and 18,1
 
 **2. ~~Commit.~~ Done, at `4930371`.**
 
-**3. Draw the reference corpus. IN PROGRESS.** The frame is decided and recorded in [`reference-corpus.tsv`](../../code-semantics-engine/src/test/resources/reference-corpus.tsv)'s header before any row was drawn: `language:Java fork:false mirror:false size:>=1000 created:<2026-08-21`, seed 20260821, ten rows, exclusions limited to this repository and the nine members. The clone machinery now takes any manifest — `PinnedRepository`, `RepositoryManifest`, and a `corpusFetch` task reading `-Dcs.corpus.manifest` — so a second draw is measured by naming a second file.
+**3. Draw the reference corpus. IN PROGRESS.** The frame is decided and recorded in [`reference-corpus.tsv`](../../reference-corpus-extraction/src/main/resources/reference-corpus.tsv)'s header before any row was drawn: `language:Java fork:false mirror:false size:>=1000 created:<2026-08-21`, seed 20260821, ten rows, exclusions limited to this repository and the nine members. The clone machinery now takes any manifest — `PinnedRepository`, `RepositoryManifest`, and a `corpusFetch` task reading `-Dcs.corpus.manifest` — so a second draw is measured by naming a second file.
 
 **What the first backtest has to answer, stated now rather than after it.** A uniform draw from all of GitHub's Java is mostly small individual projects, and the first row drawn is an unlicensed MVC template. Those write `id`, `get`, `name` and `value`, so they will demote those. They may not write `log`, `license`, `apache`, `builder` or `optional`, which are what *mature* projects share and what all nine members are. **If `log` survives as a leading claim, the frame is wrong rather than the plan** — and the answer is a second draw from a stated different frame, compared against this one, not a filter.
 
-**4. Read them into one `ReferenceVocabulary`** and add it beside the API index. `ChosenWords` already takes a list and ranks by the weakest claim any reference makes, so nothing else changes.
+**4 to 7 now live in [`POOL_THE_CORPUS.md`](POOL_THE_CORPUS.md)**, with the state they start from: three samples drawn and pushed, nothing cloned, nothing pooled. The published thirty is the one to pool, and the measurement that decides whether a gate may go is stated there before it is run.
 
 **5. Backtest twice** — with the corpus beside the index, and with it replacing the index. Whether the index still earns its place is a question, not an assumption.
 

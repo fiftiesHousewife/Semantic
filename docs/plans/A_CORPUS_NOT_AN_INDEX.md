@@ -31,7 +31,7 @@ A word survives both only where neither English nor working Java writes it as de
 
 ## The sampling frame, fixed before anything is read
 
-**Decided 2026-08-21 and recorded in [`reference-corpus.tsv`](../../code-semantics-engine/src/test/resources/reference-corpus.tsv)'s header before the first row was drawn.** The frame is:
+**Decided 2026-08-21 and recorded in [`reference-corpus.tsv`](../../reference-corpus-extraction/src/main/resources/reference-corpus.tsv)'s header before the first row was drawn.** The frame is:
 
 ```
 language:Java fork:false mirror:false size:>=1000 created:<2026-08-21
