@@ -12,26 +12,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class PlateauReportTest {
 
-    private static final List<CountedRepository> DRAWN = List.of(
-            new CountedRepository("kettle", writing("kettle", 100)),
-            new CountedRepository("lantern", writing("lantern", 100)));
+    private static final List<CountedRepository> DRAWN = IntStream.range(0, 4)
+            .mapToObj(at -> new CountedRepository("drawn" + at, mixing(100 + 50 * at, 400 - 50 * at)))
+            .toList();
 
     @Test
     void writesADashForTheFirstRepositoryBecauseNothingPrecedesIt() {
-        assertThat(rowFor("    1  kettle")).contains("-");
+        assertThat(rowFor("    1  drawn0")).contains("-");
     }
 
     @Test
-    void statesTheStepAndTheDistanceToTheWholeDrawInBits() {
-        final String last = rowFor("    2  lantern");
+    void namesEverySectionWithTheWeightingItWasMeasuredUnder() {
         assertAll(
-                () -> assertThat(last).contains("0.311278"),
-                () -> assertThat(last).contains("0.000000"));
-    }
-
-    @Test
-    void namesBothSectionsWithTheWeightingTheyWereMeasuredUnder() {
-        assertAll(
+                () -> assertThat(measured())
+                        .contains("MEAN_OF_SHARES: how far two independent corpora of a size disagree"),
                 () -> assertThat(measured())
                         .contains("MEAN_OF_SHARES: how far the reference moves as each repository joins"),
                 () -> assertThat(measured())
@@ -39,11 +33,20 @@ class PlateauReportTest {
     }
 
     @Test
-    void reportsEveryRepositoryInBothSections() {
-        assertAll(
-                () -> assertThat(measured().lines().filter(line -> line.contains("kettle")).count())
-                        .isEqualTo(2),
-                () -> assertThat(measured().lines().filter(line -> line.contains("lantern")).count())
+    void statesTheRateTheErrorFallsAtAndWhatHalvingItCosts() {
+        assertThat(measured()).contains("the error falls as size to the power");
+    }
+
+    @Test
+    void measuresDisagreementUpToHalfTheDraw() {
+        assertThat(measured().lines().filter(line -> line.matches("\\s+\\d+\\s+\\d+(\\s+[0-9.]+){3}")).count())
+                .isEqualTo(2);
+    }
+
+    @Test
+    void reportsEveryRepositoryInBothCurves() {
+        assertThat(DRAWN).allSatisfy(repository ->
+                assertThat(measured().lines().filter(line -> line.contains(repository.name())).count())
                         .isEqualTo(2));
     }
 
@@ -58,9 +61,10 @@ class PlateauReportTest {
         return CorpusPlateauCommand.measured(DRAWN, CorpusPooling.MEAN_OF_SHARES);
     }
 
-    private static WrittenWords writing(final String word, final int times) {
+    private static WrittenWords mixing(final int kettle, final int lantern) {
         final WrittenWords written = new WrittenWords();
-        IntStream.range(0, times).forEach(at -> written.saw(word, word + ".java:" + at, true));
+        IntStream.range(0, kettle).forEach(at -> written.saw("kettle", "Kettle.java:" + at, true));
+        IntStream.range(0, lantern).forEach(at -> written.saw("lantern", "Lantern.java:" + at, true));
         return written;
     }
 }

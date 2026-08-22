@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Renders a plateau measurement: the curve as each repository joins the draw, then what the reference loses
- * if any one of them leaves.
+ * Renders a plateau measurement: how far two independent corpora of a size disagree, the curve as each
+ * repository joins the draw, and what the reference loses if any one of them leaves.
  *
  * <p>Rendering is kept apart from the command that prints it so the figures can be asserted rather than
  * eyeballed. Every number is in bits and bounded at 1.
@@ -17,9 +17,23 @@ public final class PlateauReport {
     private static final String ROW = "\n";
     private static final String NO_STEP = "-";
 
-    public String of(final CorpusPooling pooling, final List<CorpusPlateau.Step> steps,
-                     final List<CorpusPlateau.Absence> absences) {
-        return curve(pooling, steps) + ROW + absent(pooling, absences);
+    public String of(final CorpusPooling pooling, final List<SamplingError.AtSize> error,
+                     final List<CorpusPlateau.Step> steps, final List<CorpusPlateau.Absence> absences) {
+        return disagreement(pooling, error) + ROW + curve(pooling, steps) + ROW + absent(pooling, absences);
+    }
+
+    private static String disagreement(final CorpusPooling pooling, final List<SamplingError.AtSize> error) {
+        final ErrorDecay decay = ErrorDecay.of(error);
+        return Stream.concat(
+                        Stream.of(String.format(Locale.ROOT,
+                                "%s: how far two independent corpora of a size disagree%n  %12s %8s %12s %12s %12s",
+                                pooling, "a side", "pairs", "bits apart", "one side only", "shared")),
+                        error.stream().map(at -> String.format(Locale.ROOT, "  %12d %8d %12.6f %12.6f %12.6f",
+                                at.repositories(), at.pairs(), at.bits(), at.fromApart(), at.fromShared())))
+                .collect(Collectors.joining(ROW, "", ROW))
+                + String.format(Locale.ROOT,
+                        "  the error falls as size to the power %.3f; halving it from %d a side takes %.0f%n",
+                        decay.exponent(), decay.largest(), decay.repositoriesToHalve());
     }
 
     private static String curve(final CorpusPooling pooling, final List<CorpusPlateau.Step> steps) {
