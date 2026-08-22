@@ -1,26 +1,26 @@
 {
-  "previousCommit" : "ff3fa849ab871633144af52fd0ba009d35d33333",
-  "commit" : "118fdb8490dfe10c0d8e81b21b0ba33082b75b23",
+  "previousCommit" : "118fdb8490dfe10c0d8e81b21b0ba33082b75b23",
+  "commit" : "b7cc24d293e1edb27db2e86bbf38dcab33fc6475",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
-    "before" : "98.2%",
+    "before" : "98.3%",
     "after" : "98.3%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.1%",
-    "after" : "84.2%"
+    "before" : "84.2%",
+    "after" : "84.0%"
   }, {
     "figure" : "arXiv archive — nearest subject",
     "before" : "Computer Science",
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.2%",
-    "after" : "32.9%"
+    "before" : "32.9%",
+    "after" : "33.2%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "38.7%",
-    "after" : "39.8%"
+    "before" : "39.8%",
+    "after" : "40.0%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -35,12 +35,12 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.2%",
-    "after" : "41.8%"
+    "before" : "41.8%",
+    "after" : "42.2%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "43.6%",
-    "after" : "45.2%"
+    "before" : "45.2%",
+    "after" : "45.4%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -55,11 +55,11 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "22.0%",
-    "after" : "22.8%"
+    "before" : "22.8%",
+    "after" : "22.9%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "30.0%",
+    "before" : "31.2%",
     "after" : "31.2%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -67,20 +67,20 @@
     "after" : "yes"
   }, {
     "figure" : "OpenAlex archive — subjects nearer than chance",
-    "before" : "4",
+    "before" : "5",
     "after" : "5"
   }, {
     "figure" : "OpenAlex category — nearest subject",
-    "before" : "Natural Language Processing Techniques",
+    "before" : "Authorship Attribution and Profiling",
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "40.5%",
-    "after" : "40.6%"
+    "before" : "40.6%",
+    "after" : "40.7%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "47.6%",
-    "after" : "48.3%"
+    "before" : "48.3%",
+    "after" : "48.5%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -91,60 +91,68 @@
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "243",
-    "after" : "248"
+    "before" : "248",
+    "after" : "249"
   }, {
     "figure" : "Topics reported",
-    "before" : "2",
+    "before" : "5",
     "after" : "5"
   }, {
     "figure" : "Concepts written",
-    "before" : "173",
-    "after" : "176"
+    "before" : "176",
+    "after" : "178"
   } ],
   "crossings" : [ {
-    "population" : "TOPIC",
-    "name" : "computing",
-    "entered" : true
-  }, {
-    "population" : "TOPIC",
-    "name" : "grammar",
+    "population" : "WORD",
+    "name" : "corpus",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "clause",
+    "name" : "draw",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "form",
+    "name" : "drawing",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "identifiers",
+    "name" : "endpoint",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "keeps",
+    "name" : "git",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "none",
+    "name" : "query",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "removes",
-    "entered" : true
+    "name" : "fragment",
+    "entered" : false
   }, {
     "population" : "WORD",
-    "name" : "descendants",
+    "name" : "links",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "load",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "note",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "read",
     "entered" : false
   }, {
     "population" : "CONCEPT",
-    "name" : "css",
+    "name" : "back-off",
     "entered" : true
   }, {
     "population" : "CONCEPT",
-    "name" : "style sheets",
+    "name" : "backoff",
     "entered" : true
   } ]
 }
