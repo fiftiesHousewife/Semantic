@@ -1,5 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.corpus;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
  * How a corpus's repositories are combined into the one distribution a reading is read against.
  *
@@ -49,6 +52,12 @@ public enum CorpusPooling {
     /** What it weighs equally, for the table's own header to say. */
     public String weighs() {
         return weighs;
+    }
+
+    /** The whole corpus as a distribution over its words, which is what a divergence is taken between. */
+    public Map<String, Double> shareByWord(final CorpusWords corpus) {
+        return corpus.words().stream()
+                .collect(Collectors.toUnmodifiableMap(word -> word, word -> shareOf(word, corpus)));
     }
 
     /** The word's share of the corpus under this weighting. */

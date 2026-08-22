@@ -57,6 +57,22 @@ tasks.register<JavaExec>("corpusPool") {
     }
 }
 
+// Whether the draw has stopped moving: how far the reference travels as each repository joins it, in the
+// drawn order, and how far it would travel if any one of them left. Both in bits, bounded at 1. It reads the
+// corpus and prints; it writes nothing.
+//   ./gradlew :reference-corpus-extraction:corpusPlateau \
+//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+tasks.register<JavaExec>("corpusPlateau") {
+    group = "verification"
+    description = "Prints how far the reference still moves as the drawn sample grows"
+    mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusPlateauCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "6g"
+    listOf("dir", "manifest").forEach { name ->
+        System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
+    }
+}
+
 // THE DRAW ITSELF, which produced the manifests above and is what reproduces them.
 //
 // It reaches the GitHub API and is never part of an ordinary build. The manifests are recorded; this is here
