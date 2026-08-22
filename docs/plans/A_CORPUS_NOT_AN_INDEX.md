@@ -77,6 +77,29 @@ language:Java fork:false mirror:false size:>=1000 stars:>=50 created:<2026-08-21
 
 `stars:>=50` selects for attention, not for content, so it does not breach the rule this file exists to enforce. **It is not neutral either** — attention correlates with maturity, and maturity is closer to what the members are. That is exactly why it is a *second sample* rather than an edit to the first: two denominators, each with a stated frame, and the comparison is the evidence. `RepositoryManifest` takes either by name, so this costs one file.
 
+**The star floor is not free, and what it costs is measurable.** Stars accumulate, so a repository needs time to reach fifty. The starred frame holds 28,261 repositories against the uniform frame's 4,154,178, and its yearly counts peak in 2016 and fall to 302 in 2026, where the uniform frame's rise to 2025:
+
+| Frame | Size | Median repository created |
+|---|--:|---|
+| uniform | 4,154,178 | 2021 |
+| `stars:>=50` | 28,261 | **2017** |
+
+Four years older at the median. Java written in 2017 is Java before records, before `var` was common, with streams still arriving — so the starred sample trades a maturity gap for an age gap, and a denominator built from it would demote 2017's vocabulary rather than today's. **Neither frame is the neutral one.** That is the argument for reading both and reporting each reference's claim separately, which `ChosenWord.against` already carries.
+
+**Both samples are drawn, and the result is not what either branch of that comparison assumed.** The starred sample is five-tenths Android, two-tenths teaching material, three-tenths libraries:
+
+| | uniform ten | starred ten |
+|---|---|---|
+| Composition | coursework and hobby projects | Android apps, tutorials, three libraries |
+| Stars | ten of ten at zero | 54 to 2,933 |
+| Licence stated | none of ten | four of ten — two GPL-2.0, one GPL-3.0, one MIT |
+| Median created | 2021 | 2017 |
+| Clone cost | 129 MB | 223 MB |
+
+**Neither resembles the evaluation-set members**, which are Apache-shaped libraries and servers. One denominator is coursework, the other is Android. That is a real result about GitHub rather than about the draw: server-side Java libraries are a thin slice of what GitHub's Java is, and no qualifier stated in advance here reached them.
+
+So there is a third frame worth stating — repositories that publish an artefact, which is what a library does and what a course project does not. Maven Central's index is enumerable and is a published statement rather than a curated one. **It is not drawn here, because a frame is stated before it is drawn and this one was not stated before these twenty rows existed.** Whether it is worth the draw is a decision, not a default.
+
 | | Answers |
 |---|---|
 | Both samples demote `id`, `log`, `test`, `get`, `buf` | the frame does not matter, and the uniform one stands because it assumes less |

@@ -1,0 +1,339 @@
+{
+  "frame": "language:Java fork:false mirror:false size:>=1000 stars:>=50",
+  "until": "2026-08-20T23:59:59Z",
+  "seed": 20260821,
+  "total": 28261,
+  "drawnOn": "2026-08-22",
+  "drawn": [
+    {
+      "name": "gedcom4j",
+      "repository": "frizbog/gedcom4j",
+      "rank": 2531,
+      "sha": "e0aa5da86699cdcd5bc6be995a22a07dcbe25f7f",
+      "licenceAtPin": "none",
+      "created": "2012-11-27T19:24:28Z",
+      "sizeKb": 23526,
+      "stars": 63,
+      "description": "Java library for reading/writing genealogy files in GEDCOM format"
+    },
+    {
+      "name": "krgallery",
+      "repository": "chengzichen/KrGallery",
+      "rank": 14834,
+      "sha": "5fbe23c0730150c95ee33a7be72700c7514d0d1a",
+      "licenceAtPin": "GPL-2.0",
+      "created": "2017-04-20T06:04:26Z",
+      "sizeKb": 17846,
+      "stars": 118,
+      "description": "Crop , Video, Photos, from Telegram"
+    },
+    {
+      "name": "flycolabelview",
+      "repository": "H07000223/FlycoLabelView",
+      "rank": 9117,
+      "sha": "d8aa415490cbcfcbc3bbd04be63fd13f450dd078",
+      "licenceAtPin": "none",
+      "created": "2015-12-15T15:51:53Z",
+      "sizeKb": 1836,
+      "stars": 876,
+      "description": "A Simple Android LabelView."
+    },
+    {
+      "name": "aimsicdl",
+      "repository": "5GSD/AIMSICDL",
+      "rank": 14741,
+      "sha": "28aa92387b82f2fe5e5b73551bd57a17e6697e38",
+      "licenceAtPin": "GPL-3.0",
+      "created": "2017-04-17T16:54:33Z",
+      "sizeKb": 8562,
+      "stars": 161,
+      "description": "AIMSICD Lite (Android IMSI-Catcher Detector) - reloaded!"
+    },
+    {
+      "name": "protect",
+      "repository": "jasonkresch/protect",
+      "rank": 18423,
+      "sha": "8262b2adc6d796a61185f8e1728356860ad45528",
+      "licenceAtPin": "MIT",
+      "created": "2018-08-10T16:31:30Z",
+      "sizeKb": 1996,
+      "stars": 99,
+      "description": "A Platform for Robust Threshold Cryptography based on Asynchronous Publicly Verifiable Secret Sharing with Tunable Security"
+    },
+    {
+      "name": "akarnokd-misc",
+      "repository": "akarnokd/akarnokd-misc",
+      "rank": 9732,
+      "sha": "4b31c20c52735b87cb9248cde5edafc7666dd6d9",
+      "licenceAtPin": "none",
+      "created": "2015-10-26T10:41:21Z",
+      "sizeKb": 2505,
+      "stars": 54,
+      "description": "Miscellaneous classes, implementations with gradle and jmh set up"
+    },
+    {
+      "name": "plugintheme",
+      "repository": "jiangyinbin/PluginTheme",
+      "rank": 8660,
+      "sha": "bb03c72c0f8e802babadc32a4f1b6e6c61515625",
+      "licenceAtPin": "none",
+      "created": "2015-08-28T03:59:49Z",
+      "sizeKb": 1272,
+      "stars": 137,
+      "description": "\u5728\u7ebf\u5207\u6362\u4e3b\u9898(\u6362\u80a4)\uff0c\u652f\u6301\u76f4\u63a5\u66ff\u6362\u6574\u4e2a\u5e03\u5c40\uff01\u6b22\u8fceStar"
+    },
+    {
+      "name": "cloud2020",
+      "repository": "EiletXie/cloud2020",
+      "rank": 21704,
+      "sha": "f1fb2330a87e25dedef326309b6f0f7ef1fd204c",
+      "licenceAtPin": "none",
+      "created": "2020-03-09T16:45:50Z",
+      "sizeKb": 30908,
+      "stars": 648,
+      "description": "SpringCloud2020\u6700\u65b0\u6280\u672f\u5b66\u4e60"
+    },
+    {
+      "name": "light-novel-library_wenku8_android",
+      "repository": "MewX/light-novel-library_Wenku8_Android",
+      "rank": 6074,
+      "sha": "f58ed15fc7fad120fd4d5802877e18a9eebb7705",
+      "licenceAtPin": "GPL-2.0",
+      "created": "2014-10-10T05:07:14Z",
+      "sizeKb": 62660,
+      "stars": 2933,
+      "description": "[CASUALLY MAINTAINED] \u8f7b\u5c0f\u8bf4\u6587\u5e93 (Wenku8.com) \u5b89\u5353\u7248\u7b2c\u4e09\u65b9\u516c\u76caApp\uff0c\u59cb\u4e8e2014\u5e74\u7684\u521d\u7248Material Design\u98ce\u683c\u3001\u975e\u76c8\u5229\u3001Play Store\u4e0a\u5b89\u88c5\u5305\u6700\u5c0f\u7684\u8f7b\u5c0f\u8bf4\u9605\u8bfb\u5668 (light novel reader)\u3002\u76ee\u524d\u7f51\u7ad9\u7684API\u7531\u4e8e\u88ab\u5927\u91cf\u6ee5\u7528\uff0c\u5df2\u66f4\u65b0\u6210\u6211\u81ea\u5df1\u67b6\u7684 Cloudflare Worker API \u4e2d\u7ee7\u8282\u70b9\uff0c\u4e0d\u7136\u7684\u8bdd\u7f51\u7ad9\u5173\u95edAPI\u5c31\u5168\u519b\u8986\u6ca1\u4e86\u3002"
+    },
+    {
+      "name": "estruturadedadosjavadio",
+      "repository": "jrdutra/estruturaDeDadosJavaDio",
+      "rank": 23529,
+      "sha": "2240db6b965c0f637e292e32a9a202051477fe11",
+      "licenceAtPin": "none",
+      "created": "2021-04-20T00:13:40Z",
+      "sizeKb": 77383,
+      "stars": 381,
+      "description": ""
+    }
+  ],
+  "rejected": [],
+  "rangeCounts": [
+    {
+      "range": [
+        "2007-01-01T00:00:00Z",
+        "2007-12-31T23:59:59Z"
+      ],
+      "count": 0
+    },
+    {
+      "range": [
+        "2008-01-01T00:00:00Z",
+        "2008-12-31T23:59:59Z"
+      ],
+      "count": 25
+    },
+    {
+      "range": [
+        "2009-01-01T00:00:00Z",
+        "2009-12-31T23:59:59Z"
+      ],
+      "count": 163
+    },
+    {
+      "range": [
+        "2010-01-01T00:00:00Z",
+        "2010-12-31T23:59:59Z"
+      ],
+      "count": 419
+    },
+    {
+      "range": [
+        "2011-01-01T00:00:00Z",
+        "2011-12-31T23:59:59Z"
+      ],
+      "count": 822
+    },
+    {
+      "range": [
+        "2012-01-01T00:00:00Z",
+        "2012-12-31T23:59:59Z"
+      ],
+      "count": 1183
+    },
+    {
+      "range": [
+        "2013-01-01T00:00:00Z",
+        "2013-12-31T23:59:59Z"
+      ],
+      "count": 1726
+    },
+    {
+      "range": [
+        "2014-01-01T00:00:00Z",
+        "2014-12-31T23:59:59Z"
+      ],
+      "count": 2349
+    },
+    {
+      "range": [
+        "2015-01-01T00:00:00Z",
+        "2015-12-31T23:59:59Z"
+      ],
+      "count": 3082
+    },
+    {
+      "range": [
+        "2016-01-01T00:00:00Z",
+        "2016-12-31T23:59:59Z"
+      ],
+      "count": 3663
+    },
+    {
+      "range": [
+        "2017-01-01T00:00:00Z",
+        "2017-12-31T23:59:59Z"
+      ],
+      "count": 3234
+    },
+    {
+      "range": [
+        "2018-01-01T00:00:00Z",
+        "2018-12-31T23:59:59Z"
+      ],
+      "count": 2629
+    },
+    {
+      "range": [
+        "2019-01-01T00:00:00Z",
+        "2019-12-31T23:59:59Z"
+      ],
+      "count": 2283
+    },
+    {
+      "range": [
+        "2020-01-01T00:00:00Z",
+        "2020-12-31T23:59:59Z"
+      ],
+      "count": 1839
+    },
+    {
+      "range": [
+        "2021-01-01T00:00:00Z",
+        "2021-12-31T23:59:59Z"
+      ],
+      "count": 1338
+    },
+    {
+      "range": [
+        "2022-01-01T00:00:00Z",
+        "2022-12-31T23:59:59Z"
+      ],
+      "count": 1108
+    },
+    {
+      "range": [
+        "2023-01-01T00:00:00Z",
+        "2023-12-31T23:59:59Z"
+      ],
+      "count": 901
+    },
+    {
+      "range": [
+        "2024-01-01T00:00:00Z",
+        "2024-12-31T23:59:59Z"
+      ],
+      "count": 681
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-12-31T23:59:59Z"
+      ],
+      "count": 514
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-08-20T23:59:59Z"
+      ],
+      "count": 302
+    },
+    {
+      "range": [
+        "2012-01-01T00:00:00Z",
+        "2012-07-02T00:59:58Z"
+      ],
+      "count": 546
+    },
+    {
+      "range": [
+        "2017-01-01T00:00:00Z",
+        "2017-07-02T12:59:58Z"
+      ],
+      "count": 1766
+    },
+    {
+      "range": [
+        "2017-01-01T00:00:00Z",
+        "2017-04-02T06:59:58Z"
+      ],
+      "count": 910
+    },
+    {
+      "range": [
+        "2015-01-01T00:00:00Z",
+        "2015-07-02T12:59:58Z"
+      ],
+      "count": 1502
+    },
+    {
+      "range": [
+        "2015-07-02T12:59:59Z",
+        "2015-10-01T18:59:58Z"
+      ],
+      "count": 790
+    },
+    {
+      "range": [
+        "2018-01-01T00:00:00Z",
+        "2018-07-02T12:59:58Z"
+      ],
+      "count": 1376
+    },
+    {
+      "range": [
+        "2018-07-02T12:59:59Z",
+        "2018-10-01T18:59:58Z"
+      ],
+      "count": 652
+    },
+    {
+      "range": [
+        "2020-01-01T00:00:00Z",
+        "2020-07-02T00:59:58Z"
+      ],
+      "count": 969
+    },
+    {
+      "range": [
+        "2014-01-01T00:00:00Z",
+        "2014-07-02T12:59:58Z"
+      ],
+      "count": 1092
+    },
+    {
+      "range": [
+        "2014-07-02T12:59:59Z",
+        "2014-10-01T18:59:58Z"
+      ],
+      "count": 614
+    },
+    {
+      "range": [
+        "2021-01-01T00:00:00Z",
+        "2021-07-02T12:59:58Z"
+      ],
+      "count": 718
+    }
+  ]
+}

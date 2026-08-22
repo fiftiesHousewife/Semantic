@@ -1,0 +1,63 @@
+# The starred reference corpus: a SECOND sample, drawn to compare against reference-corpus.tsv rather than to
+# replace it. Same seed, same discipline, same draw script, one qualifier different.
+#
+#   language:Java fork:false mirror:false size:>=1000 stars:>=50 created:<2026-08-21
+#
+# WHY A SECOND SAMPLE. The uniform draw in reference-corpus.tsv is dominated by coursework and hobby
+# projects — ten of ten with zero stars and no licence. Those write `id`, `get`, `name` and `value`, which is
+# what the reference is for. They may not write `log`, `license`, `builder` or `optional`, which are what
+# MAINTAINED projects share, and all nine evaluation-set members are maintained. Whether the denominator has
+# to resemble the code being read is a question about the reference, and two samples answer it where an
+# argument does not.
+#
+# `stars:>=50` selects for attention rather than for content, so it does not breach the rule the first
+# manifest states. IT IS NOT NEUTRAL EITHER, and the cost is measurable rather than suspected:
+#
+#   frame            size        median repository created
+#   uniform          4,154,178   2021
+#   stars:>=50          28,261   2017
+#
+# Stars accumulate, so a repository needs years to reach fifty, and this frame's yearly counts peak in 2016
+# and fall to 302 by 2026 where the uniform frame's rise to 2025. Four years older at the median: Java from
+# before records, before `var` was ordinary, with streams still arriving. So this sample trades a maturity
+# gap for an age gap. NEITHER FRAME IS THE NEUTRAL ONE, which is why each reference's claim is reported
+# separately rather than pooled into one number.
+#
+# THE COMPOSITION, stated before anything was read, from the repositories' own descriptions:
+#
+#   gedcom4j                 a library for reading and writing genealogy files
+#   protect                  a platform for robust threshold cryptography
+#   akarnokd-misc            miscellaneous implementations, by an RxJava contributor
+#   aimsicdl                 an Android IMSI-catcher detector
+#   krgallery                Android cropping, video and photos
+#   flycolabelview           an Android label widget
+#   plugintheme              Android theme switching
+#   light-novel-library      an Android reader for a light-novel site
+#   cloud2020                SpringCloud teaching material
+#   estruturadedadosjavadio  Java data-structures course work
+#
+#   FIVE OF THE TEN ARE ANDROID and two are teaching material, so this sample is not maintained server-side
+#   Java either. Between the two manifests the reading has a coursework denominator and an Android
+#   denominator, and NEITHER RESEMBLES THE EVALUATION-SET MEMBERS, which are Apache-shaped libraries and
+#   servers. A third frame drawn from repositories that publish an artefact would, and is not drawn here
+#   because a frame is stated before it is drawn and this one was stated before these rows existed.
+#
+#   Four of the ten state a licence — two GPL-2.0, one GPL-3.0, one MIT — against none of the uniform ten.
+#   A repository is read, never redistributed, so copyleft is recorded rather than refused, as jPOS is in
+#   evaluation-set.tsv. Nothing was rejected: all ten ranks the seed produced were accepted, first time.
+#
+# Columns, the draw, the rejection policy and the doctrine argument are all as reference-corpus.tsv states
+# them; only the frame differs. The draw and its record are docs/reference-corpus/draw.py and
+# docs/reference-corpus/draw-starred.json.
+#
+# Source: THIS PROJECT ran the draw; GitHub states the frame and the ranks. Drawn and pinned 2026-08-22.
+gedcom4j	https://github.com/frizbog/gedcom4j.git	e0aa5da86699cdcd5bc6be995a22a07dcbe25f7f	none	2531	2012-11-27T19:24:28Z	23526
+krgallery	https://github.com/chengzichen/KrGallery.git	5fbe23c0730150c95ee33a7be72700c7514d0d1a	GPL-2.0	14834	2017-04-20T06:04:26Z	17846
+flycolabelview	https://github.com/H07000223/FlycoLabelView.git	d8aa415490cbcfcbc3bbd04be63fd13f450dd078	none	9117	2015-12-15T15:51:53Z	1836
+aimsicdl	https://github.com/5GSD/AIMSICDL.git	28aa92387b82f2fe5e5b73551bd57a17e6697e38	GPL-3.0	14741	2017-04-17T16:54:33Z	8562
+protect	https://github.com/jasonkresch/protect.git	8262b2adc6d796a61185f8e1728356860ad45528	MIT	18423	2018-08-10T16:31:30Z	1996
+akarnokd-misc	https://github.com/akarnokd/akarnokd-misc.git	4b31c20c52735b87cb9248cde5edafc7666dd6d9	none	9732	2015-10-26T10:41:21Z	2505
+plugintheme	https://github.com/jiangyinbin/PluginTheme.git	bb03c72c0f8e802babadc32a4f1b6e6c61515625	none	8660	2015-08-28T03:59:49Z	1272
+cloud2020	https://github.com/EiletXie/cloud2020.git	f1fb2330a87e25dedef326309b6f0f7ef1fd204c	none	21704	2020-03-09T16:45:50Z	30908
+light-novel-library_wenku8_android	https://github.com/MewX/light-novel-library_Wenku8_Android.git	f58ed15fc7fad120fd4d5802877e18a9eebb7705	GPL-2.0	6074	2014-10-10T05:07:14Z	62660
+estruturadedadosjavadio	https://github.com/jrdutra/estruturaDeDadosJavaDio.git	2240db6b965c0f637e292e32a9a202051477fe11	none	23529	2021-04-20T00:13:40Z	77383
