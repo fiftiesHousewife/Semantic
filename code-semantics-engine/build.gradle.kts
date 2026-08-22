@@ -364,6 +364,20 @@ tasks.register("evaluationRead") {
     }
 }
 
+// What a reference corpus does to a ranking no stage has filtered: every declared name is in the field,
+// so the, a, get and test are ranked rather than removed, and the chance bar decides. It is what says
+// whether SYMBOL, SHORTHAND and LANGUAGE still have work to do.
+//   ./gradlew corpusReference -Pcorpus=<path to a pooled corpus table>
+tasks.register<JavaExec>("corpusReference") {
+    group = "verification"
+    description = "Ranks every declared name against English, the platform and a pooled corpus"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.vocabulary.CorpusReferenceProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = listOfNotNull(findProperty("corpus") as String?)
+}
+
 // How much of the ranking's divergence each prefix of it holds. The report prints a fixed number of rows;
 // this is what says whether that number is the right one, and what a different one would cost.
 //   ./gradlew vocabularyMass
