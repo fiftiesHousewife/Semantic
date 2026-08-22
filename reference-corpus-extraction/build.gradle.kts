@@ -30,3 +30,38 @@ tasks.register<JavaExec>("corpusFetch") {
     System.getProperty("cs.corpus.dir")?.let { systemProperty("cs.corpus.dir", it) }
     System.getProperty("cs.corpus.manifest")?.let { systemProperty("cs.corpus.manifest", it) }
 }
+
+// THE DRAW ITSELF, which is what produced the manifests above and is the only thing that can reproduce them.
+//
+// It is Python where every other extraction in this tree is a JavaExec, and the reason is the shape of the
+// input rather than a preference. Every other extractor reads ONE file, so it takes -P<name>=<path> and a
+// caller who cannot reach the network passes a copy fetched by hand. A draw cannot: it is around a hundred
+// and fifty rate-limited queries with a binary search between them, resolving a seeded rank against counts
+// that are only exact below a million. There is no file to hand it.
+//
+// Reaching the network from a build is why this is never wired into any other task. The manifests are
+// checked in; this is here so somebody else can reproduce them from the seed, not so a build can redraw.
+//
+//   ./gradlew :reference-corpus-extraction:corpusDraw -Pframe='language:Java fork:false size:>=1000' \
+//       -Puntil=2026-08-20T23:59:59Z -Pseed=20260821 -Pdraws=10 -Pout=<record>.json
+tasks.register<Exec>("corpusDraw") {
+    group = "build"
+    description = "Draws a seeded sample of repositories from a stated GitHub frame, recording every " +
+        "rank and every rejection"
+    val script = layout.projectDirectory.file("src/main/draw/draw.py").asFile
+    commandLine(
+        listOfNotNull(
+            "python3", script.absolutePath,
+            "--frame", findProperty("frame") as String?
+                ?: "language:Java fork:false mirror:false size:>=1000",
+            "--until", findProperty("until") as String? ?: "2026-08-20T23:59:59Z",
+            "--seed", findProperty("seed") as String? ?: "20260821",
+            "--draws", findProperty("draws") as String? ?: "10",
+            "--out", findProperty("out") as String?
+                ?: layout.buildDirectory.file("draw.json").get().asFile.absolutePath,
+            (findProperty("requirePublication") as String?)?.let { "--require-publication" },
+            (findProperty("exclude") as String?)?.let { "--exclude" },
+            findProperty("exclude") as String?
+        )
+    )
+}
