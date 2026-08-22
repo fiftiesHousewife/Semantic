@@ -118,7 +118,9 @@ The tail falls steadily. **The shared vocabulary does not** — it rises to 0.23
 
 **So the step-5 table's cells are only load-bearing where the margin is wide.** `id` on strata went from 147th to 5575th and is not in doubt. **`buf` on aeron is within noise and should not be quoted** — it is recorded there as retired and it is a coin flip.
 
-**7. Extend the draw. Blocked: the JVM cannot reach the network here.** `corpusDraw` fails with `ConnectException` from `HttpClient`, while `git` and `curl` subprocesses reach GitHub fine — the block is the JVM's own HTTP stack, not the sandbox's network. So the draw runs from Pippa's shell:
+**7. Extend the draw. Blocked in the agent session, and the cause is worth knowing.** `corpusDraw` fails with `ConnectException` from `HttpClient` while `git` and `curl` reach GitHub fine. **It is not the sandbox refusing the JVM.** Every agent-session request goes through an authenticated HTTP proxy at `localhost:61627`, named by `http_proxy` and `https_proxy` in the environment. `curl` and `git` read those; Java's `HttpClient` does not, and `GitHubSearch` calls `HttpClient.newHttpClient()`, which has neither a proxy nor an authenticator. Unauthenticated `CONNECT` through that proxy returns nothing; with the environment's credentials it returns 200.
+
+So it is fixable rather than blocked — a `ProxySelector` and a `java.net.Authenticator` taken from the environment would do it, which is ordinary behaviour for a proxied network and not a sandbox workaround. It has not been written, because network plumbing in the draw is a change worth reviewing rather than landing unattended. **Pippa's own shell has none of those variables and reaches GitHub directly**, so the draw runs there today with no change at all:
 
 ```
 ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='<the frame published-draw.json states>' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=60 -Dcs.draw.publishes -Dcs.draw.out=<record>.json
