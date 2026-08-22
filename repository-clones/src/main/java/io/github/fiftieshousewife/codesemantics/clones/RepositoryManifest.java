@@ -50,6 +50,14 @@ public final class RepositoryManifest {
         return repositories;
     }
 
+    /** The rank a drawn manifest records in its fifth column, or nothing where the rows were not drawn. */
+    private static long rankIn(final String[] fields) {
+        if (fields.length <= PINNED_COLUMNS || fields[PINNED_COLUMNS].isBlank()) {
+            return PinnedRepository.UNDRAWN;
+        }
+        return Long.parseLong(fields[PINNED_COLUMNS].strip());
+    }
+
     static boolean isRow(final String line) {
         return !line.isBlank() && !line.startsWith(COMMENT);
     }
@@ -61,6 +69,6 @@ public final class RepositoryManifest {
                     + " columns where cloning needs " + PINNED_COLUMNS
                     + " — name, origin, sha, licence: " + line);
         }
-        return new PinnedRepository(fields[0], fields[1], fields[2], fields[3]);
+        return new PinnedRepository(fields[0], fields[1], fields[2], fields[3], rankIn(fields));
     }
 }
