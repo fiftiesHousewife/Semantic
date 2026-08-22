@@ -69,6 +69,11 @@ public final class CorpusReferenceProbe {
                 .reduce((left, right) -> left + ", " + right)
                 .orElse("none"));
         watched(ranked, barByReference);
+        System.out.printf("  every word above chance: %s%n", standing.stream()
+                .map(ChosenWord::word)
+                .sorted()
+                .reduce((left, right) -> left + " " + right)
+                .orElse("none"));
     }
 
     private static void watched(final List<ChosenWord> ranked, final Map<String, Double> barByReference) {
