@@ -1,0 +1,1327 @@
+{
+  "frame": "language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0",
+  "until": "2026-08-20T23:59:59Z",
+  "seed": 20260821,
+  "total": 112183,
+  "drawnOn": "2026-08-22",
+  "predicate": "pom.xml states a groupId, or build.gradle(.kts) applies maven-publish, at the pinned commit",
+  "drawn": [
+    {
+      "repository": "jenkinsci/katalon-plugin",
+      "rank": 10125,
+      "sha": "e39757293879437dc6ff9097efdac82a9aaf2425",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2018-12-18T16:25:05Z",
+      "sizeKb": 7409,
+      "stars": 4,
+      "description": "Katalon Plugin for Jenkins"
+    },
+    {
+      "repository": "projetos-codic-ibict/ridi-dspace-server",
+      "rank": 58964,
+      "sha": "f1fc56626bcb35231eea596dc2124a16e789370f",
+      "licenceAtPin": "BSD-3-Clause",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-07-11T14:41:13Z",
+      "sizeKb": 6575,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "clydegerber/i18n-fx",
+      "rank": 86816,
+      "sha": "673d34327aa76aaa13fac7b3716ca68feb40eaa3",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-03-15T20:55:51Z",
+      "sizeKb": 3153,
+      "stars": 0,
+      "description": "JavaFX bindings for the i18n-core internationalization framework."
+    },
+    {
+      "repository": "ViacheslavP/jexposer",
+      "rank": 24299,
+      "sha": "82d334a14841505f29f6246478e6f52f5ae76f1a",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2022-12-14T17:48:37Z",
+      "sizeKb": 1735,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "M-WhiteXFox/GrassBBS",
+      "rank": 54584,
+      "sha": "a6bb1bc0280c5c7976d6d9a10199439e7b26f1e8",
+      "licenceAtPin": "AGPL-3.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-05-30T11:26:25Z",
+      "sizeKb": 12831,
+      "stars": 2,
+      "description": ""
+    },
+    {
+      "repository": "jberclaz/jass",
+      "rank": 13836,
+      "sha": "0ed0576308daaece5452e1d1c10259f5e20968c3",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2020-03-29T21:01:38Z",
+      "sizeKb": 8690,
+      "stars": 1,
+      "description": "A Jass / Chibre client-server for remote playing"
+    },
+    {
+      "repository": "yyw393/openpnp",
+      "rank": 100853,
+      "sha": "5bd404cfc70f34103a3ca0fbb6b50c2b465f407c",
+      "licenceAtPin": "GPL-3.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-06-09T02:56:57Z",
+      "sizeKb": 425743,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "mikkoi/maven-enforcer-rule-depend-on-all-projects",
+      "rank": 64063,
+      "sha": "c6f2d20432695d94b6dd74f02c25d93d59944309",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-09-07T21:10:49Z",
+      "sizeKb": 1120,
+      "stars": 2,
+      "description": "Custom rule for Maven Enforcer to require all other subprojects of the build are defined as dependencies."
+    },
+    {
+      "repository": "Omqarrr/codemedics-sample",
+      "rank": 46028,
+      "sha": "e12a207b230a59d6959cda0e6ba29766cf326c66",
+      "licenceAtPin": "GPL-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-03-14T06:13:42Z",
+      "sizeKb": 10798,
+      "stars": 0,
+      "description": "sample repo to test open source vuln scanning tool"
+    },
+    {
+      "repository": "andrei-punko/client-cursor",
+      "rank": 14962,
+      "sha": "6b5d8add990c01d8324e851e2ec755cca781d919",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2020-05-28T15:42:28Z",
+      "sizeKb": 5562,
+      "stars": 3,
+      "description": "Pagination using Client Cursor API via REST"
+    },
+    {
+      "repository": "coyote-engineering/BenchmarkJava",
+      "rank": 79918,
+      "sha": "1def24fc25772d034b72c704a7ff324a0eaddddb",
+      "licenceAtPin": "GPL-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-01-29T22:18:30Z",
+      "sizeKb": 76017,
+      "stars": 0,
+      "description": "OWASP Benchmark is a test suite designed to verify the speed and accuracy of software vulnerability detection tools."
+    },
+    {
+      "repository": "Takusima/PoestDimens-Fabric",
+      "rank": 101063,
+      "sha": "c53c3e67569fb92ba15369c8344eb486c7d23501",
+      "licenceAtPin": "CC0-1.0",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2026-06-07T14:30:46Z",
+      "sizeKb": 5028,
+      "stars": 0,
+      "description": "Fabric port PoestDimens 1.21.1"
+    },
+    {
+      "repository": "BernasDzn/sem4pi_2024_2025",
+      "rank": 70337,
+      "sha": "a12ea1e17795f3e2d3b447db45322bea9042c2f5",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-10-28T21:18:38Z",
+      "sizeKb": 30772,
+      "stars": 0,
+      "description": "Integrative Project developed by me and 3 other colleagues during the fourth semester of my degree."
+    },
+    {
+      "repository": "ABAPPLO/koc-scrm",
+      "rank": 108198,
+      "sha": "eb0e41a1b176eaab840e66fbb3f9e7706f706b5e",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-07-22T07:23:37Z",
+      "sizeKb": 22275,
+      "stars": 0,
+      "description": "koc\u7ba1\u7406\u548c\u5206\u53d1\u7cfb\u7edf"
+    },
+    {
+      "repository": "bikashpubg678-maker/Rentify-java-project",
+      "rank": 102928,
+      "sha": "18540025273fd605c555896f70c31f58e4b5338f",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-06-18T20:21:52Z",
+      "sizeKb": 2421,
+      "stars": 0,
+      "description": "Full-stack Car Rental Management System built with Java 17 & Spring Boot 3.2.5 \u2014 3-layer architecture, H2 database, PDF receipts, Chart.js analytics, loyalty discounts, and an AI assistant powered by OpenRouter."
+    },
+    {
+      "repository": "TheBozzz34/Refractor",
+      "rank": 19041,
+      "sha": "1841d98c4eb9957736d1e153f119f7f4087098eb",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2021-07-05T19:19:11Z",
+      "sizeKb": 9540,
+      "stars": 2,
+      "description": "A Utility Plugin"
+    },
+    {
+      "repository": "Helloqiyuan/tutorialmod-template-1.21.1",
+      "rank": 50614,
+      "sha": "b4cff21213ac8991f681cc59c4c9990dd80acc2b",
+      "licenceAtPin": "CC0-1.0",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2025-04-24T15:58:52Z",
+      "sizeKb": 6692,
+      "stars": 0,
+      "description": "\u8fd9\u662f\u505a\u7684\u7b2c\u4e00\u4e2amod"
+    },
+    {
+      "repository": "miho/MonacoFX",
+      "rank": 13424,
+      "sha": "a67906900e18ce0f56f041bde131c7ecc1c0cb06",
+      "licenceAtPin": "MIT",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2020-02-12T16:04:08Z",
+      "sizeKb": 3231,
+      "stars": 89,
+      "description": "JavaFX editor node based on the powerful Monaco editor that drives VS Code"
+    },
+    {
+      "repository": "TAYOTOoO/mcsmi",
+      "rank": 92369,
+      "sha": "2f8119bfeba9a589508cc93549efc1294905bb5c",
+      "licenceAtPin": "GPL-3.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-04-23T05:56:33Z",
+      "sizeKb": 5221,
+      "stars": 3,
+      "description": "AI-powered Minecraft resource pack generator. Describe your vision, get a        complete texture pack \u2014 auto-sliced into 50 sprites. Includes canvas editor,   version converter (1.6\u20131.21.4), and subscription system"
+    },
+    {
+      "repository": "breakinblocks/justtrialspawners",
+      "rank": 90864,
+      "sha": "8abe70784fb0b91ed8675e97ea491e002a9bd3d4",
+      "licenceAtPin": "MIT",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2026-04-10T04:19:07Z",
+      "sizeKb": 3698,
+      "stars": 1,
+      "description": ""
+    },
+    {
+      "repository": "NormallyNormal/void-water",
+      "rank": 92135,
+      "sha": "0fe1ec14697ea73405e53da53355c8bf011a3f38",
+      "licenceAtPin": "MIT",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2026-04-18T20:37:19Z",
+      "sizeKb": 8534,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "bbcdabao/ping-monitor",
+      "rank": 34308,
+      "sha": "e08303222e5564100eb23ca791afd7c54c870092",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2024-07-03T04:03:01Z",
+      "sizeKb": 13163,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "AradhyaSharma31/rakumo",
+      "rank": 108586,
+      "sha": "f07879932287c1699eaf9f125bccd3c0627a7b99",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-07-25T20:32:08Z",
+      "sizeKb": 9379,
+      "stars": 1,
+      "description": "A distributed object storage system built to explore scalable storage architecture, gRPC communication, fault tolerance, and large file transfers."
+    },
+    {
+      "repository": "PartidoYA/PartidoYA-WebApp",
+      "rank": 104048,
+      "sha": "5c181c964aeb10daaeb4fa7d7844a0897d25b392",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2026-06-24T04:12:21Z",
+      "sizeKb": 88752,
+      "stars": 0,
+      "description": "Aplicaci\u00f3n web responsive de PartidoYA desarrollada con Angular y Spring Boot, orientada a la creaci\u00f3n de partidos, reserva de canchas, gesti\u00f3n de usuarios, pagos y organizaci\u00f3n de actividades deportivas."
+    },
+    {
+      "repository": "spring-labs/ameba-lib",
+      "rank": 3439,
+      "sha": "e450325579d71e3008ebc2fcc2b3564b694fedee",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2015-05-20T11:45:08Z",
+      "sizeKb": 1341,
+      "stars": 1,
+      "description": "Ameba Lib is a collection of utils, exceptions, constants and other helpers used across projects and solutions"
+    },
+    {
+      "repository": "edigonzales/convconf-oss",
+      "rank": 83746,
+      "sha": "71e544788e143c5c4ab7761e7d9bad9c35653fca",
+      "licenceAtPin": "MIT",
+      "publishes": "build.gradle applies maven-publish",
+      "created": "2026-02-24T18:59:00Z",
+      "sizeKb": 1284,
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repository": "Wradgio/Jamlin",
+      "rank": 7960,
+      "sha": "79ca9270b2b7134f3b7cd56ff526444ae402eac3",
+      "licenceAtPin": "Apache-2.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2017-11-02T11:18:48Z",
+      "sizeKb": 2043,
+      "stars": 0,
+      "description": "Java Markup Language Internalization"
+    },
+    {
+      "repository": "MultimodalImagingCenter/MiC",
+      "rank": 24555,
+      "sha": "490684b6059a113f2e3bfcb9f289aa4bf3eae8c9",
+      "licenceAtPin": "MIT",
+      "publishes": "pom.xml states a groupId",
+      "created": "2023-02-01T14:37:23Z",
+      "sizeKb": 2000,
+      "stars": 20,
+      "description": "MiC is an ImageJ plugin to compare segmentation masks"
+    },
+    {
+      "repository": "Lightning323/Tessera",
+      "rank": 27301,
+      "sha": "82757b3a4ac3000baa0e22bc4e20ed6f37e0f1fb",
+      "licenceAtPin": "GPL-3.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2023-08-12T16:04:19Z",
+      "sizeKb": 281769,
+      "stars": 5,
+      "description": "A Minecraft clone written in Java and using LWJGL OpenGL library"
+    },
+    {
+      "repository": "sjungq/algs4",
+      "rank": 73143,
+      "sha": "e3bd3985c276bada56c392bd05826fa7564ab1b3",
+      "licenceAtPin": "GPL-3.0",
+      "publishes": "pom.xml states a groupId",
+      "created": "2025-11-26T06:12:11Z",
+      "sizeKb": 2310,
+      "stars": 0,
+      "description": "Algorithms, 4th edition textbook code and libraries"
+    }
+  ],
+  "rejected": [
+    {
+      "rank": 59336,
+      "repository": "samyogacharya12/ociormvbahblockchain",
+      "why": "states no publication"
+    },
+    {
+      "rank": 36469,
+      "repository": "Hai1205/CarMaster",
+      "why": "states no publication"
+    },
+    {
+      "rank": 73692,
+      "repository": "YCHhiaanngi/CS307_Project2",
+      "why": "states no publication"
+    },
+    {
+      "rank": 38931,
+      "repository": "Lanfarx/Progetto_IDS_24-25",
+      "why": "states no publication"
+    },
+    {
+      "rank": 34642,
+      "repository": "JeongHwamok/Anihealth-Project",
+      "why": "states no publication"
+    },
+    {
+      "rank": 94118,
+      "repository": "oyakh1/hiero-mirror-node--018",
+      "why": "states no publication"
+    },
+    {
+      "rank": 35516,
+      "repository": "ab5tract/raku-intellij-plugin",
+      "why": "states no publication"
+    },
+    {
+      "rank": 94771,
+      "repository": "Sakopval/Quranplayer",
+      "why": "states no publication"
+    },
+    {
+      "rank": 43342,
+      "repository": "tejashxee/gps",
+      "why": "states no publication"
+    },
+    {
+      "rank": 23203,
+      "repository": "0xYura/AsyncXrayBypassFix",
+      "why": "states no publication"
+    },
+    {
+      "rank": 55500,
+      "repository": "juliofilho04/ServicoGerenciamentoSenhas",
+      "why": "states no publication"
+    },
+    {
+      "rank": 62046,
+      "repository": "Bondjono19/1308-task",
+      "why": "states no publication"
+    },
+    {
+      "rank": 109555,
+      "repository": "KLjiana/haikalat",
+      "why": "states no publication"
+    },
+    {
+      "rank": 42690,
+      "repository": "claudiu909/capacitor-microphone-permissions",
+      "why": "states no publication"
+    },
+    {
+      "rank": 77564,
+      "repository": "Lathangi2003/github_docker-CI-CD",
+      "why": "states no publication"
+    },
+    {
+      "rank": 18982,
+      "repository": "Traister101/Sacks-and-Such",
+      "why": "states no publication"
+    },
+    {
+      "rank": 60635,
+      "repository": "domax/soht2",
+      "why": "states no publication"
+    },
+    {
+      "rank": 81729,
+      "repository": "zedb4x/VOD",
+      "why": "states no publication"
+    },
+    {
+      "rank": 8913,
+      "repository": "WouterVerleur/D-D-Charactersheets-and-battle-control",
+      "why": "states no publication"
+    },
+    {
+      "rank": 7188,
+      "repository": "sweng-epfl/public",
+      "why": "states no publication"
+    },
+    {
+      "rank": 42389,
+      "repository": "umer-jahangier/Voting-Management-System",
+      "why": "states no publication"
+    },
+    {
+      "rank": 10471,
+      "repository": "yaoguangluo/Deta_DataBase",
+      "why": "states no publication"
+    },
+    {
+      "rank": 39738,
+      "repository": "CiceroOliver/SmartGateway_GUI",
+      "why": "states no publication"
+    }
+  ],
+  "rangeCounts": [
+    {
+      "range": [
+        "2007-01-01T00:00:00Z",
+        "2007-12-31T23:59:59Z"
+      ],
+      "count": 0
+    },
+    {
+      "range": [
+        "2008-01-01T00:00:00Z",
+        "2008-12-31T23:59:59Z"
+      ],
+      "count": 4
+    },
+    {
+      "range": [
+        "2009-01-01T00:00:00Z",
+        "2009-12-31T23:59:59Z"
+      ],
+      "count": 92
+    },
+    {
+      "range": [
+        "2010-01-01T00:00:00Z",
+        "2010-12-31T23:59:59Z"
+      ],
+      "count": 136
+    },
+    {
+      "range": [
+        "2011-01-01T00:00:00Z",
+        "2011-12-31T23:59:59Z"
+      ],
+      "count": 270
+    },
+    {
+      "range": [
+        "2012-01-01T00:00:00Z",
+        "2012-12-31T23:59:59Z"
+      ],
+      "count": 427
+    },
+    {
+      "range": [
+        "2013-01-01T00:00:00Z",
+        "2013-12-31T23:59:59Z"
+      ],
+      "count": 746
+    },
+    {
+      "range": [
+        "2014-01-01T00:00:00Z",
+        "2014-12-31T23:59:59Z"
+      ],
+      "count": 1105
+    },
+    {
+      "range": [
+        "2015-01-01T00:00:00Z",
+        "2015-12-31T23:59:59Z"
+      ],
+      "count": 1537
+    },
+    {
+      "range": [
+        "2016-01-01T00:00:00Z",
+        "2016-12-31T23:59:59Z"
+      ],
+      "count": 1699
+    },
+    {
+      "range": [
+        "2017-01-01T00:00:00Z",
+        "2017-12-31T23:59:59Z"
+      ],
+      "count": 2006
+    },
+    {
+      "range": [
+        "2018-01-01T00:00:00Z",
+        "2018-12-31T23:59:59Z"
+      ],
+      "count": 2389
+    },
+    {
+      "range": [
+        "2019-01-01T00:00:00Z",
+        "2019-12-31T23:59:59Z"
+      ],
+      "count": 2894
+    },
+    {
+      "range": [
+        "2020-01-01T00:00:00Z",
+        "2020-12-31T23:59:59Z"
+      ],
+      "count": 3558
+    },
+    {
+      "range": [
+        "2021-01-01T00:00:00Z",
+        "2021-12-31T23:59:59Z"
+      ],
+      "count": 3489
+    },
+    {
+      "range": [
+        "2022-01-01T00:00:00Z",
+        "2022-12-31T23:59:59Z"
+      ],
+      "count": 4098
+    },
+    {
+      "range": [
+        "2023-01-01T00:00:00Z",
+        "2023-12-31T23:59:59Z"
+      ],
+      "count": 5571
+    },
+    {
+      "range": [
+        "2024-01-01T00:00:00Z",
+        "2024-12-31T23:59:59Z"
+      ],
+      "count": 9491
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-12-31T23:59:59Z"
+      ],
+      "count": 37500
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-08-20T23:59:59Z"
+      ],
+      "count": 35171
+    },
+    {
+      "range": [
+        "2018-01-01T00:00:00Z",
+        "2018-07-02T12:59:58Z"
+      ],
+      "count": 1124
+    },
+    {
+      "range": [
+        "2018-07-02T12:59:59Z",
+        "2018-10-01T18:59:58Z"
+      ],
+      "count": 632
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-07-02T12:59:58Z"
+      ],
+      "count": 18440
+    },
+    {
+      "range": [
+        "2025-07-02T12:59:59Z",
+        "2025-10-01T18:59:58Z"
+      ],
+      "count": 9272
+    },
+    {
+      "range": [
+        "2025-07-02T12:59:59Z",
+        "2025-08-17T03:59:57Z"
+      ],
+      "count": 4368
+    },
+    {
+      "range": [
+        "2025-07-02T12:59:59Z",
+        "2025-07-25T08:29:57Z"
+      ],
+      "count": 2185
+    },
+    {
+      "range": [
+        "2025-07-02T12:59:59Z",
+        "2025-07-13T22:44:57Z"
+      ],
+      "count": 1078
+    },
+    {
+      "range": [
+        "2025-07-13T22:44:58Z",
+        "2025-07-19T15:37:26Z"
+      ],
+      "count": 582
+    },
+    {
+      "range": [
+        "2024-01-01T00:00:00Z",
+        "2024-07-02T00:59:58Z"
+      ],
+      "count": 3786
+    },
+    {
+      "range": [
+        "2024-07-02T00:59:59Z",
+        "2024-10-01T12:59:58Z"
+      ],
+      "count": 2328
+    },
+    {
+      "range": [
+        "2024-10-01T12:59:59Z",
+        "2024-11-16T05:59:58Z"
+      ],
+      "count": 1567
+    },
+    {
+      "range": [
+        "2024-10-01T12:59:59Z",
+        "2024-10-24T09:59:57Z"
+      ],
+      "count": 748
+    },
+    {
+      "range": [
+        "2025-07-02T12:59:59Z",
+        "2025-07-08T05:52:27Z"
+      ],
+      "count": 544
+    },
+    {
+      "range": [
+        "2025-10-01T18:59:59Z",
+        "2025-11-16T08:59:58Z"
+      ],
+      "count": 4914
+    },
+    {
+      "range": [
+        "2025-11-16T08:59:59Z",
+        "2025-12-09T04:29:58Z"
+      ],
+      "count": 2490
+    },
+    {
+      "range": [
+        "2025-11-16T08:59:59Z",
+        "2025-11-27T18:44:57Z"
+      ],
+      "count": 1329
+    },
+    {
+      "range": [
+        "2025-11-27T18:44:58Z",
+        "2025-12-03T11:37:27Z"
+      ],
+      "count": 561
+    },
+    {
+      "range": [
+        "2024-11-16T05:59:59Z",
+        "2024-12-09T02:59:58Z"
+      ],
+      "count": 890
+    },
+    {
+      "range": [
+        "2024-07-02T00:59:59Z",
+        "2024-08-16T18:59:57Z"
+      ],
+      "count": 1052
+    },
+    {
+      "range": [
+        "2024-07-02T00:59:59Z",
+        "2024-07-24T21:59:57Z"
+      ],
+      "count": 520
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-04-27T00:29:58Z"
+      ],
+      "count": 16407
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-02-27T23:44:58Z"
+      ],
+      "count": 7151
+    },
+    {
+      "range": [
+        "2026-02-27T23:44:59Z",
+        "2026-03-28T23:37:27Z"
+      ],
+      "count": 4638
+    },
+    {
+      "range": [
+        "2026-02-27T23:44:59Z",
+        "2026-03-14T11:41:12Z"
+      ],
+      "count": 2433
+    },
+    {
+      "range": [
+        "2026-03-14T11:41:13Z",
+        "2026-03-21T17:39:19Z"
+      ],
+      "count": 1075
+    },
+    {
+      "range": [
+        "2026-03-14T11:41:13Z",
+        "2026-03-18T02:40:15Z"
+      ],
+      "count": 513
+    },
+    {
+      "range": [
+        "2022-01-01T00:00:00Z",
+        "2022-07-02T12:59:58Z"
+      ],
+      "count": 2051
+    },
+    {
+      "range": [
+        "2022-07-02T12:59:59Z",
+        "2022-10-01T18:59:58Z"
+      ],
+      "count": 1007
+    },
+    {
+      "range": [
+        "2022-10-01T18:59:59Z",
+        "2022-11-16T08:59:58Z"
+      ],
+      "count": 541
+    },
+    {
+      "range": [
+        "2026-04-27T00:29:59Z",
+        "2026-06-24T00:14:58Z"
+      ],
+      "count": 10258
+    },
+    {
+      "range": [
+        "2026-04-27T00:29:59Z",
+        "2026-05-26T00:22:27Z"
+      ],
+      "count": 5480
+    },
+    {
+      "range": [
+        "2026-04-27T00:29:59Z",
+        "2026-05-11T12:26:12Z"
+      ],
+      "count": 2884
+    },
+    {
+      "range": [
+        "2026-04-27T00:29:59Z",
+        "2026-05-04T06:28:04Z"
+      ],
+      "count": 1530
+    },
+    {
+      "range": [
+        "2026-04-27T00:29:59Z",
+        "2026-04-30T15:29:00Z"
+      ],
+      "count": 984
+    },
+    {
+      "range": [
+        "2024-08-16T18:59:58Z",
+        "2024-09-08T15:59:57Z"
+      ],
+      "count": 627
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-04-02T06:59:58Z"
+      ],
+      "count": 8906
+    },
+    {
+      "range": [
+        "2025-04-02T06:59:59Z",
+        "2025-05-17T21:59:57Z"
+      ],
+      "count": 4832
+    },
+    {
+      "range": [
+        "2025-05-17T21:59:58Z",
+        "2025-06-09T17:29:57Z"
+      ],
+      "count": 2448
+    },
+    {
+      "range": [
+        "2025-05-17T21:59:58Z",
+        "2025-05-29T07:44:56Z"
+      ],
+      "count": 1268
+    },
+    {
+      "range": [
+        "2025-05-29T07:44:57Z",
+        "2025-06-04T00:37:26Z"
+      ],
+      "count": 578
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-02-15T14:59:58Z"
+      ],
+      "count": 3849
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-01-23T19:29:58Z"
+      ],
+      "count": 1919
+    },
+    {
+      "range": [
+        "2025-01-23T19:29:59Z",
+        "2025-02-04T05:14:57Z"
+      ],
+      "count": 838
+    },
+    {
+      "range": [
+        "2025-02-04T05:14:58Z",
+        "2025-02-09T22:07:27Z"
+      ],
+      "count": 545
+    },
+    {
+      "range": [
+        "2022-07-02T12:59:59Z",
+        "2022-08-17T03:59:57Z"
+      ],
+      "count": 528
+    },
+    {
+      "range": [
+        "2020-01-01T00:00:00Z",
+        "2020-07-02T00:59:58Z"
+      ],
+      "count": 1899
+    },
+    {
+      "range": [
+        "2020-01-01T00:00:00Z",
+        "2020-04-01T12:59:58Z"
+      ],
+      "count": 853
+    },
+    {
+      "range": [
+        "2026-05-26T00:22:28Z",
+        "2026-06-09T12:18:42Z"
+      ],
+      "count": 2389
+    },
+    {
+      "range": [
+        "2026-05-26T00:22:28Z",
+        "2026-06-02T06:20:34Z"
+      ],
+      "count": 1158
+    },
+    {
+      "range": [
+        "2026-06-02T06:20:35Z",
+        "2026-06-05T21:19:37Z"
+      ],
+      "count": 638
+    },
+    {
+      "range": [
+        "2025-08-17T03:59:58Z",
+        "2025-09-08T23:29:57Z"
+      ],
+      "count": 2278
+    },
+    {
+      "range": [
+        "2025-08-17T03:59:58Z",
+        "2025-08-28T13:44:56Z"
+      ],
+      "count": 1206
+    },
+    {
+      "range": [
+        "2025-08-28T13:44:57Z",
+        "2025-09-03T06:37:26Z"
+      ],
+      "count": 484
+    },
+    {
+      "range": [
+        "2025-02-15T14:59:59Z",
+        "2025-03-10T10:29:57Z"
+      ],
+      "count": 2239
+    },
+    {
+      "range": [
+        "2025-03-10T10:29:58Z",
+        "2025-03-21T20:14:57Z"
+      ],
+      "count": 1490
+    },
+    {
+      "range": [
+        "2025-03-10T10:29:58Z",
+        "2025-03-16T03:22:26Z"
+      ],
+      "count": 865
+    },
+    {
+      "range": [
+        "2020-04-01T12:59:59Z",
+        "2020-05-17T06:59:57Z"
+      ],
+      "count": 536
+    },
+    {
+      "range": [
+        "2025-07-25T08:29:58Z",
+        "2025-08-05T18:14:56Z"
+      ],
+      "count": 1076
+    },
+    {
+      "range": [
+        "2025-08-05T18:14:57Z",
+        "2025-08-11T11:07:26Z"
+      ],
+      "count": 512
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-29T23:52:28Z"
+      ],
+      "count": 3428
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-15T11:56:13Z"
+      ],
+      "count": 1611
+    },
+    {
+      "range": [
+        "2026-01-15T11:56:14Z",
+        "2026-01-22T17:54:20Z"
+      ],
+      "count": 885
+    },
+    {
+      "range": [
+        "2026-06-24T00:14:59Z",
+        "2026-07-23T00:07:28Z"
+      ],
+      "count": 4819
+    },
+    {
+      "range": [
+        "2026-07-23T00:07:29Z",
+        "2026-08-06T12:03:43Z"
+      ],
+      "count": 2275
+    },
+    {
+      "range": [
+        "2026-07-23T00:07:29Z",
+        "2026-07-30T06:05:35Z"
+      ],
+      "count": 1110
+    },
+    {
+      "range": [
+        "2026-07-23T00:07:29Z",
+        "2026-07-26T15:06:31Z"
+      ],
+      "count": 578
+    },
+    {
+      "range": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-08T05:58:05Z"
+      ],
+      "count": 798
+    },
+    {
+      "range": [
+        "2021-01-01T00:00:00Z",
+        "2021-07-02T12:59:58Z"
+      ],
+      "count": 1704
+    },
+    {
+      "range": [
+        "2021-07-02T12:59:59Z",
+        "2021-10-01T18:59:58Z"
+      ],
+      "count": 790
+    },
+    {
+      "range": [
+        "2025-07-25T08:29:58Z",
+        "2025-07-31T01:22:26Z"
+      ],
+      "count": 556
+    },
+    {
+      "range": [
+        "2025-10-01T18:59:59Z",
+        "2025-10-24T14:29:57Z"
+      ],
+      "count": 2514
+    },
+    {
+      "range": [
+        "2025-10-24T14:29:58Z",
+        "2025-11-04T23:14:57Z"
+      ],
+      "count": 1143
+    },
+    {
+      "range": [
+        "2025-10-24T14:29:58Z",
+        "2025-10-30T06:22:26Z"
+      ],
+      "count": 602
+    },
+    {
+      "range": [
+        "2026-01-29T23:52:29Z",
+        "2026-02-13T11:48:42Z"
+      ],
+      "count": 1903
+    },
+    {
+      "range": [
+        "2026-01-29T23:52:29Z",
+        "2026-02-06T05:50:34Z"
+      ],
+      "count": 963
+    },
+    {
+      "range": [
+        "2026-06-24T00:14:59Z",
+        "2026-07-08T12:11:12Z"
+      ],
+      "count": 2264
+    },
+    {
+      "range": [
+        "2026-07-08T12:11:13Z",
+        "2026-07-15T18:09:19Z"
+      ],
+      "count": 1368
+    },
+    {
+      "range": [
+        "2026-07-15T18:09:20Z",
+        "2026-07-19T09:08:23Z"
+      ],
+      "count": 518
+    },
+    {
+      "range": [
+        "2026-06-09T12:18:43Z",
+        "2026-06-16T18:16:49Z"
+      ],
+      "count": 1274
+    },
+    {
+      "range": [
+        "2026-06-16T18:16:50Z",
+        "2026-06-20T09:15:53Z"
+      ],
+      "count": 534
+    },
+    {
+      "range": [
+        "2025-04-02T06:59:59Z",
+        "2025-04-25T02:29:57Z"
+      ],
+      "count": 2469
+    },
+    {
+      "range": [
+        "2025-04-02T06:59:59Z",
+        "2025-04-13T16:44:57Z"
+      ],
+      "count": 1239
+    },
+    {
+      "range": [
+        "2025-04-13T16:44:58Z",
+        "2025-04-19T09:37:26Z"
+      ],
+      "count": 610
+    },
+    {
+      "range": [
+        "2026-03-28T23:37:28Z",
+        "2026-04-12T12:33:42Z"
+      ],
+      "count": 2476
+    },
+    {
+      "range": [
+        "2026-04-12T12:33:43Z",
+        "2026-04-19T18:31:49Z"
+      ],
+      "count": 1062
+    },
+    {
+      "range": [
+        "2026-04-19T18:31:50Z",
+        "2026-04-23T09:30:53Z"
+      ],
+      "count": 549
+    },
+    {
+      "range": [
+        "2026-03-28T23:37:28Z",
+        "2026-04-05T06:35:34Z"
+      ],
+      "count": 1209
+    },
+    {
+      "range": [
+        "2026-04-05T06:35:35Z",
+        "2026-04-08T21:34:37Z"
+      ],
+      "count": 771
+    },
+    {
+      "range": [
+        "2018-01-01T00:00:00Z",
+        "2018-04-02T06:59:58Z"
+      ],
+      "count": 531
+    },
+    {
+      "range": [
+        "2026-04-12T12:33:43Z",
+        "2026-04-16T03:32:45Z"
+      ],
+      "count": 567
+    },
+    {
+      "range": [
+        "2017-01-01T00:00:00Z",
+        "2017-07-02T12:59:58Z"
+      ],
+      "count": 1018
+    },
+    {
+      "range": [
+        "2026-06-24T00:14:59Z",
+        "2026-07-01T06:13:04Z"
+      ],
+      "count": 1119
+    },
+    {
+      "range": [
+        "2026-06-24T00:14:59Z",
+        "2026-06-27T15:14:00Z"
+      ],
+      "count": 588
+    },
+    {
+      "range": [
+        "2015-01-01T00:00:00Z",
+        "2015-07-02T12:59:58Z"
+      ],
+      "count": 770
+    },
+    {
+      "range": [
+        "2026-02-13T11:48:43Z",
+        "2026-02-20T17:46:49Z"
+      ],
+      "count": 823
+    },
+    {
+      "range": [
+        "2019-01-01T00:00:00Z",
+        "2019-07-02T12:59:58Z"
+      ],
+      "count": 1307
+    },
+    {
+      "range": [
+        "2019-01-01T00:00:00Z",
+        "2019-04-02T06:59:58Z"
+      ],
+      "count": 649
+    },
+    {
+      "range": [
+        "2023-01-01T00:00:00Z",
+        "2023-07-02T12:59:58Z"
+      ],
+      "count": 2648
+    },
+    {
+      "range": [
+        "2023-01-01T00:00:00Z",
+        "2023-04-02T06:59:58Z"
+      ],
+      "count": 1318
+    },
+    {
+      "range": [
+        "2023-01-01T00:00:00Z",
+        "2023-02-15T14:59:58Z"
+      ],
+      "count": 635
+    },
+    {
+      "range": [
+        "2023-07-02T12:59:59Z",
+        "2023-10-01T18:59:58Z"
+      ],
+      "count": 1448
+    },
+    {
+      "range": [
+        "2023-07-02T12:59:59Z",
+        "2023-08-17T03:59:57Z"
+      ],
+      "count": 710
+    },
+    {
+      "range": [
+        "2025-01-01T00:00:00Z",
+        "2025-01-12T09:44:58Z"
+      ],
+      "count": 940
+    },
+    {
+      "range": [
+        "2025-11-16T08:59:59Z",
+        "2025-11-22T01:52:27Z"
+      ],
+      "count": 641
+    }
+  ]
+}

@@ -5,6 +5,7 @@
     --ink: #12181c;
     --ink-soft: #4a5860;
     --ink-faint: #7f8f97;
+    --ink-ghost: #aab6bb;
     --rule: #dde3e2;
     --accent: #0e5e5a;
     --accent-soft: #7fb3ae;
@@ -19,6 +20,7 @@
         --ink: #eaf0ee;
         --ink-soft: #9fb0b4;
         --ink-faint: #6d8085;
+        --ink-ghost: #4d5c61;
         --rule: #262f34;
         --accent: #5fd3c9;
         --accent-soft: #2c6b68;
@@ -32,6 +34,7 @@
     --ink: #eaf0ee;
     --ink-soft: #9fb0b4;
     --ink-faint: #6d8085;
+    --ink-ghost: #4d5c61;
     --rule: #262f34;
     --accent: #5fd3c9;
     --accent-soft: #2c6b68;
@@ -44,6 +47,7 @@
     --ink: #12181c;
     --ink-soft: #4a5860;
     --ink-faint: #7f8f97;
+    --ink-ghost: #aab6bb;
     --rule: #dde3e2;
     --accent: #0e5e5a;
     --accent-soft: #7fb3ae;
@@ -255,9 +259,14 @@ h1 {
     padding-bottom: 0.05em;
 }
 
-.cloud b[data-band="4"] { color: var(--accent); font-weight: 600; }
-.cloud b[data-band="3"] { color: var(--ink); }
-.cloud b[data-band="2"] { color: var(--ink-soft); }
+/* Colour and weight both carry how far the claim stands outside chance, in doublings. Two channels for one
+   quantity on purpose: colour alone is lost to anyone who does not separate these hues, and weight alone is
+   hard to judge across the size range a cloud spans. Neither carries anything the other does not. */
+.cloud b[data-band="4"] { color: var(--accent);    font-weight: 700; }
+.cloud b[data-band="3"] { color: var(--ink);       font-weight: 650; }
+.cloud b[data-band="2"] { color: var(--ink-soft);  font-weight: 550; }
+.cloud b[data-band="1"] { color: var(--ink-soft);  font-weight: 450; }
+.cloud b[data-band="0"] { color: var(--ink-ghost); font-weight: 350; }
 
 .readout {
     border-top: 1px solid var(--rule);

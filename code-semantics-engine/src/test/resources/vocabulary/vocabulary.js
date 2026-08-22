@@ -3,7 +3,7 @@
     "use strict";
 
     var BANDS = 5;
-    var SMALLEST = 0.8;
+    var SMALLEST = 0.9;
     var LARGEST = 3.2;
 
     var repository = JSON.parse(document.getElementById("vocabulary").textContent).repository;
@@ -41,17 +41,25 @@
         return left.reverse().concat(right);
     }
 
-    /* Area carries the claim, so the linear dimension carries its square root. */
-    function tile(word, strongest, readout) {
-        var share = Math.sqrt(word.claim / strongest);
+    /* SIZE carries the claim in bits and COLOUR carries how far that claim stands outside chance, both on a
+       logarithmic scale, because both quantities span some hundreds to one across a stage.
+
+       Area used to carry the claim directly, with the linear dimension its square root. That is the truer
+       statement of a quantity and it could not be read: a root compresses three hundred to one down to
+       seventeen, and the range a cloud has to spend it over then squashed seven words in ten into a quarter
+       of a rem. The picture was a dozen large words over a uniform mat. So a step in size is a fixed
+       MULTIPLE of the claim rather than a fixed amount of it, and the page says so rather than leaving a
+       reader to assume the older rule. */
+    function tile(word, readout) {
         var joined = word.word.indexOf("_") >= 0;
         var made = element("b", joined ? "run" : null, word.word.replace(/_/g, " "));
-        made.style.fontSize = (SMALLEST + (LARGEST - SMALLEST) * share).toFixed(2) + "rem";
-        made.setAttribute("data-band", String(Math.min(BANDS - 1, Math.floor(share * BANDS))));
+        made.style.fontSize = (SMALLEST + (LARGEST - SMALLEST) * word.size).toFixed(2) + "rem";
+        made.setAttribute("data-band", String(word.band));
         made.setAttribute("tabindex", "0");
         function show() {
             readout.textContent = word.word.replace(/_/g, " ") + " — "
-                + word.claim.toFixed(4) + " bits from what it is read against, written "
+                + word.claim.toFixed(4) + " bits from what it is read against, "
+                + word.timesChance.toFixed(1) + " times what chance would have reached, written "
                 + word.occurrences.toLocaleString()
                 + (word.occurrences === 1 ? " time" : " times");
         }
@@ -82,8 +90,21 @@
         var cloud = element("div", "cloud");
         var readout = element("div", "readout", "Hover a word for how often it was written.");
         var strongest = stage.drawn.length ? stage.drawn[0].claim : 1;
+        var weakest = stage.drawn.length ? stage.drawn[stage.drawn.length - 1].claim : 1;
+        var claimSpan = Math.log(strongest / weakest);
+        var loudest = stage.drawn.reduce(function (most, word) {
+            return Math.max(most, word.timesChance);
+        }, 1);
+        var doublings = Math.log(loudest) / Math.LN2;
+        stage.drawn.forEach(function (word) {
+            word.size = claimSpan > 0 ? Math.log(word.claim / weakest) / claimSpan : 1;
+            var above = Math.log(Math.max(word.timesChance, 1)) / Math.LN2;
+            word.band = doublings > 0
+                ? Math.min(BANDS - 1, Math.floor(above / doublings * BANDS))
+                : BANDS - 1;
+        });
         centred(stage.drawn).forEach(function (word) {
-            cloud.appendChild(tile(word, strongest, readout));
+            cloud.appendChild(tile(word, readout));
         });
         panel.appendChild(cloud);
         panel.appendChild(readout);

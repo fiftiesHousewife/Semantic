@@ -53,11 +53,15 @@ public final class VocabularyPage {
                                 text("The reading narrows a repository's words in stages, and each "
                                         + "stage runs on what the one before it left. Use Next stage to "
                                         + "move through them. A word's size is how far this repository "
-                                        + "departs from what it is read against, in bits, so a word twice "
-                                        + "the size departs twice as far — not a word written twice as "
-                                        + "often. A word is drawn only where that departure stands "
-                                        + "outside what a repository of this size would have reached by "
-                                        + "chance. The stages are stated by "),
+                                        + "departs from what it is read against, in bits, and its colour "
+                                        + "and weight are how far that stands outside chance. Both scales "
+                                        + "are logarithmic, so a step in either is a multiple rather than "
+                                        + "an amount: the strongest claim on a stage is some hundreds of "
+                                        + "times the weakest, and a scale that spent size evenly over that "
+                                        + "range left seven words in ten the same size. Every word drawn "
+                                        + "stands outside what a repository of this size would have "
+                                        + "reached by chance; nothing else is drawn, and how many that is "
+                                        + "is not a number chosen here. The stages are stated by "),
                                 code("WordPipeline"), text(".")),
                         dl().withClass("summary"),
                         div().withClass("stages"),

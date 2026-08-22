@@ -44,14 +44,35 @@ public record StagedVocabulary(String repository, int files, List<Stage> stages)
     }
 
     /**
-     * One word at one stage: how far it departs from what it is read against, in bits, and how often this
-     * stage still holds it.
+     * One word at one stage: how far it departs from what it is read against, how far that stands outside
+     * chance, and how often this stage still holds it.
+     *
+     * @param claim       the weakest claim any reference makes, in bits
+     * @param timesChance the same claim as a multiple of the bar the null derived for that reference, taken
+     *                    at whichever reference leaves the word least room. One means a word that only just
+     *                    stands outside what a repository of this size would have reached anyway
      */
-    public record RankedWord(String word, double claim, int occurrences) {
+    public record RankedWord(String word, double claim, double timesChance, int occurrences) {
     }
 
     public StagedVocabulary {
         stages = List.copyOf(stages);
+    }
+
+    /**
+     * How many times the chance bar a word's claim reaches, at whichever reference leaves it least room.
+     *
+     * <p>The weakest-margin rule, which is the weakest-claim rule applied to the bound: a word one reference
+     * only just lets through is only just through, whatever the other says. A ratio rather than a difference
+     * because the two references derive bars of different sizes, and a word twice its bar has said the same
+     * thing against either.
+     */
+    private static double timesChance(final ChosenWord chosen, final Map<String, Double> barByReference) {
+        return chosen.against().stream()
+                .filter(claim -> barByReference.getOrDefault(claim.reference(), 0.0) > 0.0)
+                .mapToDouble(claim -> claim.claim() / barByReference.get(claim.reference()))
+                .min()
+                .orElse(0.0);
     }
 
     /**
@@ -75,6 +96,7 @@ public record StagedVocabulary(String repository, int files, List<Stage> stages)
                 .filter(chosen -> chosen.claim() > 0.0 && chosen.occurrences() > 0)
                 .filter(chosen -> chosen.clears(barByReference))
                 .map(chosen -> new RankedWord(chosen.word(), chosen.claim(),
+                        timesChance(chosen, barByReference),
                         staged.surviving().occurrencesOf(chosen.word())))
                 .sorted(Comparator.comparingDouble(RankedWord::claim).reversed()
                         .thenComparing(RankedWord::word))
