@@ -20,7 +20,7 @@ import java.util.Random;
  * to one other word, so drawing an occurrence costs one uniform and two array reads however many words the
  * reference holds.
  */
-final class DrawnVocabulary {
+public final class DrawnVocabulary {
 
     private final List<String> words;
 
@@ -34,7 +34,7 @@ final class DrawnVocabulary {
      * iteration order per JVM, and which column a point falls in follows the layout — a seeded draw would
      * come out differently on every run.
      */
-    DrawnVocabulary(final Map<String, Double> shareByWord) {
+    public DrawnVocabulary(final Map<String, Double> shareByWord) {
         this.words = shareByWord.keySet().stream().sorted().toList();
         this.ownShare = new double[words.size()];
         this.alias = new int[words.size()];
@@ -90,7 +90,7 @@ final class DrawnVocabulary {
      * position rather than a map keyed by the word, because a draw of a large repository touches each of
      * millions of occurrences once and a string's hash per touch is most of the cost.
      */
-    Map<String, Double> of(final int occurrences, final Random draws) {
+    public Map<String, Double> of(final int occurrences, final Random draws) {
         final int[] drawn = new int[words.size()];
         for (int occurrence = 0; occurrence < occurrences; occurrence++) {
             final double point = draws.nextDouble() * words.size();

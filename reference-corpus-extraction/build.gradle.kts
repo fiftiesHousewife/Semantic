@@ -73,6 +73,22 @@ tasks.register<JavaExec>("corpusPlateau") {
     }
 }
 
+// The occurrence count below which a drawn repository tells the reference nothing a resample of its size
+// would not have. Derived from the multinomial, never chosen, and never from which repositories looked
+// awkward. It reads the corpus and prints.
+//   ./gradlew :reference-corpus-extraction:corpusFloor \
+//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+tasks.register<JavaExec>("corpusFloor") {
+    group = "verification"
+    description = "Prints what each drawn repository says that a draw of its own size would not"
+    mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusFloorCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "6g"
+    listOf("dir", "manifest").forEach { name ->
+        System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
+    }
+}
+
 // THE DRAW ITSELF, which produced the manifests above and is what reproduces them.
 //
 // It reaches the GitHub API and is never part of an ordinary build. The manifests are recorded; this is here
