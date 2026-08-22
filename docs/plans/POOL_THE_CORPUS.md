@@ -67,6 +67,36 @@ From [`A_CORPUS_NOT_AN_INDEX.md`](A_CORPUS_NOT_AN_INDEX.md), unchanged:
 - **A gate may go** when its words rank where their claim puts them without it, on all nine members.
 - **The plan is refuted** if the thirty demote a member's subject vocabulary — `trade` for strata, `gas` for besu — or if the leading claims after pooling are the words that led before.
 
+## Two changes to the reading landed on 2026-08-22 with no number
+
+Both move every figure the reading publishes. Neither has been measured on the evaluation set, because the backtest is deferred. **Measure them with the corpus run rather than separately**, and attribute the movement carefully — three changes will have landed between the last backtest and the next.
+
+| Change | Cites | Effect here |
+|---|---|---|
+| `LegibilityTally` no longer reads a word its source set's own layout supplies | Maven's standard directory layout, which `PhraseTopics` already cited for the same word | `PageCursorTest` in `src/test/java` stops contributing `test`. 230 classes in this tree end in `Test`, and `test` held 245 occurrences |
+| `JavaSource` no longer records a single-letter type parameter as a declared name | Oracle's stated convention that a type parameter is a single uppercase letter | `AxisResolution<A extends Enum<A>>` stops contributing `a` |
+
+**`output/json/` is stale.** The self read was regenerated at 11:31, before both changes. Run `./gradlew read` and land the figures in a commit touching no Java.
+
+## An open defect that blocks removing one of the gates
+
+**`a` is recorded as written-as-a-name 872 times and nothing explains it.** Of its 5,791 occurrences, 4,919 are prose and are dropped at `NAMES`; the remaining 872 survive as declared names.
+
+Two explanations were measured and both are refuted:
+
+- **Split inheritance**, where `aValue` yields `a` — the tree holds 38 identifiers of that shape, not 872.
+- **Single-letter type parameters** — dropping them at the parse left the count at exactly 872. The 733 standalone `A` tokens are overwhelmingly *uses*, and uses are never read.
+
+It matters here rather than being a curiosity. `SYMBOL` removes `a` today, and `SYMBOL` is one of the three stages this plan proposes to remove. **Explain it before that stage goes**, using the [`debugging-a-reading`](../../.claude/skills/debugging-a-reading/SKILL.md) method rather than another guess. The same shape is recorded against `the` at 1,062 occurrences in [`RANK_DO_NOT_GATE.md`](RANK_DO_NOT_GATE.md) and is also unexplained; the explanation for one may not transfer to the other.
+
+## Where the picture stands
+
+`./gradlew vocabularyPage` writes `code-semantics-engine/build/reports/vocabulary/vocabulary.html`, under `build/`, so `clean` removes it.
+
+- Every word standing outside chance is drawn — 324 of the final stage's 1,259, 779 of the first stage's 4,266. How many is not a number chosen anywhere.
+- Size is the claim in bits and colour and weight are the multiple of the chance bar, both logarithmic. A linear scale on either put four words in five into one band.
+- **Dividing the claim by the occurrences that earned it was tried and measures nothing.** Where a reference does not carry a word, its term collapses to half the share here, so the term per occurrence is the same constant for every such word. It tied all sixty drawn words to six decimal places. The javadoc on `StagedVocabulary` records this.
+
 ## Open, and each needs a measurement rather than an argument
 
 **The tail.** Thirty repositories will produce somewhere between 100,000 and 400,000 distinct words, most seen once, and a bundled table of them runs to several megabytes. Truncating it changes readings: a word absent from a reference has a share of zero, which is the case where nothing demotes it, so cutting the tail promotes exactly the words cut. The bound must be derived. Leave-one-out across the thirty gives it: pool twenty-nine, read the thirtieth, and find the count below which a word's share moves more between draws than between corpora.
