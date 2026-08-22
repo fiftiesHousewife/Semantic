@@ -322,6 +322,30 @@ tasks.register<Test>("evaluationFetch") {
     evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
+// The reference corpus: the repositories the reading is read against, cloned at the commits a manifest pins.
+// It reaches the network, so it is tagged `backtest` like the evaluation-set fetch and no ordinary run touches it.
+// The manifest is a property rather than a fixed resource, so a second draw is measured by naming a second file:
+//   ./gradlew corpusFetch -Dcs.corpus.dir=<directory to hold the clones>
+//   ./gradlew corpusFetch -Dcs.corpus.dir=<directory> -Dcs.corpus.manifest=<a different draw>.tsv
+tasks.register<Test>("corpusFetch") {
+    group = "verification"
+    description = "Fetches every repository a corpus manifest names, at the commit it pins"
+    testClassesDirs = sourceSets["test"].output.classesDirs
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    useJUnitPlatform { includeTags("backtest") }
+    filter { includeTestsMatching("ReferenceCorpusClonesTest") }
+    outputs.upToDateWhen { false }
+    testLogging.showStandardStreams = true
+    System.getProperty("cs.corpus.dir")?.let { systemProperty("cs.corpus.dir", it) }
+    System.getProperty("cs.corpus.manifest")?.let { systemProperty("cs.corpus.manifest", it) }
+    doFirst {
+        if (System.getProperty("cs.corpus.dir") == null) {
+            throw GradleException("corpusFetch needs -Dcs.corpus.dir=<directory to hold the clones>.")
+        }
+    }
+}
+
 // The same backtest in one JVM, several members at a time. One JVM is most of the saving: a bundled subject
 // scheme is read into distributions once and shared, where nine forks read OpenAlex's 4,516 descriptions nine
 // times. How many run at once follows from this JVM's heap divided by the three gigabytes the per-member fork

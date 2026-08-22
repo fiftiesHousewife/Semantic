@@ -20,7 +20,7 @@ So the ranking promotes exactly the words that should sink, and gates were added
 
 ## Where the code stands
 
-Nothing is committed. `ad15196` is the last commit; the working tree holds 39 changed or new files. `./gradlew cleanTest checkAll` is green at 748 tests and the `pinned` findings hold, so **no figure this tree asserts has moved**.
+Committed at `4930371` — the pipeline, `CitedExpansions`, `Dialect`, and both plans. `./gradlew cleanTest checkAll` was green at 748 tests with the `pinned` findings holding when the tree was verified, so **no figure this tree asserts has moved**. `output/tika/json/` is still dirty and the self read is stale: neither was regenerated, because the backtest was deferred.
 
 ### What landed
 
@@ -49,11 +49,13 @@ On this repository: 4,247 words and 114,169 occurrences narrow to 1,254 and 18,1
 
 ## The work, in order
 
-**1. Backtest what is already in the tree.** `./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation` — six and a half minutes. The pipeline now refuses shorthand and function words at *offering* time rather than at citation time, and step 5 closes N3 (`OfferedWords.narrowing` returned `1.0` for every word of a declared name, which is how `from` became the largest single witness for `mathematics` on both finance members). That is a real change to what the reading reads and it has no number. Do this before building anything.
+**1. ~~Backtest what is already in the tree.~~ Deferred 2026-08-21 by decision** — the pipeline is wrong in principle while the gates stand, so its number is not worth the six and a half minutes. The change is still unmeasured: the pipeline refuses shorthand and function words at *offering* time rather than at citation time, and step 5 closes N3 (`OfferedWords.narrowing` returned `1.0` for every word of a declared name, which is how `from` became the largest single witness for `mathematics` on both finance members). Measure it when the reference lands, against the same run.
 
-**2. Commit.** Nothing since `ad15196` is committed and the tree holds two sessions' work.
+**2. ~~Commit.~~ Done, at `4930371`.**
 
-**3. Draw the reference corpus.** Ten Java repositories at random from a stated population, seeded, pinned, licence-verified, disjoint from this repository and from all nine evaluation members. Record `reference-corpus.tsv` **before reading anything**. The sampling frame is the one judgement call left in [`A_CORPUS_NOT_AN_INDEX.md`](A_CORPUS_NOT_AN_INDEX.md) and needs deciding, not defaulting.
+**3. Draw the reference corpus. IN PROGRESS.** The frame is decided and recorded in [`reference-corpus.tsv`](../../code-semantics-engine/src/test/resources/reference-corpus.tsv)'s header before any row was drawn: `language:Java fork:false mirror:false size:>=1000 created:<2026-08-21`, seed 20260821, ten rows, exclusions limited to this repository and the nine members. The clone machinery now takes any manifest — `PinnedRepository`, `RepositoryManifest`, and a `corpusFetch` task reading `-Dcs.corpus.manifest` — so a second draw is measured by naming a second file.
+
+**What the first backtest has to answer, stated now rather than after it.** A uniform draw from all of GitHub's Java is mostly small individual projects, and the first row drawn is an unlicensed MVC template. Those write `id`, `get`, `name` and `value`, so they will demote those. They may not write `log`, `license`, `apache`, `builder` or `optional`, which are what *mature* projects share and what all nine members are. **If `log` survives as a leading claim, the frame is wrong rather than the plan** — and the answer is a second draw from a stated different frame, compared against this one, not a filter.
 
 **4. Read them into one `ReferenceVocabulary`** and add it beside the API index. `ChosenWords` already takes a list and ranks by the weakest claim any reference makes, so nothing else changes.
 
@@ -84,6 +86,8 @@ On this repository: 4,247 words and 114,169 occurrences narrow to 1,254 and 18,1
 - **`$HOME`, not `~`** — no shell expands a tilde after `-D<name>=`, and the literal resolves against the working directory, matches no member and reads nothing while exiting zero.
 - **Gradle needs the toolchain path in the agent sandbox**: `-Dorg.gradle.java.installations.paths=/Library/Java/JavaVirtualMachines/jdk-25.jdk/Contents/Home`.
 - **Only `output/json/` and `output/tika/` are tracked.** `.gitignore` carries `output/*/`, so the other eight members' readings are untracked local files — `git checkout -- output` does not restore them and `git status` never shows them dirty. A baseline overwritten is a baseline gone.
+- **GitHub's `total_count` is exact and additive below about a million and an estimate above it**, and the estimate is not monotonic in a date bound. Query bounded ranges under a million and nothing else. The frame here is exactly 4,154,178 repositories, summed over twenty exact yearly windows; single-query estimates for the same frame returned 4,077,965, 3,980,293, 4,058,528 and 3,907,106 within two hours.
+- **The unauthenticated search API allows ten queries a minute and enforces a secondary limit well below that.** A draw costs about ten queries per row. Pace at nine seconds and expect sixty-second backoffs.
 - **Maven Central is blocked for new dependencies**; seed `~/.m2` with `curl` from `repo1.maven.org`, which is allowlisted. That is how `j2html` was restored.
 - The 4h 36m backtest run was a closed laptop, not a regression. The 6½-minute figure stands.
 - The vocabulary page: `./gradlew vocabularyPage`, then open `code-semantics-engine/build/reports/vocabulary/vocabulary.html`.

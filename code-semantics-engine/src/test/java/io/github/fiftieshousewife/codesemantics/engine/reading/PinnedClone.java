@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet.Member;
-
 /**
- * A evaluation set member's working tree at the commit the manifest pins it to, fetched where it is not already
- * there.
+ * A repository's working tree at the commit its manifest pins it to, fetched where it is not already there.
  *
  * <p>A reading of a moving target is not reproducible, so the clone is checked out at the stated commit and
  * a tree sitting at any other commit is fetched again. Nothing is fetched when the tree is already pinned,
- * which is what makes an evaluation set run repeatable at no cost.
+ * which is what makes a second run over the same manifest repeatable at no cost.
  *
- * <p>The fetch is the shallow one the evaluation-set plan measured: {@code git init}, {@code git fetch --depth 1}
+ * <p>The fetch is the shallow one the evaluation set measured: {@code git init}, {@code git fetch --depth 1}
  * naming the commit, {@code git checkout FETCH_HEAD}. The whole tree arrives even though most of it is never
  * opened, and that is deliberate rather than an oversight.
  *
@@ -29,7 +26,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet.Mem
  * a sparse checkout leaves those files off the disk, and the placement moves because a signal the reading is
  * meant to carry is missing. A filter <em>without</em> a sparse checkout is slower than no filter, because
  * the checkout then fetches every deferred blob one round trip at a time. Fetching the whole tree once is
- * what makes a member's reading the same reading every time.
+ * what makes a repository's reading the same reading every time.
  */
 public final class PinnedClone {
 
@@ -37,15 +34,15 @@ public final class PinnedClone {
 
     private static final int GIT_SUCCEEDED = 0;
 
-    private final Member member;
+    private final PinnedRepository repository;
 
-    public PinnedClone(final Member member) {
-        this.member = Objects.requireNonNull(member, "member");
+    public PinnedClone(final PinnedRepository repository) {
+        this.repository = Objects.requireNonNull(repository, "repository");
     }
 
-    /** The member's tree at its pinned commit, fetched if what is under the evaluation set directory is not it. */
-    public Path under(final Path evaluationSet) {
-        final Path clone = member.under(evaluationSet);
+    /** The tree at its pinned commit, fetched if what is under the named directory is not it. */
+    public Path under(final Path directory) {
+        final Path clone = repository.under(directory);
         if (isPinned(clone)) {
             return clone;
         }
@@ -55,7 +52,7 @@ public final class PinnedClone {
 
     /** Whether the tree is already the pinned commit, which is the whole of what a second run has to do. */
     public boolean isPinned(final Path clone) {
-        return Files.isDirectory(clone.resolve(GIT_DIRECTORY)) && member.sha().equals(head(clone));
+        return Files.isDirectory(clone.resolve(GIT_DIRECTORY)) && repository.sha().equals(head(clone));
     }
 
     /** What the tree is checked out at, or nothing where no tree has been fetched yet. */
@@ -66,7 +63,7 @@ public final class PinnedClone {
     private void fetch(final Path clone) {
         makeDirectory(clone);
         git(clone, "init", "--quiet");
-        git(clone, "fetch", "--depth", "1", "--quiet", member.origin(), member.sha());
+        git(clone, "fetch", "--depth", "1", "--quiet", repository.origin(), repository.sha());
         git(clone, "checkout", "--quiet", "FETCH_HEAD");
     }
 
@@ -79,8 +76,8 @@ public final class PinnedClone {
     }
 
     /**
-     * Git's own answer, with its error output attached where it fails. A member that will not fetch has to
-     * name itself: an evaluation set run that quietly reads yesterday's tree reports a figure nobody can reproduce.
+     * Git's own answer, with its error output attached where it fails. A repository that will not fetch has to
+     * name itself: a run that quietly reads yesterday's tree reports a figure nobody can reproduce.
      */
     private String git(final Path clone, final String... arguments) {
         final List<String> command = new ArrayList<>(List.of("git", "-C", clone.toString()));

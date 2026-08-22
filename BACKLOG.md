@@ -73,7 +73,7 @@ It sequences queue items 4, 5 and 6 rather than displacing them, and it takes ne
 
 ## The live plan
 
-[`RANK_DO_NOT_GATE.md`](docs/plans/RANK_DO_NOT_GATE.md) is where a session starts. It states what is in the working tree and uncommitted, the ordered work, the open defects, and what was measured and refused. It supersedes the word-filtering half of [`ONE_ARM.md`](docs/plans/ONE_ARM.md) and puts [`AGREED_SENSES.md`](docs/plans/AGREED_SENSES.md) on hold.
+[`RANK_DO_NOT_GATE.md`](docs/plans/RANK_DO_NOT_GATE.md) is where a session starts. It states the ordered work, the open defects, and what was measured and refused. Steps 1 and 2 are closed: the tree is committed at `4930371`, and the backtest of it was deferred by decision because the pipeline is wrong in principle while the gates stand. Step 3, the reference corpus, is the work in hand. It supersedes the word-filtering half of [`ONE_ARM.md`](docs/plans/ONE_ARM.md) and puts [`AGREED_SENSES.md`](docs/plans/AGREED_SENSES.md) on hold.
 
 ## The reference is an index where it should be a corpus
 
@@ -82,6 +82,10 @@ It sequences queue items 4, 5 and 6 rather than displacing them, and it takes ne
 **Every gate in the word pipeline exists to patch this.** Steps 3, 4 and 5 remove `id`, `buf` and `the` by rule because the ranking promotes them, and the doctrine's first line refuses that: signals are votes, never gates. Ten Java repositories drawn at random, pinned and read as a second reference put the density back, and `ChosenWords` already ranks by the weakest claim any reference makes, so nothing but the reference changes. The gates then come out one at a time, each with its own run, and the picture sizes a word by its claim in bits rather than by a count.
 
 The risk the plan has to bound is the draw: ten is small, and one blockchain repository in the reference would demote `transaction`, `gas` and `block` for besu, which is the signal rather than the noise. So each reference's claim is reported separately, the draw's composition is stated before the reading, and a draw is never re-rolled for landing badly.
+
+**The frame was fixed on 2026-08-21, before a row was drawn**, and is recorded in [`reference-corpus.tsv`](code-semantics-engine/src/test/resources/reference-corpus.tsv)'s header: `language:Java fork:false mirror:false size:>=1000 created:<2026-08-21`, seed 20260821, ten rows. Nothing about stars, activity or content bounds it. The frame holds exactly 4,154,178 repositories, summed over twenty yearly windows each counted exactly — GitHub's counts are exact and additive below about a million and estimates above it, so a single query for the whole frame returned four different numbers within two hours and none of them is right. [`docs/reference-corpus/draw.py`](docs/reference-corpus/draw.py) is the draw, and the seed reproduces its ranks.
+
+The clone machinery now reads **any** manifest — `RepositoryManifest`, `PinnedRepository`, and a `corpusFetch` task taking `-Dcs.corpus.manifest` — because a second sample is how the frame gets argued rather than asserted. One is already stated in advance: the uniform draw is dominated by individual projects, which will demote `id` and `get` but may not demote `log`, `license` or `builder`, and those are what all nine members share.
 
 ## The queue
 

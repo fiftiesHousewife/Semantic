@@ -33,9 +33,17 @@ public final class EvaluationSet {
     public record Member(String name, String origin, String sha, String licence, String area,
             String statedBy, String arm) {
 
+        /**
+         * The four columns cloning reads. The rest of the row states what the reading is scored against,
+         * which fetching a tree has no use for.
+         */
+        public PinnedRepository pinned() {
+            return new PinnedRepository(name, origin, sha, licence);
+        }
+
         /** Where the clone of this member is expected, beneath the directory the evaluation set run names. */
         public Path under(final Path evaluationSet) {
-            return evaluationSet.resolve(name);
+            return pinned().under(evaluationSet);
         }
     }
 

@@ -31,19 +31,57 @@ A word survives both only where neither English nor working Java writes it as de
 
 ## The sampling frame, fixed before anything is read
 
-**Truly random, from a stated population, pinned, and recorded before the first reading.** A reference chosen after seeing what it demotes is the same defect as choosing a member's expected subject after reading its tree.
+**Decided 2026-08-21 and recorded in [`reference-corpus.tsv`](../../code-semantics-engine/src/test/resources/reference-corpus.tsv)'s header before the first row was drawn.** The frame is:
+
+```
+language:Java fork:false mirror:false size:>=1000 created:<2026-08-21
+```
+
+| Qualifier | Why it is there |
+|---|---|
+| `language:Java` | the population, as GitHub states a primary language |
+| `fork:false`, `mirror:false` | a fork is another repository's words copied, so counting it twice is a sampling defect. GitHub excludes forks by default; stating it changed the count by one |
+| `size:>=1000` | one megabyte. **A stated bound, not a derived one** — the only number here somebody could argue with. Leave-one-out over the ten settles it and has not been run |
+| `created:<2026-08-21` | a ceiling, so the frame is the same set on a later day |
+
+Deliberately absent: stars, watchers, recent activity, archived state, and anything about content. Each selects for maturity or subject, and a reference chosen for what it contains is the defect this file exists to remove.
+
+**The draw is two-stage, because GitHub's `total_count` is an estimate above a few hundred thousand and is not monotonic in a date bound** — the same frame counted 3,856,241 before 2026-01-22 and 3,850,658 before 2026-02-05. A seeded rank selects a time slice with probability proportional to its estimated size; a second draw from the same stream selects uniformly within the slice, where the count is small enough to be exact. Uniform over the frame to about 0.2%.
+
+A first implementation resolved a rank by cumulative arithmetic alone, produced negative offsets from that non-monotonicity, and discarded them — a silent bias. **It was replaced before any row was drawn**, which is the only point at which replacing an instrument is not a choice about its output.
+
+A reference chosen after seeing what it demotes is the same defect as choosing a member's expected subject after reading its tree. What the draw still owes, unchanged:
 
 | | |
 |---|---|
-| Population | public GitHub repositories whose primary language GitHub states as Java, above a size floor that follows from the reading needing a parse to run — stated in the manifest, not chosen for effect |
-| Draw | random, from a seed recorded in the manifest, so the draw is reproducible and is not a choice |
+| Seed | 20260821, Python's `random.Random`, recorded in the manifest so the draw reproduces and is not a choice |
 | Size | ten |
 | Pinned | one commit SHA per repository, as `evaluation-set.tsv` pins its members |
-| Licence | verified at the revision, recorded. A repository is read, never redistributed |
+| Licence | verified at the revision, recorded. A repository is read, never redistributed, so one stating no licence is recorded as stating none rather than replaced |
 | Disjoint | from this repository and from all nine evaluation-set members. **A reference drawn from the corpus a reading is measured on is marking its own homework** |
 | Recorded | in `reference-corpus.tsv` beside `evaluation-set.tsv`, with the same header discipline: what it is, where it came from, what it costs to change |
 
 **On the doctrine.** A bundled *vocabulary* that votes must be a curated statement of a published standard. This is neither curated nor a voter: it is a denominator, sampled rather than chosen, and it is the same class of thing as the bundled frequency list that already serves as the English reference. What must not happen is a repository being picked because of what it contains.
+
+## The second sample, stated before it is drawn
+
+The first three rows of the uniform draw are `MVC-Template`, `StarWatchX` and `ahsan` — individual projects, none stating a licence. That is not a defect in the draw. Uniform over 4,154,178 Java repositories *is* mostly individual projects, and a draw that returned ten Apache-shaped libraries would mean the frame had been narrowed somewhere.
+
+It does put a question to the reference that no argument settles. The nine evaluation members are maintained multi-author libraries and servers. Individual projects write `id`, `get`, `name` and `value`, so those will sink. They may not write `log`, `license`, `apache`, `builder`, `factory` or `optional` — which are what maintained projects share, and which the reference is equally meant to demote.
+
+So a second sample, from a second frame, drawn to the same discipline and compared against the first:
+
+```
+language:Java fork:false mirror:false size:>=1000 stars:>=50 created:<2026-08-21
+```
+
+`stars:>=50` selects for attention, not for content, so it does not breach the rule this file exists to enforce. **It is not neutral either** — attention correlates with maturity, and maturity is closer to what the members are. That is exactly why it is a *second sample* rather than an edit to the first: two denominators, each with a stated frame, and the comparison is the evidence. `RepositoryManifest` takes either by name, so this costs one file.
+
+| | Answers |
+|---|---|
+| Both samples demote `id`, `log`, `test`, `get`, `buf` | the frame does not matter, and the uniform one stands because it assumes less |
+| Only the starred sample demotes them | the denominator must resemble the code being read, and the frame is a stated bound to be argued in the open |
+| Neither does | the defect is not the reference, and `A_CORPUS_NOT_AN_INDEX` is refuted on its own stated terms |
 
 ## The risk this plan has to bound
 
