@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
+import io.github.fiftieshousewife.codesemantics.clones.PinnedRepository;
+
 /**
  * The evaluation set the reading is measured on: which repositories, pinned to which commits, said by whom
  * to be about what, and as which expected result. The manifest states each answer <em>before</em> the

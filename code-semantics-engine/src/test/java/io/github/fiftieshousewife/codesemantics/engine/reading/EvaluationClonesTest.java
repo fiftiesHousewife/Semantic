@@ -2,6 +2,8 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.nio.file.Path;
 
+import io.github.fiftieshousewife.codesemantics.clones.PinnedClone;
+
 import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet.Member;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

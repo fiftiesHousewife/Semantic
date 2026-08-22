@@ -108,6 +108,11 @@
         });
         panel.appendChild(cloud);
         panel.appendChild(readout);
+        /* The strongest claims sit in the middle of the run, so the window opens on them. Measured after a
+           frame, because a box that has not been laid out reports no scroll height to centre within. */
+        requestAnimationFrame(function () {
+            cloud.scrollTop = Math.max(0, (cloud.scrollHeight - cloud.clientHeight) / 2);
+        });
 
         var paging = element("nav", "paging");
         var back = element("button", null, "Previous stage");

@@ -1,0 +1,140 @@
+# The reference corpus: ten Java repositories the reading is read AGAINST, drawn at random from a stated
+# frame. It is a denominator, not an answer key. No row here states a subject, and no row is scored.
+#
+# WHY IT EXISTS. The reading ranks a word by how far its density here departs from what a reference writes,
+# and keeps the weakest claim any reference makes. One reference was an index: PlatformVocabulary reads the
+# JDK's declared type names, where each name appears about once. Working Java writes the same words thousands
+# of times, so a word common in working code departs enormously from a reference that names it once, and the
+# ranking promoted exactly the words that should sink — `id` was the highest-ranked word in two of the nine
+# evaluation-set members. Three filters were added to remove those words by rule. The doctrine refuses that:
+# signals are votes, never gates. This file is the denominator those filters were standing in for.
+#
+# Columns: name, origin, sha, licence, rank, created, size
+#   name      the directory the clone is expected under -Dcs.corpus.dir
+#   origin    the URL it is cloned from
+#   sha       the commit it is pinned to. A denominator read from a moving target moves under the reading.
+#   licence   the SPDX identifier verified at that commit, or `none` where the repository states no licence.
+#             A repository is read, never redistributed, so a repository stating no licence is recorded as
+#             stating none rather than replaced — replacing it would be a choice, and the draw is not a choice.
+#   rank      the position in the frame the seeded draw landed on, 0-based. It selects a time slice rather
+#             than a repository — see THE DRAW. The seed reproduces the ranks and the ranks reproduce the rows.
+#   created   the repository's creation time, which is the coordinate a rank is resolved through (see below)
+#   size      the repository size in KB as GitHub states it, which is the variable the frame's floor bounds
+#
+# THE FRAME, fixed before the first row was drawn:
+#
+#   language:Java fork:false mirror:false size:>=1000 created:<2026-08-21
+#
+#   language:Java     the population this reading is about. GitHub states one primary language per repository.
+#   fork:false        a fork is another repository's words copied. Counting them twice is a sampling defect,
+#                     not a judgement about quality. GitHub's repository search excludes forks by default,
+#                     so this qualifier changed the count by one and is stated to be explicit rather than
+#                     to be relied on.
+#   mirror:false      the same reason as forks.
+#   size:>=1000       one megabyte. A STATED BOUND, NOT A DERIVED ONE, and it is the one number here that
+#                     somebody could argue with. The reading estimates a density per word; a repository
+#                     holding a handful of names gives a density dominated by which repository was drawn
+#                     rather than by how Java is written. The measurement that settles it is leave-one-out
+#                     over the ten — pool nine, read the tenth against them, and see how far the ranking
+#                     moves. Until that is run, this floor is stated, not justified.
+#   created:<...      a ceiling on creation time, so the frame is the same set on a later day. Without it the
+#                     population grows between the first count and the last draw and the ranks mean nothing.
+#
+#   NOT in the frame, deliberately: stars, watchers, recent activity, whether the repository is archived, and
+#   anything about what it contains. Each of those would select for maturity or for subject, and a reference
+#   chosen for what it contains is the defect this file exists to remove.
+#
+# THE DRAW. Seed 20260821, Python's random.Random — Mersenne Twister — drawing uniform integers in [0, frame).
+#
+#   WHAT GITHUB'S COUNTS ARE WORTH, measured rather than assumed. total_count is exact and additive for a
+#   result set up to about a million: a day, a month, a year and a four-year span each equalled the sum of
+#   their two halves exactly, the largest at 1,081,460. Above that GitHub estimates, and the estimate is not
+#   monotonic in a date bound — the same frame counted 3,833,338 repositories created before 2026-01-08 and
+#   3,804,662 before 2026-01-22, a fortnight later. So EVERY QUERY THIS DRAW MAKES IS A BOUNDED RANGE HOLDING
+#   FEWER THAN A MILLION REPOSITORIES, and no stage of it rests on an estimate.
+#
+#   1. Twenty yearly windows, counted exactly, give an exact cumulative index over the frame. Their sum is
+#      4,154,178, which is the frame size stated below. A single query for the same frame returned 4,077,965,
+#      3,980,293, 4,058,528 and 3,907,106 on four occasions within two hours; none of those is the number.
+#   2. A rank picks its year from that index, then halves within it — every sub-window smaller than a year,
+#      so every count still exact — until the window holds under a thousand, which is GitHub's page cap.
+#   3. The rank's offset within that window indexes the page directly, ordered by creation time ascending.
+#
+#   TWO EARLIER IMPLEMENTATIONS WERE ABANDONED, BOTH BEFORE ANY ROW BELOW WAS DRAWN. The first resolved a
+#   rank by cumulative arithmetic over unbounded `created:<t` queries, which are estimates: it produced
+#   negative offsets, discarded them and redrew, biasing toward whatever GitHub happened to under-count. The
+#   second kept the estimates but drew in two stages, a rank choosing a time slice and a second draw choosing
+#   within it. That was worse for a reason the first hid: the estimate's error is around twenty thousand on
+#   windows that truly hold a few dozen repositories, so the search halved on noise and would have converged
+#   on an arbitrary instant. Neither ever accepted a row. An instrument replaced after seeing its output
+#   would be a choice about that output; replaced before it has produced one, it is a repair.
+#
+#   REJECTIONS, stated before the draw and applied without exception: a rank landing on this repository or on
+#   any of the nine evaluation-set members is rejected and replaced by the next draw from the same stream,
+#   because a reference drawn from the corpus a reading is measured on is marking its own homework. A rank
+#   landing on a repository already drawn is likewise replaced, as is one GitHub will not page. NOTHING ELSE
+#   IS REJECTED — not subject, not size beyond the frame's floor, not activity, not licence, not appearance.
+#   IN THE EVENT NOTHING WAS REJECTED: all ten ranks the seed produced were accepted, in order, first time.
+#
+#   THE DRAW WAS NOT RE-ROLLED. Where the composition below concentrates in one subject area, that is a fact
+#   about this draw and is reported as one. Re-rolling until a sample looks representative is choosing.
+#
+#   THE DRAW AND ITS RECORD are docs/reference-corpus/draw.py and docs/reference-corpus/draw.json. The record
+#   holds every range count the draw made, so the cumulative index can be checked without re-running it, and
+#   the seed reproduces the ranks: random.Random(20260821) over 4,154,178 yields 4140166, 3827088, 324014,
+#   3737305, 1898778, 1167027, 3850655, 1886866, 2358159, 1245814 — the rank column below, in order.
+#
+# WHAT THIS COSTS TO CHANGE. Nothing here is edited. A different sample is a different file, named with
+#   -Dcs.corpus.manifest, and the reason for two files is that ten is a small sample: whether a word sank
+#   because every Java repository writes it, or because one drawn repository happened to be about it, is
+#   answered by reading a second draw and comparing. Editing this one would destroy the comparison.
+#
+# ON THE DOCTRINE. A bundled vocabulary that votes must be a curated statement of a published standard, and
+#   this is not a published standard. It is admissible because it is not curated: the frame is stated, the
+#   draw is seeded, the rejections are exhaustive and recorded, and no repository here was picked for what it
+#   contains. It is the same class of thing as the bundled English frequency list that already serves as the
+#   other reference — a sampled denominator. If a future reader finds a repository in this list that was
+#   chosen rather than drawn, the list is void.
+#
+# THE COMPOSITION OF THIS DRAW, stated before anything was read, from the repositories' own descriptions:
+#
+#   starwatchx                  a multi-camera space situational awareness prototype
+#   liaobei                     an Xposed plugin for a Chinese messaging app
+#   library-management-system   Java, Swing and MySQL
+#   searchengine                "1st major Java Project"
+#   ahsan                       "smd project"
+#   hewanpedia                  "TugasUAS" — Indonesian for a final-examination assignment
+#   mvc-template, overidle-launcher, memoire, websockettest   no description
+#
+#   ALL TEN CARRY ZERO STARS AND NO LICENCE. That is what uniform over 4,154,178 Java repositories looks
+#   like: GitHub's Java is overwhelmingly coursework and hobby projects, and a draw returning ten maintained
+#   libraries would have meant the frame was narrowed somewhere. It is reported, not corrected. No two of
+#   the ten share a subject, which is the concentration risk the plan named, and it did not land.
+#
+#   WHAT IT MAY COST, stated before the reading rather than after it. These repositories write `id`, `get`,
+#   `name` and `value`, so those will sink, which is what the reference is for. They may not write `log`,
+#   `license`, `apache`, `builder` or `optional` — what MAINTAINED projects share, and all nine evaluation
+#   members are maintained. If those survive as leading claims, the frame is wrong rather than the plan, and
+#   the answer is a second sample from a second stated frame, compared against this one. The second frame is
+#   stated in advance in docs/plans/A_CORPUS_NOT_AN_INDEX.md. It is never a filter on this draw's output.
+#
+#   THE LICENCE POSITION IS UNRESOLVED AND IS NOT THIS FILE'S TO SETTLE. Ten of ten state no licence, so
+#   nothing grants a right to read them beyond GitHub's terms of service, which permit viewing and forking
+#   public repositories. What would be bundled downstream is a table of word frequencies rather than any
+#   code, and a frequency is a fact about a text rather than the text itself. That is a position, not a
+#   ruling, and somebody has to take it before the pooled reference is published.
+#
+# Source: THIS PROJECT ran the draw; GitHub states the frame and the ranks. Drawn 2026-08-21, pinned and
+#   licence-checked 2026-08-22. Each licence was read AT THE PINNED COMMIT through the repository licence
+#   endpoint rather than at the branch head. The same check returns Apache-2.0 for apache/tika, so `none`
+#   here is an absent licence file rather than a failed lookup.
+mvc-template	https://github.com/eslamahmed123456g-cloud/MVC-Template.git	c47da0b25352b5cd82b557e4d7be842b75cc2d8d	none	4140166	2026-07-25T20:39:42Z	47993
+starwatchx	https://github.com/db24dev/StarWatchX.git	be01c1f906bd02105c2c9b0885bae8e40ce2732f	none	3827088	2025-11-28T10:17:08Z	39035
+ahsan	https://github.com/ahsantariq21/ahsan.git	d0db5bb650a05192c82dbecbdd23e5fba3171c47	none	324014	2015-06-16T09:47:13Z	14867
+searchengine	https://github.com/anirudhsom123/SearchEngine.git	2feb0827170fa3c3c65a478dcf82eb042ad5830c	none	3737305	2025-09-18T17:54:33Z	1594
+overidle-launcher	https://github.com/RomarioRY/OverIdle-Launcher.git	1df80fe6172aa2077dbbef4ecb77e50348a8a53d	none	1898778	2020-09-06T10:26:09Z	7449
+memoire	https://github.com/piere129/Memoire.git	7f2b77e55a0d74aa9df16a30bc2f3852c072077a	none	1167027	2018-07-24T13:06:10Z	4342
+library-management-system	https://github.com/eshita2311/Library-Management-System.git	8a122d4c8ef6407e1562ac2545e01ce81487fd58	none	3850655	2025-12-17T05:53:04Z	2493
+liaobei	https://github.com/kinglyu/liaobei.git	aa0e91e6084b355cc4fce01aaf9b5b49463562be	none	1886866	2020-08-23T05:41:07Z	2126
+hewanpedia	https://github.com/Vina030/hewanpedia.git	3be109dae55f33e8bc1e5bae101738a6e6f24289	none	2358159	2022-01-15T09:33:55Z	12287
+websockettest	https://github.com/nayunyung/websockettest.git	0db0b86e7ae798a18d488e714f6c5c61dcde55bc	none	1245814	2018-10-23T09:19:26Z	4299

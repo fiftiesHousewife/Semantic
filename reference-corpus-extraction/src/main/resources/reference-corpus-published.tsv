@@ -1,0 +1,106 @@
+# The published reference corpus: a THIRD sample, of Java repositories that state a licence, are still being
+# worked on, and publish an artefact. Drawn to compare against reference-corpus.tsv and
+# reference-corpus-starred.tsv, never to replace either.
+#
+# WHY A THIRD SAMPLE. The first two are drawn and neither denominator resembles what this reading is measured
+# on. Uniform over GitHub's Java gives coursework: ten of ten with zero stars and no licence. A fifty-star
+# floor gives Android: five of ten, plus two pieces of teaching material. The nine evaluation-set members are
+# none of those things — they are licensed libraries and servers that publish artefacts and are still
+# maintained. A denominator is meant to say what the code being read is written in, so the third frame states
+# those three properties directly instead of hoping a popularity proxy reaches them.
+#
+# THE FRAME AND THE PREDICATE, both fixed before a single rank was drawn.
+#
+#   FRAME, queried of GitHub:
+#     language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 created:<2026-08-21
+#     license:<each of the thirteen GitHub states>
+#
+#   Each qualifier, and why it is there:
+#     language:Java     the population, as GitHub states a primary language
+#     fork:false        a fork is another repository's words copied; counting them twice is a sampling defect
+#     mirror:false      the same reason
+#     size:>=1000       one megabyte. A STATED bound, not a derived one, carried over from the first frame
+#     pushed:>=2025-01-01   "modern" read as STILL BEING WORKED ON rather than recently started. A library
+#                       begun in 2014 and pushed to this year writes today's Java; one begun in 2024 and
+#                       abandoned does not. Creation date measures the wrong thing, so `pushed` is used.
+#     license:...       the thirteen licences GITHUB ITSELF publishes at /licenses — agpl-3.0, apache-2.0,
+#                       bsd-2-clause, bsd-3-clause, bsl-1.0, cc0-1.0, epl-2.0, gpl-2.0, gpl-3.0, lgpl-2.1,
+#                       mit, mpl-2.0, unlicense. THE SET IS CITED, NOT CHOSEN: picking which licences count
+#                       would be this project curating, so GitHub's own enumeration is used whole. They OR
+#                       together in a query, which is what makes "states a licence GitHub recognises"
+#                       expressible at all. A licence says nothing about what words a repository contains,
+#                       so requiring one does not breach the rule this corpus exists to enforce. IT IS NOT
+#                       NEUTRAL — a licensed repository is a more deliberate one — and that is stated rather
+#                       than claimed away.
+#     created:<...      a ceiling, so the frame is the same set on a later day
+#
+#   NOT in the frame: stars, watchers, archived state, and anything about subject matter.
+#
+#   PREDICATE, applied to every drawn rank without exception. GitHub's repository search cannot ask whether a
+#   repository publishes anything, so it is asked of the tree directly, AT THE PINNED COMMIT:
+#
+#     accept if pom.xml at the repository root states a <groupId>
+#          or if build.gradle or build.gradle.kts at the root applies maven-publish
+#     reject otherwise, and take the next rank from the same seeded stream
+#
+#   A Maven groupId is the coordinate an artefact publishes under, and maven-publish is the plugin that
+#   publishes one, so between them they are what a repository does to make its code available as a library.
+#   The predicate is read over raw.githubusercontent.com rather than the API, which is why it costs no rate
+#   limit. EVERY REJECTION IS RECORDED with the rank and the reason, in docs/reference-corpus/draw-published.json.
+#
+#   Rejection sampling on a predicate stated in advance is uniform over the sub-population that satisfies it.
+#   That is the whole reason the predicate had to be written down before the draw ran rather than after: a
+#   predicate adjusted once its rejections are visible is a choice about which repositories end up here.
+#
+# HOW MANY, and why it is thirty rather than ten. The first two samples hold ten each, which is what the plan
+#   asked for and is too few. A reference is a pooled density per word, so with ten roughly equal
+#   repositories any one of them carries about a tenth of the total mass: a single blockchain repository in
+#   the pool would have the reference claim `transaction` is written at a tenth of a blockchain repository's
+#   rate, which is enough to demote it for besu. That is the contamination risk the plan names, and ten
+#   bounds it badly. At thirty it is a thirtieth.
+#
+#   THIRTY IS NOT THE DERIVED BOUND EITHER. It is the number that lets the bound be measured. Pool the first
+#   n repositories in the seeded order, rank this repository's words against them, and watch how far the
+#   leading claims move as n grows; where the ranking stops moving is the answer, and it is a measurement
+#   rather than a choice. Ten points cannot show a plateau that arrives at fifteen. If the curve is still
+#   climbing at thirty, that is a finding and the draw extends.
+#
+#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT. Rows eleven onward are the next values from the same
+#   stream, so every row already recorded stays exactly as it was. That is what makes growing a sample
+#   different in kind from drawing it again until it looks right. The other two manifests can be grown the
+#   same way without invalidating a row.
+#
+# Columns, the seeded draw, the exact-count method and the doctrine argument are as reference-corpus.tsv
+# states them; only the frame and the predicate differ. The draw is docs/reference-corpus/draw.py.
+#
+# Source: THIS PROJECT ran the draw; GitHub states the frame, the licence enumeration and the ranks.
+katalon-plugin	https://github.com/jenkinsci/katalon-plugin.git	e39757293879437dc6ff9097efdac82a9aaf2425	MIT	10125	2018-12-18T16:25:05Z	7409
+ridi-dspace-server	https://github.com/projetos-codic-ibict/ridi-dspace-server.git	f1fc56626bcb35231eea596dc2124a16e789370f	BSD-3-Clause	58964	2025-07-11T14:41:13Z	6575
+i18n-fx	https://github.com/clydegerber/i18n-fx.git	673d34327aa76aaa13fac7b3716ca68feb40eaa3	Apache-2.0	86816	2026-03-15T20:55:51Z	3153
+jexposer	https://github.com/ViacheslavP/jexposer.git	82d334a14841505f29f6246478e6f52f5ae76f1a	Apache-2.0	24299	2022-12-14T17:48:37Z	1735
+grassbbs	https://github.com/M-WhiteXFox/GrassBBS.git	a6bb1bc0280c5c7976d6d9a10199439e7b26f1e8	AGPL-3.0	54584	2025-05-30T11:26:25Z	12831
+jass	https://github.com/jberclaz/jass.git	0ed0576308daaece5452e1d1c10259f5e20968c3	MIT	13836	2020-03-29T21:01:38Z	8690
+openpnp	https://github.com/yyw393/openpnp.git	5bd404cfc70f34103a3ca0fbb6b50c2b465f407c	GPL-3.0	100853	2026-06-09T02:56:57Z	425743
+maven-enforcer-rule-depend-on-all-projects	https://github.com/mikkoi/maven-enforcer-rule-depend-on-all-projects.git	c6f2d20432695d94b6dd74f02c25d93d59944309	Apache-2.0	64063	2025-09-07T21:10:49Z	1120
+codemedics-sample	https://github.com/Omqarrr/codemedics-sample.git	e12a207b230a59d6959cda0e6ba29766cf326c66	GPL-2.0	46028	2025-03-14T06:13:42Z	10798
+client-cursor	https://github.com/andrei-punko/client-cursor.git	6b5d8add990c01d8324e851e2ec755cca781d919	MIT	14962	2020-05-28T15:42:28Z	5562
+benchmarkjava	https://github.com/coyote-engineering/BenchmarkJava.git	1def24fc25772d034b72c704a7ff324a0eaddddb	GPL-2.0	79918	2026-01-29T22:18:30Z	76017
+poestdimens-fabric	https://github.com/Takusima/PoestDimens-Fabric.git	c53c3e67569fb92ba15369c8344eb486c7d23501	CC0-1.0	101063	2026-06-07T14:30:46Z	5028
+sem4pi_2024_2025	https://github.com/BernasDzn/sem4pi_2024_2025.git	a12ea1e17795f3e2d3b447db45322bea9042c2f5	MIT	70337	2025-10-28T21:18:38Z	30772
+koc-scrm	https://github.com/ABAPPLO/koc-scrm.git	eb0e41a1b176eaab840e66fbb3f9e7706f706b5e	Apache-2.0	108198	2026-07-22T07:23:37Z	22275
+rentify-java-project	https://github.com/bikashpubg678-maker/Rentify-java-project.git	18540025273fd605c555896f70c31f58e4b5338f	MIT	102928	2026-06-18T20:21:52Z	2421
+refractor	https://github.com/TheBozzz34/Refractor.git	1841d98c4eb9957736d1e153f119f7f4087098eb	Apache-2.0	19041	2021-07-05T19:19:11Z	9540
+tutorialmod-template-1.21.1	https://github.com/Helloqiyuan/tutorialmod-template-1.21.1.git	b4cff21213ac8991f681cc59c4c9990dd80acc2b	CC0-1.0	50614	2025-04-24T15:58:52Z	6692
+monacofx	https://github.com/miho/MonacoFX.git	a67906900e18ce0f56f041bde131c7ecc1c0cb06	MIT	13424	2020-02-12T16:04:08Z	3231
+mcsmi	https://github.com/TAYOTOoO/mcsmi.git	2f8119bfeba9a589508cc93549efc1294905bb5c	GPL-3.0	92369	2026-04-23T05:56:33Z	5221
+justtrialspawners	https://github.com/breakinblocks/justtrialspawners.git	8abe70784fb0b91ed8675e97ea491e002a9bd3d4	MIT	90864	2026-04-10T04:19:07Z	3698
+void-water	https://github.com/NormallyNormal/void-water.git	0fe1ec14697ea73405e53da53355c8bf011a3f38	MIT	92135	2026-04-18T20:37:19Z	8534
+ping-monitor	https://github.com/bbcdabao/ping-monitor.git	e08303222e5564100eb23ca791afd7c54c870092	Apache-2.0	34308	2024-07-03T04:03:01Z	13163
+rakumo	https://github.com/AradhyaSharma31/rakumo.git	f07879932287c1699eaf9f125bccd3c0627a7b99	Apache-2.0	108586	2026-07-25T20:32:08Z	9379
+partidoya-webapp	https://github.com/PartidoYA/PartidoYA-WebApp.git	5c181c964aeb10daaeb4fa7d7844a0897d25b392	MIT	104048	2026-06-24T04:12:21Z	88752
+ameba-lib	https://github.com/spring-labs/ameba-lib.git	e450325579d71e3008ebc2fcc2b3564b694fedee	Apache-2.0	3439	2015-05-20T11:45:08Z	1341
+convconf-oss	https://github.com/edigonzales/convconf-oss.git	71e544788e143c5c4ab7761e7d9bad9c35653fca	MIT	83746	2026-02-24T18:59:00Z	1284
+jamlin	https://github.com/Wradgio/Jamlin.git	79ca9270b2b7134f3b7cd56ff526444ae402eac3	Apache-2.0	7960	2017-11-02T11:18:48Z	2043
+mic	https://github.com/MultimodalImagingCenter/MiC.git	490684b6059a113f2e3bfcb9f289aa4bf3eae8c9	MIT	24555	2023-02-01T14:37:23Z	2000
+tessera	https://github.com/Lightning323/Tessera.git	82757b3a4ac3000baa0e22bc4e20ed6f37e0f1fb	GPL-3.0	27301	2023-08-12T16:04:19Z	281769
+algs4	https://github.com/sjungq/algs4.git	e3bd3985c276bada56c392bd05826fa7564ab1b3	GPL-3.0	73143	2025-11-26T06:12:11Z	2310

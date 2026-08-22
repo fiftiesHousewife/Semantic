@@ -233,15 +233,37 @@ h1 {
     color: var(--ink-soft);
 }
 
+/* A window rather than the whole cloud. `centred` puts the strongest claims in the middle of the run, so the
+   view opens there and the reader scrolls outwards into the faint edges rather than starting at one of them.
+   `safe center` and not `center`: with content taller than the box, plain centring puts the first rows above
+   the scrollable area where nothing can reach them. */
 .cloud {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: center;
     gap: 0.2rem 0.7rem;
-    padding: 1rem 0;
+    padding: 1rem 0.25rem;
     min-height: 20rem;
-    align-content: center;
+    max-height: 60vh;
+    overflow-y: auto;
+    align-content: safe center;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+    overscroll-behavior: contain;
+}
+
+.cloud::-webkit-scrollbar {
+    width: 10px;
+}
+
+.cloud::-webkit-scrollbar-thumb {
+    background: var(--rule);
+    border-radius: 5px;
+}
+
+.cloud::-webkit-scrollbar-track {
+    background: transparent;
 }
 
 .cloud b {
