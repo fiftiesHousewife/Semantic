@@ -99,7 +99,10 @@ public final class JavaSource implements SourceReader {
                 .forEach(parameter -> addNamed(parameter.getNameAsString(), parameter.getType(),
                         NameForm.PARAMETER, parameter, occurrences));
         declared(unit, EnumConstantDeclaration.class, NameForm.CONSTANT, occurrences);
-        declared(unit, TypeParameter.class, NameForm.TYPE_PARAMETER, occurrences);
+        unit.findAll(TypeParameter.class).stream()
+                .filter(parameter -> !spellsThePlaceholderConvention(parameter.getNameAsString()))
+                .forEach(parameter -> add(parameter.getNameAsString(), NameForm.TYPE_PARAMETER, parameter,
+                        occurrences));
         unit.findAll(RecordDeclaration.class).forEach(record ->
                 record.getParameters().forEach(component -> addNamed(component.getNameAsString(),
                         component.getType(), NameForm.CONSTANT, component, occurrences)));
@@ -118,6 +121,21 @@ public final class JavaSource implements SourceReader {
         unit.getAllComments().forEach(comment -> prose(comment, occurrences));
         return new ParsedSource(unit.getPackageDeclaration()
                 .map(NodeWithName::getNameAsString).orElse(""), occurrences, outcome);
+    }
+
+    /**
+     * Whether a type parameter is the placeholder the language's own convention spells, which is a single
+     * letter. Oracle's Java tutorial states it — {@code E}, {@code K}, {@code N}, {@code T}, {@code V},
+     * {@code S}, {@code U} — so the letter belongs to Java rather than to whoever wrote the file, exactly as
+     * a catch clause's binding stands for the type the language requires beside it.
+     *
+     * <p>It is a rule about one declaration and not about length. A field named {@code a} is still a name its
+     * author chose and is read; only a type parameter is claimed here, because only a type parameter has a
+     * published convention saying the letter is not a word. A parameter written out — {@code REQUEST} — is a
+     * name somebody chose and is read.
+     */
+    private static boolean spellsThePlaceholderConvention(final String name) {
+        return name.codePointCount(0, name.length()) == 1;
     }
 
     private static boolean isCaught(final Parameter parameter) {

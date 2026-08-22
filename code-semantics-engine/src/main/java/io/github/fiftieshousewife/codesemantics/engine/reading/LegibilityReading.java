@@ -47,8 +47,8 @@ public final class LegibilityReading {
                     byScope.computeIfAbsent(file.scope(), scope -> new LegibilityTally(cited, words, runs));
             filesByScope.merge(file.scope(), 1, Integer::sum);
             file.occurrences().forEach(occurrence -> {
-                tally.add(file.path(), occurrence);
-                repository.add(file.path(), occurrence);
+                tally.add(file.path(), file.scope(), occurrence);
+                repository.add(file.path(), file.scope(), occurrence);
             });
         });
         final List<ScopeLegibility> readings = byScope.entrySet().stream()

@@ -5,9 +5,10 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,8 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class VocabularyPageCommand {
 
-    /** How many words a stage draws. Beyond this a cloud is a texture rather than a reading. */
-    private static final int DRAWN = 60;
+    /** The seed the null is drawn at, so two runs of one tree cut the picture in the same place. */
+    private static final long SEED = 20260821L;
 
     private static final String PAGE = "vocabulary.html";
     private static final String STYLESHEET = "vocabulary.css";
@@ -48,32 +49,38 @@ public final class VocabularyPageCommand {
     static StagedVocabulary staged(final TreeReading reading) {
         final WrittenWords written = written(reading);
         final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath()).over(written);
-        final Map<String, Double> claims = claimByWord(written);
+        final ChosenWords ranking = ChosenWords.againstEnglishAndThePlatform();
+        final Map<String, ChosenWord> chosen = chosenByWord(ranking, written);
+        final Map<String, Double> bars = ranking.chanceFor(written, SEED).stream()
+                .collect(Collectors.toMap(VocabularyNull.Bar::reference, VocabularyNull.Bar::bits));
         return new StagedVocabulary(reading.root().getFileName().toString(),
                 reading.legibility().scopes().size(),
-                stages.stream().map(staged -> stage(staged, claims)).toList());
+                stages.stream().map(staged -> stage(staged, chosen, bars)).toList());
     }
 
     /**
-     * How far each word departs from what it is read against, measured once over everything the tree wrote.
+     * What every reference says about each word, measured once over everything the tree wrote.
      *
-     * <p>Once rather than per stage: the claim is a share against a reference, so recomputing it on each
+     * <p>Once rather than per stage: a claim is a share against a reference, so recomputing it on each
      * stage's surviving population would re-normalise it and a word would appear to grow as its neighbours
      * were removed.
      */
-    private static Map<String, Double> claimByWord(final WrittenWords written) {
-        return ChosenWords.againstEnglishAndThePlatform().in(written).stream()
-                .collect(java.util.stream.Collectors.toMap(ChosenWord::word, ChosenWord::claim,
-                        Math::max, java.util.LinkedHashMap::new));
+    private static Map<String, ChosenWord> chosenByWord(final ChosenWords ranking,
+                                                        final WrittenWords written) {
+        return ranking.in(written).stream()
+                .collect(Collectors.toMap(ChosenWord::word, word -> word,
+                        (first, second) -> first, LinkedHashMap::new));
     }
 
-    private static StagedVocabulary.Stage stage(final StagedWords staged, final Map<String, Double> claims) {
+    private static StagedVocabulary.Stage stage(final StagedWords staged,
+                                                final Map<String, ChosenWord> chosen,
+                                                final Map<String, Double> bars) {
         final WrittenWords surviving = staged.surviving();
         return new StagedVocabulary.Stage(staged.stage(), staged.stage().keeps(),
                 staged.stage().removes(),
                 surviving.words().size(), surviving.totalOccurrences(),
                 staged.removed().size(), staged.occurrencesRemoved(),
-                StagedVocabulary.drawnFrom(staged, DRAWN, claims));
+                StagedVocabulary.drawnFrom(staged, chosen, bars));
     }
 
     /** Every word the tree wrote, as one tally over every scope the walk found. */

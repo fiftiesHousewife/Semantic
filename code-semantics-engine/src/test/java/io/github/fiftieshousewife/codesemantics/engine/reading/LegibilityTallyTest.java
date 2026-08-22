@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class LegibilityTallyTest {
 
     private static final String SITE = "code-semantics-engine/src/main/java/Example.java";
+    private static final String MAIN = "code-semantics-engine/src/main/java";
+    private static final String TESTS = "code-semantics-engine/src/test/java";
 
     private final CitedWords cited = new CitedWords(List.of(
             new ResourceCitation(EvidenceSource.WORD_FREQUENCY, Set.of("page", "cursor", "next")::contains),
@@ -26,11 +28,33 @@ class LegibilityTallyTest {
                     PublishedRuns.NONE);
 
     private void add(final String identifier, final int line) {
-        tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
+        tally.add(SITE, MAIN, new NameOccurrence(identifier, NameForm.FIELD, line));
     }
 
     private void wrote(final String prose, final int line) {
-        tally.add(SITE, new NameOccurrence(prose, NameForm.JAVADOC, line));
+        tally.add(SITE, MAIN, new NameOccurrence(prose, NameForm.JAVADOC, line));
+    }
+
+    @Test
+    void doesNotReadTheWordASourceSetsOwnLayoutSupplies() {
+        tally.add(SITE, TESTS, new NameOccurrence("PageCursorTest", NameForm.TYPE, 1));
+
+        assertAll(
+                () -> assertThat(tally.written().occurrencesOf("test"))
+                        .as("the trailing Test restates Maven's layout, which PhraseTopics already refuses; "
+                                + "one rule asked once means the vocabulary refuses it too")
+                        .isZero(),
+                () -> assertThat(tally.written().occurrencesOf("page")).isEqualTo(1),
+                () -> assertThat(tally.written().occurrencesOf("cursor")).isEqualTo(1));
+    }
+
+    @Test
+    void readsThatSameWordWhereTheLayoutDoesNotSupplyIt() {
+        tally.add(SITE, MAIN, new NameOccurrence("PageCursorTest", NameForm.TYPE, 1));
+
+        assertThat(tally.written().occurrencesOf("test"))
+                .as("in a main source set nothing supplies the word, so its author chose it")
+                .isEqualTo(1);
     }
 
     @Test

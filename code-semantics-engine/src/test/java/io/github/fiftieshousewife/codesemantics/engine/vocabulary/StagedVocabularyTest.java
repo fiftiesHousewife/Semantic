@@ -14,10 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class StagedVocabularyTest {
 
-    private static final int DRAWN = 10;
+    private static final String ENGLISH = "ordinary English";
+    private static final Map<String, Double> NO_BAR = Map.of(ENGLISH, 0.0);
 
-    private static final Map<String, Double> CLAIMS =
-            Map.of("the", 0.0001, "pricer", 0.0300, "buffer", 0.0050, "list", -0.0100);
+    private static ChosenWord chosen(final String word, final double claim, final int occurrences) {
+        return new ChosenWord(word, occurrences, occurrences, claim, 0.0,
+                List.of(new ChosenWord.ReferenceClaim(ENGLISH, 0.0, Math.abs(claim), claim > 0.0)),
+                "a.java", false, null);
+    }
+
+    private static final Map<String, ChosenWord> CHOSEN = Map.of(
+            "the", chosen("the", 0.0040, 800),
+            "pricer", chosen("pricer", 0.0030, 12),
+            "buffer", chosen("buffer", 0.0050, 40),
+            "list", chosen("list", -0.0100, 4000));
 
     private WrittenWords written(final Map<String, Integer> timesByWord) {
         final WrittenWords written = new WrittenWords();
@@ -33,22 +43,19 @@ class StagedVocabularyTest {
     @Test
     void sizesAWordByItsClaimRatherThanByHowOftenItWasWritten() {
         final List<StagedVocabulary.RankedWord> drawn = StagedVocabulary.drawnFrom(
-                staged(Map.of("the", 900, "pricer", 12)), DRAWN, CLAIMS);
+                staged(Map.of("the", 800, "buffer", 40)), CHOSEN, NO_BAR);
 
         assertAll(
                 () -> assertThat(drawn).extracting(StagedVocabulary.RankedWord::word)
-                        .as("the strongest claim leads however seldom it was written")
-                        .containsExactly("pricer", "the"),
-                () -> assertThat(drawn.getFirst().claim()).isEqualTo(0.0300),
-                () -> assertThat(drawn.getFirst().occurrences())
-                        .as("how often it was written is still carried, it just no longer sets the size")
-                        .isEqualTo(12));
+                        .as("buffer departs further than the although the is written twenty times more")
+                        .containsExactly("buffer", "the"),
+                () -> assertThat(drawn.getFirst().claim()).isEqualTo(0.0050));
     }
 
     @Test
     void drawsNoWordAReferenceWritesAtLeastAsDenselyAsThisRepositoryDoes() {
         final List<StagedVocabulary.RankedWord> drawn = StagedVocabulary.drawnFrom(
-                staged(Map.of("list", 4000, "pricer", 3)), DRAWN, CLAIMS);
+                staged(Map.of("list", 4000, "pricer", 3)), CHOSEN, NO_BAR);
 
         assertThat(drawn).extracting(StagedVocabulary.RankedWord::word)
                 .as("a word no reference agrees is written more densely here states no claim to draw")
@@ -56,12 +63,25 @@ class StagedVocabularyTest {
     }
 
     @Test
-    void carriesOneClaimForAWordAtEveryStageItSurvives() {
-        final Map<String, Integer> everything = Map.of("the", 900, "pricer", 12, "buffer", 40);
+    void drawsNoWordWhoseClaimAChanceRepositoryOfThisSizeWouldHaveReached() {
+        final List<StagedVocabulary.RankedWord> drawn = StagedVocabulary.drawnFrom(
+                staged(Map.of("pricer", 12, "buffer", 40)), CHOSEN, Map.of(ENGLISH, 0.0040));
+
+        assertThat(drawn).extracting(StagedVocabulary.RankedWord::word)
+                .as("dividing by occurrences makes a word written once maximally characteristic, so the "
+                        + "bar the null derives is what keeps the picture off noise")
+                .containsExactly("buffer");
+    }
+
+    @Test
+    void carriesOneFigureForAWordAtEveryStageItSurvives() {
+        final Map<String, Integer> everything = Map.of("the", 800, "pricer", 12, "buffer", 40);
         final Map<String, Integer> narrowed = Map.of("pricer", 12, "buffer", 40);
 
-        final double early = claimOf(StagedVocabulary.drawnFrom(staged(everything), DRAWN, CLAIMS), "pricer");
-        final double late = claimOf(StagedVocabulary.drawnFrom(staged(narrowed), DRAWN, CLAIMS), "pricer");
+        final double early = sizeOf(
+                StagedVocabulary.drawnFrom(staged(everything), CHOSEN, NO_BAR), "pricer");
+        final double late = sizeOf(
+                StagedVocabulary.drawnFrom(staged(narrowed), CHOSEN, NO_BAR), "pricer");
 
         assertThat(early)
                 .as("a word must not appear to grow because its neighbours left, or a difference between "
@@ -69,7 +89,7 @@ class StagedVocabularyTest {
                 .isEqualTo(late);
     }
 
-    private double claimOf(final List<StagedVocabulary.RankedWord> drawn, final String word) {
+    private double sizeOf(final List<StagedVocabulary.RankedWord> drawn, final String word) {
         return drawn.stream().filter(each -> each.word().equals(word))
                 .mapToDouble(StagedVocabulary.RankedWord::claim).findFirst().orElseThrow();
     }

@@ -188,7 +188,7 @@ class JavaSourceTest {
     }
 
     @Test
-    void readsALambdasParametersAndATypesParameters() {
+    void readsALambdasParametersButNotTheOneLetterPlaceholderATypeParameterConventionallySpells() {
         final String source = """
                 package example;
                 class Reading<A> {
@@ -199,8 +199,24 @@ class JavaSourceTest {
                 """;
 
         assertAll(
-                () -> assertThat(namesOf(source, NameForm.TYPE_PARAMETER)).containsExactly("A"),
+                () -> assertThat(namesOf(source, NameForm.TYPE_PARAMETER))
+                        .as("a single letter is what the language's convention spells for a placeholder, "
+                                + "so A is not a word this repository chose")
+                        .isEmpty(),
                 () -> assertThat(namesOf(source, NameForm.PARAMETER)).containsExactly("evidence"));
+    }
+
+    @Test
+    void readsATypeParameterWrittenOutAsAWordBecauseThatIsANameSomebodyChose() {
+        final String source = """
+                package example;
+                class Reading<REQUEST, T> {
+                }
+                """;
+
+        assertThat(namesOf(source, NameForm.TYPE_PARAMETER))
+                .as("the convention is a single letter; anything longer was written out on purpose")
+                .containsExactly("REQUEST");
     }
 
     @Test

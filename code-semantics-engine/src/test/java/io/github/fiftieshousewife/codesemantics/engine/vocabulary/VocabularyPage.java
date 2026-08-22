@@ -52,14 +52,16 @@ public final class VocabularyPage {
                         p().withClass("lede").with(
                                 text("The reading narrows a repository's words in stages, and each "
                                         + "stage runs on what the one before it left. Use Next stage to "
-                                        + "move through them. A word's size is how far this repository departs "
-                                        + "from what it is read against, in bits, so a word twice the size "
-                                        + "departs twice as far — not a word written twice as often. The "
-                                        + "steps are stated by "),
+                                        + "move through them. A word's size is how far this repository "
+                                        + "departs from what it is read against, in bits, so a word twice "
+                                        + "the size departs twice as far — not a word written twice as "
+                                        + "often. A word is drawn only where that departure stands "
+                                        + "outside what a repository of this size would have reached by "
+                                        + "chance. The stages are stated by "),
                                 code("WordPipeline"), text(".")),
                         dl().withClass("summary"),
                         div().withClass("stages"),
-                        p().withClass("foot").withText("The last step merges rather than removes: two "
+                        p().withClass("foot").withText("The last stage merges rather than removes: two "
                                 + "spellings becoming one word is not a word being taken out, so its "
                                 + "count of times written does not fall. A word every reference writes as "
                                 + "densely as this repository does departs from nothing and so has no size "

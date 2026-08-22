@@ -44,7 +44,7 @@ public final class LegibilityTally {
         this.runs = runs;
     }
 
-    public void add(final String site, final NameOccurrence occurrence) {
+    public void add(final String site, final String scope, final NameOccurrence occurrence) {
         final NameForm form = occurrence.form();
         if (!form.isProse()) {
             declarations++;
@@ -56,7 +56,8 @@ public final class LegibilityTally {
             }
             occurrencesByForm.merge(form.name(), phrase.words().size(), Integer::sum);
             cite(phrase.words(), site + ":" + occurrence.line());
-            record(runs.of(phrase.words()), site + ":" + occurrence.line(), form.isChosenName());
+            record(runs.of(phrase.words()), site + ":" + occurrence.line(), form.isChosenName(),
+                    PublishedSourceSets.sourceSetOf(scope));
         });
     }
 
@@ -71,13 +72,21 @@ public final class LegibilityTally {
     /**
      * What the vocabulary reading ranks: the same phrase with each published run standing as one word.
      *
+     * <p>A word a source set's own layout supplies is not read. {@code PageCursorTest} in
+     * {@code src/test/java} says {@code test} because Maven's standard directory layout says so, not because
+     * its author chose it, and {@code PhraseTopics} has always refused it on that citation. Asking the same
+     * rule here is what keeps one question from having two answers.
+     *
      * <p>The two tallies answer different questions and only one of them folds. λ is the share of word
      * occurrences a resource can be cited for, and a run read as one word is still two words written; the
      * vocabulary reading asks what this repository called things, and {@code part of speech} is one thing
      * it called something.
      */
-    private void record(final List<String> phrase, final String site, final boolean chosenAsName) {
-        phrase.forEach(word -> written.saw(word, site, chosenAsName));
+    private void record(final List<String> phrase, final String site, final boolean chosenAsName,
+                        final String layoutWord) {
+        phrase.stream()
+                .filter(word -> !word.equals(layoutWord))
+                .forEach(word -> written.saw(word, site, chosenAsName));
     }
 
     /** Every word the scope wrote, cited or not — what the vocabulary reading ranks. */
