@@ -1,57 +1,75 @@
 # The reference corpus
 
-The reading ranks a repository's words by how far they depart from what it is read against, and keeps the weakest claim any reference makes. This module draws and fetches one of those references.
+Thirty Java repositories, drawn at random from a stated population, supplying the word frequencies this library's own vocabulary is measured against.
 
-## What it is for
+- Samples GitHub by a query fixed before any repository is selected, from a recorded seed.
+- Pins each repository to one commit and records the SPDX licence read at that commit.
+- Clones them, reads the names their authors declared, and pools those into one distribution over words.
 
-`PlatformVocabulary` reads the JDK's **declared type names**, where each name appears about once. Working Java writes the same words thousands of times, so a word common in real code departs enormously from a reference that names it once. `id` is the strongest claim in two of the nine evaluation-set members, judged against the platform's own API. Three stages of the word pipeline — `SYMBOL`, `SHORTHAND` and `LANGUAGE` — exist to remove `id`, `buf` and `the` by rule because the ranking promotes them, and the doctrine's first line refuses that: signals are votes, never gates.
+## How to use it
 
-A corpus of real Java writes those words constantly, so they sink on their own. That is what this module supplies.
+| Command | Produces |
+|---|---|
+| `./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus` | the thirty working trees, each at its pinned commit |
+| `./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=<a draw>.tsv` | the trees a different sample names |
+| `./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json` | a new sample, with every rank and every rejection |
 
-## The three draws
+`corpusFetch` skips a tree already at its pinned commit, so a second run transfers nothing. The thirty published repositories occupy 1,034 MB. Write `$HOME` rather than `~`: no shell expands a tilde after `-D<name>=`, so the literal text resolves against the working directory, matches nothing, and exits zero having read nothing.
 
-Each is a seeded sample from a frame stated **before** any row was drawn, and each records every rank and every rejection.
+`corpusDraw` queries the GitHub API and runs outside any ordinary build. Add `-Dcs.draw.publishes` to require a publication, and `-Dcs.draw.exclude=owner/name,...` to refuse named repositories.
 
-| Manifest | Frame | Rows | What it turned out to be |
+## What it produces
+
+| Sample | Query | Rows | Composition |
 |---|---|--:|---|
-| [`reference-corpus.tsv`](src/main/resources/reference-corpus.tsv) | `language:Java fork:false mirror:false size:>=1000` | 10 | coursework and hobby projects; zero stars and no licence between them |
-| [`reference-corpus-starred.tsv`](src/main/resources/reference-corpus-starred.tsv) | the same, plus `stars:>=50` | 10 | five Android projects, two pieces of teaching material, three libraries |
-| [`reference-corpus-published.tsv`](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:>=2025-01-01`, and a publication predicate | 30 | libraries; every one licensed |
+| [the uniform sample](src/main/resources/reference-corpus.tsv) | `language:Java fork:false mirror:false size:>=1000` | 10 | coursework and personal projects, all with zero stars and no licence |
+| [the sample above fifty stars](src/main/resources/reference-corpus-starred.tsv) | the same, plus `stars:>=50` | 10 | five Android projects, two teaching repositories, three libraries |
+| [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:>=2025-01-01`, and a publication test | 30 | libraries, every one licensed |
 
-**Neither of the first two resembles the evaluation-set members**, which are Apache-shaped libraries and servers. That is a fact about GitHub rather than about the draw — server-side Java libraries are a thin slice of what GitHub's Java is — and it is why the third frame states what it wants directly instead of hoping a popularity proxy reaches it.
+The evaluation set holds maintained libraries and servers. The first two samples hold neither, because such projects are a small share of the Java on GitHub. The third sample states licensing, recent activity and publication as query terms.
 
-## Running it
+## Definitions
 
-```
-./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus
-./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=<a draw>.tsv
-```
+**Frame** — the GitHub query defining which repositories the sample can contain, together with a ceiling on creation date. Recorded in each manifest before selection begins.
 
-Nothing is fetched for a tree already at its pin, so a second run costs nothing. The published thirty is about 1,034 MB. Use `$HOME` rather than `~`: no shell expands a tilde after `-D<name>=`, and the literal resolves against the working directory, matches nothing and reads nothing while exiting zero.
+**Rank** — a repository's position in its frame, ordered by creation time ascending. The fifth column of a drawn manifest.
 
-A new draw, which reaches the network and is never part of an ordinary build:
+**Seed** — the integer initialising the [Mersenne Twister](https://dl.acm.org/doi/10.1145/272991.272995) generator. 20260821 for all three samples.
 
-```
-./gradlew :reference-corpus-extraction:corpusDraw -Pframe='language:Java fork:false size:>=1000' -Pseed=20260821 -Pdraws=10 -Pout=<record>.json
-```
+**Publication test** — a repository qualifies when `pom.xml` at its root states a `<groupId>`, or `build.gradle` applies `maven-publish`, at its pinned commit. Half the licensed, actively-pushed repositories drawn failed it.
 
-## Why the draw is shaped the way it is
+## How it works
 
-**GitHub's `total_count` is exact and additive below about a million and an estimate above it**, and the estimate is not monotonic in a date bound — the same frame counted 3,833,338 repositories created before 2026-01-08 and 3,804,662 before 2026-01-22, a fortnight later. So every query the draw makes is a bounded range holding fewer than a million:
+The [GitHub search API](https://docs.github.com/en/rest/search/search) reports `total_count` exactly, and additively, up to about a million results; above that it estimates. The estimate falls as the date bound rises: the uniform frame counted 3,833,338 repositories created before 2026-01-08 and 3,804,662 before 2026-01-22. Every query the draw makes therefore bounds a range holding fewer than a million.
 
-1. Yearly windows, counted exactly, give an exact cumulative index. The uniform frame is 4,154,178 repositories. A single query for the same frame returned four different numbers within two hours, and none of them is right.
-2. A seeded rank picks its year, then halves within it until the window holds under a thousand, which is GitHub's page cap.
-3. The rank's offset indexes that page directly.
+Worked example, the first row of the uniform sample:
 
-Two earlier implementations were abandoned, both before any row was drawn. One resolved ranks by arithmetic over unbounded `created:<t` queries and discarded the negative offsets that produced, which biases toward whatever GitHub under-counts. The other halved on estimate noise twenty thousand wide over windows truly holding a few dozen.
+1. Twenty yearly windows, counted exactly, sum to **4,154,178** repositories. Single queries for the whole frame returned 4,077,965, 3,980,293, 4,058,528 and 3,907,106 within two hours.
+2. [`MersenneTwister`](src/main/java/io/github/fiftieshousewife/codesemantics/corpus/MersenneTwister.java) seeded at 20260821 yields **4,140,166** as its first value below 4,154,178.
+3. That rank falls in the 2026 window, which holds 288,816 repositories. Halving the window by creation time, each half counted exactly, reaches a window holding fewer than a thousand.
+4. Offset 66 of that window, ordered by creation time ascending, is **eslamahmed123456g-cloud/MVC-Template**, created 2026-07-25 and pinned at `c47da0b2`.
 
-## Reproducing a draw
+`MersenneTwister` reproduces the stream of [CPython's `random` module](https://docs.python.org/3/library/random.html): `init_by_array` seeding, and a bound drawn by taking the bits it requires and discarding values at or above it. Java's [`Random`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Random.html) implements a different algorithm and yields a different sample. `MersenneTwisterTest` asserts that the port reproduces the ranks the uniform and starred manifests record.
 
-The seed reproduces the ranks, and the ranks reproduce the rows. [`MersenneTwister`](src/main/java/io/github/fiftieshousewife/codesemantics/corpus/MersenneTwister.java) is MT19937 seeded and consumed exactly as CPython's `random` module does — `init_by_array` seeding, and a bound drawn by taking the bits it needs and discarding anything too large rather than folding it back by a remainder. Java's own generator is a different algorithm, so a port using it would produce a different sample and falsify every rank already recorded. `MersenneTwisterTest` asserts the port reproduces the uniform and starred manifests from their seeds.
+## The rules a sample holds to
 
-## What must not happen
+- Every query term bounds language, size, fork status, licence or activity. None describes subject matter.
+- The frame is recorded before selection begins.
+- A sample is extended by taking further values from the same seeded stream, which leaves recorded rows unchanged. Selection is never repeated.
+- Rejections are limited to this repository, the nine evaluation-set members, a repository already drawn, and a rank GitHub declines to page. Each is recorded with its rank.
+- Licences are read at the pinned commit through the [GitHub licence API](https://docs.github.com/en/rest/licenses/licenses), which returns Apache-2.0 for `apache/tika` and nothing for a repository carrying no licence file. Copyleft licences are recorded. Repositories are read; none is redistributed.
 
-- **No repository is picked for what it contains.** A frame bounds by language, size, fork, licence and activity, never by subject. A reference chosen for what it demotes is the defect this module exists to remove.
-- **A draw is never re-rolled.** Where a draw concentrates in one subject area, that is a fact about it and is reported. A draw *extends* — rows eleven onward are the next values from the same stream, so every row already recorded stays as it was.
-- **A frame is stated before it is drawn.** Adding a qualifier after seeing which rows a draw produced is choosing.
-- **A drawn repository is read, never redistributed.** Licences are verified at the pinned commit, not at the branch head, and copyleft is recorded rather than refused.
+## Limitations
+
+- The one-megabyte size floor is stated rather than derived. Leave-one-out across the thirty repositories would establish it and has not been run.
+- Ten repositories give any one of them a tenth of the pooled word counts, so a single repository writing a subject vocabulary distorts it. Thirty reduces that to a thirtieth. Neither figure is derived.
+- Unauthenticated, the search API allows ten queries a minute and enforces a lower secondary limit. A sample costs roughly ten queries per row.
+- The pooled distribution the samples exist to produce is not built yet.
+
+## References
+
+- [CPython, `random` — Generate pseudo-random numbers](https://docs.python.org/3/library/random.html)
+- [GitHub REST API, Licenses](https://docs.github.com/en/rest/licenses/licenses)
+- [GitHub REST API, Search](https://docs.github.com/en/rest/search/search)
+- [Matsumoto and Nishimura, Mersenne Twister (1998)](https://dl.acm.org/doi/10.1145/272991.272995)
+- [SPDX License List](https://spdx.org/licenses/)

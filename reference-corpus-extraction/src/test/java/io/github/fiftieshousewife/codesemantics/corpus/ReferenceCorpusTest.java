@@ -52,6 +52,14 @@ class ReferenceCorpusTest {
     }
 
     @Test
+    void refusesADrawThisModuleDoesNotRecord() {
+        assertThatThrownBy(() -> ReferenceCorpus.drawn("/no-such-draw.tsv"))
+                .as("a sample named but not recorded is a question never asked, and an absent denominator "
+                        + "reads exactly like one with nothing to demote")
+                .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
     void readsTheUniformDrawWhereTheRunNamesNoManifest() {
         assertThat(ReferenceCorpus.manifest().repositories())
                 .as("the ordinary case states no path; a perturbation states one")

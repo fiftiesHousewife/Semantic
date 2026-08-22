@@ -1,31 +1,59 @@
 # Pinned repository clones
 
-A manifest of repositories pinned to commits, and the shallow clone that fetches one where the tree on disk is not already at its pin.
+A list of repositories, each fixed to one commit, and the shallow clone that fetches one.
 
-## Why it depends on nothing
+- Reads a manifest of repositories from any file.
+- Fetches a working tree at the commit the manifest states.
+- Leaves a tree already at that commit untouched.
 
-Two unrelated things need to clone a pinned tree, and neither is the other's business:
+## How to use it
 
-- the **backtest** fetches the nine repositories a reading is *measured on*, which live in the engine's test scope
-- the **reference corpus** fetches the repositories a reading is *read against*, which needs the engine for the parse
+```java
+RepositoryManifest.at(Path.of("reference-corpus.tsv")).repositories()
+        .forEach(repository -> new PinnedClone(repository).under(Path.of(System.getenv("HOME"), "corpus")));
+```
 
-A module holding this that depended on either would make one wait for the other, and putting it in the engine would mean the corpus extraction depended on the engine's tests — a project cycle. So it depends on nothing and both depend on it.
+`under` returns the working tree's path, fetching first where the tree on disk sits at a different commit.
 
 ## What a manifest states
 
-Four columns, and any manifest may state more:
-
 | Column | |
 |---|---|
-| `name` | the directory the clone is expected under |
-| `origin` | the URL it is cloned from |
-| `sha` | the commit it is pinned to. A reading of a moving target is not reproducible |
-| `licence` | the SPDX identifier verified **at that commit**, not at the branch head, or `none` |
+| `name` | the directory holding the clone |
+| `origin` | the URL the clone is fetched from |
+| `sha` | the commit the tree is fixed to |
+| `licence` | the [SPDX identifier](https://spdx.org/licenses/) read at that commit, or `none` |
+| `rank` | for a sampled manifest, the repository's position in the population it was drawn from |
 
-A drawn manifest states a fifth, `rank`, which is the position in its frame the seeded draw landed on. That is what lets somebody else check a draw: the seed reproduces the ranks and the ranks reproduce the rows.
+Columns beyond the fifth belong to whichever manifest states them. A row stating fewer than four fails, because a repository without a commit changes under the reading.
 
-## What the clone does
+Two manifests use this: [the evaluation set](../code-semantics-engine/src/test/resources/evaluation-set.tsv), naming the nine repositories a reading is scored against, and [the reference corpus](../reference-corpus-extraction/README.md), naming the repositories supplying its word frequencies.
 
-`git init`, `git fetch --depth 1` naming the commit, `git checkout FETCH_HEAD`. The whole tree arrives even though most of it is never opened, and that is deliberate: a blob filter with a sparse checkout is far cheaper and produces a **different reading**, because the fixture corpus's file names are part of what the reading reads. A tree already at its pin is left alone, which is what makes a second run cost nothing.
+## Definitions
 
-A repository that will not fetch names itself and fails the run. A run that quietly reads yesterday's tree reports a figure nobody can reproduce.
+**Pinned** — fixed to one commit SHA. Two runs over a pinned tree read identical bytes.
+
+**Rank** — a sampled repository's position in the population it was drawn from, ordered by creation time. Reproducing a sample from its seed reproduces these, and they identify the rows.
+
+## How it works
+
+[`PinnedClone`](src/main/java/io/github/fiftieshousewife/codesemantics/clones/PinnedClone.java) runs `git init`, then `git fetch --depth 1` naming the commit, then `git checkout FETCH_HEAD`. Where `git rev-parse HEAD` already reports the manifest's SHA, it runs nothing.
+
+The fetch transfers the whole tree at that commit. Adding a blob filter with a sparse checkout transfers a fraction of the bytes and changes what a reading reports: [`TestResourceScope`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/TestResourceScope.java) reads the names of fixture files, and a sparse checkout omits those files.
+
+A `git` command that exits non-zero raises with git's own output attached, naming the repository.
+
+## Why it depends on nothing
+
+Two callers fetch pinned trees for unrelated purposes. The backtest fetches the repositories a reading is scored against, from the engine's test scope. The corpus extraction fetches the repositories supplying its word frequencies, and needs the engine to parse them. Holding this code in the engine would make the corpus extraction depend on the engine's tests, which Gradle rejects as a cycle. This module declares no dependencies, and both depend on it.
+
+## Limitations
+
+- Fetching requires `git` on the path and network access to each origin.
+- A licence is recorded, never checked for compatibility with any use.
+- The fetch depth is one commit, so no history is available to a caller.
+
+## References
+
+- [Git, `git-fetch`](https://git-scm.com/docs/git-fetch)
+- [SPDX License List](https://spdx.org/licenses/)
