@@ -62,11 +62,12 @@ class PooledWordsTest {
     void sumsAWordAcrossEveryRepositoryTheManifestPins(@TempDir final Path corpus) throws IOException {
         treeAt(corpus, "kettle", "KettleWarden", KETTLE);
         treeAt(corpus, "lantern", "LanternWarden", LANTERN);
-        final WrittenWords pooled = PooledWords.fromClasspath().over(manifest("kettle", "lantern"), corpus);
+        final CorpusWords pooled = PooledWords.fromClasspath().over(manifest("kettle", "lantern"), corpus);
         assertAll(
                 () -> assertThat(pooled.occurrencesOf("kettle")).isEqualTo(4),
                 () -> assertThat(pooled.occurrencesOf("warden")).isEqualTo(2),
-                () -> assertThat(pooled.occurrencesOf("lantern")).isEqualTo(1));
+                () -> assertThat(pooled.occurrencesOf("lantern")).isEqualTo(1),
+                () -> assertThat(pooled.repositories()).isEqualTo(2));
     }
 
     private static RepositoryManifest manifest(final String... names) {

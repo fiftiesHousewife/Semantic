@@ -1,7 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.corpus;
 
 import java.nio.file.Path;
-import java.util.List;
 
 import io.github.fiftieshousewife.codesemantics.clones.PinnedRepository;
 import io.github.fiftieshousewife.codesemantics.clones.RepositoryManifest;
@@ -36,12 +35,12 @@ public final class PooledWords {
         return new PooledWords(LegibilityReading.fromClasspath());
     }
 
-    /** Every pinned repository's declared names as one tally, read from the clones beneath a directory. */
-    public WrittenWords over(final RepositoryManifest manifest, final Path corpus) {
+    /** Every pinned repository's declared names, counted and shared, read from the clones under a directory. */
+    public CorpusWords over(final RepositoryManifest manifest, final Path corpus) {
         log.info("Pooling {} repositories under {}", manifest.repositories().size(), corpus);
-        return manifest.repositories().stream()
-                .map(repository -> counted(repository, corpus))
-                .reduce(new WrittenWords(), PooledWords::pooled);
+        final CorpusWords pooled = new CorpusWords();
+        manifest.repositories().forEach(repository -> pooled.add(counted(repository, corpus)));
+        return pooled;
     }
 
     /** One tree's declared names, with the sentences it wrote about them left out. */
@@ -57,9 +56,5 @@ public final class PooledWords {
         log.info("{} at {}: {} words, {} occurrences", repository.name(), repository.sha(),
                 names.words().size(), names.totalOccurrences());
         return names;
-    }
-
-    private static WrittenWords pooled(final WrittenWords running, final WrittenWords next) {
-        return WrittenWords.pooling(List.of(running, next));
     }
 }
