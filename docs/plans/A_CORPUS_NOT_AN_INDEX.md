@@ -117,7 +117,7 @@ Two things follow, and both are measurements rather than opinions:
 
 ## What comes out when it lands
 
-| Step | Today | After |
+| Stage | Today | After |
 |---|---|---|
 | 1 — every word | population | unchanged |
 | 2 — words used to name something | population choice | **stays** — names and prose are two questions, not a filter |

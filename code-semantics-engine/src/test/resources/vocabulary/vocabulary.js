@@ -66,10 +66,10 @@
         panel.textContent = "";
 
         var head = element("div", "head");
-        head.appendChild(element("p", "step", "Step " + (at + 1) + " of " + stages.length));
+        head.appendChild(element("p", "counter", "Stage " + (at + 1) + " of " + stages.length));
         head.appendChild(element("h2", null, stage.keeps));
         head.appendChild(element("p", "removes", stage.removes
-            ? "This step takes out " + stage.removes + "."
+            ? "This stage takes out " + stage.removes + "."
             : "Nothing has been taken out yet."));
         panel.appendChild(head);
 
@@ -88,21 +88,21 @@
         panel.appendChild(cloud);
         panel.appendChild(readout);
 
-        var steps = element("nav", "steps");
-        var back = element("button", null, "Previous step");
-        var next = element("button", null, "Next step");
+        var paging = element("nav", "paging");
+        var back = element("button", null, "Previous stage");
+        var next = element("button", null, "Next stage");
         back.type = "button";
         next.type = "button";
         back.disabled = at === 0;
         next.disabled = at === stages.length - 1;
         back.addEventListener("click", function () { show(at - 1); });
         next.addEventListener("click", function () { show(at + 1); });
-        steps.appendChild(back);
-        steps.appendChild(element("span", "dots", stages.map(function (each, index) {
+        paging.appendChild(back);
+        paging.appendChild(element("span", "dots", stages.map(function (each, index) {
             return index === at ? "●" : "○";
         }).join(" ")));
-        steps.appendChild(next);
-        panel.appendChild(steps);
+        paging.appendChild(next);
+        panel.appendChild(paging);
     }
 
     document.addEventListener("keydown", function (pressed) {

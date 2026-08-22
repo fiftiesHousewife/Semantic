@@ -50,9 +50,9 @@ public final class VocabularyPage {
                 div().withClass("sheet").with(
                         h1().with(text("The words of "), span().withClass("repository")),
                         p().withClass("lede").with(
-                                text("The reading narrows a repository's words in steps, and each step "
-                                        + "runs on what the one before it left. Use Next step to move "
-                                        + "through them. A word's size is how far this repository departs "
+                                text("The reading narrows a repository's words in stages, and each "
+                                        + "stage runs on what the one before it left. Use Next stage to "
+                                        + "move through them. A word's size is how far this repository departs "
                                         + "from what it is read against, in bits, so a word twice the size "
                                         + "departs twice as far — not a word written twice as often. The "
                                         + "steps are stated by "),

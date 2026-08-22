@@ -28,13 +28,15 @@ Committed at `4930371` — the pipeline, `CitedExpansions`, `Dialect`, and both 
 |---|---|
 | `CitedExpansions` | a form the dictionaries cite for more different things than it means as a word is not read. `buf`, `ref`, `uri`, `pom`, `spec`, `vol` silenced; `json`, `xml`, `md5`, `obj` kept; `test` kept because it means more as a word than it is cited for |
 | **Backtest on that change alone** | stands apart 29 → **31**, mean margin 0.0347 → **0.0426**, band reaches the stated area 5/9 → **6/9**. Aeron moved from *Artificial Intelligence* to **Computer Networks and Communications**, breaking the monoculture where all nine members led on one subfield |
-| `WordPipeline` | six ordered steps, each stating what it keeps and what it removes, over one population. `over(tally)` for a report, `leavesAt(word)` for a streaming reading — one set of rules, two shapes |
+| `WordPipeline` | six ordered **stages**, each stating what it keeps and what it removes, over one population. `over(tally)` for a report, `leavesAt(word)` for a streaming reading — one set of rules, two shapes |
 | `Dialect` | the language's own naming conventions injected. `Dialect.java()` cites JavaBeans 1.01 §8.3; `Dialect.none()` claims nothing, which is the correct reading for a language nothing can be cited for |
 | Every consumer moved | `OfferedWords`, `ChosenWords`, `PhraseTopics`, `Behaviours`, `CitedWord` all ask the pipeline; none holds a rule |
-| The vocabulary page | one cloud per step, Next/Previous, drawn from the pipeline. Java assembles it from typed tags; the CSS and JS are their own files under `src/test/resources/vocabulary/` |
+| The vocabulary page | one cloud per stage, Next/Previous, drawn from the pipeline. Java assembles it from typed tags; the CSS and JS are their own files under `src/test/resources/vocabulary/` |
 | `j2html` | restored to the catalog for the page, on the test classpath only |
 
-### The six steps as they stand
+### The six stages as they stand
+
+**A stage is not a step.** The pipeline has six *stages*, which is what `WordStage` declares and what the page draws. The numbered work below is *steps*, of which there are seven. The two were both called steps until 2026-08-22 and the collision is why "size the picture, one unit at every stage" read as a seventh stage.
 
 | | Keeps | Removes | Is it a gate? |
 |--:|---|---|---|
@@ -49,7 +51,7 @@ On this repository: 4,247 words and 114,169 occurrences narrow to 1,254 and 18,1
 
 ## The work, in order
 
-**1. ~~Backtest what is already in the tree.~~ Deferred 2026-08-21 by decision** — the pipeline is wrong in principle while the gates stand, so its number is not worth the six and a half minutes. The change is still unmeasured: the pipeline refuses shorthand and function words at *offering* time rather than at citation time, and step 5 closes N3 (`OfferedWords.narrowing` returned `1.0` for every word of a declared name, which is how `from` became the largest single witness for `mathematics` on both finance members). Measure it when the reference lands, against the same run.
+**1. ~~Backtest what is already in the tree.~~ Deferred 2026-08-21 by decision** — the pipeline is wrong in principle while the gates stand, so its number is not worth the six and a half minutes. The change is still unmeasured: the pipeline refuses shorthand and function words at *offering* time rather than at citation time, and the `LANGUAGE` stage closes N3 (`OfferedWords.narrowing` returned `1.0` for every word of a declared name, which is how `from` became the largest single witness for `mathematics` on both finance members). Measure it when the reference lands, against the same run.
 
 **2. ~~Commit.~~ Done, at `4930371`.**
 
@@ -63,7 +65,7 @@ On this repository: 4,247 words and 114,169 occurrences narrow to 1,254 and 18,1
 
 **6. Remove the gates, one at a time, each with its own run.** Steps 3, 4 and 5 become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
-**7. Size the picture by the claim in bits**, one unit at every step, rather than by an occurrence count. A word twice the size should depart twice as far from what it is read against.
+**7. ~~Size the picture by the claim in bits~~, one unit at every stage, rather than by an occurrence count. Done at `cd427ba`.** A word is sized by its term of the Jensen–Shannon divergence against what it is read against, taking the weakest claim any reference makes — the figure `ChosenWords` already ranks by. Measured once over the population entering the pipeline and carried unchanged through every stage a word survives, so a word cannot appear to grow because its neighbours left. What it shows is the reference defect rather than a repository vocabulary: the strongest claims on this tree are `a`, `word`, `reading`, `one` and `what`, and `a` is 5.03% of this repository against roughly 2% of ordinary English, so the arithmetic is right and the denominator is what is wrong.
 
 ## Open defects, none of them fixed
 
