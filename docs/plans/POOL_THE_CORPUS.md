@@ -4,15 +4,19 @@
 
 ## Where this starts
 
-The thirty are cloned, pooled both ways, and measured on all nine evaluation-set members. **The corpus reads**, and what is left is a sample-size question rather than a question about the idea.
+The thirty are cloned, pooled both ways, measured on all nine evaluation-set members, and the reference's own error is measured. **The corpus reads**: it removes 17% of the above-chance field across the nine without touching any member's subject vocabulary.
+
+**What is left is not whether it works but how precisely.** One verdict in eight moves between two references built from disjoint halves of the draw, all of it among words whose claim sits near zero. The leading claims do not move at all.
 
 | | |
 |---|---|
 | `repository-clones` | `PinnedRepository`, `RepositoryManifest`, `PinnedClone`. Depends on nothing |
-| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
+| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, `corpusPlateau`, `corpusFloor`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
 | `code-semantics-engine` | `CorpusVocabulary` reads a pooled table as a `ReferenceVocabulary`; `CorpusReferenceProbe` ranks against it |
-| `reference-corpus` | **not created.** It arrives with the table it exists to bundle, and which table to bundle is step 6's answer |
-| Tests | 1,333 across six modules |
+| `reference-corpus` | **not created.** It arrives with the table it exists to bundle, and that is the mean-of-shares table — see step 6 |
+| Tests | 1,354 across six modules |
+
+**Bundle the mean of shares.** Both weightings were written so the choice could be measured rather than argued, and three measurements point one way: it matches what the frame drew, since the sample is uniform over repositories and not over bytes; no repository holds it more than 0.008 bits where pooled occurrences lets `ridi-dspace-server` hold it 0.085; and its convergence can be measured at all, where the pooled-occurrence curve is driven by whichever repository is largest. The two agree on the verdicts — 406 words above chance against 401 on this tree — so nothing is lost by taking the better-behaved one.
 
 **The clones do not have to live in `$HOME`.** `corpusFetch` and `corpusPool` both run inside the agent sandbox writing to `$TMPDIR`, and GitHub is reachable from it — thirty shallow clones took 10m 52s for 1.3 GB, and pooling them 54s. `$HOME/corpus` is refused by the sandbox and needs Pippa's own shell; it is the durable home, and `$TMPDIR` is the one that survives only the session.
 
@@ -62,7 +66,7 @@ Run over this repository as a one-member corpus it takes six seconds: 2,025 word
 
 | Member | Eng+plat | +corpus | Removed | `buf` | `id` | `name` | `x` |
 |---|--:|--:|--:|---|---|---|---|
-| aeron | 691 | 613 | 11% | yes→no | yes→yes | yes→no | no |
+| aeron | 691 | 613 | 11% | yes→no *(within noise — see step 6)* | yes→yes | yes→no | no |
 | besu | 1,399 | 1,153 | 18% | yes→no | yes→no | no | no |
 | fineract | 1,070 | 870 | 19% | no | yes→yes | yes→no | no |
 | jpos | 672 | 565 | 16% | yes→yes | yes→no | no | no |
@@ -84,15 +88,53 @@ Each member's subject vocabulary survives. strata still leads with `trade`, `rat
 
 **The failures are a sample-size problem, and that is a measurement rather than an excuse.** `buf` and `x` are the words whose corpus share is smallest, and the smallest shares are the noisiest. The thirty write `buf` at 6e-05, estimated from an effective 4.94 repositories, none of which does buffer-heavy work. Before this run the alternative explanation was live — that the reference *kind* was wrong, in which case no fetch would help — and a corpus that removed 17% consistently rules it out.
 
-**6. Measure the plateau, then extend the draw.** Before fetching more, ask the thirty already on disk how far from converged they are: JSD between the reference pooled from the first *n* and from the first *n*−1, bounded at 1 bit by its own definition. Where it is still falling steeply at 30, the draw extends — and rows thirty-one onward are the next values from the same seeded stream, so no recorded row changes.
+**6. Measure whether the draw has stopped moving. Done at `79c9814`. It has not, and it will not — but that turns out to matter far less than it sounds.**
 
-**7. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
+Three measurements, all from the thirty on disk, all in bits and bounded at 1.
+
+**The plateau curve is biased and should not be quoted on its own.** `CorpusPlateau` measures each prefix against the whole draw, and the whole draw is one sample, so the curve reaches zero at its last row whether or not it converged. Under pooled occurrences it is driven by size rather than by *n* — 0.652 bits when `ridi-dspace-server` joins second, still 0.010 when `tessera` joins twenty-ninth, larger than every step from the thirteenth to the twenty-eighth. Leaving `ridi-dspace-server` out moves the reference 0.085 bits, eleven times what any repository but `openpnp` moves it. **A curve like that cannot plateau**, because the next row drawn may be bigger than everything before it. Under the mean of shares it decays steadily and no repository holds more than 0.008 bits.
+
+**`SamplingError` is the unbiased version**, and it splits the disagreement in two. Two disjoint subsets of the same size, the divergence between the references they produce, nothing compared to a target:
+
+| a side | bits apart | one side only | shared |
+|--:|--:|--:|--:|
+| 1 | 0.780 | 0.642 | 0.138 |
+| 5 | 0.538 | 0.301 | 0.238 |
+| 10 | 0.416 | 0.195 | 0.222 |
+| 15 | 0.360 | 0.147 | 0.213 |
+
+The tail falls steadily. **The shared vocabulary does not** — it rises to 0.238 as the shared support grows, then falls only to 0.213 by fifteen a side. Four times the sample buys 0.016 bits. The whole error falls as size to the power −0.301, where a mean's standard error would give −0.5, so this is between-repository heterogeneity and not sampling noise. Halving it takes 150 a side.
+
+**What decides the question is neither figure, because a reading never consults the tail.** A word absent from a reference has a share of zero there whichever corpus was drawn. So the measurement that matters is whether the *verdicts* move, and they were compared directly — two references from disjoint fifteens, run over two members:
+
+| Member | odd | even | agree | enters | leaves | churn |
+|---|--:|--:|--:|--:|--:|--:|
+| aeron | 625 | 605 | 571 | 54 | 34 | 13.4% |
+| strata | 1,343 | 1,334 | 1,260 | 83 | 74 | 11.1% |
+
+**About one verdict in eight flips at fifteen a side**, which the counts hide — 625 against 605 reads like twenty and is eighty-eight. At the measured rate thirty gives roughly one in ten, and one in twenty needs about three hundred repositories.
+
+**The churn is entirely in the marginal words, and the leading claims are stable.** The top twenty-five agree on both members and every member's subject vocabulary holds. `buf` on aeron is the worked example of what does move: −0.000002 bits against one half and +0.000036 against the other, so it ranks 1849th and stands below chance, or 484th and stands above, depending on which fifteen were drawn.
+
+**So the step-5 table's cells are only load-bearing where the margin is wide.** `id` on strata went from 147th to 5575th and is not in doubt. **`buf` on aeron is within noise and should not be quoted** — it is recorded there as retired and it is a coin flip.
+
+**7. Extend the draw. Blocked: the JVM cannot reach the network here.** `corpusDraw` fails with `ConnectException` from `HttpClient`, while `git` and `curl` subprocesses reach GitHub fine — the block is the JVM's own HTTP stack, not the sandbox's network. So the draw runs from Pippa's shell:
+
+```
+./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='<the frame published-draw.json states>' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=60 -Dcs.draw.publishes -Dcs.draw.out=<record>.json
+```
+
+**Check the exact frame count against the recorded 112,183 before using rows thirty-one onward.** The draw takes its total live, so a drifted population maps the same ranks to different repositories, and rows one to thirty would stop reproducing. A single unpaced query returns 92,610 with `incomplete_results`, which is an estimate and not comparable to the windowed exact count the manifest header describes — so the question is open, not answered.
+
+**Whether it is worth extending is now a judgement rather than a guess.** Sixty repositories buy about a fifth off the churn. Three hundred would buy half. The alternative is to stop treating the bar as a threshold a word either crosses or does not, and report the margin — a word whose claim sits within the reference's own error has not been shown to stand above chance, and that is derivable from the same split-half measurement rather than from a number somebody picks.
+
+**8. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
 
 ```
 ./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation
 ```
 
-**8. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
+**9. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
 ## Stated before the runs
 
