@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,20 +46,34 @@ public final class VocabularyPageCommand {
 
     /** Every stage the pipeline puts this tree's words through, with what each left and what it took out. */
     static StagedVocabulary staged(final TreeReading reading) {
-        final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath())
-                .over(written(reading));
+        final WrittenWords written = written(reading);
+        final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath()).over(written);
+        final Map<String, Double> claims = claimByWord(written);
         return new StagedVocabulary(reading.root().getFileName().toString(),
                 reading.legibility().scopes().size(),
-                stages.stream().map(VocabularyPageCommand::stage).toList());
+                stages.stream().map(staged -> stage(staged, claims)).toList());
     }
 
-    private static StagedVocabulary.Stage stage(final StagedWords staged) {
+    /**
+     * How far each word departs from what it is read against, measured once over everything the tree wrote.
+     *
+     * <p>Once rather than per stage: the claim is a share against a reference, so recomputing it on each
+     * stage's surviving population would re-normalise it and a word would appear to grow as its neighbours
+     * were removed.
+     */
+    private static Map<String, Double> claimByWord(final WrittenWords written) {
+        return ChosenWords.againstEnglishAndThePlatform().in(written).stream()
+                .collect(java.util.stream.Collectors.toMap(ChosenWord::word, ChosenWord::claim,
+                        Math::max, java.util.LinkedHashMap::new));
+    }
+
+    private static StagedVocabulary.Stage stage(final StagedWords staged, final Map<String, Double> claims) {
         final WrittenWords surviving = staged.surviving();
         return new StagedVocabulary.Stage(staged.stage(), staged.stage().keeps(),
                 staged.stage().removes(),
                 surviving.words().size(), surviving.totalOccurrences(),
                 staged.removed().size(), staged.occurrencesRemoved(),
-                StagedVocabulary.drawnFrom(staged, DRAWN));
+                StagedVocabulary.drawnFrom(staged, DRAWN, claims));
     }
 
     /** Every word the tree wrote, as one tally over every scope the walk found. */

@@ -1,0 +1,76 @@
+# The published reference corpus: a THIRD sample, of Java repositories that state a licence, are still being
+# worked on, and publish an artefact. Drawn to compare against reference-corpus.tsv and
+# reference-corpus-starred.tsv, never to replace either.
+#
+# WHY A THIRD SAMPLE. The first two are drawn and neither denominator resembles what this reading is measured
+# on. Uniform over GitHub's Java gives coursework: ten of ten with zero stars and no licence. A fifty-star
+# floor gives Android: five of ten, plus two pieces of teaching material. The nine evaluation-set members are
+# none of those things — they are licensed libraries and servers that publish artefacts and are still
+# maintained. A denominator is meant to say what the code being read is written in, so the third frame states
+# those three properties directly instead of hoping a popularity proxy reaches them.
+#
+# THE FRAME AND THE PREDICATE, both fixed before a single rank was drawn.
+#
+#   FRAME, queried of GitHub:
+#     language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 created:<2026-08-21
+#     license:<each of the thirteen GitHub states>
+#
+#   Each qualifier, and why it is there:
+#     language:Java     the population, as GitHub states a primary language
+#     fork:false        a fork is another repository's words copied; counting them twice is a sampling defect
+#     mirror:false      the same reason
+#     size:>=1000       one megabyte. A STATED bound, not a derived one, carried over from the first frame
+#     pushed:>=2025-01-01   "modern" read as STILL BEING WORKED ON rather than recently started. A library
+#                       begun in 2014 and pushed to this year writes today's Java; one begun in 2024 and
+#                       abandoned does not. Creation date measures the wrong thing, so `pushed` is used.
+#     license:...       the thirteen licences GITHUB ITSELF publishes at /licenses — agpl-3.0, apache-2.0,
+#                       bsd-2-clause, bsd-3-clause, bsl-1.0, cc0-1.0, epl-2.0, gpl-2.0, gpl-3.0, lgpl-2.1,
+#                       mit, mpl-2.0, unlicense. THE SET IS CITED, NOT CHOSEN: picking which licences count
+#                       would be this project curating, so GitHub's own enumeration is used whole. They OR
+#                       together in a query, which is what makes "states a licence GitHub recognises"
+#                       expressible at all. A licence says nothing about what words a repository contains,
+#                       so requiring one does not breach the rule this corpus exists to enforce. IT IS NOT
+#                       NEUTRAL — a licensed repository is a more deliberate one — and that is stated rather
+#                       than claimed away.
+#     created:<...      a ceiling, so the frame is the same set on a later day
+#
+#   NOT in the frame: stars, watchers, archived state, and anything about subject matter.
+#
+#   PREDICATE, applied to every drawn rank without exception. GitHub's repository search cannot ask whether a
+#   repository publishes anything, so it is asked of the tree directly, AT THE PINNED COMMIT:
+#
+#     accept if pom.xml at the repository root states a <groupId>
+#          or if build.gradle or build.gradle.kts at the root applies maven-publish
+#     reject otherwise, and take the next rank from the same seeded stream
+#
+#   A Maven groupId is the coordinate an artefact publishes under, and maven-publish is the plugin that
+#   publishes one, so between them they are what a repository does to make its code available as a library.
+#   The predicate is read over raw.githubusercontent.com rather than the API, which is why it costs no rate
+#   limit. EVERY REJECTION IS RECORDED with the rank and the reason, in docs/reference-corpus/draw-published.json.
+#
+#   Rejection sampling on a predicate stated in advance is uniform over the sub-population that satisfies it.
+#   That is the whole reason the predicate had to be written down before the draw ran rather than after: a
+#   predicate adjusted once its rejections are visible is a choice about which repositories end up here.
+#
+# HOW MANY, and why it is thirty rather than ten. The first two samples hold ten each, which is what the plan
+#   asked for and is too few. A reference is a pooled density per word, so with ten roughly equal
+#   repositories any one of them carries about a tenth of the total mass: a single blockchain repository in
+#   the pool would have the reference claim `transaction` is written at a tenth of a blockchain repository's
+#   rate, which is enough to demote it for besu. That is the contamination risk the plan names, and ten
+#   bounds it badly. At thirty it is a thirtieth.
+#
+#   THIRTY IS NOT THE DERIVED BOUND EITHER. It is the number that lets the bound be measured. Pool the first
+#   n repositories in the seeded order, rank this repository's words against them, and watch how far the
+#   leading claims move as n grows; where the ranking stops moving is the answer, and it is a measurement
+#   rather than a choice. Ten points cannot show a plateau that arrives at fifteen. If the curve is still
+#   climbing at thirty, that is a finding and the draw extends.
+#
+#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT. Rows eleven onward are the next values from the same
+#   stream, so every row already recorded stays exactly as it was. That is what makes growing a sample
+#   different in kind from drawing it again until it looks right. The other two manifests can be grown the
+#   same way without invalidating a row.
+#
+# Columns, the seeded draw, the exact-count method and the doctrine argument are as reference-corpus.tsv
+# states them; only the frame and the predicate differ. The draw is docs/reference-corpus/draw.py.
+#
+# Source: THIS PROJECT ran the draw; GitHub states the frame, the licence enumeration and the ranks.

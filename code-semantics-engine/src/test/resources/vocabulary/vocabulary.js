@@ -41,16 +41,17 @@
         return left.reverse().concat(right);
     }
 
-    /* Area carries the count, so the linear dimension carries its square root. */
-    function tile(word, heaviest, readout) {
-        var share = Math.sqrt(word.weight / heaviest);
+    /* Area carries the claim, so the linear dimension carries its square root. */
+    function tile(word, strongest, readout) {
+        var share = Math.sqrt(word.claim / strongest);
         var joined = word.word.indexOf("_") >= 0;
         var made = element("b", joined ? "run" : null, word.word.replace(/_/g, " "));
         made.style.fontSize = (SMALLEST + (LARGEST - SMALLEST) * share).toFixed(2) + "rem";
         made.setAttribute("data-band", String(Math.min(BANDS - 1, Math.floor(share * BANDS))));
         made.setAttribute("tabindex", "0");
         function show() {
-            readout.textContent = word.word.replace(/_/g, " ") + " — written "
+            readout.textContent = word.word.replace(/_/g, " ") + " — "
+                + word.claim.toFixed(4) + " bits from what it is read against, written "
                 + word.occurrences.toLocaleString()
                 + (word.occurrences === 1 ? " time" : " times");
         }
@@ -80,9 +81,9 @@
 
         var cloud = element("div", "cloud");
         var readout = element("div", "readout", "Hover a word for how often it was written.");
-        var heaviest = stage.drawn.length ? stage.drawn[0].weight : 1;
+        var strongest = stage.drawn.length ? stage.drawn[0].claim : 1;
         centred(stage.drawn).forEach(function (word) {
-            cloud.appendChild(tile(word, heaviest, readout));
+            cloud.appendChild(tile(word, strongest, readout));
         });
         panel.appendChild(cloud);
         panel.appendChild(readout);

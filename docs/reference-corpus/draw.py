@@ -105,6 +105,45 @@ class Frame:
         return items[offset % 100] if offset % 100 < len(items) else None
 
 
+def fetched(url):
+    """A file from raw.githubusercontent.com, or nothing. Costs no API rate limit, which is why the
+    publication predicate is read here rather than through the contents endpoint."""
+    done = subprocess.run(['curl', '-s', '-w', '%{http_code}', url], capture_output=True, text=True).stdout
+    return done[:-3] if done.endswith('200') else ''
+
+
+def core(path):
+    """The REST API, which allows sixty calls an hour unauthenticated. Used only for accepted candidates."""
+    for _ in range(20):
+        out = subprocess.run(['curl', '-s', '-H', 'Accept: application/vnd.github+json',
+                              'https://api.github.com' + path], capture_output=True, text=True).stdout
+        try:
+            body = json.loads(out)
+        except json.JSONDecodeError:
+            time.sleep(30)
+            continue
+        if isinstance(body, dict) and 'rate limit' in body.get('message', '').lower():
+            time.sleep(70)
+            continue
+        time.sleep(2)
+        return body
+    raise SystemExit('gave up on ' + path)
+
+
+def publishes(full_name, ref):
+    """Whether the tree states a publication: a Maven groupId, or the Gradle plugin that publishes one.
+
+    A groupId is the coordinate an artefact publishes under and maven-publish is what publishes it, so
+    between them they are what a repository does to make its code available as a library."""
+    raw = f'https://raw.githubusercontent.com/{full_name}/{ref}/'
+    if '<groupId' in fetched(raw + 'pom.xml'):
+        return 'pom.xml states a groupId'
+    for build in ('build.gradle', 'build.gradle.kts'):
+        if 'maven-publish' in fetched(raw + build):
+            return f'{build} applies maven-publish'
+    return ''
+
+
 def main():
     parsed = argparse.ArgumentParser()
     parsed.add_argument('--frame', required=True)
@@ -112,6 +151,7 @@ def main():
     parsed.add_argument('--seed', type=int, required=True)
     parsed.add_argument('--draws', type=int, required=True)
     parsed.add_argument('--exclude', default='')
+    parsed.add_argument('--require-publication', action='store_true')
     parsed.add_argument('--out', required=True)
     given = parsed.parse_args()
 
@@ -136,9 +176,26 @@ def main():
         if any(d['full_name'] == full for d in drawn):
             rejected.append({'rank': rank, 'repository': full, 'why': 'already drawn'})
             continue
+        if given.require_publication:
+            why = publishes(full, item['default_branch'])
+            if not why:
+                rejected.append({'rank': rank, 'repository': full, 'why': 'states no publication'})
+                print(f'  rejected {full}: states no publication', flush=True)
+                continue
+            head = core(f"/repos/{full}/commits/{item['default_branch']}")
+            sha = head['sha']
+            atPin = publishes(full, sha)
+            if not atPin:
+                rejected.append({'rank': rank, 'repository': full,
+                                 'why': 'states a publication on the branch but not at the pinned commit'})
+                continue
+            licence = core(f'/repos/{full}/license?ref={sha}')
+            spdx = (licence.get('license') or {}).get('spdx_id') if isinstance(licence, dict) else None
+            item['_pin'] = {'sha': sha, 'licenceAtPin': spdx or 'none', 'publishes': atPin}
         item['_draw'] = {'rank': rank}
         drawn.append(item)
-        print(f"DRAWN {len(drawn)}/{given.draws}  rank {rank}  {full}", flush=True)
+        print(f"DRAWN {len(drawn)}/{given.draws}  rank {rank}  {full}"
+              f"  {item.get('_pin', {}).get('publishes', '')}", flush=True)
         record(given, total, drawn, rejected, audit)
     record(given, total, drawn, rejected, audit)
 
