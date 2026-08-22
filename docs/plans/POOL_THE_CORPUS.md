@@ -4,16 +4,17 @@
 
 ## Where this starts
 
-The sampling and the pooling are written and pushed. **Nothing is cloned, so nothing is pooled yet.**
+The thirty are cloned, pooled both ways, and measured on all nine evaluation-set members. **The corpus reads**, and what is left is a sample-size question rather than a question about the idea.
 
 | | |
 |---|---|
 | `repository-clones` | `PinnedRepository`, `RepositoryManifest`, `PinnedClone`. Depends on nothing |
 | `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
-| `reference-corpus` | **not created.** It arrives with the table it exists to bundle |
-| Tests | 1,324 across six modules |
+| `code-semantics-engine` | `CorpusVocabulary` reads a pooled table as a `ReferenceVocabulary`; `CorpusReferenceProbe` ranks against it |
+| `reference-corpus` | **not created.** It arrives with the table it exists to bundle, and which table to bundle is step 6's answer |
+| Tests | 1,333 across six modules |
 
-`corpusFetch` writes outside this repository tree, so the agent sandbox refuses it and it runs in Pippa's own shell.
+**The clones do not have to live in `$HOME`.** `corpusFetch` and `corpusPool` both run inside the agent sandbox writing to `$TMPDIR`, and GitHub is reachable from it — thirty shallow clones took 10m 52s for 1.3 GB, and pooling them 54s. `$HOME/corpus` is refused by the sandbox and needs Pippa's own shell; it is the durable home, and `$TMPDIR` is the one that survives only the session.
 
 Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest` asserts the Java generator reproduces the recorded ranks.
 
@@ -49,25 +50,49 @@ Run over this repository as a one-member corpus it takes six seconds: 2,025 word
 
 **4. Bundle it.** Create `reference-corpus`, published, holding that table and a reader. `CorpusVocabulary implements ReferenceVocabulary` in the engine wraps it, as `EnglishVocabulary` wraps `WordRanks`.
 
-**5. Measure the gates before touching them.** This is the step the plan exists for, and it needs no gate removed and no backtest.
+**5. Measure the gates before touching them. Done at `30a95ba`, on all nine evaluation-set members.**
 
-`ChosenWord` already carries `removedAt`, naming which stage would remove each word. With the corpus as a third reference, ask of the 189 words the three gates remove: does each still clear the chance bar `VocabularyNull` derives?
+`CorpusReferenceProbe` ranks every declared name with no stage having filtered it, so `the`, `a`, `get` and `buf` are in the field and the chance bar decides. Filtering first would answer a different question and answer it by hand.
 
-| Stage | Words it removes | Occurrences | Prediction |
-|---|--:|--:|---|
-| `SYMBOL` | 27 | 3,477 | `id`, `x`, `i` fall below chance |
-| `SHORTHAND` | 48 | 909 | `buf`, `ref`, `pom` fall below chance |
-| `LANGUAGE` | 114 | 3,056 | `the`, `a`, `of` fall below chance |
+```
+./gradlew corpusReference -Pcorpus=<table> -Dcs.clone.dir=$HOME/evaluation/<member>
+```
 
-Every word that falls below the bar is a word its stage no longer needs to remove. The vocabulary page draws everything above chance and nothing else, so a stage whose words all sit below the bar changes no picture.
+**The corpus reads.** It removes 17% of the above-chance field across the nine — 8,206 words to 6,847 — and never less than 11% on any member.
 
-**6. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
+| Member | Eng+plat | +corpus | Removed | `buf` | `id` | `name` | `x` |
+|---|--:|--:|--:|---|---|---|---|
+| aeron | 691 | 613 | 11% | yes→no | yes→yes | yes→no | no |
+| besu | 1,399 | 1,153 | 18% | yes→no | yes→no | no | no |
+| fineract | 1,070 | 870 | 19% | no | yes→yes | yes→no | no |
+| jpos | 672 | 565 | 16% | yes→yes | yes→no | no | no |
+| maven | 707 | 547 | 23% | yes→no | yes→no | no | no |
+| quickfixj | 416 | 359 | 14% | yes→yes | yes→no | yes→no | yes→no |
+| santuario | 540 | 462 | 14% | yes→yes | yes→no | yes→no | yes→no |
+| strata | 1,492 | 1,311 | 12% | yes→yes | yes→no | yes→no | yes→yes |
+| tika | 1,219 | 967 | 21% | yes→yes | yes→no | yes→no | no |
+
+Each member's subject vocabulary survives. strata still leads with `trade`, `rate`, `sensitivity`, `curve`, `notional` and `present_value`; the criterion in **Stated before the runs** is met.
+
+**What each stage earned:**
+
+| Stage | Verdict | Evidence |
+|---|---|---|
+| `SHORTHAND` | **stays** | `buf` stands above chance on five of nine with the corpus in. Its rule is a citation — the dictionaries expand the form for more things than it means as a word — not a hand list |
+| `SYMBOL` | **stays** | `x` survives on strata, `id` on aeron and fineract |
+| `LANGUAGE` | **redundant on the nine** | `a`, `the` and `of` are below chance on every member before any stage runs. It does work only on this repository, whose test names are English sentences — where `a` survives at 21st in every configuration |
+
+**The failures are a sample-size problem, and that is a measurement rather than an excuse.** `buf` and `x` are the words whose corpus share is smallest, and the smallest shares are the noisiest. The thirty write `buf` at 6e-05, estimated from an effective 4.94 repositories, none of which does buffer-heavy work. Before this run the alternative explanation was live — that the reference *kind* was wrong, in which case no fetch would help — and a corpus that removed 17% consistently rules it out.
+
+**6. Measure the plateau, then extend the draw.** Before fetching more, ask the thirty already on disk how far from converged they are: JSD between the reference pooled from the first *n* and from the first *n*−1, bounded at 1 bit by its own definition. Where it is still falling steeply at 30, the draw extends — and rows thirty-one onward are the next values from the same seeded stream, so no recorded row changes.
+
+**7. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
 
 ```
 ./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation
 ```
 
-**7. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
+**8. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
 ## Stated before the runs
 
