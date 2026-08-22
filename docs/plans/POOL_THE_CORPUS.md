@@ -4,14 +4,16 @@
 
 ## Where this starts
 
-The sampling is finished and pushed. Nothing is cloned and nothing is pooled.
+The sampling and the pooling are written and pushed. **Nothing is cloned, so nothing is pooled yet.**
 
 | | |
 |---|---|
 | `repository-clones` | `PinnedRepository`, `RepositoryManifest`, `PinnedClone`. Depends on nothing |
-| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, the whole draw in Java. Depends on `repository-clones` |
+| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
 | `reference-corpus` | **not created.** It arrives with the table it exists to bundle |
-| Tests | 1,316 across six modules |
+| Tests | 1,324 across six modules |
+
+`corpusFetch` writes outside this repository tree, so the agent sandbox refuses it and it runs in Pippa's own shell.
 
 Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest` asserts the Java generator reproduces the recorded ranks.
 
@@ -25,7 +27,7 @@ Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest`
 
 ## The work, in order
 
-**1. Let the extraction read Java.** `reference-corpus-extraction` needs `implementation(project(":code-semantics-engine"))` for `ParsedRepository` and `IdentifierWords`. The chain stays acyclic: `repository-clones` ← `code-semantics-engine` ← `reference-corpus-extraction`.
+**1. Let the extraction read Java. Done at `e696fbe`.** `reference-corpus-extraction` depends on `code-semantics-engine`, and the chain is acyclic: `repository-clones` ← `code-semantics-engine` ← `reference-corpus-extraction`.
 
 **2. Fetch the thirty.**
 
@@ -35,7 +37,15 @@ Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest`
 
 About a gigabyte, and slow. Nothing is fetched for a tree already at its pin, so a second run transfers nothing. `$HOME`, never `~`.
 
-**3. Pool them into one distribution.** Read each tree the way this library reads itself — declared names only, split by `IdentifierWords`, comment prose left out — and sum the word counts across all thirty. Write a provenance-headed TSV: `word`, `occurrences`, `share`, with the frame, the seed, the thirty repositories and their pinned commits in the header.
+**3. Pool them into one distribution. Done at `e696fbe`; it needs step 2 to have a corpus to read.**
+
+```
+./gradlew :reference-corpus-extraction:corpusPool -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv -Dcs.corpus.out=<table>.tsv
+```
+
+`PooledWords` reads each tree by the path this library reads itself with and takes it at `WordStage.NAMES` — declared names, split by `IdentifierWords`, with the sentences the repository wrote about them left out. One tree at a time, each tally merged and discarded before the next is parsed. `PooledVocabularyTsv` writes `word`, `occurrences`, `share` under a header carrying `DrawnManifest` whole: the drawing file's own statement of the frame, the predicate and the seed, copied rather than restated, and one comment row per pinned repository. An empty pool fails rather than writing a table.
+
+Run over this repository as a one-member corpus it takes six seconds: 2,025 words over 26,471 occurrences.
 
 **4. Bundle it.** Create `reference-corpus`, published, holding that table and a reader. `CorpusVocabulary implements ReferenceVocabulary` in the engine wraps it, as `EnglishVocabulary` wraps `WordRanks`.
 
@@ -78,16 +88,31 @@ Both move every figure the reading publishes. Neither has been measured on the e
 
 **`output/json/` is stale.** The self read was regenerated at 11:31, before both changes. Run `./gradlew read` and land the figures in a commit touching no Java.
 
-## An open defect that blocks removing one of the gates
+## The 872 occurrences of `a` are explained: this repository's test names are English sentences
 
-**`a` is recorded as written-as-a-name 872 times and nothing explains it.** Of its 5,791 occurrences, 4,919 are prose and are dropped at `NAMES`; the remaining 872 survive as declared names.
+Pooling this tree as a one-member corpus at `e696fbe` gives `a` 899 declared-name occurrences and `the` 1,134, the top two words of the whole table. **Both are the articles of the camelCase English sentences the test convention requires**, and the splitter is reading them exactly as its javadoc says it will.
 
-Two explanations were measured and both are refuted:
+| Word | Occurrences | What produces it |
+|---|--:|---|
+| `the` | 1,134 | Plain camelCase. `keepsTheHeaderItsFileStatesBesideTheRepositoriesItPins` is split at every capital, so each `The` is a word |
+| `a` | 899 | The acronym-run rule in `IdentifierWords`, which cuts one capital before the last of a run. `refusesAShortPieceTooRareToCountAsAWord` divides into `refusesA` and `ShortPiece`, and `refusesA` then splits into refuses and a |
 
-- **Split inheritance**, where `aValue` yields `a` — the tree holds 38 identifiers of that shape, not 872.
-- **Single-letter type parameters** — dropping them at the parse left the count at exactly 872. The 733 standalone `A` tokens are overwhelmingly *uses*, and uses are never read.
+The counts agree. The tree holds 859 boundaries of the form `A` followed by a capital across 721 distinct identifiers, plus the 38 identifiers beginning with a lone `a` that the earlier measurement found — 897 against the 899 the reading records. The remaining two are the difference between counting distinct spellings with `grep` and counting declarations, so the proper confirmation is `./gradlew wordPlace -Pwords="a the"`, not this arithmetic.
 
-It matters here rather than being a curiosity. `SYMBOL` removes `a` today, and `SYMBOL` is one of the three stages this plan proposes to remove. **Explain it before that stage goes**, using the [`debugging-a-reading`](../../.claude/skills/debugging-a-reading/SKILL.md) method rather than another guess. The same shape is recorded against `the` at 1,062 occurrences in [`RANK_DO_NOT_GATE.md`](RANK_DO_NOT_GATE.md) and is also unexplained; the explanation for one may not transfer to the other.
+**The earlier measurement tested the wrong position.** `aValue` puts the article first and there are 38 of those. The other 859 put it in the middle, which is the same rule at a different offset and was never counted. The explanation transfers to `the` in [`RANK_DO_NOT_GATE.md`](RANK_DO_NOT_GATE.md) unchanged, and needs no acronym rule to do it.
+
+Nothing is wrong with the reading. `SYMBOL` is no longer blocked by an unexplained figure.
+
+### It changes the prediction in step 5, so the change is written down before the run
+
+This tree's house style puts an article in almost every test name, and no other convention in common use does. If the thirty name tests any other way, the corpus carries `a` and `the` at a small fraction of this rate, and against a reference that barely writes them the two commonest words in this repository's declared vocabulary become its two strongest claims. **The pooled table's own first rows settle it**, so read them before running step 5.
+
+| Word | Step 5 predicted | Predicted now | Why |
+|---|---|---|---|
+| `the`, `a` | fall below chance | **stand far above chance, on this tree** | The reference will not carry what the house style puts in every test name |
+| `of`, `by` | fall below chance | fall below chance | Ordinary English supplies them, and `EnglishVocabulary` already carries them densely |
+
+That is a finding about this repository and not about the evaluation set, whose nine members name tests conventionally. So `LANGUAGE` may be removable on the nine and not on this tree, and the two runs have to be read apart rather than pooled. Measure it; do not argue it.
 
 ## Where the picture stands
 
