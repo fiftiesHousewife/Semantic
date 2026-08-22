@@ -46,6 +46,19 @@ public final class ReferenceCorpus {
         return RepositoryManifest.at(Path.of(named));
     }
 
+    /**
+     * The manifest the run names, together with the header its file states. A pooled table records which
+     * draw it pooled, so the manifest is named rather than defaulted.
+     */
+    public static DrawnManifest drawnManifest() {
+        final String named = System.getProperty(MANIFEST_PROPERTY, "");
+        if (named.isBlank()) {
+            throw new IllegalStateException("No " + MANIFEST_PROPERTY
+                    + ". A pooled corpus carries the draw that chose it, so the manifest is named.");
+        }
+        return DrawnManifest.at(Path.of(named));
+    }
+
     /** One of the draws this module records, read from the classpath by name. */
     public static RepositoryManifest drawn(final String draw) {
         final InputStream stream = Objects.requireNonNull(

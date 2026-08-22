@@ -9,6 +9,9 @@ description = "Draws the reference corpus: clones the repositories a manifest pi
 
 dependencies {
     implementation(project(":repository-clones"))
+    // The corpus is pooled by the reading this library reads itself with, so both sides of the comparison
+    // are made the same way: the same parse, the same splitter, the same stage that leaves the sentences out.
+    implementation(project(":code-semantics-engine"))
     implementation(libs.jackson.databind)
     implementation(libs.slf4j.api)
     runtimeOnly(libs.slf4j.simple)
@@ -23,6 +26,12 @@ dependencies {
 // ordinary build; the manifest is a property so a second draw is fetched by naming a second file.
 //   ./gradlew corpusFetch -Dcs.corpus.dir=<directory to hold the clones>
 //   ./gradlew corpusFetch -Dcs.corpus.dir=<directory> -Dcs.corpus.manifest=<a different draw>.tsv
+// Pooling reads the bundled lexical resources through the reading it shares with the engine, and those
+// total some 34 MB of TSVs before a tree is opened.
+tasks.test {
+    maxHeapSize = "3g"
+}
+
 tasks.register<JavaExec>("corpusFetch") {
     group = "verification"
     description = "Fetches every repository a corpus manifest names, at the commit it pins"
@@ -30,6 +39,22 @@ tasks.register<JavaExec>("corpusFetch") {
     classpath = sourceSets["main"].runtimeClasspath
     System.getProperty("cs.corpus.dir")?.let { systemProperty("cs.corpus.dir", it) }
     System.getProperty("cs.corpus.manifest")?.let { systemProperty("cs.corpus.manifest", it) }
+}
+
+// The table itself: every drawn repository's declared names, pooled into the distribution the ranking is
+// read against. It reads a gigabyte of source and takes minutes; it reaches no network.
+//   ./gradlew :reference-corpus-extraction:corpusPool \
+//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv \
+//       -Dcs.corpus.out=<table>.tsv
+tasks.register<JavaExec>("corpusPool") {
+    group = "verification"
+    description = "Pools every drawn repository's declared names into the reference corpus table"
+    mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusPoolCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "6g"
+    listOf("dir", "manifest", "out").forEach { name ->
+        System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
+    }
 }
 
 // THE DRAW ITSELF, which produced the manifests above and is what reproduces them.
