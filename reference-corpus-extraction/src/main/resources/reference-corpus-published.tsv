@@ -52,26 +52,42 @@
 #   That is the whole reason the predicate had to be written down before the draw ran rather than after: a
 #   predicate adjusted once its rejections are visible is a choice about which repositories end up here.
 #
-# HOW MANY, and why it is thirty rather than ten. The first two samples hold ten each, which is what the plan
-#   asked for and is too few. A reference is a pooled density per word, so with ten roughly equal
-#   repositories any one of them carries about a tenth of the total mass: a single blockchain repository in
-#   the pool would have the reference claim `transaction` is written at a tenth of a blockchain repository's
-#   rate, which is enough to demote it for besu. That is the contamination risk the plan names, and ten
-#   bounds it badly. At thirty it is a thirtieth.
+# HOW MANY, and why it is a hundred rather than ten or thirty. The first two samples hold ten each, which is
+#   what the plan asked for and is too few. A reference is a pooled density per word, so with ten roughly
+#   equal repositories any one of them carries about a tenth of the total mass: a single blockchain
+#   repository in the pool would have the reference claim `transaction` is written at a tenth of a blockchain
+#   repository's rate, which is enough to demote it for besu. That is the contamination risk the plan names,
+#   and ten bounds it badly. At thirty it is a thirtieth; at a hundred it is a hundredth.
 #
-#   THIRTY IS NOT THE DERIVED BOUND EITHER. It is the number that lets the bound be measured. Pool the first
-#   n repositories in the seeded order, rank this repository's words against them, and watch how far the
-#   leading claims move as n grows; where the ranking stops moving is the answer, and it is a measurement
-#   rather than a choice. Ten points cannot show a plateau that arrives at fifteen. If the curve is still
-#   climbing at thirty, that is a finding and the draw extends.
+#   THIRTY WAS THE NUMBER THAT LET THE BOUND BE MEASURED, AND THE MEASUREMENT SAID TO EXTEND. This header
+#   stated before any rank was drawn that if the curve were still climbing at thirty the draw extends. It is
+#   still climbing, and it will not stop: the disagreement between two references built from disjoint halves
+#   of the draw falls as the sample size to the power -0.301, where averaging independent draws would give
+#   -0.5. That exponent is between-repository heterogeneity rather than sampling noise, so no sample size
+#   ends it. About one verdict in ten moves at thirty, all of it among words whose claim sits near zero.
 #
-#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT. Rows eleven onward are the next values from the same
+#   A HUNDRED IS A BUDGET, NOT A DERIVED BOUND, AND SAYING SO IS THE POINT. Every threshold inside a reading
+#   here is derived from a null; how much source a project is willing to fetch is not that kind of number.
+#   What the measurements settle is the shape of the trade, and three readings of it point at a hundred.
+#   One repository's weight falls to a hundredth, an order of magnitude below the tenth that made ten
+#   unusable. The words that move are the ones estimated from almost no repositories — `buf` is carried by
+#   an effective 4.94 of the thirty — and a hundred takes that to about sixteen, which is where a share
+#   stops being one repository's accident. And past it the curve is flat: three hundred repositories buy
+#   about two further points of churn for three times the source.
+#
+#   WHAT ACTUALLY SETTLES THE CHURN IS NOT SAMPLE SIZE. A word whose claim sits inside the reference's own
+#   sampling error has not been shown to stand above chance, and that error is derivable from the split-half
+#   measurement above rather than chosen. Reporting it is what makes the near-zero verdicts stop flipping,
+#   and it costs no bandwidth at all.
+#
+#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT. Rows thirty-one onward are the next values from the same
 #   stream, so every row already recorded stays exactly as it was. That is what makes growing a sample
 #   different in kind from drawing it again until it looks right. The other two manifests can be grown the
 #   same way without invalidating a row.
 #
 # Columns, the seeded draw, the exact-count method and the doctrine argument are as reference-corpus.tsv
-# states them; only the frame and the predicate differ. The draw is docs/reference-corpus/draw.py.
+# states them; only the frame and the predicate differ. The draw is CorpusDrawCommand, which writes both the
+# record of every rank and rejection and the rows below.
 #
 # Source: THIS PROJECT ran the draw; GitHub states the frame, the licence enumeration and the ranks.
 katalon-plugin	https://github.com/jenkinsci/katalon-plugin.git	e39757293879437dc6ff9097efdac82a9aaf2425	MIT	10125	2018-12-18T16:25:05Z	7409

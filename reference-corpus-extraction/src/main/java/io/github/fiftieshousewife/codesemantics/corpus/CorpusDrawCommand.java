@@ -2,12 +2,17 @@ package io.github.fiftieshousewife.codesemantics.corpus;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.github.fiftieshousewife.codesemantics.clones.GitRemoteHead;
+import io.github.fiftieshousewife.codesemantics.clones.HeadCommit;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,7 +20,9 @@ import lombok.extern.slf4j.Slf4j;
  * Draws a seeded sample of repositories from a stated GitHub frame, recording every rank and every rejection.
  *
  * <p>Properties: {@code cs.draw.frame}, {@code cs.draw.until}, {@code cs.draw.seed}, {@code cs.draw.count}
- * and {@code cs.draw.out} are required; {@code cs.draw.publishes} and {@code cs.draw.exclude} are not.
+ * and {@code cs.draw.out} are required; {@code cs.draw.publishes}, {@code cs.draw.exclude} and
+ * {@code cs.draw.manifest} are not. Where {@code cs.draw.manifest} names a manifest, that file is rewritten
+ * with its own header kept and the drawn rows beneath it.
  */
 @Slf4j
 public final class CorpusDrawCommand {
@@ -24,20 +31,34 @@ public final class CorpusDrawCommand {
     }
 
     public static void main(final String[] arguments) {
-        drew(DrawRequest.fromProperties(), new GitHubSearch());
+        drew(DrawRequest.fromProperties(), new GitHubSearch(), new GitRemoteHead());
     }
 
-    /** The draw itself, against whatever answers a repository query. */
-    static void drew(final DrawRequest asked, final RepositorySearch search) {
+    /** The draw itself, against whatever answers a repository query and whatever names a remote's head. */
+    static void drew(final DrawRequest asked, final RepositorySearch search, final HeadCommit head) {
         final SampledFrame frame = new SampledFrame(search, asked.frame(), asked.until());
         final long total = frame.index();
         log.info("frame = {} (exact), seed = {}", total, asked.seed());
 
         final CorpusDraw.Drawn drawn = new CorpusDraw(frame, new MersenneTwister(asked.seed()),
-                asked.excluded(), asked.publication()).of(asked.count(), total);
+                asked.excluded(), asked.publication(), head).of(asked.count(), total);
         record(asked.out(), asked.frame(), asked.until(), asked.seed(), total, frame, drawn);
+        asked.manifest().ifPresent(manifest -> grow(manifest, drawn));
         log.info("{} drawn, {} rejected, recorded at {}",
                 drawn.taken().size(), drawn.rejected().size(), asked.out());
+    }
+
+    /** The named manifest rewritten: its own header, then the rows this draw took. */
+    static void grow(final Path manifest, final CorpusDraw.Drawn drawn) {
+        final List<String> header = DrawnManifest.at(manifest).stated();
+        try {
+            Files.writeString(manifest, new DrawnManifestTsv().render(header, drawn.taken()),
+                    StandardCharsets.UTF_8);
+        } catch (final IOException e) {
+            throw new UncheckedIOException("Failed to write the manifest " + manifest, e);
+        }
+        log.info("{} rows written to {}, under the {} header lines it already stated",
+                drawn.taken().size(), manifest, header.size());
     }
 
     static void record(final Path out, final String frame, final String until, final long seed,

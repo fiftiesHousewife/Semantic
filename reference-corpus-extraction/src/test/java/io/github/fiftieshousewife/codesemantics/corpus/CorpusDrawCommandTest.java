@@ -10,6 +10,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.codesemantics.clones.HeadCommit;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -25,9 +27,11 @@ class CorpusDrawCommandTest {
 
     @AfterEach
     void forgetWhatTheRunNamed() {
-        List.of("frame", "until", "seed", "count", "out", "publishes", "exclude")
+        List.of("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest")
                 .forEach(name -> System.clearProperty("cs.draw." + name));
     }
+
+    private static final HeadCommit PINS = origin -> "abc123";
 
     private record Stated(long held) implements RepositorySearch {
 
@@ -38,7 +42,9 @@ class CorpusDrawCommandTest {
 
         @Override
         public List<JsonNode> oldestFirst(final String query, final int perPage, final int page) {
-            return List.of(new ObjectMapper().createObjectNode().put("full_name", "one/a"));
+            return List.of(new ObjectMapper().createObjectNode()
+                    .put("full_name", "one/a")
+                    .put("html_url", "https://github.com/one/a"));
         }
     }
 
@@ -78,9 +84,10 @@ class CorpusDrawCommandTest {
             throws IOException {
         final Path out = directory.resolve("record.json");
         final DrawRequest asked =
-                new DrawRequest(FRAME, UNTIL, 20260821L, 1, out, false, java.util.Set.of());
+                new DrawRequest(FRAME, UNTIL, 20260821L, 1, out, false, java.util.Set.of(),
+                        java.util.Optional.empty());
 
-        CorpusDrawCommand.drew(asked, new Stated(1));
+        CorpusDrawCommand.drew(asked, new Stated(1), PINS);
 
         final JsonNode written = new ObjectMapper().readTree(Files.readString(out));
         assertAll(
@@ -94,7 +101,7 @@ class CorpusDrawCommandTest {
         final SampledFrame frame = new SampledFrame(new Stated(1), FRAME, UNTIL);
         final long total = frame.index();
         final CorpusDraw.Drawn drawn = new CorpusDraw(frame, new MersenneTwister(20260821L),
-                java.util.Set.of(), java.util.Optional.empty()).of(1, total);
+                java.util.Set.of(), java.util.Optional.empty(), PINS).of(1, total);
         final Path out = directory.resolve("record.json");
 
         CorpusDrawCommand.record(out, FRAME, UNTIL, 20260821L, total, frame, drawn);
@@ -111,11 +118,42 @@ class CorpusDrawCommandTest {
     }
 
     @Test
+    void growsTheNamedManifestKeepingItsOwnHeaderAndRewritingItsRows(@TempDir final Path directory)
+            throws IOException {
+        final Path manifest = directory.resolve("draw.tsv");
+        Files.writeString(manifest, """
+                # The frame, stated before a rank was drawn.
+                gone\thttps://github.com/old/gone.git\tdef456\tMIT\t7\t2019-01-01T00:00:00Z\t1
+                """);
+        final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
+                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.of(manifest));
+
+        CorpusDrawCommand.drew(asked, new Stated(1), PINS);
+
+        final List<String> written = Files.readAllLines(manifest);
+        assertAll(
+                () -> assertThat(written).first().isEqualTo("# The frame, stated before a rank was drawn."),
+                () -> assertThat(written).hasSize(2),
+                () -> assertThat(written).doesNotContain("gone"),
+                () -> assertThat(written.getLast()).startsWith("a\thttps://github.com/one/a.git\tabc123"));
+    }
+
+    @Test
+    void leavesEveryManifestAloneWhereTheRunNamedNone(@TempDir final Path directory) {
+        final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
+                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.empty());
+
+        CorpusDrawCommand.drew(asked, new Stated(1), PINS);
+
+        assertThat(directory.toFile().list()).containsExactly("record.json");
+    }
+
+    @Test
     void refusesToWriteARecordWhereTheFileCannotBeOpened(@TempDir final Path directory) {
         final SampledFrame frame = new SampledFrame(new Stated(1), FRAME, UNTIL);
         final long total = frame.index();
         final CorpusDraw.Drawn drawn = new CorpusDraw(frame, new MersenneTwister(1L),
-                java.util.Set.of(), java.util.Optional.empty()).of(1, total);
+                java.util.Set.of(), java.util.Optional.empty(), PINS).of(1, total);
 
         assertThatThrownBy(() -> CorpusDrawCommand.record(
                 directory.resolve("no/such/place/record.json"), FRAME, UNTIL, 1L, total, frame, drawn))
@@ -128,7 +166,7 @@ class CorpusDrawCommandTest {
         final SampledFrame frame = new SampledFrame(new Stated(1), FRAME, UNTIL);
         final long total = frame.index();
         final CorpusDraw.Drawn drawn = new CorpusDraw(frame, new MersenneTwister(1L),
-                java.util.Set.of(), java.util.Optional.empty()).of(1, total);
+                java.util.Set.of(), java.util.Optional.empty(), PINS).of(1, total);
         final Path out = directory.resolve("record.json");
 
         CorpusDrawCommand.record(out, FRAME, UNTIL, 1L, total, frame, drawn);

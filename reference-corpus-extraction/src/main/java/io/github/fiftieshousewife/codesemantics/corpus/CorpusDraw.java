@@ -10,6 +10,8 @@ import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import io.github.fiftieshousewife.codesemantics.clones.HeadCommit;
+
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -19,6 +21,10 @@ import lombok.extern.slf4j.Slf4j;
  * exclusion, on a repository already taken, or — where a publication test is supplied — on one whose build
  * states no publication. Every rejection carries the rank that produced it, so a reader can tell how many
  * ranks a sample consumed.
+ *
+ * <p>A repository is pinned at the commit its default branch points at when it is taken, and every later
+ * question is asked of that commit rather than of the branch. A branch moves; a draw recording one records
+ * a sample nobody can read twice.
  */
 @Slf4j
 public final class CorpusDraw {
@@ -31,13 +37,15 @@ public final class CorpusDraw {
     private final MersenneTwister drawing;
     private final Set<String> excluded;
     private final Optional<PublishedArtefact> publication;
+    private final HeadCommit head;
 
     public CorpusDraw(final SampledFrame frame, final MersenneTwister drawing, final Set<String> excluded,
-                      final Optional<PublishedArtefact> publication) {
+                      final Optional<PublishedArtefact> publication, final HeadCommit head) {
         this.frame = frame;
         this.drawing = drawing;
         this.excluded = Set.copyOf(excluded);
         this.publication = publication;
+        this.head = head;
     }
 
     public Drawn of(final int wanted, final long total) {
@@ -66,30 +74,38 @@ public final class CorpusDraw {
             rejected.add(why(rank, name, "already taken"));
             return;
         }
+        final String sha = head.of(origin(repository));
         final Optional<String> states = publication
-                .map(test -> test.statedBy(name, repository.get("default_branch").asText()))
+                .map(test -> test.statedBy(name, sha))
                 .orElseGet(() -> Optional.of(""));
         if (states.isEmpty()) {
             rejected.add(why(rank, name, "states no publication"));
             log.info("  rejected {}: states no publication", name);
             return;
         }
-        taken.add(row(rank, repository, states.get()));
-        log.info("TAKEN {}/{}  rank {}  {}  {}", taken.size(), wanted, rank, name, states.get());
+        taken.add(row(rank, repository, sha, states.get()));
+        log.info("TAKEN {}/{}  rank {}  {}  {}  {}", taken.size(), wanted, rank, name, sha, states.get());
     }
 
-    private static Map<String, Object> row(final long rank, final JsonNode repository, final String states) {
+    private static Map<String, Object> row(final long rank, final JsonNode repository, final String sha,
+                                           final String states) {
         final Map<String, Object> row = new LinkedHashMap<>();
         row.put("repository", repository.get("full_name").asText());
         row.put("rank", rank);
-        row.put("origin", repository.path("html_url").asText() + ".git");
+        row.put("sha", sha);
+        row.put("origin", origin(repository));
         row.put("created", repository.path("created_at").asText(""));
         row.put("sizeKb", repository.path("size").asLong());
         row.put("stars", repository.path("stargazers_count").asLong());
-        row.put("licenceAtHead", repository.path("license").path("spdx_id").asText("none"));
+        row.put("licenceAtPin", repository.path("license").path("spdx_id").asText("none"));
         row.put("description", repository.path("description").asText(""));
         row.put("publishes", states);
         return row;
+    }
+
+    /** Where the clone is fetched from, which is also what git is asked for the pin. */
+    private static String origin(final JsonNode repository) {
+        return repository.path("html_url").asText() + ".git";
     }
 
     private static Map<String, Object> why(final long rank, final String repository, final String reason) {

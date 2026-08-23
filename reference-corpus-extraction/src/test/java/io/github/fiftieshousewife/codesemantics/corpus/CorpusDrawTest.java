@@ -8,6 +8,8 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.codesemantics.clones.HeadCommit;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,8 +45,10 @@ class CorpusDrawTest {
         return frame;
     }
 
+    private static final HeadCommit PINS = origin -> "abc123";
+
     private CorpusDraw drawing(final SampledFrame frame, final Set<String> excluded) {
-        return new CorpusDraw(frame, new MersenneTwister(SEED), excluded, Optional.empty());
+        return new CorpusDraw(frame, new MersenneTwister(SEED), excluded, Optional.empty(), PINS);
     }
 
     @Test
@@ -89,8 +93,16 @@ class CorpusDrawTest {
                 drawing(indexed(1, List.of("one/a")), Set.of()).of(1, 1).taken().getFirst();
 
         assertAll(
-                () -> assertThat(row).containsKey("licenceAtHead"),
+                () -> assertThat(row).containsKey("licenceAtPin"),
                 () -> assertThat(row).containsKey("sizeKb"),
                 () -> assertThat(row.get("origin")).isEqualTo(".git"));
+    }
+
+    @Test
+    void pinsEveryRepositoryItTookAtTheCommitItsDefaultBranchPointedAt() {
+        final Map<String, Object> row =
+                drawing(indexed(1, List.of("one/a")), Set.of()).of(1, 1).taken().getFirst();
+
+        assertThat(row.get("sha")).isEqualTo("abc123");
     }
 }

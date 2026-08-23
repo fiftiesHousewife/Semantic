@@ -13,9 +13,10 @@ import java.util.stream.Collectors;
  *
  * @param excluded   repositories a rank may land on and be refused, lower-cased
  * @param publishes  whether a repository must state a publication to be taken
+ * @param manifest   the manifest being grown, whose header is kept and whose rows are rewritten
  */
 public record DrawRequest(String frame, String until, long seed, int count, Path out, boolean publishes,
-                          Set<String> excluded) {
+                          Set<String> excluded, Optional<Path> manifest) {
 
     private static final String PREFIX = "cs.draw.";
 
@@ -32,7 +33,14 @@ public record DrawRequest(String frame, String until, long seed, int count, Path
                 Integer.parseInt(required("count")),
                 Path.of(required("out")),
                 System.getProperty(PREFIX + "publishes") != null,
-                named());
+                named(),
+                grown());
+    }
+
+    /** The manifest a draw grows, where the run named one. Nothing is rewritten unless it did. */
+    private static Optional<Path> grown() {
+        final String stated = System.getProperty(PREFIX + "manifest", "");
+        return stated.isBlank() ? Optional.empty() : Optional.of(Path.of(stated));
     }
 
     private static Set<String> named() {

@@ -118,10 +118,11 @@ tasks.register<JavaExec>("corpusDuplicates") {
 // THE DRAW ITSELF, which produced the manifests above and is what reproduces them.
 //
 // It reaches the GitHub API and is never part of an ordinary build. The manifests are recorded; this is here
-// so somebody else can reproduce them from the seed.
+// so somebody else can reproduce them from the seed. Where cs.draw.manifest names a manifest, that file is
+// rewritten with its own header kept and the drawn rows beneath it, so a hundred rows are not transcribed.
 //
 // A command handed to a shell is one physical line: a backslash continuation does not survive being copied.
-//   ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...]
+//   ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...] [-Dcs.draw.manifest=<manifest>.tsv]
 tasks.register<JavaExec>("corpusDraw") {
     group = "build"
     description = "Draws a seeded sample of repositories from a stated GitHub frame, recording every " +
@@ -131,7 +132,7 @@ tasks.register<JavaExec>("corpusDraw") {
     // A relative path is resolved against the repository root rather than this module, because that is
     // where a caller typing the path is standing.
     workingDir = rootDir
-    listOf("frame", "until", "seed", "count", "out", "publishes", "exclude").forEach { name ->
+    listOf("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest").forEach { name ->
         System.getProperty("cs.draw.$name")?.let { systemProperty("cs.draw.$name", it) }
     }
 }

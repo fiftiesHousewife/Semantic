@@ -16,7 +16,9 @@ Thirty Java repositories, drawn at random from a stated population, supplying th
 
 `corpusFetch` skips a tree already at its pinned commit, so a second run transfers nothing. The thirty published repositories occupy 1,034 MB. Write `$HOME` rather than `~`: no shell expands a tilde after `-D<name>=`, so the literal text resolves against the working directory, matches nothing, and exits zero having read nothing.
 
-`corpusDraw` queries the GitHub API and runs outside any ordinary build. Add `-Dcs.draw.publishes` to require a publication, and `-Dcs.draw.exclude=owner/name,...` to refuse named repositories.
+`corpusDraw` queries the GitHub API and runs outside any ordinary build. Add `-Dcs.draw.publishes` to require a publication, `-Dcs.draw.exclude=owner/name,...` to refuse named repositories, and `-Dcs.draw.manifest=<manifest>.tsv` to rewrite that manifest with its own header kept and the drawn rows beneath it.
+
+Every repository is pinned at the commit its default branch points at when it is taken, read by `git ls-remote` rather than by the API — no objects transfer and no rate limit is spent, which is what makes pinning a hundred repositories seconds rather than an hour. Every later question, including the publication test, is asked of that commit. A branch moves; a draw recording one records a sample nobody can read twice.
 
 `corpusDuplicates` says which drawn repositories are one corpus counted twice, and it reaches no network:
 
@@ -33,6 +35,8 @@ It takes every pair of the draw, measures how far the two sit from each other in
 | [the uniform sample](src/main/resources/reference-corpus.tsv) | `language:Java fork:false mirror:false size:>=1000` | 10 | coursework and personal projects, all with zero stars and no licence |
 | [the sample above fifty stars](src/main/resources/reference-corpus-starred.tsv) | the same, plus `stars:>=50` | 10 | five Android projects, two teaching repositories, three libraries |
 | [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:>=2025-01-01`, and a publication test | 30 | libraries, every one licensed |
+
+The third sample is being grown to a hundred. Its header states why, and states plainly that a hundred is a budget rather than a derived bound.
 
 The evaluation set holds maintained libraries and servers. The first two samples hold neither, because such projects are a small share of the Java on GitHub. The third sample states licensing, recent activity and publication as query terms.
 
