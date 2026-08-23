@@ -126,6 +126,8 @@ All four take `-Dcs.corpus.dir=$HOME/corpus` and `-Dcs.corpus.manifest=<draw>.ts
 
 `corpusPool` needs `-Dcs.corpus.out=<directory>` for the tables it writes.
 
+`corpusFetch` takes only the blobs a reading opens: Java source, prose, Maven modules, the file names under `src/test/resources`, and a tree's stated exclusions. Everything else — images, archives, compiled output — stays on the server. Fetching `AstralAdditions` whole transfers 406 MB; fetching what the reading opens transfers 1.5 MB, and both carry the same 177 files with the same contents. [`ReadPaths`](../repository-clones/src/main/java/io/github/fiftieshousewife/codesemantics/clones/ReadPaths.java) states the patterns and `ReadPathsCoverEveryScopeTest` fails where a scope reads something they leave off the disk.
+
 `corpusFetch` skips a tree already at its pinned commit, so a second run transfers nothing. Write `$HOME` rather than `~`: no shell expands a tilde after `-D<name>=`, so the literal text resolves against the working directory, matches nothing, and exits zero having read nothing.
 
 Two further tasks ask questions about a sample rather than producing one. Neither reaches the network, and both take the same two properties as the stages above.

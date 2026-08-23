@@ -5,10 +5,10 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * A repository's working tree at the commit its manifest pins it to, fetched where it is not already there.
@@ -17,17 +17,14 @@ import java.util.Objects;
  * a tree sitting at any other commit is fetched again. Nothing is fetched when the tree is already pinned,
  * which is what makes a second run over the same manifest repeatable at no cost.
  *
- * <p>The fetch is the shallow one the evaluation set measured: {@code git init}, {@code git fetch --depth 1}
- * naming the commit, {@code git checkout FETCH_HEAD}. The whole tree arrives even though most of it is never
- * opened, and that is deliberate rather than an oversight.
+ * <p>The fetch takes the blobs {@link ReadPaths} names and no others: {@code git init}, a sparse checkout
+ * set to those patterns, {@code git fetch --depth 1 --filter=blob:none}, {@code git checkout FETCH_HEAD}.
+ * Git resolves the missing blobs the checkout needs in one further round trip rather than one per file.
  *
- * <p><b>A blob filter with a sparse checkout is far cheaper and is not equivalent.</b> Filtering blobs and
- * checking out only the source suffixes fetches a small fraction of the bytes in a fraction of the time, and
- * what it produces is a different reading: {@link TestResourceScope} reads the fixture corpus's file names,
- * a sparse checkout leaves those files off the disk, and the placement moves because a signal the reading is
- * meant to carry is missing. A filter <em>without</em> a sparse checkout is slower than no filter, because
- * the checkout then fetches every deferred blob one round trip at a time. Fetching the whole tree once is
- * what makes a repository's reading the same reading every time.
+ * <p><b>The read set is identical to a whole-tree clone's.</b> A sparse checkout that omitted
+ * {@code src/test/resources} would produce a different reading, because the fixture corpus's file names are
+ * read there; the patterns keep that directory for exactly that reason. Measured against a whole-tree clone
+ * of the same commit, both carry the same files with the same contents.
  */
 public final class PinnedClone {
 
@@ -63,10 +60,20 @@ public final class PinnedClone {
 
     private void fetch(final Path clone) {
         makeDirectory(clone);
-        git.answering(List.of("-C", clone.toString(), "init", "--quiet"));
-        git.answering(List.of("-C", clone.toString(), "fetch", "--depth", "1", "--quiet",
+        final String at = clone.toString();
+        git.answering(List.of("-C", at, "init", "--quiet"));
+        git.answering(List.of("-C", at, "config", "core.sparseCheckout", "true"));
+        git.answering(sparseCheckout(at));
+        git.answering(List.of("-C", at, "fetch", "--depth", "1", "--filter=blob:none", "--quiet",
                 repository.origin(), repository.sha()));
-        git.answering(List.of("-C", clone.toString(), "checkout", "--quiet", "FETCH_HEAD"));
+        git.answering(List.of("-C", at, "checkout", "--quiet", "FETCH_HEAD"));
+    }
+
+    private static List<String> sparseCheckout(final String at) {
+        return Stream.concat(
+                        Stream.of("-C", at, "sparse-checkout", "set", "--no-cone"),
+                        ReadPaths.patterns().stream())
+                .toList();
     }
 
     private static void makeDirectory(final Path clone) {
