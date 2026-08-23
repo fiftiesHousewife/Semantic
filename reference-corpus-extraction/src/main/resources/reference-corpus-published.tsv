@@ -12,15 +12,28 @@
 # THE FRAME AND THE PREDICATE, both fixed before a single rank was drawn.
 #
 #   FRAME, queried of GitHub:
-#     language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 created:<2026-08-21
-#     license:<each of the thirteen GitHub states>
+#     language:Java fork:false mirror:false size:>=1000 pushed:2025-01-01..2026-08-20
+#     created:<2026-08-21 license:<each of the thirteen GitHub states>
+#
+#   `pushed` IS BOUNDED AT BOTH ENDS, AND THE UPPER BOUND WAS ADDED AFTER A DRAW. Say so plainly. The frame
+#   first stated `pushed:>=2025-01-01`, which is not a fixed population: a repository whose last push was in
+#   2024 sits outside it and joins the moment somebody pushes to it, so the frame grew every day. It counted
+#   112,183 on 2026-08-20 and 112,251 three days later. A rank resolves to a repository through counts taken
+#   live, so a frame that grows maps the same seeded ranks to different repositories, and no draw taken
+#   against it can be reproduced by anyone — including by this project. The bound was added for that reason
+#   and no other: it was NOT chosen after seeing which repositories turned up, and it changes the population
+#   in a direction nobody could have aimed, since which repositories were pushed after the ceiling is not
+#   something the draw can see. Bounded above at the same date `created` is, the frame states what it always
+#   meant — still being worked on AS OF the ceiling — and stops moving. It can still shrink, where a
+#   repository is deleted or made private, and `-Dcs.draw.total` refuses a draw where it has.
 #
 #   Each qualifier, and why it is there:
 #     language:Java     the population, as GitHub states a primary language
 #     fork:false        a fork is another repository's words copied; counting them twice is a sampling defect
 #     mirror:false      the same reason
 #     size:>=1000       one megabyte. A STATED bound, not a derived one, carried over from the first frame
-#     pushed:>=2025-01-01   "modern" read as STILL BEING WORKED ON rather than recently started. A library
+#     pushed:2025-01-01..2026-08-20   "modern" read as STILL BEING WORKED ON rather than recently started, as
+#                       of the same date `created` is bounded at, so that the population is fixed. A library
 #                       begun in 2014 and pushed to this year writes today's Java; one begun in 2024 and
 #                       abandoned does not. Creation date measures the wrong thing, so `pushed` is used.
 #     license:...       the thirteen licences GITHUB ITSELF publishes at /licenses — agpl-3.0, apache-2.0,
@@ -80,8 +93,9 @@
 #   measurement above rather than chosen. Reporting it is what makes the near-zero verdicts stop flipping,
 #   and it costs no bandwidth at all.
 #
-#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT. Rows thirty-one onward are the next values from the same
-#   stream, so every row already recorded stays exactly as it was. That is what makes growing a sample
+#   EXTENDING A SEEDED DRAW IS NOT RE-ROLLING IT, ONCE THE FRAME IS FIXED. Further rows are the next values
+#   from the same stream, so every row already recorded stays exactly as it was — which holds only because
+#   the frame no longer moves under it, and is why the upper bound on `pushed` above was worth a re-draw. That is what makes growing a sample
 #   different in kind from drawing it again until it looks right. The other two manifests can be grown the
 #   same way without invalidating a row.
 #

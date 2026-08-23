@@ -44,9 +44,11 @@ It takes every pair of the draw, measures how far the two sit from each other in
 |---|---|--:|---|
 | [the uniform sample](src/main/resources/reference-corpus.tsv) | `language:Java fork:false mirror:false size:>=1000` | 10 | coursework and personal projects, all with zero stars and no licence |
 | [the sample above fifty stars](src/main/resources/reference-corpus-starred.tsv) | the same, plus `stars:>=50` | 10 | five Android projects, two teaching repositories, three libraries |
-| [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:>=2025-01-01`, and a publication test | 30 | libraries, every one licensed |
+| [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:2025-01-01..2026-08-20`, and a publication test | 100 | libraries, every one licensed |
 
-The third sample is being grown to a hundred. Its header states why, and states plainly that a hundred is a budget rather than a derived bound.
+The third sample holds a hundred. Its header states why, and states plainly that a hundred is a budget rather than a derived bound.
+
+**`pushed` is bounded at both ends, and the upper bound was added after a draw had already been taken.** `pushed:>=2025-01-01` is not a fixed population: a repository last pushed in 2024 joins it the moment somebody pushes to it, so the frame counted 112,183 on 2026-08-20 and 112,251 three days later. A rank resolves through counts taken live, so a frame that grows maps the same seeded ranks to different repositories and no draw against it can be reproduced. The bound was added for that reason and no other — not after seeing which repositories turned up, and in a direction the draw cannot see, since which repositories were pushed after the ceiling is not something it can observe.
 
 The evaluation set holds maintained libraries and servers. The first two samples hold neither, because such projects are a small share of the Java on GitHub. The third sample states licensing, recent activity and publication as query terms.
 

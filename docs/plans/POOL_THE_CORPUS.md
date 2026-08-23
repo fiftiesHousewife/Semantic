@@ -75,7 +75,7 @@ Everything below rests on a measurement already taken. The record of each is in 
 
 | | Step | Why now |
 |--:|---|---|
-| **1** | **Draw a hundred, refusing `benchmarkjava`** | The predicate is measured and names one pair of 435; the draw now pins each repository at a commit and writes the manifest itself. One pass removes the duplicate and grows the sample, because rows already recorded keep their ranks. Needs Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine. **Check the frame count the run reports against the recorded 112,183 before trusting the rows**: a rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one grown |
+| **1** | **Draw a hundred under the closed frame** | `bash reference-corpus-extraction/draw-the-corpus.sh`, from Pippa's shell — the session's proxy defeats Java's `HttpClient`. The old frame grew every day and no draw under it was reproducible, so this is a fresh sample and a full fetch. No repository is excluded by name: the near-duplicate measurement names one or it does not |
 | **2** | **Make the bar carry its own error** | About one verdict in ten moves at thirty repositories, all of it in words whose claim sits near zero. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is already derivable from the split-half measurement — a bound, not a chosen margin. Cheaper than the ~300 repositories that would buy the same by fetching |
 | **3** | **Backtest twice** | Corpus beside the JDK index, and replacing it. Whether the index still earns a place is open, and steps 1 and 2 both change what the answer looks like |
 | **4** | **Decide whether to extend past a hundred** | Three hundred buys about two further points of churn for three times the source. Worth it only if step 2 leaves churn that still bites, which is unlikely — a hundred is where the curve flattens |
@@ -193,27 +193,35 @@ So it is fixable rather than blocked — a `ProxySelector` and a `java.net.Authe
 
 `GitRemoteHead` asks `git ls-remote` for the commit a default branch points at: no objects transfer and no rate limit is spent, so a hundred pins cost seconds rather than an hour of paced API requests. `DrawnManifestTsv` writes the manifest from the record, keeping the header of the manifest being grown whole and deriving the clone directory from the repository's full name. Thirty rows were transcribed by hand; a hundred is where a row gets dropped.
 
-**10. Draw a hundred, refusing `benchmarkjava`.** One pass removes the duplicate and grows the sample. It runs from a shell that reaches GitHub, and it is one short line:
+**10. The frame was not a fixed population, and the guard caught it on the first real run.** `-Dcs.draw.total=112183` refused: the frame held **112,251** three days later. `pushed:>=2025-01-01` has no upper bound, so a repository last pushed in 2024 joins the frame the moment somebody pushes to it, and it grows every day. A rank resolves to a repository through counts taken live, so **no draw taken under that frame could be reproduced by anyone**, including this project — the build file's claim that somebody else could reproduce the manifests from the seed was false before today, and the guard made it visible rather than causing it.
+
+**The frame now bounds `pushed` at the same ceiling `created` has** — `pushed:2025-01-01..2026-08-20` — which states what it always meant, still being worked on as of the ceiling, and stops it moving. It can still shrink where a repository is deleted or made private, which `-Dcs.draw.total` refuses.
+
+**This is a frame change after a draw, so it is recorded as one.** It was not chosen after seeing which repositories turned up, and it moves the population in a direction nobody could aim at: which repositories were pushed after the ceiling is not something the draw can observe. The manifest header states this in its own words.
+
+**The `benchmarkjava` exclusion comes out.** It was derived by measuring that sample; carrying it to a sample it was never measured on is the hand exclusion list the doctrine refuses. The fresh draw runs clean, and step 3 of the script judges the new hundred. Where it names a repository, the re-run names it back through `CS_DRAWN_TWICE` and the draw takes the next rank.
+
+**11. Draw the hundred.** One line, from a shell that reaches GitHub:
 
 ```
 bash reference-corpus-extraction/draw-the-corpus.sh
 ```
 
-The script draws, fetches, runs the near-duplicate check, pools both weightings and copies the mean of shares into the bundled resource. The frame, the seed and the date ceiling are the manifest's own, and `CS_CORPUS_COUNT` overrides the hundred.
+Draw, fetch, near-duplicate check, pool both weightings, bundle the mean of shares. `TOTAL` is empty until the first draw under the closed frame reports the count — there is nothing to reproduce yet, and a number invented here would assert a population nobody counted. The script prints what to set it to. **Step 3 is a gate**: it stops before pooling where a pair is one corpus, because pooling one counted twice is the defect the whole check exists to prevent.
 
-**The frame count is asserted by the draw, not read by a reader afterwards.** `-Dcs.draw.total=112183` makes the run refuse before writing anything where the count has moved. It has to be checked there rather than after: the draw rewrites the manifest it grows, and a manifest already overwritten cannot be un-drifted.
+**What the re-draw costs.** The thirty clones on disk are drawn from a different population and mostly will not recur, so this is a full fetch of roughly 3.4 GB. Every figure measured on the thirty goes with them. Of the four findings recorded as settled, only the weighting survives unchanged: the mean of shares is an argument about what the frame drew, not about how many. The corpus reading 17% off the above-chance field, the absence of an occurrence floor, and the tail needing no truncation all have to be re-taken.
 
 **Why a hundred, and what is honest about it.** The header the manifest carried before any rank was drawn said that a curve still climbing at thirty means the draw extends. It is still climbing and will not stop — the split-half disagreement falls as size to the power −0.301, which is between-repository heterogeneity rather than sampling noise. A hundred is a **budget, not a derived bound**, and the manifest header now says so. Three readings of the measured trade point at it: one repository's weight falls to a hundredth, an order of magnitude below the tenth that made ten unusable; `buf`'s effective sample rises from 4.94 repositories to about sixteen, and the words that flip are exactly the ones estimated from almost none; and past a hundred the curve is flat, with three hundred buying about two further points of churn for three times the source. **Step 2 is what actually settles the churn**, and it costs no bandwidth.
 
 One small thing left undone: `CorpusDraw` records the rejection as `named as an exclusion` and does not say what named it. The near-duplicate measurement is the citation; carrying the reason into the record is worth doing.
 
-**11. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
+**12. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
 
 ```
 ./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation
 ```
 
-**12. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
+**13. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
 ## Stated before the runs
 
