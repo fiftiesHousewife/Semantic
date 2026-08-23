@@ -8,6 +8,7 @@ tasks.register("checkAll") {
         ":lexicon-extraction:check",
         ":repository-clones:check",
         ":reference-corpus-extraction:check",
+        ":reference-corpus:check",
         ":code-semantics-api:check",
         ":code-semantics-engine:check"
     )

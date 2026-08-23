@@ -22,7 +22,8 @@ final class BundledVocabulary {
 
     private static final List<Path> DIRECTORIES = List.of(
             Path.of("src", "main", "resources"),
-            Path.of("..", "code-semantics-api", "src", "main", "resources"));
+            Path.of("..", "code-semantics-api", "src", "main", "resources"),
+            Path.of("..", "reference-corpus", "src", "main", "resources"));
 
     private static final String COMMENT = "#";
 

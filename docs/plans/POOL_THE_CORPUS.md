@@ -30,7 +30,37 @@ Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest`
 
 **Pool the published thirty.** It is the only sample resembling the evaluation set, which is maintained libraries and servers. The other two stay as the record that the published frame was not chosen after seeing its results.
 
-## The work, in order
+## Two defects in the drawn thirty, found 2026-08-23
+
+**1. The same machine-generated project was drawn twice.** `benchmarkjava` and `codemedics-sample` both hold `org/owasp/benchmark/testcode/BenchmarkTest00001.java` and its ~2,700 siblings: they are copies of the OWASP Benchmark, a generated vulnerability test corpus. Together they carry **94,868 of 444,695 pooled occurrences — 21.3% of the reference**, and they are what puts `bar` (9,053), `benchmark` (5,747), `do` (3,701) and `something` (3,605) among the pooled-occurrence leaders.
+
+The frame states `fork:false` for exactly this reason — *"a fork is another repository's words copied; counting them twice is a sampling defect"* — and it did not catch it, because these are independent copies rather than GitHub forks. **The qualifier does not do what the frame intended.**
+
+A near-duplicate predicate is derivable and the machinery already exists: `OccurrenceFloor` computes how far a repository's own shares sit from the rest of the draw, and two repositories that are the same corpus sit at nearly zero from each other. Measure the pairwise divergence across the thirty before drawing again; a pair below what two samples of their sizes would reach by chance is one repository counted twice.
+
+**2. Nearly half the reference's rows are not words.** 6,932 of 14,763 rows contain a digit — **47% of the vocabulary, 4.5% of the occurrences**. `col1` (735), `arg0` (360), `item1` (345), then a long tail of `map57571`, `b34242`, `temp039`. The first two trace to the OWASP Benchmark copies above; `temp039` to `openpnp`.
+
+The splitter does this deliberately. `IdentifierWords` cites UAX #29 rules WB9 and WB10 — *do not break within sequences of digits, or digits adjacent to letters* — so `utf8Decode` reads as utf8 and decode. **The citation may not cover the case.** UAX #29 segments natural-language text, where `3a` and `A3` are meaningful units; a declared identifier is not text, and the Java Language Specification's identifier grammar says nothing about word boundaries. CLAUDE.md already records the letter/digit boundary as the piece of the splitter that is "blocked on a catalogue", because splitting `utf8` into utf and 8 needs one to know which glued forms are real.
+
+**Whether it matters is unmeasured.** They are 4.5% of occurrences and sit in the tail, and the tail is what a reading never consults — so the verdicts may not move at all. The measurement is one run: pool the table with digit-bearing rows dropped, renormalise, and diff the above-chance sets against the unfiltered table on one member. Do that before touching the splitter.
+
+## What to do next, in order
+
+Everything below rests on a measurement already taken. The record of each is in **The work, as it was done** further down.
+
+| | Step | Why now |
+|--:|---|---|
+| **1** | **Re-draw, with a near-duplicate predicate** | 21.3% of the reference is one generated project counted twice. Every figure below it moves when that is fixed, so fixing it first stops the rest being measured twice. Needs the pairwise divergence across the thirty, then a draw from Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine |
+| **2** | **Make the bar carry its own error** | About one verdict in ten moves at thirty repositories, all of it in words whose claim sits near zero. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is already derivable from the split-half measurement — a bound, not a chosen margin. Cheaper than the ~300 repositories that would buy the same by fetching |
+| **3** | **Backtest twice** | Corpus beside the JDK index, and replacing it. Whether the index still earns a place is open, and steps 1 and 2 both change what the answer looks like |
+| **4** | **Decide whether to extend past thirty** | Sixty buys about a fifth off the churn. Worth it only if step 2 leaves churn that still bites. Check the exact frame count against the recorded 112,183 first: the draw takes its total live, so a drifted population maps the same ranks to different repositories and rows 1–30 stop reproducing |
+| **5** | **Retire `LANGUAGE`; keep `SYMBOL` and `SHORTHAND`** | `a`, `the` and `of` are below chance on all nine members before any stage runs. `buf` survives on five of nine and `x` on strata, so those two still have work |
+
+**Done, and not to be re-opened:** the corpus reads (17% of the above-chance field removed across the nine, subject vocabulary intact everywhere); the weighting is the mean of shares; there is no occurrence floor to derive; the tail needs no truncation rule at 14,763 words.
+
+**Bundled at `reference-corpus`.** The module is published and holds `reference-corpus-shares.tsv`, read by `PooledWordShares`, wrapped by `CorpusVocabulary` in the engine as `EnglishVocabulary` wraps `WordRanks`. Its resources are in `BundledVocabulary.DIRECTORIES`, so the provenance test covers them. **The bundled table carries both defects above** and should be regenerated after step 1.
+
+## The work, as it was done
 
 **1. Let the extraction read Java. Done at `e696fbe`.** `reference-corpus-extraction` depends on `code-semantics-engine`, and the chain is acyclic: `repository-clones` ← `code-semantics-engine` ← `reference-corpus-extraction`.
 
@@ -52,7 +82,9 @@ About a gigabyte, and slow. Nothing is fetched for a tree already at its pin, so
 
 Run over this repository as a one-member corpus it takes six seconds: 2,025 words over 26,471 occurrences.
 
-**4. Bundle it.** Create `reference-corpus`, published, holding that table and a reader. `CorpusVocabulary implements ReferenceVocabulary` in the engine wraps it, as `EnglishVocabulary` wraps `WordRanks`.
+**4. Bundle it. Done.** `reference-corpus` is published and holds `reference-corpus-shares.tsv` — the mean-of-shares table over the thirty — read by `PooledWordShares` and wrapped by `CorpusVocabulary` in the engine. Its resources are named in `BundledVocabulary.DIRECTORIES`, so `VocabularyProvenanceTest` covers them, and `PooledWordShares` names the resource as a constant so `BundledResourceReachabilityTest` finds it read.
+
+**Two path bugs were found by running the documented commands rather than the ones being used.** Every corpus run so far passed absolute paths, so the relative form the plan and the task comments both document had never been exercised. A `JavaExec` task runs in its module directory, so `reference-corpus-extraction/src/...` resolved under `reference-corpus-extraction/` and failed. All five corpus tasks now set `workingDir = rootDir`, and `corpusReference` resolves `-Pcorpus` against the root, both matching what `vocabularyPage` and `functionalPlacement` already did.
 
 **5. Measure the gates before touching them. Done at `30a95ba`, on all nine evaluation-set members.**
 

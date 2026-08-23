@@ -9,6 +9,7 @@ description = "The reading pipeline implementing code-semantics-api: repository 
 dependencies {
     api(project(":code-semantics-api"))
     implementation(project(":lexicon"))
+    implementation(project(":reference-corpus"))
     implementation(libs.javaparser.core)
     // Every run writes the export, which is what a consumer reads instead of the reports, so the serialiser
     // is the library's business and ships with it. The validator ships beside it because the export is
@@ -375,7 +376,9 @@ tasks.register<JavaExec>("corpusReference") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("corpus") as String?)
+    args = listOfNotNull((findProperty("corpus") as String?)?.let {
+        rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+    })
 }
 
 // How much of the ranking's divergence each prefix of it holds. The report prints a fixed number of rows;
