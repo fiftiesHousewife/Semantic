@@ -38,7 +38,7 @@ class EvaluationClonesTest {
         assertAll(manifest.members().stream().map(member -> () -> {
             final PinnedClone clone = new PinnedClone(member.pinned());
             final Path tree = clone.under(evaluationSet);
-            assertThat(clone.head(tree))
+            assertThat(clone.head(tree).orElseThrow())
                     .as("%s is read at %s", member.name(), member.sha())
                     .isEqualTo(member.sha());
         }));

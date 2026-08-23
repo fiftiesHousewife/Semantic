@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -48,14 +49,20 @@ public final class PinnedClone {
         return clone;
     }
 
-    /** Whether the tree is already the pinned commit, which is the whole of what a second run has to do. */
+    /**
+     * Whether the tree is already the pinned commit, which is the whole of what a second run has to do.
+     *
+     * <p>A directory a stopped fetch left behind has a {@code .git} and no commit checked out. That is not
+     * pinned, and answering so is what lets an interrupted run be resumed rather than started again.
+     */
     public boolean isPinned(final Path clone) {
-        return Files.isDirectory(clone.resolve(GIT_DIRECTORY)) && repository.sha().equals(head(clone));
+        return Files.isDirectory(clone.resolve(GIT_DIRECTORY))
+                && head(clone).filter(repository.sha()::equals).isPresent();
     }
 
-    /** What the tree is checked out at, or nothing where no tree has been fetched yet. */
-    public String head(final Path clone) {
-        return git.answering(List.of("-C", clone.toString(), "rev-parse", "HEAD"));
+    /** What the tree is checked out at, or nothing where no commit has been checked out yet. */
+    public Optional<String> head(final Path clone) {
+        return git.asking(List.of("-C", clone.toString(), "rev-parse", "HEAD"));
     }
 
     private void fetch(final Path clone) {

@@ -32,7 +32,7 @@ public final class CorpusFetchCommand {
     private static void fetch(final PinnedRepository repository, final Path corpus) {
         final PinnedClone clone = new PinnedClone(repository);
         final Path tree = clone.under(corpus);
-        final String head = clone.head(tree);
+        final String head = clone.head(tree).orElse("no commit at all");
         if (!head.equals(repository.sha())) {
             throw new IllegalStateException(String.format(Locale.ROOT,
                     "%s is at %s where the manifest pins %s",

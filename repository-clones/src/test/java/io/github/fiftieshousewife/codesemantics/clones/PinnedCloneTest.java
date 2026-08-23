@@ -36,6 +36,32 @@ class PinnedCloneTest {
     }
 
     @Test
+    void treatsATreeAStoppedFetchLeftBehindAsNotPinnedRatherThanFailing(@TempDir final Path origin,
+                                                                        @TempDir final Path holding)
+            throws IOException, InterruptedException {
+        final String sha = committed(origin);
+        final PinnedRepository repository =
+                new PinnedRepository("half", origin.toString(), sha, LICENCE, PinnedRepository.UNDRAWN);
+        final Path half = holding.resolve("half");
+        Files.createDirectories(half);
+        git(half, "init", "--quiet");
+
+        final PinnedClone clone = new PinnedClone(repository);
+
+        assertAll(
+                () -> assertThat(clone.head(half))
+                        .as("a directory with no commit checked out has no HEAD to report")
+                        .isEmpty(),
+                () -> assertThat(clone.isPinned(half))
+                        .as("one interrupted clone must not end a run over a whole manifest")
+                        .isFalse(),
+                () -> assertThat(clone.under(holding))
+                        .as("the stopped fetch is finished rather than started somewhere else")
+                        .isEqualTo(half),
+                () -> assertThat(clone.head(half)).contains(sha));
+    }
+
+    @Test
     void fetchesATreeThatIsNotThereAndLeavesItAtThePinnedCommit(@TempDir final Path origin,
                                                                 @TempDir final Path holding)
             throws IOException, InterruptedException {
@@ -47,7 +73,7 @@ class PinnedCloneTest {
 
         assertAll(
                 () -> assertThat(tree).isEqualTo(holding.resolve("readable")),
-                () -> assertThat(clone.head(tree)).isEqualTo(sha),
+                () -> assertThat(clone.head(tree)).contains(sha),
                 () -> assertThat(tree.resolve("Readable.java")).exists());
     }
 

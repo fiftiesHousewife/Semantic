@@ -5,6 +5,7 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * Git's own answer, with its error output attached where it fails.
@@ -15,6 +16,20 @@ import java.util.Locale;
 public final class GitCommand {
 
     private static final int SUCCEEDED = 0;
+
+    /**
+     * What git said where the command succeeded, and nothing where it did not.
+     *
+     * <p>For questions whose negative answer is meaningful: a tree with no commit checked out has no HEAD,
+     * and asking for one is how you find that out.
+     */
+    public Optional<String> asking(final List<String> arguments) {
+        try {
+            return Optional.of(answering(arguments));
+        } catch (final IllegalStateException refused) {
+            return Optional.empty();
+        }
+    }
 
     /** What git said, with its standard error folded in, or a failure naming the command that produced it. */
     public String answering(final List<String> arguments) {
