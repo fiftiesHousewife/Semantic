@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "2de2ac8c919cd98b9b216fb421f3c42966fca967",
-  "commit" : "2383b2341cfa0aa934f457a753b834936b3600dd",
+  "previousCommit" : "2383b2341cfa0aa934f457a753b834936b3600dd",
+  "commit" : "99e18f4cf3b78cfec9557f5a442c3e98072aca8b",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.3%",
@@ -19,7 +19,7 @@
     "after" : "33.2%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "39.9%",
+    "before" : "39.8%",
     "after" : "39.8%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
@@ -39,7 +39,7 @@
     "after" : "42.2%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
+    "before" : "45.1%",
     "after" : "45.1%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -59,7 +59,7 @@
     "after" : "22.8%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.1%",
+    "before" : "31.0%",
     "after" : "31.0%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -75,7 +75,7 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "40.9%",
+    "before" : "40.8%",
     "after" : "40.8%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
@@ -91,8 +91,8 @@
     "after" : "8"
   }, {
     "figure" : "Words above the bar",
-    "before" : "252",
-    "after" : "253"
+    "before" : "253",
+    "after" : "254"
   }, {
     "figure" : "Topics reported",
     "before" : "6",
@@ -104,15 +104,7 @@
   } ],
   "crossings" : [ {
     "population" : "WORD",
-    "name" : "name",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "origin",
-    "entered" : true
-  }, {
-    "population" : "WORD",
     "name" : "carrying",
-    "entered" : false
+    "entered" : true
   } ]
 }

@@ -2,20 +2,20 @@
   "schemaVersion" : "10.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "2383b2341cfa0aa934f457a753b834936b3600dd",
+    "commit" : "99e18f4cf3b78cfec9557f5a442c3e98072aca8b",
     "about" : [ "linguistics", "computing", "grammar" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
     "placedIn" : [ {
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.3317285053132164,
-        "nearestByChanceBits" : 0.3983838577204342,
+        "divergenceBits" : 0.33170387131792506,
+        "nearestByChanceBits" : 0.39833545554574157,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.1412838007044585,
-          "shareOfSubject" : 0.084826985522588,
+          "shareOfRepository" : 0.14123006593910173,
+          "shareOfSubject" : 0.08482698552258801,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 1998,
@@ -49,7 +49,7 @@
           }, {
             "word" : "name",
             "occurrences" : 998,
-            "mass" : 73.46846678837724,
+            "mass" : 73.46623043390213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -79,7 +79,7 @@
           }, {
             "word" : "term",
             "occurrences" : 434,
-            "mass" : 59.30609988522989,
+            "mass" : 59.30609988522988,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -109,12 +109,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.05373033046775393,
-          "shareOfSubject" : 0.038756090410405716,
+          "shareOfRepository" : 0.05373243406498747,
+          "shareOfSubject" : 0.03875609041040573,
           "carriedBy" : [ {
             "word" : "repository",
-            "occurrences" : 719,
-            "mass" : 14.208133711161338,
+            "occurrences" : 720,
+            "mass" : 14.208268861935474,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -144,7 +144,7 @@
           }, {
             "word" : "git",
             "occurrences" : 48,
-            "mass" : 10.914096317430923,
+            "mass" : 10.914096034917659,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "git attributes generated",
@@ -204,12 +204,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03411754817726043,
+          "shareOfRepository" : 0.03410414548667889,
           "shareOfSubject" : 0.06121217074679032,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 146,
-            "mass" : 12.08045922072049,
+            "occurrences" : 147,
+            "mass" : 12.080803120325939,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -239,7 +239,7 @@
           }, {
             "word" : "file",
             "occurrences" : 607,
-            "mass" : 11.707258844363563,
+            "mass" : 11.707261333968566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -299,12 +299,12 @@
           } ]
         }, {
           "topic" : "mathematics",
-          "shareOfRepository" : 0.029824308310733353,
+          "shareOfRepository" : 0.02982308963722769,
           "shareOfSubject" : 0.07821134547320364,
           "carriedBy" : [ {
             "word" : "count",
-            "occurrences" : 119,
-            "mass" : 12.516483422118938,
+            "occurrences" : 123,
+            "mass" : 12.524447559975902,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "counts",
@@ -395,18 +395,18 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computer Science",
-          "divergenceBits" : 0.3317285053132164,
+          "divergenceBits" : 0.33170387131792506,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4215479200897928,
-        "nearestByChanceBits" : 0.451267726584855,
+        "divergenceBits" : 0.421566041819131,
+        "nearestByChanceBits" : 0.4512696663840402,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.1412838007044585,
+          "shareOfRepository" : 0.14123006593910173,
           "shareOfSubject" : 0.2702746902803166,
           "carriedBy" : [ {
             "word" : "word",
@@ -441,7 +441,7 @@
           }, {
             "word" : "name",
             "occurrences" : 998,
-            "mass" : 73.46846678837724,
+            "mass" : 73.46623043390213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -471,7 +471,7 @@
           }, {
             "word" : "term",
             "occurrences" : 434,
-            "mass" : 59.30609988522989,
+            "mass" : 59.30609988522988,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -501,12 +501,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.05373033046775393,
+          "shareOfRepository" : 0.05373243406498747,
           "shareOfSubject" : 0.18455643782038084,
           "carriedBy" : [ {
             "word" : "repository",
-            "occurrences" : 719,
-            "mass" : 14.208133711161338,
+            "occurrences" : 720,
+            "mass" : 14.208268861935474,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -536,7 +536,7 @@
           }, {
             "word" : "git",
             "occurrences" : 48,
-            "mass" : 10.914096317430923,
+            "mass" : 10.914096034917659,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "git attributes generated",
@@ -596,12 +596,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03411754817726043,
+          "shareOfRepository" : 0.03410414548667889,
           "shareOfSubject" : 0.03660705422488577,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 146,
-            "mass" : 12.08045922072049,
+            "occurrences" : 147,
+            "mass" : 12.080803120325939,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -631,7 +631,7 @@
           }, {
             "word" : "file",
             "occurrences" : 607,
-            "mass" : 11.707258844363563,
+            "mass" : 11.707261333968566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -691,7 +691,7 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.029493974249957335,
+          "shareOfRepository" : 0.0294958315509848,
           "shareOfSubject" : 0.04851125832054961,
           "carriedBy" : [ {
             "word" : "phrase",
@@ -787,7 +787,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.4215479200897928,
+          "divergenceBits" : 0.421566041819131,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -795,17 +795,17 @@
       "scheme" : "OpenAlex",
       "archive" : {
         "subject" : "Artificial Intelligence",
-        "divergenceBits" : 0.22794982014885953,
-        "nearestByChanceBits" : 0.3101827170080556,
+        "divergenceBits" : 0.2279179025466363,
+        "nearestByChanceBits" : 0.3101245885992764,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.05373033046775393,
+          "shareOfRepository" : 0.05373243406498747,
           "shareOfSubject" : 0.051788477844356924,
           "carriedBy" : [ {
             "word" : "repository",
-            "occurrences" : 719,
-            "mass" : 14.208133711161338,
+            "occurrences" : 720,
+            "mass" : 14.208268861935474,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -835,7 +835,7 @@
           }, {
             "word" : "git",
             "occurrences" : 48,
-            "mass" : 10.914096317430923,
+            "mass" : 10.914096034917659,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "git attributes generated",
@@ -895,7 +895,7 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.1412838007044585,
+          "shareOfRepository" : 0.14123006593910173,
           "shareOfSubject" : 0.04212588362286053,
           "carriedBy" : [ {
             "word" : "word",
@@ -930,7 +930,7 @@
           }, {
             "word" : "name",
             "occurrences" : 998,
-            "mass" : 73.46846678837724,
+            "mass" : 73.46623043390213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -960,7 +960,7 @@
           }, {
             "word" : "term",
             "occurrences" : 434,
-            "mass" : 59.30609988522989,
+            "mass" : 59.30609988522988,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -990,12 +990,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03411754817726043,
+          "shareOfRepository" : 0.03410414548667889,
           "shareOfSubject" : 0.03860535541994597,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 146,
-            "mass" : 12.08045922072049,
+            "occurrences" : 147,
+            "mass" : 12.080803120325939,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -1025,7 +1025,7 @@
           }, {
             "word" : "file",
             "occurrences" : 607,
-            "mass" : 11.707258844363563,
+            "mass" : 11.707261333968566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -1085,7 +1085,7 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.04443471024290437,
+          "shareOfRepository" : 0.04454072090904625,
           "shareOfSubject" : 0.031383018737252584,
           "carriedBy" : [ {
             "word" : "file",
@@ -1148,67 +1148,67 @@
               }
             } ]
           }, {
-            "word" : "note",
-            "occurrences" : 12,
-            "mass" : 3.5202066044769964,
+            "word" : "record",
+            "occurrences" : 31,
+            "mass" : 3.753878290943285,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
-              "phrase" : "no note",
+              "phrase" : "record",
               "site" : {
-                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PublishedKeywords.java",
-                "line" : 40
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
+                "line" : 106
               }
             }, {
-              "phrase" : "refuses the working notes the repository itself states are working notes",
+              "phrase" : "where the name is the initials of that type's own words it stands for the type rather than naming anything and is recorded as what it is",
               "site" : {
-                "file" : "code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/reading/DocumentationScopeTest.java",
-                "line" : 54
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
+                "line" : 173
               }
             }, {
-              "phrase" : "note",
+              "phrase" : "the record is enough because narrowing cannot move the walk",
               "site" : {
-                "file" : "code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/ArmPlacementProbe.java",
-                "line" : 53
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
+                "line" : 9
               }
             }, {
-              "phrase" : "no note",
+              "phrase" : "a narrower index therefore answers at the recorded positions or not at all and its answer depends only on the run so each distinct run is asked once",
               "site" : {
-                "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivConcepts.java",
-                "line" : 33
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
+                "line" : 9
               }
             } ]
           } ]
         } ],
         "nearerThanChance" : [ {
           "subject" : "Artificial Intelligence",
-          "divergenceBits" : 0.22794982014885953,
+          "divergenceBits" : 0.2279179025466363,
           "carriedBy" : [ "computing", "linguistics", "law", "telecommunication" ]
         }, {
           "subject" : "Computer Networks and Communications",
-          "divergenceBits" : 0.2772506113260307,
+          "divergenceBits" : 0.2771735675045754,
           "carriedBy" : [ "computing", "law", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Language and Linguistics",
-          "divergenceBits" : 0.2818076298032667,
+          "divergenceBits" : 0.28177714831489425,
           "carriedBy" : [ "linguistics", "telecommunication", "computing", "grammar" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.30402282802833164,
+          "divergenceBits" : 0.30397716071351805,
           "carriedBy" : [ "computing", "mathematics", "law", "telecommunication" ]
         }, {
           "subject" : "Communication",
-          "divergenceBits" : 0.30734309335530463,
+          "divergenceBits" : 0.30722573941075393,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         } ]
       },
       "category" : {
         "subject" : "Authorship Attribution and Profiling",
-        "divergenceBits" : 0.40830948468853134,
-        "nearestByChanceBits" : 0.48357660220075377,
+        "divergenceBits" : 0.40831698704344366,
+        "nearestByChanceBits" : 0.4835550906594292,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.1412838007044585,
+          "shareOfRepository" : 0.14123006593910173,
           "shareOfSubject" : 0.13591228753579865,
           "carriedBy" : [ {
             "word" : "word",
@@ -1243,7 +1243,7 @@
           }, {
             "word" : "name",
             "occurrences" : 998,
-            "mass" : 73.46846678837724,
+            "mass" : 73.46623043390213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1273,7 +1273,7 @@
           }, {
             "word" : "term",
             "occurrences" : 434,
-            "mass" : 59.30609988522989,
+            "mass" : 59.30609988522988,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -1303,7 +1303,7 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.04443471024290437,
+          "shareOfRepository" : 0.04454072090904625,
           "shareOfSubject" : 0.1404560067409476,
           "carriedBy" : [ {
             "word" : "file",
@@ -1366,44 +1366,44 @@
               }
             } ]
           }, {
-            "word" : "note",
-            "occurrences" : 12,
-            "mass" : 3.5202066044769964,
+            "word" : "record",
+            "occurrences" : 31,
+            "mass" : 3.753878290943285,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
-              "phrase" : "no note",
+              "phrase" : "record",
               "site" : {
-                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PublishedKeywords.java",
-                "line" : 40
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
+                "line" : 106
               }
             }, {
-              "phrase" : "refuses the working notes the repository itself states are working notes",
+              "phrase" : "where the name is the initials of that type's own words it stands for the type rather than naming anything and is recorded as what it is",
               "site" : {
-                "file" : "code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/reading/DocumentationScopeTest.java",
-                "line" : 54
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
+                "line" : 173
               }
             }, {
-              "phrase" : "note",
+              "phrase" : "the record is enough because narrowing cannot move the walk",
               "site" : {
-                "file" : "code-semantics-engine/src/test/java/io/github/fiftieshousewife/codesemantics/engine/theme/ArmPlacementProbe.java",
-                "line" : 53
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
+                "line" : 9
               }
             }, {
-              "phrase" : "no note",
+              "phrase" : "a narrower index therefore answers at the recorded positions or not at all and its answer depends only on the run so each distinct run is asked once",
               "site" : {
-                "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivConcepts.java",
-                "line" : 33
+                "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
+                "line" : 9
               }
             } ]
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03411754817726043,
+          "shareOfRepository" : 0.03410414548667889,
           "shareOfSubject" : 0.05727574758654847,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 146,
-            "mass" : 12.08045922072049,
+            "occurrences" : 147,
+            "mass" : 12.080803120325939,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -1433,7 +1433,7 @@
           }, {
             "word" : "file",
             "occurrences" : 607,
-            "mass" : 11.707258844363563,
+            "mass" : 11.707261333968566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -1493,7 +1493,7 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.029493974249957335,
+          "shareOfRepository" : 0.0294958315509848,
           "shareOfSubject" : 0.06265905228920485,
           "carriedBy" : [ {
             "word" : "phrase",
@@ -1589,78 +1589,78 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Authorship Attribution and Profiling",
-          "divergenceBits" : 0.40830948468853134,
+          "divergenceBits" : 0.40831698704344366,
           "carriedBy" : [ "linguistics", "telecommunication", "law", "grammar" ]
         }, {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.41467288656980267,
+          "divergenceBits" : 0.4146425762945556,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Medical Research and Practices",
-          "divergenceBits" : 0.45989542028706104,
+          "divergenceBits" : 0.45994548504328714,
           "carriedBy" : [ "linguistics", "publishing", "law", "mathematics" ]
         }, {
           "subject" : "Media Discourse and Social  Analysis",
-          "divergenceBits" : 0.46042192835366635,
+          "divergenceBits" : 0.4602971796864962,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "law" ]
         }, {
           "subject" : "Linguistics and language evolution",
-          "divergenceBits" : 0.46235812371628865,
+          "divergenceBits" : 0.4623917436015638,
           "carriedBy" : [ "linguistics", "telecommunication", "geography", "grammar" ]
         }, {
           "subject" : "Mental Health via Writing",
-          "divergenceBits" : 0.4656396872994128,
+          "divergenceBits" : 0.465671248837917,
           "carriedBy" : [ "linguistics", "publishing", "telecommunication", "computing" ]
         }, {
           "subject" : "Speech and dialogue systems",
-          "divergenceBits" : 0.4796390080545463,
+          "divergenceBits" : 0.4796817674329824,
           "carriedBy" : [ "linguistics", "computing", "geography", "mathematics" ]
         }, {
           "subject" : "Library Science and Information Systems",
-          "divergenceBits" : 0.48186772365426883,
+          "divergenceBits" : 0.4819175697524879,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         } ]
       }
     } ],
     "leadingWords" : [ {
       "word" : "word",
-      "divergenceBits" : 0.015666317809815228,
+      "divergenceBits" : 0.015647583525645666,
       "occurrences" : 301
     }, {
       "word" : "topic",
-      "divergenceBits" : 0.00910912052520581,
+      "divergenceBits" : 0.009098720653975137,
       "occurrences" : 165
     }, {
       "word" : "words",
-      "divergenceBits" : 0.006813492657453768,
+      "divergenceBits" : 0.006805387980466493,
       "occurrences" : 130
     }, {
       "word" : "concept",
-      "divergenceBits" : 0.005359894372409327,
+      "divergenceBits" : 0.005353628312359361,
       "occurrences" : 100
     }, {
       "word" : "occurrences",
-      "divergenceBits" : 0.004521219850249892,
+      "divergenceBits" : 0.004516105151527816,
       "occurrences" : 81
     }, {
       "word" : "stated",
-      "divergenceBits" : 0.004033730475107292,
-      "occurrences" : 77
+      "divergenceBits" : 0.004084346051278024,
+      "occurrences" : 78
     }, {
       "word" : "share",
-      "divergenceBits" : 0.003988150104665131,
+      "divergenceBits" : 0.003983180701005901,
       "occurrences" : 81
     }, {
       "word" : "written",
-      "divergenceBits" : 0.003945054535993507,
+      "divergenceBits" : 0.003940234593469411,
       "occurrences" : 78
     }, {
       "word" : "concepts",
-      "divergenceBits" : 0.0036772831693595628,
+      "divergenceBits" : 0.0036730142307136665,
       "occurrences" : 68
     }, {
       "word" : "path",
-      "divergenceBits" : 0.003210652632070819,
+      "divergenceBits" : 0.003204932857626088,
       "occurrences" : 114
     } ],
     "leadingConcepts" : [ {
@@ -1679,13 +1679,13 @@
       "concept" : "Token",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "publishedBy" : "CSO"
     }, {
       "concept" : "Phrase",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "publishedBy" : "CSO"
     }, {
       "concept" : "Text",
@@ -1696,25 +1696,25 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.028188668333396224,
+      "divergenceBits" : 0.02816675318578972,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.15881675952957666,
+      "divergenceBits" : 0.158803454801153,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.0998268219740203,
+      "divergenceBits" : 0.09975532614536457,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "repository-clones/src/main/java",
-      "divergenceBits" : 0.33936137129665433,
+      "divergenceBits" : 0.33938899972715647,
       "writesMoreOf" : [ "computing" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9829043050068301,
-    "shareOfMassOnNoSubject" : 0.8405487101733737,
+    "shareOfWordsWithACitation" : 0.9829258130662462,
+    "shareOfMassOnNoSubject" : 0.840562283910976,
     "counts" : {
-      "signals" : 253,
+      "signals" : 254,
       "themes" : 6,
       "concepts" : 179
     }
@@ -1724,7 +1724,7 @@
     "word" : "word",
     "occurrences" : 301,
     "occurrencesInNames" : 301,
-    "divergenceBits" : 0.015666317809815228,
+    "divergenceBits" : 0.015647583525645666,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -1735,7 +1735,7 @@
     "word" : "topic",
     "occurrences" : 165,
     "occurrencesInNames" : 165,
-    "divergenceBits" : 0.00910912052520581,
+    "divergenceBits" : 0.009098720653975137,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -1746,7 +1746,7 @@
     "word" : "words",
     "occurrences" : 130,
     "occurrencesInNames" : 130,
-    "divergenceBits" : 0.006813492657453768,
+    "divergenceBits" : 0.006805387980466493,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/PieceCost.java",
@@ -1757,7 +1757,7 @@
     "word" : "concept",
     "occurrences" : 100,
     "occurrencesInNames" : 100,
-    "divergenceBits" : 0.005359894372409327,
+    "divergenceBits" : 0.005353628312359361,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/Citation.java",
@@ -1768,7 +1768,7 @@
     "word" : "occurrences",
     "occurrences" : 81,
     "occurrencesInNames" : 81,
-    "divergenceBits" : 0.004521219850249892,
+    "divergenceBits" : 0.004516105151527816,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java",
@@ -1777,9 +1777,9 @@
   }, {
     "readFrom" : "CLONE",
     "word" : "stated",
-    "occurrences" : 77,
-    "occurrencesInNames" : 77,
-    "divergenceBits" : 0.004033730475107292,
+    "occurrences" : 78,
+    "occurrencesInNames" : 78,
+    "divergenceBits" : 0.004084346051278024,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/PropertyAccessors.java",
@@ -1790,7 +1790,7 @@
     "word" : "share",
     "occurrences" : 81,
     "occurrencesInNames" : 81,
-    "divergenceBits" : 0.003988150104665131,
+    "divergenceBits" : 0.003983180701005901,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/DivergenceShare.java",
@@ -1801,7 +1801,7 @@
     "word" : "written",
     "occurrences" : 78,
     "occurrencesInNames" : 78,
-    "divergenceBits" : 0.003945054535993507,
+    "divergenceBits" : 0.003940234593469411,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/BlobOrigin.java",
@@ -1812,7 +1812,7 @@
     "word" : "concepts",
     "occurrences" : 68,
     "occurrencesInNames" : 68,
-    "divergenceBits" : 0.0036772831693595628,
+    "divergenceBits" : 0.0036730142307136665,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptEvidence.java",
@@ -1823,7 +1823,7 @@
     "word" : "path",
     "occurrences" : 114,
     "occurrencesInNames" : 114,
-    "divergenceBits" : 0.003210652632070819,
+    "divergenceBits" : 0.003204932857626088,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -1834,7 +1834,7 @@
     "word" : "topics",
     "occurrences" : 56,
     "occurrencesInNames" : 56,
-    "divergenceBits" : 0.0030258355171503193,
+    "divergenceBits" : 0.00302232052537839,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -1845,7 +1845,7 @@
     "word" : "scope",
     "occurrences" : 63,
     "occurrencesInNames" : 63,
-    "divergenceBits" : 0.00271142377983127,
+    "divergenceBits" : 0.0027077138396659484,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolContext.java",
@@ -1856,7 +1856,7 @@
     "word" : "label",
     "occurrences" : 75,
     "occurrencesInNames" : 75,
-    "divergenceBits" : 0.0026924930349503003,
+    "divergenceBits" : 0.0026883508324503213,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingPopulation.java",
@@ -1867,7 +1867,7 @@
     "word" : "mass",
     "occurrences" : 50,
     "occurrencesInNames" : 50,
-    "divergenceBits" : 0.0025416756908099875,
+    "divergenceBits" : 0.0025385819471815956,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/Thresholds.java",
@@ -1878,7 +1878,7 @@
     "word" : "repository",
     "occurrences" : 48,
     "occurrencesInNames" : 48,
-    "divergenceBits" : 0.002511625336420036,
+    "divergenceBits" : 0.0025086340015559984,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSourceType.java",
@@ -1889,7 +1889,7 @@
     "word" : "drawn",
     "occurrences" : 46,
     "occurrencesInNames" : 46,
-    "divergenceBits" : 0.0024451799627685047,
+    "divergenceBits" : 0.002442302832970901,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ChanceExpectedBest.java",
@@ -1900,7 +1900,7 @@
     "word" : "sense",
     "occurrences" : 49,
     "occurrencesInNames" : 49,
-    "divergenceBits" : 0.002385633092395177,
+    "divergenceBits" : 0.0023826362910673335,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/Citation.java",
@@ -1911,7 +1911,7 @@
     "word" : "reading",
     "occurrences" : 46,
     "occurrencesInNames" : 46,
-    "divergenceBits" : 0.002330599712017815,
+    "divergenceBits" : 0.0023277559040015524,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordSegmenter.java",
@@ -1922,7 +1922,7 @@
     "word" : "source",
     "occurrences" : 86,
     "occurrencesInNames" : 86,
-    "divergenceBits" : 0.0022146140368045366,
+    "divergenceBits" : 0.0022104579294423025,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -1933,7 +1933,7 @@
     "word" : "published",
     "occurrences" : 47,
     "occurrencesInNames" : 47,
-    "divergenceBits" : 0.0021848849273359626,
+    "divergenceBits" : 0.0021820489464885826,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSummary.java",
@@ -1944,7 +1944,7 @@
     "word" : "files",
     "occurrences" : 47,
     "occurrencesInNames" : 47,
-    "divergenceBits" : 0.0021028005601471853,
+    "divergenceBits" : 0.0020999979527982103,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -1955,7 +1955,7 @@
     "word" : "broader",
     "occurrences" : 37,
     "occurrencesInNames" : 37,
-    "divergenceBits" : 0.001982623434573103,
+    "divergenceBits" : 0.0019803051282081723,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermIndex.java",
@@ -1966,7 +1966,7 @@
     "word" : "prose",
     "occurrences" : 36,
     "occurrencesInNames" : 36,
-    "divergenceBits" : 0.001978743943413392,
+    "divergenceBits" : 0.0019764766836988814,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -1977,7 +1977,7 @@
     "word" : "site",
     "occurrences" : 42,
     "occurrencesInNames" : 42,
-    "divergenceBits" : 0.001854313907234429,
+    "divergenceBits" : 0.0018518200204225587,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviour.java",
@@ -1988,7 +1988,7 @@
     "word" : "phrase",
     "occurrences" : 33,
     "occurrencesInNames" : 33,
-    "divergenceBits" : 0.0017616694298426682,
+    "divergenceBits" : 0.0017596034414679579,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/Tokeniser.java",
@@ -1999,7 +1999,7 @@
     "word" : "chance",
     "occurrences" : 34,
     "occurrencesInNames" : 34,
-    "divergenceBits" : 0.0016339405805324194,
+    "divergenceBits" : 0.0016318688413029278,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -2010,7 +2010,7 @@
     "word" : "seed",
     "occurrences" : 34,
     "occurrencesInNames" : 34,
-    "divergenceBits" : 0.0015437131832279722,
+    "divergenceBits" : 0.0015416763928423319,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/RepositoryReading.java",
@@ -2021,7 +2021,7 @@
     "word" : "pooled",
     "occurrences" : 28,
     "occurrencesInNames" : 28,
-    "divergenceBits" : 0.0014911797038177866,
+    "divergenceBits" : 0.0014894276705490841,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/PooledLogOdds.java",
@@ -2032,7 +2032,7 @@
     "word" : "term",
     "occurrences" : 33,
     "occurrencesInNames" : 33,
-    "divergenceBits" : 0.001436483452294046,
+    "divergenceBits" : 0.0014345329145425702,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/DivergenceShare.java",
@@ -2043,7 +2043,7 @@
     "word" : "subject",
     "occurrences" : 36,
     "occurrencesInNames" : 36,
-    "divergenceBits" : 0.0014332562871300822,
+    "divergenceBits" : 0.0014311918434713909,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviour.java",
@@ -2054,7 +2054,7 @@
     "word" : "bits",
     "occurrences" : 32,
     "occurrencesInNames" : 32,
-    "divergenceBits" : 0.0014130325517671257,
+    "divergenceBits" : 0.0014111323517619098,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/DivergenceShare.java",
@@ -2065,7 +2065,7 @@
     "word" : "names",
     "occurrences" : 49,
     "occurrencesInNames" : 49,
-    "divergenceBits" : 0.0014103824362321636,
+    "divergenceBits" : 0.0014079017902926178,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordMorphology.java",
@@ -2076,7 +2076,7 @@
     "word" : "corpus",
     "occurrences" : 25,
     "occurrencesInNames" : 25,
-    "divergenceBits" : 0.001370830237125454,
+    "divergenceBits" : 0.0013692564574244955,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/CorpusVocabulary.java",
@@ -2087,7 +2087,7 @@
     "word" : "lemma",
     "occurrences" : 24,
     "occurrencesInNames" : 24,
-    "divergenceBits" : 0.0013499831252109348,
+    "divergenceBits" : 0.0013484661197887403,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/BundledCitations.java",
@@ -2098,7 +2098,7 @@
     "word" : "placed",
     "occurrences" : 26,
     "occurrencesInNames" : 26,
-    "divergenceBits" : 0.0012268444428670212,
+    "divergenceBits" : 0.001225268591087067,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2109,7 +2109,7 @@
     "word" : "kept",
     "occurrences" : 25,
     "occurrencesInNames" : 25,
-    "divergenceBits" : 0.0011903937044412353,
+    "divergenceBits" : 0.0011888744283875064,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomy.java",
@@ -2120,7 +2120,7 @@
     "word" : "token",
     "occurrences" : 34,
     "occurrencesInNames" : 34,
-    "divergenceBits" : 0.0011889868462065612,
+    "divergenceBits" : 0.001187127546886668,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -2131,7 +2131,7 @@
     "word" : "senses",
     "occurrences" : 22,
     "occurrencesInNames" : 22,
-    "divergenceBits" : 0.0011874419864784577,
+    "divergenceBits" : 0.0011860614062133236,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/SenseRuns.java",
@@ -2142,7 +2142,7 @@
     "word" : "taxonomy",
     "occurrences" : 21,
     "occurrencesInNames" : 21,
-    "divergenceBits" : 0.0011525996041416968,
+    "divergenceBits" : 0.0011512773915880428,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2153,7 +2153,7 @@
     "word" : "divergence",
     "occurrences" : 21,
     "occurrencesInNames" : 21,
-    "divergenceBits" : 0.0011524036774356325,
+    "divergenceBits" : 0.001151081506970314,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/DivergenceShare.java",
@@ -2164,7 +2164,7 @@
     "word" : "domains",
     "occurrences" : 22,
     "occurrencesInNames" : 22,
-    "divergenceBits" : 0.0011329551936459718,
+    "divergenceBits" : 0.0011315894667324315,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SenseDomains.java",
@@ -2175,7 +2175,7 @@
     "word" : "resamples",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 0.001124985937675779,
+    "divergenceBits" : 0.001123721766490617,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java",
@@ -2186,7 +2186,7 @@
     "word" : "rung",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 0.001124985937675779,
+    "divergenceBits" : 0.001123721766490617,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
@@ -2197,7 +2197,7 @@
     "word" : "branch",
     "occurrences" : 24,
     "occurrencesInNames" : 24,
-    "divergenceBits" : 0.0011207560261383292,
+    "divergenceBits" : 0.0011193058894646449,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/RepositoryFacts.java",
@@ -2208,7 +2208,7 @@
     "word" : "tsv",
     "occurrences" : 19,
     "occurrencesInNames" : 19,
-    "divergenceBits" : 0.00106873664079199,
+    "divergenceBits" : 0.001067535678166086,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/AbbreviationTsv.java",
@@ -2219,7 +2219,7 @@
     "word" : "class",
     "occurrences" : 106,
     "occurrencesInNames" : 106,
-    "divergenceBits" : 0.0010604677587014763,
+    "divergenceBits" : 0.0010571420222725066,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -2230,7 +2230,7 @@
     "word" : "vocabulary",
     "occurrences" : 19,
     "occurrencesInNames" : 19,
-    "divergenceBits" : 0.0010203574679432518,
+    "divergenceBits" : 0.0010191664197033905,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2241,7 +2241,7 @@
     "word" : "file",
     "occurrences" : 81,
     "occurrencesInNames" : 81,
-    "divergenceBits" : 0.0010149769851428704,
+    "divergenceBits" : 0.001012149105470654,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -2252,7 +2252,7 @@
     "word" : "terms",
     "occurrences" : 25,
     "occurrencesInNames" : 25,
-    "divergenceBits" : 0.0010053637057708153,
+    "divergenceBits" : 0.0010039250158460156,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2263,7 +2263,7 @@
     "word" : "lines",
     "occurrences" : 24,
     "occurrencesInNames" : 24,
-    "divergenceBits" : 9.8029719104633E-4,
+    "divergenceBits" : 9.78908572951662E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/AsciiDocSource.java",
@@ -2274,7 +2274,7 @@
     "word" : "rank",
     "occurrences" : 19,
     "occurrencesInNames" : 19,
-    "divergenceBits" : 9.800240041465298E-4,
+    "divergenceBits" : 9.78844045549138E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/PieceCost.java",
@@ -2285,7 +2285,7 @@
     "word" : "semantics",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 9.752682308117942E-4,
+    "divergenceBits" : 9.741377720041736E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/Citation.java",
@@ -2296,7 +2296,7 @@
     "word" : "nearest",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 9.592509349831037E-4,
+    "divergenceBits" : 9.581244622560443E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -2307,7 +2307,7 @@
     "word" : "carried",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 9.339001447341466E-4,
+    "divergenceBits" : 9.32691722030884E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -2318,7 +2318,7 @@
     "word" : "sighting",
     "occurrences" : 17,
     "occurrencesInNames" : 17,
-    "divergenceBits" : 9.335959286715956E-4,
+    "divergenceBits" : 9.325254507106947E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
@@ -2329,7 +2329,7 @@
     "word" : "occurrence",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 9.324769835754492E-4,
+    "divergenceBits" : 9.312691139535781E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -2340,7 +2340,7 @@
     "word" : "directory",
     "occurrences" : 33,
     "occurrencesInNames" : 33,
-    "divergenceBits" : 9.185135168797292E-4,
+    "divergenceBits" : 9.168658522613813E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/DocumentationScope.java",
@@ -2351,7 +2351,7 @@
     "word" : "verb",
     "occurrences" : 17,
     "occurrencesInNames" : 17,
-    "divergenceBits" : 9.097899461965477E-4,
+    "divergenceBits" : 9.08725069043499E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviour.java",
@@ -2359,10 +2359,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "total",
+    "occurrences" : 24,
+    "occurrencesInNames" : 24,
+    "divergenceBits" : 8.816163477412598E-4,
+    "closestReference" : "the platform's own API",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/UnreadWords.java",
+      "line" : 35
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "named",
     "occurrences" : 23,
     "occurrencesInNames" : 23,
-    "divergenceBits" : 8.770891575902151E-4,
+    "divergenceBits" : 8.757903110502671E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclarationWords.java",
@@ -2373,7 +2384,7 @@
     "word" : "pref",
     "occurrences" : 16,
     "occurrencesInNames" : 16,
-    "divergenceBits" : 8.501719596844123E-4,
+    "divergenceBits" : 8.491713047126859E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/ComputingTerms.java",
@@ -2384,7 +2395,7 @@
     "word" : "line",
     "occurrences" : 54,
     "occurrencesInNames" : 54,
-    "divergenceBits" : 8.484572847901482E-4,
+    "divergenceBits" : 8.463623701223685E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -2395,7 +2406,7 @@
     "word" : "reference",
     "occurrences" : 37,
     "occurrencesInNames" : 37,
-    "divergenceBits" : 8.164311760352962E-4,
+    "divergenceBits" : 8.147583854267295E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSignal.java",
@@ -2406,7 +2417,7 @@
     "word" : "manifest",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 8.084624069476918E-4,
+    "divergenceBits" : 8.073877514450179E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboManifest.java",
@@ -2417,7 +2428,7 @@
     "word" : "labels",
     "occurrences" : 17,
     "occurrencesInNames" : 17,
-    "divergenceBits" : 8.07151352800335E-4,
+    "divergenceBits" : 8.061191095427151E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/PullRequestFacts.java",
@@ -2428,7 +2439,7 @@
     "word" : "root",
     "occurrences" : 36,
     "occurrencesInNames" : 36,
-    "divergenceBits" : 7.990550414382641E-4,
+    "divergenceBits" : 7.974232564633441E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ParsedRepository.java",
@@ -2439,7 +2450,7 @@
     "word" : "lemmas",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 7.874901563730453E-4,
+    "divergenceBits" : 7.866052365434319E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/LemmaRuns.java",
@@ -2447,21 +2458,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "total",
-    "occurrences" : 22,
-    "occurrencesInNames" : 22,
-    "divergenceBits" : 7.843116845310446E-4,
-    "closestReference" : "the platform's own API",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/UnreadWords.java",
-      "line" : 35
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "mean",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 7.594988751756323E-4,
+    "divergenceBits" : 7.584458456956687E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/WordPipeline.java",
@@ -2472,7 +2472,7 @@
     "word" : "extraction",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 7.36054809371751E-4,
+    "divergenceBits" : 7.351813586182243E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/AbbreviationSense.java",
@@ -2483,7 +2483,7 @@
     "word" : "bearers",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 7.312408594892564E-4,
+    "divergenceBits" : 7.304191482189011E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/WikidataNameExtraction.java",
@@ -2494,7 +2494,7 @@
     "word" : "part_of_speech",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 7.312408594892564E-4,
+    "divergenceBits" : 7.304191482189011E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptId.java",
@@ -2505,7 +2505,7 @@
     "word" : "matched",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 7.263987234247532E-4,
+    "divergenceBits" : 7.255280190565294E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2516,7 +2516,7 @@
     "word" : "cited",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 7.088947793063799E-4,
+    "divergenceBits" : 7.080294049087826E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CitedTokens.java",
@@ -2527,7 +2527,7 @@
     "word" : "exported",
     "occurrences" : 15,
     "occurrencesInNames" : 15,
-    "divergenceBits" : 7.083921069872258E-4,
+    "divergenceBits" : 7.074827352860152E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -2538,7 +2538,7 @@
     "word" : "entry",
     "occurrences" : 53,
     "occurrencesInNames" : 53,
-    "divergenceBits" : 7.072474481433213E-4,
+    "divergenceBits" : 7.053416331974948E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/AsciiDocSource.java",
@@ -2549,7 +2549,7 @@
     "word" : "sightings",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 7.019051901171994E-4,
+    "divergenceBits" : 7.010893357403874E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/WrittenMediaTypes.java",
@@ -2560,7 +2560,7 @@
     "word" : "render",
     "occurrences" : 17,
     "occurrencesInNames" : 17,
-    "divergenceBits" : 6.9581827189624E-4,
+    "divergenceBits" : 6.94833965146855E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/AbbreviationTsv.java",
@@ -2571,7 +2571,7 @@
     "word" : "declared",
     "occurrences" : 23,
     "occurrencesInNames" : 23,
-    "divergenceBits" : 6.877325592825616E-4,
+    "divergenceBits" : 6.865499249068515E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/Weights.java",
@@ -2582,7 +2582,7 @@
     "word" : "rows",
     "occurrences" : 21,
     "occurrencesInNames" : 21,
-    "divergenceBits" : 6.846590093321195E-4,
+    "divergenceBits" : 6.83541292533928E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
@@ -2593,7 +2593,7 @@
     "word" : "readings",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 6.8156372455509E-4,
+    "divergenceBits" : 6.807531967349663E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/LegibilityReading.java",
@@ -2604,7 +2604,7 @@
     "word" : "subjects",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 6.810029737249692E-4,
+    "divergenceBits" : 6.801469591187763E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ForeignWords.java",
@@ -2615,7 +2615,7 @@
     "word" : "digest",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 6.779370207151958E-4,
+    "divergenceBits" : 6.768562883258303E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/BianServiceDomainsExtraction.java",
@@ -2626,7 +2626,7 @@
     "word" : "english",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 6.776905854197438E-4,
+    "divergenceBits" : 6.76678809752674E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/CitedWord.java",
@@ -2637,7 +2637,7 @@
     "word" : "git",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 6.749915626054674E-4,
+    "divergenceBits" : 6.742330598943702E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -2648,7 +2648,7 @@
     "word" : "tokens",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 6.710861963629219E-4,
+    "divergenceBits" : 6.702786944919974E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CitedTokens.java",
@@ -2659,7 +2659,7 @@
     "word" : "resource",
     "occurrences" : 31,
     "occurrencesInNames" : 31,
-    "divergenceBits" : 6.698007341904821E-4,
+    "divergenceBits" : 6.684121013155572E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -2670,7 +2670,7 @@
     "word" : "fields",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 6.675274765387234E-4,
+    "divergenceBits" : 6.664531962541954E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivTaxonomy.java",
@@ -2681,7 +2681,7 @@
     "word" : "citations",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 6.518956806042548E-4,
+    "divergenceBits" : 6.511416382867551E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptEvidence.java",
@@ -2692,7 +2692,7 @@
     "word" : "excluded",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 6.486845303260404E-4,
+    "divergenceBits" : 6.478840697921937E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/DocumentationScope.java",
@@ -2703,7 +2703,7 @@
     "word" : "scopes",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 6.27906334105009E-4,
+    "divergenceBits" : 6.271585003889996E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedSummary.java",
@@ -2714,7 +2714,7 @@
     "word" : "synset",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 6.187422657216785E-4,
+    "divergenceBits" : 6.180469715698393E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptId.java",
@@ -2725,7 +2725,7 @@
     "word" : "weight",
     "occurrences" : 17,
     "occurrencesInNames" : 17,
-    "divergenceBits" : 6.027900312079923E-4,
+    "divergenceBits" : 6.018554915904936E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/Citation.java",
@@ -2733,21 +2733,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "row",
-    "occurrences" : 40,
-    "occurrencesInNames" : 40,
-    "divergenceBits" : 6.009745096790396E-4,
-    "closestReference" : "the platform's own API",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
-      "line" : 82
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "ranked",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 6.004900903633657E-4,
+    "divergenceBits" : 5.997506420684273E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -2755,10 +2744,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "row",
+    "occurrences" : 40,
+    "occurrencesInNames" : 40,
+    "divergenceBits" : 5.99454482833247E-4,
+    "closestReference" : "the platform's own API",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
+      "line" : 82
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "rungs",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 5.624929688378895E-4,
+    "divergenceBits" : 5.618608832453085E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/PublishedSourceSets.java",
@@ -2769,7 +2769,7 @@
     "word" : "draws",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 5.607273873124179E-4,
+    "divergenceBits" : 5.600462779493752E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java",
@@ -2780,7 +2780,7 @@
     "word" : "extract",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 5.602216175009734E-4,
+    "divergenceBits" : 5.594557496430333E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java",
@@ -2791,7 +2791,7 @@
     "word" : "placement",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 5.560544614440039E-4,
+    "divergenceBits" : 5.553748212395799E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -2802,7 +2802,7 @@
     "word" : "shared",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 5.537583782502189E-4,
+    "divergenceBits" : 5.528221538487815E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ParsedRepository.java",
@@ -2813,7 +2813,7 @@
     "word" : "claim",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 5.464916045452635E-4,
+    "divergenceBits" : 5.457320321443161E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ChosenWord.java",
@@ -2824,7 +2824,7 @@
     "word" : "chosen",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 5.459543700486511E-4,
+    "divergenceBits" : 5.452350466183127E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java",
@@ -2835,7 +2835,7 @@
     "word" : "merged",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 5.213602580822324E-4,
+    "divergenceBits" : 5.207376023571849E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/PullRequestFacts.java",
@@ -2846,7 +2846,7 @@
     "word" : "phrases",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 5.184975818200057E-4,
+    "divergenceBits" : 5.178757549126856E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/Vocabulary.java",
@@ -2857,7 +2857,7 @@
     "word" : "domain",
     "occurrences" : 16,
     "occurrencesInNames" : 16,
-    "divergenceBits" : 5.1785165242784E-4,
+    "divergenceBits" : 5.17002497107389E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -2868,7 +2868,7 @@
     "word" : "revision",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 5.139569060838763E-4,
+    "divergenceBits" : 5.133364287887915E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java",
@@ -2879,7 +2879,7 @@
     "word" : "commonest",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 5.062436719541006E-4,
+    "divergenceBits" : 5.056747949207777E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/WordSpecificity.java",
@@ -2890,7 +2890,7 @@
     "word" : "wiktionary",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 5.062436719541006E-4,
+    "divergenceBits" : 5.056747949207777E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -2901,7 +2901,7 @@
     "word" : "piece",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 5.032543362896167E-4,
+    "divergenceBits" : 5.025537543565018E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
@@ -2912,7 +2912,7 @@
     "word" : "longest",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 5.015254402087663E-4,
+    "divergenceBits" : 5.009088678584249E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermIndex.java",
@@ -2923,7 +2923,7 @@
     "word" : "ranks",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 4.963269309716512E-4,
+    "divergenceBits" : 4.957120791761623E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -2934,7 +2934,7 @@
     "word" : "pinned",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 4.949562724961141E-4,
+    "divergenceBits" : 4.943418827152764E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/CsoTopicsExtraction.java",
@@ -2945,7 +2945,7 @@
     "word" : "function",
     "occurrences" : 16,
     "occurrencesInNames" : 16,
-    "divergenceBits" : 4.937852858361298E-4,
+    "divergenceBits" : 4.929520323807279E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -2956,7 +2956,7 @@
     "word" : "sha",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 4.879796828359126E-4,
+    "divergenceBits" : 4.8741437176917597E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/PullRequestFacts.java",
@@ -2964,21 +2964,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "first",
-    "occurrences" : 38,
-    "occurrencesInNames" : 38,
-    "divergenceBits" : 4.678087255971223E-4,
-    "closestReference" : "the platform's own API",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/SourceAnchor.java",
-      "line" : 30
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "noun",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 4.67588736268062E-4,
+    "divergenceBits" : 4.6702881782844784E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -2986,10 +2975,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "first",
+    "occurrences" : 38,
+    "occurrencesInNames" : 38,
+    "divergenceBits" : 4.6649307983184253E-4,
+    "closestReference" : "the platform's own API",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/SourceAnchor.java",
+      "line" : 30
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "dictionary",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 4.662384917877246E-4,
+    "divergenceBits" : 4.6563455697678905E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordSegmenter.java",
@@ -3000,7 +3000,7 @@
     "word" : "draw",
     "occurrences" : 20,
     "occurrencesInNames" : 20,
-    "divergenceBits" : 4.659628818709283E-4,
+    "divergenceBits" : 4.6503697604026873E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java",
@@ -3011,7 +3011,7 @@
     "word" : "runs",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 4.5201469354706606E-4,
+    "divergenceBits" : 4.5137692586990594E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/IdentifierReading.java",
@@ -3022,7 +3022,7 @@
     "word" : "repositories",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 4.4999437507031167E-4,
+    "divergenceBits" : 4.494887065962468E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "reference-corpus-extraction/src/main/java/io/github/fiftieshousewife/codesemantics/corpus/CorpusPlateau.java",
@@ -3033,7 +3033,7 @@
     "word" : "refused",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 4.4253902362496325E-4,
+    "divergenceBits" : 4.419447950216746E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/CorroboratedReading.java",
@@ -3044,7 +3044,7 @@
     "word" : "sources",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 4.42204632890704E-4,
+    "divergenceBits" : 4.4157168688532133E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedWitness.java",
@@ -3055,7 +3055,7 @@
     "word" : "suffix",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 4.365312288949066E-4,
+    "divergenceBits" : 4.358651972726817E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordMorphology.java",
@@ -3066,7 +3066,7 @@
     "word" : "dominant",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 4.3625522773596336E-4,
+    "divergenceBits" : 4.357054771472383E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FileTopics.java",
@@ -3074,10 +3074,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "counted",
+    "occurrences" : 9,
+    "occurrencesInNames" : 9,
+    "divergenceBits" : 4.300769457996842E-4,
+    "closestReference" : "the platform's own API",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ImportTally.java",
+      "line" : 19
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "commit",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 4.1550026328719756E-4,
+    "divergenceBits" : 4.1478258158316036E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -3088,7 +3099,7 @@
     "word" : "left",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 4.103746253589435E-4,
+    "divergenceBits" : 4.095491268118453E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/pipeline/ShareDivergence.java",
@@ -3099,7 +3110,7 @@
     "word" : "header",
     "occurrences" : 22,
     "occurrencesInNames" : 22,
-    "divergenceBits" : 3.9759345649131216E-4,
+    "divergenceBits" : 3.9668358982015116E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -3110,7 +3121,7 @@
     "word" : "arxiv",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.9374507818652266E-4,
+    "divergenceBits" : 3.9330261827171594E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PlacedField.java",
@@ -3121,7 +3132,7 @@
     "word" : "legibility",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.9374507818652266E-4,
+    "divergenceBits" : 3.9330261827171594E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/LegibilityReading.java",
@@ -3132,7 +3143,7 @@
     "word" : "seeded",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.9374507818652266E-4,
+    "divergenceBits" : 3.9330261827171594E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PermutationNull.java",
@@ -3143,7 +3154,7 @@
     "word" : "taxonomies",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.9374507818652266E-4,
+    "divergenceBits" : 3.9330261827171594E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -3154,7 +3165,7 @@
     "word" : "under",
     "occurrences" : 23,
     "occurrencesInNames" : 23,
-    "divergenceBits" : 3.886386377481448E-4,
+    "divergenceBits" : 3.877160748884534E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomy.java",
@@ -3165,7 +3176,7 @@
     "word" : "record",
     "occurrences" : 16,
     "occurrencesInNames" : 16,
-    "divergenceBits" : 3.875198507578638E-4,
+    "divergenceBits" : 3.8676660381117E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
@@ -3176,7 +3187,7 @@
     "word" : "nothing",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 3.864906520143995E-4,
+    "divergenceBits" : 3.8588803666592017E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/WrittenByDepth.java",
@@ -3187,7 +3198,7 @@
     "word" : "references",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 3.8486966802372046E-4,
+    "divergenceBits" : 3.843030741220266E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/summary/WalkthroughProse.java",
@@ -3198,7 +3209,7 @@
     "word" : "odds",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.8348897356668525E-4,
+    "divergenceBits" : 3.8300185899580385E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/PooledLogOdds.java",
@@ -3206,21 +3217,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "counted",
-    "occurrences" : 8,
-    "occurrencesInNames" : 8,
-    "divergenceBits" : 3.7659101902075314E-4,
-    "closestReference" : "the platform's own API",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ImportTally.java",
-      "line" : 19
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "quotations",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.7334740203577273E-4,
+    "divergenceBits" : 3.7290925000419854E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedWitness.java",
@@ -3231,7 +3231,7 @@
     "word" : "themes",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.730006879587296E-4,
+    "divergenceBits" : 3.7251753625871023E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -3242,7 +3242,7 @@
     "word" : "ontology",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.719340083489875E-4,
+    "divergenceBits" : 3.71496226082238E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboConcepts.java",
@@ -3253,7 +3253,7 @@
     "word" : "owl",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.6995266270903294E-4,
+    "divergenceBits" : 3.69515410202643E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboConcepts.java",
@@ -3264,7 +3264,7 @@
     "word" : "signals",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.69067396263581E-4,
+    "divergenceBits" : 3.685857921450293E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -3275,7 +3275,7 @@
     "word" : "specificity",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.631993617123766E-4,
+    "divergenceBits" : 3.627640095282647E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomy.java",
@@ -3286,7 +3286,7 @@
     "word" : "votes",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.608011380057345E-4,
+    "divergenceBits" : 3.6032289438523194E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/pipeline/AxisEvidenceAccumulator.java",
@@ -3297,7 +3297,7 @@
     "word" : "declarations",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.5176634922219174E-4,
+    "divergenceBits" : 3.513345214433722E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/EnclosingDeclarations.java",
@@ -3308,7 +3308,7 @@
     "word" : "chain",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 3.470118514507179E-4,
+    "divergenceBits" : 3.465015842652551E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ImportTally.java",
@@ -3319,7 +3319,7 @@
     "word" : "entries",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 3.4627963775138594E-4,
+    "divergenceBits" : 3.457022187010018E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/DocumentationScope.java",
@@ -3330,7 +3330,7 @@
     "word" : "parsed",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.4358854845302115E-4,
+    "divergenceBits" : 3.431177694725425E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavadocProse.java",
@@ -3341,7 +3341,7 @@
     "word" : "columns",
     "occurrences" : 12,
     "occurrencesInNames" : 12,
-    "divergenceBits" : 3.424234878383729E-4,
+    "divergenceBits" : 3.418181406963462E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/DrawnVocabulary.java",
@@ -3352,7 +3352,7 @@
     "word" : "normalisation",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.374957813027337E-4,
+    "divergenceBits" : 3.371165299471851E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedTaxonomies.java",
@@ -3363,7 +3363,7 @@
     "word" : "pom",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.374957813027337E-4,
+    "divergenceBits" : 3.371165299471851E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/PomSource.java",
@@ -3374,7 +3374,7 @@
     "word" : "unplaced",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.374957813027337E-4,
+    "divergenceBits" : 3.371165299471851E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/summary/ReadingSummary.java",
@@ -3385,7 +3385,7 @@
     "word" : "witnesses",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.3705816583512883E-4,
+    "divergenceBits" : 3.366313919355844E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -3396,7 +3396,7 @@
     "word" : "apart",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.3560546152835915E-4,
+    "divergenceBits" : 3.351383587858003E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -3407,7 +3407,7 @@
     "word" : "net",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 3.2309916419403606E-4,
+    "divergenceBits" : 3.2260209989403853E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/Weights.java",
@@ -3418,7 +3418,7 @@
     "word" : "unread",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.228490803642023E-4,
+    "divergenceBits" : 3.2242771052933916E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/LegibilityTally.java",
@@ -3429,7 +3429,7 @@
     "word" : "pooling",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.205171054172972E-4,
+    "divergenceBits" : 3.2014141616603856E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/WrittenWords.java",
@@ -3440,7 +3440,7 @@
     "word" : "comment",
     "occurrences" : 18,
     "occurrencesInNames" : 18,
-    "divergenceBits" : 3.1822172541528084E-4,
+    "divergenceBits" : 3.174846865037645E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -3451,7 +3451,7 @@
     "word" : "abbreviation",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.146109995961484E-4,
+    "divergenceBits" : 3.142368977540884E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -3462,7 +3462,7 @@
     "word" : "spans",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.1440204714632463E-4,
+    "divergenceBits" : 3.139841255619514E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTerms.java",
@@ -3473,7 +3473,7 @@
     "word" : "drawing",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 3.079158101136863E-4,
+    "divergenceBits" : 3.075006543190522E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PermutationNull.java",
@@ -3484,7 +3484,7 @@
     "word" : "joined",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 3.0376853421503814E-4,
+    "divergenceBits" : 3.033174629987924E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/PooledConcepts.java",
@@ -3495,7 +3495,7 @@
     "word" : "freeze",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 3.0345695050649655E-4,
+    "divergenceBits" : 3.030861884900014E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon/src/main/java/io/github/fiftieshousewife/bi/lexicon/WikidataInitialisms.java",
@@ -3506,7 +3506,7 @@
     "word" : "defaults",
     "occurrences" : 22,
     "occurrencesInNames" : 22,
-    "divergenceBits" : 3.0102100207763456E-4,
+    "divergenceBits" : 3.002205853405763E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WordRanks.java",
@@ -3517,7 +3517,7 @@
     "word" : "vote",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.9878843088474696E-4,
+    "divergenceBits" : 2.983400699483359E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptVote.java",
@@ -3528,7 +3528,7 @@
     "word" : "coverage",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.955542862274143E-4,
+    "divergenceBits" : 2.951446848055084E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
@@ -3539,7 +3539,7 @@
     "word" : "blob",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 2.939918566161853E-4,
+    "divergenceBits" : 2.9345186081277937E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/BlobOrigin.java",
@@ -3550,7 +3550,7 @@
     "word" : "reached",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.932366327261423E-4,
+    "divergenceBits" : 2.927913595480318E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FurthestWritten.java",
@@ -3561,7 +3561,7 @@
     "word" : "evidence",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 2.9186882218699116E-4,
+    "divergenceBits" : 2.9135967172379067E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptEvidence.java",
@@ -3572,7 +3572,7 @@
     "word" : "canonical",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 2.9129155449066004E-4,
+    "divergenceBits" : 2.908139046229062E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/AbbreviationSenses.java",
@@ -3583,7 +3583,7 @@
     "word" : "parts",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 2.899330604972199E-4,
+    "divergenceBits" : 2.894252946301929E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptEvidence.java",
@@ -3594,7 +3594,7 @@
     "word" : "form",
     "occurrences" : 14,
     "occurrencesInNames" : 14,
-    "divergenceBits" : 2.859333700352626E-4,
+    "divergenceBits" : 2.8532167567279045E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
@@ -3605,7 +3605,7 @@
     "word" : "items",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.8188757317671977E-4,
+    "divergenceBits" : 2.8144883348357177E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ValueBatches.java",
@@ -3616,7 +3616,7 @@
     "word" : "bian",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/BianConcepts.java",
@@ -3627,7 +3627,7 @@
     "word" : "cso",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTaxonomies.java",
@@ -3638,7 +3638,7 @@
     "word" : "csv",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/CsoConcepts.java",
@@ -3649,7 +3649,7 @@
     "word" : "fibo",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboConcepts.java",
@@ -3660,7 +3660,7 @@
     "word" : "olia",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTaxonomies.java",
@@ -3671,7 +3671,7 @@
     "word" : "ontologies",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboManifest.java",
@@ -3682,7 +3682,7 @@
     "word" : "permalink",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/SourceAnchor.java",
@@ -3693,7 +3693,7 @@
     "word" : "translingual",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.8124648441894476E-4,
+    "divergenceBits" : 2.809304416226542E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/WiktionaryDump.java",
@@ -3704,7 +3704,7 @@
     "word" : "pairs",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.8006112368505673E-4,
+    "divergenceBits" : 2.79698639153573E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "reference-corpus-extraction/src/main/java/io/github/fiftieshousewife/codesemantics/corpus/NearDuplicates.java",
@@ -3715,7 +3715,7 @@
     "word" : "json",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.7797533231295755E-4,
+    "divergenceBits" : 2.776136640055688E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/PublishedFormat.java",
@@ -3726,7 +3726,7 @@
     "word" : "reach",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.7763735026513586E-4,
+    "divergenceBits" : 2.772011353113074E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/Descendants.java",
@@ -3737,7 +3737,7 @@
     "word" : "args",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 2.721425783765453E-4,
+    "divergenceBits" : 2.7156832233375807E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/ArxivTaxonomyExtraction.java",
@@ -3748,7 +3748,7 @@
     "word" : "labelled",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.713037086041291E-4,
+    "divergenceBits" : 2.709060942726834E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/JavaSource.java",
@@ -3759,7 +3759,7 @@
     "word" : "keeps",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.707190933189761E-4,
+    "divergenceBits" : 2.703603615115791E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/WordPipeline.java",
@@ -3770,7 +3770,7 @@
     "word" : "origin",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 2.6774603615822146E-4,
+    "divergenceBits" : 2.672842213764546E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/repository/BlobOrigin.java",
@@ -3781,7 +3781,7 @@
     "word" : "leading",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 2.623852948617395E-4,
+    "divergenceBits" : 2.6192727109015425E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
@@ -3792,7 +3792,7 @@
     "word" : "lexicon",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.615449041231839E-4,
+    "divergenceBits" : 2.612333301207642E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSourceType.java",
@@ -3803,7 +3803,7 @@
     "word" : "ordinary",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.602909821989618E-4,
+    "divergenceBits" : 2.599367325871532E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/PhraseSpecificity.java",
@@ -3814,7 +3814,7 @@
     "word" : "archive",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.590355915208879E-4,
+    "divergenceBits" : 2.586446052048208E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -3825,7 +3825,7 @@
     "word" : "compound",
     "occurrences" : 10,
     "occurrencesInNames" : 10,
-    "divergenceBits" : 2.584023626845736E-4,
+    "divergenceBits" : 2.579183881556894E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
@@ -3836,7 +3836,7 @@
     "word" : "tally",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.551915236856039E-4,
+    "divergenceBits" : 2.548818308521568E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingChanges.java",
@@ -3847,7 +3847,7 @@
     "word" : "run",
     "occurrences" : 29,
     "occurrencesInNames" : 29,
-    "divergenceBits" : 2.550606920005621E-4,
+    "divergenceBits" : 2.542053290295409E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/DeclarationWords.java",
@@ -3858,7 +3858,7 @@
     "word" : "agreeing",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.5252617039946856E-4,
+    "divergenceBits" : 2.522173150709671E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PhraseTopics.java",
@@ -3869,7 +3869,7 @@
     "word" : "query",
     "occurrences" : 13,
     "occurrencesInNames" : 13,
-    "divergenceBits" : 2.5120798846607433E-4,
+    "divergenceBits" : 2.506538637487748E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/QleverWikidata.java",
@@ -3880,7 +3880,7 @@
     "word" : "residual",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.5036362422847433E-4,
+    "divergenceBits" : 2.5005546849806294E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
@@ -3891,7 +3891,7 @@
     "word" : "statements",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.468108492143416E-4,
+    "divergenceBits" : 2.464628515133725E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FunctionPlacement.java",
@@ -3902,7 +3902,7 @@
     "word" : "field",
     "occurrences" : 30,
     "occurrencesInNames" : 30,
-    "divergenceBits" : 2.4509507855346644E-4,
+    "divergenceBits" : 2.442411233769847E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolKind.java",
@@ -3913,7 +3913,7 @@
     "word" : "held",
     "occurrences" : 11,
     "occurrencesInNames" : 11,
-    "divergenceBits" : 2.4126258395067388E-4,
+    "divergenceBits" : 2.4076658300491735E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedReading.java",
@@ -3924,7 +3924,7 @@
     "word" : "specification",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.3998395333409063E-4,
+    "divergenceBits" : 2.3963932057397203E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/FixtureNameSource.java",
@@ -3935,7 +3935,7 @@
     "word" : "letter",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.3993922391231273E-4,
+    "divergenceBits" : 2.3955934149330404E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/PieceCost.java",
@@ -3946,7 +3946,7 @@
     "word" : "specifications",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.3882271879168145E-4,
+    "divergenceBits" : 2.385185877890765E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/BianConcepts.java",
@@ -3957,7 +3957,7 @@
     "word" : "definition",
     "occurrences" : 9,
     "occurrencesInNames" : 9,
-    "divergenceBits" : 2.3838343821985968E-4,
+    "divergenceBits" : 2.3794329149181518E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TaxonomyTree.java",
@@ -3968,7 +3968,7 @@
     "word" : "described",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.374481843740813E-4,
+    "divergenceBits" : 2.3703806687836983E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ConceptTopics.java",
@@ -3979,7 +3979,7 @@
     "word" : "offered",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.3554730625722386E-4,
+    "divergenceBits" : 2.351701179746067E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/StatedSiblings.java",
@@ -3990,7 +3990,7 @@
     "word" : "identifiers",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.3345595890023963E-4,
+    "divergenceBits" : 2.3311467051298192E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/symbol/SymbolContext.java",
@@ -4001,7 +4001,7 @@
     "word" : "scheme",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.3114811694412786E-4,
+    "divergenceBits" : 2.3074247792060447E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -4012,7 +4012,7 @@
     "word" : "pieces",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.2738163899183373E-4,
+    "divergenceBits" : 2.2704357543046008E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/CompoundParses.java",
@@ -4023,7 +4023,7 @@
     "word" : "intensity",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.270042605903861E-4,
+    "divergenceBits" : 2.2670473767248797E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/QualifiedTopics.java",
@@ -4034,7 +4034,7 @@
     "word" : "quantity",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.2510077171628408E-4,
+    "divergenceBits" : 2.2480203584438008E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/AbbreviationSense.java",
@@ -4045,7 +4045,7 @@
     "word" : "csf",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/CsfConcepts.java",
@@ -4056,7 +4056,7 @@
     "word" : "headword",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/HeadwordTopics.java",
@@ -4067,7 +4067,7 @@
     "word" : "normal_form",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/NormalisedTerms.java",
@@ -4078,7 +4078,7 @@
     "word" : "refusals",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportFile.java",
@@ -4089,7 +4089,7 @@
     "word" : "skos",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/FiboConcepts.java",
@@ -4100,7 +4100,7 @@
     "word" : "tallied",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/RecordedSpans.java",
@@ -4111,7 +4111,7 @@
     "word" : "unreadable",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.2499718753515584E-4,
+    "divergenceBits" : 2.247443532981234E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ParseOutcome.java",
@@ -4122,7 +4122,7 @@
     "word" : "carries",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.2469810928205542E-4,
+    "divergenceBits" : 2.2439954148477864E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WholeWords.java",
@@ -4133,7 +4133,7 @@
     "word" : "none",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.211858930246763E-4,
+    "divergenceBits" : 2.208512326743012E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/concept/ConceptEvidence.java",
@@ -4144,7 +4144,7 @@
     "word" : "median",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.1951089808079876E-4,
+    "divergenceBits" : 2.1921454483739467E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FieldOfStudy.java",
@@ -4155,7 +4155,7 @@
     "word" : "qualified",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.1856126531543063E-4,
+    "divergenceBits" : 2.1816491437603175E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/IdentifierWords.java",
@@ -4163,21 +4163,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "second",
-    "occurrences" : 16,
-    "occurrencesInNames" : 16,
-    "divergenceBits" : 2.168469237131737E-4,
-    "closestReference" : "ordinary English",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/RankCorrelation.java",
-      "line" : 29
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "endpoint",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.1664257674420954E-4,
+    "divergenceBits" : 2.1634748737637418E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/QleverWikidata.java",
@@ -4185,10 +4174,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "second",
+    "occurrences" : 16,
+    "occurrencesInNames" : 16,
+    "divergenceBits" : 2.162673911462281E-4,
+    "closestReference" : "ordinary English",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/RankCorrelation.java",
+      "line" : 29
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "witness",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.14897252593566E-4,
+    "divergenceBits" : 2.1460294598026723E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedWitness.java",
@@ -4199,7 +4199,7 @@
     "word" : "functions",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.1218479232832597E-4,
+    "divergenceBits" : 2.1185528550127995E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/CsfConcepts.java",
@@ -4210,7 +4210,7 @@
     "word" : "clause",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 2.098212081540991E-4,
+    "divergenceBits" : 2.0949309650941195E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -4221,7 +4221,7 @@
     "word" : "whole",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 2.093268830672024E-4,
+    "divergenceBits" : 2.0893764800827938E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/WholeWords.java",
@@ -4232,7 +4232,7 @@
     "word" : "imports",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 2.092207068533344E-4,
+    "divergenceBits" : 2.0892901798349068E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ParsedRepository.java",
@@ -4243,7 +4243,7 @@
     "word" : "registry",
     "occurrences" : 7,
     "occurrencesInNames" : 7,
-    "divergenceBits" : 2.0775013164359878E-4,
+    "divergenceBits" : 2.0739129079158018E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/ProvidedServices.java",
@@ -4254,7 +4254,7 @@
     "word" : "restated",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.0744538719371798E-4,
+    "divergenceBits" : 2.071966428759309E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/NameForm.java",
@@ -4265,7 +4265,7 @@
     "word" : "checkout",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.0555595520337715E-4,
+    "divergenceBits" : 2.053077723793075E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/BianServiceDomainsExtraction.java",
@@ -4273,21 +4273,10 @@
     }
   }, {
     "readFrom" : "CLONE",
-    "word" : "parents",
-    "occurrences" : 7,
-    "occurrencesInNames" : 7,
-    "divergenceBits" : 2.0511067048716405E-4,
-    "closestReference" : "ordinary English",
-    "firstWrittenAt" : {
-      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/PooledConcepts.java",
-      "line" : 79
-    }
-  }, {
-    "readFrom" : "CLONE",
     "word" : "bundled",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.0510984324048233E-4,
+    "divergenceBits" : 2.048617956434631E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/BundledCitations.java",
@@ -4295,10 +4284,21 @@
     }
   }, {
     "readFrom" : "CLONE",
+    "word" : "parents",
+    "occurrences" : 7,
+    "occurrencesInNames" : 7,
+    "divergenceBits" : 2.0475369394188227E-4,
+    "closestReference" : "ordinary English",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/PooledConcepts.java",
+      "line" : 79
+    }
+  }, {
+    "readFrom" : "CLONE",
     "word" : "glued",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.0477481076767645E-4,
+    "divergenceBits" : 2.0452686538333814E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/IdentifierReading.java",
@@ -4309,7 +4309,7 @@
     "word" : "shortest",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 2.0018557918185647E-4,
+    "divergenceBits" : 1.999390891267849E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/Thresholds.java",
@@ -4320,7 +4320,7 @@
     "word" : "crossings",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 1.991524137400793E-4,
+    "divergenceBits" : 1.9890626516364153E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingChanges.java",
@@ -4331,7 +4331,7 @@
     "word" : "describes",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 1.9813250871532172E-4,
+    "divergenceBits" : 1.9784625296649031E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ConceptTopics.java",
@@ -4342,7 +4342,7 @@
     "word" : "claims",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 1.975859504163671E-4,
+    "divergenceBits" : 1.972653482167759E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/PropertyAccessors.java",
@@ -4353,7 +4353,7 @@
     "word" : "measured",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 1.971047684915558E-4,
+    "divergenceBits" : 1.968190379852633E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedThemes.java",
@@ -4364,7 +4364,7 @@
     "word" : "weighted",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 1.9511558183570997E-4,
+    "divergenceBits" : 1.9487081466889995E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/summary/WalkthroughProse.java",
@@ -4375,7 +4375,7 @@
     "word" : "removes",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 1.949081576955625E-4,
+    "divergenceBits" : 1.9466346350864583E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/WordStage.java",
@@ -4386,7 +4386,7 @@
     "word" : "stands",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 1.9401648364806673E-4,
+    "divergenceBits" : 1.9373235383657143E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
@@ -4397,7 +4397,7 @@
     "word" : "found",
     "occurrences" : 15,
     "occurrencesInNames" : 15,
-    "divergenceBits" : 1.9241483673402822E-4,
+    "divergenceBits" : 1.9188535297478735E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/ParsedRepository.java",
@@ -4408,7 +4408,7 @@
     "word" : "runner",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 1.9110258788476714E-4,
+    "divergenceBits" : 1.9085926668120979E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/summary/ReadingSummary.java",
@@ -4419,7 +4419,7 @@
     "word" : "folder",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 1.893157949563067E-4,
+    "divergenceBits" : 1.890005501699887E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/PublishedFormat.java",
@@ -4430,7 +4430,7 @@
     "word" : "places",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 1.8926166846292849E-4,
+    "divergenceBits" : 1.889464595113861E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ClassFileMethods.java",
@@ -4441,7 +4441,7 @@
     "word" : "reads",
     "occurrences" : 6,
     "occurrencesInNames" : 6,
-    "divergenceBits" : 1.8458612608340623E-4,
+    "divergenceBits" : 1.8427405128292718E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/name/PieceCost.java",
@@ -4452,7 +4452,7 @@
     "word" : "name",
     "occurrences" : 110,
     "occurrencesInNames" : 110,
-    "divergenceBits" : 1.830572806119288E-4,
+    "divergenceBits" : 1.8162726067413133E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -4463,7 +4463,7 @@
     "word" : "language",
     "occurrences" : 8,
     "occurrencesInNames" : 8,
-    "divergenceBits" : 1.761781595578197E-4,
+    "divergenceBits" : 1.7581678761331018E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-api/src/main/java/io/github/fiftieshousewife/codesemantics/model/EvidenceSource.java",
@@ -4474,7 +4474,7 @@
     "word" : "adjacent",
     "occurrences" : 4,
     "occurrencesInNames" : 4,
-    "divergenceBits" : 1.7183107532037163E-4,
+    "divergenceBits" : 1.7159566919942314E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/FurthestWritten.java",
@@ -4485,7 +4485,7 @@
     "word" : "distribution",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 1.660018489267589E-4,
+    "divergenceBits" : 1.6573383036324775E-4,
     "closestReference" : "the platform's own API",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/TaxonomyShape.java",
@@ -4496,22 +4496,33 @@
     "word" : "records",
     "occurrences" : 5,
     "occurrencesInNames" : 5,
-    "divergenceBits" : 1.5086304719476274E-4,
+    "divergenceBits" : 1.5060501135847427E-4,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "lexicon-extraction/src/main/java/io/github/fiftieshousewife/bi/lexicon/extraction/OpenAlexConcepts.java",
       "line" : 35
     }
+  }, {
+    "readFrom" : "CLONE",
+    "word" : "carrying",
+    "occurrences" : 4,
+    "occurrencesInNames" : 4,
+    "divergenceBits" : 1.4917003497416794E-4,
+    "closestReference" : "ordinary English",
+    "firstWrittenAt" : {
+      "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/export/ExportedPlacement.java",
+      "line" : 79
+    }
   } ],
   "themes" : [ {
     "topic" : "computing",
     "scope" : "repository-clones/src/main/java",
-    "shareOfRepository" : 0.008872342701033214,
-    "divergenceBits" : 0.07428233658637415,
+    "shareOfRepository" : 0.008872223419652341,
+    "divergenceBits" : 0.07428046194029511,
     "carriedBy" : [ {
       "word" : "repository",
-      "occurrences" : 719,
-      "mass" : 14.208133711161338,
+      "occurrences" : 720,
+      "mass" : 14.208268861935474,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -4541,7 +4552,7 @@
     }, {
       "word" : "git",
       "occurrences" : 48,
-      "mass" : 10.914096317430923,
+      "mass" : 10.914096034917659,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "git attributes generated",
@@ -4631,7 +4642,7 @@
     }, {
       "word" : "byte",
       "occurrences" : 52,
-      "mass" : 5.387554858452148,
+      "mass" : 5.38755485845215,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a corpus of sample documents states its domain in the names its curator gave the files without a byte of a document being opened and the contents are somebody else's words so the name is all this reader takes",
@@ -4660,8 +4671,8 @@
       } ]
     }, {
       "word" : "directory",
-      "occurrences" : 143,
-      "mass" : 5.158440748925007,
+      "occurrences" : 145,
+      "mass" : 5.3231255855742665,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a directory in one validated document out",
@@ -4721,7 +4732,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1101,
-      "mass" : 3.787762101518677,
+      "mass" : 3.787923240204809,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -4752,8 +4763,8 @@
   }, {
     "topic" : "grammar",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.0050895977995703895,
-    "divergenceBits" : 0.007349470014474807,
+    "shareOfRepository" : 0.005089816855135135,
+    "divergenceBits" : 0.007348706102157066,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 197,
@@ -4847,7 +4858,7 @@
     }, {
       "word" : "verb",
       "occurrences" : 93,
-      "mass" : 9.145474405567208,
+      "mass" : 9.14547440556721,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -4966,8 +4977,8 @@
       } ]
     }, {
       "word" : "state",
-      "occurrences" : 849,
-      "mass" : 1.366176082233388,
+      "occurrences" : 853,
+      "mass" : 1.372476179447294,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "word net's most frequent sense for a lemma the stated no disambiguation baseline",
@@ -4998,8 +5009,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.02307351193425368,
-    "divergenceBits" : 0.004620588254093259,
+    "shareOfRepository" : 0.023055397540446217,
+    "divergenceBits" : 0.004628805290549952,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 1998,
@@ -5033,7 +5044,7 @@
     }, {
       "word" : "name",
       "occurrences" : 998,
-      "mass" : 73.46846678837724,
+      "mass" : 73.46623043390213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -5063,7 +5074,7 @@
     }, {
       "word" : "term",
       "occurrences" : 434,
-      "mass" : 59.30609988522989,
+      "mass" : 59.30609988522988,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -5093,7 +5104,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 296,
-      "mass" : 22.306302888555788,
+      "mass" : 22.306302888555795,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "reading",
@@ -5244,8 +5255,8 @@
   }, {
     "topic" : "grammar",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.0050895977995703895,
-    "divergenceBits" : 0.0014486256078989034,
+    "shareOfRepository" : 0.005089816855135135,
+    "divergenceBits" : 0.0014482785493445394,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 197,
@@ -5339,7 +5350,7 @@
     }, {
       "word" : "verb",
       "occurrences" : 93,
-      "mass" : 9.145474405567208,
+      "mass" : 9.14547440556721,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -5458,8 +5469,8 @@
       } ]
     }, {
       "word" : "state",
-      "occurrences" : 849,
-      "mass" : 1.366176082233388,
+      "occurrences" : 853,
+      "mass" : 1.372476179447294,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "word net's most frequent sense for a lemma the stated no disambiguation baseline",
@@ -5490,8 +5501,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.02307351193425368,
-    "divergenceBits" : 0.001218367809080979,
+    "shareOfRepository" : 0.023055397540446217,
+    "divergenceBits" : 0.001222604078860226,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 1998,
@@ -5525,7 +5536,7 @@
     }, {
       "word" : "name",
       "occurrences" : 998,
-      "mass" : 73.46846678837724,
+      "mass" : 73.46623043390213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -5555,7 +5566,7 @@
     }, {
       "word" : "term",
       "occurrences" : 434,
-      "mass" : 59.30609988522989,
+      "mass" : 59.30609988522988,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -5585,7 +5596,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 296,
-      "mass" : 22.306302888555788,
+      "mass" : 22.306302888555795,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "reading",
@@ -5736,12 +5747,12 @@
   }, {
     "topic" : "computing",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.008872342701033214,
-    "divergenceBits" : 8.854127641152879E-4,
+    "shareOfRepository" : 0.008872223419652341,
+    "divergenceBits" : 8.851840244392161E-4,
     "carriedBy" : [ {
       "word" : "repository",
-      "occurrences" : 719,
-      "mass" : 14.208133711161338,
+      "occurrences" : 720,
+      "mass" : 14.208268861935474,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -5771,7 +5782,7 @@
     }, {
       "word" : "git",
       "occurrences" : 48,
-      "mass" : 10.914096317430923,
+      "mass" : 10.914096034917659,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "git attributes generated",
@@ -5861,7 +5872,7 @@
     }, {
       "word" : "byte",
       "occurrences" : 52,
-      "mass" : 5.387554858452148,
+      "mass" : 5.38755485845215,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a corpus of sample documents states its domain in the names its curator gave the files without a byte of a document being opened and the contents are somebody else's words so the name is all this reader takes",
@@ -5890,8 +5901,8 @@
       } ]
     }, {
       "word" : "directory",
-      "occurrences" : 143,
-      "mass" : 5.158440748925007,
+      "occurrences" : 145,
+      "mass" : 5.3231255855742665,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a directory in one validated document out",
@@ -5951,7 +5962,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1101,
-      "mass" : 3.787762101518677,
+      "mass" : 3.787923240204809,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -7459,231 +7470,231 @@
     } ],
     "branches" : [ {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.43257240279153963,
+      "agreesWithTheRepository" : 0.45583701945833516,
       "mass" : 238.08655712175565,
-      "kept" : 102.989674086523,
+      "kept" : 108.52866657147776,
       "terms" : [ "source", "document", "citations", "origin", "sentence", "sources", "heading", "author", "sentences", "title", "origins", "documents", "abstracts", "headline", "authors" ]
     }, {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.3636344111473625,
+      "agreesWithTheRepository" : 0.3991559889200683,
       "mass" : 137.83229497497732,
-      "kept" : 50.12056542031545,
+      "kept" : 55.01658600585964,
       "terms" : [ "token", "text", "tokens", "script", "scripts", "string", "texts", "character" ]
     }, {
       "branch" : "Morpheme",
-      "agreesWithTheRepository" : 0.33117567605483866,
+      "agreesWithTheRepository" : 0.3250945170831445,
       "mass" : 113.24679036341782,
-      "kept" : 37.50458235964548,
+      "kept" : 36.815910624411416,
       "terms" : [ "root", "stem", "stems", "roots", "affix" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.4950000909011045,
+      "agreesWithTheRepository" : 0.4792586638694929,
       "mass" : 89.85709745466994,
-      "kept" : 44.47927140817102,
+      "kept" : 43.064792465315925,
       "terms" : [ "verb", "noun", "residual", "adjective", "verbs", "nouns", "punctuation" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.4564270203064709,
+      "agreesWithTheRepository" : 0.42868740087825097,
       "mass" : 88.08829836936629,
-      "kept" : 40.20587954859722,
+      "kept" : 37.7623436757515,
       "terms" : [ "phrase", "phrases", "clause", "fragment", "glob", "clauses" ]
     }, {
       "branch" : "PartWhole",
-      "agreesWithTheRepository" : 0.1942384509587599,
+      "agreesWithTheRepository" : 0.19423537712953887,
       "mass" : 77.42098148130722,
-      "kept" : 15.038131514635952,
+      "kept" : 15.037893535760753,
       "terms" : [ "placed", "places", "sets", "part of", "put", "puts", "lays", "settings" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.3671707578665017,
+      "agreesWithTheRepository" : 0.3823029326202951,
       "mass" : 47.15142255286763,
-      "kept" : 17.312623553220067,
+      "kept" : 18.026127119180014,
       "terms" : [ "symbol", "abbreviation", "abbreviations", "acronym", "foreign", "date", "symbols" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.26293744481876163,
+      "agreesWithTheRepository" : 0.23685861727764723,
       "mass" : 39.28850262435991,
-      "kept" : 10.330418490804405,
+      "kept" : 9.305820406515101,
       "terms" : [ "function", "functions", "object" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.25950309812488515,
+      "agreesWithTheRepository" : 0.2768059673141378,
       "mass" : 39.20955227353286,
-      "kept" : 10.175000291071411,
+      "kept" : 10.853438045029515,
       "terms" : [ "suffix", "prefix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "EntityType",
-      "agreesWithTheRepository" : 0.24974711219486387,
+      "agreesWithTheRepository" : 0.23378323514485125,
       "mass" : 31.308716600803297,
-      "kept" : 7.819261557578018,
+      "kept" : 7.319453055169105,
       "terms" : [ "times", "sum", "sums", "program", "timed", "plan" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.18771544367512424,
+      "agreesWithTheRepository" : 0.19119104887445404,
       "mass" : 30.746946662630354,
-      "kept" : 5.771676734431037,
+      "kept" : 5.878540982115191,
       "terms" : [ "mean", "means", "meaning", "meant", "supports" ]
     }, {
       "branch" : "Assessment",
-      "agreesWithTheRepository" : 0.2633891982763709,
+      "agreesWithTheRepository" : 0.2634347832890199,
       "mass" : 28.2731752283251,
-      "kept" : 7.446848956115899,
+      "kept" : 7.448137789166309,
       "terms" : [ "definition", "evaluation", "definitions" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.16181258464184026,
+      "agreesWithTheRepository" : 0.16179848768801627,
       "mass" : 24.489663496203192,
-      "kept" : 3.962735747329565,
+      "kept" : 3.962390517674094,
       "terms" : [ "evidence", "evidences", "evidenced" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.09992966550065008,
+      "agreesWithTheRepository" : 0.09990562461073005,
       "mass" : 23.723152846322794,
-      "kept" : 2.3706467285538317,
+      "kept" : 2.370076402847697,
       "terms" : [ "gives", "given", "give", "gave" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.07537361219404339,
+      "agreesWithTheRepository" : 0.06491733833220073,
       "mass" : 20.49204994917898,
-      "kept" : 1.544559825930383,
+      "kept" : 1.3302893396712085,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "CoherenceRelation",
-      "agreesWithTheRepository" : 0.20315660705268412,
+      "agreesWithTheRepository" : 0.2031201930594307,
       "mass" : 14.633994490192313,
-      "kept" : 2.972992668255144,
+      "kept" : 2.9724597860785074,
       "terms" : [ "expansion", "comparison", "expansions" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.3401835786741606,
+      "agreesWithTheRepository" : 0.3074395017801154,
       "mass" : 11.545832106637164,
-      "kept" : 3.927702484806853,
+      "kept" : 3.5496448705013903,
       "terms" : [ "head", "predicate", "heads" ]
     }, {
       "branch" : "Abbreviation",
-      "agreesWithTheRepository" : 0.27071468778302765,
+      "agreesWithTheRepository" : 0.3077417828461087,
       "mass" : 11.0,
-      "kept" : 2.977861565613304,
+      "kept" : 3.385159611307196,
       "terms" : [ "initialism", "initialisms" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.2227266433939503,
+      "agreesWithTheRepository" : 0.2333632926174423,
       "mass" : 9.364456917390022,
-      "kept" : 2.0857140564175385,
+      "kept" : 2.1853204998163194,
       "terms" : [ "initials", "simple", "initial" ]
     }, {
       "branch" : "InflectionTypeFeature",
-      "agreesWithTheRepository" : 0.3111096974896056,
+      "agreesWithTheRepository" : 0.34397740333130206,
       "mass" : 5.760611918350581,
-      "kept" : 1.792182231273066,
+      "kept" : 1.9815203292735835,
       "terms" : [ "inflected", "inflects", "base forms", "base form" ]
     }, {
       "branch" : "NumberFeature",
-      "agreesWithTheRepository" : 0.17177203322591256,
+      "agreesWithTheRepository" : 0.1649036197063915,
       "mass" : 5.588956753209668,
-      "kept" : 0.9600264651105194,
+      "kept" : 0.9216391989867556,
       "terms" : [ "plurals", "plural", "singular", "trials" ]
     }, {
       "branch" : "Condition",
-      "agreesWithTheRepository" : 0.3950906212013874,
+      "agreesWithTheRepository" : 0.39508903002800205,
       "mass" : 5.364140634175699,
-      "kept" : 2.119321655368081,
+      "kept" : 2.119313120090269,
       "terms" : [ "result" ]
     }, {
       "branch" : "Determiner",
-      "agreesWithTheRepository" : 0.29971744727030464,
+      "agreesWithTheRepository" : 0.3000811497314097,
       "mass" : 4.960758756232625,
-      "kept" : 1.4868259509418538,
+      "kept" : 1.4886301911104443,
       "terms" : [ "article" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.3447603083727802,
+      "agreesWithTheRepository" : 0.34241803291512857,
       "mass" : 3.719981735417856,
-      "kept" : 1.28250205024377,
+      "kept" : 1.2737888283219885,
       "terms" : [ "past", "perfect", "present" ]
     }, {
       "branch" : "TextualOrganizationalRelation",
-      "agreesWithTheRepository" : 0.25062967947859305,
+      "agreesWithTheRepository" : 0.28124605704811007,
       "mass" : 3.6770518908540857,
-      "kept" : 0.9215783368309141,
+      "kept" : 1.034156345864009,
       "terms" : [ "attribution", "extra" ]
     }, {
       "branch" : "DegreeFeature",
-      "agreesWithTheRepository" : 0.4114572917409483,
+      "agreesWithTheRepository" : 0.41191683659337186,
       "mass" : 3.368278811882048,
-      "kept" : 1.3859028777654065,
+      "kept" : 1.3874507529549343,
       "terms" : [ "positive", "superlatives", "comparatives" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.3317272230811943,
+      "agreesWithTheRepository" : 0.37322228700694615,
       "mass" : 3.3591601663941995,
-      "kept" : 1.1143248738829103,
+      "kept" : 1.2537134397242768,
       "terms" : [ "third", "seconds" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.3210455978104017,
+      "agreesWithTheRepository" : 0.3191894664801203,
       "mass" : 2.8401675957232095,
-      "kept" : 0.9118233036506891,
+      "kept" : 0.9065515795930172,
       "terms" : [ "prefers" ]
     }, {
       "branch" : "ProperNoun",
-      "agreesWithTheRepository" : 0.3437608311641994,
+      "agreesWithTheRepository" : 0.32541315959676614,
       "mass" : 2.473654802230941,
-      "kept" : 0.8503456308282217,
+      "kept" : 0.8049598249456842,
       "terms" : [ "surname", "family name", "first name" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.21883192012804883,
+      "agreesWithTheRepository" : 0.15927054160228474,
       "mass" : 1.9614432551680498,
-      "kept" : 0.4292263937506348,
+      "kept" : 0.3124001295727637,
       "terms" : [ "commas", "colon" ]
     }, {
       "branch" : "Noun",
-      "agreesWithTheRepository" : 0.30552563647761954,
+      "agreesWithTheRepository" : 0.27152419640389197,
       "mass" : 1.9460011801163422,
-      "kept" : 0.5945532491412442,
+      "kept" : 0.5283864066321152,
       "terms" : [ "proper noun", "common noun" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.3271280708481741,
+      "agreesWithTheRepository" : 0.3271660384210635,
       "mass" : 1.5563710786254865,
-      "kept" : 0.5091326684746472,
+      "kept" : 0.5091917601070179,
       "terms" : [ "exception", "alternative" ]
     }, {
       "branch" : "UsageAndFrequencyFeature",
-      "agreesWithTheRepository" : 0.2185971192347001,
+      "agreesWithTheRepository" : 0.1261860295472577,
       "mass" : 1.375740698664048,
-      "kept" : 0.3007329535418945,
+      "kept" : 0.17359925645098648,
       "terms" : [ "impossible", "possible" ]
     }, {
       "branch" : "Collocation",
-      "agreesWithTheRepository" : 0.2412379888619118,
+      "agreesWithTheRepository" : 0.2833009035246058,
       "mass" : 1.0,
-      "kept" : 0.2412379888619118,
+      "kept" : 0.2833009035246058,
       "terms" : [ "idiom" ]
     }, {
       "branch" : "Phrase",
-      "agreesWithTheRepository" : 0.29505579716086,
+      "agreesWithTheRepository" : 0.3408812303044932,
       "mass" : 0.9846282823908662,
-      "kept" : 0.2905202827679654,
+      "kept" : 0.3356413002939984,
       "terms" : [ "verb phrase" ]
     }, {
       "branch" : "LayoutElement",
-      "agreesWithTheRepository" : 0.2080518447697975,
+      "agreesWithTheRepository" : 0.11522171565600613,
       "mass" : 0.9662517571829544,
-      "kept" : 0.2010304605939721,
+      "kept" : 0.11133318521825065,
       "terms" : [ "list markers" ]
     }, {
       "branch" : "Given",
-      "agreesWithTheRepository" : 0.14036937091680496,
+      "agreesWithTheRepository" : 0.1403570841631226,
       "mass" : 0.7001974984209243,
-      "kept" : 0.09828628237086567,
+      "kept" : 0.09827767921667356,
       "terms" : [ "active" ]
     } ],
     "matchesByNormalisation" : {
-      "words" : 1057,
+      "senses" : 158,
       "lemmas" : 237,
-      "senses" : 158
+      "words" : 1057
     }
   }, {
     "vocabulary" : "CSO",
@@ -7710,7 +7721,7 @@
         "line" : 31
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 46,
       "specificity" : 0.5591297245181585,
@@ -7721,7 +7732,7 @@
         "line" : 9
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 46,
       "specificity" : 0.5591297245181585,
@@ -7809,7 +7820,7 @@
         "line" : 34
       }
     }, {
-      "concept" : "descriptor",
+      "concept" : "descriptors",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 8,
       "specificity" : 0.6963904680080683,
@@ -7820,7 +7831,7 @@
         "line" : 94
       }
     }, {
-      "concept" : "descriptors",
+      "concept" : "descriptor",
       "placedUnder" : "image retrieval | object recognition",
       "occurrences" : 8,
       "specificity" : 0.6963904680080683,
@@ -7853,7 +7864,7 @@
         "line" : 20
       }
     }, {
-      "concept" : "ontologies",
+      "concept" : "ontology",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -7864,7 +7875,7 @@
         "line" : 24
       }
     }, {
-      "concept" : "ontology",
+      "concept" : "ontologies",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -8185,14 +8196,14 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
-      "words" : 171,
+      "senses" : 57,
       "lemmas" : 71,
-      "senses" : 57
+      "words" : 171
     }
   } ],
   "setAside" : {
     "wordOccurrencesNoResourceCovers" : 2090,
-    "wordsBelowEveryThreshold" : 900,
+    "wordsBelowEveryThreshold" : 901,
     "wordsTheLanguageSupplies" : 9,
     "scopesWithinChance" : 4,
     "matchesDiscardedByBranchRule" : 69,
