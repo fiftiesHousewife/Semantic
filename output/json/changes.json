@@ -1,26 +1,26 @@
 {
-  "previousCommit" : "118fdb8490dfe10c0d8e81b21b0ba33082b75b23",
-  "commit" : "b7cc24d293e1edb27db2e86bbf38dcab33fc6475",
+  "previousCommit" : "b7cc24d293e1edb27db2e86bbf38dcab33fc6475",
+  "commit" : "2de2ac8c919cd98b9b216fb421f3c42966fca967",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.3%",
     "after" : "98.3%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.2%",
-    "after" : "84.0%"
+    "before" : "84.0%",
+    "after" : "84.1%"
   }, {
     "figure" : "arXiv archive — nearest subject",
     "before" : "Computer Science",
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.9%",
+    "before" : "33.2%",
     "after" : "33.2%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "39.8%",
-    "after" : "40.0%"
+    "before" : "40.0%",
+    "after" : "39.9%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -35,12 +35,12 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "41.8%",
+    "before" : "42.2%",
     "after" : "42.2%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
-    "after" : "45.4%"
+    "before" : "45.4%",
+    "after" : "45.2%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -55,12 +55,12 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "22.8%",
-    "after" : "22.9%"
+    "before" : "22.9%",
+    "after" : "22.8%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
     "before" : "31.2%",
-    "after" : "31.2%"
+    "after" : "31.1%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -75,12 +75,12 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "40.6%",
-    "after" : "40.7%"
+    "before" : "40.7%",
+    "after" : "40.9%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.3%",
-    "after" : "48.5%"
+    "before" : "48.5%",
+    "after" : "48.4%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -88,71 +88,67 @@
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
     "before" : "7",
-    "after" : "7"
+    "after" : "8"
   }, {
     "figure" : "Words above the bar",
-    "before" : "248",
-    "after" : "249"
+    "before" : "249",
+    "after" : "252"
   }, {
     "figure" : "Topics reported",
     "before" : "5",
-    "after" : "5"
+    "after" : "6"
   }, {
     "figure" : "Concepts written",
-    "before" : "176",
-    "after" : "178"
+    "before" : "178",
+    "after" : "179"
   } ],
   "crossings" : [ {
     "population" : "WORD",
-    "name" : "corpus",
+    "name" : "left",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "draw",
+    "name" : "measured",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "drawing",
+    "name" : "pairs",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "endpoint",
+    "name" : "pooling",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "git",
+    "name" : "refusals",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "query",
+    "name" : "repositories",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "fragment",
+    "name" : "whole",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "batch",
     "entered" : false
   }, {
     "population" : "WORD",
-    "name" : "links",
+    "name" : "contribution",
     "entered" : false
   }, {
     "population" : "WORD",
-    "name" : "load",
+    "name" : "descriptions",
     "entered" : false
   }, {
     "population" : "WORD",
-    "name" : "note",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "read",
+    "name" : "sentence",
     "entered" : false
   }, {
     "population" : "CONCEPT",
-    "name" : "back-off",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "backoff",
+    "name" : "java program",
     "entered" : true
   } ]
 }
