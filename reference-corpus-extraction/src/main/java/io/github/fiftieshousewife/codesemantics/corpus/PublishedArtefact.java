@@ -7,9 +7,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * Whether a repository's build states that it publishes an artefact.
@@ -44,7 +44,7 @@ public final class PublishedArtefact {
         if (content(repository, ref, "pom.xml").contains(MAVEN_COORDINATE)) {
             return Optional.of("pom.xml states a groupId");
         }
-        return List.of("build.gradle", "build.gradle.kts").stream()
+        return Stream.of("build.gradle", "build.gradle.kts")
                 .filter(build -> content(repository, ref, build).contains(GRADLE_PLUGIN))
                 .map(build -> build + " applies maven-publish")
                 .findFirst();

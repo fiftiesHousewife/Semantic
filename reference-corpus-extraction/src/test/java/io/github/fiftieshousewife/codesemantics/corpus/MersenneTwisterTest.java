@@ -34,12 +34,6 @@ class MersenneTwisterTest {
     }
 
     @Test
-    void reproducesTheRanksTheStarredManifestRecords() {
-        assertThat(ranks(28261L, 10))
-                .containsExactlyElementsOf(recorded(ReferenceCorpus.STARRED_DRAW));
-    }
-
-    @Test
     void drawsEveryRankTheseFramesRecordedWithoutFoldingAnyBackByARemainder() {
         assertAll(
                 () -> assertThat(new MersenneTwister(SEED).below(4154178L)).isEqualTo(4140166L),

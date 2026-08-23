@@ -25,8 +25,7 @@ class CorpusManifestsTest {
                         .as("a manifest stating nothing demotes nothing, which reads exactly like a "
                                 + "reference that found nothing to demote")
                         .hasSize(10),
-                () -> assertThat(drawn(ReferenceCorpus.STARRED_DRAW)).hasSize(10),
-                () -> assertThat(drawn(ReferenceCorpus.PUBLISHED_DRAW)).hasSize(30),
+                () -> assertThat(drawn(ReferenceCorpus.PUBLISHED_DRAW)).hasSize(100),
                 () -> assertAll(drawn(ReferenceCorpus.PUBLISHED_DRAW).stream().map(repository -> () ->
                         assertThat(repository.sha())
                                 .as("%s is read at one commit, never at whatever its branch says today",
@@ -35,18 +34,13 @@ class CorpusManifestsTest {
     }
 
     @Test
-    void drawsNoRepositoryTwiceAcrossTheThreeFrames() {
+    void drawsNoRepositoryTwiceAcrossTheTwoFrames() {
         final List<String> uniform = drawn(ReferenceCorpus.UNIFORM_DRAW).stream()
-                .map(PinnedRepository::origin).toList();
-        final List<String> starred = drawn(ReferenceCorpus.STARRED_DRAW).stream()
                 .map(PinnedRepository::origin).toList();
         final List<String> published = drawn(ReferenceCorpus.PUBLISHED_DRAW).stream()
                 .map(PinnedRepository::origin).toList();
 
-        assertAll(
-                () -> assertThat(uniform).doesNotContainAnyElementsOf(starred),
-                () -> assertThat(uniform).doesNotContainAnyElementsOf(published),
-                () -> assertThat(starred).doesNotContainAnyElementsOf(published));
+        assertThat(uniform).doesNotContainAnyElementsOf(published);
     }
 
     @Test

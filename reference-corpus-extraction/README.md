@@ -139,7 +139,7 @@ Two further tasks ask questions about a sample rather than producing one. Neithe
 
 [The sample of published libraries](src/main/resources/reference-corpus-published.tsv) is the one the library pools and bundles: a hundred rows, drawn at seed 20260821 from a frame stating Java, a licence, a push since 2025 and a publication. The evaluation set the reading is scored on holds maintained libraries and servers, and those query terms are what make the sample resemble them.
 
-Two smaller samples are recorded beside it and neither is pooled. [The uniform sample](src/main/resources/reference-corpus.tsv) states no popularity or activity term and yields coursework and personal projects. [The sample above fifty stars](src/main/resources/reference-corpus-starred.tsv) yields Android applications and teaching material. They are kept for two reasons: they are the record that the published frame was written before its results were seen rather than chosen after, and `MersenneTwisterTest` asserts against their recorded ranks that this project's generator reproduces CPython's stream.
+[The uniform sample](src/main/resources/reference-corpus.tsv) is recorded beside it and is not pooled. It states no licence, activity or popularity term, and drew ten repositories of coursework with no licence between them, which is what those terms buy. `MersenneTwisterTest` asserts against its recorded ranks that this project's generator reproduces CPython's stream.
 
 ### Pooling: turning a hundred repositories into one table
 
@@ -233,7 +233,7 @@ Two details beyond the algorithm change the sequence, and both are matched:
 | how the seed becomes the generator's internal state | `init_by_array`, the scheme [CPython's `random` module](https://docs.python.org/3/library/random.html) uses |
 | how a value below a bound is drawn | take the bits the bound requires, and discard any value at or above it. Taking a remainder instead would make low values slightly likelier |
 
-[`MersenneTwisterTest`](src/test/java/io/github/fiftieshousewife/codesemantics/corpus/MersenneTwisterTest.java) asserts that this implementation reproduces the ranks the uniform and starred manifests record. Without that check, "the seed selects these repositories" would be a claim nobody could verify.
+[`MersenneTwisterTest`](src/test/java/io/github/fiftieshousewife/codesemantics/corpus/MersenneTwisterTest.java) asserts that this implementation reproduces the ranks the uniform manifest records. Without that check, "the seed selects these repositories" would be a claim nobody could verify.
 
 ## The rules a sample holds to
 

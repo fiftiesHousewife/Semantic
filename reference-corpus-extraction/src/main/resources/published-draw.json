@@ -1,1327 +1,1577 @@
 {
-  "frame": "language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0",
-  "until": "2026-08-20T23:59:59Z",
-  "seed": 20260821,
-  "total": 112183,
-  "drawnOn": "2026-08-22",
-  "predicate": "pom.xml states a groupId, or build.gradle(.kts) applies maven-publish, at the pinned commit",
-  "drawn": [
-    {
-      "repository": "jenkinsci/katalon-plugin",
-      "rank": 10125,
-      "sha": "e39757293879437dc6ff9097efdac82a9aaf2425",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2018-12-18T16:25:05Z",
-      "sizeKb": 7409,
-      "stars": 4,
-      "description": "Katalon Plugin for Jenkins"
-    },
-    {
-      "repository": "projetos-codic-ibict/ridi-dspace-server",
-      "rank": 58964,
-      "sha": "f1fc56626bcb35231eea596dc2124a16e789370f",
-      "licenceAtPin": "BSD-3-Clause",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-07-11T14:41:13Z",
-      "sizeKb": 6575,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "clydegerber/i18n-fx",
-      "rank": 86816,
-      "sha": "673d34327aa76aaa13fac7b3716ca68feb40eaa3",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-03-15T20:55:51Z",
-      "sizeKb": 3153,
-      "stars": 0,
-      "description": "JavaFX bindings for the i18n-core internationalization framework."
-    },
-    {
-      "repository": "ViacheslavP/jexposer",
-      "rank": 24299,
-      "sha": "82d334a14841505f29f6246478e6f52f5ae76f1a",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2022-12-14T17:48:37Z",
-      "sizeKb": 1735,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "M-WhiteXFox/GrassBBS",
-      "rank": 54584,
-      "sha": "a6bb1bc0280c5c7976d6d9a10199439e7b26f1e8",
-      "licenceAtPin": "AGPL-3.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-05-30T11:26:25Z",
-      "sizeKb": 12831,
-      "stars": 2,
-      "description": ""
-    },
-    {
-      "repository": "jberclaz/jass",
-      "rank": 13836,
-      "sha": "0ed0576308daaece5452e1d1c10259f5e20968c3",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2020-03-29T21:01:38Z",
-      "sizeKb": 8690,
-      "stars": 1,
-      "description": "A Jass / Chibre client-server for remote playing"
-    },
-    {
-      "repository": "yyw393/openpnp",
-      "rank": 100853,
-      "sha": "5bd404cfc70f34103a3ca0fbb6b50c2b465f407c",
-      "licenceAtPin": "GPL-3.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-06-09T02:56:57Z",
-      "sizeKb": 425743,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "mikkoi/maven-enforcer-rule-depend-on-all-projects",
-      "rank": 64063,
-      "sha": "c6f2d20432695d94b6dd74f02c25d93d59944309",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-09-07T21:10:49Z",
-      "sizeKb": 1120,
-      "stars": 2,
-      "description": "Custom rule for Maven Enforcer to require all other subprojects of the build are defined as dependencies."
-    },
-    {
-      "repository": "Omqarrr/codemedics-sample",
-      "rank": 46028,
-      "sha": "e12a207b230a59d6959cda0e6ba29766cf326c66",
-      "licenceAtPin": "GPL-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-03-14T06:13:42Z",
-      "sizeKb": 10798,
-      "stars": 0,
-      "description": "sample repo to test open source vuln scanning tool"
-    },
-    {
-      "repository": "andrei-punko/client-cursor",
-      "rank": 14962,
-      "sha": "6b5d8add990c01d8324e851e2ec755cca781d919",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2020-05-28T15:42:28Z",
-      "sizeKb": 5562,
-      "stars": 3,
-      "description": "Pagination using Client Cursor API via REST"
-    },
-    {
-      "repository": "coyote-engineering/BenchmarkJava",
-      "rank": 79918,
-      "sha": "1def24fc25772d034b72c704a7ff324a0eaddddb",
-      "licenceAtPin": "GPL-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-01-29T22:18:30Z",
-      "sizeKb": 76017,
-      "stars": 0,
-      "description": "OWASP Benchmark is a test suite designed to verify the speed and accuracy of software vulnerability detection tools."
-    },
-    {
-      "repository": "Takusima/PoestDimens-Fabric",
-      "rank": 101063,
-      "sha": "c53c3e67569fb92ba15369c8344eb486c7d23501",
-      "licenceAtPin": "CC0-1.0",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2026-06-07T14:30:46Z",
-      "sizeKb": 5028,
-      "stars": 0,
-      "description": "Fabric port PoestDimens 1.21.1"
-    },
-    {
-      "repository": "BernasDzn/sem4pi_2024_2025",
-      "rank": 70337,
-      "sha": "a12ea1e17795f3e2d3b447db45322bea9042c2f5",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-10-28T21:18:38Z",
-      "sizeKb": 30772,
-      "stars": 0,
-      "description": "Integrative Project developed by me and 3 other colleagues during the fourth semester of my degree."
-    },
-    {
-      "repository": "ABAPPLO/koc-scrm",
-      "rank": 108198,
-      "sha": "eb0e41a1b176eaab840e66fbb3f9e7706f706b5e",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-07-22T07:23:37Z",
-      "sizeKb": 22275,
-      "stars": 0,
-      "description": "koc\u7ba1\u7406\u548c\u5206\u53d1\u7cfb\u7edf"
-    },
-    {
-      "repository": "bikashpubg678-maker/Rentify-java-project",
-      "rank": 102928,
-      "sha": "18540025273fd605c555896f70c31f58e4b5338f",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-06-18T20:21:52Z",
-      "sizeKb": 2421,
-      "stars": 0,
-      "description": "Full-stack Car Rental Management System built with Java 17 & Spring Boot 3.2.5 \u2014 3-layer architecture, H2 database, PDF receipts, Chart.js analytics, loyalty discounts, and an AI assistant powered by OpenRouter."
-    },
-    {
-      "repository": "TheBozzz34/Refractor",
-      "rank": 19041,
-      "sha": "1841d98c4eb9957736d1e153f119f7f4087098eb",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2021-07-05T19:19:11Z",
-      "sizeKb": 9540,
-      "stars": 2,
-      "description": "A Utility Plugin"
-    },
-    {
-      "repository": "Helloqiyuan/tutorialmod-template-1.21.1",
-      "rank": 50614,
-      "sha": "b4cff21213ac8991f681cc59c4c9990dd80acc2b",
-      "licenceAtPin": "CC0-1.0",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2025-04-24T15:58:52Z",
-      "sizeKb": 6692,
-      "stars": 0,
-      "description": "\u8fd9\u662f\u505a\u7684\u7b2c\u4e00\u4e2amod"
-    },
-    {
-      "repository": "miho/MonacoFX",
-      "rank": 13424,
-      "sha": "a67906900e18ce0f56f041bde131c7ecc1c0cb06",
-      "licenceAtPin": "MIT",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2020-02-12T16:04:08Z",
-      "sizeKb": 3231,
-      "stars": 89,
-      "description": "JavaFX editor node based on the powerful Monaco editor that drives VS Code"
-    },
-    {
-      "repository": "TAYOTOoO/mcsmi",
-      "rank": 92369,
-      "sha": "2f8119bfeba9a589508cc93549efc1294905bb5c",
-      "licenceAtPin": "GPL-3.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-04-23T05:56:33Z",
-      "sizeKb": 5221,
-      "stars": 3,
-      "description": "AI-powered Minecraft resource pack generator. Describe your vision, get a        complete texture pack \u2014 auto-sliced into 50 sprites. Includes canvas editor,   version converter (1.6\u20131.21.4), and subscription system"
-    },
-    {
-      "repository": "breakinblocks/justtrialspawners",
-      "rank": 90864,
-      "sha": "8abe70784fb0b91ed8675e97ea491e002a9bd3d4",
-      "licenceAtPin": "MIT",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2026-04-10T04:19:07Z",
-      "sizeKb": 3698,
-      "stars": 1,
-      "description": ""
-    },
-    {
-      "repository": "NormallyNormal/void-water",
-      "rank": 92135,
-      "sha": "0fe1ec14697ea73405e53da53355c8bf011a3f38",
-      "licenceAtPin": "MIT",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2026-04-18T20:37:19Z",
-      "sizeKb": 8534,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "bbcdabao/ping-monitor",
-      "rank": 34308,
-      "sha": "e08303222e5564100eb23ca791afd7c54c870092",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2024-07-03T04:03:01Z",
-      "sizeKb": 13163,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "AradhyaSharma31/rakumo",
-      "rank": 108586,
-      "sha": "f07879932287c1699eaf9f125bccd3c0627a7b99",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-07-25T20:32:08Z",
-      "sizeKb": 9379,
-      "stars": 1,
-      "description": "A distributed object storage system built to explore scalable storage architecture, gRPC communication, fault tolerance, and large file transfers."
-    },
-    {
-      "repository": "PartidoYA/PartidoYA-WebApp",
-      "rank": 104048,
-      "sha": "5c181c964aeb10daaeb4fa7d7844a0897d25b392",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2026-06-24T04:12:21Z",
-      "sizeKb": 88752,
-      "stars": 0,
-      "description": "Aplicaci\u00f3n web responsive de PartidoYA desarrollada con Angular y Spring Boot, orientada a la creaci\u00f3n de partidos, reserva de canchas, gesti\u00f3n de usuarios, pagos y organizaci\u00f3n de actividades deportivas."
-    },
-    {
-      "repository": "spring-labs/ameba-lib",
-      "rank": 3439,
-      "sha": "e450325579d71e3008ebc2fcc2b3564b694fedee",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2015-05-20T11:45:08Z",
-      "sizeKb": 1341,
-      "stars": 1,
-      "description": "Ameba Lib is a collection of utils, exceptions, constants and other helpers used across projects and solutions"
-    },
-    {
-      "repository": "edigonzales/convconf-oss",
-      "rank": 83746,
-      "sha": "71e544788e143c5c4ab7761e7d9bad9c35653fca",
-      "licenceAtPin": "MIT",
-      "publishes": "build.gradle applies maven-publish",
-      "created": "2026-02-24T18:59:00Z",
-      "sizeKb": 1284,
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repository": "Wradgio/Jamlin",
-      "rank": 7960,
-      "sha": "79ca9270b2b7134f3b7cd56ff526444ae402eac3",
-      "licenceAtPin": "Apache-2.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2017-11-02T11:18:48Z",
-      "sizeKb": 2043,
-      "stars": 0,
-      "description": "Java Markup Language Internalization"
-    },
-    {
-      "repository": "MultimodalImagingCenter/MiC",
-      "rank": 24555,
-      "sha": "490684b6059a113f2e3bfcb9f289aa4bf3eae8c9",
-      "licenceAtPin": "MIT",
-      "publishes": "pom.xml states a groupId",
-      "created": "2023-02-01T14:37:23Z",
-      "sizeKb": 2000,
-      "stars": 20,
-      "description": "MiC is an ImageJ plugin to compare segmentation masks"
-    },
-    {
-      "repository": "Lightning323/Tessera",
-      "rank": 27301,
-      "sha": "82757b3a4ac3000baa0e22bc4e20ed6f37e0f1fb",
-      "licenceAtPin": "GPL-3.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2023-08-12T16:04:19Z",
-      "sizeKb": 281769,
-      "stars": 5,
-      "description": "A Minecraft clone written in Java and using LWJGL OpenGL library"
-    },
-    {
-      "repository": "sjungq/algs4",
-      "rank": 73143,
-      "sha": "e3bd3985c276bada56c392bd05826fa7564ab1b3",
-      "licenceAtPin": "GPL-3.0",
-      "publishes": "pom.xml states a groupId",
-      "created": "2025-11-26T06:12:11Z",
-      "sizeKb": 2310,
-      "stars": 0,
-      "description": "Algorithms, 4th edition textbook code and libraries"
-    }
-  ],
-  "rejected": [
-    {
-      "rank": 59336,
-      "repository": "samyogacharya12/ociormvbahblockchain",
-      "why": "states no publication"
-    },
-    {
-      "rank": 36469,
-      "repository": "Hai1205/CarMaster",
-      "why": "states no publication"
-    },
-    {
-      "rank": 73692,
-      "repository": "YCHhiaanngi/CS307_Project2",
-      "why": "states no publication"
-    },
-    {
-      "rank": 38931,
-      "repository": "Lanfarx/Progetto_IDS_24-25",
-      "why": "states no publication"
-    },
-    {
-      "rank": 34642,
-      "repository": "JeongHwamok/Anihealth-Project",
-      "why": "states no publication"
-    },
-    {
-      "rank": 94118,
-      "repository": "oyakh1/hiero-mirror-node--018",
-      "why": "states no publication"
-    },
-    {
-      "rank": 35516,
-      "repository": "ab5tract/raku-intellij-plugin",
-      "why": "states no publication"
-    },
-    {
-      "rank": 94771,
-      "repository": "Sakopval/Quranplayer",
-      "why": "states no publication"
-    },
-    {
-      "rank": 43342,
-      "repository": "tejashxee/gps",
-      "why": "states no publication"
-    },
-    {
-      "rank": 23203,
-      "repository": "0xYura/AsyncXrayBypassFix",
-      "why": "states no publication"
-    },
-    {
-      "rank": 55500,
-      "repository": "juliofilho04/ServicoGerenciamentoSenhas",
-      "why": "states no publication"
-    },
-    {
-      "rank": 62046,
-      "repository": "Bondjono19/1308-task",
-      "why": "states no publication"
-    },
-    {
-      "rank": 109555,
-      "repository": "KLjiana/haikalat",
-      "why": "states no publication"
-    },
-    {
-      "rank": 42690,
-      "repository": "claudiu909/capacitor-microphone-permissions",
-      "why": "states no publication"
-    },
-    {
-      "rank": 77564,
-      "repository": "Lathangi2003/github_docker-CI-CD",
-      "why": "states no publication"
-    },
-    {
-      "rank": 18982,
-      "repository": "Traister101/Sacks-and-Such",
-      "why": "states no publication"
-    },
-    {
-      "rank": 60635,
-      "repository": "domax/soht2",
-      "why": "states no publication"
-    },
-    {
-      "rank": 81729,
-      "repository": "zedb4x/VOD",
-      "why": "states no publication"
-    },
-    {
-      "rank": 8913,
-      "repository": "WouterVerleur/D-D-Charactersheets-and-battle-control",
-      "why": "states no publication"
-    },
-    {
-      "rank": 7188,
-      "repository": "sweng-epfl/public",
-      "why": "states no publication"
-    },
-    {
-      "rank": 42389,
-      "repository": "umer-jahangier/Voting-Management-System",
-      "why": "states no publication"
-    },
-    {
-      "rank": 10471,
-      "repository": "yaoguangluo/Deta_DataBase",
-      "why": "states no publication"
-    },
-    {
-      "rank": 39738,
-      "repository": "CiceroOliver/SmartGateway_GUI",
-      "why": "states no publication"
-    }
-  ],
-  "rangeCounts": [
-    {
-      "range": [
-        "2007-01-01T00:00:00Z",
-        "2007-12-31T23:59:59Z"
-      ],
-      "count": 0
-    },
-    {
-      "range": [
-        "2008-01-01T00:00:00Z",
-        "2008-12-31T23:59:59Z"
-      ],
-      "count": 4
-    },
-    {
-      "range": [
-        "2009-01-01T00:00:00Z",
-        "2009-12-31T23:59:59Z"
-      ],
-      "count": 92
-    },
-    {
-      "range": [
-        "2010-01-01T00:00:00Z",
-        "2010-12-31T23:59:59Z"
-      ],
-      "count": 136
-    },
-    {
-      "range": [
-        "2011-01-01T00:00:00Z",
-        "2011-12-31T23:59:59Z"
-      ],
-      "count": 270
-    },
-    {
-      "range": [
-        "2012-01-01T00:00:00Z",
-        "2012-12-31T23:59:59Z"
-      ],
-      "count": 427
-    },
-    {
-      "range": [
-        "2013-01-01T00:00:00Z",
-        "2013-12-31T23:59:59Z"
-      ],
-      "count": 746
-    },
-    {
-      "range": [
-        "2014-01-01T00:00:00Z",
-        "2014-12-31T23:59:59Z"
-      ],
-      "count": 1105
-    },
-    {
-      "range": [
-        "2015-01-01T00:00:00Z",
-        "2015-12-31T23:59:59Z"
-      ],
-      "count": 1537
-    },
-    {
-      "range": [
-        "2016-01-01T00:00:00Z",
-        "2016-12-31T23:59:59Z"
-      ],
-      "count": 1699
-    },
-    {
-      "range": [
-        "2017-01-01T00:00:00Z",
-        "2017-12-31T23:59:59Z"
-      ],
-      "count": 2006
-    },
-    {
-      "range": [
-        "2018-01-01T00:00:00Z",
-        "2018-12-31T23:59:59Z"
-      ],
-      "count": 2389
-    },
-    {
-      "range": [
-        "2019-01-01T00:00:00Z",
-        "2019-12-31T23:59:59Z"
-      ],
-      "count": 2894
-    },
-    {
-      "range": [
-        "2020-01-01T00:00:00Z",
-        "2020-12-31T23:59:59Z"
-      ],
-      "count": 3558
-    },
-    {
-      "range": [
-        "2021-01-01T00:00:00Z",
-        "2021-12-31T23:59:59Z"
-      ],
-      "count": 3489
-    },
-    {
-      "range": [
-        "2022-01-01T00:00:00Z",
-        "2022-12-31T23:59:59Z"
-      ],
-      "count": 4098
-    },
-    {
-      "range": [
-        "2023-01-01T00:00:00Z",
-        "2023-12-31T23:59:59Z"
-      ],
-      "count": 5571
-    },
-    {
-      "range": [
-        "2024-01-01T00:00:00Z",
-        "2024-12-31T23:59:59Z"
-      ],
-      "count": 9491
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-12-31T23:59:59Z"
-      ],
-      "count": 37500
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-08-20T23:59:59Z"
-      ],
-      "count": 35171
-    },
-    {
-      "range": [
-        "2018-01-01T00:00:00Z",
-        "2018-07-02T12:59:58Z"
-      ],
-      "count": 1124
-    },
-    {
-      "range": [
-        "2018-07-02T12:59:59Z",
-        "2018-10-01T18:59:58Z"
-      ],
-      "count": 632
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-07-02T12:59:58Z"
-      ],
-      "count": 18440
-    },
-    {
-      "range": [
-        "2025-07-02T12:59:59Z",
-        "2025-10-01T18:59:58Z"
-      ],
-      "count": 9272
-    },
-    {
-      "range": [
-        "2025-07-02T12:59:59Z",
-        "2025-08-17T03:59:57Z"
-      ],
-      "count": 4368
-    },
-    {
-      "range": [
-        "2025-07-02T12:59:59Z",
-        "2025-07-25T08:29:57Z"
-      ],
-      "count": 2185
-    },
-    {
-      "range": [
-        "2025-07-02T12:59:59Z",
-        "2025-07-13T22:44:57Z"
-      ],
-      "count": 1078
-    },
-    {
-      "range": [
-        "2025-07-13T22:44:58Z",
-        "2025-07-19T15:37:26Z"
-      ],
-      "count": 582
-    },
-    {
-      "range": [
-        "2024-01-01T00:00:00Z",
-        "2024-07-02T00:59:58Z"
-      ],
-      "count": 3786
-    },
-    {
-      "range": [
-        "2024-07-02T00:59:59Z",
-        "2024-10-01T12:59:58Z"
-      ],
-      "count": 2328
-    },
-    {
-      "range": [
-        "2024-10-01T12:59:59Z",
-        "2024-11-16T05:59:58Z"
-      ],
-      "count": 1567
-    },
-    {
-      "range": [
-        "2024-10-01T12:59:59Z",
-        "2024-10-24T09:59:57Z"
-      ],
-      "count": 748
-    },
-    {
-      "range": [
-        "2025-07-02T12:59:59Z",
-        "2025-07-08T05:52:27Z"
-      ],
-      "count": 544
-    },
-    {
-      "range": [
-        "2025-10-01T18:59:59Z",
-        "2025-11-16T08:59:58Z"
-      ],
-      "count": 4914
-    },
-    {
-      "range": [
-        "2025-11-16T08:59:59Z",
-        "2025-12-09T04:29:58Z"
-      ],
-      "count": 2490
-    },
-    {
-      "range": [
-        "2025-11-16T08:59:59Z",
-        "2025-11-27T18:44:57Z"
-      ],
-      "count": 1329
-    },
-    {
-      "range": [
-        "2025-11-27T18:44:58Z",
-        "2025-12-03T11:37:27Z"
-      ],
-      "count": 561
-    },
-    {
-      "range": [
-        "2024-11-16T05:59:59Z",
-        "2024-12-09T02:59:58Z"
-      ],
-      "count": 890
-    },
-    {
-      "range": [
-        "2024-07-02T00:59:59Z",
-        "2024-08-16T18:59:57Z"
-      ],
-      "count": 1052
-    },
-    {
-      "range": [
-        "2024-07-02T00:59:59Z",
-        "2024-07-24T21:59:57Z"
-      ],
-      "count": 520
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-04-27T00:29:58Z"
-      ],
-      "count": 16407
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-02-27T23:44:58Z"
-      ],
-      "count": 7151
-    },
-    {
-      "range": [
-        "2026-02-27T23:44:59Z",
-        "2026-03-28T23:37:27Z"
-      ],
-      "count": 4638
-    },
-    {
-      "range": [
-        "2026-02-27T23:44:59Z",
-        "2026-03-14T11:41:12Z"
-      ],
-      "count": 2433
-    },
-    {
-      "range": [
-        "2026-03-14T11:41:13Z",
-        "2026-03-21T17:39:19Z"
-      ],
-      "count": 1075
-    },
-    {
-      "range": [
-        "2026-03-14T11:41:13Z",
-        "2026-03-18T02:40:15Z"
-      ],
-      "count": 513
-    },
-    {
-      "range": [
-        "2022-01-01T00:00:00Z",
-        "2022-07-02T12:59:58Z"
-      ],
-      "count": 2051
-    },
-    {
-      "range": [
-        "2022-07-02T12:59:59Z",
-        "2022-10-01T18:59:58Z"
-      ],
-      "count": 1007
-    },
-    {
-      "range": [
-        "2022-10-01T18:59:59Z",
-        "2022-11-16T08:59:58Z"
-      ],
-      "count": 541
-    },
-    {
-      "range": [
-        "2026-04-27T00:29:59Z",
-        "2026-06-24T00:14:58Z"
-      ],
-      "count": 10258
-    },
-    {
-      "range": [
-        "2026-04-27T00:29:59Z",
-        "2026-05-26T00:22:27Z"
-      ],
-      "count": 5480
-    },
-    {
-      "range": [
-        "2026-04-27T00:29:59Z",
-        "2026-05-11T12:26:12Z"
-      ],
-      "count": 2884
-    },
-    {
-      "range": [
-        "2026-04-27T00:29:59Z",
-        "2026-05-04T06:28:04Z"
-      ],
-      "count": 1530
-    },
-    {
-      "range": [
-        "2026-04-27T00:29:59Z",
-        "2026-04-30T15:29:00Z"
-      ],
-      "count": 984
-    },
-    {
-      "range": [
-        "2024-08-16T18:59:58Z",
-        "2024-09-08T15:59:57Z"
-      ],
-      "count": 627
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-04-02T06:59:58Z"
-      ],
-      "count": 8906
-    },
-    {
-      "range": [
-        "2025-04-02T06:59:59Z",
-        "2025-05-17T21:59:57Z"
-      ],
-      "count": 4832
-    },
-    {
-      "range": [
-        "2025-05-17T21:59:58Z",
-        "2025-06-09T17:29:57Z"
-      ],
-      "count": 2448
-    },
-    {
-      "range": [
-        "2025-05-17T21:59:58Z",
-        "2025-05-29T07:44:56Z"
-      ],
-      "count": 1268
-    },
-    {
-      "range": [
-        "2025-05-29T07:44:57Z",
-        "2025-06-04T00:37:26Z"
-      ],
-      "count": 578
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-02-15T14:59:58Z"
-      ],
-      "count": 3849
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-01-23T19:29:58Z"
-      ],
-      "count": 1919
-    },
-    {
-      "range": [
-        "2025-01-23T19:29:59Z",
-        "2025-02-04T05:14:57Z"
-      ],
-      "count": 838
-    },
-    {
-      "range": [
-        "2025-02-04T05:14:58Z",
-        "2025-02-09T22:07:27Z"
-      ],
-      "count": 545
-    },
-    {
-      "range": [
-        "2022-07-02T12:59:59Z",
-        "2022-08-17T03:59:57Z"
-      ],
-      "count": 528
-    },
-    {
-      "range": [
-        "2020-01-01T00:00:00Z",
-        "2020-07-02T00:59:58Z"
-      ],
-      "count": 1899
-    },
-    {
-      "range": [
-        "2020-01-01T00:00:00Z",
-        "2020-04-01T12:59:58Z"
-      ],
-      "count": 853
-    },
-    {
-      "range": [
-        "2026-05-26T00:22:28Z",
-        "2026-06-09T12:18:42Z"
-      ],
-      "count": 2389
-    },
-    {
-      "range": [
-        "2026-05-26T00:22:28Z",
-        "2026-06-02T06:20:34Z"
-      ],
-      "count": 1158
-    },
-    {
-      "range": [
-        "2026-06-02T06:20:35Z",
-        "2026-06-05T21:19:37Z"
-      ],
-      "count": 638
-    },
-    {
-      "range": [
-        "2025-08-17T03:59:58Z",
-        "2025-09-08T23:29:57Z"
-      ],
-      "count": 2278
-    },
-    {
-      "range": [
-        "2025-08-17T03:59:58Z",
-        "2025-08-28T13:44:56Z"
-      ],
-      "count": 1206
-    },
-    {
-      "range": [
-        "2025-08-28T13:44:57Z",
-        "2025-09-03T06:37:26Z"
-      ],
-      "count": 484
-    },
-    {
-      "range": [
-        "2025-02-15T14:59:59Z",
-        "2025-03-10T10:29:57Z"
-      ],
-      "count": 2239
-    },
-    {
-      "range": [
-        "2025-03-10T10:29:58Z",
-        "2025-03-21T20:14:57Z"
-      ],
-      "count": 1490
-    },
-    {
-      "range": [
-        "2025-03-10T10:29:58Z",
-        "2025-03-16T03:22:26Z"
-      ],
-      "count": 865
-    },
-    {
-      "range": [
-        "2020-04-01T12:59:59Z",
-        "2020-05-17T06:59:57Z"
-      ],
-      "count": 536
-    },
-    {
-      "range": [
-        "2025-07-25T08:29:58Z",
-        "2025-08-05T18:14:56Z"
-      ],
-      "count": 1076
-    },
-    {
-      "range": [
-        "2025-08-05T18:14:57Z",
-        "2025-08-11T11:07:26Z"
-      ],
-      "count": 512
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-01-29T23:52:28Z"
-      ],
-      "count": 3428
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-01-15T11:56:13Z"
-      ],
-      "count": 1611
-    },
-    {
-      "range": [
-        "2026-01-15T11:56:14Z",
-        "2026-01-22T17:54:20Z"
-      ],
-      "count": 885
-    },
-    {
-      "range": [
-        "2026-06-24T00:14:59Z",
-        "2026-07-23T00:07:28Z"
-      ],
-      "count": 4819
-    },
-    {
-      "range": [
-        "2026-07-23T00:07:29Z",
-        "2026-08-06T12:03:43Z"
-      ],
-      "count": 2275
-    },
-    {
-      "range": [
-        "2026-07-23T00:07:29Z",
-        "2026-07-30T06:05:35Z"
-      ],
-      "count": 1110
-    },
-    {
-      "range": [
-        "2026-07-23T00:07:29Z",
-        "2026-07-26T15:06:31Z"
-      ],
-      "count": 578
-    },
-    {
-      "range": [
-        "2026-01-01T00:00:00Z",
-        "2026-01-08T05:58:05Z"
-      ],
-      "count": 798
-    },
-    {
-      "range": [
-        "2021-01-01T00:00:00Z",
-        "2021-07-02T12:59:58Z"
-      ],
-      "count": 1704
-    },
-    {
-      "range": [
-        "2021-07-02T12:59:59Z",
-        "2021-10-01T18:59:58Z"
-      ],
-      "count": 790
-    },
-    {
-      "range": [
-        "2025-07-25T08:29:58Z",
-        "2025-07-31T01:22:26Z"
-      ],
-      "count": 556
-    },
-    {
-      "range": [
-        "2025-10-01T18:59:59Z",
-        "2025-10-24T14:29:57Z"
-      ],
-      "count": 2514
-    },
-    {
-      "range": [
-        "2025-10-24T14:29:58Z",
-        "2025-11-04T23:14:57Z"
-      ],
-      "count": 1143
-    },
-    {
-      "range": [
-        "2025-10-24T14:29:58Z",
-        "2025-10-30T06:22:26Z"
-      ],
-      "count": 602
-    },
-    {
-      "range": [
-        "2026-01-29T23:52:29Z",
-        "2026-02-13T11:48:42Z"
-      ],
-      "count": 1903
-    },
-    {
-      "range": [
-        "2026-01-29T23:52:29Z",
-        "2026-02-06T05:50:34Z"
-      ],
-      "count": 963
-    },
-    {
-      "range": [
-        "2026-06-24T00:14:59Z",
-        "2026-07-08T12:11:12Z"
-      ],
-      "count": 2264
-    },
-    {
-      "range": [
-        "2026-07-08T12:11:13Z",
-        "2026-07-15T18:09:19Z"
-      ],
-      "count": 1368
-    },
-    {
-      "range": [
-        "2026-07-15T18:09:20Z",
-        "2026-07-19T09:08:23Z"
-      ],
-      "count": 518
-    },
-    {
-      "range": [
-        "2026-06-09T12:18:43Z",
-        "2026-06-16T18:16:49Z"
-      ],
-      "count": 1274
-    },
-    {
-      "range": [
-        "2026-06-16T18:16:50Z",
-        "2026-06-20T09:15:53Z"
-      ],
-      "count": 534
-    },
-    {
-      "range": [
-        "2025-04-02T06:59:59Z",
-        "2025-04-25T02:29:57Z"
-      ],
-      "count": 2469
-    },
-    {
-      "range": [
-        "2025-04-02T06:59:59Z",
-        "2025-04-13T16:44:57Z"
-      ],
-      "count": 1239
-    },
-    {
-      "range": [
-        "2025-04-13T16:44:58Z",
-        "2025-04-19T09:37:26Z"
-      ],
-      "count": 610
-    },
-    {
-      "range": [
-        "2026-03-28T23:37:28Z",
-        "2026-04-12T12:33:42Z"
-      ],
-      "count": 2476
-    },
-    {
-      "range": [
-        "2026-04-12T12:33:43Z",
-        "2026-04-19T18:31:49Z"
-      ],
-      "count": 1062
-    },
-    {
-      "range": [
-        "2026-04-19T18:31:50Z",
-        "2026-04-23T09:30:53Z"
-      ],
-      "count": 549
-    },
-    {
-      "range": [
-        "2026-03-28T23:37:28Z",
-        "2026-04-05T06:35:34Z"
-      ],
-      "count": 1209
-    },
-    {
-      "range": [
-        "2026-04-05T06:35:35Z",
-        "2026-04-08T21:34:37Z"
-      ],
-      "count": 771
-    },
-    {
-      "range": [
-        "2018-01-01T00:00:00Z",
-        "2018-04-02T06:59:58Z"
-      ],
-      "count": 531
-    },
-    {
-      "range": [
-        "2026-04-12T12:33:43Z",
-        "2026-04-16T03:32:45Z"
-      ],
-      "count": 567
-    },
-    {
-      "range": [
-        "2017-01-01T00:00:00Z",
-        "2017-07-02T12:59:58Z"
-      ],
-      "count": 1018
-    },
-    {
-      "range": [
-        "2026-06-24T00:14:59Z",
-        "2026-07-01T06:13:04Z"
-      ],
-      "count": 1119
-    },
-    {
-      "range": [
-        "2026-06-24T00:14:59Z",
-        "2026-06-27T15:14:00Z"
-      ],
-      "count": 588
-    },
-    {
-      "range": [
-        "2015-01-01T00:00:00Z",
-        "2015-07-02T12:59:58Z"
-      ],
-      "count": 770
-    },
-    {
-      "range": [
-        "2026-02-13T11:48:43Z",
-        "2026-02-20T17:46:49Z"
-      ],
-      "count": 823
-    },
-    {
-      "range": [
-        "2019-01-01T00:00:00Z",
-        "2019-07-02T12:59:58Z"
-      ],
-      "count": 1307
-    },
-    {
-      "range": [
-        "2019-01-01T00:00:00Z",
-        "2019-04-02T06:59:58Z"
-      ],
-      "count": 649
-    },
-    {
-      "range": [
-        "2023-01-01T00:00:00Z",
-        "2023-07-02T12:59:58Z"
-      ],
-      "count": 2648
-    },
-    {
-      "range": [
-        "2023-01-01T00:00:00Z",
-        "2023-04-02T06:59:58Z"
-      ],
-      "count": 1318
-    },
-    {
-      "range": [
-        "2023-01-01T00:00:00Z",
-        "2023-02-15T14:59:58Z"
-      ],
-      "count": 635
-    },
-    {
-      "range": [
-        "2023-07-02T12:59:59Z",
-        "2023-10-01T18:59:58Z"
-      ],
-      "count": 1448
-    },
-    {
-      "range": [
-        "2023-07-02T12:59:59Z",
-        "2023-08-17T03:59:57Z"
-      ],
-      "count": 710
-    },
-    {
-      "range": [
-        "2025-01-01T00:00:00Z",
-        "2025-01-12T09:44:58Z"
-      ],
-      "count": 940
-    },
-    {
-      "range": [
-        "2025-11-16T08:59:59Z",
-        "2025-11-22T01:52:27Z"
-      ],
-      "count": 641
-    }
-  ]
+  "frame" : "language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0",
+  "until" : "2026-08-20T23:59:59Z",
+  "seed" : 20260821,
+  "total" : 112281,
+  "windows" : [ {
+    "year" : 2007,
+    "from" : "2007-01-01T00:00:00Z",
+    "to" : "2007-12-31T23:59:59Z",
+    "count" : 0
+  }, {
+    "year" : 2008,
+    "from" : "2008-01-01T00:00:00Z",
+    "to" : "2008-12-31T23:59:59Z",
+    "count" : 4
+  }, {
+    "year" : 2009,
+    "from" : "2009-01-01T00:00:00Z",
+    "to" : "2009-12-31T23:59:59Z",
+    "count" : 93
+  }, {
+    "year" : 2010,
+    "from" : "2010-01-01T00:00:00Z",
+    "to" : "2010-12-31T23:59:59Z",
+    "count" : 136
+  }, {
+    "year" : 2011,
+    "from" : "2011-01-01T00:00:00Z",
+    "to" : "2011-12-31T23:59:59Z",
+    "count" : 270
+  }, {
+    "year" : 2012,
+    "from" : "2012-01-01T00:00:00Z",
+    "to" : "2012-12-31T23:59:59Z",
+    "count" : 427
+  }, {
+    "year" : 2013,
+    "from" : "2013-01-01T00:00:00Z",
+    "to" : "2013-12-31T23:59:59Z",
+    "count" : 746
+  }, {
+    "year" : 2014,
+    "from" : "2014-01-01T00:00:00Z",
+    "to" : "2014-12-31T23:59:59Z",
+    "count" : 1106
+  }, {
+    "year" : 2015,
+    "from" : "2015-01-01T00:00:00Z",
+    "to" : "2015-12-31T23:59:59Z",
+    "count" : 1536
+  }, {
+    "year" : 2016,
+    "from" : "2016-01-01T00:00:00Z",
+    "to" : "2016-12-31T23:59:59Z",
+    "count" : 1698
+  }, {
+    "year" : 2017,
+    "from" : "2017-01-01T00:00:00Z",
+    "to" : "2017-12-31T23:59:59Z",
+    "count" : 2008
+  }, {
+    "year" : 2018,
+    "from" : "2018-01-01T00:00:00Z",
+    "to" : "2018-12-31T23:59:59Z",
+    "count" : 2390
+  }, {
+    "year" : 2019,
+    "from" : "2019-01-01T00:00:00Z",
+    "to" : "2019-12-31T23:59:59Z",
+    "count" : 2895
+  }, {
+    "year" : 2020,
+    "from" : "2020-01-01T00:00:00Z",
+    "to" : "2020-12-31T23:59:59Z",
+    "count" : 3560
+  }, {
+    "year" : 2021,
+    "from" : "2021-01-01T00:00:00Z",
+    "to" : "2021-12-31T23:59:59Z",
+    "count" : 3490
+  }, {
+    "year" : 2022,
+    "from" : "2022-01-01T00:00:00Z",
+    "to" : "2022-12-31T23:59:59Z",
+    "count" : 4101
+  }, {
+    "year" : 2023,
+    "from" : "2023-01-01T00:00:00Z",
+    "to" : "2023-12-31T23:59:59Z",
+    "count" : 5570
+  }, {
+    "year" : 2024,
+    "from" : "2024-01-01T00:00:00Z",
+    "to" : "2024-12-31T23:59:59Z",
+    "count" : 9491
+  }, {
+    "year" : 2025,
+    "from" : "2025-01-01T00:00:00Z",
+    "to" : "2025-12-31T23:59:59Z",
+    "count" : 37501
+  }, {
+    "year" : 2026,
+    "from" : "2026-01-01T00:00:00Z",
+    "to" : "2026-08-20T23:59:59Z",
+    "count" : 35259
+  } ],
+  "drawn" : [ {
+    "repository" : "tahopen/big-data-plugin",
+    "rank" : 36469,
+    "sha" : "42f445f1825a020f9445b5b41ddb87f12f7416b3",
+    "origin" : "https://github.com/tahopen/big-data-plugin.git",
+    "created" : "2024-10-22T20:11:42Z",
+    "sizeKb" : 1381,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "ZhouJianBoPro/sentinel",
+    "rank" : 58964,
+    "sha" : "0eec6130a863a6c947b5ffcebcc86c469ecdbc4f",
+    "origin" : "https://github.com/ZhouJianBoPro/sentinel.git",
+    "created" : "2025-07-11T04:05:33Z",
+    "sizeKb" : 7711,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "修改sentinel dashboard源码，使用nacos持久化规则（所有规则）",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "jmolinsc/spring-boot-adminlte-master",
+    "rank" : 34642,
+    "sha" : "421048e137bf717df8434ba17bfcdaccf874fd40",
+    "origin" : "https://github.com/jmolinsc/spring-boot-adminlte-master.git",
+    "created" : "2024-08-09T20:42:32Z",
+    "sizeKb" : 18362,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Satacki/WorldsMemory",
+    "rank" : 94118,
+    "sha" : "a5fd0da19f0819f3829df247fbf64db820d98e28",
+    "origin" : "https://github.com/Satacki/WorldsMemory.git",
+    "created" : "2026-04-27T23:30:37Z",
+    "sizeKb" : 184144,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Something meant to be \"github\" but for a minecraft world in general ? So far it covers everything Vanilla and Vanilla+ intended, i'm currently phase 4/6ish, Phase 5 being making an UI for it and 6 being linking it for time magic and some rather slippery stuff like \"merge and rebase\" so far it's only push and pull and commit",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "CR-7-CHEN/demand-cooking-backend",
+    "rank" : 94771,
+    "sha" : "d1d29eb202db7261481f1ffdc08d070cb160a413",
+    "origin" : "https://github.com/CR-7-CHEN/demand-cooking-backend.git",
+    "created" : "2026-05-02T16:08:33Z",
+    "sizeKb" : 10009,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Mutata56/MatematiX",
+    "rank" : 23203,
+    "sha" : "65e0d7db5b21d50314b9bf42af754972553f327f",
+    "origin" : "https://github.com/Mutata56/MatematiX.git",
+    "created" : "2022-09-21T12:44:56Z",
+    "sizeKb" : 7166,
+    "stars" : 2,
+    "licenceAtPin" : "MIT",
+    "description" : "Сайт про математику.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "bremersee/common-xml",
+    "rank" : 13836,
+    "sha" : "21f787fd683365d5dd0e359a7a264abda8b4a051",
+    "origin" : "https://github.com/bremersee/common-xml.git",
+    "created" : "2020-01-19T18:46:21Z",
+    "sizeKb" : 5129,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "XML processing",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Joshua36911/local-life-service",
+    "rank" : 100853,
+    "sha" : "ecc86c857970c478f85cef50527e5e5a1fd501cc",
+    "origin" : "https://github.com/Joshua36911/local-life-service.git",
+    "created" : "2026-06-08T08:30:16Z",
+    "sizeKb" : 3355,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "zarif59/hapi-fhir-http-auth",
+    "rank" : 46028,
+    "sha" : "3c65a82f6d4d0ff6899a67180939f1393b5aea46",
+    "origin" : "https://github.com/zarif59/hapi-fhir-http-auth.git",
+    "created" : "2025-03-11T01:46:43Z",
+    "sizeKb" : 15410,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "lunasaw/luna-springboot-demo",
+    "rank" : 14962,
+    "sha" : "a738b8d0b1fee9751350bdb2064bf3df8a476684",
+    "origin" : "https://github.com/lunasaw/luna-springboot-demo.git",
+    "created" : "2020-05-30T03:48:32Z",
+    "sizeKb" : 12593,
+    "stars" : 3,
+    "licenceAtPin" : "MIT",
+    "description" : "spring boot demo spring boot demo 是一个用来深度学习并实战 spring boot 的项目，目前总共包含 65 个集成demo，已经完成 53 个。",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "ViciousBadger/fable-worldgen",
+    "rank" : 62046,
+    "sha" : "9ebdc22522556fd439db3451ad189391f2c57f51",
+    "origin" : "https://github.com/ViciousBadger/fable-worldgen.git",
+    "created" : "2025-08-11T12:29:38Z",
+    "sizeKb" : 3835,
+    "stars" : 0,
+    "licenceAtPin" : "CC0-1.0",
+    "description" : "minecraft world generation makeover with cool trees",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "coyote-engineering/BenchmarkJava",
+    "rank" : 79918,
+    "sha" : "1def24fc25772d034b72c704a7ff324a0eaddddb",
+    "origin" : "https://github.com/coyote-engineering/BenchmarkJava.git",
+    "created" : "2026-01-29T22:18:30Z",
+    "sizeKb" : 76017,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-2.0",
+    "description" : "OWASP Benchmark is a test suite designed to verify the speed and accuracy of software vulnerability detection tools. ",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "newdawn19/bahar",
+    "rank" : 109555,
+    "sha" : "38b16dcfa34c3c7bb0e81cade3f0b512c6c35d20",
+    "origin" : "https://github.com/newdawn19/bahar.git",
+    "created" : "2026-07-28T17:39:40Z",
+    "sizeKb" : 4366,
+    "stars" : 0,
+    "licenceAtPin" : "AGPL-3.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Pdiddy973/AllTheCompressed",
+    "rank" : 18982,
+    "sha" : "c21f27d7f1efa599888df87f095890bcad2e683c",
+    "origin" : "https://github.com/Pdiddy973/AllTheCompressed.git",
+    "created" : "2021-08-06T19:49:39Z",
+    "sizeKb" : 4159,
+    "stars" : 3,
+    "licenceAtPin" : "MIT",
+    "description" : "Adds 1-9x compressed versions of blocks",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "looken1024/framework",
+    "rank" : 60635,
+    "sha" : "4063f35b9ee28f81e76ab71d664b8abfc31e41e4",
+    "origin" : "https://github.com/looken1024/framework.git",
+    "created" : "2025-07-28T11:07:58Z",
+    "sizeKb" : 1037,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "VonChange/spring-data-jdbc-mybatis",
+    "rank" : 13424,
+    "sha" : "8db33f9cf1a2343ecb058045e22fedd4d520e0bd",
+    "origin" : "https://github.com/VonChange/spring-data-jdbc-mybatis.git",
+    "created" : "2020-03-01T15:14:47Z",
+    "sizeKb" : 1072,
+    "stars" : 93,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "spring data jdbc extend mybatis dynamic sql",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "isairey/Backend-Tienda-Online",
+    "rank" : 92369,
+    "sha" : "742dc1154946392ad612326099e9ee624ed80420",
+    "origin" : "https://github.com/isairey/Backend-Tienda-Online.git",
+    "created" : "2026-04-20T01:53:37Z",
+    "sizeKb" : 1580,
+    "stars" : 5,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "hoanggiabao1804/demo-lab01-devops",
+    "rank" : 92135,
+    "sha" : "c6456f59a518a33f26239d9992507efec130e736",
+    "origin" : "https://github.com/hoanggiabao1804/demo-lab01-devops.git",
+    "created" : "2026-04-18T15:08:59Z",
+    "sizeKb" : 31605,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Demo YAS: Yet Another Shop, a sample microservices project in Java",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "carml/carml",
+    "rank" : 7188,
+    "sha" : "f58ee44b1ccc162b6b65f180ba3eb00ffcdb5e86",
+    "origin" : "https://github.com/carml/carml.git",
+    "created" : "2017-09-19T15:38:54Z",
+    "sizeKb" : 4456,
+    "stars" : 114,
+    "licenceAtPin" : "MIT",
+    "description" : "A pretty sweet RML engine, for RDF.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "aevis-codex/matrix-code",
+    "rank" : 104048,
+    "sha" : "3343e178ceb101bb3116395e7242747fbce199c3",
+    "origin" : "https://github.com/aevis-codex/matrix-code.git",
+    "created" : "2026-06-25T15:56:51Z",
+    "sizeKb" : 1682,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "simon-greatrix/sec-prng",
+    "rank" : 3439,
+    "sha" : "66251ecbd78d1adbd47678785d9dba75a1984600",
+    "origin" : "https://github.com/simon-greatrix/sec-prng.git",
+    "created" : "2015-03-30T20:44:39Z",
+    "sizeKb" : 1252,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "Secure random number generation",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "biggiemedium/Leapfrog-1.21",
+    "rank" : 42389,
+    "sha" : "039b63ca8bf8309969f05e0d6b2823fcf20ab5af",
+    "origin" : "https://github.com/biggiemedium/Leapfrog-1.21.git",
+    "created" : "2025-02-06T00:11:18Z",
+    "sizeKb" : 75605,
+    "stars" : 1,
+    "licenceAtPin" : "CC0-1.0",
+    "description" : "Minecraft Cheat Client using Fabric 1.21",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "lamerexter/beanplanet-framework",
+    "rank" : 7960,
+    "sha" : "2dd37cfe5880439b2bd9f52487266f2964bbaf67",
+    "origin" : "https://github.com/lamerexter/beanplanet-framework.git",
+    "created" : "2017-10-30T08:31:20Z",
+    "sizeKb" : 6768,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Beanplanet Framework",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "anylineorg/anyline",
+    "rank" : 10471,
+    "sha" : "a2ae4627fd235ffb729493c53d614a1891a2e99d",
+    "origin" : "https://github.com/anylineorg/anyline.git",
+    "created" : "2019-01-14T01:05:56Z",
+    "sizeKb" : 54387,
+    "stars" : 342,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "运行时动态注册切换数据源，自动生成SQL(DDL/DML/DQL)，读写元数据，对比数据库结构差异。适配100+关系/非关系数据库。 常用于动态场景的底层支持,如:数据中台、可视化、低代码后台、工作流、自定义表单、异构数据库迁移同步、物联网车联网数据处理、数据清洗、运行时自定义报表/查询条件/数据结构、爬虫数据解析等",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "microsphere-projects/microsphere-spring-boot",
+    "rank" : 24555,
+    "sha" : "6f2b98f03ebf89ff4e82cd5cef327033e7101cdd",
+    "origin" : "https://github.com/microsphere-projects/microsphere-spring-boot.git",
+    "created" : "2023-02-06T04:59:07Z",
+    "sizeKb" : 1910,
+    "stars" : 23,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Microsphere Projects for Spring Boot",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Lexi115/GameTalk",
+    "rank" : 39738,
+    "sha" : "11507cbcccd5d4a52165ef1d2bc4a81209fac6ba",
+    "origin" : "https://github.com/Lexi115/GameTalk.git",
+    "created" : "2025-01-08T15:20:10Z",
+    "sizeKb" : 31902,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "Gaming Forum NC8 - Ingegneria del Software",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Axell1280/BeyondLimits-1.20-neo-forge",
+    "rank" : 73143,
+    "sha" : "86fb8cec06836b0055d135fda9025ceb1ef11382",
+    "origin" : "https://github.com/Axell1280/BeyondLimits-1.20-neo-forge.git",
+    "created" : "2025-11-27T16:37:21Z",
+    "sizeKb" : 5050,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Adds new Create-compatible recipes, an Aroma block system, and Sub-Totems for Speed, Regeneration, and Strength.",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "Wradgio/Jamlin",
+    "rank" : 7958,
+    "sha" : "79ca9270b2b7134f3b7cd56ff526444ae402eac3",
+    "origin" : "https://github.com/Wradgio/Jamlin.git",
+    "created" : "2017-11-02T11:18:48Z",
+    "sizeKb" : 2043,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Java Markup Language Internalization",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "CDTester/JUnit-Selenium",
+    "rank" : 67915,
+    "sha" : "672100c5f2c0c2b34587f6c75bdb7c3f75667e94",
+    "origin" : "https://github.com/CDTester/JUnit-Selenium.git",
+    "created" : "2025-10-10T10:15:06Z",
+    "sizeKb" : 10304,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "Java Junit test framework to test UI using Selenium. Examples showing Maven, Surefire report, allure report, POM, GitHub Actions CI/CD",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "shaphar98/SOP",
+    "rank" : 85650,
+    "sha" : "af73da75f3365753cd01f9805d0588d1125bf6a5",
+    "origin" : "https://github.com/shaphar98/SOP.git",
+    "created" : "2026-03-07T10:45:01Z",
+    "sizeKb" : 18025,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Actionizer/stitch-2",
+    "rank" : 54187,
+    "sha" : "6f867f039faa350b844c88f99a91a662cae7468e",
+    "origin" : "https://github.com/Actionizer/stitch-2.git",
+    "created" : "2025-05-24T05:17:40Z",
+    "sizeKb" : 4788,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "A mirror of the original Stitch repository. This is meant for publishing to our own Maven.",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "adancortes-ing/tito-el-monito-ahorcado",
+    "rank" : 111143,
+    "sha" : "cd251ccb1e92407d0776d87978bdfb78860a14e1",
+    "origin" : "https://github.com/adancortes-ing/tito-el-monito-ahorcado.git",
+    "created" : "2026-08-12T03:13:38Z",
+    "sizeKb" : 2041,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "Juego con interfaz gráfica basado en el clásico juego de lápiz y papel \"El ahorcado\", donde el jugador debe descubrir palabras letra a letra antes de agotar sus oportunidades.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "AdeptJ/adeptj-runtime",
+    "rank" : 5532,
+    "sha" : "f2ad7e104a488288183feee3b1d4db80905eaa2d",
+    "origin" : "https://github.com/AdeptJ/adeptj-runtime.git",
+    "created" : "2016-09-23T12:20:08Z",
+    "sizeKb" : 4621,
+    "stars" : 23,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "High performance, dynamic, modular runtime for RESTful APIs, MicroServices and WebApps.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "DiogoAug16/compilador-mini-java",
+    "rank" : 51087,
+    "sha" : "26bc893a9ddba2cb461f7f3f29b6f80ce7b5b8eb",
+    "origin" : "https://github.com/DiogoAug16/compilador-mini-java.git",
+    "created" : "2025-04-28T02:38:11Z",
+    "sizeKb" : 7600,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "adrianrevilla009/fever-events",
+    "rank" : 85029,
+    "sha" : "c571a884795d2fe35f596b79993ed48f7e67da9a",
+    "origin" : "https://github.com/adrianrevilla009/fever-events.git",
+    "created" : "2026-03-06T14:40:35Z",
+    "sizeKb" : 1128,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Fever code test for event domain",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "wilkernel/wivipay-backend",
+    "rank" : 51785,
+    "sha" : "d7f4f37424e485e50f895106afd5159d8acfe422",
+    "origin" : "https://github.com/wilkernel/wivipay-backend.git",
+    "created" : "2025-05-03T05:25:03Z",
+    "sizeKb" : 1516,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Backend da aplicaçao Wipay",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "jude-james/JWav-Player",
+    "rank" : 35162,
+    "sha" : "6ff6c1b381d87427e2bdfa97af14f8f18e73ca94",
+    "origin" : "https://github.com/jude-james/JWav-Player.git",
+    "created" : "2024-08-28T16:45:54Z",
+    "sizeKb" : 4106,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "WAV music player",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Smartlogic-Semaphore-Limited/Java-APIs",
+    "rank" : 6841,
+    "sha" : "6054dcc7e92677c0d5c8d0c7f6a4f0a7e2b5ed15",
+    "origin" : "https://github.com/Smartlogic-Semaphore-Limited/Java-APIs.git",
+    "created" : "2017-05-02T12:17:57Z",
+    "sizeKb" : 4380,
+    "stars" : 3,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "APIs for interaction with Semaphore Servers and the Semaphore Cloud",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "phax/ph-db",
+    "rank" : 2735,
+    "sha" : "e210a79b644dab8041cec29587a6310082d676cc",
+    "origin" : "https://github.com/phax/ph-db.git",
+    "created" : "2014-08-26T06:29:50Z",
+    "sizeKb" : 1225,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Java library with some basic DB API (neither JDBC nor JPA)",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "bytestrick/chevy",
+    "rank" : 33044,
+    "sha" : "20f4299a10c15833d3c0a9c054a589581a9c165b",
+    "origin" : "https://github.com/bytestrick/chevy.git",
+    "created" : "2024-05-22T15:09:20Z",
+    "sizeKb" : 103430,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "2D RPG Game",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Cnewbeee/company",
+    "rank" : 68099,
+    "sha" : "db11225e6cbde014edb8811733eb19b6442758f0",
+    "origin" : "https://github.com/Cnewbeee/company.git",
+    "created" : "2025-10-11T03:46:57Z",
+    "sizeKb" : 6095,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Madsbest/modern-armor-bar",
+    "rank" : 96184,
+    "sha" : "b6d41f94ea344bc8f7603fd64a73870c5376e792",
+    "origin" : "https://github.com/Madsbest/modern-armor-bar.git",
+    "created" : "2026-05-10T18:16:19Z",
+    "sizeKb" : 2364,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Modern Armor Bar adds a sleek visual representation of your equipped gear directly to your HUD Keep track of your protection at a glance! This mod displays your current armor items next to your health or hotbar, ensuring you always know your durability and status without opening your inventory.",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "dachengxiaopang/ct-youtrackdb-976ac8d2",
+    "rank" : 102429,
+    "sha" : "4f0383d10cb95441c7cb28f930df34fe3b9d87e4",
+    "origin" : "https://github.com/dachengxiaopang/ct-youtrackdb-976ac8d2.git",
+    "created" : "2026-06-15T11:52:07Z",
+    "sizeKb" : 20990,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "botorabi/HomieCenter",
+    "rank" : 8790,
+    "sha" : "fe784bff92b0a6c1fa137412b0a871474ca6c447",
+    "origin" : "https://github.com/botorabi/HomieCenter.git",
+    "created" : "2018-06-12T22:40:01Z",
+    "sizeKb" : 10644,
+    "stars" : 18,
+    "licenceAtPin" : "MIT",
+    "description" : "Control Center for Home Automation Devices Connected to FRITZ!Box",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "harinivash8/lasthope",
+    "rank" : 51136,
+    "sha" : "20851ecc8ff9cc87e56f094d4cc05042e3a04b5d",
+    "origin" : "https://github.com/harinivash8/lasthope.git",
+    "created" : "2025-04-28T05:22:39Z",
+    "sizeKb" : 2780,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Aaron-g-u-o/MallChat",
+    "rank" : 91018,
+    "sha" : "90cb4007d066d416bc7860fd64ffe9cbb5ff087e",
+    "origin" : "https://github.com/Aaron-g-u-o/MallChat.git",
+    "created" : "2026-04-09T03:59:31Z",
+    "sizeKb" : 2265,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "PSMRI/Helpline104-API",
+    "rank" : 26965,
+    "sha" : "f25c863965a24cfbdc8013cd6bb303af2b6a8f3f",
+    "origin" : "https://github.com/PSMRI/Helpline104-API.git",
+    "created" : "2023-06-27T07:21:03Z",
+    "sizeKb" : 1124,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "AMRIT API microservice for running 104 health information helplines. Integrates with telephony services.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "TR-RBM/baritoneworker",
+    "rank" : 100527,
+    "sha" : "62c0c636e45e2ea9e1b2365348f17a8ce2380446",
+    "origin" : "https://github.com/TR-RBM/baritoneworker.git",
+    "created" : "2026-06-02T16:12:16Z",
+    "sizeKb" : 2370,
+    "stars" : 0,
+    "licenceAtPin" : "CC0-1.0",
+    "description" : "A pack of autonomous Baritone workers for Minecraft 26.1.2 (Fabric).",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "paparajote0101/JAVA_IA_Las_Palmas_Demo",
+    "rank" : 84464,
+    "sha" : "1084a8ba8762b7c536bf5889c0c7617927308f24",
+    "origin" : "https://github.com/paparajote0101/JAVA_IA_Las_Palmas_Demo.git",
+    "created" : "2026-03-03T08:49:34Z",
+    "sizeKb" : 1344,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "disjoint-account/FlowerBreeding",
+    "rank" : 109613,
+    "sha" : "9002e4ed78fffac5504b60497f589ffd3b5cd8bd",
+    "origin" : "https://github.com/disjoint-account/FlowerBreeding.git",
+    "created" : "2026-07-27T18:40:31Z",
+    "sizeKb" : 1724,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "A mod for all things plants and flowers.",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "bigchadguys/daily-shop-mod",
+    "rank" : 31727,
+    "sha" : "ed328b47c861587ff75e150446572398fa8b2175",
+    "origin" : "https://github.com/bigchadguys/daily-shop-mod.git",
+    "created" : "2024-03-05T04:31:55Z",
+    "sizeKb" : 1036,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "open-source-project-by-zlxls/ruo-yi-cloud-vue",
+    "rank" : 77364,
+    "sha" : "15b9f1cc3ea3ed2fabdb373665661b5940384fd3",
+    "origin" : "https://github.com/open-source-project-by-zlxls/ruo-yi-cloud-vue.git",
+    "created" : "2026-01-04T03:10:18Z",
+    "sizeKb" : 1585,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "若依是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。 采用前后端分离的模式，微服务版本前端(基于 RuoYi-Vue)。 后端采用Spring Boot、Spring Cloud & Alibaba。 注册中心、配置中心选型Nacos，权限认证使用Redis。 流量控制框架选型Sentinel，分布式事务选型Seata。",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "MFS-code/Hadoop-WordCount",
+    "rank" : 66328,
+    "sha" : "ad137556431fdf4d90e285d8998bb4e7f0324b7c",
+    "origin" : "https://github.com/MFS-code/Hadoop-WordCount.git",
+    "created" : "2025-09-23T17:42:07Z",
+    "sizeKb" : 13244,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "izumacha/Expense-Management-Rest-API",
+    "rank" : 96968,
+    "sha" : "acf74b1f5be710b920a125a40ef4b4579e7d6b08",
+    "origin" : "https://github.com/izumacha/Expense-Management-Rest-API.git",
+    "created" : "2026-05-12T14:27:00Z",
+    "sizeKb" : 2735,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "個人の支出を記録・集計する 家計簿アプリのバックエンド REST API",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "siqale/vraptor4",
+    "rank" : 2773,
+    "sha" : "593ce9ad60f9d38c360881b2132417c56b8cc093",
+    "origin" : "https://github.com/siqale/vraptor4.git",
+    "created" : "2014-07-16T00:42:54Z",
+    "sizeKb" : 12440,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "A Java web MVC action-based framework",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "ethanicusss/AstralAdditions",
+    "rank" : 26065,
+    "sha" : "cdde321950225c3c959dd1ec43d6706d331955ec",
+    "origin" : "https://github.com/ethanicusss/AstralAdditions.git",
+    "created" : "2023-04-04T17:48:30Z",
+    "sizeKb" : 364089,
+    "stars" : 2,
+    "licenceAtPin" : "CC0-1.0",
+    "description" : "Official Additions for Create: Astral",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "sameal153/ruoyi-vue-plus",
+    "rank" : 31671,
+    "sha" : "27518ae06eaeaee3c36890b9eeaee9239f3ea522",
+    "origin" : "https://github.com/sameal153/ruoyi-vue-plus.git",
+    "created" : "2024-03-19T10:37:29Z",
+    "sizeKb" : 7899,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "mvallim/amazon-sns-java-messaging-lib",
+    "rank" : 24108,
+    "sha" : "5261f478dc7d28bc8d84c8a7394df2fb8aa23e75",
+    "origin" : "https://github.com/mvallim/amazon-sns-java-messaging-lib.git",
+    "created" : "2022-11-17T06:28:37Z",
+    "sizeKb" : 1103,
+    "stars" : 7,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "The Amazon SNS Java Messaging Library holds the compatible classes, that are used for communicating with Amazon Simple Notification Service. This project builds on top of the AWS SDK for Java to use Amazon SNS provider for the messaging applications without running any additional software.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "IlySlothy/Slothy-s-Tree",
+    "rank" : 98837,
+    "sha" : "85d185f676c311765370b2020f61ff4e627f1513",
+    "origin" : "https://github.com/IlySlothy/Slothy-s-Tree.git",
+    "created" : "2026-05-24T09:23:14Z",
+    "sizeKb" : 211460,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "A pack hub for elytra pvp",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "JOYE661/Test_sky_main",
+    "rank" : 76553,
+    "sha" : "a7f5d1987e1e257c9d40e241fa799c26ac85794f",
+    "origin" : "https://github.com/JOYE661/Test_sky_main.git",
+    "created" : "2025-12-30T03:10:25Z",
+    "sizeKb" : 70137,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "苍穹外卖后端",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "JCXYOZH/information-walls-serve",
+    "rank" : 44081,
+    "sha" : "b757d686af6bde75cf0a063f279ad47e66398cf2",
+    "origin" : "https://github.com/JCXYOZH/information-walls-serve.git",
+    "created" : "2025-02-23T13:04:07Z",
+    "sizeKb" : 5848,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "christiandrochon/sma-eventsourcing-17",
+    "rank" : 37498,
+    "sha" : "c639b1ea1660a76dd8975a612fd81481035fae00",
+    "origin" : "https://github.com/christiandrochon/sma-eventsourcing-17.git",
+    "created" : "2024-10-29T12:53:04Z",
+    "sizeKb" : 2092,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "xsinxcos/GPU_Rentaler",
+    "rank" : 66409,
+    "sha" : "e42929a8b95c7100dab0c4cd401ef133c12a9d22",
+    "origin" : "https://github.com/xsinxcos/GPU_Rentaler.git",
+    "created" : "2025-09-22T08:46:41Z",
+    "sizeKb" : 1484,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "velr-ai/velr-kotlin-driver",
+    "rank" : 104418,
+    "sha" : "2934d6c05d9080b8d28910b4970ec4e7efd6f63c",
+    "origin" : "https://github.com/velr-ai/velr-kotlin-driver.git",
+    "created" : "2026-06-28T17:15:34Z",
+    "sizeKb" : 36801,
+    "stars" : 1,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "build.gradle.kts applies maven-publish"
+  }, {
+    "repository" : "OldFriend-C/MyChat",
+    "rank" : 40628,
+    "sha" : "085cfaabbf323e93fbacb8099742cc2efe8699c0",
+    "origin" : "https://github.com/OldFriend-C/MyChat.git",
+    "created" : "2025-01-13T08:14:43Z",
+    "sizeKb" : 19511,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "一个使用JavaFX搭建前端聊天界面，SpringBoot,mybatis-plus,mysql搭建后端服务器的即时聊天项目",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "skyisolated/springcloud-review",
+    "rank" : 60384,
+    "sha" : "682a6b30ea46e46e9af7d324c5883fb7b939f241",
+    "origin" : "https://github.com/skyisolated/springcloud-review.git",
+    "created" : "2025-07-27T15:43:01Z",
+    "sizeKb" : 1282,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "快速复习一遍springcloud的基本内容",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "turkerozturk/morethanpomodoro",
+    "rank" : 42440,
+    "sha" : "49af4d291968f1b1a7a71f41124e60164cd754fd",
+    "origin" : "https://github.com/turkerozturk/morethanpomodoro.git",
+    "created" : "2025-02-06T21:26:57Z",
+    "sizeKb" : 2151,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "folio-org/mod-users",
+    "rank" : 5843,
+    "sha" : "f706c43c9ecfc5d0226448ca62047e9ec103baeb",
+    "origin" : "https://github.com/folio-org/mod-users.git",
+    "created" : "2016-10-11T19:51:36Z",
+    "sizeKb" : 5288,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Domain Model to Manage Users",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "eclipse-platform/eclipse.platform.releng.buildtools",
+    "rank" : 21028,
+    "sha" : "b197c6aef1f53d6a6e0efdaaf7e3eba84dfadda9",
+    "origin" : "https://github.com/eclipse-platform/eclipse.platform.releng.buildtools.git",
+    "created" : "2022-02-14T18:32:44Z",
+    "sizeKb" : 17593,
+    "stars" : 1,
+    "licenceAtPin" : "EPL-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "ekarakusnl/scrabble",
+    "rank" : 25026,
+    "sha" : "a400702228bcc1a903e8b217868b1aa6623a79d4",
+    "origin" : "https://github.com/ekarakusnl/scrabble.git",
+    "created" : "2023-01-11T14:03:47Z",
+    "sizeKb" : 39506,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "A scrabble game consists of angular frontend and java backend",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "RM2PT/ArkDSL",
+    "rank" : 25543,
+    "sha" : "ca4c431c6c1c9a1fd2eff2c8c08a81546869a0e1",
+    "origin" : "https://github.com/RM2PT/ArkDSL.git",
+    "created" : "2023-03-20T13:27:29Z",
+    "sizeKb" : 1760,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "davidrudder23/mud",
+    "rank" : 13303,
+    "sha" : "89f7980d85afda73cbd13db9c17db78ae169bee5",
+    "origin" : "https://github.com/davidrudder23/mud.git",
+    "created" : "2019-11-10T16:45:27Z",
+    "sizeKb" : 26002,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "A simple Multi-User Dimension (networked text adventured game) for learning purposes",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "globalbioticinteractions/elton",
+    "rank" : 7578,
+    "sha" : "c60ec8d858ec12d6cad13823f317065b635a1b3c",
+    "origin" : "https://github.com/globalbioticinteractions/elton.git",
+    "created" : "2017-09-16T07:09:22Z",
+    "sizeKb" : 8528,
+    "stars" : 6,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : " Access, review and index existing species interaction datasets",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "cache2k/cache2k",
+    "rank" : 1046,
+    "sha" : "6cf589ea28c02ba0b49dac2b38e849238053f1bf",
+    "origin" : "https://github.com/cache2k/cache2k.git",
+    "created" : "2013-12-18T17:25:04Z",
+    "sizeKb" : 10448,
+    "stars" : 742,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Lightweight, high performance Java caching",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Decathlon/internal-developer-platform",
+    "rank" : 88209,
+    "sha" : "f148be0c1b708a3195b8519933a99f08dcccac68",
+    "origin" : "https://github.com/Decathlon/internal-developer-platform.git",
+    "created" : "2026-03-25T15:01:50Z",
+    "sizeKb" : 1967,
+    "stars" : 9,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "The extensible IDP backend for the AI era. Dynamic data modeling, real-time ingestion, and self-service actions—instantly accessible to AI Agents via MCP.",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Zone-Infinity/DiscordEconomySystem",
+    "rank" : 18158,
+    "sha" : "753b9375d52840a5b27bff4a469af34ebac09092",
+    "origin" : "https://github.com/Zone-Infinity/DiscordEconomySystem.git",
+    "created" : "2021-05-13T16:27:00Z",
+    "sizeKb" : 19771,
+    "stars" : 3,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "nginxinc/bank-of-sirius",
+    "rank" : 18701,
+    "sha" : "03714915db018831c3551f0bd39c44ea4b8dd32a",
+    "origin" : "https://github.com/nginxinc/bank-of-sirius.git",
+    "created" : "2021-08-16T23:35:20Z",
+    "sizeKb" : 5556,
+    "stars" : 52,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Bank of Sirius",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "satyapadala/oracle-cloud-sql-driver",
+    "rank" : 23615,
+    "sha" : "a487b731eba5f91a3e126442c5ccec754e63e9ba",
+    "origin" : "https://github.com/satyapadala/oracle-cloud-sql-driver.git",
+    "created" : "2022-10-31T14:26:16Z",
+    "sizeKb" : 14781,
+    "stars" : 5,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "jboss-msc/jboss-msc2",
+    "rank" : 1475,
+    "sha" : "37272cf2796c59e981c24286cf33eea51773155e",
+    "origin" : "https://github.com/jboss-msc/jboss-msc2.git",
+    "created" : "2013-07-25T16:00:27Z",
+    "sizeKb" : 2206,
+    "stars" : 8,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Version 2 of the Modular Service Container",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "GINsim/GINsim",
+    "rank" : 17221,
+    "sha" : "08e89863aba41314537a83c7351b43301b1d4b3c",
+    "origin" : "https://github.com/GINsim/GINsim.git",
+    "created" : "2021-03-09T08:19:27Z",
+    "sizeKb" : 30748,
+    "stars" : 6,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "Construct and analyse dynamical models of biological interaction networks",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "pguraedy/IWA-Java",
+    "rank" : 79943,
+    "sha" : "81111d3aa03bd6ed1deaeea4972be745e85ebe4d",
+    "origin" : "https://github.com/pguraedy/IWA-Java.git",
+    "created" : "2026-01-29T16:30:29Z",
+    "sizeKb" : 3944,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "openwms/org.openwms.wms.movements.lib",
+    "rank" : 14458,
+    "sha" : "f9a87f25fe99294a84509588587af058f1ab4052",
+    "origin" : "https://github.com/openwms/org.openwms.wms.movements.lib.git",
+    "created" : "2020-04-09T14:50:40Z",
+    "sizeKb" : 11775,
+    "stars" : 2,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "The Movements service manages arbitrary movements of Transport Units",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "tycho-mertens/MakeMKVRename",
+    "rank" : 21829,
+    "sha" : "5f503893f3f455c3e294d271fc9f56f8d7e5ad81",
+    "origin" : "https://github.com/tycho-mertens/MakeMKVRename.git",
+    "created" : "2022-04-09T11:21:10Z",
+    "sizeKb" : 14506,
+    "stars" : 0,
+    "licenceAtPin" : "AGPL-3.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Nandeesh778/inji-certify-revoke",
+    "rank" : 49940,
+    "sha" : "4f2c86e8675b86e11637207f76b6d4c355a4ae7e",
+    "origin" : "https://github.com/Nandeesh778/inji-certify-revoke.git",
+    "created" : "2025-04-17T10:08:14Z",
+    "sizeKb" : 6157,
+    "stars" : 0,
+    "licenceAtPin" : "MPL-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "apache/sling-org-apache-sling-testing-osgi-mock",
+    "rank" : 7730,
+    "sha" : "87b500748a80fbafe6859fb8596789af163479aa",
+    "origin" : "https://github.com/apache/sling-org-apache-sling-testing-osgi-mock.git",
+    "created" : "2017-10-18T16:42:39Z",
+    "sizeKb" : 1023,
+    "stars" : 2,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Apache Sling Testing OSGi Mock",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "mcgivrer/mfgp",
+    "rank" : 73284,
+    "sha" : "f4f0fb684761494dd8ebe7cd62c416efa8c335cd",
+    "origin" : "https://github.com/mcgivrer/mfgp.git",
+    "created" : "2025-11-27T16:11:57Z",
+    "sizeKb" : 2746,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "gloryhui/ueditor-plus-java",
+    "rank" : 110785,
+    "sha" : "c933f881e908aeef6426e6590168b14125e64358",
+    "origin" : "https://github.com/gloryhui/ueditor-plus-java.git",
+    "created" : "2026-08-03T08:38:59Z",
+    "sizeKb" : 1343,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Offline-first UEditor Plus backend and Spring Boot starters",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "denukernel/Minecraft-Classic-Reborn",
+    "rank" : 59664,
+    "sha" : "a3b1a39702a65035152bcae1c5be795c8cee41c5",
+    "origin" : "https://github.com/denukernel/Minecraft-Classic-Reborn.git",
+    "created" : "2025-07-21T00:01:05Z",
+    "sizeKb" : 2883,
+    "stars" : 3,
+    "licenceAtPin" : "MIT",
+    "description" : "New version of Minecraft Classic 0.30 Client with more features, new version of remastered so far. also its minecraft mod",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "xlxyvergil/TaczAttributeAdd",
+    "rank" : 68849,
+    "sha" : "adde1ae378c1cfeae244f8f6a3b7b640063d8ef0",
+    "origin" : "https://github.com/xlxyvergil/TaczAttributeAdd.git",
+    "created" : "2025-10-18T12:36:46Z",
+    "sizeKb" : 430745,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "1",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "Pavanmanda356/Pavan-petstore",
+    "rank" : 56031,
+    "sha" : "cbfc903630334fa6e4c34f6c0ade6ece10b9ab07",
+    "origin" : "https://github.com/Pavanmanda356/Pavan-petstore.git",
+    "created" : "2025-06-12T07:51:03Z",
+    "sizeKb" : 1736,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "Samuel-Oliveira/Java_Danfe",
+    "rank" : 17801,
+    "sha" : "9b0798d660e7953e71ea894bff303dbee54a773c",
+    "origin" : "https://github.com/Samuel-Oliveira/Java_Danfe.git",
+    "created" : "2021-05-01T18:42:03Z",
+    "sizeKb" : 83588,
+    "stars" : 58,
+    "licenceAtPin" : "MIT",
+    "description" : "Commit Inicial",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "dcaudell/javai",
+    "rank" : 105502,
+    "sha" : "08e7a085dbd30a61f85ade1d34b8eb26b2498809",
+    "origin" : "https://github.com/dcaudell/javai.git",
+    "created" : "2026-07-07T14:27:28Z",
+    "sizeKb" : 4352,
+    "stars" : 1,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Proposed AI extensions for Java",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "luckyscooby/eSportsManager",
+    "rank" : 66220,
+    "sha" : "0f6ece37812f58567c3bf8a4298ac39a9a6b6279",
+    "origin" : "https://github.com/luckyscooby/eSportsManager.git",
+    "created" : "2025-09-24T14:53:06Z",
+    "sizeKb" : 12292,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "Projeto [acadêmico] de Gerenciamento de Times de eSports em JavaFX",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "kavia-common/Ofbiz-framework-222559",
+    "rank" : 83159,
+    "sha" : "38c8692617e1eda9fc10687dfd145ff7b8421507",
+    "origin" : "https://github.com/kavia-common/Ofbiz-framework-222559.git",
+    "created" : "2026-02-18T11:09:04Z",
+    "sizeKb" : 731554,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "Kavia repository created from https://github.com/DarssiniRamesh/Ofbiz-framework.git",
+    "publishes" : "build.gradle applies maven-publish"
+  }, {
+    "repository" : "acdmammoths/ROhAN-code",
+    "rank" : 25776,
+    "sha" : "556ee2217bfc21437725fe5ff87278f48b997c7e",
+    "origin" : "https://github.com/acdmammoths/ROhAN-code.git",
+    "created" : "2023-03-16T12:53:52Z",
+    "sizeKb" : 2272,
+    "stars" : 0,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "ROhAN: Row-Order Agnostic Null Models for Statistically-sound Knowledge Discovery",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "markusheiden/serialthreads",
+    "rank" : 2685,
+    "sha" : "97137345b7fb2b51620a611c6f914c2b74b2a6a4",
+    "origin" : "https://github.com/markusheiden/serialthreads.git",
+    "created" : "2014-10-30T21:41:09Z",
+    "sizeKb" : 8007,
+    "stars" : 1,
+    "licenceAtPin" : "GPL-3.0",
+    "description" : "Allows to execute many serial threads on one java thread.",
+    "publishes" : "build.gradle.kts applies maven-publish"
+  }, {
+    "repository" : "salmonineath/StudentLifeApi-java",
+    "rank" : 102253,
+    "sha" : "afed5f8dc52fc7742821ab64ed53562e3e4e0200",
+    "origin" : "https://github.com/salmonineath/StudentLifeApi-java.git",
+    "created" : "2026-06-16T11:29:20Z",
+    "sizeKb" : 11838,
+    "stars" : 0,
+    "licenceAtPin" : "MIT",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "axonivy-market/formeditor-demos",
+    "rank" : 73348,
+    "sha" : "da0ecadfe4d2a24e3e7adbff5b457fcb65178e44",
+    "origin" : "https://github.com/axonivy-market/formeditor-demos.git",
+    "created" : "2025-11-27T10:12:11Z",
+    "sizeKb" : 5485,
+    "stars" : 0,
+    "licenceAtPin" : "Apache-2.0",
+    "description" : "",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "QingyaoAi/PyGalago",
+    "rank" : 99715,
+    "sha" : "c1ea54178f55effcc09e849293106dd3fa98c802",
+    "origin" : "https://github.com/QingyaoAi/PyGalago.git",
+    "created" : "2026-05-29T15:21:14Z",
+    "sizeKb" : 1645,
+    "stars" : 0,
+    "licenceAtPin" : "BSD-3-Clause",
+    "description" : "A Python version of Lemur Galago Search engine",
+    "publishes" : "pom.xml states a groupId"
+  }, {
+    "repository" : "PsychoicCoder/RealisticCitiesCoder",
+    "rank" : 43781,
+    "sha" : "f12502d3ae70a8aca1131b1e5ded31be6ba0b568",
+    "origin" : "https://github.com/PsychoicCoder/RealisticCitiesCoder.git",
+    "created" : "2025-02-16T18:07:09Z",
+    "sizeKb" : 3499,
+    "stars" : 0,
+    "licenceAtPin" : "CC0-1.0",
+    "description" : "",
+    "publishes" : "build.gradle applies maven-publish"
+  } ],
+  "rejected" : [ {
+    "rank" : 10125,
+    "repository" : "terasolunaorg/tutorial-apps",
+    "why" : "states no publication"
+  }, {
+    "rank" : 59336,
+    "repository" : "rana1122-rana/QuraniqueAndroid",
+    "why" : "states no publication"
+  }, {
+    "rank" : 73692,
+    "repository" : "Flower804/Avaliacao-Programacao-3",
+    "why" : "states no publication"
+  }, {
+    "rank" : 38931,
+    "repository" : "jsh9091/album-art-retriever",
+    "why" : "states no publication"
+  }, {
+    "rank" : 86816,
+    "repository" : "tahiryardimci-dev/Chernobyl-Zombies-Game-2D",
+    "why" : "states no publication"
+  }, {
+    "rank" : 24299,
+    "repository" : "MikeFonseta/Chatx",
+    "why" : "states no publication"
+  }, {
+    "rank" : 35516,
+    "repository" : "gudzpoz/Juicemacs",
+    "why" : "states no publication"
+  }, {
+    "rank" : 54584,
+    "repository" : "mffrias/TACOForALSGeneration",
+    "why" : "states no publication"
+  }, {
+    "rank" : 43342,
+    "repository" : "SajidIsNotHere/Project_C",
+    "why" : "states no publication"
+  }, {
+    "rank" : 64063,
+    "repository" : "rayennaitslimane/pulsar-toolkit",
+    "why" : "states no publication"
+  }, {
+    "rank" : 55500,
+    "repository" : "Ale20p/Projects",
+    "why" : "states no publication"
+  }, {
+    "rank" : 101063,
+    "repository" : "jyworker/JY-060-15",
+    "why" : "states no publication"
+  }, {
+    "rank" : 42690,
+    "repository" : "warydiaz/fundamentos_testing_practica_dos",
+    "why" : "states no publication"
+  }, {
+    "rank" : 77564,
+    "repository" : "meherab126/Seabattle",
+    "why" : "states no publication"
+  }, {
+    "rank" : 70337,
+    "repository" : "xiguabing/HyperCeiler",
+    "why" : "states no publication"
+  }, {
+    "rank" : 81729,
+    "repository" : "branisclansey/Java_Task_Scheduling",
+    "why" : "states no publication"
+  }, {
+    "rank" : 108198,
+    "repository" : "aconroy412/bc-software-engineer-participant",
+    "why" : "states no publication"
+  }, {
+    "rank" : 102928,
+    "repository" : "lin12058/ardp-patched",
+    "why" : "states no publication"
+  }, {
+    "rank" : 19041,
+    "repository" : "ckirste/MULTImidiSOUNDFONTplayer",
+    "why" : "states no publication"
+  }, {
+    "rank" : 50614,
+    "repository" : "redragon-time/redragon-erp",
+    "why" : "states no publication"
+  }, {
+    "rank" : 90864,
+    "repository" : "tehcneko/testactions",
+    "why" : "states no publication"
+  }, {
+    "rank" : 8913,
+    "repository" : "Rumaruka/Thaumic-Bases-Unofficial",
+    "why" : "states no publication"
+  }, {
+    "rank" : 34308,
+    "repository" : "prathmeshgajbhiye/Student-MG-system",
+    "why" : "states no publication"
+  }, {
+    "rank" : 108586,
+    "repository" : "royaldeveloper-rajgiri/leetcode-solution",
+    "why" : "states no publication"
+  }, {
+    "rank" : 83746,
+    "repository" : "gitdevspirit/Spirit",
+    "why" : "states no publication"
+  }, {
+    "rank" : 27301,
+    "repository" : "Kaysaar/Ashes-Of-The-Domain-Virtue-of-Society",
+    "why" : "states no publication"
+  }, {
+    "rank" : 15267,
+    "repository" : "jonathansilva/8BallPool",
+    "why" : "states no publication"
+  }, {
+    "rank" : 23578,
+    "repository" : "theborakompanioni/tor-spring-boot-starter",
+    "why" : "states no publication"
+  }, {
+    "rank" : 70041,
+    "repository" : "Qxyz17/TranSlatorMod",
+    "why" : "states no publication"
+  }, {
+    "rank" : 83649,
+    "repository" : "MamyVentouse/YOH-Client",
+    "why" : "states no publication"
+  }, {
+    "rank" : 101600,
+    "repository" : "PtrStruct/rune-loot",
+    "why" : "states no publication"
+  }, {
+    "rank" : 63982,
+    "repository" : "profRonaldoIFPI/POO_TADS_2025",
+    "why" : "states no publication"
+  }, {
+    "rank" : 76686,
+    "repository" : "CohenReiland/Online-Store-Management-System",
+    "why" : "states no publication"
+  }, {
+    "rank" : 87913,
+    "repository" : "mjawariatariq/Employee-Management-System",
+    "why" : "states no publication"
+  }, {
+    "rank" : 3681,
+    "repository" : "guardianproject/ripple",
+    "why" : "states no publication"
+  }, {
+    "rank" : 93436,
+    "repository" : "Lucas0623z/NoteLite",
+    "why" : "states no publication"
+  }, {
+    "rank" : 96781,
+    "repository" : "Benson7zhang/MuscleAPP",
+    "why" : "states no publication"
+  }, {
+    "rank" : 72843,
+    "repository" : "FTC-12527-FatDragon/Prototype2026-Public-2",
+    "why" : "states no publication"
+  }, {
+    "rank" : 87528,
+    "repository" : "yangkangs/XPopup",
+    "why" : "states no publication"
+  }, {
+    "rank" : 84272,
+    "repository" : "MengXJ0410/MUJICAPLANE",
+    "why" : "states no publication"
+  }, {
+    "rank" : 79363,
+    "repository" : "rgravely/store-pos",
+    "why" : "states no publication"
+  }, {
+    "rank" : 16069,
+    "repository" : "LSPosed/LSPosed",
+    "why" : "states no publication"
+  }, {
+    "rank" : 36481,
+    "repository" : "trungnq0202/NUSkier",
+    "why" : "states no publication"
+  }, {
+    "rank" : 77397,
+    "repository" : "maayancohen-coder/I2CS_Ex3",
+    "why" : "states no publication"
+  }, {
+    "rank" : 65140,
+    "repository" : "837622923/spatio",
+    "why" : "states no publication"
+  }, {
+    "rank" : 45254,
+    "repository" : "kcsalerno/retriever-essentials",
+    "why" : "states no publication"
+  }, {
+    "rank" : 32180,
+    "repository" : "iamchandanchaudhary/Projects-using-Java",
+    "why" : "states no publication"
+  }, {
+    "rank" : 87664,
+    "repository" : "cinestreamlp/PelisPlusHD",
+    "why" : "states no publication"
+  }, {
+    "rank" : 80175,
+    "repository" : "foxnukem/ffm-performance-study",
+    "why" : "states no publication"
+  }, {
+    "rank" : 82745,
+    "repository" : "dev-erick-marques/grid-authority",
+    "why" : "states no publication"
+  }, {
+    "rank" : 60782,
+    "repository" : "driohcker/SpaceAlarm",
+    "why" : "states no publication"
+  }, {
+    "rank" : 56863,
+    "repository" : "AnomalousVectors/burp-exporter",
+    "why" : "states no publication"
+  }, {
+    "rank" : 71545,
+    "repository" : "Skullmc1/Portel",
+    "why" : "states no publication"
+  }, {
+    "rank" : 37901,
+    "repository" : "RTUStudio/VanishArmor",
+    "why" : "states no publication"
+  }, {
+    "rank" : 59011,
+    "repository" : "xygaoz/kochiu-collection",
+    "why" : "states no publication"
+  }, {
+    "rank" : 99903,
+    "repository" : "Studio-EDC/datagora_federated_catalog",
+    "why" : "states no publication"
+  }, {
+    "rank" : 101032,
+    "repository" : "kinchannn/javagame4-prusher3d-00",
+    "why" : "states no publication"
+  }, {
+    "rank" : 20448,
+    "repository" : "woheller69/audiometry",
+    "why" : "states no publication"
+  }, {
+    "rank" : 105567,
+    "repository" : "sebashackLLC/swedenhack",
+    "why" : "states no publication"
+  }, {
+    "rank" : 76015,
+    "repository" : "archiips/UW-Seattle-Navigation-System",
+    "why" : "states no publication"
+  }, {
+    "rank" : 110376,
+    "repository" : "InYourMachine/Inventory-Management-System-Java",
+    "why" : "states no publication"
+  }, {
+    "rank" : 98497,
+    "repository" : "kinchannn/javagame0-ar06",
+    "why" : "states no publication"
+  }, {
+    "rank" : 66679,
+    "repository" : "Burfai9Du/crylogger",
+    "why" : "states no publication"
+  }, {
+    "rank" : 31678,
+    "repository" : "EkagraS/Mom-s-Kitchen",
+    "why" : "states no publication"
+  }, {
+    "rank" : 50191,
+    "repository" : "ArnePossenier/Demo-environment-AP",
+    "why" : "states no publication"
+  }, {
+    "rank" : 13681,
+    "repository" : "pingidentity/pingone-authenticator-sample-app-android",
+    "why" : "states no publication"
+  }, {
+    "rank" : 13485,
+    "repository" : "ThizThizzyDizzy/nc-reactor-generator",
+    "why" : "states no publication"
+  }, {
+    "rank" : 40890,
+    "repository" : "kodkodmx/habobaAlberto_pruebatec2",
+    "why" : "states no publication"
+  }, {
+    "rank" : 62253,
+    "repository" : "noorusoft797/compreface",
+    "why" : "states no publication"
+  }, {
+    "rank" : 23940,
+    "repository" : "balabit-deps/balabit-os-8-openjdk-lts",
+    "why" : "states no publication"
+  }, {
+    "rank" : 1209,
+    "repository" : "schedulix/schedulix",
+    "why" : "states no publication"
+  }, {
+    "rank" : 31886,
+    "repository" : "GeyserExtensionists/GeyserModelEngine",
+    "why" : "states no publication"
+  }, {
+    "rank" : 102356,
+    "repository" : "DayronChavesS/uned-03307-proyecto",
+    "why" : "states no publication"
+  }, {
+    "rank" : 86095,
+    "repository" : "santosmaxsuel/ConcurrentProgramming",
+    "why" : "states no publication"
+  }, {
+    "rank" : 38188,
+    "repository" : "pfeige-veracode/verademo-java",
+    "why" : "states no publication"
+  }, {
+    "rank" : 49974,
+    "repository" : "NeerajMayilvakanan/Dice-Rolling-App",
+    "why" : "states no publication"
+  }, {
+    "rank" : 89693,
+    "repository" : "unuf0517/phase1",
+    "why" : "states no publication"
+  }, {
+    "rank" : 65615,
+    "repository" : "aqi-stuck/project-predictive-analysis-system-using-linear-regression",
+    "why" : "states no publication"
+  }, {
+    "rank" : 72254,
+    "repository" : "dennysubke/ashigaru-terminal",
+    "why" : "states no publication"
+  }, {
+    "rank" : 9134,
+    "repository" : "Lakerolmaker/Unit-01",
+    "why" : "states no publication"
+  }, {
+    "rank" : 86381,
+    "repository" : "lhstu/RedisManager",
+    "why" : "states no publication"
+  }, {
+    "rank" : 80953,
+    "repository" : "mumuuumum/PCAPdroid-ast",
+    "why" : "states no publication"
+  }, {
+    "rank" : 106940,
+    "repository" : "cloudurga/lightweight-symmetric-searchable-encryption",
+    "why" : "states no publication"
+  }, {
+    "rank" : 47132,
+    "repository" : "Sai-sys-cmd/CIA-Coding-Hackathon",
+    "why" : "states no publication"
+  }, {
+    "rank" : 16627,
+    "repository" : "thomasm1/SDET",
+    "why" : "states no publication"
+  }, {
+    "rank" : 50646,
+    "repository" : "SpigotRCE/contribution-addon",
+    "why" : "states no publication"
+  }, {
+    "rank" : 3125,
+    "repository" : "opentext-idol/find",
+    "why" : "states no publication"
+  }, {
+    "rank" : 90908,
+    "repository" : "wlz196/RockKingdom-Data",
+    "why" : "states no publication"
+  }, {
+    "rank" : 86634,
+    "repository" : "Keitudimps/StudySync",
+    "why" : "states no publication"
+  }, {
+    "rank" : 106888,
+    "repository" : "A-Cappella-dot-Net/opus-1",
+    "why" : "states no publication"
+  }, {
+    "rank" : 63614,
+    "repository" : "appuraja1/AndroidPdfViewer-master-16kb",
+    "why" : "states no publication"
+  }, {
+    "rank" : 33256,
+    "repository" : "eu-nebulous/optimiser-controller",
+    "why" : "states no publication"
+  } ]
 }

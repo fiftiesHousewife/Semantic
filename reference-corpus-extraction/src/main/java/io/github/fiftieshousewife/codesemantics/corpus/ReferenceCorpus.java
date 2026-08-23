@@ -28,8 +28,7 @@ public final class ReferenceCorpus {
 
     /** The uniform draw, which is what a run reads where it names no manifest of its own. */
     public static final String UNIFORM_DRAW = "/reference-corpus.tsv";
-    /** The draw with a fifty-star floor, and the draw of repositories that publish an artefact. */
-    public static final String STARRED_DRAW = "/reference-corpus-starred.tsv";
+    /** The draw of repositories that publish an artefact, which is the one this library pools. */
     public static final String PUBLISHED_DRAW = "/reference-corpus-published.tsv";
 
     private static final String MANIFEST_PROPERTY = "cs.corpus.manifest";

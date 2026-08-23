@@ -7,12 +7,27 @@
 #
 #     bash reference-corpus-extraction/draw-the-corpus.sh
 #
+# It runs five stages. Name one to start there, which is what to do where a later stage failed and the
+# manifest on disk is already the one wanted:
+#
+#     bash reference-corpus-extraction/draw-the-corpus.sh fetch
+#
 # The frame, the seed and the date ceiling are the ones the published manifest states in its own header,
 # fixed before a single rank was drawn. THE FRAME COUNT IS ASSERTED, not read afterwards: a rank resolves to
 # a repository through counts taken live, so a drifted frame maps the same seeded ranks to different
 # repositories. The draw refuses before it writes anything if the count has moved.
 
 set -euo pipefail
+
+# Which stage to start at. Naming a later one keeps the manifest and record already on disk.
+case "${1:-draw}" in
+  draw)   readonly FROM=1 ;;
+  fetch)  readonly FROM=2 ;;
+  check)  readonly FROM=3 ;;
+  pool)   readonly FROM=4 ;;
+  bundle) readonly FROM=5 ;;
+  *) echo "Start at one of: draw fetch check pool bundle" >&2; exit 2 ;;
+esac
 
 readonly ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 readonly RESOURCES="reference-corpus-extraction/src/main/resources"
@@ -64,19 +79,29 @@ draw=(:reference-corpus-extraction:corpusDraw "-Dcs.draw.frame=$FRAME" "-Dcs.dra
 # An `&&` guard here would return non-zero when the variable is empty, and set -e would stop the script.
 if [ -n "$TOTAL" ]; then draw+=("-Dcs.draw.total=$TOTAL"); fi
 scored=$(awk '!/^#/ && NF {print $2}' "$EVALUATION_SET" | sed -e 's|^https://github.com/||' -e 's|\.git$||' | paste -sd, -)
+if [ -z "$scored" ]; then
+  echo "Read no repository from $EVALUATION_SET. Refusing to draw a corpus that could contain one of the" >&2
+  echo "repositories the reading is scored on." >&2
+  exit 1
+fi
 refused="$scored${DRAWN_TWICE:+,$DRAWN_TWICE}"
 draw+=("-Dcs.draw.exclude=$refused")
 
+if [ "$FROM" -le 1 ]; then
 echo "==> 1/5  Drawing $COUNT repositories at seed $SEED${TOTAL:+, asserting a frame of $TOTAL}"
 echo "         refusing: $refused"
 ./gradlew --quiet "${draw[@]}"
 if [ -z "$TOTAL" ]; then
   echo "     Record this frame count in TOTAL so a later run asserts it: $(python3 -c "import json;print(json.load(open('$RECORD'))['total'])")"
 fi
+fi
 
+if [ "$FROM" -le 2 ]; then
 echo "==> 2/5  Fetching the clones into $CLONES (trees already at their pins transfer nothing)"
 ./gradlew --quiet :reference-corpus-extraction:corpusFetch "-Dcs.corpus.dir=$CLONES" "-Dcs.corpus.manifest=$MANIFEST"
+fi
 
+if [ "$FROM" -le 3 ]; then
 echo "==> 3/5  Checking no two of them are one corpus counted twice"
 ./gradlew --quiet :reference-corpus-extraction:corpusDuplicates "-Dcs.corpus.dir=$CLONES" "-Dcs.corpus.manifest=$MANIFEST" | tee "$TABLES/duplicates.txt"
 
@@ -90,12 +115,17 @@ if grep -q 'drawn twice, so a re-draw refuses' "$TABLES/duplicates.txt"; then
   echo "  CS_DRAWN_TWICE=<owner>/<name> bash reference-corpus-extraction/draw-the-corpus.sh"
   exit 1
 fi
+fi
 
+if [ "$FROM" -le 4 ]; then
 echo "==> 4/5  Pooling into $TABLES/tables (cs.corpus.out names a directory, not a file)"
 ./gradlew --quiet :reference-corpus-extraction:corpusPool "-Dcs.corpus.dir=$CLONES" "-Dcs.corpus.manifest=$MANIFEST" "-Dcs.corpus.out=$TABLES/tables"
+fi
 
+if [ "$FROM" -le 5 ]; then
 echo "==> 5/5  Bundling the mean of shares, which is the weighting the library ships"
 cp "$TABLES/tables/reference-corpus-mean-of-shares.tsv" "$BUNDLED"
+fi
 
 echo
 echo "Done. Two things to read before trusting any of it."
