@@ -46,7 +46,7 @@ tasks.register<JavaExec>("corpusFetch") {
 
 // The table itself: every drawn repository's declared names, pooled into the distribution the ranking is
 // read against. It reads a gigabyte of source and takes minutes; it reaches no network.
-//   ./gradlew :reference-corpus-extraction:corpusPool -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv -Dcs.corpus.out=<table>.tsv
+//   ./gradlew :reference-corpus-extraction:corpusPool -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv -Dcs.corpus.out=<directory for the tables>
 tasks.register<JavaExec>("corpusPool") {
     group = "verification"
     description = "Pools every drawn repository's declared names into the reference corpus table"
@@ -122,7 +122,7 @@ tasks.register<JavaExec>("corpusDuplicates") {
 // rewritten with its own header kept and the drawn rows beneath it, so a hundred rows are not transcribed.
 //
 // A command handed to a shell is one physical line: a backslash continuation does not survive being copied.
-//   ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...] [-Dcs.draw.manifest=<manifest>.tsv]
+//   ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...] [-Dcs.draw.manifest=<manifest>.tsv] [-Dcs.draw.total=<recorded frame count>]
 tasks.register<JavaExec>("corpusDraw") {
     group = "build"
     description = "Draws a seeded sample of repositories from a stated GitHub frame, recording every " +
@@ -132,7 +132,8 @@ tasks.register<JavaExec>("corpusDraw") {
     // A relative path is resolved against the repository root rather than this module, because that is
     // where a caller typing the path is standing.
     workingDir = rootDir
-    listOf("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest").forEach { name ->
-        System.getProperty("cs.draw.$name")?.let { systemProperty("cs.draw.$name", it) }
-    }
+    listOf("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest", "total")
+        .forEach { name ->
+            System.getProperty("cs.draw.$name")?.let { systemProperty("cs.draw.$name", it) }
+        }
 }

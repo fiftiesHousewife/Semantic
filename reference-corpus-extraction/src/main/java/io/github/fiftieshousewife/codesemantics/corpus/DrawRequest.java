@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.OptionalLong;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,10 @@ import java.util.stream.Collectors;
  * @param excluded   repositories a rank may land on and be refused, lower-cased
  * @param publishes  whether a repository must state a publication to be taken
  * @param manifest   the manifest being grown, whose header is kept and whose rows are rewritten
+ * @param total      the frame count a recorded draw was taken against, where the run is reproducing one
  */
 public record DrawRequest(String frame, String until, long seed, int count, Path out, boolean publishes,
-                          Set<String> excluded, Optional<Path> manifest) {
+                          Set<String> excluded, Optional<Path> manifest, OptionalLong total) {
 
     private static final String PREFIX = "cs.draw.";
 
@@ -34,7 +36,20 @@ public record DrawRequest(String frame, String until, long seed, int count, Path
                 Path.of(required("out")),
                 System.getProperty(PREFIX + "publishes") != null,
                 named(),
-                grown());
+                grown(),
+                counted());
+    }
+
+    /**
+     * The frame count a recorded draw was taken against, where the run stated one.
+     *
+     * <p>A rank resolves to a repository through counts taken live, so a frame that has drifted maps the
+     * same seeded ranks to different repositories. Stating the recorded count is what turns "reproduce that
+     * draw" into a claim the run can check instead of a hope.
+     */
+    private static OptionalLong counted() {
+        final String stated = System.getProperty(PREFIX + "total", "");
+        return stated.isBlank() ? OptionalLong.empty() : OptionalLong.of(Long.parseLong(stated));
     }
 
     /** The manifest a draw grows, where the run named one. Nothing is rewritten unless it did. */

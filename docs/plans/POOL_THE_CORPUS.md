@@ -193,19 +193,15 @@ So it is fixable rather than blocked — a `ProxySelector` and a `java.net.Authe
 
 `GitRemoteHead` asks `git ls-remote` for the commit a default branch points at: no objects transfer and no rate limit is spent, so a hundred pins cost seconds rather than an hour of paced API requests. `DrawnManifestTsv` writes the manifest from the record, keeping the header of the manifest being grown whole and deriving the clone directory from the repository's full name. Thirty rows were transcribed by hand; a hundred is where a row gets dropped.
 
-**10. Draw a hundred, refusing `benchmarkjava`.** One pass removes the duplicate and grows the sample, from a shell that reaches GitHub:
+**10. Draw a hundred, refusing `benchmarkjava`.** One pass removes the duplicate and grows the sample. It runs from a shell that reaches GitHub, and it is one short line:
 
 ```
-./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=100 -Dcs.draw.publishes -Dcs.draw.exclude=coyote-engineering/BenchmarkJava -Dcs.draw.out=reference-corpus-extraction/src/main/resources/published-draw.json -Dcs.draw.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv
+bash reference-corpus-extraction/draw-the-corpus.sh
 ```
 
-Then the fetch, which skips the 29 trees already at their pins and pulls the rest:
+The script draws, fetches, runs the near-duplicate check, pools both weightings and copies the mean of shares into the bundled resource. The frame, the seed and the date ceiling are the manifest's own, and `CS_CORPUS_COUNT` overrides the hundred.
 
-```
-./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv
-```
-
-**Read `total` in the new record before trusting the rows: it must be 112,183.** A rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one grown, and the 29 kept rows would no longer be the rows every figure below was measured on.
+**The frame count is asserted by the draw, not read by a reader afterwards.** `-Dcs.draw.total=112183` makes the run refuse before writing anything where the count has moved. It has to be checked there rather than after: the draw rewrites the manifest it grows, and a manifest already overwritten cannot be un-drifted.
 
 **Why a hundred, and what is honest about it.** The header the manifest carried before any rank was drawn said that a curve still climbing at thirty means the draw extends. It is still climbing and will not stop — the split-half disagreement falls as size to the power −0.301, which is between-repository heterogeneity rather than sampling noise. A hundred is a **budget, not a derived bound**, and the manifest header now says so. Three readings of the measured trade point at it: one repository's weight falls to a hundredth, an order of magnitude below the tenth that made ten unusable; `buf`'s effective sample rises from 4.94 repositories to about sixteen, and the words that flip are exactly the ones estimated from almost none; and past a hundred the curve is flat, with three hundred buying about two further points of churn for three times the source. **Step 2 is what actually settles the churn**, and it costs no bandwidth.
 

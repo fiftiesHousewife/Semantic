@@ -8,6 +8,16 @@ Thirty Java repositories, drawn at random from a stated population, supplying th
 
 ## How to use it
 
+The whole thing, end to end — draw, fetch, check for a repository counted twice, pool, bundle:
+
+```
+bash reference-corpus-extraction/draw-the-corpus.sh
+```
+
+It needs a shell that reaches GitHub. The frame, the seed and the date ceiling are the ones the published manifest states in its own header, and the recorded frame count is asserted rather than read afterwards: the draw refuses before writing anything if the count has moved, because a rank resolves through counts taken live and a drifted frame maps the same seeded ranks to different repositories.
+
+The individual tasks, for when only one stage is wanted:
+
 | Command | Produces |
 |---|---|
 | `./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus` | the thirty working trees, each at its pinned commit |

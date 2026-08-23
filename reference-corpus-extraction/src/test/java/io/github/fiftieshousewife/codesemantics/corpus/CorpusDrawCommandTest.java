@@ -27,7 +27,7 @@ class CorpusDrawCommandTest {
 
     @AfterEach
     void forgetWhatTheRunNamed() {
-        List.of("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest")
+        List.of("frame", "until", "seed", "count", "out", "publishes", "exclude", "manifest", "total")
                 .forEach(name -> System.clearProperty("cs.draw." + name));
     }
 
@@ -85,7 +85,7 @@ class CorpusDrawCommandTest {
         final Path out = directory.resolve("record.json");
         final DrawRequest asked =
                 new DrawRequest(FRAME, UNTIL, 20260821L, 1, out, false, java.util.Set.of(),
-                        java.util.Optional.empty());
+                        java.util.Optional.empty(), java.util.OptionalLong.empty());
 
         CorpusDrawCommand.drew(asked, new Stated(1), PINS);
 
@@ -126,7 +126,7 @@ class CorpusDrawCommandTest {
                 gone\thttps://github.com/old/gone.git\tdef456\tMIT\t7\t2019-01-01T00:00:00Z\t1
                 """);
         final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
-                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.of(manifest));
+                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.of(manifest), java.util.OptionalLong.empty());
 
         CorpusDrawCommand.drew(asked, new Stated(1), PINS);
 
@@ -141,11 +141,40 @@ class CorpusDrawCommandTest {
     @Test
     void leavesEveryManifestAloneWhereTheRunNamedNone(@TempDir final Path directory) {
         final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
-                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.empty());
+                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.empty(),
+                java.util.OptionalLong.empty());
 
         CorpusDrawCommand.drew(asked, new Stated(1), PINS);
 
         assertThat(directory.toFile().list()).containsExactly("record.json");
+    }
+
+    @Test
+    void refusesADriftedFrameBeforeItCanOverwriteTheManifestItGrows(@TempDir final Path directory)
+            throws IOException {
+        final Path manifest = directory.resolve("draw.tsv");
+        Files.writeString(manifest, "# stated before a rank was drawn\n");
+        final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
+                directory.resolve("record.json"), false, java.util.Set.of(),
+                java.util.Optional.of(manifest), java.util.OptionalLong.of(999L));
+
+        assertThatThrownBy(() -> CorpusDrawCommand.drew(asked, new Stated(1), PINS))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Nothing has been written");
+        assertAll(
+                () -> assertThat(Files.readString(manifest)).isEqualTo("# stated before a rank was drawn\n"),
+                () -> assertThat(directory.resolve("record.json")).doesNotExist());
+    }
+
+    @Test
+    void drawsWhereTheFrameStillHoldsWhatTheRunStated(@TempDir final Path directory) {
+        final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
+                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.empty(),
+                java.util.OptionalLong.of(1L));
+
+        CorpusDrawCommand.drew(asked, new Stated(1), PINS);
+
+        assertThat(directory.resolve("record.json")).exists();
     }
 
     @Test

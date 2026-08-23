@@ -39,6 +39,7 @@ public final class CorpusDrawCommand {
         final SampledFrame frame = new SampledFrame(search, asked.frame(), asked.until());
         final long total = frame.index();
         log.info("frame = {} (exact), seed = {}", total, asked.seed());
+        refuseADriftedFrame(asked, total);
 
         final CorpusDraw.Drawn drawn = new CorpusDraw(frame, new MersenneTwister(asked.seed()),
                 asked.excluded(), asked.publication(), head).of(asked.count(), total);
@@ -46,6 +47,22 @@ public final class CorpusDrawCommand {
         asked.manifest().ifPresent(manifest -> grow(manifest, drawn));
         log.info("{} drawn, {} rejected, recorded at {}",
                 drawn.taken().size(), drawn.rejected().size(), asked.out());
+    }
+
+    /**
+     * Stops before anything is written where the frame no longer holds what the recorded draw was taken
+     * against. Checked here rather than by a reader afterwards, because the draw rewrites the manifest it
+     * grows, and a manifest already overwritten cannot be un-drifted.
+     */
+    static void refuseADriftedFrame(final DrawRequest asked, final long total) {
+        asked.total().ifPresent(recorded -> {
+            if (recorded != total) {
+                throw new IllegalStateException("The frame holds " + total + " where this run stated "
+                        + recorded + ". A rank resolves through counts taken live, so the same seeded ranks "
+                        + "now name different repositories: this would be a fresh sample rather than the "
+                        + "recorded one grown. Nothing has been written.");
+            }
+        });
     }
 
     /** The named manifest rewritten: its own header, then the rows this draw took. */
