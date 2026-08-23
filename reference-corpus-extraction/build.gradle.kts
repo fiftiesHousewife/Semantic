@@ -24,8 +24,8 @@ dependencies {
 
 // The clones themselves, at the commits a manifest pins. It reaches the network, so it is never part of an
 // ordinary build; the manifest is a property so a second draw is fetched by naming a second file.
-//   ./gradlew corpusFetch -Dcs.corpus.dir=<directory to hold the clones>
-//   ./gradlew corpusFetch -Dcs.corpus.dir=<directory> -Dcs.corpus.manifest=<a different draw>.tsv
+//   ./gradlew corpusFetch -Dcs.corpus.dir=<clones>
+//   ./gradlew corpusFetch -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<a different draw>.tsv
 // Pooling reads the bundled lexical resources through the reading it shares with the engine, and those
 // total some 34 MB of TSVs before a tree is opened.
 tasks.test {
@@ -46,9 +46,7 @@ tasks.register<JavaExec>("corpusFetch") {
 
 // The table itself: every drawn repository's declared names, pooled into the distribution the ranking is
 // read against. It reads a gigabyte of source and takes minutes; it reaches no network.
-//   ./gradlew :reference-corpus-extraction:corpusPool \
-//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv \
-//       -Dcs.corpus.out=<table>.tsv
+//   ./gradlew :reference-corpus-extraction:corpusPool -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv -Dcs.corpus.out=<table>.tsv
 tasks.register<JavaExec>("corpusPool") {
     group = "verification"
     description = "Pools every drawn repository's declared names into the reference corpus table"
@@ -66,8 +64,7 @@ tasks.register<JavaExec>("corpusPool") {
 // Whether the draw has stopped moving: how far the reference travels as each repository joins it, in the
 // drawn order, and how far it would travel if any one of them left. Both in bits, bounded at 1. It reads the
 // corpus and prints; it writes nothing.
-//   ./gradlew :reference-corpus-extraction:corpusPlateau \
-//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+//   ./gradlew :reference-corpus-extraction:corpusPlateau -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv
 tasks.register<JavaExec>("corpusPlateau") {
     group = "verification"
     description = "Prints how far the reference still moves as the drawn sample grows"
@@ -85,8 +82,7 @@ tasks.register<JavaExec>("corpusPlateau") {
 // The occurrence count below which a drawn repository tells the reference nothing a resample of its size
 // would not have. Derived from the multinomial, never chosen, and never from which repositories looked
 // awkward. It reads the corpus and prints.
-//   ./gradlew :reference-corpus-extraction:corpusFloor \
-//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+//   ./gradlew :reference-corpus-extraction:corpusFloor -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv
 tasks.register<JavaExec>("corpusFloor") {
     group = "verification"
     description = "Prints what each drawn repository says that a draw of its own size would not"
@@ -104,8 +100,7 @@ tasks.register<JavaExec>("corpusFloor") {
 // Which drawn repositories are one corpus counted twice: how far every pair sits from every other, against
 // how far two draws of their sizes would sit. Derived from the multinomial, never from a list of names. It
 // reads the corpus and prints; it writes nothing.
-//   ./gradlew :reference-corpus-extraction:corpusDuplicates \
-//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+//   ./gradlew :reference-corpus-extraction:corpusDuplicates -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv
 tasks.register<JavaExec>("corpusDuplicates") {
     group = "verification"
     description = "Prints which pairs of the draw are nearer than two samples of one corpus would be"
@@ -125,10 +120,8 @@ tasks.register<JavaExec>("corpusDuplicates") {
 // It reaches the GitHub API and is never part of an ordinary build. The manifests are recorded; this is here
 // so somebody else can reproduce them from the seed.
 //
-//   ./gradlew :reference-corpus-extraction:corpusDraw \
-//       -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' \
-//       -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 \
-//       -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...]
+// A command handed to a shell is one physical line: a backslash continuation does not survive being copied.
+//   ./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=10 -Dcs.draw.out=<record>.json [-Dcs.draw.publishes] [-Dcs.draw.exclude=owner/name,...]
 tasks.register<JavaExec>("corpusDraw") {
     group = "build"
     description = "Draws a seeded sample of repositories from a stated GitHub frame, recording every " +
