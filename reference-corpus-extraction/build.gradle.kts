@@ -37,6 +37,9 @@ tasks.register<JavaExec>("corpusFetch") {
     description = "Fetches every repository a corpus manifest names, at the commit it pins"
     mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusFetchCommand"
     classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
     System.getProperty("cs.corpus.dir")?.let { systemProperty("cs.corpus.dir", it) }
     System.getProperty("cs.corpus.manifest")?.let { systemProperty("cs.corpus.manifest", it) }
 }
@@ -51,6 +54,9 @@ tasks.register<JavaExec>("corpusPool") {
     description = "Pools every drawn repository's declared names into the reference corpus table"
     mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusPoolCommand"
     classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
     maxHeapSize = "6g"
     listOf("dir", "manifest", "out").forEach { name ->
         System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
@@ -67,6 +73,9 @@ tasks.register<JavaExec>("corpusPlateau") {
     description = "Prints how far the reference still moves as the drawn sample grows"
     mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusPlateauCommand"
     classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
     maxHeapSize = "6g"
     listOf("dir", "manifest").forEach { name ->
         System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
@@ -83,6 +92,9 @@ tasks.register<JavaExec>("corpusFloor") {
     description = "Prints what each drawn repository says that a draw of its own size would not"
     mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusFloorCommand"
     classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
     maxHeapSize = "6g"
     listOf("dir", "manifest").forEach { name ->
         System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
@@ -104,6 +116,9 @@ tasks.register<JavaExec>("corpusDraw") {
         "rank and every rejection"
     mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusDrawCommand"
     classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
     listOf("frame", "until", "seed", "count", "out", "publishes", "exclude").forEach { name ->
         System.getProperty("cs.draw.$name")?.let { systemProperty("cs.draw.$name", it) }
     }
