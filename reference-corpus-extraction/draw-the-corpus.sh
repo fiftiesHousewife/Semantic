@@ -20,7 +20,7 @@ readonly MANIFEST="$RESOURCES/reference-corpus-published.tsv"
 readonly RECORD="$RESOURCES/published-draw.json"
 readonly BUNDLED="reference-corpus/src/main/resources/reference-corpus-shares.tsv"
 
-readonly FRAME='language:Java fork:false mirror:false size:>=1000 pushed:2025-01-01..2026-08-20 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0'
+readonly FRAME='language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0'
 readonly UNTIL='2026-08-20T23:59:59Z'
 readonly SEED=20260821
 

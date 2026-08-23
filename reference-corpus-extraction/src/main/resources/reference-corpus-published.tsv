@@ -12,28 +12,40 @@
 # THE FRAME AND THE PREDICATE, both fixed before a single rank was drawn.
 #
 #   FRAME, queried of GitHub:
-#     language:Java fork:false mirror:false size:>=1000 pushed:2025-01-01..2026-08-20
-#     created:<2026-08-21 license:<each of the thirteen GitHub states>
+#     language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 created:<2026-08-21
+#     license:<each of the thirteen GitHub states>
 #
-#   `pushed` IS BOUNDED AT BOTH ENDS, AND THE UPPER BOUND WAS ADDED AFTER A DRAW. Say so plainly. The frame
-#   first stated `pushed:>=2025-01-01`, which is not a fixed population: a repository whose last push was in
-#   2024 sits outside it and joins the moment somebody pushes to it, so the frame grew every day. It counted
-#   112,183 on 2026-08-20 and 112,251 three days later. A rank resolves to a repository through counts taken
-#   live, so a frame that grows maps the same seeded ranks to different repositories, and no draw taken
-#   against it can be reproduced by anyone — including by this project. The bound was added for that reason
-#   and no other: it was NOT chosen after seeing which repositories turned up, and it changes the population
-#   in a direction nobody could have aimed, since which repositories were pushed after the ceiling is not
-#   something the draw can see. Bounded above at the same date `created` is, the frame states what it always
-#   meant — still being worked on AS OF the ceiling — and stops moving. It can still shrink, where a
-#   repository is deleted or made private, and `-Dcs.draw.total` refuses a draw where it has.
+#   `pushed` HAS NO UPPER BOUND, AND BOUNDING IT WAS TRIED AND REVERTED. The frame is not a fixed
+#   population: a repository whose last push was in 2024 joins the moment somebody pushes to it, so the
+#   count grows. It read 112,183 on 2026-08-20 and 112,251 three days later. Bounding `pushed` above at the
+#   same ceiling `created` has was tried, on the reasoning that a fixed population is what makes a draw
+#   reproducible. IT IS WORSE, AND THE MEASUREMENT SAYS SO.
+#
+#     - THE BOUNDED FRAME SHRINKS, AND IT EXPELS THE REPOSITORIES IT ALREADY DREW. `pushed` is a mutable
+#       property. Under the upper bound a repository LEAVES the frame the moment anybody pushes to it, so
+#       membership falls every day and a row already drawn can stop being a member. Under no upper bound
+#       membership only ever grows: a repository pushed since 2025-01-01 stays in however often it is
+#       pushed again, so a drawn row is a member forever. Monotone membership is the property that matters.
+#     - IT COST 4,959 REPOSITORIES, AND THEY WERE THE MAINTAINED ONES. The bounded frame counted 107,224,
+#       against 112,183 for the SAME window three days earlier. Those 4,959 were pushed in between, which
+#       is what expelled them — so the bound removes exactly the actively maintained projects, which are
+#       the ones that publish an artefact.
+#     - THE TAKE RATE COLLAPSED, MEASURABLY. Sixteen ranks under the bounded frame took 3 and rejected 13,
+#       against 30 taken of 53 recorded. Under the recorded rate a run of 16 takes 3 or fewer with
+#       probability 0.0023, so this is the bound biasing the frame and not sampling noise.
+#
+#   NO `pushed` FRAME IS FIXED, BECAUSE `pushed` IS MUTABLE. Reproducibility does not come from re-running
+#   the query, and cannot: it comes from THIS FILE, which pins every drawn repository at a commit. A draw is
+#   a snapshot, its count is recorded beside it, and `-Dcs.draw.total` states which snapshot a run means to
+#   reproduce rather than pretending the population stood still.
 #
 #   Each qualifier, and why it is there:
 #     language:Java     the population, as GitHub states a primary language
 #     fork:false        a fork is another repository's words copied; counting them twice is a sampling defect
 #     mirror:false      the same reason
 #     size:>=1000       one megabyte. A STATED bound, not a derived one, carried over from the first frame
-#     pushed:2025-01-01..2026-08-20   "modern" read as STILL BEING WORKED ON rather than recently started, as
-#                       of the same date `created` is bounded at, so that the population is fixed. A library
+#     pushed:>=2025-01-01   "modern" read as STILL BEING WORKED ON rather than recently started, with no
+#                       upper bound so that membership only ever grows and a drawn row stays a member. A library
 #                       begun in 2014 and pushed to this year writes today's Java; one begun in 2024 and
 #                       abandoned does not. Creation date measures the wrong thing, so `pushed` is used.
 #     license:...       the thirteen licences GITHUB ITSELF publishes at /licenses — agpl-3.0, apache-2.0,

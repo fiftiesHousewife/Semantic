@@ -44,11 +44,17 @@ It takes every pair of the draw, measures how far the two sit from each other in
 |---|---|--:|---|
 | [the uniform sample](src/main/resources/reference-corpus.tsv) | `language:Java fork:false mirror:false size:>=1000` | 10 | coursework and personal projects, all with zero stars and no licence |
 | [the sample above fifty stars](src/main/resources/reference-corpus-starred.tsv) | the same, plus `stars:>=50` | 10 | five Android projects, two teaching repositories, three libraries |
-| [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:2025-01-01..2026-08-20`, and a publication test | 100 | libraries, every one licensed |
+| [the sample of published libraries](src/main/resources/reference-corpus-published.tsv) | the same, plus a licence, `pushed:>=2025-01-01`, and a publication test | 100 | libraries, every one licensed |
 
 The third sample holds a hundred. Its header states why, and states plainly that a hundred is a budget rather than a derived bound.
 
-**`pushed` is bounded at both ends, and the upper bound was added after a draw had already been taken.** `pushed:>=2025-01-01` is not a fixed population: a repository last pushed in 2024 joins it the moment somebody pushes to it, so the frame counted 112,183 on 2026-08-20 and 112,251 three days later. A rank resolves through counts taken live, so a frame that grows maps the same seeded ranks to different repositories and no draw against it can be reproduced. The bound was added for that reason and no other — not after seeing which repositories turned up, and in a direction the draw cannot see, since which repositories were pushed after the ceiling is not something it can observe.
+**`pushed` has no upper bound, and adding one was tried and reverted.** The frame is not a fixed population — a repository last pushed in 2024 joins the moment somebody pushes to it, so it counted 112,183 on 2026-08-20 and 112,251 three days later. Bounding `pushed` at the same ceiling `created` has looked like the fix. It is worse:
+
+- **The bounded frame shrinks, and expels repositories it already drew.** `pushed` is mutable, so under an upper bound a repository *leaves* the moment anybody pushes to it. Without one, membership only grows and a drawn row stays a member forever.
+- **It cost 4,959 repositories, and they were the maintained ones.** The bounded frame counted 107,224 against 112,183 for the same window three days earlier — the difference is repositories pushed in between, which are the actively maintained projects that publish artefacts.
+- **The take rate collapsed.** Sixteen ranks under the bounded frame took 3 and rejected 13, against 30 of 53 recorded. Under the recorded rate that happens with probability 0.0023.
+
+**No `pushed` frame is fixed, because `pushed` is mutable.** Reproducibility comes from the manifest, which pins every drawn repository at a commit — not from re-running the query. A draw is a snapshot; `-Dcs.draw.total` states which snapshot a run means to reproduce.
 
 The evaluation set holds maintained libraries and servers. The first two samples hold neither, because such projects are a small share of the Java on GitHub. The third sample states licensing, recent activity and publication as query terms.
 
