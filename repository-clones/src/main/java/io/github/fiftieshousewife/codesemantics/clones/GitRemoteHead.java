@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The commit a remote's default branch points at, asked of git rather than of an API.
@@ -25,8 +26,9 @@ public final class GitRemoteHead implements HeadCommit {
         final String said = git("ls-remote", origin, DEFAULT_BRANCH);
         final String[] fields = said.split(FIELD, -1);
         if (said.isBlank() || fields[0].isBlank()) {
-            throw new IllegalStateException("git ls-remote " + origin
-                    + " named no commit for HEAD, so there is nothing to pin it at: " + said);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "git ls-remote %s named no commit for HEAD, so there is nothing to pin it at: %s",
+                    origin, said));
         }
         return fields[0].strip();
     }
@@ -40,7 +42,8 @@ public final class GitRemoteHead implements HeadCommit {
             final Process git = building.redirectErrorStream(true).start();
             final String said = new String(git.getInputStream().readAllBytes(), StandardCharsets.UTF_8).strip();
             if (git.waitFor() != GIT_SUCCEEDED) {
-                throw new IllegalStateException("git " + String.join(" ", command) + " failed: " + said);
+                throw new IllegalStateException(String.format(Locale.ROOT, "git %s failed: %s",
+                        String.join(" ", command), said));
             }
             return said;
         } catch (final IOException e) {

@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * Draws a seeded sample of repositories from a stated GitHub frame, recording every rank and every rejection.
+ *
+ * <p>Counts are remembered across the run. Every rank in a year walks the same first few ranges before
+ * diverging, and each of those is a paced request rather than arithmetic.
  *
  * <p>Properties: {@code cs.draw.frame}, {@code cs.draw.until}, {@code cs.draw.seed}, {@code cs.draw.count}
  * and {@code cs.draw.out} are required; {@code cs.draw.publishes}, {@code cs.draw.exclude} and
@@ -31,7 +35,7 @@ public final class CorpusDrawCommand {
     }
 
     public static void main(final String[] arguments) {
-        drew(DrawRequest.fromProperties(), new GitHubSearch(), new GitRemoteHead());
+        drew(DrawRequest.fromProperties(), new RememberedCounts(new GitHubSearch()), new GitRemoteHead());
     }
 
     /** The draw itself, against whatever answers a repository query and whatever names a remote's head. */
@@ -57,10 +61,12 @@ public final class CorpusDrawCommand {
     static void refuseADriftedFrame(final DrawRequest asked, final long total) {
         asked.total().ifPresent(recorded -> {
             if (recorded != total) {
-                throw new IllegalStateException("The frame holds " + total + " where this run stated "
-                        + recorded + ". A rank resolves through counts taken live, so the same seeded ranks "
-                        + "now name different repositories: this would be a fresh sample rather than the "
-                        + "recorded one grown. Nothing has been written.");
+                throw new IllegalStateException(String.format(Locale.ROOT,
+                        "The frame holds %,d where this run stated %,d. A rank resolves through counts "
+                                + "taken live, so the same seeded ranks now name different repositories: "
+                                + "this would be a fresh sample rather than the recorded one grown. "
+                                + "Nothing has been written.",
+                        total, recorded));
             }
         });
     }

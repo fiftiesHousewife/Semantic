@@ -51,8 +51,49 @@ class GitHubSearchTest {
     }
 
     private GitHubSearch searching() {
+        return searching(java.util.Optional.empty());
+    }
+
+    private GitHubSearch searching(final java.util.Optional<String> token) {
         return new GitHubSearch("http://127.0.0.1:" + serving.getAddress().getPort() + "/search?q=",
-                Duration.ZERO, Duration.ZERO);
+                Duration.ZERO, Duration.ZERO, token);
+    }
+
+    @Test
+    void asksThreeTimesFasterWhereTheRunSuppliedATokenThanWhereItDidNot() {
+        assertAll(
+                () -> assertThat(GitHubSearch.paceFor(java.util.Optional.of("a-token")))
+                        .isEqualTo(Duration.ofSeconds(3)),
+                () -> assertThat(GitHubSearch.paceFor(java.util.Optional.empty()))
+                        .isEqualTo(Duration.ofSeconds(9)));
+    }
+
+    @Test
+    void carriesTheTokenAsABearerCredentialWhereTheRunSuppliedOne() {
+        final java.util.List<String> authorised = new java.util.ArrayList<>();
+        serving.createContext("/search", exchange -> {
+            authorised.add(exchange.getRequestHeaders().getFirst("Authorization"));
+            final byte[] bytes = "{\"total_count\": 1, \"items\": []}".getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(OK, bytes.length);
+            try (OutputStream out = exchange.getResponseBody()) {
+                out.write(bytes);
+            }
+        });
+
+        searching(java.util.Optional.of("a-token")).count("language:Java");
+
+        assertThat(authorised).containsExactly("Bearer a-token");
+    }
+
+    @Test
+    void asksAgainWhereTheRequestItselfFailedRatherThanEndingTheDraw() {
+        final GitHubSearch searching = new GitHubSearch(
+                "http://127.0.0.1:1/search?q=", Duration.ZERO, Duration.ZERO, java.util.Optional.empty());
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> searching.count("language:Java"))
+                .as("a transient failure is retried on the refusal schedule, then gives up saying so")
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("in 12 attempts");
     }
 
     @Test

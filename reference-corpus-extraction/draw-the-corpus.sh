@@ -43,6 +43,15 @@ readonly DRAWN_TWICE="${CS_DRAWN_TWICE:-}"
 readonly CLONES="${CS_CORPUS_DIR:-$HOME/corpus}"
 readonly TABLES="${CS_CORPUS_TABLES:-$HOME/corpus-tables}"
 
+# A token triples the rate GitHub allows: ten queries a minute becomes thirty, so the pace drops from nine
+# seconds a query to three. GitHubSearch reads GITHUB_TOKEN from the environment, so exporting one before
+# this runs is the whole of it. Without one the draw still works and takes about three times as long.
+if [ -z "${GITHUB_TOKEN:-}" ]; then
+  echo "NOTE: no GITHUB_TOKEN in the environment. The draw will pace at nine seconds a query rather than"
+  echo "      three. Export a token with public read access and re-run to finish in about a third of the time."
+  echo
+fi
+
 cd "$ROOT"
 mkdir -p "$CLONES" "$TABLES"
 
