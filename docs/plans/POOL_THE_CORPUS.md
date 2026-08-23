@@ -75,10 +75,10 @@ Everything below rests on a measurement already taken. The record of each is in 
 
 | | Step | Why now |
 |--:|---|---|
-| **1** | **Re-draw, refusing `benchmarkjava`** | The predicate is measured and names one pair of 435; what is left is the draw itself, which needs Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine. **Check the frame count the run reports against the recorded 112,183 before trusting the rows**: a rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one minus a row |
+| **1** | **Draw a hundred, refusing `benchmarkjava`** | The predicate is measured and names one pair of 435; the draw now pins each repository at a commit and writes the manifest itself. One pass removes the duplicate and grows the sample, because rows already recorded keep their ranks. Needs Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine. **Check the frame count the run reports against the recorded 112,183 before trusting the rows**: a rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one grown |
 | **2** | **Make the bar carry its own error** | About one verdict in ten moves at thirty repositories, all of it in words whose claim sits near zero. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is already derivable from the split-half measurement — a bound, not a chosen margin. Cheaper than the ~300 repositories that would buy the same by fetching |
 | **3** | **Backtest twice** | Corpus beside the JDK index, and replacing it. Whether the index still earns a place is open, and steps 1 and 2 both change what the answer looks like |
-| **4** | **Decide whether to extend past thirty** | Sixty buys about a fifth off the churn. Worth it only if step 2 leaves churn that still bites. Check the exact frame count against the recorded 112,183 first: the draw takes its total live, so a drifted population maps the same ranks to different repositories and rows 1–30 stop reproducing |
+| **4** | **Decide whether to extend past a hundred** | Three hundred buys about two further points of churn for three times the source. Worth it only if step 2 leaves churn that still bites, which is unlikely — a hundred is where the curve flattens |
 | **5** | **Retire `LANGUAGE`; keep `SYMBOL` and `SHORTHAND`** | `a`, `the` and `of` are below chance on all nine members before any stage runs. `buf` survives on five of nine and `x` on strata, so those two still have work |
 
 **Done, and not to be re-opened:** the corpus reads (17% of the above-chance field removed across the nine, subject vocabulary intact everywhere); the weighting is the mean of shares; there is no occurrence floor to derive; the tail needs no truncation rule at 14,763 words.
@@ -189,21 +189,35 @@ So it is fixable rather than blocked — a `ProxySelector` and a `java.net.Authe
 
 **8. Measure which drawn repositories are one corpus counted twice. Done, and it names `benchmarkjava`.** `NearDuplicates` judges all 435 pairs; `DuplicateReport` prints every one of them, nearest first, rather than only the pair that fails, so the pairs just above the cutoff can be read. The nearest of them sits 535 times further apart than the OWASP pair, and 5.5 times further than its own chance.
 
-The re-draw itself, from a shell that reaches GitHub:
+**9. Let the draw pin a commit and write its own manifest. Done, and it was a third defect.** All three recorded manifests carry `name`, `sha` and `licenceAtPin`. `CorpusDraw` wrote none of them — it recorded `origin` and `licenceAtHead` and no commit at all, and `PublishedArtefact` tested publication against the default branch. The Java draw is a reimplementation of `docs/reference-corpus/draw.py`, which no longer exists, and it lost the pin. A draw run before this fix named the right repositories at the right ranks and gave nothing to pin them at.
+
+`GitRemoteHead` asks `git ls-remote` for the commit a default branch points at: no objects transfer and no rate limit is spent, so a hundred pins cost seconds rather than an hour of paced API requests. `DrawnManifestTsv` writes the manifest from the record, keeping the header of the manifest being grown whole and deriving the clone directory from the repository's full name. Thirty rows were transcribed by hand; a hundred is where a row gets dropped.
+
+**10. Draw a hundred, refusing `benchmarkjava`.** One pass removes the duplicate and grows the sample, from a shell that reaches GitHub:
 
 ```
-./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=30 -Dcs.draw.publishes -Dcs.draw.exclude=coyote-engineering/BenchmarkJava -Dcs.draw.out=published-draw.json
+./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=100 -Dcs.draw.publishes -Dcs.draw.exclude=coyote-engineering/BenchmarkJava -Dcs.draw.out=reference-corpus-extraction/src/main/resources/published-draw.json -Dcs.draw.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv
 ```
 
-Two things the record has to be read for afterwards. The first is `total`: it must be 112,183, or the ranks map elsewhere and the other 29 rows are not the rows this corpus was measured on. The second is that `CorpusDraw` records the rejection as `named as an exclusion` and does not say what named it — the measurement above is the citation, and carrying the reason into the record is a small change worth making.
+Then the fetch, which skips the 29 trees already at their pins and pulls the rest:
 
-**9. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
+```
+./gradlew :reference-corpus-extraction:corpusFetch -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv
+```
+
+**Read `total` in the new record before trusting the rows: it must be 112,183.** A rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one grown, and the 29 kept rows would no longer be the rows every figure below was measured on.
+
+**Why a hundred, and what is honest about it.** The header the manifest carried before any rank was drawn said that a curve still climbing at thirty means the draw extends. It is still climbing and will not stop — the split-half disagreement falls as size to the power −0.301, which is between-repository heterogeneity rather than sampling noise. A hundred is a **budget, not a derived bound**, and the manifest header now says so. Three readings of the measured trade point at it: one repository's weight falls to a hundredth, an order of magnitude below the tenth that made ten unusable; `buf`'s effective sample rises from 4.94 repositories to about sixteen, and the words that flip are exactly the ones estimated from almost none; and past a hundred the curve is flat, with three hundred buying about two further points of churn for three times the source. **Step 2 is what actually settles the churn**, and it costs no bandwidth.
+
+One small thing left undone: `CorpusDraw` records the rejection as `named as an exclusion` and does not say what named it. The near-duplicate measurement is the citation; carrying the reason into the record is worth doing.
+
+**11. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
 
 ```
 ./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation
 ```
 
-**10. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
+**12. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
 ## Stated before the runs
 
