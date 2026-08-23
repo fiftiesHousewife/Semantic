@@ -18,6 +18,14 @@ Thirty Java repositories, drawn at random from a stated population, supplying th
 
 `corpusDraw` queries the GitHub API and runs outside any ordinary build. Add `-Dcs.draw.publishes` to require a publication, and `-Dcs.draw.exclude=owner/name,...` to refuse named repositories.
 
+`corpusDuplicates` says which drawn repositories are one corpus counted twice, and it reaches no network:
+
+```
+./gradlew :reference-corpus-extraction:corpusDuplicates -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=<a draw>.tsv
+```
+
+It takes every pair of the draw, measures how far the two sit from each other in bits, and measures how far two draws of exactly their sizes — taken from the distribution the pair would share were it one corpus — sit from each other. A pair nearer than chance has not been shown to be two repositories, and the member the manifest drew later is what a re-draw refuses through `-Dcs.draw.exclude`. Every pair is printed, not only the ones that fail, so the pairs just above the cutoff can be read.
+
 ## What it produces
 
 | Sample | Query | Rows | Composition |

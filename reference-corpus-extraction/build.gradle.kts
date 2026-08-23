@@ -101,6 +101,25 @@ tasks.register<JavaExec>("corpusFloor") {
     }
 }
 
+// Which drawn repositories are one corpus counted twice: how far every pair sits from every other, against
+// how far two draws of their sizes would sit. Derived from the multinomial, never from a list of names. It
+// reads the corpus and prints; it writes nothing.
+//   ./gradlew :reference-corpus-extraction:corpusDuplicates \
+//       -Dcs.corpus.dir=<directory holding the clones> -Dcs.corpus.manifest=<draw>.tsv
+tasks.register<JavaExec>("corpusDuplicates") {
+    group = "verification"
+    description = "Prints which pairs of the draw are nearer than two samples of one corpus would be"
+    mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusDuplicatesCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
+    maxHeapSize = "6g"
+    listOf("dir", "manifest").forEach { name ->
+        System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
+    }
+}
+
 // THE DRAW ITSELF, which produced the manifests above and is what reproduces them.
 //
 // It reaches the GitHub API and is never part of an ordinary build. The manifests are recorded; this is here

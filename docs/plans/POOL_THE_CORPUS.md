@@ -11,7 +11,7 @@ The thirty are cloned, pooled both ways, measured on all nine evaluation-set mem
 | | |
 |---|---|
 | `repository-clones` | `PinnedRepository`, `RepositoryManifest`, `PinnedClone`. Depends on nothing |
-| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, `corpusPlateau`, `corpusFloor`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
+| `reference-corpus-extraction` | three drawn manifests, `corpusFetch`, `corpusDraw`, `corpusPool`, `corpusPlateau`, `corpusFloor`, `corpusDuplicates`, the whole draw in Java. Depends on `repository-clones` and `code-semantics-engine` |
 | `code-semantics-engine` | `CorpusVocabulary` reads a pooled table as a `ReferenceVocabulary`; `CorpusReferenceProbe` ranks against it |
 | `reference-corpus` | **not created.** It arrives with the table it exists to bundle, and that is the mean-of-shares table — see step 6 |
 | Tests | 1,354 across six modules |
@@ -36,7 +36,21 @@ Three samples, each seeded 20260821, each reproducible — `MersenneTwisterTest`
 
 The frame states `fork:false` for exactly this reason — *"a fork is another repository's words copied; counting them twice is a sampling defect"* — and it did not catch it, because these are independent copies rather than GitHub forks. **The qualifier does not do what the frame intended.**
 
-A near-duplicate predicate is derivable and the machinery already exists: `OccurrenceFloor` computes how far a repository's own shares sit from the rest of the draw, and two repositories that are the same corpus sit at nearly zero from each other. Measure the pairwise divergence across the thirty before drawing again; a pair below what two samples of their sizes would reach by chance is one repository counted twice.
+**The predicate is measured, and it names one pair.** `NearDuplicates` takes every pair of the draw, measures how far the two sit from each other, and measures how far two draws of exactly their sizes — taken from the distribution they would share were they one corpus — sit from each other. A pair nearer than chance has not been shown to be two repositories. It is the same shape as `OccurrenceFloor`, bounded by the multinomial rather than by a chosen margin, and it names no repository.
+
+```
+./gradlew :reference-corpus-extraction:corpusDuplicates -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv
+```
+
+**One of the 435 pairs falls below chance, and it is the OWASP pair.** The cutoff sits in a gap of a factor of 535, so no pair sits near enough to it for the verdict to be arguable.
+
+| Pair | Occurrences | Between | Chance | One corpus |
+|---|--:|--:|--:|---|
+| `codemedics-sample` / `benchmarkjava` | 47,391 / 47,477 | 0.000689 | 0.044737 | yes |
+| `grassbbs` / `mcsmi` — the next nearest | 5,403 / 18,239 | 0.368918 | 0.067204 | no |
+| `codemedics-sample` / `tutorialmod-template-1.21.1` — the furthest | 47,391 / 58 | 0.987609 | 0.311334 | no |
+
+`benchmarkjava` is what a re-draw refuses: of a pair that is one corpus, the member the manifest drew later, so the earlier rank keeps what it drew and the rejection consumes a rank rather than deleting a row. `codemedics-sample` is row 9 and `benchmarkjava` row 11.
 
 **2. Nearly half the reference's rows are not words.** 6,932 of 14,763 rows contain a digit — **47% of the vocabulary, 4.5% of the occurrences**. `col1` (735), `arg0` (360), `item1` (345), then a long tail of `map57571`, `b34242`, `temp039`. The first two trace to the OWASP Benchmark copies above; `temp039` to `openpnp`.
 
@@ -61,7 +75,7 @@ Everything below rests on a measurement already taken. The record of each is in 
 
 | | Step | Why now |
 |--:|---|---|
-| **1** | **Re-draw, with a near-duplicate predicate** | 21.3% of the reference is one generated project counted twice. Every figure below it moves when that is fixed, so fixing it first stops the rest being measured twice. Needs the pairwise divergence across the thirty, then a draw from Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine |
+| **1** | **Re-draw, refusing `benchmarkjava`** | The predicate is measured and names one pair of 435; what is left is the draw itself, which needs Pippa's shell — the session's proxy defeats Java's `HttpClient`, `git` and `curl` are fine. **Check the frame count the run reports against the recorded 112,183 before trusting the rows**: a rank maps to a repository through the live per-year counts, so a drifted frame makes this a fresh sample rather than the recorded one minus a row |
 | **2** | **Make the bar carry its own error** | About one verdict in ten moves at thirty repositories, all of it in words whose claim sits near zero. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is already derivable from the split-half measurement — a bound, not a chosen margin. Cheaper than the ~300 repositories that would buy the same by fetching |
 | **3** | **Backtest twice** | Corpus beside the JDK index, and replacing it. Whether the index still earns a place is open, and steps 1 and 2 both change what the answer looks like |
 | **4** | **Decide whether to extend past thirty** | Sixty buys about a fifth off the churn. Worth it only if step 2 leaves churn that still bites. Check the exact frame count against the recorded 112,183 first: the draw takes its total live, so a drifted population maps the same ranks to different repositories and rows 1–30 stop reproducing |
@@ -173,13 +187,23 @@ So it is fixable rather than blocked — a `ProxySelector` and a `java.net.Authe
 
 **Whether it is worth extending is now a judgement rather than a guess.** Sixty repositories buy about a fifth off the churn. Three hundred would buy half. The alternative is to stop treating the bar as a threshold a word either crosses or does not, and report the margin — a word whose claim sits within the reference's own error has not been shown to stand above chance, and that is derivable from the same split-half measurement rather than from a number somebody picks.
 
-**8. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
+**8. Measure which drawn repositories are one corpus counted twice. Done, and it names `benchmarkjava`.** `NearDuplicates` judges all 435 pairs; `DuplicateReport` prints every one of them, nearest first, rather than only the pair that fails, so the pairs just above the cutoff can be read. The nearest of them sits 535 times further apart than the OWASP pair, and 5.5 times further than its own chance.
+
+The re-draw itself, from a shell that reaches GitHub:
+
+```
+./gradlew :reference-corpus-extraction:corpusDraw -Dcs.draw.frame='language:Java fork:false mirror:false size:>=1000 pushed:>=2025-01-01 license:apache-2.0 license:mit license:gpl-3.0 license:gpl-2.0 license:bsd-3-clause license:bsd-2-clause license:epl-2.0 license:mpl-2.0 license:lgpl-2.1 license:agpl-3.0 license:unlicense license:bsl-1.0 license:cc0-1.0' -Dcs.draw.until=2026-08-20T23:59:59Z -Dcs.draw.seed=20260821 -Dcs.draw.count=30 -Dcs.draw.publishes -Dcs.draw.exclude=coyote-engineering/BenchmarkJava -Dcs.draw.out=published-draw.json
+```
+
+Two things the record has to be read for afterwards. The first is `total`: it must be 112,183, or the ranks map elsewhere and the other 29 rows are not the rows this corpus was measured on. The second is that `CorpusDraw` records the rejection as `named as an exclusion` and does not say what named it — the measurement above is the citation, and carrying the reason into the record is a small change worth making.
+
+**9. Backtest twice.** The corpus beside the JDK index, and the corpus replacing it. Whether the index still earns a place is a question.
 
 ```
 ./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation
 ```
 
-**9. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
+**10. Remove the gates one at a time**, each with its own run. `SYMBOL`, `SHORTHAND` and `LANGUAGE` become markers: a word ranks where its claim puts it, annotated with what the dictionaries say about it.
 
 ## Stated before the runs
 
