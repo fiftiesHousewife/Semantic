@@ -40,6 +40,11 @@ readonly COUNT="${CS_CORPUS_COUNT:-100}"
 # list the doctrine refuses.
 readonly DRAWN_TWICE="${CS_DRAWN_TWICE:-}"
 
+# The nine repositories the reading is scored on. A denominator built partly from the repositories it will
+# be measured against would agree with them for that reason alone, so a rank landing on one is refused. The
+# names are read from the evaluation set's own manifest rather than written here, so the two cannot drift.
+readonly EVALUATION_SET="code-semantics-engine/src/test/resources/evaluation-set.tsv"
+
 readonly CLONES="${CS_CORPUS_DIR:-$HOME/corpus}"
 readonly TABLES="${CS_CORPUS_TABLES:-$HOME/corpus-tables}"
 
@@ -58,9 +63,12 @@ mkdir -p "$CLONES" "$TABLES"
 draw=(:reference-corpus-extraction:corpusDraw "-Dcs.draw.frame=$FRAME" "-Dcs.draw.until=$UNTIL" "-Dcs.draw.seed=$SEED" "-Dcs.draw.count=$COUNT" -Dcs.draw.publishes "-Dcs.draw.out=$RECORD" "-Dcs.draw.manifest=$MANIFEST")
 # An `&&` guard here would return non-zero when the variable is empty, and set -e would stop the script.
 if [ -n "$TOTAL" ]; then draw+=("-Dcs.draw.total=$TOTAL"); fi
-if [ -n "$DRAWN_TWICE" ]; then draw+=("-Dcs.draw.exclude=$DRAWN_TWICE"); fi
+scored=$(awk '!/^#/ && NF {print $2}' "$EVALUATION_SET" | sed -e 's|^https://github.com/||' -e 's|\.git$||' | paste -sd, -)
+refused="$scored${DRAWN_TWICE:+,$DRAWN_TWICE}"
+draw+=("-Dcs.draw.exclude=$refused")
 
-echo "==> 1/5  Drawing $COUNT repositories at seed $SEED${TOTAL:+, asserting a frame of $TOTAL}${DRAWN_TWICE:+, refusing $DRAWN_TWICE}"
+echo "==> 1/5  Drawing $COUNT repositories at seed $SEED${TOTAL:+, asserting a frame of $TOTAL}"
+echo "         refusing: $refused"
 ./gradlew --quiet "${draw[@]}"
 if [ -z "$TOTAL" ]; then
   echo "     Record this frame count in TOTAL so a later run asserts it: $(python3 -c "import json;print(json.load(open('$RECORD'))['total'])")"

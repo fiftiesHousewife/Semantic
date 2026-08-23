@@ -77,6 +77,26 @@ The reading is scored on an evaluation set of maintained libraries and servers. 
 
 The thirteen licences come from [GitHub's own enumeration](https://docs.github.com/en/rest/licenses/licenses) and are used whole. Picking which licences count would be this project curating its own sample.
 
+## Why the repositories are drawn at random
+
+The table claims to say how densely **working Java** writes each word. It is built from a hundred repositories. That step from a hundred to all of them holds only where the hundred were picked without regard to what they contain.
+
+Picking them any other way breaks it in a specific way.
+
+| If the hundred were chosen by | The table would say |
+|---|---|
+| whichever projects the author had heard of | how densely well-known Java writes each word |
+| the most-starred repositories | how densely popular Java writes each word, which is largely Android |
+| hand-picking until the figures looked sensible | whatever the person picking believed to begin with |
+
+The last row is the one that matters, because it cannot be detected afterwards. A word ranking awkwardly can be fixed by adding one repository that writes it, and a reader of the finished table has no way to tell that happened.
+
+Two things together make it impossible here. **The frame is written down before any repository is selected**, so which repositories are eligible is fixed in advance and states nothing about subject matter. **The seed then picks from that frame**, and the same seed picks the same repositories on anybody's machine. Every rank drawn is recorded, and so is every refusal with the reason for it, so a reader can follow the sequence from the seed to the hundred rows and check that nothing was quietly skipped.
+
+Randomness also makes the table's error measurable. Because the hundred are a random sample, the difference between this table and one built from a different hundred is sampling error, and `corpusPlateau` measures it by splitting the draw into two disjoint halves and comparing the two tables they produce. A hand-picked set supports no such measurement: there is no population it is a sample of.
+
+**A rank landing on one of the nine repositories the reading is scored on is refused.** A denominator built partly from the repositories it will be measured against would agree with them for that reason alone. The script reads those nine from [the evaluation set's own manifest](../code-semantics-engine/src/test/resources/evaluation-set.tsv) and passes them as exclusions, so the two lists cannot drift apart.
+
 ## How to use it
 
 The whole sequence — draw, fetch, check for a repository counted twice, pool, bundle:
@@ -200,13 +220,26 @@ Worked example, the first row of the uniform sample.
 
 [`RememberedCounts`](src/main/java/io/github/fiftieshousewife/codesemantics/corpus/RememberedCounts.java) asks for any one count once. Every rank in a year walks the same first ranges before diverging, and each of those costs a paced request. It also keeps a run internally consistent: a range counted twice can answer twice differently, and a halving whose bounds disagree resolves a rank to the wrong repository.
 
-`MersenneTwister` reproduces the stream of [CPython's `random` module](https://docs.python.org/3/library/random.html): `init_by_array` seeding, and a bound drawn by taking the bits it requires and discarding values at or above it. Java's [`Random`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Random.html) implements a different algorithm and yields a different sample.
+### Why the generator is a port rather than the one Java supplies
+
+A pseudo-random generator is an algorithm that turns one starting number into a long sequence of numbers with no pattern a reader could exploit. It is deterministic: the same seed gives the same sequence, every run, on every machine. That is what makes a seeded draw reproducible while leaving it unrelated to what any repository contains.
+
+**Different algorithms give different sequences from the same seed.** Seed 20260821 means one sequence under [MT19937](https://dl.acm.org/doi/10.1145/272991.272995), the generator used here, and an entirely different one under Java's own [`Random`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/Random.html), which implements a linear congruential generator. So "seed 20260821" names a sample only once the algorithm is named too.
+
+Two details beyond the algorithm change the sequence, and both are matched:
+
+| Detail | What this project does |
+|---|---|
+| how the seed becomes the generator's internal state | `init_by_array`, the scheme [CPython's `random` module](https://docs.python.org/3/library/random.html) uses |
+| how a value below a bound is drawn | take the bits the bound requires, and discard any value at or above it. Taking a remainder instead would make low values slightly likelier |
+
+[`MersenneTwisterTest`](src/test/java/io/github/fiftieshousewife/codesemantics/corpus/MersenneTwisterTest.java) asserts that this implementation reproduces the ranks the uniform and starred manifests record. Without that check, "the seed selects these repositories" would be a claim nobody could verify.
 
 ## The rules a sample holds to
 
 - The frame is recorded before selection begins.
 - A sample grows by taking further values from the same seeded stream, which leaves recorded rows unchanged.
-- A repository is refused only where it is this repository, an evaluation-set member, already drawn, named as an exclusion, or a rank GitHub declines to page. Each refusal is recorded with its rank.
+- A repository is refused only where it is already drawn, named as an exclusion, states no publication, or sits at a rank GitHub declines to page. Each refusal is recorded with its rank.
 - Licences are read at the pinned commit through the [GitHub licence API](https://docs.github.com/en/rest/licenses/licenses). Copyleft licences are recorded. Repositories are read; none is redistributed.
 
 ## Limitations
