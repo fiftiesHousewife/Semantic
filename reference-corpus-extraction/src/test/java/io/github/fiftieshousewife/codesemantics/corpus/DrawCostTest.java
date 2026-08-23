@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -24,41 +25,55 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * What a draw costs in requests, which is the whole of its wall clock — every one is paced against a rate
- * limit. Measured against a frame the shape of the real one rather than argued.
+ * limit.
+ *
+ * <p>The frame is the real one: the per-year counts GitHub reported for the published frame, so the
+ * year-to-year skew that decides how deep a rank must bisect is measured rather than modelled. Within a
+ * year repositories are spread evenly, which is a simplification; the year counts dominate the depth.
  */
 class DrawCostTest {
 
     private static final String FRAME = "language:Java";
     private static final String UNTIL = "2026-08-20T23:59:59Z";
     private static final long SEED = 20260821L;
-    private static final long HELD = 112183L;
-    private static final int WANTED = 100;
     private static final HeadCommit PINS = origin -> "abc123";
+    private static final int COLD = 16;
+    private static final int WHOLE = 175;
+
+    /** What the published frame reported, year by year, on 2026-08-23. */
+    private static final Map<Integer, Long> HELD_IN_YEAR = Map.ofEntries(
+            Map.entry(2007, 0L), Map.entry(2008, 4L), Map.entry(2009, 61L), Map.entry(2010, 108L),
+            Map.entry(2011, 221L), Map.entry(2012, 360L), Map.entry(2013, 640L), Map.entry(2014, 997L),
+            Map.entry(2015, 1385L), Map.entry(2016, 1551L), Map.entry(2017, 1874L), Map.entry(2018, 2233L),
+            Map.entry(2019, 2687L), Map.entry(2020, 3320L), Map.entry(2021, 3237L), Map.entry(2022, 3843L),
+            Map.entry(2023, 5258L), Map.entry(2024, 9129L), Map.entry(2025, 36877L), Map.entry(2026, 33439L));
 
     private static final Pattern RANGE = Pattern.compile("created:(\\S+)\\.\\.(\\S+)");
     private static final DateTimeFormatter STAMP =
             DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'").withZone(ZoneOffset.UTC);
-    private static final Instant FIRST = Instant.parse("2007-01-01T00:00:00Z");
-    private static final Instant LAST = Instant.parse("2026-08-20T23:59:59Z");
 
-    /**
-     * A frame whose repositories accumulate exponentially with time, which is the shape GitHub's actually
-     * has: a doubling every {@code DOUBLING_YEARS}, so the last few years hold most of the population and
-     * the first few hold almost none. Halving a range by time does not halve it by count.
-     */
-    private static final class Skewed implements RepositorySearch {
-
-        private static final double DOUBLING_YEARS = 3.0;
-        private static final double SECONDS_A_YEAR = 365.25 * 24 * 60 * 60;
+    private static final class RealFrame implements RepositorySearch {
 
         private final List<String> asked = new ArrayList<>();
 
-        /** The share of the whole created before this instant, integrating the doubling rate. */
         private static double before(final Instant at) {
-            final double years = Duration.between(FIRST, at).toSeconds() / SECONDS_A_YEAR;
-            final double whole = Duration.between(FIRST, LAST).toSeconds() / SECONDS_A_YEAR;
-            return (Math.pow(2.0, years / DOUBLING_YEARS) - 1.0)
-                    / (Math.pow(2.0, whole / DOUBLING_YEARS) - 1.0);
+            return HELD_IN_YEAR.entrySet().stream()
+                    .mapToDouble(year -> heldBefore(year.getKey(), year.getValue(), at))
+                    .sum();
+        }
+
+        private static double heldBefore(final int year, final long held, final Instant at) {
+            final Instant opens = Instant.parse(year + "-01-01T00:00:00Z");
+            final Instant closes = Instant.parse((year + 1) + "-01-01T00:00:00Z");
+            if (!at.isAfter(opens)) {
+                return 0.0;
+            }
+            if (at.isAfter(closes)) {
+                return held;
+            }
+            final double through = (double) Duration.between(opens, at).toSeconds();
+            final double whole = (double) Duration.between(opens, closes).toSeconds();
+            return held * through / whole;
         }
 
         @Override
@@ -66,14 +81,12 @@ class DrawCostTest {
             asked.add(query);
             final Matcher range = RANGE.matcher(query);
             if (!range.find()) {
-                return HELD;
+                return HELD_IN_YEAR.values().stream().mapToLong(Long::longValue).sum();
             }
-            final Instant from = Instant.from(STAMP.parse(range.group(1)));
-            final Instant to = Instant.from(STAMP.parse(range.group(2)));
-            return Math.max(0L, Math.round(HELD * (before(to) - before(from))));
+            return Math.max(0L, Math.round(before(Instant.from(STAMP.parse(range.group(2))))
+                    - before(Instant.from(STAMP.parse(range.group(1))))));
         }
 
-        /** A full page, so that any offset within it resolves — a short page would reject the rank. */
         @Override
         public List<JsonNode> oldestFirst(final String query, final int perPage, final int page) {
             asked.add(query);
@@ -91,29 +104,36 @@ class DrawCostTest {
     }
 
     @Test
-    void asksForFarFewerRequestsWhereACountIsRememberedThanWhereItIsNot() {
-        final int plain = requestsFor(Remembering.NO);
-        final int cached = requestsFor(Remembering.YES);
+    void costsFarLessARankOnceTheCountsAreWarmThanOverTheFirstFewRanks() {
+        final RealFrame frame = new RealFrame();
+        final SampledFrame indexed = indexing(frame);
+        final int index = frame.requests();
+
+        final int cold = drawn(indexed, COLD, frame) - index;
+        final int whole = drawn(indexed, WHOLE, frame) - index;
+        final double marginal = (whole - cold) / (double) (WHOLE - COLD);
 
         System.out.printf(Locale.ROOT,
-                "draw of %d over a skewed frame: %d requests plain (%.1f a rank), %d remembered "
-                        + "(%.1f a rank), %.2fx fewer. At nine seconds a request that is %.1f hours "
-                        + "plain and %.1f remembered.%n",
-                WANTED, plain, plain / (double) WANTED, cached, cached / (double) WANTED,
-                plain / (double) cached, plain * 9 / 3600.0, cached * 9 / 3600.0);
-        assertThat(cached).isLessThan(plain);
+                "index %d requests%n"
+                        + "first %d ranks: %d requests, %.1f a rank%n"
+                        + "%d ranks: %d requests, %.1f a rank; marginal over the last %d is %.1f a rank%n"
+                        + "whole draw at 9s a request: %.1f hours. With a token at 3s: %.1f hours.%n",
+                index, COLD, cold, cold / (double) COLD,
+                WHOLE, whole, whole / (double) WHOLE, WHOLE - COLD, marginal,
+                (index + whole) * 9 / 3600.0, (index + whole) * 3 / 3600.0);
+
+        assertThat(marginal).isLessThan(cold / (double) COLD);
     }
 
-    private enum Remembering { YES, NO }
+    private SampledFrame indexing(final RealFrame frame) {
+        final SampledFrame indexed = new SampledFrame(new RememberedCounts(frame), FRAME, UNTIL);
+        indexed.index();
+        return indexed;
+    }
 
-    private int requestsFor(final Remembering remembering) {
-        final Skewed spread = new Skewed();
-        final RepositorySearch search =
-                remembering == Remembering.YES ? new RememberedCounts(spread) : spread;
-        final SampledFrame frame = new SampledFrame(search, FRAME, UNTIL);
-        final long total = frame.index();
-        new CorpusDraw(frame, new MersenneTwister(SEED), Set.of(), Optional.empty(), PINS)
-                .of(WANTED, total);
-        return spread.requests();
+    private int drawn(final SampledFrame indexed, final int wanted, final RealFrame frame) {
+        new CorpusDraw(indexed, new MersenneTwister(SEED), Set.of(), Optional.empty(), PINS)
+                .of(wanted, indexed.total());
+        return frame.requests();
     }
 }
