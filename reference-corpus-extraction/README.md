@@ -32,6 +32,8 @@ Three kinds of word appear there, and only one of them says anything about this 
 
 The draw counts the first row and nothing else. The parse is what tells a declaration from a use, so the platform and the test frameworks drop out of every reading without any list of names to ignore.
 
+**A keyword as a word still counts where an author put it in a name.** `class` never reaches the count from the `class` in line one, and reaches it from a declared `ClassLoader`; `return` reaches it from a declared `returnValue`. The author chose to write those names, so their words are counted like any other.
+
 Each declared name is then split into words by the same identifier grammar on both sides of any comparison: `TradeReportBuilder` gives `trade`, `report`, `builder`; `valuationDate` gives `valuation`, `date`; `notional` gives `notional`.
 
 ## Why the counts need a reference
@@ -44,15 +46,36 @@ No published frequency table exists for Java identifiers. This is that table.
 
 A reading needs to know which words a repository's authors chose. Counting alone cannot say, and neither can one reference. The library reads each declared word against three, and each answers a different objection.
 
-| Reference | What it holds | What it settles |
-|---|---|---|
-| ordinary English | word frequencies in general English | `notional` and `sensitivity` are rare in English and rare in Java, so a repository writing them has said something |
-| [the platform's own API](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/PlatformVocabulary.java) | the type names the Java platform declares — `List`, `Map`, `Stream`, `Buffer`, `Builder` | English calls `buffer` and `stream` rare, which makes them look chosen. The platform declares them, so a repository writing them has said only that it is a Java program |
-| the reference corpus | the words a hundred working repositories declare | `get`, `id`, `buf` and `impl` are rare in English and are **not** platform type names, so neither reference above explains them. Working Java writes them constantly, and only a corpus of it can say so |
+| Reference | What it holds |
+|---|---|
+| ordinary English | word frequencies in general English |
+| [the platform's own API](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/PlatformVocabulary.java) | the type names the Java platform declares — `List`, `Map`, `Stream`, `Buffer` |
+| the reference corpus | the words a hundred working repositories declare |
 
-The third row is why this corpus exists. Without it, `get` and `id` outrank a repository's real subject vocabulary, because both of the other references agree they are rare.
+English alone is wrong about code in both directions. It calls `buffer`, `stream`, `get`, `id` and `impl` rare, so a repository writing any of them looks like it chose them. The corpus corrects all five at once: authors name their own classes `RequestHandler`, `EventStream` and `ClassLoader`, so `string`, `class`, `list` and `handler` are among the commonest words a hundred repositories declare.
+
+That is why this corpus exists, and it is also why the platform reference now needs a measurement rather than an argument. The words it was written to settle — `buffer`, `list`, `stream` — are ones the corpus also carries densely, because working repositories declare names built from them. Whether it still adds evidence the corpus does not is measured by reading the evaluation set with it and without it.
 
 Worked example. A repository declares `buffer` 300 times among 30,000 declared names, a share of 0.010. The corpus writes `buffer` at 0.002, so this repository writes it five times as densely and the reading reports the word. Had the corpus also written it at 0.010, the word would carry no evidence about this repository.
+
+## What the frame asks for, and why
+
+The frame is the GitHub query defining which repositories a sample can contain. Every term in it bounds how a repository was made, and none describes what it is about. That separation is what keeps the corpus a denominator: a frame selecting on subject matter would produce a table that agrees with whatever subject it selected.
+
+The reading is scored on an evaluation set of maintained libraries and servers. The frame's terms exist to make a drawn repository resemble one.
+
+| Term | Refuses | Why |
+|---|---|---|
+| `language:Java` | other languages | the table measures Java identifiers |
+| `size:>=1000` | repositories under a megabyte | a few files declare too few names to state a vocabulary |
+| `fork:false mirror:false` | copies of another repository | counting one project's words twice is a sampling defect |
+| a licence GitHub recognises | repositories stating none | somebody prepared this for other people to use. A repository with no licence is usually coursework or a scratch project, and the uniform sample, which asks for no licence, drew ten of ten with none |
+| `pushed:>=2025-01-01` | dormant repositories | a project still being worked on writes the Java people write now |
+| a publication | repositories shipping nothing | `pom.xml` states a `<groupId>`, or `build.gradle` applies `maven-publish`. Somebody expects another project to depend on this one, which is the strongest available evidence that it is a library rather than an exercise |
+
+**A licence and a publication are proxies for intent, not for quality.** Neither says the code is good. Both say somebody meant it to be used by people other than its author, and that is what separates a working library from the coursework which makes up most of the Java on GitHub.
+
+The thirteen licences come from [GitHub's own enumeration](https://docs.github.com/en/rest/licenses/licenses) and are used whole. Picking which licences count would be this project curating its own sample.
 
 ## How to use it
 
@@ -181,7 +204,6 @@ Worked example, the first row of the uniform sample.
 
 ## The rules a sample holds to
 
-- Every query term bounds language, size, fork status, licence or activity. None describes subject matter.
 - The frame is recorded before selection begins.
 - A sample grows by taking further values from the same seeded stream, which leaves recorded rows unchanged.
 - A repository is refused only where it is this repository, an evaluation-set member, already drawn, named as an exclusion, or a rank GitHub declines to page. Each refusal is recorded with its rank.
@@ -193,6 +215,7 @@ Worked example, the first row of the uniform sample.
 - A hundred repositories give any one of them a hundredth of the pooled distribution. That figure is a budget rather than a derived bound, and the published manifest's header states the measurements behind it.
 - `pushed` is a mutable property, so the frame's membership grows as dormant repositories are pushed to. A count is recorded beside each draw; reproducing a sample exactly comes from the manifest, which pins every repository at a commit.
 - A draw records nothing until every row is taken. An interrupted run leaves the previous manifest intact and has to start again.
+- Whether the platform's API reference still earns its place is unmeasured. The corpus carries the platform's own vocabulary densely, because repositories declare names built from it, so the two references may say the same thing.
 
 ## References
 
