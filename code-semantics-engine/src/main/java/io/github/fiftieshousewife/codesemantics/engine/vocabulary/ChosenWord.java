@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -60,7 +61,9 @@ public record ChosenWord(String word, int occurrences, int inNames, double claim
     /** A reference with no derived bar is a defect in the caller, never a bar of zero. */
     private static double barFor(final String reference, final Map<String, Double> barByReference) {
         if (!barByReference.containsKey(reference)) {
-            throw new IllegalArgumentException("no bar was derived for " + reference);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "no bar was derived for %s",
+                    reference));
         }
         return barByReference.get(reference);
     }

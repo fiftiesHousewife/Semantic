@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A SHA-256 over bytes, the sibling of {@link GitBlobId} for a source that is not one git blob.
@@ -43,7 +44,9 @@ public final class ContentDigest {
         try {
             return MessageDigest.getInstance(ALGORITHM);
         } catch (final NoSuchAlgorithmException e) {
-            throw new IllegalStateException("The platform states no " + ALGORITHM, e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "The platform states no %s",
+                    ALGORITHM), e);
         }
     }
 

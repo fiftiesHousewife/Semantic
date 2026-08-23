@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Reads the Computer Science Ontology's published CSV into the bundled TSV.
@@ -47,8 +48,9 @@ public final class CsoTopicsExtraction {
     byte[] pinned(final byte[] read) {
         final String found = digest.of(List.of(new ContentDigest.Member(CSV, read)));
         if (!CSV_DIGEST.equals(found)) {
-            throw new IllegalArgumentException("The CSV read digests to " + found + ", where the archive "
-                    + "this file cites digests to " + CSV_DIGEST);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The CSV read digests to %s, where the archive this file cites digests to %s",
+                    found, CSV_DIGEST));
         }
         return read;
     }

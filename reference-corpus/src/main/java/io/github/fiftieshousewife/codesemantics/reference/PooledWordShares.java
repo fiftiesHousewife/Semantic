@@ -8,6 +8,7 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -57,7 +58,9 @@ public final class PooledWordShares {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
             return new PooledWordShares(reader.lines());
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + RESOURCE, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    RESOURCE), e);
         }
     }
 
@@ -66,7 +69,9 @@ public final class PooledWordShares {
         try (Stream<String> rows = Files.lines(table, StandardCharsets.UTF_8)) {
             return new PooledWordShares(rows);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the corpus table " + table, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the corpus table %s",
+                    table), e);
         }
     }
 
@@ -87,8 +92,10 @@ public final class PooledWordShares {
     private static String[] fields(final String row) {
         final String[] fields = row.split(COLUMN, -1);
         if (fields.length < COLUMNS) {
-            throw new IllegalStateException("A row of a corpus table states " + fields.length
-                    + " columns where a reading needs " + COLUMNS + " — word, occurrences, share: " + row);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A row of a corpus table states %s columns where a reading needs %s — word, "
+                    + "occurrences, share: %s",
+                    fields.length, COLUMNS, row));
         }
         return fields;
     }

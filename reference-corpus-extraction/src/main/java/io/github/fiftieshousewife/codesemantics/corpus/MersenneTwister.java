@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.corpus;
 
+import java.util.Locale;
+
 /**
  * MT19937, seeded and consumed exactly as CPython's {@code random} module does.
  *
@@ -116,7 +118,9 @@ public final class MersenneTwister {
      */
     public long below(final long bound) {
         if (bound <= 0) {
-            throw new IllegalArgumentException("A bound of " + bound + " leaves nothing to draw");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A bound of %s leaves nothing to draw",
+                    bound));
         }
         final int needed = Long.SIZE - Long.numberOfLeadingZeros(bound - 1);
         long drawn = bits(needed);

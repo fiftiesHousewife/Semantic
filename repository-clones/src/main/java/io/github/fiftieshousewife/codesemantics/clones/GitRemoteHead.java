@@ -1,8 +1,5 @@
 package io.github.fiftieshousewife.codesemantics.clones;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,13 +14,22 @@ import java.util.Locale;
  */
 public final class GitRemoteHead implements HeadCommit {
 
-    private static final int GIT_SUCCEEDED = 0;
     private static final String DEFAULT_BRANCH = "HEAD";
     private static final String FIELD = "\t";
 
+    private final GitCommand git;
+
+    public GitRemoteHead() {
+        this(new GitCommand());
+    }
+
+    public GitRemoteHead(final GitCommand git) {
+        this.git = git;
+    }
+
     @Override
     public String of(final String origin) {
-        final String said = git("ls-remote", origin, DEFAULT_BRANCH);
+        final String said = git.answering(List.of("ls-remote", origin, DEFAULT_BRANCH));
         final String[] fields = said.split(FIELD, -1);
         if (said.isBlank() || fields[0].isBlank()) {
             throw new IllegalStateException(String.format(Locale.ROOT,
@@ -31,26 +37,5 @@ public final class GitRemoteHead implements HeadCommit {
                     origin, said));
         }
         return fields[0].strip();
-    }
-
-    private static String git(final String... arguments) {
-        final List<String> command = List.of(arguments);
-        try {
-            final ProcessBuilder building = new ProcessBuilder();
-            building.command().add("git");
-            building.command().addAll(command);
-            final Process git = building.redirectErrorStream(true).start();
-            final String said = new String(git.getInputStream().readAllBytes(), StandardCharsets.UTF_8).strip();
-            if (git.waitFor() != GIT_SUCCEEDED) {
-                throw new IllegalStateException(String.format(Locale.ROOT, "git %s failed: %s",
-                        String.join(" ", command), said));
-            }
-            return said;
-        } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to run git " + String.join(" ", command), e);
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("Interrupted running git " + String.join(" ", command), e);
-        }
     }
 }

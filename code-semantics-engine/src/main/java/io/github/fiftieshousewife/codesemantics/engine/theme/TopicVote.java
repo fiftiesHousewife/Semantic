@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
@@ -22,7 +23,9 @@ public record TopicVote(String topic, double mass, EvidenceSource source) {
         Objects.requireNonNull(topic, "topic");
         Objects.requireNonNull(source, "source");
         if (mass < 0.0) {
-            throw new IllegalArgumentException("a topical reading commits mass, never argues against: " + mass);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "a topical reading commits mass, never argues against: %s",
+                    mass));
         }
     }
 }

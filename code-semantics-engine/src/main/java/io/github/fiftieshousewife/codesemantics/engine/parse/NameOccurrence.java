@@ -36,10 +36,14 @@ public record NameOccurrence(String text, NameForm form, int line, double weight
         Objects.requireNonNull(text, "text");
         Objects.requireNonNull(form, "form");
         if (line < 1) {
-            throw new IllegalArgumentException("line numbers are 1-based: " + line);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "line numbers are 1-based: %s",
+                    line));
         }
         if (weight <= 0.0 || weight > 1.0) {
-            throw new IllegalArgumentException("a weight is a share of one occurrence: " + weight);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "a weight is a share of one occurrence: %s",
+                    weight));
         }
         typeWords = typeWords.stream().map(word -> word.toLowerCase(Locale.ROOT)).distinct().toList();
         enclosing = List.copyOf(enclosing);

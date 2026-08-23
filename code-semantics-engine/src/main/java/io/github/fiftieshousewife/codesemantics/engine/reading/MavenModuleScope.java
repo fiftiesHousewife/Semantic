@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -49,7 +50,9 @@ public final class MavenModuleScope {
         try {
             return Files.readString(pom);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + pom, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    pom), e);
         }
     }
 }

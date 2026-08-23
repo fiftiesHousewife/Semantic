@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -36,13 +37,19 @@ public record SourceAnchor(String host, String owner, String repo, String commit
         Objects.requireNonNull(commitSha, "commitSha");
         Objects.requireNonNull(path, "path");
         if (!FULL_SHA.matcher(commitSha).matches()) {
-            throw new IllegalArgumentException("a permalink pins a full commit sha: " + commitSha);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "a permalink pins a full commit sha: %s",
+                    commitSha));
         }
         if (startLine < FIRST_LINE) {
-            throw new IllegalArgumentException("line numbers are 1-based: " + startLine);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "line numbers are 1-based: %s",
+                    startLine));
         }
         if (startLine > endLine) {
-            throw new IllegalArgumentException("line range runs backwards: " + startLine + ".." + endLine);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "line range runs backwards: %s..%s",
+                    startLine, endLine));
         }
     }
 

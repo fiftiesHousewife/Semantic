@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -54,8 +55,9 @@ public class ArxivConcepts {
         ArxivEntry current = entry;
         while (current.published()) {
             if (!walked.add(current.id())) {
-                throw new IllegalArgumentException("The module nests " + entry.id()
-                        + " inside a cycle of subjects: " + String.join(" -> ", walked));
+                throw new IllegalArgumentException(String.format(Locale.ROOT,
+                        "The module nests %s inside a cycle of subjects: %s",
+                        entry.id(), String.join(" -> ", walked)));
             }
             if (current.broader().isEmpty()) {
                 return true;

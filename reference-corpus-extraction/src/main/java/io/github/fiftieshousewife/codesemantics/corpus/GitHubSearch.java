@@ -122,7 +122,9 @@ public final class GitHubSearch implements RepositorySearch {
             return Optional.empty();
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new IllegalStateException("Interrupted asking " + uri, e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Interrupted asking %s",
+                    uri), e);
         }
     }
 

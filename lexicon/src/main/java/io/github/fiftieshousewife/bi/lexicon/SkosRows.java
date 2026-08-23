@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.bi.lexicon;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A taxonomy read back from the classpath or from a path. Every taxonomy this library bundles is the same eight
@@ -38,8 +39,9 @@ public final class SkosRows {
     private static SkosConcept concept(final String line, final String resource) {
         final String[] fields = line.split(COLUMN, -1);
         if (fields.length != COLUMNS) {
-            throw new IllegalStateException("A row of " + resource + " states " + fields.length
-                    + " columns where the shape has " + COLUMNS + ": " + line);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A row of %s states %s columns where the shape has %s: %s",
+                    resource, fields.length, COLUMNS, line));
         }
         return new SkosConcept(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6],
                 fields[7]);

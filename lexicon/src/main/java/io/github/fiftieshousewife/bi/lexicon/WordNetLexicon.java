@@ -74,7 +74,9 @@ public final class WordNetLexicon implements Lexicon {
                     .filter(stated -> !stated.isEmpty())
                     .map(List::getFirst);
         } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet exception lookup failed for \"" + word + "\"", e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "WordNet exception lookup failed for \"%s\"",
+                    word), e);
         }
     }
 
@@ -90,7 +92,9 @@ public final class WordNetLexicon implements Lexicon {
                     .lookupBaseForm(partOfSpeech, lower);
             return Optional.ofNullable(base).map(IndexWord::getLemma);
         } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet base-form lookup failed for \"" + word + "\"", e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "WordNet base-form lookup failed for \"%s\"",
+                    word), e);
         }
     }
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.UncheckedIOException;
+import java.util.Locale;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -20,7 +21,9 @@ final class WiktionaryJson {
         try {
             return objectMapper.readTree(line);
         } catch (final JsonProcessingException e) {
-            throw new UncheckedIOException("Malformed dump line: " + line, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Malformed dump line: %s",
+                    line), e);
         }
     }
 

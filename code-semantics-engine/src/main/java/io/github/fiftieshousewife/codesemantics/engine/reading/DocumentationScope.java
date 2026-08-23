@@ -5,6 +5,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -44,7 +45,9 @@ public final class DocumentationScope {
         try (Stream<Path> entries = Files.list(directory)) {
             return entries.filter(Files::isRegularFile).filter(DocumentationScope::isProse).toList().stream();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to list " + directory, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to list %s",
+                    directory), e);
         }
     }
 
@@ -55,7 +58,9 @@ public final class DocumentationScope {
         try (Stream<Path> tree = Files.walk(directory)) {
             return tree.filter(Files::isRegularFile).filter(DocumentationScope::isProse).toList().stream();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to walk " + directory, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to walk %s",
+                    directory), e);
         }
     }
 

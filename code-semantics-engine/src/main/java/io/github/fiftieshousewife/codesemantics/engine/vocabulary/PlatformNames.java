@@ -7,6 +7,7 @@ import java.lang.module.ModuleFinder;
 import java.lang.module.ModuleReader;
 import java.lang.module.ModuleReference;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -83,7 +84,9 @@ public final class PlatformNames {
                     .toList()
                     .stream();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the module " + module.descriptor().name(), e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the module %s",
+                    module.descriptor().name()), e);
         }
     }
 
@@ -92,7 +95,9 @@ public final class PlatformNames {
         try (InputStream bytes = reader.open(entry).orElseThrow()) {
             return Stream.concat(Stream.of(simpleNameOf(entry)), METHODS.declaredBy(bytes).stream());
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the class file " + entry, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the class file %s",
+                    entry), e);
         }
     }
 

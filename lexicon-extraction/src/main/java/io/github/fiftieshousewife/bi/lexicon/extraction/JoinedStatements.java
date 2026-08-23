@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -43,8 +44,10 @@ public class JoinedStatements {
 
     private static String unjoinable(final String statement) {
         if (statement.contains(SkosConcept.STATEMENTS)) {
-            throw new IllegalArgumentException("A statement carrying " + SkosConcept.STATEMENTS
-                    + " would be read back as two statements the source never made: " + statement);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A statement carrying %s would be read back as two statements the source never made: "
+                    + "%s",
+                    SkosConcept.STATEMENTS, statement));
         }
         return statement;
     }

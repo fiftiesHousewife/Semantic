@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -108,7 +109,9 @@ public final class VocabularyPageCommand {
         try (InputStream source = VocabularyPageCommand.class.getClassLoader()
                 .getResourceAsStream(RESOURCES + asset)) {
             if (source == null) {
-                throw new IllegalStateException("The page's " + asset + " is not on the classpath");
+                throw new IllegalStateException(String.format(Locale.ROOT,
+                        "The page's %s is not on the classpath",
+                        asset));
             }
             return new String(source.readAllBytes(), StandardCharsets.UTF_8);
         }

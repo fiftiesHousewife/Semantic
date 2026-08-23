@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * What a repository states is not part of what it is, read from its own {@code .readingignore}: one glob per
@@ -44,7 +45,9 @@ public final class StatedExclusions {
                     .map(glob -> FileSystems.getDefault().getPathMatcher(GLOB + glob))
                     .toList();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 

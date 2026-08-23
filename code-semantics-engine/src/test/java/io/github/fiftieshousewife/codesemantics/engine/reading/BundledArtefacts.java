@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
@@ -34,9 +35,11 @@ public final class BundledArtefacts {
     BundledArtefacts(final Path project, final String published) {
         this.project = project.toAbsolutePath().normalize();
         if (published.isBlank()) {
-            throw new IllegalStateException("Nothing states what this module publishes. The test convention "
-                    + "sets " + PUBLISHED + "; a JVM started without it cannot tell a published artefact "
-                    + "from a test fixture, and would answer this question by scanning itself.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Nothing states what this module publishes. The test convention sets %s; a JVM "
+                    + "started without it cannot tell a published artefact from a test fixture, and would "
+                    + "answer this question by scanning itself.",
+                    PUBLISHED));
         }
         this.published = published;
     }
@@ -84,7 +87,9 @@ public final class BundledArtefacts {
             return opened.stream().filter(entry -> !entry.isDirectory())
                     .map(java.util.zip.ZipEntry::getName).toList().stream();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the bundled artefact " + jar, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the bundled artefact %s",
+                    jar), e);
         }
     }
 
@@ -97,7 +102,9 @@ public final class BundledArtefacts {
                 return opened.getInputStream(opened.getEntry(name)).readAllBytes();
             }
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + name + " from " + artefact, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s from %s",
+                    name, artefact), e);
         }
     }
 }

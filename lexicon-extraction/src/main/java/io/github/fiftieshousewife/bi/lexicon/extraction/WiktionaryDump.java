@@ -8,6 +8,7 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Locale;
 
 /**
  * The wiktextract dump on local disk, downloaded from kaikki.org when absent. An existing file is
@@ -51,7 +52,9 @@ public class WiktionaryDump {
         final HttpResponse<Path> response = download(partial);
         if (response.statusCode() != 200) {
             Files.deleteIfExists(partial);
-            throw new IllegalStateException("Download failed with HTTP " + response.statusCode() + ": " + source);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Download failed with HTTP %s: %s",
+                    response.statusCode(), source));
         }
         Files.move(partial, target, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
         return target;
@@ -62,7 +65,9 @@ public class WiktionaryDump {
             return client.send(HttpRequest.newBuilder(source).build(), HttpResponse.BodyHandlers.ofFile(partial));
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new IOException("Download interrupted: " + source, e);
+            throw new IOException(String.format(Locale.ROOT,
+                    "Download interrupted: %s",
+                    source), e);
         }
     }
 }

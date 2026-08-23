@@ -5,6 +5,7 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,8 +45,9 @@ public final class CorpusPoolCommand {
     private static Path out() {
         final String stated = System.getProperty(OUT_PROPERTY, "");
         if (stated.isBlank()) {
-            throw new IllegalStateException("No " + OUT_PROPERTY + ". A pooling run writes one table per "
-                    + "weighting; name the directory they go in.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "No %s. A pooling run writes one table per weighting; name the directory they go in.",
+                    OUT_PROPERTY));
         }
         final Path out = Path.of(stated).toAbsolutePath().normalize();
         makeDirectory(out);
@@ -56,7 +58,9 @@ public final class CorpusPoolCommand {
         try {
             Files.createDirectories(out);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to make the directory " + out, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to make the directory %s",
+                    out), e);
         }
     }
 
@@ -64,7 +68,9 @@ public final class CorpusPoolCommand {
         try {
             Files.writeString(table, rendered, StandardCharsets.UTF_8);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to write the pooled corpus to " + table, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to write the pooled corpus to %s",
+                    table), e);
         }
     }
 }

@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -50,12 +51,15 @@ public final class OpenAlexManifest {
         final JsonNode stated = read(manifest);
         final String entity = stated.path(ENTITY).asText();
         if (!TOPICS.equals(entity)) {
-            throw new IllegalArgumentException("The manifest states the " + entity + " entity, where this "
-                    + "extraction reads " + TOPICS);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The manifest states the %s entity, where this extraction reads %s",
+                    entity, TOPICS));
         }
         final List<Part> parts = nodes(stated.path(FILES)).map(OpenAlexManifest::part).toList();
         if (parts.isEmpty()) {
-            throw new IllegalArgumentException("The manifest names no part of the " + entity + " snapshot");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The manifest names no part of the %s snapshot",
+                    entity));
         }
         return new OpenAlexManifest(stated.path(DATE).asText(), stated.path(RECORD_COUNT).asInt(), parts);
     }

@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +18,9 @@ public record SightingSite(String file, int line) {
     public static SightingSite of(final String site) {
         final Matcher matched = SITE.matcher(site);
         if (!matched.matches()) {
-            throw new IllegalArgumentException("not a path:line site: " + site);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "not a path:line site: %s",
+                    site));
         }
         return new SightingSite(matched.group("path"), Integer.parseInt(matched.group("line")));
     }

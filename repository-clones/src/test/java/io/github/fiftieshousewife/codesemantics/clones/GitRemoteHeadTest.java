@@ -38,6 +38,18 @@ class GitRemoteHeadTest {
     }
 
     @Test
+    void refusesARemoteThatAnswersWithNoCommitAtAllRatherThanPinningNothing() throws Exception {
+        final Path empty = directory.resolve("empty.git");
+        final Process init = new ProcessBuilder("git", "init", "--bare", "--quiet", empty.toString())
+                .redirectErrorStream(true).start();
+        init.waitFor();
+
+        assertThatThrownBy(() -> new GitRemoteHead().of(empty.toString()))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("named no commit for HEAD");
+    }
+
+    @Test
     void refusesARemoteThatNamesNoCommitRatherThanPinningNothing() {
         assertThatThrownBy(() -> new GitRemoteHead().of(directory.resolve("absent").toString()))
                 .isInstanceOf(IllegalStateException.class);

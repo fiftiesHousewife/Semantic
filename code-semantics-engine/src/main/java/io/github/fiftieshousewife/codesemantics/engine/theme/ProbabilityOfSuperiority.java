@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.IntStream;
 
 /**
@@ -56,8 +57,10 @@ public final class ProbabilityOfSuperiority {
                 .count();
         final long notMeeting = scored.size() - meeting;
         if (meeting == 0 || notMeeting == 0) {
-            throw new IllegalArgumentException("The expectation marks " + meeting + " topics of "
-                    + scored.size() + ", so there is no pair to compare and no statistic to report");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The expectation marks %s topics of %s, so there is no pair to compare and no "
+                    + "statistic to report",
+                    meeting, scored.size()));
         }
         final double rankSum = rankSumOfMeeting(scored);
         final double bestPossible = meeting * (meeting + 1) / 2.0;

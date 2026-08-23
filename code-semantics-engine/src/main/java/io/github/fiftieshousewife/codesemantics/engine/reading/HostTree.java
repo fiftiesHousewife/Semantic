@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 /**
  * The tree the reader itself lives in, found by walking up from the working directory for the settings file
@@ -21,7 +22,9 @@ public final class HostTree {
         while (!Files.isRegularFile(candidate.resolve(SETTINGS_FILE))) {
             candidate = candidate.getParent();
             if (candidate == null) {
-                throw new IllegalStateException("No " + SETTINGS_FILE + " above " + Path.of("").toAbsolutePath());
+                throw new IllegalStateException(String.format(Locale.ROOT,
+                        "No %s above %s",
+                        SETTINGS_FILE, Path.of("").toAbsolutePath()));
             }
         }
         return candidate;

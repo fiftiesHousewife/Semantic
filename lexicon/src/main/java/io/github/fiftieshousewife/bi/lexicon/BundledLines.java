@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -31,7 +32,9 @@ final class BundledLines {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
             return dataLines(reader.lines());
         } catch (final IOException e) {
-            throw new IllegalStateException("Failed to read the bundled resource " + resource, e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Failed to read the bundled resource %s",
+                    resource), e);
         }
     }
 
@@ -40,7 +43,9 @@ final class BundledLines {
         try (Stream<String> lines = Files.lines(file, StandardCharsets.UTF_8)) {
             return dataLines(lines);
         } catch (final IOException | UncheckedIOException e) {
-            throw new IllegalStateException("Failed to read " + file, e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 

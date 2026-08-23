@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -35,7 +36,9 @@ public final class ExportSchema {
             return new ExportSchema(JsonSchemaFactory
                     .getInstance(SpecVersion.VersionFlag.V202012).getSchema(stated));
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + RESOURCE, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    RESOURCE), e);
         }
     }
 

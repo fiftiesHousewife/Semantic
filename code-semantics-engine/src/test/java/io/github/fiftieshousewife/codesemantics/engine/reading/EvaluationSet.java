@@ -8,6 +8,7 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import io.github.fiftieshousewife.codesemantics.clones.PinnedRepository;
@@ -79,9 +80,10 @@ public final class EvaluationSet {
     public static Path directory() {
         final String supplied = System.getProperty(EVALUATION_DIRECTORY_PROPERTY, "");
         if (supplied.isBlank()) {
-            throw new IllegalStateException("No " + EVALUATION_DIRECTORY_PROPERTY
-                    + ". An evaluation-set run reads clones the caller has made; point it at the directory"
-                    + " holding them.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "No %s. An evaluation-set run reads clones the caller has made; point it at the "
+                    + "directory holding them.",
+                    EVALUATION_DIRECTORY_PROPERTY));
         }
         return Path.of(supplied).toAbsolutePath().normalize();
     }
@@ -89,8 +91,9 @@ public final class EvaluationSet {
     private static Member member(final String line) {
         final String[] fields = line.split(COLUMN, -1);
         if (fields.length != COLUMNS) {
-            throw new IllegalStateException("A row of the evaluation-set manifest states " + fields.length
-                    + " columns where the shape has " + COLUMNS + ": " + line);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A row of the evaluation-set manifest states %s columns where the shape has %s: %s",
+                    fields.length, COLUMNS, line));
         }
         return new Member(fields[0], fields[1], fields[2], fields[3], fields[4], fields[5], fields[6]);
     }

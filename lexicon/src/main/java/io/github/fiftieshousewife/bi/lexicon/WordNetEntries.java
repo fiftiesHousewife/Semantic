@@ -5,6 +5,7 @@ import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
 import net.sf.extjwnl.dictionary.Dictionary;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -25,7 +26,9 @@ final class WordNetEntries {
         try {
             return Optional.ofNullable(dictionary.getIndexWord(partOfSpeech, written));
         } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + written + "\"", e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "WordNet lookup failed for \"%s\"",
+                    written), e);
         }
     }
 
@@ -33,7 +36,9 @@ final class WordNetEntries {
         try {
             return Optional.ofNullable(dictionary.lookupIndexWord(partOfSpeech, written));
         } catch (final JWNLException e) {
-            throw new IllegalStateException("WordNet lookup failed for \"" + written + "\"", e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "WordNet lookup failed for \"%s\"",
+                    written), e);
         }
     }
 }

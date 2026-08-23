@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,7 +88,9 @@ final class SourceLinks {
         try {
             return Files.isRegularFile(file) ? Files.readString(file) : "";
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 }

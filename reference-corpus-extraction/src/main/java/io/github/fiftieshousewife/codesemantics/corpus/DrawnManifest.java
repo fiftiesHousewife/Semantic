@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 import io.github.fiftieshousewife.codesemantics.clones.RepositoryManifest;
 
@@ -40,7 +41,9 @@ public record DrawnManifest(String name, List<String> stated, RepositoryManifest
         try {
             return Files.readAllLines(file, StandardCharsets.UTF_8);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the repository manifest " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the repository manifest %s",
+                    file), e);
         }
     }
 }

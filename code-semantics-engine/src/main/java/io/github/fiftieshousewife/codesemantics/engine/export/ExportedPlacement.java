@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -46,9 +47,9 @@ public record ExportedPlacement(String scheme, Level archive, Level category) {
 
         public Level {
             if (standsApartFromChance != divergenceBits < nearestByChanceBits) {
-                throw new IllegalArgumentException("a placement at " + divergenceBits + " against chance at "
-                        + nearestByChanceBits + " cannot state standsApartFromChance="
-                        + standsApartFromChance);
+                throw new IllegalArgumentException(String.format(Locale.ROOT,
+                        "a placement at %s against chance at %s cannot state standsApartFromChance=%s",
+                        divergenceBits, nearestByChanceBits, standsApartFromChance));
             }
             carriedBy = List.copyOf(carriedBy);
             nearerThanChance = List.copyOf(nearerThanChance);

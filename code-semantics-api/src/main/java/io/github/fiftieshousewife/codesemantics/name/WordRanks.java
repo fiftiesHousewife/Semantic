@@ -65,7 +65,9 @@ public final class WordRanks {
                     .forEach(word -> ranks.putIfAbsent(word.toLowerCase(Locale.ROOT), ranks.size() + 1));
             return new WordRanks(ranks);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + WORD_LIST_RESOURCE, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    WORD_LIST_RESOURCE), e);
         }
     }
 

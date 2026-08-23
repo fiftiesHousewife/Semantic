@@ -74,7 +74,9 @@ public record DrawRequest(String frame, String until, long seed, int count, Path
     private static String required(final String name) {
         final String stated = System.getProperty(PREFIX + name, "");
         if (stated.isBlank()) {
-            throw new IllegalStateException("A draw needs -D" + PREFIX + name);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A draw needs -D%s%s",
+                    PREFIX, name));
         }
         return stated;
     }

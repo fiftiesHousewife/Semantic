@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -88,8 +89,10 @@ public final class OpenAlexTopicsExtraction {
     List<ContentDigest.Member> pinned(final List<ContentDigest.Member> read) {
         final String found = digest.of(read);
         if (!setDigest.equals(found)) {
-            throw new IllegalArgumentException("The manifest and the " + (read.size() - 1) + " parts read "
-                    + "digest to " + found + ", where the snapshot this class cites digests to " + setDigest);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The manifest and the %s parts read digest to %s, where the snapshot this class cites "
+                    + "digests to %s",
+                    (read.size() - 1), found, setDigest));
         }
         return read;
     }

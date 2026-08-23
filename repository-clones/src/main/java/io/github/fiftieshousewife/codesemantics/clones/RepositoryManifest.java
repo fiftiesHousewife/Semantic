@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -35,7 +36,9 @@ public final class RepositoryManifest {
         try (Stream<String> lines = Files.lines(manifest, StandardCharsets.UTF_8)) {
             return of(lines);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read the repository manifest " + manifest, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read the repository manifest %s",
+                    manifest), e);
         }
     }
 
@@ -65,9 +68,10 @@ public final class RepositoryManifest {
     static PinnedRepository repository(final String line) {
         final String[] fields = line.split(COLUMN, -1);
         if (fields.length < PINNED_COLUMNS) {
-            throw new IllegalStateException("A row of a repository manifest states " + fields.length
-                    + " columns where cloning needs " + PINNED_COLUMNS
-                    + " — name, origin, sha, licence: " + line);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A row of a repository manifest states %s columns where cloning needs %s — name, "
+                    + "origin, sha, licence: %s",
+                    fields.length, PINNED_COLUMNS, line));
         }
         return new PinnedRepository(fields[0], fields[1], fields[2], fields[3], rankIn(fields));
     }

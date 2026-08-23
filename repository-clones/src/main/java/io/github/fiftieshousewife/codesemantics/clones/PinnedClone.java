@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -32,9 +33,9 @@ public final class PinnedClone {
 
     private static final String GIT_DIRECTORY = ".git";
 
-    private static final int GIT_SUCCEEDED = 0;
 
     private final PinnedRepository repository;
+    private final GitCommand git = new GitCommand();
 
     public PinnedClone(final PinnedRepository repository) {
         this.repository = Objects.requireNonNull(repository, "repository");
@@ -57,43 +58,25 @@ public final class PinnedClone {
 
     /** What the tree is checked out at, or nothing where no tree has been fetched yet. */
     public String head(final Path clone) {
-        return git(clone, "rev-parse", "HEAD");
+        return git.answering(List.of("-C", clone.toString(), "rev-parse", "HEAD"));
     }
 
     private void fetch(final Path clone) {
         makeDirectory(clone);
-        git(clone, "init", "--quiet");
-        git(clone, "fetch", "--depth", "1", "--quiet", repository.origin(), repository.sha());
-        git(clone, "checkout", "--quiet", "FETCH_HEAD");
+        git.answering(List.of("-C", clone.toString(), "init", "--quiet"));
+        git.answering(List.of("-C", clone.toString(), "fetch", "--depth", "1", "--quiet",
+                repository.origin(), repository.sha()));
+        git.answering(List.of("-C", clone.toString(), "checkout", "--quiet", "FETCH_HEAD"));
     }
 
     private static void makeDirectory(final Path clone) {
         try {
             Files.createDirectories(clone);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to make the directory " + clone, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to make the directory %s",
+                    clone), e);
         }
     }
 
-    /**
-     * Git's own answer, with its error output attached where it fails. A repository that will not fetch has to
-     * name itself: a run that quietly reads yesterday's tree reports a figure nobody can reproduce.
-     */
-    private String git(final Path clone, final String... arguments) {
-        final List<String> command = new ArrayList<>(List.of("git", "-C", clone.toString()));
-        command.addAll(List.of(arguments));
-        try {
-            final Process git = new ProcessBuilder(command).redirectErrorStream(true).start();
-            final String said = new String(git.getInputStream().readAllBytes(), StandardCharsets.UTF_8).strip();
-            if (git.waitFor() != GIT_SUCCEEDED) {
-                throw new IllegalStateException(String.join(" ", command) + " failed: " + said);
-            }
-            return said;
-        } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to run " + String.join(" ", command), e);
-        } catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("Interrupted running " + String.join(" ", command), e);
-        }
-    }
 }

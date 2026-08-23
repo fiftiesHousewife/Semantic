@@ -41,10 +41,25 @@ class DrawCostTest {
     private static final Instant FIRST = Instant.parse("2007-01-01T00:00:00Z");
     private static final Instant LAST = Instant.parse("2026-08-20T23:59:59Z");
 
-    /** A frame spread evenly over its years, so a range holds a share of the whole proportional to its span. */
-    private static final class EvenlySpread implements RepositorySearch {
+    /**
+     * A frame whose repositories accumulate exponentially with time, which is the shape GitHub's actually
+     * has: a doubling every {@code DOUBLING_YEARS}, so the last few years hold most of the population and
+     * the first few hold almost none. Halving a range by time does not halve it by count.
+     */
+    private static final class Skewed implements RepositorySearch {
+
+        private static final double DOUBLING_YEARS = 3.0;
+        private static final double SECONDS_A_YEAR = 365.25 * 24 * 60 * 60;
 
         private final List<String> asked = new ArrayList<>();
+
+        /** The share of the whole created before this instant, integrating the doubling rate. */
+        private static double before(final Instant at) {
+            final double years = Duration.between(FIRST, at).toSeconds() / SECONDS_A_YEAR;
+            final double whole = Duration.between(FIRST, LAST).toSeconds() / SECONDS_A_YEAR;
+            return (Math.pow(2.0, years / DOUBLING_YEARS) - 1.0)
+                    / (Math.pow(2.0, whole / DOUBLING_YEARS) - 1.0);
+        }
 
         @Override
         public long count(final String query) {
@@ -53,11 +68,9 @@ class DrawCostTest {
             if (!range.find()) {
                 return HELD;
             }
-            final double whole = (double) Duration.between(FIRST, LAST).toSeconds();
             final Instant from = Instant.from(STAMP.parse(range.group(1)));
             final Instant to = Instant.from(STAMP.parse(range.group(2)));
-            final double span = Math.max(0.0, (double) Duration.between(from, to).toSeconds());
-            return Math.round(HELD * span / whole);
+            return Math.max(0L, Math.round(HELD * (before(to) - before(from))));
         }
 
         /** A full page, so that any offset within it resolves — a short page would reject the rank. */
@@ -82,15 +95,19 @@ class DrawCostTest {
         final int plain = requestsFor(Remembering.NO);
         final int cached = requestsFor(Remembering.YES);
 
-        System.out.printf(Locale.ROOT, "draw of %d: %d requests plain, %d remembered, %.1fx fewer%n",
-                WANTED, plain, cached, plain / (double) cached);
+        System.out.printf(Locale.ROOT,
+                "draw of %d over a skewed frame: %d requests plain (%.1f a rank), %d remembered "
+                        + "(%.1f a rank), %.2fx fewer. At nine seconds a request that is %.1f hours "
+                        + "plain and %.1f remembered.%n",
+                WANTED, plain, plain / (double) WANTED, cached, cached / (double) WANTED,
+                plain / (double) cached, plain * 9 / 3600.0, cached * 9 / 3600.0);
         assertThat(cached).isLessThan(plain);
     }
 
     private enum Remembering { YES, NO }
 
     private int requestsFor(final Remembering remembering) {
-        final EvenlySpread spread = new EvenlySpread();
+        final Skewed spread = new Skewed();
         final RepositorySearch search =
                 remembering == Remembering.YES ? new RememberedCounts(spread) : spread;
         final SampledFrame frame = new SampledFrame(search, FRAME, UNTIL);

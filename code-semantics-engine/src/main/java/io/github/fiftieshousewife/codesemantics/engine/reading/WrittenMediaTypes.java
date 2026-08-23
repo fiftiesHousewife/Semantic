@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Pattern;
@@ -65,7 +66,9 @@ public final class WrittenMediaTypes {
         try {
             return Files.readString(file);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 }

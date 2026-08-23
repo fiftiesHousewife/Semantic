@@ -57,8 +57,9 @@ public final class WiktionaryCitations {
                       final Map<String, String> canonicalTopics) {
         final String[] fields = line.split("\t", -1);
         if (fields.length != COLUMNS) {
-            throw new IllegalStateException("A row of " + RESOURCE + " states " + fields.length
-                    + " columns where the shape has " + COLUMNS + ": " + line);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "A row of %s states %s columns where the shape has %s: %s",
+                    RESOURCE, fields.length, COLUMNS, line));
         }
         final Set<String> topics = Arrays.stream(fields[3].split(",", -1))
                 .filter(topic -> !topic.isBlank())

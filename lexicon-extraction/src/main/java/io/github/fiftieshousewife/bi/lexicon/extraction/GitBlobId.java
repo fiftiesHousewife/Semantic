@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
+import java.util.Locale;
 
 /**
  * The identifier git gives a file's contents: SHA-1 over the blob header and the bytes.
@@ -29,7 +30,9 @@ final class GitBlobId {
         try {
             return MessageDigest.getInstance(ALGORITHM);
         } catch (final NoSuchAlgorithmException e) {
-            throw new IllegalStateException("The platform states no " + ALGORITHM + " implementation", e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "The platform states no %s implementation",
+                    ALGORITHM), e);
         }
     }
 }

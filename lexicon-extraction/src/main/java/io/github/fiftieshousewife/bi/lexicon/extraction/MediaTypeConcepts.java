@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,7 +45,9 @@ public final class MediaTypeConcepts {
     private static List<String> fields(final String row) {
         final Matcher fields = ROW.matcher(row);
         if (!fields.matches()) {
-            throw new IllegalArgumentException("Not a three-field registry row: " + row);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "Not a three-field registry row: %s",
+                    row));
         }
         return List.of(fields.group(1), fields.group(2),
                 Optional.ofNullable(fields.group(3)).orElseGet(() -> fields.group(4)));

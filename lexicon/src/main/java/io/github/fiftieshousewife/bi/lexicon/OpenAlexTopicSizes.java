@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -92,8 +93,9 @@ public final class OpenAlexTopicSizes {
         BundledLines.of(RESOURCE).forEach(line -> {
             final String[] fields = line.split(COLUMN, -1);
             if (fields.length != COLUMNS) {
-                throw new IllegalStateException("A row of " + RESOURCE + " states " + fields.length
-                        + " columns where the shape has " + COLUMNS + ": " + line);
+                throw new IllegalStateException(String.format(Locale.ROOT,
+                        "A row of %s states %s columns where the shape has %s: %s",
+                        RESOURCE, fields.length, COLUMNS, line));
             }
             sizes.put(fields[0], new Size(Long.parseLong(fields[1]), Long.parseLong(fields[2])));
         });

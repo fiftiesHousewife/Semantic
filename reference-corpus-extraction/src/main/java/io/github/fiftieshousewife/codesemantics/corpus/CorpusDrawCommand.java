@@ -78,7 +78,9 @@ public final class CorpusDrawCommand {
             Files.writeString(manifest, new DrawnManifestTsv().render(header, drawn.taken()),
                     StandardCharsets.UTF_8);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to write the manifest " + manifest, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to write the manifest %s",
+                    manifest), e);
         }
         log.info("{} rows written to {}, under the {} header lines it already stated",
                 drawn.taken().size(), manifest, header.size());
@@ -97,7 +99,9 @@ public final class CorpusDrawCommand {
         try {
             new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(out.toFile(), written);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to write the draw record to " + out, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to write the draw record to %s",
+                    out), e);
         }
     }
 }

@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -70,8 +71,9 @@ public final class BianServiceDomainsExtraction {
     List<ContentDigest.Member> asRecorded(final List<ContentDigest.Member> specifications) {
         final String found = digest.of(specifications);
         if (!SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException("The " + specifications.size() + " specifications read "
-                    + "digest to " + found + ", where revision " + REVISION + " holds " + SET_DIGEST);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The %s specifications read digest to %s, where revision %s holds %s",
+                    specifications.size(), found, REVISION, SET_DIGEST));
         }
         return specifications;
     }

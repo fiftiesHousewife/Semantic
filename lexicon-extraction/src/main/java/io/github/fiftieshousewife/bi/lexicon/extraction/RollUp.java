@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -21,8 +22,9 @@ public class RollUp {
         T current = nested;
         while (!current.broader().isEmpty()) {
             if (!walked.add(current.id())) {
-                throw new IllegalArgumentException("The source nests " + nested.id()
-                        + " inside a cycle of concepts: " + String.join(" -> ", walked));
+                throw new IllegalArgumentException(String.format(Locale.ROOT,
+                        "The source nests %s inside a cycle of concepts: %s",
+                        nested.id(), String.join(" -> ", walked)));
             }
             final T at = current;
             current = Objects.requireNonNull(byId.get(at.broader()),

@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -90,8 +91,9 @@ public final class EvaluationReadCommand {
         final long read = outcomes.stream().filter(Outcome::read).count();
         log.info("EvaluationSet read. {} of {} members, one folder per member.", read, outcomes.size());
         if (read < outcomes.size()) {
-            throw new IllegalStateException((outcomes.size() - read)
-                    + " evaluation-set members were not read");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "%s evaluation-set members were not read",
+                    (outcomes.size() - read)));
         }
     }
 }

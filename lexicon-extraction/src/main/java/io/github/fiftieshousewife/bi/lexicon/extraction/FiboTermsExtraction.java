@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -72,8 +73,9 @@ public final class FiboTermsExtraction {
     String asRecorded(final List<ContentDigest.Member> members) {
         final String found = digest.of(members);
         if (!ONTOLOGY_SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException("The " + members.size() + " ontologies read digest to "
-                    + found + ", where revision " + REVISION + " holds " + ONTOLOGY_SET_DIGEST);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The %s ontologies read digest to %s, where revision %s holds %s",
+                    members.size(), found, REVISION, ONTOLOGY_SET_DIGEST));
         }
         return found;
     }

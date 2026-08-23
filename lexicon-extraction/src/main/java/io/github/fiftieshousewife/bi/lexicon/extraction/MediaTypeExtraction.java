@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -63,7 +64,9 @@ public final class MediaTypeExtraction {
                     try {
                         return new ContentDigest.Member(file, Files.readAllBytes(directory.resolve(file)));
                     } catch (final IOException e) {
-                        throw new IllegalArgumentException("The registry directory is missing " + file, e);
+                        throw new IllegalArgumentException(String.format(Locale.ROOT,
+                                "The registry directory is missing %s",
+                                file), e);
                     }
                 })
                 .toList();
@@ -73,8 +76,10 @@ public final class MediaTypeExtraction {
     List<ContentDigest.Member> pinned(final List<ContentDigest.Member> read) {
         final String found = digest.of(read);
         if (!SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException("The registry CSVs read digest to " + found + ", where the "
-                    + "file set this class cites digests to " + SET_DIGEST);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The registry CSVs read digest to %s, where the file set this class cites digests to "
+                    + "%s",
+                    found, SET_DIGEST));
         }
         return read;
     }

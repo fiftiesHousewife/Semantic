@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
@@ -63,7 +64,9 @@ public final class ExportedSignals {
 
     private double margin(final ChosenWord.ReferenceClaim claim) {
         if (!thresholdByReference.containsKey(claim.reference())) {
-            throw new IllegalStateException("no threshold was derived for " + claim.reference());
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "no threshold was derived for %s",
+                    claim.reference()));
         }
         return claim.claim() - thresholdByReference.get(claim.reference());
     }

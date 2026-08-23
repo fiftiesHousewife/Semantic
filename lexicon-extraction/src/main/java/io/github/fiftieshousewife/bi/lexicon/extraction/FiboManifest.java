@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.w3c.dom.Document;
 
@@ -40,8 +41,10 @@ public final class FiboManifest {
                 .distinct()
                 .toList();
         if (paths.isEmpty()) {
-            throw new IllegalArgumentException("The manifest imports no ontology published under "
-                    + PUBLISHED_UNDER + ", so it is not FIBO's production manifest");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The manifest imports no ontology published under %s, so it is not FIBO's production "
+                    + "manifest",
+                    PUBLISHED_UNDER));
         }
         return paths;
     }

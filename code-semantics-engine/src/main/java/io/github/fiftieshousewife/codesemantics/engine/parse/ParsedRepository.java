@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -172,7 +173,9 @@ public final class ParsedRepository {
         try {
             return Files.readString(file);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 

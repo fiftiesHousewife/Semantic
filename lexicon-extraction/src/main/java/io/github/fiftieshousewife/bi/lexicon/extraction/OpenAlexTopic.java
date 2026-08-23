@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -110,8 +111,10 @@ public record OpenAlexTopic(String concept, String label, String description, Li
     private static OpenAlexLevel levelOf(final JsonNode stated, final String level, final String concept) {
         final String id = stated.path(level).path(ID).asText();
         if (id.isEmpty()) {
-            throw new IllegalArgumentException("The record for " + concept + " states no " + level + ", and "
-                    + "a topic with nothing stated above it is a row no walk can reach");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The record for %s states no %s, and a topic with nothing stated above it is a row no "
+                    + "walk can reach",
+                    concept, level));
         }
         return new OpenAlexLevel(pathOf(id), stated.path(level).path(DISPLAY_NAME).asText(), level);
     }

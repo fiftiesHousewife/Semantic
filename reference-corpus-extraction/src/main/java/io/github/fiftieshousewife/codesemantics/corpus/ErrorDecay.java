@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.corpus;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * How fast a reference's sampling error falls as the draw grows, read off the measured curve rather than
@@ -21,8 +22,9 @@ public record ErrorDecay(double exponent, int largest, double bitsAtLargest) {
     /** The rate the curve states. It needs two points, because one point states no rate. */
     public static ErrorDecay of(final List<SamplingError.AtSize> curve) {
         if (curve.size() < 2) {
-            throw new IllegalArgumentException("A rate needs at least two sizes; " + curve.size()
-                    + " states none.");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A rate needs at least two sizes; %s states none.",
+                    curve.size()));
         }
         final SamplingError.AtSize last = curve.getLast();
         return new ErrorDecay(slope(curve), last.repositories(), last.bits());

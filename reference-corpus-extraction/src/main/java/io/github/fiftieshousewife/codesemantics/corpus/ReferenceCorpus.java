@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Objects;
 
 import io.github.fiftieshousewife.codesemantics.clones.RepositoryManifest;
@@ -53,8 +54,9 @@ public final class ReferenceCorpus {
     public static DrawnManifest drawnManifest() {
         final String named = System.getProperty(MANIFEST_PROPERTY, "");
         if (named.isBlank()) {
-            throw new IllegalStateException("No " + MANIFEST_PROPERTY
-                    + ". A pooled corpus carries the draw that chose it, so the manifest is named.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "No %s. A pooled corpus carries the draw that chose it, so the manifest is named.",
+                    MANIFEST_PROPERTY));
         }
         return DrawnManifest.at(Path.of(named));
     }
@@ -66,7 +68,9 @@ public final class ReferenceCorpus {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
             return RepositoryManifest.of(reader.lines());
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + draw, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    draw), e);
         }
     }
 
@@ -78,8 +82,10 @@ public final class ReferenceCorpus {
     public static Path directory() {
         final String supplied = System.getProperty(DIRECTORY_PROPERTY, "");
         if (supplied.isBlank()) {
-            throw new IllegalStateException("No " + DIRECTORY_PROPERTY
-                    + ". A corpus run reads clones the caller has made; point it at the directory holding them.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "No %s. A corpus run reads clones the caller has made; point it at the directory "
+                    + "holding them.",
+                    DIRECTORY_PROPERTY));
         }
         return Path.of(supplied).toAbsolutePath().normalize();
     }

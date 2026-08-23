@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
+import java.util.Locale;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -46,7 +47,9 @@ public final class TruncatedDescriptions {
     /** A share bounds itself, so the range is the statistic's rather than one chosen here. */
     private double shareOfADescription(final double share) {
         if (share <= 0.0 || share > 1.0) {
-            throw new IllegalArgumentException("A share of a description lies in (0, 1]: " + share);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A share of a description lies in (0, 1]: %s",
+                    share));
         }
         return share;
     }

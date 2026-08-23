@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.model;
 
+import java.util.Locale;
 import java.util.stream.DoubleStream;
 
 /**
@@ -54,7 +55,9 @@ public final class PooledLogOdds {
      */
     public static double unsquash(final double score, final double scale) {
         if (Double.isNaN(score) || Math.abs(score) >= 1.0) {
-            throw new IllegalArgumentException("a squashed score lies in (-1, 1): " + score);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "a squashed score lies in (-1, 1): %s",
+                    score));
         }
         return scale * Math.log((1.0 + score) / (1.0 - score));
     }

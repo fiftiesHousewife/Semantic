@@ -51,8 +51,10 @@ public final class PlacedUnder {
             labels.put(concept.concept(), concept.prefLabel());
         });
         if (labels.values().stream().noneMatch(label -> label.equalsIgnoreCase(area))) {
-            throw new IllegalArgumentException("The scheme states no subject area called " + area
-                    + ", so an expectation naming it would mark nothing and read as a failed reading");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The scheme states no subject area called %s, so an expectation naming it would mark "
+                    + "nothing and read as a failed reading",
+                    area));
         }
         return new PlacedUnder(area, broader, labels);
     }

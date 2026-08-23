@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,7 +44,9 @@ public record TopicDistribution(Map<String, Double> shareByTopic, double unplace
 
     public TopicDistribution {
         if (unplaced < 0.0 || unplaced > 1.0) {
-            throw new IllegalArgumentException("an unplaced share outside [0, 1]: " + unplaced);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "an unplaced share outside [0, 1]: %s",
+                    unplaced));
         }
         shareByTopic = Map.copyOf(shareByTopic);
     }

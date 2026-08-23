@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -57,10 +58,14 @@ public final class PublishedArtefact {
                     client.send(request, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
             return answered.statusCode() == FOUND ? answered.body() : "";
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file + " of " + repository, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s of %s",
+                    file, repository), e);
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new IllegalStateException("Interrupted reading " + file + " of " + repository, e);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Interrupted reading %s of %s",
+                    file, repository), e);
         }
     }
 }

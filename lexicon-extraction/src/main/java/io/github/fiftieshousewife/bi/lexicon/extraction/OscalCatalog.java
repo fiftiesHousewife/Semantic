@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -45,7 +46,9 @@ public final class OscalCatalog {
     public OscalCatalog(final String document) {
         this.catalog = read(document).path(CATALOG);
         if (catalog.isMissingNode()) {
-            throw new IllegalArgumentException("The document states no " + CATALOG);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The document states no %s",
+                    CATALOG));
         }
     }
 

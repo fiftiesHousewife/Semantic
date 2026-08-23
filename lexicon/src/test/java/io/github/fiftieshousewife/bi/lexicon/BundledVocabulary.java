@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,8 +34,9 @@ final class BundledVocabulary {
     static List<Path> files() {
         final List<Path> files = DIRECTORIES.stream().flatMap(BundledVocabulary::filesIn).sorted().toList();
         if (files.isEmpty()) {
-            throw new IllegalStateException(DIRECTORIES
-                    + " hold no vocabulary, so every question asked of them would answer itself.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "%s hold no vocabulary, so every question asked of them would answer itself.",
+                    DIRECTORIES));
         }
         return files;
     }

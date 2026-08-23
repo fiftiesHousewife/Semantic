@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -36,9 +37,10 @@ public class SkosTsv {
 
     private static String row(final SkosConcept concept) {
         if (concept.concept().startsWith(COMMENT)) {
-            throw new IllegalArgumentException("A concept beginning with " + COMMENT + " would be read back "
-                    + "as the header rather than as a row, and would vanish without anything failing: "
-                    + concept.concept());
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A concept beginning with %s would be read back as the header rather than as a row, "
+                    + "and would vanish without anything failing: %s",
+                    COMMENT, concept.concept()));
         }
         return fields(concept).stream().map(SkosTsv::unbroken).collect(Collectors.joining(COLUMN, "", ROW));
     }
@@ -50,8 +52,10 @@ public class SkosTsv {
 
     private static String unbroken(final String field) {
         if (SEPARATOR.matcher(field).find()) {
-            throw new IllegalArgumentException("A field carrying a tab or a line break would be read back as "
-                    + "a column or a row that was never written: " + field);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "A field carrying a tab or a line break would be read back as a column or a row that "
+                    + "was never written: %s",
+                    field));
         }
         return field;
     }

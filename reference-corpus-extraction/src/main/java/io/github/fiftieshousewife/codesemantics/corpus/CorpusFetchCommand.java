@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.corpus;
 
 import java.nio.file.Path;
+import java.util.Locale;
 
 import io.github.fiftieshousewife.codesemantics.clones.PinnedClone;
 import io.github.fiftieshousewife.codesemantics.clones.PinnedRepository;
@@ -33,8 +34,9 @@ public final class CorpusFetchCommand {
         final Path tree = clone.under(corpus);
         final String head = clone.head(tree);
         if (!head.equals(repository.sha())) {
-            throw new IllegalStateException(repository.name() + " is at " + head
-                    + " where the manifest pins " + repository.sha());
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "%s is at %s where the manifest pins %s",
+                    repository.name(), head, repository.sha()));
         }
         log.info("{} at {} ({})", repository.name(), repository.sha(), repository.licence());
     }

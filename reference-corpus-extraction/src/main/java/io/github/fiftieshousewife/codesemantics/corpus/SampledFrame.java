@@ -6,6 +6,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -73,7 +74,9 @@ public final class SampledFrame {
             }
             seen += window.count();
         }
-        throw new IllegalArgumentException("Rank " + rank + " falls outside a frame of " + total());
+        throw new IllegalArgumentException(String.format(Locale.ROOT,
+                "Rank %s falls outside a frame of %s",
+                rank, total()));
     }
 
     private Optional<JsonNode> within(final String from, final String to, final long held, final long offset) {
@@ -106,8 +109,10 @@ public final class SampledFrame {
         final String to = year == last ? until : year + "-12-31T23:59:59Z";
         final long count = counted(from, to);
         if (count >= ESTIMATED_ABOVE) {
-            throw new IllegalStateException(year + " holds " + count
-                    + ", which GitHub estimates rather than counts. Divide it further before trusting it.");
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "%s holds %s, which GitHub estimates rather than counts. Divide it further before "
+                    + "trusting it.",
+                    year, count));
         }
         log.info("{}  {}", year, count);
         return new Window(year, from, to, count);

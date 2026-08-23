@@ -5,6 +5,7 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.github.javaparser.JavaParser;
@@ -89,7 +90,9 @@ public final class ShortNamesProbe {
                     .setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21))
                     .parse(Files.readString(file)).getResult().orElseGet(CompilationUnit::new);
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to read %s",
+                    file), e);
         }
     }
 }

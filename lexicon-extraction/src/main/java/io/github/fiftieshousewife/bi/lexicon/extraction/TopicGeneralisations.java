@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -50,11 +51,15 @@ public class TopicGeneralisations {
     private static String block(final String module) {
         final int opened = module.indexOf(MAP);
         if (opened < 0) {
-            throw new IllegalArgumentException("The module states no " + MAP);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The module states no %s",
+                    MAP));
         }
         final int closed = module.indexOf(CLOSE, opened);
         if (closed < 0) {
-            throw new IllegalArgumentException("The " + MAP + " literal is never closed");
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The %s literal is never closed",
+                    MAP));
         }
         return module.substring(opened + MAP.length(), closed);
     }

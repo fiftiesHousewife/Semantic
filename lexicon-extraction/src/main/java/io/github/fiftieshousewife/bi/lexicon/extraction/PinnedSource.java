@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 /**
  * One published file pinned to a revision: the copy a caller names, or the permalink's own bytes where the
@@ -42,8 +43,9 @@ final class PinnedSource {
     byte[] pinned(final byte[] read) {
         final String found = blobId.of(read);
         if (!blob.equals(found)) {
-            throw new IllegalArgumentException(permalink + " read as blob " + found + ", where revision "
-                    + revision + " holds blob " + blob);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "%s read as blob %s, where revision %s holds blob %s",
+                    permalink, found, revision, blob));
         }
         return read;
     }
@@ -53,12 +55,16 @@ final class PinnedSource {
             final HttpResponse<byte[]> response = client.send(HttpRequest.newBuilder(permalink).build(),
                     HttpResponse.BodyHandlers.ofByteArray());
             if (response.statusCode() != 200) {
-                throw new IOException("Fetch failed with HTTP " + response.statusCode() + ": " + permalink);
+                throw new IOException(String.format(Locale.ROOT,
+                        "Fetch failed with HTTP %s: %s",
+                        response.statusCode(), permalink));
             }
             return response.body();
         } catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new IOException("Fetch interrupted: " + permalink, e);
+            throw new IOException(String.format(Locale.ROOT,
+                    "Fetch interrupted: %s",
+                    permalink), e);
         }
     }
 }

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -56,7 +57,9 @@ public final class CsoConcepts {
         final int afterSubject = line.indexOf("\",\"");
         final int afterPredicate = line.indexOf("\",\"", afterSubject + 3);
         if (afterSubject < 0 || afterPredicate < 0) {
-            throw new IllegalArgumentException("Not a three-field triple row: " + line);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "Not a three-field triple row: %s",
+                    line));
         }
         final String subject = topicOf(line.substring(0, afterSubject));
         final String predicate = uriOf(line.substring(afterSubject + 3, afterPredicate));
@@ -79,7 +82,9 @@ public final class CsoConcepts {
     private static String topicOf(final String field) {
         final String uri = uriOf(field);
         if (!uri.startsWith(TOPIC)) {
-            throw new IllegalArgumentException("Not a CSO topic URI: " + field);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "Not a CSO topic URI: %s",
+                    field));
         }
         return uri.substring(TOPIC.length());
     }
@@ -88,7 +93,9 @@ public final class CsoConcepts {
         final int open = field.indexOf('<');
         final int close = field.indexOf('>');
         if (open < 0 || close < open) {
-            throw new IllegalArgumentException("Not a URI field: " + field);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "Not a URI field: %s",
+                    field));
         }
         return field.substring(open + 1, close);
     }

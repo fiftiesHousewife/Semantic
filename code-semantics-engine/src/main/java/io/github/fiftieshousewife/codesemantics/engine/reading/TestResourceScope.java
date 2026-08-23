@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -41,7 +42,9 @@ public final class TestResourceScope {
                     .sorted()
                     .toList();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to walk " + root, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to walk %s",
+                    root), e);
         }
     }
 
@@ -60,7 +63,9 @@ public final class TestResourceScope {
                     .sorted(Comparator.naturalOrder())
                     .toList();
         } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to walk " + directory, e);
+            throw new UncheckedIOException(String.format(Locale.ROOT,
+                    "Failed to walk %s",
+                    directory), e);
         }
     }
 

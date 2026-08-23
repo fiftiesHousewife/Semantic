@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,9 +32,10 @@ public final class OpenAlexSnapshot {
             final Map<Long, List<Path>> byLength) {
         final List<Path> found = byLength.getOrDefault((long) part.contentLength(), List.of());
         if (found.size() != 1) {
-            throw new IllegalArgumentException("The snapshot directory holds " + found.size() + " files of "
-                    + part.contentLength() + " bytes " + named(found) + ", where the manifest states one "
-                    + "part of that length: " + part.url());
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The snapshot directory holds %s files of %s bytes %s, where the manifest states one "
+                    + "part of that length: %s",
+                    found.size(), part.contentLength(), named(found), part.url()));
         }
         return new ContentDigest.Member(part.url(), bytesOf(found.get(0)));
     }
@@ -55,7 +57,9 @@ public final class OpenAlexSnapshot {
         try {
             return Files.size(path);
         } catch (final IOException e) {
-            throw new IllegalArgumentException("The snapshot directory holds an unreadable file: " + path, e);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The snapshot directory holds an unreadable file: %s",
+                    path), e);
         }
     }
 
@@ -63,7 +67,9 @@ public final class OpenAlexSnapshot {
         try {
             return Files.readAllBytes(path);
         } catch (final IOException e) {
-            throw new IllegalArgumentException("The snapshot directory holds an unreadable part: " + path, e);
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "The snapshot directory holds an unreadable part: %s",
+                    path), e);
         }
     }
 }

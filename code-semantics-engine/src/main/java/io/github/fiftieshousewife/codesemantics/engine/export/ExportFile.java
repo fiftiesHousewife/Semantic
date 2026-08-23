@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -36,7 +37,9 @@ public final class ExportFile {
         final JsonNode document = mapper.valueToTree(export);
         final Set<String> refusals = schema.refusals(document);
         if (!refusals.isEmpty()) {
-            throw new IllegalStateException(ExportSchema.RESOURCE + " refuses this document: " + refusals);
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "%s refuses this document: %s",
+                    ExportSchema.RESOURCE, refusals));
         }
         return mapper.writeValueAsString(document);
     }
