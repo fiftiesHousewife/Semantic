@@ -42,7 +42,18 @@ A near-duplicate predicate is derivable and the machinery already exists: `Occur
 
 The splitter does this deliberately. `IdentifierWords` cites UAX #29 rules WB9 and WB10 — *do not break within sequences of digits, or digits adjacent to letters* — so `utf8Decode` reads as utf8 and decode. **The citation may not cover the case.** UAX #29 segments natural-language text, where `3a` and `A3` are meaningful units; a declared identifier is not text, and the Java Language Specification's identifier grammar says nothing about word boundaries. CLAUDE.md already records the letter/digit boundary as the piece of the splitter that is "blocked on a catalogue", because splitting `utf8` into utf and 8 needs one to know which glued forms are real.
 
-**Whether it matters is unmeasured.** They are 4.5% of occurrences and sit in the tail, and the tail is what a reading never consults — so the verdicts may not move at all. The measurement is one run: pool the table with digit-bearing rows dropped, renormalise, and diff the above-chance sets against the unfiltered table on one member. Do that before touching the splitter.
+**Do not filter them out of the corpus.** A reference is a denominator, and a word absent from it has a share of zero, so cutting a token from the corpus makes a repository writing it look like it chose it. **426 of strata's 1,343 above-chance words carry a digit, and 172 of aeron's 625** — `aeron1`, `buffer1`, `channel2`, `0001`. Filtering the corpus promotes every one of them. It is the trap this plan already names about truncating the tail, in another shape.
+
+The corpus and the repository under reading are split by the same grammar, and that symmetry is the only thing making a share here comparable to a share there. **So the splitter is the only place a change is legitimate**, and a change there moves both sides at once. The question then splits in two, and only one half is worth anything:
+
+| | Rows | Occurrences | What it needs |
+|---|--:|--:|---|
+| digits only — `0`, `0001`, `01` | 81 (0.5%) | 0.15% | Nothing. "A token with no letter is not a word" is grammar, needs no catalogue, and is symmetric |
+| letters and digits — `col1`, `utf8` | 6,851 (46.4%) | 4.38% | A catalogue, to tell `utf8`, `x509` and `sha256` from `col1` and `map57571` |
+
+The clean half buys almost nothing. The valuable half is exactly what CLAUDE.md already records as the piece of the splitter blocked on a catalogue.
+
+**The measurement to run first, before any catalogue work:** split at every letter/digit boundary on both sides and read the nine. It may *improve* the reading rather than only tidying it — `aeron1` and `aeron2` are separate words today, diluting `aeron`, which is a genuine subject term for that member.
 
 ## What to do next, in order
 
