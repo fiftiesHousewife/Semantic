@@ -75,17 +75,36 @@ Everything below rests on a measurement already taken. The record of each is in 
 
 | | Step | Why now |
 |--:|---|---|
-| **1** | **Draw a hundred under the closed frame** | `bash reference-corpus-extraction/draw-the-corpus.sh`, from Pippa's shell — the session's proxy defeats Java's `HttpClient`. The old frame grew every day and no draw under it was reproducible, so this is a fresh sample and a full fetch. No repository is excluded by name: the near-duplicate measurement names one or it does not |
-| **2** | **Make the bar carry its own error** | About one verdict in ten moves at thirty repositories, all of it in words whose claim sits near zero. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is already derivable from the split-half measurement — a bound, not a chosen margin. Cheaper than the ~300 repositories that would buy the same by fetching |
-| **3** | **Backtest twice** | Corpus beside the JDK index, and replacing it. Whether the index still earns a place is open, and steps 1 and 2 both change what the answer looks like |
-| **4** | **Decide whether to extend past a hundred** | Three hundred buys about two further points of churn for three times the source. Worth it only if step 2 leaves churn that still bites, which is unlikely — a hundred is where the curve flattens |
-| **5** | **Retire `LANGUAGE`; keep `SYMBOL` and `SHORTHAND`** | `a`, `the` and `of` are below chance on all nine members before any stage runs. `buf` survives on five of nine and `x` on strata, so those two still have work |
+| **1** | **Retire the platform's API reference, or keep it with a number** | The corpus carries the platform's own vocabulary densely — `string` ranks 32nd, `class` 45th, `list` 75th — because repositories declare `RequestHandler`, `EventStream` and `ClassLoader`. So the words `PlatformVocabulary` exists to explain are ones the corpus explains too. Read the nine evaluation members with both references and with the corpus alone; if dropping it changes no member's above-chance field beyond the corpus's own sampling error, it goes. No network, under an hour |
+| **2** | **Make the bar carry its own error** | About one verdict in ten moved at thirty repositories, all of it in words whose claim sits near zero. A hundred reduces it and does not end it: the split-half disagreement falls as size to the power −0.301, which is between-repository heterogeneity rather than sampling noise. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is derivable from the split-half measurement — a bound, not a chosen margin |
+| **3** | **Re-take the three findings the resample re-opened** | `corpusFloor` and `corpusPlateau` were measured over the thirty. Run both over the hundred, and re-run `corpusReference` over the nine to replace the 17% figure. Only the weighting survives untouched, because the mean of shares is an argument about what the frame drew rather than about how many |
+| **4** | **Backtest** | The corpus is bundled and every figure above rests on this tree alone. `./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation` |
+| **5** | **Retire `LANGUAGE`; keep `SYMBOL` and `SHORTHAND`** | `a`, `the` and `of` are below chance on all nine members before any stage runs. `buf` survived on five of nine at thirty and `x` on strata, both against the smaller corpus, so those two need re-reading against the hundred before either is called settled |
 
-**Done, and not to be re-opened:** the corpus reads (17% of the above-chance field removed across the nine, subject vocabulary intact everywhere); the weighting is the mean of shares; there is no occurrence floor to derive; the tail needs no truncation rule at 14,763 words.
+**Done, and not to be re-opened:** the weighting is the mean of shares; the frame leaves `pushed` unbounded above, because membership must only ever grow; no repository is refused by name unless a measurement names it; the draw pins every row at a commit and writes its own manifest; a fetch takes only the blobs a reading opens.
 
-**Bundled at `reference-corpus`.** The module is published and holds `reference-corpus-shares.tsv`, read by `PooledWordShares`, wrapped by `CorpusVocabulary` in the engine as `EnglishVocabulary` wraps `WordRanks`. Its resources are in `BundledVocabulary.DIRECTORIES`, so the provenance test covers them. **The bundled table carries both defects above** and should be regenerated after step 1.
+**Re-opened by the resample, and each needs its run again:** the corpus removed 17% of the above-chance field across the nine — measured over thirty repositories, not these hundred. So was the finding that there is no occurrence floor to derive, and so was the judgement that the tail needs no truncation rule, which was made at 14,763 words and now stands at 28,839.
+
+**Bundled at `reference-corpus`.** The module is published and holds `reference-corpus-shares.tsv`, read by `PooledWordShares`, wrapped by `CorpusVocabulary` in the engine. Its resources are in `BundledVocabulary.DIRECTORIES`, so the provenance test covers them.
+
+**The table now states a hundred repositories, 28,839 words and 1,541,720 occurrences**, against thirty, 14,763 and 444,695. Both defects it carried are gone: the OWASP Benchmark appears once, and no pair of the hundred sits nearer than two samples of their sizes reach by chance. Five of the twenty-five figures the self read publishes moved with it, four of them by a tenth of a point; the fifth is the topic count falling from six to four, which is the corpus doing what it is for.
 
 ## The work, as it was done
+
+**11. Draw and pool a hundred. Done 2026-08-23.** The frame counted 112,281 and the draw consumed 192 ranks to take 100, a take rate of 52% against the 56.6% the thirty-row draw recorded — z = −1.26, so the same rate. Every rejection was `states no publication`. No evaluation-set member came up, and `corpusDuplicates` reports no pair of the hundred nearer than chance.
+
+Four defects were found by running it rather than by reading it:
+
+| Found | Fixed by |
+|---|---|
+| The draw recorded no commit, so no manifest could be built from it | `GitRemoteHead` asks `git ls-remote`, and the publication test runs at that commit |
+| The frame grew between draws, so `-Dcs.draw.total` refused a run against a population that had moved | Recording the count beside each draw and asserting it before anything is written |
+| Bounding `pushed` above to stop the growth expelled the repositories already drawn, and collapsed the take rate to 19% | Reverting it. `pushed` is mutable, so only the unbounded form has membership that always grows |
+| `isPinned` threw on a tree a stopped fetch had left, so one interrupted clone ended a run over the whole manifest | `head()` answers nothing where no commit is checked out |
+
+**12. Fetch only what a reading opens. Done 2026-08-23.** Most of a repository is images and archives no reading opens: `AstralAdditions` is 406 MB on disk and the reading opens 1.0 MB of it. A blob filter with a sparse checkout keeping `src/test/resources` fetches 1.5 MB in three seconds, carrying the same 177 files with the same contents. `ReadPaths` states the patterns and `ReadPathsCoverEveryScopeTest` fails where a scope reads something they would leave off the disk.
+
+
 
 **1. Let the extraction read Java. Done at `e696fbe`.** `reference-corpus-extraction` depends on `code-semantics-engine`, and the chain is acyclic: `repository-clones` ← `code-semantics-engine` ← `reference-corpus-extraction`.
 
