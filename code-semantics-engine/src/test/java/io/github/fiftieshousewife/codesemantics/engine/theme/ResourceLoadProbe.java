@@ -9,8 +9,6 @@ import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.EnglishVocabulary;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PlatformNames;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PlatformVocabulary;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -34,10 +32,8 @@ class ResourceLoadProbe {
         LOADERS.put("OrdinaryEnglish", OrdinaryEnglish::fromClasspath);
         LOADERS.put("SubjectAreas", SubjectAreas::fromClasspath);
         LOADERS.put("FieldOfStudy", FieldOfStudy::fromClasspath);
-        LOADERS.put("PlatformNames", PlatformNames::ofSystem);
-        LOADERS.put("PlatformVocabulary", PlatformVocabulary::ofSystem);
         LOADERS.put("EnglishVocabulary", EnglishVocabulary::fromClasspath);
-        LOADERS.put("ChosenWords", ChosenWords::againstEnglishAndThePlatform);
+        LOADERS.put("ChosenWords", ChosenWords::againstEnglishAndTheCorpus);
     }
 
     @Test

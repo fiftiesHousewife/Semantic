@@ -97,7 +97,8 @@ public final class RepositoryReading {
         if (themes == null) {
             log.info("Reading subjects over {} — this is the slow stage, and it resamples 999 times", root);
             final long started = System.nanoTime();
-            themes = ThemeReading.fromClasspath(seed).of(parsed());
+            themes = ThemeReading.fromClasspath(seed)
+                    .of(parsed(), legibility().repository().written().asNamesOnly().shareByWord());
             log.info("Read {} topics over {} files in {}s", themes.rankings().size(),
                     themes.files().size(), seconds(started));
         }

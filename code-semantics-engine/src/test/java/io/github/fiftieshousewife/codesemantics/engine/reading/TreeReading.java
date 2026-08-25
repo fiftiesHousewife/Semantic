@@ -120,7 +120,7 @@ public final class TreeReading {
 
     /** The chance bars over this tree's published names at the shared seed, computed once per JVM. */
     public List<VocabularyNull.Bar> namesChance() {
-        return NAME_BARS.computeIfAbsent(root, tree -> ChosenWords.againstEnglishAndThePlatform()
+        return NAME_BARS.computeIfAbsent(root, tree -> ChosenWords.againstEnglishAndTheCorpus()
                 .chanceFor(new PublishedNames().published(legibility()), SEED));
     }
 

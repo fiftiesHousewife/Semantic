@@ -94,13 +94,16 @@ public final class TopicTally {
                 .flatMap(Optional::stream)
                 .toList();
         if (lemmas.isEmpty()) {
-            workings.unread().record(UnreadReason.NO_WORD_REACHED_A_RESOURCE, run, site);
+            workings.unread().record(form == NameForm.IMPORT
+                    ? UnreadReason.A_DEPENDENCY_NAMES_IT
+                    : UnreadReason.NO_WORD_REACHED_A_RESOURCE, run, site);
             return;
         }
         phraseOccurrences++;
         lemmas.forEach(lemma -> workings.sightings().saw(lemma, site, form.isChosenName()));
-        final double worth = offered.formWorth(form) * weight;
-        final PhraseTopics.Reading reading = phrases.of(lemmas, worthOf(form, lemmas), form);
+        final Map<String, Double> worthByWord = worthOf(form, lemmas);
+        final double worth = offered.formWorth(form) * weight * mostNarrowing(worthByWord);
+        final PhraseTopics.Reading reading = phrases.of(lemmas, worthByWord, form);
         refused(reading, run, site);
         if (reading.isEmpty()) {
             workings.unread().record(UnreadReason.NO_RESOURCE_STATED_A_TOPIC, run, site);
@@ -145,5 +148,20 @@ public final class TopicTally {
     private Map<String, Double> worthOf(final NameForm form, final List<String> lemmas) {
         return lemmas.stream().distinct()
                 .collect(Collectors.toUnmodifiableMap(lemma -> lemma, lemma -> offered.narrowing(form, lemma)));
+    }
+
+    /**
+     * How much the phrase narrows a subject at all: as much as its most narrowing word does. {@code get} in
+     * {@code getTradeNotional} does not drag the phrase down, and {@code id} standing alone commits only what
+     * a word working Java declares that densely is worth.
+     *
+     * <p>It has to be applied here rather than inside the phrase's own reading, because
+     * {@link PhraseTopics} normalises a phrase's shares to one. Normalising divides the per-word weights out
+     * again, so they arbitrate between a phrase's words and say nothing about how much the phrase is worth
+     * against every other phrase in the repository. That is what lets a word vote at the weight the corpus
+     * gives it instead of being removed before it is offered.
+     */
+    private static double mostNarrowing(final Map<String, Double> worthByWord) {
+        return worthByWord.values().stream().mapToDouble(Double::doubleValue).max().orElse(0.0);
     }
 }

@@ -30,7 +30,7 @@ class VocabularyReadingDiagnostic {
         final WrittenWords written = legibility.repository().written();
         final WrittenWords named = names.published(legibility);
         final WrittenWords checked = names.checking(legibility);
-        final ChosenWords chosen = ChosenWords.againstEnglishAndThePlatform();
+        final ChosenWords chosen = ChosenWords.againstEnglishAndTheCorpus();
         final List<ChosenWord> ranked = chosen.in(named);
 
         assertAll(

@@ -34,10 +34,9 @@ public final class CorpusReferenceProbe {
         final WrittenWords declared =
                 TreeReading.ofTheCloneUnderReading().legibility().repository().written().asNamesOnly();
         final ReferenceVocabulary english = EnglishVocabulary.fromClasspath();
-        final ReferenceVocabulary platform = PlatformVocabulary.ofSystem();
         System.out.printf("%,d words, %,d occurrences, no stage having filtered them%n",
                 declared.words().size(), declared.totalOccurrences());
-        report("English and the platform", List.of(english, platform), declared);
+        report("English alone", List.of(english), declared);
         if (arguments.length == 0) {
             System.out.println("\nName a corpus table to add it as a third reference.");
             return;
@@ -45,7 +44,7 @@ public final class CorpusReferenceProbe {
         final ReferenceVocabulary corpus = CorpusVocabulary.at(Path.of(arguments[0]));
         System.out.printf("%nThe corpus read from %s: %,d words%n",
                 arguments[0], corpus.shareByWord().size());
-        report("English, the platform and the corpus", List.of(english, platform, corpus), declared);
+        report("English and the corpus", List.of(english, corpus), declared);
         report("the corpus alone", List.of(corpus), declared);
     }
 

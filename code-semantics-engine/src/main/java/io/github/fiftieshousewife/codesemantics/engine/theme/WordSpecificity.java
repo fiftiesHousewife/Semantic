@@ -17,7 +17,7 @@ import io.github.fiftieshousewife.codesemantics.name.WordRanks;
  * <p>It is a weight and never a gate: the commonest word in English still votes, at the smallest weight the
  * list can express.
  */
-public final class WordSpecificity {
+public final class WordSpecificity implements WordNarrowing {
 
     private final WordRanks ranks;
     private final double commonest;
@@ -31,6 +31,7 @@ public final class WordSpecificity {
         return new WordSpecificity(WordRanks.fromClasspath());
     }
 
+    @Override
     public double of(final String word) {
         final int rank = ranks.rank(word);
         return rank == WordRanks.UNKNOWN_RANK ? 1.0 : Math.min(1.0, Math.log(rank) / commonest);

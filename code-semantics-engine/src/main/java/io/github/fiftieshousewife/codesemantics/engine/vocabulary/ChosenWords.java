@@ -16,7 +16,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
  *
  * <p>A count alone cannot answer the question. The words a Java program contains most of are the words every
  * Java program contains most of, and the words a body of prose contains most of are the words English
- * requires, so the top of a raw ranking is the language and the platform rather than the repository. Each
+ * requires, so the top of a raw ranking is the language and working Java rather than the repository. Each
  * word is therefore scored by its term of the Jensen–Shannon divergence between what this repository is
  * written in and what a reference is written in — non-negative, summing to the total, and bounded at one bit
  * by the statistic's own definition.
@@ -48,8 +48,19 @@ public final class ChosenWords {
         this.pipeline = pipeline;
     }
 
-    public static ChosenWords againstEnglishAndThePlatform() {
-        return new ChosenWords(List.of(EnglishVocabulary.fromClasspath(), PlatformVocabulary.ofSystem()),
+    /**
+     * The two references a repository's names are read against: ordinary English, and the corpus of working
+     * Java this library bundles.
+     *
+     * <p>The platform's own API index was the second reference until the corpus was drawn, and the corpus
+     * subsumes it. An index names each type once, so a word working code writes thousands of times diverges
+     * enormously from it and the ranking promotes exactly the words that should sink. The corpus writes
+     * {@code string}, {@code class} and {@code list} at the rate repositories actually declare them, because
+     * they declare {@code RequestHandler}, {@code EventStream} and {@code ClassLoader}, so it says what the
+     * index said and says it at the right density.
+     */
+    public static ChosenWords againstEnglishAndTheCorpus() {
+        return new ChosenWords(List.of(EnglishVocabulary.fromClasspath(), CorpusVocabulary.fromClasspath()),
                 new ShareDivergence(), WordPipelines.overJava(ContentWords.fromClasspath()));
     }
 

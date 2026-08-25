@@ -67,6 +67,18 @@ public final class ThemeReading {
                 PermutationNull.seeded(seed));
     }
 
+    /**
+     * The reading with each declared name weighed by how much more often this repository declares it than
+     * working Java does. {@code declaredHere} is the tree's own shares over the names it declared — the same
+     * population and the same splitter the corpus was pooled at, which is what makes a share here comparable
+     * to a share there.
+     */
+    public RepositoryThemes of(final ParsedRepository parsed, final Map<String, Double> declaredHere) {
+        return new ThemeReading(citations, words, collocated,
+                offered.readingAgainst(WrittenAboveTheCorpus.over(declaredHere)), phrases, accumulator,
+                divergence, chance).of(parsed);
+    }
+
     public RepositoryThemes of(final ParsedRepository parsed) {
         final long startedAt = System.nanoTime();
         final Workings workings = Workings.newInstance();

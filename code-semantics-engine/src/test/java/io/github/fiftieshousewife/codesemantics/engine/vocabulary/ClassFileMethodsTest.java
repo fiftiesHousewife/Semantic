@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import io.github.fiftieshousewife.codesemantics.engine.theme.CorpusSpecificity;
+
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,14 +16,14 @@ class ClassFileMethodsTest {
 
     @Test
     void readsTheMethodNamesACallerOfTheClassCouldWrite() throws IOException {
-        assertThat(namesDeclaredBy(PlatformNames.class)).contains("ofSystem", "declared", "size");
+        assertThat(namesDeclaredBy(CorpusSpecificity.class)).contains("of", "fromClasspath");
     }
 
     @Test
     void refusesWhatOnlyTheClassItselfCanCall() throws IOException {
-        assertThat(namesDeclaredBy(PlatformNames.class))
+        assertThat(namesDeclaredBy(CorpusSpecificity.class))
                 .as("a private method's name is not vocabulary a programmer ever meets")
-                .doesNotContain("load", "namesIn", "packageOf", "simpleNameOf", "isADeclaredName");
+                .doesNotContain("ranked");
     }
 
     @Test

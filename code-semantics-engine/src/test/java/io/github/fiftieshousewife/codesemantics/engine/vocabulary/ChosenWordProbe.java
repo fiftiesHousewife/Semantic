@@ -28,7 +28,7 @@ public final class ChosenWordProbe {
     }
 
     private static void report(final String population, final WrittenWords written, final String[] words) {
-        final List<ChosenWord> ranked = ChosenWords.againstEnglishAndThePlatform().in(written);
+        final List<ChosenWord> ranked = ChosenWords.againstEnglishAndTheCorpus().in(written);
         System.out.printf("%n%s — %,d occurrences of %,d distinct words%n", population,
                 written.totalOccurrences(), ranked.size());
         for (final String word : words) {

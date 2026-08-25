@@ -24,7 +24,7 @@ public final class VocabularyMassProbe {
     }
 
     private static void report(final String population, final WrittenWords written) {
-        final List<ChosenWord> shown = ChosenWords.againstEnglishAndThePlatform().in(written).stream()
+        final List<ChosenWord> shown = ChosenWords.againstEnglishAndTheCorpus().in(written).stream()
                 .filter(word -> !word.theLanguages())
                 .filter(word -> word.claim() > 0.0)
                 .toList();

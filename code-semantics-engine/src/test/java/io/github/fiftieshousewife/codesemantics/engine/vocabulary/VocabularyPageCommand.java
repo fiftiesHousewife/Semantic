@@ -50,7 +50,7 @@ public final class VocabularyPageCommand {
     static StagedVocabulary staged(final TreeReading reading) {
         final WrittenWords written = written(reading);
         final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath()).over(written);
-        final ChosenWords ranking = ChosenWords.againstEnglishAndThePlatform();
+        final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
         final Map<String, ChosenWord> chosen = chosenByWord(ranking, written);
         final Map<String, Double> bars = ranking.chanceFor(written, SEED).stream()
                 .collect(Collectors.toMap(VocabularyNull.Bar::reference, VocabularyNull.Bar::bits));

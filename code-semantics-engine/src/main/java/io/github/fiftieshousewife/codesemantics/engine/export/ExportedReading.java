@@ -79,7 +79,7 @@ public final class ExportedReading {
                             final List<TermIndex> alsoMatched, final CorroboratedReading terms,
                             final PlacedField field) {
         return of(reading, commit, alsoMatched, terms, field,
-                ChosenWords.againstEnglishAndThePlatform()
+                ChosenWords.againstEnglishAndTheCorpus()
                         .chanceFor(new PublishedNames().published(reading.legibility()), reading.seed()));
     }
 
@@ -128,7 +128,7 @@ public final class ExportedReading {
 
     private static Vocabulary vocabularyOf(final RepositoryLegibility legibility,
                                            final List<VocabularyNull.Bar> namesChance) {
-        final List<ChosenWord> ranked = ChosenWords.againstEnglishAndThePlatform()
+        final List<ChosenWord> ranked = ChosenWords.againstEnglishAndTheCorpus()
                 .in(new PublishedNames().published(legibility));
         final Map<String, Double> thresholds = VocabularyNull.byReference(namesChance);
         return new Vocabulary(ranked, new ExportedSignals(thresholds, ReadingSource.CLONE).in(ranked),

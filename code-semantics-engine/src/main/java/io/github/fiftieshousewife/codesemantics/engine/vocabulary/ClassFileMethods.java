@@ -14,7 +14,7 @@ import java.util.List;
  * every exported class was too slow to answer. The whole platform reads in a fraction of a second this way.
  *
  * <p>Only what a caller of the class could write is kept — a public or protected method. A private method's
- * name is not vocabulary a programmer ever meets, which is the same rule {@link PlatformNames} applies one
+ * name is not vocabulary a programmer ever meets, which is the same rule the platform's own module index applies one
  * level up when it keeps only the packages a module exports.
  */
 final class ClassFileMethods {

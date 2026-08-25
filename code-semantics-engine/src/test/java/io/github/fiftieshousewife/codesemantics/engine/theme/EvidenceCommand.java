@@ -48,7 +48,7 @@ public final class EvidenceCommand {
     /** The words behind two of the counts the export states, at the bars this run's own null drew. */
     private static EvidenceSetAside setAside(final TreeReading reading) {
         return EvidenceSetAside.of(reading.legibility(),
-                ChosenWords.againstEnglishAndThePlatform()
+                ChosenWords.againstEnglishAndTheCorpus()
                         .in(new PublishedNames().published(reading.legibility())),
                 reading.namesChance());
     }
