@@ -42,7 +42,8 @@ class TopicTallyTest {
     private TopicTally tallyOver(final PublishedPhrases published, final Workings into) {
         return new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
                 new CollocatedWords(published, ContentWords.fromClasspath()),
-                new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(), published,
+                new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
+                        NARROWS_FULLY, published,
                         WordPipelines.overJava(ContentWords.fromClasspath()), Weights.defaults()),
                 new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), into);
     }
@@ -56,8 +57,38 @@ class TopicTallyTest {
         return new SenseCoverage(new StatedSenses(Map.of(), Map.of()), word -> Set.of());
     }
 
+    private static final WordNarrowing NARROWS_FULLY = word -> 1.0;
+
     private void add(final String identifier, final int line) {
         tally.add(SITE, new NameOccurrence(identifier, NameForm.FIELD, line));
+    }
+
+    @Test
+    void recordsADependencysCoordinatesAsOneRatherThanAsAWordNothingCovered() {
+        tally.add(SITE, new NameOccurrence("org.joda.beans.MetaBean", NameForm.IMPORT, 7));
+        tally.reading(SITE, 40);
+
+        assertAll(
+                () -> assertThat(workings.unread().runsUnreadFor(UnreadReason.A_DEPENDENCY_NAMES_IT))
+                        .isEqualTo(1),
+                () -> assertThat(workings.unread().runsUnreadFor(UnreadReason.NO_WORD_REACHED_A_RESOURCE))
+                        .as("a coordinate was never asked about, so it is not a resource failing to cover it")
+                        .isZero());
+    }
+
+    @Test
+    void scalesAPhrasesWorthByHowMuchItsMostNarrowingWordNarrows() {
+        final TopicTally weighed = new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
+                new CollocatedWords(NOTHING_PUBLISHED, ContentWords.fromClasspath()),
+                new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
+                        word -> 0.25, NOTHING_PUBLISHED,
+                        WordPipelines.overJava(ContentWords.fromClasspath()), Weights.defaults()),
+                new PhraseTopics(citations(), new TopicCommitment(), fullyCovered()), Workings.newInstance());
+        weighed.add(SITE, new NameOccurrence("word", NameForm.FIELD, 3));
+
+        assertThat(weighed.reading(SITE, 40).massByTopic().get("linguistics"))
+                .as("a word working Java declares four times as densely commits a quarter as much")
+                .isCloseTo(0.25, offset(1e-12));
     }
 
     @Test
@@ -108,8 +139,8 @@ class TopicTallyTest {
         final TopicTally second = new TopicTally(new IdentifierWords(WordSegmenter.fromClasspath()),
                 new CollocatedWords(NOTHING_PUBLISHED, ContentWords.fromClasspath()),
                 new OfferedWords(ContentWords.fromClasspath(), WordSpecificity.fromClasspath(),
-                        NOTHING_PUBLISHED, WordPipelines.overJava(ContentWords.fromClasspath()),
-                        Weights.defaults()),
+                        NARROWS_FULLY, NOTHING_PUBLISHED,
+                        WordPipelines.overJava(ContentWords.fromClasspath()), Weights.defaults()),
                 new PhraseTopics(citations(), new TopicCommitment(), fullyCovered())
                         .under(TopicDistribution.of(Map.of("computing", 1.0), 0.0), Set.of(), ""),
                 conditioned);

@@ -26,7 +26,7 @@ import java.util.function.UnaryOperator;
  *
  * <p><b>Two shapes, one set of rules.</b> {@link #over} funnels a whole tally, which is what a report of the
  * stages needs; {@link #leavesAt} asks the same rules about one word, which is what a reading streaming
- * words past them needs. {@link WordStage#NAMES} appears only in the first, because whether a word was
+ * words past them needs. {@link WordStage#CHOSEN} appears only in the first, because whether a word was
  * written as a name is a fact about the occurrence rather than about the word, and the streaming caller
  * already knows it from the parse.
  */
@@ -89,16 +89,23 @@ public final class WordPipeline {
         return theLanguages.test(word);
     }
 
-    /** Whether every stage that judges a word on its spelling alone keeps it. */
-    public boolean keeps(final String word) {
-        return leavesAt(word).isEmpty();
+    /**
+     * Whether a dictionary removes the word: a form cited for more things than it means, or a word English
+     * supplies rather than the author choosing it.
+     *
+     * <p><b>Length is not asked.</b> A one- or two-letter word is offered like any other and weighed by how
+     * densely working Java declares it, because the length rule was a number somebody picked where these two
+     * are what published dictionaries state. Removing it moved no accuracy figure on the evaluation set.
+     */
+    public boolean theDictionariesRemove(final String word) {
+        return expansions.outnumberTheMeaningsOf(word) || theLanguages.test(word);
     }
 
     /** Every stage in order, each carrying what it left and what it took out to leave it. */
     public List<StagedWords> over(final WrittenWords written) {
         final List<StagedWords> staged = new ArrayList<>();
-        staged.add(new StagedWords(WordStage.WRITTEN, written, List.of()));
-        staged.add(namesOnly(written));
+        staged.add(new StagedWords(WordStage.EVERY_WORD, written, List.of()));
+        staged.add(chosenOnly(written));
         staged.add(keeping(WordStage.SYMBOL, staged.getLast().surviving(),
                 word -> !tooShortToMean.test(word)));
         staged.add(keeping(WordStage.SHORTHAND, staged.getLast().surviving(),
@@ -111,15 +118,16 @@ public final class WordPipeline {
     }
 
     /**
-     * A word written only in a sentence is what the file says about itself. The licence header is the
-     * commonest prose in most repositories and the words it removes here — {@code license}, {@code apache},
-     * {@code distribute} — are the ones that dominate any ranking taken before this stage.
+     * A word this repository quoted rather than picked is somebody else's. The licence header is the
+     * commonest of them and the words it removes here — {@code license}, {@code apache}, {@code distribute}
+     * — are the ones that dominate any ranking taken before this stage; an override's inherited name and a
+     * dependency's coordinates go with them, on the same argument and by the same parse.
      */
-    private static StagedWords namesOnly(final WrittenWords written) {
+    private static StagedWords chosenOnly(final WrittenWords written) {
         final WrittenWords names = written.asNamesOnly();
-        return new StagedWords(WordStage.NAMES, names, written.words().stream()
+        return new StagedWords(WordStage.CHOSEN, names, written.words().stream()
                 .filter(word -> !names.words().contains(word))
-                .map(word -> new RemovedWord(word, written.occurrencesOf(word), WordStage.NAMES))
+                .map(word -> new RemovedWord(word, written.occurrencesOf(word), WordStage.CHOSEN))
                 .toList());
     }
 

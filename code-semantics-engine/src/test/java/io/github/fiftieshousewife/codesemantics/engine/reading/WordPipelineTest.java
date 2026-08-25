@@ -44,7 +44,7 @@ class WordPipelineTest {
         final WrittenWords written = wrote(Map.of("curves", 4, "buf", 9, "x", 7),
                 Map.of("license", 300));
 
-        assertThat(survivorsAt(WordStage.WRITTEN, written).words())
+        assertThat(survivorsAt(WordStage.EVERY_WORD, written).words())
                 .containsExactlyInAnyOrder("curves", "buf", "x", "license");
     }
 
@@ -53,10 +53,10 @@ class WordPipelineTest {
         final WrittenWords written = wrote(Map.of("curves", 4), Map.of("license", 300));
 
         assertAll(
-                () -> assertThat(survivorsAt(WordStage.NAMES, written).words())
+                () -> assertThat(survivorsAt(WordStage.CHOSEN, written).words())
                         .as("a licence header is prose about the file, not a name its author chose")
                         .containsExactly("curves"),
-                () -> assertThat(removedAt(WordStage.NAMES, written)).containsExactly("license"));
+                () -> assertThat(removedAt(WordStage.CHOSEN, written)).containsExactly("license"));
     }
 
     @Test
@@ -94,7 +94,7 @@ class WordPipelineTest {
     void statesEveryStageInOrderSoAReaderCanSeeWhereAWordWent() {
         assertThat(pipeline().over(wrote(Map.of("curves", 4), Map.of())))
                 .extracting(StagedWords::stage)
-                .containsExactly(WordStage.WRITTEN, WordStage.NAMES, WordStage.SYMBOL,
+                .containsExactly(WordStage.EVERY_WORD, WordStage.CHOSEN, WordStage.SYMBOL,
                         WordStage.SHORTHAND, WordStage.LANGUAGE, WordStage.LEMMA);
     }
 

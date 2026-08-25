@@ -37,7 +37,7 @@ class StagedVocabularyTest {
     }
 
     private StagedWords staged(final Map<String, Integer> timesByWord) {
-        return new StagedWords(WordStage.WRITTEN, written(timesByWord), List.of());
+        return new StagedWords(WordStage.EVERY_WORD, written(timesByWord), List.of());
     }
 
     @Test

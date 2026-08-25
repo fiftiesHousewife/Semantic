@@ -5,7 +5,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
  * out and what states the rule.
  *
  * <p>They are an order rather than a set. Every stage runs on what the one before it left, so a word removed
- * at {@link #NAMES} is never offered to {@link #SHORTHAND}, and a reader can say which stage a word left at
+ * at {@link #CHOSEN} is never offered to {@link #SHORTHAND}, and a reader can say which stage a word left at
  * instead of finding it absent from the end.
  *
  * <p><b>Nothing here is a gate.</b> Every stage's population and every stage's removals are kept, so a
@@ -15,16 +15,21 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 public enum WordStage {
 
     /** Every token the splitter produced, filtered by nothing. */
-    WRITTEN("Every word in the source"),
+    EVERY_WORD("Every word in the source"),
 
     /**
-     * The words the repository <em>declared</em> something with, leaving what it wrote sentences about.
+     * The words this repository picked, leaving the ones it quoted from somebody else.
      *
-     * <p>A licence header is the commonest prose in most repositories and names nothing: {@code license},
-     * {@code apache} and {@code distribute} are what the file says about itself, not what its author called
-     * anything.
+     * <p>{@link io.github.fiftieshousewife.codesemantics.engine.parse.NameForm} states which is which, and
+     * the removals are not only prose. An override's name was chosen once, in the supertype that required
+     * it; {@code parseContext} on a {@code ParseContext} names nothing the type did not already; a catch
+     * clause binds what the language put there; a dependency's coordinates are somebody else's artefact. A
+     * licence header is the commonest of them — {@code license}, {@code apache} and {@code distribute} are
+     * what the file says about itself, not what its author called anything.
      */
-    NAMES("Words used to name something", "text written only in comments, such as the licence header"),
+    CHOSEN("Words this repository chose rather than quoted",
+            "comment prose, an override's inherited name, a dependency's coordinates, and a name standing "
+            + "for the type beside it"),
 
     /**
      * Forms too short for a dictionary entry about them to be about more than a symbol — {@code x},
@@ -44,7 +49,7 @@ public enum WordStage {
      * <p>WordNet's open classes are what says so, not a list: a word the dictionary places as a noun, verb
      * or adjective names something, and one it places as none of them holds a sentence together.
      */
-    LANGUAGE("Words the author chose", "words English requires, such as the, a, of and by"),
+    LANGUAGE("Words English did not supply", "words English requires, such as the, a, of and by"),
 
     /** Inflections merged into the form the dictionary spells: {@code curves} and {@code curve} are one. */
     LEMMA("Words in their dictionary form", "nothing — inflections are merged into their singulars");
