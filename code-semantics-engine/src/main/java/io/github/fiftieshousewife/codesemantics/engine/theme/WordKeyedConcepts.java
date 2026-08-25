@@ -1,10 +1,11 @@
-package io.github.fiftieshousewife.codesemantics.engine.term;
+package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import io.github.fiftieshousewife.bi.lexicon.PublishedTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -23,7 +24,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
  * <p>Two terms may read as the same words, and both concepts are held under that one key rather than one of
  * them being preferred. Which of them a match means is the consuming reading's question.
  */
-final class WordKeyedConcepts {
+public final class WordKeyedConcepts {
 
     private final Map<List<String>, List<SkosConcept>> byWords;
     private final Map<String, List<String>> broaderByLabel;
@@ -34,7 +35,7 @@ final class WordKeyedConcepts {
         this.broaderByLabel = Map.copyOf(broaderByLabel);
     }
 
-    static WordKeyedConcepts of(final PublishedTerms published, final IdentifierWords words) {
+    public static WordKeyedConcepts of(final PublishedTerms published, final IdentifierWords words) {
         final Map<List<String>, List<SkosConcept>> byWords = new HashMap<>();
         published.terms().stream().distinct()
                 .forEach(term -> byWords.computeIfAbsent(words.of(term).words(), key -> new ArrayList<>())
@@ -59,25 +60,25 @@ final class WordKeyedConcepts {
         return broaderByLabel;
     }
 
-    List<SkosConcept> conceptsOf(final List<String> words) {
+    public List<SkosConcept> conceptsOf(final List<String> words) {
         return byWords.getOrDefault(words, List.of());
     }
 
-    String broaderOf(final String prefLabel) {
+    public String broaderOf(final String prefLabel) {
         final List<String> stated = broadersOf(prefLabel);
         return stated.isEmpty() ? "" : stated.getFirst();
     }
 
     /** Every concept this one is stated beneath, which for most sources is one and for CSO is up to 33. */
-    List<String> broadersOf(final String prefLabel) {
+    public List<String> broadersOf(final String prefLabel) {
         return broaderByLabel.getOrDefault(key(prefLabel), List.of());
     }
 
-    java.util.Set<List<String>> terms() {
+    public Set<List<String>> terms() {
         return byWords.keySet();
     }
 
-    int longestTerm() {
+    public int longestTerm() {
         return byWords.keySet().stream().mapToInt(List::size).max().orElse(0);
     }
 

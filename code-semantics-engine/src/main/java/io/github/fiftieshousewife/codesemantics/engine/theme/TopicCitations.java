@@ -96,8 +96,9 @@ public final class TopicCitations {
      * field has claimed.
      */
     private static PublishedTerm publishedTerms() {
-        final io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms terms =
-                io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms.fromClasspath();
+        final WordKeyedConcepts terms = WordKeyedConcepts.of(
+                io.github.fiftieshousewife.bi.lexicon.OliaTerms.fromClasspath(),
+                io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords.fromClasspath());
         return word -> !terms.conceptsOf(java.util.List.of(word)).isEmpty();
     }
 

@@ -7,6 +7,7 @@ import java.util.Set;
 import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 
 /**
  * The Computer Science Ontology as a {@link TermIndex}: the topics computer science research is indexed by,

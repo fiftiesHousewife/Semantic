@@ -7,6 +7,7 @@ import java.util.Set;
 import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 
 /**
  * The Financial Industry Business Ontology as a {@link TermIndex}, read the same way {@link LinguisticTerms}

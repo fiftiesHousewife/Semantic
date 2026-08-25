@@ -7,6 +7,7 @@ import java.util.Set;
 import io.github.fiftieshousewife.bi.lexicon.PublishedTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 
 /**
  * A term taxonomy the published jar does not carry, keyed the way a bundled one is.
