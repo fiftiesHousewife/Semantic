@@ -8,6 +8,7 @@ description = "The published reading: reading.json, evidence.json and changes.js
 
 dependencies {
     api(project(":code-semantics-engine"))
+    api(project(":skos-matching"))
     implementation(project(":lexicon"))
     // Every run writes the export, which is what a consumer reads instead of the reports, so the serialiser
     // is the library's business and ships with it. The validator ships beside it because the export is

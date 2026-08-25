@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.engine.term.ConceptTopics;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 
 /**

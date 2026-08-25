@@ -1,4 +1,4 @@
-package io.github.fiftieshousewife.codesemantics.engine.theme;
+package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 import java.util.Map;

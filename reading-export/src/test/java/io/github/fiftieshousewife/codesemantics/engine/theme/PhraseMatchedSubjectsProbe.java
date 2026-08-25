@@ -13,6 +13,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
+import io.github.fiftieshousewife.codesemantics.engine.term.KeywordSpecificity;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.InjectedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;

@@ -1,11 +1,9 @@
-package io.github.fiftieshousewife.codesemantics.engine.theme;
+package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

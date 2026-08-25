@@ -7,7 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.engine.term.KeywordSpecificity;
+import io.github.fiftieshousewife.codesemantics.engine.term.WrittenKeywords;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
+
 
 /**
  * One reading of a repository against a subject scheme, printed under both scorings so neither is adopted

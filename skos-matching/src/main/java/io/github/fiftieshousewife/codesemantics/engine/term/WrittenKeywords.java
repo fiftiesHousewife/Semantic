@@ -1,4 +1,4 @@
-package io.github.fiftieshousewife.codesemantics.engine.theme;
+package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 
 /**
  * How much of a topic's published keywords a repository wrote, rather than how often it wrote any of them.
