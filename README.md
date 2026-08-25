@@ -108,7 +108,7 @@ Every run writes [`reading.json`](output/json/reading.json). It carries the resu
 | `taxonomies` | the published concepts the repository's names match, and the branches those concepts sit under | vocabulary matched against |
 | `setAside` | counts of what the three lists omit | run |
 
-**`taxonomies` holds one entry per vocabulary matched.** A run matches every taxonomy [`MatchedTaxonomies`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTaxonomies.java) enumerates — OLiA and the Computer Science Ontology — so the export carries both side by side, each with its own concepts and counts. A consumer adds its own:
+**`taxonomies` holds one entry per vocabulary matched.** A run matches every taxonomy [`MatchedTaxonomies`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedTaxonomies.java) enumerates — OLiA and the Computer Science Ontology — so the export carries both side by side, each with its own concepts and counts. A consumer adds its own:
 
 ```java
 ReadingExport export = new ExportedReading().of(reading, commit,
@@ -436,9 +436,9 @@ The words a Java program contains most of are the words *every* Java program con
 | Reference | What it states | What it scores down that the other cannot |
 |---|---|---|
 | The bundled frequency list | what ordinary English is written in, as a rank per word | `the`, `of`, `that` |
-| [`PlatformVocabulary`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/PlatformVocabulary.java), from `ModuleFinder.ofSystem()` | what ordinary Java is written in: every type name and every public or protected method name the platform declares in its exported packages, split by the same grammar | `get`, `set`, `value`, `map`, `object`, `list`, `string`, which a frequency list of English finds *specialist* |
+| [`CorpusVocabulary`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/CorpusVocabulary.java), from the pooled reference corpus | what ordinary Java is written in: the share of each word over the declared names of a hundred public Java repositories, drawn by a stated frame with no reference to this one and bundled in `reference-corpus` | `get`, `set`, `value`, `map`, `object`, `list`, `string`, which a frequency list of English finds *specialist* |
 
-The second asks the running JDK to describe itself, the same delegation [`PlatformPackages`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/PlatformPackages.java) uses to sort an import. [`ClassFileMethods`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ClassFileMethods.java) reads the method names from each class file's constant pool, loading no class. A word ranks high only where both references write it less often than this repository does; where a reference writes it more often, its score falls and it keeps its place in the table. The whole ranking is `signals`.
+The second states what other Java is written in, from a sample whose draw, commits and licence checks its own manifest records. A word ranks high only where both references write it less often than this repository does; where a reference writes it more often, its score falls and it keeps its place in the table. The whole ranking is `signals`.
 
 ## Matching against published taxonomies
 
@@ -523,7 +523,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 ### Term taxonomy
 
-[`TermSpans`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermSpans.java) takes the longest published term at each position, left to right, with no two matches overlapping. A prefix that is not itself a published term is not evidence.
+[`TermSpans`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermSpans.java) takes the longest published term at each position, left to right, with no two matches overlapping. A prefix that is not itself a published term is not evidence.
 
 **Three normalisation levels, reported separately and never summed. The narrowest that answers is the one that answers, and a wider one is asked only where the narrower said nothing:**
 
@@ -533,7 +533,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 | 2 | the [lemma](docs/GLOSSARY.md) of each word | WordNet's lemma index. `phrases` matching `Phrase` is one word and its plural |
 | 3 | the [synset](https://wordnet.princeton.edu/) each word belongs to — the set of words WordNet records under one meaning | WordNet's sense index. `nominal phrase` meets `noun phrase` because the dictionary wrote both spellings into one entry |
 
-**Both sides go through one normalisation.** [`LemmaRuns`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/LemmaRuns.java) and [`SenseRuns`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/SenseRuns.java) are put over the publisher's terms when the index is built and over the repository's runs when they are asked about, so neither side is privileged.
+**Both sides go through one normalisation.** [`LemmaRuns`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/LemmaRuns.java) and [`SenseRuns`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/SenseRuns.java) are put over the publisher's terms when the index is built and over the repository's runs when they are asked about, so neither side is privileged.
 
 **Level 2 is reported apart from level 3 so that a plural cannot be counted as a shared meaning.** Level 3 is the widest claim and carries the risk with it: WordNet reads `topic`, `theme` and `subject` as one entry, so a repository writing about topics meets a taxonomy stating subjects whether or not either meant the other. Every match records the level that found it, and `taxonomies` states the level on each.
 
@@ -564,7 +564,13 @@ A vocabulary matching inside its own domain establishes nothing, because any suf
 | `lexicon` | the bundled lexical resources and the code that reads them: WordNet via extjwnl, Wiktionary abbreviations, topic labels and hierarchy, Wikidata names and initialisms, an SQL function catalogue |
 | `lexicon-extraction` | Gradle tasks that regenerate each bundled resource from its published source at a pinned revision |
 | `code-semantics-api` | model records and stage contracts: the evidence trail, `SourceAnchor`, `RepositoryFacts`, pooled log-odds arithmetic, the tokeniser, the word segmenter |
-| `code-semantics-engine` | the pipeline: parse, word extraction, topic resolution, divergence statistics, reports |
+| `code-semantics-engine` | the pipeline: parse, word extraction, topic resolution, divergence statistics |
+| `skos-matching` | matching declared names against published SKOS vocabularies, and the scoring of what was matched |
+| `reading-export` | the published reading — `reading.json`, `evidence.json`, `changes.json` — its schema, and the `read`, evaluation and probe tasks |
+| `vocabulary-page` | the word-cloud viewer over the word pipeline's stages; the one module that may depend on a markup writer |
+| `reference-corpus` | the pooled word shares of the drawn repositories, with the manifest that pins the draw |
+| `reference-corpus-extraction` | Gradle tasks that draw the sample from a stated frame and pool the corpus table at pinned commits |
+| `repository-clones` | repositories pinned to commits: the manifest, and the shallow clone that fetches one |
 
 Every bundled resource states its source URL, revision and licence in a `#` header, and the build fails without one. [`NOTICE.md`](NOTICE.md) lists each file and its terms.
 
