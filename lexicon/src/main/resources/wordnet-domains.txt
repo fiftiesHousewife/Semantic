@@ -2,7 +2,8 @@
 # part of speech, one sense key the synset carries (lemma#pos#senseNumber), and the topical domain labels
 # assigned to that synset. Factotum (domain-less) entries are absent from the published lift. Consumers
 # join on the lemma, which is version-stable, so no offset alignment to the bundled WordNet 3.1 database
-# is required; only per-sense weighting would be version-sensitive, and none is read from this file.
+# is required. Per-sense readings join on the sense number, which can shift between WordNet 3.0 and 3.1;
+# the join is therefore an approximation, shared by the commonest-sense reading and the counted weighting.
 #
 # Source: WordNet Domains 3.2, Fondazione Bruno Kessler (http://wndomains.fbk.eu/), as lifted to
 #   WordNet 3.0 by the morungos/lifted-wordnet-domains distribution

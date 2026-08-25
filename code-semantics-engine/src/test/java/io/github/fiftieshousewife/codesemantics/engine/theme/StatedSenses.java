@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.bi.lexicon.Lexicon;
 import io.github.fiftieshousewife.bi.lexicon.WordSense;
 
@@ -23,6 +24,11 @@ record StatedSenses(Map<String, List<Set<String>>> domains, Map<String, Integer>
     @Override
     public int senseCount(final String word) {
         return senses.getOrDefault(word, 0);
+    }
+
+    @Override
+    public List<CountedSenseDomains> countedSenseDomainsOf(final String word) {
+        throw new UnsupportedOperationException("a topical reading does not ask this");
     }
 
     @Override

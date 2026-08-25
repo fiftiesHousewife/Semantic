@@ -79,6 +79,19 @@ final class WordNetSenses {
                 .sum();
     }
 
+    /** Every sense of the word across every part of speech, in each entry's own listing order. */
+    List<CountedSense> countedSenses(final String word) {
+        final String written = written(word);
+        if (!isWritten(written)) {
+            return List.of();
+        }
+        return Stream.of(POS.values())
+                .map(partOfSpeech -> entry(partOfSpeech, written))
+                .flatMap(Optional::stream)
+                .flatMap(entry -> sensesOf(entry).stream())
+                .toList();
+    }
+
     /** Letters, and the spaces between the words of a collocation: the forms the dictionary is keyed by. */
     private static boolean isWritten(final String written) {
         return !written.isEmpty()

@@ -11,9 +11,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
-import io.github.fiftieshousewife.codesemantics.engine.theme.SenseDomains;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +44,7 @@ public final class DomainVennCommand {
     /** The significant words placed by the domains their senses state. */
     static DomainOverlap overlap(final RepositoryReading reading) {
         return DomainOverlap.of(reading.root().getFileName().toString(), SignificantWords.of(reading),
-                SenseDomains.pooledFromClasspath());
+                WordNetLexicon.fromClasspath()::countedSenseDomainsOf);
     }
 
     static Path wrote(final Path reports, final DomainOverlap overlap) throws IOException {

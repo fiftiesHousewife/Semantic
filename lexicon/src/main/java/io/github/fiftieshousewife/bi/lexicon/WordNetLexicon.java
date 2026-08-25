@@ -153,6 +153,20 @@ public final class WordNetLexicon implements Lexicon {
     }
 
     @Override
+    public List<CountedSenseDomains> countedSenseDomainsOf(final String word) {
+        return senses.countedSenses(word).stream()
+                .map(counted -> countedDomainsOf(counted, word))
+                .toList();
+    }
+
+    private CountedSenseDomains countedDomainsOf(final CountedSense counted, final String word) {
+        final WordSense named = counted.named();
+        return new CountedSenseDomains(
+                domains.domainsOfSense(baseOf(word, named), named.posKey(), named.senseNumber()),
+                counted.uses());
+    }
+
+    @Override
     public Set<String> lemmasOf(final String domain) {
         return domains.lemmasOf(domain);
     }

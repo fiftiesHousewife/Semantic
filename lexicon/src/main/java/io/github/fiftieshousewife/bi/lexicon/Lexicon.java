@@ -126,6 +126,14 @@ public interface Lexicon {
     List<Set<String>> senseDomainsOf(String word);
 
     /**
+     * Every sense the dictionary carries for the word, each with the domains the bundled resource labels
+     * it with — empty where it labels none — and the count the tagged corpus read the word at in it.
+     * The senses the resource does not label keep their counts, which is what lets a weighted reading
+     * hold that share of the word on no domain instead of redistributing it.
+     */
+    List<CountedSenseDomains> countedSenseDomainsOf(String word);
+
+    /**
      * Every word the topical domain claims as its vocabulary — the lemmas whose senses the domain
      * resource tags with the given label, in WordNet's own written form ({@code double_fault}). The
      * reverse of {@link #domainsOf}: where that asks what a word can mean, this asks what words a

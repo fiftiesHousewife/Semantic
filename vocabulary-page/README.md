@@ -28,4 +28,12 @@ Both read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<p
 | `SynsetCloud`, `SynsetCloudPage`, `SynsetCloudCommand` | the same words gathered under the WordNet senses they are most often written in, one tile per meaning — `topic`, `subject` and `theme` are one tile — each linking back to the vocabulary |
 | `SignificantWords`, `ScoredWord` | the one population every page draws: the export's signals, merged under their lemmas |
 
+## How a word's claim reaches a domain
+
+The domain pages divide each word's claim over its dictionary senses by the counts [WordNet's own tagged corpus](https://wordnet.princeton.edu/documentation/cntlist5wn) publishes, the weighting stated in [Magnini et al., SENSEVAL-2](https://aclanthology.org/S01-1027.pdf): an uncounted sense holds 0.5, and a sense carrying several labels counts once per label. Three consequences, each visible on the page:
+
+- A word with one meaning speaks with its whole claim, and a common word's rare sense speaks at the rate it is actually written — nothing is gated, and no weight is chosen here.
+- The share of a word sitting on senses [WordNet Domains](https://wndomains.fbk.eu/) labels nothing with stays on no domain; the foot states that share. The bundled lift omits factotum — domain-less — senses, and redistributing their weight is what once ranked religion third on this repository, on `citation`, `ordinary` and `none`.
+- The counts are from balanced 1990s text, and [Koeling, McCarthy and Carroll](https://aclanthology.org/H05-1053/) showed sense distributions shift with domain — computing senses are underweighted here for exactly that reason. The measured next step is a second pass in the spirit of one sense per discourse: the repository-level domain distribution reweighting each word's senses. It is not built yet, and it is to be judged on the evaluation set, not this tree.
+
 This is the one module that may depend on a markup writer. The published reading stays JSON-only; anything drawn is drawn from the same classes the export is written from, so the picture and the report cannot disagree.

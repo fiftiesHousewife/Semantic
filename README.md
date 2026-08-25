@@ -642,7 +642,14 @@ The reading names what it did not use in one place, `setAside`: topics no furthe
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 152 subjects |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |
 | Research topics | [OpenAlex](https://openalex.org/), 4,516 topics under 252 subfields, 26 fields and 4 domains, CC0 |
-| Subject labels per sense | [WordNet Domains](https://wndomains.fbk.eu/), Fondazione Bruno Kessler |
+| Subject labels per sense | [WordNet Domains](https://wndomains.fbk.eu/), Fondazione Bruno Kessler. Factotum — domain-less — senses are absent from the bundled lift, so the share of a word they hold is reported on no domain rather than redistributed |
+| Word sense frequencies | WordNet's own tagged-corpus counts (`cntlist`), read through [extjwnl](https://github.com/extjwnl/extjwnl)'s use counts |
+| Dividing a word among its senses | Magnini, B., Strapparava, C., Pezzulo, G. and Gliozzo, A. (2001), [*Using domain information for word sense disambiguation*](https://aclanthology.org/S01-1027.pdf), SENSEVAL-2. A lemma's domain score is the relative frequency of the domain over its senses' tagged-corpus counts, a sense counted once per label and an uncounted sense smoothed at 0.5 — the weighting the domain pages use |
+| Predominant senses without annotation | McCarthy, D., Koeling, R., Weeds, J. and Carroll, J. (2007), [*Unsupervised acquisition of predominant word senses*](https://aclanthology.org/J07-4005.pdf), Computational Linguistics 33(4) |
+| Sense distributions shift with domain | Koeling, R., McCarthy, D. and Carroll, J. (2005), [*Domain-specific sense distributions and predominant sense acquisition*](https://aclanthology.org/H05-1053/), HLT-EMNLP. The predominant sense is more dominant inside a domain than in balanced text, and a domain's own text ranks senses better than the tagged corpus — why 1990s counts underweight computing senses here |
+| Relevant domains against a null | Gliozzo, A., Strapparava, C. and Magnini, B. (2004), [*Unsupervised domain relevance estimation for word sense disambiguation*](https://aclanthology.org/W04-3249/), EMNLP |
+| One sense per discourse | Gale, W., Church, K. and Yarowsky, D. (1992), *One sense per discourse*, Proceedings of the HLT workshop |
+| A domain for every synset | [BabelDomains](https://aclanthology.org/E17-2036/), Camacho-Collados, J. and Navigli, R. (2017), EACL. CC BY-NC 3.0, which a library distributed under Apache-2.0 cannot bundle |
 | Property accessor names | [JavaBeans specification 1.01](https://www.oracle.com/java/technologies/javase/javabeans-spec.html), section 8.3, design patterns for properties — `get`, `set` and `is` |
 | The platform's own vocabulary | `java.lang.module.ModuleFinder.ofSystem()`, and the class file format, [JVMS §4.4](https://docs.oracle.com/javase/specs/jvms/se21/html/jvms-4.html) |
 | Topic labels per headword | [Wiktionary](https://en.wiktionary.org/), read through [wiktextract](https://github.com/tatuylonen/wiktextract) |

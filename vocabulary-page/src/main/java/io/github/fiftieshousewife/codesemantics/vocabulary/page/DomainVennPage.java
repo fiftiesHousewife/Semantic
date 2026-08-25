@@ -46,10 +46,12 @@ public final class DomainVennPage {
                                 + "belongs to every domain any of its senses states, so a word in an "
                                 + "overlap is one whose senses span both domains. A word in bold states "
                                 + "one domain across every labelled sense; the bold words are the anchor "
-                                + "the mixed words are read beside, and a domain none of them states is "
-                                + "counted below the picture rather than drawn. A circle's area is its "
+                                + "the mixed words are read beside. A word's weight divides over its "
+                                + "senses by the counts WordNet's own tagged corpus publishes, and the "
+                                + "share on senses no domain labels stays on no domain. A circle's area is its "
                                 + "domain's share of the divergence, down to a floor that keeps the "
-                                + "smallest circle readable; a word's size is its own share, as "
+                                + "smallest circle readable; two circles overlap only where at least one "
+                                + "word sits in both; a word's size is its own share, as "
                                 + "everywhere else in this reading. A count opens its overlap's words, "
                                 + "and a word opens its place in the vocabulary.")),
                         div().withClass("figure"),

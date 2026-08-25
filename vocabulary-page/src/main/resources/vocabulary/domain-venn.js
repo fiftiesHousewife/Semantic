@@ -9,8 +9,10 @@
     /* A circle's area carries its domain's mass; the floor keeps the smallest circle readable. */
     var LARGEST_RADIUS = 140;
     var SMALLEST_RADIUS = 60;
-    /* How far two centres sit apart, as a share of their radii summed: near enough to overlap clearly. */
+    /* How far two centres sit apart, as a share of their radii summed: near enough to overlap clearly
+       where some word sits in both domains, and clear of each other where none does. */
     var CENTRE_SPACING = 0.72;
+    var DISJOINT_SPACING = 1.08;
     var MARGIN = 26;
     var GRID_STEP = 5;
 
@@ -26,11 +28,23 @@
         return Math.max(SMALLEST_RADIUS, LARGEST_RADIUS * Math.sqrt(domain.claim / heaviest));
     });
 
-    /* Centres from the radii: each pair overlaps in proportion to its sizes, and the triangle the three
-       spacings state is laid out by the law of cosines — the same picture on every run. */
+    /* How many words sit in every overlap containing both domains, which is what says whether their
+       circles touch at all. */
+    function sharedWords(one, two) {
+        return overlap.regions.filter(function (region) {
+            return region.domains.indexOf(one) >= 0 && region.domains.indexOf(two) >= 0;
+        }).reduce(function (count, region) {
+            return count + region.words.length;
+        }, 0);
+    }
+
+    /* Centres from the radii: a pair overlaps only where some word sits in both of its domains, and the
+       triangle the three spacings state is laid out by the law of cosines — the same picture on every
+       run. A spacing no triangle can hold is drawn at the longest one that can. */
     function centres() {
         function apart(one, two) {
-            return CENTRE_SPACING * (radii[one] + radii[two]);
+            var spacing = sharedWords(one, two) > 0 ? CENTRE_SPACING : DISJOINT_SPACING;
+            return spacing * (radii[one] + radii[two]);
         }
         if (sets === 1) {
             return [{x: 0, y: 0}];
@@ -41,6 +55,9 @@
         var c = apart(0, 1);
         var b = apart(0, 2);
         var a = apart(1, 2);
+        c = Math.min(c, 0.98 * (a + b));
+        b = Math.min(b, 0.98 * (a + c));
+        a = Math.min(a, 0.98 * (b + c));
         var x = (b * b + c * c - a * a) / (2 * c);
         return [{x: 0, y: 0}, {x: c, y: 0}, {x: x, y: Math.sqrt(Math.max(0, b * b - x * x))}];
     }
@@ -257,6 +274,8 @@
         }
         parts.push(overlap.wordsWithoutALabelledSense
             + " carry no labelled sense, and a reading that cannot cite abstains");
+        parts.push((overlap.shareOfClaimOnUnlabelledSenses * 100).toFixed(0)
+            + "% of everything the words claim sits on senses no domain labels, and stays there");
         document.querySelector(".foot").textContent = parts.join("; ") + ".";
     }
 
