@@ -39,3 +39,17 @@ tasks.register<JavaExec>("vocabularyPage") {
     workingDir = rootDir
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
+
+// The same repository's significant words placed by the WordNet domains their senses state, as
+// overlapping sets. A diagnostic like the page above, writing to the same reports folder.
+//   ./gradlew domainVenn
+//   ./gradlew domainVenn -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("domainVenn") {
+    group = "verification"
+    description = "Draws the significant words' WordNet domains as overlapping sets"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DomainVennCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}

@@ -1,0 +1,129 @@
+:root {
+    color-scheme: light dark;
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+    --set-a: #2a78d6;
+    --set-b: #eb6834;
+    --set-c: #1baf7a;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #101518;
+        --raised: #171e22;
+        --ink: #eaf0ee;
+        --ink-soft: #9fb0b4;
+        --ink-faint: #6d8085;
+        --rule: #262f34;
+        --set-a: #3987e5;
+        --set-b: #d95926;
+        --set-c: #199e70;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.5 "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.sheet {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.lede, .foot {
+    color: var(--ink-soft);
+    max-width: 46rem;
+}
+
+.figure svg {
+    display: block;
+    margin: 1.5rem auto;
+    max-width: 100%;
+}
+
+.figure circle {
+    fill-opacity: 0.10;
+    stroke-width: 2;
+}
+
+.figure .set-0 { fill: var(--set-a); stroke: var(--set-a); }
+.figure .set-1 { fill: var(--set-b); stroke: var(--set-b); }
+.figure .set-2 { fill: var(--set-c); stroke: var(--set-c); }
+
+.figure text {
+    fill: var(--ink);
+    font: 600 15px/1 "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.figure text.count {
+    fill: var(--ink-soft);
+    font-weight: 400;
+}
+
+.readout {
+    min-height: 1.5rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+}
+
+.overlaps section {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+}
+
+.overlaps h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    color: var(--ink-soft);
+}
+
+.overlaps .chip {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    margin-right: 0.35em;
+}
+
+.overlaps .chip.set-0 { background: var(--set-a); }
+.overlaps .chip.set-1 { background: var(--set-b); }
+.overlaps .chip.set-2 { background: var(--set-c); }
+
+.overlaps b {
+    font-weight: 400;
+    margin: 0 0.55em 0 0;
+    cursor: default;
+}
+
+.overlaps b.anchor {
+    font-weight: 700;
+}
+
+.overlaps b:focus, .overlaps b:hover {
+    outline: 1px solid var(--ink-faint);
+    outline-offset: 2px;
+}
+
+.overlaps .none {
+    color: var(--ink-faint);
+    font-style: normal;
+}

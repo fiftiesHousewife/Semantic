@@ -3,9 +3,11 @@
 Draws one repository's significant words as a [word cloud](https://en.wikipedia.org/wiki/Tag_cloud) per pipeline stage, in one HTML file. It is a diagnostic viewer: it writes under `vocabulary-page/build/reports/vocabulary/` and never under `output/`, which holds JSON and nothing else.
 
 ```
-./gradlew vocabularyPage                       # the tree this build runs in
-./gradlew vocabularyPage -Dcs.clone.dir=<path> # any other clone
+./gradlew vocabularyPage                       # the word cloud per pipeline stage
+./gradlew domainVenn                           # the domains of the significant words, as overlapping sets
 ```
+
+Both read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`.
 
 ## What the page shows
 
@@ -20,5 +22,7 @@ Draws one repository's significant words as a [word cloud](https://en.wikipedia.
 | `StagedVocabulary` | the words at every stage, each carrying its divergence, its multiple of the chance bar and its count, measured once over the population entering the pipeline |
 | `VocabularyPage` | the page's markup as typed [j2html](https://j2html.com/) tags; the stylesheet and the script are their own files under `src/main/resources/vocabulary/` and are carried whole into the page |
 | `VocabularyPageCommand` | reads the repository, stages its vocabulary and writes the page |
+| `DomainOverlap` | the significant words placed by the [WordNet domains](https://wndomains.fbk.eu/) their senses state: each word's divergence divided among its labelled senses, the three leading domains drawn only where an unambiguous word states them, every overlap reported |
+| `DomainVennPage`, `DomainVennCommand` | the overlapping-sets page over that, with a count per region and the unambiguous words in bold |
 
 This is the one module that may depend on a markup writer. The published reading stays JSON-only; anything drawn is drawn from the same classes the export is written from, so the picture and the report cannot disagree.
