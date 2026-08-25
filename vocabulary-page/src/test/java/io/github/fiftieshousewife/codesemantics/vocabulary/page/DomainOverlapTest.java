@@ -22,11 +22,11 @@ class DomainOverlapTest {
             "swap", List.of(Set.of("commerce"), Set.of("exercise")),
             "gluon", List.of(Set.of("physics"))).getOrDefault(word, List.of());
 
-    private static DomainOverlap.ScoredWord word(final String word, final double claim) {
-        return new DomainOverlap.ScoredWord(word, claim);
+    private static ScoredWord word(final String word, final double claim) {
+        return new ScoredWord(word, claim);
     }
 
-    private static final List<DomainOverlap.ScoredWord> WORDS = List.of(
+    private static final List<ScoredWord> WORDS = List.of(
             word("lemma", 0.010), word("parser", 0.008), word("cache", 0.006),
             word("ledger", 0.004), word("swap", 0.003), word("gluon", 0.001),
             word("qux", 0.002));
@@ -36,7 +36,8 @@ class DomainOverlapTest {
     @Test
     void drawsTheThreeDomainsCarryingTheMostSummedClaim() {
         assertThat(overlap.domains())
-                .as("linguistics 0.018, computing 0.014, commerce 0.007; exercise and physics are below")
+                .extracting(DomainOverlap.Drawn::domain)
+                .as("linguistics, computing and commerce lead by divided mass; exercise and physics are below")
                 .containsExactly("linguistics", "computing", "commerce");
     }
 
@@ -79,13 +80,14 @@ class DomainOverlapTest {
                 "cache", List.of(Set.of("computing")),
                 "gluon", List.of(Set.of("physics")),
                 "mass", List.of(Set.of("physics"), Set.of("religion"))).getOrDefault(word, List.of());
-        final List<DomainOverlap.ScoredWord> words = List.of(
+        final List<ScoredWord> words = List.of(
                 word("lemma", 0.010), word("cache", 0.006), word("gluon", 0.002), word("mass", 0.008));
 
         final DomainOverlap divided = DomainOverlap.of("a-repository", words, senses);
 
         assertAll(
                 () -> assertThat(divided.domains())
+                        .extracting(DomainOverlap.Drawn::domain)
                         .as("mass hands each of its two senses 0.004, so physics stands at 0.006 with "
                                 + "gluon's whole claim and religion at 0.004 without one")
                         .containsExactly("linguistics", "computing", "physics"),
@@ -101,13 +103,14 @@ class DomainOverlapTest {
                 "cache", List.of(Set.of("computing")),
                 "gluon", List.of(Set.of("physics")),
                 "mass", List.of(Set.of("physics"), Set.of("religion"))).getOrDefault(word, List.of());
-        final List<DomainOverlap.ScoredWord> words = List.of(
+        final List<ScoredWord> words = List.of(
                 word("lemma", 0.010), word("cache", 0.006), word("gluon", 0.002), word("mass", 0.050));
 
         final DomainOverlap witnessed = DomainOverlap.of("a-repository", words, senses);
 
         assertAll(
                 () -> assertThat(witnessed.domains())
+                        .extracting(DomainOverlap.Drawn::domain)
                         .as("religion outranks every domain but physics by mass, and no word states it "
                                 + "in every labelled sense, so it is counted rather than drawn")
                         .containsExactly("physics", "linguistics", "computing"),
@@ -125,6 +128,10 @@ class DomainOverlapTest {
                         .containsExactly("exercise", "physics"),
                 () -> assertThat(overlap.wordsWithoutALabelledSense())
                         .as("qux carries no labelled sense")
+                        .isOne(),
+                () -> assertThat(overlap.significantWords()).isEqualTo(7),
+                () -> assertThat(overlap.wordsInOtherDomainsOnly())
+                        .as("gluon states only physics, which is not drawn")
                         .isOne());
     }
 

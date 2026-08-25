@@ -5,6 +5,7 @@ Draws one repository's significant words as a [word cloud](https://en.wikipedia.
 ```
 ./gradlew vocabularyPage                       # the word cloud per pipeline stage
 ./gradlew domainVenn                           # the domains of the significant words, as overlapping sets
+./gradlew synsetCloud                          # the same words gathered under their WordNet senses
 ```
 
 Both read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`.
@@ -23,6 +24,8 @@ Both read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<p
 | `VocabularyPage` | the page's markup as typed [j2html](https://j2html.com/) tags; the stylesheet and the script are their own files under `src/main/resources/vocabulary/` and are carried whole into the page |
 | `VocabularyPageCommand` | reads the repository, stages its vocabulary and writes the page |
 | `DomainOverlap` | the significant words placed by the [WordNet domains](https://wndomains.fbk.eu/) their senses state: each word's divergence divided among its labelled senses, the three leading domains drawn only where an unambiguous word states them, every overlap reported |
-| `DomainVennPage`, `DomainVennCommand` | the overlapping-sets page over that, with a count per region and the unambiguous words in bold |
+| `DomainVennPage`, `DomainVennCommand` | the overlapping-sets page over that: circles sized by each domain's mass, a count per overlap opening its words, and the unambiguous words in bold |
+| `SynsetCloud`, `SynsetCloudPage`, `SynsetCloudCommand` | the same words gathered under the WordNet senses they are most often written in, one tile per meaning — `topic`, `subject` and `theme` are one tile — each linking back to the vocabulary |
+| `SignificantWords`, `ScoredWord` | the one population every page draws: the export's signals, merged under their lemmas |
 
 This is the one module that may depend on a markup writer. The published reading stays JSON-only; anything drawn is drawn from the same classes the export is written from, so the picture and the report cannot disagree.

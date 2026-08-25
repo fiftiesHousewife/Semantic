@@ -47,8 +47,11 @@ public final class DomainVennPage {
                                 + "overlap is one whose senses span both domains. A word in bold states "
                                 + "one domain across every labelled sense; the bold words are the anchor "
                                 + "the mixed words are read beside, and a domain none of them states is "
-                                + "counted below the picture rather than drawn. A word's size is its "
-                                + "share of the divergence, as everywhere else in this reading.")),
+                                + "counted below the picture rather than drawn. A circle's area is its "
+                                + "domain's share of the divergence, down to a floor that keeps the "
+                                + "smallest circle readable; a word's size is its own share, as "
+                                + "everywhere else in this reading. A count opens its overlap's words, "
+                                + "and a word opens its place in the vocabulary.")),
                         div().withClass("figure"),
                         p().withClass("readout"),
                         div().withClass("overlaps"),

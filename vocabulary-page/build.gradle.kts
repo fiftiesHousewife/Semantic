@@ -8,6 +8,8 @@ description = "The vocabulary page: every stage of the word pipeline over one re
 
 dependencies {
     implementation(project(":code-semantics-engine"))
+    // The synset cloud asks the ported lexicon for each word's commonest sense directly.
+    implementation(project(":lexicon"))
     implementation(libs.jackson.databind)
     implementation(libs.j2html)
     implementation(libs.slf4j.api)
@@ -48,6 +50,20 @@ tasks.register<JavaExec>("domainVenn") {
     group = "verification"
     description = "Draws the significant words' WordNet domains as overlapping sets"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DomainVennCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
+// The same words gathered under the WordNet senses they are most often written in — a cloud of meanings
+// rather than spellings, written beside the other two pages.
+//   ./gradlew synsetCloud
+//   ./gradlew synsetCloud -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("synsetCloud") {
+    group = "verification"
+    description = "Draws the significant words as a cloud of WordNet senses"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.SynsetCloudCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "3g"
     workingDir = rootDir

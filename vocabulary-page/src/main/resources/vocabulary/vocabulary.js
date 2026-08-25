@@ -53,6 +53,7 @@
     function tile(word, readout) {
         var joined = word.word.indexOf("_") >= 0;
         var made = element("b", joined ? "run" : null, word.word.replace(/_/g, " "));
+        made.id = "w-" + word.word;
         made.style.fontSize = (SMALLEST + (LARGEST - SMALLEST) * word.size).toFixed(2) + "rem";
         made.setAttribute("data-band", String(word.band));
         made.setAttribute("tabindex", "0");
@@ -141,5 +142,27 @@
     });
 
     document.querySelector(".repository").textContent = repository.repository;
-    show(0);
+
+    /* A link from another page names one word; open the last stage still holding it and stand on it. */
+    var linked = location.hash.indexOf("#w-") === 0
+        ? decodeURIComponent(location.hash.slice(3))
+        : "";
+    var opening = 0;
+    if (linked) {
+        stages.forEach(function (stage, index) {
+            if (stage.drawn.some(function (word) { return word.word === linked; })) {
+                opening = index;
+            }
+        });
+    }
+    show(opening);
+    if (linked) {
+        requestAnimationFrame(function () {
+            var found = document.getElementById("w-" + linked);
+            if (found) {
+                found.scrollIntoView({block: "center"});
+                found.focus();
+            }
+        });
+    }
 }());

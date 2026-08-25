@@ -5,23 +5,15 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SenseDomains;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,30 +43,8 @@ public final class DomainVennCommand {
 
     /** The significant words placed by the domains their senses state. */
     static DomainOverlap overlap(final RepositoryReading reading) {
-        return DomainOverlap.of(reading.root().getFileName().toString(), significant(reading),
+        return DomainOverlap.of(reading.root().getFileName().toString(), SignificantWords.of(reading),
                 SenseDomains.pooledFromClasspath());
-    }
-
-    /**
-     * The export's signals: every published name's word that clears each reference's own chance bar and
-     * that English did not supply, merged under its lemma.
-     */
-    private static List<DomainOverlap.ScoredWord> significant(final RepositoryReading reading) {
-        final WrittenWords written = new PublishedNames().published(reading.legibility());
-        final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
-        final Map<String, Double> bars =
-                VocabularyNull.byReference(ranking.chanceFor(written, reading.seed()));
-        final ContentWords content = ContentWords.fromClasspath();
-        final Map<String, Double> claimByLemma = ranking.in(written).stream()
-                .filter(word -> !word.theLanguages())
-                .filter(word -> word.clears(bars))
-                .collect(Collectors.groupingBy(word -> content.lemmaOrSurface(word.word()),
-                        Collectors.summingDouble(ChosenWord::claim)));
-        return claimByLemma.entrySet().stream()
-                .map(entry -> new DomainOverlap.ScoredWord(entry.getKey(), entry.getValue()))
-                .sorted(Comparator.comparingDouble(DomainOverlap.ScoredWord::claim).reversed()
-                        .thenComparing(DomainOverlap.ScoredWord::word))
-                .toList();
     }
 
     static Path wrote(final Path reports, final DomainOverlap overlap) throws IOException {
@@ -82,7 +52,8 @@ public final class DomainVennCommand {
         final String data = new ObjectMapper().writeValueAsString(Map.of("overlap", overlap));
         final Path page = reports.resolve(PAGE);
         Files.writeString(page, new DomainVennPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
-        log.info("{} over domains {}: file://{}", overlap.repository(), overlap.domains(),
+        log.info("{} over domains {}: file://{}", overlap.repository(),
+                overlap.domains().stream().map(DomainOverlap.Drawn::domain).toList(),
                 page.toAbsolutePath());
         return page;
     }

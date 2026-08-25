@@ -28,14 +28,15 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.SenseDomains;
  * with their mass, and the words no labelled sense covers, which is the dictionary abstaining rather than
  * a defect.
  */
-public record DomainOverlap(String repository, List<String> domains, List<Region> regions,
-                            List<LeftOut> otherDomains, int wordsWithoutALabelledSense) {
+public record DomainOverlap(String repository, List<Drawn> domains, List<Region> regions,
+                            List<LeftOut> otherDomains, int significantWords, int wordsInOtherDomainsOnly,
+                            int wordsWithoutALabelledSense) {
 
     /** How many leading domains the diagram draws, the most a diagram of overlapping sets can hold. */
     static final int DOMAINS_DRAWN = 3;
 
-    /** One word offered to the picture: as the splitter produced it, with its claim in bits. */
-    public record ScoredWord(String word, double claim) {
+    /** One drawn domain with the mass that ranked it, which is what sizes its circle. */
+    public record Drawn(String domain, double claim) {
     }
 
     /** One overlap of the drawn domains, named by their indices, its words strongest claim first. */
@@ -65,9 +66,14 @@ public record DomainOverlap(String repository, List<String> domains, List<Region
         final Map<String, Set<String>> statedByWord = words.stream()
                 .collect(Collectors.toMap(ScoredWord::word, word -> statedFor(word.word(), senses)));
         final Map<String, Double> claimByDomain = claimByDomain(words, senses);
-        final List<String> drawn = leading(claimByDomain, witnessed(statedByWord));
-        return new DomainOverlap(repository, drawn, regions(words, statedByWord, drawn),
-                leftOut(claimByDomain, drawn),
+        final List<Drawn> drawn = leading(claimByDomain, witnessed(statedByWord));
+        final List<String> names = drawn.stream().map(Drawn::domain).toList();
+        return new DomainOverlap(repository, drawn, regions(words, statedByWord, names),
+                leftOut(claimByDomain, names), words.size(),
+                (int) words.stream()
+                        .filter(word -> !statedByWord.get(word.word()).isEmpty())
+                        .filter(word -> within(statedByWord.get(word.word()), names).isEmpty())
+                        .count(),
                 (int) words.stream().filter(word -> statedByWord.get(word.word()).isEmpty()).count());
     }
 
@@ -110,14 +116,14 @@ public record DomainOverlap(String repository, List<String> domains, List<Region
                 .collect(Collectors.toSet());
     }
 
-    private static List<String> leading(final Map<String, Double> claimByDomain,
-                                        final Set<String> witnessed) {
+    private static List<Drawn> leading(final Map<String, Double> claimByDomain,
+                                       final Set<String> witnessed) {
         return claimByDomain.entrySet().stream()
                 .filter(entry -> witnessed.contains(entry.getKey()))
                 .sorted(Comparator.comparingDouble(Map.Entry<String, Double>::getValue).reversed()
                         .thenComparing(Map.Entry::getKey))
                 .limit(DOMAINS_DRAWN)
-                .map(Map.Entry::getKey)
+                .map(entry -> new Drawn(entry.getKey(), entry.getValue()))
                 .toList();
     }
 

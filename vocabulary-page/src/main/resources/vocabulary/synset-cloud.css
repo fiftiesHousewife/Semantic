@@ -1,0 +1,79 @@
+:root {
+    color-scheme: light dark;
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #101518;
+        --raised: #171e22;
+        --ink: #eaf0ee;
+        --ink-soft: #9fb0b4;
+        --ink-faint: #6d8085;
+        --rule: #262f34;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.5 "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.sheet {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+}
+
+.lede, .foot {
+    color: var(--ink-soft);
+    max-width: 46rem;
+}
+
+.cloud {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.65em;
+    row-gap: 0.25em;
+}
+
+.cloud a {
+    color: var(--ink);
+    text-decoration: underline dotted var(--ink-faint);
+    text-underline-offset: 3px;
+}
+
+.cloud a.merged {
+    font-style: italic;
+}
+
+.cloud a:focus, .cloud a:hover {
+    outline: 1px solid var(--ink-faint);
+    outline-offset: 2px;
+}
+
+.readout {
+    min-height: 1.5rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
+}

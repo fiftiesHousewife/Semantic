@@ -70,8 +70,16 @@ h1 {
 }
 
 .figure text.count {
-    fill: var(--ink-soft);
-    font-weight: 400;
+    fill: var(--ink);
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.figure circle.target {
+    fill: transparent;
+    stroke: none;
+    cursor: pointer;
 }
 
 .readout {
@@ -108,17 +116,25 @@ h1 {
 .overlaps .chip.set-1 { background: var(--set-b); }
 .overlaps .chip.set-2 { background: var(--set-c); }
 
-.overlaps b {
-    font-weight: 400;
-    margin: 0 0.55em 0 0;
-    cursor: default;
+.overlaps .words {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 0.6em;
+    row-gap: 0.2em;
 }
 
-.overlaps b.anchor {
+.overlaps a {
+    color: var(--ink);
+    text-decoration: underline dotted var(--ink-faint);
+    text-underline-offset: 3px;
+}
+
+.overlaps a.anchor {
     font-weight: 700;
 }
 
-.overlaps b:focus, .overlaps b:hover {
+.overlaps a:focus, .overlaps a:hover {
     outline: 1px solid var(--ink-faint);
     outline-offset: 2px;
 }

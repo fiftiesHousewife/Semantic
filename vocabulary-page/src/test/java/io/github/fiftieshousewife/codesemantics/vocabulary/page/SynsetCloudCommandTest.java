@@ -13,10 +13,10 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class DomainVennCommandTest {
+class SynsetCloudCommandTest {
 
     @Test
-    void overlapsTheSignificantWordsOfASmallRepositoryByTheirStatedDomains(@TempDir final Path root)
+    void gathersASmallRepositoriesSignificantWordsUnderTheirSenses(@TempDir final Path root)
             throws IOException {
         final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
         Files.createDirectories(scope);
@@ -24,23 +24,21 @@ class DomainVennCommandTest {
                 "package a; /** Prices a coupon. */ class Pricer { int couponPrice; int lemmaParser; "
                         + "int grammarLexicon; int phonemeSyntax; }");
 
-        final DomainOverlap overlap = DomainVennCommand.overlap(RepositoryReading.of(root));
+        final SynsetCloud cloud = SynsetCloudCommand.cloud(RepositoryReading.of(root));
 
         assertAll(
-                () -> assertThat(overlap.repository()).isEqualTo(root.getFileName().toString()),
-                () -> assertThat(overlap.domains())
-                        .as("a tiny tree still yields at least one domain to draw")
-                        .isNotEmpty(),
-                () -> assertThat(overlap.regions())
-                        .as("every overlap of the drawn domains is reported, empty or not")
-                        .hasSize((1 << overlap.domains().size()) - 1));
+                () -> assertThat(cloud.repository()).isEqualTo(root.getFileName().toString()),
+                () -> assertThat(cloud.senses()).isNotEmpty(),
+                () -> assertThat(cloud.senses())
+                        .as("the strongest meaning leads")
+                        .isSortedAccordingTo((one, two) -> Double.compare(two.claim(), one.claim())));
     }
 
     @Test
     void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
-        final DomainOverlap overlap = new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0);
+        final SynsetCloud cloud = new SynsetCloud("a-repository", List.of(), 0, 0);
 
-        final Path page = DomainVennCommand.wrote(reports, overlap);
+        final Path page = SynsetCloudCommand.wrote(reports, cloud);
 
         assertAll(
                 () -> assertThat(page).exists(),

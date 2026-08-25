@@ -1,32 +1,98 @@
-/* Draws the domain overlaps: the circles with a count per region, then the words of each region. */
+/* Draws the domain overlaps: circles sized by each domain's mass, a count per region that opens the
+   region's words, and the words themselves linking through to the vocabulary page. */
 (function () {
     "use strict";
 
     var SVG = "http://www.w3.org/2000/svg";
     var SMALLEST = 0.95;
     var LARGEST = 2.1;
+    /* A circle's area carries its domain's mass; the floor keeps the smallest circle readable. */
+    var LARGEST_RADIUS = 140;
+    var SMALLEST_RADIUS = 60;
+    /* How far two centres sit apart, as a share of their radii summed: near enough to overlap clearly. */
+    var CENTRE_SPACING = 0.72;
+    var MARGIN = 26;
+    var GRID_STEP = 5;
 
     var overlap = JSON.parse(document.getElementById("overlap").textContent).overlap;
     var sets = overlap.domains.length;
-
-    /* Fixed geometry per set count; a laid-out diagram is the same on every run. */
-    var CIRCLES = {
-        1: [{x: 280, y: 200, label: [280, 40]}],
-        2: [{x: 210, y: 200, label: [110, 60]}, {x: 350, y: 200, label: [450, 60]}],
-        3: [{x: 210, y: 170, label: [100, 40]}, {x: 350, y: 170, label: [460, 40]},
-            {x: 280, y: 280, label: [280, 425]}]
-    }[sets];
-    var COUNTS = {
-        1: {"0": [280, 205]},
-        2: {"0": [160, 205], "1": [400, 205], "0,1": [280, 205]},
-        3: {"0": [160, 150], "1": [400, 150], "2": [280, 340],
-            "0,1": [280, 130], "0,2": [205, 255], "1,2": [355, 255], "0,1,2": [280, 205]}
-    }[sets];
-    var RADIUS = 130;
-
-    document.querySelector(".repository").textContent = overlap.repository;
     var readout = document.querySelector(".readout");
-    readout.textContent = "Rest on a word for its figures.";
+    readout.textContent = "Rest on a word or a count for its figures.";
+
+    var heaviest = overlap.domains.reduce(function (most, domain) {
+        return Math.max(most, domain.claim);
+    }, 0);
+    var radii = overlap.domains.map(function (domain) {
+        return Math.max(SMALLEST_RADIUS, LARGEST_RADIUS * Math.sqrt(domain.claim / heaviest));
+    });
+
+    /* Centres from the radii: each pair overlaps in proportion to its sizes, and the triangle the three
+       spacings state is laid out by the law of cosines — the same picture on every run. */
+    function centres() {
+        function apart(one, two) {
+            return CENTRE_SPACING * (radii[one] + radii[two]);
+        }
+        if (sets === 1) {
+            return [{x: 0, y: 0}];
+        }
+        if (sets === 2) {
+            return [{x: 0, y: 0}, {x: apart(0, 1), y: 0}];
+        }
+        var c = apart(0, 1);
+        var b = apart(0, 2);
+        var a = apart(1, 2);
+        var x = (b * b + c * c - a * a) / (2 * c);
+        return [{x: 0, y: 0}, {x: c, y: 0}, {x: x, y: Math.sqrt(Math.max(0, b * b - x * x))}];
+    }
+    var placed = centres();
+
+    var leftEdge = Math.min.apply(null, placed.map(function (centre, index) {
+        return centre.x - radii[index];
+    }));
+    var topEdge = Math.min.apply(null, placed.map(function (centre, index) {
+        return centre.y - radii[index];
+    }));
+    placed.forEach(function (centre, index) {
+        centre.x += MARGIN - leftEdge;
+        centre.y += 1.6 * MARGIN - topEdge;
+        centre.r = radii[index];
+    });
+    var width = Math.max.apply(null, placed.map(function (centre) {
+        return centre.x + centre.r;
+    })) + MARGIN;
+    var height = Math.max.apply(null, placed.map(function (centre) {
+        return centre.y + centre.r;
+    })) + 1.6 * MARGIN;
+
+    function membership(x, y) {
+        return placed.map(function (centre) {
+            var dx = x - centre.x;
+            var dy = y - centre.y;
+            return dx * dx + dy * dy < centre.r * centre.r;
+        });
+    }
+
+    /* Where a region's count sits: the average of every grid point inside exactly that overlap. */
+    function anchorOf(region) {
+        var inside = region.domains;
+        var sumX = 0;
+        var sumY = 0;
+        var found = 0;
+        for (var x = 0; x < width; x += GRID_STEP) {
+            for (var y = 0; y < height; y += GRID_STEP) {
+                var at = membership(x, y);
+                var matches = at.every(function (held, index) {
+                    return held === (inside.indexOf(index) >= 0);
+                });
+                if (matches) {
+                    sumX += x;
+                    sumY += y;
+                    found += 1;
+                }
+            }
+        }
+        return found === 0 ? null : {x: sumX / found, y: sumY / found};
+    }
 
     function svgElement(name, attributes) {
         var made = document.createElementNS(SVG, name);
@@ -36,16 +102,43 @@
         return made;
     }
 
-    function wordsOf(region) {
-        return region.words;
+    function namesOf(region) {
+        return region.domains.map(function (index) {
+            return overlap.domains[index].domain;
+        });
     }
 
-    var placed = overlap.regions.map(wordsOf).reduce(function (all, words) {
-        return all.concat(words);
+    function heading(region) {
+        var names = namesOf(region);
+        if (names.length === sets && names.length > 1) {
+            return "all " + names.length;
+        }
+        return names.join(" and ") + (names.length === 1 && sets > 1 ? " only" : "");
+    }
+
+    function sectionId(region) {
+        return "region-" + region.domains.join("-");
+    }
+
+    function regionStatement(region) {
+        var words = region.words.slice(0, 12).map(function (word) {
+            return word.word;
+        });
+        return heading(region) + " — " + region.words.length
+            + (region.words.length === 1 ? " word" : " words")
+            + (words.length ? ": " + words.join(", ") + (region.words.length > words.length ? ", …" : "")
+                : "");
+    }
+
+    var allPlaced = overlap.regions.reduce(function (all, region) {
+        return all.concat(region.words);
     }, []);
-    var claims = placed.map(function (word) { return word.claim; });
-    var least = Math.min.apply(null, claims);
-    var most = Math.max.apply(null, claims);
+    var least = allPlaced.reduce(function (found, word) {
+        return Math.min(found, word.claim);
+    }, Infinity);
+    var most = allPlaced.reduce(function (found, word) {
+        return Math.max(found, word.claim);
+    }, 0);
 
     /* Size is a fixed multiple of the claim, the scale the word cloud page states. */
     function sized(claim) {
@@ -57,51 +150,61 @@
     }
 
     function drawFigure() {
-        var svg = svgElement("svg", {viewBox: "0 0 560 440", role: "img",
-            "aria-label": "Overlapping domain sets with a word count per region"});
-        CIRCLES.forEach(function (circle, index) {
+        var svg = svgElement("svg", {viewBox: "0 0 " + Math.ceil(width) + " " + Math.ceil(height),
+            role: "img", "aria-label": "Overlapping domain sets with a word count per region"});
+        placed.forEach(function (centre, index) {
             svg.appendChild(svgElement("circle",
-                {cx: circle.x, cy: circle.y, r: RADIUS, "class": "set-" + index}));
+                {cx: centre.x, cy: centre.y, r: centre.r, "class": "set-" + index}));
         });
-        CIRCLES.forEach(function (circle, index) {
-            var label = svgElement("text",
-                {x: circle.label[0], y: circle.label[1], "text-anchor": "middle"});
-            label.textContent = overlap.domains[index];
+        placed.forEach(function (centre, index) {
+            var below = centre.y > height / 2;
+            var label = svgElement("text", {x: centre.x,
+                y: below ? centre.y + centre.r + 18 : centre.y - centre.r - 8,
+                "text-anchor": "middle"});
+            label.textContent = overlap.domains[index].domain;
             svg.appendChild(label);
         });
         overlap.regions.forEach(function (region) {
-            var at = COUNTS[region.domains.join(",")];
+            var at = anchorOf(region);
+            if (at === null) {
+                return;
+            }
             var count = svgElement("text",
-                {x: at[0], y: at[1], "text-anchor": "middle", "class": "count"});
+                {x: at.x, y: at.y + 5, "text-anchor": "middle", "class": "count", tabindex: "0"});
             count.textContent = String(region.words.length);
+            function show() {
+                readout.textContent = regionStatement(region);
+            }
+            count.addEventListener("mouseenter", show);
+            count.addEventListener("focus", show);
+            count.addEventListener("click", function () {
+                document.getElementById(sectionId(region)).scrollIntoView({behavior: "smooth"});
+            });
+            var target = svgElement("circle",
+                {cx: at.x, cy: at.y, r: 20, "class": "target"});
+            target.addEventListener("mouseenter", show);
+            target.addEventListener("click", function () {
+                document.getElementById(sectionId(region)).scrollIntoView({behavior: "smooth"});
+            });
             svg.appendChild(count);
+            svg.appendChild(target);
         });
         document.querySelector(".figure").appendChild(svg);
     }
 
-    function heading(region) {
-        var names = region.domains.map(function (index) { return overlap.domains[index]; });
-        if (names.length === overlap.domains.length && names.length > 1) {
-            return "all " + names.length;
-        }
-        return names.join(" and ") + (names.length === 1 && overlap.domains.length > 1 ? " only" : "");
-    }
-
     function statement(region, word) {
-        var names = region.domains.map(function (index) { return overlap.domains[index]; });
-        return word.word + " — " + word.claim.toFixed(4) + " bits · senses state " + names.join(", ")
+        return word.word + " — " + word.claim.toFixed(4) + " bits · senses state "
+            + namesOf(region).join(", ")
             + (word.unambiguous ? " · one domain across every labelled sense"
                 : " · its senses state several domains");
     }
 
     function tile(region, word) {
-        var made = document.createElement("b");
+        var made = document.createElement("a");
         made.textContent = word.word;
-        if (word.unambiguous) {
-            made.className = "anchor";
-        }
+        made.href = "vocabulary.html#w-" + encodeURIComponent(word.word);
+        made.className = word.unambiguous ? "anchor" : "";
         made.style.fontSize = sized(word.claim).toFixed(2) + "rem";
-        made.setAttribute("tabindex", "0");
         function show() {
             readout.textContent = statement(region, word);
         }
@@ -114,6 +217,7 @@
         var panel = document.querySelector(".overlaps");
         overlap.regions.forEach(function (region) {
             var section = document.createElement("section");
+            section.id = sectionId(region);
             var head = document.createElement("h2");
             region.domains.forEach(function (index) {
                 var chip = document.createElement("span");
@@ -123,29 +227,37 @@
             head.appendChild(document.createTextNode(heading(region)
                 + " — " + region.words.length + (region.words.length === 1 ? " word" : " words")));
             section.appendChild(head);
+            var words = document.createElement("div");
+            words.className = "words";
             if (region.words.length === 0) {
                 var none = document.createElement("span");
                 none.className = "none";
                 none.textContent = "No significant word's senses state exactly this overlap.";
-                section.appendChild(none);
+                words.appendChild(none);
             }
             region.words.forEach(function (word) {
-                section.appendChild(tile(region, word));
+                words.appendChild(tile(region, word));
             });
+            section.appendChild(words);
             panel.appendChild(section);
         });
     }
 
     function drawFoot() {
-        var others = overlap.otherDomains.slice(0, 5).map(function (other) { return other.domain; });
-        var parts = [];
-        if (overlap.otherDomains.length > 0) {
-            parts.push(overlap.otherDomains.length + " further domains hold words the picture leaves out"
-                + " (largest: " + others.join(", ") + ")");
+        var others = overlap.otherDomains.slice(0, 5).map(function (other) {
+            return other.domain;
+        });
+        var drawnCount = allPlaced.length;
+        var parts = ["Of the " + overlap.significantWords
+            + " significant words, two spellings the dictionary reads as one word counted once: "
+            + drawnCount + " are drawn above"];
+        if (overlap.wordsInOtherDomainsOnly > 0) {
+            parts.push(overlap.wordsInOtherDomainsOnly + " state only the " + overlap.otherDomains.length
+                + " domains the picture leaves out (largest: " + others.join(", ") + ")");
         }
         parts.push(overlap.wordsWithoutALabelledSense
-            + " significant words carry no labelled sense, and a reading that cannot cite abstains");
-        document.querySelector(".foot").textContent = parts.join(". ") + ".";
+            + " carry no labelled sense, and a reading that cannot cite abstains");
+        document.querySelector(".foot").textContent = parts.join("; ") + ".";
     }
 
     if (sets > 0) {
