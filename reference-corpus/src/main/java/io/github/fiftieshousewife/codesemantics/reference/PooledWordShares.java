@@ -33,22 +33,30 @@ public final class PooledWordShares {
     private static final String COLUMN = "\t";
     private static final int WORD = 0;
     private static final int SHARE = 2;
+    private static final int ERROR = 3;
     private static final int COLUMNS = 3;
 
     private final Map<String, Double> shareByWord;
+    private final Map<String, Double> errorByWord;
 
     public PooledWordShares(final Stream<String> rows) {
-        final Map<String, Double> stated = rows.filter(PooledWordShares::isRow)
+        final Map<String, String[]> stated = rows.filter(PooledWordShares::isRow)
                 .map(PooledWordShares::fields)
-                .collect(Collectors.toUnmodifiableMap(field -> field[WORD],
-                        field -> Double.parseDouble(field[SHARE])));
-        final double total = stated.values().stream().mapToDouble(Double::doubleValue).sum();
+                .collect(Collectors.toUnmodifiableMap(field -> field[WORD], field -> field));
+        final double total = stated.values().stream()
+                .mapToDouble(field -> Double.parseDouble(field[SHARE]))
+                .sum();
         if (total <= 0.0) {
             throw new IllegalStateException("A corpus table stating no share is an empty denominator, which "
                     + "demotes nothing and reads exactly like a reference that found nothing to demote.");
         }
         this.shareByWord = stated.entrySet().stream()
-                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, word -> word.getValue() / total));
+                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
+                        field -> Double.parseDouble(field.getValue()[SHARE]) / total));
+        this.errorByWord = stated.entrySet().stream()
+                .filter(field -> field.getValue().length > ERROR)
+                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
+                        field -> Double.parseDouble(field.getValue()[ERROR]) / total));
     }
 
     /** The table this module bundles. */
@@ -83,6 +91,15 @@ public final class PooledWordShares {
     /** How densely the corpus writes the word, and zero for a word it never wrote. */
     public double shareOf(final String word) {
         return shareByWord.getOrDefault(word, 0.0);
+    }
+
+    /**
+     * The standard error the table states for the word's share — the between-repository error of the mean,
+     * scaled the way the shares are. Zero where the table states none, and zero for a word the corpus never
+     * wrote: an absence has no sampling error, because every draw agrees on it.
+     */
+    public double errorOf(final String word) {
+        return errorByWord.getOrDefault(word, 0.0);
     }
 
     private static boolean isRow(final String line) {

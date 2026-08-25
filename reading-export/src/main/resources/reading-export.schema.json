@@ -219,6 +219,7 @@
           "occurrences",
           "occurrencesInNames",
           "divergenceBits",
+          "marginBits",
           "closestReference",
           "firstWrittenAt"
         ],
@@ -251,6 +252,13 @@
           "divergenceBits": {
             "title": "Score in bits",
             "description": "This word's term of the Jensen-Shannon divergence between the repository's word distribution and the reference's. Base-2 logarithms bound it at 1 bit. A word the repository writes at the reference's own density scores 0.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "marginBits": {
+            "title": "Score at the reference's own error",
+            "description": "The same term computed with the reference's share moved one standard error toward the repository's — the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
             "type": "number",
             "minimum": 0,
             "maximum": 1
@@ -478,6 +486,7 @@
       "required": [
         "wordOccurrencesNoResourceCovers",
         "wordsBelowEveryThreshold",
+        "wordsWithinTheReferencesError",
         "wordsTheLanguageSupplies",
         "scopesWithinChance",
         "matchesDiscardedByBranchRule",
@@ -491,6 +500,11 @@
         },
         "wordsBelowEveryThreshold": {
           "description": "Words the reading scored that fall below the threshold at least one reference's own permutation null produced. This and `wordsTheLanguageSupplies` are the two rules that remove a word, and adding both to `summary.counts.signals` gives every word the ranking scored. The words themselves, with the references that refused each and by how much, are in `evidence.json`.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "wordsWithinTheReferencesError": {
+          "description": "Words whose scores clear every reference's threshold while the margin — the same score with the reference's own sampling error held against the word — does not. A reference's share is an estimate from a drawn sample, and a verdict that holds only at the estimate's exact value has not been shown to stand above chance.",
           "type": "integer",
           "minimum": 0
         },

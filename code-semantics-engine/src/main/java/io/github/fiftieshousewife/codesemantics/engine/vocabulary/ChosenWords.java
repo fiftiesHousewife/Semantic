@@ -99,7 +99,11 @@ public final class ChosenWords {
     private ChosenWord.ReferenceClaim claim(final String word, final Map<String, Double> here,
                                             final ReferenceVocabulary reference) {
         final double there = reference.shareOf(word);
+        final double hereShare = here.getOrDefault(word, 0.0);
+        final double atError = there + reference.errorOf(word);
+        final double marginBits = divergence.at(hereShare, atError);
         return new ChosenWord.ReferenceClaim(reference.name(), there,
-                divergence.at(word, here, reference.shareByWord()), here.getOrDefault(word, 0.0) > there);
+                divergence.at(word, here, reference.shareByWord()), hereShare > there,
+                hereShare > atError ? marginBits : -marginBits);
     }
 }

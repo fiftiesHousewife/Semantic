@@ -21,8 +21,8 @@ class PooledVocabularyTsvTest {
         final List<String> rows = rowsOf(new PooledVocabularyTsv()
                 .render(pooled(), drawn(), CorpusPooling.POOLED_OCCURRENCES));
         assertAll(
-                () -> assertThat(rows).element(0).isEqualTo("kettle\t3\t6.000e-01"),
-                () -> assertThat(rows).element(1).isEqualTo("depth\t2\t4.000e-01"),
+                () -> assertThat(rows).element(0).isEqualTo("kettle\t3\t6.000e-01\t2.191e-01"),
+                () -> assertThat(rows).element(1).isEqualTo("depth\t2\t4.000e-01\t2.191e-01"),
                 () -> assertThat(rows).hasSize(2));
     }
 

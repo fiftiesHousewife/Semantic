@@ -30,8 +30,14 @@ public final class ShareDivergence {
 
     /** One key's term of that sum — how much of the distance this key accounts for, in bits. */
     public double at(final String key, final Map<String, Double> left, final Map<String, Double> right) {
-        final double inLeft = left.getOrDefault(key, 0.0);
-        final double inRight = right.getOrDefault(key, 0.0);
+        return at(left.getOrDefault(key, 0.0), right.getOrDefault(key, 0.0));
+    }
+
+    /**
+     * The same term from the two shares alone, for a caller asking what the term would be at a share
+     * neither distribution states — a share moved by its own standard error, say.
+     */
+    public double at(final double inLeft, final double inRight) {
         final double mixture = 0.5 * (inLeft + inRight);
         return 0.5 * relativeEntropy(inLeft, mixture) + 0.5 * relativeEntropy(inRight, mixture);
     }

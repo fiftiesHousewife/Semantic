@@ -39,8 +39,8 @@ class ReadingExportSchemaTest {
                     List.of(new ExportedSummary.DistinctiveScope("lexicon/src/main/java", 0.19,
                             List.of("linguistics"))),
                     0.98, 0.76, new ExportedSummary.Counts(1, 1, 1)),
-            List.of(new ExportedSignal(ReadingSource.CLONE, "lemma", 40, 30, 0.02, "ordinary English",
-                    new SightingSite("Reading.java", 12))),
+            List.of(new ExportedSignal(ReadingSource.CLONE, "lemma", 40, 30, 0.02, 0.018,
+                    "ordinary English", new SightingSite("Reading.java", 12))),
             List.of(new ExportedTheme("linguistics", "lexicon/src/main/java", 0.05, 0.012,
                     List.of(new ExportedWitness("word", 40, 12.5, List.of("WordNet Domains"),
                             List.of(new ExportedQuotation("word segmenter",
@@ -50,7 +50,7 @@ class ReadingExportSchemaTest {
                             new SightingSite("Reading.java", 9))),
                     List.of(new ExportedTaxonomy.Branch("WordClass", 0.52, 16.0, 8.32, List.of("verb"))),
                     Map.of("words", 973, "lemmas", 201, "senses", 130))),
-            new SetAside(1_325, 625, 9, 1, 56, 0));
+            new SetAside(1_325, 625, 14, 9, 1, 56, 0));
 
     private final ExportFile file = new ExportFile();
 

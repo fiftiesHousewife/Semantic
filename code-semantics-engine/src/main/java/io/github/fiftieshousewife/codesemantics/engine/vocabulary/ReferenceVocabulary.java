@@ -25,4 +25,13 @@ public interface ReferenceVocabulary {
     default double shareOf(final String word) {
         return shareByWord().getOrDefault(word, 0.0);
     }
+
+    /**
+     * The standard error of the share this reference states for the word, in the share's own units. A
+     * reference that measures its own sampling error states it here; one whose publisher states none is
+     * taken at its word, and its error is zero.
+     */
+    default double errorOf(final String word) {
+        return 0.0;
+    }
 }

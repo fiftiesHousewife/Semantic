@@ -15,7 +15,8 @@ class RefusedWordsTest {
 
     private static ChosenWord.ReferenceClaim claim(final String reference, final double bits,
                                                    final boolean writtenMoreHere) {
-        return new ChosenWord.ReferenceClaim(reference, 0.001, bits, writtenMoreHere);
+        return new ChosenWord.ReferenceClaim(reference, 0.001, bits, writtenMoreHere,
+                writtenMoreHere ? bits : -bits);
     }
 
     private static ChosenWord word(final String surface, final int occurrences,

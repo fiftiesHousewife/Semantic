@@ -15,7 +15,7 @@ class ReadingChangesTest {
     private static final List<ExportedPlacement.CarryingTopic> MEETS_ON = List.of(
             new ExportedPlacement.CarryingTopic("linguistics", 0.21, 0.34, List.of()));
 
-    private static final SetAside NOTHING_SET_ASIDE = new SetAside(0, 0, 0, 0, 0, 0);
+    private static final SetAside NOTHING_SET_ASIDE = new SetAside(0, 0, 0, 0, 0, 0, 0);
 
     private static ReadingExport reading(final String commit, final double legibility,
                                          final String nearestArchive, final double archiveBits,

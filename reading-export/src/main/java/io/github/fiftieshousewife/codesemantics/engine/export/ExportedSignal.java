@@ -14,12 +14,15 @@ import lombok.Builder;
  * @param occurrencesInNames     how many of those were the name of something rather than prose about it
  * @param divergenceBits         its term of the Jensen–Shannon divergence between what this repository
  *                               writes and what the reference writes, bounded at 1 bit
+ * @param marginBits             the same term with the reference's own sampling error held against the
+ *                               word. The verdict rests on it: every signal's margin exceeds every
+ *                               reference's chance threshold
  * @param closestReference       the reference scoring this word lowest, which is the score reported
  * @param firstWrittenAt         the file and line it was first written at
  */
 @Builder
 public record ExportedSignal(ReadingSource readFrom, String word, int occurrences, int occurrencesInNames,
-                             double divergenceBits, String closestReference,
+                             double divergenceBits, double marginBits, String closestReference,
                              SightingSite firstWrittenAt) {
 
     public ExportedSignal {

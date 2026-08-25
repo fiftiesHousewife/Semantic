@@ -17,6 +17,7 @@ public final class CorpusWords {
 
     private final Map<String, Integer> occurrences = new HashMap<>();
     private final Map<String, Double> shares = new HashMap<>();
+    private final Map<String, Double> squaredShares = new HashMap<>();
 
     private int repositories;
     private int total;
@@ -28,6 +29,8 @@ public final class CorpusWords {
         repository.words().forEach(word ->
                 occurrences.merge(word, repository.occurrencesOf(word), Integer::sum));
         repository.shareByWord().forEach((word, share) -> shares.merge(word, share, Double::sum));
+        repository.shareByWord().forEach((word, share) ->
+                squaredShares.merge(word, share * share, Double::sum));
     }
 
     public int repositories() {
@@ -49,5 +52,10 @@ public final class CorpusWords {
     /** The word's share in each repository, summed. A pooling divides it by the repository count. */
     public double summedShareOf(final String word) {
         return shares.getOrDefault(word, 0.0);
+    }
+
+    /** The word's share in each repository, squared and summed — what a between-repository variance needs. */
+    public double summedSquaredShareOf(final String word) {
+        return squaredShares.getOrDefault(word, 0.0);
     }
 }

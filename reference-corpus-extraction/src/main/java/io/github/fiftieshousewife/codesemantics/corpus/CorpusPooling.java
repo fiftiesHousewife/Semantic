@@ -24,6 +24,12 @@ public enum CorpusPooling {
         public double shareOf(final String word, final CorpusWords corpus) {
             return (double) corpus.occurrencesOf(word) / corpus.totalOccurrences();
         }
+
+        @Override
+        public double errorOf(final String word, final CorpusWords corpus) {
+            final double share = shareOf(word, corpus);
+            return Math.sqrt(share * (1 - share) / corpus.totalOccurrences());
+        }
     },
 
     /** Every repository weighs the same, whatever its size. */
@@ -33,6 +39,17 @@ public enum CorpusPooling {
         @Override
         public double shareOf(final String word, final CorpusWords corpus) {
             return corpus.summedShareOf(word) / corpus.repositories();
+        }
+
+        @Override
+        public double errorOf(final String word, final CorpusWords corpus) {
+            final int n = corpus.repositories();
+            if (n < 2) {
+                return 0.0;
+            }
+            final double mean = shareOf(word, corpus);
+            final double variance = (corpus.summedSquaredShareOf(word) - n * mean * mean) / (n - 1);
+            return Math.sqrt(Math.max(0.0, variance) / n);
         }
     };
 
@@ -53,6 +70,16 @@ public enum CorpusPooling {
     public String weighs() {
         return weighs;
     }
+
+    /**
+     * The standard error of this pooling's share for one word, from the pooling's own sampling model.
+     *
+     * <p>The mean of shares is a mean over repositories, so its error is the between-repository standard
+     * error of that mean — the split-half disagreement measured word by word. Pooled occurrences is a
+     * multinomial over occurrences, so its error is the binomial standard error of the proportion. Neither
+     * is a chosen margin: each follows from what its weighting states the table estimates.
+     */
+    public abstract double errorOf(String word, CorpusWords corpus);
 
     /** The whole corpus as a distribution over its words, which is what a divergence is taken between. */
     public Map<String, Double> shareByWord(final CorpusWords corpus) {

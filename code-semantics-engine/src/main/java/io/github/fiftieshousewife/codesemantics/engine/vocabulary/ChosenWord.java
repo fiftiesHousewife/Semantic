@@ -32,8 +32,17 @@ public record ChosenWord(String word, int occurrences, int inNames, double claim
         return removedAt == null;
     }
 
-    /** What one reference says: the share it writes the word at, and the bits between that and this tree. */
-    public record ReferenceClaim(String reference, double share, double bits, boolean writtenMoreHere) {
+    /**
+     * What one reference says: the share it writes the word at, the bits between that and this tree, and
+     * the margin — the same term with the reference's own sampling error held against the word.
+     *
+     * @param margin the signed term at the reference's share moved one standard error toward this
+     *               repository's. Where the reference states no error it equals {@link #claim()}, and a
+     *               word whose margin is refused sits within the reference's error: it has not been shown
+     *               to stand above chance
+     */
+    public record ReferenceClaim(String reference, double share, double bits, boolean writtenMoreHere,
+                                 double margin) {
 
         /** The bits, signed by which side wrote the word more densely — how much of a claim this is. */
         public double claim() {
@@ -50,13 +59,28 @@ public record ChosenWord(String word, int occurrences, int inNames, double claim
         return occurrences == 0 ? 0.0 : (double) inNames / occurrences;
     }
 
+    /** The weakest margin any reference leaves this word, which is what the verdict rests on. */
+    public double margin() {
+        return against.stream()
+                .mapToDouble(ReferenceClaim::margin)
+                .min()
+                .orElse(0.0);
+    }
+
     /**
-     * Whether every reference's claim for this word stands outside what that reference's own null produced
-     * by chance. It is the weakest-claim rule applied to the bound: a word one reference calls ordinary is
-     * ordinary whatever the other says, so a word clears each bar in turn or it clears none.
+     * Whether every reference's margin for this word stands outside what that reference's own null produced
+     * by chance. It is the weakest-claim rule applied to the bound, taken at each reference's own sampling
+     * error: a word whose claim clears the bar only where the reference's share is taken exactly at its
+     * estimate has not been shown to stand above chance.
      */
     public boolean clears(final Map<String, Double> barByReference) {
         return against.stream()
+                .allMatch(claim -> claim.margin() > barFor(claim.reference(), barByReference));
+    }
+
+    /** Whether the claims clear the bars while some margin does not — inside a reference's error. */
+    public boolean withinTheReferencesError(final Map<String, Double> barByReference) {
+        return !clears(barByReference) && against.stream()
                 .allMatch(claim -> claim.claim() > barFor(claim.reference(), barByReference));
     }
 

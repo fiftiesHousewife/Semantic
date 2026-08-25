@@ -20,7 +20,7 @@ class StagedVocabularyTest {
 
     private static ChosenWord chosen(final String word, final double claim, final int occurrences) {
         return new ChosenWord(word, occurrences, occurrences, claim, 0.0,
-                List.of(new ChosenWord.ReferenceClaim(ENGLISH, 0.0, Math.abs(claim), claim > 0.0)),
+                List.of(new ChosenWord.ReferenceClaim(ENGLISH, 0.0, Math.abs(claim), claim > 0.0, claim)),
                 "a.java", false, null);
     }
 

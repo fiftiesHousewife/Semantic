@@ -46,6 +46,7 @@ public final class ExportedSignals {
                 .occurrences(word.occurrences())
                 .occurrencesInNames(word.inNames())
                 .divergenceBits(word.claim())
+                .marginBits(word.margin())
                 .closestReference(closestReference(word))
                 .firstWrittenAt(SightingSite.of(word.site()))
                 .build();

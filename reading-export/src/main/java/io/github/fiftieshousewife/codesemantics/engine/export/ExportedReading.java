@@ -259,6 +259,9 @@ public final class ExportedReading {
         return new SetAside(
                 legibility.repository().counts().words() - legibility.repository().counts().read(),
                 refused.in(vocabulary.ranked(), vocabulary.bars()).size(),
+                (int) vocabulary.ranked().stream()
+                        .filter(word -> word.withinTheReferencesError(vocabulary.bars()))
+                        .count(),
                 refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
                 summary.withheld().size(), terms.refusedByBranch(), parsed.unsoundFiles());
     }

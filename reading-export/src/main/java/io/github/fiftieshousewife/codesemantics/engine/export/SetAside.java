@@ -15,6 +15,9 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
  *
  * @param wordOccurrencesNoResourceCovers word occurrences no bundled resource has an entry for
  * @param wordsBelowEveryThreshold        words scoring below the threshold of at least one reference's null
+ * @param wordsWithinTheReferencesError   words whose scores clear every threshold while the margin — the
+ *                                        same score with a reference's own sampling error held against the
+ *                                        word — does not. They have not been shown to stand above chance
  * @param wordsTheLanguageSupplies        words clearing every threshold that English supplied rather than
  *                                        this repository choosing them
  * @param scopesWithinChance              scopes at least one of 999 chance resamples matched or exceeded
@@ -22,6 +25,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
  * @param filesTheParserCouldNotRead      files the parse rejected, counted so the corpus stays reported
  */
 public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryThreshold,
-                       int wordsTheLanguageSupplies, int scopesWithinChance,
-                       int matchesDiscardedByBranchRule, int filesTheParserCouldNotRead) {
+                       int wordsWithinTheReferencesError, int wordsTheLanguageSupplies,
+                       int scopesWithinChance, int matchesDiscardedByBranchRule,
+                       int filesTheParserCouldNotRead) {
 }

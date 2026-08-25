@@ -13,7 +13,7 @@ import io.github.fiftieshousewife.codesemantics.clones.PinnedRepository;
  */
 public final class PooledVocabularyTsv {
 
-    public static final String COLUMNS = "word\toccurrences\tshare";
+    public static final String COLUMNS = "word\toccurrences\tshare\terror";
 
     private static final String COLUMN = "\t";
     private static final String ROW = "\n";
@@ -36,6 +36,10 @@ public final class PooledVocabularyTsv {
                 #   occurrences  how many times the pooled repositories declared it, summed over all of them
                 #                and independent of the weighting below.
                 #   share        what a reading is read against. It sums to one over this table.
+                #   error        the standard error of that share under this table's own weighting - for the
+                #                mean of shares, the between-repository standard error of the mean; for
+                #                pooled occurrences, the binomial standard error of the proportion. A verdict
+                #                whose margin sits inside it has not been shown to stand above chance.
                 #
                 # WHAT WAS READ. Every tree was read by the path this library reads itself with: the Java
                 # source sets, the documentation and the build modules beside them, parsed, split by
@@ -95,6 +99,7 @@ public final class PooledVocabularyTsv {
 
     private static String row(final String word, final CorpusWords corpus, final CorpusPooling pooling) {
         return String.join(COLUMN, word, String.valueOf(corpus.occurrencesOf(word)),
-                String.format(Locale.ROOT, "%.3e", pooling.shareOf(word, corpus)));
+                String.format(Locale.ROOT, "%.3e", pooling.shareOf(word, corpus)),
+                String.format(Locale.ROOT, "%.3e", pooling.errorOf(word, corpus)));
     }
 }

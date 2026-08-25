@@ -19,8 +19,10 @@ public final class CorpusVocabulary implements ReferenceVocabulary {
     private static final String NAME = "the reference corpus";
 
     private final Map<String, Double> shareByWord;
+    private final PooledWordShares corpus;
 
     public CorpusVocabulary(final PooledWordShares corpus) {
+        this.corpus = corpus;
         this.shareByWord = corpus.shareByWord();
     }
 
@@ -37,6 +39,11 @@ public final class CorpusVocabulary implements ReferenceVocabulary {
     @Override
     public String name() {
         return NAME;
+    }
+
+    @Override
+    public double errorOf(final String word) {
+        return corpus.errorOf(word);
     }
 
     @Override
