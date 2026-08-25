@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "ed30dbccf0decd08f9a2a16652b3c31d53f645ca",
-  "commit" : "afd349207103de55b2a7d2adc04aacaea09f4e5a",
+  "previousCommit" : "afd349207103de55b2a7d2adc04aacaea09f4e5a",
+  "commit" : "44b10c1f3a73757fb0340b394d21f15d2f58fac8",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.3%",
     "after" : "98.3%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.1%",
+    "before" : "84.7%",
     "after" : "84.7%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -15,11 +15,11 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "33.2%",
-    "after" : "32.3%"
+    "before" : "32.3%",
+    "after" : "32.4%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "39.9%",
+    "before" : "40.0%",
     "after" : "40.0%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
@@ -35,11 +35,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.3%",
+    "before" : "41.9%",
     "after" : "41.9%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
+    "before" : "45.0%",
     "after" : "45.0%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -55,12 +55,12 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "22.8%",
-    "after" : "23.3%"
+    "before" : "23.3%",
+    "after" : "23.5%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.0%",
-    "after" : "31.5%"
+    "before" : "31.5%",
+    "after" : "31.6%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -75,11 +75,11 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "40.9%",
+    "before" : "41.5%",
     "after" : "41.5%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.4%",
+    "before" : "48.6%",
     "after" : "48.6%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -87,264 +87,52 @@
     "after" : "yes"
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
-    "before" : "8",
+    "before" : "7",
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "254",
-    "after" : "249"
+    "before" : "249",
+    "after" : "250"
   }, {
     "figure" : "Topics reported",
-    "before" : "4",
-    "after" : "6"
+    "before" : "6",
+    "after" : "9"
   }, {
     "figure" : "Concepts written",
-    "before" : "179",
-    "after" : "180"
+    "before" : "180",
+    "after" : "179"
   } ],
   "crossings" : [ {
-    "population" : "TOPIC",
-    "name" : "grammar",
+    "population" : "WORD",
+    "name" : "bars",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "arguments",
+    "name" : "behaviour",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "clone",
+    "name" : "carrying",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "declaration",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "descendants",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "descriptions",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "dump",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "enclosing",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "engine",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "every",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "floor",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "fragment",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "here",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "kind",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "layout",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "length",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "module",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "pace",
+    "name" : "checkout",
     "entered" : true
   }, {
     "population" : "WORD",
     "name" : "package",
-    "entered" : true
+    "entered" : false
   }, {
     "population" : "WORD",
-    "name" : "packages",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "pipeline",
-    "entered" : true
+    "name" : "places",
+    "entered" : false
   }, {
     "population" : "WORD",
     "name" : "pool",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "read",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "sentence",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "separator",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "subtype",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "symbol",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "tree",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "adjacent",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "args",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "checkout",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "claims",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "columns",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "counts",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "csv",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "endpoint",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "entries",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "extract",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "field",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "folder",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "found",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "items",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "json",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "language",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "left",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "median",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "origin",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "pairs",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "pooling",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "quantity",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "query",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "record",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "records",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "registry",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "repository",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "runner",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "statements",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "total",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "vote",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "weighted",
     "entered" : false
   }, {
     "population" : "CONCEPT",
-    "name" : "mathematics",
-    "entered" : true
+    "name" : "css",
+    "entered" : false
   } ]
 }
