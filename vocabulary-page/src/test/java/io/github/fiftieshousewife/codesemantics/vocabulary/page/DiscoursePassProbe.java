@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
+import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
+import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 
 /**
  * Prints both passes of the domain reading for every clone under {@code -Dcs.evaluation.dir}, or for the
@@ -44,15 +48,54 @@ public final class DiscoursePassProbe {
     }
 
     static void probe(final Path root, final Function<String, List<CountedSenseDomains>> senses) {
-        final List<ScoredWord> words = SignificantWords.of(RepositoryReading.of(root));
-        final DomainOverlap first = DomainOverlap.of(root.getFileName().toString(), words, senses);
-        final DomainOverlap guided =
-                DomainOverlap.guidedByTheDiscourse(root.getFileName().toString(), words, senses);
+        final RepositoryReading reading = RepositoryReading.of(root);
+        final List<ScoredWord> words = SignificantWords.of(reading);
+        final String name = root.getFileName().toString();
+        final DomainOverlap first = DomainOverlap.of(name, words, senses);
+        final DomainOverlap discourse = DomainOverlap.guidedByTheDiscourse(name, words, senses);
+        final Map<String, Map<String, Long>> neighbours = NameNeighbours.among(reading.parsed(),
+                words.stream().map(ScoredWord::word).collect(Collectors.toSet()),
+                IdentifierWords.fromClasspath(), ContentWords.fromClasspath());
+        final DomainOverlap named = DomainOverlap.weighed(name, words, senses,
+                PredominantSenses.weights(words, senses, neighbours));
         System.out.printf("%n%s — %d significant words, %d with no labelled sense%n",
                 first.repository(), first.significantWords(), first.wordsWithoutALabelledSense());
         row("counts alone", first);
-        row("discourse-guided", guided);
+        row("discourse-guided", discourse);
+        row("names-around", named);
         counted(words, senses);
+        flips(words, senses, PredominantSenses.weights(words, senses, neighbours));
+    }
+
+    /** The words whose leading domain the neighbours change, strongest claims first. */
+    private static void flips(final List<ScoredWord> words,
+                              final Function<String, List<CountedSenseDomains>> senses,
+                              final Function<String, java.util.function.ToDoubleFunction<CountedSenseDomains>> weights) {
+        final List<String> moved = new java.util.ArrayList<>();
+        int covered = 0;
+        for (final ScoredWord word : words) {
+            final List<CountedSenseDomains> stated = senses.apply(word.word());
+            final String before = leadingDomain(word, stated, DomainMasses::countWeight);
+            if (before.isEmpty()) {
+                continue;
+            }
+            covered++;
+            final String after = leadingDomain(word, stated, weights.apply(word.word()));
+            if (!before.equals(after)) {
+                moved.add(word.word() + " " + before + "→" + after);
+            }
+        }
+        System.out.printf("  leading sense     %d of %d labelled words change leading domain%s%n",
+                moved.size(), covered,
+                moved.isEmpty() ? "" : ": " + String.join(", ", moved.subList(0, Math.min(8, moved.size()))));
+    }
+
+    private static String leadingDomain(final ScoredWord word, final List<CountedSenseDomains> stated,
+                                        final java.util.function.ToDoubleFunction<CountedSenseDomains> weight) {
+        return DomainMasses.sharesOf(word, stated, weight).entrySet().stream()
+                .max(java.util.Map.Entry.comparingByValue())
+                .map(java.util.Map.Entry::getKey)
+                .orElse("");
     }
 
     private static void row(final String pass, final DomainOverlap overlap) {

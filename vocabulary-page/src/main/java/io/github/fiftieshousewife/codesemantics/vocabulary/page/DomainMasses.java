@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
@@ -46,9 +47,10 @@ final class DomainMasses {
 
     static Map<String, Double> claimByDomain(final List<ScoredWord> words,
                                              final Map<String, List<CountedSenseDomains>> senses,
-                                             final ToDoubleFunction<CountedSenseDomains> weight) {
+                                             final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
         return words.stream()
-                .flatMap(word -> sharesOf(word, senses.get(word.word()), weight).entrySet().stream())
+                .flatMap(word -> sharesOf(word, senses.get(word.word()),
+                        weightByWord.apply(word.word())).entrySet().stream())
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                         Collectors.summingDouble(Map.Entry::getValue)));
     }
@@ -76,7 +78,7 @@ final class DomainMasses {
      */
     static double unlabelledShare(final List<ScoredWord> words,
                                   final Map<String, List<CountedSenseDomains>> senses,
-                                  final ToDoubleFunction<CountedSenseDomains> weight) {
+                                  final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
         final List<ScoredWord> covered = words.stream()
                 .filter(word -> !senses.get(word.word()).isEmpty())
                 .toList();
@@ -85,7 +87,8 @@ final class DomainMasses {
             return 0.0;
         }
         final double labelled = covered.stream()
-                .mapToDouble(word -> sharesOf(word, senses.get(word.word()), weight).values().stream()
+                .mapToDouble(word -> sharesOf(word, senses.get(word.word()),
+                        weightByWord.apply(word.word())).values().stream()
                         .mapToDouble(Double::doubleValue)
                         .sum())
                 .sum();

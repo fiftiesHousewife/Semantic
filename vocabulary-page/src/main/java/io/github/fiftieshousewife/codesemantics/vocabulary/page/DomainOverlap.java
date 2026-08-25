@@ -82,9 +82,10 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                                                      final List<ScoredWord> words,
                                                      final Function<String, List<CountedSenseDomains>> senses) {
         final Map<String, List<CountedSenseDomains>> sensesByWord = sensesByWord(words, senses);
+        final Function<String, ToDoubleFunction<CountedSenseDomains>> counts =
+                word -> DomainMasses::countWeight;
         return of(repository, words, senses,
-                DomainMasses.guidedBy(DomainMasses.claimByDomain(words, sensesByWord,
-                        DomainMasses::countWeight)));
+                DomainMasses.guidedBy(DomainMasses.claimByDomain(words, sensesByWord, counts)));
     }
 
     private static Map<String, List<CountedSenseDomains>> sensesByWord(
@@ -96,12 +97,23 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
     private static DomainOverlap of(final String repository, final List<ScoredWord> words,
                                     final Function<String, List<CountedSenseDomains>> senses,
                                     final ToDoubleFunction<CountedSenseDomains> weight) {
+        final Function<String, ToDoubleFunction<CountedSenseDomains>> everyWord = word -> weight;
+        return weighed(repository, words, senses, everyWord);
+    }
+
+    /**
+     * The picture under a weighting that may differ per word — the shape a predominant-sense reading
+     * needs, where each word's senses are weighed by the words written beside it.
+     */
+    public static DomainOverlap weighed(final String repository, final List<ScoredWord> words,
+                                        final Function<String, List<CountedSenseDomains>> senses,
+                                        final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
         final Map<String, List<CountedSenseDomains>> sensesByWord = sensesByWord(words, senses);
         final Map<String, Set<String>> statedByWord = words.stream()
                 .collect(Collectors.toMap(ScoredWord::word,
                         word -> statedIn(sensesByWord.get(word.word()))));
         final Map<String, Double> claimByDomain =
-                DomainMasses.claimByDomain(words, sensesByWord, weight);
+                DomainMasses.claimByDomain(words, sensesByWord, weightByWord);
         final List<Drawn> drawn = leading(claimByDomain);
         final List<String> names = drawn.stream().map(Drawn::domain).toList();
         return new DomainOverlap(repository, drawn, regions(words, statedByWord, names),
@@ -111,7 +123,7 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                         .filter(word -> within(statedByWord.get(word.word()), names).isEmpty())
                         .count(),
                 (int) words.stream().filter(word -> statedByWord.get(word.word()).isEmpty()).count(),
-                DomainMasses.unlabelledShare(words, sensesByWord, weight));
+                DomainMasses.unlabelledShare(words, sensesByWord, weightByWord));
     }
 
     /** Every domain any sense of the word states, in one alphabetical set. */
