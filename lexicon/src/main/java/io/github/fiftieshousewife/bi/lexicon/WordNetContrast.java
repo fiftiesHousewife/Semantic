@@ -88,7 +88,7 @@ final class WordNetContrast {
 
     private List<Synset> directHypernyms(final String word) {
         return entries.exact(POS.NOUN, word).stream()
-                .flatMap(entry -> entry.getSenses().stream())
+                .flatMap(entry -> entries.senses(entry).stream())
                 .flatMap(sense -> sense.getPointers(PointerType.HYPERNYM).stream())
                 .map(this::targetSynset)
                 .toList();
@@ -98,7 +98,7 @@ final class WordNetContrast {
     // semantic ones, so one traversal reads both kinds of declared opposition.
     private boolean opposes(final POS partOfSpeech, final String word, final String other) {
         return entries.exact(partOfSpeech, word).stream()
-                .flatMap(entry -> entry.getSenses().stream())
+                .flatMap(entry -> entries.senses(entry).stream())
                 .flatMap(sense -> sense.getPointers(PointerType.ANTONYM).stream())
                 .anyMatch(pointer -> pointsAt(pointer, other));
     }

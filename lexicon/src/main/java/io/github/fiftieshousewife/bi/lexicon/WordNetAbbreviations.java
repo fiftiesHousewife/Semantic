@@ -61,7 +61,7 @@ final class WordNetAbbreviations {
         return Stream.of(POS.values())
                 .map(partOfSpeech -> entries.exact(partOfSpeech, dotted))
                 .flatMap(Optional::stream)
-                .flatMap(entry -> entry.getSenses().stream())
+                .flatMap(entry -> entries.senses(entry).stream())
                 .flatMap(sense -> sense.getWords().stream())
                 .toList();
     }

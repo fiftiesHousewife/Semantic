@@ -180,16 +180,16 @@ public final class WordNetLexicon implements Lexicon {
     @Override
     public boolean denotesPerson(final String noun) {
         return entries.inflected(POS.NOUN, noun.toLowerCase(Locale.ROOT))
-                .filter(word -> !word.getSenses().isEmpty())
-                .map(WordNetLexicon::sensesDenoteAPerson)
+                .filter(word -> !entries.senses(word).isEmpty())
+                .map(this::sensesDenoteAPerson)
                 .orElse(false);
     }
 
-    private static boolean sensesDenoteAPerson(final IndexWord word) {
+    private boolean sensesDenoteAPerson(final IndexWord word) {
         int personUse = 0;
         int otherUse = 0;
         boolean everyNounSenseIsAPerson = true;
-        for (final Synset sense : word.getSenses()) {
+        for (final Synset sense : entries.senses(word)) {
             if (PERSON_LEX_FILE.equals(sense.getLexFileName())) {
                 personUse = Math.max(personUse, useCount(sense, word.getLemma()));
             } else {

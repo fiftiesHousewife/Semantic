@@ -3,8 +3,10 @@ package io.github.fiftieshousewife.bi.lexicon;
 import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
+import net.sf.extjwnl.data.Synset;
 import net.sf.extjwnl.dictionary.Dictionary;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -39,6 +41,22 @@ final class WordNetEntries {
             throw new IllegalStateException(String.format(Locale.ROOT,
                     "WordNet lookup failed for \"%s\"",
                     written), e);
+        }
+    }
+
+    /**
+     * The entry's senses, taken once and detached from the entry.
+     *
+     * <p><b>Read them through here and never from the entry directly.</b> The list an entry hands back
+     * loads each sense the first time it is asked for and rewrites the entry while it does, and the
+     * dictionary hands every reader the same entry object. Two readings resolving one word at once
+     * therefore see the list change under them, and a caller that read its size and then indexed into it
+     * indexes past the end. The lock is on the entry rather than on the dictionary so that two readers
+     * asking about different words never wait for each other.
+     */
+    List<Synset> senses(final IndexWord entry) {
+        synchronized (entry) {
+            return List.copyOf(entry.getSenses());
         }
     }
 }

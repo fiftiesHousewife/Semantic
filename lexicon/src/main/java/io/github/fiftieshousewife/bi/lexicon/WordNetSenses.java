@@ -2,8 +2,10 @@ package io.github.fiftieshousewife.bi.lexicon;
 
 import net.sf.extjwnl.data.IndexWord;
 import net.sf.extjwnl.data.POS;
+import net.sf.extjwnl.data.Synset;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -72,7 +74,7 @@ final class WordNetSenses {
         }
         return Stream.of(POS.values())
                 .mapToInt(partOfSpeech -> entry(partOfSpeech, written)
-                        .map(entry -> entry.getSenses().size())
+                        .map(entry -> entries.senses(entry).size())
                         .orElse(0))
                 .sum();
     }
@@ -87,11 +89,21 @@ final class WordNetSenses {
         return parts
                 .map(partOfSpeech -> entry(partOfSpeech, written))
                 .flatMap(Optional::stream)
-                .flatMap(entry -> java.util.stream.IntStream.range(0, entry.getSenses().size())
-                        .mapToObj(at -> new CountedSense(entry.getLemma(), entry.getSenses().get(at),
-                                at + 1)))
+                .flatMap(entry -> sensesOf(entry).stream())
                 .max(Comparator.comparingInt(CountedSense::uses))
                 .map(CountedSense::named);
+    }
+
+    /**
+     * The entry's senses paired with the place each takes in its listing, which is what the tagged corpus
+     * counts are read off. The list is taken once rather than indexed where it stands, because an entry
+     * rewrites itself as it resolves and a range built from its size stops being in bounds.
+     */
+    private List<CountedSense> sensesOf(final IndexWord entry) {
+        final List<Synset> senses = entries.senses(entry);
+        return java.util.stream.IntStream.range(0, senses.size())
+                .mapToObj(at -> new CountedSense(entry.getLemma(), senses.get(at), at + 1))
+                .toList();
     }
 
     private Optional<IndexWord> entry(final POS partOfSpeech, final String written) {
