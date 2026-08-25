@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
@@ -65,17 +66,17 @@ public final class WordPipeline {
      * reading that meets words as it walks a tree and a report that funnels a finished tally cannot
      * disagree about what a word is.
      */
-    public java.util.Optional<WordStage> leavesAt(final String word) {
+    public Optional<WordStage> leavesAt(final String word) {
         if (tooShortToMean.test(word)) {
-            return java.util.Optional.of(WordStage.SYMBOL);
+            return Optional.of(WordStage.SYMBOL);
         }
         if (expansions.outnumberTheMeaningsOf(word)) {
-            return java.util.Optional.of(WordStage.SHORTHAND);
+            return Optional.of(WordStage.SHORTHAND);
         }
         if (theLanguages.test(word)) {
-            return java.util.Optional.of(WordStage.LANGUAGE);
+            return Optional.of(WordStage.LANGUAGE);
         }
-        return java.util.Optional.empty();
+        return Optional.empty();
     }
 
     /**

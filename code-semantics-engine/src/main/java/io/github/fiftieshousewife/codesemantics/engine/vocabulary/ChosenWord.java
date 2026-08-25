@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordStage;
+
 /**
  * One word this repository wrote, with what every reference says about it and where to go and look.
  *
@@ -23,7 +25,7 @@ import java.util.Map;
  */
 public record ChosenWord(String word, int occurrences, int inNames, double claim, double share,
                          List<ReferenceClaim> against, String site, boolean theLanguages,
-                         io.github.fiftieshousewife.codesemantics.engine.reading.WordStage removedAt) {
+                         WordStage removedAt) {
 
     /** Whether the pipeline that decides what the reading places keeps this word at every stage. */
     public boolean survivesThePipeline() {

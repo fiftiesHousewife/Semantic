@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
+import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
+import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 
 /**
@@ -86,7 +89,7 @@ public final class TopicCitations {
     public static TopicCitations fromClasspath() {
         return new TopicCitations(SenseDomains.fromClasspath(), SenseDomains.verbsFromClasspath(),
                 SenseDomains.anyPartFromClasspath(), StatedTopics.fromClasspath(),
-                io.github.fiftieshousewife.bi.lexicon.WordNetLexicon.fromClasspath()::senseCount,
+                WordNetLexicon.fromClasspath()::senseCount,
                 publishedTerms(), Weights.defaults());
     }
 
@@ -96,10 +99,9 @@ public final class TopicCitations {
      * field has claimed.
      */
     private static PublishedTerm publishedTerms() {
-        final WordKeyedConcepts terms = WordKeyedConcepts.of(
-                io.github.fiftieshousewife.bi.lexicon.OliaTerms.fromClasspath(),
-                io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords.fromClasspath());
-        return word -> !terms.conceptsOf(java.util.List.of(word)).isEmpty();
+        final WordKeyedConcepts terms = WordKeyedConcepts.of(OliaTerms.fromClasspath(),
+                IdentifierWords.fromClasspath());
+        return word -> !terms.conceptsOf(List.of(word)).isEmpty();
     }
 
     /** Every topical reading of the word as a noun, or an empty list when neither resource claims it. */

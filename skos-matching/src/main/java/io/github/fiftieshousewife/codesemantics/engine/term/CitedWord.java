@@ -4,6 +4,10 @@ import java.util.Locale;
 
 import io.github.fiftieshousewife.bi.lexicon.WikidataInitialisms;
 import io.github.fiftieshousewife.codesemantics.engine.reading.DictionaryWords;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
+import io.github.fiftieshousewife.codesemantics.engine.reading.WordStage;
+import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.name.WholeWords;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 
@@ -87,12 +91,10 @@ public final class CitedWord {
      */
     private boolean isASplitterArtefact(final String word) {
         return PIPELINE.leavesAt(word.strip())
-                .filter(io.github.fiftieshousewife.codesemantics.engine.reading.WordStage.SYMBOL::equals)
+                .filter(WordStage.SYMBOL::equals)
                 .isPresent();
     }
 
     /** The one pipeline that states what a word of a repository is. */
-    private static final io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline PIPELINE =
-            io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines.overJava(
-                    io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords.fromClasspath());
+    private static final WordPipeline PIPELINE = WordPipelines.overJava(ContentWords.fromClasspath());
 }
