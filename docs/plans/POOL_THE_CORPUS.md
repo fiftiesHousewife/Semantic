@@ -69,17 +69,68 @@ The clean half buys almost nothing. The valuable half is exactly what CLAUDE.md 
 
 **The measurement to run first, before any catalogue work:** split at every letter/digit boundary on both sides and read the nine. It may *improve* the reading rather than only tidying it — `aeron1` and `aeron2` are separate words today, diluting `aeron`, which is a genuine subject term for that member.
 
+## The gates came out on 2026-08-24, and the corpus replaced the platform
+
+Seven backtests on the nine, each one Gradle invocation at a time. The criterion was stated before the first: `stands apart` must not fall below 33, `leader in the area` must not fall below 5/9 at either level, and the mean margin must not fall.
+
+| Run | Configuration | Stands apart | Mean margin | Bands | Leader / band |
+|---|---|--:|--:|--:|---|
+| 0 | baseline at `afd3492` | 33 | 0.0434 | 118 | 5/9, 5/9 / 6/9, 6/9 |
+| 1 | corpus replaces the platform; declared names weighed by corpus rank | 33 | 0.0425 | 117 | unchanged |
+| 3 | all three gates out | 31 | 0.0325 | 102 | unchanged |
+| 4 | `SYMBOL` kept, `SHORTHAND` and `LANGUAGE` out | 30 | 0.0350 | 99 | 5/9 band |
+| 5 | `SYMBOL` out, but short function words leaked past `LANGUAGE` | 33 | 0.0356 | 114 | unchanged |
+| 6 | `SYMBOL` out, both dictionary rules asked directly | **34** | 0.0381 | 115 | unchanged |
+| **7** | **the same, weighed per repository** | **34** | **0.0396** | **105** | unchanged |
+
+**`SYMBOL` goes; `SHORTHAND` and `LANGUAGE` stay.** The split falls where the doctrine puts it. `Thresholds.shortestProseWord = 3` is the one chosen constant of the three, and removing it raised the headline count. The other two cite published dictionaries — expansion counts and WordNet's open classes — and removing them costs three verdicts.
+
+**Run 5 is recorded because it was wrong and the fix was worth a point.** The gate was expressed as `leavesAt(word)` excluding `SYMBOL`, and `leavesAt` tests length first, so `a`, `of`, `by` returned `SYMBOL` and slipped past `LANGUAGE`. `WordPipeline.theDictionariesRemove` asks the two rules directly and never asks length.
+
+**A weight cannot be zero here.** `PhraseTopics` takes a geometric mean over a phrase's words, so one zero-weight word sends its term to negative infinity and takes the whole phrase to nothing. `CorpusSpecificity` scales `log(rank + 1) / log(size + 1)` for that reason, and `WrittenAboveTheCorpus` uses `r / (1 + r)`, bounded in `(0, 1]` by its own algebra.
+
+**A phrase's worth carries its most narrowing word.** `PhraseTopics` normalises each phrase's shares to one, which divides the per-word weights out again, so they arbitrate between a phrase's words and say nothing about what the phrase is worth against every other phrase. Without `TopicTally.mostNarrowing` no gate could come out at all.
+
+**`PlatformVocabulary` and `PlatformNames` are deleted.** The corpus carries the platform's own vocabulary at the rate repositories declare it — `string` 32nd, `class` 45th, `list` 75th — and run 1 moved no figure.
+
+**A race in the shared WordNet dictionary was found by running it.** `IndexWord.getSenses()` loads each sense on first access and rewrites the entry while doing it, and the dictionary hands every reader the same entry. `WordNetSenses` read `size()` to build an index range and called `get(at)` later, so a second reader shrank the list in between and fineract died on `IndexOutOfBoundsException`. It does not reproduce single-threaded. `WordNetEntries.senses()` takes the list once under a lock on the entry rather than on the dictionary, so readers of different words never contend; all five call sites route through it.
+
+**`EVERY_WORD` and `CHOSEN` replace `WRITTEN` and `NAMES`.** Both old names described their own removals as well as what they kept — a name is written, and an import, a caught variable and an override are all names. `CHOSEN` is the word `NameForm` already uses, and its stated removals now include the quoted identifier forms rather than only comment prose.
+
+**`A_DEPENDENCY_NAMES_IT` separates a refusal from a gap.** A dependency's coordinates were filed under `NO_WORD_REACHED_A_RESOURCE`, which reads as the resources failing on a word this repository chose. On strata that was 165 runs over 8,486 occurrences, putting `org joda beans meta bean` beside `swaption`.
+
+## Why the nine still place under Artificial Intelligence, measured rather than argued
+
+Seven of nine lead on *Artificial Intelligence* and all four finance members read as computer science. That has held at 5/9 in every configuration including the baseline, so nothing in this session caused it or fixed it.
+
+**The cause is sense selection, not coverage.** strata's own subject words reach the resources, the resources state a topic for each, and the topic is the commonest everyday sense:
+
+| Word | Carried | Read as | The sense strata wrote |
+|---|--:|---|---|
+| `rate` | 607.7 | metrology 0.88 | interest rate |
+| `sensitivity` | 576.0 | physiology 0.83 | risk sensitivity |
+| `price` | 499.4 | medicine 1.00 | price |
+| `leg` | 389.6 | anatomy 0.91 | swap leg |
+| `tenor` | 314.3 | acoustics 0.88 | tenor of a swap |
+| `curve` | 308.7 | geometry 0.91 | yield curve |
+| `strike` | 256.3 | sociology 0.97 | strike price |
+| `trade` | 1085.7 | commerce 0.92, finance 0.02 | finance |
+
+The plumbing that competes with them is read the same way: `builder` as chemistry 0.75, `bean` as gastronomy 0.42, `base` as military 0.97.
+
+**So a finance vocabulary must cover the ambiguous everyday words, not the jargon.** OpenAlex already publishes the concepts — *Stochastic processes and financial applications* sits in strata's own band. What is missing is a competing citation for words whose everyday sense wins. The jargon that reaches nothing at all — `swaption`, `ibor`, `pricer` — is 82 occurrences between them, against roughly 2,750 of carried mass currently voting for the wrong subject.
+
 ## What to do next, in order
 
 Everything below rests on a measurement already taken. The record of each is in **The work, as it was done** further down.
 
 | | Step | Why now |
 |--:|---|---|
-| **1** | **Retire the platform's API reference, or keep it with a number** | The corpus carries the platform's own vocabulary densely — `string` ranks 32nd, `class` 45th, `list` 75th — because repositories declare `RequestHandler`, `EventStream` and `ClassLoader`. So the words `PlatformVocabulary` exists to explain are ones the corpus explains too. Read the nine evaluation members with both references and with the corpus alone; if dropping it changes no member's above-chance field beyond the corpus's own sampling error, it goes. No network, under an hour |
+| **1** | ~~Retire the platform's API reference~~ **Done 2026-08-24.** `PlatformVocabulary` and `PlatformNames` are deleted and the corpus is the second reference. It moved no figure on the nine |
 | **2** | **Make the bar carry its own error** | About one verdict in ten moved at thirty repositories, all of it in words whose claim sits near zero. A hundred reduces it and does not end it: the split-half disagreement falls as size to the power −0.301, which is between-repository heterogeneity rather than sampling noise. A word inside the reference's own sampling error has not been shown to stand above chance, and that error is derivable from the split-half measurement — a bound, not a chosen margin |
 | **3** | **Re-take the three findings the resample re-opened** | `corpusFloor` and `corpusPlateau` were measured over the thirty. Run both over the hundred, and re-run `corpusReference` over the nine to replace the 17% figure. Only the weighting survives untouched, because the mean of shares is an argument about what the frame drew rather than about how many |
 | **4** | **Backtest** | The corpus is bundled and every figure above rests on this tree alone. `./gradlew evaluationReadAll -Dcs.evaluation.dir=$HOME/evaluation` |
-| **5** | **Retire `LANGUAGE`; keep `SYMBOL` and `SHORTHAND`** | `a`, `the` and `of` are below chance on all nine members before any stage runs. `buf` survived on five of nine at thirty and `x` on strata, both against the smaller corpus, so those two need re-reading against the hundred before either is called settled |
+| **5** | ~~Retire `LANGUAGE`~~ **Measured 2026-08-24 and refused; `SYMBOL` went instead.** `LANGUAGE` and `SHORTHAND` are load-bearing — removing them costs three verdicts — and both cite a published dictionary. `SYMBOL` was the one chosen constant and its removal raised the count to 34 |
 
 **Done, and not to be re-opened:** the weighting is the mean of shares; the frame leaves `pushed` unbounded above, because membership must only ever grow; no repository is refused by name unless a measurement names it; the draw pins every row at a commit and writes its own manifest; a fetch takes only the blobs a reading opens.
 
