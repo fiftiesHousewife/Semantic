@@ -1,4 +1,4 @@
-package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
+package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Comparator;
 import java.util.List;
@@ -6,6 +6,9 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.StagedWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordStage;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
  * One repository's vocabulary as the pipeline left it at each of its stages.

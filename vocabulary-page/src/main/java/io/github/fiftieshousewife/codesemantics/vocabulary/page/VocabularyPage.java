@@ -1,4 +1,4 @@
-package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
+package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import j2html.tags.specialized.BodyTag;
 

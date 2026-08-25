@@ -10,6 +10,7 @@ tasks.register("checkAll") {
         ":reference-corpus-extraction:check",
         ":reference-corpus:check",
         ":code-semantics-api:check",
-        ":code-semantics-engine:check"
+        ":code-semantics-engine:check",
+        ":vocabulary-page:check"
     )
 }

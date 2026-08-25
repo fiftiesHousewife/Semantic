@@ -1,4 +1,4 @@
-package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
+package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,12 +13,16 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
+import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.StagedWords;
-import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,17 +41,17 @@ public final class VocabularyPageCommand {
     private static final String STYLESHEET = "vocabulary.css";
     private static final String BEHAVIOUR = "vocabulary.js";
     private static final String RESOURCES = "vocabulary/";
-    private static final String REPORTS = "code-semantics-engine/build/reports/vocabulary";
+    private static final String REPORTS = "vocabulary-page/build/reports/vocabulary";
 
     private VocabularyPageCommand() {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        wrote(Path.of(REPORTS), staged(TreeReading.ofTheCloneUnderReading()));
+        wrote(Path.of(REPORTS), staged(RepositoryReading.of(new CloneUnderReading().root())));
     }
 
     /** Every stage the pipeline puts this tree's words through, with what each left and what it took out. */
-    static StagedVocabulary staged(final TreeReading reading) {
+    static StagedVocabulary staged(final RepositoryReading reading) {
         final WrittenWords written = written(reading);
         final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath()).over(written);
         final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
@@ -85,7 +89,7 @@ public final class VocabularyPageCommand {
     }
 
     /** Every word the tree wrote, as one tally over every scope the walk found. */
-    private static WrittenWords written(final TreeReading reading) {
+    private static WrittenWords written(final RepositoryReading reading) {
         return WrittenWords.pooling(reading.legibility().scopes().stream()
                 .map(ScopeLegibility::written)
                 .toList());
