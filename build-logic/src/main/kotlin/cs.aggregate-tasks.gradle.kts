@@ -11,6 +11,7 @@ tasks.register("checkAll") {
         ":reference-corpus:check",
         ":code-semantics-api:check",
         ":code-semantics-engine:check",
-        ":vocabulary-page:check"
+        ":vocabulary-page:check",
+        ":reading-export:check"
     )
 }
