@@ -62,7 +62,7 @@
     });
 
     document.querySelector(".foot").textContent = "Of the " + cloud.significantWords
-        + " significant words, " + cloud.senses.length + " meanings hold the ones the dictionary reads; "
-        + cloud.wordsWithoutASense
-        + " words carry no stated sense, and a reading that cannot cite abstains.";
+        + " significant words, " + (cloud.significantWords - cloud.wordsWithoutASense)
+        + " resolve to " + cloud.senses.length + " meanings; " + cloud.wordsWithoutASense
+        + " have no dictionary sense and contribute no tile.";
 }());

@@ -55,21 +55,18 @@ public final class VocabularyPage {
                                         + "move through them. A word's size is how far this repository "
                                         + "departs from what it is read against, in bits, and its colour "
                                         + "and weight are how far that stands outside chance. Both scales "
-                                        + "are logarithmic, so a step in either is a multiple rather than "
-                                        + "an amount: the strongest claim on a stage is some hundreds of "
-                                        + "times the weakest, and a scale that spent size evenly over that "
-                                        + "range left seven words in ten the same size. Every word drawn "
-                                        + "stands outside what a repository of this size would have "
-                                        + "reached by chance; nothing else is drawn, and how many that is "
-                                        + "is not a number chosen here. The stages are stated by "),
+                                        + "are logarithmic: a step is a multiple, and the strongest claim "
+                                        + "on a stage is some hundreds of times the weakest. Every drawn "
+                                        + "word exceeds what a repository of this size reaches by "
+                                        + "chance, so the count of drawn words follows from that bound. "
+                                        + "The stages are stated by "),
                                 code("WordPipeline"), text(".")),
                         dl().withClass("summary"),
                         div().withClass("stages"),
-                        p().withClass("foot").withText("The last stage merges rather than removes: two "
-                                + "spellings becoming one word is not a word being taken out, so its "
-                                + "count of times written does not fall. A word every reference writes as "
-                                + "densely as this repository does departs from nothing and so has no size "
-                                + "to draw.")),
+                        p().withClass("foot").withText("The last stage merges two spellings into one "
+                                + "dictionary form and keeps both counts. A word every reference writes "
+                                + "at least as densely as this repository has a weight of zero, and the "
+                                + "page leaves it out.")),
                 script().withType("application/json").withId("vocabulary").with(rawHtml(data)),
                 script(rawHtml(behaviour)));
     }

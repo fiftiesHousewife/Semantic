@@ -2,15 +2,18 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import j2html.tags.specialized.BodyTag;
 
+import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h1;
+import static j2html.TagCreator.li;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.rawHtml;
 import static j2html.TagCreator.script;
 import static j2html.TagCreator.span;
 import static j2html.TagCreator.style;
 import static j2html.TagCreator.text;
+import static j2html.TagCreator.ul;
 
 /**
  * The domain-overlap page's markup, as typed tags.
@@ -19,8 +22,16 @@ import static j2html.TagCreator.text;
  * whole into the page, and the page carries no document wrapper — the same contract as
  * {@link VocabularyPage}, for the same reasons. The circles, the counts and the word lists are drawn by
  * the script from the data block, which is what {@link DomainOverlap} computed; nothing is computed here.
+ *
+ * <p>The heading, the lede and the figure share one viewport height, so the picture is on screen whole
+ * before anything scrolls; the word lists and the method follow below it.
  */
 public final class DomainVennPage {
+
+    private static final String WORDNET_DOMAINS = "https://wndomains.fbk.eu/";
+    private static final String WORDNET = "https://wordnet.princeton.edu/";
+    private static final String TAGGED_COUNTS = "https://wordnet.princeton.edu/documentation/cntlist5wn";
+    private static final String DIVERGENCE = "https://ieeexplore.ieee.org/document/61115";
 
     private final String data;
     private final String stylesheet;
@@ -40,23 +51,39 @@ public final class DomainVennPage {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
-                        h1().with(text("The domains of "), span().withClass("repository")),
-                        p().withClass("lede").with(text("The three WordNet domains carrying the most of "
-                                + "this repository's significant words, drawn as overlapping sets. A word "
-                                + "belongs to every domain any of its senses states, so a word in an "
-                                + "overlap is one whose senses span both domains. A word in bold states "
-                                + "one domain across every labelled sense; the bold words are the anchor "
-                                + "the mixed words are read beside. A word's weight divides over its "
-                                + "senses by the counts WordNet's own tagged corpus publishes, and the "
-                                + "share on senses no domain labels stays on no domain. A circle's area is its "
-                                + "domain's share of the divergence, down to a floor that keeps the "
-                                + "smallest circle readable; two circles overlap only where at least one "
-                                + "word sits in both; a word's size is its own share, as "
-                                + "everywhere else in this reading. A count opens its overlap's words, "
-                                + "and a word opens its place in the vocabulary.")),
-                        div().withClass("figure"),
+                        div().withClass("fold").with(
+                                h1().with(text("The domains of "), span().withClass("repository")),
+                                p().withClass("lede").with(
+                                        text("The three "),
+                                        a("WordNet domains").withHref(WORDNET_DOMAINS),
+                                        text(" carrying the most of this repository's significant words, "
+                                                + "drawn as overlapping sets. A word sits in every domain "
+                                                + "any of its "),
+                                        a("senses").withHref(WORDNET),
+                                        text(" states, so an overlap holds the words whose senses span "
+                                                + "both of its domains.")),
+                                div().withClass("figure")),
                         p().withClass("readout"),
                         div().withClass("overlaps"),
+                        ul().withClass("method").with(
+                                li().with(text("A word's weight is its term of the "),
+                                        a("Jensen–Shannon divergence").withHref(DIVERGENCE),
+                                        text(" between this repository's words and the reference scoring "
+                                                + "it lowest, in bits, and its drawn size follows that "
+                                                + "weight.")),
+                                li().with(text("The weight divides over the word's senses by the counts "),
+                                        a("WordNet's tagged corpus").withHref(TAGGED_COUNTS),
+                                        text(" publishes. An uncounted sense holds 0.5, and a sense "
+                                                + "carrying several labels counts once per label.")),
+                                li().with(text("The share on senses with no domain label contributes no "
+                                        + "evidence; the line below states how much that is.")),
+                                li().with(text("Bold marks a word whose every labelled sense states one "
+                                        + "domain.")),
+                                li().with(text("A circle's area is its domain's share of the divided "
+                                        + "weight, above a smallest readable radius, and two circles "
+                                        + "overlap only where at least one word sits in both.")),
+                                li().with(text("A count opens its overlap's words, and a word opens its "
+                                        + "place in the vocabulary."))),
                         p().withClass("foot")),
                 script().withType("application/json").withId("overlap").with(rawHtml(data)),
                 script(rawHtml(behaviour)));

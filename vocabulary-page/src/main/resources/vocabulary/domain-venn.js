@@ -264,18 +264,15 @@
         var others = overlap.otherDomains.slice(0, 5).map(function (other) {
             return other.domain;
         });
-        var drawnCount = allPlaced.length;
-        var parts = ["Of the " + overlap.significantWords
-            + " significant words, two spellings the dictionary reads as one word counted once: "
-            + drawnCount + " are drawn above"];
+        var parts = ["Of the " + overlap.significantWords + " significant words, "
+            + allPlaced.length + " sit in a drawn domain"];
         if (overlap.wordsInOtherDomainsOnly > 0) {
             parts.push(overlap.wordsInOtherDomainsOnly + " state only the " + overlap.otherDomains.length
-                + " domains the picture leaves out (largest: " + others.join(", ") + ")");
+                + " domains outside the picture (largest: " + others.join(", ") + ")");
         }
-        parts.push(overlap.wordsWithoutALabelledSense
-            + " carry no labelled sense, and a reading that cannot cite abstains");
+        parts.push(overlap.wordsWithoutALabelledSense + " state no labelled sense");
         parts.push((overlap.shareOfClaimOnUnlabelledSenses * 100).toFixed(0)
-            + "% of everything the words claim sits on senses no domain labels, and stays there");
+            + "% of the summed weight sits on senses with no domain label and contributes no evidence");
         document.querySelector(".foot").textContent = parts.join("; ") + ".";
     }
 

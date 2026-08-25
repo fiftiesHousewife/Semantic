@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,6 +29,11 @@ import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
  * sitting on senses the resource labels nothing with stays on no domain: it is a fact about the word,
  * never redistributed among the labelled remainder. What the three leave out is counted and named rather
  * than dropped — the other domains with their mass, and the words no labelled sense covers.
+ *
+ * <p>{@link #guidedByTheDiscourse} runs the division twice: the first pass as above, and a second in which
+ * each sense's weight is multiplied by {@code 1 +} the share the first pass gave its labels — one sense
+ * per discourse, with the factor bounded in {@code [1, 2]} by what a share is and exactly {@code 1} for
+ * an unlabelled sense.
  */
 public record DomainOverlap(String repository, List<Drawn> domains, List<Region> regions,
                             List<LeftOut> otherDomains, int significantWords, int wordsInOtherDomainsOnly,
@@ -35,9 +41,6 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
 
     /** How many leading domains the diagram draws, the most a diagram of overlapping sets can hold. */
     static final int DOMAINS_DRAWN = 3;
-
-    /** What an uncounted sense holds, so a sense the corpus never met is rare rather than absent. */
-    static final double UNCOUNTED_SENSE = 0.5;
 
     /** One drawn domain with the mass that ranked it, which is what sizes its circle. */
     public record Drawn(String domain, double claim) {
@@ -67,12 +70,38 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
 
     public static DomainOverlap of(final String repository, final List<ScoredWord> words,
                                    final Function<String, List<CountedSenseDomains>> senses) {
-        final Map<String, List<CountedSenseDomains>> sensesByWord = words.stream()
+        return of(repository, words, senses, DomainMasses::countWeight);
+    }
+
+    /**
+     * The same picture after a second pass: each sense reweighed by {@code 1 +} the share the first pass
+     * gave its labels, so the words whose counts say nothing follow the domains the counted words agree
+     * on.
+     */
+    public static DomainOverlap guidedByTheDiscourse(final String repository,
+                                                     final List<ScoredWord> words,
+                                                     final Function<String, List<CountedSenseDomains>> senses) {
+        final Map<String, List<CountedSenseDomains>> sensesByWord = sensesByWord(words, senses);
+        return of(repository, words, senses,
+                DomainMasses.guidedBy(DomainMasses.claimByDomain(words, sensesByWord,
+                        DomainMasses::countWeight)));
+    }
+
+    private static Map<String, List<CountedSenseDomains>> sensesByWord(
+            final List<ScoredWord> words, final Function<String, List<CountedSenseDomains>> senses) {
+        return words.stream()
                 .collect(Collectors.toMap(ScoredWord::word, word -> senses.apply(word.word())));
+    }
+
+    private static DomainOverlap of(final String repository, final List<ScoredWord> words,
+                                    final Function<String, List<CountedSenseDomains>> senses,
+                                    final ToDoubleFunction<CountedSenseDomains> weight) {
+        final Map<String, List<CountedSenseDomains>> sensesByWord = sensesByWord(words, senses);
         final Map<String, Set<String>> statedByWord = words.stream()
                 .collect(Collectors.toMap(ScoredWord::word,
                         word -> statedIn(sensesByWord.get(word.word()))));
-        final Map<String, Double> claimByDomain = claimByDomain(words, sensesByWord);
+        final Map<String, Double> claimByDomain =
+                DomainMasses.claimByDomain(words, sensesByWord, weight);
         final List<Drawn> drawn = leading(claimByDomain);
         final List<String> names = drawn.stream().map(Drawn::domain).toList();
         return new DomainOverlap(repository, drawn, regions(words, statedByWord, names),
@@ -82,7 +111,7 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                         .filter(word -> within(statedByWord.get(word.word()), names).isEmpty())
                         .count(),
                 (int) words.stream().filter(word -> statedByWord.get(word.word()).isEmpty()).count(),
-                unlabelledShare(words, sensesByWord));
+                DomainMasses.unlabelledShare(words, sensesByWord, weight));
     }
 
     /** Every domain any sense of the word states, in one alphabetical set. */
@@ -90,58 +119,6 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
         return senses.stream()
                 .flatMap(sense -> sense.domains().stream())
                 .collect(Collectors.toCollection(TreeSet::new));
-    }
-
-    private static Map<String, Double> claimByDomain(final List<ScoredWord> words,
-                                                     final Map<String, List<CountedSenseDomains>> senses) {
-        return words.stream()
-                .flatMap(word -> sharesOf(word, senses.get(word.word())).entrySet().stream())
-                .collect(Collectors.groupingBy(Map.Entry::getKey,
-                        Collectors.summingDouble(Map.Entry::getValue)));
-    }
-
-    /**
-     * One word's claim as a share per domain: each sense weighs its tagged-corpus count, a sense with
-     * several labels counts once per label, and the unlabelled senses hold their weight on no domain.
-     */
-    private static Map<String, Double> sharesOf(final ScoredWord word,
-                                                final List<CountedSenseDomains> senses) {
-        final double whole = senses.stream()
-                .mapToDouble(sense -> weightOf(sense) * Math.max(1, sense.domains().size()))
-                .sum();
-        if (whole == 0.0) {
-            return Map.of();
-        }
-        return senses.stream()
-                .flatMap(sense -> sense.domains().stream()
-                        .map(domain -> Map.entry(domain, word.claim() * weightOf(sense) / whole)))
-                .collect(Collectors.groupingBy(Map.Entry::getKey,
-                        Collectors.summingDouble(Map.Entry::getValue)));
-    }
-
-    private static double weightOf(final CountedSenseDomains sense) {
-        return sense.uses() > 0 ? sense.uses() : UNCOUNTED_SENSE;
-    }
-
-    /**
-     * Of everything the dictionary-covered words claim, the share their senses put on no domain — stated,
-     * never spread. A word with no senses at all is not in the ratio; it has its own count above.
-     */
-    private static double unlabelledShare(final List<ScoredWord> words,
-                                          final Map<String, List<CountedSenseDomains>> senses) {
-        final List<ScoredWord> covered = words.stream()
-                .filter(word -> !senses.get(word.word()).isEmpty())
-                .toList();
-        final double claimed = covered.stream().mapToDouble(ScoredWord::claim).sum();
-        if (claimed == 0.0) {
-            return 0.0;
-        }
-        final double labelled = covered.stream()
-                .mapToDouble(word -> sharesOf(word, senses.get(word.word())).values().stream()
-                        .mapToDouble(Double::doubleValue)
-                        .sum())
-                .sum();
-        return (claimed - labelled) / claimed;
     }
 
     private static List<Drawn> leading(final Map<String, Double> claimByDomain) {

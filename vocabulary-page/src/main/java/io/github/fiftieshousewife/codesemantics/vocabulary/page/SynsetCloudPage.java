@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import j2html.tags.specialized.BodyTag;
 
+import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h1;
@@ -39,12 +40,13 @@ public final class SynsetCloudPage {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1().with(text("The meanings of "), span().withClass("repository")),
-                        p().withClass("lede").with(text("The significant words gathered under the WordNet "
-                                + "senses they are most often written in. Two words the dictionary reads "
-                                + "as one meaning are one tile, weighed by their claims summed, so this "
-                                + "cloud draws meanings where the vocabulary page draws spellings. A tile "
-                                + "opens its words in the vocabulary, and resting on one names its part "
-                                + "of speech and the domains its sense carries.")),
+                        p().withClass("lede").with(text("The significant words gathered under the "),
+                                a("WordNet").withHref("https://wordnet.princeton.edu/"),
+                                text(" senses they are most often written in. One tile is one meaning: "
+                                        + "two words the dictionary reads alike share a tile, weighed by "
+                                        + "their weights summed. A tile opens its words in the "
+                                        + "vocabulary, and resting on one names its part of speech and "
+                                        + "the domains its sense carries.")),
                         div().withClass("cloud"),
                         p().withClass("readout"),
                         p().withClass("foot")),

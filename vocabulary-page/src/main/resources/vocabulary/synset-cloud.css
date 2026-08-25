@@ -40,7 +40,6 @@ h1 {
 
 .lede, .foot {
     color: var(--ink-soft);
-    max-width: 46rem;
 }
 
 .cloud {

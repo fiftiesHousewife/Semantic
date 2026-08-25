@@ -69,3 +69,18 @@ tasks.register<JavaExec>("synsetCloud") {
     workingDir = rootDir
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
+
+// Both passes of the domain reading over every evaluation clone, with how much of the sense weighting
+// rests on published counts. It prints; nothing votes on it and no published figure moves.
+//   ./gradlew discoursePass -Dcs.evaluation.dir=<directory holding the clones>
+//   ./gradlew discoursePass -Dcs.clone.dir=<path>       # one tree
+tasks.register<JavaExec>("discoursePass") {
+    group = "verification"
+    description = "Prints the counts-alone and discourse-guided domain readings for the evaluation clones"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DiscoursePassProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "8g"
+    workingDir = rootDir
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
+}
