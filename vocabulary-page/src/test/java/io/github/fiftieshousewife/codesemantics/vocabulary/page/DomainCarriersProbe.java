@@ -32,6 +32,7 @@ public final class DomainCarriersProbe {
                 reading.root().getFileName(), words.size());
         carriers("the bundled lift", words, lexicon::countedSenseDomainsOf);
         carriers("extended domains", words, lexicon::extendedCountedSenseDomainsOf);
+        carriers("extended weighed", words, lexicon::weighedExtendedCountedSenseDomainsOf);
     }
 
     static void carriers(final String source, final List<ScoredWord> words,

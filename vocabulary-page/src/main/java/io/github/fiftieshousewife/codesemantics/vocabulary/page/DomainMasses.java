@@ -55,7 +55,11 @@ final class DomainMasses {
                         Collectors.summingDouble(Map.Entry::getValue)));
     }
 
-    /** One word's weight as a share per domain, over its senses at the given weighting. */
+    /**
+     * One word's weight as a share per domain, over its senses at the given weighting. Each label's term
+     * is multiplied by the sense's {@code labelStrength} while the whole is not, so what strength
+     * withholds reaches no domain and lands in the unlabelled share.
+     */
     static Map<String, Double> sharesOf(final ScoredWord word, final List<CountedSenseDomains> senses,
                                         final ToDoubleFunction<CountedSenseDomains> weight) {
         final double whole = senses.stream()
@@ -67,7 +71,7 @@ final class DomainMasses {
         return senses.stream()
                 .flatMap(sense -> sense.domains().stream()
                         .map(domain -> Map.entry(domain,
-                                word.claim() * weight.applyAsDouble(sense) / whole)))
+                                word.claim() * weight.applyAsDouble(sense) * sense.labelStrength() / whole)))
                 .collect(Collectors.groupingBy(Map.Entry::getKey,
                         Collectors.summingDouble(Map.Entry::getValue)));
     }

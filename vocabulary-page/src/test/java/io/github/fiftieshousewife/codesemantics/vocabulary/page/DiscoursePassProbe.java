@@ -65,6 +65,8 @@ public final class DiscoursePassProbe {
         row("names-around", named);
         row("extended domains", DomainOverlap.of(name, words,
                 WordNetLexicon.fromClasspath()::extendedCountedSenseDomainsOf));
+        row("extended weighed", DomainOverlap.of(name, words,
+                WordNetLexicon.fromClasspath()::weighedExtendedCountedSenseDomainsOf));
         counted(words, senses);
         flips(words, senses, PredominantSenses.weights(words, senses, neighbours));
     }

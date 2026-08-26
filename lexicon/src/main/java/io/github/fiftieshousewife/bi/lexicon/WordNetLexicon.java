@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.ToDoubleFunction;
 
 /**
  * {@link Lexicon} over the bundled WordNet database. A noun denotes a person when its person senses —
@@ -165,14 +166,27 @@ public final class WordNetLexicon implements Lexicon {
      * about a key.
      */
     public List<CountedSenseDomains> extendedCountedSenseDomainsOf(final String word) {
+        return extendedSensesOf(word, label -> 1.0);
+    }
+
+    /**
+     * The same labels, each carrying the strength its stated propagation weight derives — the
+     * {@code w / (w + uniform)} ratio {@link XwndDomains} computes — so a barely leading domain votes at
+     * about half strength and the shortfall reaches no domain.
+     */
+    public List<CountedSenseDomains> weighedExtendedCountedSenseDomainsOf(final String word) {
+        return extendedSensesOf(word, XwndDomains.Label::strength);
+    }
+
+    private List<CountedSenseDomains> extendedSensesOf(final String word,
+                                                       final ToDoubleFunction<XwndDomains.Label> strength) {
         final XwndDomains extended = XwndDomains.fromClasspath();
         return senses.countedSenses(word).stream()
-                .map(counted -> new CountedSenseDomains(
-                        counted.senseKey()
-                                .flatMap(extended::of)
-                                .map(java.util.Set::of)
-                                .orElseGet(java.util.Set::of),
-                        counted.uses()))
+                .map(counted -> counted.senseKey()
+                        .flatMap(extended::labelOf)
+                        .map(label -> new CountedSenseDomains(Set.of(label.domain()), counted.uses(),
+                                strength.applyAsDouble(label)))
+                        .orElseGet(() -> new CountedSenseDomains(Set.of(), counted.uses())))
                 .toList();
     }
 

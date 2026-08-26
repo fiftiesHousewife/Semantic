@@ -6,6 +6,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CountedSenseDomainsTest {
@@ -41,5 +42,19 @@ class CountedSenseDomainsTest {
     @Test
     void statesNothingForAFormTheDictionaryDoesNotHold() {
         assertThat(lexicon.countedSenseDomainsOf("qzx")).isEmpty();
+    }
+
+    @Test
+    void carriesItsLabelsAtFullStrengthUnlessAStrengthIsStated() {
+        assertThat(new CountedSenseDomains(Set.of("economy"), 3).labelStrength()).isEqualTo(1.0);
+    }
+
+    @Test
+    void refusesAStrengthOutsideTheShareOfFullStrengthItIs() {
+        assertAll(
+                () -> assertThatIllegalArgumentException()
+                        .isThrownBy(() -> new CountedSenseDomains(Set.of("economy"), 3, -0.1)),
+                () -> assertThatIllegalArgumentException()
+                        .isThrownBy(() -> new CountedSenseDomains(Set.of("economy"), 3, 1.1)));
     }
 }

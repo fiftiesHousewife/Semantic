@@ -138,6 +138,25 @@ class DomainOverlapTest {
     }
 
     @Test
+    void scalesADomainsShareByTheLabelsStrengthAndHoldsTheShortfallOnNoDomain() {
+        final Function<String, List<CountedSenseDomains>> senses = word ->
+                List.of(new CountedSenseDomains(Set.of("linguistics"), 10, 0.25));
+
+        final DomainOverlap scaled = DomainOverlap.of("a-repository",
+                List.of(word("lemma", 0.010)), senses);
+
+        assertAll(
+                () -> assertThat(scaled.domains())
+                        .extracting(DomainOverlap.Drawn::claim)
+                        .as("the label votes at a quarter strength, so the domain holds a quarter of "
+                                + "the claim")
+                        .containsExactly(0.010 * 0.25),
+                () -> assertThat(scaled.shareOfClaimOnUnlabelledSenses())
+                        .as("the withheld three quarters sit on no domain")
+                        .isCloseTo(0.75, within(1e-12)));
+    }
+
+    @Test
     void countsWhatThePictureLeavesOutRatherThanDroppingIt() {
         assertAll(
                 () -> assertThat(overlap.otherDomains())

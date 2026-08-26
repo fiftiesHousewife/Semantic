@@ -35,4 +35,27 @@ class XwndDomainsTest {
                                 + "join is not usable: %d of %d senses labelled", labelled, senses.size())
                         .isGreaterThan(0.8));
     }
+
+    @Test
+    void weighsEachLabelByItsPropagationWeightAgainstTheUniformWeight() {
+        final List<CountedSenseDomains> weighed =
+                ((WordNetLexicon) lexicon).weighedExtendedCountedSenseDomainsOf("bank");
+
+        assertAll(
+                () -> assertThat(weighed)
+                        .extracting(CountedSenseDomains::domains)
+                        .as("the labels are the same as the unweighed reading's")
+                        .containsExactlyElementsOf(((WordNetLexicon) lexicon)
+                                .extendedCountedSenseDomainsOf("bank").stream()
+                                .map(CountedSenseDomains::domains)
+                                .toList()),
+                () -> assertThat(weighed)
+                        .filteredOn(sense -> !sense.domains().isEmpty())
+                        .as("a stated weight is finite, so its strength sits strictly inside (0, 1)")
+                        .allMatch(sense -> sense.labelStrength() > 0.0 && sense.labelStrength() < 1.0),
+                () -> assertThat(weighed)
+                        .filteredOn(sense -> sense.domains().isEmpty())
+                        .as("a sense the table does not label keeps full strength on its empty label set")
+                        .allMatch(sense -> sense.labelStrength() == 1.0));
+    }
 }
