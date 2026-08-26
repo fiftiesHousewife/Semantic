@@ -4,6 +4,7 @@ import j2html.tags.specialized.BodyTag;
 
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
+import static j2html.TagCreator.details;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.p;
@@ -11,6 +12,7 @@ import static j2html.TagCreator.rawHtml;
 import static j2html.TagCreator.script;
 import static j2html.TagCreator.span;
 import static j2html.TagCreator.style;
+import static j2html.TagCreator.summary;
 import static j2html.TagCreator.text;
 
 /**
@@ -66,7 +68,10 @@ public final class VocabularyPage {
                                         + "and its weight is how far that stands outside chance, both "
                                         + "logarithmic; a coloured mark names one of the three leading "
                                         + "domains, drawn as circles on the domains page.")),
-                        div().withClass("funnel"),
+                        details().isOpen().with(
+                                summary("The funnel: every rule between the names and the tiles — click "
+                                        + "a row for its own population"),
+                                div().withClass("funnel")),
                         div().withClass("cloud"),
                         p().withClass("readout"),
                         p().withClass("foot")),

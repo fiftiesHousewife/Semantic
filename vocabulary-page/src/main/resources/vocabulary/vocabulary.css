@@ -93,12 +93,34 @@ h1 {
     color: var(--accent);
 }
 
+details {
+    margin: 1.5rem 0 0;
+}
+
+summary {
+    cursor: pointer;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
 .funnel {
-    margin: 1.5rem 0;
+    margin: 0.75rem 0;
 }
 
 .funnel .step {
     margin: 0.6rem 0;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    padding-left: 0.6rem;
+}
+
+.funnel .step.chosen {
+    border-left-color: var(--accent);
+}
+
+.funnel .step:focus {
+    outline: 1px solid var(--ink-faint);
+    outline-offset: 2px;
 }
 
 .funnel .bar {
@@ -125,7 +147,7 @@ h1 {
     border: 1px solid var(--rule);
     border-radius: 6px;
     padding: 1.25rem 1.5rem;
-    margin: 1.5rem 0 0.75rem;
+    margin: 1rem 0 0.75rem;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -133,11 +155,15 @@ h1 {
     text-align: center;
     column-gap: 0.65em;
     row-gap: 0.3em;
+    max-height: 55vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    align-content: flex-start;
 }
 
 .cloud b {
     font-weight: 450;
-    cursor: default;
+    cursor: pointer;
 }
 
 .cloud b.merged {

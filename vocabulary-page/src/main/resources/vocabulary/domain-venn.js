@@ -234,8 +234,11 @@
                 : " · its senses state several domains");
     }
 
+    var byWord = {};
+
     function tile(region, word) {
         var made = document.createElement("a");
+        byWord[word.word] = made;
         made.textContent = word.word;
         made.href = "vocabulary.html#w-" + encodeURIComponent(word.word);
         made.className = word.unambiguous ? "anchor" : "";
@@ -300,4 +303,15 @@
         drawRegions();
     }
     drawFoot();
+
+    /* A link from the vocabulary names one word; stand on it in its overlap. */
+    if (location.hash.indexOf("#w-") === 0) {
+        var linked = byWord[decodeURIComponent(location.hash.slice(3))];
+        if (linked) {
+            requestAnimationFrame(function () {
+                linked.scrollIntoView({block: "center"});
+                linked.focus();
+            });
+        }
+    }
 }());

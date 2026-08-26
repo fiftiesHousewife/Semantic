@@ -47,7 +47,7 @@ class VocabularyPageCommandTest {
 
     @Test
     void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
-        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 4, 1, 1, 4, 3, List.of());
+        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 4, 1, 1, 4, 3, List.of(), List.of(), List.of());
 
         final Path page = VocabularyPageCommand.wrote(reports, funnel, List.of("linguistics"));
 

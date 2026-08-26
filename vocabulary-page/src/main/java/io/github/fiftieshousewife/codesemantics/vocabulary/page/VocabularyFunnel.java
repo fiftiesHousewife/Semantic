@@ -33,7 +33,19 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull
  * dictionary says they mean the same thing. A word the dictionary states no sense for keeps its own tile.
  */
 public record VocabularyFunnel(String repository, int field, int belowChance, int withinError,
-                               int languageSupplied, int signals, int words, List<Tile> tiles) {
+                               int languageSupplied, int signals, int words, List<Ranked> ranked,
+                               List<Form> forms, List<Tile> tiles) {
+
+    /**
+     * One ranked word with the rule that sets it aside, or none where it survives to the signals —
+     * what a funnel row shows when it is asked for its own population.
+     */
+    public record Ranked(String word, double claim, double timesChance, String leftAt) {
+    }
+
+    /** One dictionary form of the signals, the population between the spellings and the meanings. */
+    public record Form(String word, double claim, double timesChance, int occurrences) {
+    }
 
     /**
      * One meaning of the final cloud: the words of this repository that resolve to it, the claims summed,
@@ -46,6 +58,8 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
     }
 
     public VocabularyFunnel {
+        ranked = List.copyOf(ranked);
+        forms = List.copyOf(forms);
         tiles = List.copyOf(tiles);
     }
 
@@ -72,7 +86,37 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
                 aboveChance.size() - chosen.size(),
                 chosen.size(),
                 words.size(),
+                ranked.stream().map(word -> rankedWord(word, bars)).toList(),
+                words.stream()
+                        .sorted(Comparator.comparingDouble(Word::claim).reversed()
+                                .thenComparing(Word::word))
+                        .map(word -> new Form(word.word(), word.claim(), word.timesChance(),
+                                word.occurrences()))
+                        .toList(),
                 tiles(words));
+    }
+
+    private static Ranked rankedWord(final ChosenWord word, final Map<String, Double> bars) {
+        return new Ranked(word.word(), word.claim(), marginOverBar(word, bars), leftAt(word, bars));
+    }
+
+    /** The rule that sets a word aside, named the way the export's counts name it, or none. */
+    private static String leftAt(final ChosenWord word, final Map<String, Double> bars) {
+        if (word.withinTheReferencesError(bars)) {
+            return "error";
+        }
+        if (!word.clears(bars)) {
+            return "chance";
+        }
+        return word.theLanguages() ? "english" : "";
+    }
+
+    private static double marginOverBar(final ChosenWord word, final Map<String, Double> bars) {
+        return word.against().stream()
+                .filter(reference -> bars.getOrDefault(reference.reference(), 0.0) > 0.0)
+                .mapToDouble(reference -> reference.margin() / bars.get(reference.reference()))
+                .min()
+                .orElse(0.0);
     }
 
     /** One dictionary form with its figures, the intermediate the sense merge runs on. */
@@ -91,11 +135,7 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
     private static Word word(final String lemma, final List<ChosenWord> spellings,
                              final Map<String, Double> bars) {
         final double timesChance = spellings.stream()
-                .mapToDouble(word -> word.against().stream()
-                        .filter(reference -> bars.getOrDefault(reference.reference(), 0.0) > 0.0)
-                        .mapToDouble(reference -> reference.margin() / bars.get(reference.reference()))
-                        .min()
-                        .orElse(0.0))
+                .mapToDouble(word -> marginOverBar(word, bars))
                 .max()
                 .orElse(0.0);
         return new Word(lemma, spellings.stream().mapToDouble(ChosenWord::claim).sum(), timesChance,
