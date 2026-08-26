@@ -159,6 +159,23 @@ public final class WordNetLexicon implements Lexicon {
                 .toList();
     }
 
+    /**
+     * The same walk with the labels of the bundled eXtended WordNet Domains reduction: one leading domain
+     * per synset, joined by sense key, empty only where the bundled dictionary and the table disagree
+     * about a key.
+     */
+    public List<CountedSenseDomains> extendedCountedSenseDomainsOf(final String word) {
+        final XwndDomains extended = XwndDomains.fromClasspath();
+        return senses.countedSenses(word).stream()
+                .map(counted -> new CountedSenseDomains(
+                        counted.senseKey()
+                                .flatMap(extended::of)
+                                .map(java.util.Set::of)
+                                .orElseGet(java.util.Set::of),
+                        counted.uses()))
+                .toList();
+    }
+
     private CountedSenseDomains countedDomainsOf(final CountedSense counted, final String word) {
         final WordSense named = counted.named();
         return new CountedSenseDomains(

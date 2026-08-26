@@ -1,5 +1,8 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
+import java.util.Optional;
+
+import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.Synset;
 import net.sf.extjwnl.data.Word;
 
@@ -17,6 +20,22 @@ record CountedSense(String lemma, Synset sense, int senseNumber) {
                 .mapToInt(Word::getUseCount)
                 .max()
                 .orElse(0);
+    }
+
+    /** WordNet's own version-stable identifier of this word in this sense, where extjwnl states one. */
+    Optional<String> senseKey() {
+        return sense.getWords().stream()
+                .filter(word -> word.getLemma().equalsIgnoreCase(lemma))
+                .findFirst()
+                .map(CountedSense::keyOf);
+    }
+
+    private static String keyOf(final Word word) {
+        try {
+            return word.getSenseKey();
+        } catch (final JWNLException e) {
+            throw new IllegalStateException("The dictionary could not state a sense key for " + word, e);
+        }
     }
 
     WordSense named() {

@@ -232,3 +232,22 @@ tasks.register<JavaExec>("extractOpenAlexTopics") {
             .file("lexicon/src/main/resources/openalex-topic-sizes.tsv").asFile.absolutePath
     )
 }
+
+// The eXtended WordNet Domains distribution, reduced to one domain per synset. The archive is handed over
+// by path and accepted only at its recorded digest.
+//   ./gradlew :lexicon-extraction:extractXwndDomains -Pxwnd=<xwnd-30g.tgz> -Pwn30=<extjwnl-data-wn30 jar>
+tasks.register<JavaExec>("extractXwndDomains") {
+    group = "build"
+    description = "Reduces the eXtended WordNet Domains archive to the bundled one-domain-per-synset table"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.XwndDomainsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    workingDir = rootDir
+    maxHeapSize = "4g"
+    args = listOfNotNull(
+        (findProperty("xwnd") as String?)?.let {
+            rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+        },
+        (findProperty("wn30") as String?)?.let {
+            rootProject.layout.projectDirectory.file(it).asFile.absolutePath
+        })
+}
