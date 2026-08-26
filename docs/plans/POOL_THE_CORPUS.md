@@ -1,6 +1,6 @@
 # Pool the corpus: turn thirty drawn repositories into the denominator
 
-**This is the live plan.** It continues [`RANK_DO_NOT_GATE.md`](RANK_DO_NOT_GATE.md) from its fourth step and takes its criteria from [`A_CORPUS_NOT_AN_INDEX.md`](A_CORPUS_NOT_AN_INDEX.md). Written 2026-08-22 at `f4e6301`, working tree clean.
+**This is the live plan.** It continues `RANK_DO_NOT_GATE.md` from its fourth step and takes its criteria from [`A_CORPUS_NOT_AN_INDEX.md`](A_CORPUS_NOT_AN_INDEX.md). Written 2026-08-22 at `f4e6301`, working tree clean.
 
 ## Where this starts
 
@@ -323,7 +323,7 @@ Pooling this tree as a one-member corpus at `e696fbe` gives `a` 899 declared-nam
 
 The counts agree. The tree holds 859 boundaries of the form `A` followed by a capital across 721 distinct identifiers, plus the 38 identifiers beginning with a lone `a` that the earlier measurement found — 897 against the 899 the reading records. The remaining two are the difference between counting distinct spellings with `grep` and counting declarations, so the proper confirmation is `./gradlew wordPlace -Pwords="a the"`, not this arithmetic.
 
-**The earlier measurement tested the wrong position.** `aValue` puts the article first and there are 38 of those. The other 859 put it in the middle, which is the same rule at a different offset and was never counted. The explanation transfers to `the` in [`RANK_DO_NOT_GATE.md`](RANK_DO_NOT_GATE.md) unchanged, and needs no acronym rule to do it.
+**The earlier measurement tested the wrong position.** `aValue` puts the article first and there are 38 of those. The other 859 put it in the middle, which is the same rule at a different offset and was never counted. The explanation transfers to `the` in `RANK_DO_NOT_GATE.md` unchanged, and needs no acronym rule to do it.
 
 Nothing is wrong with the reading. `SYMBOL` is no longer blocked by an unexplained figure.
 

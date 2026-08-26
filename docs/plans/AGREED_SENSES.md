@@ -2,7 +2,7 @@
 
 The reading takes WordNet's most frequent sense and commits to it at full mass. That is the standard baseline and it is calibrated on the wrong corpus. This plan replaces it with a sense chosen by agreement, and fixes the abbreviation reading first, because the abbreviations poison the agreement.
 
-Everything below was measured on the committed readings at `ad15196`. [`SENSE_DISAMBIGUATION.md`](SENSE_DISAMBIGUATION.md) is what this supersedes; [`ONE_ARM.md`](ONE_ARM.md) carries D12 and N1, which this closes or moves.
+Everything below was measured on the committed readings at `ad15196`. `SENSE_DISAMBIGUATION.md` is what this supersedes; `ONE_ARM.md` carries D12 and N1, which this closes or moves.
 
 ## What the reading does today
 
@@ -112,7 +112,7 @@ A change that raises concentration while lowering coverage has traded reading fo
 
 | | Defect | Measured |
 |---|---|---|
-| `SenseCoverage` reports 1.00 for a word nothing states | it reads as full coverage in the evidence file and means there was nothing to cover | 2,642 words over 23,287 occurrences in Strata, every one with zero statements — `identifier`, `usd`, `ibor`, `gbp`, `pricer`. This is the live half of [N1's neighbour N2](ONE_ARM.md), which was closed by looking only at words that carried mass |
+| `SenseCoverage` reports 1.00 for a word nothing states | it reads as full coverage in the evidence file and means there was nothing to cover | 2,642 words over 23,287 occurrences in Strata, every one with zero statements — `identifier`, `usd`, `ibor`, `gbp`, `pricer`. This is the live half of N1's neighbour N2, which was closed by looking only at words that carried mass |
 | `Thresholds:32` and `OfferedWords.of` disagree | the javadoc says the length rule *"applies only to words nothing chose"*; the code tests it before `form.isChosenName()`, so it applies to chosen names too, and `ContentWords.tooShortToMean`'s own javadoc says it should. Two javadocs, one code path | `pv` 174, `fx` 35 and `id` are in the unread tail |
 | The vocabulary arm and the topical arm disagree about single letters | `x` is the 10th most distinctive word in Strata and never reaches a topic | `x`, `i`, `j`, `t`, `k` are in `signals` and absent from `workings.words` |
 | N5 is still open and is why one question here has no answer | the accessor and source-set rules remove a word and write nothing down, so which positions supplied `get`'s 10,184 occurrences cannot be read off the evidence | `workings.rules` lists one rule with zero removals |

@@ -2,7 +2,7 @@
 
 The self test runs on the tree the reading was developed against, and the taxonomy that fits it was chosen after reading it. **Until the reading is run on repositories it was not written for, nothing here has been measured** — it has been demonstrated. Three members are now cloned and read — `tika` (`content`), `maven` (`build-management`), `santuario` (`security`) — so the first held-out figures exist; every figure taken from this tree alone is still an instrument reading itself.
 
-The panel is what turns each of these into a measurement rather than an anecdote, and it is the blocker named by [`INDUSTRY_VOCABULARIES.md`](INDUSTRY_VOCABULARIES.md), [`TERM_MATCHING.md`](TERM_MATCHING.md), [`DEPENDENCIES_AS_DOMAIN.md`](DEPENDENCIES_AS_DOMAIN.md) and [`DOMAIN_LANDSCAPE.md`](DOMAIN_LANDSCAPE.md) alike.
+The panel is what turns each of these into a measurement rather than an anecdote, and it is the blocker named by [`INDUSTRY_VOCABULARIES.md`](INDUSTRY_VOCABULARIES.md), `TERM_MATCHING.md`, [`DEPENDENCIES_AS_DOMAIN.md`](DEPENDENCIES_AS_DOMAIN.md) and [`DOMAIN_LANDSCAPE.md`](DOMAIN_LANDSCAPE.md) alike.
 
 ## What a panel has to be, or it proves nothing
 

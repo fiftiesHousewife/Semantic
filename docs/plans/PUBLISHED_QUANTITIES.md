@@ -1,6 +1,6 @@
 # Carrying a quantity a publisher states about a concept
 
-`SkosConcept` is eight text columns and none of them holds a number. OpenAlex states two figures for every topic and the extraction drops both. This plan says where they should go instead, and it is on the critical path: the [OpenAlex placement](ONE_ARM.md) cannot be repaired without them.
+`SkosConcept` is eight text columns and none of them holds a number. OpenAlex states two figures for every topic and the extraction drops both. This plan says where they should go instead, and it is on the critical path: the OpenAlex placement cannot be repaired without them.
 
 ## What is dropped, and what it is worth
 
