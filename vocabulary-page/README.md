@@ -9,7 +9,7 @@ Draws the export's significant words as two linked pages per repository: the voc
 ./gradlew discoursePass -Dcs.evaluation.dir=<clones>     # the sense-weighting passes compared, printed
 ```
 
-The single-page tasks read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`. Each page links its sibling and `index.html`, which names every repository with pages on disk.
+The single-page tasks read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`. Each page links its sibling and `index.html`, which names every repository with pages on disk. Every figure a page draws is in the JSON block it draws it from, written beside the page as `vocabulary.json` and `domain-venn.json`, so the workings behind a picture can be read without the picture.
 
 ## One population
 

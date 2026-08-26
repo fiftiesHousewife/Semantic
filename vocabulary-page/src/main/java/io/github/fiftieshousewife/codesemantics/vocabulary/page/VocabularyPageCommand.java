@@ -56,6 +56,7 @@ public final class VocabularyPageCommand {
         final String data = new ObjectMapper().writeValueAsString(Map.of("funnel", funnel,
                 "leadingDomains", leadingDomains));
         final Path page = folder.resolve(PAGE);
+        Files.writeString(page.resolveSibling("vocabulary.json"), data);
         Files.writeString(page, new VocabularyPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
         log.info("{}: {} names to {} meanings: file://{}", funnel.repository(), funnel.field(),
                 funnel.tiles().size(), page.toAbsolutePath());

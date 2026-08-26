@@ -59,6 +59,7 @@ public final class DomainVennCommand {
         final String data = new ObjectMapper()
                 .writeValueAsString(Map.of("overlap", overlap, "signals", signals));
         final Path page = reports.resolve(PAGE);
+        Files.writeString(page.resolveSibling("domain-venn.json"), data);
         Files.writeString(page, new DomainVennPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
         log.info("{} over domains {}: file://{}", overlap.repository(),
                 overlap.domains().stream().map(DomainOverlap.Drawn::domain).toList(),
