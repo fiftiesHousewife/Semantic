@@ -16,36 +16,46 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class VocabularyPageCommandTest {
 
     @Test
-    void stagesEveryPipelineStageOfASmallRepository(@TempDir final Path root) throws IOException {
+    void funnelsASmallRepositoryFromItsNamesToItsMeanings(@TempDir final Path root) throws IOException {
         final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
         Files.createDirectories(scope);
         Files.writeString(scope.resolve("Pricer.java"),
-                "package a; /** Prices a trade. */ class Pricer { int tradePrice; int couponSchedule; }");
+                "package a; /** Prices a coupon. */ class Pricer { int couponPrice; int lemmaParser; "
+                        + "int grammarLexicon; int phonemeSyntax; }");
+        final RepositoryReading reading = RepositoryReading.of(root);
 
-        final StagedVocabulary staged = VocabularyPageCommand.staged(RepositoryReading.of(root));
+        final VocabularyFunnel funnel = VocabularyFunnel.of(reading);
 
         assertAll(
-                () -> assertThat(staged.repository()).isEqualTo(root.getFileName().toString()),
-                () -> assertThat(staged.stages())
-                        .as("one panel per pipeline stage, in the order the stages run")
-                        .isNotEmpty(),
-                () -> assertThat(staged.stages().getFirst().words())
-                        .as("the first stage holds the whole population the pipeline entered with")
-                        .isGreaterThanOrEqualTo(staged.stages().getLast().words()));
+                () -> assertThat(funnel.repository()).isEqualTo(root.getFileName().toString()),
+                () -> assertThat(funnel.field())
+                        .as("every rule can only narrow")
+                        .isGreaterThanOrEqualTo(funnel.signals()),
+                () -> assertThat(funnel.signals()).isGreaterThanOrEqualTo(funnel.words()),
+                () -> assertThat(funnel.words()).isGreaterThanOrEqualTo(funnel.tiles().size()),
+                () -> assertThat(funnel.field() - funnel.belowChance() - funnel.withinError()
+                        - funnel.languageSupplied())
+                        .as("the counts account for every word between the field and the signals")
+                        .isEqualTo(funnel.signals()),
+                () -> assertThat(funnel.tiles().stream()
+                        .flatMap(tile -> tile.members().stream()))
+                        .as("the tiles hold exactly the words the domain pages draw")
+                        .containsExactlyInAnyOrderElementsOf(SignificantWords.of(reading).words().stream()
+                                .map(ScoredWord::word)
+                                .toList()));
     }
 
     @Test
     void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
-        final StagedVocabulary staged = new StagedVocabulary("a-repository", 1, List.of());
+        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 4, 1, 1, 4, 3, List.of());
 
-        final Path page = VocabularyPageCommand.wrote(reports, staged);
+        final Path page = VocabularyPageCommand.wrote(reports, funnel, List.of("linguistics"));
 
         assertAll(
                 () -> assertThat(page).exists(),
                 () -> assertThat(Files.readString(page))
                         .contains("a-repository")
                         .contains("<style>")
-                        .as("the stylesheet and the script are carried whole, so the page opens anywhere")
                         .contains("<script>"));
     }
 }

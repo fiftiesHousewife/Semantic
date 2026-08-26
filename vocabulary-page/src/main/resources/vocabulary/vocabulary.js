@@ -1,17 +1,17 @@
-/* Shows one pipeline stage at a time, with the words that stage left. */
+/* Draws the funnel of the export's rules, then one cloud of the meanings that survive them. */
 (function () {
     "use strict";
 
     var BANDS = 5;
     var SMALLEST = 0.9;
-    var LARGEST = 3.2;
+    var LARGEST = 3.0;
 
-    var repository = JSON.parse(document.getElementById("vocabulary").textContent).repository;
-    var stages = repository.stages;
-    var at = 0;
-
-    var summary = document.querySelector(".summary");
-    var panel = document.querySelector(".stages");
+    var data = JSON.parse(document.getElementById("vocabulary").textContent);
+    var funnel = data.funnel;
+    var leading = data.leadingDomains || [];
+    document.querySelector(".repository").textContent = funnel.repository;
+    var readout = document.querySelector(".readout");
+    readout.textContent = "Rest on a tile for its figures.";
 
     function element(name, className, text) {
         var made = document.createElement(name);
@@ -24,145 +24,132 @@
         return made;
     }
 
-    function count(label, value) {
-        var pair = element("div");
-        pair.appendChild(element("dt", null, label));
-        pair.appendChild(element("dd", null, value));
-        return pair;
-    }
+    var steps = [
+        {left: funnel.field, rule: "the declared names of the published source sets, as words"},
+        {left: funnel.field - funnel.belowChance, removed: funnel.belowChance,
+            rule: "written no more densely here than a reference writes them, within what chance reaches"},
+        {left: funnel.field - funnel.belowChance - funnel.withinError, removed: funnel.withinError,
+            rule: "above the bars only inside the reference's own sampling error"},
+        {left: funnel.signals, removed: funnel.languageSupplied,
+            rule: "supplied by English rather than chosen — the export's signals are what remain"},
+        {left: funnel.words, rule: "two spellings with one dictionary form count once"},
+        {left: funnel.tiles.length, rule: "two words with one commonest sense share a tile"}
+    ];
 
-    /* Largest words toward the middle, so a cloud reads from its centre outwards. */
-    function centred(words) {
+    var panel = document.querySelector(".funnel");
+    steps.forEach(function (step) {
+        var row = element("div", "step");
+        var bar = element("div", "bar");
+        bar.style.width = Math.max(1.5, 100 * step.left / funnel.field).toFixed(1) + "%";
+        row.appendChild(bar);
+        var caption = element("p", "caption");
+        caption.appendChild(element("strong", null, step.left.toLocaleString()));
+        caption.appendChild(document.createTextNode(" — " + step.rule
+            + (step.removed ? " (" + step.removed.toLocaleString() + " set aside)" : "")));
+        row.appendChild(caption);
+        panel.appendChild(row);
+    });
+
+    /* Largest tiles toward the middle, so the cloud reads from its centre outwards. */
+    function centred(tiles) {
         var left = [];
         var right = [];
-        words.forEach(function (word, index) {
-            (index % 2 ? left : right).push(word);
+        tiles.forEach(function (tile, index) {
+            (index % 2 ? left : right).push(tile);
         });
         return left.reverse().concat(right);
     }
 
-    /* SIZE carries the claim in bits and COLOUR carries how far that claim stands outside chance, both on a
-       logarithmic scale, because both quantities span some hundreds to one across a stage.
+    var claims = funnel.tiles.map(function (tile) { return tile.claim; });
+    var weakest = Math.min.apply(null, claims);
+    var strongest = Math.max.apply(null, claims);
+    var claimSpan = Math.log(strongest / weakest);
+    var loudest = funnel.tiles.reduce(function (most, tile) {
+        return Math.max(most, tile.timesChance);
+    }, 1);
+    var doublings = Math.log(loudest) / Math.LN2;
 
-       Area used to carry the claim directly, with the linear dimension its square root. That is the truer
-       statement of a quantity and it could not be read: a root compresses three hundred to one down to
-       seventeen, and the range a cloud has to spend it over then squashed seven words in ten into a quarter
-       of a rem. The picture was a dozen large words over a uniform mat. So a step in size is a fixed
-       MULTIPLE of the claim rather than a fixed amount of it, and the page says so rather than leaving a
-       reader to assume the older rule. */
-    function tile(word, readout) {
-        var joined = word.word.indexOf("_") >= 0;
-        var made = element("b", joined ? "run" : null, word.word.replace(/_/g, " "));
-        made.id = "w-" + word.word;
-        made.style.fontSize = (SMALLEST + (LARGEST - SMALLEST) * word.size).toFixed(2) + "rem";
-        made.setAttribute("data-band", String(word.band));
+    function sized(claim) {
+        var share = claimSpan > 0 ? Math.log(claim / weakest) / claimSpan : 1;
+        return SMALLEST + (LARGEST - SMALLEST) * share;
+    }
+
+    function bandOf(tile) {
+        var above = Math.log(Math.max(tile.timesChance, 1)) / Math.LN2;
+        return doublings > 0
+            ? Math.min(BANDS - 1, Math.floor(above / doublings * BANDS))
+            : BANDS - 1;
+    }
+
+    function chipFor(tile) {
+        var at = -1;
+        tile.domains.forEach(function (domain) {
+            var place = leading.indexOf(domain);
+            if (place >= 0 && (at < 0 || place < at)) {
+                at = place;
+            }
+        });
+        if (at < 0) {
+            return null;
+        }
+        return element("span", "chip set-" + at);
+    }
+
+    function statement(tile) {
+        var parts = [tile.members.join(" · ").replace(/_/g, " ") + " — "
+            + tile.claim.toFixed(4) + " bits, " + tile.timesChance.toFixed(1)
+            + " times what chance reaches, written " + tile.occurrences.toLocaleString()
+            + (tile.occurrences === 1 ? " time" : " times")];
+        if (tile.partOfSpeech) {
+            parts.push(tile.partOfSpeech + " '" + tile.name.replace(/_/g, " ") + "'");
+        } else {
+            parts.push("no dictionary sense");
+        }
+        if (tile.domains.length) {
+            parts.push(tile.domains.join(", "));
+        }
+        return parts.join(" · ");
+    }
+
+    var byWord = {};
+    var cloud = document.querySelector(".cloud");
+    centred(funnel.tiles).forEach(function (tile) {
+        var made = element("b", tile.members.length > 1 ? "merged" : null);
+        var chip = chipFor(tile);
+        if (chip !== null) {
+            made.appendChild(chip);
+        }
+        made.appendChild(document.createTextNode(
+            tile.members.join(" · ").replace(/_/g, " ")));
+        made.style.fontSize = sized(tile.claim).toFixed(2) + "rem";
+        made.setAttribute("data-band", String(bandOf(tile)));
         made.setAttribute("tabindex", "0");
         function show() {
-            readout.textContent = word.word.replace(/_/g, " ") + " — "
-                + word.claim.toFixed(4) + " bits from what it is read against, "
-                + word.timesChance.toFixed(1) + " times what chance would have reached, written "
-                + word.occurrences.toLocaleString()
-                + (word.occurrences === 1 ? " time" : " times");
+            readout.textContent = statement(tile);
         }
         made.addEventListener("mouseenter", show);
         made.addEventListener("focus", show);
-        return made;
-    }
-
-    function show(index) {
-        at = (index + stages.length) % stages.length;
-        var stage = stages[at];
-        panel.textContent = "";
-
-        var head = element("div", "head");
-        head.appendChild(element("p", "counter", "Stage " + (at + 1) + " of " + stages.length));
-        head.appendChild(element("h2", null, stage.keeps));
-        head.appendChild(element("p", "removes", stage.removes
-            ? "This stage takes out " + stage.removes + "."
-            : "Nothing has been taken out yet."));
-        panel.appendChild(head);
-
-        summary.textContent = "";
-        summary.appendChild(count("Words left", stage.words.toLocaleString()));
-        summary.appendChild(count("Times written", stage.occurrences.toLocaleString()));
-        summary.appendChild(count("Words taken out", stage.removedWords.toLocaleString()));
-        summary.appendChild(count("Times written", stage.removedOccurrences.toLocaleString()));
-
-        var cloud = element("div", "cloud");
-        var readout = element("div", "readout", "Hover a word for how often it was written.");
-        var strongest = stage.drawn.length ? stage.drawn[0].claim : 1;
-        var weakest = stage.drawn.length ? stage.drawn[stage.drawn.length - 1].claim : 1;
-        var claimSpan = Math.log(strongest / weakest);
-        var loudest = stage.drawn.reduce(function (most, word) {
-            return Math.max(most, word.timesChance);
-        }, 1);
-        var doublings = Math.log(loudest) / Math.LN2;
-        stage.drawn.forEach(function (word) {
-            word.size = claimSpan > 0 ? Math.log(word.claim / weakest) / claimSpan : 1;
-            var above = Math.log(Math.max(word.timesChance, 1)) / Math.LN2;
-            word.band = doublings > 0
-                ? Math.min(BANDS - 1, Math.floor(above / doublings * BANDS))
-                : BANDS - 1;
+        tile.members.forEach(function (member) {
+            byWord[member] = made;
         });
-        centred(stage.drawn).forEach(function (word) {
-            cloud.appendChild(tile(word, readout));
-        });
-        panel.appendChild(cloud);
-        panel.appendChild(readout);
-        /* The strongest claims sit in the middle of the run, so the window opens on them. Measured after a
-           frame, because a box that has not been laid out reports no scroll height to centre within. */
-        requestAnimationFrame(function () {
-            cloud.scrollTop = Math.max(0, (cloud.scrollHeight - cloud.clientHeight) / 2);
-        });
-
-        var paging = element("nav", "paging");
-        var back = element("button", null, "Previous stage");
-        var next = element("button", null, "Next stage");
-        back.type = "button";
-        next.type = "button";
-        back.disabled = at === 0;
-        next.disabled = at === stages.length - 1;
-        back.addEventListener("click", function () { show(at - 1); });
-        next.addEventListener("click", function () { show(at + 1); });
-        paging.appendChild(back);
-        paging.appendChild(element("span", "dots", stages.map(function (each, index) {
-            return index === at ? "●" : "○";
-        }).join(" ")));
-        paging.appendChild(next);
-        panel.appendChild(paging);
-    }
-
-    document.addEventListener("keydown", function (pressed) {
-        if (pressed.key === "ArrowRight" && at < stages.length - 1) {
-            show(at + 1);
-        }
-        if (pressed.key === "ArrowLeft" && at > 0) {
-            show(at - 1);
-        }
+        cloud.appendChild(made);
     });
 
-    document.querySelector(".repository").textContent = repository.repository;
+    document.querySelector(".foot").textContent = "Of the " + funnel.field.toLocaleString()
+        + " words the published names state, " + funnel.belowChance.toLocaleString()
+        + " sit within chance, " + funnel.withinError + " within the reference's own error and "
+        + funnel.languageSupplied + " are English's; the " + funnel.signals
+        + " signals become " + funnel.words + " dictionary forms and " + funnel.tiles.length
+        + " meanings. A coloured mark names one of the leading domains: " + leading.join(", ") + ".";
 
-    /* A link from another page names one word; open the last stage still holding it and stand on it. */
-    var linked = location.hash.indexOf("#w-") === 0
-        ? decodeURIComponent(location.hash.slice(3))
-        : "";
-    var opening = 0;
-    if (linked) {
-        stages.forEach(function (stage, index) {
-            if (stage.drawn.some(function (word) { return word.word === linked; })) {
-                opening = index;
-            }
-        });
-    }
-    show(opening);
-    if (linked) {
-        requestAnimationFrame(function () {
-            var found = document.getElementById("w-" + linked);
-            if (found) {
-                found.scrollIntoView({block: "center"});
-                found.focus();
-            }
-        });
+    /* A link from another page names one word; stand on the tile that holds it. */
+    if (location.hash.indexOf("#w-") === 0) {
+        var linked = byWord[decodeURIComponent(location.hash.slice(3))];
+        if (linked) {
+            requestAnimationFrame(function () {
+                linked.scrollIntoView({block: "center"});
+                linked.focus();
+            });
+        }
     }
 }());

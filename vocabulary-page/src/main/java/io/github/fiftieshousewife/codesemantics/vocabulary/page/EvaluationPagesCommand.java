@@ -61,14 +61,11 @@ public final class EvaluationPagesCommand {
         Files.createDirectories(folder.getParent());
         final RepositoryReading reading = RepositoryReading.of(root);
         final SignificantWords.Significant significant = SignificantWords.of(reading);
-        final String name = root.getFileName().toString();
-        VocabularyPageCommand.wrote(folder, VocabularyPageCommand.staged(reading));
-        DomainVennCommand.wrote(folder,
-                DomainOverlap.of(name, significant.words(),
-                        WordNetLexicon.fromClasspath()::countedSenseDomainsOf),
-                significant.signals());
-        SynsetCloudCommand.wrote(folder, SynsetCloudCommand.cloudOf(reading, significant),
-                significant.signals(), SynsetCloudCommand.leadingDomains(reading, significant));
+        final DomainOverlap overlap = DomainOverlap.of(root.getFileName().toString(),
+                significant.words(), WordNetLexicon.fromClasspath()::countedSenseDomainsOf);
+        VocabularyPageCommand.wrote(folder, VocabularyFunnel.of(reading),
+                overlap.domains().stream().map(DomainOverlap.Drawn::domain).toList());
+        DomainVennCommand.wrote(folder, overlap, significant.signals());
     }
 
     private static List<Path> roots() throws IOException {

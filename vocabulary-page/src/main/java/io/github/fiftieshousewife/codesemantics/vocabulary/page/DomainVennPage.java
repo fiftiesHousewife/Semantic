@@ -56,7 +56,6 @@ public final class DomainVennPage {
                                 p().withClass("nav").with(
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
-                                a("meanings").withHref("synset-cloud.html"), text(" · "),
                                 a("every repository").withHref("../index.html")),
                                 p().withClass("lede").with(
                                         text("The three "),

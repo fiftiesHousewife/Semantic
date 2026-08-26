@@ -30,10 +30,8 @@ class EvaluationPagesCommandTest {
                 () -> assertThat(written).containsExactly("a-member"),
                 () -> assertThat(reports.resolve("a-member").resolve("vocabulary.html")).exists(),
                 () -> assertThat(reports.resolve("a-member").resolve("domain-venn.html")).exists(),
-                () -> assertThat(reports.resolve("a-member").resolve("synset-cloud.html")).exists(),
                 () -> assertThat(Files.readString(reports.resolve("index.html")))
                         .contains("a-member/vocabulary.html")
-                        .contains("a-member/domain-venn.html")
-                        .contains("a-member/synset-cloud.html"));
+                        .contains("a-member/domain-venn.html"));
     }
 }

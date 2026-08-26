@@ -5,37 +5,25 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.ScopeLegibility;
-import io.github.fiftieshousewife.codesemantics.engine.reading.StagedWords;
-import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
-import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Draws the tree under reading at every stage of the word pipeline, one cloud per stage.
- *
- * <p>It is a diagnostic and writes nowhere near {@code output/}, which holds JSON and nothing else.
+ * Draws one repository's vocabulary as the funnel of the export's rules and the cloud of meanings that
+ * survive them, into one page. It is a diagnostic and writes nowhere near {@code output/}, which holds
+ * JSON and nothing else.
  */
 @Slf4j
 public final class VocabularyPageCommand {
-
-    /** The seed the null is drawn at, so two runs of one tree cut the picture in the same place. */
-    private static final long SEED = 20260821L;
 
     private static final String PAGE = "vocabulary.html";
     private static final String STYLESHEET = "vocabulary.css";
@@ -47,69 +35,34 @@ public final class VocabularyPageCommand {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        final StagedVocabulary staged = staged(RepositoryReading.of(new CloneUnderReading().root()));
-        wrote(Path.of(REPORTS).resolve(staged.repository()), staged);
+        final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
+        final VocabularyFunnel funnel = VocabularyFunnel.of(reading);
+        wrote(Path.of(REPORTS).resolve(funnel.repository()), funnel, leadingDomains(reading));
     }
 
-    /** Every stage the pipeline puts this tree's words through, with what each left and what it took out. */
-    static StagedVocabulary staged(final RepositoryReading reading) {
-        final WrittenWords written = written(reading);
-        final List<StagedWords> stages = WordPipelines.overJava(ContentWords.fromClasspath()).over(written);
-        final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
-        final Map<String, ChosenWord> chosen = chosenByWord(ranking, written);
-        final Map<String, Double> bars = ranking.chanceFor(written, SEED).stream()
-                .collect(Collectors.toMap(VocabularyNull.Bar::reference, VocabularyNull.Bar::bits));
-        return new StagedVocabulary(reading.root().getFileName().toString(),
-                reading.legibility().scopes().size(),
-                stages.stream().map(staged -> stage(staged, chosen, bars)).toList());
+    /** The venn's own three domains, so a coloured mark here names the same thing a circle does there. */
+    static List<String> leadingDomains(final RepositoryReading reading) {
+        final SignificantWords.Significant significant = SignificantWords.of(reading);
+        return DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
+                        WordNetLexicon.fromClasspath()::countedSenseDomainsOf)
+                .domains().stream()
+                .map(DomainOverlap.Drawn::domain)
+                .toList();
     }
 
-    /**
-     * What every reference says about each word, measured once over everything the tree wrote.
-     *
-     * <p>Once rather than per stage: a claim is a share against a reference, so recomputing it on each
-     * stage's surviving population would re-normalise it and a word would appear to grow as its neighbours
-     * were removed.
-     */
-    private static Map<String, ChosenWord> chosenByWord(final ChosenWords ranking,
-                                                        final WrittenWords written) {
-        return ranking.in(written).stream()
-                .collect(Collectors.toMap(ChosenWord::word, word -> word,
-                        (first, second) -> first, LinkedHashMap::new));
-    }
-
-    private static StagedVocabulary.Stage stage(final StagedWords staged,
-                                                final Map<String, ChosenWord> chosen,
-                                                final Map<String, Double> bars) {
-        final WrittenWords surviving = staged.surviving();
-        return new StagedVocabulary.Stage(staged.stage(), staged.stage().keeps(),
-                staged.stage().removes(),
-                surviving.words().size(), surviving.totalOccurrences(),
-                staged.removed().size(), staged.occurrencesRemoved(),
-                StagedVocabulary.drawnFrom(staged, chosen, bars));
-    }
-
-    /** Every word the tree wrote, as one tally over every scope the walk found. */
-    private static WrittenWords written(final RepositoryReading reading) {
-        return WrittenWords.pooling(reading.legibility().scopes().stream()
-                .map(ScopeLegibility::written)
-                .toList());
-    }
-
-    static Path wrote(final Path reports, final StagedVocabulary staged) throws IOException {
-        Files.createDirectories(reports);
-        final String data = new ObjectMapper().writeValueAsString(Map.of("repository", staged));
-        final Path page = reports.resolve(PAGE);
+    static Path wrote(final Path folder, final VocabularyFunnel funnel,
+                      final List<String> leadingDomains) throws IOException {
+        Files.createDirectories(folder);
+        final String data = new ObjectMapper().writeValueAsString(Map.of("funnel", funnel,
+                "leadingDomains", leadingDomains));
+        final Path page = folder.resolve(PAGE);
         Files.writeString(page, new VocabularyPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
-        log.info("{} at {} stages: file://{}", staged.repository(), staged.stages().size(),
-                page.toAbsolutePath());
+        log.info("{}: {} names to {} meanings: file://{}", funnel.repository(), funnel.field(),
+                funnel.tiles().size(), page.toAbsolutePath());
         return page;
     }
 
-    /**
-     * The stylesheet and the script, read from the files they are authored in. They are carried whole into
-     * one page so it opens from anywhere without its siblings, and neither is ever written in Java.
-     */
+    /** The stylesheet and the script, read whole from the files they are authored in. */
     private static String read(final String asset) throws IOException {
         try (InputStream source = VocabularyPageCommand.class.getClassLoader()
                 .getResourceAsStream(RESOURCES + asset)) {

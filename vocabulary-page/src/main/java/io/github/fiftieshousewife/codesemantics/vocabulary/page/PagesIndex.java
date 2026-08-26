@@ -37,16 +37,14 @@ public final class PagesIndex {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The repositories read"),
-                        p().withClass("lede").with(text("Each repository has three views of one "
+                        p().withClass("lede").with(text("Each repository has two views of one "
                                 + "population: its significant words by pipeline stage, the WordNet "
-                                + "domains they state, and the meanings they resolve to.")),
+                                + "domains they state, ending in the meanings they resolve to.")),
                         ul().withClass("repositories").with(
                                 each(repositories, repository -> li(
                                         text(repository + " — "),
                                         a("words").withHref(repository + "/vocabulary.html"),
                                         text(" · "),
-                                        a("domains").withHref(repository + "/domain-venn.html"),
-                                        text(" · "),
-                                        a("meanings").withHref(repository + "/synset-cloud.html"))))));
+                                        a("domains").withHref(repository + "/domain-venn.html"))))));
     }
 }

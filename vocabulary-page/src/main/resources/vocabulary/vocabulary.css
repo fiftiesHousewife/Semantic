@@ -14,7 +14,6 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --paper: #10151800;
         --paper: #101518;
         --raised: #171e22;
         --ink: #eaf0ee;
@@ -62,263 +61,15 @@ body {
 }
 
 .sheet {
-    max-width: 1180px;
+    max-width: 72rem;
     margin: 0 auto;
-    padding: 3rem 1.5rem 5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    padding: 2rem 1.5rem 4rem;
 }
 
 h1 {
-    font: 400 2.1rem/1.15 Georgia, "Times New Roman", serif;
-    margin: 0;
-    text-wrap: balance;
-    letter-spacing: -0.01em;
-}
-
-.lede {
-    margin: 0;
-    max-width: 66ch;
-    color: var(--ink-soft);
-}
-
-.lede code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.86em;
-    color: var(--ink);
-}
-
-.cloud b:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
-
-.summary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem;
-    margin: 0;
-}
-
-.summary div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-}
-
-.summary dt {
-    font: 500 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-}
-
-.summary dd {
-    margin: 0;
-    font: 400 1.5rem/1 Georgia, serif;
-    font-variant-numeric: tabular-nums;
-}
-
-.counts {
-    font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-    color: var(--ink-faint);
-}
-
-.stages {
-    background: var(--raised);
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 1.5rem 1.5rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-}
-
-.head {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.counter {
-    font: 500 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0;
-}
-
-.head h2 {
-    font: 400 1.5rem/1.2 Georgia, serif;
-    margin: 0;
-}
-
-.removes {
-    margin: 0;
-    color: var(--ink-soft);
-    max-width: 70ch;
-}
-
-.paging {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    border-top: 1px solid var(--rule);
-    padding-top: 1rem;
-}
-
-.paging button {
-    font: 500 0.82rem/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    padding: 0.6rem 1rem;
-    border: 1px solid var(--accent);
-    border-radius: 2px;
-    background: var(--accent);
-    color: var(--paper);
-    cursor: pointer;
-}
-
-.paging button:disabled {
-    background: transparent;
-    border-color: var(--rule);
-    color: var(--ink-faint);
-    cursor: default;
-}
-
-.paging button:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
-
-.dots {
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    color: var(--accent-soft);
-}
-
-.repository {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.86em;
-    color: var(--accent);
-}
-
-.stage {
-    background: var(--raised);
-    border: 1px solid var(--rule);
-    border-radius: 3px;
-    padding: 1.25rem 1.25rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9rem;
-    min-width: 0;
-}
-
-.stage h2 {
-    font: 400 1.15rem/1.2 Georgia, serif;
-    margin: 0;
-}
-
-.stage h2 span {
-    display: block;
-    font: 500 0.68rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--accent);
-}
-
-.stage p {
-    margin: 0;
-    font-size: 0.86rem;
-    color: var(--ink-soft);
-}
-
-/* A window rather than the whole cloud. `centred` puts the strongest claims in the middle of the run, so the
-   view opens there and the reader scrolls outwards into the faint edges rather than starting at one of them.
-   `safe center` and not `center`: with content taller than the box, plain centring puts the first rows above
-   the scrollable area where nothing can reach them. */
-.cloud {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.2rem 0.7rem;
-    padding: 1rem 0.25rem;
-    min-height: 20rem;
-    max-height: 60vh;
-    overflow-y: auto;
-    align-content: safe center;
-    scrollbar-width: thin;
-    scrollbar-color: var(--rule) transparent;
-    overscroll-behavior: contain;
-}
-
-.cloud::-webkit-scrollbar {
-    width: 10px;
-}
-
-.cloud::-webkit-scrollbar-thumb {
-    background: var(--rule);
-    border-radius: 5px;
-}
-
-.cloud::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.cloud b {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-weight: 500;
-    line-height: 1.25;
-    cursor: default;
-    color: var(--ink-faint);
-}
-
-/* A run of several words is one word of the repository's vocabulary and must not read as two. The hairline
-   joins its parts without spending a colour, which is reserved for weight. */
-.cloud b.run {
-    border-bottom: 1px solid var(--accent-soft);
-    padding-bottom: 0.05em;
-}
-
-/* Colour and weight both carry how far the claim stands outside chance, in doublings. Two channels for one
-   quantity on purpose: colour alone is lost to anyone who does not separate these hues, and weight alone is
-   hard to judge across the size range a cloud spans. Neither carries anything the other does not. */
-.cloud b[data-band="4"] { color: var(--accent);    font-weight: 700; }
-.cloud b[data-band="3"] { color: var(--ink);       font-weight: 650; }
-.cloud b[data-band="2"] { color: var(--ink-soft);  font-weight: 550; }
-.cloud b[data-band="1"] { color: var(--ink-soft);  font-weight: 450; }
-.cloud b[data-band="0"] { color: var(--ink-ghost); font-weight: 350; }
-
-.readout {
-    border-top: 1px solid var(--rule);
-    padding-top: 0.75rem;
-    font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
-    color: var(--ink-soft);
-    min-height: 3rem;
-}
-
-.readout strong {
-    color: var(--ink);
+    font-size: 1.6rem;
     font-weight: 600;
-}
-
-.readout em {
-    color: var(--mark);
-    font-style: normal;
-}
-
-.foot {
-    border-top: 1px solid var(--rule);
-    padding-top: 1.25rem;
-    margin: 0;
-    font-size: 0.84rem;
-    color: var(--ink-faint);
-    max-width: 72ch;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
+    margin: 0 0 0.5rem;
 }
 
 .nav {
@@ -328,4 +79,103 @@ h1 {
 
 .nav a {
     color: var(--ink-soft);
+}
+
+.lede, .foot {
+    color: var(--ink-soft);
+}
+
+.lede a {
+    color: inherit;
+}
+
+.repository {
+    color: var(--accent);
+}
+
+.funnel {
+    margin: 1.5rem 0;
+}
+
+.funnel .step {
+    margin: 0.6rem 0;
+}
+
+.funnel .bar {
+    height: 0.9rem;
+    border-radius: 3px;
+    background: var(--accent-soft);
+}
+
+.funnel .step:last-child .bar {
+    background: var(--accent);
+}
+
+.funnel .caption {
+    margin: 0.15rem 0 0;
+    color: var(--ink-soft);
+}
+
+.funnel .caption strong {
+    color: var(--ink);
+}
+
+.cloud {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    text-align: center;
+    column-gap: 0.65em;
+    row-gap: 0.3em;
+}
+
+.cloud b {
+    font-weight: 450;
+    cursor: default;
+}
+
+.cloud b.merged {
+    font-style: italic;
+}
+
+.cloud b:focus, .cloud b:hover {
+    outline: 1px solid var(--ink-faint);
+    outline-offset: 2px;
+}
+
+.cloud b[data-band="4"] { color: var(--accent);    font-weight: 700; }
+.cloud b[data-band="3"] { color: var(--ink);       font-weight: 650; }
+.cloud b[data-band="2"] { color: var(--ink-soft);  font-weight: 550; }
+.cloud b[data-band="1"] { color: var(--ink-soft);  font-weight: 450; }
+.cloud b[data-band="0"] { color: var(--ink-ghost); font-weight: 350; }
+
+.cloud .chip {
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    margin-right: 0.3em;
+}
+
+.cloud .chip.set-0 { background: #2a78d6; }
+.cloud .chip.set-1 { background: #eb6834; }
+.cloud .chip.set-2 { background: #1baf7a; }
+
+@media (prefers-color-scheme: dark) {
+    .cloud .chip.set-0 { background: #3987e5; }
+    .cloud .chip.set-1 { background: #d95926; }
+    .cloud .chip.set-2 { background: #199e70; }
+}
+
+.readout {
+    min-height: 1.5rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.75rem;
 }

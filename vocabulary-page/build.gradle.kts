@@ -56,19 +56,7 @@ tasks.register<JavaExec>("domainVenn") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
-// The same words gathered under the WordNet senses they are most often written in — a cloud of meanings
-// rather than spellings, written beside the other two pages.
-//   ./gradlew synsetCloud
-//   ./gradlew synsetCloud -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("synsetCloud") {
-    group = "verification"
-    description = "Draws the significant words as a cloud of WordNet senses"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.SynsetCloudCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "3g"
-    workingDir = rootDir
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-}
+
 
 // Both passes of the domain reading over every evaluation clone, with how much of the sense weighting
 // rests on published counts. It prints; nothing votes on it and no published figure moves.
