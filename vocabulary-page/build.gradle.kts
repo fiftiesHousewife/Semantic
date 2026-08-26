@@ -59,6 +59,19 @@ tasks.register<JavaExec>("domainVenn") {
 
 
 
+// The same reading's control matches: each out-of-domain control's phrases at their places in the
+// publisher's hierarchy. Consumes output/json (or -Dcs.reading.dir=<folder>).
+//   ./gradlew controlMatches
+tasks.register<JavaExec>("controlMatches") {
+    group = "verification"
+    description = "Draws the control vocabularies' phrase matches as trees in the publishers' hierarchies"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.ControlMatchesCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
+}
+
 // Both passes of the domain reading over every evaluation clone, with how much of the sense weighting
 // rests on published counts. It prints; nothing votes on it and no published figure moves.
 //   ./gradlew discoursePass -Dcs.evaluation.dir=<directory holding the clones>

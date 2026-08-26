@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class EvaluationPagesCommandTest {
 
     @Test
-    void writesBothPagesPerPublishedReadingAndAnIndexNamingThem(@TempDir final Path output,
+    void writesEveryPagePerPublishedReadingAndAnIndexNamingThem(@TempDir final Path output,
                                                                 @TempDir final Path reports)
             throws IOException {
         PublishedReadingFixture.wrote(output.resolve("json"));
@@ -27,8 +27,10 @@ class EvaluationPagesCommandTest {
                 () -> assertThat(written).containsExactly("a-repository"),
                 () -> assertThat(reports.resolve("a-repository").resolve("vocabulary.html")).exists(),
                 () -> assertThat(reports.resolve("a-repository").resolve("domain-venn.html")).exists(),
+                () -> assertThat(reports.resolve("a-repository").resolve("control-matches.html")).exists(),
                 () -> assertThat(Files.readString(reports.resolve("index.html")))
                         .contains("a-repository/vocabulary.html")
-                        .contains("a-repository/domain-venn.html"));
+                        .contains("a-repository/domain-venn.html")
+                        .contains("a-repository/control-matches.html"));
     }
 }

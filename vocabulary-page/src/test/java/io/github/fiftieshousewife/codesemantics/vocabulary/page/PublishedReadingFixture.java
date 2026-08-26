@@ -29,6 +29,17 @@ final class PublishedReadingFixture {
         Files.writeString(folder.resolve("evidence.json"), """
                 {
                   "schemaVersion": "5.0",
+                  "matches": [
+                    {"vocabulary": "FIBO", "term": "interest rate", "wordsInTerm": 2, "rung": "WORDS",
+                     "specificity": 0.9, "occurrences": 6, "outcome": "REPORTED",
+                     "concepts": ["InterestRate"], "sites": ["A.java:1"]},
+                    {"vocabulary": "FIBO", "term": "coupon", "wordsInTerm": 1, "rung": "WORDS",
+                     "specificity": 0.5, "occurrences": 40, "outcome": "REPORTED",
+                     "concepts": ["Coupon"], "sites": ["A.java:1"]},
+                    {"vocabulary": "BIAN", "term": "term deposit", "wordsInTerm": 2, "rung": "WORDS",
+                     "specificity": 0.9, "occurrences": 3, "outcome": "REPORTED",
+                     "concepts": ["Term Deposit"], "sites": ["A.java:2"]}
+                  ],
                   "vocabulary": [
                     {"word": "coupon", "claim": 0.010, "margin": 0.009, "timesChance": 5.0,
                      "occurrences": 40, "leftAt": ""},

@@ -3,6 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatch;
@@ -71,6 +73,21 @@ record ReadingEvidence(String schemaVersion, String repository, int files, int l
         final TermMatches matches = new TermMatches();
         return Stream.of(MatchedTaxonomies.values())
                 .flatMap(taxonomy -> matches.of(taxonomy.index().source(), read.apply(taxonomy)).stream())
+                .toList();
+    }
+
+    /**
+     * The out-of-domain controls' matching of the same tree, beside {@link #matching} in the one list.
+     * The controls vote on nothing; their matches are recorded because the comparison is the evidence.
+     */
+    static List<TermMatch> matchingWithControls(final java.util.function.Function<MatchedTaxonomies,
+            CorroboratedReading> read, final ParsedRepository parsed) {
+        final TermMatches matches = new TermMatches();
+        return Stream.concat(
+                        matching(read).stream(),
+                        Stream.of(ControlTaxonomies.values())
+                                .flatMap(control -> matches.of(control.index().source(),
+                                        control.reading(parsed)).stream()))
                 .toList();
     }
 }

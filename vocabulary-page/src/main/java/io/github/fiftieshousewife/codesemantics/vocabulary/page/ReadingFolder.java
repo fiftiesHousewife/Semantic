@@ -48,6 +48,38 @@ public final class ReadingFolder {
                              int occurrences, String leftAt) {
     }
 
+    /** One term match of the workings: the vocabulary, the term, its size, and where it was placed. */
+    public record TermMatchRow(String vocabulary, String term, int wordsInTerm, int occurrences,
+                               String outcome, List<String> concepts) {
+
+        public TermMatchRow {
+            concepts = List.copyOf(concepts);
+        }
+    }
+
+    /** Every taxonomy's term matches from {@code evidence.json}, empty where the file predates them. */
+    public List<TermMatchRow> termMatches() {
+        try {
+            final JsonNode evidence = new ObjectMapper().readTree(
+                    folder.resolve(EVIDENCE).toFile());
+            final List<TermMatchRow> matches = new ArrayList<>();
+            evidence.path("matches").forEach(match -> {
+                final List<String> concepts = new ArrayList<>();
+                match.path("concepts").forEach(concept -> concepts.add(concept.asText()));
+                matches.add(new TermMatchRow(
+                        match.path("vocabulary").asText(),
+                        match.path("term").asText(),
+                        match.path("wordsInTerm").asInt(),
+                        match.path("occurrences").asInt(),
+                        match.path("outcome").asText(),
+                        concepts));
+            });
+            return List.copyOf(matches);
+        } catch (final IOException e) {
+            throw new UncheckedIOException("No readable workings at " + folder, e);
+        }
+    }
+
     /** The ranking's workings from {@code evidence.json}, empty where the file predates them. */
     public List<RankedWord> vocabularyWorkings() {
         try {

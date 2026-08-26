@@ -44,7 +44,7 @@ public final class EvidenceCommand {
         return ReadingEvidence.of(
                 ThemeGraph.of(root.getFileName().toString(), reading.themes(), TOPICS_GRAPHED,
                         WITNESSES_HELD, new SourceLinks(root)),
-                ReadingEvidence.matching(reading::terms),
+                ReadingEvidence.matchingWithControls(reading::terms, reading.parsed()),
                 setAside(reading),
                 EvidenceWorkings.of(reading.themes().workings(), ReadWords.fromClasspath()),
                 vocabulary(reading));

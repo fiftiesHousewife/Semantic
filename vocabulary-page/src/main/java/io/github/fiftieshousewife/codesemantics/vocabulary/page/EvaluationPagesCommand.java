@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Writes both pages for every published reading under {@code output/} — the tree's own and one per
+ * Writes the pages for every published reading under {@code output/} — the tree's own and one per
  * evaluation member — one folder per repository, with an index naming them all. It consumes the readings
  * already taken and takes none itself.
  */
@@ -67,6 +67,7 @@ public final class EvaluationPagesCommand {
                 VocabularyPageCommand.leadingDomains(reading));
         DomainVennCommand.wrote(folder, DomainVennCommand.overlaps(repository, significant.words()),
                 significant.signals());
+        ControlMatchesCommand.wrote(folder, repository, ControlMatchesCommand.trees(reading));
     }
 
     /** Every repository with pages on disk, so runs over different readings grow one index. */

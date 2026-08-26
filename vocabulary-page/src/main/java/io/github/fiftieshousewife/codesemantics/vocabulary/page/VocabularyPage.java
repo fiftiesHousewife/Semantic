@@ -52,6 +52,7 @@ public final class VocabularyPage {
                         p().withClass("nav").with(
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
+                                a("controls").withHref("control-matches.html"), text(" · "),
                                 a("every repository").withHref("../index.html")),
                         p().withClass("lede").with(
                                 text("Every rule between the declared names and the export's signals, "
