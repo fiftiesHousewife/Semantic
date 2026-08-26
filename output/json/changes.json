@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "a4c77bf263fa4ff89569abecbbdabdcf6a7629b0",
-  "commit" : "1f60434d47773b3743ed2c64208bd6131677cbba",
+  "previousCommit" : "e43c2d5b2b21d840d7828396a4cb3bc7baf45707",
+  "commit" : "e43c2d5b2b21d840d7828396a4cb3bc7baf45707",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
     "after" : "98.2%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.6%",
+    "before" : "84.7%",
     "after" : "84.7%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -15,12 +15,12 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.4%",
-    "after" : "32.3%"
+    "before" : "32.3%",
+    "after" : "32.2%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.1%",
-    "after" : "40.0%"
+    "before" : "40.0%",
+    "after" : "39.9%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -35,12 +35,12 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "41.5%",
+    "before" : "41.4%",
     "after" : "41.4%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.4%",
-    "after" : "45.2%"
+    "before" : "45.2%",
+    "after" : "45.1%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -55,12 +55,12 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "23.5%",
+    "before" : "23.4%",
     "after" : "23.4%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
     "before" : "31.8%",
-    "after" : "31.8%"
+    "after" : "31.7%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -75,12 +75,12 @@
     "after" : "Natural Language Processing Techniques"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "41.3%",
-    "after" : "41.2%"
+    "before" : "41.1%",
+    "after" : "41.1%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.5%",
-    "after" : "48.5%"
+    "before" : "48.4%",
+    "after" : "48.4%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -91,8 +91,8 @@
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "244",
-    "after" : "244"
+    "before" : "245",
+    "after" : "245"
   }, {
     "figure" : "Topics reported",
     "before" : "10",
