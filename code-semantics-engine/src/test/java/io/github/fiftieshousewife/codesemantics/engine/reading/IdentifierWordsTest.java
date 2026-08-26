@@ -66,9 +66,20 @@ class IdentifierWordsTest {
 
     @Test
     void keepsALetterBesideADigitWholeBecauseUnicodeSaysThatIsNotABoundary() {
-        assertThat(words.of("utf8Decode").words())
-                .as("UAX #29 WB9 and WB10 state no break between a letter and a digit, so utf8 is one word")
-                .containsExactly("utf8decode");
+        assertThat(words.of("encodeBase64").words())
+                .as("UAX #29 WB9 and WB10 state no break between a letter and a digit, so base64 "
+                        + "is one word")
+                .containsExactly("encode", "base64");
+    }
+
+    @Test
+    void beginsANewWordAtACapitalWrittenAfterADigit() {
+        assertAll(
+                () -> assertThat(words.of("utf8Decode").words()).containsExactly("utf8", "decode"),
+                () -> assertThat(words.of("mp3VariableBitRate").words())
+                        .containsExactly("mp3", "variable", "bit", "rate"),
+                () -> assertThat(words.of("JBIG2Image").words()).containsExactly("jbig2", "image"),
+                () -> assertThat(words.of("SHA256Digest").words()).containsExactly("sha256", "digest"));
     }
 
     @Test
