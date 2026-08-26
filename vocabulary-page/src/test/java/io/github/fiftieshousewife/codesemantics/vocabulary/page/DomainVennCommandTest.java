@@ -25,7 +25,7 @@ class DomainVennCommandTest {
         assertAll(
                 () -> assertThat(overlaps.keySet())
                         .containsExactly("WordNet Domains", "eXtended WordNet Domains",
-                                "arXiv categories", "OpenAlex subfields"),
+                                "arXiv categories", "OpenAlex subfields", "CSO topics"),
                 () -> assertThat(overlaps.values())
                         .allSatisfy(overlap -> assertThat(overlap.regions())
                                 .hasSize((1 << overlap.domains().size()) - 1)));

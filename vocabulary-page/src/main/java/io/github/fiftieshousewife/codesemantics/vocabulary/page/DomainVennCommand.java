@@ -13,9 +13,11 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.term.SubjectDomains;
+import io.github.fiftieshousewife.codesemantics.engine.term.TopicLabelDomains;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +49,10 @@ public final class DomainVennCommand {
     private static final SubjectDomains OPENALEX_SUBFIELDS =
             new SubjectDomains(OpenAlexTopics.fromClasspath(), WordNetLexicon.fromClasspath(), SUBFIELD);
 
+    /** CSO states labels and no prose, so its word index reads the labels — see {@link TopicLabelDomains}. */
+    private static final TopicLabelDomains CSO_TOPICS =
+            new TopicLabelDomains(CsoTopics.fromClasspath().concepts(), WordNetLexicon.fromClasspath());
+
     private DomainVennCommand() {
     }
 
@@ -72,6 +78,8 @@ public final class DomainVennCommand {
                 DomainOverlap.of(repository, words, ARXIV_CATEGORIES::countedSenseDomainsOf));
         bySource.put("OpenAlex subfields",
                 DomainOverlap.of(repository, words, OPENALEX_SUBFIELDS::countedSenseDomainsOf));
+        bySource.put("CSO topics",
+                DomainOverlap.of(repository, words, CSO_TOPICS::countedSenseDomainsOf));
         return bySource;
     }
 

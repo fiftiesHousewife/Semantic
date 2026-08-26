@@ -35,6 +35,7 @@ public final class DomainVennPage {
     private static final String WORDNET = "https://wordnet.princeton.edu/";
     private static final String ARXIV_TAXONOMY = "https://arxiv.org/category_taxonomy";
     private static final String OPENALEX_TOPICS = "https://docs.openalex.org/api-entities/topics";
+    private static final String CSO = "https://cso.kmi.open.ac.uk/";
     private static final String TAGGED_COUNTS = "https://wordnet.princeton.edu/documentation/cntlist5wn";
     private static final String DIVERGENCE = "https://ieeexplore.ieee.org/document/61115";
 
@@ -61,6 +62,7 @@ public final class DomainVennPage {
                                 p().withClass("nav").with(
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
+                                a("controls").withHref("control-matches.html"), text(" · "),
                                 a("every repository").withHref("../index.html")),
                                 p().withClass("lede").with(
                                         text("The three domains carrying the most of this repository's "
@@ -75,6 +77,9 @@ public final class DomainVennPage {
                                                 + "carries the word, and under "),
                                         a("OpenAlex").withHref(OPENALEX_TOPICS),
                                         text(" in every subfield holding a topic whose keywords carry "
+                                                + "it, and under the "),
+                                        a("CSO").withHref(CSO),
+                                        text(" in every area holding a topic whose own label carries "
                                                 + "it. Either way, an overlap holds the words placed in "
                                                 + "both of its domains.")),
                                 p().withClass("sources"),
@@ -97,6 +102,10 @@ public final class DomainVennPage {
                                         + "labelled with the category or subfield the publisher states "
                                         + "that subject in. No subject carries a count, so every such "
                                         + "sense holds 0.5.")),
+                                li().with(text("The CSO states labels and no prose, so a sense is one "
+                                        + "topic whose label carries the word, labelled with the "
+                                        + "topic's nearest ancestors stated directly under a root of "
+                                        + "the scheme.")),
                                 li().with(text("The share on senses with no domain label contributes no "
                                         + "evidence; the line below states how much that is.")),
                                 li().with(text("Bold marks a word whose every labelled sense states one "
