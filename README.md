@@ -554,6 +554,7 @@ Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside
 | [OLiA](https://github.com/acoli-repo/olia) — Ontologies of Linguistic Annotation | linguistic annotation | the in-domain case: a vocabulary of grammar should match a library built from lemmas and senses |
 | [CSO](https://cso.kmi.open.ac.uk/) — the Computer Science Ontology, 14,636 topics | computer science | the near-domain case: the first source measured here that separates this repository from Apache Tika, which the subject scheme files under one category |
 | [FIBO](https://spec.edmcouncil.org/fibo/) — Financial Industry Business Ontology | finance | the out-of-domain case: a vocabulary of finance should match almost nothing in it |
+| [FpML](https://www.fpml.org/) — Financial products Markup Language 5.11 | derivatives trading | a second out-of-domain case: the types a trading system writes on the wire, matched beside FIBO |
 
 A vocabulary matching inside its own domain establishes nothing, because any sufficiently large word list matches something somewhere. What has to be shown is that it produces few or no matches outside that domain.
 
@@ -633,6 +634,7 @@ The reading names what it did not use in one place, `setAside`: topics no furthe
 |---|---|
 | Banking capabilities | [BIAN Service Landscape](https://github.com/bian-official/artefacts), Banking Industry Architecture Network. 319 service domains, Apache-2.0 |
 | Computer science topics | [CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, Knowledge Media Institute, The Open University. 14,636 topics, CC BY 4.0, and no definition for any of them |
+| Derivatives-trade terms | [FpML](https://www.fpml.org/), the Financial products Markup Language, ISDA. 1,405 complex types of the 5.11 confirmation schemas, under the [FpML Public License](https://www.fpml.org/the_standard/fpml-public-license/) |
 | Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |
 | Jensen–Shannon divergence | Lin, J. (1991), *Divergence measures based on the Shannon entropy*, IEEE Transactions on Information Theory 37(1), 145–151. Bounded at 1 bit under base-2 logarithms |
 | Kullback–Leibler divergence | Kullback, S. and Leibler, R. A. (1951), *On information and sufficiency*, Annals of Mathematical Statistics 22(1), 79–86. Unbounded above, which is why no figure here is reported in it |

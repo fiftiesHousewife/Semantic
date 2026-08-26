@@ -184,6 +184,22 @@ tasks.register<JavaExec>("extractBianServiceDomains") {
     )
 }
 
+// Reads the FpML 5.11 confirmation schemas — the complex types a derivatives trading system writes — into
+// the bundled FpML TSV. It reads a checkout of the HandCoded toolkit repository, which vendors each FpML
+// release whole; -Pfpml=<path> is required.
+//   ./gradlew :lexicon-extraction:extractFpmlTerms -Pfpml=/path/to/fpml-toolkit-java
+tasks.register<JavaExec>("extractFpmlTerms") {
+    group = "build"
+    description = "Extracts the FpML terms TSV from a fpml-toolkit-java checkout (-Pfpml=<path>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.FpmlTermsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("fpml") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/fpml-terms.tsv").asFile.absolutePath
+    )
+}
+
 // Reads FIBO's production T-Box — the hundred-odd ontologies its own manifest names — into the bundled
 // finance vocabulary TSV. FIBO publishes no merged document and is far too large to fetch file by file, so
 // this reads a checkout; -Pfibo=<path> is required.
