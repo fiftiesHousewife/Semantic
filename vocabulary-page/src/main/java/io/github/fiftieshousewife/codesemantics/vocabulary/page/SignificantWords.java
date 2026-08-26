@@ -23,21 +23,27 @@ final class SignificantWords {
     private SignificantWords() {
     }
 
-    static List<ScoredWord> of(final RepositoryReading reading) {
+    /** The merged words, and how many signals the export states before two spellings become one word. */
+    record Significant(List<ScoredWord> words, int signals) {
+    }
+
+    static Significant of(final RepositoryReading reading) {
         final WrittenWords written = new PublishedNames().published(reading.legibility());
         final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
         final Map<String, Double> bars =
                 VocabularyNull.byReference(ranking.chanceFor(written, reading.seed()));
         final ContentWords content = ContentWords.fromClasspath();
-        final Map<String, Double> claimByLemma = ranking.in(written).stream()
+        final List<ChosenWord> cleared = ranking.in(written).stream()
                 .filter(word -> !word.theLanguages())
                 .filter(word -> word.clears(bars))
+                .toList();
+        final Map<String, Double> claimByLemma = cleared.stream()
                 .collect(Collectors.groupingBy(word -> content.lemmaOrSurface(word.word()),
                         Collectors.summingDouble(ChosenWord::claim)));
-        return claimByLemma.entrySet().stream()
+        return new Significant(claimByLemma.entrySet().stream()
                 .map(entry -> new ScoredWord(entry.getKey(), entry.getValue()))
                 .sorted(Comparator.comparingDouble(ScoredWord::claim).reversed()
                         .thenComparing(ScoredWord::word))
-                .toList();
+                .toList(), cleared.size());
     }
 }

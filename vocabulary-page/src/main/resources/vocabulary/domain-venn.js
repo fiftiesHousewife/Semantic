@@ -16,8 +16,10 @@
     var MARGIN = 26;
     var GRID_STEP = 5;
 
-    var overlap = JSON.parse(document.getElementById("overlap").textContent).overlap;
+    var data = JSON.parse(document.getElementById("overlap").textContent);
+    var overlap = data.overlap;
     var sets = overlap.domains.length;
+    document.querySelector(".repository").textContent = overlap.repository;
     var readout = document.querySelector(".readout");
     readout.textContent = "Rest on a word or a count for its figures.";
 
@@ -178,8 +180,17 @@
             var label = svgElement("text", {x: centre.x,
                 y: below ? centre.y + centre.r + 18 : centre.y - centre.r - 8,
                 "text-anchor": "middle"});
-            label.textContent = overlap.domains[index].domain;
+            label.textContent = overlap.domains[index].domain
+                + " · " + overlap.domains[index].claim.toFixed(4) + " bits";
             svg.appendChild(label);
+        });
+        placed.forEach(function (centre, index) {
+            var circle = svg.querySelectorAll("circle")[index];
+            circle.addEventListener("mouseenter", function () {
+                readout.textContent = overlap.domains[index].domain + " — "
+                    + overlap.domains[index].claim.toFixed(4)
+                    + " bits of the divided weight; the circle's area is in proportion to it.";
+            });
         });
         overlap.regions.forEach(function (region) {
             var at = anchorOf(region);
@@ -264,7 +275,8 @@
         var others = overlap.otherDomains.slice(0, 5).map(function (other) {
             return other.domain;
         });
-        var parts = ["Of the " + overlap.significantWords + " significant words, "
+        var parts = ["The export's " + data.signals + " signals become " + overlap.significantWords
+            + " words once two spellings with one dictionary form count once; "
             + allPlaced.length + " sit in a drawn domain"];
         if (overlap.wordsInOtherDomainsOnly > 0) {
             parts.push(overlap.wordsInOtherDomainsOnly + " state only the " + overlap.otherDomains.length

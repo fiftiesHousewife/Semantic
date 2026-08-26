@@ -5,7 +5,9 @@
     var SMALLEST = 0.95;
     var LARGEST = 2.6;
 
-    var cloud = JSON.parse(document.getElementById("synsets").textContent).cloud;
+    var data = JSON.parse(document.getElementById("synsets").textContent);
+    var cloud = data.cloud;
+    var leading = data.leadingDomains || [];
     var readout = document.querySelector(".readout");
     readout.textContent = "Rest on a meaning for its figures.";
     document.querySelector(".repository").textContent = cloud.repository;
@@ -44,10 +46,40 @@
         return parts.join(" · ");
     }
 
+    /* Largest tiles toward the middle of the block, so the cloud reads from its centre outwards. */
+    function centred(senses) {
+        var left = [];
+        var right = [];
+        senses.forEach(function (sense, index) {
+            (index % 2 ? left : right).push(sense);
+        });
+        return left.reverse().concat(right);
+    }
+
+    function chipFor(sense) {
+        var at = -1;
+        sense.domains.forEach(function (domain) {
+            var place = leading.indexOf(domain);
+            if (place >= 0 && (at < 0 || place < at)) {
+                at = place;
+            }
+        });
+        if (at < 0) {
+            return null;
+        }
+        var chip = document.createElement("span");
+        chip.className = "chip set-" + at;
+        return chip;
+    }
+
     var panel = document.querySelector(".cloud");
-    cloud.senses.forEach(function (sense) {
+    centred(cloud.senses).forEach(function (sense) {
         var made = document.createElement("a");
-        made.textContent = label(sense);
+        var chip = chipFor(sense);
+        if (chip !== null) {
+            made.appendChild(chip);
+        }
+        made.appendChild(document.createTextNode(label(sense)));
         made.href = "vocabulary.html#w-" + encodeURIComponent(sense.members[0].word);
         made.style.fontSize = sized(sense.claim).toFixed(2) + "rem";
         if (sense.members.length > 1) {
@@ -61,8 +93,10 @@
         panel.appendChild(made);
     });
 
-    document.querySelector(".foot").textContent = "Of the " + cloud.significantWords
-        + " significant words, " + (cloud.significantWords - cloud.wordsWithoutASense)
-        + " resolve to " + cloud.senses.length + " meanings; " + cloud.wordsWithoutASense
-        + " have no dictionary sense and contribute no tile.";
+    document.querySelector(".foot").textContent = "The export's " + data.signals + " signals become "
+        + cloud.significantWords + " words once two spellings with one dictionary form count once; "
+        + (cloud.significantWords - cloud.wordsWithoutASense) + " resolve to " + cloud.senses.length
+        + " meanings, and " + cloud.wordsWithoutASense
+        + " have no dictionary sense and contribute no tile. A coloured mark names one of the three "
+        + "leading domains: " + leading.join(", ") + ".";
 }());

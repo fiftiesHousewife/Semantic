@@ -38,18 +38,26 @@ public final class DomainVennCommand {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        wrote(Path.of(REPORTS), overlap(RepositoryReading.of(new CloneUnderReading().root())));
+        final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
+        final SignificantWords.Significant significant = SignificantWords.of(reading);
+        wrote(Path.of(REPORTS),
+                DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
+                        WordNetLexicon.fromClasspath()::countedSenseDomainsOf),
+                significant.signals());
     }
 
     /** The significant words placed by the domains their senses state. */
     static DomainOverlap overlap(final RepositoryReading reading) {
-        return DomainOverlap.of(reading.root().getFileName().toString(), SignificantWords.of(reading),
+        return DomainOverlap.of(reading.root().getFileName().toString(),
+                SignificantWords.of(reading).words(),
                 WordNetLexicon.fromClasspath()::countedSenseDomainsOf);
     }
 
-    static Path wrote(final Path reports, final DomainOverlap overlap) throws IOException {
+    static Path wrote(final Path reports, final DomainOverlap overlap, final int signals)
+            throws IOException {
         Files.createDirectories(reports);
-        final String data = new ObjectMapper().writeValueAsString(Map.of("overlap", overlap));
+        final String data = new ObjectMapper()
+                .writeValueAsString(Map.of("overlap", overlap, "signals", signals));
         final Path page = reports.resolve(PAGE);
         Files.writeString(page, new DomainVennPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
         log.info("{} over domains {}: file://{}", overlap.repository(),

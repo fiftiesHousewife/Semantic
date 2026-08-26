@@ -40,7 +40,7 @@ class DomainVennCommandTest {
     void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
         final DomainOverlap overlap = new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0, 0.0);
 
-        final Path page = DomainVennCommand.wrote(reports, overlap);
+        final Path page = DomainVennCommand.wrote(reports, overlap, 0);
 
         assertAll(
                 () -> assertThat(page).exists(),

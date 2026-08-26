@@ -49,7 +49,7 @@ public final class DiscoursePassProbe {
 
     static void probe(final Path root, final Function<String, List<CountedSenseDomains>> senses) {
         final RepositoryReading reading = RepositoryReading.of(root);
-        final List<ScoredWord> words = SignificantWords.of(reading);
+        final List<ScoredWord> words = SignificantWords.of(reading).words();
         final String name = root.getFileName().toString();
         final DomainOverlap first = DomainOverlap.of(name, words, senses);
         final DomainOverlap discourse = DomainOverlap.guidedByTheDiscourse(name, words, senses);

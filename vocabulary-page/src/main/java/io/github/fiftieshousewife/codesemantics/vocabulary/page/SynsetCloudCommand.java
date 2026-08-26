@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -37,18 +38,38 @@ public final class SynsetCloudCommand {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        wrote(Path.of(REPORTS), cloud(RepositoryReading.of(new CloneUnderReading().root())));
+        final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
+        final SignificantWords.Significant significant = SignificantWords.of(reading);
+        wrote(Path.of(REPORTS), cloudOf(reading, significant), significant.signals(),
+                leadingDomains(reading, significant));
     }
 
     /** The significant words gathered under their commonest senses. */
     static SynsetCloud cloud(final RepositoryReading reading) {
-        return SynsetCloud.of(reading.root().getFileName().toString(), SignificantWords.of(reading),
+        return cloudOf(reading, SignificantWords.of(reading));
+    }
+
+    private static SynsetCloud cloudOf(final RepositoryReading reading,
+                                       final SignificantWords.Significant significant) {
+        return SynsetCloud.of(reading.root().getFileName().toString(), significant.words(),
                 WordNetLexicon.fromClasspath()::commonestSense, SenseDomains.fromClasspath());
     }
 
-    static Path wrote(final Path reports, final SynsetCloud cloud) throws IOException {
+    /** The venn's own three domains, so a coloured mark here names the same thing a circle does there. */
+    private static List<String> leadingDomains(final RepositoryReading reading,
+                                               final SignificantWords.Significant significant) {
+        return DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
+                        WordNetLexicon.fromClasspath()::countedSenseDomainsOf)
+                .domains().stream()
+                .map(DomainOverlap.Drawn::domain)
+                .toList();
+    }
+
+    static Path wrote(final Path reports, final SynsetCloud cloud, final int signals,
+                      final List<String> leadingDomains) throws IOException {
         Files.createDirectories(reports);
-        final String data = new ObjectMapper().writeValueAsString(Map.of("cloud", cloud));
+        final String data = new ObjectMapper().writeValueAsString(Map.of("cloud", cloud,
+                "signals", signals, "leadingDomains", leadingDomains));
         final Path page = reports.resolve(PAGE);
         Files.writeString(page, new SynsetCloudPage(data, read(STYLESHEET), read(BEHAVIOUR)).markup());
         log.info("{} at {} senses: file://{}", cloud.repository(), cloud.senses().size(),

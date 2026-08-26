@@ -43,6 +43,8 @@ h1 {
 }
 
 .cloud {
+    justify-content: center;
+    text-align: center;
     background: var(--raised);
     border: 1px solid var(--rule);
     border-radius: 6px;
@@ -53,6 +55,24 @@ h1 {
     align-items: baseline;
     column-gap: 0.65em;
     row-gap: 0.25em;
+}
+
+.cloud .chip {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    margin-right: 0.3em;
+}
+
+.cloud .chip.set-0 { background: #2a78d6; }
+.cloud .chip.set-1 { background: #eb6834; }
+.cloud .chip.set-2 { background: #1baf7a; }
+
+@media (prefers-color-scheme: dark) {
+    .cloud .chip.set-0 { background: #3987e5; }
+    .cloud .chip.set-1 { background: #d95926; }
+    .cloud .chip.set-2 { background: #199e70; }
 }
 
 .cloud a {

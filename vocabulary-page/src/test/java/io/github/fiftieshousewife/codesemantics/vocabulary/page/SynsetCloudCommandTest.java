@@ -38,7 +38,7 @@ class SynsetCloudCommandTest {
     void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
         final SynsetCloud cloud = new SynsetCloud("a-repository", List.of(), 0, 0);
 
-        final Path page = SynsetCloudCommand.wrote(reports, cloud);
+        final Path page = SynsetCloudCommand.wrote(reports, cloud, 0, List.of());
 
         assertAll(
                 () -> assertThat(page).exists(),
