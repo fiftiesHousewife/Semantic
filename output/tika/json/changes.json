@@ -7,19 +7,19 @@
     "after" : "97.1%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "74.0%",
-    "after" : "73.4%"
+    "before" : "73.4%",
+    "after" : "73.3%"
   }, {
     "figure" : "arXiv archive — nearest subject",
     "before" : "Computer Science",
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "33.2%",
-    "after" : "33.5%"
+    "before" : "33.5%",
+    "after" : "33.6%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.3%",
+    "before" : "41.2%",
     "after" : "41.2%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
@@ -31,15 +31,15 @@
     "after" : "2"
   }, {
     "figure" : "arXiv category — nearest subject",
-    "before" : "Networking and Internet Architecture",
+    "before" : "Computation and Language",
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "40.9%",
+    "before" : "41.3%",
     "after" : "41.3%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.8%",
+    "before" : "46.5%",
     "after" : "46.5%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -55,11 +55,11 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "22.0%",
+    "before" : "23.0%",
     "after" : "23.0%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.3%",
+    "before" : "32.5%",
     "after" : "32.5%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -75,36 +75,136 @@
     "after" : "Natural Language Processing Techniques"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "44.5%",
+    "before" : "43.8%",
     "after" : "43.8%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "49.9%",
-    "after" : "49.7%"
+    "before" : "49.7%",
+    "after" : "49.8%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
     "after" : "yes"
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
-    "before" : "16",
+    "before" : "12",
     "after" : "12"
   }, {
     "figure" : "Words above the bar",
-    "before" : "698",
-    "after" : "698"
+    "before" : "614",
+    "after" : "629"
   }, {
     "figure" : "Topics reported",
-    "before" : "9",
-    "after" : "15"
+    "before" : "15",
+    "after" : "17"
   }, {
     "figure" : "Concepts written",
     "before" : "371",
-    "after" : "371"
+    "after" : "372"
   } ],
   "crossings" : [ {
-    "population" : "TOPIC",
-    "name" : "computing",
+    "population" : "WORD",
+    "name" : "base64",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "calibrations",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "declaration2",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "f1",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "gb18030",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "pkcs7",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "s3",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "sequences",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "time32",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "uint16",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "utf16",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "v4",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "video",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "wp5",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "wp6",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "z3",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "z4",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "z5",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "z6",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "z9",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "1bit",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "2x",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "8bit",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "base64data",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "f1tables",
+    "entered" : false
+  }, {
+    "population" : "CONCEPT",
+    "name" : "constant bit rate",
     "entered" : true
   } ]
 }
