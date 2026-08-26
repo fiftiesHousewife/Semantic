@@ -12,15 +12,14 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
-import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Draws one repository's vocabulary as the funnel of the export's rules and the cloud of meanings that
- * survive them, into one page. It is a diagnostic and writes nowhere near {@code output/}, which holds
- * JSON and nothing else.
+ * Draws one published reading's vocabulary as the funnel of the export's rules and the cloud of meanings
+ * that survive them, into one page. It consumes {@code reading.json} and {@code evidence.json} and reads
+ * no tree, so the picture and the published figures cannot disagree. It is a diagnostic and writes
+ * nowhere near {@code output/}, which holds JSON and nothing else.
  */
 @Slf4j
 public final class VocabularyPageCommand {
@@ -29,21 +28,24 @@ public final class VocabularyPageCommand {
     private static final String STYLESHEET = "vocabulary.css";
     private static final String BEHAVIOUR = "vocabulary.js";
     private static final String RESOURCES = "vocabulary/";
-    private static final String REPORTS = "vocabulary-page/build/reports/vocabulary";
+    static final String REPORTS = "vocabulary-page/build/reports/vocabulary";
+    static final String READING_PROPERTY = "cs.reading.dir";
+    static final String DEFAULT_READING = "output/json";
 
     private VocabularyPageCommand() {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
+        final ReadingFolder reading = ReadingFolder.at(
+                Path.of(System.getProperty(READING_PROPERTY, DEFAULT_READING)));
         final VocabularyFunnel funnel = VocabularyFunnel.of(reading);
         wrote(Path.of(REPORTS).resolve(funnel.repository()), funnel, leadingDomains(reading));
     }
 
     /** The venn's own three domains, so a coloured mark here names the same thing a circle does there. */
-    static List<String> leadingDomains(final RepositoryReading reading) {
-        final SignificantWords.Significant significant = SignificantWords.of(reading);
-        return DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
+    static List<String> leadingDomains(final ReadingFolder reading) {
+        final SignificantWords.Significant significant = SignificantWords.of(reading.export());
+        return DomainOverlap.of(reading.export().summary().repository(), significant.words(),
                         WordNetLexicon.fromClasspath()::countedSenseDomainsOf)
                 .domains().stream()
                 .map(DomainOverlap.Drawn::domain)

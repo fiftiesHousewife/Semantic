@@ -14,24 +14,21 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class EvaluationPagesCommandTest {
 
     @Test
-    void writesAllThreePagesPerRepositoryAndAnIndexNamingThem(@TempDir final Path clones,
-                                                              @TempDir final Path reports)
+    void writesBothPagesPerPublishedReadingAndAnIndexNamingThem(@TempDir final Path output,
+                                                                @TempDir final Path reports)
             throws IOException {
-        final Path member = clones.resolve("a-member");
-        final Path scope = member.resolve("module").resolve("src").resolve("main").resolve("java")
-                .resolve("a");
-        Files.createDirectories(scope);
-        Files.writeString(scope.resolve("Pricer.java"),
-                "package a; /** Prices a coupon. */ class Pricer { int couponPrice; int lemmaParser; }");
+        PublishedReadingFixture.wrote(output.resolve("json"));
 
-        final List<String> written = EvaluationPagesCommand.pages(List.of(member), reports);
+        final List<Path> readings = EvaluationPagesCommand.readings(output);
+        final List<String> written = EvaluationPagesCommand.pages(readings, reports);
 
         assertAll(
-                () -> assertThat(written).containsExactly("a-member"),
-                () -> assertThat(reports.resolve("a-member").resolve("vocabulary.html")).exists(),
-                () -> assertThat(reports.resolve("a-member").resolve("domain-venn.html")).exists(),
+                () -> assertThat(readings).hasSize(1),
+                () -> assertThat(written).containsExactly("a-repository"),
+                () -> assertThat(reports.resolve("a-repository").resolve("vocabulary.html")).exists(),
+                () -> assertThat(reports.resolve("a-repository").resolve("domain-venn.html")).exists(),
                 () -> assertThat(Files.readString(reports.resolve("index.html")))
-                        .contains("a-member/vocabulary.html")
-                        .contains("a-member/domain-venn.html"));
+                        .contains("a-repository/vocabulary.html")
+                        .contains("a-repository/domain-venn.html"));
     }
 }

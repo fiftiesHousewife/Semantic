@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -30,6 +31,7 @@ class ReadingChangesTest {
                         List.of(), List.of(), List.of(), legibility, 0.75,
                         new ExportedSummary.Counts(0, topics.size(), 0)),
                 List.of(),
+                Map.of(),
                 topics.stream().map(topic -> new ExportedTheme(topic, "repository", 0.05, 0.02,
                         List.of(CARRIED))).toList(),
                 List.of(), NOTHING_SET_ASIDE);

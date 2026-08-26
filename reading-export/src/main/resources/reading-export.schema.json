@@ -11,7 +11,8 @@
     "signals",
     "themes",
     "taxonomies",
-    "setAside"
+    "setAside",
+    "thresholds"
   ],
   "properties": {
     "schemaVersion": {
@@ -272,6 +273,15 @@
             "$ref": "#/$defs/site"
           }
         }
+      }
+    },
+    "thresholds": {
+      "title": "Chance thresholds",
+      "description": "The threshold each reference's own permutation null sets for this repository, in bits, keyed by the reference's name. A signal's marginBits exceeds every one of them, and marginBits divided by a threshold states how far outside chance the word stands.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
       }
     },
     "themes": {

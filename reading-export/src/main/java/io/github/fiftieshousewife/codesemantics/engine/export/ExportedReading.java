@@ -112,6 +112,7 @@ public final class ExportedReading {
                 .summary(summarised(reading, commit, summary, signals, reported,
                         List.copyOf(taxonomies), placedIn(reading, themes, field)))
                 .signals(signals)
+                .thresholds(vocabulary.bars())
                 .themes(reported)
                 .taxonomies(List.copyOf(taxonomies))
                 .setAside(setAside(summary, vocabulary, legibility, terms, parsed))

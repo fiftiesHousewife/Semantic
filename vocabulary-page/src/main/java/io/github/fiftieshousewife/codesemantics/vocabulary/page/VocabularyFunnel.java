@@ -10,14 +10,9 @@ import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.bi.lexicon.WordSense;
-import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
-import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
+import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SenseDomains;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
  * The narrowing that produces the export's signals, one count per rule, ending in one tile per meaning.
@@ -63,30 +58,22 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
         tiles = List.copyOf(tiles);
     }
 
-    public static VocabularyFunnel of(final RepositoryReading reading) {
-        final WrittenWords written = new PublishedNames().published(reading.legibility());
-        final ChosenWords ranking = ChosenWords.againstEnglishAndTheCorpus();
-        final Map<String, Double> bars =
-                VocabularyNull.byReference(ranking.chanceFor(written, reading.seed()));
-        final List<ChosenWord> ranked = ranking.in(written);
-        final List<ChosenWord> aboveChance = ranked.stream()
-                .filter(word -> word.clears(bars))
-                .toList();
-        final int withinError = (int) ranked.stream()
-                .filter(word -> word.withinTheReferencesError(bars))
-                .count();
-        final List<ChosenWord> chosen = aboveChance.stream()
-                .filter(word -> !word.theLanguages())
-                .toList();
-        final List<Word> words = merged(chosen, bars);
-        return new VocabularyFunnel(reading.root().getFileName().toString(),
-                ranked.size(),
-                ranked.size() - aboveChance.size() - withinError,
-                withinError,
-                aboveChance.size() - chosen.size(),
-                chosen.size(),
+    /** The funnel of one published reading: the counts from its export, the words from its workings. */
+    public static VocabularyFunnel of(final ReadingFolder reading) {
+        final ReadingExport export = reading.export();
+        final List<ReadingFolder.RankedWord> workings = reading.vocabularyWorkings();
+        final List<Word> words = merged(workings);
+        return new VocabularyFunnel(export.summary().repository(),
+                workings.size(),
+                export.setAside().wordsBelowEveryThreshold(),
+                export.setAside().wordsWithinTheReferencesError(),
+                export.setAside().wordsTheLanguageSupplies(),
+                export.signals().size(),
                 words.size(),
-                ranked.stream().map(word -> rankedWord(word, bars)).toList(),
+                workings.stream()
+                        .map(word -> new Ranked(word.word(), word.claim(), word.timesChance(),
+                                word.leftAt()))
+                        .toList(),
                 words.stream()
                         .sorted(Comparator.comparingDouble(Word::claim).reversed()
                                 .thenComparing(Word::word))
@@ -96,50 +83,25 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
                 tiles(words));
     }
 
-    private static Ranked rankedWord(final ChosenWord word, final Map<String, Double> bars) {
-        return new Ranked(word.word(), word.claim(), marginOverBar(word, bars), leftAt(word, bars));
-    }
-
-    /** The rule that sets a word aside, named the way the export's counts name it, or none. */
-    private static String leftAt(final ChosenWord word, final Map<String, Double> bars) {
-        if (word.withinTheReferencesError(bars)) {
-            return "error";
-        }
-        if (!word.clears(bars)) {
-            return "chance";
-        }
-        return word.theLanguages() ? "english" : "";
-    }
-
-    private static double marginOverBar(final ChosenWord word, final Map<String, Double> bars) {
-        return word.against().stream()
-                .filter(reference -> bars.getOrDefault(reference.reference(), 0.0) > 0.0)
-                .mapToDouble(reference -> reference.margin() / bars.get(reference.reference()))
-                .min()
-                .orElse(0.0);
-    }
-
     /** One dictionary form with its figures, the intermediate the sense merge runs on. */
     private record Word(String word, double claim, double timesChance, int occurrences) {
     }
 
-    private static List<Word> merged(final List<ChosenWord> chosen, final Map<String, Double> bars) {
+    private static List<Word> merged(final List<ReadingFolder.RankedWord> workings) {
         final ContentWords content = ContentWords.fromClasspath();
-        return chosen.stream()
+        return workings.stream()
+                .filter(word -> word.leftAt().isEmpty())
                 .collect(Collectors.groupingBy(word -> content.lemmaOrSurface(word.word())))
                 .entrySet().stream()
-                .map(entry -> word(entry.getKey(), entry.getValue(), bars))
+                .map(entry -> word(entry.getKey(), entry.getValue()))
                 .toList();
     }
 
-    private static Word word(final String lemma, final List<ChosenWord> spellings,
-                             final Map<String, Double> bars) {
-        final double timesChance = spellings.stream()
-                .mapToDouble(word -> marginOverBar(word, bars))
-                .max()
-                .orElse(0.0);
-        return new Word(lemma, spellings.stream().mapToDouble(ChosenWord::claim).sum(), timesChance,
-                spellings.stream().mapToInt(ChosenWord::occurrences).sum());
+    private static Word word(final String lemma, final List<ReadingFolder.RankedWord> spellings) {
+        return new Word(lemma,
+                spellings.stream().mapToDouble(ReadingFolder.RankedWord::claim).sum(),
+                spellings.stream().mapToDouble(ReadingFolder.RankedWord::timesChance).max().orElse(0.0),
+                spellings.stream().mapToInt(ReadingFolder.RankedWord::occurrences).sum());
     }
 
     /** The words under their commonest senses; a word with no sense keeps a tile of its own. */

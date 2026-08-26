@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -16,37 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class DomainVennCommandTest {
 
     @Test
-    void overlapsTheSignificantWordsOfASmallRepositoryByTheirStatedDomains(@TempDir final Path root)
+    void overlapsAPublishedReadingsWordsUnderBothDomainSources(@TempDir final Path folder)
             throws IOException {
-        final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
-        Files.createDirectories(scope);
-        Files.writeString(scope.resolve("Pricer.java"),
-                "package a; /** Prices a coupon. */ class Pricer { int couponPrice; int lemmaParser; "
-                        + "int grammarLexicon; int phonemeSyntax; }");
+        final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
 
-        final DomainOverlap overlap = DomainVennCommand.overlap(RepositoryReading.of(root));
+        final Map<String, DomainOverlap> overlaps = DomainVennCommand.overlaps("a-repository",
+                SignificantWords.of(reading.export()).words());
 
         assertAll(
-                () -> assertThat(overlap.repository()).isEqualTo(root.getFileName().toString()),
-                () -> assertThat(overlap.domains())
-                        .as("a tiny tree still yields at least one domain to draw")
-                        .isNotEmpty(),
-                () -> assertThat(overlap.regions())
-                        .as("every overlap of the drawn domains is reported, empty or not")
-                        .hasSize((1 << overlap.domains().size()) - 1));
+                () -> assertThat(overlaps.keySet())
+                        .containsExactly("WordNet Domains", "eXtended WordNet Domains"),
+                () -> assertThat(overlaps.values())
+                        .allSatisfy(overlap -> assertThat(overlap.regions())
+                                .hasSize((1 << overlap.domains().size()) - 1)));
     }
 
     @Test
-    void writesOnePageEmbeddingTheStylesheetAndTheScript(@TempDir final Path reports) throws IOException {
-        final DomainOverlap overlap = new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0, 0.0);
+    void writesOnePageEmbeddingEverySourcesOverlap(@TempDir final Path reports) throws IOException {
+        final Map<String, DomainOverlap> overlaps = Map.of("WordNet Domains",
+                new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0, 0.0));
 
-        final Path page = DomainVennCommand.wrote(reports, overlap, 0);
+        final Path page = DomainVennCommand.wrote(reports, overlaps, 0);
 
         assertAll(
                 () -> assertThat(page).exists(),
+                () -> assertThat(reports.resolve("domain-venn.json")).exists(),
                 () -> assertThat(Files.readString(page))
                         .contains("a-repository")
-                        .contains("<style>")
-                        .contains("<script>"));
+                        .contains("WordNet Domains"));
     }
 }

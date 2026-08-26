@@ -5,7 +5,7 @@ Writes the published reading. `./gradlew read` runs every diagnostic over one sh
 | File | What it holds | Validated by |
 |---|---|---|
 | `reading.json` | the answers: summary, signals, themes, taxonomies, and what was set aside | `reading-export.schema.json`, bundled in this module |
-| `evidence.json` | the workings behind them: per-word statements, removals with the rule that made each, unread runs | nothing — it is the argument, not the contract |
+| `evidence.json` | the workings behind them: the vocabulary ranking word by word with each verdict and the rule behind it, per-word topical statements, removals with the rule that made each, unread runs | nothing — it is the argument, not the contract |
 | `changes.json` | what moved since the previous reading of the same schema version | written only where there is one to compare against |
 
 A reading writes JSON and nothing else. `PublishedFormat` (in the engine) refuses any file name that is not `.json`.

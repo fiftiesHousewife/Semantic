@@ -23,6 +23,9 @@ import static j2html.TagCreator.ul;
  * {@link VocabularyPage}, for the same reasons. The circles, the counts and the word lists are drawn by
  * the script from the data block, which is what {@link DomainOverlap} computed; nothing is computed here.
  *
+ * <p>The reader picks the domain source above the figure — each bundled source's overlaps are in the
+ * data block, computed from one published reading.
+ *
  * <p>The heading, the lede and the figure share one viewport height, so the picture is on screen whole
  * before anything scrolls; the word lists and the method follow below it.
  */
@@ -66,6 +69,7 @@ public final class DomainVennPage {
                                         a("senses").withHref(WORDNET),
                                         text(" states, so an overlap holds the words whose senses span "
                                                 + "both of its domains.")),
+                                p().withClass("sources"),
                                 div().withClass("figure")),
                         p().withClass("readout"),
                         div().withClass("overlaps"),

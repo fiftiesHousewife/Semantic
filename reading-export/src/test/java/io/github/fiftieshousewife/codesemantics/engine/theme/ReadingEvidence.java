@@ -38,17 +38,28 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermMatches;
 record ReadingEvidence(String schemaVersion, String repository, int files, int lines, int topics,
                        double unplaced, long elapsedMillis, String linkage, List<ThemeGraph.Edge> edges,
                        List<ThemeGraph.Scope> scopes, List<ThemeGraph.File> filesRead,
-                       List<TermMatch> matches, EvidenceSetAside setAside, EvidenceWorkings workings) {
+                       List<TermMatch> matches, EvidenceSetAside setAside, EvidenceWorkings workings,
+                       List<RankedWord> vocabulary) {
 
     /** Rises when a key here is added, renamed or removed. No schema checks it. */
-    static final String VERSION = "4.0";
+    static final String VERSION = "5.0";
+
+    /**
+     * One ranked word of the vocabulary with the whole of its verdict: the claim, the margin the verdict
+     * rests on, that margin as a multiple of the tightest chance threshold, and the rule that set the word
+     * aside — {@code chance}, {@code error}, {@code english} — or none where it stands as a signal.
+     */
+    record RankedWord(String word, double claim, double margin, double timesChance, int occurrences,
+                      String leftAt) {
+    }
 
     /** The theme workings with every bundled taxonomy's matching and what the reading set aside beside them. */
     static ReadingEvidence of(final ThemeGraph graph, final List<TermMatch> matches,
-                              final EvidenceSetAside setAside, final EvidenceWorkings workings) {
+                              final EvidenceSetAside setAside, final EvidenceWorkings workings,
+                              final List<RankedWord> vocabulary) {
         return new ReadingEvidence(VERSION, graph.repository(), graph.files(), graph.lines(), graph.topics(),
                 graph.unplaced(), graph.elapsedMillis(), graph.linkage(), graph.edges(), graph.scopes(),
-                graph.filesRead(), matches, setAside, workings);
+                graph.filesRead(), matches, setAside, workings, vocabulary);
     }
 
     /**

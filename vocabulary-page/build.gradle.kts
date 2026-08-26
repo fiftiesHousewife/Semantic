@@ -8,6 +8,7 @@ description = "The vocabulary page: every stage of the word pipeline over one re
 
 dependencies {
     implementation(project(":code-semantics-engine"))
+    implementation(project(":reading-export"))
     // The synset cloud asks the ported lexicon for each word's commonest sense directly.
     implementation(project(":lexicon"))
     implementation(libs.jackson.databind)
@@ -28,32 +29,30 @@ tasks.test {
     maxHeapSize = "3g"
 }
 
-// One repository's vocabulary at each of the stages the reading puts it through. A diagnostic: it writes
-// into this module's reports folder and never near output/.
+// One published reading's vocabulary: the funnel of the export's rules and the cloud of meanings. It
+// consumes output/json (or -Dcs.reading.dir=<folder>) and reads no tree.
 //   ./gradlew vocabularyPage
-//   ./gradlew vocabularyPage -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("vocabularyPage") {
     group = "verification"
-    description = "Draws every stage of the word pipeline over one repository as a page of sized words"
+    description = "Draws a published reading's vocabulary as the funnel of the export's rules"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.VocabularyPageCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "3g"
     workingDir = rootDir
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
 }
 
-// The same repository's significant words placed by the WordNet domains their senses state, as
-// overlapping sets. A diagnostic like the page above, writing to the same reports folder.
+// The same reading's significant words placed by the domains their senses state, as overlapping sets
+// under the reader's choice of domain source. Consumes output/json (or -Dcs.reading.dir=<folder>).
 //   ./gradlew domainVenn
-//   ./gradlew domainVenn -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("domainVenn") {
     group = "verification"
-    description = "Draws the significant words' WordNet domains as overlapping sets"
+    description = "Draws the significant words' domains as overlapping sets, one picture per source"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DomainVennCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "3g"
     workingDir = rootDir
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
 }
 
 
@@ -73,16 +72,26 @@ tasks.register<JavaExec>("discoursePass") {
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
-// All three pages for every evaluation clone, one folder per repository with an index over them.
-//   ./gradlew evaluationPages -Dcs.evaluation.dir=<directory holding the clones>
-//   ./gradlew evaluationPages -Dcs.clone.dir=<path>     # one tree
+// Both pages for every published reading under output/, one folder per repository with an index. It
+// consumes the readings already taken and takes none itself.
+//   ./gradlew evaluationPages
 tasks.register<JavaExec>("evaluationPages") {
     group = "verification"
-    description = "Writes the word, domain and meaning pages for every evaluation clone, with an index"
+    description = "Writes both pages for every published reading under output/, with an index"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.EvaluationPagesCommand"
     classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "8g"
+    maxHeapSize = "4g"
+    workingDir = rootDir
+}
+
+// The leading domains of one clone with the words that carry each, under both domain sources.
+//   ./gradlew domainCarriers -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("domainCarriers") {
+    group = "verification"
+    description = "Prints each leading domain's carrying words under both domain sources"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DomainCarriersProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
     workingDir = rootDir
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
 }

@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import lombok.Builder;
@@ -23,19 +24,20 @@ import lombok.Builder;
  * document is checked against before it is written.
  */
 public record ReadingExport(String schemaVersion, ExportedSummary summary, List<ExportedSignal> signals,
-                            List<ExportedTheme> themes, List<ExportedTaxonomy> taxonomies,
-                            SetAside setAside) {
+                            Map<String, Double> thresholds, List<ExportedTheme> themes,
+                            List<ExportedTaxonomy> taxonomies, SetAside setAside) {
 
     /**
      * The version of this file's shape. It rises when a field is added, renamed or removed, so a consumer's
      * code can branch on it rather than discover a change by failing.
      */
-    public static final String SCHEMA_VERSION = "11.0";
+    public static final String SCHEMA_VERSION = "12.0";
 
     public ReadingExport {
         Objects.requireNonNull(schemaVersion, "schemaVersion");
         Objects.requireNonNull(summary, "summary");
         signals = List.copyOf(signals);
+        thresholds = Map.copyOf(thresholds);
         themes = List.copyOf(themes);
         taxonomies = List.copyOf(taxonomies);
         Objects.requireNonNull(setAside, "setAside");
@@ -44,8 +46,9 @@ public record ReadingExport(String schemaVersion, ExportedSummary summary, List<
     /** The document at the version this build states, which is the only version it knows how to write. */
     @Builder
     public static ReadingExport of(final ExportedSummary summary, final List<ExportedSignal> signals,
-                                   final List<ExportedTheme> themes, final List<ExportedTaxonomy> taxonomies,
-                                   final SetAside setAside) {
-        return new ReadingExport(SCHEMA_VERSION, summary, signals, themes, taxonomies, setAside);
+                                   final Map<String, Double> thresholds, final List<ExportedTheme> themes,
+                                   final List<ExportedTaxonomy> taxonomies, final SetAside setAside) {
+        return new ReadingExport(SCHEMA_VERSION, summary, signals, thresholds, themes, taxonomies,
+                setAside);
     }
 }

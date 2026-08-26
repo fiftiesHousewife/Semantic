@@ -41,6 +41,7 @@ class ReadingExportSchemaTest {
                     0.98, 0.76, new ExportedSummary.Counts(1, 1, 1)),
             List.of(new ExportedSignal(ReadingSource.CLONE, "lemma", 40, 30, 0.02, 0.018,
                     "ordinary English", new SightingSite("Reading.java", 12))),
+            Map.of("ordinary English", 0.00002, "the reference corpus", 0.00003),
             List.of(new ExportedTheme("linguistics", "lexicon/src/main/java", 0.05, 0.012,
                     List.of(new ExportedWitness("word", 40, 12.5, List.of("WordNet Domains"),
                             List.of(new ExportedQuotation("word segmenter",
@@ -80,7 +81,7 @@ class ReadingExportSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final ReadingExport unversioned = new ReadingExport("two", EXPORT.summary(), EXPORT.signals(),
-                EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
+                EXPORT.thresholds(), EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(ExportFile.NAME), unversioned))
@@ -132,8 +133,8 @@ class ReadingExportSchemaTest {
         final List<ExportedTaxonomy> both = List.of(EXPORT.taxonomies().getFirst(),
                 new ExportedTaxonomy("CSO", List.of(), List.of(),
                         Map.of("words", 0, "lemmas", 0, "senses", 0)));
-        return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(), EXPORT.themes(),
-                both, EXPORT.setAside());
+        return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(),
+                EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside());
     }
 
     private static int occurrencesOf(final String key, final String document) {

@@ -4,12 +4,12 @@ Draws the export's significant words as two linked pages per repository: the voc
 
 ```
 ./gradlew vocabularyPage                                 # the funnel and the cloud of meanings
-./gradlew domainVenn                                     # the domains as overlapping sets
-./gradlew evaluationPages -Dcs.evaluation.dir=<clones>   # both pages for every clone, with an index
+./gradlew domainVenn                                     # the domains as overlapping sets, per source
+./gradlew evaluationPages                                # both pages for every reading under output/
 ./gradlew discoursePass -Dcs.evaluation.dir=<clones>     # the sense-weighting passes compared, printed
 ```
 
-The single-page tasks read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`. Each page links its sibling and `index.html`, which names every repository with pages on disk. Every figure a page draws is in the JSON block it draws it from, written beside the page as `vocabulary.json` and `domain-venn.json`, so the workings behind a picture can be read without the picture.
+The pages consume published readings — `reading.json` and `evidence.json` under `output/json`, or the folder `-Dcs.reading.dir=<folder>` names — and read no tree, so a picture and the published figures cannot disagree and drawing costs no parse. `evaluationPages` writes both pages for every reading under `output/`. Each page links its sibling and `index.html`, which names every repository with pages on disk; the domains page offers each bundled domain source, WordNet Domains and eXtended WordNet Domains, as a choice above the figure. Every figure a page draws is in the JSON block it draws it from, written beside the page as `vocabulary.json` and `domain-venn.json`.
 
 ## One population
 
