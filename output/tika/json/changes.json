@@ -7,7 +7,7 @@
     "after" : "97.1%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "73.4%",
+    "before" : "73.3%",
     "after" : "73.3%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -15,7 +15,7 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "33.5%",
+    "before" : "33.6%",
     "after" : "33.6%"
   }, {
     "figure" : "arXiv archive — chance reaches",
@@ -79,7 +79,7 @@
     "after" : "43.8%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "49.7%",
+    "before" : "49.8%",
     "after" : "49.8%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -91,120 +91,16 @@
     "after" : "12"
   }, {
     "figure" : "Words above the bar",
-    "before" : "614",
+    "before" : "629",
     "after" : "629"
   }, {
     "figure" : "Topics reported",
-    "before" : "15",
+    "before" : "17",
     "after" : "17"
   }, {
     "figure" : "Concepts written",
-    "before" : "371",
+    "before" : "372",
     "after" : "372"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "base64",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "calibrations",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "declaration2",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "f1",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "gb18030",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "pkcs7",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "s3",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "sequences",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "time32",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "uint16",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "utf16",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "v4",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "video",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "wp5",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "wp6",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "z3",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "z4",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "z5",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "z6",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "z9",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "1bit",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "2x",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "8bit",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "base64data",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "f1tables",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "constant bit rate",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }
