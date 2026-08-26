@@ -61,13 +61,11 @@ Nine members at four levels — arXiv archive and category, OpenAlex subfield an
 | leader in the stated area | the leader rolled up through `broader` in [`openalex-topics.tsv`](../../../lexicon/src/main/resources/openalex-topics.tsv) until it reaches the level the manifest's `area` names |
 | band reaches it | the same, for any subject in the band |
 
-[`score.py`](score.py) prints all of them from the committed readings:
+`EvaluationScoreCommand` prints all of them from the readings already under `output/`, deserialising each through the export's own model, so a schema bump moves it with the export rather than breaking a second parser:
 
 ```
-python3 .claude/skills/running-the-backtest/score.py
+./gradlew evaluationScore
 ```
-
-It reads reading-export schema 10.0 and the OpenAlex hierarchy, so a schema bump is a change to it.
 
 ## What decides whether a change stays
 

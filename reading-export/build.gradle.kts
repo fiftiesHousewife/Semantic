@@ -331,6 +331,19 @@ tasks.register<JavaExec>("evaluationReadAll") {
     }
 }
 
+// The backtest's scorecard, from the readings already under output/ — nothing is re-read. Each member is
+// scored against the subject area the manifest states for it, an OpenAlex placement rolled up through the
+// scheme's own `broader` column until it reaches the level the area names.
+//   ./gradlew evaluationScore
+tasks.register<JavaExec>("evaluationScore") {
+    group = "verification"
+    description = "Scores the evaluation-set readings under output/ against the areas the manifest states"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationScoreCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+}
+
 tasks.register("evaluationRead") {
     group = "verification"
     description = "Reads every cloned evaluation set member, one folder per member under output/"
