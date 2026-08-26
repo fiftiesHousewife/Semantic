@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "73cb9a88fb4eec0ce886ad1b444b8c274774a2f6",
-  "commit" : "223787f07e916ba81c857f06b8b14bdb3d822f79",
+  "previousCommit" : "223787f07e916ba81c857f06b8b14bdb3d822f79",
+  "commit" : "90eb95e0f38731ec3aeb12406c0d034558929f5e",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.2%",
@@ -55,7 +55,7 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "23.5%",
+    "before" : "23.6%",
     "after" : "23.6%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
@@ -91,7 +91,7 @@
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "239",
+    "before" : "240",
     "after" : "240"
   }, {
     "figure" : "Topics reported",
@@ -102,9 +102,5 @@
     "before" : "179",
     "after" : "179"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "margin",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }

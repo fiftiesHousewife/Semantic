@@ -2,7 +2,7 @@
   "schemaVersion" : "11.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "223787f07e916ba81c857f06b8b14bdb3d822f79",
+    "commit" : "90eb95e0f38731ec3aeb12406c0d034558929f5e",
     "about" : [ "linguistics", "computing", "grammar" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
     "placedIn" : [ {
@@ -15,11 +15,11 @@
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.14323894052038638,
-          "shareOfSubject" : 0.09525427442378823,
+          "shareOfSubject" : 0.09525427442378824,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2178,
-            "mass" : 128.95549828996081,
+            "mass" : 128.95549828996084,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -79,7 +79,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1004,
-            "mass" : 30.433253170020826,
+            "mass" : 30.43325317002083,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -334,7 +334,7 @@
           }, {
             "word" : "function",
             "occurrences" : 96,
-            "mass" : 6.935689343871907,
+            "mass" : 6.935689343871906,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "query_language function",
@@ -411,7 +411,7 @@
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2178,
-            "mass" : 128.95549828996081,
+            "mass" : 128.95549828996084,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -471,7 +471,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1004,
-            "mass" : 30.433253170020826,
+            "mass" : 30.43325317002083,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -900,7 +900,7 @@
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2178,
-            "mass" : 128.95549828996081,
+            "mass" : 128.95549828996084,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -960,7 +960,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1004,
-            "mass" : 30.433253170020826,
+            "mass" : 30.43325317002083,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1204,7 +1204,7 @@
       "category" : {
         "subject" : "Natural Language Processing Techniques",
         "divergenceBits" : 0.4151912216570703,
-        "nearestByChanceBits" : 0.48620695225916505,
+        "nearestByChanceBits" : 0.4862069522591651,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
@@ -1213,7 +1213,7 @@
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2178,
-            "mass" : 128.95549828996081,
+            "mass" : 128.95549828996084,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -1273,7 +1273,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1004,
-            "mass" : 30.433253170020826,
+            "mass" : 30.43325317002083,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1601,7 +1601,7 @@
           "carriedBy" : [ "linguistics", "publishing", "law", "mathematics" ]
         }, {
           "subject" : "Linguistics and language evolution",
-          "divergenceBits" : 0.4692552315891919,
+          "divergenceBits" : 0.46925523158919186,
           "carriedBy" : [ "linguistics", "telecommunication", "grammar", "law" ]
         }, {
           "subject" : "Media Discourse and Social  Analysis",
@@ -1609,7 +1609,7 @@
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "law" ]
         }, {
           "subject" : "Mental Health via Writing",
-          "divergenceBits" : 0.4724433678281068,
+          "divergenceBits" : 0.47244336782810675,
           "carriedBy" : [ "linguistics", "publishing", "telecommunication", "law" ]
         }, {
           "subject" : "Library Science and Information Systems",
@@ -1692,7 +1692,7 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.03767547869436966,
+      "divergenceBits" : 0.03767547869436964,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon-extraction/src/test/java",
@@ -1700,11 +1700,11 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.1615096899014673,
+      "divergenceBits" : 0.16150968990146733,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "reading-export/src/test/java",
-      "divergenceBits" : 0.05731414519908838,
+      "divergenceBits" : 0.05731414519908837,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "repository-clones/src/main/java",
@@ -1716,7 +1716,7 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "skos-matching/src/test/java",
-      "divergenceBits" : 0.14708373844451175,
+      "divergenceBits" : 0.14708373844451178,
       "writesMoreOf" : [ "linguistics" ]
     } ],
     "shareOfWordsWithACitation" : 0.9822203533714685,
@@ -5108,7 +5108,7 @@
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2178,
-      "mass" : 128.95549828996081,
+      "mass" : 128.95549828996084,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -5168,7 +5168,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1004,
-      "mass" : 30.433253170020826,
+      "mass" : 30.43325317002083,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -5354,7 +5354,7 @@
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2178,
-      "mass" : 128.95549828996081,
+      "mass" : 128.95549828996084,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -5414,7 +5414,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1004,
-      "mass" : 30.433253170020826,
+      "mass" : 30.43325317002083,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -5596,11 +5596,11 @@
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
     "shareOfRepository" : 0.022353433874030635,
-    "divergenceBits" : 0.004550948797992262,
+    "divergenceBits" : 0.0045509487979922755,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2178,
-      "mass" : 128.95549828996081,
+      "mass" : 128.95549828996084,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -5660,7 +5660,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1004,
-      "mass" : 30.433253170020826,
+      "mass" : 30.43325317002083,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -5842,7 +5842,7 @@
     "topic" : "grammar",
     "scope" : "code-semantics-engine/src/main/java",
     "shareOfRepository" : 0.0054679671523362745,
-    "divergenceBits" : 0.003174390369073618,
+    "divergenceBits" : 0.003174390369073611,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 203,
@@ -6338,7 +6338,7 @@
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2178,
-      "mass" : 128.95549828996081,
+      "mass" : 128.95549828996084,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -6398,7 +6398,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1004,
-      "mass" : 30.433253170020826,
+      "mass" : 30.43325317002083,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -8302,9 +8302,9 @@
     } ],
     "branches" : [ {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.44009865528537934,
+      "agreesWithTheRepository" : 0.4622564242379312,
       "mass" : 241.08804985398442,
-      "kept" : 106.10252654611304,
+      "kept" : 111.44449985199893,
       "terms" : [ "source", "document", "citations", "origin", "sentence", "sources", "heading", "author", "sentences", "title", "origins", "documents", "abstracts", "headline", "authors" ]
     }, {
       "branch" : "OrthographicEntity",
@@ -8314,9 +8314,9 @@
       "terms" : [ "token", "text", "tokens", "script", "scripts", "texts", "string", "character" ]
     }, {
       "branch" : "Morpheme",
-      "agreesWithTheRepository" : 0.330516199506838,
+      "agreesWithTheRepository" : 0.33040675334395975,
       "mass" : 122.93937492484963,
-      "kept" : 40.63345496990756,
+      "kept" : 40.61999972705538,
       "terms" : [ "root", "roots", "stem", "stems", "affix" ]
     }, {
       "branch" : "Constituent",
@@ -8326,9 +8326,9 @@
       "terms" : [ "phrase", "phrases", "clause", "fragment", "glob", "clauses" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.4707826416958619,
+      "agreesWithTheRepository" : 0.4757463958447512,
       "mass" : 89.85709745466994,
-      "kept" : 42.30316171483202,
+      "kept" : 42.74919025512979,
       "terms" : [ "verb", "noun", "residual", "adjective", "verbs", "nouns", "punctuation" ]
     }, {
       "branch" : "PartWhole",
@@ -8338,39 +8338,39 @@
       "terms" : [ "placed", "sets", "part of", "places", "put", "puts", "lays", "settings" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.38203089939554274,
+      "agreesWithTheRepository" : 0.38305631415148406,
       "mass" : 47.15142255286763,
-      "kept" : 18.013300365651297,
+      "kept" : 18.061650130100634,
       "terms" : [ "symbol", "abbreviation", "abbreviations", "acronym", "foreign", "date", "symbols" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.2548005620083917,
+      "agreesWithTheRepository" : 0.24775269495801788,
       "mass" : 39.28850262435991,
-      "kept" : 10.010732549155076,
+      "kept" : 9.733832406050325,
       "terms" : [ "function", "functions", "object" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.2783917161000758,
+      "agreesWithTheRepository" : 0.2816218227858074,
       "mass" : 38.24738676844728,
-      "kept" : 10.64775563881137,
+      "kept" : 10.771298778523894,
       "terms" : [ "suffix", "prefix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "EntityType",
-      "agreesWithTheRepository" : 0.23816836656487572,
+      "agreesWithTheRepository" : 0.2381683665648757,
       "mass" : 32.981297362450725,
-      "kept" : 7.855101720005333,
+      "kept" : 7.855101720005332,
       "terms" : [ "times", "sum", "sums", "program", "timed", "plan" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.19455393456015402,
+      "agreesWithTheRepository" : 0.19455393456015405,
       "mass" : 32.80416784659207,
-      "kept" : 6.3821799245261825,
+      "kept" : 6.382179924526183,
       "terms" : [ "mean", "means", "meaning", "meant", "supports" ]
     }, {
       "branch" : "Assessment",
-      "agreesWithTheRepository" : 0.2757371131790373,
+      "agreesWithTheRepository" : 0.2752621856585897,
       "mass" : 31.52804627025494,
-      "kept" : 8.693452462735213,
+      "kept" : 8.67847892589552,
       "terms" : [ "definition", "evaluation", "definitions" ]
     }, {
       "branch" : "Support",
@@ -8386,9 +8386,9 @@
       "terms" : [ "gives", "given", "give", "gave" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.06869548533722229,
+      "agreesWithTheRepository" : 0.0580542349608491,
       "mass" : 20.49204994917898,
-      "kept" : 1.4077113168134514,
+      "kept" : 1.1896502825790924,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "CoherenceRelation",
@@ -8398,9 +8398,9 @@
       "terms" : [ "expansion", "comparison", "expansions" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.3398404729593599,
+      "agreesWithTheRepository" : 0.3170808852110881,
       "mass" : 11.545832106637164,
-      "kept" : 3.923741043828936,
+      "kept" : 3.660962664871114,
       "terms" : [ "head", "predicate", "heads" ]
     }, {
       "branch" : "Abbreviation",
@@ -8410,9 +8410,9 @@
       "terms" : [ "initialism", "initialisms" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.21769622317976672,
+      "agreesWithTheRepository" : 0.2229962254752659,
       "mass" : 8.706487384790947,
-      "kept" : 1.8953694208312735,
+      "kept" : 1.9415138239564,
       "terms" : [ "initials", "initial", "simple" ]
     }, {
       "branch" : "NumberFeature",
@@ -8428,21 +8428,21 @@
       "terms" : [ "result" ]
     }, {
       "branch" : "Determiner",
-      "agreesWithTheRepository" : 0.2771763499128307,
+      "agreesWithTheRepository" : 0.30015156815856286,
       "mass" : 4.960758756232625,
-      "kept" : 1.3750050048506728,
+      "kept" : 1.4889795199395444,
       "terms" : [ "article" ]
     }, {
       "branch" : "InflectionTypeFeature",
-      "agreesWithTheRepository" : 0.3440427032274133,
+      "agreesWithTheRepository" : 0.34404270322741326,
       "mass" : 4.760611918350581,
-      "kept" : 1.6378537934059758,
+      "kept" : 1.6378537934059756,
       "terms" : [ "inflected", "inflects", "base forms", "base form" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.3362043374576572,
+      "agreesWithTheRepository" : 0.3567939041555273,
       "mass" : 3.719981735417856,
-      "kept" : 1.2506739947107461,
+      "kept" : 1.3272668067669906,
       "terms" : [ "past", "perfect", "present" ]
     }, {
       "branch" : "TextualOrganizationalRelation",
@@ -8470,15 +8470,15 @@
       "terms" : [ "prefers" ]
     }, {
       "branch" : "ProperNoun",
-      "agreesWithTheRepository" : 0.40598372636734187,
+      "agreesWithTheRepository" : 0.359083217176365,
       "mass" : 2.473654802230941,
-      "kept" : 1.0042635943561875,
+      "kept" : 0.8882479245688512,
       "terms" : [ "surname", "family name", "first name" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.15621430730439398,
+      "agreesWithTheRepository" : 0.15621430730439395,
       "mass" : 1.9614432551680498,
-      "kept" : 0.3064054994229526,
+      "kept" : 0.30640549942295253,
       "terms" : [ "commas", "colon" ]
     }, {
       "branch" : "Noun",
@@ -8488,9 +8488,9 @@
       "terms" : [ "proper noun", "common noun" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.33213612080820537,
+      "agreesWithTheRepository" : 0.3321361208082054,
       "mass" : 1.5563710786254865,
-      "kept" : 0.5169270525927515,
+      "kept" : 0.5169270525927516,
       "terms" : [ "exception", "alternative" ]
     }, {
       "branch" : "UsageAndFrequencyFeature",
@@ -8524,9 +8524,9 @@
       "terms" : [ "active" ]
     } ],
     "matchesByNormalisation" : {
+      "senses" : 157,
       "lemmas" : 249,
-      "words" : 1083,
-      "senses" : 157
+      "words" : 1083
     }
   }, {
     "vocabulary" : "CSO",
@@ -8707,7 +8707,7 @@
         "line" : 20
       }
     }, {
-      "concept" : "ontologies",
+      "concept" : "ontology",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -8718,7 +8718,7 @@
         "line" : 20
       }
     }, {
-      "concept" : "ontology",
+      "concept" : "ontologies",
       "placedUnder" : "semantics",
       "occurrences" : 4,
       "specificity" : 1.0,
@@ -9028,9 +9028,9 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
+      "senses" : 60,
       "lemmas" : 79,
-      "words" : 171,
-      "senses" : 60
+      "words" : 171
     }
   } ],
   "setAside" : {
