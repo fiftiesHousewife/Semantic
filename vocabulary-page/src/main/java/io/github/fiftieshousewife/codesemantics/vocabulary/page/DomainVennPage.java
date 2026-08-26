@@ -33,6 +33,8 @@ public final class DomainVennPage {
 
     private static final String WORDNET_DOMAINS = "https://wndomains.fbk.eu/";
     private static final String WORDNET = "https://wordnet.princeton.edu/";
+    private static final String ARXIV_TAXONOMY = "https://arxiv.org/category_taxonomy";
+    private static final String OPENALEX_TOPICS = "https://docs.openalex.org/api-entities/topics";
     private static final String TAGGED_COUNTS = "https://wordnet.princeton.edu/documentation/cntlist5wn";
     private static final String DIVERGENCE = "https://ieeexplore.ieee.org/document/61115";
 
@@ -61,13 +63,19 @@ public final class DomainVennPage {
                                 a("domains").withHref("domain-venn.html"), text(" · "),
                                 a("every repository").withHref("../index.html")),
                                 p().withClass("lede").with(
-                                        text("The three "),
+                                        text("The three domains carrying the most of this repository's "
+                                                + "significant words, drawn as overlapping sets under the "
+                                                + "source chosen above the figure. Under the "),
                                         a("WordNet domains").withHref(WORDNET_DOMAINS),
-                                        text(" carrying the most of this repository's significant words, "
-                                                + "drawn as overlapping sets. A word sits in every domain "
-                                                + "any of its "),
+                                        text(" sources a word sits in every domain any of its "),
                                         a("senses").withHref(WORDNET),
-                                        text(" states, so an overlap holds the words whose senses span "
+                                        text(" states; under "),
+                                        a("arXiv").withHref(ARXIV_TAXONOMY),
+                                        text(" it sits in every category whose published description "
+                                                + "carries the word, and under "),
+                                        a("OpenAlex").withHref(OPENALEX_TOPICS),
+                                        text(" in every subfield holding a topic whose keywords carry "
+                                                + "it. Either way, an overlap holds the words placed in "
                                                 + "both of its domains.")),
                                 p().withClass("sources"),
                                 div().withClass("figure")),
@@ -83,6 +91,12 @@ public final class DomainVennPage {
                                         a("WordNet's tagged corpus").withHref(TAGGED_COUNTS),
                                         text(" publishes. An uncounted sense holds 0.5, and a sense "
                                                 + "carrying several labels counts once per label.")),
+                                li().with(text("Under the arXiv and OpenAlex sources a sense is one "
+                                        + "described subject whose subject-matter account carries the "
+                                        + "word, at its written form or its dictionary base form, "
+                                        + "labelled with the category or subfield the publisher states "
+                                        + "that subject in. No subject carries a count, so every such "
+                                        + "sense holds 0.5.")),
                                 li().with(text("The share on senses with no domain label contributes no "
                                         + "evidence; the line below states how much that is.")),
                                 li().with(text("Bold marks a word whose every labelled sense states one "

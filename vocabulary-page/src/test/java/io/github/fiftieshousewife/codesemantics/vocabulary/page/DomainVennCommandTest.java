@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class DomainVennCommandTest {
 
     @Test
-    void overlapsAPublishedReadingsWordsUnderBothDomainSources(@TempDir final Path folder)
+    void overlapsAPublishedReadingsWordsUnderEveryDomainSource(@TempDir final Path folder)
             throws IOException {
         final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
 
@@ -24,7 +24,8 @@ class DomainVennCommandTest {
 
         assertAll(
                 () -> assertThat(overlaps.keySet())
-                        .containsExactly("WordNet Domains", "eXtended WordNet Domains"),
+                        .containsExactly("WordNet Domains", "eXtended WordNet Domains",
+                                "arXiv categories", "OpenAlex subfields"),
                 () -> assertThat(overlaps.values())
                         .allSatisfy(overlap -> assertThat(overlap.regions())
                                 .hasSize((1 << overlap.domains().size()) - 1)));

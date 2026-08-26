@@ -11,6 +11,8 @@ dependencies {
     implementation(project(":reading-export"))
     // The synset cloud asks the ported lexicon for each word's commonest sense directly.
     implementation(project(":lexicon"))
+    // The domain overlaps read the subject schemes through the word matcher the matching module holds.
+    implementation(project(":skos-matching"))
     implementation(libs.jackson.databind)
     implementation(libs.j2html)
     implementation(libs.slf4j.api)

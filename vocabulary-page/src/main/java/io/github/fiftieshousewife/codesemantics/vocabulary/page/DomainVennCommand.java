@@ -12,7 +12,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.engine.term.SubjectDomains;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +31,21 @@ public final class DomainVennCommand {
     private static final String STYLESHEET = "domain-venn.css";
     private static final String BEHAVIOUR = "domain-venn.js";
     private static final String RESOURCES = "vocabulary/";
+
+    /**
+     * The kinds each scheme's senses are labelled at: the finest level with human-written labels, because
+     * anything broader lumps all of software into one circle named computer science.
+     */
+    private static final String CATEGORY = "category";
+
+    private static final String SUBFIELD = "subfield";
+
+    /** Each scheme's word index is built once per JVM: a bundled taxonomy cannot change under a running program. */
+    private static final SubjectDomains ARXIV_CATEGORIES =
+            new SubjectDomains(ArxivSubjects.fromClasspath(), WordNetLexicon.fromClasspath(), CATEGORY);
+
+    private static final SubjectDomains OPENALEX_SUBFIELDS =
+            new SubjectDomains(OpenAlexTopics.fromClasspath(), WordNetLexicon.fromClasspath(), SUBFIELD);
 
     private DomainVennCommand() {
     }
@@ -50,6 +68,10 @@ public final class DomainVennCommand {
                 DomainOverlap.of(repository, words, lexicon::countedSenseDomainsOf));
         bySource.put("eXtended WordNet Domains",
                 DomainOverlap.of(repository, words, lexicon::extendedCountedSenseDomainsOf));
+        bySource.put("arXiv categories",
+                DomainOverlap.of(repository, words, ARXIV_CATEGORIES::countedSenseDomainsOf));
+        bySource.put("OpenAlex subfields",
+                DomainOverlap.of(repository, words, OPENALEX_SUBFIELDS::countedSenseDomainsOf));
         return bySource;
     }
 
