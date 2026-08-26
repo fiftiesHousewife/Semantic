@@ -40,7 +40,7 @@ public final class DomainVennCommand {
     public static void main(final String[] arguments) throws IOException {
         final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
         final SignificantWords.Significant significant = SignificantWords.of(reading);
-        wrote(Path.of(REPORTS),
+        wrote(Path.of(REPORTS).resolve(reading.root().getFileName().toString()),
                 DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
                         WordNetLexicon.fromClasspath()::countedSenseDomainsOf),
                 significant.signals());

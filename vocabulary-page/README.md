@@ -6,9 +6,10 @@ Draws one repository's significant words as a [word cloud](https://en.wikipedia.
 ./gradlew vocabularyPage                       # the word cloud per pipeline stage
 ./gradlew domainVenn                           # the domains of the significant words, as overlapping sets
 ./gradlew synsetCloud                          # the same words gathered under their WordNet senses
+./gradlew evaluationPages -Dcs.evaluation.dir=<clones>   # all three pages for every clone, with an index
 ```
 
-Both read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`.
+The single-page tasks read the tree the build runs in, or any other clone with `-Dcs.clone.dir=<path>`. Every page is written under `build/reports/vocabulary/<repository>/`, carries links to its two siblings, and `index.html` beside the folders names every repository with pages on disk.
 
 ## What the page shows
 

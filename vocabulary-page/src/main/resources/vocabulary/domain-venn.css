@@ -172,3 +172,12 @@ h1 {
 .method a, .lede a {
     color: inherit;
 }
+
+.nav {
+    margin: 0 0 0.75rem;
+    color: var(--ink-faint);
+}
+
+.nav a {
+    color: var(--ink-soft);
+}

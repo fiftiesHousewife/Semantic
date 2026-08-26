@@ -84,3 +84,17 @@ tasks.register<JavaExec>("discoursePass") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
 }
+
+// All three pages for every evaluation clone, one folder per repository with an index over them.
+//   ./gradlew evaluationPages -Dcs.evaluation.dir=<directory holding the clones>
+//   ./gradlew evaluationPages -Dcs.clone.dir=<path>     # one tree
+tasks.register<JavaExec>("evaluationPages") {
+    group = "verification"
+    description = "Writes the word, domain and meaning pages for every evaluation clone, with an index"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.EvaluationPagesCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "8g"
+    workingDir = rootDir
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
+}

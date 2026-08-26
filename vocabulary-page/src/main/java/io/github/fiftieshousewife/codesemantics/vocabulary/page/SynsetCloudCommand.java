@@ -40,7 +40,8 @@ public final class SynsetCloudCommand {
     public static void main(final String[] arguments) throws IOException {
         final RepositoryReading reading = RepositoryReading.of(new CloneUnderReading().root());
         final SignificantWords.Significant significant = SignificantWords.of(reading);
-        wrote(Path.of(REPORTS), cloudOf(reading, significant), significant.signals(),
+        wrote(Path.of(REPORTS).resolve(reading.root().getFileName().toString()),
+                cloudOf(reading, significant), significant.signals(),
                 leadingDomains(reading, significant));
     }
 
@@ -49,14 +50,14 @@ public final class SynsetCloudCommand {
         return cloudOf(reading, SignificantWords.of(reading));
     }
 
-    private static SynsetCloud cloudOf(final RepositoryReading reading,
+    static SynsetCloud cloudOf(final RepositoryReading reading,
                                        final SignificantWords.Significant significant) {
         return SynsetCloud.of(reading.root().getFileName().toString(), significant.words(),
                 WordNetLexicon.fromClasspath()::commonestSense, SenseDomains.fromClasspath());
     }
 
     /** The venn's own three domains, so a coloured mark here names the same thing a circle does there. */
-    private static List<String> leadingDomains(final RepositoryReading reading,
+    static List<String> leadingDomains(final RepositoryReading reading,
                                                final SignificantWords.Significant significant) {
         return DomainOverlap.of(reading.root().getFileName().toString(), significant.words(),
                         WordNetLexicon.fromClasspath()::countedSenseDomainsOf)

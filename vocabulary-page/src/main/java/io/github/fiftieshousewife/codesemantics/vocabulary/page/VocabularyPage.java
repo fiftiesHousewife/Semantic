@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import j2html.tags.specialized.BodyTag;
 
+import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
 import static j2html.TagCreator.code;
 import static j2html.TagCreator.div;
@@ -49,6 +50,11 @@ public final class VocabularyPage {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1().with(text("The words of "), span().withClass("repository")),
+                        p().withClass("nav").with(
+                                a("words").withHref("vocabulary.html"), text(" · "),
+                                a("domains").withHref("domain-venn.html"), text(" · "),
+                                a("meanings").withHref("synset-cloud.html"), text(" · "),
+                                a("every repository").withHref("../index.html")),
                         p().withClass("lede").with(
                                 text("The reading narrows a repository's words in stages, and each "
                                         + "stage runs on what the one before it left. Use Next stage to "

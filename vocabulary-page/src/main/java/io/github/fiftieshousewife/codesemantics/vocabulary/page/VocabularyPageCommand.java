@@ -47,7 +47,8 @@ public final class VocabularyPageCommand {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        wrote(Path.of(REPORTS), staged(RepositoryReading.of(new CloneUnderReading().root())));
+        final StagedVocabulary staged = staged(RepositoryReading.of(new CloneUnderReading().root()));
+        wrote(Path.of(REPORTS).resolve(staged.repository()), staged);
     }
 
     /** Every stage the pipeline puts this tree's words through, with what each left and what it took out. */

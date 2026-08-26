@@ -53,6 +53,11 @@ public final class DomainVennPage {
                 div().withClass("sheet").with(
                         div().withClass("fold").with(
                                 h1().with(text("The domains of "), span().withClass("repository")),
+                                p().withClass("nav").with(
+                                a("words").withHref("vocabulary.html"), text(" · "),
+                                a("domains").withHref("domain-venn.html"), text(" · "),
+                                a("meanings").withHref("synset-cloud.html"), text(" · "),
+                                a("every repository").withHref("../index.html")),
                                 p().withClass("lede").with(
                                         text("The three "),
                                         a("WordNet domains").withHref(WORDNET_DOMAINS),

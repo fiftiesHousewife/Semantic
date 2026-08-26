@@ -26,6 +26,12 @@
     var heaviest = overlap.domains.reduce(function (most, domain) {
         return Math.max(most, domain.claim);
     }, 0);
+    var placedWeight = overlap.domains.concat(overlap.otherDomains).reduce(function (sum, domain) {
+        return sum + domain.claim;
+    }, 0);
+    function shareOf(domain) {
+        return (100 * domain.claim / placedWeight).toFixed(0) + "%";
+    }
     var radii = overlap.domains.map(function (domain) {
         return Math.max(SMALLEST_RADIUS, LARGEST_RADIUS * Math.sqrt(domain.claim / heaviest));
     });
@@ -181,15 +187,16 @@
                 y: below ? centre.y + centre.r + 18 : centre.y - centre.r - 8,
                 "text-anchor": "middle"});
             label.textContent = overlap.domains[index].domain
-                + " · " + overlap.domains[index].claim.toFixed(4) + " bits";
+                + " · " + shareOf(overlap.domains[index]);
             svg.appendChild(label);
         });
         placed.forEach(function (centre, index) {
             var circle = svg.querySelectorAll("circle")[index];
             circle.addEventListener("mouseenter", function () {
-                readout.textContent = overlap.domains[index].domain + " — "
+                readout.textContent = overlap.domains[index].domain + " holds "
+                    + shareOf(overlap.domains[index]) + " of the weight that reaches any domain — "
                     + overlap.domains[index].claim.toFixed(4)
-                    + " bits of the divided weight; the circle's area is in proportion to it.";
+                    + " bits — and the circle's area is in proportion to it.";
             });
         });
         overlap.regions.forEach(function (region) {

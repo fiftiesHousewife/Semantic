@@ -40,6 +40,11 @@ public final class SynsetCloudPage {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1().with(text("The meanings of "), span().withClass("repository")),
+                        p().withClass("nav").with(
+                                a("words").withHref("vocabulary.html"), text(" · "),
+                                a("domains").withHref("domain-venn.html"), text(" · "),
+                                a("meanings").withHref("synset-cloud.html"), text(" · "),
+                                a("every repository").withHref("../index.html")),
                         p().withClass("lede").with(text("The significant words gathered under the "),
                                 a("WordNet").withHref("https://wordnet.princeton.edu/"),
                                 text(" senses they are most often written in. One tile is one meaning: "
