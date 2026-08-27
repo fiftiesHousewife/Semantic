@@ -111,9 +111,12 @@ final class MatchedTermDomains {
     }
 
     /**
-     * Each concept's area: the first level of its stated path, root first, that neither names the
-     * scheme's own field nor holds an outright majority of the phrase occurrences — the concept itself
-     * where its whole path dominates.
+     * Each concept's area, from the levels its publisher states above it — the concept itself only where
+     * its publisher states none. Walking the path root first, a level naming the scheme's own field is
+     * passed over, and a level holding an outright majority of the phrase occurrences is descended past
+     * only while a grouping level remains below it: a majority level distinguishes nothing where the
+     * matches can still part ways beneath it, but the deepest stated grouping is kept rather than
+     * dissolved into one set per matched concept.
      */
     static Map<String, String> areaByConcept(final Map<String, Integer> occurrencesByConcept,
                                              final PublishedPaths paths) {
@@ -124,11 +127,22 @@ final class MatchedTermDomains {
                 weightByLevel.merge(level, occurrencesByConcept.get(concept), Integer::sum)));
         final int whole = occurrencesByConcept.values().stream().mapToInt(Integer::intValue).sum();
         return pathByConcept.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, concept -> concept.getValue().stream()
-                        .filter(level -> !paths.fieldLevels().contains(level))
-                        .filter(level -> 2 * weightByLevel.get(level) <= whole)
-                        .findFirst()
-                        .orElse(concept.getValue().getLast())));
+                .collect(Collectors.toMap(Map.Entry::getKey, concept -> areaOf(concept.getValue(),
+                        paths, weightByLevel, whole)));
+    }
+
+    private static String areaOf(final List<String> path, final PublishedPaths paths,
+                                 final Map<String, Integer> weightByLevel, final int whole) {
+        final List<String> groupings = path.subList(0, path.size() - 1).stream()
+                .filter(level -> !paths.fieldLevels().contains(level))
+                .toList();
+        if (groupings.isEmpty()) {
+            return path.getLast();
+        }
+        return groupings.stream()
+                .filter(level -> 2 * weightByLevel.get(level) <= whole)
+                .findFirst()
+                .orElse(groupings.getLast());
     }
 
     /** One counted sense per matched concept, its area the domain, pooled over the rungs that matched. */

@@ -80,20 +80,20 @@ final class PublishedPaths {
     }
 
     /**
-     * The levels the publisher states as names over the chain's top: the first unresolvable
-     * {@code broader}, then the {@code module} above it, nearest level first. A top with no stated parent
-     * stands at its own root — its {@code module} is a code more often than a named area, and a code is
-     * not a level a reader can follow.
+     * The levels the publisher states as names over the chain's top, nearest level first: the first
+     * unresolvable {@code broader} where one is stated, then the {@code module} — BIAN's business area,
+     * FIBO's domain, FpML's schema file group — which also stands alone over a top with no stated
+     * parent, so a flat schema's types group under the one level their publisher does state.
      */
     private List<String> namedLevelsAbove(final String top) {
         return concept(top)
-                .filter(stated -> stated.broaderConcepts().stream().findFirst()
-                        .filter(parent -> !byLabel.containsKey(lowered(parent)))
-                        .isPresent())
                 .map(stated -> {
-                    final List<String> levels = new ArrayList<>(List.of(
-                            stated.broaderConcepts().getFirst()));
-                    if (!stated.module().isBlank()) {
+                    final List<String> levels = new ArrayList<>();
+                    stated.broaderConcepts().stream().findFirst()
+                            .filter(parent -> !byLabel.containsKey(lowered(parent)))
+                            .ifPresent(levels::add);
+                    final boolean topsOut = !levels.isEmpty() || stated.broaderConcepts().isEmpty();
+                    if (topsOut && !stated.module().isBlank()) {
                         levels.add(stated.module());
                     }
                     return levels;

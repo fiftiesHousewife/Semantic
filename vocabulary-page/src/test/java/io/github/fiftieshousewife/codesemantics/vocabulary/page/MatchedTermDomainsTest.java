@@ -23,6 +23,10 @@ class MatchedTermDomainsTest {
         return new SkosConcept(label, label, "", broader, "class", "", "", "");
     }
 
+    private static SkosConcept flat(final String label, final String module) {
+        return new SkosConcept(label, label, "", "", "class", module, "", "");
+    }
+
     @Test
     void namesEveryVocabularyInTheSummaryWithItsDescription() {
         final List<MatchedTermDomains.SummaryRow> summary = MatchedTermDomains.summary(List.of(
@@ -54,11 +58,31 @@ class MatchedTermDomainsTest {
 
         assertAll(
                 () -> assertThat(areas.get("InterestRate"))
-                        .as("Everything holds 100 and Rates holds 70 of 100, so the walk passes both")
-                        .isEqualTo("InterestRate"),
+                        .as("Everything names the scheme's field and Rates holds 70 of 100, but Rates is"
+                                + " the deepest grouping the publisher states, so it is kept")
+                        .isEqualTo("Rates"),
                 () -> assertThat(areas.get("PresentValue"))
                         .as("Valuation holds 30 of 100 and is the first minority level")
                         .isEqualTo("Valuation"));
+    }
+
+    @Test
+    void keepsTheOneGroupingAFlatSchemaStatesRatherThanDissolvingIntoLeaves() {
+        final PublishedPaths paths = new PublishedPaths(List.of(
+                flat("ProductId", "shared"),
+                flat("AccountId", "shared"),
+                flat("Swap", "ird"),
+                flat("CapFloor", "ird"),
+                flat("FxSingleLeg", "fx")));
+
+        final Map<String, String> areas = MatchedTermDomains.areaByConcept(
+                Map.of("ProductId", 60, "AccountId", 30, "Swap", 10), paths);
+
+        assertAll(
+                () -> assertThat(areas.get("ProductId"))
+                        .as("shared holds 90 of 100, but it is the only level FpML states")
+                        .isEqualTo("shared"),
+                () -> assertThat(areas.get("Swap")).isEqualTo("ird"));
     }
 
     @Test

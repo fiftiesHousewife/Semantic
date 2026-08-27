@@ -40,9 +40,9 @@ class PublishedPathsTest {
     }
 
     @Test
-    void standsATopWithAModuleCodeAndNoParentAtItsOwnRoot() {
+    void climbsIntoTheStatedModuleWhereTheChainTopsOutWithoutAParent() {
         assertThat(PATHS.pathOf("PresentValue"))
-                .containsExactly("MonetaryAmount", "PresentValue");
+                .containsExactly("FND", "MonetaryAmount", "PresentValue");
     }
 
     @Test
@@ -58,6 +58,6 @@ class PublishedPathsTest {
 
     @Test
     void namesTheBroadestStatedLevelAsTheRoot() {
-        assertThat(PATHS.rootOf("PresentValue")).isEqualTo("MonetaryAmount");
+        assertThat(PATHS.rootOf("PresentValue")).isEqualTo("FND");
     }
 }
