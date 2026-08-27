@@ -235,3 +235,43 @@ h1 {
     margin: 0.2rem 0 0.6rem;
     color: var(--ink-soft);
 }
+
+:root {
+    --v-olia: #2a78d6;
+    --v-cso: #eb6834;
+    --v-fibo: #1baf7a;
+    --v-fpml: #eda100;
+    --v-fix: #e87ba4;
+    --v-cwe: #008300;
+    --v-bian: #4a3aa7;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --v-olia: #3987e5;
+        --v-cso: #d95926;
+        --v-fibo: #199e70;
+        --v-fpml: #c98500;
+        --v-fix: #d55181;
+        --v-cwe: #008300;
+        --v-bian: #9085e9;
+    }
+}
+
+.summary-scale {
+    margin: 0.35rem 0 0.1rem;
+}
+
+.summary-bar {
+    height: 0.55rem;
+    min-width: 3px;
+    border-radius: 2px;
+}
+
+.summary-bar.v-olia { background: var(--v-olia); }
+.summary-bar.v-cso { background: var(--v-cso); }
+.summary-bar.v-fibo { background: var(--v-fibo); }
+.summary-bar.v-fpml { background: var(--v-fpml); }
+.summary-bar.v-fix { background: var(--v-fix); }
+.summary-bar.v-cwe { background: var(--v-cwe); }
+.summary-bar.v-bian { background: var(--v-bian); }

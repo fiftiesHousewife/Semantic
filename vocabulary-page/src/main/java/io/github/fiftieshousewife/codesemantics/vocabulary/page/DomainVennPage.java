@@ -83,6 +83,7 @@ public final class DomainVennPage {
                                                 + "it. Either way, an overlap holds the words placed in "
                                                 + "both of its domains.")),
                                 p().withClass("sources"),
+                                p().withClass("back"),
                                 div().withClass("figure")),
                         p().withClass("readout"),
                         div().withClass("overlaps"),

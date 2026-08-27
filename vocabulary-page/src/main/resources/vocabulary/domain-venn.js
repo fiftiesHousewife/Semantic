@@ -54,6 +54,7 @@
         var figure = document.querySelector(".figure");
         figure.textContent = "";
         figure.style.display = "";
+        drawBack(phrases ? vocabulary : null);
         document.querySelector(".overlaps").textContent = "";
         readout.textContent = "Rest on a word or a count for its figures.";
 
@@ -285,22 +286,6 @@
 
         function drawRegions() {
             var panel = document.querySelector(".overlaps");
-            if (phrases) {
-                var back = element("p", "back");
-                var all = element("a", null, "every vocabulary");
-                all.href = "#s-" + encodeURIComponent(data.phraseSummarySource);
-                all.addEventListener("click", function (event) {
-                    event.preventDefault();
-                    show(data.phraseSummarySource);
-                });
-                back.appendChild(all);
-                back.appendChild(document.createTextNode(" · " + vocabulary + "'s matched phrases, "
-                    + "drawn over the areas where its matches part ways · "));
-                var tree = element("a", null, "tree");
-                tree.href = "term-trees.html#" + encodeURIComponent(vocabulary);
-                back.appendChild(tree);
-                panel.appendChild(back);
-            }
             overlap.regions.forEach(function (region) {
                 var section = document.createElement("section");
                 section.id = sectionId(region);
@@ -358,8 +343,29 @@
         drawFoot();
     }
 
+    function drawBack(vocabulary) {
+        var back = document.querySelector(".back");
+        back.textContent = "";
+        if (!vocabulary) {
+            return;
+        }
+        var all = element("a", null, "← every vocabulary");
+        all.href = "#s-" + encodeURIComponent(data.phraseSummarySource);
+        all.addEventListener("click", function (event) {
+            event.preventDefault();
+            show(data.phraseSummarySource);
+        });
+        back.appendChild(all);
+        back.appendChild(document.createTextNode(" · " + vocabulary + "'s matched phrases, drawn "
+            + "over the areas where its matches part ways · "));
+        var tree = element("a", null, "tree");
+        tree.href = "term-trees.html#" + encodeURIComponent(vocabulary);
+        back.appendChild(tree);
+    }
+
     function renderSummary() {
         byWord = {};
+        drawBack(null);
         document.querySelector(".fold").className = "fold summary";
         var figure = document.querySelector(".figure");
         figure.textContent = "";
@@ -367,6 +373,9 @@
         var panel = document.querySelector(".overlaps");
         panel.textContent = "";
         readout.textContent = "A vocabulary's name opens its overlap; tree opens the publisher's hierarchy.";
+        var most = (data.phraseSummary || []).reduce(function (found, row) {
+            return Math.max(found, row.phraseOccurrences);
+        }, 0);
         (data.phraseSummary || []).forEach(function (row) {
             var section = element("section", "summary-row");
             var heading = element("h2");
@@ -389,6 +398,14 @@
             tree.href = "term-trees.html#" + encodeURIComponent(row.vocabulary);
             heading.appendChild(tree);
             section.appendChild(heading);
+            if (row.phraseOccurrences > 0 && most > 0) {
+                var scale = element("div", "summary-scale");
+                var bar = element("div",
+                    "summary-bar v-" + row.vocabulary.toLowerCase().replace(/[^a-z]/g, ""));
+                bar.style.width = (100 * row.phraseOccurrences / most).toFixed(1) + "%";
+                scale.appendChild(bar);
+                section.appendChild(scale);
+            }
             section.appendChild(element("p", "description", row.description));
             panel.appendChild(section);
         });
