@@ -5,11 +5,13 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -65,19 +67,26 @@ public final class DomainVennCommand {
                 .resolve(reading.export().summary().repository()));
     }
 
-    /** One reading's page: the word sources, then the phrase overlap its evidence records. */
+    /**
+     * One reading's page: the word sources, the phrase summary naming every vocabulary, and one overlap
+     * inside each vocabulary with phrase evidence, drawn at the level where its matches part ways.
+     */
     static Path pageOf(final ReadingFolder reading, final Path folder) throws IOException {
         final String repository = reading.export().summary().repository();
         final SignificantWords.Significant significant = SignificantWords.of(reading.export());
         final Map<String, DomainOverlap> bySource = new LinkedHashMap<>(overlaps(repository,
                 significant.words(), CorroboratedSenses.fromCommittedEvidence(reading)));
-        final List<String> phraseSources = MatchedTermDomains.of(repository, reading.termMatches())
-                .map(phrases -> {
-                    bySource.put(MatchedTermDomains.SOURCE, phrases);
-                    return List.of(MatchedTermDomains.SOURCE);
+        final List<MatchedTermDomains.SummaryRow> summary =
+                MatchedTermDomains.summary(reading.termMatches());
+        final List<String> phraseSources = summary.stream()
+                .filter(row -> row.phraseTerms() > 0)
+                .map(row -> {
+                    MatchedTermDomains.of(repository, row.vocabulary(), reading.termMatches())
+                            .ifPresent(overlap -> bySource.put(row.source(), overlap));
+                    return row.source();
                 })
-                .orElse(List.of());
-        return wrote(folder, bySource, phraseSources, significant.signals());
+                .toList();
+        return wrote(folder, bySource, summary, phraseSources, significant.signals());
     }
 
     /**
@@ -111,11 +120,18 @@ public final class DomainVennCommand {
     }
 
     static Path wrote(final Path folder, final Map<String, DomainOverlap> overlaps,
+                      final List<MatchedTermDomains.SummaryRow> summary,
                       final List<String> phraseSources, final int signals) throws IOException {
         Files.createDirectories(folder);
+        final List<String> pickable = overlaps.keySet().stream()
+                .filter(source -> !phraseSources.contains(source))
+                .collect(Collectors.toCollection(ArrayList::new));
+        pickable.add(MatchedTermDomains.SOURCE);
         final String data = new ObjectMapper().writeValueAsString(Map.of(
                 "overlaps", overlaps,
-                "sources", List.copyOf(overlaps.keySet()),
+                "sources", pickable,
+                "phraseSummarySource", MatchedTermDomains.SOURCE,
+                "phraseSummary", summary,
                 "phraseSources", phraseSources,
                 "signals", signals));
         final Path page = folder.resolve(PAGE);

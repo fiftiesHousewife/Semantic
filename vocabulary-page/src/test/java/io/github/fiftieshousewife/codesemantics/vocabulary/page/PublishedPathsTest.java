@@ -46,6 +46,17 @@ class PublishedPathsTest {
     }
 
     @Test
+    void namesALevelHoldingTheMajorityOfTheSchemeAsItsField() {
+        final PublishedPaths dominated = new PublishedPaths(List.of(
+                concept("Everything", "", ""),
+                concept("Rates", "Everything", ""),
+                concept("InterestRate", "Rates", ""),
+                concept("Valuation", "Everything", "")));
+
+        assertThat(dominated.fieldLevels()).containsExactly("Everything");
+    }
+
+    @Test
     void namesTheBroadestStatedLevelAsTheRoot() {
         assertThat(PATHS.rootOf("PresentValue")).isEqualTo("MonetaryAmount");
     }

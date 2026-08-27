@@ -32,6 +32,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String description() {
+            return "The Financial Industry Business Ontology: what a financial thing is — instruments, parties and agreements.";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return FiboTerms.fromClasspath().concepts();
         }
@@ -46,6 +51,11 @@ public enum ControlTaxonomies {
         @Override
         public TermIndex index() {
             return InjectedTerms.of(FpmlTerms.fromClasspath(), "FpML");
+        }
+
+        @Override
+        public String description() {
+            return "The Financial products Markup Language: how a derivatives trade is written down on the wire.";
         }
 
         @Override
@@ -66,6 +76,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String description() {
+            return "The FIX protocol as FIX Orchestra states it: how the front office talks to the market and the back office settles.";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return FixTerms.fromClasspath().concepts();
         }
@@ -79,6 +94,11 @@ public enum ControlTaxonomies {
         @Override
         public TermIndex index() {
             return InjectedTerms.of(CweTerms.fromClasspath(), name());
+        }
+
+        @Override
+        public String description() {
+            return "The Common Weakness Enumeration: the names MITRE states for software weaknesses.";
         }
 
         @Override
@@ -100,12 +120,20 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String description() {
+            return "The BIAN Service Landscape: the business capabilities a bank's services are named by.";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return BianServiceDomains.fromClasspath().concepts();
         }
     };
 
     public abstract TermIndex index();
+
+    /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
+    public abstract String description();
 
     /** What the branch rule is told the publisher states, the same contract as the matched list. */
     public abstract List<SkosConcept> publishedConcepts();

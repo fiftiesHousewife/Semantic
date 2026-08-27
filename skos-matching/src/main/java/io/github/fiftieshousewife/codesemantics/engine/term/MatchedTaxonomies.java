@@ -24,6 +24,12 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String description() {
+            return "The Ontologies of Linguistic Annotation: the terms linguistic annotation schemes"
+                    + " state parts of speech, morphology and syntax in.";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return OliaTerms.fromClasspath().concepts();
         }
@@ -37,12 +43,20 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String description() {
+            return "The Computer Science Ontology: the topics computer science research is indexed by.";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return index().publishedConcepts();
         }
     };
 
     public abstract TermIndex index();
+
+    /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
+    public abstract String description();
 
     /**
      * What the branch rule is told the publisher states, which is what decides which concepts sit beside

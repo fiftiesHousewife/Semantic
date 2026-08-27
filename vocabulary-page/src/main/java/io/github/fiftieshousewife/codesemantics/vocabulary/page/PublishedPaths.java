@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -23,11 +24,33 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 final class PublishedPaths {
 
     private final Map<String, SkosConcept> byLabel;
+    private final List<SkosConcept> published;
+    private Set<String> fieldLevels;
 
     PublishedPaths(final List<SkosConcept> published) {
         final Map<String, SkosConcept> index = new HashMap<>();
         published.forEach(concept -> index.putIfAbsent(lowered(concept.prefLabel()), concept));
         this.byLabel = Map.copyOf(index);
+        this.published = List.copyOf(published);
+    }
+
+    /**
+     * The levels holding an outright majority of the published concepts beneath them — the scheme's own
+     * name for its field, which nearly every member shares and which therefore distinguishes nothing. The
+     * bound is a majority because that is where one level outweighs everything outside it.
+     */
+    Set<String> fieldLevels() {
+        if (fieldLevels == null) {
+            final Map<String, Integer> beneath = new HashMap<>();
+            published.forEach(concept -> pathOf(concept.prefLabel()).stream()
+                    .filter(level -> !level.equals(concept.prefLabel()))
+                    .forEach(level -> beneath.merge(level, 1, Integer::sum)));
+            fieldLevels = beneath.entrySet().stream()
+                    .filter(level -> 2 * level.getValue() > published.size())
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toUnmodifiableSet());
+        }
+        return fieldLevels;
     }
 
     /** Root first: the resolvable {@code broader} chain, then the name-only levels above its top. */

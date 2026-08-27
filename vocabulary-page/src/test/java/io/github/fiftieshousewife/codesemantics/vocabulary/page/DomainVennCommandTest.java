@@ -40,7 +40,10 @@ class DomainVennCommandTest {
 
         assertThat(Files.readString(page.resolveSibling("domain-venn.json")))
                 .contains("Phrase matches")
-                .contains("phraseSources")
+                .contains("phraseSummary")
+                .contains("FIBO phrases")
+                .contains("BIAN phrases")
+                .contains("The Financial Industry Business Ontology")
                 .contains("interest rate")
                 .contains("term deposit");
     }
@@ -50,7 +53,7 @@ class DomainVennCommandTest {
         final Map<String, DomainOverlap> overlaps = Map.of("WordNet Domains",
                 new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0, 0.0));
 
-        final Path page = DomainVennCommand.wrote(reports, overlaps, List.of(), 0);
+        final Path page = DomainVennCommand.wrote(reports, overlaps, List.of(), List.of(), 0);
 
         assertAll(
                 () -> assertThat(page).exists(),

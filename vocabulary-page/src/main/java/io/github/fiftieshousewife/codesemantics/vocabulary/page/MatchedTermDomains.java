@@ -1,6 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,22 +12,26 @@ import java.util.stream.Collectors;
 import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
 
 /**
- * The reported phrase matches as one domain overlap whose sets are the vocabularies: each matched
- * multi-word term is one word of the population, and each vocabulary that states it is one counted sense —
- * the vocabulary's name the domain, its occurrence count the {@code uses}, the concepts it matched the
- * placing labels. A phrase two vocabularies state sits in their overlap, which is the corroboration the
- * control sweep measured: FIBO and FpML firing together on one repository is stronger evidence of the
- * field than either alone.
+ * One vocabulary's reported phrase matches as a domain overlap drawn inside the vocabulary: each matched
+ * multi-word term is one word of the population at its occurrence count, and each concept it matches is
+ * one counted sense whose domain is the concept's subject area and whose placing label is the concept
+ * itself.
  *
- * <p>The publisher-internal hierarchy above a match is deliberately not drawn here — the term trees hold
- * it. What a publisher states over its matched concepts is a schema code or nothing more often than a
- * named area, no two publishers' branches share a concept, and a diagram of overlapping sets needs sets
- * that can overlap.
+ * <p>The area is derived from the matches, never chosen: walking a concept's stated path from the root,
+ * the area is the first level that does not hold an outright majority of the vocabulary's phrase
+ * occurrences. A level nearly every match shares distinguishes nothing — the majority-root rule of the
+ * subject schemes, applied down the tree — so the sets are drawn where this repository's matches part
+ * ways, and a concept whose whole path dominates stands as its own area.
  */
 final class MatchedTermDomains {
 
-    /** The one phrase source the venn page offers, beside the word sources. */
+    /** The venn page's summary source: every vocabulary named with its description and its counts. */
     static final String SOURCE = "Phrase matches";
+
+    /** One vocabulary of the summary, naming the overlap source drawn for it where it has one. */
+    record SummaryRow(String vocabulary, String description, String source, int phraseTerms,
+                      int phraseOccurrences) {
+    }
 
     /** Only a term the repository wrote as more than one word is a phrase the field does not hit by accident. */
     private static final int PHRASE_WORDS = 2;
@@ -35,20 +41,38 @@ final class MatchedTermDomains {
     private MatchedTermDomains() {
     }
 
-    /** The overlap of one reading's reported phrase matches, or nothing where it reports none. */
-    static Optional<DomainOverlap> of(final String repository,
+    /** Every vocabulary's phrase evidence in one list, the most phrase occurrences first, zeros kept. */
+    static List<SummaryRow> summary(final List<ReadingFolder.TermMatchRow> matches) {
+        return BundledVocabularies.all().stream()
+                .map(vocabulary -> row(vocabulary, phrasesOf(vocabulary.name(), matches)))
+                .sorted(Comparator.comparingInt(SummaryRow::phraseOccurrences).reversed()
+                        .thenComparing(SummaryRow::vocabulary))
+                .toList();
+    }
+
+    /** The overlap the summary names for one vocabulary, or nothing where it reports no phrase. */
+    static Optional<DomainOverlap> of(final String repository, final String vocabulary,
                                       final List<ReadingFolder.TermMatchRow> matches) {
-        final Map<String, List<ReadingFolder.TermMatchRow>> byTerm = matches.stream()
-                .filter(match -> match.wordsInTerm() >= PHRASE_WORDS)
-                .filter(match -> REPORTED.equals(match.outcome()))
-                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::term));
-        if (byTerm.isEmpty()) {
+        final List<ReadingFolder.TermMatchRow> phrases = phrasesOf(vocabulary, matches);
+        if (phrases.isEmpty()) {
             return Optional.empty();
         }
-        final Map<String, List<CountedSenseDomains>> sensesByTerm = byTerm.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, term -> sensesOf(term.getValue())));
-        final List<ScoredWord> words = byTerm.entrySet().stream()
-                .map(term -> new ScoredWord(term.getKey(), writtenCount(term.getValue())))
+        final BundledVocabularies published = BundledVocabularies.all().stream()
+                .filter(bundled -> bundled.name().equals(vocabulary))
+                .findFirst()
+                .orElseThrow();
+        final Map<String, Integer> occurrencesByConcept = occurrencesByConcept(phrases);
+        final Map<String, String> areaByConcept = areaByConcept(occurrencesByConcept,
+                new PublishedPaths(published.published()));
+        final Map<String, List<CountedSenseDomains>> sensesByTerm = phrases.stream()
+                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::term,
+                        Collectors.collectingAndThen(Collectors.toList(),
+                                rows -> sensesOf(rows, areaByConcept))));
+        final List<ScoredWord> words = phrases.stream()
+                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::term,
+                        Collectors.summingInt(ReadingFolder.TermMatchRow::occurrences)))
+                .entrySet().stream()
+                .map(term -> new ScoredWord(term.getKey(), term.getValue()))
                 .sorted(Comparator.comparingDouble(ScoredWord::claim).reversed()
                         .thenComparing(ScoredWord::word))
                 .toList();
@@ -56,35 +80,69 @@ final class MatchedTermDomains {
                 term -> sensesByTerm.getOrDefault(term, List.of())));
     }
 
-    /** One counted sense per vocabulary stating the term, its concepts the placing labels. */
-    private static List<CountedSenseDomains> sensesOf(final List<ReadingFolder.TermMatchRow> rows) {
-        return rows.stream()
-                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::vocabulary))
-                .entrySet().stream()
-                .map(vocabulary -> new CountedSenseDomains(Set.of(vocabulary.getKey()),
-                        vocabulary.getValue().stream()
-                                .mapToInt(ReadingFolder.TermMatchRow::occurrences)
-                                .sum(),
-                        vocabulary.getValue().stream()
-                                .flatMap(row -> row.concepts().stream())
-                                .distinct()
-                                .toList()))
-                .sorted(Comparator.comparing(sense -> sense.domains().iterator().next()))
+    static String sourceOf(final String vocabulary) {
+        return vocabulary + " phrases";
+    }
+
+    private static SummaryRow row(final BundledVocabularies vocabulary,
+                                  final List<ReadingFolder.TermMatchRow> phrases) {
+        return new SummaryRow(vocabulary.name(), vocabulary.description(),
+                sourceOf(vocabulary.name()),
+                (int) phrases.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
+                phrases.stream().mapToInt(ReadingFolder.TermMatchRow::occurrences).sum());
+    }
+
+    private static List<ReadingFolder.TermMatchRow> phrasesOf(
+            final String vocabulary, final List<ReadingFolder.TermMatchRow> matches) {
+        return matches.stream()
+                .filter(match -> vocabulary.equals(match.vocabulary()))
+                .filter(match -> match.wordsInTerm() >= PHRASE_WORDS)
+                .filter(match -> REPORTED.equals(match.outcome()))
                 .toList();
     }
 
+    private static Map<String, Integer> occurrencesByConcept(
+            final List<ReadingFolder.TermMatchRow> phrases) {
+        return phrases.stream()
+                .flatMap(row -> row.concepts().stream().map(concept -> Map.entry(concept,
+                        row.occurrences())))
+                .collect(Collectors.groupingBy(Map.Entry::getKey, LinkedHashMap::new,
+                        Collectors.summingInt(Map.Entry::getValue)));
+    }
+
     /**
-     * How often the repository wrote the phrase: the most any one vocabulary counted, because every
-     * vocabulary counts the same written sites and a second vocabulary stating the term is not a second
-     * writing.
+     * Each concept's area: the first level of its stated path, root first, that neither names the
+     * scheme's own field nor holds an outright majority of the phrase occurrences — the concept itself
+     * where its whole path dominates.
      */
-    private static int writtenCount(final List<ReadingFolder.TermMatchRow> rows) {
+    static Map<String, String> areaByConcept(final Map<String, Integer> occurrencesByConcept,
+                                             final PublishedPaths paths) {
+        final Map<String, List<String>> pathByConcept = occurrencesByConcept.keySet().stream()
+                .collect(Collectors.toMap(concept -> concept, paths::pathOf));
+        final Map<String, Integer> weightByLevel = new HashMap<>();
+        pathByConcept.forEach((concept, path) -> path.forEach(level ->
+                weightByLevel.merge(level, occurrencesByConcept.get(concept), Integer::sum)));
+        final int whole = occurrencesByConcept.values().stream().mapToInt(Integer::intValue).sum();
+        return pathByConcept.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, concept -> concept.getValue().stream()
+                        .filter(level -> !paths.fieldLevels().contains(level))
+                        .filter(level -> 2 * weightByLevel.get(level) <= whole)
+                        .findFirst()
+                        .orElse(concept.getValue().getLast())));
+    }
+
+    /** One counted sense per matched concept, its area the domain, pooled over the rungs that matched. */
+    private static List<CountedSenseDomains> sensesOf(final List<ReadingFolder.TermMatchRow> rows,
+                                                      final Map<String, String> areaByConcept) {
         return rows.stream()
-                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::vocabulary,
-                        Collectors.summingInt(ReadingFolder.TermMatchRow::occurrences)))
-                .values().stream()
-                .mapToInt(Integer::intValue)
-                .max()
-                .orElse(0);
+                .flatMap(row -> row.concepts().stream()
+                        .map(concept -> Map.entry(concept, row.occurrences())))
+                .collect(Collectors.groupingBy(Map.Entry::getKey, LinkedHashMap::new,
+                        Collectors.summingInt(Map.Entry::getValue)))
+                .entrySet().stream()
+                .map(concept -> new CountedSenseDomains(
+                        Set.of(areaByConcept.get(concept.getKey())),
+                        concept.getValue(), List.of(concept.getKey())))
+                .toList();
     }
 }

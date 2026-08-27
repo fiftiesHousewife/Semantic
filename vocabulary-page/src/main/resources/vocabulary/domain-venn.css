@@ -47,6 +47,11 @@ body {
     flex-direction: column;
 }
 
+/* The summary lists every vocabulary instead of drawing circles, so the fold gives its height back. */
+.fold.summary {
+    height: auto;
+}
+
 h1 {
     font-size: 1.6rem;
     font-weight: 600;
@@ -201,4 +206,32 @@ h1 {
     color: var(--ink);
     border-color: var(--ink-faint);
     font-weight: 600;
+}
+
+.summary-row {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+    margin: 0.6rem 0;
+}
+
+.summary-row h2 {
+    font-size: 1.02rem;
+    margin: 0;
+}
+
+.summary-row h2.silent {
+    color: var(--ink-faint);
+    font-weight: 500;
+}
+
+.summary-row .description {
+    margin: 0.15rem 0 0;
+    color: var(--ink-soft);
+}
+
+.back {
+    margin: 0.2rem 0 0.6rem;
+    color: var(--ink-soft);
 }

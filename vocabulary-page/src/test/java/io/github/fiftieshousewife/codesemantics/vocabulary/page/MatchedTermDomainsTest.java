@@ -1,11 +1,13 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.groups.Tuple.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MatchedTermDomainsTest {
@@ -17,66 +19,67 @@ class MatchedTermDomainsTest {
                 outcome, List.of(concepts));
     }
 
-    private static final List<ReadingFolder.TermMatchRow> MATCHES = List.of(
-            row("FpML", "valuation date", 2, 795, "REPORTED", "ValuationDate"),
-            row("FIX", "valuation date", 2, 795, "REPORTED", "ValuationDate"),
-            row("FIBO", "present value", 2, 1429, "REPORTED", "PresentValue"),
-            row("FIX", "trade date", 2, 424, "REPORTED", "TradeDate"));
-
-    private static final DomainOverlap OVERLAP =
-            MatchedTermDomains.of("a-repository", MATCHES).orElseThrow();
-
-    private static List<DomainOverlap.Placed> placed() {
-        return OVERLAP.regions().stream()
-                .flatMap(region -> region.words().stream())
-                .toList();
+    private static SkosConcept concept(final String label, final String broader) {
+        return new SkosConcept(label, label, "", broader, "class", "", "", "");
     }
 
     @Test
-    void drawsTheVocabulariesAsTheSets() {
-        assertThat(OVERLAP.domains())
-                .extracting(DomainOverlap.Drawn::domain)
-                .containsExactlyInAnyOrder("FIBO", "FpML", "FIX");
-    }
-
-    @Test
-    void placesAPhraseInTheOverlapOfEveryVocabularyThatStatesIt() {
-        final DomainOverlap.Placed shared = placed().stream()
-                .filter(word -> word.word().equals("valuation date"))
-                .findFirst()
-                .orElseThrow();
+    void namesEveryVocabularyInTheSummaryWithItsDescription() {
+        final List<MatchedTermDomains.SummaryRow> summary = MatchedTermDomains.summary(List.of(
+                row("FIBO", "interest rate", 2, 72, "REPORTED", "InterestRate")));
 
         assertAll(
-                () -> assertThat(shared.unambiguous()).isFalse(),
-                () -> assertThat(OVERLAP.regions().stream()
-                        .filter(region -> region.words().contains(shared))
-                        .flatMap(region -> region.domains().stream()
-                                .map(index -> OVERLAP.domains().get(index).domain())))
-                        .containsExactlyInAnyOrder("FpML", "FIX"));
+                () -> assertThat(summary)
+                        .extracting(MatchedTermDomains.SummaryRow::vocabulary)
+                        .containsExactlyInAnyOrder("OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN"),
+                () -> assertThat(summary.getFirst().vocabulary()).isEqualTo("FIBO"),
+                () -> assertThat(summary.getFirst().phraseOccurrences()).isEqualTo(72),
+                () -> assertThat(summary.getFirst().description()).isNotBlank(),
+                () -> assertThat(summary.stream()
+                        .filter(vocabulary -> !vocabulary.vocabulary().equals("FIBO")))
+                        .allSatisfy(vocabulary -> assertThat(vocabulary.phraseTerms()).isZero()));
     }
 
     @Test
-    void claimsThePhraseAtTheMostAnyOneVocabularyCounted() {
-        assertThat(placed())
-                .extracting(DomainOverlap.Placed::word, DomainOverlap.Placed::claim)
-                .contains(tuple("valuation date", 795.0), tuple("present value", 1429.0));
+    void drawsTheAreaWhereAConceptsPathStopsHoldingTheMajority() {
+        final PublishedPaths paths = new PublishedPaths(List.of(
+                concept("Everything", ""),
+                concept("Rates", "Everything"),
+                concept("InterestRate", "Rates"),
+                concept("Valuation", "Everything"),
+                concept("PresentValue", "Valuation")));
+
+        final Map<String, String> areas = MatchedTermDomains.areaByConcept(
+                Map.of("InterestRate", 70, "PresentValue", 30), paths);
+
+        assertAll(
+                () -> assertThat(areas.get("InterestRate"))
+                        .as("Everything holds 100 and Rates holds 70 of 100, so the walk passes both")
+                        .isEqualTo("InterestRate"),
+                () -> assertThat(areas.get("PresentValue"))
+                        .as("Valuation holds 30 of 100 and is the first minority level")
+                        .isEqualTo("Valuation"));
     }
 
     @Test
-    void namesTheMatchedConceptsAsThePlacingLabels() {
-        assertThat(placed().stream()
-                .filter(word -> word.word().equals("present value"))
-                .findFirst()
-                .orElseThrow()
-                .placedBy())
-                .containsExactly("PresentValue");
+    void placesEachPhraseUnderItsConceptsAreaWithTheConceptAsThePlacingLabel() {
+        final DomainOverlap overlap = MatchedTermDomains.of("a-repository", "FIBO", List.of(
+                row("FIBO", "interest rate", 2, 40, "REPORTED", "InterestRate"),
+                row("FIBO", "present value", 2, 30, "REPORTED", "PresentValue"),
+                row("FIBO", "credit risk", 2, 30, "REPORTED", "CreditRisk"))).orElseThrow();
+
+        assertThat(overlap.regions().stream().flatMap(region -> region.words().stream()))
+                .extracting(DomainOverlap.Placed::word)
+                .contains("interest rate", "present value", "credit risk");
     }
 
     @Test
-    void leavesSingleWordAndBranchRefusedMatchesOut() {
-        assertThat(MatchedTermDomains.of("a-repository", List.of(
-                row("FpML", "rate", 1, 400, "REPORTED", "InterestRate"),
-                row("FpML", "present value", 2, 10, "REFUSED_BY_BRANCH_RULE", "PresentValue"))))
-                .isEmpty();
+    void statesNoOverlapForAVocabularyWithoutAReportedPhrase() {
+        assertAll(
+                () -> assertThat(MatchedTermDomains.of("a-repository", "FIBO", List.of(
+                        row("FIBO", "rate", 1, 400, "REPORTED", "InterestRate")))).isEmpty(),
+                () -> assertThat(MatchedTermDomains.of("a-repository", "FIBO", List.of(
+                        row("FIBO", "present value", 2, 10, "REFUSED_BY_BRANCH_RULE", "PresentValue"))))
+                        .isEmpty());
     }
 }

@@ -41,11 +41,19 @@
     }
 
     function render(source) {
+        if (source === data.phraseSummarySource) {
+            renderSummary();
+            return;
+        }
         var overlap = data.overlaps[source];
         var phrases = (data.phraseSources || []).indexOf(source) >= 0;
+        var vocabulary = phrases ? source.replace(/ phrases$/, "") : null;
         var sets = overlap.domains.length;
         byWord = {};
-        document.querySelector(".figure").textContent = "";
+        document.querySelector(".fold").className = "fold";
+        var figure = document.querySelector(".figure");
+        figure.textContent = "";
+        figure.style.display = "";
         document.querySelector(".overlaps").textContent = "";
         readout.textContent = "Rest on a word or a count for its figures.";
 
@@ -263,7 +271,7 @@
             byWord[word.word] = made;
             made.textContent = word.word;
             made.href = phrases
-                ? "term-trees.html#" + encodeURIComponent(namesOf(region)[0])
+                ? "term-trees.html#" + encodeURIComponent(vocabulary)
                 : "vocabulary.html#w-" + encodeURIComponent(word.word);
             made.className = word.unambiguous ? "anchor" : "";
             made.style.fontSize = sized(word.claim).toFixed(2) + "rem";
@@ -277,6 +285,22 @@
 
         function drawRegions() {
             var panel = document.querySelector(".overlaps");
+            if (phrases) {
+                var back = element("p", "back");
+                var all = element("a", null, "every vocabulary");
+                all.href = "#s-" + encodeURIComponent(data.phraseSummarySource);
+                all.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    show(data.phraseSummarySource);
+                });
+                back.appendChild(all);
+                back.appendChild(document.createTextNode(" · " + vocabulary + "'s matched phrases, "
+                    + "drawn over the areas where its matches part ways · "));
+                var tree = element("a", null, "tree");
+                tree.href = "term-trees.html#" + encodeURIComponent(vocabulary);
+                back.appendChild(tree);
+                panel.appendChild(back);
+            }
             overlap.regions.forEach(function (region) {
                 var section = document.createElement("section");
                 section.id = sectionId(region);
@@ -334,28 +358,80 @@
         drawFoot();
     }
 
-    var linkedSource = location.hash.indexOf("#s-") === 0
-        ? decodeURIComponent(location.hash.slice(3)) : null;
-    var opened = sources.indexOf(linkedSource) >= 0 ? linkedSource : sources[0];
+    function renderSummary() {
+        byWord = {};
+        document.querySelector(".fold").className = "fold summary";
+        var figure = document.querySelector(".figure");
+        figure.textContent = "";
+        figure.style.display = "none";
+        var panel = document.querySelector(".overlaps");
+        panel.textContent = "";
+        readout.textContent = "A vocabulary's name opens its overlap; tree opens the publisher's hierarchy.";
+        (data.phraseSummary || []).forEach(function (row) {
+            var section = element("section", "summary-row");
+            var heading = element("h2");
+            if (row.phraseTerms > 0) {
+                var open = element("a", null, row.vocabulary);
+                open.href = "#s-" + encodeURIComponent(row.source);
+                open.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    show(row.source);
+                });
+                heading.appendChild(open);
+                heading.appendChild(document.createTextNode(" — " + row.phraseTerms
+                    + (row.phraseTerms === 1 ? " phrase" : " phrases") + ", "
+                    + row.phraseOccurrences + " occurrences · "));
+            } else {
+                heading.className = "silent";
+                heading.appendChild(document.createTextNode(row.vocabulary + " — no phrase match · "));
+            }
+            var tree = element("a", null, "tree");
+            tree.href = "term-trees.html#" + encodeURIComponent(row.vocabulary);
+            heading.appendChild(tree);
+            section.appendChild(heading);
+            section.appendChild(element("p", "description", row.description));
+            panel.appendChild(section);
+        });
+        document.querySelector(".foot").textContent = "Only reported phrase matches are counted: "
+            + "terms of two or more words the branch rule kept. Single-word matches are everyday "
+            + "English more often than terms of art and are not drawn.";
+    }
+
+    function pickerSourceOf(source) {
+        return (data.phraseSources || []).indexOf(source) >= 0 ? data.phraseSummarySource : source;
+    }
 
     var buttons = [];
     var picker = document.querySelector(".sources");
-    sources.forEach(function (source, index) {
-        var button = element("button", source === opened ? "chosen" : null, source);
+
+    function show(source) {
+        var chosen = pickerSourceOf(source);
+        buttons.forEach(function (each) {
+            each.className = each.textContent === chosen ? "chosen" : "";
+        });
+        render(source);
+    }
+
+    sources.forEach(function (source) {
+        var button = element("button", null, source);
         button.type = "button";
         button.addEventListener("click", function () {
-            buttons.forEach(function (each, other) {
-                each.className = other === index ? "chosen" : "";
-            });
-            render(source);
+            show(source);
         });
         buttons.push(button);
         picker.appendChild(button);
     });
 
+    var linkedSource = location.hash.indexOf("#s-") === 0
+        ? decodeURIComponent(location.hash.slice(3)) : null;
+    var known = linkedSource && (sources.indexOf(linkedSource) >= 0
+        || data.overlaps[linkedSource] !== undefined
+        || linkedSource === data.phraseSummarySource);
+    var opened = known ? linkedSource : sources[0];
+
     document.querySelector(".repository").textContent =
-        data.overlaps[opened].repository;
-    render(opened);
+        data.overlaps[sources[0]].repository;
+    show(opened);
 
     /* A link from the vocabulary names one word; stand on it in its overlap. */
     if (location.hash.indexOf("#w-") === 0) {
