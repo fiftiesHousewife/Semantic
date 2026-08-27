@@ -15,7 +15,7 @@
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.09525427442378824,
+          "shareOfSubject" : 0.09525427442378823,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
@@ -205,7 +205,7 @@
         }, {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.04201526301980961,
+          "shareOfSubject" : 0.042015263019809616,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -269,7 +269,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -300,7 +300,7 @@
         }, {
           "topic" : "computer_science",
           "shareOfRepository" : 0.031062494354920735,
-          "shareOfSubject" : 0.04389314821928954,
+          "shareOfSubject" : 0.04389314821928955,
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
@@ -475,7 +475,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -795,7 +795,7 @@
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Networking and Internet Architecture",
-          "divergenceBits" : 0.41693757820142374,
+          "divergenceBits" : 0.41693757820142385,
           "carriedBy" : [ "computing", "programming", "computer_science", "telecommunication" ]
         } ]
       }
@@ -873,7 +873,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1197,23 +1197,23 @@
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.27270683188041406,
+          "divergenceBits" : 0.272706831880414,
           "carriedBy" : [ "computing", "law", "computer_science", "linguistics" ]
         }, {
           "subject" : "Information Systems",
-          "divergenceBits" : 0.3179715208146973,
+          "divergenceBits" : 0.31797152081469715,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         } ]
       },
       "category" : {
         "subject" : "Natural Language Processing Techniques",
         "divergenceBits" : 0.43839060726676043,
-        "nearestByChanceBits" : 0.49763357328533003,
+        "nearestByChanceBits" : 0.49763357328533,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.17377531183821915,
+          "shareOfSubject" : 0.17377531183821918,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -1277,7 +1277,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1308,7 +1308,7 @@
         }, {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.18463922372753377,
+          "shareOfSubject" : 0.1846392237275338,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
@@ -1498,7 +1498,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.025735985744565853,
+          "shareOfSubject" : 0.025735985744565856,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -1597,7 +1597,7 @@
           "carriedBy" : [ "computing", "linguistics", "computer_science", "programming" ]
         }, {
           "subject" : "Mobile Agent-Based Network Management",
-          "divergenceBits" : 0.47166772042915245,
+          "divergenceBits" : 0.4716677204291525,
           "carriedBy" : [ "computing", "computer_science", "law", "computer-languages" ]
         }, {
           "subject" : "Usability and User Interface Design",
@@ -1605,11 +1605,11 @@
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Image Retrieval and Classification Techniques",
-          "divergenceBits" : 0.47561474011470695,
+          "divergenceBits" : 0.4756147401147069,
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         }, {
           "subject" : "Embedded Systems Design Techniques",
-          "divergenceBits" : 0.47614193526280923,
+          "divergenceBits" : 0.4761419352628093,
           "carriedBy" : [ "computing", "computer_science", "linguistics", "mathematics" ]
         }, {
           "subject" : "Advanced Software Engineering Methodologies",
@@ -1633,7 +1633,7 @@
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Caching and Content Delivery",
-          "divergenceBits" : 0.49272210521766285,
+          "divergenceBits" : 0.492722105217664,
           "carriedBy" : [ "computing", "linguistics", "telecommunication", "electronics" ]
         }, {
           "subject" : "Security and Verification in Computing",
@@ -1728,7 +1728,7 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-      "divergenceBits" : 0.15870093646401495,
+      "divergenceBits" : 0.1587009364640149,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
@@ -1744,11 +1744,11 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources",
-      "divergenceBits" : 0.3955105895603294,
+      "divergenceBits" : 0.3955105895603295,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources",
-      "divergenceBits" : 0.4228672130352423,
+      "divergenceBits" : 0.42286721303524233,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources",
@@ -1756,7 +1756,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
-      "divergenceBits" : 0.21640595967720083,
+      "divergenceBits" : 0.2164059596772008,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources",
@@ -1764,7 +1764,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-      "divergenceBits" : 0.7885949844526295,
+      "divergenceBits" : 0.7885949844526294,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
@@ -9329,8 +9329,8 @@
     }
   } ],
   "thresholds" : {
-    "ordinary English" : 2.520829812424727E-5,
-    "the reference corpus" : 2.8533098824654863E-5
+    "the reference corpus" : 2.8533098824654863E-5,
+    "ordinary English" : 2.520829812424727E-5
   },
   "themes" : [ {
     "topic" : "linguistics",
@@ -10074,7 +10074,7 @@
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
     "shareOfRepository" : 0.0745248020990973,
-    "divergenceBits" : 0.028917373119842674,
+    "divergenceBits" : 0.028917373119842632,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
@@ -10138,7 +10138,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -10258,7 +10258,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -10566,7 +10566,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.027283400738249825,
+    "divergenceBits" : 0.02728340073824981,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11122,7 +11122,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -11242,7 +11242,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -11304,7 +11304,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.02072969687803859,
+    "divergenceBits" : 0.020729696878038585,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11550,7 +11550,7 @@
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
     "shareOfRepository" : 0.014799088130799108,
-    "divergenceBits" : 0.014428584880244268,
+    "divergenceBits" : 0.014428584880244247,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
@@ -12106,7 +12106,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12226,7 +12226,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12352,7 +12352,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12472,7 +12472,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12598,7 +12598,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12718,7 +12718,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13336,7 +13336,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13456,7 +13456,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -15401,21 +15401,21 @@
     } ],
     "branches" : [ {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.4449316665922737,
+      "agreesWithTheRepository" : 0.4449316665922736,
       "mass" : 1358.0083194676897,
-      "kept" : 604.220904826932,
+      "kept" : 604.2209048269319,
       "terms" : [ "text", "script", "tokens", "token", "string", "strings", "characters", "character", "scripts", "diacritics", "texts", "scripted", "diacritic" ]
     }, {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.33077260705271694,
+      "agreesWithTheRepository" : 0.330772607052717,
       "mass" : 603.3419093582808,
-      "kept" : 199.56897630260255,
+      "kept" : 199.5689763026026,
       "terms" : [ "document", "source", "title", "author", "abstract", "sentences", "authors", "writer", "documents", "sentence", "footnotes", "heading", "boilerplate", "headings", "footnote", "origin", "titles", "writers", "headline", "documented", "sources", "origins" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.15698396899774625,
+      "agreesWithTheRepository" : 0.16483696920133384,
       "mass" : 373.89980910772834,
-      "kept" : 58.69627604123087,
+      "kept" : 61.63251131827522,
       "terms" : [ "prefix", "suffix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "Cause",
@@ -15425,21 +15425,21 @@
       "terms" : [ "result", "results", "resulting" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.2782533464519264,
+      "agreesWithTheRepository" : 0.28155082460694386,
       "mass" : 234.34454998787098,
-      "kept" : 65.20715525689585,
+      "kept" : 65.97990129122824,
       "terms" : [ "chunk", "chunks", "fragment", "clauses", "glob", "clause", "chunked", "globs", "fragments" ]
     }, {
       "branch" : "Address",
-      "agreesWithTheRepository" : 0.22689153854243221,
+      "agreesWithTheRepository" : 0.2851050923295363,
       "mass" : 219.3236794416138,
-      "kept" : 49.76268706729496,
+      "kept" : 62.530297877254924,
       "terms" : [ "url", "urls", "phone numbers", "email address", "phone number" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.3785303958650283,
+      "agreesWithTheRepository" : 0.407016685471047,
       "mass" : 203.68452984530055,
-      "kept" : 77.10078571392378,
+      "kept" : 82.90300221936278,
       "terms" : [ "object", "organization", "objects", "function", "organizations", "functions" ]
     }, {
       "branch" : "Expansion",
@@ -15449,9 +15449,9 @@
       "terms" : [ "exception", "exceptions", "alternative", "alternatives", "instantiation", "background" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.17660308151113838,
+      "agreesWithTheRepository" : 0.17891068752793934,
       "mass" : 192.76293540563742,
-      "kept" : 34.04252839376809,
+      "kept" : 34.487349303326354,
       "terms" : [ "supported", "mean", "supports", "means" ]
     }, {
       "branch" : "LayoutElement",
@@ -15461,9 +15461,9 @@
       "terms" : [ "image", "images", "bullet" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.2388086402500772,
+      "agreesWithTheRepository" : 0.23771688186140033,
       "mass" : 146.28926580633816,
-      "kept" : 34.93514065039373,
+      "kept" : 34.77542811727628,
       "terms" : [ "date", "symbol", "acronym", "dates", "symbols", "typo", "formulas", "formula", "foreign", "acronyms" ]
     }, {
       "branch" : "EntityType",
@@ -15473,15 +15473,15 @@
       "terms" : [ "sum", "times", "amount", "timed", "program", "sums" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.12858951947352948,
+      "agreesWithTheRepository" : 0.12620816050501338,
       "mass" : 66.61718804417586,
-      "kept" : 8.566272199278327,
+      "kept" : 8.407632761072005,
       "terms" : [ "simple", "initial", "initials" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.16675726696946852,
+      "agreesWithTheRepository" : 0.16669660565857475,
       "mass" : 62.62596896739204,
-      "kept" : 10.443335426317045,
+      "kept" : 10.439536452943491,
       "terms" : [ "slash", "quote", "quoted", "slashes", "quotes" ]
     }, {
       "branch" : "PragmaticUnit",
@@ -15491,15 +15491,15 @@
       "terms" : [ "subject", "topic", "subjects", "focus", "theme" ]
     }, {
       "branch" : "MediaProduct",
-      "agreesWithTheRepository" : 0.31768344785853364,
+      "agreesWithTheRepository" : 0.31746459161592794,
       "mass" : 48.626467611889574,
-      "kept" : 15.447823888126397,
+      "kept" : 15.43718168213367,
       "terms" : [ "pic", "album", "book", "movie", "books", "pics" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.2572013981960772,
+      "agreesWithTheRepository" : 0.25720139819607735,
       "mass" : 46.20834053315706,
-      "kept" : 11.884849793448463,
+      "kept" : 11.88484979344847,
       "terms" : [ "seconds", "third" ]
     }, {
       "branch" : "Instantiation",
@@ -15509,15 +15509,15 @@
       "terms" : [ "example", "examples" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.2870809633172922,
+      "agreesWithTheRepository" : 0.27757609810610406,
       "mass" : 45.213565808013705,
-      "kept" : 12.97995402717436,
+      "kept" : 12.550205178452005,
       "terms" : [ "futures", "present", "perfect", "future", "past" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.32231658953734654,
+      "agreesWithTheRepository" : 0.32482002111812835,
       "mass" : 38.76252295207811,
-      "kept" : 12.493804199776934,
+      "kept" : 12.590843523885946,
       "terms" : [ "unique", "punctuation", "residual" ]
     }, {
       "branch" : "Character",
@@ -15527,15 +15527,15 @@
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.12935971651551803,
+      "agreesWithTheRepository" : 0.13189494017213915,
       "mass" : 27.483144465101866,
-      "kept" : 3.555211776960606,
+      "kept" : 3.624887694966868,
       "terms" : [ "colon", "hyphen", "comma", "semi colon" ]
     }, {
       "branch" : "ManufacturedObject",
-      "agreesWithTheRepository" : 0.3377375943330348,
+      "agreesWithTheRepository" : 0.3417916973237305,
       "mass" : 27.129848148034174,
-      "kept" : 9.162769648137601,
+      "kept" : 9.272756846651667,
       "terms" : [ "address", "addresses", "software" ]
     }, {
       "branch" : "NullElement",
@@ -15545,9 +15545,9 @@
       "terms" : [ "trace", "gap", "gaps" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.2650168995732461,
+      "agreesWithTheRepository" : 0.274164610117888,
       "mass" : 20.252772234577662,
-      "kept" : 5.367326905370895,
+      "kept" : 5.5525934034993725,
       "terms" : [ "head", "modifier" ]
     }, {
       "branch" : "CoherenceRelation",
@@ -15563,9 +15563,9 @@
       "terms" : [ "active" ]
     }, {
       "branch" : "Person",
-      "agreesWithTheRepository" : 0.30077722802324114,
+      "agreesWithTheRepository" : 0.29977115617928063,
       "mass" : 16.001976163243974,
-      "kept" : 4.813030033274502,
+      "kept" : 4.796930895608935,
       "terms" : [ "artist" ]
     }, {
       "branch" : "SemanticFeature",
@@ -15575,9 +15575,9 @@
       "terms" : [ "entity types", "polarity", "entity type" ]
     }, {
       "branch" : "Identifier",
-      "agreesWithTheRepository" : 0.1184103538116738,
+      "agreesWithTheRepository" : 0.11841035381167381,
       "mass" : 12.272761977915248,
-      "kept" : 1.453222088051402,
+      "kept" : 1.4532220880514022,
       "terms" : [ "named entity", "name entity", "name entities" ]
     }, {
       "branch" : "ProperNoun",
@@ -15587,45 +15587,45 @@
       "terms" : [ "first name", "surname", "family name", "forenames", "forename", "last name" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.23797617875179103,
+      "agreesWithTheRepository" : 0.18928424036307628,
       "mass" : 9.136859661139024,
-      "kept" : 2.174354947949249,
+      "kept" : 1.7294635402627347,
       "terms" : [ "prefer", "preferred", "standardizes" ]
     }, {
       "branch" : "Unique",
-      "agreesWithTheRepository" : 0.2626640111543,
+      "agreesWithTheRepository" : 0.28906335734541516,
       "mass" : 9.0,
-      "kept" : 2.3639761003887,
+      "kept" : 2.6015702161087364,
       "terms" : [ "classifier" ]
     }, {
       "branch" : "PoliticalUnit",
-      "agreesWithTheRepository" : 0.25038813134616855,
+      "agreesWithTheRepository" : 0.2503881313461685,
       "mass" : 8.7716099608794,
-      "kept" : 2.1963070270020317,
+      "kept" : 2.1963070270020313,
       "terms" : [ "country" ]
     }, {
       "branch" : "Numeral",
-      "agreesWithTheRepository" : 0.22282966898656437,
+      "agreesWithTheRepository" : 0.21325821502524744,
       "mass" : 7.697309980992909,
-      "kept" : 1.715189035151628,
+      "kept" : 1.6415145870425691,
       "terms" : [ "ordinal", "roman numerals", "fractions", "fraction" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.14138917071516066,
+      "agreesWithTheRepository" : 0.1413891707151607,
       "mass" : 1.9316610176176716,
-      "kept" : 0.27311594938376593,
+      "kept" : 0.273115949383766,
       "terms" : [ "evidence" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.08736781614281171,
+      "agreesWithTheRepository" : 0.0873678161428117,
       "mass" : 1.4064006392646677,
-      "kept" : 0.12287415247440835,
+      "kept" : 0.12287415247440832,
       "terms" : [ "gives" ]
     }, {
       "branch" : "Modifier",
-      "agreesWithTheRepository" : 0.22649702450229003,
+      "agreesWithTheRepository" : 0.22649702450228992,
       "mass" : 0.9814648804013412,
-      "kept" : 0.22229887506439971,
+      "kept" : 0.22229887506439963,
       "terms" : [ "qualifier" ]
     }, {
       "branch" : "PragmaticFeature",
@@ -15635,21 +15635,21 @@
       "terms" : [ "info status" ]
     }, {
       "branch" : "Quote",
-      "agreesWithTheRepository" : 0.1560368965241448,
+      "agreesWithTheRepository" : 0.166422680702594,
       "mass" : 0.9367514981235047,
-      "kept" : 0.14616779658153492,
+      "kept" : 0.1558966954698846,
       "terms" : [ "close quote" ]
     }, {
       "branch" : "BridgingType",
-      "agreesWithTheRepository" : 0.1728364557230162,
+      "agreesWithTheRepository" : 0.19445886272108664,
       "mass" : 0.8113640939706053,
-      "kept" : 0.14023329430279569,
+      "kept" : 0.15777693896624878,
       "terms" : [ "same type" ]
     } ],
     "matchesByNormalisation" : {
-      "senses" : 217,
       "lemmas" : 1290,
-      "words" : 4599
+      "words" : 4599,
+      "senses" : 217
     }
   }, {
     "vocabulary" : "CSO",
@@ -15720,8 +15720,8 @@
         "line" : 44
       }
     }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | network security",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -15731,8 +15731,8 @@
         "line" : 390
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | network security",
+      "concept" : "encryption",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -16193,8 +16193,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | network security",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16204,8 +16204,8 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | network security",
+      "concept" : "encryption",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16281,8 +16281,8 @@
         "line" : 72
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database systems | hash functions",
+      "concept" : "hash functions",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16292,8 +16292,8 @@
         "line" : 358
       }
     }, {
-      "concept" : "hash functions",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16380,8 +16380,8 @@
         "line" : 210
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database systems | hash functions",
+      "concept" : "hash functions",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16391,8 +16391,8 @@
         "line" : 55
       }
     }, {
-      "concept" : "hash functions",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -17746,9 +17746,9 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
-      "senses" : 727,
       "lemmas" : 990,
-      "words" : 1729
+      "words" : 1729,
+      "senses" : 727
     }
   } ],
   "setAside" : {
