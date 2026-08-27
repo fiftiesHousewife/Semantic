@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "7668af12bebb8477078a86956338945f5bfd4cd6",
-  "commit" : "63664a536f7555478a2676bfb734ace952c09864",
+  "previousCommit" : "63664a536f7555478a2676bfb734ace952c09864",
+  "commit" : "18ef21267b568c36f4b9df443813d1a327191339",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
     "after" : "98.1%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.6%",
+    "before" : "84.5%",
     "after" : "84.5%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -15,12 +15,12 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.3%",
-    "after" : "32.4%"
+    "before" : "32.4%",
+    "after" : "32.3%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.2%",
-    "after" : "40.3%"
+    "before" : "40.3%",
+    "after" : "40.2%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -40,7 +40,7 @@
   }, {
     "figure" : "arXiv category — chance reaches",
     "before" : "44.9%",
-    "after" : "44.9%"
+    "after" : "44.8%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -55,11 +55,11 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "23.6%",
+    "before" : "23.7%",
     "after" : "23.7%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.7%",
+    "before" : "31.8%",
     "after" : "31.8%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -75,12 +75,12 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "41.2%",
+    "before" : "41.3%",
     "after" : "41.3%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.3%",
-    "after" : "48.5%"
+    "before" : "48.5%",
+    "after" : "48.4%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -91,11 +91,11 @@
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "256",
-    "after" : "264"
+    "before" : "264",
+    "after" : "266"
   }, {
     "figure" : "Topics reported",
-    "before" : "8",
+    "before" : "9",
     "after" : "9"
   }, {
     "figure" : "Concepts written",
@@ -104,43 +104,19 @@
   } ],
   "crossings" : [ {
     "population" : "WORD",
-    "name" : "asset",
+    "name" : "chain",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "levels",
+    "name" : "deepest",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "matches",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "measure",
+    "name" : "field",
     "entered" : true
   }, {
     "population" : "WORD",
     "name" : "open",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "overlap",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "reports",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "roots",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "vocabularies",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "line",
     "entered" : false
   } ]
 }
