@@ -37,10 +37,11 @@ Beside it runs the consumer thread: one arm — the significant words — and pa
 
 ## The queue
 
-The first three are ordered; 1 goes first because every measurement after it is cheaper. Everything below them is ranked, not scheduled.
+The phrase design is commissioned first and starts the next session; beneath it the first three are ordered — 1 goes first because every measurement after it is cheaper — and everything below them is ranked, not scheduled.
 
 | | Item | What is left | Blocked on |
 |---|---|---|---|
+| **next** | Phrase evidence reaches the divergence arithmetic | [`PHRASE_EVIDENCE.md`](docs/plans/PHRASE_EVIDENCE.md) is the commission: every divergence figure rests on single-word atoms while phrase matches separate fields at 10–100×. The design is to be written in full — after deep reading of the multiword-expression, collocation and term-recognition literature the commission names — before any code, with the backtest criterion stated first | the design being written |
 | **1** | The reading cannot be argued with from the files it publishes | `evidence.json` carries the term path's workings and nothing about which word voted for what. It must carry each word's votes with their coverage and specificity, the words that agreed per phrase, a topic dropped with the rule that dropped it, and a run set aside recorded as a run. The `debugging-a-reading` skill holds the method until it does | nothing |
 | **2** | Java 25 | `cs.java-conventions` pins `JavaLanguageVersion.of(21)`. One line, then whatever `-Werror` finds | nothing |
 | **3** | A package namespace that matches the published coordinate | The ported `io.github.fiftieshousewife.bi.lexicon` package disagrees with the coordinate the library publishes under. A mechanical rename across every module, landed before anything else moves the tree; `BundledResourceReachabilityTest` and `VocabularyProvenanceTest` say the resources still ship, because a resource path left behind fails at run time rather than compile time | nothing |
