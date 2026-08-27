@@ -1,9 +1,9 @@
 {
-  "previousCommit" : "d590620f114a1a89765cf6af974fabc46dec7309",
-  "commit" : "ccfd13534754e13b9b297976d0a4d705128531a7",
+  "previousCommit" : "9e250858e3b5a6c1bdb57de72cbec8ec890bd1d6",
+  "commit" : "7668af12bebb8477078a86956338945f5bfd4cd6",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
-    "before" : "98.2%",
+    "before" : "98.1%",
     "after" : "98.1%"
   }, {
     "figure" : "Mass settled on no subject",
@@ -15,12 +15,12 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.2%",
+    "before" : "32.3%",
     "after" : "32.3%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.1%",
-    "after" : "40.1%"
+    "before" : "40.2%",
+    "after" : "40.2%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -35,11 +35,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "41.2%",
+    "before" : "41.3%",
     "after" : "41.3%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.1%",
+    "before" : "44.9%",
     "after" : "44.9%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -47,7 +47,7 @@
     "after" : "yes"
   }, {
     "figure" : "arXiv category — subjects nearer than chance",
-    "before" : "2",
+    "before" : "1",
     "after" : "1"
   }, {
     "figure" : "OpenAlex archive — nearest subject",
@@ -55,11 +55,11 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "23.5%",
+    "before" : "23.6%",
     "after" : "23.6%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.8%",
+    "before" : "31.7%",
     "after" : "31.7%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -71,7 +71,7 @@
     "after" : "5"
   }, {
     "figure" : "OpenAlex category — nearest subject",
-    "before" : "Natural Language Processing Techniques",
+    "before" : "Authorship Attribution and Profiling",
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
@@ -80,7 +80,7 @@
   }, {
     "figure" : "OpenAlex category — chance reaches",
     "before" : "48.3%",
-    "after" : "48.4%"
+    "after" : "48.3%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -91,148 +91,16 @@
     "after" : "7"
   }, {
     "figure" : "Words above the bar",
-    "before" : "253",
-    "after" : "257"
+    "before" : "256",
+    "after" : "256"
   }, {
     "figure" : "Topics reported",
     "before" : "8",
     "after" : "8"
   }, {
     "figure" : "Concepts written",
-    "before" : "189",
-    "after" : "183"
+    "before" : "185",
+    "after" : "185"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "cwe",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "equivalents",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "folded",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "hierarchy",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "preferred",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "resources",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "weakness",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "parts",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "suffix",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "supplied",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "correlation analysis",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "domain name system",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "handover",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "logistics",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "parsing algorithm",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "resource description framework",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "value functions",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "web ontology language",
-    "entered" : true
-  }, {
-    "population" : "CONCEPT",
-    "name" : "backoff",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "contracts",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "descriptor",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "descriptors",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "domain names",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "fault-tolerance",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "hand over",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "libraries",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "logistic",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "ontologies",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "owl",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "parsing",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "rdf",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "statistics",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "value function",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }
