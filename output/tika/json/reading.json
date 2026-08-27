@@ -15,11 +15,11 @@
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.09525427442378823,
+          "shareOfSubject" : 0.09525427442378824,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -510,7 +510,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -908,7 +908,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1201,14 +1201,14 @@
           "carriedBy" : [ "computing", "law", "computer_science", "linguistics" ]
         }, {
           "subject" : "Information Systems",
-          "divergenceBits" : 0.31797152081469726,
+          "divergenceBits" : 0.3179715208146973,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         } ]
       },
       "category" : {
         "subject" : "Natural Language Processing Techniques",
         "divergenceBits" : 0.43839060726676043,
-        "nearestByChanceBits" : 0.49763357328533,
+        "nearestByChanceBits" : 0.49763357328533003,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
@@ -1312,7 +1312,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1597,7 +1597,7 @@
           "carriedBy" : [ "computing", "linguistics", "computer_science", "programming" ]
         }, {
           "subject" : "Mobile Agent-Based Network Management",
-          "divergenceBits" : 0.4716677204291525,
+          "divergenceBits" : 0.47166772042915245,
           "carriedBy" : [ "computing", "computer_science", "law", "computer-languages" ]
         }, {
           "subject" : "Usability and User Interface Design",
@@ -1617,7 +1617,7 @@
           "carriedBy" : [ "computing", "computer_science", "software", "mathematics" ]
         }, {
           "subject" : "Data Visualization and Analytics",
-          "divergenceBits" : 0.4796748334145673,
+          "divergenceBits" : 0.47967483341456724,
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         }, {
           "subject" : "Software-Defined Networks and 5G",
@@ -1629,11 +1629,11 @@
           "carriedBy" : [ "computing", "computer_science", "linguistics", "telecommunication" ]
         }, {
           "subject" : "Personal Information Management and User Behavior",
-          "divergenceBits" : 0.49173131754004384,
+          "divergenceBits" : 0.49173131754004373,
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Caching and Content Delivery",
-          "divergenceBits" : 0.492722105217664,
+          "divergenceBits" : 0.49272210521766285,
           "carriedBy" : [ "computing", "linguistics", "telecommunication", "electronics" ]
         }, {
           "subject" : "Security and Verification in Computing",
@@ -1687,7 +1687,7 @@
       "concept" : "Text",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "parsing",
+      "concept" : "parsing algorithm",
       "publishedBy" : "CSO"
     }, {
       "concept" : "Prefix",
@@ -1711,7 +1711,7 @@
       "concept" : "Result",
       "publishedBy" : "OLiA"
     }, {
-      "concept" : "sensor",
+      "concept" : "servers",
       "publishedBy" : "CSO"
     } ],
     "distinctiveScopes" : [ {
@@ -1720,7 +1720,7 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
-      "divergenceBits" : 0.09812102307806261,
+      "divergenceBits" : 0.09812102307806264,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
@@ -1728,7 +1728,7 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-      "divergenceBits" : 0.1587009364640149,
+      "divergenceBits" : 0.15870093646401495,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
@@ -1776,7 +1776,7 @@
     "counts" : {
       "signals" : 629,
       "themes" : 17,
-      "concepts" : 372
+      "concepts" : 361
     }
   },
   "signals" : [ {
@@ -9329,8 +9329,8 @@
     }
   } ],
   "thresholds" : {
-    "the reference corpus" : 2.8533098824654863E-5,
-    "ordinary English" : 2.520829812424727E-5
+    "ordinary English" : 2.520829812424727E-5,
+    "the reference corpus" : 2.8533098824654863E-5
   },
   "themes" : [ {
     "topic" : "linguistics",
@@ -9340,7 +9340,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -10074,7 +10074,7 @@
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
     "shareOfRepository" : 0.0745248020990973,
-    "divergenceBits" : 0.028917373119842632,
+    "divergenceBits" : 0.028917373119842674,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
@@ -10566,7 +10566,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.02728340073824981,
+    "divergenceBits" : 0.027283400738249825,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -10812,7 +10812,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.024628255384812607,
+    "divergenceBits" : 0.0246282553848126,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11554,7 +11554,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -11800,7 +11800,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12780,11 +12780,11 @@
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
     "shareOfRepository" : 0.014799088130799108,
-    "divergenceBits" : 0.0034806896339002295,
+    "divergenceBits" : 0.003480689633900212,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13030,7 +13030,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -15401,9 +15401,9 @@
     } ],
     "branches" : [ {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.4449316665922736,
+      "agreesWithTheRepository" : 0.4449316665922737,
       "mass" : 1358.0083194676897,
-      "kept" : 604.2209048269319,
+      "kept" : 604.220904826932,
       "terms" : [ "text", "script", "tokens", "token", "string", "strings", "characters", "character", "scripts", "diacritics", "texts", "scripted", "diacritic" ]
     }, {
       "branch" : "TextStructuralUnit",
@@ -15413,27 +15413,27 @@
       "terms" : [ "document", "source", "title", "author", "abstract", "sentences", "authors", "writer", "documents", "sentence", "footnotes", "heading", "boilerplate", "headings", "footnote", "origin", "titles", "writers", "headline", "documented", "sources", "origins" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.16748166393540315,
+      "agreesWithTheRepository" : 0.15698396899774625,
       "mass" : 373.89980910772834,
-      "kept" : 62.62136217449195,
+      "kept" : 58.69627604123087,
       "terms" : [ "prefix", "suffix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "Cause",
-      "agreesWithTheRepository" : 0.2226243285383664,
+      "agreesWithTheRepository" : 0.21788467131479067,
       "mass" : 274.995404734431,
-      "kept" : 61.22066733013901,
+      "kept" : 59.91728337363933,
       "terms" : [ "result", "results", "resulting" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.28155082460694386,
+      "agreesWithTheRepository" : 0.2782533464519264,
       "mass" : 234.34454998787098,
-      "kept" : 65.97990129122824,
+      "kept" : 65.20715525689585,
       "terms" : [ "chunk", "chunks", "fragment", "clauses", "glob", "clause", "chunked", "globs", "fragments" ]
     }, {
       "branch" : "Address",
-      "agreesWithTheRepository" : 0.2851050923295363,
+      "agreesWithTheRepository" : 0.22689153854243221,
       "mass" : 219.3236794416138,
-      "kept" : 62.530297877254924,
+      "kept" : 49.76268706729496,
       "terms" : [ "url", "urls", "phone numbers", "email address", "phone number" ]
     }, {
       "branch" : "ConcreteEntity",
@@ -15449,9 +15449,9 @@
       "terms" : [ "exception", "exceptions", "alternative", "alternatives", "instantiation", "background" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.17891068752793934,
+      "agreesWithTheRepository" : 0.17660308151113838,
       "mass" : 192.76293540563742,
-      "kept" : 34.487349303326354,
+      "kept" : 34.04252839376809,
       "terms" : [ "supported", "mean", "supports", "means" ]
     }, {
       "branch" : "LayoutElement",
@@ -15461,9 +15461,9 @@
       "terms" : [ "image", "images", "bullet" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.24345733118143625,
+      "agreesWithTheRepository" : 0.2388086402500772,
       "mass" : 146.28926580633816,
-      "kept" : 35.61519423370283,
+      "kept" : 34.93514065039373,
       "terms" : [ "date", "symbol", "acronym", "dates", "symbols", "typo", "formulas", "formula", "foreign", "acronyms" ]
     }, {
       "branch" : "EntityType",
@@ -15479,9 +15479,9 @@
       "terms" : [ "simple", "initial", "initials" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.16669660565857475,
+      "agreesWithTheRepository" : 0.16675726696946852,
       "mass" : 62.62596896739204,
-      "kept" : 10.439536452943491,
+      "kept" : 10.443335426317045,
       "terms" : [ "slash", "quote", "quoted", "slashes", "quotes" ]
     }, {
       "branch" : "PragmaticUnit",
@@ -15491,15 +15491,15 @@
       "terms" : [ "subject", "topic", "subjects", "focus", "theme" ]
     }, {
       "branch" : "MediaProduct",
-      "agreesWithTheRepository" : 0.2487685354606767,
+      "agreesWithTheRepository" : 0.31768344785853364,
       "mass" : 48.626467611889574,
-      "kept" : 12.096735132435798,
+      "kept" : 15.447823888126397,
       "terms" : [ "pic", "album", "book", "movie", "books", "pics" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.25720139819607735,
+      "agreesWithTheRepository" : 0.2572013981960772,
       "mass" : 46.20834053315706,
-      "kept" : 11.88484979344847,
+      "kept" : 11.884849793448463,
       "terms" : [ "seconds", "third" ]
     }, {
       "branch" : "Instantiation",
@@ -15509,21 +15509,21 @@
       "terms" : [ "example", "examples" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.28009714873288255,
+      "agreesWithTheRepository" : 0.2870809633172922,
       "mass" : 45.213565808013705,
-      "kept" : 12.664190866871188,
+      "kept" : 12.97995402717436,
       "terms" : [ "futures", "present", "perfect", "future", "past" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.32568293782371294,
+      "agreesWithTheRepository" : 0.32231658953734654,
       "mass" : 38.76252295207811,
-      "kept" : 12.6242923524919,
+      "kept" : 12.493804199776934,
       "terms" : [ "unique", "punctuation", "residual" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.058617917519088084,
+      "agreesWithTheRepository" : 0.0690043346440703,
       "mass" : 32.811634313370575,
-      "kept" : 1.9233496738476368,
+      "kept" : 2.264144994378683,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
@@ -15533,9 +15533,9 @@
       "terms" : [ "colon", "hyphen", "comma", "semi colon" ]
     }, {
       "branch" : "ManufacturedObject",
-      "agreesWithTheRepository" : 0.3420194830558393,
+      "agreesWithTheRepository" : 0.3377375943330348,
       "mass" : 27.129848148034174,
-      "kept" : 9.278936638974066,
+      "kept" : 9.162769648137601,
       "terms" : [ "address", "addresses", "software" ]
     }, {
       "branch" : "NullElement",
@@ -15545,9 +15545,9 @@
       "terms" : [ "trace", "gap", "gaps" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.26501689957324615,
+      "agreesWithTheRepository" : 0.2650168995732461,
       "mass" : 20.252772234577662,
-      "kept" : 5.367326905370896,
+      "kept" : 5.367326905370895,
       "terms" : [ "head", "modifier" ]
     }, {
       "branch" : "CoherenceRelation",
@@ -15563,9 +15563,9 @@
       "terms" : [ "active" ]
     }, {
       "branch" : "Person",
-      "agreesWithTheRepository" : 0.29977115617928063,
+      "agreesWithTheRepository" : 0.30077722802324114,
       "mass" : 16.001976163243974,
-      "kept" : 4.796930895608935,
+      "kept" : 4.813030033274502,
       "terms" : [ "artist" ]
     }, {
       "branch" : "SemanticFeature",
@@ -15575,9 +15575,9 @@
       "terms" : [ "entity types", "polarity", "entity type" ]
     }, {
       "branch" : "Identifier",
-      "agreesWithTheRepository" : 0.11841035381167381,
+      "agreesWithTheRepository" : 0.1184103538116738,
       "mass" : 12.272761977915248,
-      "kept" : 1.4532220880514022,
+      "kept" : 1.453222088051402,
       "terms" : [ "named entity", "name entity", "name entities" ]
     }, {
       "branch" : "ProperNoun",
@@ -15587,15 +15587,15 @@
       "terms" : [ "first name", "surname", "family name", "forenames", "forename", "last name" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.20731420481672383,
+      "agreesWithTheRepository" : 0.23797617875179103,
       "mass" : 9.136859661139024,
-      "kept" : 1.8942007951710376,
+      "kept" : 2.174354947949249,
       "terms" : [ "prefer", "preferred", "standardizes" ]
     }, {
       "branch" : "Unique",
-      "agreesWithTheRepository" : 0.2890633573454152,
+      "agreesWithTheRepository" : 0.2626640111543,
       "mass" : 9.0,
-      "kept" : 2.601570216108737,
+      "kept" : 2.3639761003887,
       "terms" : [ "classifier" ]
     }, {
       "branch" : "PoliticalUnit",
@@ -15605,27 +15605,27 @@
       "terms" : [ "country" ]
     }, {
       "branch" : "Numeral",
-      "agreesWithTheRepository" : 0.2228296689865644,
+      "agreesWithTheRepository" : 0.22282966898656437,
       "mass" : 7.697309980992909,
-      "kept" : 1.7151890351516281,
+      "kept" : 1.715189035151628,
       "terms" : [ "ordinal", "roman numerals", "fractions", "fraction" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.1413891707151607,
+      "agreesWithTheRepository" : 0.14138917071516066,
       "mass" : 1.9316610176176716,
-      "kept" : 0.273115949383766,
+      "kept" : 0.27311594938376593,
       "terms" : [ "evidence" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.0873678161428117,
+      "agreesWithTheRepository" : 0.08736781614281171,
       "mass" : 1.4064006392646677,
-      "kept" : 0.12287415247440832,
+      "kept" : 0.12287415247440835,
       "terms" : [ "gives" ]
     }, {
       "branch" : "Modifier",
-      "agreesWithTheRepository" : 0.22649702450228992,
+      "agreesWithTheRepository" : 0.22649702450229003,
       "mass" : 0.9814648804013412,
-      "kept" : 0.22229887506439963,
+      "kept" : 0.22229887506439971,
       "terms" : [ "qualifier" ]
     }, {
       "branch" : "PragmaticFeature",
@@ -15635,15 +15635,15 @@
       "terms" : [ "info status" ]
     }, {
       "branch" : "Quote",
-      "agreesWithTheRepository" : 0.166422680702594,
+      "agreesWithTheRepository" : 0.1560368965241448,
       "mass" : 0.9367514981235047,
-      "kept" : 0.1558966954698846,
+      "kept" : 0.14616779658153492,
       "terms" : [ "close quote" ]
     }, {
       "branch" : "BridgingType",
-      "agreesWithTheRepository" : 0.16675299477177502,
+      "agreesWithTheRepository" : 0.1728364557230162,
       "mass" : 0.8113640939706053,
-      "kept" : 0.13529739251988632,
+      "kept" : 0.14023329430279569,
       "terms" : [ "same type" ]
     } ],
     "matchesByNormalisation" : {
@@ -15654,8 +15654,8 @@
   }, {
     "vocabulary" : "CSO",
     "concepts" : [ {
-      "concept" : "parsing",
-      "placedUnder" : "computational linguistics | formal languages | natural language processing | natural language processing systems | nlp",
+      "concept" : "parsing algorithm",
+      "placedUnder" : "computational linguistics | formal languages | natural language processing",
       "occurrences" : 556,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15666,7 +15666,7 @@
       }
     }, {
       "concept" : "xml",
-      "placedUnder" : "database | database systems | world wide web",
+      "placedUnder" : "database systems | world wide web",
       "occurrences" : 489,
       "specificity" : 0.9360742949618635,
       "wordsInTerm" : 1,
@@ -15677,7 +15677,7 @@
       }
     }, {
       "concept" : "html",
-      "placedUnder" : "extensible markup language | extensible markup language (xml) | user interface | user interfaces | xml",
+      "placedUnder" : "user interfaces | xml",
       "occurrences" : 342,
       "specificity" : 0.9157038412515502,
       "wordsInTerm" : 1,
@@ -15688,7 +15688,7 @@
       }
     }, {
       "concept" : "sensors",
-      "placedUnder" : "computer hardware | hardware",
+      "placedUnder" : "computer hardware",
       "occurrences" : 201,
       "specificity" : 0.9276912513497423,
       "wordsInTerm" : 1,
@@ -15698,8 +15698,8 @@
         "line" : 1125
       }
     }, {
-      "concept" : "sensor",
-      "placedUnder" : "computer hardware | hardware",
+      "concept" : "sensors",
+      "placedUnder" : "computer hardware",
       "occurrences" : 201,
       "specificity" : 0.9276912513497423,
       "wordsInTerm" : 1,
@@ -15720,17 +15720,6 @@
         "line" : 44
       }
     }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
-      "occurrences" : 137,
-      "specificity" : 0.908420200496641,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9286508645099529,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-        "line" : 390
-      }
-    }, {
       "concept" : "encryption",
       "placedUnder" : "cryptography | security of data",
       "occurrences" : 137,
@@ -15742,8 +15731,19 @@
         "line" : 390
       }
     }, {
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | network security",
+      "occurrences" : 137,
+      "specificity" : 0.908420200496641,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 0.9286508645099529,
+      "firstWrittenAt" : {
+        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+        "line" : 390
+      }
+    }, {
       "concept" : "http",
-      "placedUnder" : "client server computer systems | internet protocol | internet protocols | servers",
+      "placedUnder" : "client server computer systems | internet protocols | servers",
       "occurrences" : 124,
       "specificity" : 0.9757689546210163,
       "wordsInTerm" : 1,
@@ -15754,7 +15754,7 @@
       }
     }, {
       "concept" : "sensors",
-      "placedUnder" : "computer hardware | hardware",
+      "placedUnder" : "computer hardware",
       "occurrences" : 79,
       "specificity" : 0.9614062668054615,
       "wordsInTerm" : 1,
@@ -15764,8 +15764,8 @@
         "line" : 1120
       }
     }, {
-      "concept" : "sensor",
-      "placedUnder" : "computer hardware | hardware",
+      "concept" : "sensors",
+      "placedUnder" : "computer hardware",
       "occurrences" : 79,
       "specificity" : 0.9614062668054615,
       "wordsInTerm" : 1,
@@ -15775,7 +15775,7 @@
         "line" : 1120
       }
     }, {
-      "concept" : "hash",
+      "concept" : "hash functions",
       "placedUnder" : "authentication | cryptography",
       "occurrences" : 75,
       "specificity" : 0.9440167659819856,
@@ -15787,7 +15787,7 @@
       }
     }, {
       "concept" : "jpeg",
-      "placedUnder" : "digital image storage | discrete cosine transform | discrete cosine transform (dct) | discrete cosine transform(dct) | discrete cosine transforms | discrete cosine transforms (dct)",
+      "placedUnder" : "digital image storage | discrete cosine transforms",
       "occurrences" : 60,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15797,8 +15797,8 @@
         "line" : 86
       }
     }, {
-      "concept" : "parsing",
-      "placedUnder" : "computational linguistics | formal languages | natural language processing | natural language processing systems | nlp",
+      "concept" : "parsing algorithm",
+      "placedUnder" : "computational linguistics | formal languages | natural language processing",
       "occurrences" : 56,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15809,7 +15809,7 @@
       }
     }, {
       "concept" : "publish/subscribe",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | software architecture patterns",
+      "placedUnder" : "software architecture patterns",
       "occurrences" : 67,
       "specificity" : 0.7765230157438232,
       "wordsInTerm" : 1,
@@ -15817,17 +15817,6 @@
       "firstWrittenAt" : {
         "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
         "line" : 1176
-      }
-    }, {
-      "concept" : "hyperlink",
-      "placedUnder" : "hypertext systems | web content | web contents | web page | web pages | web users | web-page",
-      "occurrences" : 52,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java",
-        "line" : 459
       }
     }, {
       "concept" : "audio",
@@ -15842,7 +15831,7 @@
       }
     }, {
       "concept" : "3g",
-      "placedUnder" : "wireless network | wireless networks",
+      "placedUnder" : "wireless networks",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -15853,7 +15842,7 @@
       }
     }, {
       "concept" : "4g",
-      "placedUnder" : "3g | 3g networks | lte",
+      "placedUnder" : "3g | lte",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -15863,8 +15852,8 @@
         "line" : 54
       }
     }, {
-      "concept" : "file system",
-      "placedUnder" : "computer operating systems | operating system | operating systems",
+      "concept" : "file systems",
+      "placedUnder" : "operating systems",
       "occurrences" : 45,
       "specificity" : 0.8650886685091275,
       "wordsInTerm" : 2,
@@ -15874,8 +15863,8 @@
         "line" : 22
       }
     }, {
-      "concept" : "filesystem",
-      "placedUnder" : "computer operating systems | operating system | operating systems",
+      "concept" : "file systems",
+      "placedUnder" : "operating systems",
       "occurrences" : 45,
       "specificity" : 0.8650886685091275,
       "wordsInTerm" : 2,
@@ -15886,7 +15875,7 @@
       }
     }, {
       "concept" : "java",
-      "placedUnder" : "computer programming languages | high level languages | object oriented programming | object-oriented programming",
+      "placedUnder" : "computer programming languages | high level languages | object oriented programming",
       "occurrences" : 43,
       "specificity" : 0.8935030618239036,
       "wordsInTerm" : 1,
@@ -15896,8 +15885,8 @@
         "line" : 69
       }
     }, {
-      "concept" : "parsing",
-      "placedUnder" : "computational linguistics | formal languages | natural language processing | natural language processing systems | nlp",
+      "concept" : "parsing algorithm",
+      "placedUnder" : "computational linguistics | formal languages | natural language processing",
       "occurrences" : 37,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15908,7 +15897,7 @@
       }
     }, {
       "concept" : "cache",
-      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
+      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
       "occurrences" : 35,
       "specificity" : 0.9182882135926435,
       "wordsInTerm" : 1,
@@ -15930,7 +15919,7 @@
       }
     }, {
       "concept" : "target language",
-      "placedUnder" : "machine translation | machine translation systems | machine translations | speech transmission",
+      "placedUnder" : "machine translations | speech transmission",
       "occurrences" : 34,
       "specificity" : 0.8716036159237258,
       "wordsInTerm" : 2,
@@ -15941,7 +15930,7 @@
       }
     }, {
       "concept" : "faculty",
-      "placedUnder" : "curricula | curriculum | universities | university",
+      "placedUnder" : "curricula | university",
       "occurrences" : 34,
       "specificity" : 0.8544142087924447,
       "wordsInTerm" : 1,
@@ -15952,7 +15941,7 @@
       }
     }, {
       "concept" : "3g",
-      "placedUnder" : "wireless network | wireless networks",
+      "placedUnder" : "wireless networks",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -15963,7 +15952,7 @@
       }
     }, {
       "concept" : "4g",
-      "placedUnder" : "3g | 3g networks | lte",
+      "placedUnder" : "3g | lte",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -15974,7 +15963,7 @@
       }
     }, {
       "concept" : "ids",
-      "placedUnder" : "intrusion detection | intrusion detection method | intrusion detection system | intrusion detection systems | network security",
+      "placedUnder" : "intrusion detection | network security",
       "occurrences" : 24,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15985,7 +15974,7 @@
       }
     }, {
       "concept" : "block lengths",
-      "placedUnder" : "ldpc code | ldpc codes",
+      "placedUnder" : "ldpc codes",
       "occurrences" : 25,
       "specificity" : 0.9242685337652595,
       "wordsInTerm" : 2,
@@ -16007,7 +15996,7 @@
       }
     }, {
       "concept" : "bit rates",
-      "placedUnder" : "video processing | video signal processing | visual communication",
+      "placedUnder" : "video processing | visual communication",
       "occurrences" : 25,
       "specificity" : 0.863417115843319,
       "wordsInTerm" : 2,
@@ -16017,30 +16006,8 @@
         "line" : 59
       }
     }, {
-      "concept" : "descriptor",
-      "placedUnder" : "image retrieval | object recognition",
-      "occurrences" : 21,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/PST.java",
-        "line" : 22
-      }
-    }, {
-      "concept" : "hyperlinks",
-      "placedUnder" : "hypertext systems | web content | web contents | web page | web pages | web users | web-page",
-      "occurrences" : 17,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Office.java",
-        "line" : 185
-      }
-    }, {
-      "concept" : "multi-threaded",
-      "placedUnder" : "multi core | multi-core | multi-cores | multicore",
+      "concept" : "multithreaded",
+      "placedUnder" : "multi core",
       "occurrences" : 17,
       "specificity" : 0.9997461209009251,
       "wordsInTerm" : 2,
@@ -16051,7 +16018,7 @@
       }
     }, {
       "concept" : "multithreaded",
-      "placedUnder" : "multi core | multi-core | multi-cores | multicore",
+      "placedUnder" : "multi core",
       "occurrences" : 17,
       "specificity" : 0.9997461209009251,
       "wordsInTerm" : 2,
@@ -16061,8 +16028,8 @@
         "line" : 469
       }
     }, {
-      "concept" : "test set",
-      "placedUnder" : "machine learning | machine learning algorithms | machine learning methods | machine learning techniques | machine learnings | machine-learning",
+      "concept" : "test samples",
+      "placedUnder" : "machine learning",
       "occurrences" : 19,
       "specificity" : 0.8324052550422795,
       "wordsInTerm" : 2,
@@ -16073,7 +16040,7 @@
       }
     }, {
       "concept" : "queue size",
-      "placedUnder" : "queueing network | queueing networks | queuing network | queuing networks",
+      "placedUnder" : "queuing network",
       "occurrences" : 16,
       "specificity" : 0.9730209327919677,
       "wordsInTerm" : 2,
@@ -16084,7 +16051,7 @@
       }
     }, {
       "concept" : "private key",
-      "placedUnder" : "public key cryptography | public-key cryptography",
+      "placedUnder" : "public key cryptography",
       "occurrences" : 18,
       "specificity" : 0.8646281694233908,
       "wordsInTerm" : 2,
@@ -16095,7 +16062,7 @@
       }
     }, {
       "concept" : "caching",
-      "placedUnder" : "cache memories | cache memory",
+      "placedUnder" : "cache memory",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16106,7 +16073,7 @@
       }
     }, {
       "concept" : "cache",
-      "placedUnder" : "buffer storage | cache memories | cache memory | computer operating systems | operating system | operating systems | storage allocation (computer)",
+      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
       "occurrences" : 15,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16116,19 +16083,8 @@
         "line" : 188
       }
     }, {
-      "concept" : "natural language processing",
-      "placedUnder" : "artificial intelligence | natural language | natural languages",
-      "occurrences" : 15,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/CompareDetectors.java",
-        "line" : 644
-      }
-    }, {
-      "concept" : "drawings",
-      "placedUnder" : "cad | computer aided design | computer aided design (cad) | computer-aided design | graph theory | visualization",
+      "concept" : "drawing (graphics)",
+      "placedUnder" : "computer aided design | graph theory | visualization",
       "occurrences" : 18,
       "specificity" : 0.8005306775838305,
       "wordsInTerm" : 1,
@@ -16139,7 +16095,7 @@
       }
     }, {
       "concept" : "queue",
-      "placedUnder" : "queueing network | queueing networks | queuing network | queuing networks",
+      "placedUnder" : "queuing network",
       "occurrences" : 14,
       "specificity" : 0.9234068407413965,
       "wordsInTerm" : 1,
@@ -16150,7 +16106,7 @@
       }
     }, {
       "concept" : "data packet",
-      "placedUnder" : "mobile ad hoc network | mobile ad hoc networks | mobile ad-hoc network | mobile ad-hoc networks | mobile adhoc network (manets) | wireless sensor network | wireless sensor network (wsn) | wireless sensor network (wsns) | wireless sensor networks | wireless sensor networks (wsns) | wsn",
+      "placedUnder" : "mobile ad hoc networks | wireless sensor networks",
       "occurrences" : 14,
       "specificity" : 0.8954914350256303,
       "wordsInTerm" : 2,
@@ -16172,7 +16128,7 @@
       }
     }, {
       "concept" : "caching",
-      "placedUnder" : "cache memories | cache memory",
+      "placedUnder" : "cache memory",
       "occurrences" : 12,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16183,7 +16139,7 @@
       }
     }, {
       "concept" : "layered",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | software architecture patterns",
+      "placedUnder" : "software architecture patterns",
       "occurrences" : 15,
       "specificity" : 0.7799277391627628,
       "wordsInTerm" : 1,
@@ -16202,28 +16158,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/language/detect/LanguageDetector.java",
         "line" : 146
-      }
-    }, {
-      "concept" : "descriptors",
-      "placedUnder" : "image retrieval | object recognition",
-      "occurrences" : 20,
-      "specificity" : 0.5591297245181585,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.5947546858159531,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/AsyncHelperTest.java",
-        "line" : 67
-      }
-    }, {
-      "concept" : "descriptor",
-      "placedUnder" : "image retrieval | object recognition",
-      "occurrences" : 20,
-      "specificity" : 0.5591297245181585,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.5947546858159531,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/AsyncHelperTest.java",
-        "line" : 67
       }
     }, {
       "concept" : "encryption",
@@ -16248,25 +16182,14 @@
         "line" : 464
       }
     }, {
-      "concept" : "classifier",
-      "placedUnder" : "classification | machine learning | machine learning algorithms | machine learning methods | machine learning techniques | machine learnings | machine-learning",
+      "concept" : "classifiers",
+      "placedUnder" : "classification | machine learning",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
       "shareOfEachName" : 1.0,
       "firstWrittenAt" : {
         "file" : "tika-ml/tika-ml-junkdetect-tools/src/main/java/org/apache/tika/ml/junkdetect/tools/TrainJunkModel.java",
-        "line" : 71
-      }
-    }, {
-      "concept" : "encryption/decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
-      "occurrences" : 9,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ExtractComparer.java",
         "line" : 71
       }
     }, {
@@ -16281,8 +16204,19 @@
         "line" : 71
       }
     }, {
+      "concept" : "encryption/decryption",
+      "placedUnder" : "encryption | network security",
+      "occurrences" : 9,
+      "specificity" : 1.0,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ExtractComparer.java",
+        "line" : 71
+      }
+    }, {
       "concept" : "self-configuring",
-      "placedUnder" : "autonomic computing | mobile ad hoc network | mobile ad hoc networks | mobile ad-hoc network | mobile ad-hoc networks | mobile adhoc network (manets)",
+      "placedUnder" : "autonomic computing | mobile ad hoc networks",
       "occurrences" : 8,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -16293,7 +16227,7 @@
       }
     }, {
       "concept" : "decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes",
+      "placedUnder" : "encryption",
       "occurrences" : 8,
       "specificity" : 0.9877155105227378,
       "wordsInTerm" : 1,
@@ -16304,7 +16238,7 @@
       }
     }, {
       "concept" : "faculty",
-      "placedUnder" : "curricula | curriculum | universities | university",
+      "placedUnder" : "curricula | university",
       "occurrences" : 9,
       "specificity" : 0.8773635740114168,
       "wordsInTerm" : 1,
@@ -16315,7 +16249,7 @@
       }
     }, {
       "concept" : "intermediate node",
-      "placedUnder" : "ad hoc network | ad hoc networks | ad-hoc networks | network coding | routing protocol | routing protocols | sensor network | sensor networks | wireless network | wireless networks | wireless sensor network | wireless sensor network (wsn) | wireless sensor network (wsns) | wireless sensor networks | wireless sensor networks (wsns) | wsn",
+      "placedUnder" : "ad hoc networks | network coding | routing protocols | sensor networks | wireless networks | wireless sensor networks",
       "occurrences" : 8,
       "specificity" : 0.9836217072801149,
       "wordsInTerm" : 2,
@@ -16337,7 +16271,7 @@
       }
     }, {
       "concept" : "secret key",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | public key cryptography | public-key cryptography",
+      "placedUnder" : "encryption | public key cryptography",
       "occurrences" : 8,
       "specificity" : 0.9122751716793178,
       "wordsInTerm" : 2,
@@ -16347,7 +16281,18 @@
         "line" : 72
       }
     }, {
-      "concept" : "hash",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
+      "occurrences" : 7,
+      "specificity" : 1.0,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/core/CharSoupFeatureExtractorTest.java",
+        "line" : 358
+      }
+    }, {
+      "concept" : "hash functions",
       "placedUnder" : "authentication | cryptography",
       "occurrences" : 7,
       "specificity" : 1.0,
@@ -16358,19 +16303,8 @@
         "line" : 358
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
-      "occurrences" : 7,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/core/CharSoupFeatureExtractorTest.java",
-        "line" : 358
-      }
-    }, {
       "concept" : "linux",
-      "placedUnder" : "computer operating systems | operating system | operating systems",
+      "placedUnder" : "operating systems",
       "occurrences" : 8,
       "specificity" : 0.856338396894722,
       "wordsInTerm" : 1,
@@ -16381,7 +16315,7 @@
       }
     }, {
       "concept" : "mems",
-      "placedUnder" : "sensor | sensors",
+      "placedUnder" : "sensors",
       "occurrences" : 6,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16392,7 +16326,7 @@
       }
     }, {
       "concept" : "back-off",
-      "placedUnder" : "ieee 802.11 | ieee 802.11 standards | ieee 802.11s",
+      "placedUnder" : "ieee 802.11s",
       "occurrences" : 8,
       "specificity" : 0.7441278089508283,
       "wordsInTerm" : 2,
@@ -16402,8 +16336,8 @@
         "line" : 66
       }
     }, {
-      "concept" : "backoff",
-      "placedUnder" : "ieee 802.11 | ieee 802.11 standards | ieee 802.11s",
+      "concept" : "back-off",
+      "placedUnder" : "ieee 802.11s",
       "occurrences" : 8,
       "specificity" : 0.7441278089508283,
       "wordsInTerm" : 2,
@@ -16436,7 +16370,7 @@
       }
     }, {
       "concept" : "central processing unit",
-      "placedUnder" : "buffer storage | computer operating systems | computer workstations | operating system | operating systems | random access storage | reduced instruction set computing",
+      "placedUnder" : "buffer storage | computer workstations | operating systems | random access storage | reduced instruction set computing",
       "occurrences" : 6,
       "specificity" : 0.8725033182526426,
       "wordsInTerm" : 1,
@@ -16446,7 +16380,18 @@
         "line" : 210
       }
     }, {
-      "concept" : "hash",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
+      "occurrences" : 5,
+      "specificity" : 1.0,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/FndStructureConstants.java",
+        "line" : 55
+      }
+    }, {
+      "concept" : "hash functions",
       "placedUnder" : "authentication | cryptography",
       "occurrences" : 5,
       "specificity" : 1.0,
@@ -16457,19 +16402,8 @@
         "line" : 55
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database | database systems | hash | hash function | hash functions",
-      "occurrences" : 5,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/FndStructureConstants.java",
-        "line" : 55
-      }
-    }, {
       "concept" : "cmp",
-      "placedUnder" : "chip multiprocessor | chip multiprocessors | multi core | multi-core | multi-cores | multicore",
+      "placedUnder" : "chip multiprocessor | multi core",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16479,19 +16413,8 @@
         "line" : 321
       }
     }, {
-      "concept" : "multipliers",
-      "placedUnder" : "frequency multiplying circuits",
-      "occurrences" : 5,
-      "specificity" : 0.9957411892855478,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9977897297832736,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/main/java/org/apache/tika/parser/mp3/ID3v2Frame.java",
-        "line" : 543
-      }
-    }, {
       "concept" : "dublin core",
-      "placedUnder" : "digital libraries | digital library",
+      "placedUnder" : "digital libraries",
       "occurrences" : 5,
       "specificity" : 0.9713821088650526,
       "wordsInTerm" : 2,
@@ -16501,8 +16424,8 @@
         "line" : 34
       }
     }, {
-      "concept" : "named entity",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "concept" : "named entity recognition",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
       "occurrences" : 5,
       "specificity" : 0.9548236542621058,
       "wordsInTerm" : 2,
@@ -16513,7 +16436,7 @@
       }
     }, {
       "concept" : "rsa",
-      "placedUnder" : "public key cryptography | public-key cryptography",
+      "placedUnder" : "public key cryptography",
       "occurrences" : 4,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16524,7 +16447,7 @@
       }
     }, {
       "concept" : "css",
-      "placedUnder" : "html | hypertext markup language | hypertext markup language (html) | javascript",
+      "placedUnder" : "html | javascript",
       "occurrences" : 4,
       "specificity" : 0.9988984395193952,
       "wordsInTerm" : 1,
@@ -16545,8 +16468,8 @@
         "line" : 51
       }
     }, {
-      "concept" : "regression tests",
-      "placedUnder" : "computer software maintenance | correlation analysis | regression analysis | statistical analysis | statistical model | statistics",
+      "concept" : "regression testing",
+      "placedUnder" : "computer software maintenance | correlation analysis",
       "occurrences" : 4,
       "specificity" : 0.9759630377966142,
       "wordsInTerm" : 2,
@@ -16568,7 +16491,7 @@
       }
     }, {
       "concept" : "cache size",
-      "placedUnder" : "cache memories | cache memory",
+      "placedUnder" : "cache memory",
       "occurrences" : 4,
       "specificity" : 0.9712179547297518,
       "wordsInTerm" : 2,
@@ -16589,8 +16512,8 @@
         "line" : 125
       }
     }, {
-      "concept" : "word embeddings",
-      "placedUnder" : "natural language processing | natural language processing systems | nlp",
+      "concept" : "word embedding",
+      "placedUnder" : "natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9516846265148727,
       "wordsInTerm" : 2,
@@ -16601,7 +16524,7 @@
       }
     }, {
       "concept" : "word embedding",
-      "placedUnder" : "natural language processing | natural language processing systems | nlp",
+      "placedUnder" : "natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9516846265148727,
       "wordsInTerm" : 2,
@@ -16611,8 +16534,8 @@
         "line" : 1
       }
     }, {
-      "concept" : "named entities",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "concept" : "named entity recognition",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9382566242285576,
       "wordsInTerm" : 2,
@@ -16622,8 +16545,8 @@
         "line" : 35
       }
     }, {
-      "concept" : "named entity",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "concept" : "named entity recognition",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9382566242285576,
       "wordsInTerm" : 2,
@@ -16633,8 +16556,8 @@
         "line" : 35
       }
     }, {
-      "concept" : "named entities",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "concept" : "named entity recognition",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9364043024226218,
       "wordsInTerm" : 2,
@@ -16644,8 +16567,8 @@
         "line" : 179
       }
     }, {
-      "concept" : "named entity",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing | natural language processing systems | nlp",
+      "concept" : "named entity recognition",
+      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
       "occurrences" : 4,
       "specificity" : 0.9364043024226218,
       "wordsInTerm" : 2,
@@ -16656,7 +16579,7 @@
       }
     }, {
       "concept" : "data stream",
-      "placedUnder" : "data communication systems | data mining | database | database systems",
+      "placedUnder" : "data communication systems | data mining | database systems",
       "occurrences" : 4,
       "specificity" : 0.9130349557436171,
       "wordsInTerm" : 2,
@@ -16733,7 +16656,7 @@
       }
     }, {
       "concept" : "hash value",
-      "placedUnder" : "hash | hash function | hash functions",
+      "placedUnder" : "hash functions",
       "occurrences" : 3,
       "specificity" : 0.9841477067684615,
       "wordsInTerm" : 2,
@@ -16743,7 +16666,7 @@
         "line" : 165
       }
     }, {
-      "concept" : "cad",
+      "concept" : "computer aided design",
       "placedUnder" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.980501875835005,
@@ -16754,7 +16677,7 @@
         "line" : 676
       }
     }, {
-      "concept" : "transformers",
+      "concept" : "encoder-decoder",
       "placedUnder" : "deep learning",
       "occurrences" : 3,
       "specificity" : 0.9636598314829465,
@@ -16777,7 +16700,7 @@
       }
     }, {
       "concept" : "test vectors",
-      "placedUnder" : "test generation | test generations",
+      "placedUnder" : "test generations",
       "occurrences" : 3,
       "specificity" : 0.9485451935337361,
       "wordsInTerm" : 2,
@@ -16809,8 +16732,8 @@
         "line" : 64
       }
     }, {
-      "concept" : "linear model",
-      "placedUnder" : "correlation analysis | regression analysis | statistical analysis | statistical model | statistics",
+      "concept" : "linear models",
+      "placedUnder" : "correlation analysis",
       "occurrences" : 3,
       "specificity" : 0.9308864728655653,
       "wordsInTerm" : 2,
@@ -16821,7 +16744,7 @@
       }
     }, {
       "concept" : "access permissions",
-      "placedUnder" : "access control mechanism | access control models | access control policies | access control policy",
+      "placedUnder" : "access control policies",
       "occurrences" : 3,
       "specificity" : 0.929576389920484,
       "wordsInTerm" : 2,
@@ -16832,7 +16755,7 @@
       }
     }, {
       "concept" : "ruby",
-      "placedUnder" : "corundum | object oriented programming | object-oriented programming | scripting languages",
+      "placedUnder" : "corundum | object oriented programming | scripting languages",
       "occurrences" : 3,
       "specificity" : 0.9230612960819871,
       "wordsInTerm" : 1,
@@ -16842,7 +16765,7 @@
         "line" : 620
       }
     }, {
-      "concept" : "source code",
+      "concept" : "source codes",
       "placedUnder" : "software engineering",
       "occurrences" : 3,
       "specificity" : 0.8963221751708842,
@@ -16854,7 +16777,7 @@
       }
     }, {
       "concept" : "test results",
-      "placedUnder" : "sensor | sensors",
+      "placedUnder" : "sensors",
       "occurrences" : 3,
       "specificity" : 0.8637117133734998,
       "wordsInTerm" : 2,
@@ -16864,8 +16787,8 @@
         "line" : 134
       }
     }, {
-      "concept" : "test set",
-      "placedUnder" : "machine learning | machine learning algorithms | machine learning methods | machine learning techniques | machine learnings | machine-learning",
+      "concept" : "test samples",
+      "placedUnder" : "machine learning",
       "occurrences" : 3,
       "specificity" : 0.8547091143421596,
       "wordsInTerm" : 2,
@@ -16875,7 +16798,7 @@
         "line" : 88
       }
     }, {
-      "concept" : "statistics",
+      "concept" : "correlation analysis",
       "placedUnder" : "mathematics",
       "occurrences" : 3,
       "specificity" : 0.81007512802233,
@@ -16887,7 +16810,7 @@
       }
     }, {
       "concept" : "boosting",
-      "placedUnder" : "adaboost | adaptive boosting",
+      "placedUnder" : "adaptive boosting",
       "occurrences" : 3,
       "specificity" : 0.8081695762867644,
       "wordsInTerm" : 1,
@@ -16908,8 +16831,8 @@
         "line" : 90
       }
     }, {
-      "concept" : "word embeddings",
-      "placedUnder" : "natural language processing | natural language processing systems | nlp",
+      "concept" : "word embedding",
+      "placedUnder" : "natural language processing",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -16920,7 +16843,7 @@
       }
     }, {
       "concept" : "word embedding",
-      "placedUnder" : "natural language processing | natural language processing systems | nlp",
+      "placedUnder" : "natural language processing",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -16931,7 +16854,7 @@
       }
     }, {
       "concept" : "decryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes",
+      "placedUnder" : "encryption",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16941,8 +16864,8 @@
         "line" : 633
       }
     }, {
-      "concept" : "parsing",
-      "placedUnder" : "computational linguistics | formal languages | natural language processing | natural language processing systems | nlp",
+      "concept" : "parsing algorithm",
+      "placedUnder" : "computational linguistics | formal languages | natural language processing",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16953,7 +16876,7 @@
       }
     }, {
       "concept" : "naive bayes",
-      "placedUnder" : "bayesian | bayesian approach | bayesian approaches | bayesian framework | bayesian frameworks | bayesian method | bayesian methods | bayesian model | bayesian models | bayesian network | bayesian networks | decision tree | decision trees",
+      "placedUnder" : "bayesian methods | decision trees",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -16975,7 +16898,7 @@
       }
     }, {
       "concept" : "http",
-      "placedUnder" : "client server computer systems | internet protocol | internet protocols | servers",
+      "placedUnder" : "client server computer systems | internet protocols | servers",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16986,7 +16909,7 @@
       }
     }, {
       "concept" : "access permissions",
-      "placedUnder" : "access control mechanism | access control models | access control policies | access control policy",
+      "placedUnder" : "access control policies",
       "occurrences" : 2,
       "specificity" : 0.995612832637218,
       "wordsInTerm" : 2,
@@ -16996,8 +16919,8 @@
         "line" : 24
       }
     }, {
-      "concept" : "priority queue",
-      "placedUnder" : "queueing network | queueing networks | queuing network | queuing networks",
+      "concept" : "priority queues",
+      "placedUnder" : "queuing network",
       "occurrences" : 2,
       "specificity" : 0.9847775747048201,
       "wordsInTerm" : 2,
@@ -17007,8 +16930,8 @@
         "line" : 28
       }
     }, {
-      "concept" : "gui",
-      "placedUnder" : "user interface | user interfaces",
+      "concept" : "graphical user interfaces",
+      "placedUnder" : "user interfaces",
       "occurrences" : 2,
       "specificity" : 0.9842055721843924,
       "wordsInTerm" : 1,
@@ -17018,7 +16941,7 @@
         "line" : 1
       }
     }, {
-      "concept" : "statistics",
+      "concept" : "correlation analysis",
       "placedUnder" : "mathematics",
       "occurrences" : 2,
       "specificity" : 0.9805508569322066,
@@ -17030,7 +16953,7 @@
       }
     }, {
       "concept" : "transmitters",
-      "placedUnder" : "antenna | antennas | signal receivers",
+      "placedUnder" : "antennas | signal receivers",
       "occurrences" : 2,
       "specificity" : 0.9664923122811852,
       "wordsInTerm" : 1,
@@ -17041,7 +16964,7 @@
       }
     }, {
       "concept" : "feature extraction",
-      "placedUnder" : "machine learning | machine learning algorithms | machine learning methods | machine learning techniques | machine learnings | machine-learning",
+      "placedUnder" : "machine learning",
       "occurrences" : 2,
       "specificity" : 0.9663806021513364,
       "wordsInTerm" : 2,
@@ -17051,7 +16974,7 @@
         "line" : 678
       }
     }, {
-      "concept" : "compression ratio",
+      "concept" : "compression ratio (machinery)",
       "placedUnder" : "data compression",
       "occurrences" : 2,
       "specificity" : 0.962077237561683,
@@ -17073,8 +16996,8 @@
         "line" : 66
       }
     }, {
-      "concept" : "ip address",
-      "placedUnder" : "computer crime | internet protocol | internet protocols | network security",
+      "concept" : "ip addresss",
+      "placedUnder" : "computer crime | internet protocols | network security",
       "occurrences" : 2,
       "specificity" : 0.9538036676139354,
       "wordsInTerm" : 2,
@@ -17084,8 +17007,8 @@
         "line" : 91
       }
     }, {
-      "concept" : "client-server",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | client server computer systems | software architecture patterns",
+      "concept" : "client server",
+      "placedUnder" : "client server computer systems | software architecture patterns",
       "occurrences" : 2,
       "specificity" : 0.9531425019073706,
       "wordsInTerm" : 2,
@@ -17096,7 +17019,7 @@
       }
     }, {
       "concept" : "client server",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | client server computer systems | software architecture patterns",
+      "placedUnder" : "client server computer systems | software architecture patterns",
       "occurrences" : 2,
       "specificity" : 0.9531425019073706,
       "wordsInTerm" : 2,
@@ -17106,8 +17029,8 @@
         "line" : 51
       }
     }, {
-      "concept" : "feature sets",
-      "placedUnder" : "classification methods | classification performance | classification performances | classification results | classification system | classification tasks | pattern recognition",
+      "concept" : "feature space",
+      "placedUnder" : "classification methods | pattern recognition",
       "occurrences" : 2,
       "specificity" : 0.9396818291702682,
       "wordsInTerm" : 2,
@@ -17117,8 +17040,8 @@
         "line" : 108
       }
     }, {
-      "concept" : "rag",
-      "placedUnder" : "genai | generative ai | generative artificial intelligence",
+      "concept" : "retrieval-augmented generation",
+      "placedUnder" : "generative ai",
       "occurrences" : 2,
       "specificity" : 0.9278869121957427,
       "wordsInTerm" : 2,
@@ -17150,19 +17073,8 @@
         "line" : 34
       }
     }, {
-      "concept" : "robot",
-      "placedUnder" : "robotics",
-      "occurrences" : 2,
-      "specificity" : 0.9105484031758174,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9247149111699662,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/mime/TestMimeTypes.java",
-        "line" : 1048
-      }
-    }, {
       "concept" : "service class",
-      "placedUnder" : "quality of service | quality of service (qos)",
+      "placedUnder" : "quality of service",
       "occurrences" : 2,
       "specificity" : 0.8379513874179255,
       "wordsInTerm" : 2,
@@ -17184,7 +17096,7 @@
       }
     }, {
       "concept" : "publish/subscribe",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | software architecture patterns",
+      "placedUnder" : "software architecture patterns",
       "occurrences" : 2,
       "specificity" : 0.8203921070517173,
       "wordsInTerm" : 1,
@@ -17205,28 +17117,6 @@
         "line" : 919
       }
     }, {
-      "concept" : "descriptors",
-      "placedUnder" : "image retrieval | object recognition",
-      "occurrences" : 2,
-      "specificity" : 0.6963904680080683,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7006996629656607,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java/org/apache/tika/parser/audio/NumberAndTotalTest.java",
-        "line" : 47
-      }
-    }, {
-      "concept" : "descriptor",
-      "placedUnder" : "image retrieval | object recognition",
-      "occurrences" : 2,
-      "specificity" : 0.6963904680080683,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7006996629656607,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/test/java/org/apache/tika/parser/audio/NumberAndTotalTest.java",
-        "line" : 47
-      }
-    }, {
       "concept" : "ins",
       "placedUnder" : "gps",
       "occurrences" : 1,
@@ -17239,7 +17129,7 @@
       }
     }, {
       "concept" : "hog",
-      "placedUnder" : "adaboost | adaptive boosting | pedestrian detection | svm | svm classification | svm classifier | svm classifiers",
+      "placedUnder" : "adaptive boosting | pedestrian detection | svm",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -17250,7 +17140,7 @@
       }
     }, {
       "concept" : "cache size",
-      "placedUnder" : "cache memories | cache memory",
+      "placedUnder" : "cache memory",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -17258,17 +17148,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
         "line" : 152
-      }
-    }, {
-      "concept" : "adders",
-      "placedUnder" : "digital arithmetic | lsi circuits | vlsi circuits",
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/metadata/TestMetadata.java",
-        "line" : 464
       }
     }, {
       "concept" : "lossless",
@@ -17283,7 +17162,7 @@
       }
     }, {
       "concept" : "skew angles",
-      "placedUnder" : "document image | document images",
+      "placedUnder" : "document images",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -17305,7 +17184,7 @@
       }
     }, {
       "concept" : "ontology concepts",
-      "placedUnder" : "ontologies | ontology",
+      "placedUnder" : "ontology",
       "occurrences" : 1,
       "specificity" : 0.9947674243639553,
       "wordsInTerm" : 2,
@@ -17316,7 +17195,7 @@
       }
     }, {
       "concept" : "csma/ca",
-      "placedUnder" : "carrier sense multiple access | mac | mac protocol | mac protocols",
+      "placedUnder" : "carrier sense multiple access | mac protocol",
       "occurrences" : 1,
       "specificity" : 0.9941595322473004,
       "wordsInTerm" : 1,
@@ -17360,7 +17239,7 @@
       }
     }, {
       "concept" : "encrypted data",
-      "placedUnder" : "data privacy | encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes | network security",
+      "placedUnder" : "data privacy | encryption | network security",
       "occurrences" : 1,
       "specificity" : 0.9786654280275991,
       "wordsInTerm" : 2,
@@ -17371,7 +17250,7 @@
       }
     }, {
       "concept" : "controlled vocabulary",
-      "placedUnder" : "ontologies | ontology | vocabulary control",
+      "placedUnder" : "ontology | vocabulary control",
       "occurrences" : 1,
       "specificity" : 0.9785610737215177,
       "wordsInTerm" : 2,
@@ -17382,7 +17261,7 @@
       }
     }, {
       "concept" : "hash value",
-      "placedUnder" : "hash | hash function | hash functions",
+      "placedUnder" : "hash functions",
       "occurrences" : 1,
       "specificity" : 0.9782417895377806,
       "wordsInTerm" : 2,
@@ -17403,7 +17282,7 @@
         "line" : 38
       }
     }, {
-      "concept" : "encryption key",
+      "concept" : "encryption",
       "placedUnder" : "cryptography | security of data",
       "occurrences" : 1,
       "specificity" : 0.9694864882327939,
@@ -17426,7 +17305,7 @@
       }
     }, {
       "concept" : "information assurance",
-      "placedUnder" : "curricula | curriculum | information security | information system | information systems | information technology",
+      "placedUnder" : "curricula | information security | information systems | information technology",
       "occurrences" : 1,
       "specificity" : 0.9679156849351876,
       "wordsInTerm" : 2,
@@ -17437,7 +17316,7 @@
       }
     }, {
       "concept" : "sensor data",
-      "placedUnder" : "sensor | sensors",
+      "placedUnder" : "sensors",
       "occurrences" : 1,
       "specificity" : 0.9665206637044148,
       "wordsInTerm" : 2,
@@ -17459,7 +17338,7 @@
       }
     }, {
       "concept" : "data encryption",
-      "placedUnder" : "encryption | encryption algorithm | encryption algorithms | encryption and decryption | encryption key | encryption methods | encryption schemes",
+      "placedUnder" : "encryption",
       "occurrences" : 1,
       "specificity" : 0.9625070593145862,
       "wordsInTerm" : 2,
@@ -17469,8 +17348,8 @@
         "line" : 47
       }
     }, {
-      "concept" : "data cache",
-      "placedUnder" : "cache memories | cache memory | program processors",
+      "concept" : "data caches",
+      "placedUnder" : "cache memory | program processors",
       "occurrences" : 1,
       "specificity" : 0.962167007070241,
       "wordsInTerm" : 2,
@@ -17491,7 +17370,7 @@
         "line" : 95
       }
     }, {
-      "concept" : "visual representation",
+      "concept" : "visual representations",
       "placedUnder" : "visualization",
       "occurrences" : 1,
       "specificity" : 0.9571173861941681,
@@ -17513,8 +17392,8 @@
         "line" : 1119
       }
     }, {
-      "concept" : "feature vector",
-      "placedUnder" : "machine learning | machine learning algorithms | machine learning methods | machine learning techniques | machine learnings | machine-learning",
+      "concept" : "feature vectors",
+      "placedUnder" : "machine learning",
       "occurrences" : 1,
       "specificity" : 0.9534575498856307,
       "wordsInTerm" : 2,
@@ -17525,7 +17404,7 @@
       }
     }, {
       "concept" : "style sheets",
-      "placedUnder" : "electronic document | electronic documents",
+      "placedUnder" : "electronic document",
       "occurrences" : 1,
       "specificity" : 0.9405829760630973,
       "wordsInTerm" : 2,
@@ -17536,7 +17415,7 @@
       }
     }, {
       "concept" : "class labels",
-      "placedUnder" : "classification methods | classification performance | classification performances | classification results | classification system | classification tasks | classifier | classifiers",
+      "placedUnder" : "classification methods | classifiers",
       "occurrences" : 1,
       "specificity" : 0.938635366828095,
       "wordsInTerm" : 2,
@@ -17547,7 +17426,7 @@
       }
     }, {
       "concept" : "scale factor",
-      "placedUnder" : "evolutionary algorithm | evolutionary algorithms | gyroscope | gyroscopes",
+      "placedUnder" : "evolutionary algorithms | gyroscopes",
       "occurrences" : 1,
       "specificity" : 0.9343855346810025,
       "wordsInTerm" : 2,
@@ -17579,8 +17458,8 @@
         "line" : 1
       }
     }, {
-      "concept" : "software agent",
-      "placedUnder" : "multi agent system | multi agent system (mas) | multi agent systems | multi-agent system | multi-agent systems | multiagent system | multiagent systems",
+      "concept" : "software agents",
+      "placedUnder" : "multiagent system",
       "occurrences" : 1,
       "specificity" : 0.9308962133621891,
       "wordsInTerm" : 2,
@@ -17602,7 +17481,7 @@
       }
     }, {
       "concept" : "message delivery",
-      "placedUnder" : "delay tolerant network | delay tolerant networks | delay-tolerant network | delay-tolerant networks",
+      "placedUnder" : "delay tolerant networks",
       "occurrences" : 1,
       "specificity" : 0.9269509346551387,
       "wordsInTerm" : 2,
@@ -17657,7 +17536,7 @@
       }
     }, {
       "concept" : "text feature",
-      "placedUnder" : "text categorization | text classification",
+      "placedUnder" : "text classification",
       "occurrences" : 1,
       "specificity" : 0.9121603200539925,
       "wordsInTerm" : 2,
@@ -17668,7 +17547,7 @@
       }
     }, {
       "concept" : "target language",
-      "placedUnder" : "machine translation | machine translation systems | machine translations | speech transmission",
+      "placedUnder" : "machine translations | speech transmission",
       "occurrences" : 1,
       "specificity" : 0.9057731183939249,
       "wordsInTerm" : 2,
@@ -17701,7 +17580,7 @@
       }
     }, {
       "concept" : "release date",
-      "placedUnder" : "single machine scheduling | single machine scheduling problems | single-machine scheduling",
+      "placedUnder" : "single-machine scheduling",
       "occurrences" : 1,
       "specificity" : 0.8869476207663515,
       "wordsInTerm" : 2,
@@ -17723,7 +17602,7 @@
       }
     }, {
       "concept" : "part of speech",
-      "placedUnder" : "natural language processing | natural language processing systems | nlp",
+      "placedUnder" : "natural language processing",
       "occurrences" : 1,
       "specificity" : 0.8816680449205898,
       "wordsInTerm" : 2,
@@ -17734,7 +17613,7 @@
       }
     }, {
       "concept" : "small files",
-      "placedUnder" : "file system | file systems | filesystem",
+      "placedUnder" : "file systems",
       "occurrences" : 1,
       "specificity" : 0.8783766821746586,
       "wordsInTerm" : 2,
@@ -17744,8 +17623,8 @@
         "line" : 1
       }
     }, {
-      "concept" : "drawings",
-      "placedUnder" : "cad | computer aided design | computer aided design (cad) | computer-aided design | graph theory | visualization",
+      "concept" : "drawing (graphics)",
+      "placedUnder" : "computer aided design | graph theory | visualization",
       "occurrences" : 1,
       "specificity" : 0.8779740012401644,
       "wordsInTerm" : 1,
@@ -17767,7 +17646,7 @@
       }
     }, {
       "concept" : "model test",
-      "placedUnder" : "numerical model | numerical modeling | numerical modelling | numerical models",
+      "placedUnder" : "numerical model",
       "occurrences" : 1,
       "specificity" : 0.8739967077492254,
       "wordsInTerm" : 2,
@@ -17822,7 +17701,7 @@
       }
     }, {
       "concept" : "radar",
-      "placedUnder" : "computer hardware | hardware | signal processing",
+      "placedUnder" : "computer hardware | signal processing",
       "occurrences" : 1,
       "specificity" : 0.851841332404798,
       "wordsInTerm" : 1,
@@ -17844,7 +17723,7 @@
       }
     }, {
       "concept" : "publish/subscribe",
-      "placedUnder" : "architectural pattern | architectural patterns | architectural style | architectural styles | software architecture patterns",
+      "placedUnder" : "software architecture patterns",
       "occurrences" : 1,
       "specificity" : 0.8043172196536099,
       "wordsInTerm" : 1,
@@ -17855,7 +17734,7 @@
       }
     }, {
       "concept" : "on-body",
-      "placedUnder" : "antenna | antennas | communication | wireless body area network | wireless body area networks",
+      "placedUnder" : "antennas | communication | wireless body area network",
       "occurrences" : 1,
       "specificity" : 0.6886619986905312,
       "wordsInTerm" : 2,
@@ -17867,9 +17746,9 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
-      "senses" : 764,
-      "lemmas" : 998,
-      "words" : 1819
+      "senses" : 727,
+      "lemmas" : 990,
+      "words" : 1729
     }
   } ],
   "setAside" : {
