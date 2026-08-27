@@ -56,7 +56,7 @@ public final class TermTreesCommand {
     }
 
     /** Every vocabulary a reading matches, under the name its publisher states, in the order drawn. */
-    static Map<String, List<SkosConcept>> published() {
+    private static Map<String, List<SkosConcept>> published() {
         final Map<String, List<SkosConcept>> published = new LinkedHashMap<>();
         Stream.of(MatchedTaxonomies.values())
                 .forEach(taxonomy -> published.put(taxonomy.index().source(),

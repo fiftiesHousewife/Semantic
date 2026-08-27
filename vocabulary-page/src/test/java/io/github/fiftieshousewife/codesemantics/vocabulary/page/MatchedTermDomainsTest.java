@@ -1,11 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
@@ -20,78 +17,66 @@ class MatchedTermDomainsTest {
                 outcome, List.of(concepts));
     }
 
-    private static SkosConcept concept(final String label, final String broader) {
-        return new SkosConcept(label, label, "", broader, "topic", "", "", "");
+    private static final List<ReadingFolder.TermMatchRow> MATCHES = List.of(
+            row("FpML", "valuation date", 2, 795, "REPORTED", "ValuationDate"),
+            row("FIX", "valuation date", 2, 795, "REPORTED", "ValuationDate"),
+            row("FIBO", "present value", 2, 1429, "REPORTED", "PresentValue"),
+            row("FIX", "trade date", 2, 424, "REPORTED", "TradeDate"));
+
+    private static final DomainOverlap OVERLAP =
+            MatchedTermDomains.of("a-repository", MATCHES).orElseThrow();
+
+    private static List<DomainOverlap.Placed> placed() {
+        return OVERLAP.regions().stream()
+                .flatMap(region -> region.words().stream())
+                .toList();
     }
 
-    private static final List<SkosConcept> PUBLISHED = List.of(
-            concept("InterestRate", "Rates"),
-            concept("Rates", ""),
-            concept("PresentValue", "Valuation"),
-            concept("Valuation", ""));
+    @Test
+    void drawsTheVocabulariesAsTheSets() {
+        assertThat(OVERLAP.domains())
+                .extracting(DomainOverlap.Drawn::domain)
+                .containsExactlyInAnyOrder("FIBO", "FpML", "FIX");
+    }
 
     @Test
-    void drawsEachReportedPhraseTermUnderThePublishersStatedRoot() {
-        final Map<String, DomainOverlap> overlaps = MatchedTermDomains.overlaps("a-repository",
-                List.of(row("FpML", "interest rate", 2, 72, "REPORTED", "InterestRate"),
-                        row("FpML", "present value", 2, 10, "REPORTED", "PresentValue")),
-                Map.of("FpML", PUBLISHED));
+    void placesAPhraseInTheOverlapOfEveryVocabularyThatStatesIt() {
+        final DomainOverlap.Placed shared = placed().stream()
+                .filter(word -> word.word().equals("valuation date"))
+                .findFirst()
+                .orElseThrow();
 
-        final DomainOverlap overlap = overlaps.get("FpML phrases");
         assertAll(
-                () -> assertThat(overlaps.keySet()).containsExactly("FpML phrases"),
-                () -> assertThat(overlap.domains())
-                        .extracting(DomainOverlap.Drawn::domain)
-                        .containsExactly("Rates", "Valuation"),
-                () -> assertThat(overlap.regions().stream()
-                        .flatMap(region -> region.words().stream()))
-                        .extracting(DomainOverlap.Placed::word, DomainOverlap.Placed::claim)
-                        .containsExactlyInAnyOrder(
-                                tuple("interest rate", 72.0),
-                                tuple("present value", 10.0)));
+                () -> assertThat(shared.unambiguous()).isFalse(),
+                () -> assertThat(OVERLAP.regions().stream()
+                        .filter(region -> region.words().contains(shared))
+                        .flatMap(region -> region.domains().stream()
+                                .map(index -> OVERLAP.domains().get(index).domain())))
+                        .containsExactlyInAnyOrder("FpML", "FIX"));
     }
 
     @Test
-    void namesTheMatchedConceptAsThePlacingLabel() {
-        final Map<String, DomainOverlap> overlaps = MatchedTermDomains.overlaps("a-repository",
-                List.of(row("FpML", "interest rate", 2, 72, "REPORTED", "InterestRate")),
-                Map.of("FpML", PUBLISHED));
+    void claimsThePhraseAtTheMostAnyOneVocabularyCounted() {
+        assertThat(placed())
+                .extracting(DomainOverlap.Placed::word, DomainOverlap.Placed::claim)
+                .contains(tuple("valuation date", 795.0), tuple("present value", 1429.0));
+    }
 
-        assertThat(overlaps.get("FpML phrases").regions().stream()
-                .flatMap(region -> region.words().stream()))
-                .singleElement()
-                .satisfies(placed -> assertThat(placed.placedBy()).containsExactly("InterestRate"));
+    @Test
+    void namesTheMatchedConceptsAsThePlacingLabels() {
+        assertThat(placed().stream()
+                .filter(word -> word.word().equals("present value"))
+                .findFirst()
+                .orElseThrow()
+                .placedBy())
+                .containsExactly("PresentValue");
     }
 
     @Test
     void leavesSingleWordAndBranchRefusedMatchesOut() {
-        final Map<String, DomainOverlap> overlaps = MatchedTermDomains.overlaps("a-repository",
-                List.of(row("FpML", "rate", 1, 400, "REPORTED", "InterestRate"),
-                        row("FpML", "present value", 2, 10, "REFUSED_BY_BRANCH_RULE", "PresentValue")),
-                Map.of("FpML", PUBLISHED));
-
-        assertThat(overlaps).isEmpty();
-    }
-
-    @Test
-    void ordersVocabulariesByTheirPhraseOccurrences() {
-        final Map<String, DomainOverlap> overlaps = MatchedTermDomains.overlaps("a-repository",
-                List.of(row("FIBO", "present value", 2, 10, "REPORTED", "PresentValue"),
-                        row("FpML", "interest rate", 2, 72, "REPORTED", "InterestRate")),
-                Map.of("FIBO", PUBLISHED, "FpML", PUBLISHED));
-
-        assertThat(overlaps.keySet()).containsExactly("FpML phrases", "FIBO phrases");
-    }
-
-    @Test
-    void sumsTheOccurrencesOfOneConceptMatchedAtSeveralRungs() {
-        final Map<String, DomainOverlap> overlaps = MatchedTermDomains.overlaps("a-repository",
-                List.of(row("FpML", "interest rate", 2, 40, "REPORTED", "InterestRate"),
-                        row("FpML", "interest rates", 2, 32, "REPORTED", "InterestRate")),
-                Map.of("FpML", PUBLISHED));
-
-        assertThat(overlaps.get("FpML phrases").domains())
-                .extracting(DomainOverlap.Drawn::domain, DomainOverlap.Drawn::claim)
-                .containsExactly(tuple("Rates", 72.0));
+        assertThat(MatchedTermDomains.of("a-repository", List.of(
+                row("FpML", "rate", 1, 400, "REPORTED", "InterestRate"),
+                row("FpML", "present value", 2, 10, "REFUSED_BY_BRANCH_RULE", "PresentValue"))))
+                .isEmpty();
     }
 }

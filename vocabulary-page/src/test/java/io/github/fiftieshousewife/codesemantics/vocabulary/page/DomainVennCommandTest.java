@@ -32,16 +32,17 @@ class DomainVennCommandTest {
     }
 
     @Test
-    void offersThePhraseSourcesTheEvidenceRecordsBesideTheWordSources(@TempDir final Path folder,
+    void offersThePhraseOverlapTheEvidenceRecordsBesideTheWordSources(@TempDir final Path folder,
             @TempDir final Path reports) throws IOException {
         final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
 
         final Path page = DomainVennCommand.pageOf(reading, reports);
 
         assertThat(Files.readString(page.resolveSibling("domain-venn.json")))
-                .contains("FIBO phrases")
-                .contains("BIAN phrases")
-                .contains("phraseSources");
+                .contains("Phrase matches")
+                .contains("phraseSources")
+                .contains("interest rate")
+                .contains("term deposit");
     }
 
     @Test

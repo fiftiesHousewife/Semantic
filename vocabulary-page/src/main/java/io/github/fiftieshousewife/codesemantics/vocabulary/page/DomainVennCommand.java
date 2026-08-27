@@ -65,16 +65,19 @@ public final class DomainVennCommand {
                 .resolve(reading.export().summary().repository()));
     }
 
-    /** One reading's page: the word sources, then the phrase sources its evidence records. */
+    /** One reading's page: the word sources, then the phrase overlap its evidence records. */
     static Path pageOf(final ReadingFolder reading, final Path folder) throws IOException {
         final String repository = reading.export().summary().repository();
         final SignificantWords.Significant significant = SignificantWords.of(reading.export());
         final Map<String, DomainOverlap> bySource = new LinkedHashMap<>(overlaps(repository,
                 significant.words(), CorroboratedSenses.fromCommittedEvidence(reading)));
-        final Map<String, DomainOverlap> phrases = MatchedTermDomains.overlaps(repository,
-                reading.termMatches(), TermTreesCommand.published());
-        bySource.putAll(phrases);
-        return wrote(folder, bySource, List.copyOf(phrases.keySet()), significant.signals());
+        final List<String> phraseSources = MatchedTermDomains.of(repository, reading.termMatches())
+                .map(phrases -> {
+                    bySource.put(MatchedTermDomains.SOURCE, phrases);
+                    return List.of(MatchedTermDomains.SOURCE);
+                })
+                .orElse(List.of());
+        return wrote(folder, bySource, phraseSources, significant.signals());
     }
 
     /**
