@@ -74,6 +74,15 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 - It adopts no phrase effect-size statistic. The share and the permutation p carry the reporting; NPMI and logDice are recorded as the bounded candidates should one ever be needed.
 - It leaves step 7's pooled unit alone until 3a's backtest reports.
 
+## Where the work stands (2026-08-27, after the design landed)
+
+- **Part 1 is landed.** `CountedSenseDomains` carries `placingLabels`; `SubjectDomains`, `TopicLabelDomains` and the WordNet path fill it; the venn readout prints it; `TopicLabelDomainsTest` pins the named example — `owl` under artificial intelligence is placed by CSO's `web ontology language` and `owl-s`.
+- **The phrase venns are landed, beyond the commission.** Each vocabulary's reported multi-word matches draw their own venn source — the term one word of the population, its occurrences its claim, its domain the broadest level the publisher states above the matched concept, through the stated `module` where the chain tops out — rendered by the same `DomainOverlap` arithmetic as the word arms. On strata: FIBO draws FND 2 865 / LegalEntity 234; FpML draws its views shared 1 420 / cd 1 199 / eq-shared 947 with ird 464 beside; FIX stays flat because its publisher states nothing above a field.
+- **Part 2's step 1 is measured**, with `CorroboratedSenses` applying the rule to the three uncounted arms and `./gradlew corroboratedWeight` printing every member's placements before and after. The corroborated weight reaches the CSO arm on all nine members — fineract's `transaction` 0.36 → 0.97 on `transaction processing` ×140, strata's `matrix` 0.34 → 0.65 on `matrix algebra` ×50, aeron's `response` moves to computer networks on `challenge response` ×37 — and no abstention changes, which `CorroboratedSensesTest` pins structurally.
+- **The strata finance criterion is settled by measurement, against the expectation.** `rate` gains only `rate of return` ×2; `leg`, `strike` and `tenor` gain nothing, because no subject arm states those labels: the written label-runs on strata intersect CSO at 46 runs (its numerical core — `cubic spline`, `matrix algebra`, `mean square error`) and arXiv/OpenAlex at zero, since composite topic titles are never written as runs. The finance evidence the criterion reached for lives in the term vocabularies, and the phrase venns above are where it now draws. Corroborating on OpenAlex's account keywords instead of labels was measured and refused: 15 thin hits on strata including `life cycle` from parasite topics and `south africa` from HIV topics, with `interest rates` reaching `interest rate` only at the spelling rungs the design excludes.
+- **Residual literal use, as the literature predicts:** strata writes `standard model` (its pricing model) and CSO's `standard model` (the cryptographic proof setting) takes ×9. The permutation bar of part 3b is the stated guard.
+- Parts 3b and 3a are untouched.
+
 ## The order of work
 
 | | Part | Costs | Settled by |

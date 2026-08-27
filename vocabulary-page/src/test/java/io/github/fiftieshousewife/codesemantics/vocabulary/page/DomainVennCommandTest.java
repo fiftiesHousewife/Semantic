@@ -20,7 +20,7 @@ class DomainVennCommandTest {
         final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
 
         final Map<String, DomainOverlap> overlaps = DomainVennCommand.overlaps("a-repository",
-                SignificantWords.of(reading.export()).words());
+                SignificantWords.of(reading.export()).words(), CorroboratedSenses.none());
 
         assertAll(
                 () -> assertThat(overlaps.keySet())
@@ -32,11 +32,24 @@ class DomainVennCommandTest {
     }
 
     @Test
+    void offersThePhraseSourcesTheEvidenceRecordsBesideTheWordSources(@TempDir final Path folder,
+            @TempDir final Path reports) throws IOException {
+        final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
+
+        final Path page = DomainVennCommand.pageOf(reading, reports);
+
+        assertThat(Files.readString(page.resolveSibling("domain-venn.json")))
+                .contains("FIBO phrases")
+                .contains("BIAN phrases")
+                .contains("phraseSources");
+    }
+
+    @Test
     void writesOnePageEmbeddingEverySourcesOverlap(@TempDir final Path reports) throws IOException {
         final Map<String, DomainOverlap> overlaps = Map.of("WordNet Domains",
                 new DomainOverlap("a-repository", List.of(), List.of(), List.of(), 0, 0, 0, 0.0));
 
-        final Path page = DomainVennCommand.wrote(reports, overlaps, 0);
+        final Path page = DomainVennCommand.wrote(reports, overlaps, List.of(), 0);
 
         assertAll(
                 () -> assertThat(page).exists(),

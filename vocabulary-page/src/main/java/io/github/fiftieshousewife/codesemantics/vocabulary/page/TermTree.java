@@ -68,14 +68,13 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
         final List<ReadingFolder.TermMatchRow> owned = matches.stream()
                 .filter(match -> vocabulary.equals(match.vocabulary()))
                 .toList();
-        final Map<String, SkosConcept> byLabel = new HashMap<>();
-        published.forEach(concept -> byLabel.putIfAbsent(lowered(concept.prefLabel()), concept));
+        final PublishedPaths paths = new PublishedPaths(published);
         final Map<String, List<String>> childrenByParent = childrenByParent(published);
         final Branch forest = new Branch("");
         owned.stream()
                 .filter(match -> match.wordsInTerm() >= 2)
                 .forEach(match -> match.concepts().forEach(concept ->
-                        forest.grew(pathOf(concept, byLabel), match.occurrences())));
+                        forest.grew(paths.pathOf(concept), match.occurrences())));
         final Descendants descendants = new Descendants(childrenByParent);
         final Set<String> greyDrawn = new HashSet<>();
         final List<ReadingFolder.TermMatchRow> singles = owned.stream()
@@ -90,7 +89,7 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
                 occurrencesOf(phrases),
                 (int) singles.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
                 occurrencesOf(singles),
-                unmatchedRootsOf(published, byLabel, forest));
+                unmatchedRootsOf(published, paths, forest));
     }
 
     private static int occurrencesOf(final List<ReadingFolder.TermMatchRow> matches) {
@@ -111,60 +110,18 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
 
     /** The publisher's top-level concepts with no matched phrase anywhere below them, as a count. */
     private static int unmatchedRootsOf(final List<SkosConcept> published,
-                                        final Map<String, SkosConcept> byLabel, final Branch forest) {
+                                        final PublishedPaths paths, final Branch forest) {
         final Set<String> drawn = forest.childLabels();
         return (int) published.stream()
-                .filter(concept -> parentOf(concept.prefLabel(), byLabel).isEmpty())
+                .filter(concept -> paths.parentOf(concept.prefLabel()).isEmpty())
                 .map(SkosConcept::prefLabel)
                 .filter(root -> !drawn.contains(root))
                 .count();
     }
 
-    /** Root first: the resolvable {@code broader} chain, then the name-only levels above its top. */
-    private static List<String> pathOf(final String label, final Map<String, SkosConcept> byLabel) {
-        final List<String> leafFirst = new ArrayList<>();
-        final Set<String> seen = new HashSet<>();
-        Optional<String> next = Optional.of(label);
-        while (next.isPresent() && seen.add(lowered(next.get()))) {
-            leafFirst.add(next.get());
-            next = parentOf(next.get(), byLabel);
-        }
-        final List<String> path = new ArrayList<>(
-                namedLevelsAbove(leafFirst.getLast(), byLabel).reversed());
-        path.addAll(leafFirst.reversed());
-        return path;
-    }
 
-    private static Optional<String> parentOf(final String label, final Map<String, SkosConcept> byLabel) {
-        return concept(label, byLabel)
-                .flatMap(stated -> stated.broaderConcepts().stream().findFirst())
-                .filter(parent -> byLabel.containsKey(lowered(parent)));
-    }
 
-    /**
-     * The levels the publisher states as names over the chain's top: the first unresolvable
-     * {@code broader}, then the {@code module} above it, nearest level first.
-     */
-    private static List<String> namedLevelsAbove(final String top, final Map<String, SkosConcept> byLabel) {
-        return concept(top, byLabel)
-                .filter(stated -> stated.broaderConcepts().stream().findFirst()
-                        .filter(parent -> !byLabel.containsKey(lowered(parent)))
-                        .isPresent())
-                .map(stated -> {
-                    final List<String> levels = new ArrayList<>(List.of(
-                            stated.broaderConcepts().getFirst()));
-                    if (!stated.module().isBlank()) {
-                        levels.add(stated.module());
-                    }
-                    return levels;
-                })
-                .orElse(List.of());
-    }
 
-    private static Optional<SkosConcept> concept(final String label,
-                                                 final Map<String, SkosConcept> byLabel) {
-        return Optional.of(lowered(label)).filter(byLabel::containsKey).map(byLabel::get);
-    }
 
     private static String lowered(final String label) {
         return label.toLowerCase(Locale.ROOT);

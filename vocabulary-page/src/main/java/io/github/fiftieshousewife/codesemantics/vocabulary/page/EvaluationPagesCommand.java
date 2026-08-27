@@ -62,11 +62,9 @@ public final class EvaluationPagesCommand {
     private static void pagesOf(final ReadingFolder reading, final Path reports) throws IOException {
         final String repository = reading.export().summary().repository();
         final Path folder = reports.resolve(repository);
-        final SignificantWords.Significant significant = SignificantWords.of(reading.export());
         VocabularyPageCommand.wrote(folder, VocabularyFunnel.of(reading),
                 VocabularyPageCommand.leadingDomains(reading));
-        DomainVennCommand.wrote(folder, DomainVennCommand.overlaps(repository, significant.words()),
-                significant.signals());
+        DomainVennCommand.pageOf(reading, folder);
         TermTreesCommand.wrote(folder, repository, TermTreesCommand.trees(reading));
     }
 

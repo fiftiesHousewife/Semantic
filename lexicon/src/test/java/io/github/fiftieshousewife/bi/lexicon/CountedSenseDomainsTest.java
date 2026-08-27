@@ -45,6 +45,18 @@ class CountedSenseDomainsTest {
     }
 
     @Test
+    void namesEachSenseWithTheSynsetsOwnLemmas() {
+        assertThat(lexicon.countedSenseDomainsOf("bank"))
+                .isNotEmpty()
+                .allSatisfy(sense -> assertThat(sense.placingLabels()).contains("bank"));
+    }
+
+    @Test
+    void carriesNoPlacingLabelUnlessTheBuilderStatesOne() {
+        assertThat(new CountedSenseDomains(Set.of("economy"), 3).placingLabels()).isEmpty();
+    }
+
+    @Test
     void carriesItsLabelsAtFullStrengthUnlessAStrengthIsStated() {
         assertThat(new CountedSenseDomains(Set.of("economy"), 3).labelStrength()).isEqualTo(1.0);
     }

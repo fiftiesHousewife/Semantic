@@ -37,7 +37,7 @@ public final class SubjectDomains {
 
     private static final Pattern WORDS = Pattern.compile("\\p{L}+");
 
-    private final Map<String, List<Set<String>>> domainsByWord;
+    private final Map<String, List<CountedSenseDomains>> domainsByWord;
 
     /** @param level the {@code kind} of the ancestor concepts a sense is labelled with */
     public SubjectDomains(final PublishedSubjects scheme, final Lexicon lexicon, final String level) {
@@ -46,21 +46,21 @@ public final class SubjectDomains {
 
     /**
      * One uncounted sense per described subject whose subject-matter account carries the word, each
-     * labelled with the subject's ancestors of the stated level, in the publisher's own order.
+     * labelled with the subject's ancestors of the stated level in the publisher's own order, and naming
+     * the subject's own label as the sense's placing label.
      */
     public List<CountedSenseDomains> countedSenseDomainsOf(final String word) {
-        return domainsByWord.getOrDefault(word, List.of()).stream()
-                .map(domains -> new CountedSenseDomains(domains, 0))
-                .toList();
+        return domainsByWord.getOrDefault(word, List.of());
     }
 
-    private static Map<String, List<Set<String>>> indexed(final PublishedSubjects scheme,
-                                                          final Lexicon lexicon, final String level) {
-        final Map<String, List<Set<String>>> byWord = new HashMap<>();
+    private static Map<String, List<CountedSenseDomains>> indexed(final PublishedSubjects scheme,
+                                                                  final Lexicon lexicon, final String level) {
+        final Map<String, List<CountedSenseDomains>> byWord = new HashMap<>();
         scheme.describedBySubjectMatter().forEach(subject -> {
-            final Set<String> domains = levelled(subject, scheme, level);
+            final CountedSenseDomains sense = new CountedSenseDomains(
+                    levelled(subject, scheme, level), 0, List.of(subject.prefLabel()));
             wordsOf(subject, lexicon).forEach(word ->
-                    byWord.computeIfAbsent(word, missing -> new ArrayList<>()).add(domains));
+                    byWord.computeIfAbsent(word, missing -> new ArrayList<>()).add(sense));
         });
         return byWord.entrySet().stream()
                 .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,8 +51,8 @@ public final class ReadingFolder {
     }
 
     /** One term match of the workings: the vocabulary, the term, its size, and where it was placed. */
-    public record TermMatchRow(String vocabulary, String term, int wordsInTerm, int occurrences,
-                               String outcome, List<String> concepts) {
+    public record TermMatchRow(String vocabulary, String term, int wordsInTerm, String rung,
+                               int occurrences, String outcome, List<String> concepts) {
 
         public TermMatchRow {
             concepts = List.copyOf(concepts);
@@ -70,11 +72,33 @@ public final class ReadingFolder {
                         match.path("vocabulary").asText(),
                         match.path("term").asText(),
                         match.path("wordsInTerm").asInt(),
+                        match.path("rung").asText(),
                         match.path("occurrences").asInt(),
                         match.path("outcome").asText(),
                         concepts));
             });
             return List.copyOf(matches);
+        } catch (final IOException e) {
+            throw new UncheckedIOException("No readable workings at " + folder, e);
+        }
+    }
+
+    /**
+     * The collocated dictionary units the reading merged, from the evidence's word workings — the words
+     * written with an underscore — each with its occurrence count, empty where the file predates them.
+     */
+    public Map<String, Integer> collocatedUnits() {
+        try {
+            final JsonNode evidence = new ObjectMapper().readTree(
+                    folder.resolve(EVIDENCE).toFile());
+            final Map<String, Integer> units = new LinkedHashMap<>();
+            evidence.path("workings").path("words").forEach(word -> {
+                final String written = word.path("word").asText();
+                if (written.contains("_")) {
+                    units.merge(written, word.path("occurrences").asInt(), Integer::sum);
+                }
+            });
+            return Map.copyOf(units);
         } catch (final IOException e) {
             throw new UncheckedIOException("No readable workings at " + folder, e);
         }

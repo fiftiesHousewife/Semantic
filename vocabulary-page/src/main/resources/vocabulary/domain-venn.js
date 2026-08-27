@@ -40,7 +40,9 @@
         return made;
     }
 
-    function render(overlap) {
+    function render(source) {
+        var overlap = data.overlaps[source];
+        var phrases = (data.phraseSources || []).indexOf(source) >= 0;
         var sets = overlap.domains.length;
         byWord = {};
         document.querySelector(".figure").textContent = "";
@@ -236,10 +238,24 @@
         }
 
         function statement(region, word) {
-            return word.word + " — " + word.claim.toFixed(4) + " bits · senses state "
+            return word.word + " — " + (phrases
+                    ? word.claim.toFixed(0) + " occurrences"
+                    : word.claim.toFixed(4) + " bits") + " · senses state "
                 + namesOf(region).join(", ")
                 + (word.unambiguous ? " · one domain across every labelled sense"
-                    : " · its senses state several domains");
+                    : " · its senses state several domains")
+                + placedBy(word);
+        }
+
+        function placedBy(word) {
+            var labels = word.placedBy || [];
+            if (labels.length === 0) {
+                return "";
+            }
+            var shown = labels.slice(0, 8);
+            return " · placed by " + shown.join("; ")
+                + (labels.length > shown.length
+                    ? " and " + (labels.length - shown.length) + " more" : "");
         }
 
         function tile(region, word) {
@@ -291,9 +307,12 @@
             var others = overlap.otherDomains.slice(0, 5).map(function (other) {
                 return other.domain;
             });
-            var parts = ["The export's " + data.signals + " signals become " + overlap.significantWords
-                + " words once two spellings with one dictionary form count once; "
-                + allPlaced.length + " sit in a drawn domain"];
+            var parts = [phrases
+                ? "The evidence's reported phrase matches are " + overlap.significantWords
+                    + " distinct terms; " + allPlaced.length + " sit in a drawn domain"
+                : "The export's " + data.signals + " signals become " + overlap.significantWords
+                    + " words once two spellings with one dictionary form count once; "
+                    + allPlaced.length + " sit in a drawn domain"];
             if (overlap.wordsInOtherDomainsOnly > 0) {
                 parts.push(overlap.wordsInOtherDomainsOnly + " state only the "
                     + overlap.otherDomains.length + " domains outside the picture (largest: "
@@ -322,7 +341,7 @@
             buttons.forEach(function (each, other) {
                 each.className = other === index ? "chosen" : "";
             });
-            render(data.overlaps[source]);
+            render(source);
         });
         buttons.push(button);
         picker.appendChild(button);
@@ -330,7 +349,7 @@
 
     document.querySelector(".repository").textContent =
         data.overlaps[sources[0]].repository;
-    render(data.overlaps[sources[0]]);
+    render(sources[0]);
 
     /* A link from the vocabulary names one word; stand on it in its overlap. */
     if (location.hash.indexOf("#w-") === 0) {

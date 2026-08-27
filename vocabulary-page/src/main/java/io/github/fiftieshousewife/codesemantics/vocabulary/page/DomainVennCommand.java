@@ -9,10 +9,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
@@ -59,36 +61,59 @@ public final class DomainVennCommand {
     public static void main(final String[] arguments) throws IOException {
         final ReadingFolder reading = ReadingFolder.at(Path.of(System.getProperty(
                 VocabularyPageCommand.READING_PROPERTY, VocabularyPageCommand.DEFAULT_READING)));
-        final SignificantWords.Significant significant = SignificantWords.of(reading.export());
-        wrote(Path.of(VocabularyPageCommand.REPORTS)
-                        .resolve(reading.export().summary().repository()),
-                overlaps(reading.export().summary().repository(), significant.words()),
-                significant.signals());
+        pageOf(reading, Path.of(VocabularyPageCommand.REPORTS)
+                .resolve(reading.export().summary().repository()));
     }
 
-    /** The overlaps under every bundled domain source, in the order the page offers them. */
-    static Map<String, DomainOverlap> overlaps(final String repository, final List<ScoredWord> words) {
+    /** One reading's page: the word sources, then the phrase sources its evidence records. */
+    static Path pageOf(final ReadingFolder reading, final Path folder) throws IOException {
+        final String repository = reading.export().summary().repository();
+        final SignificantWords.Significant significant = SignificantWords.of(reading.export());
+        final Map<String, DomainOverlap> bySource = new LinkedHashMap<>(overlaps(repository,
+                significant.words(), CorroboratedSenses.fromCommittedEvidence(reading)));
+        final Map<String, DomainOverlap> phrases = MatchedTermDomains.overlaps(repository,
+                reading.termMatches(), TermTreesCommand.published());
+        bySource.putAll(phrases);
+        return wrote(folder, bySource, List.copyOf(phrases.keySet()), significant.signals());
+    }
+
+    /**
+     * The overlaps under every bundled domain source, in the order the page offers them. The subject
+     * schemes' arms are all uncounted, so each takes the corroborated weight of the labels the
+     * repository wrote; WordNet's arms keep their tagged-corpus counts.
+     */
+    static Map<String, DomainOverlap> overlaps(final String repository, final List<ScoredWord> words,
+                                               final CorroboratedSenses corroborated) {
         final WordNetLexicon lexicon = WordNetLexicon.fromClasspath();
         final Map<String, DomainOverlap> bySource = new LinkedHashMap<>();
         bySource.put("WordNet Domains",
                 DomainOverlap.of(repository, words, lexicon::countedSenseDomainsOf));
         bySource.put("eXtended WordNet Domains",
                 DomainOverlap.of(repository, words, lexicon::extendedCountedSenseDomainsOf));
-        bySource.put("arXiv categories",
-                DomainOverlap.of(repository, words, ARXIV_CATEGORIES::countedSenseDomainsOf));
-        bySource.put("OpenAlex subfields",
-                DomainOverlap.of(repository, words, OPENALEX_SUBFIELDS::countedSenseDomainsOf));
-        bySource.put("CSO topics",
-                DomainOverlap.of(repository, words, CSO_TOPICS::countedSenseDomainsOf));
+        subjectArms(corroborated).forEach((arm, senses) ->
+                bySource.put(arm, DomainOverlap.of(repository, words, senses)));
         return bySource;
     }
 
-    static Path wrote(final Path folder, final Map<String, DomainOverlap> overlaps, final int signals)
-            throws IOException {
+    /** The subject schemes' arms — the all-uncounted ones the corroborated weight applies to — by name. */
+    static Map<String, Function<String, List<CountedSenseDomains>>> subjectArms(
+            final CorroboratedSenses corroborated) {
+        final Map<String, Function<String, List<CountedSenseDomains>>> arms = new LinkedHashMap<>();
+        arms.put("arXiv categories",
+                word -> corroborated.of(ARXIV_CATEGORIES.countedSenseDomainsOf(word)));
+        arms.put("OpenAlex subfields",
+                word -> corroborated.of(OPENALEX_SUBFIELDS.countedSenseDomainsOf(word)));
+        arms.put("CSO topics", word -> corroborated.of(CSO_TOPICS.countedSenseDomainsOf(word)));
+        return arms;
+    }
+
+    static Path wrote(final Path folder, final Map<String, DomainOverlap> overlaps,
+                      final List<String> phraseSources, final int signals) throws IOException {
         Files.createDirectories(folder);
         final String data = new ObjectMapper().writeValueAsString(Map.of(
                 "overlaps", overlaps,
                 "sources", List.copyOf(overlaps.keySet()),
+                "phraseSources", phraseSources,
                 "signals", signals));
         final Path page = folder.resolve(PAGE);
         Files.writeString(page.resolveSibling("domain-venn.json"), data);

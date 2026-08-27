@@ -54,8 +54,14 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
      * One word in a region.
      *
      * @param unambiguous whether every labelled sense states the same single domain
+     * @param placedBy the placing labels of the senses that state a drawn domain — the publisher's own
+     *                 phrases the placement can be checked against, distinct, in sense order
      */
-    public record Placed(String word, double claim, boolean unambiguous) {
+    public record Placed(String word, double claim, boolean unambiguous, List<String> placedBy) {
+
+        public Placed {
+            placedBy = List.copyOf(placedBy);
+        }
     }
 
     /** One domain the picture leaves out, with the divergence mass that would have been its size. */
@@ -116,7 +122,7 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                 DomainMasses.claimByDomain(words, sensesByWord, weightByWord);
         final List<Drawn> drawn = leading(claimByDomain);
         final List<String> names = drawn.stream().map(Drawn::domain).toList();
-        return new DomainOverlap(repository, drawn, regions(words, statedByWord, names),
+        return new DomainOverlap(repository, drawn, regions(words, statedByWord, sensesByWord, names),
                 leftOut(claimByDomain, names), words.size(),
                 (int) words.stream()
                         .filter(word -> !statedByWord.get(word.word()).isEmpty())
@@ -145,18 +151,32 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
     /** The seven possible overlaps in a fixed order, kept even where empty so the picture can say so. */
     private static List<Region> regions(final List<ScoredWord> words,
                                         final Map<String, Set<String>> statedByWord,
+                                        final Map<String, List<CountedSenseDomains>> sensesByWord,
                                         final List<String> drawn) {
         final Map<List<Integer>, List<Placed>> placed = words.stream()
                 .filter(word -> !within(statedByWord.get(word.word()), drawn).isEmpty())
                 .collect(Collectors.groupingBy(word -> within(statedByWord.get(word.word()), drawn),
-                        Collectors.mapping(word -> placed(word, statedByWord), Collectors.toList())));
+                        Collectors.mapping(word -> placed(word, statedByWord,
+                                sensesByWord.get(word.word()), drawn), Collectors.toList())));
         return overlapsOf(drawn.size()).stream()
                 .map(overlap -> new Region(overlap, ranked(placed.getOrDefault(overlap, List.of()))))
                 .toList();
     }
 
-    private static Placed placed(final ScoredWord word, final Map<String, Set<String>> statedByWord) {
-        return new Placed(word.word(), word.claim(), statedByWord.get(word.word()).size() == 1);
+    private static Placed placed(final ScoredWord word, final Map<String, Set<String>> statedByWord,
+                                 final List<CountedSenseDomains> senses, final List<String> drawn) {
+        return new Placed(word.word(), word.claim(), statedByWord.get(word.word()).size() == 1,
+                placingLabels(senses, drawn));
+    }
+
+    /** The placing labels of the senses stating a drawn domain, distinct, in the publisher's sense order. */
+    private static List<String> placingLabels(final List<CountedSenseDomains> senses,
+                                              final List<String> drawn) {
+        return senses.stream()
+                .filter(sense -> sense.domains().stream().anyMatch(drawn::contains))
+                .flatMap(sense -> sense.placingLabels().stream())
+                .distinct()
+                .toList();
     }
 
     private static List<Placed> ranked(final List<Placed> words) {

@@ -40,6 +40,13 @@ class TopicLabelDomainsTest {
     }
 
     @Test
+    void namesThePlacingTopicsOwnLabelOnEachSense() {
+        assertThat(CSO_TOPICS.countedSenseDomainsOf("owl"))
+                .flatExtracting(CountedSenseDomains::placingLabels)
+                .containsExactlyInAnyOrder("web ontology language", "owl-s");
+    }
+
+    @Test
     void yieldsNothingForAWordNoLabelCarries() {
         assertThat(CSO_TOPICS.countedSenseDomainsOf("qwertyuiop")).isEmpty();
     }

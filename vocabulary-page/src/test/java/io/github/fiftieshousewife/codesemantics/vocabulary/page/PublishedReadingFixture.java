@@ -38,8 +38,17 @@ final class PublishedReadingFixture {
                      "concepts": ["Coupon"], "sites": ["A.java:1"]},
                     {"vocabulary": "BIAN", "term": "term deposit", "wordsInTerm": 2, "rung": "WORDS",
                      "specificity": 0.9, "occurrences": 3, "outcome": "REPORTED",
-                     "concepts": ["Term Deposit"], "sites": ["A.java:2"]}
+                     "concepts": ["Term Deposit"], "sites": ["A.java:2"]},
+                    {"vocabulary": "FIBO", "term": "credit risk", "wordsInTerm": 2, "rung": "LEMMAS",
+                     "specificity": 0.9, "occurrences": 5, "outcome": "REPORTED",
+                     "concepts": ["CreditRisk"], "sites": ["A.java:3"]}
                   ],
+                  "workings": {
+                    "words": [
+                      {"word": "part_of_speech", "occurrences": 21},
+                      {"word": "coupon", "occurrences": 40}
+                    ]
+                  },
                   "vocabulary": [
                     {"word": "coupon", "claim": 0.010, "margin": 0.009, "timesChance": 5.0,
                      "occurrences": 40, "leftAt": ""},

@@ -37,28 +37,30 @@ public final class TopicLabelDomains {
 
     private static final Pattern WORDS = Pattern.compile("\\p{L}+");
 
-    private final Map<String, List<Set<String>>> domainsByWord;
+    private final Map<String, List<CountedSenseDomains>> domainsByWord;
 
     public TopicLabelDomains(final List<SkosConcept> topics, final Lexicon lexicon) {
         this.domainsByWord = indexed(topics, lexicon);
     }
 
-    /** One uncounted sense per topic whose label carries the word, each labelled with the topic's areas. */
+    /**
+     * One uncounted sense per topic whose label carries the word, each labelled with the topic's areas and
+     * naming the topic's own label as the sense's placing label.
+     */
     public List<CountedSenseDomains> countedSenseDomainsOf(final String word) {
-        return domainsByWord.getOrDefault(word, List.of()).stream()
-                .map(domains -> new CountedSenseDomains(domains, 0))
-                .toList();
+        return domainsByWord.getOrDefault(word, List.of());
     }
 
-    private static Map<String, List<Set<String>>> indexed(final List<SkosConcept> topics,
-                                                          final Lexicon lexicon) {
+    private static Map<String, List<CountedSenseDomains>> indexed(final List<SkosConcept> topics,
+                                                                  final Lexicon lexicon) {
         final Map<String, SkosConcept> byLabel = new HashMap<>();
         topics.forEach(topic -> byLabel.putIfAbsent(lowered(topic.prefLabel()), topic));
-        final Map<String, List<Set<String>>> byWord = new HashMap<>();
+        final Map<String, List<CountedSenseDomains>> byWord = new HashMap<>();
         topics.forEach(topic -> {
-            final Set<String> areas = areasOf(topic, byLabel);
+            final CountedSenseDomains sense = new CountedSenseDomains(
+                    areasOf(topic, byLabel), 0, List.of(topic.prefLabel()));
             wordsOf(topic, lexicon).forEach(word ->
-                    byWord.computeIfAbsent(word, missing -> new ArrayList<>()).add(areas));
+                    byWord.computeIfAbsent(word, missing -> new ArrayList<>()).add(sense));
         });
         return byWord.entrySet().stream()
                 .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,

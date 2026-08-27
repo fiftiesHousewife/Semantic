@@ -33,7 +33,7 @@ class TermTreeTest {
     private static ReadingFolder.TermMatchRow row(final String vocabulary, final String term,
                                                   final int words, final int occurrences,
                                                   final String concept) {
-        return new ReadingFolder.TermMatchRow(vocabulary, term, words, occurrences, "REPORTED",
+        return new ReadingFolder.TermMatchRow(vocabulary, term, words, "WORDS", occurrences, "REPORTED",
                 List.of(concept));
     }
 

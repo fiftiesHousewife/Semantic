@@ -52,6 +52,23 @@ class DomainOverlapTest {
     }
 
     @Test
+    void namesThePlacingLabelsOfTheSensesStatingADrawnDomain() {
+        final Function<String, List<CountedSenseDomains>> senses = unused -> List.of(
+                new CountedSenseDomains(Set.of("computing"), 5, List.of("web ontology language")),
+                new CountedSenseDomains(Set.of("zoology"), 5, List.of("horned owl")),
+                new CountedSenseDomains(Set.of("law"), 1, List.of("court order")),
+                new CountedSenseDomains(Set.of("economy"), 1, List.of("market")));
+
+        final DomainOverlap drawn = DomainOverlap.of("a-repository", List.of(word("owl", 0.01)), senses);
+
+        assertThat(drawn.regions().stream().flatMap(region -> region.words().stream()))
+                .singleElement()
+                .satisfies(placed -> assertThat(placed.placedBy())
+                        .contains("web ontology language", "horned owl", "market")
+                        .doesNotContain("court order"));
+    }
+
+    @Test
     void placesAWordInTheOverlapOfEveryDrawnDomainItsSensesState() {
         assertThat(regionOf(List.of(0, 1)).words())
                 .extracting(DomainOverlap.Placed::word)

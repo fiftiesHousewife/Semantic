@@ -54,6 +54,15 @@ class SubjectDomainsTest {
     }
 
     @Test
+    void namesThePlacingSubjectsOwnLabelOnEachSense() {
+        assertThat(OPENALEX_SUBFIELDS.countedSenseDomainsOf("innovation"))
+                .isNotEmpty()
+                .allSatisfy(sense -> assertThat(sense.placingLabels())
+                        .hasSize(1)
+                        .allSatisfy(label -> assertThat(label).isNotBlank()));
+    }
+
+    @Test
     void yieldsNothingForAWordNoAccountCarries() {
         assertThat(ARXIV_CATEGORIES.countedSenseDomainsOf("qwertyuiop")).isEmpty();
     }

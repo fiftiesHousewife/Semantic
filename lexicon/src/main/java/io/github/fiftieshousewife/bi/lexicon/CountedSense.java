@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
+import java.util.List;
 import java.util.Optional;
 
 import net.sf.extjwnl.JWNLException;
@@ -36,6 +37,13 @@ record CountedSense(String lemma, Synset sense, int senseNumber) {
         } catch (final JWNLException e) {
             throw new IllegalStateException("The dictionary could not state a sense key for " + word, e);
         }
+    }
+
+    /** The synset's own lemmas in WordNet's order, which are the publisher's names for this sense. */
+    List<String> synsetLemmas() {
+        return sense.getWords().stream()
+                .map(Word::getLemma)
+                .toList();
     }
 
     WordSense named() {

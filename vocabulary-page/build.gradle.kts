@@ -99,6 +99,18 @@ tasks.register<JavaExec>("evaluationPages") {
     workingDir = rootDir
 }
 
+// What the corroborated sense weight changes on each subject scheme's arm, for every published reading
+// under output/: the drawn domains before and after, and each word whose region moves.
+//   ./gradlew corroboratedWeight
+tasks.register<JavaExec>("corroboratedWeight") {
+    group = "verification"
+    description = "Prints each arm's domain placements before and after the corroborated sense weight"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.CorroboratedWeightProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "4g"
+    workingDir = rootDir
+}
+
 // The leading domains of one clone with the words that carry each, under both domain sources.
 //   ./gradlew domainCarriers -Dcs.clone.dir=<path>
 tasks.register<JavaExec>("domainCarriers") {

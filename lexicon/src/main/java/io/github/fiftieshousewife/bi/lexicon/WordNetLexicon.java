@@ -185,8 +185,9 @@ public final class WordNetLexicon implements Lexicon {
                 .map(counted -> counted.senseKey()
                         .flatMap(extended::labelOf)
                         .map(label -> new CountedSenseDomains(Set.of(label.domain()), counted.uses(),
-                                strength.applyAsDouble(label)))
-                        .orElseGet(() -> new CountedSenseDomains(Set.of(), counted.uses())))
+                                strength.applyAsDouble(label), counted.synsetLemmas()))
+                        .orElseGet(() -> new CountedSenseDomains(Set.of(), counted.uses(),
+                                counted.synsetLemmas())))
                 .toList();
     }
 
@@ -194,7 +195,7 @@ public final class WordNetLexicon implements Lexicon {
         final WordSense named = counted.named();
         return new CountedSenseDomains(
                 domains.domainsOfSense(baseOf(word, named), named.posKey(), named.senseNumber()),
-                counted.uses());
+                counted.uses(), counted.synsetLemmas());
     }
 
     @Override
