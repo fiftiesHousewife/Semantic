@@ -47,6 +47,21 @@ class TopicLabelDomainsTest {
     }
 
     @Test
+    void aRootHoldingTheMajorityOfTheSchemeLabelsNoArea() {
+        assertThat(CSO_TOPICS.countedSenseDomainsOf("computer"))
+                .flatExtracting(CountedSenseDomains::domains)
+                .isNotEmpty()
+                .doesNotContain("computer science");
+    }
+
+    @Test
+    void aMinorityRootStillLabelsItselfAsAnArea() {
+        assertThat(CSO_TOPICS.countedSenseDomainsOf("economics"))
+                .flatExtracting(CountedSenseDomains::domains)
+                .contains("economics");
+    }
+
+    @Test
     void yieldsNothingForAWordNoLabelCarries() {
         assertThat(CSO_TOPICS.countedSenseDomainsOf("qwertyuiop")).isEmpty();
     }

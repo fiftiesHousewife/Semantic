@@ -55,10 +55,11 @@ public final class TopicLabelDomains {
                                                                   final Lexicon lexicon) {
         final Map<String, SkosConcept> byLabel = new HashMap<>();
         topics.forEach(topic -> byLabel.putIfAbsent(lowered(topic.prefLabel()), topic));
+        final Set<String> fieldRoots = fieldRoots(topics, byLabel);
         final Map<String, List<CountedSenseDomains>> byWord = new HashMap<>();
         topics.forEach(topic -> {
             final CountedSenseDomains sense = new CountedSenseDomains(
-                    areasOf(topic, byLabel), 0, List.of(topic.prefLabel()));
+                    areasOf(topic, byLabel, fieldRoots), 0, List.of(topic.prefLabel()));
             wordsOf(topic, lexicon).forEach(word ->
                     byWord.computeIfAbsent(word, missing -> new ArrayList<>()).add(sense));
         });
@@ -67,18 +68,55 @@ public final class TopicLabelDomains {
                         entry -> List.copyOf(entry.getValue())));
     }
 
+    /**
+     * The roots holding an outright majority of the scheme's concepts, lower-cased. Such a root is the
+     * scheme's own field — the Computer Science Ontology's root is computer science — and a label nearly
+     * every member shares distinguishes nothing, so it labels no area and its direct children are the
+     * areas. The bound is a majority because that is where one root outweighs every other root together;
+     * at most one root can clear it.
+     */
+    private static Set<String> fieldRoots(final List<SkosConcept> topics,
+                                          final Map<String, SkosConcept> byLabel) {
+        final Map<String, List<String>> childrenByParent = new HashMap<>();
+        topics.forEach(topic -> topic.broaderConcepts().forEach(parent ->
+                childrenByParent.computeIfAbsent(lowered(parent), missing -> new ArrayList<>())
+                        .add(lowered(topic.prefLabel()))));
+        return topics.stream()
+                .filter(topic -> topic.broaderConcepts().isEmpty())
+                .map(root -> lowered(root.prefLabel()))
+                .filter(root -> 2 * descendantsOf(root, childrenByParent) > byLabel.size())
+                .collect(Collectors.toSet());
+    }
+
+    /** How many distinct concepts sit anywhere below the label, cycle-safe under a poly-hierarchy. */
+    private static int descendantsOf(final String root, final Map<String, List<String>> childrenByParent) {
+        final Set<String> seen = new HashSet<>();
+        final List<String> open = new ArrayList<>(childrenByParent.getOrDefault(root, List.of()));
+        while (!open.isEmpty()) {
+            final String next = open.removeLast();
+            if (seen.add(next)) {
+                open.addAll(childrenByParent.getOrDefault(next, List.of()));
+            }
+        }
+        return seen.size();
+    }
+
     /** The labels of the nearest ancestors stated directly under a root, empty where none is reachable. */
-    private static Set<String> areasOf(final SkosConcept topic, final Map<String, SkosConcept> byLabel) {
+    private static Set<String> areasOf(final SkosConcept topic, final Map<String, SkosConcept> byLabel,
+                                       final Set<String> fieldRoots) {
         final Set<String> labels = new TreeSet<>();
-        climbed(topic, byLabel, new HashSet<>(), labels);
+        climbed(topic, byLabel, fieldRoots, new HashSet<>(), labels);
         return Set.copyOf(labels);
     }
 
     private static void climbed(final SkosConcept concept, final Map<String, SkosConcept> byLabel,
-                                final Set<String> seen, final Set<String> labels) {
+                                final Set<String> fieldRoots, final Set<String> seen,
+                                final Set<String> labels) {
         final List<String> parents = concept.broaderConcepts();
         if (parents.isEmpty()) {
-            labels.add(concept.prefLabel());
+            if (!fieldRoots.contains(lowered(concept.prefLabel()))) {
+                labels.add(concept.prefLabel());
+            }
             return;
         }
         if (parents.stream().anyMatch(parent -> isRoot(parent, byLabel))) {
@@ -89,7 +127,7 @@ public final class TopicLabelDomains {
                 .filter(seen::add)
                 .filter(parent -> !isRoot(parent, byLabel))
                 .filter(byLabel::containsKey)
-                .forEach(parent -> climbed(byLabel.get(parent), byLabel, seen, labels));
+                .forEach(parent -> climbed(byLabel.get(parent), byLabel, fieldRoots, seen, labels));
     }
 
     /** Whether the scheme states the label as a concept with no parent of its own. */
