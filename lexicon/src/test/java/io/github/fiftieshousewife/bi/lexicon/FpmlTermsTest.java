@@ -22,7 +22,10 @@ class FpmlTermsTest {
         assertAll(
                 () -> assertThat(terms.conceptsOf("creditdefaultswap").getFirst().broader())
                         .isEqualTo("Product"),
-                () -> assertThat(withA(SkosConcept::broader)).isEqualTo(789));
+                () -> assertThat(withA(SkosConcept::broader))
+                        .as("every carried broader is itself a complex type of the set — Scheme and "
+                                + "NonEmptyScheme are simple types and were dropped")
+                        .isEqualTo(554));
     }
 
     @Test

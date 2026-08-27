@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
 import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
+import io.github.fiftieshousewife.bi.lexicon.FixTerms;
 import io.github.fiftieshousewife.bi.lexicon.FpmlTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
@@ -49,6 +50,23 @@ public enum ControlTaxonomies {
         @Override
         public List<SkosConcept> publishedConcepts() {
             return FpmlTerms.fromClasspath().concepts();
+        }
+    },
+
+    /**
+     * The FIX protocol as FIX Orchestra states it, the third finance-side vocabulary: FIBO states what a
+     * financial thing is, FpML how a derivatives trade is written down, and FIX how the front office talks
+     * to the market and the back office settles what it did.
+     */
+    FIX {
+        @Override
+        public TermIndex index() {
+            return InjectedTerms.of(FixTerms.fromClasspath(), name());
+        }
+
+        @Override
+        public List<SkosConcept> publishedConcepts() {
+            return FixTerms.fromClasspath().concepts();
         }
     },
 

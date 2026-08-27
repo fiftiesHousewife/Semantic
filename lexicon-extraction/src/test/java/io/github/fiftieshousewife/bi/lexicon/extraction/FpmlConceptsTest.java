@@ -35,6 +35,11 @@ class FpmlConceptsTest {
                   <xsd:extension base="xsd:token"/>
                 </xsd:simpleContent>
               </xsd:complexType>
+              <xsd:complexType name="AccountId">
+                <xsd:simpleContent>
+                  <xsd:extension base="NonEmptyScheme"/>
+                </xsd:simpleContent>
+              </xsd:complexType>
               <xsd:simpleType name="Scheme">
                 <xsd:restriction base="xsd:anyURI"/>
               </xsd:simpleType>
@@ -68,6 +73,15 @@ class FpmlConceptsTest {
     }
 
     @Test
+    void dropsABaseNamingATypeTheSetCarriesNoComplexTypeFor() {
+        assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("AccountId"))
+                .as("NonEmptyScheme is a simple type, and a roll-up must not climb to a concept "
+                        + "nothing here can answer for")
+                .extracting(SkosConcept::broader)
+                .containsExactly("");
+    }
+
+    @Test
     void collapsesTheDocumentationsOwnLineBreaksToOneSpaceEach() {
         assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("Swap"))
                 .extracting(SkosConcept::definition)
@@ -85,7 +99,7 @@ class FpmlConceptsTest {
         final List<SkosConcept> concepts = read();
 
         assertAll(
-                () -> assertThat(concepts).hasSize(3),
+                () -> assertThat(concepts).hasSize(4),
                 () -> assertThat(concepts).extracting(SkosConcept::prefLabel)
                         .doesNotContain("Scheme", "swap"));
     }

@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -18,10 +19,12 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * trading system writes, its {@code xsd:extension} base is {@code broader}, its {@code xsd:documentation}
  * is the definition, and the product area in the schema file's own name is the module.
  *
- * <p>A base the schema writes with a namespace prefix belongs to XML Schema rather than to FpML, and is
- * dropped for the reason the FIBO extraction states: a roll-up must not climb to a concept nothing here can
- * answer for. Simple types and global elements are not read — a simple type is a format constraint, not a
- * subject, and every global element restates a complex type under a lowercased name.
+ * <p>A base the schema writes with a namespace prefix belongs to XML Schema rather than to FpML, and a
+ * base naming a type this set carries no complex type for — {@code Scheme} and {@code NonEmptyScheme} are
+ * simple types — is dropped with it, for the reason the FIBO extraction states: a roll-up must not climb
+ * to a concept nothing here can answer for. Simple types and global elements are not read — a simple type
+ * is a format constraint, not a subject, and every global element restates a complex type under a
+ * lowercased name.
  */
 public final class FpmlConcepts {
 
@@ -31,7 +34,19 @@ public final class FpmlConcepts {
     private static final Pattern WHITESPACE = Pattern.compile("\\s+");
 
     public List<SkosConcept> in(final List<ContentDigest.Member> schemas) {
-        return schemas.stream().flatMap(FpmlConcepts::conceptsIn).toList();
+        final List<SkosConcept> read = schemas.stream().flatMap(FpmlConcepts::conceptsIn).toList();
+        final Set<String> carried = read.stream().map(SkosConcept::prefLabel)
+                .collect(Collectors.toSet());
+        return read.stream().map(concept -> withACarriedBroader(concept, carried)).toList();
+    }
+
+    /** The concept as stated, or with {@code broader} dropped where the set carries no such complex type. */
+    private static SkosConcept withACarriedBroader(final SkosConcept concept, final Set<String> carried) {
+        if (carried.contains(concept.broader())) {
+            return concept;
+        }
+        return new SkosConcept(concept.concept(), concept.prefLabel(), concept.altLabel(), "",
+                concept.kind(), concept.module(), concept.definition(), concept.note());
     }
 
     private static Stream<SkosConcept> conceptsIn(final ContentDigest.Member schema) {

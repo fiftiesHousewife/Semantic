@@ -29,8 +29,10 @@ public class FpmlTermsTsv {
                 + "# Columns: " + SkosTsv.COLUMNS + ".\n"
                 + """
                 # prefLabel is the complex type's own name. broader is its xsd:extension base, dropped where
-                # the base carries a namespace prefix — such a base is XML Schema's, not FpML's, and a
-                # roll-up must not climb to a concept nothing here can answer for. definition is the type's
+                # the base carries a namespace prefix — such a base is XML Schema's, not FpML's — and
+                # where it names a type this file carries no complex type for, as Scheme and
+                # NonEmptyScheme are simple types: a roll-up must not climb to a concept nothing here
+                # can answer for. definition is the type's
                 # own xsd:documentation with its line breaks collapsed. module is the product area in the
                 # schema file's own name: ird, cd, fx, eqd. NOT CARRIED, and said outright: simple types,
                 # which are format constraints rather than subjects, and global elements, each of which

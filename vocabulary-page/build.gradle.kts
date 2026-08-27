@@ -59,13 +59,13 @@ tasks.register<JavaExec>("domainVenn") {
 
 
 
-// The same reading's control matches: each out-of-domain control's phrases at their places in the
-// publisher's hierarchy. Consumes output/json (or -Dcs.reading.dir=<folder>).
-//   ./gradlew controlMatches
-tasks.register<JavaExec>("controlMatches") {
+// The same reading's term trees: each matched vocabulary's phrases at their places in the publisher's
+// hierarchy, with the unmatched remainder greyed. Consumes output/json (or -Dcs.reading.dir=<folder>).
+//   ./gradlew termTrees
+tasks.register<JavaExec>("termTrees") {
     group = "verification"
-    description = "Draws the control vocabularies' phrase matches as trees in the publishers' hierarchies"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.ControlMatchesCommand"
+    description = "Draws each matched vocabulary's phrases as a tree in the publisher's hierarchy"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.TermTreesCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "3g"
     workingDir = rootDir

@@ -90,6 +90,23 @@ ul.tree li {
     padding: 0.1rem 0;
 }
 
+ul.tree details > summary {
+    cursor: pointer;
+    list-style-position: outside;
+}
+
+ul.tree details > summary::marker {
+    color: var(--ink-faint);
+    font-size: 0.7rem;
+}
+
+.held {
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    font-variant-numeric: tabular-nums;
+}
+
 .concept {
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     font-size: 0.85rem;
@@ -100,6 +117,18 @@ ul.tree li {
     font-variant-numeric: tabular-nums;
     font-size: 0.8rem;
     margin-left: 0.5rem;
+}
+
+ul.tree li.unmatched > .concept {
+    color: var(--ink-faint);
+}
+
+.below,
+.more {
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .silent,

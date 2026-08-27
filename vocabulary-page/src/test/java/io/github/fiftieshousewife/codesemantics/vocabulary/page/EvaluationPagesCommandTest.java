@@ -27,10 +27,10 @@ class EvaluationPagesCommandTest {
                 () -> assertThat(written).containsExactly("a-repository"),
                 () -> assertThat(reports.resolve("a-repository").resolve("vocabulary.html")).exists(),
                 () -> assertThat(reports.resolve("a-repository").resolve("domain-venn.html")).exists(),
-                () -> assertThat(reports.resolve("a-repository").resolve("control-matches.html")).exists(),
+                () -> assertThat(reports.resolve("a-repository").resolve("term-trees.html")).exists(),
                 () -> assertThat(Files.readString(reports.resolve("index.html")))
                         .contains("a-repository/vocabulary.html")
                         .contains("a-repository/domain-venn.html")
-                        .contains("a-repository/control-matches.html"));
+                        .contains("a-repository/term-trees.html"));
     }
 }

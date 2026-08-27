@@ -67,7 +67,7 @@ public final class EvaluationPagesCommand {
                 VocabularyPageCommand.leadingDomains(reading));
         DomainVennCommand.wrote(folder, DomainVennCommand.overlaps(repository, significant.words()),
                 significant.signals());
-        ControlMatchesCommand.wrote(folder, repository, ControlMatchesCommand.trees(reading));
+        TermTreesCommand.wrote(folder, repository, TermTreesCommand.trees(reading));
     }
 
     /** Every repository with pages on disk, so runs over different readings grow one index. */

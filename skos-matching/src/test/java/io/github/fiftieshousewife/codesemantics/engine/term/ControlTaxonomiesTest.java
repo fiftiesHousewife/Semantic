@@ -20,6 +20,7 @@ class ControlTaxonomiesTest {
         assertAll(
                 () -> assertThat(ControlTaxonomies.FIBO.index().source()).isEqualTo("FIBO"),
                 () -> assertThat(ControlTaxonomies.FPML.index().source()).isEqualTo("FpML"),
+                () -> assertThat(ControlTaxonomies.FIX.index().source()).isEqualTo("FIX"),
                 () -> assertThat(ControlTaxonomies.BIAN.index().source()).isEqualTo("BIAN"));
     }
 
@@ -41,11 +42,12 @@ class ControlTaxonomiesTest {
         final Path source = root.resolve("src/main/java");
         Files.createDirectories(source);
         Files.writeString(source.resolve("Swap.java"),
-                "class InterestRateSwap { int termDeposit; int creditDefaultSwap; }");
+                "class InterestRateSwap { int termDeposit; int creditDefaultSwap; int settlDate; }");
         final ParsedRepository parsed = ParsedRepository.of(root, new JavaSourceScopes().under(root));
 
         final CorroboratedReading fibo = ControlTaxonomies.FIBO.reading(parsed);
         final CorroboratedReading fpml = ControlTaxonomies.FPML.reading(parsed);
+        final CorroboratedReading fix = ControlTaxonomies.FIX.reading(parsed);
         final CorroboratedReading bian = ControlTaxonomies.BIAN.reading(parsed);
 
         assertAll(
@@ -55,6 +57,9 @@ class ControlTaxonomiesTest {
                 () -> assertThat(fpml.every().sightings())
                         .extracting(TermSighting::term)
                         .contains("credit default swap"),
+                () -> assertThat(fix.every().sightings())
+                        .extracting(TermSighting::term)
+                        .contains("settl date"),
                 () -> assertThat(bian.every().sightings())
                         .extracting(TermSighting::term)
                         .contains("term deposit"));

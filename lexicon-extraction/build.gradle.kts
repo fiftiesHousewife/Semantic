@@ -184,6 +184,22 @@ tasks.register<JavaExec>("extractBianServiceDomains") {
     )
 }
 
+// Reads FIX Orchestra's FIX Latest — the sections, categories, messages, components, groups and fields an
+// electronic-trading system writes — into the bundled FIX TSV. -Pfix=<path to OrchestraFIXLatest.xml> is
+// required in agent sessions; with a network route the permalink itself is read.
+//   ./gradlew :lexicon-extraction:extractFixTerms -Pfix=/path/to/OrchestraFIXLatest.xml
+tasks.register<JavaExec>("extractFixTerms") {
+    group = "build"
+    description = "Extracts the FIX terms TSV from a FIX Orchestra file (-Pfix=<path>)"
+    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.FixTermsExtraction"
+    classpath = sourceSets["main"].runtimeClasspath
+    args = listOf(
+        (findProperty("fix") as String?).orEmpty(),
+        rootProject.layout.projectDirectory
+            .file("lexicon/src/main/resources/fix-terms.tsv").asFile.absolutePath
+    )
+}
+
 // Reads the FpML 5.11 confirmation schemas — the complex types a derivatives trading system writes — into
 // the bundled FpML TSV. It reads a checkout of the HandCoded toolkit repository, which vendors each FpML
 // release whole; -Pfpml=<path> is required.

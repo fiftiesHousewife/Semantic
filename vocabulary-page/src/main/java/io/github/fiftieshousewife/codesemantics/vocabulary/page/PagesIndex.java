@@ -39,8 +39,8 @@ public final class PagesIndex {
                         h1("The repositories read"),
                         p().withClass("lede").with(text("Each repository has three views of one "
                                 + "population: its significant words by pipeline stage, the domains "
-                                + "their senses state, and the control vocabularies' phrase matches "
-                                + "in the publishers' own hierarchies.")),
+                                + "their senses state, and each matched vocabulary's phrases as a "
+                                + "tree in the publisher's own hierarchy.")),
                         ul().withClass("repositories").with(
                                 each(repositories, repository -> li(
                                         text(repository + " — "),
@@ -48,6 +48,6 @@ public final class PagesIndex {
                                         text(" · "),
                                         a("domains").withHref(repository + "/domain-venn.html"),
                                         text(" · "),
-                                        a("controls").withHref(repository + "/control-matches.html"))))));
+                                        a("trees").withHref(repository + "/term-trees.html"))))));
     }
 }
