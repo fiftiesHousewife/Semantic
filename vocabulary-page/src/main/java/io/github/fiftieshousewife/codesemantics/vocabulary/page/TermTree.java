@@ -99,11 +99,18 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
                 .values().stream().mapToInt(Integer::intValue).sum();
     }
 
-    /** Every stated parent's children, keyed by the parent's label whether or not it is a concept row. */
+    /**
+     * Every stated parent's children, keyed by the parent's label whether or not it is a concept row.
+     *
+     * <p>A concept whose stated parent is its own label is not one of its own children. FIX names a
+     * {@code Session} category inside a {@code Session} section, and a hierarchy keyed by label reads that
+     * as the concept sitting beneath itself — a level that says nothing and draws the same branch twice.
+     */
     private static Map<String, List<String>> childrenByParent(final List<SkosConcept> published) {
         final Map<String, List<String>> children = new HashMap<>();
-        published.forEach(concept -> concept.broaderConcepts().forEach(parent ->
-                children.computeIfAbsent(lowered(parent), missing -> new ArrayList<>())
+        published.forEach(concept -> concept.broaderConcepts().stream()
+                .filter(parent -> !lowered(parent).equals(lowered(concept.prefLabel())))
+                .forEach(parent -> children.computeIfAbsent(lowered(parent), missing -> new ArrayList<>())
                         .add(concept.prefLabel())));
         return children;
     }

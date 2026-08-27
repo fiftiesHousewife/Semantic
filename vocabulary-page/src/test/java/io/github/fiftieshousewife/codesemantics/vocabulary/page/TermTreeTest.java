@@ -38,6 +38,22 @@ class TermTreeTest {
     }
 
     @Test
+    void drawsNoConceptBeneathItselfWhereThePublisherNamesItsOwnLabelAsItsParent() {
+        final TermTree tree = TermTree.of("FIX",
+                List.of(row("FIX", "msg seq num", 3, 7, "MsgSeqNum")),
+                List.of(concept("Session", "", ""),
+                        concept("Session", "Session", ""),
+                        concept("MsgSeqNum", "Session", "")));
+
+        assertAll(
+                () -> assertThat(tree.roots()).extracting(TermTree.Node::label)
+                        .containsExactly("Session"),
+                () -> assertThat(tree.roots().getFirst().children())
+                        .extracting(TermTree.Node::label)
+                        .containsExactly("MsgSeqNum"));
+    }
+
+    @Test
     void nestsAPhraseMatchUnderThePublishersOwnBroaderChain() {
         final TermTree tree = TermTree.of("FIBO",
                 List.of(row("FIBO", "interest rate swap", 3, 5, "InterestRateSwap")),
