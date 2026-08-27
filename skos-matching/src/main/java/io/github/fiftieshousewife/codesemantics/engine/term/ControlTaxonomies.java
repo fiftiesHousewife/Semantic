@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
+import io.github.fiftieshousewife.bi.lexicon.CweTerms;
 import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
 import io.github.fiftieshousewife.bi.lexicon.FixTerms;
 import io.github.fiftieshousewife.bi.lexicon.FpmlTerms;
@@ -67,6 +68,22 @@ public enum ControlTaxonomies {
         @Override
         public List<SkosConcept> publishedConcepts() {
             return FixTerms.fromClasspath().concepts();
+        }
+    },
+
+    /**
+     * The Common Weakness Enumeration, the security-side vocabulary: a weakness's name is a phrase a
+     * program working in security writes, and each concept is the weakness's own MITRE permalink.
+     */
+    CWE {
+        @Override
+        public TermIndex index() {
+            return InjectedTerms.of(CweTerms.fromClasspath(), name());
+        }
+
+        @Override
+        public List<SkosConcept> publishedConcepts() {
+            return CweTerms.fromClasspath().concepts();
         }
     },
 

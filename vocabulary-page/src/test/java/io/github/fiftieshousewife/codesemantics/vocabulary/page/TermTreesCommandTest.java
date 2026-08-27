@@ -14,18 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class TermTreesCommandTest {
 
     @Test
-    void drawsOneTreePerVocabularyFromTheEvidencesMatches(@TempDir final Path folder) throws IOException {
+    void ranksTheTreesByThePhraseOccurrencesEachFound(@TempDir final Path folder) throws IOException {
         final ReadingFolder reading = PublishedReadingFixture.wrote(folder);
 
         final List<TermTree> trees = TermTreesCommand.trees(reading);
 
         assertAll(
                 () -> assertThat(trees).extracting(TermTree::vocabulary)
-                        .containsExactly("OLiA", "CSO", "FIBO", "FpML", "FIX", "BIAN"),
+                        .containsExactly("FIBO", "BIAN", "CSO", "CWE", "FIX", "FpML", "OLiA"),
                 () -> assertThat(trees.stream()
                         .filter(tree -> tree.vocabulary().equals("FIBO"))
                         .findFirst().orElseThrow().singleWordTerms()).isEqualTo(1),
-                () -> assertThat(trees.getLast().roots()).isNotEmpty());
+                () -> assertThat(trees.stream()
+                        .filter(tree -> tree.vocabulary().equals("BIAN"))
+                        .findFirst().orElseThrow().roots()).isNotEmpty());
     }
 
     @Test

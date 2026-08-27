@@ -14,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
  * Matches the declared names of the repository under reading against a term taxonomy held in a file, so a
  * candidate vocabulary can be tried before anything decides to bundle it.
  *
- * <p>A taxonomy stating no definition can only be read this way. CSO publishes 14,636 topics and no
+ * <p>A taxonomy stating no definition can only be read this way. CSO publishes topics and no
  * definition for any of them, so the divergence arm has nothing to compare and the match is all there is.
  */
 public final class InjectedTermMatchProbe {

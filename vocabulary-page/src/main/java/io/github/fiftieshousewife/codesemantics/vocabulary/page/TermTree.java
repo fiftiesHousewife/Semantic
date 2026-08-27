@@ -29,8 +29,8 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * and the rest are one counted line. An unmatched branch opens the same way, {@value #UNMATCHED_DEPTH}
  * levels down at most — so the tree shows what the repository did not write as well as what it did.
  */
-public record TermTree(String vocabulary, List<Node> roots, int singleWordTerms,
-                       int singleWordOccurrences, int unmatchedRoots) {
+public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int phraseOccurrences,
+                       int singleWordTerms, int singleWordOccurrences, int unmatchedRoots) {
 
     /** How many of a node's unmatched children are drawn before the rest become one counted line. */
     static final int UNMATCHED_LISTED = 5;
@@ -81,14 +81,23 @@ public record TermTree(String vocabulary, List<Node> roots, int singleWordTerms,
         final List<ReadingFolder.TermMatchRow> singles = owned.stream()
                 .filter(match -> match.wordsInTerm() == 1)
                 .toList();
+        final List<ReadingFolder.TermMatchRow> phrases = owned.stream()
+                .filter(match -> match.wordsInTerm() >= 2)
+                .toList();
         return new TermTree(vocabulary,
                 forest.built(childrenByParent, descendants, greyDrawn).children(),
+                (int) phrases.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
+                occurrencesOf(phrases),
                 (int) singles.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
-                singles.stream()
-                        .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::term,
-                                Collectors.summingInt(ReadingFolder.TermMatchRow::occurrences)))
-                        .values().stream().mapToInt(Integer::intValue).sum(),
+                occurrencesOf(singles),
                 unmatchedRootsOf(published, byLabel, forest));
+    }
+
+    private static int occurrencesOf(final List<ReadingFolder.TermMatchRow> matches) {
+        return matches.stream()
+                .collect(Collectors.groupingBy(ReadingFolder.TermMatchRow::term,
+                        Collectors.summingInt(ReadingFolder.TermMatchRow::occurrences)))
+                .values().stream().mapToInt(Integer::intValue).sum();
     }
 
     /** Every stated parent's children, keyed by the parent's label whether or not it is a concept row. */

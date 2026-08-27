@@ -39,6 +39,7 @@ public final class TermTreesPage {
     private static final String FIBO_SPEC = "https://spec.edmcouncil.org/fibo/";
     private static final String FPML = "https://www.fpml.org/";
     private static final String FIX_ORCHESTRA = "https://www.fixtrading.org/standards/fix-orchestra/";
+    private static final String CWE = "https://cwe.mitre.org/";
     private static final String BIAN_LANDSCAPE = "https://bian.org/servicelandscape/";
 
     private final String repository;
@@ -79,6 +80,8 @@ public final class TermTreesPage {
                                 a("FpML").withHref(FPML),
                                 text(", "),
                                 a("FIX").withHref(FIX_ORCHESTRA),
+                                text(", "),
+                                a("CWE").withHref(CWE),
                                 text(" and the "),
                                 a("BIAN Service Landscape").withHref(BIAN_LANDSCAPE),
                                 text(" — drawn at their places in the publisher's own hierarchy. The "
@@ -89,7 +92,21 @@ public final class TermTreesPage {
                                         + "drawn as matches: a one-word label is everyday English more "
                                         + "often than a term of art, so the single-word matches are "
                                         + "counted and not placed.")),
+                        ul().withClass("ranking").with(each(trees, TermTreesPage::ranked)),
                         each(trees, TermTreesPage::treeOf)));
+    }
+
+    /** One vocabulary's standing: its phrase evidence, linking to its tree. */
+    private static LiTag ranked(final TermTree tree) {
+        if (tree.phraseTerms() == 0) {
+            return li().withClass("silent-rank").with(
+                    a(tree.vocabulary()).withHref("#" + tree.vocabulary()),
+                    span("no phrases").withClass("held"));
+        }
+        return li().with(
+                a(tree.vocabulary()).withHref("#" + tree.vocabulary()),
+                span(String.format(Locale.ROOT, "%,d phrases, %,d occurrences",
+                        tree.phraseTerms(), tree.phraseOccurrences())).withClass("held"));
     }
 
     /**
@@ -100,7 +117,7 @@ public final class TermTreesPage {
     private static final int OPEN_LEVELS = 2;
 
     private static SectionTag treeOf(final TermTree tree) {
-        return section().withClass("control").with(
+        return section().withClass("control").withId(tree.vocabulary()).with(
                 h2(tree.vocabulary()),
                 tree.roots().isEmpty()
                         ? p().withClass("silent").with(text("No phrase of this vocabulary appears in a "

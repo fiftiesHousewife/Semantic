@@ -18,7 +18,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
  * through the reading a subject description goes through, so what comes back is comparable with both.
  *
  * <p><b>A publisher stating no prose contributes nothing, and that is a correct outcome.</b> CSO states a
- * definition for none of its 14,636 rows, so it is silent here whatever the repository matched. Reading its
+ * definition for any of its rows, so it is silent here whatever the repository matched. Reading its
  * labels instead would be this arm voting with the other arm's evidence.
  *
  * <p>A term two concepts read as divides its mass between them. The evidence is that the repository wrote

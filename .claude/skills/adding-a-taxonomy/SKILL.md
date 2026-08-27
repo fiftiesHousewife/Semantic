@@ -18,7 +18,7 @@ Every bundled taxonomy is the same shape and arrives the same way. CSO and BIAN 
 ## The files, in order
 
 1. **`lexicon-extraction`**: a concepts reader (`CsoConcepts`, `BianConcepts` are models), a `<Name>Tsv` renderer holding the header, a `<Name>Extraction` main with the pin constants and the acceptance check. Tests for each: the parsing rules, the row shape, the refusal.
-2. **A Gradle task** in `lexicon-extraction/build.gradle.kts` (`extractCsoTopics` pattern): JavaExec, `-P` property for the local source, output under `lexicon/src/main/resources/`.
+2. **An entry in `BundledExtractions`**, which routes the one `extract` task: the entry names the taxonomy, states its source shape and the resource files it writes, and delegates to the extraction's own `main`. Run it with `./gradlew extract -Ptaxonomy=<name> -Psource=<path[,path]>` — no new Gradle task is added.
 3. **The TSV itself**, committed under `lexicon/src/main/resources/` — run the task and commit its output, never hand-edit it.
 4. **A lexicon class** naming the resource (`CsoTopics`, `BianServiceDomains`, `OliaTerms` are models): `fromClasspath()` singleton over `SkosRows.in(RESOURCE)`. A term taxonomy implements `PublishedTerms`; a functional or subject taxonomy exposes `concepts()`. `BundledResourceReachabilityTest` fails if nothing reads the resource.
 5. **If it is matched against declared names**: an engine `TermIndex` (`ComputingTerms` is the model) and an entry in `MatchedTaxonomies`, which is the one list of what every run matches. If it is prose, it is placement-read instead and nothing joins the enum.

@@ -22,6 +22,12 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * where the ontology prefers it. Its parents are every topic stating {@code superTopicOf} over it; CSO is a
  * poly-hierarchy, so there are often several and all are carried. {@code sameAs}, {@code relatedLink} and
  * {@code contributesTo} say nothing about what a topic is called and are not read.
+ *
+ * <p><b>A topic whose {@code preferentialEquivalent} is another topic is folded into it</b>: its label
+ * joins the preferred topic's equivalents, its parents merge into the preferred topic's, and every parent
+ * reference to it is rewritten through the preference — so one subject is one row under the spelling the
+ * publisher prefers, and no spelling is lost. A topic stating no preference, or preferring a subject the
+ * ontology never labels, stands as published.
  */
 public final class CsoConcepts {
 
@@ -39,12 +45,57 @@ public final class CsoConcepts {
         final Set<String> topics = new TreeSet<>();
         final Map<String, Set<String>> parentsByTopic = new HashMap<>();
         final Map<String, Set<String>> equivalentsByTopic = new HashMap<>();
-        csv.lines().forEach(line -> read(line, topics, parentsByTopic, equivalentsByTopic));
+        final Map<String, String> preferredByTopic = new HashMap<>();
+        csv.lines().forEach(line ->
+                read(line, topics, parentsByTopic, equivalentsByTopic, preferredByTopic));
+        final Map<String, Set<String>> folded = new HashMap<>();
+        topics.forEach(topic -> {
+            final String kept = keptSpellingOf(topic, preferredByTopic, topics);
+            if (!kept.equals(topic)) {
+                folded.computeIfAbsent(kept, survivor -> new TreeSet<>()).add(topic);
+            }
+        });
         return topics.stream()
+                .filter(topic -> keptSpellingOf(topic, preferredByTopic, topics).equals(topic))
                 .map(topic -> new SkosConcept(topic, written(topic),
-                        joined(equivalentsByTopic, topic), joined(parentsByTopic, topic),
+                        equivalentsOf(topic, equivalentsByTopic, folded),
+                        parentsOf(topic, parentsByTopic, preferredByTopic, topics, folded),
                         "topic", "", "", ""))
                 .toList();
+    }
+
+    /** The spelling the publisher prefers, where it states one and labels it; the topic itself otherwise. */
+    private static String keptSpellingOf(final String topic, final Map<String, String> preferredByTopic,
+                                         final Set<String> topics) {
+        final String preferred = preferredByTopic.getOrDefault(topic, topic);
+        return topics.contains(preferred) ? preferred : topic;
+    }
+
+    /** The topic's own equivalents, with each folded spelling and its equivalents beside them, sorted. */
+    private static String equivalentsOf(final String topic,
+                                        final Map<String, Set<String>> equivalentsByTopic,
+                                        final Map<String, Set<String>> folded) {
+        final Set<String> spellings = new TreeSet<>(equivalentsByTopic.getOrDefault(topic, Set.of()));
+        folded.getOrDefault(topic, Set.of()).forEach(collapsed -> {
+            spellings.add(written(collapsed));
+            spellings.addAll(equivalentsByTopic.getOrDefault(collapsed, Set.of()));
+        });
+        return String.join(JOINED, spellings);
+    }
+
+    /** The topic's and its folded spellings' parents, each rewritten through the preference, sorted. */
+    private static String parentsOf(final String topic, final Map<String, Set<String>> parentsByTopic,
+                                    final Map<String, String> preferredByTopic, final Set<String> topics,
+                                    final Map<String, Set<String>> folded) {
+        final Set<String> parents = new TreeSet<>(parentsByTopic.getOrDefault(topic, Set.of()));
+        folded.getOrDefault(topic, Set.of()).forEach(collapsed ->
+                parents.addAll(parentsByTopic.getOrDefault(collapsed, Set.of())));
+        return parents.stream()
+                .map(parent -> keptSpellingOf(parent, preferredByTopic, topics))
+                .filter(parent -> !parent.equals(topic))
+                .map(CsoConcepts::written)
+                .collect(Collectors.toCollection(TreeSet::new)).stream()
+                .collect(Collectors.joining(JOINED));
     }
 
     /**
@@ -53,7 +104,8 @@ public final class CsoConcepts {
      */
     private static void read(final String line, final Set<String> topics,
                              final Map<String, Set<String>> parentsByTopic,
-                             final Map<String, Set<String>> equivalentsByTopic) {
+                             final Map<String, Set<String>> equivalentsByTopic,
+                             final Map<String, String> preferredByTopic) {
         final int afterSubject = line.indexOf("\",\"");
         final int afterPredicate = line.indexOf("\",\"", afterSubject + 3);
         if (afterSubject < 0 || afterPredicate < 0) {
@@ -68,15 +120,14 @@ public final class CsoConcepts {
             topics.add(subject);
         } else if (SUPER_TOPIC_OF.equals(predicate)) {
             parentsByTopic.computeIfAbsent(topicOf(object), topic -> new TreeSet<>())
-                    .add(written(subject));
+                    .add(subject);
         } else if (RELATED_EQUIVALENT.equals(predicate) || PREFERENTIAL_EQUIVALENT.equals(predicate)) {
             equivalentsByTopic.computeIfAbsent(subject, topic -> new TreeSet<>())
                     .add(written(topicOf(object)));
+            if (PREFERENTIAL_EQUIVALENT.equals(predicate)) {
+                preferredByTopic.put(subject, topicOf(object));
+            }
         }
-    }
-
-    private static String joined(final Map<String, Set<String>> byTopic, final String topic) {
-        return byTopic.getOrDefault(topic, Set.of()).stream().collect(Collectors.joining(JOINED));
     }
 
     private static String topicOf(final String field) {

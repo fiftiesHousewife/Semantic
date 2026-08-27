@@ -556,6 +556,7 @@ Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside
 | [FIBO](https://spec.edmcouncil.org/fibo/) — Financial Industry Business Ontology | finance | the out-of-domain case: a vocabulary of finance should match almost nothing in it |
 | [FpML](https://www.fpml.org/) — Financial products Markup Language 5.11 | derivatives trading | a second out-of-domain case: the types a trading system writes on the wire, matched beside FIBO |
 | [FIX Orchestra](https://www.fixtrading.org/standards/fix-orchestra/) — FIX Latest, machine-readable | electronic trading | a third out-of-domain case: the messages and fields a FIX engine declares, front office through settlement |
+| [CWE](https://cwe.mitre.org/) — Common Weakness Enumeration 4.13 | security | the security case: weakness names are phrases, and each match cites MITRE's own page for it |
 
 A vocabulary matching inside its own domain establishes nothing, because any sufficiently large word list matches something somewhere. What has to be shown is that it produces few or no matches outside that domain.
 
@@ -635,6 +636,7 @@ The reading names what it did not use in one place, `setAside`: topics no furthe
 |---|---|
 | Banking capabilities | [BIAN Service Landscape](https://github.com/bian-official/artefacts), Banking Industry Architecture Network. 319 service domains, Apache-2.0 |
 | Computer science topics | [CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, Knowledge Media Institute, The Open University. 14,636 topics, CC BY 4.0, and no definition for any of them |
+| Security weaknesses | [CWE](https://cwe.mitre.org/), The MITRE Corporation. 959 weaknesses of catalog 4.13, under the [CWE Terms of Use](https://cwe.mitre.org/about/termsofuse.html) |
 | Electronic-trading terms | [FIX Orchestra](https://www.fixtrading.org/standards/fix-orchestra/), FIX Trading Community. 7,170 named things of FIX Latest, Apache-2.0 |
 | Derivatives-trade terms | [FpML](https://www.fpml.org/), the Financial products Markup Language, ISDA. 1,405 complex types of the 5.11 confirmation schemas, under the [FpML Public License](https://www.fpml.org/the_standard/fpml-public-license/) |
 | Financial terms | [FIBO](https://spec.edmcouncil.org/fibo/), EDM Council |

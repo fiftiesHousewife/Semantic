@@ -72,6 +72,62 @@ class CsoConceptsTest {
     }
 
     @Test
+    void collapsesATopicIntoThePublishersPreferredSpelling() {
+        final List<SkosConcept> read = concepts.in(csv(
+                labelled("computer_system"),
+                labelled("computer_systems"),
+                triple(TOPIC + "computer_system", SCHEMA + "preferentialEquivalent",
+                        TOPIC + "computer_systems"),
+                triple(TOPIC + "computer_systems", SCHEMA + "preferentialEquivalent",
+                        TOPIC + "computer_systems")));
+
+        assertAll(
+                () -> assertThat(read).extracting(SkosConcept::prefLabel)
+                        .containsExactly("computer systems"),
+                () -> assertThat(read).singleElement().extracting(SkosConcept::altLabel)
+                        .asString().contains("computer system"));
+    }
+
+    @Test
+    void rewritesAParentThroughItsPreferredSpelling() {
+        final List<SkosConcept> read = concepts.in(csv(
+                labelled("child"),
+                labelled("computer_system"),
+                labelled("computer_systems"),
+                triple(TOPIC + "computer_system", SCHEMA + "preferentialEquivalent",
+                        TOPIC + "computer_systems"),
+                triple(TOPIC + "computer_system", SCHEMA + "superTopicOf", TOPIC + "child")));
+
+        assertThat(read).filteredOn(concept -> concept.prefLabel().equals("child"))
+                .extracting(SkosConcept::broader)
+                .containsExactly("computer systems");
+    }
+
+    @Test
+    void mergesACollapsedTopicsParentsIntoTheSurvivors() {
+        final List<SkosConcept> read = concepts.in(csv(
+                labelled("computer_system"),
+                labelled("computer_systems"),
+                labelled("hardware"),
+                triple(TOPIC + "computer_system", SCHEMA + "preferentialEquivalent",
+                        TOPIC + "computer_systems"),
+                triple(TOPIC + "hardware", SCHEMA + "superTopicOf", TOPIC + "computer_system")));
+
+        assertThat(read).filteredOn(concept -> concept.prefLabel().equals("computer systems"))
+                .extracting(SkosConcept::broader)
+                .containsExactly("hardware");
+    }
+
+    @Test
+    void keepsATopicWhosePreferredSpellingIsNotATopic() {
+        final List<SkosConcept> read = concepts.in(csv(
+                labelled("kept"),
+                triple(TOPIC + "kept", SCHEMA + "preferentialEquivalent", TOPIC + "unlabelled")));
+
+        assertThat(read).extracting(SkosConcept::prefLabel).containsExactly("kept");
+    }
+
+    @Test
     void aSubjectWithoutALabelIsNoTopicAndOtherStatementsAreNotRead() {
         final List<SkosConcept> read = concepts.in(csv(
                 labelled("kept"),

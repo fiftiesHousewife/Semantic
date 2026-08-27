@@ -48,6 +48,16 @@ public record SkosConcept(String concept, String prefLabel, String altLabel, Str
     }
 
     /**
+     * Every other label the source states for this concept, in the order the source wrote them.
+     *
+     * <p>Empty where the source states no other label, which is a fact about the taxonomy rather than an
+     * invitation to borrow a synonym from somewhere that knows nothing about it.
+     */
+    public java.util.List<String> altLabels() {
+        return statements(altLabel);
+    }
+
+    /**
      * Every account a source gives of what this concept covers, in the order the source wrote them.
      *
      * <p>One statement for most sources. OpenAlex gives two — the prose description and the ten keywords —

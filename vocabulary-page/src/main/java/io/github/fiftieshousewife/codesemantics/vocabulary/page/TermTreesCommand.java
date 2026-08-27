@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -43,11 +44,14 @@ public final class TermTreesCommand {
         wrote(Path.of(VocabularyPageCommand.REPORTS).resolve(repository), repository, trees(reading));
     }
 
-    /** One tree per vocabulary the evidence records, the matched taxonomies first. */
+    /** One tree per vocabulary the evidence records, the one with the most phrase evidence first. */
     static List<TermTree> trees(final ReadingFolder reading) {
         final List<ReadingFolder.TermMatchRow> matches = reading.termMatches();
         return published().entrySet().stream()
                 .map(vocabulary -> TermTree.of(vocabulary.getKey(), matches, vocabulary.getValue()))
+                .sorted(Comparator.comparingInt(TermTree::phraseOccurrences).reversed()
+                        .thenComparing(Comparator.comparingInt(TermTree::phraseTerms).reversed())
+                        .thenComparing(TermTree::vocabulary))
                 .toList();
     }
 

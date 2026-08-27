@@ -31,7 +31,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
  * nothing and is reported apart rather than deleted, and a branch the repository half shares weighs half.
  *
  * <p>A branch whose publisher states no prose is <em>absent</em> rather than zero. CSO states a definition
- * for none of its 14,636 rows, so it cannot be conditioned at any price, and reading its silence as
+ * for any of its rows, so it cannot be conditioned at any price, and reading its silence as
  * disagreement would set aside a whole taxonomy on the strength of what its publisher did not write.
  */
 public final class BranchAgreement {
