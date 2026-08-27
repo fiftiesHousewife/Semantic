@@ -41,7 +41,7 @@ public final class VocabularyPage {
     }
 
     public String markup() {
-        return page().render();
+        return PageDocument.of("The words", page().render());
     }
 
     private BodyTag page() {

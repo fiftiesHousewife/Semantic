@@ -99,6 +99,18 @@ tasks.register<JavaExec>("evaluationPages") {
     workingDir = rootDir
 }
 
+// Every published reading's reported term matches per vocabulary on one page, phrases apart from
+// single words. It consumes the committed readings under output/ and reads no tree.
+//   ./gradlew taxonomyMatches
+tasks.register<JavaExec>("taxonomyMatches") {
+    group = "verification"
+    description = "Draws every reading's reported matches per vocabulary, phrases apart from words"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.TaxonomyMatchesCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    maxHeapSize = "3g"
+    workingDir = rootDir
+}
+
 // What the corroborated sense weight changes on each subject scheme's arm, for every published reading
 // under output/: the drawn domains before and after, and each word whose region moves.
 //   ./gradlew corroboratedWeight

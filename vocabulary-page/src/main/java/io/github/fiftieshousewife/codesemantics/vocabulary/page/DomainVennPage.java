@@ -50,7 +50,7 @@ public final class DomainVennPage {
     }
 
     public String markup() {
-        return page().render();
+        return PageDocument.of("The domains", page().render());
     }
 
     private BodyTag page() {

@@ -29,7 +29,7 @@ public final class PagesIndex {
     }
 
     public String markup(final List<String> repositories) {
-        return page(repositories).render();
+        return PageDocument.of("The repositories read", page(repositories).render());
     }
 
     private BodyTag page(final List<String> repositories) {
@@ -40,7 +40,11 @@ public final class PagesIndex {
                         p().withClass("lede").with(text("Each repository has three views of one "
                                 + "population: its significant words by pipeline stage, the domains "
                                 + "their senses state, and each matched vocabulary's phrases as a "
-                                + "tree in the publisher's own hierarchy.")),
+                                + "tree in the publisher's own hierarchy. ")),
+                        p().withClass("lede").with(
+                                a("Matches per vocabulary").withHref("taxonomy-matches.html"),
+                                text(" compares every reading's reported matches, phrases apart from "
+                                        + "single words.")),
                         ul().withClass("repositories").with(
                                 each(repositories, repository -> li(
                                         text(repository + " — "),

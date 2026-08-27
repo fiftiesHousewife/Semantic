@@ -52,6 +52,7 @@ public final class EvaluationPagesCommand {
         for (final Path folder : readings) {
             pagesOf(ReadingFolder.at(folder), reports);
         }
+        TaxonomyMatchesCommand.wrote(reports, TaxonomyMatchesCommand.rows(readings));
         final List<String> repositories = written(reports);
         Files.createDirectories(reports);
         Files.writeString(reports.resolve(INDEX),

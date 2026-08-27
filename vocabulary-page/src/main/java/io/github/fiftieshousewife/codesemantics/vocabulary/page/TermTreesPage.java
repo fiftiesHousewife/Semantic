@@ -54,7 +54,7 @@ public final class TermTreesPage {
     }
 
     public String markup() {
-        return page().render();
+        return PageDocument.of("The term trees of " + repository, page().render());
     }
 
     private BodyTag page() {

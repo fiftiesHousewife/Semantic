@@ -19,12 +19,12 @@ class VocabularyPageTest {
     }
 
     @Test
-    void carriesNoDocumentWrapperSoWhateverRendersItSuppliesOne() {
+    void statesItsOwnDocumentShellAndCharset() {
         final String markup = new VocabularyPage("{}", "", "").markup();
 
         assertAll(
-                () -> assertThat(markup).startsWith("<body>"),
-                () -> assertThat(markup).doesNotContain("<html"),
-                () -> assertThat(markup).doesNotContain("<!DOCTYPE"));
+                () -> assertThat(markup).startsWith("<!DOCTYPE html>"),
+                () -> assertThat(markup).contains("<meta charset=\"utf-8\">"),
+                () -> assertThat(markup).endsWith("</html>"));
     }
 }

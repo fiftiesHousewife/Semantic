@@ -262,7 +262,9 @@
             var made = document.createElement("a");
             byWord[word.word] = made;
             made.textContent = word.word;
-            made.href = "vocabulary.html#w-" + encodeURIComponent(word.word);
+            made.href = phrases
+                ? "term-trees.html#" + encodeURIComponent(namesOf(region)[0])
+                : "vocabulary.html#w-" + encodeURIComponent(word.word);
             made.className = word.unambiguous ? "anchor" : "";
             made.style.fontSize = sized(word.claim).toFixed(2) + "rem";
             function show() {
@@ -332,10 +334,14 @@
         drawFoot();
     }
 
+    var linkedSource = location.hash.indexOf("#s-") === 0
+        ? decodeURIComponent(location.hash.slice(3)) : null;
+    var opened = sources.indexOf(linkedSource) >= 0 ? linkedSource : sources[0];
+
     var buttons = [];
     var picker = document.querySelector(".sources");
     sources.forEach(function (source, index) {
-        var button = element("button", index === 0 ? "chosen" : null, source);
+        var button = element("button", source === opened ? "chosen" : null, source);
         button.type = "button";
         button.addEventListener("click", function () {
             buttons.forEach(function (each, other) {
@@ -348,8 +354,8 @@
     });
 
     document.querySelector(".repository").textContent =
-        data.overlaps[sources[0]].repository;
-    render(sources[0]);
+        data.overlaps[opened].repository;
+    render(opened);
 
     /* A link from the vocabulary names one word; stand on it in its overlap. */
     if (location.hash.indexOf("#w-") === 0) {
