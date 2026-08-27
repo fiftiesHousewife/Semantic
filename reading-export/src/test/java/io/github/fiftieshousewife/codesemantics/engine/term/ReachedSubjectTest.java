@@ -112,7 +112,7 @@ class ReachedSubjectTest {
         final List<WrittenSubtree> ranked = reached("/matched/tika-cso.tsv", DOCUMENTS);
 
         assertAll(
-                () -> assertThat(ranked.getFirst().concept()).isEqualTo("natural language"),
+                () -> assertThat(ranked.getFirst().concept()).isEqualTo("natural languages"),
                 () -> assertThat(ranked.getFirst().conceptsWritten()).isEqualTo(11));
     }
 
