@@ -9,6 +9,7 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.groups.Tuple.tuple;
 import static io.github.fiftieshousewife.codesemantics.engine.term.PublishedTerms.publishing;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -113,6 +114,26 @@ class TermSpansTest {
     @Test
     void abstainsOnARunNoRungOfTheLadderAnswers() {
         assertThat(ladderOver("noun phrase").in(List.of("interest", "rate"))).isEmpty();
+    }
+
+    @Test
+    void reportsOnlyTermsOfMoreThanOneWordWhereOnlyPhrasesWereAskedFor() {
+        assertThat(spansOver("noun", "common noun").phrasesIn(List.of("read", "common", "noun", "at")))
+                .extracting(TermSpan::words)
+                .containsExactly(List.of("common", "noun"));
+    }
+
+    @Test
+    void findsTheSamePhrasesWhetherOrNotTheSourceStatesTheWordsAroundThem() {
+        assertThat(spansOver("noun", "common noun", "at").phrasesIn(List.of("read", "common", "noun", "at")))
+                .extracting(TermSpan::words, TermSpan::from, TermSpan::to)
+                .isEqualTo(spansOver("common noun").phrasesIn(List.of("read", "common", "noun", "at"))
+                        .stream().map(span -> tuple(span.words(), span.from(), span.to())).toList());
+    }
+
+    @Test
+    void reportsNoPhraseInANameOfOneWord() {
+        assertThat(spansOver("noun").phrasesIn(List.of("noun"))).isEmpty();
     }
 
     private static TermSpans spansOver(final String... terms) {

@@ -35,6 +35,12 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  */
 public final class TermSpans {
 
+    /** The shortest run a walk reporting every term will ask about. */
+    private static final int ANY_LENGTH = 1;
+
+    /** The shortest run a walk reporting only phrases will ask about. */
+    private static final int PHRASE_LENGTH = 2;
+
     private final List<TermIndex> rungs;
     private final int longestTerm;
 
@@ -45,10 +51,26 @@ public final class TermSpans {
 
     /** Every term the source publishes within this phrase, in the order the phrase states them. */
     public List<TermSpan> in(final List<String> phrase) {
+        return found(phrase, ANY_LENGTH);
+    }
+
+    /**
+     * The same walk, reporting only terms of more than one word.
+     *
+     * <p>It answers with exactly the multi-word spans {@link #in} answers with. A term of one word moves the
+     * walk on by one word, which is what a position with no match at all does, so which one-word terms a
+     * source states cannot change where a longer one is found — and a walk never asking about them reaches
+     * the same phrases having asked less.
+     */
+    public List<TermSpan> phrasesIn(final List<String> phrase) {
+        return found(phrase, PHRASE_LENGTH);
+    }
+
+    private List<TermSpan> found(final List<String> phrase, final int shortest) {
         final List<TermSpan> found = new ArrayList<>();
         int from = 0;
         while (from < phrase.size()) {
-            final Optional<TermSpan> longest = longestFrom(phrase, from);
+            final Optional<TermSpan> longest = longestFrom(phrase, from, shortest);
             longest.ifPresent(found::add);
             from += longest.map(TermSpan::length).orElse(1);
         }
@@ -60,8 +82,8 @@ public final class TermSpans {
      * longest term is two words is never asked about three, and the bound is the resource's rather than one
      * chosen here.
      */
-    private Optional<TermSpan> longestFrom(final List<String> phrase, final int from) {
-        return IntStream.iterate(reachFrom(phrase, from), length -> length >= 1, length -> length - 1)
+    private Optional<TermSpan> longestFrom(final List<String> phrase, final int from, final int shortest) {
+        return IntStream.iterate(reachFrom(phrase, from), length -> length >= shortest, length -> length - 1)
                 .mapToObj(length -> spanOf(phrase, from, from + length))
                 .flatMap(Optional::stream)
                 .findFirst();

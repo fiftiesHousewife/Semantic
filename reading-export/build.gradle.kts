@@ -169,6 +169,20 @@ tasks.register<JavaExec>("injectedTermMatch") {
 // Where a named word stands in the vocabulary ranking, and what each reference said to put it there. The
 // report prints a top; this answers for a word it never reached.
 //   ./gradlew wordPlace -Pwords="get set list"
+// Every bundled vocabulary's phrase count on one tree beside the count its own words reach with their order
+// destroyed: deal the repository's words across its own declared names 999 times and recount. A vocabulary of
+// the tree's field should stand above its bar and a control should not.
+//   ./gradlew phraseNull
+//   ./gradlew phraseNull -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("phraseNull") {
+    group = "verification"
+    description = "Judges each vocabulary's phrase count against a permutation of the repository's own words"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.PhraseNullProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Where the time of one read goes, stage by stage: each shared stage is computed once in dependency order,
 // so a row is that stage's own first cost and the rows sum to what the export diagnostic pays. The same run
 // is recorded under Java Flight Recorder to build/reports/read-profile.jfr; read it with
