@@ -30,8 +30,11 @@ public class FixTermsTsv {
                 + """
                 # kind is what Orchestra states each name as: the five sections, the categories each
                 # section holds, the messages, components and repeating groups each category holds, and
-                # the fields, which are flat because Orchestra states no category for a field. broader is
-                # the stated section or category; module is the section a concept's category sits in.
+                # the fields. broader is the stated section or category, and module is the section that
+                # category sits in. A field states no category of its own: Orchestra places it through the
+                # messages, components and groups that name it, so a field sits under the deepest concept
+                # all of them sit under — their one category, or the section several categories share, and
+                # nothing where they share nothing.
                 # altLabel is the publisher's own abbreviated name where it states one; definition joins
                 # the stated documentations in the publisher's order. NOT CARRIED, and said outright:
                 # datatypes and code sets — a datatype is a value format and a code set an enumeration of

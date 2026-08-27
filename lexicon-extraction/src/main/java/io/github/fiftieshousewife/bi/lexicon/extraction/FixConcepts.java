@@ -15,9 +15,9 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 /**
  * The named things of a FIX Orchestra repository file, one concept each: sections, the categories each
- * section holds, the messages, components and repeating groups each category holds, and the fields — flat,
- * because Orchestra states no category for a field. {@code altLabel} is the publisher's own abbreviated
- * name where one is stated, and {@code module} is the section a concept's category sits in.
+ * section holds, the messages, components and repeating groups each category holds, and the fields, placed
+ * by {@link FixFieldPlacements} from the containers that name them. {@code altLabel} is the publisher's own
+ * abbreviated name where one is stated, and {@code module} is the section a concept's category sits in.
  *
  * <p>Datatypes and code sets are not read, and said outright: a datatype is a value format and a code set
  * an enumeration of values, and neither is a subject a declared name can be about.
@@ -48,9 +48,17 @@ public final class FixConcepts {
     public List<SkosConcept> in(final byte[] orchestra) {
         final Document parsed = RdfXml.parsed(orchestra);
         final Map<String, String> sectionByCategory = sectionByCategory(parsed);
+        final FixFieldPlacements fields = FixFieldPlacements.in(containers(parsed), sectionByCategory);
         return Stream.of(Kind.values())
                 .flatMap(kind -> stated(parsed, kind)
-                        .map(element -> conceptOf(element, kind, sectionByCategory)))
+                        .map(element -> conceptOf(element, kind, sectionByCategory, fields)))
+                .toList();
+    }
+
+    /** The kinds that carry a category and name the fields they hold, which is what places a field. */
+    private static List<Element> containers(final Document parsed) {
+        return Stream.of(Kind.MESSAGE, Kind.COMPONENT, Kind.GROUP)
+                .flatMap(kind -> stated(parsed, kind))
                 .toList();
     }
 
@@ -69,12 +77,12 @@ public final class FixConcepts {
     }
 
     private static SkosConcept conceptOf(final Element element, final Kind kind,
-                                         final Map<String, String> sectionByCategory) {
+                                         final Map<String, String> sectionByCategory,
+                                         final FixFieldPlacements fields) {
         final String name = element.getAttribute("name");
         return new SkosConcept(ORCHESTRA + "#" + kind.element + "/" + name, name,
-                abbreviatedName(element), broaderOf(element, kind), kind.element,
-                sectionByCategory.getOrDefault(element.getAttribute("category"), ""),
-                definitionOf(element), "");
+                abbreviatedName(element), broaderOf(element, kind, fields), kind.element,
+                moduleOf(element, kind, sectionByCategory, fields), definitionOf(element), "");
     }
 
     /** The publisher's abbreviated name, where it states one that says something the name does not. */
@@ -84,12 +92,29 @@ public final class FixConcepts {
                 .orElse("");
     }
 
-    /** A category sits in its section; a message, component or group in its category; the rest at the top. */
-    private static String broaderOf(final Element element, final Kind kind) {
+    /**
+     * A category sits in its section, a field where the containers naming it place it, and a message,
+     * component or group in the category it states.
+     */
+    private static String broaderOf(final Element element, final Kind kind,
+                                    final FixFieldPlacements fields) {
         if (kind == Kind.CATEGORY) {
             return element.getAttribute("section");
         }
+        if (kind == Kind.FIELD) {
+            return fields.under(element.getAttribute("id"));
+        }
         return element.getAttribute("category");
+    }
+
+    /** The section the concept's category sits in, a field's being the category that placed it. */
+    private static String moduleOf(final Element element, final Kind kind,
+                                   final Map<String, String> sectionByCategory,
+                                   final FixFieldPlacements fields) {
+        if (kind == Kind.FIELD) {
+            return fields.sectionOf(element.getAttribute("id"));
+        }
+        return sectionByCategory.getOrDefault(element.getAttribute("category"), "");
     }
 
     /** The annotation's documentations with their line breaks collapsed, joined in the publisher's order. */

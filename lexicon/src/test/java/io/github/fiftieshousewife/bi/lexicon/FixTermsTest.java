@@ -25,7 +25,11 @@ class FixTermsTest {
                         .isEqualTo("SingleGeneralOrderHandling"),
                 () -> assertThat(terms.conceptsOf("newordersingle").getFirst().module())
                         .isEqualTo("Trade"),
-                () -> assertThat(withA(SkosConcept::broader)).isEqualTo(959));
+                () -> assertThat(terms.conceptsOf("maturitydate").getFirst().broader())
+                        .isEqualTo("Common"),
+                () -> assertThat(terms.conceptsOf("tradedate").getFirst().broader())
+                        .isEmpty(),
+                () -> assertThat(withA(SkosConcept::broader)).isEqualTo(6337));
     }
 
     @Test

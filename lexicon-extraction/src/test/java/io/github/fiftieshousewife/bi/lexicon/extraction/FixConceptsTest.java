@@ -25,6 +25,8 @@ class FixConceptsTest {
               </fixr:sections>
               <fixr:categories>
                 <fixr:category name="Confirmation" section="PostTrade"/>
+                <fixr:category name="Allocation" section="PostTrade"/>
+                <fixr:category name="Common"/>
               </fixr:categories>
               <fixr:messages>
                 <fixr:message name="ConfirmationRequest" abbrName="CnfmReq" category="Confirmation">
@@ -32,22 +34,33 @@ class FixConceptsTest {
                     <fixr:documentation purpose="SYNOPSIS">Requests a confirmation.</fixr:documentation>
                     <fixr:documentation purpose="ELABORATION">Sent by the buy side.</fixr:documentation>
                   </fixr:annotation>
+                  <fixr:structure>
+                    <fixr:fieldRef id="64"/>
+                    <fixr:fieldRef id="218"/>
+                  </fixr:structure>
                 </fixr:message>
               </fixr:messages>
               <fixr:components>
                 <fixr:component name="SettlInstructionsData" category="Confirmation"/>
+                <fixr:component name="CommissionData" category="Common">
+                  <fixr:fieldRef id="15"/>
+                </fixr:component>
               </fixr:components>
               <fixr:groups>
-                <fixr:group name="SettlParties" category="Confirmation"/>
+                <fixr:group name="SettlParties" category="Allocation">
+                  <fixr:fieldRef id="218"/>
+                </fixr:group>
               </fixr:groups>
               <fixr:fields>
-                <fixr:field name="SettlDate" abbrName="SettlDt">
+                <fixr:field id="64" name="SettlDate" abbrName="SettlDt">
                   <fixr:annotation>
                     <fixr:documentation purpose="SYNOPSIS">Specific date of trade
                         settlement.</fixr:documentation>
                   </fixr:annotation>
                 </fixr:field>
-                <fixr:field name="Spread"/>
+                <fixr:field id="218" name="Spread"/>
+                <fixr:field id="15" name="Currency"/>
+                <fixr:field id="999" name="ApplExtID"/>
               </fixr:fields>
               <fixr:datatypes>
                 <fixr:datatype name="Qty"/>
@@ -82,8 +95,22 @@ class FixConceptsTest {
                         .containsExactly(tuple("Confirmation", "PostTrade")),
                 () -> assertThat(read())
                         .filteredOn(concept -> concept.prefLabel().equals("SettlDate"))
-                        .extracting(SkosConcept::broader)
-                        .containsExactly(""));
+                        .extracting(SkosConcept::broader, SkosConcept::module)
+                        .containsExactly(tuple("Confirmation", "PostTrade")));
+    }
+
+    @Test
+    void placesAFieldWhereTheContainersNamingItAgreeAndNowhereWhereTheyDoNot() {
+        assertAll(
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("Spread"))
+                        .extracting(SkosConcept::broader, SkosConcept::module)
+                        .containsExactly(tuple("PostTrade", "")),
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("Currency"))
+                        .extracting(SkosConcept::broader, SkosConcept::module)
+                        .containsExactly(tuple("Common", "")),
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("ApplExtID"))
+                        .extracting(SkosConcept::broader, SkosConcept::module)
+                        .containsExactly(tuple("", "")));
     }
 
     @Test
@@ -109,7 +136,7 @@ class FixConceptsTest {
     @Test
     void leavesDatatypesAndCodeSetsUnread() {
         assertAll(
-                () -> assertThat(read()).hasSize(7),
+                () -> assertThat(read()).hasSize(12),
                 () -> assertThat(read()).extracting(SkosConcept::prefLabel)
                         .doesNotContain("Qty", "SettlTypeCodeSet"));
     }
