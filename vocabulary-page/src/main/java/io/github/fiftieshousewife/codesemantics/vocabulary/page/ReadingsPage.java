@@ -3,8 +3,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.Locale;
 
-import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
-import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import j2html.tags.DomContent;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.TrTag;
@@ -27,19 +26,21 @@ import static j2html.TagCreator.thead;
 import static j2html.TagCreator.tr;
 
 /**
- * Every published reading in one table: what it is about, which vocabulary beat its own chance bar, where
- * each scheme places it, and the area somebody outside this project states for it.
+ * Every published reading, one row each, stating what it is about and nothing more.
  *
- * <p>The last two columns are the point of the page. A reading and its expected area side by side is the
- * difference between a picture of what the library said and a picture of whether it was right, and no
- * page before this one carried the second.
+ * <p><b>One answer, not an inventory.</b> Every earlier form of this page listed every vocabulary that
+ * cleared, the phrases each matched and both subject schemes beside them, and left the reader to decide
+ * which to believe — which is the defect the export itself was fixed for. The reading now names the most
+ * specific evidence that stood above chance, and this draws that: what kind of thing answered, which
+ * publisher, and what that publisher says the repository is.
+ *
+ * <p>The subject schemes appear only where no vocabulary answered. A scheme places quickfixj under
+ * <em>Wireless Networks and Protocols</em> while FIX stands at ten times its own bar, and showing both
+ * would be putting a weaker answer beside a stronger one as though a reader should weigh them.
  */
 public final class ReadingsPage {
 
     private static final String NONE = "—";
-
-    /** Enough phrases to see what a vocabulary matched on; the rest are in the reading it was drawn from. */
-    private static final int PHRASES_SHOWN = 4;
 
     private final String stylesheet;
 
@@ -51,145 +52,58 @@ public final class ReadingsPage {
         return PageDocument.of("The readings", page(readings, stated).render());
     }
 
-    /**
-     * The subject schemes the readings themselves place under, in the order they state them.
-     *
-     * <p>Naming them here would be this page deciding which schemes a reading has. Which are bundled is a
-     * question the library answers and is under review — a scheme dropped would leave a column headed for
-     * it and empty, and one added would not be drawn at all.
-     */
-    private static List<String> schemes(final List<ReadingRow> readings) {
-        return readings.stream()
-                .flatMap(reading -> reading.placedIn().stream())
-                .map(ExportedPlacement::scheme)
-                .distinct()
-                .toList();
-    }
-
     private BodyTag page(final List<ReadingRow> readings, final StatedAreas stated) {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The readings"),
-                        p().withClass("lede").with(text("One row per published reading. A vocabulary is "
-                                + "named only where the repository wrote more of its phrases than a deal "
-                                + "of that vocabulary's own words reaches; a placement is marked where "
-                                + "the repository stands further from every subject of a scheme of chance "
-                                + "than from this one.")),
-                        table().withClass("readings").with(
-                                head(schemes(readings)),
-                                tbody(each(readings, row -> row(row, schemes(readings), stated))))));
+                        p().withClass("lede").with(text("One row per published reading, answering from the "
+                                + "most specific evidence that stands above chance. A vocabulary's terms "
+                                + "of more than one word answer first, then its one-word terms, then a "
+                                + "subject scheme — and a reading answered by a scheme is one whose "
+                                + "vocabularies said nothing.")),
+                        table().withClass("readings").with(head(),
+                                tbody(each(readings, row -> row(row, stated))))));
     }
 
-    /**
-     * Two headers, because the columns beneath them are two different kinds of claim and a reader reading
-     * across the row would otherwise take them for one.
-     *
-     * <p>A term vocabulary publishes identifiers and a repository in its field declares them, so a match is
-     * the publisher stating that this is a term of its field. A subject scheme publishes prose — nobody
-     * declares {@code ManageEnterpriseRisk} — so it is diverged against rather than matched, and the answer
-     * is which subject's own description this repository's vocabulary sits nearest to.
-     */
-    private static DomContent head(final List<String> schemes) {
-        return thead(
-                tr(th(""),
-                        th("matched against published terms").withColspan("3"),
-                        th("placed among published subjects").withColspan(String.valueOf(schemes.size())),
-                        th("").withColspan("2")).withClass("kinds"),
-                tr(th("repository"), th("vocabularies above their bar"), th("the phrases it wrote"),
-                        th("about"))
-                        .with(each(schemes, scheme -> th(scheme)))
-                        .with(th("λ"), th("stated area")));
+    private static DomContent head() {
+        return thead(tr(th("repository"), th("source type"), th("source"), th("placed under"),
+                th("result"), th("λ"), th("stated area")));
     }
 
-    private TrTag row(final ReadingRow reading, final List<String> schemes, final StatedAreas stated) {
+    private TrTag row(final ReadingRow reading, final StatedAreas stated) {
+        final ExportedAnswer answer = reading.answer();
         return tr(
                 td(a(reading.repository()).withHref(reading.repository() + "/vocabulary.html")),
-                td(vocabularies(reading)).withClass("vocabularies"),
-                td(phrases(reading)).withClass("phrases"),
-                td(String.join(", ", reading.about())))
-                .with(each(schemes, scheme -> td(placement(reading, scheme))))
-                .with(td(share(reading.lambda())), td(area(reading, stated)));
+                td(span(answer.sourceType()).withClass(kindOf(answer))),
+                td(source(answer)),
+                td(placedUnder(answer)),
+                td(result(answer)).withClass("result"),
+                td(share(reading.lambda())),
+                td(area(reading, stated)));
     }
 
-    /** Every vocabulary the reading published, each with its phrase count and the bar it beat. */
-    private static DomContent vocabularies(final ReadingRow reading) {
-        if (reading.vocabularies().isEmpty()) {
-            return span(NONE).withClass("silent")
-                    .withTitle("no bundled vocabulary's phrase count beat what a deal of its own "
-                            + "words reaches");
-        }
-        return div().with(each(reading.vocabularies(), one -> div(named(one))));
+    private static String kindOf(final ExportedAnswer answer) {
+        return answer.sourceType().replace(' ', '-');
     }
 
-    /**
-     * The terms of more than one word the repository wrote, most-written first.
-     *
-     * <p>The single-word matches are not drawn. A one-word term is the everyday English any repository
-     * hits and a run of several is what one outside the field does not write by accident, which is why the
-     * bar beside it is computed over the phrases alone.
-     */
-    private static DomContent phrases(final ReadingRow reading) {
-        final List<ReadingRow.Phrase> written = reading.phrases();
-        if (written.isEmpty()) {
-            return span(NONE).withClass("silent")
-                    .withTitle("no published term of more than one word survived");
-        }
-        return div().with(
-                div().withClass("terms").with(each(written.stream().limit(PHRASES_SHOWN).toList(),
-                        phrase -> span(phrase.term() + " ×" + phrase.occurrences())
-                                .withClass("term")
-                                .withTitle(phrase.vocabulary() + " places it under "
-                                        + phrase.placedUnder()))),
-                written.size() > PHRASES_SHOWN
-                        ? span("and " + (written.size() - PHRASES_SHOWN) + " more").withClass("silent")
-                        : span());
+    private static DomContent source(final ExportedAnswer answer) {
+        return answer.source().isBlank()
+                ? span(NONE).withClass("silent")
+                : span(answer.source()).withTitle(answer.qualifiedBy());
     }
 
-    /**
-     * <b>A bar of zero is not a multiple.</b> Where the deals reach nothing at the quantile the field
-     * sets, any single match clears, and {@code timesTheBar} answers with the count itself — so a
-     * vocabulary matched once on a bar of zero would read as standing at exactly its bar. It is stated as
-     * the count against nothing instead, and marked, because the two cases are not the same evidence.
-     */
-    private static DomContent named(final ExportedTaxonomy answering) {
-        final ExportedTaxonomy.Bar bar = answering.bar();
-        final String stated = bar.chanceExpectedBest() == 0
-                ? String.format(Locale.ROOT, "%s %d, no bar", answering.vocabulary(), bar.phrases())
-                : String.format(Locale.ROOT, "%s %.1f×", answering.vocabulary(), bar.timesTheBar());
-        return span(stated)
-                .withClass(bar.chanceExpectedBest() == 0 ? "unbarred" : "barred")
-                .withTitle(String.format(Locale.ROOT, "%d phrases against %d a deal of its own words "
-                        + "reaches, over a field of %d", bar.phrases(), bar.chanceExpectedBest(),
-                        bar.field()));
+    /** Where the publisher places what answered. A definition read without it has no field around it. */
+    private static DomContent placedUnder(final ExportedAnswer answer) {
+        return answer.placedUnder().isBlank()
+                ? span(NONE).withClass("silent")
+                : span(answer.placedUnder());
     }
 
-    /**
-     * One scheme's two levels, the finer first, and only where the scheme separated the repository from
-     * chance.
-     *
-     * <p><b>A subject the scheme could not separate from chance is not drawn.</b> The vocabularies beside
-     * it appear only where they beat their own bar, and a page applying a bar to one kind of claim and
-     * printing the other whatever it says is a page with two standards on it. A subject printed with a
-     * parenthetical beside it is still a subject a reader takes at face value, so the cell states that the
-     * scheme could not separate this repository and names the subject only in the title, where it is
-     * available to somebody looking for it and not to somebody reading down the column.
-     */
-    private static DomContent placement(final ReadingRow reading, final String scheme) {
-        return reading.placedIn().stream()
-                .filter(placed -> placed.scheme().equals(scheme))
-                .findFirst()
-                .map(placed -> div(level(placed.category()), level(placed.archive())))
-                .map(DomContent.class::cast)
-                .orElseGet(() -> span(NONE).withClass("silent"));
-    }
-
-    private static DomContent level(final ExportedPlacement.Level placed) {
-        return placed.standsApartFromChance()
-                ? div(placed.subject())
-                : div(NONE).withClass("silent")
-                        .withTitle("the nearest subject was " + placed.subject() + ", and the scheme "
-                                + "could not separate this repository from a scheme of chance");
+    private static DomContent result(final ExportedAnswer answer) {
+        return answer.result().isBlank()
+                ? span(answer.qualifiedBy()).withClass("silent")
+                : span(answer.result());
     }
 
     private static DomContent area(final ReadingRow reading, final StatedAreas stated) {

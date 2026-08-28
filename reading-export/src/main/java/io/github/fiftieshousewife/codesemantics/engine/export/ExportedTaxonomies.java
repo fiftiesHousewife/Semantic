@@ -89,6 +89,7 @@ public final class ExportedTaxonomies {
         return ExportedTaxonomy.Concept.builder()
                 .concept(concept.prefLabel())
                 .term(sighting.term())
+                .definition(concept.definition())
                 .placedUnder(concept.broader())
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())

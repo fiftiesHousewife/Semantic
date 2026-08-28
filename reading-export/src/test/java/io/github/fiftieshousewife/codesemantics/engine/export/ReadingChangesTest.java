@@ -22,7 +22,8 @@ class ReadingChangesTest {
                                          final String nearestArchive, final double archiveBits,
                                          final boolean apart, final List<String> topics) {
         return ReadingExport.of(
-                new ExportedSummary("CodeSemantics", commit, topics, List.of("WordNet Domains"),
+                new ExportedSummary("CodeSemantics", commit, ExportedAnswer.NONE, topics,
+                        List.of("WordNet Domains"),
                         List.of(new ExportedPlacement("arXiv",
                                 new ExportedPlacement.Level(nearestArchive, archiveBits, 0.41, apart,
                                         MEETS_ON, List.of()),

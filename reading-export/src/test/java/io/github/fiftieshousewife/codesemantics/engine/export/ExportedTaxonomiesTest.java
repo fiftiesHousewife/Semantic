@@ -52,7 +52,8 @@ class ExportedTaxonomiesTest {
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
-                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "WordClass", 20, 0.8, 1, 1.0,
+                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "what the publisher says it means",
+                                "WordClass", 20, 0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 

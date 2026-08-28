@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
@@ -21,6 +22,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * its own repository has no such file, and a column it cannot fill says so rather than guessing.
  *
  * @param repository   the tree the reading was taken of
+ * @param answer       what it is about, from the most specific evidence that stood above chance
  * @param about        the topics the word reading names, in its own order
  * @param vocabularies every vocabulary the reading published, which is every one that beat its own bar
  * @param placedIn     one entry per subject scheme, at both of its levels
@@ -28,9 +30,9 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * @param statedArea   the subject area a manifest states for this repository, and none where it states one
  *                     for no repository or none for this one
  */
-public record ReadingRow(String repository, List<String> about, List<ExportedTaxonomy> vocabularies,
-                         List<ExportedPlacement> placedIn, double lambda,
-                         Optional<String> statedArea) {
+public record ReadingRow(String repository, ExportedAnswer answer, List<String> about,
+                         List<ExportedTaxonomy> vocabularies, List<ExportedPlacement> placedIn,
+                         double lambda, Optional<String> statedArea) {
 
     public ReadingRow {
         about = List.copyOf(about);
@@ -40,8 +42,8 @@ public record ReadingRow(String repository, List<String> about, List<ExportedTax
 
     /** The reading, with the area a manifest states for it. */
     public static ReadingRow of(final ReadingExport export, final Optional<String> statedArea) {
-        return new ReadingRow(export.summary().repository(), export.summary().about(),
-                export.taxonomies(), export.summary().placedIn(),
+        return new ReadingRow(export.summary().repository(), export.summary().answer(),
+                export.summary().about(), export.taxonomies(), export.summary().placedIn(),
                 export.summary().shareOfWordsWithACitation(), statedArea);
     }
 

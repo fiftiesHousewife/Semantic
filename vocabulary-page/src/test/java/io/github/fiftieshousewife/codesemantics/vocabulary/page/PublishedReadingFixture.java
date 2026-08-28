@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportFile;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSignal;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
@@ -70,7 +71,7 @@ final class PublishedReadingFixture {
 
     private static ReadingExport export() {
         return ReadingExport.of(
-                new ExportedSummary("a-repository", "c0ffee", List.of("linguistics"), List.of(),
+                new ExportedSummary("a-repository", "c0ffee", ExportedAnswer.NONE, List.of("linguistics"), List.of(),
                         List.of(), List.of(), List.of(), List.of(), 0.9, 0.5,
                         new ExportedSummary.Counts(3, 0, 0)),
                 List.of(signal("coupon", 0.010, 0.009, 40), signal("lemma", 0.008, 0.007, 30),

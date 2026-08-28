@@ -150,7 +150,7 @@ public final class ExportedReading {
                 .filter(one -> one.bar().exceedsChance())
                 .toList();
 
-        return ReadingExport.builder()
+        final ReadingExport answered = ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,
                         taxonomies, placedIn(reading, themes, field)))
                 .signals(signals)
@@ -161,6 +161,25 @@ public final class ExportedReading {
                         matched.size() - taxonomies.size(),
                         judged.stream().mapToInt(SpecificTerms::refused).sum()))
                 .build();
+        return answering(answered);
+    }
+
+    /**
+     * The same reading with {@code summary.answer} filled from the most specific evidence that stood above
+     * chance. It is taken from the finished export rather than from the readings behind it, so the answer
+     * and the blocks a consumer reads it against are one document.
+     */
+    private static ReadingExport answering(final ReadingExport export) {
+        return new ReadingExport(export.schemaVersion(),
+                answered(export.summary(), AnswerRungs.answering(export)), export.signals(),
+                export.thresholds(), export.themes(), export.taxonomies(), export.setAside());
+    }
+
+    private static ExportedSummary answered(final ExportedSummary summary, final ExportedAnswer answer) {
+        return new ExportedSummary(summary.repository(), summary.commit(), answer, summary.about(),
+                summary.aboutStatedBy(), summary.placedIn(), summary.leadingWords(),
+                summary.leadingConcepts(), summary.distinctiveScopes(),
+                summary.shareOfWordsWithACitation(), summary.shareOfMassOnNoSubject(), summary.counts());
     }
 
     /**
@@ -194,6 +213,7 @@ public final class ExportedReading {
         return ExportedSummary.builder()
                 .repository(reading.root().getFileName().toString())
                 .commit(commit)
+                .answer(ExportedAnswer.NONE)
                 .about(summary.about())
                 .aboutStatedBy(ABOUT_STATED_BY)
                 .placedIn(placedIn)

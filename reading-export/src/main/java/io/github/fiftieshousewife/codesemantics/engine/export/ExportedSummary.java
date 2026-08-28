@@ -29,8 +29,8 @@ import lombok.Builder;
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
  */
 @Builder
-public record ExportedSummary(String repository, String commit, List<String> about,
-                              List<String> aboutStatedBy,
+public record ExportedSummary(String repository, String commit, ExportedAnswer answer,
+                              List<String> about, List<String> aboutStatedBy,
                               List<ExportedPlacement> placedIn, List<LeadingWord> leadingWords,
                               List<LeadingConcept> leadingConcepts,
                               List<DistinctiveScope> distinctiveScopes,
@@ -63,6 +63,7 @@ public record ExportedSummary(String repository, String commit, List<String> abo
     public ExportedSummary {
         Objects.requireNonNull(repository, "repository");
         Objects.requireNonNull(commit, "commit");
+        Objects.requireNonNull(answer, "answer");
         about = List.copyOf(about);
         aboutStatedBy = List.copyOf(aboutStatedBy);
         placedIn = List.copyOf(placedIn);

@@ -29,6 +29,7 @@
       "required": [
         "repository",
         "commit",
+        "answer",
         "about",
         "aboutStatedBy",
         "placedIn",
@@ -49,6 +50,46 @@
           "title": "Commit",
           "description": "The commit the working tree stood on, supplied by the caller. The reading opens no .git, so this is empty where the caller supplied nothing.",
           "type": "string"
+        },
+        "answer": {
+          "title": "What the repository is about",
+          "description": "One statement, taken from the most specific evidence that stands above chance, and what it rests on. A published vocabulary's terms of more than one word answer first, because a repository outside a field does not write `cap floor` or `msg seq num` by accident and the publisher states what the run means; then the same vocabularies' one-word terms, which carry no permutation bar and are admitted only where the repository writes another concept from the same branch; then a subject scheme's placement, where nothing is matched at all and the answer is a distance. A reading naming a subject scheme is one whose vocabularies said nothing, which is a fact about the repository and not a gap filled from a weaker source in silence. Every rung's own figures stay in `taxonomies` and `summary.placedIn` beneath it.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "sourceType",
+            "source",
+            "placedUnder",
+            "result",
+            "qualifiedBy"
+          ],
+          "properties": {
+            "sourceType": {
+              "description": "What kind of thing answered: `taxonomy` for a vocabulary of terms matched identifier to identifier, `subject scheme` for a scheme of published prose diverged against, or `nothing`.",
+              "type": "string",
+              "enum": [
+                "taxonomy",
+                "subject scheme",
+                "nothing"
+              ]
+            },
+            "source": {
+              "description": "The publisher, under the name it states. Empty where nothing answered.",
+              "type": "string"
+            },
+            "placedUnder": {
+              "description": "Where the publisher places what answered, kept because a definition read without it is a sentence with no field around it: `Session` says which part of the FIX protocol `MsgSeqNum` belongs to. Empty at a root of the taxonomy, and empty for a subject scheme, which places a repository rather than a concept.",
+              "type": "string"
+            },
+            "result": {
+              "description": "What that publisher says this repository is. For a taxonomy it is the publisher's own definition of the concept the repository wrote most, named before it — the node carries the meaning, and reporting only its name would have matched a name. A concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer; where the vocabulary defines none of what was matched, what the vocabulary covers is the most the publishers say. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification — stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
+              "type": "string"
+            },
+            "qualifiedBy": {
+              "description": "How it cleared its own bar, in the unit that bar is set in.",
+              "type": "string"
+            }
+          }
         },
         "about": {
           "title": "Subjects that distinguish some part of the repository",
@@ -369,7 +410,8 @@
                 "specificity",
                 "wordsInTerm",
                 "shareOfEachName",
-                "firstWrittenAt"
+                "firstWrittenAt",
+                "definition"
               ],
               "properties": {
                 "concept": {
@@ -379,6 +421,10 @@
                 },
                 "term": {
                   "description": "The run of words the repository wrote to reach the concept. It is not the concept's label: a two-word term reaches a concept CSO labels `capital`, so a reading carrying only the label cannot say which phrase was written.",
+                  "type": "string"
+                },
+                "definition": {
+                  "description": "What the publisher says the concept means, empty where it states nothing. It is the whole reason a taxonomy is matched rather than a word list: the node carries the meaning, and a reading that reaches a node and drops its definition has matched a name.",
                   "type": "string"
                 },
                 "placedUnder": {

@@ -129,3 +129,8 @@ tr.kinds th {
 tr.kinds th:not(:empty) {
     border-bottom: 1px solid var(--rule);
 }
+
+td.result {
+    max-width: 34rem;
+    color: var(--ink-soft);
+}

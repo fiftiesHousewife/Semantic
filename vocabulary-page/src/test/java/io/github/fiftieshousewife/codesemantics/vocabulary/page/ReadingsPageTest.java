@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
-import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
-import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -28,115 +26,71 @@ class ReadingsPageTest {
                 : new ExportedPlacement.Level(subject, 0.4, 0.3, false, List.of(), List.of());
     }
 
-    private static ExportedTaxonomy answering(final String vocabulary, final int phrases, final int bar,
-                                              final ExportedTaxonomy.Concept... concepts) {
-        return new ExportedTaxonomy(vocabulary, List.of(concepts), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 2, 999));
-    }
-
-    private static ExportedTaxonomy.Concept term(final String label, final int words,
-                                                 final int occurrences) {
-        return new ExportedTaxonomy.Concept(label, label, "a branch", occurrences, 0.9, words, 1.0,
-                new SightingSite("A.java", 1));
-    }
-
-    private static ReadingRow row(final String repository, final List<ExportedTaxonomy> published,
+    private static ReadingRow row(final String repository, final ExportedAnswer answer,
                                   final Optional<String> statedArea) {
-        return new ReadingRow(repository, List.of("linguistics"), published,
+        return new ReadingRow(repository, answer, List.of("linguistics"), List.of(),
                 List.of(new ExportedPlacement("OpenAlex",
                         level("Artificial Intelligence", true),
                         level("Natural Language Processing Techniques", true))),
                 0.981, statedArea);
     }
 
-    @Test
-    void namesEveryReadingItWasGiven() {
-        final String markup = page.markup(
-                List.of(row("tika", List.of(), Optional.empty()),
-                        row("maven", List.of(), Optional.empty())),
-                StatedAreas.none());
-
-        assertAll(
-                () -> assertThat(markup).contains("tika"),
-                () -> assertThat(markup).contains("maven"));
+    private static ExportedAnswer taxonomy(final String source, final String result) {
+        return new ExportedAnswer("taxonomy", source, "a branch", result,
+                "22 phrases against the 2 a deal reaches");
     }
 
     @Test
-    void drawsThePhrasesTheRepositoryWroteAndNotOnlyTheVocabularyThatStatesThem() {
+    void namesTheSourceTypeTheSourceAndWhatThatPublisherSaysTheRepositoryIs() {
         final String markup = page.markup(
-                List.of(row("strata", List.of(answering("CSO", 17, 13,
-                        term("cubic spline", 2, 21), term("value", 1, 400))), Optional.empty())),
-                StatedAreas.none());
-
-        assertAll(
-                () -> assertThat(markup).contains("cubic spline ×21"),
-                () -> assertThat(markup)
-                        .as("a one-word term is the everyday English any repository hits, and the bar "
-                                + "beside it is computed over the phrases alone")
-                        .doesNotContain("value ×400"));
-    }
-
-    @Test
-    void namesEveryVocabularyThatBeatItsBarAndNotOnlyTheStrongest() {
-        final String markup = page.markup(
-                List.of(row("tika", List.of(answering("OLiA", 3, 2), answering("CSO", 30, 18)),
+                List.of(row("strata", taxonomy("FIBO",
+                        "what a financial thing is — instruments, parties and agreements"),
                         Optional.empty())),
                 StatedAreas.none());
 
         assertAll(
-                () -> assertThat(markup).contains("OLiA 1.5×"),
-                () -> assertThat(markup).contains("CSO 1.7×"));
+                () -> assertThat(markup).contains(">taxonomy<"),
+                () -> assertThat(markup).contains(">FIBO<"),
+                () -> assertThat(markup).contains("instruments, parties and agreements"));
     }
 
     @Test
-    void statesTheVocabularyThatBeatItsBarWithTheCountAndTheBar() {
+    void drawsNoSubjectSchemeWhereAVocabularyAnswered() {
         final String markup = page.markup(
-                List.of(row("quickfixj", List.of(answering("FIX", 22, 2, term("limit order", 2, 91))), Optional.empty())),
+                List.of(row("quickfixj", taxonomy("FIX", "how the front office talks to the market"),
+                        Optional.empty())),
                 StatedAreas.none());
 
         assertAll(
-                () -> assertThat(markup).contains("FIX 11.0×"),
-                () -> assertThat(markup).contains("22 phrases against 2"));
+                () -> assertThat(markup)
+                        .as("a scheme places quickfixj under Wireless Networks and Protocols while FIX "
+                                + "stands at ten times its own bar, and showing both would put a weaker "
+                                + "answer beside a stronger one as though a reader should weigh them")
+                        .doesNotContain("Artificial Intelligence"),
+                () -> assertThat(markup).doesNotContain("Natural Language Processing Techniques"));
     }
 
     @Test
-    void saysSoWhereNoVocabularyBeatItsBarRatherThanLeavingTheCellBlank() {
+    void namesTheSchemeWhereNoVocabularyAnswered() {
         final String markup = page.markup(
-                List.of(row("maven", List.of(), Optional.empty())), StatedAreas.none());
-
-        assertThat(markup)
-                .as("an empty cell reads as a page that failed to draw one")
-                .contains("phrase count beat what a deal of its own");
-    }
-
-    @Test
-    void drawsNoSubjectWhereTheSchemeCouldNotSeparateTheRepositoryFromChance() {
-        final ReadingRow within = new ReadingRow("aeron", List.of(), List.of(),
-                List.of(new ExportedPlacement("arXiv", level("Computer Science", false),
-                        level("Databases", true))), 0.9, Optional.empty());
-
-        final String markup = page.markup(List.of(within), StatedAreas.none());
+                List.of(row("maven", new ExportedAnswer("subject scheme", "OpenAlex", "", "Computer Science",
+                        "0.079 bits nearer than chance reached"), Optional.empty())),
+                StatedAreas.none());
 
         assertAll(
-                () -> assertThat(markup)
-                        .as("the vocabularies beside it appear only where they beat their own bar, and a "
-                                + "page applying a bar to one kind of claim and printing the other "
-                                + "whatever it says has two standards on it")
-                        .doesNotContain(">Computer Science<"),
-                () -> assertThat(markup)
-                        .as("the subject stays available to somebody looking for it")
-                        .contains("the nearest subject was Computer Science"),
-                () -> assertThat(markup).contains(">Databases<"));
+                () -> assertThat(markup).contains(">subject scheme<"),
+                () -> assertThat(markup).contains(">OpenAlex<"),
+                () -> assertThat(markup).contains(">Computer Science<"));
     }
 
     @Test
-    void namesTheTwoKindsOfClaimApartBecauseTheyAreNotOneAnswer() {
+    void saysWhyRatherThanLeavingTheRowBlankWhereNothingAnswered() {
         final String markup = page.markup(
-                List.of(row("tika", List.of(), Optional.empty())), StatedAreas.none());
+                List.of(row("mine", ExportedAnswer.NONE, Optional.empty())), StatedAreas.none());
 
         assertAll(
-                () -> assertThat(markup).contains("matched against published terms"),
-                () -> assertThat(markup).contains("placed among published subjects"));
+                () -> assertThat(markup).contains(">nothing<"),
+                () -> assertThat(markup).contains("no evidence stood above chance"));
     }
 
     @Test
@@ -147,7 +101,8 @@ class ReadingsPageTest {
         final StatedAreas stated = StatedAreas.at(manifest);
 
         final String markup = page.markup(
-                List.of(row("tika", List.of(), stated.of("tika"))), stated);
+                List.of(row("tika", taxonomy("CSO", "the topics computer science is indexed by"),
+                        stated.of("tika"))), stated);
 
         assertAll(
                 () -> assertThat(markup).contains("Computer Science"),
@@ -160,56 +115,8 @@ class ReadingsPageTest {
 
     @Test
     void leavesTheStatedAreaEmptyWhereNoManifestNamesTheRepository() {
-        assertThat(page.markup(List.of(row("mine", List.of(), Optional.empty())),
+        assertThat(page.markup(List.of(row("mine", ExportedAnswer.NONE, Optional.empty())),
                 StatedAreas.none()))
                 .contains("no manifest states an area for this repository");
-    }
-
-    @Test
-    void statesACountAgainstNothingWhereTheDealsReachNoBarAtAll() {
-        final String markup = page.markup(
-                List.of(row("quickfixj", List.of(answering("OLiA", 1, 0, term("non initial", 2, 1))), Optional.empty())),
-                StatedAreas.none());
-
-        assertAll(
-                () -> assertThat(markup)
-                        .as("timesTheBar answers with the count where the bar is zero, so a single match "
-                                + "would read as standing at exactly its bar")
-                        .contains("OLiA 1, no bar"),
-                () -> assertThat(markup).doesNotContain("OLiA 1.0"));
-    }
-
-    @Test
-    void headsAColumnForEverySchemeTheReadingsPlaceUnderAndNamesNoneItself() {
-        final ReadingRow drawn = new ReadingRow("mine", List.of(), List.of(),
-                List.of(new ExportedPlacement("a scheme nobody has bundled yet",
-                        level("A Field", true), level("A Topic", true))),
-                0.9, Optional.empty());
-
-        assertAll(
-                () -> assertThat(page.markup(List.of(drawn), StatedAreas.none()))
-                        .as("naming the schemes here would be the page deciding which a reading has, and "
-                                + "a scheme dropped would leave a column headed for it and empty")
-                        .contains("<th>a scheme nobody has bundled yet</th>"),
-                () -> assertThat(page.markup(List.of(drawn), StatedAreas.none()))
-                        .doesNotContain("<th>arXiv</th>"));
-    }
-
-    @Test
-    void drawsOneColumnPerSchemeWhereTheReadingsPlaceUnderSeveral() {
-        final ReadingRow both = new ReadingRow("tika", List.of(), List.of(),
-                List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
-                                level("Computation and Language", true)),
-                        new ExportedPlacement("OpenAlex", level("Artificial Intelligence", true),
-                                level("Natural Language Processing Techniques", true))),
-                0.9, Optional.empty());
-
-        final String markup = page.markup(List.of(both), StatedAreas.none());
-
-        assertAll(
-                () -> assertThat(markup).contains("<th>arXiv</th>"),
-                () -> assertThat(markup).contains("<th>OpenAlex</th>"),
-                () -> assertThat(markup).contains("Computation and Language"),
-                () -> assertThat(markup).contains("Natural Language Processing Techniques"));
     }
 }
