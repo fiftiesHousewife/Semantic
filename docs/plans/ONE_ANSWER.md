@@ -94,6 +94,24 @@ Five steps. Each names the class that carries it, the contract it must satisfy, 
 
 ### Step 1 — the pooled run table, as its own bundled resource
 
+**Landed 2026-08-28.** `corpusRunPool` pools the runs over the same hundred clones and writes one table per weighting; [`reference-corpus-run-shares.tsv`](../../reference-corpus/src/main/resources/reference-corpus-run-shares.tsv) is the mean of shares, bundled beside the word table and read by `PooledRunShares` and `RunRanks`. 1,200 runs over 17,797 occurrences. The twelve rows the worked example rests on reproduce exactly — `time_zone` 446, `mime_type` 165, `resource_type` 51, `country_code` 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg`, `accrual_period`. Both provenance tests pass and no figure in any reading moved, because nothing reads the table yet.
+
+**Two corrections the measurement forces on the worked example above, neither of which changes its ordering.**
+
+**The Specificity column is written the wrong way up.** It states 0.375 for `time_zone` where its own `log(rank)/log(size)` column states 0.625, and 1.000 for an absent run. `WordSpecificity.of` returns `log(rank)/log(size)` itself, so under the class step 2 names `time_zone` scores **0.625** and `cap_floor` **1.000**. Commoner is still lower and absent is still highest; the gap between them is smaller than the table drew it.
+
+**The ranks were read off the word table, not off a run table, because no run table existed when this was written.** They are positions among 28,129 pooled units. The bundled run table holds 1,200 rows, and a run's rank in it is a rank among runs, which is what makes the scale bounded by that table's own length.
+
+| Run | Occurrences | Rank of 1,200, mean of shares | `log(rank)/log(1200)` | Rank of 1,200, pooled occurrences | `log(rank)/log(1200)` |
+|---|--:|--:|--:|--:|--:|
+| `time_zone` | 446 | 32 | 0.489 | 3 | 0.155 |
+| `mime_type` | 165 | 62 | 0.582 | 20 | 0.423 |
+| `resource_type` | 51 | 123 | 0.679 | 79 | 0.616 |
+| `country_code` | 11 | 708 | 0.926 | 258 | 0.783 |
+| `cap_floor` and its four kin | none | — | 1.000 | — | 1.000 |
+
+**What that costs step 2.** The rank-based bar has 0.489 to 1.000 to work in under the bundled weighting, and `country_code` at 0.926 sits nearer the absent runs than to `time_zone`. The occurrence-based candidate — absent, or below the word table's own floor of 63 — separates the same six rows at 446, 165 and 51 against 11 and five absences, which is the wider margin. **Step 2 measures both**, and the mean-of-shares weighting is what is bundled because the frame drew repositories rather than bytes, which is the reason the word table states for its own weighting. `corpusRunPool` writes the other table beside it, so reversing that costs one file copy.
+
 **What it is.** A table of the runs the 100 drawn Java repositories declare, with the occurrences and share of each, keyed and weighted exactly as [`reference-corpus-shares.tsv`](../../reference-corpus/src/main/resources/reference-corpus-shares.tsv) is. It is a second table, not a replacement, and nothing in the word arm reads it.
 
 **Where it comes from.** The pool has already been run. `CorpusPoolCommand` reads each clone through `LegibilityReading`, which applies `CollocatedWords`; running it with the bundled vocabularies' runs pooled into the index produced 28,128 units over 1,540,099 occurrences, of which 1,200 hold a run rather than a single word. The run rows of that pool are the table. The word rows are discarded here because the word arm already has its own table, drawn at the unit the word arm actually reads.
@@ -108,7 +126,9 @@ Five steps. Each names the class that carries it, the contract it must satisfy, 
 | Rank | `RunRanks`, mirroring `WordRanks`, so `log(rank) / log(size)` reads off it unchanged |
 | Provenance | `BundledVocabulary.DIRECTORIES` already covers the module, so `VocabularyProvenanceTest` picks the header up; `PooledRunShares` names the resource as a constant so `BundledResourceReachabilityTest` finds it read |
 
-**Command.** `./gradlew :reference-corpus-extraction:corpusPool -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv -Dcs.corpus.out=build/corpus-tables`, then the run rows extracted to the new resource. About two and a half minutes; the clones are local and nothing reaches the network.
+**Command.** `./gradlew :reference-corpus-extraction:corpusRunPool -Dcs.corpus.dir=$HOME/corpus -Dcs.corpus.manifest=reference-corpus-extraction/src/main/resources/reference-corpus-published.tsv -Dcs.corpus.out=build/corpus-tables`, then `reference-corpus-run-mean-of-shares.tsv` copied in as the resource. Two and a half minutes; the clones are local and nothing reaches the network.
+
+**It is a second read of the corpus, not the run rows of the first.** `CorpusRuns` reads under `EveryPublishedRun` — the dictionaries' collocations and the seven term vocabularies' multi-word labels together — because two adjacent words are merged only where the index states the run. Under the index a reading runs on, `cap_floor` is never merged, never counted, and reads as absent whatever the corpus writes; the absence has to be earned. The word tables stay pooled under the reading's own index, which is what keeps their shares comparable with a reading's, and each repository's shares are taken again over its runs alone so the run table is a distribution over runs.
 
 **Kept when** the table states `time_zone` at 446 occurrences, `mime_type` at 165, `resource_type` at 51 and `country_code` at 11, and states none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg` or `accrual_period`. Those are the twelve rows the worked example rests on and they are already measured; the step is complete when the bundled table reproduces them.
 
@@ -178,7 +198,7 @@ One published class taking a directory and returning the export, and a README se
 
 | | Step | Costs | Settled by |
 |--:|---|---|---|
-| 1 | the pooled run table as a bundled resource | the pool is run; one extraction and one build | the twelve rows of the worked example reproduce, and both provenance tests pass |
+| 1 | ~~the pooled run table as a bundled resource~~ **landed 2026-08-28** | one pool and one build | the twelve rows reproduce; both provenance tests pass; no reading moves |
 | 2 | `SpecificTerms` on the index, `PhraseSpecificity` reading runs against runs | one build, then `phraseNull` per member | FpML's tika figure falls below its bar, its jpos and strata figures hold, FIX's five non-trading clears fall |
 | 3 | the bar in `reading.json`, matches below it withheld and counted | one build, one self read, a profile | the ten readings publish a bar and none publishes a match below it |
 | 4 | the cascade in `about` and `aboutStatedBy` | a schema bump and the full backtest | 36 level readings hold at 33 apart, and rung 1 answers on the four finance members and no others |

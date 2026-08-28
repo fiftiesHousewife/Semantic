@@ -48,6 +48,20 @@ public final class PublishedPhrases {
         return written.contains(run);
     }
 
+    /** Every run the index holds, so a second index can be pooled from this one without reloading it. */
+    public Set<String> stated() {
+        return written;
+    }
+
+    /**
+     * Whether a unit a reading produced is a run of several words rather than one word, asked of the joiner
+     * the resources are keyed by. The splitter never leaves a joiner inside a single word, so the character
+     * is present in a unit exactly where a run was merged.
+     */
+    public static boolean isARun(final String written) {
+        return written.contains(JOINER);
+    }
+
     /** How many words the longest run either resource publishes is written in. */
     public int longestRun() {
         return longestRun;

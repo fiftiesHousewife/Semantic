@@ -2,15 +2,11 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryTopics;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierReading;
@@ -47,8 +43,7 @@ class PublishedTermRunsDiagnostic {
             .filter(run -> !fromDictionaries.contains(run))
             .collect(Collectors.toUnmodifiableSet());
     private final CollocatedWords collocated = new CollocatedWords(
-            new PublishedPhrases(pooled(fromDictionaries, fromVocabularies)),
-            ContentWords.fromClasspath());
+            EveryPublishedRun.newInstance(), ContentWords.fromClasspath());
 
     @Test
     void countsWhatTheTermVocabulariesAddToTheUnit() {
@@ -64,7 +59,7 @@ class PublishedTermRunsDiagnostic {
                 .flatMap(file -> file.occurrences().stream())
                 .flatMap(occurrence -> phrasesOf(occurrence).stream())
                 .map(reading -> collocated.of(reading.words()))
-                .flatMap(phrase -> phrase.stream().filter(PublishedTermRunsDiagnostic::isARun))
+                .flatMap(phrase -> phrase.stream().filter(PublishedPhrases::isARun))
                 .forEach(run -> read.merge(run, 1, Integer::sum));
         final Map<String, Integer> newlyRead = restrictedToTheVocabularies(read);
 
@@ -117,10 +112,6 @@ class PublishedTermRunsDiagnostic {
         return occurrence.form().vocabulary().phrasesOf(occurrence.text(), words);
     }
 
-    private static boolean isARun(final String unit) {
-        return unit.contains(PublishedPhrases.JOINER);
-    }
-
     private static void report(final String heading, final Map<String, Integer> runs) {
         System.out.printf("%n%s: %d distinct, %d occurrences%n", heading, runs.size(),
                 runs.values().stream().mapToInt(Integer::intValue).sum());
@@ -135,15 +126,7 @@ class PublishedTermRunsDiagnostic {
         return runs.stream().mapToInt(run -> run.split(PublishedPhrases.JOINER, -1).length).max().orElse(1);
     }
 
-    private static Set<String> pooled(final Set<String> dictionaries, final Set<String> vocabularies) {
-        return Stream.concat(dictionaries.stream(), vocabularies.stream())
-                .collect(Collectors.toUnmodifiableSet());
-    }
-
     private static Set<String> dictionaryRuns() {
-        return Stream.concat(WordNetLexicon.fromClasspath().labelledCollocations().stream(),
-                        WiktionaryTopics.fromClasspath().collocations().stream())
-                .map(entry -> entry.toLowerCase(Locale.ROOT))
-                .collect(Collectors.toUnmodifiableSet());
+        return PublishedPhrases.fromClasspath().stated();
     }
 }

@@ -4,6 +4,8 @@ How densely working Java writes each word. A reading compares the words a reposi
 
 - [`reference-corpus-shares.tsv`](src/main/resources/reference-corpus-shares.tsv) — one row per word, carrying the manifest that drew the repositories it was pooled from.
 - [`PooledWordShares`](src/main/java/io/github/fiftieshousewife/codesemantics/reference/PooledWordShares.java) — reads that table and normalises it.
+- [`reference-corpus-run-shares.tsv`](src/main/resources/reference-corpus-run-shares.tsv) — the same hundred repositories counted in runs of words rather than in single words.
+- [`PooledRunShares`](src/main/java/io/github/fiftieshousewife/codesemantics/reference/PooledRunShares.java) and [`RunRanks`](src/main/java/io/github/fiftieshousewife/codesemantics/reference/RunRanks.java) — read that second table, as shares and as ranks.
 
 The table is drawn and pooled by [the corpus draw](../reference-corpus-extraction/README.md), which reaches the network and reads whole working trees. This module is published to consumers and does neither.
 
@@ -56,6 +58,32 @@ Pooled occurrences gives every occurrence equal weight, so A sets ten times as m
 
 Both weightings sum to one. Each repository's own shares sum to one, so summing them across a hundred repositories gives a hundred, and dividing by the repository count gives one.
 
+## The second table: runs of words
+
+A **run** is several words a publisher states as one entry — `time zone`, `interest rate swap`, `buffer overflow`. The word table answers whether an author chose a word; this table answers whether a publisher's own term is that publisher's vocabulary or is what every Java repository writes anyway.
+
+The question arises because a term vocabulary matches a repository on terms that are not its own. FpML publishes `TimeZone`, `MimeType`, `ResourceType` and `CountryCode` beside `CapFloor`, `FixedLeg`, `SwapLeg`, `FloatingLeg` and `AccrualPeriod`. A matcher counting all nine reads FpML into a text-extraction toolkit as readily as into a derivatives library. The table separates them.
+
+| Run | Occurrences in the hundred repositories |
+|---|--:|
+| `time_zone` | 446 |
+| `mime_type` | 165 |
+| `resource_type` | 51 |
+| `country_code` | 11 |
+| `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg`, `accrual_period` | none |
+
+**Three differences from the word table, each with its reason.**
+
+| | The word table | The run table |
+|---|---|---|
+| what a row is keyed by | a word the splitter produced | those words joined by `_`, where a publisher states the run |
+| which index the repositories were read under | the two topical dictionaries | the same two, plus the seven bundled term vocabularies' multi-word labels |
+| what a share is a share of | every unit a reading produces | the runs alone, so a run's rank is a rank among runs |
+
+The middle row is the one that matters. Two adjacent words are merged into one run only where a publisher states that run, so the index decides what the table can see at all. Pooled under the dictionaries alone, `cap_floor` is never merged, never counted, and reads as absent from the corpus — which is the answer the table is meant to earn rather than assume. Pooled under an index that also states the vocabularies' own labels, an absence is a measurement.
+
+**Nothing in the word arm reads it.** The word table is untouched, its 28,839 rows unchanged, and a word's rank is what it was. The run table is read only where a published term is judged against general Java.
+
 ## How to use it
 
 ```java
@@ -69,16 +97,20 @@ final double density = corpus.shareOf("buffer");
 | `at(Path)` | a candidate table on disk, so it can be measured before anything decides to bundle it |
 | `shareByWord()` | the whole distribution, as shares summing to one |
 | `shareOf(String)` | one word's share, and zero for a word the corpus never wrote |
+| `occurrencesOf(String)` | how many times the pooled repositories declared it, independent of the weighting |
+
+`PooledRunShares` answers the same four over runs, and `RunRanks.rank(String)` gives a run's row in the table, where `RunRanks.UNKNOWN_RANK` marks a run the corpus never wrote.
 
 The engine wraps it as [`CorpusVocabulary`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/CorpusVocabulary.java), which presents it to a reading as one reference beside ordinary English and the Java platform's API index.
 
-## What the table holds
+## What the tables hold
 
 | Column | Holds |
 |---|---|
-| `word` | the word as the identifier splitter produced it, from a name a repository declared |
+| `word`, or `run` | the word as the identifier splitter produced it, from a name a repository declared; in the run table, several such words joined by `_` |
 | `occurrences` | how many times the pooled repositories declared it, summed over all of them and independent of the weighting |
 | `share` | the mean of shares, in exponent notation |
+| `error` | the standard error of that share under the table's own weighting |
 
 A row reading `buffer<TAB>1234<TAB>2.000e-03` states 1,234 occurrences across the pooled repositories and a share of 0.002: two words in every thousand a drawn repository declares.
 
@@ -96,12 +128,15 @@ The file's header carries the drawing manifest whole — the frame, the seed, th
 
 **Seed** — the number that fixes which repositories the sample contains. The draw picks repositories by generating a sequence of positions in the frame with a [Mersenne Twister](https://dl.acm.org/doi/10.1145/272991.272995) pseudo-random generator, and that generator produces the same sequence every time from the same starting number. Seeded at 20260821, its first value below the frame's 4,154,178 repositories is 4,140,166, and it produces the same value on any machine that runs it. So the sample is unrelated to subject matter, and anybody can check that these repositories are the ones the seed selects. Choosing repositories one at a time, or re-running the draw until it looked right, would leave no such check.
 
+**Run** — several adjacent words some publisher states as one entry, so that a reading counts them once instead of counting each. `time zone` is a [WordNet](https://wordnet.princeton.edu/) entry; `interest rate swap` is a [FIBO](https://spec.edmcouncil.org/fibo/) concept label. Which runs exist is the publishers' answer and never this library's.
+
 **Declared name** — a name a repository's own authors invented: a class, method, field, parameter or local variable. In `public String quoteFor(final LocalDate valuationDate)` the author declared `quoteFor` and `valuationDate`. `public` and `final` are Java's keywords, and `String` and `LocalDate` are names the platform declared and this author quoted. Only declared names are counted, and the parse is what tells them apart.
 
 ## Limitations
 
 - **A word absent from the table has a share of zero.** A repository writing it then looks like it chose it. Cutting the tail of this table would promote exactly the words cut, so the table is bundled whole.
 - **The table states one draw.** Its own sampling error is measurable by splitting the draw in half and comparing the two tables that result, and the words whose figures move between halves are those whose shares sit near zero.
+- **The run table can only count runs some publisher states.** A pair of words no dictionary and no bundled vocabulary carries is never merged, so the table is silent about it — not because working Java does not write it, but because nothing asked. Adding a vocabulary changes what the table can see and the table is re-pooled with it.
 - **Regenerating the table moves every figure a reading publishes.** It is regenerated when the draw changes, and the figures are quoted as a reading of a named commit.
 
 ## References

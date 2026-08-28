@@ -115,6 +115,7 @@ The script runs four stages in order. Each is a Gradle task, available on its ow
 | 2 | clone them | `corpusFetch` | one working tree per row, at its pinned commit |
 | 3 | check for one project drawn twice | `corpusDuplicates` | every pair, with the verdict on each |
 | 4 | count and average the words | `corpusPool` | the frequency table |
+| 5 | count and average the runs of words | `corpusRunPool` | the run table |
 
 All four take `-Dcs.corpus.dir=$HOME/corpus` and `-Dcs.corpus.manifest=<draw>.tsv`, except `corpusDraw`, which states its own frame:
 
@@ -124,7 +125,7 @@ All four take `-Dcs.corpus.dir=$HOME/corpus` and `-Dcs.corpus.manifest=<draw>.ts
 
 `corpusDraw` takes four optional properties: `-Dcs.draw.publishes` requires a publication, `-Dcs.draw.exclude=owner/name,...` refuses named repositories, `-Dcs.draw.manifest=<file>.tsv` rewrites that manifest with its own header kept and the drawn rows beneath it, and `-Dcs.draw.total=<count>` refuses the draw unless the frame still holds that many.
 
-`corpusPool` needs `-Dcs.corpus.out=<directory>` for the tables it writes.
+`corpusPool` and `corpusRunPool` need `-Dcs.corpus.out=<directory>` for the tables they write.
 
 `corpusFetch` takes only the blobs a reading opens: Java source, prose, Maven modules, the file names under `src/test/resources`, and a tree's stated exclusions. Everything else — images, archives, compiled output — stays on the server. Fetching `AstralAdditions` whole transfers 406 MB; fetching what the reading opens transfers 1.5 MB, and both carry the same 177 files with the same contents. [`ReadPaths`](../repository-clones/src/main/java/io/github/fiftieshousewife/codesemantics/clones/ReadPaths.java) states the patterns and `ReadPathsCoverEveryScopeTest` fails where a scope reads something they leave off the disk.
 
@@ -162,6 +163,24 @@ Pooled occurrences gives every occurrence equal weight, so A sets ten times as m
 
 `corpusPool` writes both tables from a single read of the corpus. **The library bundles the mean of shares**, because the frame draws repositories at random and a repository is therefore the unit that should weigh one. Under pooled occurrences a single large repository can set a word's figure for the whole corpus.
 
+### The run table: the same repositories counted in runs
+
+A **run** is several adjacent words some publisher states as one entry. `corpusRunPool` counts those and nothing else, over the same hundred clones at the same commits, and writes a table per weighting exactly as `corpusPool` does.
+
+It is a second read of the corpus rather than a second table off the first, because the two are read under different indexes.
+
+| | `corpusPool` | `corpusRunPool` |
+|---|---|---|
+| index the words are merged under | the two topical dictionaries | the same two, plus the seven bundled term vocabularies' multi-word labels |
+| rows kept | every unit the reading produced | the runs alone |
+| what a share is a share of | every unit | the runs |
+
+Two adjacent words become one run only where the index states that run, so the index decides what a table can count. The word table is pooled under the index a reading actually runs on, which is the only thing that makes its shares comparable with a reading's. The run table is asked a different question — how often working Java writes the terms a vocabulary publishes — and under the reading's index a term like `cap_floor` would never be merged, never counted, and would read as absent whatever the corpus writes. Pooled under an index that states it, the absence is a measurement.
+
+Measured on 2026-08-28 over the hundred published-artefact repositories: 1,200 runs across 17,797 occurrences. `time_zone` at 446, `mime_type` at 165, `resource_type` at 51, `country_code` at 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg` or `accrual_period`.
+
+**The word table is untouched by this.** Its rows, its counts and its ranks are what they were, and nothing that reads it reads the run table.
+
 ### Comparing every pair: one project drawn twice
 
 Two repositories that are copies of the same project write nearly the same words in nearly the same proportions. So do two unrelated Java repositories, up to a point, because they share the language's common vocabulary. Similarity alone therefore decides nothing, and the frame's `fork:false` term catches only GitHub's own forks, never an independent copy somebody uploaded separately.
@@ -190,6 +209,8 @@ The pooled table reaches a reading in four steps.
 2. That file is copied into the `reference-corpus` module as [`reference-corpus-shares.tsv`](../reference-corpus/src/main/resources/reference-corpus-shares.tsv).
 3. [`PooledWordShares`](../reference-corpus/src/main/java/io/github/fiftieshousewife/codesemantics/reference/PooledWordShares.java) reads it and normalises the shares, which are written rounded.
 4. [`CorpusVocabulary`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/CorpusVocabulary.java) presents it to the engine as a [`ReferenceVocabulary`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/vocabulary/ReferenceVocabulary.java), beside ordinary English and the platform's API index.
+
+The run table takes the first three of those steps and stops there: `corpusRunPool` writes `reference-corpus-run-mean-of-shares.tsv`, it is copied in as [`reference-corpus-run-shares.tsv`](../reference-corpus/src/main/resources/reference-corpus-run-shares.tsv), and [`PooledRunShares`](../reference-corpus/src/main/java/io/github/fiftieshousewife/codesemantics/reference/PooledRunShares.java) and [`RunRanks`](../reference-corpus/src/main/java/io/github/fiftieshousewife/codesemantics/reference/RunRanks.java) read it. No reading consults it yet.
 
 **This module is separate from `reference-corpus` because the dependencies run the other way.** `code-semantics-engine` depends on `reference-corpus` for the bundled table, and this module depends on `code-semantics-engine` to read a repository the same way a reading does. Merging the two would make the engine depend on itself. `reference-corpus` is published to consumers; this module reaches the network and reads whole working trees, and neither belongs in a published artefact.
 

@@ -61,6 +61,25 @@ tasks.register<JavaExec>("corpusPool") {
     }
 }
 
+// The same repositories again, counted in runs rather than in words: how densely working Java writes each
+// run of words a publisher states as one entry. A second read, because the runs are merged under an index
+// the word tables are not pooled under. It reads a gigabyte of source and takes minutes; it reaches no
+// network.
+//   ./gradlew :reference-corpus-extraction:corpusRunPool -Dcs.corpus.dir=<clones> -Dcs.corpus.manifest=<draw>.tsv -Dcs.corpus.out=<directory for the tables>
+tasks.register<JavaExec>("corpusRunPool") {
+    group = "verification"
+    description = "Pools every drawn repository's runs into the table a published term is judged against"
+    mainClass = "io.github.fiftieshousewife.codesemantics.corpus.CorpusRunPoolCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    // A relative path is resolved against the repository root rather than this module, because that is
+    // where a caller typing the path is standing.
+    workingDir = rootDir
+    maxHeapSize = "6g"
+    listOf("dir", "manifest", "out").forEach { name ->
+        System.getProperty("cs.corpus.$name")?.let { systemProperty("cs.corpus.$name", it) }
+    }
+}
+
 // Whether the draw has stopped moving: how far the reference travels as each repository joins it, in the
 // drawn order, and how far it would travel if any one of them left. Both in bits, bounded at 1. It reads the
 // corpus and prints; it writes nothing.

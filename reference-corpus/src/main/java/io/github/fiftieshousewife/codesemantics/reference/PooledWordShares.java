@@ -1,17 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.reference;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -22,75 +12,50 @@ import java.util.stream.Stream;
  * not bytes — and it is the weighting no single repository can dominate. The table's own header states which
  * draw produced it, under what frame, and at what seed.
  *
- * <p>The shares are written rounded, so they are normalised on the way in: a divergence is taken between
- * distributions, and a column summing to 0.9998 is not one.
+ * <p>It states every unit a reading produces, a run of words a publisher merged included, because that is
+ * what a reading looks a word up as. {@link PooledRunShares} is the separate table over runs alone.
  */
 public final class PooledWordShares {
 
     private static final String RESOURCE = "/reference-corpus-shares.tsv";
+    private static final String COLUMNS = "word, occurrences, share";
 
-    private static final String COMMENT = "#";
-    private static final String COLUMN = "\t";
-    private static final int WORD = 0;
-    private static final int SHARE = 2;
-    private static final int ERROR = 3;
-    private static final int COLUMNS = 3;
-
-    private final Map<String, Double> shareByWord;
-    private final Map<String, Double> errorByWord;
+    private final PooledTable pooled;
 
     public PooledWordShares(final Stream<String> rows) {
-        final Map<String, String[]> stated = rows.filter(PooledWordShares::isRow)
-                .map(PooledWordShares::fields)
-                .collect(Collectors.toUnmodifiableMap(field -> field[WORD], field -> field));
-        final double total = stated.values().stream()
-                .mapToDouble(field -> Double.parseDouble(field[SHARE]))
-                .sum();
-        if (total <= 0.0) {
-            throw new IllegalStateException("A corpus table stating no share is an empty denominator, which "
-                    + "demotes nothing and reads exactly like a reference that found nothing to demote.");
-        }
-        this.shareByWord = stated.entrySet().stream()
-                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
-                        field -> Double.parseDouble(field.getValue()[SHARE]) / total));
-        this.errorByWord = stated.entrySet().stream()
-                .filter(field -> field.getValue().length > ERROR)
-                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey,
-                        field -> Double.parseDouble(field.getValue()[ERROR]) / total));
+        this.pooled = new PooledTable(rows, COLUMNS);
+    }
+
+    private PooledWordShares(final PooledTable pooled) {
+        this.pooled = pooled;
     }
 
     /** The table this module bundles. */
     public static PooledWordShares fromClasspath() {
-        final InputStream stream = Objects.requireNonNull(
-                PooledWordShares.class.getResourceAsStream(RESOURCE), RESOURCE);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-            return new PooledWordShares(reader.lines());
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT,
-                    "Failed to read %s",
-                    RESOURCE), e);
-        }
+        return new PooledWordShares(PooledTable.onTheClasspath(RESOURCE, COLUMNS));
     }
 
     /** A table at a path, so a candidate corpus can be read before anything decides to bundle it. */
     public static PooledWordShares at(final Path table) {
-        try (Stream<String> rows = Files.lines(table, StandardCharsets.UTF_8)) {
-            return new PooledWordShares(rows);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT,
-                    "Failed to read the corpus table %s",
-                    table), e);
-        }
+        return new PooledWordShares(PooledTable.at(table, COLUMNS));
     }
 
     /** What the corpus is written in, as shares over words summing to one. */
     public Map<String, Double> shareByWord() {
-        return shareByWord;
+        return pooled.shareByUnit();
     }
 
     /** How densely the corpus writes the word, and zero for a word it never wrote. */
     public double shareOf(final String word) {
-        return shareByWord.getOrDefault(word, 0.0);
+        return pooled.shareOf(word);
+    }
+
+    /**
+     * How many times the pooled repositories declared the word, summed over all of them and independent of
+     * the weighting. It is the count an occurrence floor is read against, where a share is not.
+     */
+    public int occurrencesOf(final String word) {
+        return pooled.occurrencesOf(word);
     }
 
     /**
@@ -99,21 +64,6 @@ public final class PooledWordShares {
      * wrote: an absence has no sampling error, because every draw agrees on it.
      */
     public double errorOf(final String word) {
-        return errorByWord.getOrDefault(word, 0.0);
-    }
-
-    private static boolean isRow(final String line) {
-        return !line.isBlank() && !line.startsWith(COMMENT);
-    }
-
-    private static String[] fields(final String row) {
-        final String[] fields = row.split(COLUMN, -1);
-        if (fields.length < COLUMNS) {
-            throw new IllegalStateException(String.format(Locale.ROOT,
-                    "A row of a corpus table states %s columns where a reading needs %s — word, "
-                    + "occurrences, share: %s",
-                    fields.length, COLUMNS, row));
-        }
-        return fields;
+        return pooled.errorOf(word);
     }
 }

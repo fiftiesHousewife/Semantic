@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public enum CorpusPooling {
 
     /** Every occurrence weighs the same, so a large repository weighs more than a small one. */
-    POOLED_OCCURRENCES("reference-corpus-pooled-occurrences.tsv",
+    POOLED_OCCURRENCES("pooled-occurrences",
             "every occurrence weighs the same, so a repository of a million words sets a thousand times "
                     + "as much of this table as one of a thousand words") {
         @Override
@@ -33,7 +33,7 @@ public enum CorpusPooling {
     },
 
     /** Every repository weighs the same, whatever its size. */
-    MEAN_OF_SHARES("reference-corpus-mean-of-shares.tsv",
+    MEAN_OF_SHARES("mean-of-shares",
             "every repository weighs the same whatever its size, which is the population the frame drew "
                     + "from: the sample is uniform over repositories rather than over bytes") {
         @Override
@@ -53,17 +53,30 @@ public enum CorpusPooling {
         }
     };
 
-    private final String fileName;
+    private static final String WORD_TABLE = "reference-corpus-";
+    private static final String RUN_TABLE = "reference-corpus-run-";
+    private static final String TSV = ".tsv";
+
+    private final String weighting;
     private final String weighs;
 
-    CorpusPooling(final String fileName, final String weighs) {
-        this.fileName = fileName;
+    CorpusPooling(final String weighting, final String weighs) {
+        this.weighting = weighting;
         this.weighs = weighs;
     }
 
     /** What the table this pooling produces is called, so one run writes both without naming either. */
     public String fileName() {
-        return fileName;
+        return WORD_TABLE + weighting + TSV;
+    }
+
+    /**
+     * What the same pooling's table over runs is called. It is a second table read only by the term path:
+     * the word table states every unit a reading produces, runs included, because that is the denominator a
+     * word is ranked against, and a run needs a denominator of runs.
+     */
+    public String runFileName() {
+        return RUN_TABLE + weighting + TSV;
     }
 
     /** What it weighs equally, for the table's own header to say. */

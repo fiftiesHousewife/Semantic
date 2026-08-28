@@ -25,6 +25,19 @@ class PublishedPhrasesTest {
     }
 
     @Test
+    void handsBackEveryRunItHoldsSoASecondIndexCanBePooledFromIt() {
+        assertThat(new PublishedPhrases(Set.of("noun_phrase", "part_of_speech")).stated())
+                .containsExactlyInAnyOrder("noun_phrase", "part_of_speech");
+    }
+
+    @Test
+    void callsAUnitARunWhereTheJoinerTheResourcesKeyByIsInIt() {
+        assertAll(
+                () -> assertThat(PublishedPhrases.isARun("noun_phrase")).isTrue(),
+                () -> assertThat(PublishedPhrases.isARun("noun")).isFalse());
+    }
+
+    @Test
     void takesItsBoundFromTheLongestRunTheResourcesPublish() {
         assertThat(new PublishedPhrases(Set.of("noun_phrase", "part_of_speech")).longestRun()).isEqualTo(3);
     }
