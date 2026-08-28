@@ -29,9 +29,9 @@ class MatchedPhrasesTest {
     }
 
     @Test
-    void countsAPhraseOnceForEachNameItStandsIn() {
+    void countsAPhraseStandingInManyNamesOnce() {
         assertThat(COUNTING.in(List.of(run(List.of("interest", "rate")),
-                run(List.of("the", "interest", "rate"))))).isEqualTo(2);
+                run(List.of("the", "interest", "rate"))))).isEqualTo(1);
     }
 
     @Test
