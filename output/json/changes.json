@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "63664a536f7555478a2676bfb734ace952c09864",
-  "commit" : "18ef21267b568c36f4b9df443813d1a327191339",
+  "previousCommit" : "18ef21267b568c36f4b9df443813d1a327191339",
+  "commit" : "c9646ce41e729f366b0c9fc42b431d28a1526de4",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -15,12 +15,12 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.4%",
-    "after" : "32.3%"
+    "before" : "32.3%",
+    "after" : "32.4%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.3%",
-    "after" : "40.2%"
+    "before" : "40.2%",
+    "after" : "40.4%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -39,8 +39,8 @@
     "after" : "41.3%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "44.9%",
-    "after" : "44.8%"
+    "before" : "44.8%",
+    "after" : "44.9%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -56,11 +56,11 @@
   }, {
     "figure" : "OpenAlex archive — divergence",
     "before" : "23.7%",
-    "after" : "23.7%"
+    "after" : "23.9%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
     "before" : "31.8%",
-    "after" : "31.8%"
+    "after" : "31.9%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -72,15 +72,15 @@
   }, {
     "figure" : "OpenAlex category — nearest subject",
     "before" : "Authorship Attribution and Profiling",
-    "after" : "Authorship Attribution and Profiling"
+    "after" : "Natural Language Processing Techniques"
   }, {
     "figure" : "OpenAlex category — divergence",
     "before" : "41.3%",
     "after" : "41.3%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.5%",
-    "after" : "48.4%"
+    "before" : "48.4%",
+    "after" : "48.6%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -88,11 +88,11 @@
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
     "before" : "7",
-    "after" : "7"
+    "after" : "8"
   }, {
     "figure" : "Words above the bar",
-    "before" : "264",
-    "after" : "266"
+    "before" : "266",
+    "after" : "268"
   }, {
     "figure" : "Topics reported",
     "before" : "9",
@@ -104,19 +104,27 @@
   } ],
   "crossings" : [ {
     "population" : "WORD",
-    "name" : "chain",
+    "name" : "dealt",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "deepest",
+    "name" : "judged",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "field",
+    "name" : "lowered",
     "entered" : true
   }, {
     "population" : "WORD",
-    "name" : "open",
+    "name" : "observed",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "distribution",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "every",
     "entered" : false
   } ]
 }
