@@ -1,7 +1,12 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
+
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 import org.junit.jupiter.api.Test;
 
@@ -56,5 +61,53 @@ class ScrambledTermsTest {
     @Test
     void dealsTheSameWayTwiceAtOneSeed() {
         assertThat(dealt().terms()).isEqualTo(ScrambledTerms.of(PUBLISHED, new Random(3)).terms());
+    }
+
+    @Test
+    void dealsTheSameWhateverOrderTheIndexHandsItsTermsIn() {
+        final TermIndex published = publishing("source", "interest rate", "maturity date", "trade date");
+        final List<List<String>> stated = List.copyOf(published.terms());
+
+        assertThat(ScrambledTerms.of(inThisOrder(published, stated), new Random(7L)).terms())
+                .as("a term index owes no order, and SpecificTerms answers with a set the platform salts "
+                        + "once per JVM, so a deal drawn in whatever order it arrives is a different bar on "
+                        + "every run of the same tree")
+                .isEqualTo(ScrambledTerms.of(inThisOrder(published, stated.reversed()), new Random(7L))
+                        .terms());
+    }
+
+    /** The same index answering with its terms in a stated order, which a set does not promise. */
+    private static TermIndex inThisOrder(final TermIndex published, final List<List<String>> order) {
+        return new TermIndex() {
+            @Override
+            public List<SkosConcept> conceptsOf(final List<String> words) {
+                return published.conceptsOf(words);
+            }
+
+            @Override
+            public Set<List<String>> terms() {
+                return new LinkedHashSet<>(order);
+            }
+
+            @Override
+            public int longestTerm() {
+                return published.longestTerm();
+            }
+
+            @Override
+            public Optional<String> broaderOf(final String prefLabel) {
+                return published.broaderOf(prefLabel);
+            }
+
+            @Override
+            public String source() {
+                return published.source();
+            }
+
+            @Override
+            public TermRung rung() {
+                return published.rung();
+            }
+        };
     }
 }

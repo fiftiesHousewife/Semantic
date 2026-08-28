@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,18 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  */
 public final class ScrambledTerms implements TermIndex {
 
+    /**
+     * The order the pool is laid out in before it is shuffled.
+     *
+     * <p>A shuffle is deterministic in its seed and in the order it is handed, and a {@link TermIndex} owes
+     * no order at all — {@link SpecificTerms} answers with a {@code Set.copyOf}, whose iteration order the
+     * platform salts once per JVM. Dealing from that would make the bar a different number on every run of
+     * the same tree, which is what a chance bar cannot be. Sorting by the term's own words is a stated order
+     * and costs one sort of a list already in memory.
+     */
+    private static final Comparator<List<String>> BY_ITS_OWN_WORDS =
+            Comparator.comparing(term -> String.join(" ", term));
+
     private final TermIndex published;
 
     private final Map<List<String>, List<SkosConcept>> dealt;
@@ -40,7 +53,7 @@ public final class ScrambledTerms implements TermIndex {
     }
 
     public static ScrambledTerms of(final TermIndex published, final Random draws) {
-        final List<List<String>> terms = List.copyOf(published.terms());
+        final List<List<String>> terms = published.terms().stream().sorted(BY_ITS_OWN_WORDS).toList();
         final String[] pool = terms.stream().flatMap(List::stream).toArray(String[]::new);
         permuted(pool, draws);
         return new ScrambledTerms(published, dealt(published, terms, pool));
