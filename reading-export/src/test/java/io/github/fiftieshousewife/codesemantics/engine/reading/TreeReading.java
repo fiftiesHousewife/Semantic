@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ThemeReading;
@@ -111,10 +112,17 @@ public final class TreeReading {
         return terms(MatchedTaxonomies.OLIA);
     }
 
-    /** One bundled taxonomy read over this tree, computed once per JVM and per taxonomy. */
+    /**
+     * One bundled taxonomy read over this tree, computed once per JVM and per taxonomy.
+     *
+     * <p>Over {@link SpecificTerms}, which is what the export publishes: a vocabulary is judged on the
+     * terms that are its own, and the reference corpus of working Java is what says which those are. The
+     * publisher's whole concept list still supplies the branch rule, because what a publisher states about
+     * its own tree is not narrowed by what a corpus writes.
+     */
     public CorroboratedReading terms(final MatchedTaxonomies taxonomy) {
         return TERMS.computeIfAbsent(new Match(root, taxonomy),
-                match -> CorroboratedReading.of(match.taxonomy().index(),
+                match -> CorroboratedReading.of(SpecificTerms.of(match.taxonomy().index()),
                         match.taxonomy().publishedConcepts(), parsed()));
     }
 

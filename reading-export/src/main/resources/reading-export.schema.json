@@ -345,7 +345,8 @@
           "vocabulary",
           "concepts",
           "branches",
-          "matchesByNormalisation"
+          "matchesByNormalisation",
+          "bar"
         ],
         "properties": {
           "vocabulary": {
@@ -484,6 +485,52 @@
                 "minimum": 0
               }
             }
+          },
+          "bar": {
+            "title": "How the vocabulary's phrase count stands against chance",
+            "description": "What a deal of this vocabulary's own words reaches on this repository, and how far its real count stands above that. The reference holds the repository still and deals the vocabulary: it keeps how many terms the publisher states, how long each is and its whole list of words, and destroys only which of its words it published beside which. A vocabulary whose word list is what reached the repository scores the same either way; one whose published orders reached it loses them. Dealing the repository instead would answer a different question, because declared names are compositional and a deal of them puts a vocabulary's words together in orders nobody wrote. Only vocabularies whose count exceeds `chanceExpectedBest` appear in this array at all; `setAside.vocabulariesBelowTheirChanceBar` counts the rest.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "phrases",
+              "chanceExpectedBest",
+              "median",
+              "timesTheBar",
+              "field",
+              "resamples"
+            ],
+            "properties": {
+              "phrases": {
+                "description": "How many of the vocabulary's terms of more than one word the repository writes, counted once each however often it wrote them. A term the reference corpus of working Java has been shown to write is removed from the vocabulary before this is counted, so what is counted is the publisher's own vocabulary.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "chanceExpectedBest": {
+                "description": "The count the best of a field this size reaches by chance alone, read off the deals at the quantile the field sets. Every vocabulary is tested at once, so the bar is what the best of them would reach and not what one of them would.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "median": {
+                "description": "The middle of the deals, so a reader can see both bars rather than one.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "timesTheBar": {
+                "description": "`phrases` divided by `chanceExpectedBest`. It is not comparable between two readings whose vocabularies lost different numbers of terms to the corpus, because the bar moves with the count.",
+                "type": "number",
+                "minimum": 0
+              },
+              "field": {
+                "description": "How many vocabularies competed, which is what sets the quantile the bar is read at.",
+                "type": "integer",
+                "minimum": 1
+              },
+              "resamples": {
+                "description": "How many deals were taken.",
+                "type": "integer",
+                "minimum": 1
+              }
+            }
           }
         }
       }
@@ -500,6 +547,8 @@
         "wordsTheLanguageSupplies",
         "scopesWithinChance",
         "matchesDiscardedByBranchRule",
+        "vocabulariesBelowTheirChanceBar",
+        "termsWorkingJavaAlsoWrites",
         "filesTheParserCouldNotRead"
       ],
       "properties": {
@@ -530,6 +579,16 @@
         },
         "matchesDiscardedByBranchRule": {
           "description": "Terms of one word the repository writes without writing any other concept from the same branch of the taxonomy. The branch rule discards them.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "vocabulariesBelowTheirChanceBar": {
+          "description": "Vocabularies matched against this repository and not published, because it wrote no more of their phrases than a deal of their own words reaches. Their concepts are left out with them.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "termsWorkingJavaAlsoWrites": {
+          "description": "Terms of the matched vocabularies that the reference corpus of working Java has been shown to write, summed over every vocabulary. They are removed from the index before either side of `taxonomies[].bar` is counted, so a vocabulary is judged on the terms that are its own: FpML states MimeType and TimeZone beside CapFloor, and only a corpus says which is FpML's subject. It counts the vocabularies' terms and not this repository's matches, because counting matches needs the reading run twice.",
           "type": "integer",
           "minimum": 0
         },

@@ -6,6 +6,7 @@ import java.util.Map;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
@@ -34,6 +35,9 @@ class ExportedTaxonomiesTest {
 
     private final ExportedTaxonomies taxonomies = new ExportedTaxonomies();
 
+    /** A bar stated rather than drawn, so a test of the export is not a test of the permutation. */
+    private static final PhraseBar ABOVE_CHANCE = new PhraseBar("OLiA", 12, 3, 2, 4, 999, 7);
+
     /** A branch reading stated rather than drawn, so a test of the export is not a test of the dictionary. */
     private static final BranchAgreement AGREEING = BranchAgreement.between(
             TopicDistribution.ofCitedMass(Map.of("linguistics", 1.0)),
@@ -43,7 +47,7 @@ class ExportedTaxonomiesTest {
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
 
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
@@ -56,7 +60,7 @@ class ExportedTaxonomiesTest {
     void writesATermTwoConceptsReadAsTwice() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("root"), 0.9, 4, concept("Root", "Morpheme"),
-                        concept("Root", "SyntacticHead"))), AGREEING);
+                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE);
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::placedUnder)
                 .as("which concept the repository meant is a question about evidence")
@@ -67,7 +71,7 @@ class ExportedTaxonomiesTest {
     void ordersTheConceptsBySpecificityTimesOccurrences() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("clause"), 0.9, 2, concept("Clause", "Constituent")),
-                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING);
+                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING, ABOVE_CHANCE);
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::concept)
                 .containsExactly("Noun", "Clause");
@@ -76,7 +80,7 @@ class ExportedTaxonomiesTest {
     @Test
     void statesWhatEachBranchIsWorthAndWhatConditioningOnItWouldLeave() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
 
         assertAll(
                 () -> assertThat(exported.branches()).singleElement()
@@ -101,7 +105,7 @@ class ExportedTaxonomiesTest {
                 SubjectAreas.fromClasspath());
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent, ABOVE_CHANCE);
 
         assertThat(exported.branches())
                 .as("a taxonomy that cannot be weighed is not one that weighs zero")
@@ -111,7 +115,7 @@ class ExportedTaxonomiesTest {
     @Test
     void countsEveryNormalisationLevelIncludingTheOnesProducingNoMatch() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
 
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())

@@ -50,8 +50,9 @@ class ReadingExportSchemaTest {
                     List.of(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1, 1.0,
                             new SightingSite("Reading.java", 9))),
                     List.of(new ExportedTaxonomy.Branch("WordClass", 0.52, 16.0, 8.32, List.of("verb"))),
-                    Map.of("words", 973, "lemmas", 201, "senses", 130))),
-            new SetAside(1_325, 625, 14, 9, 1, 56, 0));
+                    Map.of("words", 973, "lemmas", 201, "senses", 130),
+                    new ExportedTaxonomy.Bar(12, 3, 2, 4.0, 7, 999))),
+            new SetAside(1_325, 625, 14, 9, 1, 56, 2, 118, 0));
 
     private final ExportFile file = new ExportFile();
 
@@ -132,7 +133,8 @@ class ReadingExportSchemaTest {
     private static ReadingExport twoTaxonomies() {
         final List<ExportedTaxonomy> both = List.of(EXPORT.taxonomies().getFirst(),
                 new ExportedTaxonomy("CSO", List.of(), List.of(),
-                        Map.of("words", 0, "lemmas", 0, "senses", 0)));
+                        Map.of("words", 0, "lemmas", 0, "senses", 0),
+                        new ExportedTaxonomy.Bar(4, 1, 0, 4.0, 7, 999)));
         return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(),
                 EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside());
     }

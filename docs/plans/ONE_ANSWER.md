@@ -213,6 +213,28 @@ Two consequences follow and both are stated in `WorkingJavaRuns`:
 
 **Kept when** the ten readings publish a bar and no reading publishes a match below it. This changes `schemaVersion`, and a bumped version means no `changes.json` is written, so the before-and-after has to be taken by scoring the previous readings first.
 
+**Landed 2026-08-28, at schema 13.0.** `taxonomies[].bar` carries `phrases`, `chanceExpectedBest`, `median`, `timesTheBar`, `field` and `resamples`; a vocabulary appears in `taxonomies` only where its count beats its bar; `setAside` gains `vocabulariesBelowTheirChanceBar` and `termsWorkingJavaAlsoWrites`. Every index the export matches on — OLiA's included, through `TreeReading.terms` — is wrapped in `SpecificTerms` first, while the publisher's whole concept list still supplies the branch rule, because what a publisher states about its own tree is not narrowed by what a corpus writes.
+
+**The cost is measured and it is 37 seconds.** A self read was 1m 38s and is 2m 15s. The null is 999 deals per vocabulary and the export judges the vocabularies it publishes rather than all seven, so it pays two nulls where `phraseNull` pays seven. The plan's fallback — computing the bar only for the vocabularies that matched anything — was not needed.
+
+**The field is the number of vocabularies the export offers, and that is a weaker bar than the probe's.** `ChanceExpectedBest` reads the quantile at `1/(field + 1)`, so a field of two puts the bar at the 67th percentile of the deals where a field of seven puts it at the 88th. CSO clears on this repository at 1.25 times a field-of-two bar and failed at 0.8 against the probe's field of seven. Both are right about their own question: the export offers two candidate answers, and the probe deliberately puts seven in competition so the controls can be read. **This is open question 1 arriving early**, and step 4 is where it is settled, because the cascade's field is the number of candidate answers the cascade offers rather than the number one rung offers.
+
+**Why the controls are not judged here.** `ControlTaxonomies`'s own javadoc states it: a control that joined the reading it controls would be measuring itself. They compete in `phraseNull` and in `evidence.json`, and neither is an answer.
+
+**The backtest is the criterion and it is met exactly.** Step 3 touches the term arm alone, so the placement must not move at all, and it does not: 44 level readings, 39 standing apart, mean margin 0.0415, mean divergence 0.3890, mean chance bar 0.4304, 149 subjects in the bands, leader in the stated area 5 of 11 at both OpenAlex levels — every figure identical to the reading at the previous commit. What the eleven now publish varies by member, where before every member published both vocabularies:
+
+| Publishes | Members |
+|---|---|
+| OLiA and CSO | this repository, tika, aeron, quickfixj |
+| CSO alone | besu, fineract, jmeter-iso8583, jpos, santuario, strata |
+| nothing | maven, fix-trading-simulator |
+
+OLiA leaves nine of the eleven, which is a vocabulary of linguistic annotation correctly saying nothing about a bank or a build tool. **maven publishes no taxonomy at all**, which is the right answer for a build tool no bundled vocabulary covers.
+
+**A bar of zero is not much of a bar, and three readings sit on one.** `ChanceExpectedBest` reads the deals at the `1/(field + 1)` quantile, and where a vocabulary's counts are small that rank holds a zero — so any single match clears. quickfixj publishes OLiA on one phrase against a bar of 0, and jmeter-iso8583 publishes CSO on two against 0. `PhraseBar.timesTheBar` returns the observed count where the bar is zero, so those read as 1.00 and 2.00 rather than as a division. **The bar is only informative where the deals reach above zero**, and nothing in the export says which case a reader is looking at. What settles the repair: whether `exceedsChance` should require the observed count to beat the *median* deal as well, which costs nothing to compute and is already carried on the record.
+
+**What it costs the backtest.** `evaluationReadAll` over eleven members goes from 8m 9s to 16m 28s. The null is the whole of that.
+
 ### Step 4 — the cascade fills the answer
 
 **The rungs are an enum, not a chain of conditionals.** `AnswerRungs` in `reading-export`, one constant per rung, each answering `Optional<Answer>` for a reading, tried in order by `MostSpecificAnswer`. That is the same shape `MatchedTaxonomies` and `ControlTaxonomies` already use, and it keeps a new rung a new constant rather than a new branch.
@@ -242,7 +264,7 @@ One published class taking a directory and returning the export, and a README se
 |--:|---|---|---|
 | 1 | ~~the pooled run table as a bundled resource~~ **landed 2026-08-28** | one pool and one build | the twelve rows reproduce; both provenance tests pass; no reading moves |
 | 2 | ~~`SpecificTerms` on the index~~ **landed 2026-08-28** | one build, then `phraseNull` per member | 37 clears become 22; jpos and strata hold; FpML on tika falls 4.0 to 1.5 and still clears; four of FIX's five non-trading clears fall. `PhraseSpecificity` reading runs against runs moved to step 3 |
-| 3 | the bar in `reading.json`, matches below it withheld and counted | one build, one self read, a profile | the ten readings publish a bar and none publishes a match below it |
+| 3 | ~~the bar in `reading.json`, matches below it withheld and counted~~ **landed 2026-08-28** | one build, one self read, a profile | schema 13.0; a self read costs 37 s more; OLiA publishes 130 concepts where it published 142 |
 | 4 | the cascade in `about` and `aboutStatedBy` | a schema bump and the full backtest | 36 level readings hold at 33 apart, and rung 1 answers on the four finance members and no others |
 | 5 | the published entry point | one build and a README section | it is callable from outside the test source set |
 

@@ -22,10 +22,20 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
  *                                        this repository choosing them
  * @param scopesWithinChance              scopes at least one of 999 chance resamples matched or exceeded
  * @param matchesDiscardedByBranchRule    one-word terms written without another concept from their branch
+ * @param vocabulariesBelowTheirChanceBar  vocabularies matched and not published, because the repository
+ *                                        wrote no more of their phrases than a deal of their own words
+ *                                        reaches. Their concepts are left out with them
+ * @param termsWorkingJavaAlsoWrites      terms of those vocabularies the reference corpus has been shown to
+ *                                        write, summed over every vocabulary matched. They are removed from
+ *                                        the index before either side of the bar is counted, so a
+ *                                        vocabulary is judged on the terms that are its own. It counts the
+ *                                        vocabularies' terms and not this repository's matches: counting
+ *                                        matches needs the reading run twice
  * @param filesTheParserCouldNotRead      files the parse rejected, counted so the corpus stays reported
  */
 public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryThreshold,
                        int wordsWithinTheReferencesError, int wordsTheLanguageSupplies,
                        int scopesWithinChance, int matchesDiscardedByBranchRule,
+                       int vocabulariesBelowTheirChanceBar, int termsWorkingJavaAlsoWrites,
                        int filesTheParserCouldNotRead) {
 }

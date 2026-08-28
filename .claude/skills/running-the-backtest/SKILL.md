@@ -33,7 +33,7 @@ One line, and `$HOME` rather than `~` — neither bash nor zsh expands a tilde a
 | | |
 |---|---|
 | What it does | reads every cloned member in one JVM, several at a time. The count is the JVM's heap divided by the 3 GB the build gives one member's fork, and the first log line states it |
-| What it costs | about seven minutes for all eleven |
+| What it costs | about sixteen minutes for all eleven. Half of that is the term arm's chance bar — 999 deals of each published vocabulary, per member |
 | What it writes | `output/<member>/json/reading.json`, `evidence.json` and `changes.json` — the same three files the self read writes, one folder per member |
 
 - **Never `evaluationRead`.** It forks one JVM per member and takes thirty-one minutes for the same answers. One JVM is most of the saving: a bundled subject scheme is read into distributions once and shared, instead of once per member.

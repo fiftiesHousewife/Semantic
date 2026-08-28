@@ -21,9 +21,40 @@ import lombok.Builder;
  *                                reading, most-carried first. Empty where the publisher states no prose, so
  *                                a taxonomy that cannot be weighed is not reported as one that weighs zero
  * @param matchesByNormalisation  how many spans each level accounted for, never summed across levels
+ * @param bar                     what a deal of this vocabulary's own words reaches on this repository, and
+ *                                how far its real count stands above that
  */
 public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<Branch> branches,
-                               Map<String, Integer> matchesByNormalisation) {
+                               Map<String, Integer> matchesByNormalisation, Bar bar) {
+
+    /**
+     * One vocabulary's phrase count against a field of chance counts.
+     *
+     * <p>The reference holds the repository still and deals the <em>vocabulary</em>: it keeps how many terms
+     * the publisher states, how long each is and its whole list of words, and destroys only which of its
+     * words it published beside which. A vocabulary whose word list is what reached the repository scores
+     * the same either way; one whose published orders reached it loses them.
+     *
+     * <p>Dealing the repository instead answers a different question. Declared names are compositional, so
+     * a deal of them puts a vocabulary's words together in orders nobody wrote, and every vocabulary whose
+     * words a repository writes at all stands above such a bar.
+     *
+     * @param phrases            how many of the vocabulary's terms of more than one word the repository
+     *                           writes, counted once each however often it wrote them
+     * @param chanceExpectedBest the count the best of a field this size reaches by chance alone
+     * @param median             the middle of the deals, for a reader comparing the two bars
+     * @param timesTheBar        the observed count divided by that bar
+     * @param field              how many vocabularies competed, which is what sets the quantile
+     * @param resamples          how many deals were taken
+     */
+    public record Bar(int phrases, int chanceExpectedBest, int median, double timesTheBar, int field,
+                      int resamples) {
+
+        /** Whether the repository wrote more of this vocabulary's phrases than the field reaches by chance. */
+        public boolean exceedsChance() {
+            return phrases > chanceExpectedBest;
+        }
+    }
 
     /**
      * One published concept as the repository wrote it.
@@ -70,6 +101,7 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
 
     public ExportedTaxonomy {
         Objects.requireNonNull(vocabulary, "vocabulary");
+        Objects.requireNonNull(bar, "bar");
         concepts = List.copyOf(concepts);
         branches = List.copyOf(branches);
         matchesByNormalisation = Map.copyOf(matchesByNormalisation);

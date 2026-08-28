@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 
@@ -30,9 +31,14 @@ public final class ExportedTaxonomies {
 
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
-                               final BranchAgreement agreement) {
+                               final BranchAgreement agreement, final PhraseBar bar) {
         return new ExportedTaxonomy(vocabulary, concepts(matched), branches(matched, agreement),
-                matchesByNormalisation(matched));
+                matchesByNormalisation(matched), barOf(bar));
+    }
+
+    private static ExportedTaxonomy.Bar barOf(final PhraseBar bar) {
+        return new ExportedTaxonomy.Bar(bar.observed(), bar.chanceExpectedBest(), bar.median(),
+                bar.timesTheBar(), bar.field(), bar.resamples());
     }
 
     /**

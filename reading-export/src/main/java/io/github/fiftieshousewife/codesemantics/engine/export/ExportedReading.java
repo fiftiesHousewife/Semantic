@@ -4,23 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
+import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
+import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
-import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
+import io.github.fiftieshousewife.codesemantics.engine.term.TermOrderNull;
+import io.github.fiftieshousewife.codesemantics.engine.term.WrittenRuns;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
-import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
-import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
-import io.github.fiftieshousewife.codesemantics.engine.theme.SharedMass;
-import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SharedMass;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
+import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectPlacement;
+import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
@@ -66,14 +71,17 @@ public final class ExportedReading {
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched) {
         return of(reading, commit, alsoMatched,
-                CorroboratedReading.of(LinguisticTerms.fromClasspath(),
+                CorroboratedReading.of(SpecificTerms.of(LinguisticTerms.fromClasspath()),
                         OliaTerms.fromClasspath().concepts(), reading.parsed()),
                 PlacedField.ofArxiv(reading.themes().repository().comparison(), reading.seed()));
     }
 
     /**
      * The same, over a term reading and a field placement the caller already holds, so a run whose
-     * diagnostics took them does not take them again. They must be of this reading's tree at its seed.
+     * diagnostics took them does not take them again. They must be of this reading's tree at its seed,
+     * and the term reading must be over {@link SpecificTerms}: a vocabulary published here is judged on
+     * the terms that are its own, and one read over the publisher's whole index would carry matches the
+     * other vocabularies' counts had removed.
      */
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched, final CorroboratedReading terms,
@@ -100,22 +108,36 @@ public final class ExportedReading {
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final TopicDistribution reads = themes.repository().comparison();
         final SubjectAreas areas = SubjectAreas.fromClasspath();
-        final ExportedTaxonomy taxonomy = new ExportedTaxonomies().of(
+        final List<TermIndex> published = Stream.concat(
+                        Stream.<TermIndex>of(LinguisticTerms.fromClasspath()), alsoMatched.stream())
+                .toList();
+        final List<SpecificTerms> judged = published.stream().map(SpecificTerms::of).toList();
+        final List<PhraseBar> bars = TermOrderNull.seeded(reading.seed())
+                .over(WrittenRuns.fromClasspath().in(parsed), List.copyOf(judged));
+        final List<ExportedTaxonomy> matched = new ArrayList<>(List.of(new ExportedTaxonomies().of(
                 LinguisticTerms.fromClasspath().source(), terms.matched(),
-                BranchAgreement.between(reads, OliaTerms.fromClasspath().concepts(), areas));
-        final List<ExportedTaxonomy> taxonomies = new ArrayList<>(List.of(taxonomy));
-        alsoMatched.forEach(index -> taxonomies.add(new ExportedTaxonomies().of(index.source(),
-                CorroboratedReading.of(index, index.publishedConcepts(), parsed).matched(),
-                BranchAgreement.between(reads, index.publishedConcepts(), areas))));
+                BranchAgreement.between(reads, OliaTerms.fromClasspath().concepts(), areas),
+                bars.getFirst())));
+        IntStream.range(1, published.size()).forEach(at -> matched.add(new ExportedTaxonomies().of(
+                published.get(at).source(),
+                CorroboratedReading.of(judged.get(at), published.get(at).publishedConcepts(), parsed)
+                        .matched(),
+                BranchAgreement.between(reads, published.get(at).publishedConcepts(), areas),
+                bars.get(at))));
+        final List<ExportedTaxonomy> taxonomies = matched.stream()
+                .filter(one -> one.bar().exceedsChance())
+                .toList();
 
         return ReadingExport.builder()
                 .summary(summarised(reading, commit, summary, signals, reported,
-                        List.copyOf(taxonomies), placedIn(reading, themes, field)))
+                        taxonomies, placedIn(reading, themes, field)))
                 .signals(signals)
                 .thresholds(vocabulary.bars())
                 .themes(reported)
-                .taxonomies(List.copyOf(taxonomies))
-                .setAside(setAside(summary, vocabulary, legibility, terms, parsed))
+                .taxonomies(taxonomies)
+                .setAside(setAside(summary, vocabulary, legibility, terms, parsed,
+                        matched.size() - taxonomies.size(),
+                        judged.stream().mapToInt(SpecificTerms::refused).sum()))
                 .build();
     }
 
@@ -255,7 +277,8 @@ public final class ExportedReading {
 
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,
                                      final RepositoryLegibility legibility, final CorroboratedReading terms,
-                                     final ParsedRepository parsed) {
+                                     final ParsedRepository parsed, final int belowTheirChanceBar,
+                                     final int termsWorkingJavaAlsoWrites) {
         final RefusedWords refused = new RefusedWords();
         return new SetAside(
                 legibility.repository().counts().words() - legibility.repository().counts().read(),
@@ -264,6 +287,7 @@ public final class ExportedReading {
                         .filter(word -> word.withinTheReferencesError(vocabulary.bars()))
                         .count(),
                 refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
-                summary.withheld().size(), terms.refusedByBranch(), parsed.unsoundFiles());
+                summary.withheld().size(), terms.refusedByBranch(), belowTheirChanceBar,
+                termsWorkingJavaAlsoWrites, parsed.unsoundFiles());
     }
 }

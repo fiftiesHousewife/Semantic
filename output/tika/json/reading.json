@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "12.0",
+  "schemaVersion" : "13.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "",
@@ -19,7 +19,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -269,7 +269,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -304,7 +304,7 @@
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -405,13 +405,13 @@
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4134679955220607,
+        "divergenceBits" : 0.41346799552206076,
         "nearestByChanceBits" : 0.46502124848585286,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.19882127170534397,
+          "shareOfSubject" : 0.1988212717053439,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -475,7 +475,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -506,11 +506,11 @@
         }, {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.29116490470844103,
+          "shareOfSubject" : 0.29116490470844086,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -601,7 +601,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.04012650439539899,
+          "shareOfSubject" : 0.040126504395398985,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -696,7 +696,7 @@
         }, {
           "topic" : "law",
           "shareOfRepository" : 0.02902527484928428,
-          "shareOfSubject" : 0.03444105429393758,
+          "shareOfSubject" : 0.03444105429393757,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 10551,
@@ -791,7 +791,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.4134679955220607,
+          "divergenceBits" : 0.41346799552206076,
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Networking and Internet Architecture",
@@ -873,7 +873,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -908,7 +908,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1201,13 +1201,13 @@
           "carriedBy" : [ "computing", "law", "computer_science", "linguistics" ]
         }, {
           "subject" : "Information Systems",
-          "divergenceBits" : 0.3179715208146973,
+          "divergenceBits" : 0.31797152081469715,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         } ]
       },
       "category" : {
         "subject" : "Natural Language Processing Techniques",
-        "divergenceBits" : 0.43839060726676043,
+        "divergenceBits" : 0.4383906072667605,
         "nearestByChanceBits" : 0.49763357328533003,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
@@ -1277,7 +1277,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1312,7 +1312,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1407,7 +1407,7 @@
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1593,7 +1593,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.43839060726676043,
+          "divergenceBits" : 0.4383906072667605,
           "carriedBy" : [ "computing", "linguistics", "computer_science", "programming" ]
         }, {
           "subject" : "Mobile Agent-Based Network Management",
@@ -1609,7 +1609,7 @@
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         }, {
           "subject" : "Embedded Systems Design Techniques",
-          "divergenceBits" : 0.4761419352628093,
+          "divergenceBits" : 0.47614193526280923,
           "carriedBy" : [ "computing", "computer_science", "linguistics", "mathematics" ]
         }, {
           "subject" : "Advanced Software Engineering Methodologies",
@@ -1621,7 +1621,7 @@
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         }, {
           "subject" : "Software-Defined Networks and 5G",
-          "divergenceBits" : 0.4839204491889341,
+          "divergenceBits" : 0.48392044918893407,
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Marine and Coastal Research",
@@ -1720,11 +1720,11 @@
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
-      "divergenceBits" : 0.09812102307806264,
+      "divergenceBits" : 0.09812102307806263,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
-      "divergenceBits" : 0.22612763552951912,
+      "divergenceBits" : 0.2261276355295191,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
@@ -1736,7 +1736,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-translate/src/test/java",
-      "divergenceBits" : 0.44188722365966193,
+      "divergenceBits" : 0.441887223659662,
       "writesMoreOf" : [ "linguistics", "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources",
@@ -1744,11 +1744,11 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources",
-      "divergenceBits" : 0.3955105895603294,
+      "divergenceBits" : 0.3955105895603295,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources",
-      "divergenceBits" : 0.42286721303524233,
+      "divergenceBits" : 0.4228672130352423,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources",
@@ -1760,7 +1760,7 @@
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources",
-      "divergenceBits" : 0.31932517099684327,
+      "divergenceBits" : 0.3193251709968432,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
@@ -1776,7 +1776,7 @@
     "counts" : {
       "signals" : 629,
       "themes" : 17,
-      "concepts" : 361
+      "concepts" : 308
     }
   },
   "signals" : [ {
@@ -9336,11 +9336,11 @@
     "topic" : "linguistics",
     "scope" : "tika-translate/src/test/java",
     "shareOfRepository" : 0.014799088130799108,
-    "divergenceBits" : 0.04606048307883368,
+    "divergenceBits" : 0.04606048307883375,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -9706,7 +9706,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -9828,7 +9828,7 @@
     "topic" : "software",
     "scope" : "tika-translate/src/test/java",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.029477822475274085,
+    "divergenceBits" : 0.02947782247527408,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -9952,7 +9952,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10138,7 +10138,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -10258,7 +10258,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -10444,7 +10444,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10566,7 +10566,7 @@
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.027283400738249825,
+    "divergenceBits" : 0.02728340073824981,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -10690,7 +10690,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10936,7 +10936,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11122,7 +11122,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -11242,7 +11242,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -11428,7 +11428,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11554,7 +11554,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -11800,7 +11800,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12106,7 +12106,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12226,7 +12226,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12352,7 +12352,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12472,7 +12472,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12598,7 +12598,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12718,7 +12718,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12784,7 +12784,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13030,7 +13030,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13336,7 +13336,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13456,7 +13456,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13936,6 +13936,17 @@
         "line" : 213
       }
     }, {
+      "concept" : "Address",
+      "placedUnder" : "ManufacturedObject",
+      "occurrences" : 33,
+      "specificity" : 0.6794201110861805,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 0.7793261245915711,
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
+        "line" : 410
+      }
+    }, {
       "concept" : "Letter",
       "placedUnder" : "Character",
       "occurrences" : 30,
@@ -13945,17 +13956,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/detect/HighByteLetterStats.java",
         "line" : 37
-      }
-    }, {
-      "concept" : "Address",
-      "placedUnder" : "ManufacturedObject",
-      "occurrences" : 31,
-      "specificity" : 0.6794201110861805,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7830173756199532,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 410
       }
     }, {
       "concept" : "Head",
@@ -14176,17 +14176,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/detect/MagicDetector.java",
         "line" : 221
-      }
-    }, {
-      "concept" : "EntityType",
-      "placedUnder" : "SemanticFeature",
-      "occurrences" : 13,
-      "specificity" : 0.9553437783594598,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9860088923115818,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/ner/NERecogniser.java",
-        "line" : 50
       }
     }, {
       "concept" : "Acronym",
@@ -14453,17 +14442,6 @@
         "line" : 32
       }
     }, {
-      "concept" : "PhoneNumber",
-      "placedUnder" : "Address",
-      "occurrences" : 7,
-      "specificity" : 0.9031051670013801,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9611893728461883,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/sax/CleanPhoneText.java",
-        "line" : 155
-      }
-    }, {
       "concept" : "Bullet",
       "placedUnder" : "LayoutElement",
       "occurrences" : 7,
@@ -14563,17 +14541,6 @@
         "line" : 42
       }
     }, {
-      "concept" : "NamedEntity",
-      "placedUnder" : "Identifier",
-      "occurrences" : 5,
-      "specificity" : 0.9548236542621058,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9554535121002727,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/HtmlByteStripperTest.java",
-        "line" : 101
-      }
-    }, {
       "concept" : "Clause",
       "placedUnder" : "Constituent",
       "occurrences" : 5,
@@ -14660,39 +14627,6 @@
       "firstWrittenAt" : {
         "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/ooxml/CommentAuthors.java",
         "line" : 48
-      }
-    }, {
-      "concept" : "NamedEntity",
-      "placedUnder" : "Identifier",
-      "occurrences" : 4,
-      "specificity" : 0.9382566242285576,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.953944518259552,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/NameEntityExtractor.java",
-        "line" : 35
-      }
-    }, {
-      "concept" : "NamedEntity",
-      "placedUnder" : "Identifier",
-      "occurrences" : 4,
-      "specificity" : 0.9364043024226218,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9508794699068039,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/GeoParser.java",
-        "line" : 179
-      }
-    }, {
-      "concept" : "GivenName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 5,
-      "specificity" : 0.7477481950643348,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9435120254780734,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 495
       }
     }, {
       "concept" : "Book",
@@ -14904,17 +14838,6 @@
         "line" : 57
       }
     }, {
-      "concept" : "Polarity",
-      "placedUnder" : "SemanticFeature",
-      "occurrences" : 2,
-      "specificity" : 0.9912177388467426,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9956088694233713,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/ctakes/CTAKESAnnotationProperty.java",
-        "line" : 27
-      }
-    }, {
       "concept" : "Fraction",
       "placedUnder" : "Numeral",
       "occurrences" : 2,
@@ -14948,17 +14871,6 @@
         "line" : 378
       }
     }, {
-      "concept" : "FamilyName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 2,
-      "specificity" : 0.9375843637430327,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9508015813723063,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 315
-      }
-    }, {
       "concept" : "Residual",
       "placedUnder" : "MorphosyntacticCategory",
       "occurrences" : 2,
@@ -14979,17 +14891,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
         "line" : 119
-      }
-    }, {
-      "concept" : "EmailAddress",
-      "placedUnder" : "Address",
-      "occurrences" : 2,
-      "specificity" : 0.9057868328485977,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9627022949636678,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/main/java/org/apache/tika/parser/mbox/MboxParser.java",
-        "line" : 74
       }
     }, {
       "concept" : "Third",
@@ -15034,17 +14935,6 @@
       "firstWrittenAt" : {
         "file" : "tika-serialization/src/test/java/org/apache/tika/metadata/filter/TestMetadataFilter.java",
         "line" : 293
-      }
-    }, {
-      "concept" : "FamilyName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 2,
-      "specificity" : 0.7883222434235739,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.7901151472235359,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-font-module/src/main/java/org/apache/tika/parser/font/AdobeFontMetricParser.java",
-        "line" : 53
       }
     }, {
       "concept" : "Source",
@@ -15102,17 +14992,6 @@
         "line" : 48
       }
     }, {
-      "concept" : "GivenName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 311
-      }
-    }, {
       "concept" : "Slash",
       "placedUnder" : "SecondaryPunctuation",
       "occurrences" : 1,
@@ -15133,17 +15012,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/TikaCoreProperties.java",
         "line" : 343
-      }
-    }, {
-      "concept" : "GivenName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 312
       }
     }, {
       "concept" : "Chunk",
@@ -15199,17 +15067,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
         "line" : 55
-      }
-    }, {
-      "concept" : "EntityType",
-      "placedUnder" : "SemanticFeature",
-      "occurrences" : 1,
-      "specificity" : 0.9465606484502728,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/ner/corenlp/CoreNLPNERecogniser.java",
-        "line" : 159
       }
     }, {
       "concept" : "CloseQuote",
@@ -15289,17 +15146,6 @@
         "line" : 67
       }
     }, {
-      "concept" : "PhoneNumber",
-      "placedUnder" : "Address",
-      "occurrences" : 1,
-      "specificity" : 0.851673474604625,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.851673474604625,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testPhoneNumberExtractor.odt",
-        "line" : 1
-      }
-    }, {
       "concept" : "Source",
       "placedUnder" : "TextStructuralUnit",
       "occurrences" : 1,
@@ -15309,17 +15155,6 @@
       "firstWrittenAt" : {
         "file" : "tika-server/tika-server-core/src/main/java/org/apache/tika/server/core/TikaServerProcess.java",
         "line" : 391
-      }
-    }, {
-      "concept" : "SameType",
-      "placedUnder" : "BridgingType",
-      "occurrences" : 1,
-      "specificity" : 0.8113640939706053,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8138173511208652,
-      "firstWrittenAt" : {
-        "file" : "tika-plugins-core/src/test/java/org/apache/tika/plugins/PluginComponentLoaderTest.java",
-        "line" : 149
       }
     }, {
       "concept" : "ElementOf",
@@ -15342,17 +15177,6 @@
       "firstWrittenAt" : {
         "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/main/java/org/apache/tika/parser/iwork/KeynoteContentHandler.java",
         "line" : 41
-      }
-    }, {
-      "concept" : "FamilyName",
-      "placedUnder" : "ProperNoun",
-      "occurrences" : 1,
-      "specificity" : 0.7719847593963012,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/test/java/org/apache/tika/parser/xml/EmptyAndDuplicateElementsXMLParserTest.java",
-        "line" : 37
       }
     }, {
       "concept" : "Result",
@@ -15401,69 +15225,69 @@
     } ],
     "branches" : [ {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.4449316665922737,
+      "agreesWithTheRepository" : 0.36614872766269874,
       "mass" : 1358.0083194676897,
-      "kept" : 604.220904826932,
+      "kept" : 497.2330183284543,
       "terms" : [ "text", "script", "tokens", "token", "string", "strings", "characters", "character", "scripts", "diacritics", "texts", "scripted", "diacritic" ]
     }, {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.33077260705271677,
+      "agreesWithTheRepository" : 0.31644912560301197,
       "mass" : 603.3419093582808,
-      "kept" : 199.56897630260247,
+      "kept" : 190.92701965607966,
       "terms" : [ "document", "source", "title", "author", "abstract", "sentences", "authors", "writer", "documents", "sentence", "footnotes", "heading", "boilerplate", "headings", "footnote", "origin", "titles", "writers", "headline", "documented", "sources", "origins" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.15698396899774625,
+      "agreesWithTheRepository" : 0.16748166393540315,
       "mass" : 373.89980910772834,
-      "kept" : 58.69627604123087,
+      "kept" : 62.62136217449195,
       "terms" : [ "prefix", "suffix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "Cause",
-      "agreesWithTheRepository" : 0.21788467131479067,
+      "agreesWithTheRepository" : 0.2226243285383663,
       "mass" : 274.995404734431,
-      "kept" : 59.91728337363933,
+      "kept" : 61.22066733013899,
       "terms" : [ "result", "results", "resulting" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.2815508246069439,
+      "agreesWithTheRepository" : 0.2782533464519264,
       "mass" : 234.34454998787098,
-      "kept" : 65.97990129122826,
+      "kept" : 65.20715525689585,
       "terms" : [ "chunk", "chunks", "fragment", "clauses", "glob", "clause", "chunked", "globs", "fragments" ]
     }, {
       "branch" : "Address",
-      "agreesWithTheRepository" : 0.22689153854243227,
-      "mass" : 219.3236794416138,
-      "kept" : 49.762687067294976,
-      "terms" : [ "url", "urls", "phone numbers", "email address", "phone number" ]
+      "agreesWithTheRepository" : 0.284847827365965,
+      "mass" : 210.33869613230232,
+      "kept" : 59.91452060427621,
+      "terms" : [ "url", "urls" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.37853039586502824,
+      "agreesWithTheRepository" : 0.3785303958650283,
       "mass" : 203.68452984530055,
-      "kept" : 77.10078571392377,
+      "kept" : 77.10078571392378,
       "terms" : [ "object", "organization", "objects", "function", "organizations", "functions" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.2793908739112807,
+      "agreesWithTheRepository" : 0.27939087391128065,
       "mass" : 197.0658480158078,
-      "kept" : 55.05839949520416,
+      "kept" : 55.058399495204156,
       "terms" : [ "exception", "exceptions", "alternative", "alternatives", "instantiation", "background" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.17891068752793932,
+      "agreesWithTheRepository" : 0.16775249080511634,
       "mass" : 192.76293540563742,
-      "kept" : 34.48734930332635,
+      "kept" : 32.33646254920143,
       "terms" : [ "supported", "mean", "supports", "means" ]
     }, {
       "branch" : "LayoutElement",
-      "agreesWithTheRepository" : 0.08933972755740573,
+      "agreesWithTheRepository" : 0.143951336197361,
       "mass" : 192.19157014689625,
-      "kept" : 17.17034251575374,
+      "kept" : 27.666233328514554,
       "terms" : [ "image", "images", "bullet" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.2388086402500772,
+      "agreesWithTheRepository" : 0.24179953199575183,
       "mass" : 146.28926580633816,
-      "kept" : 34.93514065039373,
+      "kept" : 35.37267600797471,
       "terms" : [ "date", "symbol", "acronym", "dates", "symbols", "typo", "formulas", "formula", "foreign", "acronyms" ]
     }, {
       "branch" : "EntityType",
@@ -15479,9 +15303,9 @@
       "terms" : [ "simple", "initial", "initials" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.16669660565857475,
+      "agreesWithTheRepository" : 0.199333248209698,
       "mass" : 62.62596896739204,
-      "kept" : 10.439536452943491,
+      "kept" : 12.483437816550001,
       "terms" : [ "slash", "quote", "quoted", "slashes", "quotes" ]
     }, {
       "branch" : "PragmaticUnit",
@@ -15491,15 +15315,15 @@
       "terms" : [ "subject", "topic", "subjects", "focus", "theme" ]
     }, {
       "branch" : "MediaProduct",
-      "agreesWithTheRepository" : 0.3176834478585337,
+      "agreesWithTheRepository" : 0.2436090959976535,
       "mass" : 48.626467611889574,
-      "kept" : 15.447823888126399,
+      "kept" : 11.845849816491597,
       "terms" : [ "pic", "album", "book", "movie", "books", "pics" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.2572013981960772,
+      "agreesWithTheRepository" : 0.256159616209113,
       "mass" : 46.20834053315706,
-      "kept" : 11.884849793448463,
+      "kept" : 11.836710776633513,
       "terms" : [ "seconds", "third" ]
     }, {
       "branch" : "Instantiation",
@@ -15509,51 +15333,51 @@
       "terms" : [ "example", "examples" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.2870809633172922,
+      "agreesWithTheRepository" : 0.27509804876500327,
       "mass" : 45.213565808013705,
-      "kept" : 12.97995402717436,
+      "kept" : 12.438163731492638,
       "terms" : [ "futures", "present", "perfect", "future", "past" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.3244934238848312,
+      "agreesWithTheRepository" : 0.3224283591114031,
       "mass" : 38.76252295207811,
-      "kept" : 12.57818379113418,
+      "kept" : 12.498136670456645,
       "terms" : [ "unique", "punctuation", "residual" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.0690043346440703,
+      "agreesWithTheRepository" : 0.058617917519088084,
       "mass" : 32.811634313370575,
-      "kept" : 2.264144994378683,
+      "kept" : 1.9233496738476368,
       "terms" : [ "letter", "letters" ]
     }, {
-      "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.12935971651551803,
-      "mass" : 27.483144465101866,
-      "kept" : 3.555211776960606,
-      "terms" : [ "colon", "hyphen", "comma", "semi colon" ]
-    }, {
       "branch" : "ManufacturedObject",
-      "agreesWithTheRepository" : 0.3313246938649502,
-      "mass" : 27.129848148034174,
-      "kept" : 8.98878863225001,
+      "agreesWithTheRepository" : 0.3400815418869683,
+      "mass" : 28.488688370206535,
+      "kept" : 9.688477067277182,
       "terms" : [ "address", "addresses", "software" ]
     }, {
+      "branch" : "SentenceMedialPunctuation",
+      "agreesWithTheRepository" : 0.12785110372612093,
+      "mass" : 27.483144465101866,
+      "kept" : 3.5137503537277053,
+      "terms" : [ "colon", "hyphen", "comma", "semi colon" ]
+    }, {
       "branch" : "NullElement",
-      "agreesWithTheRepository" : 0.371140131128505,
+      "agreesWithTheRepository" : 0.36670682846760644,
       "mass" : 25.96532299702075,
-      "kept" : 9.636773381908268,
+      "kept" : 9.521661246374485,
       "terms" : [ "trace", "gap", "gaps" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.2650168995732461,
+      "agreesWithTheRepository" : 0.27993844436810084,
       "mass" : 20.252772234577662,
-      "kept" : 5.367326905370895,
+      "kept" : 5.669529553489136,
       "terms" : [ "head", "modifier" ]
     }, {
       "branch" : "CoherenceRelation",
-      "agreesWithTheRepository" : 0.17773238160416943,
+      "agreesWithTheRepository" : 0.1777323816041695,
       "mass" : 20.150335058275594,
-      "kept" : 3.5813670400293116,
+      "kept" : 3.5813670400293125,
       "terms" : [ "expansions", "comparison", "expansion", "comparisons" ]
     }, {
       "branch" : "Given",
@@ -15563,39 +15387,21 @@
       "terms" : [ "active" ]
     }, {
       "branch" : "Person",
-      "agreesWithTheRepository" : 0.30077722802324114,
+      "agreesWithTheRepository" : 0.30196398345866493,
       "mass" : 16.001976163243974,
-      "kept" : 4.813030033274502,
+      "kept" : 4.832020465463754,
       "terms" : [ "artist" ]
     }, {
-      "branch" : "SemanticFeature",
-      "agreesWithTheRepository" : 0.26601201238860456,
-      "mass" : 15.348465244816737,
-      "kept" : 4.082876126850256,
-      "terms" : [ "entity types", "polarity", "entity type" ]
-    }, {
-      "branch" : "Identifier",
-      "agreesWithTheRepository" : 0.1184103538116738,
-      "mass" : 12.272761977915248,
-      "kept" : 1.453222088051402,
-      "terms" : [ "named entity", "name entity", "name entities" ]
-    }, {
-      "branch" : "ProperNoun",
-      "agreesWithTheRepository" : 0.21979481145276916,
-      "mass" : 9.96253894905119,
-      "kept" : 2.189714369897575,
-      "terms" : [ "first name", "surname", "family name", "forenames", "forename", "last name" ]
-    }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.20617375524442533,
+      "agreesWithTheRepository" : 0.22972694666788313,
       "mass" : 9.136859661139024,
-      "kept" : 1.88378066747834,
+      "kept" : 2.098982872086417,
       "terms" : [ "prefer", "preferred", "standardizes" ]
     }, {
       "branch" : "Unique",
-      "agreesWithTheRepository" : 0.26266401115430005,
+      "agreesWithTheRepository" : 0.27102626080513387,
       "mass" : 9.0,
-      "kept" : 2.3639761003887005,
+      "kept" : 2.439236347246205,
       "terms" : [ "classifier" ]
     }, {
       "branch" : "PoliticalUnit",
@@ -15605,15 +15411,15 @@
       "terms" : [ "country" ]
     }, {
       "branch" : "Numeral",
-      "agreesWithTheRepository" : 0.2161819141826954,
+      "agreesWithTheRepository" : 0.23851650973525992,
       "mass" : 7.697309980992909,
-      "kept" : 1.6640192057486136,
+      "kept" : 1.8359355110168085,
       "terms" : [ "ordinal", "roman numerals", "fractions", "fraction" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.14138917071516063,
+      "agreesWithTheRepository" : 0.14138917071516066,
       "mass" : 1.9316610176176716,
-      "kept" : 0.2731159493837659,
+      "kept" : 0.27311594938376593,
       "terms" : [ "evidence" ]
     }, {
       "branch" : "InformationStatus",
@@ -15623,33 +15429,35 @@
       "terms" : [ "gives" ]
     }, {
       "branch" : "Modifier",
-      "agreesWithTheRepository" : 0.22649702450229003,
+      "agreesWithTheRepository" : 0.17950165275303845,
       "mass" : 0.9814648804013412,
-      "kept" : 0.22229887506439971,
+      "kept" : 0.17617456815110397,
       "terms" : [ "qualifier" ]
     }, {
       "branch" : "PragmaticFeature",
-      "agreesWithTheRepository" : 0.24974960733511686,
+      "agreesWithTheRepository" : 0.21288439632122053,
       "mass" : 0.961880821303448,
-      "kept" : 0.24022935742371584,
+      "kept" : 0.2047694179761443,
       "terms" : [ "info status" ]
     }, {
       "branch" : "Quote",
-      "agreesWithTheRepository" : 0.15603689652414476,
+      "agreesWithTheRepository" : 0.1560368965241448,
       "mass" : 0.9367514981235047,
-      "kept" : 0.1461677965815349,
+      "kept" : 0.14616779658153492,
       "terms" : [ "close quote" ]
-    }, {
-      "branch" : "BridgingType",
-      "agreesWithTheRepository" : 0.1728364557230162,
-      "mass" : 0.8113640939706053,
-      "kept" : 0.14023329430279569,
-      "terms" : [ "same type" ]
     } ],
     "matchesByNormalisation" : {
-      "senses" : 217,
-      "lemmas" : 1290,
-      "words" : 4599
+      "lemmas" : 1262,
+      "senses" : 207,
+      "words" : 4587
+    },
+    "bar" : {
+      "phrases" : 3,
+      "chanceExpectedBest" : 2,
+      "median" : 1,
+      "timesTheBar" : 1.5,
+      "field" : 2,
+      "resamples" : 999
     }
   }, {
     "vocabulary" : "CSO",
@@ -15711,10 +15519,10 @@
     }, {
       "concept" : "servers",
       "placedUnder" : "security of data | world wide web",
-      "occurrences" : 194,
+      "occurrences" : 196,
       "specificity" : 0.7944932756042771,
       "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8115340477909314,
+      "shareOfEachName" : 0.8113867481574408,
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/MAPI.java",
         "line" : 44
@@ -15830,17 +15638,6 @@
         "line" : 27
       }
     }, {
-      "concept" : "3g",
-      "placedUnder" : "wireless networks",
-      "occurrences" : 44,
-      "specificity" : 0.9655877191772542,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9665915885416173,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-icu4j/src/main/java/org/apache/tika/detect/icu4j/CharsetRecog_sbcs.java",
-        "line" : 54
-      }
-    }, {
       "concept" : "4g",
       "placedUnder" : "3g | lte",
       "occurrences" : 44,
@@ -15852,15 +15649,15 @@
         "line" : 54
       }
     }, {
-      "concept" : "file systems",
-      "placedUnder" : "operating systems",
-      "occurrences" : 45,
-      "specificity" : 0.8650886685091275,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8684887317740306,
+      "concept" : "3g",
+      "placedUnder" : "wireless networks",
+      "occurrences" : 44,
+      "specificity" : 0.9655877191772542,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 0.9665915885416173,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/FileSystem.java",
-        "line" : 22
+        "file" : "tika-encoding-detectors/tika-encoding-detector-icu4j/src/main/java/org/apache/tika/detect/icu4j/CharsetRecog_sbcs.java",
+        "line" : 54
       }
     }, {
       "concept" : "file systems",
@@ -15898,10 +15695,10 @@
     }, {
       "concept" : "cache",
       "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
-      "occurrences" : 35,
+      "occurrences" : 39,
       "specificity" : 0.9182882135926435,
       "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9321735005908018,
+      "shareOfEachName" : 0.9329554151187681,
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/detect/EncodingProbeCache.java",
         "line" : 40
@@ -15940,8 +15737,19 @@
         "line" : 109
       }
     }, {
-      "concept" : "3g",
-      "placedUnder" : "wireless networks",
+      "concept" : "queue",
+      "placedUnder" : "queuing network",
+      "occurrences" : 30,
+      "specificity" : 0.9234068407413965,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 0.9336819241579658,
+      "firstWrittenAt" : {
+        "file" : "tika-eval/tika-eval-core/src/main/java/org/apache/tika/eval/core/tokens/TokenContraster.java",
+        "line" : 143
+      }
+    }, {
+      "concept" : "4g",
+      "placedUnder" : "3g | lte",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -15951,8 +15759,8 @@
         "line" : 315
       }
     }, {
-      "concept" : "4g",
-      "placedUnder" : "3g | lte",
+      "concept" : "3g",
+      "placedUnder" : "wireless networks",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -16028,59 +15836,26 @@
         "line" : 469
       }
     }, {
-      "concept" : "test samples",
-      "placedUnder" : "machine learning",
-      "occurrences" : 19,
-      "specificity" : 0.8324052550422795,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8481163110369712,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/metadata/MetadataInternalKeyGuardTest.java",
-        "line" : 112
-      }
-    }, {
-      "concept" : "queue size",
-      "placedUnder" : "queuing network",
+      "concept" : "cache",
+      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
       "occurrences" : 16,
-      "specificity" : 0.9730209327919677,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9906068072289068,
+      "specificity" : 1.0,
+      "wordsInTerm" : 1,
+      "shareOfEachName" : 1.0,
       "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/PipesConfig.java",
-        "line" : 381
-      }
-    }, {
-      "concept" : "private key",
-      "placedUnder" : "public key cryptography",
-      "occurrences" : 18,
-      "specificity" : 0.8646281694233908,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.895102855395998,
-      "firstWrittenAt" : {
-        "file" : "tika-grpc/src/main/java/org/apache/tika/pipes/grpc/TikaGrpcServer.java",
-        "line" : 221
+        "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
+        "line" : 152
       }
     }, {
       "concept" : "caching",
       "placedUnder" : "cache memory",
-      "occurrences" : 15,
+      "occurrences" : 16,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
       "shareOfEachName" : 1.0,
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
-        "line" : 188
-      }
-    }, {
-      "concept" : "cache",
-      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
-      "occurrences" : 15,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
-        "line" : 188
+        "line" : 152
       }
     }, {
       "concept" : "drawing (graphics)",
@@ -16092,17 +15867,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/test/java/org/apache/tika/detect/HighByteLetterStatsTest.java",
         "line" : 35
-      }
-    }, {
-      "concept" : "queue",
-      "placedUnder" : "queuing network",
-      "occurrences" : 14,
-      "specificity" : 0.9234068407413965,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9263515336248453,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-core/src/main/java/org/apache/tika/eval/core/tokens/TokenContraster.java",
-        "line" : 143
       }
     }, {
       "concept" : "data packet",
@@ -16162,10 +15926,10 @@
     }, {
       "concept" : "encryption",
       "placedUnder" : "cryptography | security of data",
-      "occurrences" : 11,
+      "occurrences" : 12,
       "specificity" : 0.9190226592234415,
       "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9427024085869807,
+      "shareOfEachName" : 0.9411863283035199,
       "firstWrittenAt" : {
         "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ProfilerBase.java",
         "line" : 866
@@ -16270,19 +16034,8 @@
         "line" : 195
       }
     }, {
-      "concept" : "secret key",
-      "placedUnder" : "encryption | public key cryptography",
-      "occurrences" : 8,
-      "specificity" : 0.9122751716793178,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9833797877409427,
-      "firstWrittenAt" : {
-        "file" : "tika-integration-tests/tika-pipes-s3-integration-tests/src/test/java/org/apache/tika/pipes/s3/tests/S3PipeIntegrationTest.java",
-        "line" : 72
-      }
-    }, {
-      "concept" : "hashing",
-      "placedUnder" : "database systems | hash functions",
+      "concept" : "hash functions",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16292,8 +16045,8 @@
         "line" : 358
       }
     }, {
-      "concept" : "hash functions",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16323,28 +16076,6 @@
       "firstWrittenAt" : {
         "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-apple-module/src/main/java/org/apache/tika/detect/apple/BPListDetector.java",
         "line" : 53
-      }
-    }, {
-      "concept" : "back-off",
-      "placedUnder" : "ieee 802.11s",
-      "occurrences" : 8,
-      "specificity" : 0.7441278089508283,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.7570226935496545,
-      "firstWrittenAt" : {
-        "file" : "tika-ml/tika-ml-junkdetect-tools/src/main/java/org/apache/tika/ml/junkdetect/tools/TrainJunkModel.java",
-        "line" : 66
-      }
-    }, {
-      "concept" : "back-off",
-      "placedUnder" : "ieee 802.11s",
-      "occurrences" : 8,
-      "specificity" : 0.7441278089508283,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.7570226935496545,
-      "firstWrittenAt" : {
-        "file" : "tika-ml/tika-ml-junkdetect-tools/src/main/java/org/apache/tika/ml/junkdetect/tools/TrainJunkModel.java",
-        "line" : 66
       }
     }, {
       "concept" : "extracting information",
@@ -16380,8 +16111,8 @@
         "line" : 210
       }
     }, {
-      "concept" : "hashing",
-      "placedUnder" : "database systems | hash functions",
+      "concept" : "hash functions",
+      "placedUnder" : "authentication | cryptography",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16391,8 +16122,8 @@
         "line" : 55
       }
     }, {
-      "concept" : "hash functions",
-      "placedUnder" : "authentication | cryptography",
+      "concept" : "hashing",
+      "placedUnder" : "database systems | hash functions",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16422,28 +16153,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/DublinCore.java",
         "line" : 34
-      }
-    }, {
-      "concept" : "named entity recognition",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
-      "occurrences" : 5,
-      "specificity" : 0.9548236542621058,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9554535121002727,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/HtmlByteStripperTest.java",
-        "line" : 101
-      }
-    }, {
-      "concept" : "rsa",
-      "placedUnder" : "public key cryptography",
-      "occurrences" : 4,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testRSAKEY.der",
-        "line" : 1
       }
     }, {
       "concept" : "css",
@@ -16490,17 +16199,6 @@
         "line" : 66
       }
     }, {
-      "concept" : "cache size",
-      "placedUnder" : "cache memory",
-      "occurrences" : 4,
-      "specificity" : 0.9712179547297518,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9939666752937978,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
-        "line" : 81
-      }
-    }, {
       "concept" : "embedded images",
       "placedUnder" : "military photography",
       "occurrences" : 4,
@@ -16521,72 +16219,6 @@
       "firstWrittenAt" : {
         "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testWORD_embedded_pdf.doc",
         "line" : 1
-      }
-    }, {
-      "concept" : "word embedding",
-      "placedUnder" : "natural language processing",
-      "occurrences" : 4,
-      "specificity" : 0.9516846265148727,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9517094165238438,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testWORD_embedded_pdf.doc",
-        "line" : 1
-      }
-    }, {
-      "concept" : "named entity recognition",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
-      "occurrences" : 4,
-      "specificity" : 0.9382566242285576,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.953944518259552,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/NameEntityExtractor.java",
-        "line" : 35
-      }
-    }, {
-      "concept" : "named entity recognition",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
-      "occurrences" : 4,
-      "specificity" : 0.9382566242285576,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.953944518259552,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/NameEntityExtractor.java",
-        "line" : 35
-      }
-    }, {
-      "concept" : "named entity recognition",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
-      "occurrences" : 4,
-      "specificity" : 0.9364043024226218,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9508794699068039,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/GeoParser.java",
-        "line" : 179
-      }
-    }, {
-      "concept" : "named entity recognition",
-      "placedUnder" : "computational linguistics | information retrieval | natural language processing",
-      "occurrences" : 4,
-      "specificity" : 0.9364043024226218,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9508794699068039,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/geo/topic/GeoParser.java",
-        "line" : 179
-      }
-    }, {
-      "concept" : "data stream",
-      "placedUnder" : "data communication systems | data mining | database systems",
-      "occurrences" : 4,
-      "specificity" : 0.9130349557436171,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9608794157204773,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/HSLFExtractor.java",
-        "line" : 680
       }
     }, {
       "concept" : "electronic mail",
@@ -16732,17 +16364,6 @@
         "line" : 64
       }
     }, {
-      "concept" : "linear models",
-      "placedUnder" : "correlation analysis",
-      "occurrences" : 3,
-      "specificity" : 0.9308864728655653,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9620310025103418,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/LinearModelTest.java",
-        "line" : 33
-      }
-    }, {
       "concept" : "access permissions",
       "placedUnder" : "access control policies",
       "occurrences" : 3,
@@ -16776,28 +16397,6 @@
         "line" : 67
       }
     }, {
-      "concept" : "test results",
-      "placedUnder" : "sensors",
-      "occurrences" : 3,
-      "specificity" : 0.8637117133734998,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9328162857558374,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/test/java/org/apache/tika/eval/app/db/AbstractBufferTest.java",
-        "line" : 134
-      }
-    }, {
-      "concept" : "test samples",
-      "placedUnder" : "machine learning",
-      "occurrences" : 3,
-      "specificity" : 0.8547091143421596,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8755697496631233,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-config-store-ignite/src/test/java/org/apache/tika/pipes/ignite/IgniteConfigStoreTest.java",
-        "line" : 88
-      }
-    }, {
       "concept" : "correlation analysis",
       "placedUnder" : "mathematics",
       "occurrences" : 3,
@@ -16829,17 +16428,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/TIFF.java",
         "line" : 90
-      }
-    }, {
-      "concept" : "word embedding",
-      "placedUnder" : "natural language processing",
-      "occurrences" : 2,
-      "specificity" : 1.0,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources/test-documents/testWORD_embeded.doc",
-        "line" : 1
       }
     }, {
       "concept" : "word embedding",
@@ -16996,50 +16584,6 @@
         "line" : 66
       }
     }, {
-      "concept" : "ip addresss",
-      "placedUnder" : "computer crime | internet protocols | network security",
-      "occurrences" : 2,
-      "specificity" : 0.9538036676139354,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9541688250089126,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/main/java/org/apache/tika/pipes/fetcher/atlassianjwt/AtlassianJwtFetcher.java",
-        "line" : 91
-      }
-    }, {
-      "concept" : "client server",
-      "placedUnder" : "client server computer systems | software architecture patterns",
-      "occurrences" : 2,
-      "specificity" : 0.9531425019073706,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9562681736726617,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/PerClientServerManager.java",
-        "line" : 51
-      }
-    }, {
-      "concept" : "client server",
-      "placedUnder" : "client server computer systems | software architecture patterns",
-      "occurrences" : 2,
-      "specificity" : 0.9531425019073706,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9562681736726617,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/PerClientServerManager.java",
-        "line" : 51
-      }
-    }, {
-      "concept" : "feature space",
-      "placedUnder" : "classification methods | pattern recognition",
-      "occurrences" : 2,
-      "specificity" : 0.9396818291702682,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9561438087687978,
-      "firstWrittenAt" : {
-        "file" : "tika-serialization/src/test/java/org/apache/tika/config/loader/ConfigLoaderTest.java",
-        "line" : 108
-      }
-    }, {
       "concept" : "retrieval-augmented generation",
       "placedUnder" : "generative ai",
       "occurrences" : 2,
@@ -17071,17 +16615,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/OfficeOpenXMLExtended.java",
         "line" : 34
-      }
-    }, {
-      "concept" : "service class",
-      "placedUnder" : "quality of service",
-      "occurrences" : 2,
-      "specificity" : 0.8379513874179255,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8807355118106474,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/config/ServiceLoader.java",
-        "line" : 190
       }
     }, {
       "concept" : "character sets",
@@ -17137,17 +16670,6 @@
       "firstWrittenAt" : {
         "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/Phase2Trainer.java",
         "line" : 953
-      }
-    }, {
-      "concept" : "cache size",
-      "placedUnder" : "cache memory",
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/CachingInputStream.java",
-        "line" : 152
       }
     }, {
       "concept" : "lossless",
@@ -17238,17 +16760,6 @@
         "line" : 149
       }
     }, {
-      "concept" : "encrypted data",
-      "placedUnder" : "data privacy | encryption | network security",
-      "occurrences" : 1,
-      "specificity" : 0.9786654280275991,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9786654280275991,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/detect/microsoft/POIFSContainerDetector.java",
-        "line" : 188
-      }
-    }, {
       "concept" : "controlled vocabulary",
       "placedUnder" : "ontology | vocabulary control",
       "occurrences" : 1,
@@ -17280,17 +16791,6 @@
       "firstWrittenAt" : {
         "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/db/Cols.java",
         "line" : 38
-      }
-    }, {
-      "concept" : "encryption",
-      "placedUnder" : "cryptography | security of data",
-      "occurrences" : 1,
-      "specificity" : 0.9694864882327939,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9752745553719511,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/fsshttpb/MSOneStoreParser.java",
-        "line" : 177
       }
     }, {
       "concept" : "constant bit rate",
@@ -17370,17 +16870,6 @@
         "line" : 95
       }
     }, {
-      "concept" : "visual representations",
-      "placedUnder" : "visualization",
-      "occurrences" : 1,
-      "specificity" : 0.9571173861941681,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9792975182483397,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/gui/ParsingTransferHandler.java",
-        "line" : 123
-      }
-    }, {
       "concept" : "block boundaries",
       "placedUnder" : "blocking artifacts",
       "occurrences" : 1,
@@ -17425,17 +16914,6 @@
         "line" : 679
       }
     }, {
-      "concept" : "scale factor",
-      "placedUnder" : "evolutionary algorithms | gyroscopes",
-      "occurrences" : 1,
-      "specificity" : 0.9343855346810025,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-icu4j/src/main/java/org/apache/tika/detect/icu4j/CharsetRecog_mbcs.java",
-        "line" : 123
-      }
-    }, {
       "concept" : "text document",
       "placedUnder" : "information retrieval systems | text mining",
       "occurrences" : 1,
@@ -17467,17 +16945,6 @@
       "firstWrittenAt" : {
         "file" : "tika-core/src/main/java/org/apache/tika/metadata/XMPMM.java",
         "line" : 93
-      }
-    }, {
-      "concept" : "firefox",
-      "placedUnder" : "javascript",
-      "occurrences" : 1,
-      "specificity" : 0.9274081248231927,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9274081248231927,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testMHTMLFirefox.mhtml",
-        "line" : 1
       }
     }, {
       "concept" : "message delivery",
@@ -17579,17 +17046,6 @@
         "line" : 599
       }
     }, {
-      "concept" : "release date",
-      "placedUnder" : "single-machine scheduling",
-      "occurrences" : 1,
-      "specificity" : 0.8869476207663515,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/XMPDM.java",
-        "line" : 195
-      }
-    }, {
       "concept" : "automation",
       "placedUnder" : "engineering",
       "occurrences" : 1,
@@ -17645,50 +17101,6 @@
         "line" : 204
       }
     }, {
-      "concept" : "model test",
-      "placedUnder" : "numerical model",
-      "occurrences" : 1,
-      "specificity" : 0.8739967077492254,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8739967077492254,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/core/CharSoupModelTest.java",
-        "line" : 31
-      }
-    }, {
-      "concept" : "type class",
-      "placedUnder" : "haskell",
-      "occurrences" : 1,
-      "specificity" : 0.8715787686144684,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8825758401942216,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/fsshttpb/streamobj/StreamObject.java",
-        "line" : 171
-      }
-    }, {
-      "concept" : "text data",
-      "placedUnder" : "text mining",
-      "occurrences" : 1,
-      "specificity" : 0.8667216887933377,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java/org/apache/tika/parser/microsoft/chm/TestChmExtraction.java",
-        "line" : 93
-      }
-    }, {
-      "concept" : "language model",
-      "placedUnder" : "speech recognition",
-      "occurrences" : 1,
-      "specificity" : 0.8597297754039408,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8922558029266577,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/TrainLanguageModel.java",
-        "line" : 81
-      }
-    }, {
       "concept" : "gps",
       "placedUnder" : "software",
       "occurrences" : 1,
@@ -17709,17 +17121,6 @@
       "firstWrittenAt" : {
         "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources/test-documents/breidamerkurjokull_radar_profiles_2009.mat",
         "line" : 1
-      }
-    }, {
-      "concept" : "classification",
-      "placedUnder" : "data mining",
-      "occurrences" : 1,
-      "specificity" : 0.8319890756257817,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-metadata-schema/src/main/java/org/apache/tika/metadata/schema/MetadataKeyValidator.java",
-        "line" : 46
       }
     }, {
       "concept" : "publish/subscribe",
@@ -17746,9 +17147,17 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
-      "senses" : 727,
-      "lemmas" : 990,
-      "words" : 1729
+      "lemmas" : 1030,
+      "senses" : 726,
+      "words" : 1591
+    },
+    "bar" : {
+      "phrases" : 30,
+      "chanceExpectedBest" : 18,
+      "median" : 16,
+      "timesTheBar" : 1.6666666666666667,
+      "field" : 2,
+      "resamples" : 999
     }
   } ],
   "setAside" : {
@@ -17757,7 +17166,9 @@
     "wordsWithinTheReferencesError" : 91,
     "wordsTheLanguageSupplies" : 22,
     "scopesWithinChance" : 209,
-    "matchesDiscardedByBranchRule" : 82,
+    "matchesDiscardedByBranchRule" : 83,
+    "vocabulariesBelowTheirChanceBar" : 0,
+    "termsWorkingJavaAlsoWrites" : 2527,
     "filesTheParserCouldNotRead" : 0
   }
 }
