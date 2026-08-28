@@ -60,6 +60,30 @@
 #   is marked in-domain for one taxonomy only: the bundled NIST Cybersecurity Framework partitions what
 #   a security project does, and until this member there was no repository to fire it on. It is
 #   out-of-domain for OLiA and FIBO like every other member.
+#
+# THE PROTOCOL A MEMBER IMPLEMENTS AND THE PROTOCOL A MEMBER USES ARE DIFFERENT TESTS, and until
+#   2026-08-28 every finance member was the first kind. quickfixj is a FIX engine, jPOS implements
+#   ISO-8583, and a vocabulary scoring highly against the engine that implements it is partly
+#   measuring itself: quickfixj declares FIX's own multi-word terms because declaring them is what a
+#   FIX engine is for. A repository that USES the protocol declares far fewer of them — it writes
+#   `quickfix.field.ClOrdID` rather than declaring it, and only declarations are read — so it is the
+#   harder test and the honest one. Three members were added for it, one per protocol the set already
+#   holds an implementation of, and each is paired with that implementation below:
+#
+#     FIX         quickfixj implements it       fix-trading-simulator uses it through QuickFIX/J
+#     ISO-8583    jpos implements it            jmeter-iso8583 uses it through jPOS
+#
+#   FpML has no third row. handcoded/fpml-toolkit-java at cf7a6cb was the candidate — 195 files and
+#   1.79 MB of Java, OSL-3.0 — and the reading finds none of it: its sources are under src-core,
+#   src-fpml and src-dsig, where JavaSourceScopes anchors every scope on <module>/src/<set>/java. It
+#   reads 0 declared runs, which is indistinguishable from a member the reading correctly said nothing
+#   about, so it is refused rather than recorded. The limitation is the backlog's, not this file's.
+#
+#   The two that stand are small — 1,149 and 669 declared runs against fineract's 174,315 — so a
+#   placement figure from them carries far more sampling noise than one from an existing member. That
+#   is a property of the question rather than a defect: an application that uses a protocol is smaller
+#   than the engine that implements it. Their areas were recorded on 2026-08-28, before either was
+#   read, from what each project publishes about itself and from nothing else.
 tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	Computer Science	its own GitHub description: a toolkit that detects and extracts metadata and text from files	out-of-domain
 maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	Computer Science	its own GitHub description: a software project management and comprehension tool	out-of-domain
 santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	Computer Science	its own GitHub description: a library implementing XML digital signature and encryption	in-domain
@@ -69,3 +93,5 @@ quickfixj	https://github.com/quickfix-j/quickfixj.git	369182d9dbf34399ee5942c8b2
 jpos	https://github.com/jpos/jPOS.git	9465cbdeb5d81e6e3e21066880de9495a150a554	AGPL-3.0	Finance	its own GitHub topics: iso-8583, iso8583 — card payment messages	in-domain
 besu	https://github.com/besu-eth/besu.git	a2da1185ad85c1f0c41341a4ed197a81cf93f17e	Apache-2.0	Computer Science	its own GitHub topics: blockchain, ethereum, p2p — a node, not a finance application	out-of-domain
 aeron	https://github.com/aeron-io/aeron.git	673430af82cecac2b66e7040f792c33464a5df2d	Apache-2.0	Computer Science	its own GitHub topics: messaging, ipc, multicast-streams	out-of-domain
+fix-trading-simulator	https://github.com/felipewind/fix-trading-simulator.git	722b0f8679cf2227c4d957762791b2ae977335db	MIT	Finance	its own GitHub topics: fixprotocol, quickfixj — a broker and a stock exchange exchanging FIX messages	in-domain
+jmeter-iso8583	https://github.com/tilln/jmeter-iso8583.git	b90aaecfa532e2e662404f7018218fdbb9c294aa	MIT	Finance	its own GitHub topics: iso8583, jpos, pos — card payment messages, sent as a JMeter plugin	in-domain

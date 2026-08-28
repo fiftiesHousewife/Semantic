@@ -1,20 +1,22 @@
 ---
 name: running-the-backtest
-description: Measure a change to the reading on the nine repositories it was not developed against. Use before a defect is called fixed, a repair called an improvement, or any figure is quoted as accuracy.
+description: Measure a change to the reading on the eleven repositories it was not developed against. Use before a defect is called fixed, a repair called an improvement, or any figure is quoted as accuracy.
 ---
 
 # Running the backtest
 
-A change to the reading is judged on the evaluation set — the nine repositories the reading is measured on, held out from the one it was developed against. A figure taken on this repository is not evidence for it, because this repository is what it was tuned on.
+A change to the reading is judged on the evaluation set — the eleven repositories the reading is measured on, held out from the one it was developed against. A figure taken on this repository is not evidence for it, because this repository is what it was tuned on.
 
 ## The evaluation set
 
 | | |
 |---|---|
-| The clones | nine, at `$HOME/evaluation`, each at the commit the manifest pins. About 820 MB |
-| The manifest | [`evaluation-set.tsv`](../../../code-semantics-engine/src/test/resources/evaluation-set.tsv) — name, origin, sha, licence, area, stated-by, and the expected result |
+| The clones | eleven, at `$HOME/evaluation`, each at the commit the manifest pins. About 821 MB |
+| The manifest | [`evaluation-set.tsv`](../../../reading-export/src/test/resources/evaluation-set.tsv) — name, origin, sha, licence, area, stated-by, and the expected result |
 | The answer | the `area` column: the subject area the reading is expected to place the member under, named as the scheme states it. A field such as Computer Science, or a subfield such as Finance |
 | Who states it | somebody outside this project — the repository's own GitHub description or topics. Recorded **before** the reading was run and never revised afterwards |
+
+**Two members use a protocol rather than implementing one.** `fix-trading-simulator` and `jmeter-iso8583` joined on 2026-08-28, paired with the implementations the set already held: quickfixj implements FIX and the simulator uses it through QuickFIX/J; jPOS implements ISO-8583 and the JMeter plugin uses it through jPOS. A vocabulary scoring highly against the engine that implements it is partly measuring itself, because a FIX engine declares FIX's own terms as its whole job. An application that uses the protocol declares far fewer, since it writes `quickfix.field.ClOrdID` rather than declaring it and only declarations are read. **Both are small** — 1,149 and 669 declared runs against fineract's 174,315 — so their placement figures carry far more sampling noise than an existing member's, and a verdict that turns on them alone is not a verdict.
 
 **Never re-fetch.** `evaluationFetch` reaches the network, is tagged `backtest` so no ordinary run touches it, and fetches only where a tree is not already at its pin. The clones are already there. A member runs to hundreds of megabytes.
 
@@ -31,10 +33,10 @@ One line, and `$HOME` rather than `~` — neither bash nor zsh expands a tilde a
 | | |
 |---|---|
 | What it does | reads every cloned member in one JVM, several at a time. The count is the JVM's heap divided by the 3 GB the build gives one member's fork, and the first log line states it |
-| What it costs | about six and a half minutes for all nine |
+| What it costs | about seven minutes for all eleven |
 | What it writes | `output/<member>/json/reading.json`, `evidence.json` and `changes.json` — the same three files the self read writes, one folder per member |
 
-- **Never `evaluationRead`.** It forks one JVM per member and takes thirty-one minutes for the same answers. One JVM is most of the saving: a bundled subject scheme is read into distributions once and shared, instead of nine times.
+- **Never `evaluationRead`.** It forks one JVM per member and takes thirty-one minutes for the same answers. One JVM is most of the saving: a bundled subject scheme is read into distributions once and shared, instead of once per member.
 - One Gradle invocation at a time, as everywhere else in this project.
 - The toolchain path is needed in the agent sandbox only; a shell outside it reads the path from `~/.gradle/gradle.properties`.
 
@@ -50,7 +52,7 @@ One line, and `$HOME` rather than `~` — neither bash nor zsh expands a tilde a
 
 ## What the run is scored on
 
-Nine members at four levels — arXiv archive and category, OpenAlex subfield and topic — is 36 level readings. Every figure comes out of `summary.placedIn` in each member's `reading.json`.
+Eleven members at four levels — arXiv archive and category, OpenAlex subfield and topic — is 44 level readings. Every figure comes out of `summary.placedIn` in each member's `reading.json`.
 
 | Figure | Where it comes from |
 |---|---|
@@ -76,7 +78,7 @@ Nine members at four levels — arXiv archive and category, OpenAlex subfield an
 
 ## Traps
 
-**A directory holding no clones reads nothing and exits zero.** Every member is logged *is not cloned … — not read*, and the run ends `0 of 0 members`. Read the first log line, which names how many members are in flight, and the last, which counts what was read. Nine is the number.
+**A directory holding no clones reads nothing and exits zero.** Every member is logged *is not cloned … — not read*, and the run ends `0 of 0 members`. Read the first log line, which names how many members are in flight, and the last, which counts what was read. Eleven is the number.
 
 **A member whose read fails is named and the run ends non-zero.** A member that was never read and a member the reading correctly said nothing about produce the same empty row, and only one of them is a result.
 
