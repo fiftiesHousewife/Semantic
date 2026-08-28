@@ -2,12 +2,11 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
 import io.github.fiftieshousewife.bi.lexicon.CweTerms;
-import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
 import io.github.fiftieshousewife.bi.lexicon.FixTerms;
 import io.github.fiftieshousewife.bi.lexicon.FpmlTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.bi.lexicon.TermVocabularies;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 
@@ -38,7 +37,7 @@ public enum ControlTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return FiboTerms.fromClasspath().concepts();
+            return TermVocabularies.FIBO.concepts();
         }
     },
 
@@ -60,7 +59,7 @@ public enum ControlTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return FpmlTerms.fromClasspath().concepts();
+            return TermVocabularies.FPML.concepts();
         }
     },
 
@@ -82,7 +81,7 @@ public enum ControlTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return FixTerms.fromClasspath().concepts();
+            return TermVocabularies.FIX.concepts();
         }
     },
 
@@ -103,7 +102,7 @@ public enum ControlTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return CweTerms.fromClasspath().concepts();
+            return TermVocabularies.CWE.concepts();
         }
     },
 
@@ -115,8 +114,7 @@ public enum ControlTaxonomies {
     BIAN {
         @Override
         public TermIndex index() {
-            return InjectedTerms.of(
-                    InjectedTaxonomy.of(BianServiceDomains.fromClasspath().concepts(), name()), name());
+            return InjectedTerms.of(InjectedTaxonomy.of(publishedConcepts(), name()), name());
         }
 
         @Override
@@ -126,7 +124,7 @@ public enum ControlTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return BianServiceDomains.fromClasspath().concepts();
+            return TermVocabularies.BIAN.concepts();
         }
     };
 

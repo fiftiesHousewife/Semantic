@@ -127,7 +127,24 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 
 - **Next, and stated as the measurement that would settle it.** That is part 3a, which adds the bundled vocabularies' own multi-word labels to `PublishedPhrases` and re-pools the corpus in the same change — after which `mime type` carries a share across the pooled repositories and `interest rate swap` does not. **So 3a runs before weighing a phrase by `PhraseSpecificity`**, which reads a general English frequency list and would not demote `mime type` at all, `mime` being rare in English and ordinary only in software. Until one of them lands the bar is a diagnostic and no reading publishes it: `reading.json` and `evidence.json` carry no phrase bar.
 
-- Part 3a is untouched.
+- **Part 3a is built, measured and refuted, on 2026-08-28.** `PublishedTermRuns` reduced the seven bundled vocabularies' multi-word `prefLabel`s to runs through `IdentifierWords`, `PublishedPhrases` pooled them beside the two dictionaries, and the reference corpus was re-pooled over the same 100 repositories in the same change. `TermVocabularies` states the seven once and `PublishedTermRunsDiagnostic` prints every figure below; neither is in any reading.
+
+  **What it did to the index and to the corpus, both as designed.** The index grows 69,713 runs to 91,663, the walk's bound is unchanged at 26 because a dictionary already states a run that long, and the re-pooled corpus falls 28,839 words to 28,129 with collocated rows rising 886 to 1,200. The corpus answers the question 3b left open: `mime_type` now carries a share of general Java at 165 occurrences, `time_zone` 446, `start_date` 256, `country_code` 11, while `interest_rate`, `market_data`, `message_id` and `natural_language_processing` are absent from it. `mime type` is ordinary in software and `interest rate swap` is not, and the corpus states which is which without a phrase-frequency resource being bundled.
+
+  **What it did to the vocabulary ranking: it improved it, and the churn criterion passes.** Words above the bar rise on eight of the nine members, and the crossings are the field terms — strata 739 → 777 with `accrual_period` and `absolute_tolerance` entering, fineract 656 → 706, quickfixj 215 → 226. Total crossings are 1% to 8% of the ranking on every member, inside the one-in-ten resample baseline.
+
+  **What it did to the placement: it destroyed it.** All 36 level readings, before and after, from `summary.placedIn`.
+
+  | | stands apart of 36 | mean divergence | mean chance bar | mean margin | mean band |
+  |---|--:|--:|--:|--:|--:|
+  | before | 33 | 0.3818 | 0.4215 | 0.0397 | 2.92 |
+  | after | 22 | 0.4122 | 0.4224 | 0.0102 | 1.31 |
+
+  The divergence rose against every subject at once while the chance bar stood still, which is the shape of a reading that lost signal rather than one that moved. strata falls inside chance at both arXiv levels and its OpenAlex reading moves from Artificial Intelligence to Management Science and Operations Research and from Embedded Systems Design Techniques to Income, Poverty, and Inequality; quickfixj, jpos, besu and aeron each lose their arXiv archive. **This is the stated refutation** — degraded placements on members whose words currently vote correctly — and it is the finance members, the ones the mechanism was written for, that degrade most.
+
+  **The cause is measured and it is on the subject's side, not the repository's.** λ moves nowhere: the share of words a resource can be cited for is identical to four decimal places on all nine members, and mass on no subject moves at most 0.3 points. What moved is the published subject descriptions, which are read through the same index. An arXiv subject is described in 29 units on average, and the runs the vocabularies absorb there are its most specific ones: 40 distinct runs over 53 occurrences, led by `machine_learning` ×7, and including `natural_language_processing`, `programming_languages`, `formal_languages`, `speaker_recognition`, `information_extraction`, `program_verification`, `distributed_computing` and `social_networks`. A subject whose one discriminating phrase becomes a unit that votes nothing stops being reachable, so every repository sits further from every subject.
+
+  **What the refutation leaves standing, and what it names next.** 3b stands, as the plan said it would. The unit change is right for the term path and wrong for the arithmetic that reads prose, so the two cannot share one index while a merged run votes nothing. **The measurement that would settle the repair: give the merged run the vote its own concept carries** — `ConceptTopics` already places a matched concept — and re-run these 36 levels. A run that arrives with a subject is additive where one that arrives silent is subtractive, and that is the difference between the two columns above. Failing that, the narrower move is two indexes: the vocabularies' runs on the repository side of the comparison and the dictionaries' alone on the published-subject side, which is a measurement rather than an argument.
 
 ## The order of work
 
@@ -136,5 +153,6 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 | 1 | the record and the pages | one build | the pages name every placing label; regression pins on this repository |
 | 2 | corroborated weight against committed evidence, then the pages | seconds per iteration, then one build | step 1's criterion, then the page regeneration |
 | 3 | the permutation bar for the term path (3b) | one build, then a read per member | **done** — members clear and BIAN fails; controls clear weakly, so it stays a diagnostic |
-| 4 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | the churn, placement and control criteria above, and FpML's Tika figure falling below its bar |
-| 5 | a phrase weighed by how ordinary it is in the pooled corpus | one build, then a read per member | the leader on each finance member is a finance vocabulary |
+| 4 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | **refuted 2026-08-28** — churn passed and the ranking improved; the placement fell from 33 of 36 standing apart to 22, because the published subject descriptions are read through the same index |
+| 5 | the merged run votes its concept's subject | the arithmetic, then the backtest | the 36 level readings recovering what 3a cost, on the same table |
+| 6 | a phrase weighed by how ordinary it is in the pooled corpus | one build, then a read per member | the leader on each finance member is a finance vocabulary |

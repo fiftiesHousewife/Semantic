@@ -3,8 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 import java.util.List;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.bi.lexicon.TermVocabularies;
 
 /**
  * The term taxonomies every reading matches, enumerated so the run and its documentation state one list.
@@ -31,7 +31,7 @@ public enum MatchedTaxonomies {
 
         @Override
         public List<SkosConcept> publishedConcepts() {
-            return OliaTerms.fromClasspath().concepts();
+            return TermVocabularies.OLIA.concepts();
         }
     },
 
