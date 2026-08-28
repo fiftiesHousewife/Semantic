@@ -111,7 +111,21 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 
 - **The false positives are a fact about the vocabularies, not about the null.** FpML's 20 phrases on Tika are `mime type` 61, `pass through` 11, `time zone` 10, `resource type` 7, `country code` 7, `task id` 6, `message id` 1 — generic technical compounds FpML happens to state as XML type names, which Tika writes because every Java program does. Tika really does write the orders FpML published; FpML's vocabulary is simply not all about derivatives. The same reading explains OLiA on fineract, which clears at 1.4 on `entity type` 328, `email address` 40 and `phone number` 16 — the literal use Constant et al. name as one of the two error modes that transfer, and the bar does not catch it because those are the orders OLiA published.
 
-- **Next, and stated as the measurement that would settle it.** Weigh each phrase by `PhraseSpecificity`, so `mime type` counts for less than `interest rate swap`, and rerun the same ten. **Kept when** the leader on each finance member is a finance vocabulary and FpML's Tika figure falls below its bar; **refuted by** a leader that moves off its own field on any member. Until then the bar is a diagnostic and no reading publishes it: `reading.json` and `evidence.json` carry no phrase bar.
+- **Refusing a term another bundled vocabulary also states was measured and does not work.** The route is inverted: 95 to 99.9% of every vocabulary's multi-word terms are stated by no other of the seven, so "unique to it" is nearly the whole vocabulary and separates nothing — and the few that are shared are the core domain terms three publishers agree on, `credit event` (FIBO and FpML), `business day convention` (FIBO and FIX), `floating rate index` (FpML and FIX). The terms that cause the false positives are stated by FpML alone: `mime type`, `time zone`, `country code`, `message id`. A uniqueness rule would delete the best evidence and keep every generic compound.
+
+  | | phrases published | stated by no other of the seven |
+  |---|--:|--:|
+  | CSO | 10,403 | 10,390, 99.9% |
+  | FIX | 7,090 | 7,049, 99.4% |
+  | FIBO | 1,618 | 1,557, 96.2% |
+  | FpML | 1,302 | 1,233, 94.7% |
+  | OLiA | 989 | 987, 99.8% |
+  | CWE | 949 | 948, 99.9% |
+  | BIAN | 307 | 293, 95.4% |
+
+  Publishers barely overlap because each coins its own compound labels, and `mime type` is not ordinary because a taxonomy states it — it is ordinary because every Java program writes it. **The reference has to be a corpus of general software, and one is half built already**: `reference-corpus-shares.tsv` carries 886 collocated rows pooled from the general Java corpus and holds `time_zone` at 446 occurrences, but not `mime_type`, `message_id`, `country_code` or `party_id`, because it pools only the runs WordNet labels as collocations.
+
+- **Next, and stated as the measurement that would settle it.** That is part 3a, which adds the bundled vocabularies' own multi-word labels to `PublishedPhrases` and re-pools the corpus in the same change — after which `mime type` carries a share across the pooled repositories and `interest rate swap` does not. **So 3a runs before weighing a phrase by `PhraseSpecificity`**, which reads a general English frequency list and would not demote `mime type` at all, `mime` being rare in English and ordinary only in software. Until one of them lands the bar is a diagnostic and no reading publishes it: `reading.json` and `evidence.json` carry no phrase bar.
 
 - Part 3a is untouched.
 
@@ -122,5 +136,5 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 | 1 | the record and the pages | one build | the pages name every placing label; regression pins on this repository |
 | 2 | corroborated weight against committed evidence, then the pages | seconds per iteration, then one build | step 1's criterion, then the page regeneration |
 | 3 | the permutation bar for the term path (3b) | one build, then a read per member | **done** — members clear and BIAN fails; controls clear weakly, so it stays a diagnostic |
-| 4 | the specificity-weighted phrase count | one build, then a read per member | the leader on each finance member is a finance vocabulary |
-| 5 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | the churn, placement and control criteria above |
+| 4 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | the churn, placement and control criteria above, and FpML's Tika figure falling below its bar |
+| 5 | a phrase weighed by how ordinary it is in the pooled corpus | one build, then a read per member | the leader on each finance member is a finance vocabulary |
