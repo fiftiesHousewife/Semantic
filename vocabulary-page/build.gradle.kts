@@ -90,6 +90,20 @@ tasks.register<JavaExec>("discoursePass") {
 // Both pages for every published reading under output/, one folder per repository with an index. It
 // consumes the readings already taken and takes none itself.
 //   ./gradlew evaluationPages
+// Every published reading in one table: what it is about, the vocabulary that beat its own chance bar,
+// where each scheme places it, and the area a named manifest states for it. It reads the readings under
+// output/ and no tree.
+//   ./gradlew readings
+//   ./gradlew readings -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
+tasks.register<JavaExec>("readings") {
+    group = "verification"
+    description = "Writes the one page comparing every published reading under output/"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.ReadingsCommand"
+    classpath = sourceSets["main"].runtimeClasspath
+    workingDir = rootDir
+    System.getProperty("cs.reading.manifest")?.let { systemProperty("cs.reading.manifest", it) }
+}
+
 tasks.register<JavaExec>("evaluationPages") {
     group = "verification"
     description = "Writes both pages for every published reading under output/, with an index"

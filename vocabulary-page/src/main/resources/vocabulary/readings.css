@@ -1,0 +1,95 @@
+:root {
+    color-scheme: light dark;
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+    --count: #2a78d6;
+    --reached: #1baf7a;
+    --missed: #d95926;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #101518;
+        --raised: #171e22;
+        --ink: #eaf0ee;
+        --ink-soft: #9fb0b4;
+        --ink-faint: #6d8085;
+        --rule: #262f34;
+        --count: #3987e5;
+        --reached: #199e70;
+        --missed: #eb6834;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.sheet {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin: 0 0 0.25rem;
+}
+
+.lede {
+    max-width: 52rem;
+    color: var(--ink-soft);
+}
+
+table.readings {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.25rem;
+    background: var(--raised);
+}
+
+table.readings th,
+table.readings td {
+    text-align: left;
+    padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+}
+
+table.readings th {
+    color: var(--ink-faint);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: lowercase;
+    white-space: nowrap;
+}
+
+table.readings td a {
+    color: var(--count);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.silent {
+    color: var(--ink-faint);
+}
+
+.reached {
+    color: var(--reached);
+    font-weight: 600;
+}
+
+.missed {
+    color: var(--missed);
+}
+
+.unbarred {
+    color: var(--ink-faint);
+}

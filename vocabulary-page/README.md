@@ -3,11 +3,26 @@
 Draws the export's significant words as two linked pages per repository: the vocabulary — the funnel of the rules that produce the signals, ending in a [word cloud](https://en.wikipedia.org/wiki/Tag_cloud) of meanings — and the domains, the three leading [WordNet domains](https://wndomains.fbk.eu/) as overlapping sets. Diagnostic viewers: they write under `vocabulary-page/build/reports/vocabulary/<repository>/` and never under `output/`, which holds JSON and nothing else.
 
 ```
+./gradlew readings                                       # every published reading in one table
 ./gradlew vocabularyPage                                 # the funnel and the cloud of meanings
 ./gradlew domainVenn                                     # the domains as overlapping sets, per source
 ./gradlew evaluationPages                                # both pages for every reading under output/
 ./gradlew discoursePass -Dcs.evaluation.dir=<clones>     # the sense-weighting passes compared, printed
 ```
+
+## The readings, compared
+
+[`readings.html`](build/reports/vocabulary/readings.html) is one row per published reading: what it is about, the vocabulary whose phrase count beat what a deal of its own words reaches, where each scheme places it at both levels, λ, and **the subject area somebody outside this project states for that repository**. The last column is what separates a picture of the reading from a picture of whether the reading is right, and it is the one no page carried before.
+
+```
+./gradlew readings -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
+```
+
+The manifest is **named rather than found**. The one this project keeps is a test fixture whose own header states that it never votes, so putting it where a published page could reach it would ship a curated judgement as though it were a citation. A run naming none draws every row with an empty stated-area column, which is what a consumer reading its own repository sees.
+
+Reaching the area is the publisher's own question and not a string comparison: OpenAlex places every topic under a subfield, that under a field and that under a domain, so a placement of *Natural Language Processing Techniques* descends from *Computer Science* and a page comparing the two labels would mark a right answer wrong. [`StatedAreas`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/StatedAreas.java) walks the publisher's `broader` chain through [`PlacedUnder`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PlacedUnder.java), which is what the evaluation score already uses.
+
+**A bar of zero is stated as such and never as a multiple.** Where the deals reach nothing at the quantile the field sets, any single match clears and `timesTheBar` answers with the count itself — so a vocabulary matched once against a bar of zero would read as standing exactly at a real bar. The page writes *no bar* instead.
 
 The pages consume published readings — `reading.json` and `evidence.json` under `output/json`, or the folder `-Dcs.reading.dir=<folder>` names — and read no tree, so a picture and the published figures cannot disagree and drawing costs no parse. `evaluationPages` writes both pages for every reading under `output/`. Each page links its sibling and `index.html`, which names every repository with pages on disk; the domains page offers each bundled domain source, WordNet Domains and eXtended WordNet Domains, as a choice above the figure. Every figure a page draws is in the JSON block it draws it from, written beside the page as `vocabulary.json` and `domain-venn.json`.
 
@@ -45,5 +60,7 @@ The domain page divides each word's claim over its dictionary senses by the coun
 | [`DomainVennPage`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/DomainVennPage.java), [`DomainVennCommand`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/DomainVennCommand.java) | the overlapping-sets page: circle area by share, a count per overlap opening its words, unambiguous words in bold |
 | [`SignificantWords`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/SignificantWords.java), [`ScoredWord`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/ScoredWord.java) | the one population every page draws |
 | [`EvaluationPagesCommand`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/EvaluationPagesCommand.java), [`PagesIndex`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/PagesIndex.java) | both pages for every clone, and the index naming them |
+| [`ReadingsPage`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/ReadingsPage.java), [`ReadingRow`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/ReadingRow.java), [`ReadingsCommand`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/ReadingsCommand.java) | every reading in one table, and the command that writes it |
+| [`StatedAreas`](src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/StatedAreas.java) | what a named manifest states each repository is about, and whether a placement descends from it |
 
 This is the one module that may depend on a markup writer. The published reading stays JSON-only; anything drawn is drawn from the same classes the export is written from, so the picture and the report cannot disagree.

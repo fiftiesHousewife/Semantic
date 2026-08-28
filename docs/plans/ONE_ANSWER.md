@@ -225,13 +225,16 @@ Two consequences follow and both are stated in `WorkingJavaRuns`:
 
 | Publishes | Members |
 |---|---|
-| OLiA and CSO | this repository, tika, aeron, quickfixj |
-| CSO alone | besu, fineract, jmeter-iso8583, jpos, santuario, strata |
+| OLiA and CSO | tika, aeron, jpos |
+| CSO alone | besu, fineract, jmeter-iso8583, santuario, strata |
+| OLiA alone | this repository, quickfixj |
 | nothing | maven, fix-trading-simulator |
 
-OLiA leaves nine of the eleven, which is a vocabulary of linguistic annotation correctly saying nothing about a bank or a build tool. **maven publishes no taxonomy at all**, which is the right answer for a build tool no bundled vocabulary covers.
+**maven publishes no taxonomy at all**, which is the right answer for a build tool no bundled vocabulary covers, and neither does the FIX consumer.
 
-**A bar of zero is not much of a bar, and three readings sit on one.** `ChanceExpectedBest` reads the deals at the `1/(field + 1)` quantile, and where a vocabulary's counts are small that rank holds a zero — so any single match clears. quickfixj publishes OLiA on one phrase against a bar of 0, and jmeter-iso8583 publishes CSO on two against 0. `PhraseBar.timesTheBar` returns the observed count where the bar is zero, so those read as 1.00 and 2.00 rather than as a division. **The bar is only informative where the deals reach above zero**, and nothing in the export says which case a reader is looking at. What settles the repair: whether `exceedsChance` should require the observed count to beat the *median* deal as well, which costs nothing to compute and is already carried on the record.
+**A bar of zero is not much of a bar, and it decides quickfixj.** `ChanceExpectedBest` reads the deals at the `1/(field + 1)` quantile, and where a vocabulary's counts are small that rank holds a zero — so any single match clears. **quickfixj publishes OLiA and nothing else, on one phrase against a bar of 0**, while CSO's five phrases fell below a bar of four. A FIX engine whose only surviving vocabulary is linguistic annotation is not a reading anyone should publish, and `PhraseBar.timesTheBar` answers with the observed count where the bar is zero, so it reads as 1.00 — indistinguishable from a vocabulary standing exactly at a real bar. `ReadingsPage` states that case as *no bar* rather than as a multiple, which is a repair to the picture and not to the reading.
+
+**This is the first thing step 4 must fix**, because the cascade would take OLiA as quickfixj's answer. What settles it: whether `exceedsChance` should require the observed count to beat the **median** deal as well as the quantile. It costs nothing — `PhraseBar` already carries the median — and on these eleven it would refuse OLiA on quickfixj at 1 against a median of 0 only if the median rule is strict rather than weak, so the run has to report both. The alternative is that a field of two is simply too small a field, which is the same open question 1 in a different place.
 
 **What it costs the backtest.** `evaluationReadAll` over eleven members goes from 8m 9s to 16m 28s. The null is the whole of that.
 
