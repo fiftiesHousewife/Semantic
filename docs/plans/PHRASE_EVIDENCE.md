@@ -54,9 +54,9 @@ Worked example, at the sweep's figures: strata writes `interest rate` as adjacen
 
 ## Part 3 — the phrase as a pooled unit, and its chance bar
 
-### 3b, first: the term path qualifies against a permutation of the repository's own words
+### 3b, first: the term path qualifies against a permutation
 
-The sweep judged FIBO-on-fineract against hand-picked controls. The derived bar: shuffle the repository's own words across its declared names, preserving each name's word count, 999 times; recount distinct multi-word matched terms per vocabulary on each shuffle; the observed count qualifies where it exceeds the chance-expected maximum at the 1/(n+1) quantile, exactly as `PermutationNull` and `ChanceExpectedBest` already compute. The reference is the repository's own unigram margins — no phrase-frequency resource exists or is needed, and the bound [1/1000, 1] follows from the estimator's definition.
+The sweep judged FIBO-on-fineract against hand-picked controls. The derived bar permutes one of the two sides 999 times, recounts, and qualifies the observed count where it exceeds the chance-expected maximum at the 1/(n+1) quantile, exactly as `ChanceExpectedBest` already computes; the bound [1/1000, 1] follows from the estimator's definition. **Which side to permute was the open question, and the run settled it against the side this design first named.** The design as written permuted the repository — its own words across its declared names, each name keeping its length — on the reading that the repository's unigram margins are the reference the literature's independence expectation asks for. That was measured and refuted twice over, and what landed permutes the vocabulary instead: its own words across its own terms, each term keeping its length, so the reference states as many terms of the same lengths from the same word list and differs only in which words the publisher put beside which. "Where the work stands" below records both runs and why the second reference is the one that answers the question. Neither needs a phrase-frequency resource.
 
 **Done when**, on the sweep's members, the field vocabularies clear their bar on their fields and the same vocabularies on the controls do not, and BIAN continues to fail both ways. **Refuted by** controls clearing the bar at rates comparable to members — that would mean the count measures vocabulary size rather than subject matter, and the null's conditioning must be re-examined before any phrase figure is reported at all.
 
@@ -81,7 +81,39 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 - **Part 2's step 1 is measured**, with `CorroboratedSenses` applying the rule to the three uncounted arms and `./gradlew corroboratedWeight` printing every member's placements before and after. The corroborated weight reaches the CSO arm on all nine members — fineract's `transaction` 0.36 → 0.97 on `transaction processing` ×140, strata's `matrix` 0.34 → 0.65 on `matrix algebra` ×50, aeron's `response` moves to computer networks on `challenge response` ×37 — and no abstention changes, which `CorroboratedSensesTest` pins structurally.
 - **The strata finance criterion is settled by measurement, against the expectation.** `rate` gains only `rate of return` ×2; `leg`, `strike` and `tenor` gain nothing, because no subject arm states those labels: the written label-runs on strata intersect CSO at 46 runs (its numerical core — `cubic spline`, `matrix algebra`, `mean square error`) and arXiv/OpenAlex at zero, since composite topic titles are never written as runs. The finance evidence the criterion reached for lives in the term vocabularies, and the phrase venns above are where it now draws. Corroborating on OpenAlex's account keywords instead of labels was measured and refused: 15 thin hits on strata including `life cycle` from parasite topics and `south africa` from HIV topics, with `interest rates` reaching `interest rate` only at the spelling rungs the design excludes.
 - **Residual literal use, as the literature predicts:** strata writes `standard model` (its pricing model) and CSO's `standard model` (the cryptographic proof setting) takes ×9. The permutation bar of part 3b is the stated guard.
-- Parts 3b and 3a are untouched.
+- **The FIX tree was under-read and is fixed.** Orchestra states no `category` attribute on any of its 6,203 fields, so every one of them sat at the top of the tree — `maturity date` and `due date` among them. The publisher does state the placement, through the messages, components and groups that carry a category and name the fields they hold as `fieldRef`s. `FixFieldPlacements` reads it: a field sits under the deepest concept every container naming it sits under — their one category, the section several categories share, or nothing where they share nothing. 5,378 of 6,203 fields are placed, and quickfixj's FIX tree now roots at `Session`, `PreTrade` and `Common` rather than at 6,203 siblings. The branch rule then admits more one-word FIX terms, because fields finally have branches: 0 to 19 on this repository, 9 to 22 on Tika. No phrase count moved.
+- **Part 3b is landed as a diagnostic, after two refutations.** Both the reference and the statistic had to change, and each change was forced by a run rather than argued.
+
+  | Reference | Statistic | On fineract |
+  |---|---|---|
+  | the repository's words permuted across its own declared names | distinct phrases | every vocabulary **below** its bar — FpML wrote 58 where the middle permutation reached 91 |
+  | the same | phrase occurrences | every vocabulary **above** its bar at p = 0.001 — FIBO 12.6 times it, BIAN 10.6, OLiA 10.3, FpML 5.9, FIX 4.5 |
+  | the vocabulary's words permuted across its own terms | distinct phrases | FIBO 2.0 times its bar, FpML 1.8, CSO 1.7, OLiA 1.4; FIX, CWE and BIAN below |
+
+  Why each failed. **A permutation of the repository cannot judge a count of distinct phrases**: it scatters each word across every name, so it states more distinct pairs than the repository wrote, whatever the repository is about — a repository writes the same few names over and over and a permutation does not. **A permutation of the repository judging occurrences measures whether declared names are compositional**, which they always are, so every vocabulary whose words a repository writes at all stands above that bar. **Holding the repository still and permuting the source** keeps how many terms it states, how long each is and its whole word list, and destroys only which of its words it published beside which; and because the permuted source states as many terms as the source does, both sides count distinct phrases the same way. `ScrambledTerms` and `TermOrderNull` are the landed form; `./gradlew phraseNull -Dcs.clone.dir=<path>` prints the table.
+
+- **What the bar does on the ten readings.** Each figure is the observed count of distinct phrases divided by the bar `ChanceExpectedBest` sets at a field of seven vocabularies; **bold** marks the leader and a dagger marks clearing.
+
+  | Repository | What it is | OLiA | CSO | FIBO | FpML | FIX | CWE | BIAN |
+  |---|---|--:|--:|--:|--:|--:|--:|--:|
+  | CodeSemantics | linguistic annotation | **3.0†** | 1.0 | 0.0 | 2.0† | 0.0 | 0.3 | 0.0 |
+  | fineract | core banking | 1.4† | 1.7† | **2.0†** | 1.8† | 1.0 | 0.7 | 0.2 |
+  | quickfixj | a FIX engine | 1.0 | 2.0† | 3.0† | 4.5† | **11.8†** | 1.0 | 0.0 |
+  | strata | derivatives analytics | 1.0 | 1.7† | **3.0†** | **3.0†** | 1.0† | 0.8 | 1.0 |
+  | jpos | payments | 1.0 | 2.3† | 2.0† | **3.0†** | 1.7† | 1.0 | 1.5† |
+  | aeron | messaging transport | 1.0 | 1.4† | 0.5 | **2.2†** | 1.1† | 0.0 | 0.0 |
+  | besu | an Ethereum client | 2.0† | 1.8† | 0.6 | 1.0 | 1.7† | 0.6 | 0.5 |
+  | maven | a build tool | 2.0† | 1.2† | 1.7† | 0.8 | 1.4† | 1.0 | 0.0 |
+  | santuario | XML security | 0.0 | **2.9†** | 1.0 | 1.7† | 1.4† | 1.0 | 1.0† |
+  | tika | content parsing | 3.0† | 2.2† | 1.5† | **5.0†** | 1.1† | 1.8† | 0.0 |
+
+  **The criteria stated before the run are met at the leader and not in the tail.** FIX leads quickfixj at 11.8, the largest figure anywhere; FIBO leads fineract and ties strata; FpML leads jpos; OLiA leads this repository. BIAN fails on eight of the ten, including fineract, where it wrote one phrase — `savings account`, 818 times — against a bar of 6. What fails is the second criterion: FIX clears on five repositories that are not trading systems, FpML on tika, aeron and santuario, and FIBO on maven and tika. Every one of those is between 1.1 and 5.0, against 11.8 for the vocabulary on its own field.
+
+- **The false positives are a fact about the vocabularies, not about the null.** FpML's 20 phrases on Tika are `mime type` 61, `pass through` 11, `time zone` 10, `resource type` 7, `country code` 7, `task id` 6, `message id` 1 — generic technical compounds FpML happens to state as XML type names, which Tika writes because every Java program does. Tika really does write the orders FpML published; FpML's vocabulary is simply not all about derivatives. The same reading explains OLiA on fineract, which clears at 1.4 on `entity type` 328, `email address` 40 and `phone number` 16 — the literal use Constant et al. name as one of the two error modes that transfer, and the bar does not catch it because those are the orders OLiA published.
+
+- **Next, and stated as the measurement that would settle it.** Weigh each phrase by `PhraseSpecificity`, so `mime type` counts for less than `interest rate swap`, and rerun the same ten. **Kept when** the leader on each finance member is a finance vocabulary and FpML's Tika figure falls below its bar; **refuted by** a leader that moves off its own field on any member. Until then the bar is a diagnostic and no reading publishes it: `reading.json` and `evidence.json` carry no phrase bar.
+
+- Part 3a is untouched.
 
 ## The order of work
 
@@ -89,5 +121,6 @@ In the topic distribution, a merged run the topical dictionaries do not label is
 |--:|---|---|---|
 | 1 | the record and the pages | one build | the pages name every placing label; regression pins on this repository |
 | 2 | corroborated weight against committed evidence, then the pages | seconds per iteration, then one build | step 1's criterion, then the page regeneration |
-| 3 | the permutation bar for the term path (3b) | one build, then a read per member | members clear, controls do not, BIAN fails |
-| 4 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | the churn, placement and control criteria above |
+| 3 | the permutation bar for the term path (3b) | one build, then a read per member | **done** — members clear and BIAN fails; controls clear weakly, so it stays a diagnostic |
+| 4 | the specificity-weighted phrase count | one build, then a read per member | the leader on each finance member is a finance vocabulary |
+| 5 | the pooled unit (3a) with the corpus re-pooled | one build, a ~100-repository pool, the backtest | the churn, placement and control criteria above |
