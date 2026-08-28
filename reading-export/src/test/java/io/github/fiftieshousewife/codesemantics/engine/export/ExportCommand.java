@@ -29,7 +29,7 @@ public final class ExportCommand {
 
     /** The taxonomies matched beside the bundled vocabulary the shared reading already holds. */
     static List<TermIndex> alsoMatched() {
-        return MatchedTaxonomies.besides(MatchedTaxonomies.OLIA);
+        return ExportedReading.everyBundledVocabularyBesidesOlia();
     }
 
     public static void main(final String[] arguments) throws IOException {

@@ -47,7 +47,7 @@ class ReadingExportSchemaTest {
                             List.of(new ExportedQuotation("word segmenter",
                                     new SightingSite("Reading.java", 7))))))),
             List.of(new ExportedTaxonomy("OLiA",
-                    List.of(new ExportedTaxonomy.Concept("Verb", "WordClass", 20, 0.8, 1, 1.0,
+                    List.of(new ExportedTaxonomy.Concept("Verb", "verb", "WordClass", 20, 0.8, 1, 1.0,
                             new SightingSite("Reading.java", 9))),
                     List.of(new ExportedTaxonomy.Branch("WordClass", 0.52, 16.0, 8.32, List.of("verb"))),
                     Map.of("words", 973, "lemmas", 201, "senses", 130),

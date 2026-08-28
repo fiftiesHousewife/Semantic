@@ -12,6 +12,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibil
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
+import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
@@ -59,9 +60,30 @@ public final class ExportedReading {
     private static final List<String> ABOUT_STATED_BY =
             List.of("WordNet Domains", "Wiktionary topics");
 
-    /** Every taxonomy {@link MatchedTaxonomies} enumerates, which is what a caller naming no others gets. */
+    /**
+     * Every bundled term vocabulary, which is what a caller naming no others gets.
+     *
+     * <p><b>All seven, and not the two this repository is in the field of.</b> Which vocabulary is a
+     * control is a fact about the repository being read and not about the vocabulary: FIBO is out of
+     * domain here and is the in-domain one on a derivatives library. Judging only the two would mean
+     * quickfixj could never publish FIX and strata could never publish FIBO, whatever their phrase counts,
+     * which is the enum deciding in advance the question the chance bar exists to ask.
+     */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
-        return of(reading, commit, MatchedTaxonomies.besides(MatchedTaxonomies.OLIA));
+        return of(reading, commit, everyBundledVocabularyBesidesOlia());
+    }
+
+    /**
+     * Every bundled term vocabulary but OLiA, which the reading holds separately. One statement of the
+     * list, so a caller supplying its own term reading judges the same field the default does.
+     */
+    public static List<TermIndex> everyBundledVocabularyBesidesOlia() {
+        return Stream.concat(
+                        Stream.of(MatchedTaxonomies.values())
+                                .filter(taxonomy -> taxonomy != MatchedTaxonomies.OLIA)
+                                .map(MatchedTaxonomies::index),
+                        Stream.of(ControlTaxonomies.values()).map(ControlTaxonomies::index))
+                .toList();
     }
 
     /**

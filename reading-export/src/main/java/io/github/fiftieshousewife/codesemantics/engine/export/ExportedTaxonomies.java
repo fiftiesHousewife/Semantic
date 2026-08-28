@@ -88,6 +88,7 @@ public final class ExportedTaxonomies {
     private static ExportedTaxonomy.Concept row(final TermSighting sighting, final SkosConcept concept) {
         return ExportedTaxonomy.Concept.builder()
                 .concept(concept.prefLabel())
+                .term(sighting.term())
                 .placedUnder(concept.broader())
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())

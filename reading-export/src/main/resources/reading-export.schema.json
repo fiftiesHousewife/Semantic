@@ -363,6 +363,7 @@
               "additionalProperties": false,
               "required": [
                 "concept",
+                "term",
                 "placedUnder",
                 "occurrences",
                 "specificity",
@@ -374,6 +375,10 @@
                 "concept": {
                   "title": "Concept",
                   "description": "The label the publisher states, such as OLiA's `AdjectivePhrase`.",
+                  "type": "string"
+                },
+                "term": {
+                  "description": "The run of words the repository wrote to reach the concept. It is not the concept's label: a two-word term reaches a concept CSO labels `capital`, so a reading carrying only the label cannot say which phrase was written.",
                   "type": "string"
                 },
                 "placedUnder": {

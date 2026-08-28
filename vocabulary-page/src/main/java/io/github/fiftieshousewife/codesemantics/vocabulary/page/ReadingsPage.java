@@ -38,6 +38,9 @@ public final class ReadingsPage {
 
     private static final String NONE = "—";
 
+    /** Enough phrases to see what a vocabulary matched on; the rest are in the reading it was drawn from. */
+    private static final int PHRASES_SHOWN = 4;
+
     private final String stylesheet;
 
     public ReadingsPage(final String stylesheet) {
@@ -64,28 +67,54 @@ public final class ReadingsPage {
 
     private static DomContent head() {
         return thead(tr(
-                th("repository"), th("about"), th("its published terms"),
-                th("arXiv"), th("OpenAlex"), th("λ"), th("stated area")));
+                th("repository"), th("vocabularies above their bar"), th("the phrases it wrote"),
+                th("about"), th("arXiv"), th("OpenAlex"), th("λ"), th("stated area")));
     }
 
     private TrTag row(final ReadingRow reading, final StatedAreas stated) {
         return tr(
-                td(a(reading.repository()).withHref(reading.repository() + "/reading.html")),
+                td(a(reading.repository()).withHref(reading.repository() + "/vocabulary.html")),
+                td(vocabularies(reading)).withClass("vocabularies"),
+                td(phrases(reading)).withClass("phrases"),
                 td(String.join(", ", reading.about())),
-                td(vocabulary(reading)),
                 td(placement(reading, "arXiv")),
                 td(placement(reading, "OpenAlex")),
                 td(share(reading.lambda())),
                 td(area(reading, stated)));
     }
 
-    /** The vocabulary that beat its bar by the most, with the count and the bar it beat. */
-    private static DomContent vocabulary(final ReadingRow reading) {
-        return reading.answering()
-                .map(ReadingsPage::named)
-                .orElseGet(() -> span(NONE).withClass("silent")
-                        .withTitle("no bundled vocabulary's phrase count beat what a deal of its own "
-                                + "words reaches"));
+    /** Every vocabulary the reading published, each with its phrase count and the bar it beat. */
+    private static DomContent vocabularies(final ReadingRow reading) {
+        if (reading.vocabularies().isEmpty()) {
+            return span(NONE).withClass("silent")
+                    .withTitle("no bundled vocabulary's phrase count beat what a deal of its own "
+                            + "words reaches");
+        }
+        return div().with(each(reading.vocabularies(), one -> div(named(one))));
+    }
+
+    /**
+     * The terms of more than one word the repository wrote, most-written first.
+     *
+     * <p>The single-word matches are not drawn. A one-word term is the everyday English any repository
+     * hits and a run of several is what one outside the field does not write by accident, which is why the
+     * bar beside it is computed over the phrases alone.
+     */
+    private static DomContent phrases(final ReadingRow reading) {
+        final List<ReadingRow.Phrase> written = reading.phrases();
+        if (written.isEmpty()) {
+            return span(NONE).withClass("silent")
+                    .withTitle("no published term of more than one word survived");
+        }
+        return div().with(
+                div().withClass("terms").with(each(written.stream().limit(PHRASES_SHOWN).toList(),
+                        phrase -> span(phrase.term() + " ×" + phrase.occurrences())
+                                .withClass("term")
+                                .withTitle(phrase.vocabulary() + " places it under "
+                                        + phrase.placedUnder()))),
+                written.size() > PHRASES_SHOWN
+                        ? span("and " + (written.size() - PHRASES_SHOWN) + " more").withClass("silent")
+                        : span());
     }
 
     /**

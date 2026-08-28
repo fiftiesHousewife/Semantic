@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
+import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -27,14 +28,21 @@ class ReadingsPageTest {
                 : new ExportedPlacement.Level(subject, 0.4, 0.3, false, List.of(), List.of());
     }
 
-    private static ExportedTaxonomy answering(final String vocabulary, final int phrases, final int bar) {
-        return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
+    private static ExportedTaxonomy answering(final String vocabulary, final int phrases, final int bar,
+                                              final ExportedTaxonomy.Concept... concepts) {
+        return new ExportedTaxonomy(vocabulary, List.of(concepts), List.of(), Map.of(),
                 new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 2, 999));
     }
 
-    private static ReadingRow row(final String repository, final Optional<ExportedTaxonomy> answering,
+    private static ExportedTaxonomy.Concept term(final String label, final int words,
+                                                 final int occurrences) {
+        return new ExportedTaxonomy.Concept(label, label, "a branch", occurrences, 0.9, words, 1.0,
+                new SightingSite("A.java", 1));
+    }
+
+    private static ReadingRow row(final String repository, final List<ExportedTaxonomy> published,
                                   final Optional<String> statedArea) {
-        return new ReadingRow(repository, List.of("linguistics"), answering,
+        return new ReadingRow(repository, List.of("linguistics"), published,
                 List.of(new ExportedPlacement("OpenAlex",
                         level("Artificial Intelligence", true),
                         level("Natural Language Processing Techniques", true))),
@@ -44,8 +52,8 @@ class ReadingsPageTest {
     @Test
     void namesEveryReadingItWasGiven() {
         final String markup = page.markup(
-                List.of(row("tika", Optional.empty(), Optional.empty()),
-                        row("maven", Optional.empty(), Optional.empty())),
+                List.of(row("tika", List.of(), Optional.empty()),
+                        row("maven", List.of(), Optional.empty())),
                 StatedAreas.none());
 
         assertAll(
@@ -54,9 +62,36 @@ class ReadingsPageTest {
     }
 
     @Test
+    void drawsThePhrasesTheRepositoryWroteAndNotOnlyTheVocabularyThatStatesThem() {
+        final String markup = page.markup(
+                List.of(row("strata", List.of(answering("CSO", 17, 13,
+                        term("cubic spline", 2, 21), term("value", 1, 400))), Optional.empty())),
+                StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup).contains("cubic spline ×21"),
+                () -> assertThat(markup)
+                        .as("a one-word term is the everyday English any repository hits, and the bar "
+                                + "beside it is computed over the phrases alone")
+                        .doesNotContain("value ×400"));
+    }
+
+    @Test
+    void namesEveryVocabularyThatBeatItsBarAndNotOnlyTheStrongest() {
+        final String markup = page.markup(
+                List.of(row("tika", List.of(answering("OLiA", 3, 2), answering("CSO", 30, 18)),
+                        Optional.empty())),
+                StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup).contains("OLiA 1.5×"),
+                () -> assertThat(markup).contains("CSO 1.7×"));
+    }
+
+    @Test
     void statesTheVocabularyThatBeatItsBarWithTheCountAndTheBar() {
         final String markup = page.markup(
-                List.of(row("quickfixj", Optional.of(answering("FIX", 22, 2)), Optional.empty())),
+                List.of(row("quickfixj", List.of(answering("FIX", 22, 2, term("limit order", 2, 91))), Optional.empty())),
                 StatedAreas.none());
 
         assertAll(
@@ -67,7 +102,7 @@ class ReadingsPageTest {
     @Test
     void saysSoWhereNoVocabularyBeatItsBarRatherThanLeavingTheCellBlank() {
         final String markup = page.markup(
-                List.of(row("maven", Optional.empty(), Optional.empty())), StatedAreas.none());
+                List.of(row("maven", List.of(), Optional.empty())), StatedAreas.none());
 
         assertThat(markup)
                 .as("an empty cell reads as a page that failed to draw one")
@@ -76,7 +111,7 @@ class ReadingsPageTest {
 
     @Test
     void marksAPlacementTheSchemeCouldNotSeparateFromChance() {
-        final ReadingRow within = new ReadingRow("aeron", List.of(), Optional.empty(),
+        final ReadingRow within = new ReadingRow("aeron", List.of(), List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", false),
                         level("Databases", true))), 0.9, Optional.empty());
 
@@ -92,7 +127,7 @@ class ReadingsPageTest {
         final StatedAreas stated = StatedAreas.at(manifest);
 
         final String markup = page.markup(
-                List.of(row("tika", Optional.empty(), stated.of("tika"))), stated);
+                List.of(row("tika", List.of(), stated.of("tika"))), stated);
 
         assertAll(
                 () -> assertThat(markup).contains("Computer Science"),
@@ -105,7 +140,7 @@ class ReadingsPageTest {
 
     @Test
     void leavesTheStatedAreaEmptyWhereNoManifestNamesTheRepository() {
-        assertThat(page.markup(List.of(row("mine", Optional.empty(), Optional.empty())),
+        assertThat(page.markup(List.of(row("mine", List.of(), Optional.empty())),
                 StatedAreas.none()))
                 .contains("no manifest states an area for this repository");
     }
@@ -113,7 +148,7 @@ class ReadingsPageTest {
     @Test
     void statesACountAgainstNothingWhereTheDealsReachNoBarAtAll() {
         final String markup = page.markup(
-                List.of(row("quickfixj", Optional.of(answering("OLiA", 1, 0)), Optional.empty())),
+                List.of(row("quickfixj", List.of(answering("OLiA", 1, 0, term("non initial", 2, 1))), Optional.empty())),
                 StatedAreas.none());
 
         assertAll(

@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "56709978bf7f67b6718d6b2ea17e2e0083dab572",
-  "commit" : "56709978bf7f67b6718d6b2ea17e2e0083dab572",
+  "previousCommit" : "e1111b4f18ca7f51a105d675bd102663cfe837b7",
+  "commit" : "e1111b4f18ca7f51a105d675bd102663cfe837b7",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -15,12 +15,12 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.7%",
-    "after" : "32.7%"
+    "before" : "32.8%",
+    "after" : "32.8%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.6%",
-    "after" : "40.6%"
+    "before" : "40.7%",
+    "after" : "40.7%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -35,8 +35,8 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "41.5%",
-    "after" : "41.5%"
+    "before" : "41.6%",
+    "after" : "41.6%"
   }, {
     "figure" : "arXiv category — chance reaches",
     "before" : "45.1%",
@@ -55,12 +55,12 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "24.0%",
-    "after" : "24.0%"
+    "before" : "24.1%",
+    "after" : "24.1%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "32.1%",
-    "after" : "32.1%"
+    "before" : "32.2%",
+    "after" : "32.2%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -75,12 +75,12 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "41.6%",
-    "after" : "41.6%"
+    "before" : "41.7%",
+    "after" : "41.7%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.9%",
-    "after" : "48.9%"
+    "before" : "49.0%",
+    "after" : "49.0%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
     "before" : "yes",
@@ -92,7 +92,7 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "274",
-    "after" : "274"
+    "after" : "275"
   }, {
     "figure" : "Topics reported",
     "before" : "9",
@@ -102,5 +102,9 @@
     "before" : "130",
     "after" : "130"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "descriptions",
+    "entered" : true
+  } ]
 }

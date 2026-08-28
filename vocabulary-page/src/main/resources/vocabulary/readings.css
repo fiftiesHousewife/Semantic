@@ -93,3 +93,26 @@ table.readings td a {
 .unbarred {
     color: var(--ink-faint);
 }
+
+td.vocabularies {
+    white-space: nowrap;
+}
+
+td.phrases {
+    max-width: 22rem;
+}
+
+.terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.35rem;
+}
+
+.term {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 0 0.3rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}

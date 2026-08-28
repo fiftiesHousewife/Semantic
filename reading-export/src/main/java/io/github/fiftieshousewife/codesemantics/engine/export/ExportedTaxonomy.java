@@ -60,6 +60,9 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      * One published concept as the repository wrote it.
      *
      * @param concept        the label the publisher states
+     * @param term           the run of words the repository wrote to reach it, which is not the label: a
+     *                       two-word term reaches a concept CSO labels {@code capital}, and a reading
+     *                       carrying only the label cannot say which phrase was written
      * @param placedUnder    the concept the publisher places it under, empty at a root of the taxonomy
      * @param occurrences    how often the repository wrote it
      * @param specificity    how much writing the term narrows, bounded in {@code [0, 1]} by the frequency
@@ -71,8 +74,9 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      * @param firstWrittenAt the file and line it was first written at
      */
     @Builder
-    public record Concept(String concept, String placedUnder, int occurrences, double specificity,
-                          int wordsInTerm, double shareOfEachName, SightingSite firstWrittenAt) {
+    public record Concept(String concept, String term, String placedUnder, int occurrences,
+                          double specificity, int wordsInTerm, double shareOfEachName,
+                          SightingSite firstWrittenAt) {
     }
 
     /**

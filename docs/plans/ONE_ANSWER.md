@@ -217,24 +217,33 @@ Two consequences follow and both are stated in `WorkingJavaRuns`:
 
 **The cost is measured and it is 37 seconds.** A self read was 1m 38s and is 2m 15s. The null is 999 deals per vocabulary and the export judges the vocabularies it publishes rather than all seven, so it pays two nulls where `phraseNull` pays seven. The plan's fallback — computing the bar only for the vocabularies that matched anything — was not needed.
 
-**The field is the number of vocabularies the export offers, and that is a weaker bar than the probe's.** `ChanceExpectedBest` reads the quantile at `1/(field + 1)`, so a field of two puts the bar at the 67th percentile of the deals where a field of seven puts it at the 88th. CSO clears on this repository at 1.25 times a field-of-two bar and failed at 0.8 against the probe's field of seven. Both are right about their own question: the export offers two candidate answers, and the probe deliberately puts seven in competition so the controls can be read. **This is open question 1 arriving early**, and step 4 is where it is settled, because the cascade's field is the number of candidate answers the cascade offers rather than the number one rung offers.
+**Corrected 2026-08-28, the same day: the export judged two vocabularies and could only ever have judged two.** `MatchedTaxonomies` holds OLiA and CSO; FIBO, FpML, FIX, CWE and BIAN are `ControlTaxonomies` and the export never matched them at all. So **quickfixj could not publish FIX and strata could not publish FIBO**, whatever their counts, and every reading's `taxonomies` block held CSO or OLiA or nothing. The enum was deciding in advance the question the bar exists to ask, and its own javadoc shows why the mistake was invisible: it calls the controls "term vocabularies of a field the read repositories are not in", which was true when the only read repository was this one. **Which vocabulary is a control is a fact about the repository being read, not about the vocabulary.**
 
-**Why the controls are not judged here.** `ControlTaxonomies`'s own javadoc states it: a control that joined the reading it controls would be measuring itself. They compete in `phraseNull` and in `evidence.json`, and neither is an answer.
+`ExportedReading.everyBundledVocabularyBesidesOlia` states the field once and the export judges all seven. What that changes, on the eleven:
+
+| Repository | Published before | Published now |
+|---|---|---|
+| quickfixj, a FIX engine | OLiA 1, on a bar of 0 | **FIX 10.4×**, FIBO 2.0×, FpML 1.5× |
+| fix-trading-simulator, a FIX consumer | nothing | **FIX 9.0×**, and nothing else |
+| strata, derivatives analytics | CSO 1.3× | **FIBO 2.8×**, **FpML 2.8×**, CSO 1.1×, BIAN 2.0× |
+| fineract, core banking | CSO 1.3× | **FIBO 1.8×**, FpML 1.3×, CSO 1.1× |
+| jpos, payments | OLiA, CSO | FIBO 2.0×, FpML 2.0×, FIX 1.4×, BIAN 1.5×, CSO 1.6× |
+| maven, a build tool | nothing | nothing |
+| this repository | OLiA 4.0× at a field of two | **OLiA 2.0×** at a field of seven, six below their bar |
+
+strata's phrases are `present value` 1429, `start date` 930, `valuation date` 795; quickfixj's are `msg seq num` 160, `begin string` 76, `resend request` 45. None of that reached any reading before. The bars agree with `phraseNull`'s own field-of-seven column — FIBO 2.8 against its 2.9, FpML 2.8 against its 2.8 — which is the cross-check that the export and the probe now measure one thing.
+
+**The zero-valued bars go with it.** quickfixj published OLiA on one phrase against a bar of zero because a field of two reads the deals at the 67th percentile; a field of seven reads them at the 88th, and OLiA falls below. The defect stated above is answered by fixing the field rather than by adding a median rule.
+
+**What it costs, and it is the largest cost in the reading.** A self read goes 2m 21s to **4m 5s**, strata to **10m 38s**, and `evaluationReadAll` over eleven members to **37m 3s** from 16m 28s. Seven vocabularies at 999 deals each, per reading, and `TermOrderNull` is now the dominant term in a read. The placement is unmoved through all of it — 44 level readings, 39 apart, mean margin 0.0415, identical at every step — which is the criterion, because none of this touches the word arm.
+
+**The superseded reasoning, kept because it was wrong in an instructive way.** `ChanceExpectedBest` reads the quantile at `1/(field + 1)`, so a field of two puts the bar at the 67th percentile of the deals where a field of seven puts it at the 88th. CSO clears on this repository at 1.25 times a field-of-two bar and failed at 0.8 against the probe's field of seven. Both are right about their own question: the export offers two candidate answers, and the probe deliberately puts seven in competition so the controls can be read. **This is open question 1 arriving early**, and step 4 is where it is settled, because the cascade's field is the number of candidate answers the cascade offers rather than the number one rung offers.
+
+**And the argument that produced it, which does not survive.** `ControlTaxonomies`'s javadoc says a control that joined the reading it controls would be measuring itself, and that was read here as *a control may never be published*. It does not follow. The controls exist to show that OLiA's and CSO's matching on **this** repository means something, and they still do that in `phraseNull`; publishing FIBO on a derivatives library measures nothing about OLiA on a linguistics library. The bar is the independent test, and refusing to compute it is not caution but a missing measurement.
 
 **The backtest is the criterion and it is met exactly.** Step 3 touches the term arm alone, so the placement must not move at all, and it does not: 44 level readings, 39 standing apart, mean margin 0.0415, mean divergence 0.3890, mean chance bar 0.4304, 149 subjects in the bands, leader in the stated area 5 of 11 at both OpenAlex levels — every figure identical to the reading at the previous commit. What the eleven now publish varies by member, where before every member published both vocabularies:
 
-| Publishes | Members |
-|---|---|
-| OLiA and CSO | tika, aeron, jpos |
-| CSO alone | besu, fineract, jmeter-iso8583, santuario, strata |
-| OLiA alone | this repository, quickfixj |
-| nothing | maven, fix-trading-simulator |
-
-**maven publishes no taxonomy at all**, which is the right answer for a build tool no bundled vocabulary covers, and neither does the FIX consumer.
-
-**A bar of zero is not much of a bar, and it decides quickfixj.** `ChanceExpectedBest` reads the deals at the `1/(field + 1)` quantile, and where a vocabulary's counts are small that rank holds a zero — so any single match clears. **quickfixj publishes OLiA and nothing else, on one phrase against a bar of 0**, while CSO's five phrases fell below a bar of four. A FIX engine whose only surviving vocabulary is linguistic annotation is not a reading anyone should publish, and `PhraseBar.timesTheBar` answers with the observed count where the bar is zero, so it reads as 1.00 — indistinguishable from a vocabulary standing exactly at a real bar. `ReadingsPage` states that case as *no bar* rather than as a multiple, which is a repair to the picture and not to the reading.
-
-**This is the first thing step 4 must fix**, because the cascade would take OLiA as quickfixj's answer. What settles it: whether `exceedsChance` should require the observed count to beat the **median** deal as well as the quantile. It costs nothing — `PhraseBar` already carries the median — and on these eleven it would refuse OLiA on quickfixj at 1 against a median of 0 only if the median rule is strict rather than weak, so the run has to report both. The alternative is that a field of two is simply too small a field, which is the same open question 1 in a different place.
+That table is the field-of-two reading and is superseded by the one above. Under it maven published nothing, which was right, and quickfixj published OLiA on one phrase against a bar of zero, which was not: a FIX engine whose only surviving vocabulary is linguistic annotation. Raising the field to seven answers it — the deals are read at the 88th percentile rather than the 67th, OLiA falls below, and FIX arrives at 10.4 times its bar.
 
 **What it costs the backtest.** `evaluationReadAll` over eleven members goes from 8m 9s to 16m 28s. The null is the whole of that.
 
