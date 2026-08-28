@@ -158,4 +158,38 @@ class ReadingsPageTest {
                         .contains("OLiA 1, no bar"),
                 () -> assertThat(markup).doesNotContain("OLiA 1.0"));
     }
+
+    @Test
+    void headsAColumnForEverySchemeTheReadingsPlaceUnderAndNamesNoneItself() {
+        final ReadingRow drawn = new ReadingRow("mine", List.of(), List.of(),
+                List.of(new ExportedPlacement("a scheme nobody has bundled yet",
+                        level("A Field", true), level("A Topic", true))),
+                0.9, Optional.empty());
+
+        assertAll(
+                () -> assertThat(page.markup(List.of(drawn), StatedAreas.none()))
+                        .as("naming the schemes here would be the page deciding which a reading has, and "
+                                + "a scheme dropped would leave a column headed for it and empty")
+                        .contains("<th>a scheme nobody has bundled yet</th>"),
+                () -> assertThat(page.markup(List.of(drawn), StatedAreas.none()))
+                        .doesNotContain("<th>arXiv</th>"));
+    }
+
+    @Test
+    void drawsOneColumnPerSchemeWhereTheReadingsPlaceUnderSeveral() {
+        final ReadingRow both = new ReadingRow("tika", List.of(), List.of(),
+                List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
+                                level("Computation and Language", true)),
+                        new ExportedPlacement("OpenAlex", level("Artificial Intelligence", true),
+                                level("Natural Language Processing Techniques", true))),
+                0.9, Optional.empty());
+
+        final String markup = page.markup(List.of(both), StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup).contains("<th>arXiv</th>"),
+                () -> assertThat(markup).contains("<th>OpenAlex</th>"),
+                () -> assertThat(markup).contains("Computation and Language"),
+                () -> assertThat(markup).contains("Natural Language Processing Techniques"));
+    }
 }

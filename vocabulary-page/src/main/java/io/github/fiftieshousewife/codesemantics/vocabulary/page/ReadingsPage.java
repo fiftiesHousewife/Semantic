@@ -51,6 +51,21 @@ public final class ReadingsPage {
         return PageDocument.of("The readings", page(readings, stated).render());
     }
 
+    /**
+     * The subject schemes the readings themselves place under, in the order they state them.
+     *
+     * <p>Naming them here would be this page deciding which schemes a reading has. Which are bundled is a
+     * question the library answers and is under review — a scheme dropped would leave a column headed for
+     * it and empty, and one added would not be drawn at all.
+     */
+    private static List<String> schemes(final List<ReadingRow> readings) {
+        return readings.stream()
+                .flatMap(reading -> reading.placedIn().stream())
+                .map(ExportedPlacement::scheme)
+                .distinct()
+                .toList();
+    }
+
     private BodyTag page(final List<ReadingRow> readings, final StatedAreas stated) {
         return body(
                 style(rawHtml(stylesheet)),
@@ -62,25 +77,26 @@ public final class ReadingsPage {
                                 + "the repository stands further from every subject of a scheme of chance "
                                 + "than from this one.")),
                         table().withClass("readings").with(
-                                head(), tbody(each(readings, row -> row(row, stated))))));
+                                head(schemes(readings)),
+                                tbody(each(readings, row -> row(row, schemes(readings), stated))))));
     }
 
-    private static DomContent head() {
+    private static DomContent head(final List<String> schemes) {
         return thead(tr(
                 th("repository"), th("vocabularies above their bar"), th("the phrases it wrote"),
-                th("about"), th("arXiv"), th("OpenAlex"), th("λ"), th("stated area")));
+                th("about"))
+                .with(each(schemes, scheme -> th(scheme)))
+                .with(th("λ"), th("stated area")));
     }
 
-    private TrTag row(final ReadingRow reading, final StatedAreas stated) {
+    private TrTag row(final ReadingRow reading, final List<String> schemes, final StatedAreas stated) {
         return tr(
                 td(a(reading.repository()).withHref(reading.repository() + "/vocabulary.html")),
                 td(vocabularies(reading)).withClass("vocabularies"),
                 td(phrases(reading)).withClass("phrases"),
-                td(String.join(", ", reading.about())),
-                td(placement(reading, "arXiv")),
-                td(placement(reading, "OpenAlex")),
-                td(share(reading.lambda())),
-                td(area(reading, stated)));
+                td(String.join(", ", reading.about())))
+                .with(each(schemes, scheme -> td(placement(reading, scheme))))
+                .with(td(share(reading.lambda())), td(area(reading, stated)));
     }
 
     /** Every vocabulary the reading published, each with its phrase count and the bar it beat. */
