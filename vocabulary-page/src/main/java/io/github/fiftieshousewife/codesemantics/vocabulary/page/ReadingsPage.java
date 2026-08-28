@@ -42,6 +42,9 @@ public final class ReadingsPage {
 
     private static final String NONE = "—";
 
+    /** A full stop and the space after it, which is where a sentence ends and an abbreviation does not. */
+    private static final String SENTENCE_END = ". ";
+
     private final String stylesheet;
 
     public ReadingsPage(final String stylesheet) {
@@ -100,10 +103,23 @@ public final class ReadingsPage {
                 : span(answer.placedUnder());
     }
 
+    /**
+     * What the publisher says, to its first sentence, with the whole of it on the cell.
+     *
+     * <p>A publisher writes as much as it likes: OLiA's {@code BaseForm} runs to a paragraph on English
+     * tagsets and cites two sources inside it. The reading carries all of it, because a definition is
+     * evidence and truncating evidence loses it; a table shows the sentence that says what the thing is.
+     */
     private static DomContent result(final ExportedAnswer answer) {
         return answer.result().isBlank()
                 ? span(answer.qualifiedBy()).withClass("silent")
-                : span(answer.result());
+                : span(firstSentenceOf(answer.result())).withTitle(answer.result());
+    }
+
+    private static String firstSentenceOf(final String stated) {
+        final int stop = stated.indexOf(SENTENCE_END);
+        return stop < 0 || stop + 2 >= stated.length()
+                ? stated : stated.substring(0, stop + 1);
     }
 
     private static DomContent area(final ReadingRow reading, final StatedAreas stated) {

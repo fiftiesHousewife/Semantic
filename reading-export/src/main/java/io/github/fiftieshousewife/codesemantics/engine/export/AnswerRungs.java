@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public enum AnswerRungs {
             return reading.taxonomies().stream()
                     .filter(one -> one.bar().chanceExpectedBest() > 0)
                     .max(Comparator.comparingDouble(one -> one.bar().timesTheBar()))
-                    .map(one -> answer(one, String.format(Locale.ROOT,
+                    .map(one -> answer(one, PHRASE, String.format(Locale.ROOT,
                             "%d phrases against the %d a deal of its own words reaches",
                             one.bar().phrases(), one.bar().chanceExpectedBest())));
         }
@@ -77,7 +78,7 @@ public enum AnswerRungs {
             return reading.taxonomies().stream()
                     .filter(one -> singleWordTerms(one) > 0)
                     .max(Comparator.comparingInt(AnswerRungs::singleWordTerms))
-                    .map(one -> answer(one, String.format(Locale.ROOT,
+                    .map(one -> answer(one, SINGLE_WORD, String.format(Locale.ROOT,
                             "%d one-word terms, each written beside another concept of its branch",
                             singleWordTerms(one))));
         }
@@ -110,6 +111,7 @@ public enum AnswerRungs {
     private static final String AFTER_THE_PUBLISHER = ":";
     private static final String SEVERAL_PARENTS = "|";
     private static final int SINGLE_WORD = 1;
+    private static final int PHRASE = 2;
 
     /** What the reading is about, from the first rung that qualifies. */
     public static ExportedAnswer answering(final ReadingExport reading) {
@@ -122,12 +124,12 @@ public enum AnswerRungs {
 
     abstract Optional<ExportedAnswer> of(ReadingExport reading);
 
-    private static ExportedAnswer answer(final ExportedTaxonomy vocabulary, final String qualifiedBy) {
-        final Optional<ExportedTaxonomy.Concept> answering = answering(vocabulary);
+    private static ExportedAnswer answer(final ExportedTaxonomy vocabulary, final int shortest,
+                                         final String qualifiedBy) {
+        final Optional<ExportedTaxonomy.Concept> answering = answering(vocabulary, shortest);
         return new ExportedAnswer(TAXONOMY, vocabulary.vocabulary(),
                 answering.map(ExportedTaxonomy.Concept::placedUnder).map(AnswerRungs::firstOf).orElse(""),
-                answering.map(concept -> concept.concept() + " — " + concept.definition())
-                        .orElseGet(() -> covers(vocabulary.vocabulary())),
+                answering.map(AnswerRungs::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
                 qualifiedBy);
     }
 
@@ -139,17 +141,35 @@ public enum AnswerRungs {
     }
 
     /**
-     * What the publisher says the concept this repository wrote most means, the concept named before it.
+     * The concept this repository wrote most, of the length the rung qualified on.
      *
-     * <p>A concept the publisher defines nothing for is passed over for the next one it wrote, rather than
-     * reported as a bare name: the definition is the whole of what reaching a node is worth. Where the
-     * vocabulary defines none of what was matched — CSO defines none of its topics — what the vocabulary
-     * covers is the most the publishers say, and that is stated as the vocabulary's own scope.
+     * <p><b>A rung answers with the evidence that cleared its own bar.</b> The phrase bar is computed over
+     * terms of more than one word, so answering it with a one-word concept would answer with evidence that
+     * never faced it — strata answered {@code Value}, "perceived worth of something", where its phrases say
+     * {@code PresentValue} written 1,429 times, and jPOS answered {@code Index} where its phrases say
+     * {@code MerchantIdentifier}.
+     *
+     * <p>A publisher that defines the concept is preferred, because the definition is what reaching a node
+     * is worth; where none of the concepts of that length is defined the most-written of them still names
+     * itself, and CSO's {@code public key cryptography} says more than CSO's own description of its scope.
      */
-    private static Optional<ExportedTaxonomy.Concept> answering(final ExportedTaxonomy vocabulary) {
-        return vocabulary.concepts().stream()
+    private static Optional<ExportedTaxonomy.Concept> answering(final ExportedTaxonomy vocabulary,
+                                                                final int shortest) {
+        final List<ExportedTaxonomy.Concept> ofThatLength = vocabulary.concepts().stream()
+                .filter(concept -> shortest > SINGLE_WORD
+                        ? concept.wordsInTerm() > SINGLE_WORD : concept.wordsInTerm() == SINGLE_WORD)
+                .toList();
+        final Optional<ExportedTaxonomy.Concept> defined = ofThatLength.stream()
                 .filter(concept -> !concept.definition().isBlank())
                 .max(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences));
+        return defined.isPresent() ? defined
+                : ofThatLength.stream().max(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences));
+    }
+
+    /** The concept named, and what the publisher says it means where it says anything. */
+    private static String stated(final ExportedTaxonomy.Concept concept) {
+        return concept.definition().isBlank()
+                ? concept.concept() : concept.concept() + " — " + concept.definition();
     }
 
     /**

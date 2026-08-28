@@ -119,4 +119,23 @@ class ReadingsPageTest {
                 StatedAreas.none()))
                 .contains("no manifest states an area for this repository");
     }
+
+    @Test
+    void showsTheFirstSentenceOfADefinitionAndKeepsTheWholeOnTheCell() {
+        final String whole = "BaseForm — Strong inflection is a characteristic of lexemes. "
+                + "In traditional English tagsets, surface ambiguities are normally not resolved.";
+        final String markup = page.markup(
+                List.of(row("mine", new ExportedAnswer("taxonomy", "OLiA", "InflectionTypeFeature",
+                        whole, "4 phrases against the 2 a deal reaches"), Optional.empty())),
+                StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup)
+                        .as("a publisher writes as much as it likes and a table shows the sentence that "
+                                + "says what the thing is")
+                        .contains(">BaseForm — Strong inflection is a characteristic of lexemes.<"),
+                () -> assertThat(markup)
+                        .as("the reading carries all of it, because a definition is evidence")
+                        .contains("surface ambiguities are normally not resolved"));
+    }
 }
