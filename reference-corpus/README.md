@@ -68,7 +68,9 @@ The question arises because a term vocabulary matches a repository on terms that
 |---|--:|
 | `time_zone` | 446 |
 | `mime_type` | 165 |
+| `task_id` | 160 |
 | `resource_type` | 51 |
+| `pass_through` | 32 |
 | `country_code` | 11 |
 | `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg`, `accrual_period` | none |
 
@@ -77,10 +79,14 @@ The question arises because a term vocabulary matches a repository on terms that
 | | The word table | The run table |
 |---|---|---|
 | what a row is keyed by | a word the splitter produced | those words joined by `_`, where a publisher states the run |
-| which index the repositories were read under | the two topical dictionaries | the same two, plus the seven bundled term vocabularies' multi-word labels |
+| which reading merged the words | [`CollocatedWords`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/CollocatedWords.java), over the two topical dictionaries | [`StatedRuns`](../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/StatedRuns.java), over those two and the seven bundled term vocabularies' multi-word labels |
 | what a share is a share of | every unit a reading produces | the runs alone, so a run's rank is a rank among runs |
 
-The middle row is the one that matters. Two adjacent words are merged into one run only where a publisher states that run, so the index decides what the table can see at all. Pooled under the dictionaries alone, `cap_floor` is never merged, never counted, and reads as absent from the corpus — which is the answer the table is meant to earn rather than assume. Pooled under an index that also states the vocabularies' own labels, an absence is a measurement.
+The middle row is the one that matters, and it differs twice.
+
+**Which publishers were asked.** Two adjacent words are merged into one run only where a publisher states that run, so the index decides what the table can see. Under the dictionaries alone, `cap_floor` is never merged, never counted, and reads as absent from the corpus — which is the answer the table is meant to earn rather than assume. Under an index that also states the vocabularies' own labels, an absence is a measurement.
+
+**And whether the run's edge words had to be in the dictionary.** `CollocatedWords` refuses a run whose first or last word WordNet carries no entry for. It refuses it because merging a run stops the words inside it being counted on their own, and a run no resource labels then votes for no subject, so the reading loses both. A table that counts votes for nothing, so it needs no such rule — and under that rule the table holds no row for `TaskId`, `PassThrough` or `XMLEntityExpansion`, which reads as an absence and is not one. `StatedRuns` drops the edge rule for that reason, and because the other side of the comparison has no edge rule either: a published term is matched against a declared name over the words the splitter produced, so the table those matches are ranked against is counted the same way.
 
 **Nothing in the word arm reads it.** The word table is untouched, its 28,839 rows unchanged, and a word's rank is what it was. The run table is read only where a published term is judged against general Java.
 
@@ -136,7 +142,7 @@ The file's header carries the drawing manifest whole — the frame, the seed, th
 
 - **A word absent from the table has a share of zero.** A repository writing it then looks like it chose it. Cutting the tail of this table would promote exactly the words cut, so the table is bundled whole.
 - **The table states one draw.** Its own sampling error is measurable by splitting the draw in half and comparing the two tables that result, and the words whose figures move between halves are those whose shares sit near zero.
-- **The run table can only count runs some publisher states.** A pair of words no dictionary and no bundled vocabulary carries is never merged, so the table is silent about it — not because working Java does not write it, but because nothing asked. Adding a vocabulary changes what the table can see and the table is re-pooled with it.
+- **The run table can only count runs some publisher states.** A pair of words no dictionary and no bundled vocabulary carries is never merged, so the table holds no row for it — not because working Java does not write it, but because nothing asked. `WorkingJavaRuns.canBeAsked` is how a reading tells a missing row of that kind from a measured absence, and adding a vocabulary changes what the table can see, so the table is re-pooled with it.
 - **Regenerating the table moves every figure a reading publishes.** It is regenerated when the draw changes, and the figures are quoted as a reading of a named commit.
 
 ## References

@@ -1,7 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,11 +39,7 @@ public final class PublishedTermRuns {
                 .map(SkosConcept::prefLabel)
                 .map(label -> identifiers.of(label).words())
                 .filter(words -> words.size() > 1)
-                .map(PublishedTermRuns::joined)
+                .map(PublishedPhrases::runOf)
                 .collect(Collectors.toUnmodifiableSet());
-    }
-
-    private static String joined(final List<String> words) {
-        return String.join(PublishedPhrases.JOINER, words).toLowerCase(Locale.ROOT);
     }
 }

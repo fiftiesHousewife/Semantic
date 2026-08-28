@@ -94,7 +94,9 @@ Five steps. Each names the class that carries it, the contract it must satisfy, 
 
 ### Step 1 — the pooled run table, as its own bundled resource
 
-**Landed 2026-08-28.** `corpusRunPool` pools the runs over the same hundred clones and writes one table per weighting; [`reference-corpus-run-shares.tsv`](../../reference-corpus/src/main/resources/reference-corpus-run-shares.tsv) is the mean of shares, bundled beside the word table and read by `PooledRunShares` and `RunRanks`. 1,200 runs over 17,797 occurrences. The twelve rows the worked example rests on reproduce exactly — `time_zone` 446, `mime_type` 165, `resource_type` 51, `country_code` 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg`, `accrual_period`. Both provenance tests pass and no figure in any reading moved, because nothing reads the table yet.
+**Landed 2026-08-28.** `corpusRunPool` pools the runs over the same hundred clones and writes one table per weighting; [`reference-corpus-run-shares.tsv`](../../reference-corpus/src/main/resources/reference-corpus-run-shares.tsv) is the mean of shares, bundled beside the word table and read by `PooledRunShares` and `RunRanks`. 1,447 runs over 24,033 occurrences. The twelve rows the worked example rests on reproduce exactly — `time_zone` 446, `mime_type` 165, `resource_type` 51, `country_code` 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg`, `accrual_period`. Both provenance tests pass and no figure in any reading moved, because nothing reads the table yet.
+
+**The pooling reading was corrected once, during step 2, and the table re-pooled.** The first pool ran through `CollocatedWords`, which is the reading a vote is taken from and which refuses a run whose first or last word WordNet carries no entry for. Under it the table could not hold `task_id`, `pass_through` or `message_id`, and step 2 measured what that costs: those are precisely the runs FpML's tika match rests on, and a table silent about them lets every one of them through as the publisher's own vocabulary. The edge rule exists so a *vote* is not spent on a run no resource labels; a denominator votes on nothing. `StatedRuns` is the same walk without it, and it is also the walk that matches the other side — `TermSpans` puts a published term against a declared name over the words the splitter produced, with no edge rule anywhere in it. Re-pooled: 1,200 runs became 1,447, and `task_id` at 160, `pass_through` at 32 and `message_id` at 31 joined the table.
 
 **Two corrections the measurement forces on the worked example above, neither of which changes its ordering.**
 
@@ -102,15 +104,17 @@ Five steps. Each names the class that carries it, the contract it must satisfy, 
 
 **The ranks were read off the word table, not off a run table, because no run table existed when this was written.** They are positions among 28,129 pooled units. The bundled run table holds 1,200 rows, and a run's rank in it is a rank among runs, which is what makes the scale bounded by that table's own length.
 
-| Run | Occurrences | Rank of 1,200, mean of shares | `log(rank)/log(1200)` | Rank of 1,200, pooled occurrences | `log(rank)/log(1200)` |
-|---|--:|--:|--:|--:|--:|
-| `time_zone` | 446 | 32 | 0.489 | 3 | 0.155 |
-| `mime_type` | 165 | 62 | 0.582 | 20 | 0.423 |
-| `resource_type` | 51 | 123 | 0.679 | 79 | 0.616 |
-| `country_code` | 11 | 708 | 0.926 | 258 | 0.783 |
-| `cap_floor` and its four kin | none | — | 1.000 | — | 1.000 |
+| Run | Occurrences | Rank of 1,447, mean of shares | `log(rank)/log(1447)` |
+|---|--:|--:|--:|
+| `time_zone` | 446 | 35 | 0.489 |
+| `task_id` | 160 | 60 | 0.563 |
+| `mime_type` | 165 | 94 | 0.624 |
+| `resource_type` | 51 | 158 | 0.696 |
+| `pass_through` | 32 | 365 | 0.811 |
+| `country_code` | 11 | 875 | 0.931 |
+| `cap_floor` and its four kin | none | — | 1.000 |
 
-**What that costs step 2.** The rank-based bar has 0.489 to 1.000 to work in under the bundled weighting, and `country_code` at 0.926 sits nearer the absent runs than to `time_zone`. The occurrence-based candidate — absent, or below the word table's own floor of 63 — separates the same six rows at 446, 165 and 51 against 11 and five absences, which is the wider margin. **Step 2 measures both**, and the mean-of-shares weighting is what is bundled because the frame drew repositories rather than bytes, which is the reason the word table states for its own weighting. `corpusRunPool` writes the other table beside it, so reversing that costs one file copy.
+**What that costs step 2.** The rank-based bar has 0.489 to 1.000 to work in, and `country_code` at 0.931 sits nearer the absent runs than to `time_zone`. **Step 2 took neither candidate and derived a third from the table's own error column**, which is stated there. The mean-of-shares weighting is what is bundled because the frame drew repositories rather than bytes, which is the reason the word table states for its own weighting; `corpusRunPool` writes the pooled-occurrences table beside it, so reversing that costs one file copy.
 
 **What it is.** A table of the runs the 100 drawn Java repositories declare, with the occurrences and share of each, keyed and weighted exactly as [`reference-corpus-shares.tsv`](../../reference-corpus/src/main/resources/reference-corpus-shares.tsv) is. It is a second table, not a replacement, and nothing in the word arm reads it.
 
@@ -136,26 +140,64 @@ Five steps. Each names the class that carries it, the contract it must satisfy, 
 
 **The seam.** `TermOrderNull.over(written, judged)` takes the observed count from `MatchedPhrases.over(index).in(written)` and each null count from `MatchedPhrases.over(ScrambledTerms.of(index, draws)).in(written)`. Both go through a `TermIndex`. **So the termhood bar belongs on the index**, not on the count: a decorator that yields only the terms a general corpus of Java does not already write, wrapped around the published index before either side is counted.
 
-**The class.** `SpecificTerms implements TermIndex`, the sibling of `ScrambledTerms`, in `skos-matching`. It holds a published index and a `WordNarrowing` over runs, and answers with only those terms whose run scores above the bar. `conceptsOf`, `terms`, `longestTerm`, `broaderOf`, `source` and `rung` all delegate.
+**The class.** `SpecificTerms implements TermIndex`, the sibling of `ScrambledTerms`, in `skos-matching`. It holds a published index and a `WorkingJavaRuns` over the corpus's run table, and answers with only the terms that clear the bar. `conceptsOf`, `terms`, `broaderOf`, `reads`, `source` and `rung` all delegate; `longestTerm` is recomputed over the terms it kept, so the walk is never offered a run the index can no longer answer.
 
 **The arithmetic, and why nothing new is needed.** `WordSpecificity.of` is already `rank == UNKNOWN_RANK ? 1.0 : min(1, log(rank) / log(size))`. A run the general corpus never states is unknown and therefore scores 1.0 — maximally specific — which is the contract the absent finance runs need, already written and already tested. `PhraseSpecificity` asks the run table for a run of several words and `WordSpecificity` for a single word, so rung 1 is judged against Java runs and rung 2 against Java words. Both are bounded in `[0, 1]` by their own table's length.
 
 **The tree already states the principle.** `WordNarrowing`'s javadoc: "A declared name is working Java, so a corpus of working Java is what says `get` and `id` narrow nothing — English calls both rare and is wrong about code." That is the argument for this step, written for words, applying unchanged to runs.
 
-**Where the bar sits is the one thing not yet derived.** `SpecificTerms` needs a cut, and a cut is a bound, so it must follow from something. Two candidates, and the run settles which:
+**Where the bar sits is the one thing not yet derived.** `SpecificTerms` needs a cut, and a cut is a bound, so it must follow from something. Two candidates were stated here, and neither is what landed:
 
-| Candidate | Derivation | What it costs |
+| Candidate | Derivation | Why not |
 |---|---|---|
-| the run scores above the mean specificity of the vocabulary's own terms | the vocabulary states it about itself, so no constant is chosen | a vocabulary of uniformly ordinary terms keeps half of them |
-| the run is absent from the table, or its rank is beyond the word table's own reported floor of 63 occurrences | the corpus states it, and 63 is already derived and in use | a run written 62 times in 100 repositories counts as specific |
+| the run scores above the mean specificity of the vocabulary's own terms | the vocabulary states it about itself, so no constant is chosen | a vocabulary of uniformly ordinary terms keeps half of them, and step 1 measured the rank scale as too compressed to cut in: `country_code` at 11 occurrences scores 0.931 against 1.000 for an absence |
+| the run is absent from the table, or its rank is beyond the word table's own reported floor of 63 occurrences | — | 63 is `OccurrenceFloor`'s answer to *how few names a repository can declare and still say something*. It is a bound on a repository's size, not on a run's count, and borrowing it across would be choosing a constant with a citation stapled to it |
 
-**Blast radius.** `PhraseSpecificity` is read by `RecordedSpans`, `TermTally`, `KeywordSpecificity`, `WrittenMass` and `TermReading`. Changing what it reads for multi-word runs moves every figure those five produce, which is the whole term path and the `taxonomies` block. It moves no figure in the word arm, the themes or the placement — and that separation is the thing to verify first, by reading `changes.json` on a member and confirming that only taxonomy figures moved.
+**What landed is the table's own error column.** Every row states a share and the standard error of that share, and the header states the rule already: *a verdict whose margin sits inside it has not been shown to stand above chance*. Asked of a count rather than a verdict, that is **the corpus has been shown to write this run where its share exceeds its own standard error**. Nothing is chosen; the bound is the table's own statement about its own sampling. On the bundled table 550 of the 1,447 runs clear it.
+
+Two consequences follow and both are stated in `WorkingJavaRuns`:
+
+- **A run no publisher states was never counted, so the table having no row for it says nothing.** `canBeAsked` asks the pooling's own reading whether it would have merged the run. Where it would not, the term has no citation about its termhood, does not clear a termhood bar, and is dropped from the observed count and the deal alike — abstention, not a vote of zero.
+- **The same rule over the *word* table refuses `trade` at 23 occurrences**, which is the domain evidence a reading exists to find, so a one-word term is not judged here at all. `CorroboratedTerms` is what already tests a single word, by requiring the repository to write another concept from the same branch.
+
+**`PhraseSpecificity` reading runs against runs is held back to step 3.** It is read by `RecordedSpans`, `TermTally`, `KeywordSpecificity`, `WrittenMass` and `TermReading`, so changing what it reads for multi-word runs moves every figure those five produce — the whole term path and the `taxonomies` block. That is a weight on a published figure, measured by `changes.json` on a member, and step 3 already opens the export. The bar above is measured by `phraseNull` alone and moves no published figure, so the two are landed apart rather than together.
 
 **Exchangeability, stated because it is the one thing that could invalidate 3b's argument.** 3b's null holds the repository still and permutes the vocabulary, so the reference states as many terms of the same lengths from the same word list. Filtering the index before the deal keeps that exactly: `ScrambledTerms.of(SpecificTerms.of(index), draws)` deals the *filtered* vocabulary's own words across the *filtered* vocabulary's own term shapes. Filtering after the deal would not, because a scrambled run is almost never in the general-Java table and so almost never filtered, which would shrink the observed count while leaving the null alone. **Wrap before dealing, never after**, and pin it with a test that asserts the null's median moves by less than one count when the filter is applied to a vocabulary none of whose terms the corpus states.
 
 **Command.** `./gradlew phraseNull -Dcs.clone.dir=$HOME/evaluation/<member>`, one member at a time, never two Gradle invocations at once. About a minute on this tree and twelve on fineract.
 
 **Kept when** FpML's tika figure falls below its bar while its jpos and strata figures hold, and FIX's five clears on repositories that are not trading systems fall. **Refuted by** the finance members' leaders falling with the false positives, which would mean the filter removes domain terms rather than ordinary ones.
+
+**Landed and measured on all ten readings, 2026-08-28.** `phraseNull` computes both halves at one seed on one read: the published index, then `SpecificTerms` over it. Each figure is the observed count of distinct phrases divided by the bar `ChanceExpectedBest` sets at a field of seven; **bold** marks the leader and a dagger marks clearing. A ratio is not comparable across the two halves, because the filter shrinks the bar as well as the count — `clears` is what to read.
+
+| Repository | | OLiA | CSO | FIBO | FpML | FIX | CWE | BIAN |
+|---|---|--:|--:|--:|--:|--:|--:|--:|
+| quickfixj | published | 1.0 | 2.0† | 3.0† | 4.5† | **11.8†** | 1.0 | 0.0 |
+| a FIX engine | specific | 1.0 | 0.8 | 2.0† | 1.5† | **10.4†** | 0.0 | 0.0 |
+| strata | published | 1.0 | 1.7† | **3.0†** | **3.0†** | 1.0† | 0.8 | 1.0 |
+| derivatives analytics | specific | 0.0 | 1.1† | **2.9†** | 2.8† | 1.0 | 0.0 | 1.0 |
+| jpos | published | 1.0 | 2.1† | 1.5† | **3.0†** | 1.7† | 1.0 | 1.5† |
+| payments | specific | 1.0 | 1.6† | **2.0†** | **2.0†** | 1.4† | 1.0 | 1.5† |
+| fineract | published | 1.4† | 1.8† | **2.0†** | 1.8† | 1.0 | 0.7 | 0.2 |
+| core banking | specific | 0.3 | 1.1† | **1.8†** | 1.3† | 0.7 | 0.3 | 0.2 |
+| tika | published | 3.0† | 2.2† | 1.5† | **4.0†** | 1.1† | 2.3† | 0.0 |
+| content parsing | specific | 1.0 | 1.4† | 1.3† | 1.5† | 0.9 | **2.0†** | 0.0 |
+| besu | published | 1.5† | **1.8†** | 0.6 | 1.0 | 1.7† | 0.6 | 0.5 |
+| an Ethereum client | specific | 0.3 | **1.6†** | 0.5 | 0.3 | 1.1† | 0.0 | 0.5 |
+| santuario | published | 0.0 | **2.9†** | 1.0 | 1.7† | 1.4† | 1.0 | 1.0† |
+| XML security | specific | 0.0 | **1.3†** | 0.5 | 0.7 | 1.0 | 0.0 | 0.0 |
+| aeron | published | 1.0 | 1.4† | 0.5 | **2.2†** | 1.1† | 0.0 | 0.0 |
+| messaging transport | specific | 1.0 | **1.1†** | 0.3 | 0.8 | 0.6 | 0.0 | 0.0 |
+| maven | published | **2.0†** | 1.2† | 1.7† | 0.8 | 1.4† | 0.8 | 0.0 |
+| a build tool | specific | 0.5 | 0.9 | 0.7 | 0.3 | 1.0 | 0.5 | 0.0 |
+| CodeSemantics | published | **3.0†** | 1.0 | 0.0 | 2.0† | 0.0 | 0.3 | 0.0 |
+| linguistic annotation | specific | **2.0†** | 0.8 | 0.0 | 1.0 | 0.0 | 0.0 | 0.0 |
+
+**37 clears become 22, and every leader that should survive survives.** FIX still leads quickfixj by the largest margin anywhere; FIBO leads strata and fineract; FIBO and FpML tie on jpos; OLiA leads this repository. The false positives 3b named by name are gone: OLiA on fineract falls 1.4 to 0.3, which is `entity type` 328, `email address` 40 and `phone number` 16 refused; FpML on aeron and santuario falls below; FIBO on maven falls below. **maven clears nothing at all**, where four vocabularies cleared before, which is the right answer for a build tool no bundled vocabulary covers.
+
+**Four of the five criteria are met and the fifth is met in part.** FIX's clears on repositories that are not trading systems fall on aeron, maven, santuario and tika, and hold on besu at 1.1. FpML on tika falls from 4.0 to 1.5 but still clears, on six distinct phrases written once or twice each — `product_type`, `party_name`, `fixed_rate`, `lc_type`, `party_role`, `street_address`. **That residue is `MatchedPhrases` counting distinct terms rather than occurrences**, which is deliberate and stated there, so it is a limit of this rung rather than a defect of this bar. jpos and strata hold, which is the half of the criterion the bar was written for.
+
+**What the bar costs, stated.** CSO loses 2,513 of its 14,259 terms on every reading and falls below its bar on quickfixj and maven. That is not a fault: CSO is the vocabulary of computer science and the corpus is working Java, so the bar is asking what a repository is about *beyond being software*, and answering "nothing further" for a build tool is correct. It does mean rung 1 cannot answer *Computer Science* — rung 3 is what answers that, which is the cascade's own shape.
 
 ### Step 3 — the bar reaches the export, and only what clears it is published
 
@@ -199,7 +241,7 @@ One published class taking a directory and returning the export, and a README se
 | | Step | Costs | Settled by |
 |--:|---|---|---|
 | 1 | ~~the pooled run table as a bundled resource~~ **landed 2026-08-28** | one pool and one build | the twelve rows reproduce; both provenance tests pass; no reading moves |
-| 2 | `SpecificTerms` on the index, `PhraseSpecificity` reading runs against runs | one build, then `phraseNull` per member | FpML's tika figure falls below its bar, its jpos and strata figures hold, FIX's five non-trading clears fall |
+| 2 | ~~`SpecificTerms` on the index~~ **landed 2026-08-28** | one build, then `phraseNull` per member | 37 clears become 22; jpos and strata hold; FpML on tika falls 4.0 to 1.5 and still clears; four of FIX's five non-trading clears fall. `PhraseSpecificity` reading runs against runs moved to step 3 |
 | 3 | the bar in `reading.json`, matches below it withheld and counted | one build, one self read, a profile | the ten readings publish a bar and none publishes a match below it |
 | 4 | the cascade in `about` and `aboutStatedBy` | a schema bump and the full backtest | 36 level readings hold at 33 apart, and rung 1 answers on the four finance members and no others |
 | 5 | the published entry point | one build and a README section | it is callable from outside the test source set |

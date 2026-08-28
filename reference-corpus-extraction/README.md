@@ -167,17 +167,23 @@ Pooled occurrences gives every occurrence equal weight, so A sets ten times as m
 
 A **run** is several adjacent words some publisher states as one entry. `corpusRunPool` counts those and nothing else, over the same hundred clones at the same commits, and writes a table per weighting exactly as `corpusPool` does.
 
-It is a second read of the corpus rather than a second table off the first, because the two are read under different indexes.
+It is a second read of the corpus rather than a second table off the first, because the two are read by different readings.
 
 | | `corpusPool` | `corpusRunPool` |
 |---|---|---|
-| index the words are merged under | the two topical dictionaries | the same two, plus the seven bundled term vocabularies' multi-word labels |
+| what merges two adjacent words | `CollocatedWords` | `StatedRuns` |
+| publishers it asks | the two topical dictionaries | those two and the seven bundled term vocabularies' multi-word labels |
+| edge rule | a run's first and last word must have a WordNet entry | none |
 | rows kept | every unit the reading produced | the runs alone |
 | what a share is a share of | every unit | the runs |
 
-Two adjacent words become one run only where the index states that run, so the index decides what a table can count. The word table is pooled under the index a reading actually runs on, which is the only thing that makes its shares comparable with a reading's. The run table is asked a different question — how often working Java writes the terms a vocabulary publishes — and under the reading's index a term like `cap_floor` would never be merged, never counted, and would read as absent whatever the corpus writes. Pooled under an index that states it, the absence is a measurement.
+The word table is pooled by the reading a repository is actually read with, which is the only thing that makes its shares comparable with a reading's. The run table answers a different question — how often working Java writes the terms a vocabulary publishes — and the reading's two extra rules both stop it answering.
 
-Measured on 2026-08-28 over the hundred published-artefact repositories: 1,200 runs across 17,797 occurrences. `time_zone` at 446, `mime_type` at 165, `resource_type` at 51, `country_code` at 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg` or `accrual_period`.
+**The publishers.** A term like `cap_floor` no dictionary carries is never merged and never counted, so it would read as absent whatever the corpus writes.
+
+**The edge rule.** `CollocatedWords` refuses a run whose first or last word WordNet has no entry for. Merging a run stops the words inside it being counted on their own, and a run no resource labels then votes for no subject, so a reading that merged it would lose both. A table that counts votes for nothing, so it needs no such rule — and under it the table holds no row for `TaskId`, `PassThrough` or `XMLEntityExpansion`, which are exactly the generic compounds a termhood bar exists to find. The matcher on the other side has no edge rule either: a published term meets a declared name over the words the splitter produced. Both sides are made the same way.
+
+Measured on 2026-08-28 over the hundred published-artefact repositories: 1,447 runs across 24,033 occurrences. `time_zone` at 446, `mime_type` at 165, `task_id` at 160, `resource_type` at 51, `pass_through` at 32, `country_code` at 11, and none of `cap_floor`, `fixed_leg`, `swap_leg`, `floating_leg` or `accrual_period`.
 
 **The word table is untouched by this.** Its rows, its counts and its ranks are what they were, and nothing that reads it reads the run table.
 

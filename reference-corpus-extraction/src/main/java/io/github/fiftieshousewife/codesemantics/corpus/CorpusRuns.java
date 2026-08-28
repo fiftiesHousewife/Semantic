@@ -7,20 +7,19 @@ import io.github.fiftieshousewife.codesemantics.clones.RepositoryManifest;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CitedWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.LegibilityReading;
-import io.github.fiftieshousewife.codesemantics.engine.theme.CollocatedWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
-import io.github.fiftieshousewife.codesemantics.engine.theme.EveryPublishedRun;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PublishedPhrases;
+import io.github.fiftieshousewife.codesemantics.engine.theme.StatedRuns;
 
 /**
  * How densely working Java writes each run of words a publisher states as one entry, pooled over the same
  * drawn repositories the word table is pooled over.
  *
- * <p>It reads under {@link EveryPublishedRun} rather than under the index a reading uses. A run the index
- * does not state is never merged and so never counted, so a table asked how often working Java writes
- * {@code CapFloor} has to be pooled under an index that states {@code cap_floor} — otherwise every term a
- * vocabulary publishes and no dictionary carries would read as absent from the corpus whatever the corpus
- * writes.
+ * <p>It reads under {@link StatedRuns} rather than under the reading a vote is taken from. A run no index
+ * states is never merged and so never counted, so a table asked how often working Java writes
+ * {@code CapFloor} has to be read under an index that states {@code cap_floor}; and a reading that also
+ * refuses a run whose edge word carries no dictionary entry could never answer about {@code TaskId} or
+ * {@code XMLEntityExpansion} either. Both sides of the term comparison are made the same way, and the side
+ * that matches a published term against a declared name has no edge rule in it.
  *
  * <p>Each repository's shares are taken again over its runs alone, so the table is a distribution over runs
  * and a run's rank is read against other runs. Nothing in the word arm reads it: the word table states every
@@ -38,7 +37,7 @@ public final class CorpusRuns {
         return new CorpusRuns(new PooledWords(new LegibilityReading(
                 CitedWords.fromClasspath(),
                 IdentifierWords.fromClasspath(),
-                new CollocatedWords(EveryPublishedRun.newInstance(), ContentWords.fromClasspath()))));
+                StatedRuns.fromClasspath())));
     }
 
     /** Each pinned repository's runs on its own, in the order the manifest pins them. */

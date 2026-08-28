@@ -183,6 +183,19 @@ tasks.register<JavaExec>("phraseNull") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Which of each vocabulary's phrases the repository writes, and which of those working Java writes too.
+// The workings behind phraseNull's two halves; it prints and writes nothing.
+//   ./gradlew termhood
+//   ./gradlew termhood -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("termhood") {
+    group = "verification"
+    description = "Prints each vocabulary's written phrases, with what the reference corpus writes beside them"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.TermhoodProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Where the time of one read goes, stage by stage: each shared stage is computed once in dependency order,
 // so a row is that stage's own first cost and the rows sum to what the export diagnostic pays. The same run
 // is recorded under Java Flight Recorder to build/reports/read-profile.jfr; read it with

@@ -1,9 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.IntStream;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedRuns;
 
@@ -43,15 +40,18 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedRuns;
  * <p>Which words those are is the dictionary's answer and not a list written here: the same open-class
  * coverage {@link ContentWords} already cites to decide which words reach the resources at all. A word the
  * reading would not have read alone cannot be read at the edge of a phrase either.
+ *
+ * <p>{@link StatedRuns} is the same walk without the edge rule, for the reference corpus's run table. That
+ * table counts and casts no vote, so a run that would vote for nothing costs it nothing.
  */
 public final class CollocatedWords implements PublishedRuns {
 
-    private final PublishedPhrases phrases;
     private final ContentWords content;
+    private final LongestRuns walk;
 
     public CollocatedWords(final PublishedPhrases phrases, final ContentWords content) {
-        this.phrases = phrases;
         this.content = content;
+        this.walk = new LongestRuns(phrases, this::edgesCarrySubject);
     }
 
     public static CollocatedWords fromClasspath() {
@@ -61,48 +61,15 @@ public final class CollocatedWords implements PublishedRuns {
     /** The phrase read in the units the resources publish it in, in the order it was written. */
     @Override
     public List<String> of(final List<String> words) {
-        final List<String> read = new ArrayList<>();
-        int from = 0;
-        while (from < words.size()) {
-            final int run = longestFrom(words, from);
-            read.add(run == 1 ? words.get(from) : written(words, from, from + run));
-            from += run;
-        }
-        return List.copyOf(read);
-    }
-
-    /**
-     * How many words the published run beginning here is written in, and one where none is — bounded by the
-     * longest run the resources hold, so a pair of dictionaries whose longest entry is three words is never
-     * asked about four.
-     */
-    private int longestFrom(final List<String> words, final int from) {
-        return IntStream.iterate(reachFrom(words, from), run -> run > 1, run -> run - 1)
-                .filter(run -> edgesCarrySubject(words, from, from + run))
-                .filter(run -> phrases.states(written(words, from, from + run)))
-                .findFirst()
-                .orElse(1);
+        return walk.of(words);
     }
 
     /** Whether the reading would have read the run's first and last words on their own. */
-    private boolean edgesCarrySubject(final List<String> words, final int from, final int to) {
-        return carriesSubject(words.get(from)) && carriesSubject(words.get(to - 1));
+    private boolean edgesCarrySubject(final List<String> run) {
+        return carriesSubject(run.getFirst()) && carriesSubject(run.getLast());
     }
 
     private boolean carriesSubject(final String word) {
         return content.lemmaOf(word).isPresent();
-    }
-
-    private int reachFrom(final List<String> words, final int from) {
-        return Math.min(phrases.longestRun(), words.size() - from);
-    }
-
-    /**
-     * The run in the form the resources are keyed by: lower case, joined by the character they write a
-     * collocation with. An identifier's capitalisation is a convention of the language it was written in and
-     * says nothing about the words, so it is folded once here rather than at every lookup downstream.
-     */
-    private static String written(final List<String> words, final int from, final int to) {
-        return String.join(PublishedPhrases.JOINER, words.subList(from, to)).toLowerCase(Locale.ROOT);
     }
 }

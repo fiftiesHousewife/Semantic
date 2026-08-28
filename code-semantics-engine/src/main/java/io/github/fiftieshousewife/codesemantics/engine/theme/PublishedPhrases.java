@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,6 +61,15 @@ public final class PublishedPhrases {
      */
     public static boolean isARun(final String written) {
         return written.contains(JOINER);
+    }
+
+    /**
+     * A run of words in the form every resource keyed by runs is keyed by: lower case, joined by the
+     * character those resources write between two words of one entry. One statement of it, so a reading
+     * asking the corpus about a run and a reading asking a dictionary spell the key the same way.
+     */
+    public static String runOf(final List<String> words) {
+        return String.join(JOINER, words).toLowerCase(Locale.ROOT);
     }
 
     /** How many words the longest run either resource publishes is written in. */
