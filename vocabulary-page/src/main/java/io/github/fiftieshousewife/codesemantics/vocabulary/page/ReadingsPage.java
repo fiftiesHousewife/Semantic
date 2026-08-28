@@ -81,12 +81,25 @@ public final class ReadingsPage {
                                 tbody(each(readings, row -> row(row, schemes(readings), stated))))));
     }
 
+    /**
+     * Two headers, because the columns beneath them are two different kinds of claim and a reader reading
+     * across the row would otherwise take them for one.
+     *
+     * <p>A term vocabulary publishes identifiers and a repository in its field declares them, so a match is
+     * the publisher stating that this is a term of its field. A subject scheme publishes prose — nobody
+     * declares {@code ManageEnterpriseRisk} — so it is diverged against rather than matched, and the answer
+     * is which subject's own description this repository's vocabulary sits nearest to.
+     */
     private static DomContent head(final List<String> schemes) {
-        return thead(tr(
-                th("repository"), th("vocabularies above their bar"), th("the phrases it wrote"),
-                th("about"))
-                .with(each(schemes, scheme -> th(scheme)))
-                .with(th("λ"), th("stated area")));
+        return thead(
+                tr(th(""),
+                        th("matched against published terms").withColspan("3"),
+                        th("placed among published subjects").withColspan(String.valueOf(schemes.size())),
+                        th("").withColspan("2")).withClass("kinds"),
+                tr(th("repository"), th("vocabularies above their bar"), th("the phrases it wrote"),
+                        th("about"))
+                        .with(each(schemes, scheme -> th(scheme)))
+                        .with(th("λ"), th("stated area")));
     }
 
     private TrTag row(final ReadingRow reading, final List<String> schemes, final StatedAreas stated) {
@@ -151,18 +164,32 @@ public final class ReadingsPage {
                         bar.field()));
     }
 
-    /** One scheme's two levels, the finer first, each marked where it stands apart from chance. */
+    /**
+     * One scheme's two levels, the finer first, and only where the scheme separated the repository from
+     * chance.
+     *
+     * <p><b>A subject the scheme could not separate from chance is not drawn.</b> The vocabularies beside
+     * it appear only where they beat their own bar, and a page applying a bar to one kind of claim and
+     * printing the other whatever it says is a page with two standards on it. A subject printed with a
+     * parenthetical beside it is still a subject a reader takes at face value, so the cell states that the
+     * scheme could not separate this repository and names the subject only in the title, where it is
+     * available to somebody looking for it and not to somebody reading down the column.
+     */
     private static DomContent placement(final ReadingRow reading, final String scheme) {
         return reading.placedIn().stream()
                 .filter(placed -> placed.scheme().equals(scheme))
                 .findFirst()
-                .map(placed -> span(level(placed.category()) + " · " + level(placed.archive())))
+                .map(placed -> div(level(placed.category()), level(placed.archive())))
                 .map(DomContent.class::cast)
                 .orElseGet(() -> span(NONE).withClass("silent"));
     }
 
-    private static String level(final ExportedPlacement.Level placed) {
-        return placed.standsApartFromChance() ? placed.subject() : placed.subject() + " (within chance)";
+    private static DomContent level(final ExportedPlacement.Level placed) {
+        return placed.standsApartFromChance()
+                ? div(placed.subject())
+                : div(NONE).withClass("silent")
+                        .withTitle("the nearest subject was " + placed.subject() + ", and the scheme "
+                                + "could not separate this repository from a scheme of chance");
     }
 
     private static DomContent area(final ReadingRow reading, final StatedAreas stated) {

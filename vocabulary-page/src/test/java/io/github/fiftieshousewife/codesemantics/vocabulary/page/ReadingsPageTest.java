@@ -110,13 +110,33 @@ class ReadingsPageTest {
     }
 
     @Test
-    void marksAPlacementTheSchemeCouldNotSeparateFromChance() {
+    void drawsNoSubjectWhereTheSchemeCouldNotSeparateTheRepositoryFromChance() {
         final ReadingRow within = new ReadingRow("aeron", List.of(), List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", false),
                         level("Databases", true))), 0.9, Optional.empty());
 
-        assertThat(page.markup(List.of(within), StatedAreas.none()))
-                .contains("Computer Science (within chance)");
+        final String markup = page.markup(List.of(within), StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup)
+                        .as("the vocabularies beside it appear only where they beat their own bar, and a "
+                                + "page applying a bar to one kind of claim and printing the other "
+                                + "whatever it says has two standards on it")
+                        .doesNotContain(">Computer Science<"),
+                () -> assertThat(markup)
+                        .as("the subject stays available to somebody looking for it")
+                        .contains("the nearest subject was Computer Science"),
+                () -> assertThat(markup).contains(">Databases<"));
+    }
+
+    @Test
+    void namesTheTwoKindsOfClaimApartBecauseTheyAreNotOneAnswer() {
+        final String markup = page.markup(
+                List.of(row("tika", List.of(), Optional.empty())), StatedAreas.none());
+
+        assertAll(
+                () -> assertThat(markup).contains("matched against published terms"),
+                () -> assertThat(markup).contains("placed among published subjects"));
     }
 
     @Test

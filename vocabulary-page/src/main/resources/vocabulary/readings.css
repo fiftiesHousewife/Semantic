@@ -116,3 +116,16 @@ td.phrases {
     font-size: 0.85rem;
     white-space: nowrap;
 }
+
+tr.kinds th {
+    border-bottom: none;
+    padding-bottom: 0;
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-transform: none;
+    font-size: 0.8rem;
+}
+
+tr.kinds th:not(:empty) {
+    border-bottom: 1px solid var(--rule);
+}
