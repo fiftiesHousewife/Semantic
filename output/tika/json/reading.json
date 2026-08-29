@@ -24,7 +24,7 @@
     }, {
       "sourceType" : "taxonomy",
       "source" : "FIBO",
-      "placedUnder" : "",
+      "placedUnder" : "DatePeriod",
       "result" : "PutWindow — an explicit period of time prior to a put date during which holder or agent must give notice to an issuer",
       "qualifiedBy" : "5 phrases against the 4 a deal of its own words reaches"
     } ],
@@ -35,16 +35,16 @@
       "archive" : {
         "subject" : "Computer Science",
         "divergenceBits" : 0.33554915562693066,
-        "nearestByChanceBits" : 0.41202812595523086,
+        "nearestByChanceBits" : 0.4120281259552309,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.09525427442378823,
+          "shareOfSubject" : 0.09525427442378824,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -294,7 +294,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.38460348973206,
+            "mass" : 257.384603489732,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -500,7 +500,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.38460348973206,
+            "mass" : 257.384603489732,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -535,7 +535,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -820,7 +820,7 @@
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Networking and Internet Architecture",
-          "divergenceBits" : 0.4169375782014238,
+          "divergenceBits" : 0.41693757820142374,
           "carriedBy" : [ "computing", "programming", "computer_science", "telecommunication" ]
         } ]
       }
@@ -898,7 +898,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.38460348973206,
+            "mass" : 257.384603489732,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -933,7 +933,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1226,7 +1226,7 @@
           "carriedBy" : [ "computing", "law", "computer_science", "linguistics" ]
         }, {
           "subject" : "Information Systems",
-          "divergenceBits" : 0.31797152081469715,
+          "divergenceBits" : 0.3179715208146973,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         } ]
       },
@@ -1238,7 +1238,7 @@
         "carriedBy" : [ {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.17377531183821918,
+          "shareOfSubject" : 0.17377531183821915,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -1302,7 +1302,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.38460348973206,
+            "mass" : 257.384603489732,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1333,11 +1333,11 @@
         }, {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.1846392237275338,
+          "shareOfSubject" : 0.18463922372753377,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1523,7 +1523,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.025735985744565856,
+          "shareOfSubject" : 0.025735985744565853,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -1646,7 +1646,7 @@
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         }, {
           "subject" : "Software-Defined Networks and 5G",
-          "divergenceBits" : 0.48392044918893407,
+          "divergenceBits" : 0.4839204491889341,
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Marine and Coastal Research",
@@ -1654,11 +1654,11 @@
           "carriedBy" : [ "computing", "computer_science", "linguistics", "telecommunication" ]
         }, {
           "subject" : "Personal Information Management and User Behavior",
-          "divergenceBits" : 0.4917313175400436,
+          "divergenceBits" : 0.49173131754004373,
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Caching and Content Delivery",
-          "divergenceBits" : 0.492722105217664,
+          "divergenceBits" : 0.49272210521766396,
           "carriedBy" : [ "computing", "linguistics", "telecommunication", "electronics" ]
         }, {
           "subject" : "Security and Verification in Computing",
@@ -1669,18 +1669,414 @@
     }, {
       "scheme" : "CSO",
       "archive" : {
-        "subject" : "linguistics",
-        "divergenceBits" : 0.29630679643451396,
-        "nearestByChanceBits" : 0.30630590811653435,
+        "subject" : "computer science",
+        "divergenceBits" : 0.2228778420221608,
+        "nearestByChanceBits" : 0.26730404403399616,
+        "standsApartFromChance" : true,
+        "carriedBy" : [ {
+          "topic" : "computing",
+          "shareOfRepository" : 0.22023362627032875,
+          "shareOfSubject" : 0.04839142650068265,
+          "carriedBy" : [ {
+            "word" : "metadata",
+            "occurrences" : 4373,
+            "mass" : 2271.4193210111835,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "if the component implements a known interface e g metadata filter that interface is used as the key otherwise the component's own class is used as the key",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 95
+              }
+            }, {
+              "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java",
+                "line" : 339
+              }
+            }, {
+              "phrase" : "unpack include metadata",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 29
+              }
+            } ]
+          }, {
+            "word" : "config",
+            "occurrences" : 1480,
+            "mass" : 400.7497060550661,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "tika config key",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 25
+              }
+            }, {
+              "phrase" : "convert config xml to json",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+                "line" : 683
+              }
+            }, {
+              "phrase" : "config file path",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+                "line" : 136
+              }
+            }, {
+              "phrase" : "tika config path",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+                "line" : 329
+              }
+            } ]
+          }, {
+            "word" : "parser",
+            "occurrences" : 2928,
+            "mass" : 257.384603489732,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 21
+              }
+            }, {
+              "phrase" : "htmlparser html parser",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 57
+              }
+            }, {
+              "phrase" : "annotation for tika components parsers detectors etc that enables",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "public class pdfparser extends abstract parser auto generates name pdf parser included in spi",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            } ]
+          } ]
+        }, {
+          "topic" : "programming",
+          "shareOfRepository" : 0.04405076928628682,
+          "shareOfSubject" : 0.03620959525915896,
+          "carriedBy" : [ {
+            "word" : "handler",
+            "occurrences" : 1995,
+            "mass" : 560.4517254344341,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "public class basic content handler factory implements content handler factory marks this as the default implementation for content handler factory 3 1 0",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "public class basic content handler factory implements content handler factory this will be instantiated by default when no content handler factory is configured the interface this component is the default for or void class if not a default",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 115
+              }
+            }, {
+              "phrase" : "components that don't implement any of these interfaces e g digester factory content handler factory implementations go to parse context idx instead",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java",
+                "line" : 63
+              }
+            }, {
+              "phrase" : "translate tika cli text output to the tika async cli handler type",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 69
+              }
+            } ]
+          }, {
+            "word" : "eval",
+            "occurrences" : 53,
+            "mass" : 23.897418142756276,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "eval",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/mime/AndClause.java",
+                "line" : 29
+              }
+            }, {
+              "phrase" : "eval",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/mime/Clause.java",
+                "line" : 29
+              }
+            }, {
+              "phrase" : "eval",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/mime/Magic.java",
+                "line" : 48
+              }
+            }, {
+              "phrase" : "eval",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/mime/MagicMatch.java",
+                "line" : 53
+              }
+            } ]
+          }, {
+            "word" : "factory",
+            "occurrences" : 538,
+            "mass" : 23.4180930045591,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "public class basic content handler factory implements content handler factory marks this as the default implementation for content handler factory 3 1 0",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "public class basic content handler factory implements content handler factory this will be instantiated by default when no content handler factory is configured the interface this component is the default for or void class if not a default",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 115
+              }
+            }, {
+              "phrase" : "components that don't implement any of these interfaces e g digester factory content handler factory implementations go to parse context idx instead",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java",
+                "line" : 63
+              }
+            }, {
+              "phrase" : "get content handler factory",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+                "line" : 832
+              }
+            } ]
+          } ]
+        }, {
+          "topic" : "linguistics",
+          "shareOfRepository" : 0.06168028540595813,
+          "shareOfSubject" : 0.03397957139870458,
+          "carriedBy" : [ {
+            "word" : "name",
+            "occurrences" : 4007,
+            "mass" : 318.89934748237675,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "class name",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 46
+              }
+            }, {
+              "phrase" : "utility for converting java class names to kebab_case",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 21
+              }
+            }, {
+              "phrase" : "used for automatic component name generation from class names",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 21
+              }
+            }, {
+              "phrase" : "converts a java class name to kebab_case",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 40
+              }
+            } ]
+          }, {
+            "word" : "context",
+            "occurrences" : 2286,
+            "mass" : 190.8573006228539,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "the context key is recorded in the idx file for runtime resolution",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "the class to use as the key when adding this component to parse context",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 95
+              }
+            }, {
+              "phrase" : "the component implements multiple known interfaces ambiguous you need a specific interface class that isn't auto detected the class to use as parse context key or void class for auto detection",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 95
+              }
+            } ]
+          }, {
+            "word" : "parse",
+            "occurrences" : 3092,
+            "mass" : 94.17510195464955,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "the class to use as the key when adding this component to parse context",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 95
+              }
+            }, {
+              "phrase" : "the component implements multiple known interfaces ambiguous you need a specific interface class that isn't auto detected the class to use as parse context key or void class for auto detection",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 95
+              }
+            }, {
+              "phrase" : "when set this component will be used as the default when loading a parse context with defaults via and no explicit configuration is provided for the interface",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 115
+              }
+            } ]
+          } ]
+        }, {
+          "topic" : "computer_science",
+          "shareOfRepository" : 0.031062494354920735,
+          "shareOfSubject" : 0.05448940685487608,
+          "carriedBy" : [ {
+            "word" : "parser",
+            "occurrences" : 2932,
+            "mass" : 251.25071157480744,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 21
+              }
+            }, {
+              "phrase" : "htmlparser html parser",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
+                "line" : 57
+              }
+            }, {
+              "phrase" : "annotation for tika components parsers detectors etc that enables",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            }, {
+              "phrase" : "public class pdfparser extends abstract parser auto generates name pdf parser included in spi",
+              "site" : {
+                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
+                "line" : 24
+              }
+            } ]
+          }, {
+            "word" : "byte",
+            "occurrences" : 3194,
+            "mass" : 135.27653707527486,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "one for bytes and one for json",
+              "site" : {
+                "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
+                "line" : 309
+              }
+            }, {
+              "phrase" : "json metadata file embed directory with extracted bytes",
+              "site" : {
+                "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
+                "line" : 601
+              }
+            }, {
+              "phrase" : "only a limited number of bytes are read from the stream",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
+                "line" : 125
+              }
+            }, {
+              "phrase" : "only a limited number of bytes are read from the stream",
+              "site" : {
+                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
+                "line" : 156
+              }
+            } ]
+          }, {
+            "word" : "format",
+            "occurrences" : 692,
+            "mass" : 40.132210070382975,
+            "sources" : [ "lexicon:topical-domain" ],
+            "quotations" : [ {
+              "phrase" : "unpack format key",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 27
+              }
+            }, {
+              "phrase" : "format",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 58
+              }
+            }, {
+              "phrase" : "translate unpack format format to unpack format format",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
+                "line" : 57
+              }
+            }, {
+              "phrase" : "apt list format",
+              "site" : {
+                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
+                "line" : 1069
+              }
+            } ]
+          } ]
+        } ],
+        "nearerThanChance" : [ {
+          "subject" : "computer science",
+          "divergenceBits" : 0.2228778420221608,
+          "carriedBy" : [ "computing", "programming", "linguistics", "computer_science" ]
+        }, {
+          "subject" : "linguistics",
+          "divergenceBits" : 0.2301501074563514,
+          "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
+        } ]
+      },
+      "category" : {
+        "subject" : "information technology",
+        "divergenceBits" : 0.27989429601650917,
+        "nearestByChanceBits" : 0.30060561750974923,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.0821683119565141,
+          "shareOfSubject" : 0.07439848262047431,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.8993474823768,
+            "mass" : 318.89934748237675,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1771,7 +2167,7 @@
         }, {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.04687576268169366,
+          "shareOfSubject" : 0.04237025419630551,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -1835,7 +2231,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.38460348973206,
+            "mass" : 257.384603489732,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1866,7 +2262,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.03142478602783354,
+          "shareOfSubject" : 0.031435951055725636,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -1961,7 +2357,7 @@
         }, {
           "topic" : "computer_science",
           "shareOfRepository" : 0.031062494354920735,
-          "shareOfSubject" : 0.024282612978878168,
+          "shareOfSubject" : 0.03592365426946834,
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
@@ -2055,398 +2451,14 @@
           } ]
         } ],
         "nearerThanChance" : [ {
-          "subject" : "linguistics",
-          "divergenceBits" : 0.29630679643451396,
+          "subject" : "information technology",
+          "divergenceBits" : 0.27989429601650917,
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
+        }, {
+          "subject" : "operating systems",
+          "divergenceBits" : 0.30052988184557106,
+          "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         } ]
-      },
-      "category" : {
-        "subject" : "data mining",
-        "divergenceBits" : 0.419822219785956,
-        "nearestByChanceBits" : 0.3714164607016304,
-        "standsApartFromChance" : false,
-        "carriedBy" : [ {
-          "topic" : "computing",
-          "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.07181811965786009,
-          "carriedBy" : [ {
-            "word" : "metadata",
-            "occurrences" : 4373,
-            "mass" : 2271.4193210111835,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "if the component implements a known interface e g metadata filter that interface is used as the key otherwise the component's own class is used as the key",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 95
-              }
-            }, {
-              "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java",
-                "line" : 339
-              }
-            }, {
-              "phrase" : "unpack include metadata",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
-                "line" : 29
-              }
-            } ]
-          }, {
-            "word" : "config",
-            "occurrences" : 1480,
-            "mass" : 400.7497060550661,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "tika config key",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
-                "line" : 25
-              }
-            }, {
-              "phrase" : "convert config xml to json",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-                "line" : 683
-              }
-            }, {
-              "phrase" : "config file path",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-                "line" : 136
-              }
-            }, {
-              "phrase" : "tika config path",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-                "line" : 329
-              }
-            } ]
-          }, {
-            "word" : "parser",
-            "occurrences" : 2928,
-            "mass" : 257.38460348973206,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 21
-              }
-            }, {
-              "phrase" : "htmlparser html parser",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 57
-              }
-            }, {
-              "phrase" : "annotation for tika components parsers detectors etc that enables",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "public class pdfparser extends abstract parser auto generates name pdf parser included in spi",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            } ]
-          } ]
-        }, {
-          "topic" : "linguistics",
-          "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.03506903877243174,
-          "carriedBy" : [ {
-            "word" : "name",
-            "occurrences" : 4007,
-            "mass" : 318.8993474823768,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "class name",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 46
-              }
-            }, {
-              "phrase" : "utility for converting java class names to kebab_case",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 21
-              }
-            }, {
-              "phrase" : "used for automatic component name generation from class names",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 21
-              }
-            }, {
-              "phrase" : "converts a java class name to kebab_case",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 40
-              }
-            } ]
-          }, {
-            "word" : "context",
-            "occurrences" : 2286,
-            "mass" : 190.8573006228539,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "the context key is recorded in the idx file for runtime resolution",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "the class to use as the key when adding this component to parse context",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 95
-              }
-            }, {
-              "phrase" : "the component implements multiple known interfaces ambiguous you need a specific interface class that isn't auto detected the class to use as parse context key or void class for auto detection",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 95
-              }
-            } ]
-          }, {
-            "word" : "parse",
-            "occurrences" : 3092,
-            "mass" : 94.17510195464955,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "the class to use as the key when adding this component to parse context",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 95
-              }
-            }, {
-              "phrase" : "the component implements multiple known interfaces ambiguous you need a specific interface class that isn't auto detected the class to use as parse context key or void class for auto detection",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 95
-              }
-            }, {
-              "phrase" : "when set this component will be used as the default when loading a parse context with defaults via and no explicit configuration is provided for the interface",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 115
-              }
-            } ]
-          } ]
-        }, {
-          "topic" : "law",
-          "shareOfRepository" : 0.02902527484928428,
-          "shareOfSubject" : 0.06852198121399336,
-          "carriedBy" : [ {
-            "word" : "file",
-            "occurrences" : 10551,
-            "mass" : 78.66483008788705,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "see the notice file distributed with this work for additional information regarding copyright ownership",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 1
-              }
-            }, {
-              "phrase" : "the asf licenses this file to you under the apache license version 2 0 the license",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 1
-              }
-            }, {
-              "phrase" : "you may not use this file except in compliance with the license",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 1
-              }
-            }, {
-              "phrase" : "automatic spi file generation meta inf services name based component registry for json configuration",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            } ]
-          }, {
-            "word" : "client",
-            "occurrences" : 830,
-            "mass" : 60.65959842252349,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "if translation is unavailable client keys not set returns the same text back",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
-                "line" : 327
-              }
-            }, {
-              "phrase" : "if translation is unavailable client keys not set returns the same text back",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
-                "line" : 345
-              }
-            }, {
-              "phrase" : "if a careless client used that filename as if it were a filename and not a path when writing embedded files bad things could happen",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/io/FilenameUtils.java",
-                "line" : 88
-              }
-            }, {
-              "phrase" : "client submit time",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/metadata/MAPI.java",
-                "line" : 53
-              }
-            } ]
-          }, {
-            "word" : "allow",
-            "occurrences" : 389,
-            "mass" : 11.040561958367894,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "maximum length to allow for mark for reparse to get json",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java",
-                "line" : 104
-              }
-            }, {
-              "phrase" : "allows thread_pool to be configurable",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/concurrent/ConfigurableThreadPoolExecutor.java",
-                "line" : 21
-              }
-            }, {
-              "phrase" : "called after all properties have been set to allow for validation and initialization that depends on multiple properties",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/config/Initializable.java",
-                "line" : 30
-              }
-            }, {
-              "phrase" : "this interface allows json configuration to be passed in a type safe way and works seamlessly with records",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/config/JsonConfig.java",
-                "line" : 19
-              }
-            } ]
-          } ]
-        }, {
-          "topic" : "computer_science",
-          "shareOfRepository" : 0.031062494354920735,
-          "shareOfSubject" : 0.01976639661782818,
-          "carriedBy" : [ {
-            "word" : "parser",
-            "occurrences" : 2932,
-            "mass" : 251.25071157480744,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 21
-              }
-            }, {
-              "phrase" : "htmlparser html parser",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/KebabCaseConverter.java",
-                "line" : 57
-              }
-            }, {
-              "phrase" : "annotation for tika components parsers detectors etc that enables",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            }, {
-              "phrase" : "public class pdfparser extends abstract parser auto generates name pdf parser included in spi",
-              "site" : {
-                "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponent.java",
-                "line" : 24
-              }
-            } ]
-          }, {
-            "word" : "byte",
-            "occurrences" : 3194,
-            "mass" : 135.27653707527486,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "one for bytes and one for json",
-              "site" : {
-                "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
-                "line" : 309
-              }
-            }, {
-              "phrase" : "json metadata file embed directory with extracted bytes",
-              "site" : {
-                "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
-                "line" : 601
-              }
-            }, {
-              "phrase" : "only a limited number of bytes are read from the stream",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
-                "line" : 125
-              }
-            }, {
-              "phrase" : "only a limited number of bytes are read from the stream",
-              "site" : {
-                "file" : "tika-core/src/main/java/org/apache/tika/Tika.java",
-                "line" : 156
-              }
-            } ]
-          }, {
-            "word" : "format",
-            "occurrences" : 692,
-            "mass" : 40.132210070382975,
-            "sources" : [ "lexicon:topical-domain" ],
-            "quotations" : [ {
-              "phrase" : "unpack format key",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
-                "line" : 27
-              }
-            }, {
-              "phrase" : "format",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
-                "line" : 58
-              }
-            }, {
-              "phrase" : "translate unpack format format to unpack format format",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/AsyncHelper.java",
-                "line" : 57
-              }
-            }, {
-              "phrase" : "apt list format",
-              "site" : {
-                "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-                "line" : 1069
-              }
-            } ]
-          } ]
-        } ],
-        "nearerThanChance" : [ ]
       }
     } ],
     "leadingWords" : [ {
@@ -2523,7 +2535,7 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
-      "divergenceBits" : 0.06989258172373344,
+      "divergenceBits" : 0.06989258172373343,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
@@ -2555,7 +2567,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources",
-      "divergenceBits" : 0.42286721303524233,
+      "divergenceBits" : 0.4228672130352423,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources",
@@ -2571,7 +2583,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-      "divergenceBits" : 0.7885949844526295,
+      "divergenceBits" : 0.7885949844526294,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
@@ -10147,7 +10159,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -10267,7 +10279,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042307,
+      "mass" : 55.65494330042306,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -10513,7 +10525,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10759,7 +10771,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10945,7 +10957,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -11065,7 +11077,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -11251,7 +11263,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11497,7 +11509,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11743,7 +11755,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11929,7 +11941,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12049,7 +12061,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12235,7 +12247,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097867,
+      "mass" : 4.452852475097866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -12361,7 +12373,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12481,7 +12493,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042307,
+      "mass" : 55.65494330042306,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12607,7 +12619,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12727,7 +12739,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042307,
+      "mass" : 55.65494330042306,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12913,7 +12925,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13033,7 +13045,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13159,7 +13171,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13279,7 +13291,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13405,7 +13417,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13525,7 +13537,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13591,7 +13603,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13711,7 +13723,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042307,
+      "mass" : 55.65494330042306,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -13833,11 +13845,11 @@
     "topic" : "linguistics",
     "scope" : "tika-core/src/main/java",
     "shareOfRepository" : 0.014799088130799108,
-    "divergenceBits" : 0.0031577299044782646,
+    "divergenceBits" : 0.0031577299044782507,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.8993474823768,
+      "mass" : 318.89934748237675,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13957,7 +13969,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042307,
+      "mass" : 55.65494330042306,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -14143,7 +14155,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.38460348973206,
+      "mass" : 257.384603489732,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -14263,7 +14275,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.00288996885644,
+      "mass" : 58.002889968856444,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -14403,10 +14415,10 @@
         "line" : 44
       }
     }, {
-      "concept" : "encryption/decryption",
+      "concept" : "encryption",
       "term" : "encoding",
       "definition" : "",
-      "placedUnder" : "encryption | network security",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -14416,10 +14428,10 @@
         "line" : 390
       }
     }, {
-      "concept" : "encryption",
+      "concept" : "encryption/decryption",
       "term" : "encoding",
       "definition" : "",
-      "placedUnder" : "cryptography | security of data",
+      "placedUnder" : "encryption | network security",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -14910,10 +14922,10 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption/decryption",
+      "concept" : "encryption",
       "term" : "encodings",
       "definition" : "",
-      "placedUnder" : "encryption | network security",
+      "placedUnder" : "cryptography | security of data",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14923,10 +14935,10 @@
         "line" : 71
       }
     }, {
-      "concept" : "encryption",
+      "concept" : "encryption/decryption",
       "term" : "encodings",
       "definition" : "",
-      "placedUnder" : "cryptography | security of data",
+      "placedUnder" : "encryption | network security",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16316,9 +16328,9 @@
     } ],
     "branches" : [ ],
     "matchesByNormalisation" : {
+      "senses" : 726,
       "lemmas" : 1030,
-      "words" : 1591,
-      "senses" : 726
+      "words" : 1591
     },
     "bar" : {
       "phrases" : 30,
@@ -16334,7 +16346,7 @@
       "concept" : "Index",
       "term" : "index",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "placedUnder" : "",
+      "placedUnder" : "Reference",
       "occurrences" : 481,
       "specificity" : 0.7796147782262398,
       "wordsInTerm" : 1,
@@ -16360,7 +16372,7 @@
       "concept" : "Control",
       "term" : "control",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "placedUnder" : "",
+      "placedUnder" : "Situation",
       "occurrences" : 76,
       "specificity" : 0.5728611498803413,
       "wordsInTerm" : 1,
@@ -16451,7 +16463,7 @@
       "concept" : "Index",
       "term" : "indices",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "placedUnder" : "",
+      "placedUnder" : "Reference",
       "occurrences" : 18,
       "specificity" : 0.9484869167031783,
       "wordsInTerm" : 1,
@@ -16607,7 +16619,7 @@
       "concept" : "Asset",
       "term" : "plus",
       "definition" : "something of monetary value that is owned or provides benefit to some party",
-      "placedUnder" : "",
+      "placedUnder" : "Undergoer",
       "occurrences" : 9,
       "specificity" : 0.7219594913613162,
       "wordsInTerm" : 1,
@@ -16724,7 +16736,7 @@
       "concept" : "Control",
       "term" : "controls",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "placedUnder" : "",
+      "placedUnder" : "Situation",
       "occurrences" : 5,
       "specificity" : 0.812851571753071,
       "wordsInTerm" : 1,
@@ -16737,7 +16749,7 @@
       "concept" : "PutWindow",
       "term" : "set window",
       "definition" : "an explicit period of time prior to a put date during which holder or agent must give notice to an issuer",
-      "placedUnder" : "",
+      "placedUnder" : "DatePeriod",
       "occurrences" : 4,
       "specificity" : 0.8852436632707068,
       "wordsInTerm" : 2,
@@ -16906,7 +16918,7 @@
       "concept" : "Index",
       "term" : "indexed",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "placedUnder" : "",
+      "placedUnder" : "Reference",
       "occurrences" : 1,
       "specificity" : 0.9926287691586186,
       "wordsInTerm" : 1,
@@ -16919,7 +16931,7 @@
       "concept" : "Index",
       "term" : "indexes",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "placedUnder" : "",
+      "placedUnder" : "Reference",
       "occurrences" : 1,
       "specificity" : 0.9841642387895104,
       "wordsInTerm" : 1,
@@ -17049,7 +17061,7 @@
       "concept" : "Asset",
       "term" : "asset",
       "definition" : "something of monetary value that is owned or provides benefit to some party",
-      "placedUnder" : "",
+      "placedUnder" : "Undergoer",
       "occurrences" : 1,
       "specificity" : 0.7900697496079451,
       "wordsInTerm" : 1,
@@ -17062,7 +17074,7 @@
       "concept" : "Control",
       "term" : "controlled",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "placedUnder" : "",
+      "placedUnder" : "Situation",
       "occurrences" : 1,
       "specificity" : 0.7750346493415101,
       "wordsInTerm" : 1,
@@ -17177,10 +17189,16 @@
       }
     } ],
     "branches" : [ {
+      "branch" : "Reference",
+      "agreesWithTheRepository" : 0.22179292079924767,
+      "mass" : 394.0442658354267,
+      "kept" : 87.39622864383449,
+      "terms" : [ "index", "indices", "indexed", "indexes" ]
+    }, {
       "branch" : "Occurrence",
-      "agreesWithTheRepository" : 0.18752634745906085,
+      "agreesWithTheRepository" : 0.20277408494808094,
       "mass" : 199.01874371295713,
-      "kept" : 37.32125808438178,
+      "kept" : 40.35584364391152,
       "terms" : [ "request", "requested", "action", "requests", "actions" ]
     }, {
       "branch" : "Approach",
@@ -17189,10 +17207,16 @@
       "kept" : 16.912606966356446,
       "terms" : [ "strategy", "scheme", "method", "methods", "schemes" ]
     }, {
+      "branch" : "Situation",
+      "agreesWithTheRepository" : 0.2612991000648257,
+      "mass" : 48.376739899012804,
+      "kept" : 12.640798599682194,
+      "terms" : [ "control", "controls", "controlled" ]
+    }, {
       "branch" : "DerivativeInstrument",
-      "agreesWithTheRepository" : 0.27215471156396,
+      "agreesWithTheRepository" : 0.3453641543996417,
       "mass" : 34.900755042411234,
-      "kept" : 9.49840492193185,
+      "kept" : 12.053469753131386,
       "terms" : [ "futures", "options", "option", "future", "swap" ]
     }, {
       "branch" : "Index",
@@ -17202,15 +17226,15 @@
       "terms" : [ "address", "addresses" ]
     }, {
       "branch" : "StatisticalMeasure",
-      "agreesWithTheRepository" : 0.13939856035888293,
+      "agreesWithTheRepository" : 0.14674585082361088,
       "mass" : 20.560683521519906,
-      "kept" : 2.8661296828944822,
+      "kept" : 3.0171949968804346,
       "terms" : [ "mean", "median", "difference", "means" ]
     }, {
       "branch" : "Asset",
-      "agreesWithTheRepository" : 0.25299359052561776,
+      "agreesWithTheRepository" : 0.16044338078888562,
       "mass" : 13.741175624653962,
-      "kept" : 3.4764293593243045,
+      "kept" : 2.204680673233309,
       "terms" : [ "kept", "keep", "keeps", "holding", "held" ]
     }, {
       "branch" : "Control",
@@ -17231,16 +17255,22 @@
       "kept" : 1.5925928140514107,
       "terms" : [ "minor" ]
     }, {
+      "branch" : "Undergoer",
+      "agreesWithTheRepository" : 0.23048144142232416,
+      "mass" : 7.287705171859791,
+      "kept" : 1.6796807926711712,
+      "terms" : [ "plus", "asset" ]
+    }, {
       "branch" : "LegalConstruct",
-      "agreesWithTheRepository" : 0.16652915697090037,
+      "agreesWithTheRepository" : 0.19145423374990264,
       "mass" : 6.678647666778844,
-      "kept" : 1.1121895656543517,
+      "kept" : 1.2786553715287188,
       "terms" : [ "rights", "claims" ]
     }, {
       "branch" : "MonetaryAmount",
-      "agreesWithTheRepository" : 0.1636024904677693,
+      "agreesWithTheRepository" : 0.15386882772954238,
       "mass" : 4.725132920865387,
-      "kept" : 0.7730435136448225,
+      "kept" : 0.7270506633998256,
       "terms" : [ "interest", "balanced", "interesting" ]
     }, {
       "branch" : "ResponsibleParty",
@@ -17250,39 +17280,45 @@
       "terms" : [ "tester", "testers", "relationships manager" ]
     }, {
       "branch" : "NegotiableCommodity",
-      "agreesWithTheRepository" : 0.2351715151927002,
+      "agreesWithTheRepository" : 0.24620994555578632,
       "mass" : 3.7191300683505846,
-      "kept" : 0.8746334533727376,
+      "kept" : 0.9156868116434853,
       "terms" : [ "generated resource", "generate resource", "service resources" ]
     }, {
+      "branch" : "DatePeriod",
+      "agreesWithTheRepository" : 0.14559211767653318,
+      "mass" : 3.540974653082827,
+      "kept" : 0.5155379983812562,
+      "terms" : [ "set window" ]
+    }, {
       "branch" : "PhysicalAsset",
-      "agreesWithTheRepository" : 0.07098211260255374,
+      "agreesWithTheRepository" : 0.07098211260255376,
       "mass" : 1.7038321912555385,
-      "kept" : 0.12094160845555652,
+      "kept" : 0.12094160845555654,
       "terms" : [ "real property" ]
     }, {
       "branch" : "AddressComponent",
-      "agreesWithTheRepository" : 0.3189882799714533,
+      "agreesWithTheRepository" : 0.31339800476579155,
       "mass" : 0.8817343320360087,
-      "kept" : 0.2812629179679447,
+      "kept" : 0.2763337803935831,
       "terms" : [ "street address" ]
     }, {
       "branch" : "VirtualAddress",
-      "agreesWithTheRepository" : 0.19616284161028827,
+      "agreesWithTheRepository" : 0.23836855645360355,
       "mass" : 0.851673474604625,
-      "kept" : 0.1670666889025509,
+      "kept" : 0.20301217671132923,
       "terms" : [ "phone number" ]
     }, {
       "branch" : "DebtTerms",
-      "agreesWithTheRepository" : 0.21538963056016094,
+      "agreesWithTheRepository" : 0.24662347889734182,
       "mass" : 0.848405414531306,
-      "kept" : 0.1827377288011382,
+      "kept" : 0.2092366948470521,
       "terms" : [ "set feature" ]
     } ],
     "matchesByNormalisation" : {
+      "senses" : 91,
       "lemmas" : 153,
-      "words" : 950,
-      "senses" : 91
+      "words" : 950
     },
     "bar" : {
       "phrases" : 5,
@@ -17634,15 +17670,15 @@
       "terms" : [ "message", "messages" ]
     }, {
       "branch" : "Product",
-      "agreesWithTheRepository" : 0.3365470415598886,
+      "agreesWithTheRepository" : 0.33411993762721576,
       "mass" : 79.01588368610236,
-      "kept" : 26.592561890798017,
+      "kept" : 26.400782128759854,
       "terms" : [ "strategy", "scheme", "options", "repo", "option", "fra", "swap", "schemes" ]
     } ],
     "matchesByNormalisation" : {
+      "senses" : 47,
       "lemmas" : 77,
-      "words" : 518,
-      "senses" : 47
+      "words" : 518
     },
     "bar" : {
       "phrases" : 6,
@@ -17734,9 +17770,9 @@
       "terms" : [ "process control" ]
     }, {
       "branch" : "Excessive Iteration",
-      "agreesWithTheRepository" : 0.1603943647074455,
+      "agreesWithTheRepository" : 0.16039436470744547,
       "mass" : 1.9595463271686093,
-      "kept" : 0.31430018826101724,
+      "kept" : 0.3143001882610172,
       "terms" : [ "infinite loop" ]
     }, {
       "branch" : "Access of Memory Location Before Start of Buffer | Out-of-bounds Write",
@@ -17752,9 +17788,9 @@
       "terms" : [ "brute force" ]
     } ],
     "matchesByNormalisation" : {
+      "senses" : 0,
       "lemmas" : 0,
-      "words" : 12,
-      "senses" : 0
+      "words" : 12
     },
     "bar" : {
       "phrases" : 4,
