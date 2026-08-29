@@ -82,10 +82,11 @@ class FiboConceptsTest {
     }
 
     @Test
-    void dropsASuperclassTheFileSetStatesButDoesNotItselfCarry() {
+    void carriesASuperclassTheFileSetDoesNotItselfCarryBecauseThePublisherStatesIt() {
         assertThat(concept("Thing").broader())
-                .as("a roll-up must not climb to a concept nothing here can answer for")
-                .isEmpty();
+                .as("FIBO places 291 of its 1,833 classes beneath the OMG Commons Ontology Library, and "
+                        + "writing those as unplaced says the publisher states no parent")
+                .isEqualTo("SomethingTheCommonsVocabularyStates");
     }
 
     @Test

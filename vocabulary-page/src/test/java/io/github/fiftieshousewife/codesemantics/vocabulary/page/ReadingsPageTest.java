@@ -28,7 +28,12 @@ class ReadingsPageTest {
 
     private static ReadingRow row(final String repository, final ExportedAnswer answer,
                                   final Optional<String> statedArea) {
-        return new ReadingRow(repository, answer, List.of("linguistics"), List.of(),
+        return row(repository, List.of(answer), statedArea);
+    }
+
+    private static ReadingRow row(final String repository, final List<ExportedAnswer> answers,
+                                  final Optional<String> statedArea) {
+        return new ReadingRow(repository, answers, List.of("linguistics"), List.of(),
                 List.of(new ExportedPlacement("OpenAlex",
                         level("Artificial Intelligence", true),
                         level("Natural Language Processing Techniques", true))),
@@ -38,6 +43,33 @@ class ReadingsPageTest {
     private static ExportedAnswer taxonomy(final String source, final String result) {
         return new ExportedAnswer("taxonomy", source, "a branch", result,
                 "22 phrases against the 2 a deal reaches");
+    }
+
+    @Test
+    void testsTheStatedAreaAgainstTheSchemeItIsNamedInAndNoOther() {
+        final ReadingRow reading = new ReadingRow("tika", List.of(ExportedAnswer.NONE),
+                List.of("linguistics"), List.of(),
+                List.of(new ExportedPlacement("CSO", level("linguistics", true),
+                                level("speech communication", true)),
+                        new ExportedPlacement("OpenAlex",
+                                level("Artificial Intelligence", true),
+                                level("Natural Language Processing Techniques", true))),
+                0.98, Optional.of("Computer Science"));
+        assertThat(reading.subjects())
+                .containsExactly("Artificial Intelligence", "Natural Language Processing Techniques");
+    }
+
+    @Test
+    void drawsOneLinePerSourceThatClearedTheBarAndSpansTheRepositoryAcrossThem() {
+        final String markup = page.markup(
+                List.of(row("jpos", List.of(taxonomy("FIBO", "MerchantIdentifier — unique identifier"),
+                        taxonomy("BIAN", "Card Capture — capture the card payment transaction")),
+                        Optional.empty())), StatedAreas.none());
+        assertAll(
+                () -> assertThat(markup).contains("FIBO"),
+                () -> assertThat(markup).contains("BIAN"),
+                () -> assertThat(markup).contains("rowspan=\"2\""),
+                () -> assertThat(markup.split("<tr>", -1)).hasSize(4));
     }
 
     @Test

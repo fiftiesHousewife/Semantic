@@ -165,9 +165,9 @@ public final class ExportedReading {
     }
 
     /**
-     * The same reading with {@code summary.answer} filled from the most specific evidence that stood above
-     * chance. It is taken from the finished export rather than from the readings behind it, so the answer
-     * and the blocks a consumer reads it against are one document.
+     * The same reading with {@code summary.answers} filled from every source that cleared the bar of the
+     * most specific rung that qualified. They are taken from the finished export rather than from the
+     * readings behind it, so the answers and the blocks a consumer reads them against are one document.
      */
     private static ReadingExport answering(final ReadingExport export) {
         return new ReadingExport(export.schemaVersion(),
@@ -175,8 +175,9 @@ public final class ExportedReading {
                 export.thresholds(), export.themes(), export.taxonomies(), export.setAside());
     }
 
-    private static ExportedSummary answered(final ExportedSummary summary, final ExportedAnswer answer) {
-        return new ExportedSummary(summary.repository(), summary.commit(), answer, summary.about(),
+    private static ExportedSummary answered(final ExportedSummary summary,
+                                            final List<ExportedAnswer> answers) {
+        return new ExportedSummary(summary.repository(), summary.commit(), answers, summary.about(),
                 summary.aboutStatedBy(), summary.placedIn(), summary.leadingWords(),
                 summary.leadingConcepts(), summary.distinctiveScopes(),
                 summary.shareOfWordsWithACitation(), summary.shareOfMassOnNoSubject(), summary.counts());
@@ -213,7 +214,7 @@ public final class ExportedReading {
         return ExportedSummary.builder()
                 .repository(reading.root().getFileName().toString())
                 .commit(commit)
-                .answer(ExportedAnswer.NONE)
+                .answers(List.of(ExportedAnswer.NONE))
                 .about(summary.about())
                 .aboutStatedBy(ABOUT_STATED_BY)
                 .placedIn(placedIn)

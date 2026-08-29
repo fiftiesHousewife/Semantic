@@ -34,13 +34,6 @@ import static j2html.TagCreator.ul;
  */
 public final class TermTreesPage {
 
-    private static final String OLIA = "https://github.com/acoli-repo/olia";
-    private static final String CSO = "https://cso.kmi.open.ac.uk/";
-    private static final String FIBO_SPEC = "https://spec.edmcouncil.org/fibo/";
-    private static final String FPML = "https://www.fpml.org/";
-    private static final String FIX_ORCHESTRA = "https://www.fixtrading.org/standards/fix-orchestra/";
-    private static final String CWE = "https://cwe.mitre.org/";
-    private static final String BIAN_LANDSCAPE = "https://bian.org/servicelandscape/";
 
     private final String repository;
     private final List<TermTree> trees;
@@ -71,19 +64,19 @@ public final class TermTreesPage {
                         p().withClass("lede").with(
                                 text("Each matched vocabulary's phrases found in this repository's "
                                         + "declared names — "),
-                                a("OLiA").withHref(OLIA),
+                                a("OLiA").withHref(publishedAt("OLiA")),
                                 text(", "),
-                                a("CSO").withHref(CSO),
+                                a("CSO").withHref(publishedAt("CSO")),
                                 text(", "),
-                                a("FIBO").withHref(FIBO_SPEC),
+                                a("FIBO").withHref(publishedAt("FIBO")),
                                 text(", "),
-                                a("FpML").withHref(FPML),
+                                a("FpML").withHref(publishedAt("FpML")),
                                 text(", "),
-                                a("FIX").withHref(FIX_ORCHESTRA),
+                                a("FIX").withHref(publishedAt("FIX")),
                                 text(", "),
-                                a("CWE").withHref(CWE),
+                                a("CWE").withHref(publishedAt("CWE")),
                                 text(" and the "),
-                                a("BIAN Service Landscape").withHref(BIAN_LANDSCAPE),
+                                a("BIAN Service Landscape").withHref(publishedAt("BIAN")),
                                 text(" — drawn at their places in the publisher's own hierarchy. The "
                                         + "count beside a concept is how often the repository wrote the "
                                         + "phrase; a greyed concept is one the publisher states at the "
@@ -114,11 +107,19 @@ public final class TermTreesPage {
      * at, BIAN's business areas and domains and FIX's sections and categories. Every deeper branch opens
      * in place.
      */
+    private static final PublisherLinks PUBLISHERS = PublisherLinks.all();
+
+    /** Where the named vocabulary's publisher publishes it; the enumeration states every name used here. */
+    private static String publishedAt(final String vocabulary) {
+        return PUBLISHERS.of(vocabulary).orElseThrow(
+                () -> new IllegalStateException("No bundled vocabulary is named " + vocabulary));
+    }
+
     private static final int OPEN_LEVELS = 2;
 
     private static SectionTag treeOf(final TermTree tree) {
         return section().withClass("control").withId(tree.vocabulary()).with(
-                h2(tree.vocabulary()),
+                h2().with(published(tree.vocabulary())),
                 tree.roots().isEmpty()
                         ? p().withClass("silent").with(text("No phrase of this vocabulary appears in a "
                                 + "declared name."))
@@ -126,6 +127,13 @@ public final class TermTreesPage {
                 p().withClass("singles").with(text(String.format(Locale.ROOT,
                         "%,d single-word terms with %,d occurrences are counted and not drawn.",
                         tree.singleWordTerms(), tree.singleWordOccurrences()))));
+    }
+
+    /** The vocabulary's name, linked to where its publisher publishes it where that is known. */
+    private static DomContent published(final String vocabulary) {
+        return PUBLISHERS.of(vocabulary)
+                .map(href -> (DomContent) a(vocabulary).withHref(href))
+                .orElseGet(() -> text(vocabulary));
     }
 
     private static DomContent nested(final List<TermTree.Node> nodes, final int unlisted,

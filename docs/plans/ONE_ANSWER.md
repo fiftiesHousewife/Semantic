@@ -8,7 +8,7 @@ The design was arrived at by refutation, not by argument: [`PHRASE_EVIDENCE.md`]
 
 | Field | Holds | Bar it must clear |
 |---|---|---|
-| `about` | one answer: a vocabulary and the branch it places the repository under (`FIX`, `PreTrade`), else a subject a topic index states (`Computer Science`), else nothing | the rung's own, below |
+| `answers` | every source that cleared the answering rung's bar, ranked: a vocabulary and the branch it places the repository under (`FIX`, `PreTrade`), else the subjects the topic indexes state (`Computer Science`), else one entry saying nothing qualified | the rung's own, below |
 | `aboutStatedBy` | the publisher that stated it, and how many times its count beat its bar | — |
 | `taxonomies` | only matches that clear the corpus bar, from vocabularies that clear the permutation bar | both, below |
 | `placedIn` | unchanged, and still published whether or not it answered | `standsApartFromChance` |
@@ -74,6 +74,14 @@ Tika's FpML evidence is the top four; strata's is the bottom five, at 603, 344, 
 - **It bundles no phrase-frequency resource from outside.** The pooled Java table is this project's own measurement of the same 100 repositories the word reference is drawn from, and the pool has already been run.
 - **It does not touch the word arm's denominator.** The phrase table is a separate resource read only by the term path. `never-filter-the-corpus-alone` is satisfied because both sides of the *term* comparison change together and the word ranking is untouched — which is precisely what 3a failed to do.
 - **It does not let rung 1 remove rung 3's answer.** Both are published; one is named.
+
+## The revision of 2026-08-29: all the good matches, not the best one
+
+The cascade above ranked the rungs and then took the single best source inside the answering rung. **That was wrong, and jPOS is the case that shows it.** Five vocabularies clear the phrase bar on jPOS, a card-payment library; the reading named FIBO at 2.0 times its bar and answered `MerchantIdentifier`, whose superclass FIBO states in the OMG Commons Ontology Library, which the extraction does not carry — so the answer arrived with no branch. BIAN cleared the same bar at 1.5 and places its matched concept under `Cards`, which is what the library is, and nothing published it.
+
+`summary.answer` is therefore `summary.answers`, at schema 17.0: an array holding one entry per source that cleared the bar of the first rung to qualify, ranked by how far it cleared it. **The backoff is between rungs and never inside one.** A reading answered by a subject scheme is still one whose vocabularies said nothing; what changes is that a rung which qualifies publishes everything that qualified it rather than its argmax.
+
+Two consequences. `AnswerRungs.PLACED_SUBJECT` now names every scheme level standing apart from chance rather than the first, so a reading placed by three schemes says so at both levels of each. And the readings page draws one line per answer, with the repository, λ and stated-area cells spanning them.
 
 ## Open questions, each with the measurement that settles it
 

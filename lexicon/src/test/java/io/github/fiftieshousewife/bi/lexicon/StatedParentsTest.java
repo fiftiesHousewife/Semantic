@@ -57,11 +57,21 @@ class StatedParentsTest {
     }
 
     @Test
-    void refusesAParentTheSchemeStatesNeitherAsAnIdentifierNorAsALabel() {
-        assertThatThrownBy(() -> new StatedParents(List.of(ROOT, topic("robotics", "robotics", "cybernetics"))))
-                .isInstanceOf(NullPointerException.class)
-                .hasMessageContaining("robotics")
-                .hasMessageContaining("cybernetics");
+    void keepsAParentTheSchemeStatesNeitherAsAnIdentifierNorAsALabelAndCountsIt() {
+        final StatedParents outside =
+                new StatedParents(List.of(ROOT, topic("robotics", "robotics", "cybernetics")));
+        assertAll(
+                () -> assertThat(outside.of("robotics").broaderConcepts()).containsExactly("cybernetics"),
+                () -> assertThat(outside.beneath("cybernetics")).extracting(SkosConcept::concept)
+                        .containsExactly("robotics"),
+                () -> assertThat(outside.unresolved()).isEqualTo(1),
+                () -> assertThat(outside.roots()).extracting(SkosConcept::concept)
+                        .containsExactly("computer_science"));
+    }
+
+    @Test
+    void resolvesEveryParentOfASchemeThatPublishesARowForAllOfThem() {
+        assertThat(stated.unresolved()).isZero();
     }
 
     @Test

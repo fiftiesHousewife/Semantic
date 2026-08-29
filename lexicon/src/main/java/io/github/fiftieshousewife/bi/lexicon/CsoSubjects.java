@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -9,13 +10,17 @@ import java.util.stream.Stream;
  * The Computer Science Ontology as a subject scheme: the topics it states directly beneath one of its
  * twelve roots, each described by the labels of the topics stated directly beneath it.
  *
- * <p>CSO publishes no definition for any topic, so what a placement compares against is labels rather than
- * prose. That is the account OpenAlex's keywords already are — ten noun phrases per topic, read as
- * documentation by the same {@code TopicTally} every other description goes through — and CSO states the
- * same kind of thing about a topic: its own label, the equivalents it prints beside it, and the labels of
- * the topics it places under it. Nothing here is written by this project and no depth is chosen: one level
- * down is what the publisher states about a subject, and the level above is pooled from these by the same
- * code that pools arXiv's categories into archives.
+ * <p>CSO publishes no definition for any topic, so a subject is stated two ways and both are the
+ * publisher's. The first is <b>labels</b>: its own label, the equivalents CSO prints beside it, and the
+ * labels of the topics CSO places under it — the account OpenAlex's ten keywords already are. The second is
+ * <b>prose</b>: {@link CsoAbstracts} carries what Wikipedia says about a topic for the 5,294 topics CSO
+ * states an {@code owl:sameAs} for, and a subject takes the summary of itself and of each topic beneath it.
+ * Both are read as documentation by the same {@code TopicTally} every other description goes through.
+ *
+ * <p>Nothing here is written by this project and no depth is chosen: one level down is what the publisher
+ * states about a subject, and the level above is pooled from these by the same code that pools arXiv's
+ * categories into archives. A topic CSO links no article for contributes its labels and no prose, which is
+ * the ordinary case and is why the labels stay.
  *
  * <p><b>The subjects are the topics beneath a root and not the leaves.</b> CSO states 11,438 topics and a
  * placement among them could not be drawn against chance — 999 deals over 11,439 subjects put the bar at
@@ -27,10 +32,15 @@ import java.util.stream.Stream;
  */
 public final class CsoSubjects implements PublishedSubjects {
 
+    private static final String PUBLISHED_AT = "https://cso.kmi.open.ac.uk/";
+
     private static final String SCHEME = "CSO";
 
     /** What separates one label from the next, as OpenAlex separates the keywords of a topic. */
     private static final String LISTED = ", ";
+
+    /** What separates the label list from a summary, and one summary from the next. */
+    private static final String SENTENCE = " ";
 
     private static final String TOPIC = "topic";
 
@@ -38,10 +48,13 @@ public final class CsoSubjects implements PublishedSubjects {
 
     private final StatedParents hierarchy;
 
+    private final CsoAbstracts prose;
+
     private final List<SkosConcept> subjects;
 
-    public CsoSubjects(final List<SkosConcept> published) {
+    public CsoSubjects(final List<SkosConcept> published, final CsoAbstracts prose) {
         this.hierarchy = new StatedParents(published);
+        this.prose = prose;
         final Set<String> roots =
                 hierarchy.roots().stream().map(SkosConcept::concept).collect(Collectors.toSet());
         this.subjects = hierarchy.concepts().stream()
@@ -57,6 +70,11 @@ public final class CsoSubjects implements PublishedSubjects {
     @Override
     public String scheme() {
         return SCHEME;
+    }
+
+    @Override
+    public String publishedAt() {
+        return PUBLISHED_AT;
     }
 
     /** Every topic the ontology states, each stating its parents by their identifiers. */
@@ -91,15 +109,25 @@ public final class CsoSubjects implements PublishedSubjects {
     private SkosConcept describedByItsNarrower(final SkosConcept topic, final Set<String> roots) {
         return new SkosConcept(topic.concept(), topic.prefLabel(), topic.altLabel(),
                 topic.broaderConcepts().stream().filter(roots::contains).findFirst().orElseThrow(),
-                TOPIC, NOTHING, labelsBeneath(topic), NOTHING);
+                TOPIC, NOTHING, statedAbout(topic), NOTHING);
     }
 
-    /** The topic's own labels and its narrower topics', listed as the ontology spells them. */
-    private String labelsBeneath(final SkosConcept topic) {
-        return Stream.concat(Stream.of(topic), hierarchy.beneath(topic.concept()).stream())
-                .flatMap(CsoSubjects::labelsOf)
-                .distinct()
-                .collect(Collectors.joining(LISTED));
+    /**
+     * What the publishers state about the subject: the labels CSO spells for it and for the topics beneath
+     * it, then the summary Wikipedia states for each of those CSO links an article to.
+     *
+     * <p>The labels come first so a subject whose topics are all unlinked still reads as a list of noun
+     * phrases rather than as nothing.
+     */
+    private String statedAbout(final SkosConcept topic) {
+        final List<SkosConcept> pooled =
+                Stream.concat(Stream.of(topic), hierarchy.beneath(topic.concept()).stream()).toList();
+        return Stream.concat(
+                        Stream.of(pooled.stream().flatMap(CsoSubjects::labelsOf).distinct()
+                                .collect(Collectors.joining(LISTED))),
+                        pooled.stream().map(SkosConcept::concept).map(prose::of).flatMap(Optional::stream))
+                .filter(stated -> !stated.isBlank())
+                .collect(Collectors.joining(SENTENCE));
     }
 
     private static Stream<String> labelsOf(final SkosConcept topic) {
@@ -107,5 +135,6 @@ public final class CsoSubjects implements PublishedSubjects {
                 .filter(label -> !label.isBlank());
     }
 
-    private static final CsoSubjects CLASSPATH_DEFAULTS = new CsoSubjects(CsoTopics.fromClasspath().concepts());
+    private static final CsoSubjects CLASSPATH_DEFAULTS =
+            new CsoSubjects(CsoTopics.fromClasspath().concepts(), CsoAbstracts.fromClasspath());
 }

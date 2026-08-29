@@ -144,6 +144,11 @@ That is the granularity a subject scheme cannot reach. CSO states `document proc
 ```json
 {
   "repository": "CodeSemantics",
+  "answers": [
+    { "sourceType": "taxonomy", "source": "OLiA", "placedUnder": "WordClass",
+      "result": "Verb — a word that signifies an action or state",
+      "qualifiedBy": "12 phrases against the 3 a deal of its own words reaches" }, ...
+  ],
   "about": ["linguistics", "computing", "grammar"],
   "placedIn": {
     "scheme": "arXiv",
@@ -163,6 +168,8 @@ That is the granularity a subject scheme cannot reach. CSO states `document proc
   "counts": { "signals": 261, "themes": 5, "concepts": 115 }
 }
 ```
+
+`answers` holds every source that cleared the bar of the first rung to qualify, ranked by how far it cleared it. The rungs back off — a vocabulary's terms of more than one word, then the same vocabularies' one-word terms, then every subject scheme level standing apart from chance — and **the backoff is between rungs and never inside one**. Taking only the best source inside a rung hides the rest, and the rest are often what a reader wants: on jPOS, a card-payment library, five vocabularies clear the phrase bar, and the one that places its matched concept under `Cards` is not the one that cleared by the widest margin. A reading with nothing above chance holds one entry saying so.
 
 `placedIn` states two levels. `archive` is compared against every category's description pooled under it — enough prose for the divergence to be stable, and broad enough that *Computer Science* says little about a Java library. `category` is compared against the few dozen words arXiv states for that subject alone: the weaker measurement, and the answer to what the repository is about. Read `standsApartFromChance` on either before reading its `subject`, because some subject is always nearest.
 
@@ -502,9 +509,13 @@ What settles the swap is the share of repositories whose stated category has a n
 
 #### A third scheme, read from labels
 
-[CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, states 11,438 topics under 14,636 labels and a definition for none of them, so a placement has no prose to compare a repository against. What it does state is a hierarchy: 12 topics with no parent, 225 stated directly beneath one of those, and every other topic somewhere below them. [`CsoSubjects`](lexicon/src/main/java/io/github/fiftieshousewife/bi/lexicon/CsoSubjects.java) reads a subject's subject matter as the labels of the topics CSO states directly beneath it, which is the same kind of account [OpenAlex](https://openalex.org/)'s ten keywords already are, read through the same [`SubjectAreas`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectAreas.java) every other description goes through. Nothing is written here and no depth is chosen: one level down is what the publisher states about a subject, and [`PooledDescriptions`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PooledDescriptions.java) joins those subjects into their root exactly as it joins arXiv's categories into an archive.
+[CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology, states 11,438 topics under 14,636 labels and a definition for none of them. What it does state is a hierarchy — 12 topics with no parent, 225 stated directly beneath one of those, and every other topic somewhere below them — and an `owl:sameAs` for 5,294 of its topics, naming the DBpedia resource for each, which is the English Wikipedia article of that title by DBpedia's own construction.
 
-**The worked example.** CSO states `artificial intelligence` beneath `computer science`, and states 36 topics beneath `artificial intelligence` — `machine learning`, `knowledge representation`, `cellular automata` and 33 more. Those 36 labels, with the topic's own label and the equivalents CSO prints beside it, are the text the placement reads for that subject. `computer science` is then the 20 subjects beneath it, joined.
+[`CsoSubjects`](lexicon/src/main/java/io/github/fiftieshousewife/bi/lexicon/CsoSubjects.java) therefore states a subject two ways and both are the publisher's. **Labels**: its own label, the equivalents CSO prints beside it, and the labels of the topics CSO places under it — the same kind of account [OpenAlex](https://openalex.org/)'s ten keywords already are. **Prose**: [`cso-abstracts.tsv`](lexicon/src/main/resources/cso-abstracts.tsv) carries the Wikipedia lead summary of every article CSO links to, and a subject takes the summary of itself and of each topic beneath it. Both are read through the same [`SubjectAreas`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectAreas.java) every other description goes through.
+
+**Following a link the publisher states is not pairing two vocabularies here.** CSO paired them; this reads the article CSO named. Every row of the abstracts file names the Wikipedia revision it was read at, so a summary since rewritten is visible rather than silent — a page moves and a revision does not. Nothing is written here and no depth is chosen: one level down is what the publisher states about a subject, and [`PooledDescriptions`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PooledDescriptions.java) joins those subjects into their root exactly as it joins arXiv's categories into an archive.
+
+**The worked example.** CSO states `artificial intelligence` beneath `computer science`, and states 36 topics beneath `artificial intelligence` — `machine learning`, `knowledge representation`, `cellular automata` and 33 more. Those 36 labels, with the topic's own label and the equivalents CSO prints beside it, open the text the placement reads for that subject; the Wikipedia summaries of the ones CSO links an article to follow. `computer science` is then the 20 subjects beneath it, joined.
 
 **Two levels, because a chance bar needs a field it can be computed over.** [`SubjectNull`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectNull.java) draws 999 chance subjects and reads the bar off the quantile the field size sets, so a field of 11,439 puts the bar at the single smallest draw — the same failure this library measured at OpenAlex's 4,516 topics. CSO's 12 roots and its 225 subjects are both fields a bar can be read from, and they are the two levels the scheme is placed at.
 

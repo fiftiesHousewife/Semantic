@@ -19,11 +19,18 @@ import java.util.stream.Collectors;
  */
 public final class ArxivSubjects implements PublishedSubjects {
 
+    private static final String PUBLISHED_AT = "https://arxiv.org/category_taxonomy";
+
     private static final String SCHEME = "arXiv";
 
     @Override
     public String scheme() {
         return SCHEME;
+    }
+
+    @Override
+    public String publishedAt() {
+        return PUBLISHED_AT;
     }
 
 

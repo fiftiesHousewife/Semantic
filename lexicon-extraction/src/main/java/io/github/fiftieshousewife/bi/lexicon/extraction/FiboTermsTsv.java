@@ -44,8 +44,14 @@ public class FiboTermsTsv {
                 # owl:equivalentClass and rdfs:seeAlso. Each states a relation between two concepts rather
                 # than something about one, and a shape with one row per concept has no column that could
                 # hold them without inventing a meaning for it. broader is the one relation this shape does
-                # carry, and it is dropped where the superclass belongs to an ontology this file does not
-                # itself carry — a roll-up must not climb to a concept nothing here can answer for.
+                # carry, and it names the first superclass FIBO states whichever ontology publishes it.
+                # FIBO roots a great deal of itself in the OMG Commons Ontology Library, which its own
+                # production manifest imports from a different namespace: 229 of these 1,833 classes are
+                # placed beneath a Commons concept — MerchantIdentifier beneath Identifier, Publication
+                # beneath Document — and only 46 state no superclass at all. A parent named here is
+                # therefore not always a row of this file. That is deliberate: naming the parent is what
+                # the publisher states, and a roll-up still stops where this file stops, because a concept
+                # none of whose stated parents the file carries stands at its own root.
                 #
                 # Which ontologies: FIBO publishes no merged document, so something has to decide what the
                 # vocabulary is. FIBO decides. AboutFIBOProd-TBoxOnly.rdf exists, in its own words, to load

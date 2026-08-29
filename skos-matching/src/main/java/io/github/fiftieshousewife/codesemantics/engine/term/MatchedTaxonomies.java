@@ -30,6 +30,11 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String publishedAt() {
+            return "https://github.com/acoli-repo/olia";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return TermVocabularies.OLIA.concepts();
         }
@@ -48,6 +53,11 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String publishedAt() {
+            return "https://cso.kmi.open.ac.uk/";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return index().publishedConcepts();
         }
@@ -57,6 +67,9 @@ public enum MatchedTaxonomies {
 
     /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
     public abstract String description();
+
+    /** Where the publisher publishes it, so a page naming a vocabulary can link to the thing it names. */
+    public abstract String publishedAt();
 
     /**
      * What the branch rule is told the publisher states, which is what decides which concepts sit beside

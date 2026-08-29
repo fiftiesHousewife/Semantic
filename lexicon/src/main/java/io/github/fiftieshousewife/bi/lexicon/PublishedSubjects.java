@@ -16,6 +16,9 @@ public interface PublishedSubjects {
     /** The name the publisher goes by, so a placement says which scheme it was made against. */
     String scheme();
 
+    /** Where the publisher publishes it, so a page naming a scheme can link to the thing it names. */
+    String publishedAt();
+
     /** Every subject the scheme states, described or not. */
     List<SkosConcept> concepts();
 

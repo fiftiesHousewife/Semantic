@@ -36,6 +36,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String publishedAt() {
+            return "https://spec.edmcouncil.org/fibo/";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return TermVocabularies.FIBO.concepts();
         }
@@ -55,6 +60,11 @@ public enum ControlTaxonomies {
         @Override
         public String description() {
             return "The Financial products Markup Language: how a derivatives trade is written down on the wire.";
+        }
+
+        @Override
+        public String publishedAt() {
+            return "https://www.fpml.org/";
         }
 
         @Override
@@ -80,6 +90,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String publishedAt() {
+            return "https://www.fixtrading.org/standards/fix-orchestra/";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return TermVocabularies.FIX.concepts();
         }
@@ -98,6 +113,11 @@ public enum ControlTaxonomies {
         @Override
         public String description() {
             return "The Common Weakness Enumeration: the names MITRE states for software weaknesses.";
+        }
+
+        @Override
+        public String publishedAt() {
+            return "https://cwe.mitre.org/";
         }
 
         @Override
@@ -123,6 +143,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String publishedAt() {
+            return "https://bian.org/servicelandscape/";
+        }
+
+        @Override
         public List<SkosConcept> publishedConcepts() {
             return TermVocabularies.BIAN.concepts();
         }
@@ -132,6 +157,9 @@ public enum ControlTaxonomies {
 
     /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
     public abstract String description();
+
+    /** Where the publisher publishes it, so a page naming a vocabulary can link to the thing it names. */
+    public abstract String publishedAt();
 
     /** What the branch rule is told the publisher states, the same contract as the matched list. */
     public abstract List<SkosConcept> publishedConcepts();

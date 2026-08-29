@@ -37,8 +37,13 @@ tasks.register<JavaExec>("extract") {
     maxHeapSize = "4g"
     args = listOf(
         (findProperty("taxonomy") as String?).orEmpty(),
+        // A source that names a file is resolved against the root; one that does not is passed as
+        // written, because an extraction may need a source that is not a path — the date a fetch was
+        // taken, say, which belongs in the provenance header and is not a file anywhere.
         (findProperty("source") as String?)?.split(",")?.joinToString(",") {
-            rootProject.layout.projectDirectory.file(it.trim()).asFile.absolutePath
+            val stated = it.trim()
+            val file = rootProject.layout.projectDirectory.file(stated).asFile
+            if (file.exists()) file.absolutePath else stated
         }.orEmpty(),
         rootProject.layout.projectDirectory.dir("lexicon/src/main/resources").asFile.absolutePath
     )

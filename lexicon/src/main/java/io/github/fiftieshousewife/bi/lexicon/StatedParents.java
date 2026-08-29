@@ -3,7 +3,6 @@ package io.github.fiftieshousewife.bi.lexicon;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -18,8 +17,13 @@ import java.util.stream.Collectors;
  * publisher wrote its parents in is kept, and a concept stated beneath several is stated beneath all of
  * them.
  *
- * <p>A reference to a concept the scheme does not itself state throws. Dropping it would narrow a
- * published hierarchy without saying so.
+ * <p>A reference the scheme states neither as an identifier nor as a label is <b>kept as it stands</b>.
+ * FIBO names superclasses its own file set does not carry — {@code MerchantIdentifier} beneath the OMG
+ * Commons Ontology Library's {@code Identifier} — and that is the publisher's statement about the concept,
+ * so erasing it would say the publisher states no parent. A walk up stops there, because the scheme
+ * publishes no row to step onto; {@link #beneath} still lists the concepts that name it, which is what the
+ * scheme states. {@link #unresolved()} counts such references, because a scheme that should resolve every
+ * one is a scheme where a rise in that count is a defect.
  */
 public final class StatedParents {
 
@@ -54,6 +58,14 @@ public final class StatedParents {
         return beneath.getOrDefault(concept, List.of());
     }
 
+    /** How many parent references name a concept the scheme publishes no row for. */
+    public long unresolved() {
+        return byConcept.values().stream()
+                .flatMap(concept -> concept.broaderConcepts().stream())
+                .filter(parent -> !byConcept.containsKey(parent))
+                .count();
+    }
+
     /** One concept by its identifier. */
     public SkosConcept of(final String concept) {
         return Objects.requireNonNull(byConcept.get(concept),
@@ -64,20 +76,17 @@ public final class StatedParents {
                                             final Map<String, SkosConcept> stated,
                                             final Map<String, String> byLabel) {
         return concept.broaderConcepts().stream()
-                .map(parent -> identifierOf(concept, parent, stated, byLabel))
+                .map(parent -> identifierOf(parent, stated, byLabel))
                 .toList();
     }
 
-    /** A reference is an identifier where the scheme states one, and the label it prints otherwise. */
-    private static String identifierOf(final SkosConcept concept, final String parent,
-                                       final Map<String, SkosConcept> stated,
+    /**
+     * A reference is an identifier where the scheme states one, the label it prints where it states that,
+     * and otherwise itself — a concept the scheme names above this one without publishing a row for it.
+     */
+    private static String identifierOf(final String parent, final Map<String, SkosConcept> stated,
                                        final Map<String, String> byLabel) {
-        if (stated.containsKey(parent)) {
-            return parent;
-        }
-        return Objects.requireNonNull(byLabel.get(parent), () -> String.format(Locale.ROOT,
-                "%s is stated beneath %s, which the scheme states as neither an identifier nor a label",
-                concept.concept(), parent));
+        return stated.containsKey(parent) ? parent : byLabel.getOrDefault(parent, parent);
     }
 
     private static SkosConcept statedBeneath(final SkosConcept concept, final List<String> parents) {

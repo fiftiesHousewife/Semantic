@@ -29,7 +29,7 @@
       "required": [
         "repository",
         "commit",
-        "answer",
+        "answers",
         "about",
         "aboutStatedBy",
         "placedIn",
@@ -51,43 +51,49 @@
           "description": "The commit the working tree stood on, supplied by the caller. The reading opens no .git, so this is empty where the caller supplied nothing.",
           "type": "string"
         },
-        "answer": {
+        "answers": {
           "title": "What the repository is about",
-          "description": "One statement, taken from the most specific evidence that stands above chance, and what it rests on. A published vocabulary's terms of more than one word answer first, because a repository outside a field does not write `cap floor` or `msg seq num` by accident and the publisher states what the run means; then the same vocabularies' one-word terms, which carry no permutation bar and are admitted only where the repository writes another concept from the same branch; then a subject scheme's placement, where nothing is matched at all and the answer is a distance. A reading naming a subject scheme is one whose vocabularies said nothing, which is a fact about the repository and not a gap filled from a weaker source in silence. Every rung's own figures stay in `taxonomies` and `summary.placedIn` beneath it.",
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "sourceType",
-            "source",
-            "placedUnder",
-            "result",
-            "qualifiedBy"
-          ],
-          "properties": {
-            "sourceType": {
-              "description": "What kind of thing answered: `taxonomy` for a vocabulary of terms matched identifier to identifier, `subject scheme` for a scheme of published prose diverged against, or `nothing`.",
-              "type": "string",
-              "enum": [
-                "taxonomy",
-                "subject scheme",
-                "nothing"
-              ]
-            },
-            "source": {
-              "description": "The publisher, under the name it states. Empty where nothing answered.",
-              "type": "string"
-            },
-            "placedUnder": {
-              "description": "Where the publisher places what answered, kept because a definition read without it is a sentence with no field around it: `Session` says which part of the FIX protocol `MsgSeqNum` belongs to. Empty at a root of the taxonomy, and empty for a subject scheme, which places a repository rather than a concept.",
-              "type": "string"
-            },
-            "result": {
-              "description": "What that publisher says this repository is. For a taxonomy it is the publisher's own definition of the concept the repository wrote most, named before it — the node carries the meaning, and reporting only its name would have matched a name. A concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer; where the vocabulary defines none of what was matched, what the vocabulary covers is the most the publishers say. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification — stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
-              "type": "string"
-            },
-            "qualifiedBy": {
-              "description": "How it cleared its own bar, in the unit that bar is set in.",
-              "type": "string"
+          "description": "Every source that cleared the bar of the first rung to qualify, ranked. A published vocabulary's terms of more than one word answer first, because a repository outside a field does not write `cap floor` or `msg seq num` by accident and the publisher states what the run means; then the same vocabularies' one-word terms, which carry no permutation bar and are admitted only where the repository writes another concept from the same branch; then every subject scheme level standing apart from chance, where nothing is matched at all and the answer is a distance. The rungs still back off \u2014 a reading answered by a subject scheme is one whose vocabularies said nothing \u2014 but within the rung that answers, nothing is dropped for coming second. A reading with no qualifying evidence holds one entry saying so. Every rung's own figures stay in `taxonomies` and `summary.placedIn` beneath it.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "One source's statement of what the repository is about",
+            "description": "What one qualifying source says the repository is, and what that rests on. Every source that cleared the same rung's bar is listed, ranked by how far it cleared it, because naming only the best of them hides the rest: on a card-payment library five vocabularies clear the phrase bar and only one of them places its concept under `Cards`.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceType",
+              "source",
+              "placedUnder",
+              "result",
+              "qualifiedBy"
+            ],
+            "properties": {
+              "sourceType": {
+                "description": "What kind of thing answered: `taxonomy` for a vocabulary of terms matched identifier to identifier, `subject scheme` for a scheme of published prose diverged against, or `nothing`.",
+                "type": "string",
+                "enum": [
+                  "taxonomy",
+                  "subject scheme",
+                  "nothing"
+                ]
+              },
+              "source": {
+                "description": "The publisher, under the name it states. Empty where nothing answered.",
+                "type": "string"
+              },
+              "placedUnder": {
+                "description": "Where the publisher places what answered, kept because a definition read without it is a sentence with no field around it: `Session` says which part of the FIX protocol `MsgSeqNum` belongs to. Empty at a root of the taxonomy, and empty for a subject scheme, which places a repository rather than a concept.",
+                "type": "string"
+              },
+              "result": {
+                "description": "What that publisher says this repository is. For a taxonomy it is the publisher's own definition of the concept the repository wrote most, named before it \u2014 the node carries the meaning, and reporting only its name would have matched a name. A concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer; where the vocabulary defines none of what was matched, what the vocabulary covers is the most the publishers say. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification \u2014 stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
+                "type": "string"
+              },
+              "qualifiedBy": {
+                "description": "How it cleared its own bar, in the unit that bar is set in.",
+                "type": "string"
+              }
             }
           }
         },
@@ -250,7 +256,7 @@
     },
     "signals": {
       "title": "Signals",
-      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name — `by`, `from`, `beside` — are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsTheLanguageSupplies` counts them; `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
+      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsTheLanguageSupplies` counts them; `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
       "type": "array",
       "items": {
         "type": "object",
@@ -300,7 +306,7 @@
           },
           "marginBits": {
             "title": "Score at the reference's own error",
-            "description": "The same term computed with the reference's share moved one standard error toward the repository's — the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
+            "description": "The same term computed with the reference's share moved one standard error toward the repository's \u2014 the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
             "type": "number",
             "minimum": 0,
             "maximum": 1
@@ -466,7 +472,7 @@
           },
           "branches": {
             "title": "What each branch is worth against this repository",
-            "description": "One entry per branch the repository wrote a concept in, most-carried first. `agreesWithTheRepository` is the mass this repository's reading and the prose the publisher states beneath that branch put in the same dictionary topics, bounded in [0, 1] by that statistic's own definition. It is reported and applied to nothing: `concepts` above is ordered by unconditioned mass, and `kept` states what conditioning on this weight would leave. Empty where the publisher states no prose — CSO describes none of its 14,636 rows, so its branches cannot be weighed, which is not the same as weighing zero.",
+            "description": "One entry per branch the repository wrote a concept in, most-carried first. `agreesWithTheRepository` is the mass this repository's reading and the prose the publisher states beneath that branch put in the same dictionary topics, bounded in [0, 1] by that statistic's own definition. It is reported and applied to nothing: `concepts` above is ordered by unconditioned mass, and `kept` states what conditioning on this weight would leave. Empty where the publisher states no prose \u2014 CSO describes none of its 14,636 rows, so its branches cannot be weighed, which is not the same as weighing zero.",
             "type": "array",
             "items": {
               "type": "object",
@@ -614,12 +620,12 @@
           "minimum": 0
         },
         "wordsWithinTheReferencesError": {
-          "description": "Words whose scores clear every reference's threshold while the margin — the same score with the reference's own sampling error held against the word — does not. A reference's share is an estimate from a drawn sample, and a verdict that holds only at the estimate's exact value has not been shown to stand above chance.",
+          "description": "Words whose scores clear every reference's threshold while the margin \u2014 the same score with the reference's own sampling error held against the word \u2014 does not. A reference's share is an estimate from a drawn sample, and a verdict that holds only at the estimate's exact value has not been shown to stand above chance.",
           "type": "integer",
           "minimum": 0
         },
         "wordsTheLanguageSupplies": {
-          "description": "Words that cleared every reference's threshold and are omitted anyway, because two published resources place them inside the language rather than in the dictionary — `by`, `from`, `beside`. English put the word inside a name, so writing it was not a choice about subject matter. It is below no threshold, which is why it is counted apart.",
+          "description": "Words that cleared every reference's threshold and are omitted anyway, because two published resources place them inside the language rather than in the dictionary \u2014 `by`, `from`, `beside`. English put the word inside a name, so writing it was not a choice about subject matter. It is below no threshold, which is why it is counted apart.",
           "type": "integer",
           "minimum": 0
         },
@@ -734,7 +740,7 @@
         },
         "carriedBy": {
           "title": "Topics the placement rests on",
-          "description": "The dictionary topics the repository's reading and this subject's own description both put mass in, most shared first. Two readings are near because of the mass they put in the same places, so this is what makes the row arguable with — and each names the shares and the words behind it, so the row can be checked without reading another section.",
+          "description": "The dictionary topics the repository's reading and this subject's own description both put mass in, most shared first. Two readings are near because of the mass they put in the same places, so this is what makes the row arguable with \u2014 and each names the shares and the words behind it, so the row can be checked without reading another section.",
           "type": "array",
           "items": {
             "$ref": "#/$defs/carryingTopic"

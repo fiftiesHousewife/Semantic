@@ -19,11 +19,18 @@ import java.util.stream.Collectors;
  */
 public final class OpenAlexTopics implements PublishedSubjects {
 
+    private static final String PUBLISHED_AT = "https://openalex.org/";
+
     private static final String SCHEME = "OpenAlex";
 
     @Override
     public String scheme() {
         return SCHEME;
+    }
+
+    @Override
+    public String publishedAt() {
+        return PUBLISHED_AT;
     }
 
 

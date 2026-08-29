@@ -15,6 +15,8 @@ import lombok.Builder;
  *
  * @param repository                the directory the reading was pointed at
  * @param commit                    the commit the working tree stood on, stated by the caller
+ * @param answers                   every source that cleared the bar of the first rung to qualify, ranked by
+ *                                  how far it cleared it. One entry saying so where nothing qualified
  * @param about                     the topics that make some part of this repository unlike the rest of it
  * @param placedIn                  where every bundled scheme places it, at both the levels each states.
  *                                  No scheme is picked; a scheme whose nearest subject is no nearer than
@@ -29,7 +31,7 @@ import lombok.Builder;
  * @param shareOfMassOnNoSubject    of the mass observed, how much settled on no subject at all
  */
 @Builder
-public record ExportedSummary(String repository, String commit, ExportedAnswer answer,
+public record ExportedSummary(String repository, String commit, List<ExportedAnswer> answers,
                               List<String> about, List<String> aboutStatedBy,
                               List<ExportedPlacement> placedIn, List<LeadingWord> leadingWords,
                               List<LeadingConcept> leadingConcepts,
@@ -63,7 +65,7 @@ public record ExportedSummary(String repository, String commit, ExportedAnswer a
     public ExportedSummary {
         Objects.requireNonNull(repository, "repository");
         Objects.requireNonNull(commit, "commit");
-        Objects.requireNonNull(answer, "answer");
+        answers = List.copyOf(answers);
         about = List.copyOf(about);
         aboutStatedBy = List.copyOf(aboutStatedBy);
         placedIn = List.copyOf(placedIn);

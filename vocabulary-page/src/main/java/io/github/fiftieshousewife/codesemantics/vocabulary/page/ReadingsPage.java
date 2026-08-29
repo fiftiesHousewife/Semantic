@@ -2,9 +2,12 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import j2html.tags.DomContent;
+import j2html.tags.specialized.TdTag;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.TrTag;
 
@@ -42,6 +45,8 @@ public final class ReadingsPage {
 
     private static final String NONE = "—";
 
+    private final PublisherLinks publishers = PublisherLinks.all();
+
     /** A full stop and the space after it, which is where a sentence ends and an abbreviation does not. */
     private static final String SENTENCE_END = ". ";
 
@@ -60,13 +65,14 @@ public final class ReadingsPage {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The readings"),
-                        p().withClass("lede").with(text("One row per published reading, answering from the "
-                                + "most specific evidence that stands above chance. A vocabulary's terms "
-                                + "of more than one word answer first, then its one-word terms, then a "
-                                + "subject scheme — and a reading answered by a scheme is one whose "
-                                + "vocabularies said nothing.")),
+                        p().withClass("lede").with(text("One row per source that cleared the bar of the "
+                                + "rung answering a reading, ranked by how far it cleared it. A "
+                                + "vocabulary's terms of more than one word answer first, then its "
+                                + "one-word terms, then every subject scheme level standing apart from "
+                                + "chance — and a reading answered by a scheme is one whose vocabularies "
+                                + "said nothing.")),
                         table().withClass("readings").with(head(),
-                                tbody(each(readings, row -> row(row, stated))))));
+                                tbody(each(readings, row -> each(rows(row, stated), line -> line))))));
     }
 
     private static DomContent head() {
@@ -74,26 +80,66 @@ public final class ReadingsPage {
                 th("result"), th("λ"), th("stated area")));
     }
 
-    private TrTag row(final ReadingRow reading, final StatedAreas stated) {
-        final ExportedAnswer answer = reading.answer();
-        return tr(
-                td(a(reading.repository()).withHref(reading.repository() + "/vocabulary.html")),
-                td(span(answer.sourceType()).withClass(kindOf(answer))),
-                td(source(answer)),
-                td(placedUnder(answer)),
-                td(result(answer)).withClass("result"),
-                td(share(reading.lambda())),
-                td(area(reading, stated)));
+    /**
+     * One line per answer. The cells describing the reading rather than one of its answers are written on
+     * the first line and span the rest, so a reader sees one repository however many sources answered it.
+     */
+    private List<TrTag> rows(final ReadingRow reading, final StatedAreas stated) {
+        final List<ExportedAnswer> answers = reading.answers();
+        return IntStream.range(0, answers.size())
+                .mapToObj(rank -> row(reading, answers.get(rank), rank, answers.size(), stated))
+                .toList();
+    }
+
+    private TrTag row(final ReadingRow reading, final ExportedAnswer answer, final int rank,
+                      final int answers, final StatedAreas stated) {
+        return tr(Stream.of(
+                        repository(reading, rank, answers),
+                        Stream.of(td(span(answer.sourceType()).withClass(kindOf(answer))),
+                                td(source(answer)),
+                                td(placedUnder(answer)),
+                                td(result(answer)).withClass("result")),
+                        readingWide(reading, rank, answers, stated))
+                .flatMap(cells -> cells)
+                .toArray(DomContent[]::new));
+    }
+
+    /** The repository's own cell, written once and spanning its answers. */
+    private static Stream<DomContent> repository(final ReadingRow reading, final int rank,
+                                                 final int answers) {
+        return rank > 0 ? Stream.of()
+                : Stream.of(spanning(td(a(reading.repository())
+                        .withHref(reading.repository() + "/vocabulary.html")), answers));
+    }
+
+    /** The figures that belong to the reading and not to one answer, written once and spanning its answers. */
+    private Stream<DomContent> readingWide(final ReadingRow reading, final int rank, final int answers,
+                                           final StatedAreas stated) {
+        return rank > 0 ? Stream.of()
+                : Stream.of(spanning(td(share(reading.lambda())), answers),
+                        spanning(td(area(reading, stated)), answers));
+    }
+
+    private static DomContent spanning(final TdTag cell, final int answers) {
+        return answers > 1 ? cell.attr("rowspan", answers) : cell;
     }
 
     private static String kindOf(final ExportedAnswer answer) {
         return answer.sourceType().replace(' ', '-');
     }
 
-    private static DomContent source(final ExportedAnswer answer) {
-        return answer.source().isBlank()
-                ? span(NONE).withClass("silent")
-                : span(answer.source()).withTitle(answer.qualifiedBy());
+    /**
+     * The publisher, linked to where it publishes. The link's text is the publisher's own name, and a
+     * source neither enumeration states is written without one rather than pointed somewhere guessed at.
+     */
+    private DomContent source(final ExportedAnswer answer) {
+        if (answer.source().isBlank()) {
+            return span(NONE).withClass("silent");
+        }
+        return publishers.of(answer.source())
+                .map(href -> (DomContent) a(answer.source()).withHref(href)
+                        .withTitle(answer.qualifiedBy()))
+                .orElseGet(() -> span(answer.source()).withTitle(answer.qualifiedBy()));
     }
 
     /** Where the publisher places what answered. A definition read without it has no field around it. */

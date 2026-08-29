@@ -22,7 +22,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * its own repository has no such file, and a column it cannot fill says so rather than guessing.
  *
  * @param repository   the tree the reading was taken of
- * @param answer       what it is about, from the most specific evidence that stood above chance
+ * @param answers      every source that cleared the answering rung's bar, ranked by how far it cleared it
  * @param about        the topics the word reading names, in its own order
  * @param vocabularies every vocabulary the reading published, which is every one that beat its own bar
  * @param placedIn     one entry per subject scheme, at both of its levels
@@ -30,11 +30,15 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * @param statedArea   the subject area a manifest states for this repository, and none where it states one
  *                     for no repository or none for this one
  */
-public record ReadingRow(String repository, ExportedAnswer answer, List<String> about,
+public record ReadingRow(String repository, List<ExportedAnswer> answers, List<String> about,
                          List<ExportedTaxonomy> vocabularies, List<ExportedPlacement> placedIn,
                          double lambda, Optional<String> statedArea) {
 
+    /** The scheme the manifest's areas are named in, which is the only tree they can be walked up. */
+    private static final String SCORED_SCHEME = "OpenAlex";
+
     public ReadingRow {
+        answers = List.copyOf(answers);
         about = List.copyOf(about);
         vocabularies = List.copyOf(vocabularies);
         placedIn = List.copyOf(placedIn);
@@ -42,7 +46,7 @@ public record ReadingRow(String repository, ExportedAnswer answer, List<String> 
 
     /** The reading, with the area a manifest states for it. */
     public static ReadingRow of(final ReadingExport export, final Optional<String> statedArea) {
-        return new ReadingRow(export.summary().repository(), export.summary().answer(),
+        return new ReadingRow(export.summary().repository(), export.summary().answers(),
                 export.summary().about(), export.taxonomies(), export.summary().placedIn(),
                 export.summary().shareOfWordsWithACitation(), statedArea);
     }
@@ -76,9 +80,19 @@ public record ReadingRow(String repository, ExportedAnswer answer, List<String> 
                 .toList();
     }
 
-    /** Every subject any scheme placed this reading under, at both levels, for the stated area to be tested. */
+    /**
+     * The subjects the stated area can be tested against: both levels of the scheme the area is named in.
+     *
+     * <p><b>Only that scheme's.</b> An area is recorded in one scheme's own words — the manifest's are
+     * OpenAlex's — and reaching it is a walk up that scheme's {@code broader} column. A subject from
+     * another scheme cannot be walked there at all: CSO's {@code linguistics} descends from CSO's
+     * {@code linguistics} and from nothing OpenAlex publishes, so testing it against OpenAlex's tree can
+     * only ever say no. Pooling every scheme's subjects made a reading look wrong for having been placed
+     * by a scheme the area was not stated in.
+     */
     public List<String> subjects() {
         return placedIn.stream()
+                .filter(scheme -> SCORED_SCHEME.equals(scheme.scheme()))
                 .flatMap(scheme -> Stream.of(scheme.archive(), scheme.category()))
                 .map(ExportedPlacement.Level::subject)
                 .toList();

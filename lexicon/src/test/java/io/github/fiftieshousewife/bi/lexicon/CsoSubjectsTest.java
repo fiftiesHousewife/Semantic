@@ -28,16 +28,49 @@ class CsoSubjectsTest {
                         .contains("artificial intelligence", "computer security", "software engineering"));
     }
 
-    @Test
-    void describesASubjectByTheLabelsOfTheTopicsStatedBeneathIt() {
-        final SkosConcept intelligence = subjects.described().stream()
-                .filter(topic -> "artificial_intelligence".equals(topic.concept()))
+    private SkosConcept subject(final String concept) {
+        return subjects.described().stream()
+                .filter(topic -> concept.equals(topic.concept()))
                 .findFirst()
                 .orElseThrow();
+    }
+
+    @Test
+    void describesASubjectByTheLabelsOfTheTopicsStatedBeneathIt() {
+        final SkosConcept intelligence = subject("artificial_intelligence");
         assertAll(
                 () -> assertThat(intelligence.definition()).startsWith("artificial intelligence, "),
                 () -> assertThat(intelligence.definition()).contains("machine learning"),
                 () -> assertThat(intelligence.broader()).isEqualTo("computer_science"));
+    }
+
+    @Test
+    void addsTheProseWikipediaStatesForEveryTopicBeneathItThatCsoLinksAnArticleTo() {
+        final String stated = subject("artificial_intelligence").definition();
+        final String labels = stated.split("\\. ", 2)[0];
+        assertAll(
+                () -> assertThat(stated).hasSizeGreaterThan(labels.length()),
+                () -> assertThat(stated.split("\\s+").length).isGreaterThan(200));
+    }
+
+    @Test
+    void readsFarMoreThanTheLabelsAloneAcrossThePlacementSubjects() {
+        final long words = subjects.described().stream()
+                .mapToLong(topic -> topic.definition().split("\\s+").length)
+                .sum();
+        assertThat(words).isGreaterThan(40_000);
+    }
+
+    @Test
+    void reachesProseForMoreSubjectsThanCsoLinksAnArticleToDirectly() {
+        final CsoAbstracts linked = CsoAbstracts.fromClasspath();
+        final long directly = subjects.described().stream()
+                .filter(topic -> linked.of(topic.concept()).isPresent())
+                .count();
+        final long anyProse = subjects.described().stream()
+                .filter(topic -> topic.definition().contains(". "))
+                .count();
+        assertThat(anyProse).isGreaterThan(directly);
     }
 
     @Test
@@ -58,5 +91,10 @@ class CsoSubjectsTest {
         assertThat(subjects.concepts()).allSatisfy(topic ->
                 assertThat(topic.broaderConcepts()).allSatisfy(parent ->
                         assertThat(subjects.conceptOf(parent)).isNotNull()));
+    }
+
+    @Test
+    void statesNoParentOutsideTheTopicsItPublishes() {
+        assertThat(new StatedParents(CsoTopics.fromClasspath().concepts()).unresolved()).isZero();
     }
 }

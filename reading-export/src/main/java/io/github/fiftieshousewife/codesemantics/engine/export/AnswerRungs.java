@@ -12,8 +12,14 @@ import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 
 /**
- * The kinds of evidence a reading can answer from, strongest first. The first that qualifies answers, and
- * the rest are published beneath it.
+ * The kinds of evidence a reading can answer from, strongest first. The first kind that qualifies answers,
+ * and every source of that kind which cleared its bar answers with it.
+ *
+ * <p><b>Nothing is dropped for coming second.</b> Taking the single best source hides the rest, and the
+ * rest are often the ones a reader wants: on jPOS five vocabularies clear the phrase bar and only BIAN
+ * places its matched concept under {@code Cards}, which is what the library is. The rungs still back off —
+ * a reading answered by a subject scheme is one whose vocabularies said nothing — but the backoff is
+ * between rungs and never inside one.
  *
  * <p>It is an ordered list of evidence kinds and not the levels of one hierarchy: a term vocabulary and a
  * subject scheme sit in different published trees. Each rung states its own bar, and none of them is
@@ -54,13 +60,15 @@ public enum AnswerRungs {
      */
     MATCHED_PHRASES {
         @Override
-        Optional<ExportedAnswer> of(final ReadingExport reading) {
+        List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.taxonomies().stream()
                     .filter(one -> one.bar().chanceExpectedBest() > 0)
-                    .max(Comparator.comparingDouble(one -> one.bar().timesTheBar()))
+                    .sorted(Comparator.comparingDouble((ExportedTaxonomy one) -> one.bar().timesTheBar())
+                            .reversed())
                     .map(one -> answer(one, PHRASE, String.format(Locale.ROOT,
                             "%d phrases against the %d a deal of its own words reaches",
-                            one.bar().phrases(), one.bar().chanceExpectedBest())));
+                            one.bar().phrases(), one.bar().chanceExpectedBest())))
+                    .toList();
         }
     },
 
@@ -74,13 +82,14 @@ public enum AnswerRungs {
      */
     CORROBORATED_TERMS {
         @Override
-        Optional<ExportedAnswer> of(final ReadingExport reading) {
+        List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.taxonomies().stream()
                     .filter(one -> singleWordTerms(one) > 0)
-                    .max(Comparator.comparingInt(AnswerRungs::singleWordTerms))
+                    .sorted(Comparator.comparingInt(AnswerRungs::singleWordTerms).reversed())
                     .map(one -> answer(one, SINGLE_WORD, String.format(Locale.ROOT,
                             "%d one-word terms, each written beside another concept of its branch",
-                            singleWordTerms(one))));
+                            singleWordTerms(one))))
+                    .toList();
         }
     },
 
@@ -93,16 +102,14 @@ public enum AnswerRungs {
      */
     PLACED_SUBJECT {
         @Override
-        Optional<ExportedAnswer> of(final ReadingExport reading) {
+        List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.summary().placedIn().stream()
                     .flatMap(scheme -> Stream.of(scheme.archive(), scheme.category())
                             .filter(ExportedPlacement.Level::standsApartFromChance)
-                            .findFirst()
                             .map(level -> new ExportedAnswer(SCHEME, scheme.scheme(), "", level.subject(),
                                     String.format(Locale.ROOT, "%.3f bits nearer than chance reached",
-                                            level.nearestByChanceBits() - level.divergenceBits())))
-                            .stream())
-                    .findFirst();
+                                            level.nearestByChanceBits() - level.divergenceBits()))))
+                    .toList();
         }
     };
 
@@ -113,16 +120,16 @@ public enum AnswerRungs {
     private static final int SINGLE_WORD = 1;
     private static final int PHRASE = 2;
 
-    /** What the reading is about, from the first rung that qualifies. */
-    public static ExportedAnswer answering(final ReadingExport reading) {
+    /** What the reading is about: every source that cleared the bar of the first rung to qualify. */
+    public static List<ExportedAnswer> answering(final ReadingExport reading) {
         return Stream.of(values())
                 .map(rung -> rung.of(reading))
-                .flatMap(Optional::stream)
+                .filter(answers -> !answers.isEmpty())
                 .findFirst()
-                .orElse(ExportedAnswer.NONE);
+                .orElseGet(() -> List.of(ExportedAnswer.NONE));
     }
 
-    abstract Optional<ExportedAnswer> of(ReadingExport reading);
+    abstract List<ExportedAnswer> of(ReadingExport reading);
 
     private static ExportedAnswer answer(final ExportedTaxonomy vocabulary, final int shortest,
                                          final String qualifiedBy) {

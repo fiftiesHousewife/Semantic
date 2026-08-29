@@ -45,6 +45,8 @@ public final class TaxonomyMatchesPage {
     /** The measures the page offers, in the order the buttons stand. */
     private static final List<String> MEASURES = List.of("occurrences", "distinct terms");
 
+    private final PublisherLinks publishers = PublisherLinks.all();
+
     private final List<TaxonomyMatchesCommand.RepositoryMatches> rows;
     private final List<String> vocabularies;
     private final String stylesheet;
@@ -96,7 +98,14 @@ public final class TaxonomyMatchesPage {
         return div().withClass("legend").with(
                 each(vocabularies, vocabulary -> span().withClass("key").with(
                         span().withClass("chip " + slug(vocabulary)),
-                        text(vocabulary))));
+                        named(vocabulary))));
+    }
+
+    /** The vocabulary's name, linked to where its publisher publishes it where that is known. */
+    private DomContent named(final String vocabulary) {
+        return publishers.of(vocabulary)
+                .map(href -> (DomContent) a(vocabulary).withHref(href))
+                .orElseGet(() -> text(vocabulary));
     }
 
     /** All readings under one measure, shown one block at a time by the buttons above. */

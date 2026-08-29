@@ -97,6 +97,15 @@ public enum BundledExtractions {
         }
     },
 
+    /** The fetched Wikipedia summaries of the topics CSO states a sameAs for, and the date they were read. */
+    CSO_ABSTRACTS("cso-abstracts") {
+        @Override
+        void extract(final List<String> sources, final Path resources) throws Exception {
+            CsoAbstractsExtraction.main(new String[] {source(sources, 0),
+                    output(resources, "cso-abstracts.tsv"), source(sources, 1)});
+        }
+    },
+
     /** A checkout of BIAN's artefacts repository at the pinned commit. */
     BIAN("bian") {
         @Override

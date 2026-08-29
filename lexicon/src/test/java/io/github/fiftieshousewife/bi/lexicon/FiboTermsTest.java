@@ -38,9 +38,11 @@ class FiboTermsTest {
                 () -> assertThat(withA(SkosConcept::broader))
                         .as("A FIGURE THAT MATTERS FOR WHAT COMES NEXT. OLiA's hierarchy is sparse and a "
                                 + "rule keyed on a publisher's own placement clears its bar there by one "
-                                + "branch. FIBO states a parent for 1,559 of its 1,833 concepts, so it is "
-                                + "the vocabulary on which a tree-level reading can actually be tested.")
-                        .isEqualTo(1559));
+                                + "branch. FIBO states a parent for 1,787 of its 1,833 concepts — 46 state "
+                                + "none — so it is the vocabulary on which a tree-level reading can "
+                                + "actually be tested. It was 1,559 while a parent published in the OMG "
+                                + "Commons Ontology Library was written as no parent at all.")
+                        .isEqualTo(1787));
     }
 
     @Test
