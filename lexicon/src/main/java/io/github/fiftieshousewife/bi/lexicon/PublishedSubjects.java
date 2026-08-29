@@ -6,9 +6,10 @@ import java.util.List;
  * What a bundled subject scheme answers about the subjects it publishes, so a reading placed against one
  * scheme is placed against any of them by the same code.
  *
- * <p>A scheme is a hierarchy of subjects each stating prose about what it covers, and the placement compares
- * that prose with a repository's reading. Both arXiv and OpenAlex publish exactly that, at different sizes
- * and different depths, and nothing in the placement depends on which.
+ * <p>A scheme is a hierarchy of subjects each stating something about what it covers, and the placement
+ * compares that statement with a repository's reading. arXiv and OpenAlex state prose; the Computer Science
+ * Ontology states none and its subjects are stated by the labels of the topics beneath them. The three sit
+ * at different sizes and different depths, and nothing in the placement depends on which.
  */
 public interface PublishedSubjects {
 

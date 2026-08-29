@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.CsoSubjects;
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -63,8 +64,23 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
     }
 
     /**
-     * Any scheme stating prose per subject, at the two levels it states them at. The broader level is the
-     * scheme's own {@code broader} column pooled, so nothing here decides which subjects belong together.
+     * Placed against the Computer Science Ontology, at its twelve roots and the topics stated beneath them.
+     *
+     * <p><b>CSO states no prose</b>, so each subject is read from the labels of the topics stated beneath
+     * it — see {@link io.github.fiftieshousewife.bi.lexicon.CsoSubjects}. The null is drawn from the same
+     * labels, so chance is filled from the vocabulary the comparison runs on.
+     */
+    public static PlacedField ofCso(final TopicDistribution reading, final long seed) {
+        final CsoSubjects cso = CsoSubjects.fromClasspath();
+        return of(cso, reading, SubjectAreas.pooledFromClasspath(cso),
+                SubjectAreas.leavesFromClasspath(cso), seed);
+    }
+
+    /**
+     * Any scheme, at the two levels it states subjects at. The broader level is the scheme's own
+     * {@code broader} column pooled, so nothing here decides which subjects belong together. What is read
+     * per subject is whatever that scheme states about its subject matter — prose where it publishes prose,
+     * and the labels beneath a subject where it publishes none.
      */
     public static PlacedField of(final PublishedSubjects taxonomy, final TopicDistribution reading,
                                  final List<SubjectTopics> broaderRead,

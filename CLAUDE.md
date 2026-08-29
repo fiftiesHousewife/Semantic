@@ -61,7 +61,7 @@ Multi-module structure with a `build-logic/` included build. The root `build.gra
 
 | Plugin | For |
 |---|---|
-| `cs.java-conventions` | Java 21 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instruction floor |
+| `cs.java-conventions` | Java 25 toolchain, `-Xlint:all -Werror`, Error Prone, JaCoCo at an 80% instruction floor |
 | `cs.java-library` | The above plus `java-library` and AssertJ |
 | `cs.maven-publish` | Sources and javadoc jars, `mavenJava` publication |
 | `cs.aggregate-tasks` | `checkAll` |

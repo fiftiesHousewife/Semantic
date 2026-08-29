@@ -79,6 +79,16 @@ public final class SubjectAreas {
         return ClasspathReadings.pooledOf(OpenAlexTopics.fromClasspath());
     }
 
+    /** Any scheme's subjects at the finest level it is placed at, read once per JVM. */
+    public static List<SubjectTopics> leavesFromClasspath(final PublishedSubjects scheme) {
+        return ClasspathReadings.leavesOf(scheme);
+    }
+
+    /** The same subjects pooled under the concept the scheme states above each of them. */
+    public static List<SubjectTopics> pooledFromClasspath(final PublishedSubjects scheme) {
+        return ClasspathReadings.pooledOf(scheme);
+    }
+
     /**
      * One reading per scheme per level, kept for the life of the JVM. A scheme is read the first time it is
      * asked for rather than at class-load, so a run placing against arXiv alone never reads OpenAlex's four

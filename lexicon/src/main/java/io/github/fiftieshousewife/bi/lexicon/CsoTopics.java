@@ -11,10 +11,13 @@ import java.util.stream.Stream;
  * The bundled Computer Science Ontology: the topics computer science research is indexed by, as terms a
  * repository's declared names can be matched against.
  *
- * <p>CSO states no definition for any topic, so matching is the only reading it supports — there is no
- * prose to compare a scope against. A topic is looked up by any label CSO states for it — the preferred
- * spelling and every equivalent the extraction folded beside it — in lower case because an identifier's
- * own capitalisation is a convention of the language it was written in.
+ * <p>CSO states no definition for any topic, so this reading matches its labels rather than comparing
+ * prose. A topic is looked up by any label CSO states for it — the preferred spelling and every equivalent
+ * the extraction folded beside it — in lower case because an identifier's own capitalisation is a
+ * convention of the language it was written in.
+ *
+ * <p>{@link CsoSubjects} reads the same resource as a subject scheme, where a subject is stated by the
+ * labels of the topics beneath it rather than matched. The two readings share the file and nothing else.
  */
 public final class CsoTopics implements PublishedTerms {
 

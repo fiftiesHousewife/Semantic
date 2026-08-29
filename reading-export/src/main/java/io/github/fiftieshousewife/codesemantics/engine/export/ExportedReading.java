@@ -275,7 +275,8 @@ public final class ExportedReading {
                                                     final RepositoryThemes themes, final PlacedField field) {
         return List.of(placement(field, themes),
                 placement(PlacedField.ofOpenAlex(themes.repository().comparison(), reading.seed()),
-                        themes));
+                        themes),
+                placement(PlacedField.ofCso(themes.repository().comparison(), reading.seed()), themes));
     }
 
     /** One placement per scheme, each level carrying what it rests on and what chance cannot separate. */

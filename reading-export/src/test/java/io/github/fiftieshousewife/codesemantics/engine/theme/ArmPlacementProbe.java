@@ -65,17 +65,21 @@ public final class ArmPlacementProbe {
         placed("arXiv", PlacedField.ofArxiv(read, seed));
         final PlacedField openAlex = PlacedField.ofOpenAlex(read, seed);
         placed("OpenAlex", openAlex);
+        placed("CSO", PlacedField.ofCso(read, seed));
         expected(openAlex);
         System.out.println();
     }
 
+    /** The field size is printed beside the bar because a chance bar is set by how many subjects it ran over. */
     private static void placed(final String scheme, final PlacedField field) {
-        System.out.printf("   %-9s broad  %-44s %.4f  chance %.4f  %s%n", scheme,
+        System.out.printf("   %-9s broad  %-44s %.4f  chance %.4f over %4d  %s%n", scheme,
                 field.nearestArchive().label(), field.nearestArchive().bits(),
-                field.archiveChance().chanceNearest(), verdict(field.archiveChance().standsApart()));
-        System.out.printf("   %-9s leaf   %-44s %.4f  chance %.4f  %s%n", scheme,
+                field.archiveChance().chanceNearest(), field.archives().size(),
+                verdict(field.archiveChance().standsApart()));
+        System.out.printf("   %-9s leaf   %-44s %.4f  chance %.4f over %4d  %s%n", scheme,
                 field.nearestCategory().label(), field.nearestCategory().bits(),
-                field.categoryChance().chanceNearest(), verdict(field.categoryChance().standsApart()));
+                field.categoryChance().chanceNearest(), field.categories().size(),
+                verdict(field.categoryChance().standsApart()));
     }
 
     /**

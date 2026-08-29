@@ -87,9 +87,9 @@ public enum AnswerRungs {
     /**
      * A subject scheme's placement, coarsest level first.
      *
-     * <p>Nothing is matched here. A scheme publishes prose, so the answer is which subject's own
-     * description this repository's vocabulary sits nearest to, and it qualifies where the repository sits
-     * nearer to it than to every subject of a scheme of chance.
+     * <p>Nothing is matched here. A scheme states its subjects' subject matter, so the answer is which
+     * subject's own statement this repository's vocabulary sits nearest to, and it qualifies where the
+     * repository sits nearer to it than to every subject of a scheme of chance.
      */
     PLACED_SUBJECT {
         @Override
