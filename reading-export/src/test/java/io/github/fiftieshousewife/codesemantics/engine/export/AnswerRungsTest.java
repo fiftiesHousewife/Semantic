@@ -42,6 +42,54 @@ class AnswerRungsTest {
                 new SetAside(0, 0, 0, 0, 0, 0, 0, 0, 0));
     }
 
+    private static ExportedTaxonomy.Concept concept(final String name, final String placedUnder,
+                                                    final String definition, final int occurrences) {
+        return new ExportedTaxonomy.Concept(name, name.toLowerCase(java.util.Locale.ROOT), definition,
+                placedUnder, placedUnder, occurrences, 0.5, 2, 0.9, SOMEWHERE);
+    }
+
+    private static ExportedTaxonomy vocabulary(final List<ExportedTaxonomy.Concept> concepts) {
+        return new ExportedTaxonomy("FpML", concepts, List.of(), Map.of(),
+                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 7, 999));
+    }
+
+    @Test
+    void answersWithAConceptThePublisherPlacesRatherThanOneItStatesNothingAbove() {
+        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+                List.of(vocabulary(List.of(
+                        concept("Message", "", "the basic structure of all FpML messages", 693),
+                        concept("Swap", "Product", "swap streams and additional payments", 18)))),
+                List.of()));
+        assertAll(
+                () -> assertThat(answers).singleElement()
+                        .extracting(ExportedAnswer::result, ExportedAnswer::placedUnder)
+                        .containsExactly("Swap — swap streams and additional payments", "Product"),
+                () -> assertThat(answers).singleElement().extracting(ExportedAnswer::result)
+                        .asString().doesNotContain("Message"));
+    }
+
+    @Test
+    void stillPrefersADefinedConceptToAPlacedOneTheSourceSaysNothingAbout() {
+        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+                List.of(vocabulary(List.of(
+                        concept("Cards", "Business", "", 900),
+                        concept("CardCapture", "", "capture the card payment transaction", 4)))),
+                List.of()));
+        assertThat(answers).singleElement().extracting(ExportedAnswer::result)
+                .asString().startsWith("CardCapture — ");
+    }
+
+    @Test
+    void answersWithTheMostWrittenWhereTwoAreStatedAlike() {
+        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+                List.of(vocabulary(List.of(
+                        concept("Rare", "Product", "a rare one", 2),
+                        concept("Common", "Product", "a common one", 40)))),
+                List.of()));
+        assertThat(answers).singleElement().extracting(ExportedAnswer::result)
+                .asString().startsWith("Common — ");
+    }
+
     @Test
     void answersWithEveryVocabularyThatClearedThePhraseBarRatherThanTheBestOfThem() {
         final List<ExportedAnswer> answers = AnswerRungs.answering(reading(

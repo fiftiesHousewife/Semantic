@@ -43,10 +43,11 @@ import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
  * classification stops at an internal node while an oracle would keep propagating the current input
  * downwards" (Cesa and Armano 2016). Answering at the vocabulary is blocking at the root.
  *
- * <p>Where the concept the repository wrote most carries no definition — CSO defines none of its topics —
- * the next-most-written concept that does answers instead. That is Katz backoff at the answer, which is the
- * arithmetic this plan already runs on: the higher-order unit answers where it has a count, and the lower
- * order receives what it discounts.
+ * <p>Where the concept the repository wrote most carries no definition, the next-most-written concept that
+ * does answers instead. That is Katz backoff at the answer, which is the arithmetic this plan already runs
+ * on: the higher-order unit answers where it has a count, and the lower order receives what it discounts.
+ * CSO was the case that needed it on every reading, and needs it less now that its matched topics carry
+ * the summary of the article CSO itself names.
  */
 public enum AnswerRungs {
 
@@ -158,21 +159,36 @@ public enum AnswerRungs {
      * {@code PresentValue} written 1,429 times, and jPOS answered {@code Index} where its phrases say
      * {@code MerchantIdentifier}.
      *
-     * <p>A publisher that defines the concept is preferred, because the definition is what reaching a node
-     * is worth; where none of the concepts of that length is defined the most-written of them still names
-     * itself, and CSO's {@code public key cryptography} says more than CSO's own description of its scope.
+     * <p><b>A defined concept is preferred, and a placed one over an unplaced one.</b> The definition is
+     * what reaching a node is worth — a reading that reaches a node and prints its name has matched a name.
+     * The placement matters for the same reason and was the later finding: a concept the publisher states
+     * nothing above is a concept at the top of the publisher's own tree, and the top of a tree is its most
+     * general node. FpML's roots are {@code Message} and {@code Document}, FIBO's include {@code Thing}.
+     * Answering with one is <em>blocking</em> — stopping at an internal node when the evidence supports
+     * descending — which this cascade already names as its hazard, and a blank placement is the reading
+     * saying so out loud. Where the vocabulary matched other branches, one of those answers instead.
+     *
+     * <p>Occurrences break the tie last, so the rule never prefers a rare defined-and-placed concept to a
+     * common one that is equally well stated.
      */
     private static Optional<ExportedTaxonomy.Concept> answering(final ExportedTaxonomy vocabulary,
                                                                 final int shortest) {
-        final List<ExportedTaxonomy.Concept> ofThatLength = vocabulary.concepts().stream()
+        return vocabulary.concepts().stream()
                 .filter(concept -> shortest > SINGLE_WORD
                         ? concept.wordsInTerm() > SINGLE_WORD : concept.wordsInTerm() == SINGLE_WORD)
-                .toList();
-        final Optional<ExportedTaxonomy.Concept> defined = ofThatLength.stream()
-                .filter(concept -> !concept.definition().isBlank())
-                .max(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences));
-        return defined.isPresent() ? defined
-                : ofThatLength.stream().max(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences));
+                .max(Comparator.comparing(AnswerRungs::isDefined)
+                        .thenComparing(AnswerRungs::isPlaced)
+                        .thenComparing(ExportedTaxonomy.Concept::occurrences));
+    }
+
+    /** Whether the publisher says what the concept means, which is what reaching it buys. */
+    private static boolean isDefined(final ExportedTaxonomy.Concept concept) {
+        return !concept.definition().isBlank();
+    }
+
+    /** Whether the publisher states anything above it, which a concept at the top of its tree does not. */
+    private static boolean isPlaced(final ExportedTaxonomy.Concept concept) {
+        return !concept.placedUnder().isBlank();
     }
 
     /** The concept named, and what the publisher says it means where it says anything. */

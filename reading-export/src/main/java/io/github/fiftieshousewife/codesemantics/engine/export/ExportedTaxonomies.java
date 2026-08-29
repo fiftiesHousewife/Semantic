@@ -46,9 +46,9 @@ public final class ExportedTaxonomies {
     /**
      * What each branch the repository wrote in is worth, most-carried first.
      *
-     * <p>A branch whose publisher states no prose is left out rather than entered at zero. The distinction
-     * is the whole of what the reading can honestly say about CSO, which describes none of its rows: it
-     * cannot be weighed, which is not the same as weighing nothing.
+     * <p>A branch whose publisher states no prose is left out rather than entered at zero: it cannot be
+     * weighed, which is not the same as weighing nothing. CSO describes none of its own rows and was left
+     * out everywhere until it was read through the articles its own {@code owl:sameAs} names.
      */
     private static List<ExportedTaxonomy.Branch> branches(final MatchedTerms matched,
                                                           final BranchAgreement agreement) {

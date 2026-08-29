@@ -30,9 +30,10 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
  * read as the same distribution. <b>It is a weight and never a gate</b>: a branch sharing nothing weighs
  * nothing and is reported apart rather than deleted, and a branch the repository half shares weighs half.
  *
- * <p>A branch whose publisher states no prose is <em>absent</em> rather than zero. CSO states a definition
- * for any of its rows, so it cannot be conditioned at any price, and reading its silence as
- * disagreement would set aside a whole taxonomy on the strength of what its publisher did not write.
+ * <p>A branch whose publisher states no prose is <em>absent</em> rather than zero: reading silence as
+ * disagreement would set aside a branch on the strength of what its publisher did not write. CSO used to
+ * be silent everywhere — it defines none of its 11,438 topics — and is not any longer, because it names
+ * the Wikipedia article for 5,294 of them and {@code CsoAbstracts} carries what that article says.
  */
 public final class BranchAgreement {
 

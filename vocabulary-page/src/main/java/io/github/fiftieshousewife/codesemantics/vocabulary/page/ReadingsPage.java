@@ -83,7 +83,12 @@ public final class ReadingsPage {
     }
 
     private static DomContent head() {
-        return thead(tr(th("repository"), th("source type"), th("source"), th("top of its branch"),
+        return thead(tr(th("repository"), th("source type"), th("source"), th().with(text("cleared its bar by"))
+                        .withTitle("How many of the publisher's terms of more than one word this "
+                                + "repository writes, against the count the best of a field of seven "
+                                + "reaches by dealing that publisher's own words at random. Two sources "
+                                + "answering one reading are rarely equal evidence."),
+                th("top of its branch"),
                 th("placed under"), th("result"),
                 th().with(text("words a resource can cite"))
                         .withTitle("Of every word occurrence the reading saw, the share some bundled "
@@ -110,6 +115,7 @@ public final class ReadingsPage {
                         repository(reading, rank, answers),
                         sourceType(answer, rank, answers),
                         Stream.of(td(source(answer)),
+                                td(cleared(reading, answer)).withClass("bar"),
                                 td(named(answer.atTheTopOfItsBranch())),
                                 td(named(answer.placedUnder())),
                                 td(result(answer), branches(reading, answer)).withClass("result")),
@@ -164,6 +170,14 @@ public final class ReadingsPage {
                                                  final int answers) {
         return rank > 0 ? Stream.of()
                 : Stream.of(spanning(td(span(answer.sourceType()).withClass(kindOf(answer))), answers));
+    }
+
+    /** How far this source cleared its own bar, and on how many phrases. */
+    private static DomContent cleared(final ReadingRow reading, final ExportedAnswer answer) {
+        return reading.barOf(answer.source())
+                .map(bar -> (DomContent) span(String.format(Locale.ROOT, "%d × %.1f", bar.phrases(),
+                        bar.timesTheBar())).withTitle(answer.qualifiedBy()))
+                .orElseGet(() -> span(NONE).withClass("silent"));
     }
 
     /** A concept the publisher names, or a mark saying the publisher named none. */

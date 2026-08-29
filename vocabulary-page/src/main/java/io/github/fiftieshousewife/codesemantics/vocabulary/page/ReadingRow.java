@@ -102,6 +102,21 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
     }
 
     /**
+     * How far one source cleared its own bar, and on how many phrases.
+     *
+     * <p>Two sources answering a reading are rarely equal evidence and a list that states neither figure
+     * reads as though they were. Santuario's CSO answer rests on nine phrases at 1.3 times the count a deal
+     * of CSO's own words reaches, and its FIX answer on five at 1.2 — both marginal, which is a fact about
+     * that reading worth seeing rather than a presentation to tidy away.
+     */
+    public Optional<ExportedTaxonomy.Bar> barOf(final String source) {
+        return vocabularies.stream()
+                .filter(vocabulary -> source.equals(vocabulary.vocabulary()))
+                .map(ExportedTaxonomy::bar)
+                .findFirst();
+    }
+
+    /**
      * What one source's matched phrases are, grouped by the branch its publisher states for them, the
      * branch carrying most occurrences first.
      *
