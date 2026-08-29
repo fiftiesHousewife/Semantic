@@ -47,7 +47,9 @@ class ExportedTaxonomiesTest {
 
     /** The publisher's own chain over the same rows, so the export states where a concept's branch ends. */
     private static final StatedAncestry ANCESTRY = StatedAncestry.over(
-            List.of(concept("Verb", "WordClass"), concept("Noun", "WordClass"), concept("WordClass", "")));
+            List.of(concept("Verb", "WordClass"), concept("Noun", "WordClass"), concept("WordClass", ""),
+                    concept("Phrase", "Constituent"), concept("Clause", "Constituent"),
+                    concept("Constituent", "")));
 
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {

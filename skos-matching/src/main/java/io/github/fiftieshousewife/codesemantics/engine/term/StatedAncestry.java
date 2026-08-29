@@ -26,14 +26,21 @@ public final class StatedAncestry {
 
     private final java.util.function.UnaryOperator<Optional<String>> lookUp;
 
+    private final java.util.function.Supplier<List<String>> labels;
+
+    private Set<String> fieldLevels;
+
     public StatedAncestry(final TermIndex index) {
         this.lookUp = label -> label.flatMap(index::broaderOf);
+        this.labels = () -> index.publishedConcepts().stream()
+                .map(io.github.fiftieshousewife.bi.lexicon.SkosConcept::prefLabel).toList();
     }
 
     private StatedAncestry(final java.util.Map<String, String> broaderByLabel) {
         this.lookUp = label -> label.map(broaderByLabel::get)
                 .filter(parent -> parent != null && !parent.isBlank())
                 .map(StatedAncestry::firstOf);
+        this.labels = () -> List.copyOf(broaderByLabel.keySet());
     }
 
     /**
@@ -67,5 +74,45 @@ public final class StatedAncestry {
     /** The broadest concept the source states above this one, which is the term itself where it states none. */
     public String rootOf(final String prefLabel) {
         return of(prefLabel).getFirst();
+    }
+
+    /**
+     * The broadest concept above this one that still tells a reader something, root first.
+     *
+     * <p>A publisher's own name for its whole field is an ancestor of nearly everything it states, so
+     * naming it says only which vocabulary matched — which the reading already said. CSO puts 80% of its
+     * 11,438 topics under {@code computer science} and FIX 68% of its 7,170 rows under {@code Common},
+     * where FIBO's largest root holds 24% and FpML's 14%. The walk therefore steps past an ancestor an
+     * outright majority of the vocabulary sits beneath and stops at the first that is not one.
+     *
+     * <p><b>The bound is a majority because that is where one level outweighs everything outside it</b>,
+     * which is the rule {@code PublishedPaths.fieldLevels} already states for the same reason. A
+     * vocabulary with no such level is unchanged, and a concept whose whole chain is field levels answers
+     * with itself rather than with nothing.
+     */
+    public String topOfTheBranchOf(final String prefLabel) {
+        return of(prefLabel).stream()
+                .filter(above -> !fieldLevels().contains(above))
+                .findFirst()
+                .orElse(prefLabel);
+    }
+
+    /**
+     * The levels an outright majority of the vocabulary's own concepts sit beneath. Computed once and kept,
+     * because a bundled vocabulary cannot change under a running program.
+     */
+    Set<String> fieldLevels() {
+        if (fieldLevels == null) {
+            final List<String> published = labels.get();
+            final java.util.Map<String, Integer> beneath = new java.util.HashMap<>();
+            published.forEach(label -> of(label).stream()
+                    .filter(above -> !above.equals(label))
+                    .forEach(above -> beneath.merge(above, 1, Integer::sum)));
+            fieldLevels = beneath.entrySet().stream()
+                    .filter(level -> 2 * level.getValue() > published.size())
+                    .map(java.util.Map.Entry::getKey)
+                    .collect(java.util.stream.Collectors.toUnmodifiableSet());
+        }
+        return fieldLevels;
     }
 }
