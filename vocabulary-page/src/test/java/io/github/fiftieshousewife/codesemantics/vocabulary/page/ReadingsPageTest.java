@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
+import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 
 import org.junit.jupiter.api.Test;
@@ -41,7 +44,7 @@ class ReadingsPageTest {
     }
 
     private static ExportedAnswer taxonomy(final String source, final String result) {
-        return new ExportedAnswer("taxonomy", source, "a branch", result,
+        return new ExportedAnswer("taxonomy", source, "a branch", "the top of that branch", result,
                 "22 phrases against the 2 a deal reaches");
     }
 
@@ -57,6 +60,28 @@ class ReadingsPageTest {
                 0.98, Optional.of("Computer Science"));
         assertThat(reading.subjects())
                 .containsExactly("Artificial Intelligence", "Natural Language Processing Techniques");
+    }
+
+    @Test
+    void opensEveryBranchThePublisherStatesForThePhrasesTheRepositoryWrote() {
+        final ExportedTaxonomy.Concept written =
+                new ExportedTaxonomy.Concept("public keys", "public keys", "", "public key cryptography",
+                        "cryptography", 52, 0.5, 2, 0.9, new SightingSite("A.java", 1));
+        final ExportedTaxonomy.Concept alsoWritten =
+                new ExportedTaxonomy.Concept("file systems", "file systems", "", "operating systems",
+                        "computer science", 8, 0.5, 2, 0.9, new SightingSite("B.java", 1));
+        final ReadingRow reading = new ReadingRow("santuario", List.of(taxonomy("CSO", "public keys")),
+                List.of("computing"),
+                List.of(new ExportedTaxonomy("CSO", List.of(written, alsoWritten), List.of(), Map.of(),
+                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 7, 999))),
+                List.of(), 0.98, Optional.empty());
+        final String markup = page.markup(List.of(reading), StatedAreas.none());
+        assertAll(
+                () -> assertThat(reading.branchesOf("CSO")).extracting(ReadingRow.Branch::branch)
+                        .containsExactly("public key cryptography", "operating systems"),
+                () -> assertThat(markup).contains("2 branches, 2 phrases"),
+                () -> assertThat(markup).contains("operating systems"),
+                () -> assertThat(markup).contains("file systems"));
     }
 
     @Test
@@ -105,7 +130,7 @@ class ReadingsPageTest {
     @Test
     void namesTheSchemeWhereNoVocabularyAnswered() {
         final String markup = page.markup(
-                List.of(row("maven", new ExportedAnswer("subject scheme", "OpenAlex", "", "Computer Science",
+                List.of(row("maven", new ExportedAnswer("subject scheme", "OpenAlex", "", "", "Computer Science",
                         "0.079 bits nearer than chance reached"), Optional.empty())),
                 StatedAreas.none());
 
@@ -157,7 +182,7 @@ class ReadingsPageTest {
         final String whole = "BaseForm — Strong inflection is a characteristic of lexemes. "
                 + "In traditional English tagsets, surface ambiguities are normally not resolved.";
         final String markup = page.markup(
-                List.of(row("mine", new ExportedAnswer("taxonomy", "OLiA", "InflectionTypeFeature",
+                List.of(row("mine", new ExportedAnswer("taxonomy", "OLiA", "InflectionTypeFeature", "InflectionTypeFeature",
                         whole, "4 phrases against the 2 a deal reaches"), Optional.empty())),
                 StatedAreas.none());
 

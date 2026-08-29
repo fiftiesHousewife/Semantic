@@ -3,7 +3,6 @@ package io.github.fiftieshousewife.bi.lexicon.extraction;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -19,12 +18,17 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * trading system writes, its {@code xsd:extension} base is {@code broader}, its {@code xsd:documentation}
  * is the definition, and the product area in the schema file's own name is the module.
  *
- * <p>A base the schema writes with a namespace prefix belongs to XML Schema rather than to FpML, and a
- * base naming a type this set carries no complex type for — {@code Scheme} and {@code NonEmptyScheme} are
- * simple types — is dropped with it, for the reason the FIBO extraction states: a roll-up must not climb
- * to a concept nothing here can answer for. Simple types and global elements are not read — a simple type
- * is a format constraint, not a subject, and every global element restates a complex type under a
- * lowercased name.
+ * <p>A base the schema writes with a namespace prefix belongs to XML Schema rather than to FpML and is
+ * not read: {@code xsd:normalizedString} is another specification's primitive, not a subject FpML states.
+ * <b>A base FpML writes in its own namespace is carried whether or not this set holds a complex type for
+ * it.</b> 235 of the 1,405 types extend one of FpML's own simple types — 195 extend {@code Scheme} alone,
+ * 32 {@code NonEmptyScheme} — and writing those as unplaced said FpML states no base for them, which is
+ * false. Naming the base is not climbing to it: a concept whose stated base this set holds no row for
+ * stands at its own root, the same rule {@code TaxonomyTree.isRoot} applies to every source.
+ *
+ * <p>Simple types and global elements are not read as concepts of their own — a simple type is a format
+ * constraint rather than a subject, and every global element restates a complex type under a lowercased
+ * name.
  */
 public final class FpmlConcepts {
 
@@ -34,19 +38,7 @@ public final class FpmlConcepts {
     private static final Pattern WHITESPACE = Pattern.compile("\\s+");
 
     public List<SkosConcept> in(final List<ContentDigest.Member> schemas) {
-        final List<SkosConcept> read = schemas.stream().flatMap(FpmlConcepts::conceptsIn).toList();
-        final Set<String> carried = read.stream().map(SkosConcept::prefLabel)
-                .collect(Collectors.toSet());
-        return read.stream().map(concept -> withACarriedBroader(concept, carried)).toList();
-    }
-
-    /** The concept as stated, or with {@code broader} dropped where the set carries no such complex type. */
-    private static SkosConcept withACarriedBroader(final SkosConcept concept, final Set<String> carried) {
-        if (carried.contains(concept.broader())) {
-            return concept;
-        }
-        return new SkosConcept(concept.concept(), concept.prefLabel(), concept.altLabel(), "",
-                concept.kind(), concept.module(), concept.definition(), concept.note());
+        return schemas.stream().flatMap(FpmlConcepts::conceptsIn).toList();
     }
 
     private static Stream<SkosConcept> conceptsIn(final ContentDigest.Member schema) {

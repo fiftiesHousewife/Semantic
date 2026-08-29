@@ -100,11 +100,11 @@ class FixConceptsTest {
     }
 
     @Test
-    void placesAFieldWhereTheContainersNamingItAgreeAndNowhereWhereTheyDoNot() {
+    void placesAFieldUnderEveryCategoryTheContainersNamingItState() {
         assertAll(
                 () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("Spread"))
                         .extracting(SkosConcept::broader, SkosConcept::module)
-                        .containsExactly(tuple("PostTrade", "")),
+                        .containsExactly(tuple("Confirmation | Allocation", "PostTrade")),
                 () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("Currency"))
                         .extracting(SkosConcept::broader, SkosConcept::module)
                         .containsExactly(tuple("Common", "")),

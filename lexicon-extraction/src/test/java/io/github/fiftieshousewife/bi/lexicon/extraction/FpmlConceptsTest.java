@@ -73,12 +73,13 @@ class FpmlConceptsTest {
     }
 
     @Test
-    void dropsABaseNamingATypeTheSetCarriesNoComplexTypeFor() {
+    void carriesABaseNamingATypeTheSetCarriesNoComplexTypeFor() {
         assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("AccountId"))
-                .as("NonEmptyScheme is a simple type, and a roll-up must not climb to a concept "
-                        + "nothing here can answer for")
+                .as("NonEmptyScheme is one of FpML's own simple types, and 235 of the 1,405 types extend "
+                        + "one — 195 extend Scheme alone. Writing those as unplaced said FpML states no "
+                        + "base for them, which is false")
                 .extracting(SkosConcept::broader)
-                .containsExactly("");
+                .containsExactly("NonEmptyScheme");
     }
 
     @Test

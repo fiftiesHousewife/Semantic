@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
@@ -36,6 +37,8 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
 
     /** The scheme the manifest's areas are named in, which is the only tree they can be walked up. */
     private static final String SCORED_SCHEME = "OpenAlex";
+
+    private static final int SINGLE_WORD = 1;
 
     public ReadingRow {
         answers = List.copyOf(answers);
@@ -96,6 +99,53 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
                 .flatMap(scheme -> Stream.of(scheme.archive(), scheme.category()))
                 .map(ExportedPlacement.Level::subject)
                 .toList();
+    }
+
+    /**
+     * What one source's matched phrases are, grouped by the branch its publisher states for them, the
+     * branch carrying most occurrences first.
+     *
+     * <p>This is the evidence the answer is one line of. Santuario's CSO matches are twenty phrases across
+     * sixteen branches — {@code public key cryptography}, {@code hash functions}, {@code operating systems}
+     * — and naming only the most-written of them says far less than the publisher already said. The
+     * grouping is the publisher's own {@code broader} column and nothing here decides it.
+     */
+    public List<Branch> branchesOf(final String source) {
+        final Map<String, List<ExportedTaxonomy.Concept>> byBranch = vocabularies.stream()
+                .filter(vocabulary -> source.equals(vocabulary.vocabulary()))
+                .flatMap(vocabulary -> vocabulary.concepts().stream())
+                .filter(concept -> concept.wordsInTerm() > SINGLE_WORD)
+                .collect(Collectors.groupingBy(ExportedTaxonomy.Concept::placedUnder,
+                        LinkedHashMap::new, Collectors.toList()));
+        return byBranch.entrySet().stream()
+                .map(ReadingRow::branch)
+                .sorted(Comparator.comparingInt(Branch::occurrences).reversed()
+                        .thenComparing(Branch::branch))
+                .toList();
+    }
+
+    private static Branch branch(final Map.Entry<String, List<ExportedTaxonomy.Concept>> under) {
+        return new Branch(under.getKey(),
+                under.getValue().stream()
+                        .sorted(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences).reversed())
+                        .map(ExportedTaxonomy.Concept::concept)
+                        .distinct()
+                        .toList(),
+                under.getValue().stream().mapToInt(ExportedTaxonomy.Concept::occurrences).sum());
+    }
+
+    /**
+     * One branch of one publisher, and the concepts the repository wrote in it.
+     *
+     * @param branch      the concept the publisher states above them, empty where it states none
+     * @param concepts    the concepts written there, most-written first
+     * @param occurrences how many times the repository wrote them in all
+     */
+    public record Branch(String branch, List<String> concepts, int occurrences) {
+
+        public Branch {
+            concepts = List.copyOf(concepts);
+        }
     }
 
     /**

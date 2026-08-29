@@ -27,9 +27,16 @@ class FixTermsTest {
                         .isEqualTo("Trade"),
                 () -> assertThat(terms.conceptsOf("maturitydate").getFirst().broader())
                         .isEqualTo("Common"),
-                () -> assertThat(terms.conceptsOf("tradedate").getFirst().broader())
-                        .isEmpty(),
-                () -> assertThat(withA(SkosConcept::broader)).isEqualTo(6337));
+                () -> assertThat(terms.conceptsOf("rawdata").getFirst().broader())
+                        .as("a field the containers name in three sections is placed in all three, not "
+                                + "nowhere")
+                        .isEqualTo("Session | EventCommunication | UserManagement"),
+                () -> assertThat(withA(SkosConcept::broader))
+                        .as("6,627 of the 7,170 rows state a placement; the 543 that do not are the 535 "
+                                + "fields no container carrying a category names, and eight sections and "
+                                + "categories at the top of Orchestra's own tree. It was 6,337 while a "
+                                + "field named in several sections was written as placed nowhere.")
+                        .isEqualTo(6627));
     }
 
     @Test

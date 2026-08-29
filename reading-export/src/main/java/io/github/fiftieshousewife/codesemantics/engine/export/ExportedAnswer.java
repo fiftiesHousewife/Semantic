@@ -24,21 +24,28 @@ import java.util.Objects;
  *                     it is a sentence with no field around it: {@code Session} says which part of the
  *                     FIX protocol {@code MsgSeqNum} belongs to. Empty at a root of the taxonomy, and
  *                     empty for a subject scheme, which places a repository rather than a concept
+ * @param atTheTopOfItsBranch the last concept the publisher's chain above it reaches. It differs from
+ *                     {@code placedUnder} by how deep the publisher's tree is, and that difference is why
+ *                     both are here: OLiA states nothing above {@code InflectionTypeFeature} so the two
+ *                     read alike, while FIBO states {@code PresentValue} beneath {@code QuantitativeValue}
+ *                     beneath {@code Value} and only the top says which part of FIBO it belongs to. Empty
+ *                     for a subject scheme
  * @param result       what that publisher says this repository is: its own definition of the concept the
  *                     repository wrote most, or the subject it places the repository nearest to
  * @param qualifiedBy  how it cleared its own bar, in the unit that bar is set in
  */
-public record ExportedAnswer(String sourceType, String source, String placedUnder, String result,
-                             String qualifiedBy) {
+public record ExportedAnswer(String sourceType, String source, String placedUnder,
+                             String atTheTopOfItsBranch, String result, String qualifiedBy) {
 
     /** What a reading with no qualifying evidence answers. It is a result and not a missing field. */
     public static final ExportedAnswer NONE =
-            new ExportedAnswer("nothing", "", "", "", "no evidence stood above chance");
+            new ExportedAnswer("nothing", "", "", "", "", "no evidence stood above chance");
 
     public ExportedAnswer {
         Objects.requireNonNull(sourceType, "sourceType");
         Objects.requireNonNull(source, "source");
         Objects.requireNonNull(placedUnder, "placedUnder");
+        Objects.requireNonNull(atTheTopOfItsBranch, "atTheTopOfItsBranch");
         Objects.requireNonNull(result, "result");
         Objects.requireNonNull(qualifiedBy, "qualifiedBy");
     }

@@ -22,10 +22,15 @@ class FpmlTermsTest {
         assertAll(
                 () -> assertThat(terms.conceptsOf("creditdefaultswap").getFirst().broader())
                         .isEqualTo("Product"),
+                () -> assertThat(terms.conceptsOf("verificationmethod").getFirst().broader())
+                        .as("FpML states this type's base in its own namespace, and a simple type is "
+                                + "still what the publisher stated")
+                        .isEqualTo("Scheme"),
                 () -> assertThat(withA(SkosConcept::broader))
-                        .as("every carried broader is itself a complex type of the set — Scheme and "
-                                + "NonEmptyScheme are simple types and were dropped")
-                        .isEqualTo(554));
+                        .as("789 of the 1,405 types state a base FpML writes in its own namespace; 616 "
+                                + "state none at all. It was 554 while a base naming one of FpML's own "
+                                + "simple types — 195 extend Scheme alone — was written as no base.")
+                        .isEqualTo(789));
     }
 
     @Test

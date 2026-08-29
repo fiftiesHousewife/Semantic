@@ -63,13 +63,23 @@ class FixFieldPlacementsTest {
     }
 
     @Test
-    void placesAFieldTwoCategoriesNameUnderTheSectionBothCategoriesSitIn() {
-        assertThat(read().under("1")).isEqualTo("PostTrade");
+    void placesAFieldUnderEveryCategoryNamingItWhenTwoOfOneSectionDo() {
+        assertAll(
+                () -> assertThat(read().under("1")).isEqualTo("Confirmation | Allocation"),
+                () -> assertThat(read().sectionOf("1"))
+                        .as("both categories sit in one section, so the module is that section")
+                        .isEqualTo("PostTrade"));
     }
 
     @Test
-    void placesNothingWhereTheCategoriesNamingAFieldAgreeNowhere() {
-        assertThat(read().under("100")).isEmpty();
+    void placesAFieldUnderEveryCategoryNamingItWhenTheySitInDifferentSections() {
+        assertAll(
+                () -> assertThat(read().under("100"))
+                        .as("a field the publisher puts in two places is not one it places nowhere")
+                        .isEqualTo("Confirmation | CrossOrders"),
+                () -> assertThat(read().sectionOf("100"))
+                        .as("the module is one column and the publisher states two sections")
+                        .isEmpty());
     }
 
     @Test
@@ -86,8 +96,6 @@ class FixFieldPlacementsTest {
 
     @Test
     void namesTheSectionAPlacingCategorySitsIn() {
-        assertAll(
-                () -> assertThat(read().sectionOf("64")).isEqualTo("PostTrade"),
-                () -> assertThat(read().sectionOf("1")).isEmpty());
+        assertThat(read().sectionOf("64")).isEqualTo("PostTrade");
     }
 }

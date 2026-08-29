@@ -15,7 +15,8 @@ class AnswerRungsTest {
     private static ExportedTaxonomy.Concept phrase(final String concept, final String placedUnder,
                                                    final int occurrences) {
         return new ExportedTaxonomy.Concept(concept, concept.toLowerCase(java.util.Locale.ROOT),
-                "what " + concept + " means", placedUnder, occurrences, 0.5, 2, 0.9, SOMEWHERE);
+                "what " + concept + " means", placedUnder, placedUnder, occurrences, 0.5, 2, 0.9,
+                SOMEWHERE);
     }
 
     private static ExportedTaxonomy cleared(final String vocabulary, final String placedUnder,

@@ -65,6 +65,7 @@
               "sourceType",
               "source",
               "placedUnder",
+              "atTheTopOfItsBranch",
               "result",
               "qualifiedBy"
             ],
@@ -84,6 +85,10 @@
               },
               "placedUnder": {
                 "description": "Where the publisher places what answered, kept because a definition read without it is a sentence with no field around it: `Session` says which part of the FIX protocol `MsgSeqNum` belongs to. Empty at a root of the taxonomy, and empty for a subject scheme, which places a repository rather than a concept.",
+                "type": "string"
+              },
+              "atTheTopOfItsBranch": {
+                "description": "The last concept the publisher's chain above the answer reaches: the walk up its own `broader` column, stopping where the file carries no row for the next parent, and the concept itself where the publisher states none above it. It differs from `placedUnder` by how deep a publisher's tree is, which is why both are here. OLiA states nothing above `InflectionTypeFeature`, so the two read alike; FIBO states `PresentValue` beneath `QuantitativeValue` beneath `Value`, and only the top of that says which part of FIBO the concept belongs to. Empty for a subject scheme, which places a repository rather than a concept.",
                 "type": "string"
               },
               "result": {
@@ -412,6 +417,7 @@
                 "concept",
                 "term",
                 "placedUnder",
+                "atTheTopOfItsBranch",
                 "occurrences",
                 "specificity",
                 "wordsInTerm",
@@ -436,6 +442,10 @@
                 "placedUnder": {
                   "title": "Concept the publisher places it under",
                   "description": "The publisher's own parent for this concept, empty at a root of the taxonomy. OLiA places `Verb` under `WordClass`.",
+                  "type": "string"
+                },
+                "atTheTopOfItsBranch": {
+                  "description": "The last concept the publisher's chain above this one reaches, stopping where the file carries no row for the next parent. `placedUnder` is one step; this is the end of the walk, and the two differ by how deep the publisher's tree is.",
                   "type": "string"
                 },
                 "occurrences": {

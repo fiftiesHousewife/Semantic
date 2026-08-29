@@ -18,6 +18,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermOrderNull;
 import io.github.fiftieshousewife.codesemantics.engine.term.WrittenRuns;
@@ -139,13 +140,13 @@ public final class ExportedReading {
         final List<ExportedTaxonomy> matched = new ArrayList<>(List.of(new ExportedTaxonomies().of(
                 LinguisticTerms.fromClasspath().source(), terms.matched(),
                 BranchAgreement.between(reads, OliaTerms.fromClasspath().concepts(), areas),
-                bars.getFirst())));
+                bars.getFirst(), new StatedAncestry(LinguisticTerms.fromClasspath()))));
         IntStream.range(1, published.size()).forEach(at -> matched.add(new ExportedTaxonomies().of(
                 published.get(at).source(),
                 CorroboratedReading.of(judged.get(at), published.get(at).publishedConcepts(), parsed)
                         .matched(),
                 BranchAgreement.between(reads, published.get(at).publishedConcepts(), areas),
-                bars.get(at))));
+                bars.get(at), new StatedAncestry(published.get(at)))));
         final List<ExportedTaxonomy> taxonomies = matched.stream()
                 .filter(one -> one.bar().exceedsChance())
                 .toList();

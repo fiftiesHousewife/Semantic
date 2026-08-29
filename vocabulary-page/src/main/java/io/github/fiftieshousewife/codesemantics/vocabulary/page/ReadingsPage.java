@@ -14,6 +14,10 @@ import j2html.tags.specialized.TrTag;
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
 import static j2html.TagCreator.div;
+import static j2html.TagCreator.details;
+import static j2html.TagCreator.li;
+import static j2html.TagCreator.summary;
+import static j2html.TagCreator.ul;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.p;
@@ -44,6 +48,9 @@ import static j2html.TagCreator.tr;
 public final class ReadingsPage {
 
     private static final String NONE = "—";
+
+    /** One branch is what the answer already names, so the list opens only where there is more. */
+    private static final int TWO = 2;
 
     private final PublisherLinks publishers = PublisherLinks.all();
 
@@ -76,8 +83,14 @@ public final class ReadingsPage {
     }
 
     private static DomContent head() {
-        return thead(tr(th("repository"), th("source type"), th("source"), th("placed under"),
-                th("result"), th("λ"), th("stated area")));
+        return thead(tr(th("repository"), th("source type"), th("source"), th("top of its branch"),
+                th("placed under"), th("result"),
+                th().with(text("words a resource can cite"))
+                        .withTitle("Of every word occurrence the reading saw, the share some bundled "
+                                + "resource states something about — WordNet, the topic vocabularies, the "
+                                + "frequency lists. It is the reading's own coverage of the tree and not "
+                                + "a score: a word nothing can be cited for is seen and not read."),
+                th("stated area")));
     }
 
     /**
@@ -95,10 +108,11 @@ public final class ReadingsPage {
                       final int answers, final StatedAreas stated) {
         return tr(Stream.of(
                         repository(reading, rank, answers),
-                        Stream.of(td(span(answer.sourceType()).withClass(kindOf(answer))),
-                                td(source(answer)),
-                                td(placedUnder(answer)),
-                                td(result(answer)).withClass("result")),
+                        sourceType(answer, rank, answers),
+                        Stream.of(td(source(answer)),
+                                td(named(answer.atTheTopOfItsBranch())),
+                                td(named(answer.placedUnder())),
+                                td(result(answer), branches(reading, answer)).withClass("result")),
                         readingWide(reading, rank, answers, stated))
                 .flatMap(cells -> cells)
                 .toArray(DomContent[]::new));
@@ -142,11 +156,19 @@ public final class ReadingsPage {
                 .orElseGet(() -> span(answer.source()).withTitle(answer.qualifiedBy()));
     }
 
-    /** Where the publisher places what answered. A definition read without it has no field around it. */
-    private static DomContent placedUnder(final ExportedAnswer answer) {
-        return answer.placedUnder().isBlank()
-                ? span(NONE).withClass("silent")
-                : span(answer.placedUnder());
+    /**
+     * The kind of thing that answered, written once and spanning the reading's answers. Every answer of one
+     * reading comes from the rung that answered it, so the cell says the same thing on every line.
+     */
+    private static Stream<DomContent> sourceType(final ExportedAnswer answer, final int rank,
+                                                 final int answers) {
+        return rank > 0 ? Stream.of()
+                : Stream.of(spanning(td(span(answer.sourceType()).withClass(kindOf(answer))), answers));
+    }
+
+    /** A concept the publisher names, or a mark saying the publisher named none. */
+    private static DomContent named(final String concept) {
+        return concept.isBlank() ? span(NONE).withClass("silent") : span(concept);
     }
 
     /**
@@ -160,6 +182,21 @@ public final class ReadingsPage {
         return answer.result().isBlank()
                 ? span(answer.qualifiedBy()).withClass("silent")
                 : span(firstSentenceOf(answer.result())).withTitle(answer.result());
+    }
+
+    /**
+     * Every branch the answering publisher states for the phrases this repository wrote, opened from the
+     * answer. The answer is one concept of one branch; this is the rest of what the publisher said, and
+     * the count stands in the summary so nothing is folded away without saying how much.
+     */
+    private static DomContent branches(final ReadingRow reading, final ExportedAnswer answer) {
+        final List<ReadingRow.Branch> stated = reading.branchesOf(answer.source());
+        return stated.size() < TWO ? span() : details(
+                summary(String.format(Locale.ROOT, "%d branches, %d phrases", stated.size(),
+                        stated.stream().mapToInt(branch -> branch.concepts().size()).sum())),
+                ul().with(each(stated, branch -> li().with(
+                        span(branch.branch().isBlank() ? NONE : branch.branch()).withClass("branch"),
+                        text(" " + String.join(", ", branch.concepts()))))));
     }
 
     private static String firstSentenceOf(final String stated) {

@@ -13,6 +13,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 
 /**
@@ -31,8 +32,9 @@ public final class ExportedTaxonomies {
 
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
-                               final BranchAgreement agreement, final PhraseBar bar) {
-        return new ExportedTaxonomy(vocabulary, concepts(matched), branches(matched, agreement),
+                               final BranchAgreement agreement, final PhraseBar bar,
+                               final StatedAncestry ancestry) {
+        return new ExportedTaxonomy(vocabulary, concepts(matched, ancestry), branches(matched, agreement),
                 matchesByNormalisation(matched), barOf(bar));
     }
 
@@ -75,22 +77,26 @@ public final class ExportedTaxonomies {
     }
 
     /** Ordered by what each term is worth — how often it was written, weighed by how much it narrows. */
-    private static List<ExportedTaxonomy.Concept> concepts(final MatchedTerms matched) {
+    private static List<ExportedTaxonomy.Concept> concepts(final MatchedTerms matched,
+                                                          final StatedAncestry ancestry) {
         return matched.byMass(matched.distinctTerms()).stream()
-                .flatMap(ExportedTaxonomies::rows)
+                .flatMap(sighting -> rows(sighting, ancestry))
                 .toList();
     }
 
-    private static Stream<ExportedTaxonomy.Concept> rows(final TermSighting sighting) {
-        return sighting.concepts().stream().map(concept -> row(sighting, concept));
+    private static Stream<ExportedTaxonomy.Concept> rows(final TermSighting sighting,
+                                                         final StatedAncestry ancestry) {
+        return sighting.concepts().stream().map(concept -> row(sighting, concept, ancestry));
     }
 
-    private static ExportedTaxonomy.Concept row(final TermSighting sighting, final SkosConcept concept) {
+    private static ExportedTaxonomy.Concept row(final TermSighting sighting, final SkosConcept concept,
+                                                final StatedAncestry ancestry) {
         return ExportedTaxonomy.Concept.builder()
                 .concept(concept.prefLabel())
                 .term(sighting.term())
                 .definition(concept.definition())
                 .placedUnder(concept.broader())
+                .atTheTopOfItsBranch(ancestry.rootOf(concept.prefLabel()))
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())
                 .wordsInTerm(sighting.length())

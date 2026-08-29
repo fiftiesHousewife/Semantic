@@ -106,7 +106,8 @@ public enum AnswerRungs {
             return reading.summary().placedIn().stream()
                     .flatMap(scheme -> Stream.of(scheme.archive(), scheme.category())
                             .filter(ExportedPlacement.Level::standsApartFromChance)
-                            .map(level -> new ExportedAnswer(SCHEME, scheme.scheme(), "", level.subject(),
+                            .map(level -> new ExportedAnswer(SCHEME, scheme.scheme(), "", "",
+                                    level.subject(),
                                     String.format(Locale.ROOT, "%.3f bits nearer than chance reached",
                                             level.nearestByChanceBits() - level.divergenceBits()))))
                     .toList();
@@ -136,6 +137,7 @@ public enum AnswerRungs {
         final Optional<ExportedTaxonomy.Concept> answering = answering(vocabulary, shortest);
         return new ExportedAnswer(TAXONOMY, vocabulary.vocabulary(),
                 answering.map(ExportedTaxonomy.Concept::placedUnder).map(AnswerRungs::firstOf).orElse(""),
+                answering.map(ExportedTaxonomy.Concept::atTheTopOfItsBranch).orElse(""),
                 answering.map(AnswerRungs::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
                 qualifiedBy);
     }

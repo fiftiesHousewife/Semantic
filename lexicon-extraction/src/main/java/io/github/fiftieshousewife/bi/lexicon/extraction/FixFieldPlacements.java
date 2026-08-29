@@ -5,9 +5,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Element;
+
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
 /**
  * Where Orchestra states each of its fields sits.
@@ -17,10 +19,17 @@ import org.w3c.dom.Element;
  * containers instead: a message, component or group carries a category and names the fields it holds as
  * {@code fieldRef}s, so a container naming a field is the publisher placing it.
  *
- * <p>A field several containers name is placed at the deepest concept all of them sit under — the category
- * where every container states that one, the section where they state several categories of one section, and
- * nothing where they agree nowhere. Picking one of several stated categories would be this library deciding
- * something its source did not.
+ * <p><b>A field several containers name is placed under every category they name.</b> {@code SkosConcept}
+ * carries a repeated parent the way SKOS does, joined with the separator it states, so stating all of them
+ * needs no choice made here — {@code Text} sits under 27 categories because Orchestra puts it in 27, and
+ * {@code RawData} under three because Orchestra puts it in three, in EventCommunication, Session and
+ * UserManagement.
+ *
+ * <p>The rule this replaces reported the deepest concept every container shared, which was the section
+ * where the categories agreed on one and <em>nothing</em> where they did not. 290 of the 6,203 fields were
+ * written as placed nowhere on that rule, including {@code Text}, {@code TransactTime}, {@code Currency}
+ * and {@code Side}. A field the publisher puts in 27 places is not a field the publisher places nowhere,
+ * and the count of fields Orchestra genuinely names in no container carrying a category is 535.
  *
  * <p>A container stating no category places nothing, and does not remove what another container states.
  */
@@ -60,16 +69,21 @@ final class FixFieldPlacements {
         return new FixFieldPlacements(categoriesByField, sectionByCategory);
     }
 
-    /** The concept the publisher places this field under, or nothing where it places it nowhere. */
+    /** Every category the publisher's containers name this field in, or nothing where none does. */
     String under(final String field) {
-        return deepestShared(categoriesByField.getOrDefault(field, Set.of()).stream()
-                .map(this::chainOf)
-                .toList());
+        return String.join(SkosConcept.STATEMENTS, categoriesByField.getOrDefault(field, Set.of()));
     }
 
-    /** The section that placement sits in, which is the module a field carries. */
+    /**
+     * The section those categories sit in, which is the module a field carries. A field whose categories
+     * span several sections carries none: the module is one column and the publisher states more than one
+     * answer, so reporting one of them would be this library choosing.
+     */
     String sectionOf(final String field) {
-        return sectionByCategory.getOrDefault(under(field), "");
+        final Set<String> sections = categoriesByField.getOrDefault(field, Set.of()).stream()
+                .map(category -> sectionByCategory.getOrDefault(category, ""))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        return sections.size() == 1 ? sections.iterator().next() : "";
     }
 
     /** The ids a container names, at whatever depth — a message holds its own inside a structure. */
@@ -79,24 +93,6 @@ final class FixFieldPlacements {
                 .toList();
     }
 
-    /** What the publisher states above a category, deepest last: its section where it names one. */
-    private List<String> chainOf(final String category) {
-        final String section = sectionByCategory.getOrDefault(category, "");
-        return section.isEmpty() ? List.of(category) : List.of(section, category);
-    }
 
-    /** The last step every chain states in common, which is where they part ways. */
-    private static String deepestShared(final List<List<String>> chains) {
-        return chains.stream().findFirst()
-                .map(first -> IntStream.range(0, first.size())
-                        .takeWhile(step -> chains.stream().allMatch(chain -> agree(chain, step, first)))
-                        .mapToObj(first::get)
-                        .reduce((higher, deeper) -> deeper)
-                        .orElse(""))
-                .orElse("");
-    }
 
-    private static boolean agree(final List<String> chain, final int step, final List<String> first) {
-        return chain.size() > step && chain.get(step).equals(first.get(step));
-    }
 }

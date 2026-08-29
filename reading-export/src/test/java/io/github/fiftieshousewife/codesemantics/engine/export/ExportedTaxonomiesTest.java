@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
@@ -44,16 +45,20 @@ class ExportedTaxonomiesTest {
             List.of(concept("Verb", "WordClass"), concept("Noun", "WordClass")),
             SubjectAreas.fromClasspath());
 
+    /** The publisher's own chain over the same rows, so the export states where a concept's branch ends. */
+    private static final StatedAncestry ANCESTRY = StatedAncestry.over(
+            List.of(concept("Verb", "WordClass"), concept("Noun", "WordClass"), concept("WordClass", "")));
+
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
 
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
                         .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "what the publisher says it means",
-                                "WordClass", 20, 0.8, 1, 1.0,
+                                "WordClass", "WordClass", 20, 0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 
@@ -61,7 +66,7 @@ class ExportedTaxonomiesTest {
     void writesATermTwoConceptsReadAsTwice() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("root"), 0.9, 4, concept("Root", "Morpheme"),
-                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE);
+                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::placedUnder)
                 .as("which concept the repository meant is a question about evidence")
@@ -72,7 +77,7 @@ class ExportedTaxonomiesTest {
     void ordersTheConceptsBySpecificityTimesOccurrences() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("clause"), 0.9, 2, concept("Clause", "Constituent")),
-                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING, ABOVE_CHANCE);
+                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
 
         assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::concept)
                 .containsExactly("Noun", "Clause");
@@ -81,7 +86,7 @@ class ExportedTaxonomiesTest {
     @Test
     void statesWhatEachBranchIsWorthAndWhatConditioningOnItWouldLeave() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
 
         assertAll(
                 () -> assertThat(exported.branches()).singleElement()
@@ -106,7 +111,8 @@ class ExportedTaxonomiesTest {
                 SubjectAreas.fromClasspath());
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent, ABOVE_CHANCE);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent,
+                ABOVE_CHANCE, ANCESTRY);
 
         assertThat(exported.branches())
                 .as("a taxonomy that cannot be weighed is not one that weighs zero")
@@ -116,7 +122,7 @@ class ExportedTaxonomiesTest {
     @Test
     void countsEveryNormalisationLevelIncludingTheOnesProducingNoMatch() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
 
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())

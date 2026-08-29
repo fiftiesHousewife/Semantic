@@ -67,7 +67,16 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      *                       is the whole reason a taxonomy is matched rather than a word list: the node
      *                       carries the meaning, and a reading that reaches a node and drops its
      *                       definition has matched a name
-     * @param placedUnder    the concept the publisher places it under, empty at a root of the taxonomy
+     * @param placedUnder    the concept the publisher places it directly under, empty at a root of the
+     *                       taxonomy
+     * @param atTheTopOfItsBranch the last concept the publisher's chain reaches — the walk up its own
+     *                       {@code broader} column, stopping where the file carries no row for the next
+     *                       parent. It is the concept itself where the publisher states none above it.
+     *                       <b>The two differ by how deep a publisher's tree is</b>: OLiA states
+     *                       {@code BaseForm} beneath {@code InflectionTypeFeature} and nothing above that,
+     *                       so both read the same; FIBO states {@code PresentValue} beneath
+     *                       {@code QuantitativeValue} beneath {@code Value}, so the direct parent says far
+     *                       less about which part of FIBO the concept belongs to than the top does
      * @param occurrences    how often the repository wrote it
      * @param specificity    how much writing the term narrows, bounded in {@code [0, 1]} by the frequency
      *                       list's own length
@@ -79,8 +88,8 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      */
     @Builder
     public record Concept(String concept, String term, String definition, String placedUnder,
-                          int occurrences, double specificity, int wordsInTerm, double shareOfEachName,
-                          SightingSite firstWrittenAt) {
+                          String atTheTopOfItsBranch, int occurrences, double specificity,
+                          int wordsInTerm, double shareOfEachName, SightingSite firstWrittenAt) {
     }
 
     /**
