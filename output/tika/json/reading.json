@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "17.0",
+  "schemaVersion" : "18.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "",
@@ -7,24 +7,28 @@
       "sourceType" : "taxonomy",
       "source" : "CWE",
       "placedUnder" : "External Control of File Name or Path",
+      "atTheTopOfItsBranch" : "Improper Control of a Resource Through its Lifetime",
       "result" : "Process Control — Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker.",
       "qualifiedBy" : "4 phrases against the 2 a deal of its own words reaches"
     }, {
       "sourceType" : "taxonomy",
       "source" : "FpML",
-      "placedUnder" : "",
-      "result" : "ContactInformation — A type that represents how to contact an individual or organization.",
+      "placedUnder" : "Scheme",
+      "atTheTopOfItsBranch" : "Scheme",
+      "result" : "PartyName — The data type used for the legal name of an organization.",
       "qualifiedBy" : "6 phrases against the 4 a deal of its own words reaches"
     }, {
       "sourceType" : "taxonomy",
       "source" : "CSO",
-      "placedUnder" : "operating systems",
-      "result" : "file systems",
+      "placedUnder" : "target language",
+      "atTheTopOfItsBranch" : "communication",
+      "result" : "source language — In language, translation is the communication of the meaning of a source-language text by means of an equivalent target-language text. The English language draws a terminological distinction between translating written texts and interpreting oral or signed communications between languages.",
       "qualifiedBy" : "30 phrases against the 21 a deal of its own words reaches"
     }, {
       "sourceType" : "taxonomy",
       "source" : "FIBO",
       "placedUnder" : "DatePeriod",
+      "atTheTopOfItsBranch" : "DatePeriod",
       "result" : "PutWindow — an explicit period of time prior to a put date during which holder or agent must give notice to an issuer",
       "qualifiedBy" : "5 phrases against the 4 a deal of its own words reaches"
     } ],
@@ -40,11 +44,11 @@
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.09525427442378824,
+          "shareOfSubject" : 0.09525427442378823,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -294,7 +298,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -325,11 +329,11 @@
         }, {
           "topic" : "computer_science",
           "shareOfRepository" : 0.031062494354920735,
-          "shareOfSubject" : 0.04389314821928954,
+          "shareOfSubject" : 0.04389314821928955,
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -424,7 +428,7 @@
           "carriedBy" : [ "linguistics", "programming", "computing", "computer_science" ]
         }, {
           "subject" : "Electrical Engineering and Systems Science",
-          "divergenceBits" : 0.3790064825544962,
+          "divergenceBits" : 0.37900648255449626,
           "carriedBy" : [ "computing", "programming", "law", "mathematics" ]
         } ]
       },
@@ -500,7 +504,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -535,7 +539,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -820,7 +824,7 @@
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Networking and Internet Architecture",
-          "divergenceBits" : 0.41693757820142374,
+          "divergenceBits" : 0.41693757820142385,
           "carriedBy" : [ "computing", "programming", "computer_science", "telecommunication" ]
         } ]
       }
@@ -898,7 +902,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -933,7 +937,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1232,13 +1236,13 @@
       },
       "category" : {
         "subject" : "Natural Language Processing Techniques",
-        "divergenceBits" : 0.43839060726676043,
+        "divergenceBits" : 0.4383906072667605,
         "nearestByChanceBits" : 0.49763357328533,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.17377531183821915,
+          "shareOfSubject" : 0.17377531183821918,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -1302,7 +1306,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1333,11 +1337,11 @@
         }, {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.18463922372753377,
+          "shareOfSubject" : 0.1846392237275338,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1432,7 +1436,7 @@
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1523,7 +1527,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.025735985744565853,
+          "shareOfSubject" : 0.025735985744565856,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -1618,11 +1622,11 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.43839060726676043,
+          "divergenceBits" : 0.4383906072667605,
           "carriedBy" : [ "computing", "linguistics", "computer_science", "programming" ]
         }, {
           "subject" : "Mobile Agent-Based Network Management",
-          "divergenceBits" : 0.4716677204291525,
+          "divergenceBits" : 0.47166772042915245,
           "carriedBy" : [ "computing", "computer_science", "law", "computer-languages" ]
         }, {
           "subject" : "Usability and User Interface Design",
@@ -1634,7 +1638,7 @@
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         }, {
           "subject" : "Embedded Systems Design Techniques",
-          "divergenceBits" : 0.47614193526280923,
+          "divergenceBits" : 0.4761419352628093,
           "carriedBy" : [ "computing", "computer_science", "linguistics", "mathematics" ]
         }, {
           "subject" : "Advanced Software Engineering Methodologies",
@@ -1646,7 +1650,7 @@
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         }, {
           "subject" : "Software-Defined Networks and 5G",
-          "divergenceBits" : 0.4839204491889341,
+          "divergenceBits" : 0.48392044918893407,
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Marine and Coastal Research",
@@ -1658,7 +1662,7 @@
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Caching and Content Delivery",
-          "divergenceBits" : 0.49272210521766396,
+          "divergenceBits" : 0.49272210521766285,
           "carriedBy" : [ "computing", "linguistics", "telecommunication", "electronics" ]
         }, {
           "subject" : "Security and Verification in Computing",
@@ -1670,7 +1674,7 @@
       "scheme" : "CSO",
       "archive" : {
         "subject" : "computer science",
-        "divergenceBits" : 0.2228778420221608,
+        "divergenceBits" : 0.22287784202216082,
         "nearestByChanceBits" : 0.26730404403399616,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
@@ -1740,7 +1744,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -1870,7 +1874,7 @@
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1965,7 +1969,7 @@
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -2056,7 +2060,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "computer science",
-          "divergenceBits" : 0.2228778420221608,
+          "divergenceBits" : 0.22287784202216082,
           "carriedBy" : [ "computing", "programming", "linguistics", "computer_science" ]
         }, {
           "subject" : "linguistics",
@@ -2072,11 +2076,11 @@
         "carriedBy" : [ {
           "topic" : "linguistics",
           "shareOfRepository" : 0.06168028540595813,
-          "shareOfSubject" : 0.07439848262047431,
+          "shareOfSubject" : 0.07439848262047428,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.89934748237675,
+            "mass" : 318.8993474823768,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -2167,7 +2171,7 @@
         }, {
           "topic" : "computing",
           "shareOfRepository" : 0.22023362627032875,
-          "shareOfSubject" : 0.04237025419630551,
+          "shareOfSubject" : 0.04237025419630549,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
@@ -2231,7 +2235,7 @@
           }, {
             "word" : "parser",
             "occurrences" : 2928,
-            "mass" : 257.384603489732,
+            "mass" : 257.38460348973206,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -2262,7 +2266,7 @@
         }, {
           "topic" : "programming",
           "shareOfRepository" : 0.04405076928628682,
-          "shareOfSubject" : 0.031435951055725636,
+          "shareOfSubject" : 0.03143595105572562,
           "carriedBy" : [ {
             "word" : "handler",
             "occurrences" : 1995,
@@ -2361,7 +2365,7 @@
           "carriedBy" : [ {
             "word" : "parser",
             "occurrences" : 2932,
-            "mass" : 251.25071157480744,
+            "mass" : 251.25071157480747,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -2535,7 +2539,7 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
-      "divergenceBits" : 0.06989258172373343,
+      "divergenceBits" : 0.06989258172373342,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
@@ -2555,7 +2559,7 @@
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-translate/src/test/java",
-      "divergenceBits" : 0.44188722365966193,
+      "divergenceBits" : 0.4418872236596619,
       "writesMoreOf" : [ "linguistics", "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources",
@@ -2583,7 +2587,7 @@
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-      "divergenceBits" : 0.7885949844526294,
+      "divergenceBits" : 0.7885949844526295,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
@@ -10148,8 +10152,8 @@
     }
   } ],
   "thresholds" : {
-    "the reference corpus" : 2.8533098824654863E-5,
-    "ordinary English" : 2.520829812424727E-5
+    "ordinary English" : 2.520829812424727E-5,
+    "the reference corpus" : 2.8533098824654863E-5
   },
   "themes" : [ {
     "topic" : "linguistics",
@@ -10159,7 +10163,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -10279,7 +10283,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042306,
+      "mass" : 55.65494330042307,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -10525,7 +10529,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10647,7 +10651,7 @@
     "topic" : "software",
     "scope" : "tika-translate/src/test/java",
     "shareOfRepository" : 0.005838894366045635,
-    "divergenceBits" : 0.029477822475274085,
+    "divergenceBits" : 0.02947782247527408,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -10771,7 +10775,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -10957,7 +10961,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -11077,7 +11081,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -11263,7 +11267,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11509,7 +11513,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11755,7 +11759,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -11941,7 +11945,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -12061,7 +12065,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12247,7 +12251,7 @@
     }, {
       "word" : "mif",
       "occurrences" : 10,
-      "mass" : 4.452852475097866,
+      "mass" : 4.452852475097867,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "mif",
@@ -12373,7 +12377,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12493,7 +12497,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042306,
+      "mass" : 55.65494330042307,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12619,7 +12623,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12739,7 +12743,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042306,
+      "mass" : 55.65494330042307,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12925,7 +12929,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13045,7 +13049,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13171,7 +13175,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13291,7 +13295,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13417,7 +13421,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -13537,7 +13541,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13603,7 +13607,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13723,7 +13727,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042306,
+      "mass" : 55.65494330042307,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -13849,7 +13853,7 @@
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.89934748237675,
+      "mass" : 318.8993474823768,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13969,7 +13973,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.65494330042306,
+      "mass" : 55.65494330042307,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -14155,7 +14159,7 @@
     }, {
       "word" : "parser",
       "occurrences" : 2928,
-      "mass" : 257.384603489732,
+      "mass" : 257.38460348973206,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "pdfparser pdf parser ocrparser ocr parser htmlparser html parser default parser default parser tesseract ocrparser tesseract ocr parser",
@@ -14275,7 +14279,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 3093,
-      "mass" : 58.002889968856444,
+      "mass" : 58.00288996885644,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -14339,8 +14343,9 @@
     "concepts" : [ {
       "concept" : "parsing algorithm",
       "term" : "parse",
-      "definition" : "",
+      "definition" : "Parsing, syntax analysis, or syntactic analysis is a process of analyzing a string of symbols, either in natural language, computer languages or data structures, conforming to the rules of a formal grammar by breaking it into parts. The term parsing comes from Latin pars (orationis), meaning part.",
       "placedUnder" : "computational linguistics | formal languages | natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 556,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14354,6 +14359,7 @@
       "term" : "xml",
       "definition" : "",
       "placedUnder" : "database systems | world wide web",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 489,
       "specificity" : 0.9360742949618635,
       "wordsInTerm" : 1,
@@ -14367,6 +14373,7 @@
       "term" : "html",
       "definition" : "",
       "placedUnder" : "user interfaces | xml",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 342,
       "specificity" : 0.9157038412515502,
       "wordsInTerm" : 1,
@@ -14380,6 +14387,7 @@
       "term" : "detector",
       "definition" : "",
       "placedUnder" : "computer hardware",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 201,
       "specificity" : 0.9276912513497423,
       "wordsInTerm" : 1,
@@ -14393,6 +14401,7 @@
       "term" : "detector",
       "definition" : "",
       "placedUnder" : "computer hardware",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 201,
       "specificity" : 0.9276912513497423,
       "wordsInTerm" : 1,
@@ -14406,6 +14415,7 @@
       "term" : "server",
       "definition" : "",
       "placedUnder" : "security of data | world wide web",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 196,
       "specificity" : 0.7944932756042771,
       "wordsInTerm" : 1,
@@ -14419,6 +14429,7 @@
       "term" : "encoding",
       "definition" : "",
       "placedUnder" : "cryptography | security of data",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -14432,6 +14443,7 @@
       "term" : "encoding",
       "definition" : "",
       "placedUnder" : "encryption | network security",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 137,
       "specificity" : 0.908420200496641,
       "wordsInTerm" : 1,
@@ -14445,6 +14457,7 @@
       "term" : "http",
       "definition" : "",
       "placedUnder" : "client server computer systems | internet protocols | servers",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 124,
       "specificity" : 0.9757689546210163,
       "wordsInTerm" : 1,
@@ -14458,6 +14471,7 @@
       "term" : "detectors",
       "definition" : "",
       "placedUnder" : "computer hardware",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 79,
       "specificity" : 0.9614062668054615,
       "wordsInTerm" : 1,
@@ -14471,6 +14485,7 @@
       "term" : "detectors",
       "definition" : "",
       "placedUnder" : "computer hardware",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 79,
       "specificity" : 0.9614062668054615,
       "wordsInTerm" : 1,
@@ -14484,6 +14499,7 @@
       "term" : "hash",
       "definition" : "",
       "placedUnder" : "authentication | cryptography",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 75,
       "specificity" : 0.9440167659819856,
       "wordsInTerm" : 1,
@@ -14497,6 +14513,7 @@
       "term" : "jpeg",
       "definition" : "",
       "placedUnder" : "digital image storage | discrete cosine transforms",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 60,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14508,8 +14525,9 @@
     }, {
       "concept" : "parsing algorithm",
       "term" : "parsing",
-      "definition" : "",
+      "definition" : "Parsing, syntax analysis, or syntactic analysis is a process of analyzing a string of symbols, either in natural language, computer languages or data structures, conforming to the rules of a formal grammar by breaking it into parts. The term parsing comes from Latin pars (orationis), meaning part.",
       "placedUnder" : "computational linguistics | formal languages | natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 56,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14521,8 +14539,9 @@
     }, {
       "concept" : "publish/subscribe",
       "term" : "print",
-      "definition" : "",
+      "definition" : "In software architecture, the publish–subscribe pattern (pub/sub) is a messaging pattern in which message senders, called publishers, categorize messages into classes, and send them without needing to know which components will receive them. Message recipients, called subscribers, express interest in one or more classes and only receive messages in those classes, without needing to know the identity of the publishers.",
       "placedUnder" : "software architecture patterns",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 67,
       "specificity" : 0.7765230157438232,
       "wordsInTerm" : 1,
@@ -14536,6 +14555,7 @@
       "term" : "audio",
       "definition" : "",
       "placedUnder" : "audio acoustics",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 57,
       "specificity" : 0.7722316007235709,
       "wordsInTerm" : 1,
@@ -14545,10 +14565,11 @@
         "line" : 27
       }
     }, {
-      "concept" : "3g",
+      "concept" : "4g",
       "term" : "gram",
       "definition" : "",
-      "placedUnder" : "wireless networks",
+      "placedUnder" : "3g | lte",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -14558,10 +14579,11 @@
         "line" : 54
       }
     }, {
-      "concept" : "4g",
+      "concept" : "3g",
       "term" : "gram",
       "definition" : "",
-      "placedUnder" : "3g | lte",
+      "placedUnder" : "wireless networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 44,
       "specificity" : 0.9655877191772542,
       "wordsInTerm" : 1,
@@ -14575,6 +14597,7 @@
       "term" : "file system",
       "definition" : "",
       "placedUnder" : "operating systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 45,
       "specificity" : 0.8650886685091275,
       "wordsInTerm" : 2,
@@ -14588,6 +14611,7 @@
       "term" : "java",
       "definition" : "",
       "placedUnder" : "computer programming languages | high level languages | object oriented programming",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 43,
       "specificity" : 0.8935030618239036,
       "wordsInTerm" : 1,
@@ -14599,8 +14623,9 @@
     }, {
       "concept" : "parsing algorithm",
       "term" : "parsed",
-      "definition" : "",
+      "definition" : "Parsing, syntax analysis, or syntactic analysis is a process of analyzing a string of symbols, either in natural language, computer languages or data structures, conforming to the rules of a formal grammar by breaking it into parts. The term parsing comes from Latin pars (orationis), meaning part.",
       "placedUnder" : "computational linguistics | formal languages | natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 37,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14614,6 +14639,7 @@
       "term" : "cache",
       "definition" : "",
       "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 39,
       "specificity" : 0.9182882135926435,
       "wordsInTerm" : 1,
@@ -14625,8 +14651,9 @@
     }, {
       "concept" : "electronic mail",
       "term" : "email",
-      "definition" : "",
+      "definition" : "Electronic mail is a method of transmitting and receiving digital messages using electronic devices over a computer network. It was conceived in the late–20th century as the digital version of, or counterpart to, mail. Email is a ubiquitous and very widely used communication medium; in current use, an email address is often treated as a basic and necessary part of many processes in business, commerce, government, education, entertainment, and other spheres of daily life in most countries.",
       "placedUnder" : "internet",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 43,
       "specificity" : 0.7061164146303349,
       "wordsInTerm" : 1,
@@ -14640,6 +14667,7 @@
       "term" : "target language",
       "definition" : "",
       "placedUnder" : "machine translations | speech transmission",
+      "atTheTopOfItsBranch" : "communication",
       "occurrences" : 34,
       "specificity" : 0.8716036159237258,
       "wordsInTerm" : 2,
@@ -14653,6 +14681,7 @@
       "term" : "module",
       "definition" : "",
       "placedUnder" : "curricula | university",
+      "atTheTopOfItsBranch" : "education",
       "occurrences" : 34,
       "specificity" : 0.8544142087924447,
       "wordsInTerm" : 1,
@@ -14666,6 +14695,7 @@
       "term" : "queue",
       "definition" : "",
       "placedUnder" : "queuing network",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 30,
       "specificity" : 0.9234068407413965,
       "wordsInTerm" : 1,
@@ -14675,10 +14705,11 @@
         "line" : 143
       }
     }, {
-      "concept" : "3g",
+      "concept" : "4g",
       "term" : "grams",
       "definition" : "",
-      "placedUnder" : "wireless networks",
+      "placedUnder" : "3g | lte",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -14688,10 +14719,11 @@
         "line" : 315
       }
     }, {
-      "concept" : "4g",
+      "concept" : "3g",
       "term" : "grams",
       "definition" : "",
-      "placedUnder" : "3g | lte",
+      "placedUnder" : "wireless networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 28,
       "specificity" : 0.9169181175397035,
       "wordsInTerm" : 1,
@@ -14705,6 +14737,7 @@
       "term" : "ids",
       "definition" : "",
       "placedUnder" : "intrusion detection | network security",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 24,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14718,6 +14751,7 @@
       "term" : "block length",
       "definition" : "",
       "placedUnder" : "ldpc codes",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 25,
       "specificity" : 0.9242685337652595,
       "wordsInTerm" : 2,
@@ -14729,8 +14763,9 @@
     }, {
       "concept" : "source language",
       "term" : "source language",
-      "definition" : "",
+      "definition" : "In language, translation is the communication of the meaning of a source-language text by means of an equivalent target-language text. The English language draws a terminological distinction between translating written texts and interpreting oral or signed communications between languages.",
       "placedUnder" : "target language",
+      "atTheTopOfItsBranch" : "communication",
       "occurrences" : 25,
       "specificity" : 0.8747207618522792,
       "wordsInTerm" : 2,
@@ -14744,6 +14779,7 @@
       "term" : "bit rate",
       "definition" : "",
       "placedUnder" : "video processing | visual communication",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 25,
       "specificity" : 0.863417115843319,
       "wordsInTerm" : 2,
@@ -14757,6 +14793,7 @@
       "term" : "multi threaded",
       "definition" : "",
       "placedUnder" : "multi core",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 17,
       "specificity" : 0.9997461209009251,
       "wordsInTerm" : 2,
@@ -14770,6 +14807,7 @@
       "term" : "multi threaded",
       "definition" : "",
       "placedUnder" : "multi core",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 17,
       "specificity" : 0.9997461209009251,
       "wordsInTerm" : 2,
@@ -14779,10 +14817,11 @@
         "line" : 469
       }
     }, {
-      "concept" : "cache",
+      "concept" : "caching",
       "term" : "cached",
       "definition" : "",
-      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
+      "placedUnder" : "cache memory",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 16,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14792,10 +14831,11 @@
         "line" : 152
       }
     }, {
-      "concept" : "caching",
+      "concept" : "cache",
       "term" : "cached",
       "definition" : "",
-      "placedUnder" : "cache memory",
+      "placedUnder" : "buffer storage | cache memory | operating systems | storage allocation (computer)",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 16,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14809,6 +14849,7 @@
       "term" : "drawing",
       "definition" : "",
       "placedUnder" : "computer aided design | graph theory | visualization",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 18,
       "specificity" : 0.8005306775838305,
       "wordsInTerm" : 1,
@@ -14820,8 +14861,9 @@
     }, {
       "concept" : "data packet",
       "term" : "data package",
-      "definition" : "",
+      "definition" : "In telecommunications and computer networking, a network packet is a formatted unit of data carried by a packet-switched network. A packet consists of control information and user data; the latter is also known as the payload. Control information provides data for delivering the payload. Typically, control information is found in packet headers and trailers.",
       "placedUnder" : "mobile ad hoc networks | wireless sensor networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 14,
       "specificity" : 0.8954914350256303,
       "wordsInTerm" : 2,
@@ -14835,6 +14877,7 @@
       "term" : "engine",
       "definition" : "",
       "placedUnder" : "engineering",
+      "atTheTopOfItsBranch" : "engineering",
       "occurrences" : 17,
       "specificity" : 0.7232197202612266,
       "wordsInTerm" : 1,
@@ -14848,6 +14891,7 @@
       "term" : "caching",
       "definition" : "",
       "placedUnder" : "cache memory",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 12,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14861,6 +14905,7 @@
       "term" : "layer",
       "definition" : "",
       "placedUnder" : "software architecture patterns",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 15,
       "specificity" : 0.7799277391627628,
       "wordsInTerm" : 1,
@@ -14874,6 +14919,7 @@
       "term" : "probabilities",
       "definition" : "",
       "placedUnder" : "mathematics",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 12,
       "specificity" : 0.9513225812702161,
       "wordsInTerm" : 1,
@@ -14887,6 +14933,7 @@
       "term" : "encryption",
       "definition" : "",
       "placedUnder" : "cryptography | security of data",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 12,
       "specificity" : 0.9190226592234415,
       "wordsInTerm" : 1,
@@ -14898,8 +14945,9 @@
     }, {
       "concept" : "telephone",
       "term" : "phone",
-      "definition" : "",
+      "definition" : "A telephone, commonly shortened to phone, is a telecommunications device that enables two or more users to conduct a conversation when they are too far apart to be easily heard directly. A telephone converts sound, typically and most efficiently the human voice, into electronic signals that are transmitted via cables and other communication channels to another telephone which reproduces the sound to the receiving user. The term is derived from Ancient Greek: τῆλε, romanized: tēle, lit. 'far' and φωνή, together meaning distant voice.",
       "placedUnder" : "engineering",
+      "atTheTopOfItsBranch" : "engineering",
       "occurrences" : 14,
       "specificity" : 0.7078629452623484,
       "wordsInTerm" : 1,
@@ -14911,8 +14959,9 @@
     }, {
       "concept" : "classifiers",
       "term" : "classifier",
-      "definition" : "",
+      "definition" : "The modern Chinese varieties make frequent use of what are called classifiers or measure words. One use of classifiers is when a noun is qualified by a numeral or demonstrative. In the Chinese equivalent of a phrase such as \"three books\" or \"that person\", it is normally necessary to insert an appropriate classifier between the numeral/demonstrative and the noun. For example, in Standard Chinese, the first of these phrases would be:",
       "placedUnder" : "classification | machine learning",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14926,6 +14975,7 @@
       "term" : "encodings",
       "definition" : "",
       "placedUnder" : "cryptography | security of data",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14939,6 +14989,7 @@
       "term" : "encodings",
       "definition" : "",
       "placedUnder" : "encryption | network security",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 9,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -14952,6 +15003,7 @@
       "term" : "self configuring",
       "definition" : "",
       "placedUnder" : "autonomic computing | mobile ad hoc networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 8,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -14965,6 +15017,7 @@
       "term" : "decoding",
       "definition" : "",
       "placedUnder" : "encryption",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 8,
       "specificity" : 0.9877155105227378,
       "wordsInTerm" : 1,
@@ -14978,6 +15031,7 @@
       "term" : "modules",
       "definition" : "",
       "placedUnder" : "curricula | university",
+      "atTheTopOfItsBranch" : "education",
       "occurrences" : 9,
       "specificity" : 0.8773635740114168,
       "wordsInTerm" : 1,
@@ -14991,6 +15045,7 @@
       "term" : "intermediate node",
       "definition" : "",
       "placedUnder" : "ad hoc networks | network coding | routing protocols | sensor networks | wireless networks | wireless sensor networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 8,
       "specificity" : 0.9836217072801149,
       "wordsInTerm" : 2,
@@ -15002,8 +15057,9 @@
     }, {
       "concept" : "authentication",
       "term" : "authentication",
-      "definition" : "",
+      "definition" : "Authentication is the act of proving an assertion, such as the identity of a computer system user. In contrast with identification, the act of indicating a person or thing's identity, authentication is the process of verifying that identity.",
       "placedUnder" : "security of data",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 8,
       "specificity" : 0.9278254779545803,
       "wordsInTerm" : 1,
@@ -15013,10 +15069,11 @@
         "line" : 195
       }
     }, {
-      "concept" : "hash functions",
+      "concept" : "hashing",
       "term" : "hashes",
       "definition" : "",
-      "placedUnder" : "authentication | cryptography",
+      "placedUnder" : "database systems | hash functions",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15026,10 +15083,11 @@
         "line" : 358
       }
     }, {
-      "concept" : "hashing",
+      "concept" : "hash functions",
       "term" : "hashes",
       "definition" : "",
-      "placedUnder" : "database systems | hash functions",
+      "placedUnder" : "authentication | cryptography",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15043,6 +15101,7 @@
       "term" : "linux",
       "definition" : "",
       "placedUnder" : "operating systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 8,
       "specificity" : 0.856338396894722,
       "wordsInTerm" : 1,
@@ -15056,6 +15115,7 @@
       "term" : "mem",
       "definition" : "",
       "placedUnder" : "sensors",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 6,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15069,6 +15129,7 @@
       "term" : "extract info",
       "definition" : "",
       "placedUnder" : "information extraction",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 6,
       "specificity" : 0.9836191095093314,
       "wordsInTerm" : 2,
@@ -15082,6 +15143,7 @@
       "term" : "shared secret",
       "definition" : "",
       "placedUnder" : "secret key",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 6,
       "specificity" : 0.930747257003637,
       "wordsInTerm" : 2,
@@ -15093,8 +15155,9 @@
     }, {
       "concept" : "central processing unit",
       "term" : "cpu",
-      "definition" : "",
+      "definition" : "A central processing unit (CPU), also known as a central processor, main processor, or simply processor, is the primary processor in a given computer. Its electronic circuitry executes instructions of a computer program, such as arithmetic, logic, controlling, and input/output (I/O) operations. This role contrasts with that of external components, such as main memory and I/O circuitry, and specialized coprocessors such as graphics processing units (GPUs).",
       "placedUnder" : "buffer storage | computer workstations | operating systems | random access storage | reduced instruction set computing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 6,
       "specificity" : 0.8725033182526426,
       "wordsInTerm" : 1,
@@ -15104,10 +15167,11 @@
         "line" : 210
       }
     }, {
-      "concept" : "hash functions",
+      "concept" : "hashing",
       "term" : "hashed",
       "definition" : "",
-      "placedUnder" : "authentication | cryptography",
+      "placedUnder" : "database systems | hash functions",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15117,10 +15181,11 @@
         "line" : 55
       }
     }, {
-      "concept" : "hashing",
+      "concept" : "hash functions",
       "term" : "hashed",
       "definition" : "",
-      "placedUnder" : "database systems | hash functions",
+      "placedUnder" : "authentication | cryptography",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15134,6 +15199,7 @@
       "term" : "cmp",
       "definition" : "",
       "placedUnder" : "chip multiprocessor | multi core",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 5,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15145,8 +15211,9 @@
     }, {
       "concept" : "dublin core",
       "term" : "dublin core",
-      "definition" : "",
+      "definition" : "The Dublin Core vocabulary, also known as the Dublin Core Metadata Terms (DCMT), is a general purpose metadata vocabulary for describing resources of any type. It was first developed for describing web content in the early days of the World Wide Web. The Dublin Core Metadata Initiative (DCMI) is responsible for maintaining the Dublin Core vocabulary.",
       "placedUnder" : "digital libraries",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 5,
       "specificity" : 0.9713821088650526,
       "wordsInTerm" : 2,
@@ -15160,6 +15227,7 @@
       "term" : "css",
       "definition" : "",
       "placedUnder" : "html | javascript",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9988984395193952,
       "wordsInTerm" : 1,
@@ -15171,8 +15239,9 @@
     }, {
       "concept" : "matlab",
       "term" : "mat lab",
-      "definition" : "",
+      "definition" : "MATLAB is a proprietary multi-paradigm programming language and numeric computing environment developed by MathWorks. MATLAB allows matrix manipulations, plotting of functions and data, implementation of algorithms, creation of user interfaces, and interfacing with programs written in other languages.",
       "placedUnder" : "software",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9886701323004816,
       "wordsInTerm" : 2,
@@ -15184,8 +15253,9 @@
     }, {
       "concept" : "regression testing",
       "term" : "regression test",
-      "definition" : "",
+      "definition" : "Regression testing is re-running functional and non-functional tests to ensure that previously developed and tested software still performs as expected after a change. If not, that would be called a regression.",
       "placedUnder" : "computer software maintenance | correlation analysis",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9759630377966142,
       "wordsInTerm" : 2,
@@ -15197,8 +15267,9 @@
     }, {
       "concept" : "variable bit rate",
       "term" : "variable bit rate",
-      "definition" : "",
+      "definition" : "Variable bitrate (VBR) is a term used in telecommunications and computing that relates to the bitrate used in sound or video encoding. As opposed to constant bitrate (CBR), VBR files vary the amount of output data per time segment. VBR allows a higher bitrate to be allocated to the more complex segments of media files while less space is allocated to less complex segments. The average of these rates can be calculated to produce an average bitrate for the file.",
       "placedUnder" : "asynchronous transfer mode | image coding | multiplexing | voice/data communication systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9747476819412005,
       "wordsInTerm" : 3,
@@ -15212,6 +15283,7 @@
       "term" : "embedded image",
       "definition" : "",
       "placedUnder" : "military photography",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9566302892289803,
       "wordsInTerm" : 2,
@@ -15225,6 +15297,7 @@
       "term" : "word embedded",
       "definition" : "",
       "placedUnder" : "natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.9516846265148727,
       "wordsInTerm" : 2,
@@ -15236,8 +15309,9 @@
     }, {
       "concept" : "electronic mail",
       "term" : "emails",
-      "definition" : "",
+      "definition" : "Electronic mail is a method of transmitting and receiving digital messages using electronic devices over a computer network. It was conceived in the late–20th century as the digital version of, or counterpart to, mail. Email is a ubiquitous and very widely used communication medium; in current use, an email address is often treated as a basic and necessary part of many processes in business, commerce, government, education, entertainment, and other spheres of daily life in most countries.",
       "placedUnder" : "internet",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.8780922680836535,
       "wordsInTerm" : 1,
@@ -15251,6 +15325,7 @@
       "term" : "image quality",
       "definition" : "",
       "placedUnder" : "image analysis | image processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.8745814677328531,
       "wordsInTerm" : 2,
@@ -15264,6 +15339,7 @@
       "term" : "servers",
       "definition" : "",
       "placedUnder" : "security of data | world wide web",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.8709929872969795,
       "wordsInTerm" : 1,
@@ -15277,6 +15353,7 @@
       "term" : "probability",
       "definition" : "",
       "placedUnder" : "mathematics",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 4,
       "specificity" : 0.8414480564597963,
       "wordsInTerm" : 1,
@@ -15290,6 +15367,7 @@
       "term" : "process control",
       "definition" : "",
       "placedUnder" : "automation",
+      "atTheTopOfItsBranch" : "engineering",
       "occurrences" : 4,
       "specificity" : 0.8120254548567147,
       "wordsInTerm" : 2,
@@ -15303,6 +15381,7 @@
       "term" : "decoder",
       "definition" : "",
       "placedUnder" : "deep learning",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15314,8 +15393,9 @@
     }, {
       "concept" : "hash value",
       "term" : "hash values",
-      "definition" : "",
+      "definition" : "A hash function is any function that can be used to map data of arbitrary size to fixed-size values, though there are some hash functions that support variable-length output. The values returned by a hash function are called hash values, hash codes, (hash/message) digests, or simply hashes. The values are usually used to index a fixed-size table called a hash table. Use of a hash function to index a hash table is called hashing or scatter-storage addressing.",
       "placedUnder" : "hash functions",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9841477067684615,
       "wordsInTerm" : 2,
@@ -15327,8 +15407,9 @@
     }, {
       "concept" : "computer aided design",
       "term" : "cad",
-      "definition" : "",
+      "definition" : "Computer-aided design (CAD) is the use of computers to aid in the creation, modification, analysis, or optimization of a design. This software is used to increase the productivity of the designer, improve the quality of design, improve communications through documentation, and to create a database for manufacturing. Designs made through CAD software help protect products and inventions when used in patent applications. CAD output is often in the form of electronic files for print, machining, or other manufacturing operations. The terms computer-aided drafting (CAD) and computer-aided design and drafting (CADD) are also used.",
       "placedUnder" : "computer science",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.980501875835005,
       "wordsInTerm" : 1,
@@ -15342,6 +15423,7 @@
       "term" : "transformer",
       "definition" : "",
       "placedUnder" : "deep learning",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9636598314829465,
       "wordsInTerm" : 1,
@@ -15355,6 +15437,7 @@
       "term" : "embedded images",
       "definition" : "",
       "placedUnder" : "military photography",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9617871982639765,
       "wordsInTerm" : 2,
@@ -15368,6 +15451,7 @@
       "term" : "test vector",
       "definition" : "",
       "placedUnder" : "test generations",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9485451935337361,
       "wordsInTerm" : 2,
@@ -15381,6 +15465,7 @@
       "term" : "audio file",
       "definition" : "",
       "placedUnder" : "audio acoustics",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9396631058052325,
       "wordsInTerm" : 2,
@@ -15392,8 +15477,9 @@
     }, {
       "concept" : "internet",
       "term" : "internet",
-      "definition" : "",
+      "definition" : "The Internet is the global system of interconnected computer networks that uses the Internet protocol suite (TCP/IP) to communicate between networks and devices. It is a network of networks that comprises private, public, academic, business, and government networks of local to global scope, linked by electronic, wireless, and optical networking technologies. The Internet carries a vast range of information services and resources, such as the interlinked hypertext documents and applications of the World Wide Web (WWW), electronic mail, discussion groups, internet telephony, streaming media and file sharing.",
       "placedUnder" : "computer science",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 4,
       "specificity" : 0.6993087193144331,
       "wordsInTerm" : 1,
@@ -15407,6 +15493,7 @@
       "term" : "access permission",
       "definition" : "",
       "placedUnder" : "access control policies",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.929576389920484,
       "wordsInTerm" : 2,
@@ -15420,6 +15507,7 @@
       "term" : "ruby",
       "definition" : "",
       "placedUnder" : "corundum | object oriented programming | scripting languages",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.9230612960819871,
       "wordsInTerm" : 1,
@@ -15433,6 +15521,7 @@
       "term" : "source code",
       "definition" : "",
       "placedUnder" : "software engineering",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.8963221751708842,
       "wordsInTerm" : 2,
@@ -15446,6 +15535,7 @@
       "term" : "statistics",
       "definition" : "",
       "placedUnder" : "mathematics",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 3,
       "specificity" : 0.81007512802233,
       "wordsInTerm" : 1,
@@ -15459,6 +15549,7 @@
       "term" : "boost",
       "definition" : "",
       "placedUnder" : "adaptive boosting",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.8081695762867644,
       "wordsInTerm" : 1,
@@ -15470,8 +15561,9 @@
     }, {
       "concept" : "software",
       "term" : "software",
-      "definition" : "",
+      "definition" : "Software (SW) consists of computer programs that instruct the execution of a computer. Software also includes design documents and specifications.",
       "placedUnder" : "computer science",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 3,
       "specificity" : 0.6810970694618597,
       "wordsInTerm" : 1,
@@ -15485,6 +15577,7 @@
       "term" : "word embeded",
       "definition" : "",
       "placedUnder" : "natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -15498,6 +15591,7 @@
       "term" : "decodings",
       "definition" : "",
       "placedUnder" : "encryption",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15509,8 +15603,9 @@
     }, {
       "concept" : "parsing algorithm",
       "term" : "parses",
-      "definition" : "",
+      "definition" : "Parsing, syntax analysis, or syntactic analysis is a process of analyzing a string of symbols, either in natural language, computer languages or data structures, conforming to the rules of a formal grammar by breaking it into parts. The term parsing comes from Latin pars (orationis), meaning part.",
       "placedUnder" : "computational linguistics | formal languages | natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15522,8 +15617,9 @@
     }, {
       "concept" : "naive bayes",
       "term" : "naive bayes",
-      "definition" : "",
+      "definition" : "In statistics, naive Bayes classifiers are a family of \"probabilistic classifiers\" which assume that the features are conditionally independent, given the target class. In other words, a naive Bayes model assumes the information about the class provided by each variable is unrelated to the information from the others, with no information shared between the predictors. The highly unrealistic nature of this assumption, called the naive independence assumption, is what gives the classifier its name. These classifiers are some of the simplest Bayesian network models.",
       "placedUnder" : "bayesian methods | decision trees",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -15537,6 +15633,7 @@
       "term" : "multi threading",
       "definition" : "",
       "placedUnder" : "program compilers | program processors",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -15550,6 +15647,7 @@
       "term" : "https",
       "definition" : "",
       "placedUnder" : "client server computer systems | internet protocols | servers",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15563,6 +15661,7 @@
       "term" : "access permissions",
       "definition" : "",
       "placedUnder" : "access control policies",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.995612832637218,
       "wordsInTerm" : 2,
@@ -15576,6 +15675,7 @@
       "term" : "priority queue",
       "definition" : "",
       "placedUnder" : "queuing network",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9847775747048201,
       "wordsInTerm" : 2,
@@ -15587,8 +15687,9 @@
     }, {
       "concept" : "graphical user interfaces",
       "term" : "gui",
-      "definition" : "",
+      "definition" : "A graphical user interface, or GUI, is a form of user interface that allows users to interact with electronic devices through graphical icons and visual indicators such as secondary notation. In many applications, GUIs are used instead of text-based UIs, which are based on typed command labels or text navigation. GUIs were introduced in reaction to the perceived steep learning curve of command-line interfaces (CLIs), which require commands to be typed on a computer keyboard.",
       "placedUnder" : "user interfaces",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9842055721843924,
       "wordsInTerm" : 1,
@@ -15602,6 +15703,7 @@
       "term" : "statistic",
       "definition" : "",
       "placedUnder" : "mathematics",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 2,
       "specificity" : 0.9805508569322066,
       "wordsInTerm" : 1,
@@ -15615,6 +15717,7 @@
       "term" : "sender",
       "definition" : "",
       "placedUnder" : "antennas | signal receivers",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9664923122811852,
       "wordsInTerm" : 1,
@@ -15628,6 +15731,7 @@
       "term" : "feature extraction",
       "definition" : "",
       "placedUnder" : "machine learning",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9663806021513364,
       "wordsInTerm" : 2,
@@ -15641,6 +15745,7 @@
       "term" : "compression ratio",
       "definition" : "",
       "placedUnder" : "data compression",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.962077237561683,
       "wordsInTerm" : 2,
@@ -15654,6 +15759,7 @@
       "term" : "compression method",
       "definition" : "",
       "placedUnder" : "data compression",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9613719370654011,
       "wordsInTerm" : 2,
@@ -15667,6 +15773,7 @@
       "term" : "tag end",
       "definition" : "",
       "placedUnder" : "generative ai",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9278869121957427,
       "wordsInTerm" : 2,
@@ -15680,6 +15787,7 @@
       "term" : "math",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 2,
       "specificity" : 0.9182768725997746,
       "wordsInTerm" : 1,
@@ -15691,8 +15799,9 @@
     }, {
       "concept" : "word processing",
       "term" : "word processing",
-      "definition" : "",
+      "definition" : "A word processor (WP) is a device or computer program that provides for input, editing, formatting, and output of text, often with some additional features.",
       "placedUnder" : "text processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.9176157701883907,
       "wordsInTerm" : 2,
@@ -15706,6 +15815,7 @@
       "term" : "character set",
       "definition" : "",
       "placedUnder" : "character recognition",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.8354963187718449,
       "wordsInTerm" : 2,
@@ -15717,8 +15827,9 @@
     }, {
       "concept" : "publish/subscribe",
       "term" : "printing",
-      "definition" : "",
+      "definition" : "In software architecture, the publish–subscribe pattern (pub/sub) is a messaging pattern in which message senders, called publishers, categorize messages into classes, and send them without needing to know which components will receive them. Message recipients, called subscribers, express interest in one or more classes and only receive messages in those classes, without needing to know the identity of the publishers.",
       "placedUnder" : "software architecture patterns",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 2,
       "specificity" : 0.8203921070517173,
       "wordsInTerm" : 1,
@@ -15730,8 +15841,9 @@
     }, {
       "concept" : "telephone",
       "term" : "telephone",
-      "definition" : "",
+      "definition" : "A telephone, commonly shortened to phone, is a telecommunications device that enables two or more users to conduct a conversation when they are too far apart to be easily heard directly. A telephone converts sound, typically and most efficiently the human voice, into electronic signals that are transmitted via cables and other communication channels to another telephone which reproduces the sound to the receiving user. The term is derived from Ancient Greek: τῆλε, romanized: tēle, lit. 'far' and φωνή, together meaning distant voice.",
       "placedUnder" : "engineering",
+      "atTheTopOfItsBranch" : "engineering",
       "occurrences" : 2,
       "specificity" : 0.8193099046485783,
       "wordsInTerm" : 1,
@@ -15745,6 +15857,7 @@
       "term" : "ins",
       "definition" : "",
       "placedUnder" : "gps",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15758,6 +15871,7 @@
       "term" : "hog",
       "definition" : "",
       "placedUnder" : "adaptive boosting | pedestrian detection | svm",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15769,8 +15883,9 @@
     }, {
       "concept" : "lossless",
       "term" : "lossless",
-      "definition" : "",
+      "definition" : "Lossless compression is a class of data compression that allows the original data to be perfectly reconstructed from the compressed data with no loss of information. Lossless compression is possible because most real-world data exhibits statistical redundancy. By contrast, lossy compression permits reconstruction only of an approximation of the original data, though usually with greatly improved compression rates.",
       "placedUnder" : "data compression",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -15784,6 +15899,7 @@
       "term" : "skew angle",
       "definition" : "",
       "placedUnder" : "document images",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -15797,6 +15913,7 @@
       "term" : "dialog",
       "definition" : "",
       "placedUnder" : "argumentation | linguistics | speech processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9994177207914136,
       "wordsInTerm" : 1,
@@ -15810,6 +15927,7 @@
       "term" : "ontology concept",
       "definition" : "",
       "placedUnder" : "ontology",
+      "atTheTopOfItsBranch" : "semantics",
       "occurrences" : 1,
       "specificity" : 0.9947674243639553,
       "wordsInTerm" : 2,
@@ -15823,6 +15941,7 @@
       "term" : "cas",
       "definition" : "",
       "placedUnder" : "carrier sense multiple access | mac protocol",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9941595322473004,
       "wordsInTerm" : 1,
@@ -15836,6 +15955,7 @@
       "term" : "zero padded",
       "definition" : "",
       "placedUnder" : "cyclic prefix",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9930454484755888,
       "wordsInTerm" : 2,
@@ -15849,6 +15969,7 @@
       "term" : "referenced images",
       "definition" : "",
       "placedUnder" : "image matching | image quality",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.980017223129781,
       "wordsInTerm" : 2,
@@ -15862,6 +15983,7 @@
       "term" : "info contents",
       "definition" : "",
       "placedUnder" : "information theory",
+      "atTheTopOfItsBranch" : "communication",
       "occurrences" : 1,
       "specificity" : 0.9799833152316374,
       "wordsInTerm" : 2,
@@ -15873,8 +15995,9 @@
     }, {
       "concept" : "controlled vocabulary",
       "term" : "controlled vocabulary",
-      "definition" : "",
+      "definition" : "A controlled vocabulary provides a way to organize knowledge for subsequent retrieval. Controlled vocabularies are used in subject indexing schemes, subject headings, thesauri, taxonomies, and other knowledge organization systems. Controlled vocabulary schemes mandate the use of predefined, preferred terms that have been preselected by the designers of the schemes, in contrast to natural language vocabularies, which have no such restriction.",
       "placedUnder" : "ontology | vocabulary control",
+      "atTheTopOfItsBranch" : "semantics",
       "occurrences" : 1,
       "specificity" : 0.9785610737215177,
       "wordsInTerm" : 2,
@@ -15886,8 +16009,9 @@
     }, {
       "concept" : "hash value",
       "term" : "hash value",
-      "definition" : "",
+      "definition" : "A hash function is any function that can be used to map data of arbitrary size to fixed-size values, though there are some hash functions that support variable-length output. The values returned by a hash function are called hash values, hash codes, (hash/message) digests, or simply hashes. The values are usually used to index a fixed-size table called a hash table. Use of a hash function to index a hash table is called hashing or scatter-storage addressing.",
       "placedUnder" : "hash functions",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9782417895377806,
       "wordsInTerm" : 2,
@@ -15901,6 +16025,7 @@
       "term" : "entropy rate",
       "definition" : "",
       "placedUnder" : "information theory | signal theory",
+      "atTheTopOfItsBranch" : "communication",
       "occurrences" : 1,
       "specificity" : 0.9746713826334816,
       "wordsInTerm" : 2,
@@ -15912,8 +16037,9 @@
     }, {
       "concept" : "constant bit rate",
       "term" : "constant bit rate",
-      "definition" : "",
+      "definition" : "Constant bitrate (CBR) is a term used in telecommunications, relating to the quality of service. Compare with variable bitrate.",
       "placedUnder" : "variable bit rate",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9688709813784359,
       "wordsInTerm" : 3,
@@ -15927,6 +16053,7 @@
       "term" : "info confidence",
       "definition" : "",
       "placedUnder" : "curricula | information security | information systems | information technology",
+      "atTheTopOfItsBranch" : "education",
       "occurrences" : 1,
       "specificity" : 0.9679156849351876,
       "wordsInTerm" : 2,
@@ -15940,6 +16067,7 @@
       "term" : "detector data",
       "definition" : "",
       "placedUnder" : "sensors",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9665206637044148,
       "wordsInTerm" : 2,
@@ -15953,6 +16081,7 @@
       "term" : "local detector",
       "definition" : "",
       "placedUnder" : "fusion center | fusion reactions",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9660780226128107,
       "wordsInTerm" : 2,
@@ -15964,8 +16093,9 @@
     }, {
       "concept" : "data encryption",
       "term" : "data encryption",
-      "definition" : "",
+      "definition" : "In cryptography, encryption is the process of transforming information in a way that, ideally, only authorized parties can decode. This process converts the original representation of the information, known as plaintext, into an alternative form known as ciphertext. Encryption does not itself prevent interference but denies the intelligible content to a would-be interceptor.",
       "placedUnder" : "encryption",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9625070593145862,
       "wordsInTerm" : 2,
@@ -15979,6 +16109,7 @@
       "term" : "data cache",
       "definition" : "",
       "placedUnder" : "cache memory | program processors",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.962167007070241,
       "wordsInTerm" : 2,
@@ -15992,6 +16123,7 @@
       "term" : "audio stream",
       "definition" : "",
       "placedUnder" : "audio systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9572188752847363,
       "wordsInTerm" : 2,
@@ -16005,6 +16137,7 @@
       "term" : "block boundaries",
       "definition" : "",
       "placedUnder" : "blocking artifacts",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.953500397057203,
       "wordsInTerm" : 2,
@@ -16018,6 +16151,7 @@
       "term" : "feature vector",
       "definition" : "",
       "placedUnder" : "machine learning",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9534575498856307,
       "wordsInTerm" : 2,
@@ -16031,6 +16165,7 @@
       "term" : "style sheet",
       "definition" : "",
       "placedUnder" : "electronic document",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9405829760630973,
       "wordsInTerm" : 2,
@@ -16044,6 +16179,7 @@
       "term" : "class label",
       "definition" : "",
       "placedUnder" : "classification methods | classifiers",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.938635366828095,
       "wordsInTerm" : 2,
@@ -16057,6 +16193,7 @@
       "term" : "text document",
       "definition" : "",
       "placedUnder" : "information retrieval systems | text mining",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.933648636017483,
       "wordsInTerm" : 2,
@@ -16070,6 +16207,7 @@
       "term" : "data matrix",
       "definition" : "",
       "placedUnder" : "factorization",
+      "atTheTopOfItsBranch" : "mathematics",
       "occurrences" : 1,
       "specificity" : 0.9329670968849673,
       "wordsInTerm" : 2,
@@ -16081,8 +16219,9 @@
     }, {
       "concept" : "software agents",
       "term" : "software agent",
-      "definition" : "",
+      "definition" : "In computer science, a software agent is a computer program that acts for a user or another program in a relationship of agency.",
       "placedUnder" : "multiagent system",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9308962133621891,
       "wordsInTerm" : 2,
@@ -16096,6 +16235,7 @@
       "term" : "message delivery",
       "definition" : "",
       "placedUnder" : "delay tolerant networks",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9269509346551387,
       "wordsInTerm" : 2,
@@ -16109,6 +16249,7 @@
       "term" : "object location",
       "definition" : "",
       "placedUnder" : "object detection | object tracking",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9259525664420084,
       "wordsInTerm" : 2,
@@ -16120,8 +16261,9 @@
     }, {
       "concept" : "structuring element",
       "term" : "structure element",
-      "definition" : "",
+      "definition" : "In mathematical morphology, a structuring element is a shape, used to probe or interact with a given image, with the purpose of drawing conclusions on how this shape fits or misses the shapes in the image. It is typically used in morphological operations, such as dilation, erosion, opening, and closing, as well as the hit-or-miss transform.",
       "placedUnder" : "mathematical morphology",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9253458013210898,
       "wordsInTerm" : 2,
@@ -16135,6 +16277,7 @@
       "term" : "data detection",
       "definition" : "",
       "placedUnder" : "channel estimation | mimo systems | signal detection",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9249775127016825,
       "wordsInTerm" : 2,
@@ -16148,6 +16291,7 @@
       "term" : "text message",
       "definition" : "",
       "placedUnder" : "telephone systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9196665874269184,
       "wordsInTerm" : 2,
@@ -16161,6 +16305,7 @@
       "term" : "text feature",
       "definition" : "",
       "placedUnder" : "text classification",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.9121603200539925,
       "wordsInTerm" : 2,
@@ -16174,6 +16319,7 @@
       "term" : "target languages",
       "definition" : "",
       "placedUnder" : "machine translations | speech transmission",
+      "atTheTopOfItsBranch" : "communication",
       "occurrences" : 1,
       "specificity" : 0.9057731183939249,
       "wordsInTerm" : 2,
@@ -16187,6 +16333,7 @@
       "term" : "vocabulary",
       "definition" : "",
       "placedUnder" : "linguistics",
+      "atTheTopOfItsBranch" : "linguistics",
       "occurrences" : 1,
       "specificity" : 0.9047012074715994,
       "wordsInTerm" : 1,
@@ -16198,8 +16345,9 @@
     }, {
       "concept" : "digital image",
       "term" : "digital image",
-      "definition" : "",
+      "definition" : "A digital image is an image composed of picture elements, also known as pixels, each with finite, discrete quantities of numeric representation for its intensity or gray level that is an output from its two-dimensional functions fed as input by its spatial coordinates denoted with x, y on the x-axis and y-axis, respectively. An image can be vector or raster type. By itself, the term \"digital image\" usually refers to raster images or bitmapped images.",
       "placedUnder" : "image analysis | image processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8975199548537884,
       "wordsInTerm" : 2,
@@ -16211,8 +16359,9 @@
     }, {
       "concept" : "automation",
       "term" : "automation",
-      "definition" : "",
+      "definition" : "Automation describes a wide range of technologies that reduce human intervention in processes, mainly by predetermining decision criteria, subprocess relationships, and related actions, as well as embodying those predeterminations in machines. Automation has been achieved by various means including mechanical, hydraulic, pneumatic, electrical, electronic devices, and computers, usually in combination. Complicated systems, such as modern factories, airplanes, and ships typically use combinations of all of these techniques. The benefits of automation includes labor savings, reducing waste, savings in electricity costs, savings in material costs, and improvements to quality, accuracy, and precision.",
       "placedUnder" : "engineering",
+      "atTheTopOfItsBranch" : "engineering",
       "occurrences" : 1,
       "specificity" : 0.8865738059093317,
       "wordsInTerm" : 1,
@@ -16226,6 +16375,7 @@
       "term" : "word class",
       "definition" : "",
       "placedUnder" : "natural language processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8816680449205898,
       "wordsInTerm" : 2,
@@ -16239,6 +16389,7 @@
       "term" : "small file",
       "definition" : "",
       "placedUnder" : "file systems",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8783766821746586,
       "wordsInTerm" : 2,
@@ -16252,6 +16403,7 @@
       "term" : "drawings",
       "definition" : "",
       "placedUnder" : "computer aided design | graph theory | visualization",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8779740012401644,
       "wordsInTerm" : 1,
@@ -16265,6 +16417,7 @@
       "term" : "single image",
       "definition" : "",
       "placedUnder" : "image segmentation",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8768303089466487,
       "wordsInTerm" : 2,
@@ -16278,6 +16431,7 @@
       "term" : "gps",
       "definition" : "",
       "placedUnder" : "software",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8574009675223205,
       "wordsInTerm" : 1,
@@ -16291,6 +16445,7 @@
       "term" : "radar",
       "definition" : "",
       "placedUnder" : "computer hardware | signal processing",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.851841332404798,
       "wordsInTerm" : 1,
@@ -16302,8 +16457,9 @@
     }, {
       "concept" : "publish/subscribe",
       "term" : "printed",
-      "definition" : "",
+      "definition" : "In software architecture, the publish–subscribe pattern (pub/sub) is a messaging pattern in which message senders, called publishers, categorize messages into classes, and send them without needing to know which components will receive them. Message recipients, called subscribers, express interest in one or more classes and only receive messages in those classes, without needing to know the identity of the publishers.",
       "placedUnder" : "software architecture patterns",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.8043172196536099,
       "wordsInTerm" : 1,
@@ -16317,6 +16473,7 @@
       "term" : "on body",
       "definition" : "",
       "placedUnder" : "antennas | communication | wireless body area network",
+      "atTheTopOfItsBranch" : "computer science",
       "occurrences" : 1,
       "specificity" : 0.6886619986905312,
       "wordsInTerm" : 2,
@@ -16326,11 +16483,347 @@
         "line" : 146
       }
     } ],
-    "branches" : [ ],
+    "branches" : [ {
+      "branch" : "computational linguistics | formal languages | natural language processing",
+      "agreesWithTheRepository" : 0.2681159902042842,
+      "mass" : 651.0,
+      "kept" : 174.54350962298903,
+      "terms" : [ "parse", "parsing", "parsed", "parses" ]
+    }, {
+      "branch" : "computer hardware",
+      "agreesWithTheRepository" : 0.30712527878105556,
+      "mass" : 262.41703659892966,
+      "kept" : 80.59490552234473,
+      "terms" : [ "detector", "detectors" ]
+    }, {
+      "branch" : "cryptography | security of data",
+      "agreesWithTheRepository" : 0.17501495442515433,
+      "mass" : 77.7550556447012,
+      "kept" : 13.60829751998272,
+      "terms" : [ "encoding", "encryption", "encodings" ]
+    }, {
+      "branch" : "authentication | cryptography",
+      "agreesWithTheRepository" : 0.4505112572491042,
+      "mass" : 76.80125744864893,
+      "kept" : 34.59983105150295,
+      "terms" : [ "hash", "hashes", "hashed" ]
+    }, {
+      "branch" : "software architecture patterns",
+      "agreesWithTheRepository" : 0.1905910453181843,
+      "mass" : 66.17105957603465,
+      "kept" : 12.611611414408292,
+      "terms" : [ "print", "layer", "printing", "printed" ]
+    }, {
+      "branch" : "audio acoustics",
+      "agreesWithTheRepository" : 0.11334248091611043,
+      "mass" : 46.83619055865924,
+      "kept" : 5.308530034578147,
+      "terms" : [ "audio", "audio file" ]
+    }, {
+      "branch" : "operating systems",
+      "agreesWithTheRepository" : 0.33535411826517225,
+      "mass" : 45.77969725806851,
+      "kept" : 15.352410008426089,
+      "terms" : [ "file system", "linux" ]
+    }, {
+      "branch" : "wireless networks",
+      "agreesWithTheRepository" : 0.32732965320435303,
+      "mass" : 34.07978346745544,
+      "kept" : 11.155323703681633,
+      "terms" : [ "gram", "grams" ]
+    }, {
+      "branch" : "internet",
+      "agreesWithTheRepository" : 0.27463115432360014,
+      "mass" : 33.87537490143902,
+      "kept" : 9.30323331232691,
+      "terms" : [ "email", "emails" ]
+    }, {
+      "branch" : "queuing network",
+      "agreesWithTheRepository" : 0.37677390459566545,
+      "mass" : 29.671760371651533,
+      "kept" : 11.179545011454081,
+      "terms" : [ "queue", "priority queue" ]
+    }, {
+      "branch" : "engineering",
+      "agreesWithTheRepository" : 0.24827489450833018,
+      "mass" : 24.730010093320217,
+      "kept" : 6.1398406471090174,
+      "terms" : [ "engine", "phone", "telephone", "automation" ]
+    }, {
+      "branch" : "intrusion detection | network security",
+      "agreesWithTheRepository" : 0.18205330384627103,
+      "mass" : 24.0,
+      "kept" : 4.369279292310504,
+      "terms" : [ "ids" ]
+    }, {
+      "branch" : "ldpc codes",
+      "agreesWithTheRepository" : 0.2596905927548136,
+      "mass" : 23.10671334413149,
+      "kept" : 6.0005960849530675,
+      "terms" : [ "block length" ]
+    }, {
+      "branch" : "target language",
+      "agreesWithTheRepository" : 0.3527983173940714,
+      "mass" : 21.86801904630698,
+      "kept" : 7.715000324278609,
+      "terms" : [ "source language" ]
+    }, {
+      "branch" : "cache memory",
+      "agreesWithTheRepository" : 0.36981186723772286,
+      "mass" : 20.0,
+      "kept" : 7.396237344754457,
+      "terms" : [ "cached", "caching" ]
+    }, {
+      "branch" : "mathematics",
+      "agreesWithTheRepository" : 0.19775238605772644,
+      "mass" : 19.17299029901318,
+      "kept" : 3.791504579491498,
+      "terms" : [ "probabilities", "probability", "statistics", "statistic" ]
+    }, {
+      "branch" : "multi core",
+      "agreesWithTheRepository" : 0.23675887706660828,
+      "mass" : 16.995684055315728,
+      "kept" : 4.0238790719154105,
+      "terms" : [ "multi threaded" ]
+    }, {
+      "branch" : "mobile ad hoc networks | wireless sensor networks",
+      "agreesWithTheRepository" : 0.25201557395616475,
+      "mass" : 12.536880090358824,
+      "kept" : 3.1594890315913937,
+      "terms" : [ "data package" ]
+    }, {
+      "branch" : "encryption",
+      "agreesWithTheRepository" : 0.14763648905008542,
+      "mass" : 10.864231143496488,
+      "kept" : 1.6039569422544162,
+      "terms" : [ "decoding", "decodings", "data encryption" ]
+    }, {
+      "branch" : "classification | machine learning",
+      "agreesWithTheRepository" : 0.2793875353728369,
+      "mass" : 9.0,
+      "kept" : 2.514487818355532,
+      "terms" : [ "classifier" ]
+    }, {
+      "branch" : "computer science",
+      "agreesWithTheRepository" : 0.38827372198811244,
+      "mass" : 7.782031713148326,
+      "kept" : 3.0215584178936274,
+      "terms" : [ "cad", "internet", "software" ]
+    }, {
+      "branch" : "security of data",
+      "agreesWithTheRepository" : 0.3928480235929232,
+      "mass" : 7.422603823636642,
+      "kept" : 2.9159552420289296,
+      "terms" : [ "authentication" ]
+    }, {
+      "branch" : "sensors",
+      "agreesWithTheRepository" : 0.15787982035550688,
+      "mass" : 6.966520663704415,
+      "kept" : 1.0998730308885796,
+      "terms" : [ "mem", "detector data" ]
+    }, {
+      "branch" : "natural language processing",
+      "agreesWithTheRepository" : 0.28979277209012955,
+      "mass" : 6.68840655098008,
+      "kept" : 1.9382518752742997,
+      "terms" : [ "word embedded", "word embeded", "word class" ]
+    }, {
+      "branch" : "information extraction",
+      "agreesWithTheRepository" : 0.19286722070196968,
+      "mass" : 5.901714657055988,
+      "kept" : 1.1382473032824667,
+      "terms" : [ "extract info" ]
+    }, {
+      "branch" : "buffer storage | computer workstations | operating systems | random access storage | reduced instruction set computing",
+      "agreesWithTheRepository" : 0.15535454085639508,
+      "mass" : 5.235019909515856,
+      "kept" : 0.8132841144169227,
+      "terms" : [ "cpu" ]
+    }, {
+      "branch" : "digital libraries",
+      "agreesWithTheRepository" : 0.39718616505296195,
+      "mass" : 4.856910544325263,
+      "kept" : 1.9290976731058451,
+      "terms" : [ "dublin core" ]
+    }, {
+      "branch" : "data compression",
+      "agreesWithTheRepository" : 0.35785486728884613,
+      "mass" : 4.846898349254168,
+      "kept" : 1.7344861655348778,
+      "terms" : [ "compression ratio", "compression method", "lossless" ]
+    }, {
+      "branch" : "software",
+      "agreesWithTheRepository" : 0.20615449790412257,
+      "mass" : 4.812081496724247,
+      "kept" : 0.9920322448309057,
+      "terms" : [ "mat lab", "gps" ]
+    }, {
+      "branch" : "access control policies",
+      "agreesWithTheRepository" : 0.43930518284016956,
+      "mass" : 4.779954835035888,
+      "kept" : 2.099858932773193,
+      "terms" : [ "access permission", "access permissions" ]
+    }, {
+      "branch" : "image analysis | image processing",
+      "agreesWithTheRepository" : 0.22076670563283254,
+      "mass" : 4.395845825785201,
+      "kept" : 0.970456401428437,
+      "terms" : [ "image quality", "digital image" ]
+    }, {
+      "branch" : "hash functions",
+      "agreesWithTheRepository" : 0.2722791948418493,
+      "mass" : 3.930684909843165,
+      "kept" : 1.0702437224291041,
+      "terms" : [ "hash values", "hash value" ]
+    }, {
+      "branch" : "computer software maintenance | correlation analysis",
+      "agreesWithTheRepository" : 0.08343644616535789,
+      "mass" : 3.903852151186457,
+      "kept" : 0.3257235498499854,
+      "terms" : [ "regression test" ]
+    }, {
+      "branch" : "asynchronous transfer mode | image coding | multiplexing | voice/data communication systems",
+      "agreesWithTheRepository" : 0.27336014568252737,
+      "mass" : 3.898990727764802,
+      "kept" : 1.0658286733566098,
+      "terms" : [ "variable bit rate" ]
+    }, {
+      "branch" : "automation",
+      "agreesWithTheRepository" : 0.2145905999893667,
+      "mass" : 3.248101819426859,
+      "kept" : 0.6970121182573632,
+      "terms" : [ "process control" ]
+    }, {
+      "branch" : "machine learning",
+      "agreesWithTheRepository" : 0.15613698535871307,
+      "mass" : 2.8862187541883033,
+      "kept" : 0.4506454953647422,
+      "terms" : [ "feature extraction", "feature vector" ]
+    }, {
+      "branch" : "software engineering",
+      "agreesWithTheRepository" : 0.37365145630764635,
+      "mass" : 2.6889665255126527,
+      "kept" : 1.0047362582203145,
+      "terms" : [ "source code" ]
+    }, {
+      "branch" : "adaptive boosting",
+      "agreesWithTheRepository" : 0.10849988393558156,
+      "mass" : 2.4245087288602933,
+      "kept" : 0.26305891568214623,
+      "terms" : [ "boost" ]
+    }, {
+      "branch" : "bayesian methods | decision trees",
+      "agreesWithTheRepository" : 0.19554200874662314,
+      "mass" : 2.0,
+      "kept" : 0.3910840174932463,
+      "terms" : [ "naive bayes" ]
+    }, {
+      "branch" : "user interfaces",
+      "agreesWithTheRepository" : 0.2934359816696951,
+      "mass" : 1.9684111443687848,
+      "kept" : 0.5776026564774223,
+      "terms" : [ "gui" ]
+    }, {
+      "branch" : "text processing",
+      "agreesWithTheRepository" : 0.43025632659772856,
+      "mass" : 1.8352315403767814,
+      "kept" : 0.7896199810188049,
+      "terms" : [ "word processing" ]
+    }, {
+      "branch" : "character recognition",
+      "agreesWithTheRepository" : 0.1916538127151874,
+      "mass" : 1.6709926375436899,
+      "kept" : 0.32025211000425535,
+      "terms" : [ "character set" ]
+    }, {
+      "branch" : "document images",
+      "agreesWithTheRepository" : 0.32085298808960655,
+      "mass" : 1.0,
+      "kept" : 0.32085298808960655,
+      "terms" : [ "skew angle" ]
+    }, {
+      "branch" : "ontology",
+      "agreesWithTheRepository" : 0.22948148540578575,
+      "mass" : 0.9947674243639553,
+      "kept" : 0.2282807061763281,
+      "terms" : [ "ontology concept" ]
+    }, {
+      "branch" : "information theory",
+      "agreesWithTheRepository" : 0.10194431338961593,
+      "mass" : 0.9799833152316374,
+      "kept" : 0.09990372620456882,
+      "terms" : [ "info contents" ]
+    }, {
+      "branch" : "ontology | vocabulary control",
+      "agreesWithTheRepository" : 0.10179516501210727,
+      "mass" : 0.9785610737215177,
+      "kept" : 0.09961278597390676,
+      "terms" : [ "controlled vocabulary" ]
+    }, {
+      "branch" : "variable bit rate",
+      "agreesWithTheRepository" : 0.2439916399416059,
+      "mass" : 0.9688709813784359,
+      "kept" : 0.23639641963835767,
+      "terms" : [ "constant bit rate" ]
+    }, {
+      "branch" : "audio systems",
+      "agreesWithTheRepository" : 0.18433185425447782,
+      "mass" : 0.9572188752847363,
+      "kept" : 0.17644593020862118,
+      "terms" : [ "audio stream" ]
+    }, {
+      "branch" : "factorization",
+      "agreesWithTheRepository" : 0.10790862861648036,
+      "mass" : 0.9329670968849673,
+      "kept" : 0.10067519996915578,
+      "terms" : [ "data matrix" ]
+    }, {
+      "branch" : "multiagent system",
+      "agreesWithTheRepository" : 0.3907553822410672,
+      "mass" : 0.9308962133621891,
+      "kept" : 0.3637527056791042,
+      "terms" : [ "software agent" ]
+    }, {
+      "branch" : "delay tolerant networks",
+      "agreesWithTheRepository" : 0.2059212413134528,
+      "mass" : 0.9269509346551387,
+      "kept" : 0.19087888710085144,
+      "terms" : [ "message delivery" ]
+    }, {
+      "branch" : "mathematical morphology",
+      "agreesWithTheRepository" : 0.2784040977073899,
+      "mass" : 0.9253458013210898,
+      "kept" : 0.25762006288411965,
+      "terms" : [ "structure element" ]
+    }, {
+      "branch" : "text classification",
+      "agreesWithTheRepository" : 0.27641731524669877,
+      "mass" : 0.9121603200539925,
+      "kept" : 0.2521369067438941,
+      "terms" : [ "text feature" ]
+    }, {
+      "branch" : "linguistics",
+      "agreesWithTheRepository" : 0.31643453460045223,
+      "mass" : 0.9047012074715994,
+      "kept" : 0.28627870553874274,
+      "terms" : [ "vocabulary" ]
+    }, {
+      "branch" : "file systems",
+      "agreesWithTheRepository" : 0.35071745967674783,
+      "mass" : 0.8783766821746586,
+      "kept" : 0.3080620386115864,
+      "terms" : [ "small file" ]
+    }, {
+      "branch" : "image segmentation",
+      "agreesWithTheRepository" : 0.24797347610153994,
+      "mass" : 0.8768303089466487,
+      "kept" : 0.21743065966068767,
+      "terms" : [ "single image" ]
+    } ],
     "matchesByNormalisation" : {
-      "senses" : 726,
+      "words" : 1591,
       "lemmas" : 1030,
-      "words" : 1591
+      "senses" : 726
     },
     "bar" : {
       "phrases" : 30,
@@ -16347,6 +16840,7 @@
       "term" : "index",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
       "placedUnder" : "Reference",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 481,
       "specificity" : 0.7796147782262398,
       "wordsInTerm" : 1,
@@ -16360,6 +16854,7 @@
       "term" : "request",
       "definition" : "event in which some party asks another party for something at some point in time",
       "placedUnder" : "Occurrence",
+      "atTheTopOfItsBranch" : "Occurrence",
       "occurrences" : 170,
       "specificity" : 0.7475821270776889,
       "wordsInTerm" : 1,
@@ -16373,6 +16868,7 @@
       "term" : "control",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
       "placedUnder" : "Situation",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 76,
       "specificity" : 0.5728611498803413,
       "wordsInTerm" : 1,
@@ -16386,6 +16882,7 @@
       "term" : "strategy",
       "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
       "placedUnder" : "Approach",
+      "atTheTopOfItsBranch" : "Approach",
       "occurrences" : 42,
       "specificity" : 0.718410500404424,
       "wordsInTerm" : 1,
@@ -16399,6 +16896,7 @@
       "term" : "requested",
       "definition" : "event in which some party asks another party for something at some point in time",
       "placedUnder" : "Occurrence",
+      "atTheTopOfItsBranch" : "Occurrence",
       "occurrences" : 36,
       "specificity" : 0.8278259902359494,
       "wordsInTerm" : 1,
@@ -16412,6 +16910,7 @@
       "term" : "scheme",
       "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
       "placedUnder" : "Approach",
+      "atTheTopOfItsBranch" : "Approach",
       "occurrences" : 33,
       "specificity" : 0.7491684665185151,
       "wordsInTerm" : 1,
@@ -16425,6 +16924,7 @@
       "term" : "action",
       "definition" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
       "placedUnder" : "Occurrence",
+      "atTheTopOfItsBranch" : "Occurrence",
       "occurrences" : 37,
       "specificity" : 0.6173261840740754,
       "wordsInTerm" : 1,
@@ -16438,6 +16938,7 @@
       "term" : "address",
       "definition" : "index to a location to which communications may be delivered",
       "placedUnder" : "Index",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 32,
       "specificity" : 0.6794201110861805,
       "wordsInTerm" : 1,
@@ -16451,6 +16952,7 @@
       "term" : "futures",
       "definition" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
       "placedUnder" : "DerivativeInstrument",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 21,
       "specificity" : 0.8988113042841438,
       "wordsInTerm" : 1,
@@ -16464,6 +16966,7 @@
       "term" : "indices",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
       "placedUnder" : "Reference",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 18,
       "specificity" : 0.9484869167031783,
       "wordsInTerm" : 1,
@@ -16477,6 +16980,7 @@
       "term" : "mean",
       "definition" : "most common measure of central tendency; the average of a set of numbers",
       "placedUnder" : "StatisticalMeasure",
+      "atTheTopOfItsBranch" : "Measure",
       "occurrences" : 22,
       "specificity" : 0.6857403946539076,
       "wordsInTerm" : 1,
@@ -16490,6 +16994,7 @@
       "term" : "method",
       "definition" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
       "placedUnder" : "Approach",
+      "atTheTopOfItsBranch" : "Approach",
       "occurrences" : 20,
       "specificity" : 0.6968996699439631,
       "wordsInTerm" : 1,
@@ -16503,6 +17008,7 @@
       "term" : "requests",
       "definition" : "event in which some party asks another party for something at some point in time",
       "placedUnder" : "Occurrence",
+      "atTheTopOfItsBranch" : "Occurrence",
       "occurrences" : 16,
       "specificity" : 0.8367530314115595,
       "wordsInTerm" : 1,
@@ -16516,6 +17022,7 @@
       "term" : "minor",
       "definition" : "a person under a certain age, usually the age of majority in a given jurisdiction, which legally demarcates childhood from adulthood",
       "placedUnder" : "Person",
+      "atTheTopOfItsBranch" : "Party",
       "occurrences" : 14,
       "specificity" : 0.7633755709710374,
       "wordsInTerm" : 1,
@@ -16529,6 +17036,7 @@
       "term" : "kept",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 14,
       "specificity" : 0.7202812056919629,
       "wordsInTerm" : 1,
@@ -16542,6 +17050,7 @@
       "term" : "kept",
       "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
       "placedUnder" : "Asset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 14,
       "specificity" : 0.7202812056919629,
       "wordsInTerm" : 1,
@@ -16555,6 +17064,7 @@
       "term" : "keep",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 16,
       "specificity" : 0.5937840538704761,
       "wordsInTerm" : 1,
@@ -16568,6 +17078,7 @@
       "term" : "keep",
       "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
       "placedUnder" : "Asset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 16,
       "specificity" : 0.5937840538704761,
       "wordsInTerm" : 1,
@@ -16581,6 +17092,7 @@
       "term" : "options",
       "definition" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
       "placedUnder" : "DerivativeInstrument",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 13,
       "specificity" : 0.6931747772240983,
       "wordsInTerm" : 1,
@@ -16594,6 +17106,7 @@
       "term" : "person",
       "definition" : "individual human being, with consciousness of self",
       "placedUnder" : "Party",
+      "atTheTopOfItsBranch" : "Party",
       "occurrences" : 13,
       "specificity" : 0.5998059997762352,
       "wordsInTerm" : 1,
@@ -16607,6 +17120,7 @@
       "term" : "affiliations",
       "definition" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
       "placedUnder" : "Control",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 7,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16620,6 +17134,7 @@
       "term" : "plus",
       "definition" : "something of monetary value that is owned or provides benefit to some party",
       "placedUnder" : "Undergoer",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 9,
       "specificity" : 0.7219594913613162,
       "wordsInTerm" : 1,
@@ -16633,6 +17148,7 @@
       "term" : "rights",
       "definition" : "entitlement to perform certain actions (or not), or to be in certain states (or not); or entitlement that requires others to perform certain actions or be in certain states (or not)",
       "placedUnder" : "LegalConstruct",
+      "atTheTopOfItsBranch" : "LegalConstruct",
       "occurrences" : 9,
       "specificity" : 0.6620676121796059,
       "wordsInTerm" : 1,
@@ -16646,6 +17162,7 @@
       "term" : "actions",
       "definition" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
       "placedUnder" : "Occurrence",
+      "atTheTopOfItsBranch" : "Occurrence",
       "occurrences" : 8,
       "specificity" : 0.7373661434912665,
       "wordsInTerm" : 1,
@@ -16659,6 +17176,7 @@
       "term" : "keeps",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 7,
       "specificity" : 0.829642920112731,
       "wordsInTerm" : 1,
@@ -16672,6 +17190,7 @@
       "term" : "keeps",
       "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
       "placedUnder" : "Asset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 7,
       "specificity" : 0.829642920112731,
       "wordsInTerm" : 1,
@@ -16685,6 +17204,7 @@
       "term" : "affiliation",
       "definition" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
       "placedUnder" : "Control",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 6,
       "specificity" : 0.9483354422570521,
       "wordsInTerm" : 1,
@@ -16698,6 +17218,7 @@
       "term" : "responsible party",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "ResponsibleParty",
       "occurrences" : 5,
       "specificity" : 0.8834427008111734,
       "wordsInTerm" : 2,
@@ -16711,6 +17232,7 @@
       "term" : "option",
       "definition" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
       "placedUnder" : "DerivativeInstrument",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 6,
       "specificity" : 0.7231414150770764,
       "wordsInTerm" : 1,
@@ -16724,6 +17246,7 @@
       "term" : "median",
       "definition" : "value of the variate dividing the total frequency of a data sample, population, or probability distribution, into two halves",
       "placedUnder" : "StatisticalMeasure",
+      "atTheTopOfItsBranch" : "Measure",
       "occurrences" : 5,
       "specificity" : 0.8335234312517315,
       "wordsInTerm" : 1,
@@ -16737,6 +17260,7 @@
       "term" : "controls",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
       "placedUnder" : "Situation",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 5,
       "specificity" : 0.812851571753071,
       "wordsInTerm" : 1,
@@ -16750,6 +17274,7 @@
       "term" : "set window",
       "definition" : "an explicit period of time prior to a put date during which holder or agent must give notice to an issuer",
       "placedUnder" : "DatePeriod",
+      "atTheTopOfItsBranch" : "DatePeriod",
       "occurrences" : 4,
       "specificity" : 0.8852436632707068,
       "wordsInTerm" : 2,
@@ -16763,6 +17288,7 @@
       "term" : "addresses",
       "definition" : "index to a location to which communications may be delivered",
       "placedUnder" : "Index",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 4,
       "specificity" : 0.8358591066287854,
       "wordsInTerm" : 1,
@@ -16776,6 +17302,7 @@
       "term" : "interest",
       "definition" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
       "placedUnder" : "MonetaryAmount",
+      "atTheTopOfItsBranch" : "ScalarQuantityValue",
       "occurrences" : 5,
       "specificity" : 0.6254771723844276,
       "wordsInTerm" : 1,
@@ -16789,6 +17316,7 @@
       "term" : "persons",
       "definition" : "individual human being, with consciousness of self",
       "placedUnder" : "Party",
+      "atTheTopOfItsBranch" : "Party",
       "occurrences" : 3,
       "specificity" : 0.7891368591853015,
       "wordsInTerm" : 1,
@@ -16802,6 +17330,7 @@
       "term" : "methods",
       "definition" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
       "placedUnder" : "Approach",
+      "atTheTopOfItsBranch" : "Approach",
       "occurrences" : 3,
       "specificity" : 0.707771771865724,
       "wordsInTerm" : 1,
@@ -16815,6 +17344,7 @@
       "term" : "tester",
       "definition" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
       "placedUnder" : "ResponsibleParty",
+      "atTheTopOfItsBranch" : "ResponsibleParty",
       "occurrences" : 2,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16828,6 +17358,7 @@
       "term" : "generated resource",
       "definition" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
       "placedUnder" : "NegotiableCommodity",
+      "atTheTopOfItsBranch" : "Good",
       "occurrences" : 2,
       "specificity" : 0.9559242963601621,
       "wordsInTerm" : 2,
@@ -16841,6 +17372,7 @@
       "term" : "organization name",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "OrganizationName",
       "occurrences" : 2,
       "specificity" : 0.8849795632744337,
       "wordsInTerm" : 2,
@@ -16854,6 +17386,7 @@
       "term" : "future",
       "definition" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
       "placedUnder" : "DerivativeInstrument",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 3,
       "specificity" : 0.5873800647604726,
       "wordsInTerm" : 1,
@@ -16867,6 +17400,7 @@
       "term" : "real property",
       "definition" : "physical asset defined as land together with any structures that are permanently attached to that land, such as houses, trees, fences and improvements",
       "placedUnder" : "PhysicalAsset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 2,
       "specificity" : 0.8519160956277693,
       "wordsInTerm" : 2,
@@ -16880,6 +17414,7 @@
       "term" : "holding",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 2,
       "specificity" : 0.7492894665688258,
       "wordsInTerm" : 1,
@@ -16893,6 +17428,7 @@
       "term" : "holding",
       "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
       "placedUnder" : "Asset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 2,
       "specificity" : 0.7492894665688258,
       "wordsInTerm" : 1,
@@ -16906,6 +17442,7 @@
       "term" : "testers",
       "definition" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
       "placedUnder" : "ResponsibleParty",
+      "atTheTopOfItsBranch" : "ResponsibleParty",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -16919,6 +17456,7 @@
       "term" : "indexed",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
       "placedUnder" : "Reference",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 1,
       "specificity" : 0.9926287691586186,
       "wordsInTerm" : 1,
@@ -16932,6 +17470,7 @@
       "term" : "indexes",
       "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
       "placedUnder" : "Reference",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 1,
       "specificity" : 0.9841642387895104,
       "wordsInTerm" : 1,
@@ -16945,6 +17484,7 @@
       "term" : "generate resource",
       "definition" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
       "placedUnder" : "NegotiableCommodity",
+      "atTheTopOfItsBranch" : "Good",
       "occurrences" : 1,
       "specificity" : 0.9570754423149367,
       "wordsInTerm" : 2,
@@ -16958,6 +17498,7 @@
       "term" : "relationships manager",
       "definition" : "responsible party who manages a client's account and oversees their relationship with the service provider",
       "placedUnder" : "ResponsibleParty",
+      "atTheTopOfItsBranch" : "ResponsibleParty",
       "occurrences" : 1,
       "specificity" : 0.9279570721375434,
       "wordsInTerm" : 2,
@@ -16971,6 +17512,7 @@
       "term" : "swap",
       "definition" : "derivative instrument whereby counterparties agree to exchange periodic streams of cash flows or liabilities from two different financial instruments with each other",
       "placedUnder" : "DerivativeInstrument",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 1,
       "specificity" : 0.9134568637870581,
       "wordsInTerm" : 1,
@@ -16984,6 +17526,7 @@
       "term" : "street address",
       "definition" : "index to a location that consists of a primary address number, predirectional, street name, suffix, postdirectional, and an optional secondary unit",
       "placedUnder" : "AddressComponent",
+      "atTheTopOfItsBranch" : "Aspect",
       "occurrences" : 1,
       "specificity" : 0.8817343320360087,
       "wordsInTerm" : 2,
@@ -16997,6 +17540,7 @@
       "term" : "schemes",
       "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
       "placedUnder" : "Approach",
+      "atTheTopOfItsBranch" : "Approach",
       "occurrences" : 1,
       "specificity" : 0.8565058158427568,
       "wordsInTerm" : 1,
@@ -17010,6 +17554,7 @@
       "term" : "balanced",
       "definition" : "amount of money available or owed",
       "placedUnder" : "MonetaryAmount",
+      "atTheTopOfItsBranch" : "ScalarQuantityValue",
       "occurrences" : 1,
       "specificity" : 0.8543074139333079,
       "wordsInTerm" : 1,
@@ -17023,6 +17568,7 @@
       "term" : "phone number",
       "definition" : "virtual address that may be assigned to a fixed-line telephone subscriber station connected to a telephone line or to a wireless electronic telephony device, such as a radio telephone or a mobile telephone, or to other devices or services for data transmission via the public switched telephone network (PSTN) or other public and private networks",
       "placedUnder" : "VirtualAddress",
+      "atTheTopOfItsBranch" : "Reference",
       "occurrences" : 1,
       "specificity" : 0.851673474604625,
       "wordsInTerm" : 2,
@@ -17036,6 +17582,7 @@
       "term" : "service resources",
       "definition" : "negotiable commodity involving services such as transportation, communications, and trade",
       "placedUnder" : "NegotiableCommodity",
+      "atTheTopOfItsBranch" : "Good",
       "occurrences" : 1,
       "specificity" : 0.8502060333153239,
       "wordsInTerm" : 2,
@@ -17049,6 +17596,7 @@
       "term" : "set feature",
       "definition" : "redemption provision giving the holder the right, but not the obligation, to sell a specified amount of the debt instrument (i.e., redeem it), prior to maturity",
       "placedUnder" : "DebtTerms",
+      "atTheTopOfItsBranch" : "Constituent",
       "occurrences" : 1,
       "specificity" : 0.848405414531306,
       "wordsInTerm" : 2,
@@ -17062,6 +17610,7 @@
       "term" : "asset",
       "definition" : "something of monetary value that is owned or provides benefit to some party",
       "placedUnder" : "Undergoer",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 1,
       "specificity" : 0.7900697496079451,
       "wordsInTerm" : 1,
@@ -17075,6 +17624,7 @@
       "term" : "controlled",
       "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
       "placedUnder" : "Situation",
+      "atTheTopOfItsBranch" : "Situation",
       "occurrences" : 1,
       "specificity" : 0.7750346493415101,
       "wordsInTerm" : 1,
@@ -17088,6 +17638,7 @@
       "term" : "interesting",
       "definition" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
       "placedUnder" : "MonetaryAmount",
+      "atTheTopOfItsBranch" : "ScalarQuantityValue",
       "occurrences" : 1,
       "specificity" : 0.7434396450099406,
       "wordsInTerm" : 1,
@@ -17101,6 +17652,7 @@
       "term" : "claims",
       "definition" : "demand or assertion made by one party on another, based on facts that, taken together, give rise to a legally enforceable right or judicial action",
       "placedUnder" : "LegalConstruct",
+      "atTheTopOfItsBranch" : "LegalConstruct",
       "occurrences" : 1,
       "specificity" : 0.7200391571623913,
       "wordsInTerm" : 1,
@@ -17114,6 +17666,7 @@
       "term" : "difference",
       "definition" : "quantity by which amounts differ; the remainder left after subtraction of one value from another",
       "placedUnder" : "StatisticalMeasure",
+      "atTheTopOfItsBranch" : "Measure",
       "occurrences" : 1,
       "specificity" : 0.7056517358079548,
       "wordsInTerm" : 1,
@@ -17127,6 +17680,7 @@
       "term" : "individual",
       "definition" : "individual human being, with consciousness of self",
       "placedUnder" : "Party",
+      "atTheTopOfItsBranch" : "Party",
       "occurrences" : 1,
       "specificity" : 0.6560088005080736,
       "wordsInTerm" : 1,
@@ -17140,6 +17694,7 @@
       "term" : "means",
       "definition" : "most common measure of central tendency; the average of a set of numbers",
       "placedUnder" : "StatisticalMeasure",
+      "atTheTopOfItsBranch" : "Measure",
       "occurrences" : 1,
       "specificity" : 0.6011259470673291,
       "wordsInTerm" : 1,
@@ -17153,6 +17708,7 @@
       "term" : "held",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 1,
       "specificity" : 0.59179013376606,
       "wordsInTerm" : 1,
@@ -17166,6 +17722,7 @@
       "term" : "held",
       "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
       "placedUnder" : "Asset",
+      "atTheTopOfItsBranch" : "Undergoer",
       "occurrences" : 1,
       "specificity" : 0.59179013376606,
       "wordsInTerm" : 1,
@@ -17179,6 +17736,7 @@
       "term" : "party",
       "definition" : "",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Party",
       "occurrences" : 1,
       "specificity" : 0.5909233942820292,
       "wordsInTerm" : 1,
@@ -17196,27 +17754,27 @@
       "terms" : [ "index", "indices", "indexed", "indexes" ]
     }, {
       "branch" : "Occurrence",
-      "agreesWithTheRepository" : 0.20277408494808094,
+      "agreesWithTheRepository" : 0.16340853360709454,
       "mass" : 199.01874371295713,
-      "kept" : 40.35584364391152,
+      "kept" : 32.52136107046049,
       "terms" : [ "request", "requested", "action", "requests", "actions" ]
     }, {
       "branch" : "Approach",
-      "agreesWithTheRepository" : 0.23550697148330274,
+      "agreesWithTheRepository" : 0.14347730519961305,
       "mass" : 71.81361494241598,
-      "kept" : 16.912606966356446,
+      "kept" : 10.30362394858051,
       "terms" : [ "strategy", "scheme", "method", "methods", "schemes" ]
     }, {
       "branch" : "Situation",
-      "agreesWithTheRepository" : 0.2612991000648257,
+      "agreesWithTheRepository" : 0.32393209120135086,
       "mass" : 48.376739899012804,
-      "kept" : 12.640798599682194,
+      "kept" : 15.670778520991044,
       "terms" : [ "control", "controls", "controlled" ]
     }, {
       "branch" : "DerivativeInstrument",
-      "agreesWithTheRepository" : 0.3453641543996417,
+      "agreesWithTheRepository" : 0.3394531681711005,
       "mass" : 34.900755042411234,
-      "kept" : 12.053469753131386,
+      "kept" : 11.847171870710005,
       "terms" : [ "futures", "options", "option", "future", "swap" ]
     }, {
       "branch" : "Index",
@@ -17226,21 +17784,21 @@
       "terms" : [ "address", "addresses" ]
     }, {
       "branch" : "StatisticalMeasure",
-      "agreesWithTheRepository" : 0.14674585082361088,
+      "agreesWithTheRepository" : 0.1400822224442554,
       "mass" : 20.560683521519906,
-      "kept" : 3.0171949968804346,
+      "kept" : 2.8801862426674876,
       "terms" : [ "mean", "median", "difference", "means" ]
     }, {
       "branch" : "Asset",
-      "agreesWithTheRepository" : 0.16044338078888562,
+      "agreesWithTheRepository" : 0.26184504366045747,
       "mass" : 13.741175624653962,
-      "kept" : 2.204680673233309,
+      "kept" : 3.5980587313835306,
       "terms" : [ "kept", "keep", "keeps", "holding", "held" ]
     }, {
       "branch" : "Control",
-      "agreesWithTheRepository" : 0.14123138578743474,
+      "agreesWithTheRepository" : 0.15192169872241995,
       "mass" : 12.690012653542313,
-      "kept" : 1.792228072719863,
+      "kept" : 1.9278882791351521,
       "terms" : [ "affiliations", "affiliation" ]
     }, {
       "branch" : "Party",
@@ -17250,75 +17808,75 @@
       "terms" : [ "person", "persons", "individual" ]
     }, {
       "branch" : "Person",
-      "agreesWithTheRepository" : 0.1490179066516352,
+      "agreesWithTheRepository" : 0.10707618844746018,
       "mass" : 10.687257993594523,
-      "kept" : 1.5925928140514107,
+      "kept" : 1.1443508509087523,
       "terms" : [ "minor" ]
     }, {
       "branch" : "Undergoer",
-      "agreesWithTheRepository" : 0.23048144142232416,
+      "agreesWithTheRepository" : 0.2832452777229253,
       "mass" : 7.287705171859791,
-      "kept" : 1.6796807926711712,
+      "kept" : 2.0642080753662255,
       "terms" : [ "plus", "asset" ]
     }, {
       "branch" : "LegalConstruct",
-      "agreesWithTheRepository" : 0.19145423374990264,
+      "agreesWithTheRepository" : 0.14645075171698702,
       "mass" : 6.678647666778844,
-      "kept" : 1.2786553715287188,
+      "kept" : 0.9780929712526631,
       "terms" : [ "rights", "claims" ]
     }, {
       "branch" : "MonetaryAmount",
-      "agreesWithTheRepository" : 0.15386882772954238,
+      "agreesWithTheRepository" : 0.17560781297205644,
       "mass" : 4.725132920865387,
-      "kept" : 0.7270506633998256,
+      "kept" : 0.8297702582354356,
       "terms" : [ "interest", "balanced", "interesting" ]
     }, {
       "branch" : "ResponsibleParty",
-      "agreesWithTheRepository" : 0.14461034245024784,
+      "agreesWithTheRepository" : 0.15918753060914448,
       "mass" : 3.927957072137543,
-      "kept" : 0.568023217331683,
+      "kept" : 0.6252817866523007,
       "terms" : [ "tester", "testers", "relationships manager" ]
     }, {
       "branch" : "NegotiableCommodity",
-      "agreesWithTheRepository" : 0.24620994555578632,
+      "agreesWithTheRepository" : 0.2489890334074686,
       "mass" : 3.7191300683505846,
-      "kept" : 0.9156868116434853,
+      "kept" : 0.9260226008352648,
       "terms" : [ "generated resource", "generate resource", "service resources" ]
     }, {
       "branch" : "DatePeriod",
-      "agreesWithTheRepository" : 0.14559211767653318,
+      "agreesWithTheRepository" : 0.19909568674647465,
       "mass" : 3.540974653082827,
-      "kept" : 0.5155379983812562,
+      "kept" : 0.7049927803073853,
       "terms" : [ "set window" ]
     }, {
       "branch" : "PhysicalAsset",
-      "agreesWithTheRepository" : 0.07098211260255376,
+      "agreesWithTheRepository" : 0.07098211260255374,
       "mass" : 1.7038321912555385,
-      "kept" : 0.12094160845555654,
+      "kept" : 0.12094160845555652,
       "terms" : [ "real property" ]
     }, {
       "branch" : "AddressComponent",
-      "agreesWithTheRepository" : 0.31339800476579155,
+      "agreesWithTheRepository" : 0.33345788959574546,
       "mass" : 0.8817343320360087,
-      "kept" : 0.2763337803935831,
+      "kept" : 0.29402126954484176,
       "terms" : [ "street address" ]
     }, {
       "branch" : "VirtualAddress",
-      "agreesWithTheRepository" : 0.23836855645360355,
+      "agreesWithTheRepository" : 0.23836855645360358,
       "mass" : 0.851673474604625,
-      "kept" : 0.20301217671132923,
+      "kept" : 0.20301217671132926,
       "terms" : [ "phone number" ]
     }, {
       "branch" : "DebtTerms",
-      "agreesWithTheRepository" : 0.24662347889734182,
+      "agreesWithTheRepository" : 0.22812194086407886,
       "mass" : 0.848405414531306,
-      "kept" : 0.2092366948470521,
+      "kept" : 0.1935398898024749,
       "terms" : [ "set feature" ]
     } ],
     "matchesByNormalisation" : {
-      "senses" : 91,
+      "words" : 950,
       "lemmas" : 153,
-      "words" : 950
+      "senses" : 91
     },
     "bar" : {
       "phrases" : 5,
@@ -17335,6 +17893,7 @@
       "term" : "exception",
       "definition" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
       "placedUnder" : "Message",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 181,
       "specificity" : 0.8207204797960789,
       "wordsInTerm" : 1,
@@ -17348,6 +17907,7 @@
       "term" : "document",
       "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 160,
       "specificity" : 0.7694971136593916,
       "wordsInTerm" : 1,
@@ -17361,6 +17921,7 @@
       "term" : "message",
       "definition" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
       "placedUnder" : "Document",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 106,
       "specificity" : 0.7209238460785024,
       "wordsInTerm" : 1,
@@ -17374,6 +17935,7 @@
       "term" : "strategy",
       "definition" : "A type defining a group of products making up a single trade.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 42,
       "specificity" : 0.718410500404424,
       "wordsInTerm" : 1,
@@ -17387,6 +17949,7 @@
       "term" : "documents",
       "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 34,
       "specificity" : 0.7494103217955828,
       "wordsInTerm" : 1,
@@ -17400,6 +17963,7 @@
       "term" : "scheme",
       "definition" : "A type defining a group of products making up a single trade.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 33,
       "specificity" : 0.7491684665185151,
       "wordsInTerm" : 1,
@@ -17413,6 +17977,7 @@
       "term" : "exceptions",
       "definition" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
       "placedUnder" : "Message",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 21,
       "specificity" : 0.8776862037432436,
       "wordsInTerm" : 1,
@@ -17426,6 +17991,7 @@
       "term" : "contact info",
       "definition" : "A type that represents how to contact an individual or organization.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "ContactInformation",
       "occurrences" : 10,
       "specificity" : 0.9543374449886431,
       "wordsInTerm" : 2,
@@ -17439,6 +18005,7 @@
       "term" : "options",
       "definition" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 13,
       "specificity" : 0.6931747772240983,
       "wordsInTerm" : 1,
@@ -17452,6 +18019,7 @@
       "term" : "repo",
       "definition" : "A Repo, modeled as an FpML:Product. Note: this Repo model is a candidate model for further industry input.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 8,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -17465,6 +18033,7 @@
       "term" : "messages",
       "definition" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
       "placedUnder" : "Document",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 7,
       "specificity" : 0.7903117014726758,
       "wordsInTerm" : 1,
@@ -17477,7 +18046,8 @@
       "concept" : "ProductType",
       "term" : "product type",
       "definition" : "",
-      "placedUnder" : "",
+      "placedUnder" : "NonEmptyLongScheme",
+      "atTheTopOfItsBranch" : "NonEmptyLongScheme",
       "occurrences" : 6,
       "specificity" : 0.8661830959862992,
       "wordsInTerm" : 2,
@@ -17491,6 +18061,7 @@
       "term" : "option",
       "definition" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 6,
       "specificity" : 0.7231414150770764,
       "wordsInTerm" : 1,
@@ -17504,6 +18075,7 @@
       "term" : "packet header",
       "definition" : "Identifying information for a tradePackage (a bundle of trades).",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "PackageHeader",
       "occurrences" : 2,
       "specificity" : 0.9891189427639617,
       "wordsInTerm" : 2,
@@ -17517,6 +18089,7 @@
       "term" : "documented",
       "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Document",
       "occurrences" : 2,
       "specificity" : 0.8650422629265783,
       "wordsInTerm" : 1,
@@ -17529,7 +18102,8 @@
       "concept" : "PartyName",
       "term" : "party name",
       "definition" : "The data type used for the legal name of an organization.",
-      "placedUnder" : "",
+      "placedUnder" : "Scheme",
+      "atTheTopOfItsBranch" : "Scheme",
       "occurrences" : 2,
       "specificity" : 0.8230814594813067,
       "wordsInTerm" : 2,
@@ -17542,7 +18116,8 @@
       "concept" : "LcType",
       "term" : "lc type",
       "definition" : "A list of L/C types.",
-      "placedUnder" : "",
+      "placedUnder" : "Scheme",
+      "atTheTopOfItsBranch" : "Scheme",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -17556,6 +18131,7 @@
       "term" : "fra",
       "definition" : "A type defining a Forward Rate Agreement (FRA) product.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 1,
@@ -17569,6 +18145,7 @@
       "term" : "swap",
       "definition" : "A type defining swap streams and additional payments between the principal parties involved in the swap.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 1,
       "specificity" : 0.9134568637870581,
       "wordsInTerm" : 1,
@@ -17582,6 +18159,7 @@
       "term" : "fixed rate",
       "definition" : "The calculation period fixed rate. A per annum rate, expressed as a decimal. A fixed rate of 5% would be represented as 0.05.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "FixedRate",
       "occurrences" : 1,
       "specificity" : 0.9060288855682483,
       "wordsInTerm" : 2,
@@ -17595,6 +18173,7 @@
       "term" : "street address",
       "definition" : "A type that describes the set of street and building number information that identifies a postal address within a city.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "StreetAddress",
       "occurrences" : 1,
       "specificity" : 0.8817343320360087,
       "wordsInTerm" : 2,
@@ -17608,6 +18187,7 @@
       "term" : "schemes",
       "definition" : "A type defining a group of products making up a single trade.",
       "placedUnder" : "Product",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 1,
       "specificity" : 0.8565058158427568,
       "wordsInTerm" : 1,
@@ -17621,6 +18201,7 @@
       "term" : "phone number",
       "definition" : "A type that represents a telephonic contact.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "TelephoneNumber",
       "occurrences" : 1,
       "specificity" : 0.851673474604625,
       "wordsInTerm" : 2,
@@ -17633,7 +18214,8 @@
       "concept" : "PartyRole",
       "term" : "party role",
       "definition" : "A type describing a role played by a party in one or more transactions. Examples include roles such as guarantor, custodian, confirmation service provider, etc. This can be extended to provide custom roles.",
-      "placedUnder" : "",
+      "placedUnder" : "Scheme",
+      "atTheTopOfItsBranch" : "Scheme",
       "occurrences" : 1,
       "specificity" : 0.8332455891202115,
       "wordsInTerm" : 2,
@@ -17647,6 +18229,7 @@
       "term" : "product",
       "definition" : "The base type which all FpML products extend.",
       "placedUnder" : "",
+      "atTheTopOfItsBranch" : "Product",
       "occurrences" : 1,
       "specificity" : 0.6425037715033017,
       "wordsInTerm" : 1,
@@ -17658,27 +18241,33 @@
     } ],
     "branches" : [ {
       "branch" : "Message",
-      "agreesWithTheRepository" : 0.2017697060394261,
+      "agreesWithTheRepository" : 0.20176970603942607,
       "mass" : 166.9818171216984,
-      "kept" : 33.6918721545743,
+      "kept" : 33.69187215457429,
       "terms" : [ "exception", "exceptions" ]
     }, {
       "branch" : "Document",
-      "agreesWithTheRepository" : 0.12278918836804632,
+      "agreesWithTheRepository" : 0.12278918836804634,
       "mass" : 81.95010959462999,
-      "kept" : 10.062587443797062,
+      "kept" : 10.062587443797064,
       "terms" : [ "message", "messages" ]
     }, {
       "branch" : "Product",
-      "agreesWithTheRepository" : 0.33411993762721576,
+      "agreesWithTheRepository" : 0.3365470415598886,
       "mass" : 79.01588368610236,
-      "kept" : 26.400782128759854,
+      "kept" : 26.592561890798017,
       "terms" : [ "strategy", "scheme", "options", "repo", "option", "fra", "swap", "schemes" ]
+    }, {
+      "branch" : "Scheme",
+      "agreesWithTheRepository" : 0.41628566821906116,
+      "mass" : 3.479408508082825,
+      "kept" : 1.4484278957943455,
+      "terms" : [ "party name", "lc type", "party role" ]
     } ],
     "matchesByNormalisation" : {
-      "senses" : 47,
+      "words" : 518,
       "lemmas" : 77,
-      "words" : 518
+      "senses" : 47
     },
     "bar" : {
       "phrases" : 6,
@@ -17695,6 +18284,7 @@
       "term" : "css",
       "definition" : "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
       "placedUnder" : "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
+      "atTheTopOfItsBranch" : "Improper Neutralization",
       "occurrences" : 4,
       "specificity" : 0.9988984395193952,
       "wordsInTerm" : 1,
@@ -17708,6 +18298,7 @@
       "term" : "process control",
       "definition" : "Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker.",
       "placedUnder" : "External Control of File Name or Path",
+      "atTheTopOfItsBranch" : "Improper Control of a Resource Through its Lifetime",
       "occurrences" : 4,
       "specificity" : 0.8120254548567147,
       "wordsInTerm" : 2,
@@ -17721,6 +18312,7 @@
       "term" : "infinite loop",
       "definition" : "The product contains an iteration or loop with an exit condition that cannot be reached, i.e., an infinite loop.",
       "placedUnder" : "Excessive Iteration",
+      "atTheTopOfItsBranch" : "Insufficient Control Flow Management",
       "occurrences" : 2,
       "specificity" : 0.9797731635843047,
       "wordsInTerm" : 2,
@@ -17734,6 +18326,7 @@
       "term" : "buffer underrun",
       "definition" : "The product writes to a buffer using an index or pointer that references a memory location prior to the beginning of the buffer.",
       "placedUnder" : "Access of Memory Location Before Start of Buffer | Out-of-bounds Write",
+      "atTheTopOfItsBranch" : "Improper Control of a Resource Through its Lifetime",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -17747,6 +18340,7 @@
       "term" : "brute force",
       "definition" : "The product does not properly limit the number or frequency of interactions that it has with an actor, such as the number of incoming requests.",
       "placedUnder" : "Insufficient Control Flow Management",
+      "atTheTopOfItsBranch" : "Insufficient Control Flow Management",
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -17758,9 +18352,9 @@
     } ],
     "branches" : [ {
       "branch" : "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
-      "agreesWithTheRepository" : 0.30503106880266617,
+      "agreesWithTheRepository" : 0.3050310688026662,
       "mass" : 3.9955937580775807,
-      "kept" : 1.218780234527666,
+      "kept" : 1.2187802345276662,
       "terms" : [ "css" ]
     }, {
       "branch" : "External Control of File Name or Path",
@@ -17770,9 +18364,9 @@
       "terms" : [ "process control" ]
     }, {
       "branch" : "Excessive Iteration",
-      "agreesWithTheRepository" : 0.16039436470744547,
+      "agreesWithTheRepository" : 0.16039436470744556,
       "mass" : 1.9595463271686093,
-      "kept" : 0.3143001882610172,
+      "kept" : 0.31430018826101735,
       "terms" : [ "infinite loop" ]
     }, {
       "branch" : "Access of Memory Location Before Start of Buffer | Out-of-bounds Write",
@@ -17788,9 +18382,9 @@
       "terms" : [ "brute force" ]
     } ],
     "matchesByNormalisation" : {
-      "senses" : 0,
+      "words" : 12,
       "lemmas" : 0,
-      "words" : 12
+      "senses" : 0
     },
     "bar" : {
       "phrases" : 4,
