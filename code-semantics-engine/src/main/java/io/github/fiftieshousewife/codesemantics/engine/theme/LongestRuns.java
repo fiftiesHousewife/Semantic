@@ -49,7 +49,11 @@ final class LongestRuns implements PublishedRuns {
                 .orElse(1);
     }
 
+    /**
+     * How far a run beginning at this position could reach: the longest run the index publishes beginning
+     * with the word standing there, or the words that remain, whichever is shorter.
+     */
     private int reachFrom(final List<String> words, final int from) {
-        return Math.min(phrases.longestRun(), words.size() - from);
+        return Math.min(phrases.longestRunFrom(words.get(from)), words.size() - from);
     }
 }

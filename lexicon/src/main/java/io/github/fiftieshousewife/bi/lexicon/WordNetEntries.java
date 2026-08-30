@@ -16,7 +16,7 @@ import java.util.Optional;
  * dictionary's own morphology resolve an inflection to its entry first. A lookup that throws is a broken
  * database, not a missing word, and fails.
  */
-final class WordNetEntries {
+class WordNetEntries {
 
     private final Dictionary dictionary;
 

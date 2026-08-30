@@ -1,5 +1,10 @@
 package io.github.fiftieshousewife.bi.lexicon;
 
+import java.util.Optional;
+
+import net.sf.extjwnl.data.IndexWord;
+import net.sf.extjwnl.data.POS;
+import net.sf.extjwnl.dictionary.Dictionary;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,5 +73,35 @@ class WordNetSensesTest {
         assertAll(
                 () -> assertThat(lexicon.commonestSense("article")).isNotEqualTo(lexicon.commonestSense("determiner")),
                 () -> assertThat(lexicon.commonestSense("lemma")).isNotEqualTo(lexicon.commonestSense("form")));
+    }
+
+    /** The same entries, counting how often the dictionary itself is asked. */
+    private static final class CountedEntries extends WordNetEntries {
+
+        private int lookups;
+
+        private CountedEntries(final Dictionary dictionary) {
+            super(dictionary);
+        }
+
+        @Override
+        Optional<IndexWord> inflected(final POS partOfSpeech, final String written) {
+            lookups++;
+            return super.inflected(partOfSpeech, written);
+        }
+    }
+
+    @Test
+    void asksTheDictionaryOncePerPartOfSpeechForAWordHoweverOftenItIsRead() throws Exception {
+        final CountedEntries counted = new CountedEntries(Dictionary.getDefaultResourceInstance());
+        final WordNetSenses senses = new WordNetSenses(counted);
+
+        senses.senseCount("token");
+        senses.countedSenses("token");
+        senses.commonestSense("token");
+
+        assertThat(counted.lookups)
+                .as("four parts of speech asked once each, not once for every question")
+                .isEqualTo(POS.values().length);
     }
 }

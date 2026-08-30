@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,17 +27,20 @@ import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
  * <p>{@link #longestRun()} is a fact about the resources rather than a limit set here: it is what bounds the
  * longest-match walk, so a reading is never asked about a run longer than anything either resource states.
  */
-public final class PublishedPhrases {
+public class PublishedPhrases {
 
     /** How the resources write a run of words, and so how one is asked for. */
     static final String JOINER = "_";
 
     private final Set<String> written;
     private final int longestRun;
+    private final Map<String, Integer> longestFromFirstWord;
 
     public PublishedPhrases(final Set<String> written) {
         this.written = Set.copyOf(written);
         this.longestRun = written.stream().mapToInt(PublishedPhrases::wordsIn).max().orElse(1);
+        this.longestFromFirstWord = written.stream().collect(Collectors.toUnmodifiableMap(
+                run -> run.split(JOINER, -1)[0], PublishedPhrases::wordsIn, Integer::max));
     }
 
     /** The collocations the two bundled topical resources publish, pooled. */
@@ -75,6 +79,19 @@ public final class PublishedPhrases {
     /** How many words the longest run either resource publishes is written in. */
     public int longestRun() {
         return longestRun;
+    }
+
+    /**
+     * How many words the longest run beginning with this word is written in, and one where no run begins
+     * with it — the bound a longest-match walk from that position actually has.
+     *
+     * <p>{@link #longestRun()} bounds the walk by the whole index, and a single long entry therefore has
+     * every position in every phrase asked about runs the word standing there could never begin. This is
+     * the same fact read off the same index and it admits exactly the runs the wider bound admits, because
+     * a run beginning with a word is no longer than the longest run beginning with that word.
+     */
+    public int longestRunFrom(final String word) {
+        return longestFromFirstWord.getOrDefault(word.toLowerCase(Locale.ROOT), 1);
     }
 
     /** How many entries were pooled, which is what a report quotes when it says what the index can see. */

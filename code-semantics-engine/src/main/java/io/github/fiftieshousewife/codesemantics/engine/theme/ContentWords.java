@@ -1,6 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.fiftieshousewife.bi.lexicon.Lexicon;
 import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
@@ -31,6 +33,12 @@ import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
  * an inference. Where the surface is itself a noun the dictionary indexes — {@code left}, {@code saw} — no
  * inference was made and the noun stands.
  *
+ * <p>A word is asked of the dictionary once and the answer is kept for the life of this reader. The
+ * dictionary cannot change under a running program, and the same word is asked for over and over: the
+ * collocation walk tests the lemma of every candidate run's first and last word at every position and
+ * length, and each miss costs up to three WordNet lookups. The answer is a fact about the language and not
+ * about the caller, so keeping it changes no figure.
+ *
  * <p>One- and two-letter forms are refused, and that is a rule about length rather than a list of words. The
  * dictionary's entries for them are symbol readings — {@code a} the ampere, {@code be} beryllium, {@code em}
  * a printer's measure — so reading the article in a sentence as a unit of current is not a judgement call but
@@ -40,6 +48,7 @@ public final class ContentWords {
 
     private final Lexicon lexicon;
     private final int shortestProseWord;
+    private final Map<String, Optional<String>> asked = new ConcurrentHashMap<>();
 
     public ContentWords(final Lexicon lexicon, final Thresholds thresholds) {
         this.lexicon = lexicon;
@@ -58,6 +67,10 @@ public final class ContentWords {
         if (word.length() < shortestProseWord) {
             return Optional.empty();
         }
+        return asked.computeIfAbsent(word, this::statedFor);
+    }
+
+    private Optional<String> statedFor(final String word) {
         final Optional<String> noun = lexicon.nounBase(word);
         if (noun.filter(word::equals).isPresent()) {
             return noun;

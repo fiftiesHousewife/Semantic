@@ -7,7 +7,9 @@ import net.sf.extjwnl.data.Synset;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
@@ -28,6 +30,7 @@ import java.util.stream.Stream;
 final class WordNetSenses {
 
     private final WordNetEntries entries;
+    private final Map<String, Optional<IndexWord>> asked = new ConcurrentHashMap<>();
 
     WordNetSenses(final WordNetEntries entries) {
         this.entries = entries;
@@ -119,10 +122,17 @@ final class WordNetSenses {
                 .toList();
     }
 
+    /**
+     * The dictionary's entry for the word in that part of speech, asked once and kept for the life of this
+     * reader. A dictionary cannot change under a running program, and every question here asks all four
+     * parts of speech about one word — so a word read a thousand times cost four thousand lookups, each of
+     * them a read and a parse of a line of the dictionary's own files.
+     */
     private Optional<IndexWord> entry(final POS partOfSpeech, final String written) {
-        return isCollocation(written)
-                ? entries.exact(partOfSpeech, written)
-                : entries.inflected(partOfSpeech, written);
+        return asked.computeIfAbsent(partOfSpeech.getKey() + " " + written,
+                key -> isCollocation(written)
+                        ? entries.exact(partOfSpeech, written)
+                        : entries.inflected(partOfSpeech, written));
     }
 
     private static boolean isCollocation(final String written) {

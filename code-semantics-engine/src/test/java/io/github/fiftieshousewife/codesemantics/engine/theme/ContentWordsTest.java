@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,5 +48,19 @@ class ContentWordsTest {
                 () -> assertThat(content.lemmaOf("and")).isEmpty(),
                 () -> assertThat(content.lemmaOf("which")).isEmpty(),
                 () -> assertThat(content.lemmaOf("qzxfgh")).isEmpty());
+    }
+
+    @Test
+    void asksTheDictionaryOnceForAWordHoweverOftenItIsRead() {
+        final CountedLookups dictionary = new CountedLookups();
+        final ContentWords counted = new ContentWords(dictionary, Thresholds.defaults());
+
+        counted.lemmaOf("token");
+        counted.lemmaOf("token");
+        counted.lemmaOf("token");
+
+        assertThat(dictionary.nounBaseCalls())
+                .as("the collocation walk asks for the same word's lemma at every position it could start")
+                .isEqualTo(1);
     }
 }
