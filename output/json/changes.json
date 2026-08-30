@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "72a15cf41811e0add8fdfd6fb65d6542b20c9313",
-  "commit" : "8340d3a025c972d39025ad42217b76aa2d3ffe7b",
+  "previousCommit" : "8340d3a025c972d39025ad42217b76aa2d3ffe7b",
+  "commit" : "ec9fe901bdc40bdd242ef9959759edddc0256478",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -79,7 +79,7 @@
     "after" : "41.7%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "49.0%",
+    "before" : "49.1%",
     "after" : "49.1%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -119,7 +119,7 @@
     "after" : "24.1%"
   }, {
     "figure" : "CSO category — chance reaches",
-    "before" : "28.3%",
+    "before" : "28.4%",
     "after" : "28.4%"
   }, {
     "figure" : "CSO category — stands apart from chance",
@@ -132,7 +132,7 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "279",
-    "after" : "279"
+    "after" : "280"
   }, {
     "figure" : "Topics reported",
     "before" : "9",
@@ -142,5 +142,9 @@
     "before" : "130",
     "after" : "130"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "levels",
+    "entered" : true
+  } ]
 }
