@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 
@@ -24,7 +25,11 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
  * <p>A drawn path follows the first {@code broader} the publisher states for each concept. Where a level
  * is stated as a name rather than a concept — BIAN's {@code broader} is the business domain and its
  * {@code module} the business area, and neither is a row of its own — the path is drawn through those
- * names. Beside each node on a matched path, up to {@value #UNMATCHED_LISTED} of the publisher's unmatched
+ * names. A level an outright majority of the vocabulary sits beneath is passed over, because it names the
+ * scheme's own field — CSO's {@code computer science} and FIX's {@code Common} — and a root every match
+ * shares says only which vocabulary matched. A concept that is itself such a level keeps its own place.
+ *
+ * <p>Beside each node on a matched path, up to {@value #UNMATCHED_LISTED} of the publisher's unmatched
  * concepts at the same place are drawn greyed with the count of concepts below each, largest branch first,
  * and the rest are one counted line. An unmatched branch opens the same way, {@value #UNMATCHED_DEPTH}
  * levels down at most — so the tree shows what the repository did not write as well as what it did.
@@ -74,8 +79,9 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
         owned.stream()
                 .filter(match -> match.wordsInTerm() >= 2)
                 .forEach(match -> match.concepts().forEach(concept ->
-                        forest.grew(paths.pathOf(concept), match.occurrences())));
+                        forest.grew(paths.pathPastTheFieldOf(concept), match.occurrences())));
         final Descendants descendants = new Descendants(childrenByParent);
+        final Set<String> matched = forest.matchedLabels();
         final Set<String> greyDrawn = new HashSet<>();
         final List<ReadingFolder.TermMatchRow> singles = owned.stream()
                 .filter(match -> match.wordsInTerm() == 1)
@@ -84,7 +90,7 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
                 .filter(match -> match.wordsInTerm() >= 2)
                 .toList();
         return new TermTree(vocabulary,
-                forest.built(childrenByParent, descendants, greyDrawn).children(),
+                forest.built(childrenByParent, descendants, matched, greyDrawn).children(),
                 (int) phrases.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
                 occurrencesOf(phrases),
                 (int) singles.stream().map(ReadingFolder.TermMatchRow::term).distinct().count(),
@@ -115,13 +121,13 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
         return children;
     }
 
-    /** The publisher's top-level concepts with no matched phrase anywhere below them, as a count. */
+    /** The levels standing at the top of the drawing with nothing matched below them, as a count. */
     private static int unmatchedRootsOf(final List<SkosConcept> published,
                                         final PublishedPaths paths, final Branch forest) {
         final Set<String> drawn = forest.childLabels();
         return (int) published.stream()
-                .filter(concept -> paths.parentOf(concept.prefLabel()).isEmpty())
-                .map(SkosConcept::prefLabel)
+                .map(concept -> paths.pathPastTheFieldOf(concept.prefLabel()).getFirst())
+                .distinct()
                 .filter(root -> !drawn.contains(root))
                 .count();
     }
@@ -165,25 +171,39 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
     }
 
     /**
+     * The publisher's children of a label that the repository wrote nowhere in the tree, largest branch
+     * first. A concept drawn as a match under any parent is left out: CSO states more than one parent for
+     * two thirds of its topics, so the same concept reaches a greyed place and a matched one, and greying
+     * it would say the repository never wrote what the tree shows it writing.
+     */
+    private static List<String> unmatchedChildrenOf(final String label,
+                                                    final Map<String, List<String>> childrenByParent,
+                                                    final Descendants descendants,
+                                                    final Set<String> matched) {
+        return childrenByParent.getOrDefault(lowered(label), List.of()).stream()
+                .distinct()
+                .filter(child -> !matched.contains(lowered(child)))
+                .sorted(Comparator.comparingInt((String child) -> descendants.below(child)).reversed()
+                        .thenComparing(Comparator.naturalOrder()))
+                .toList();
+    }
+
+    /**
      * One unmatched concept with its own children greyed below it, to the stated depth and width. A
      * concept met more than once — CSO states more than one parent for two thirds of its topics — opens
      * where it is first drawn and shows only its count after.
      */
     private static Node unmatchedNode(final String label, final Map<String, List<String>> childrenByParent,
-                                      final Descendants descendants, final int depth,
-                                      final Set<String> seen) {
+                                      final Descendants descendants, final Set<String> matched,
+                                      final int depth, final Set<String> seen) {
         final int below = descendants.below(label);
         if (depth == 0 || !seen.add(lowered(label))) {
             return new Node(label, 0, Standing.UNMATCHED, below, List.of(), 0);
         }
-        final List<String> children = childrenByParent.getOrDefault(lowered(label), List.of()).stream()
-                .distinct()
-                .sorted(Comparator.comparingInt((String child) -> descendants.below(child)).reversed()
-                        .thenComparing(Comparator.naturalOrder()))
-                .toList();
+        final List<String> children = unmatchedChildrenOf(label, childrenByParent, descendants, matched);
         final List<Node> drawn = children.stream()
                 .limit(UNMATCHED_LISTED)
-                .map(child -> unmatchedNode(child, childrenByParent, descendants, depth - 1, seen))
+                .map(child -> unmatchedNode(child, childrenByParent, descendants, matched, depth - 1, seen))
                 .toList();
         return new Node(label, 0, Standing.UNMATCHED, below, drawn,
                 Math.max(0, children.size() - UNMATCHED_LISTED));
@@ -212,24 +232,28 @@ public record TermTree(String vocabulary, List<Node> roots, int phraseTerms, int
             return Set.copyOf(children.keySet());
         }
 
+        /** Every label drawn as a match anywhere in the forest, lowered, so none of them is also greyed. */
+        private Set<String> matchedLabels() {
+            return children.values().stream()
+                    .flatMap(child -> Stream.concat(Stream.of(lowered(child.label)),
+                            child.matchedLabels().stream()))
+                    .collect(Collectors.toUnmodifiableSet());
+        }
+
         private Node built(final Map<String, List<String>> childrenByParent,
-                           final Descendants descendants, final Set<String> greyDrawn) {
+                           final Descendants descendants, final Set<String> matchedLabels,
+                           final Set<String> greyDrawn) {
             final List<Node> matched = children.values().stream()
-                    .map(child -> child.built(childrenByParent, descendants, greyDrawn))
+                    .map(child -> child.built(childrenByParent, descendants, matchedLabels, greyDrawn))
                     .sorted(Comparator.comparingInt(Node::atOrBelow).reversed()
                             .thenComparing(Node::label))
                     .toList();
-            final List<String> unmatched = childrenByParent.getOrDefault(lowered(label), List.of())
-                    .stream()
-                    .distinct()
-                    .filter(child -> !children.containsKey(child))
-                    .sorted(Comparator.comparingInt((String child) -> descendants.below(child)).reversed()
-                            .thenComparing(Comparator.naturalOrder()))
-                    .toList();
+            final List<String> unmatched = unmatchedChildrenOf(label, childrenByParent, descendants,
+                    matchedLabels);
             final List<Node> drawn = new ArrayList<>(matched);
             unmatched.stream()
                     .limit(UNMATCHED_LISTED)
-                    .map(child -> unmatchedNode(child, childrenByParent, descendants,
+                    .map(child -> unmatchedNode(child, childrenByParent, descendants, matchedLabels,
                             UNMATCHED_DEPTH, greyDrawn))
                     .forEach(drawn::add);
             return new Node(label, occurrences, Standing.MATCHED, descendants.below(label), drawn,

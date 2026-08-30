@@ -81,10 +81,13 @@ public final class TermTreesPage {
                                         + "count beside a concept is how often the repository wrote the "
                                         + "phrase; a greyed concept is one the publisher states at the "
                                         + "same place and the repository writes nowhere, with the count "
-                                        + "of concepts below it. Only phrases of two or more words are "
-                                        + "drawn as matches: a one-word label is everyday English more "
-                                        + "often than a term of art, so the single-word matches are "
-                                        + "counted and not placed.")),
+                                        + "of concepts below it. A level more than half of a vocabulary "
+                                        + "sits beneath is left off the top — CSO's computer science, "
+                                        + "FIX's Common, FIBO's FND — because a root every match shares "
+                                        + "names only the vocabulary that matched. Only phrases of two "
+                                        + "or more words are drawn as matches: a one-word label is "
+                                        + "everyday English more often than a term of art, so the "
+                                        + "single-word matches are counted and not placed.")),
                         ul().withClass("ranking").with(each(trees, TermTreesPage::ranked)),
                         each(trees, TermTreesPage::treeOf)));
     }

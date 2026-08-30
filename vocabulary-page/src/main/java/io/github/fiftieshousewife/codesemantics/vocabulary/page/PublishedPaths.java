@@ -67,6 +67,21 @@ final class PublishedPaths {
         return List.copyOf(path);
     }
 
+    /**
+     * The stated path with the levels naming the scheme's own field passed over, root first. A field level
+     * holds an outright majority of the scheme beneath it, so every level above one is a field level too
+     * and what is removed is always a prefix of the path. The concept itself is kept whether or not it
+     * names the field, so a path is never empty.
+     */
+    List<String> pathPastTheFieldOf(final String label) {
+        final List<String> path = pathOf(label);
+        final List<String> past = new ArrayList<>(path.subList(0, path.size() - 1).stream()
+                .filter(level -> !fieldLevels().contains(level))
+                .toList());
+        past.add(path.getLast());
+        return List.copyOf(past);
+    }
+
     /** The broadest level the publisher states above the concept — the concept itself where it states none. */
     String rootOf(final String label) {
         return pathOf(label).getFirst();

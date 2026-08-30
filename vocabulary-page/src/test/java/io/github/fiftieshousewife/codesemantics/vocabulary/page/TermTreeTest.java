@@ -19,12 +19,22 @@ class TermTreeTest {
             concept("InterestRateSwap", "Contract", "DER"),
             concept("Loan", "Contract", "FBC"),
             concept("SecuredLoan", "Loan", "FBC"),
-            concept("Occurrence", "", ""));
+            concept("Occurrence", "", ""),
+            concept("Event", "Occurrence", ""),
+            concept("Incident", "Event", ""));
 
     private static final List<SkosConcept> STATED_AS_NAMES = List.of(
             concept("ACH Fulfillment", "Clearing And Settlement", "Operations"),
             concept("Order Allocation", "Clearing And Settlement", "Operations"),
-            concept("Term Deposit", "Loans and Deposits", "Products"));
+            concept("Term Deposit", "Loans and Deposits", "Products"),
+            concept("Savings Account", "Loans and Deposits", "Products"));
+
+    private static final List<SkosConcept> BENEATH_ONE_FIELD = List.of(
+            concept("computer science", "", ""),
+            concept("natural language processing", "computer science", ""),
+            concept("part of speech", "natural language processing", ""),
+            concept("computer networks", "computer science", ""),
+            concept("linguistics", "", ""));
 
     private static SkosConcept concept(final String label, final String broader, final String module) {
         return new SkosConcept("urn:" + label, label, "", broader, "class", module, "", "");
@@ -111,8 +121,10 @@ class TermTreeTest {
     @Test
     void listsAtMostTheStatedNumberOfGreyedChildrenAndCountsTheRest() {
         final List<SkosConcept> wide = Stream.concat(
-                        Stream.of(concept("Root", "", ""), concept("Written", "Root", "")),
-                        IntStream.range(0, 10).mapToObj(i -> concept("Silent" + i, "Root", "")))
+                        Stream.concat(
+                                Stream.of(concept("Root", "", ""), concept("Written", "Root", "")),
+                                IntStream.range(0, 10).mapToObj(i -> concept("Silent" + i, "Root", ""))),
+                        IntStream.range(0, 12).mapToObj(i -> concept("Elsewhere" + i, "", "")))
                 .toList();
 
         final TermTree tree = TermTree.of("FIBO",
@@ -176,6 +188,61 @@ class TermTreeTest {
         assertAll(
                 () -> assertThat(tree.roots()).isEmpty(),
                 () -> assertThat(tree.singleWordTerms()).isEqualTo(1));
+    }
+
+    @Test
+    void standsAMatchAtTheLevelBelowTheOneAnOutrightMajorityOfTheVocabularySitsBeneath() {
+        final TermTree tree = TermTree.of("CSO",
+                List.of(row("CSO", "part of speech", 3, 22, "part of speech")),
+                BENEATH_ONE_FIELD);
+
+        assertAll(
+                () -> assertThat(tree.roots()).extracting(TermTree.Node::label)
+                        .containsExactly("natural language processing"),
+                () -> assertThat(matchedChildrenOf(tree.roots().getFirst()))
+                        .extracting(TermTree.Node::label, TermTree.Node::occurrences)
+                        .containsExactly(tuple("part of speech", 22)));
+    }
+
+    @Test
+    void standsAConceptThatItselfNamesTheFieldAtItsOwnRoot() {
+        final TermTree tree = TermTree.of("CSO",
+                List.of(row("CSO", "computer science", 2, 2, "computer science")),
+                BENEATH_ONE_FIELD);
+
+        assertThat(tree.roots())
+                .extracting(TermTree.Node::label, TermTree.Node::occurrences)
+                .containsExactly(tuple("computer science", 2));
+    }
+
+    @Test
+    void countsTheUndrawnTopsOfTheDrawingRatherThanThePublishersOwnRoots() {
+        final TermTree tree = TermTree.of("CSO",
+                List.of(row("CSO", "part of speech", 3, 22, "part of speech")),
+                BENEATH_ONE_FIELD);
+
+        assertThat(tree.unmatchedRoots())
+                .as("computer science, computer networks and linguistics top a drawing and hold nothing")
+                .isEqualTo(3);
+    }
+
+    @Test
+    void greysNoConceptTheRepositoryWroteSomewhereElseInTheTree() {
+        final TermTree tree = TermTree.of("CSO",
+                List.of(row("CSO", "computer science", 2, 2, "computer science"),
+                        row("CSO", "computer networks", 2, 5, "computer networks")),
+                BENEATH_ONE_FIELD);
+
+        final TermTree.Node field = tree.roots().stream()
+                .filter(node -> "computer science".equals(node.label()))
+                .findFirst()
+                .orElseThrow();
+
+        assertAll(
+                () -> assertThat(tree.roots()).extracting(TermTree.Node::label)
+                        .containsExactly("computer networks", "computer science"),
+                () -> assertThat(field.children()).extracting(TermTree.Node::label)
+                        .containsExactly("natural language processing"));
     }
 
     private static List<TermTree.Node> matchedChildrenOf(final TermTree.Node node) {

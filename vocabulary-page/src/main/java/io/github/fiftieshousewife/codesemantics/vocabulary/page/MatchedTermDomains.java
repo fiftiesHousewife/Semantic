@@ -121,21 +121,19 @@ final class MatchedTermDomains {
     static Map<String, String> areaByConcept(final Map<String, Integer> occurrencesByConcept,
                                              final PublishedPaths paths) {
         final Map<String, List<String>> pathByConcept = occurrencesByConcept.keySet().stream()
-                .collect(Collectors.toMap(concept -> concept, paths::pathOf));
+                .collect(Collectors.toMap(concept -> concept, paths::pathPastTheFieldOf));
         final Map<String, Integer> weightByLevel = new HashMap<>();
         pathByConcept.forEach((concept, path) -> path.forEach(level ->
                 weightByLevel.merge(level, occurrencesByConcept.get(concept), Integer::sum)));
         final int whole = occurrencesByConcept.values().stream().mapToInt(Integer::intValue).sum();
         return pathByConcept.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, concept -> areaOf(concept.getValue(),
-                        paths, weightByLevel, whole)));
+                        weightByLevel, whole)));
     }
 
-    private static String areaOf(final List<String> path, final PublishedPaths paths,
+    private static String areaOf(final List<String> path,
                                  final Map<String, Integer> weightByLevel, final int whole) {
-        final List<String> groupings = path.subList(0, path.size() - 1).stream()
-                .filter(level -> !paths.fieldLevels().contains(level))
-                .toList();
+        final List<String> groupings = path.subList(0, path.size() - 1);
         if (groupings.isEmpty()) {
             return path.getLast();
         }

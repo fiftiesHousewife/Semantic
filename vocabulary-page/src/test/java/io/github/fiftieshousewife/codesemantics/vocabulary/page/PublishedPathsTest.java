@@ -22,6 +22,12 @@ class PublishedPathsTest {
             concept("PresentValue", "MonetaryAmount", "FND"),
             concept("Term Deposit", "Loans and Deposits", "Products")));
 
+    private static final PublishedPaths DOMINATED = new PublishedPaths(List.of(
+            concept("Everything", "", ""),
+            concept("Rates", "Everything", ""),
+            concept("InterestRate", "Rates", ""),
+            concept("Valuation", "Everything", "")));
+
     @Test
     void climbsTheStatedBroaderChainRootFirst() {
         assertThat(PATHS.pathOf("InterestRateSwap"))
@@ -47,13 +53,24 @@ class PublishedPathsTest {
 
     @Test
     void namesALevelHoldingTheMajorityOfTheSchemeAsItsField() {
-        final PublishedPaths dominated = new PublishedPaths(List.of(
-                concept("Everything", "", ""),
-                concept("Rates", "Everything", ""),
-                concept("InterestRate", "Rates", ""),
-                concept("Valuation", "Everything", "")));
+        assertThat(DOMINATED.fieldLevels()).containsExactly("Everything");
+    }
 
-        assertThat(dominated.fieldLevels()).containsExactly("Everything");
+    @Test
+    void passesOverTheLevelAnOutrightMajorityOfTheSchemeSitsBeneath() {
+        assertThat(DOMINATED.pathPastTheFieldOf("InterestRate"))
+                .containsExactly("Rates", "InterestRate");
+    }
+
+    @Test
+    void keepsAConceptThatItselfNamesTheFieldRatherThanLeavingItNoPath() {
+        assertThat(DOMINATED.pathPastTheFieldOf("Everything")).containsExactly("Everything");
+    }
+
+    @Test
+    void leavesAPathAloneWhereNoLevelHoldsAMajority() {
+        assertThat(PATHS.pathPastTheFieldOf("InterestRateSwap"))
+                .containsExactly("Agreement", "Contract", "InterestRateSwap");
     }
 
     @Test
