@@ -24,7 +24,7 @@ import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
  * are mostly unreadable therefore resolves at low confidence even when one label leads its rivals easily,
  * which is the reading a consumer needs and the one an enum-shaped partition cannot give.
  */
-public final class OpenSpaceAccumulator<V> {
+public final class OpenSpaceAccumulator<V extends Comparable<V>> {
 
     private final double minimumEvidenceMass;
 
@@ -37,6 +37,10 @@ public final class OpenSpaceAccumulator<V> {
      * say anything at all. Abstention is a correct outcome and is reported as the absence of a resolution
      * rather than as a resolution to nothing.
      *
+     * <p>Two values committed exactly equal mass are settled by the earlier of their own names, so a
+     * resolution is a property of the evidence and not of the order the map handed it over. Ties are not
+     * rare: a word the resources place equally across several topics ties every one of them.
+     *
      * @param massByValue what each voted-for value was committed, all non-negative
      * @param abstentionMass what was observed and could not be read at all
      */
@@ -46,7 +50,8 @@ public final class OpenSpaceAccumulator<V> {
             return Optional.empty();
         }
         return massByValue.entrySet().stream()
-                .max(Comparator.comparingDouble(Map.Entry::getValue))
+                .max(Comparator.<Map.Entry<V, Double>>comparingDouble(Map.Entry::getValue)
+                        .thenComparing(Map.Entry::getKey, Comparator.reverseOrder()))
                 .map(winner -> new ValueShare<>(winner.getKey(),
                         winner.getValue() / (voted + Math.max(0.0, abstentionMass)), winner.getValue()));
     }

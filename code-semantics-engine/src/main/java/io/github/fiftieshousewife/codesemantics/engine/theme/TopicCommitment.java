@@ -1,7 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -26,13 +29,27 @@ import java.util.stream.Collectors;
  */
 public final class TopicCommitment {
 
-    /** What each subject holds of the word, as a share of everything the resources said about it. */
+    /**
+     * What each subject holds of the word, as a share of everything the resources said about it.
+     *
+     * <p>The votes are put in an order this states — subject, then the resource that cast it, then the mass
+     * — before either the total or any subject's share is summed. Double addition is not associative, and a
+     * resource that hands its labels over as a set hands them over in whatever order that run's JVM holds
+     * them, so two runs otherwise differ in the last bit of every share a word commits. A bit is enough: the
+     * share is what a phrase's score is built from, and the score has a bar to clear.
+     */
     public Map<String, Double> of(final Collection<TopicVote> votes) {
-        final double total = votes.stream().mapToDouble(TopicVote::mass).sum();
+        final List<TopicVote> stated = votes.stream()
+                .sorted(Comparator.comparing(TopicVote::topic)
+                        .thenComparing(vote -> vote.source().name())
+                        .thenComparingDouble(TopicVote::mass))
+                .toList();
+        final double total = stated.stream().mapToDouble(TopicVote::mass).sum();
         if (total <= 0.0) {
             return Map.of();
         }
-        return votes.stream().collect(Collectors.groupingBy(TopicVote::topic,
-                Collectors.summingDouble(vote -> vote.mass() / total)));
+        return stated.stream()
+                .collect(Collectors.groupingBy(TopicVote::topic, TreeMap::new,
+                        Collectors.summingDouble(vote -> vote.mass() / total)));
     }
 }

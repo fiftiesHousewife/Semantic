@@ -1,9 +1,12 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,6 +39,12 @@ import java.util.stream.Stream;
  * <p>A file whose words carry no topical mass has no distribution and is <em>removed</em> from its scope
  * rather than entered as a uniform one — nothing was read there, and a uniform guess would be evidence the
  * resources never gave.
+ *
+ * <p>The shares are held in their topics' own alphabetical order, and so is {@link #support}. Every figure
+ * taken off a distribution is a sum of doubles, double addition is not associative, and the immutable maps
+ * of {@code Map.copyOf} state no iteration order — two runs over the same reading therefore differed in the
+ * last bit, and a bit is enough to move a score across a threshold. The order the topics are named in is a
+ * property of the reading and not of the run that took it.
  */
 public record TopicDistribution(Map<String, Double> shareByTopic, double unplaced) {
 
@@ -48,7 +57,7 @@ public record TopicDistribution(Map<String, Double> shareByTopic, double unplace
                     "an unplaced share outside [0, 1]: %s",
                     unplaced));
         }
-        shareByTopic = Map.copyOf(shareByTopic);
+        shareByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(shareByTopic));
     }
 
     /**
@@ -140,9 +149,13 @@ public record TopicDistribution(Map<String, Double> shareByTopic, double unplace
         return shareByTopic.keySet();
     }
 
-    /** The topics either distribution names — the support a comparison between them runs over. */
+    /**
+     * The topics either distribution names, in their own alphabetical order — the support a comparison
+     * between them runs over.
+     */
     public static Set<String> support(final TopicDistribution first, final TopicDistribution second) {
-        return Stream.concat(first.topics().stream(), second.topics().stream())
-                .collect(Collectors.toUnmodifiableSet());
+        return Collections.unmodifiableSortedSet(Stream.concat(first.topics().stream(),
+                        second.topics().stream())
+                .collect(Collectors.toCollection(TreeSet::new)));
     }
 }

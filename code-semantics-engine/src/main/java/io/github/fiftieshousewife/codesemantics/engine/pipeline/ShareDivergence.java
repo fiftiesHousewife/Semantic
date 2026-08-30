@@ -1,7 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.pipeline;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,10 +44,15 @@ public final class ShareDivergence {
         return 0.5 * relativeEntropy(inLeft, mixture) + 0.5 * relativeEntropy(inRight, mixture);
     }
 
-    /** The keys either side names — the support a comparison between them runs over. */
+    /**
+     * The keys either side names, in their own alphabetical order — the support a comparison between them
+     * runs over. The order is stated because the divergence is a sum over it, double addition is not
+     * associative, and a set whose iteration order the JVM chooses gives a different last bit on every run.
+     */
     public Set<String> support(final Map<String, Double> left, final Map<String, Double> right) {
-        return Stream.concat(left.keySet().stream(), right.keySet().stream())
-                .collect(Collectors.toUnmodifiableSet());
+        return Collections.unmodifiableSortedSet(Stream.concat(left.keySet().stream(),
+                        right.keySet().stream())
+                .collect(Collectors.toCollection(TreeSet::new)));
     }
 
     /**

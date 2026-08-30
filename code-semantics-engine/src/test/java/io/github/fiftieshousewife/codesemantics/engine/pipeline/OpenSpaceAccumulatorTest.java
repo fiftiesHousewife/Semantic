@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.pipeline;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,30 @@ class OpenSpaceAccumulatorTest {
                 () -> assertThat(accumulator.resolve(Map.of(), 40.0))
                         .as("mass nothing could read is not evidence for anything")
                         .isEmpty());
+    }
+
+    @Test
+    void settlesAnExactTieByTheEarlierOfTheTwoNames() {
+        assertThat(accumulator.resolve(Map.of("linguistics", 2.0, "music", 2.0), 0.0))
+                .get()
+                .extracting(ValueShare::value)
+                .isEqualTo("linguistics");
+    }
+
+    @Test
+    void resolvesATieTheSameWayWhicheverOrderTheMassArrivedIn() {
+        final Map<String, Double> oneOrder = new LinkedHashMap<>();
+        oneOrder.put("music", 2.0);
+        oneOrder.put("linguistics", 2.0);
+        oneOrder.put("politics", 2.0);
+        final Map<String, Double> another = new LinkedHashMap<>();
+        another.put("politics", 2.0);
+        another.put("linguistics", 2.0);
+        another.put("music", 2.0);
+
+        assertThat(accumulator.resolve(oneOrder, 0.0).orElseThrow().value())
+                .isEqualTo(accumulator.resolve(another, 0.0).orElseThrow().value())
+                .isEqualTo("linguistics");
     }
 
     @Test

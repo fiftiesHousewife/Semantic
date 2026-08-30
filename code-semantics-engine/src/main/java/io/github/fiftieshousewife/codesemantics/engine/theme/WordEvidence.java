@@ -1,7 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Everything the bundled resources state about one word, beside what the reading made of it.
@@ -41,10 +44,23 @@ public record WordEvidence(String word, int occurrences, double carried, boolean
                            List<TopicVote> asVerb, Map<String, Double> shareByTopic) {
 
     public WordEvidence {
-        asHeadWord = List.copyOf(asHeadWord);
-        inASentence = List.copyOf(inASentence);
-        asVerb = List.copyOf(asVerb);
-        shareByTopic = Map.copyOf(shareByTopic);
+        asHeadWord = stated(asHeadWord);
+        inASentence = stated(inASentence);
+        asVerb = stated(asVerb);
+        shareByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(shareByTopic));
+    }
+
+    /**
+     * The votes in an order this states — subject, then the resource that cast it, then the mass. A resource
+     * that hands its labels over as a set hands them over in whatever order the run's JVM holds them, so a
+     * listing taken straight off it names the same subjects in a different order on every reading.
+     */
+    private static List<TopicVote> stated(final List<TopicVote> votes) {
+        return votes.stream()
+                .sorted(Comparator.comparing(TopicVote::topic)
+                        .thenComparing(vote -> vote.source().name())
+                        .thenComparingDouble(TopicVote::mass))
+                .toList();
     }
 
     /** Whether no bundled resource states any subject for the word, however it is read. */

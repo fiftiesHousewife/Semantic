@@ -1,7 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -187,5 +189,32 @@ class TopicDistributionTest {
                 TopicDistribution.of(Map.of("linguistics", 1.0), NOTHING_UNPLACED),
                 TopicDistribution.of(Map.of("music", 1.0), NOTHING_UNPLACED)))
                 .containsExactlyInAnyOrder("linguistics", "music");
+    }
+
+    @Test
+    void namesItsTopicsInTheirOwnOrderWhicheverOrderTheMassArrivedIn() {
+        final Map<String, Double> oneOrder = new LinkedHashMap<>();
+        oneOrder.put("music", 1.0);
+        oneOrder.put("linguistics", 2.0);
+        oneOrder.put("computing", 3.0);
+        final Map<String, Double> another = new LinkedHashMap<>();
+        another.put("computing", 3.0);
+        another.put("music", 1.0);
+        another.put("linguistics", 2.0);
+
+        assertAll(
+                () -> assertThat(TopicDistribution.ofCitedMass(oneOrder).topics())
+                        .containsExactly("computing", "linguistics", "music"),
+                () -> assertThat(TopicDistribution.ofCitedMass(another).topics())
+                        .containsExactly("computing", "linguistics", "music"));
+    }
+
+    @Test
+    void namesTheSupportOfTwoReadingsInItsOwnOrder() {
+        final Set<String> support = TopicDistribution.support(
+                TopicDistribution.ofCitedMass(Map.of("music", 1.0, "computing", 1.0)),
+                TopicDistribution.ofCitedMass(Map.of("linguistics", 1.0, "computing", 1.0)));
+
+        assertThat(support).containsExactly("computing", "linguistics", "music");
     }
 }

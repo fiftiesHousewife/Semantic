@@ -1,10 +1,14 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import java.util.stream.Collectors;
@@ -112,8 +116,8 @@ public final class PhraseTopics {
                           double credence, List<RefusedTopic> refused) {
 
         public Reading {
-            shareByTopic = Map.copyOf(shareByTopic);
-            agreementByTopic = Map.copyOf(agreementByTopic);
+            shareByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(shareByTopic));
+            agreementByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(agreementByTopic));
             refused = List.copyOf(refused);
         }
 
@@ -187,16 +191,16 @@ public final class PhraseTopics {
             return NOTHING;
         }
         final Map<String, Map<String, Double>> commitments = words.stream().distinct()
-                .collect(Collectors.toUnmodifiableMap(word -> word,
-                        word -> commitment.of(cite.apply(word))));
-        final Map<String, Double> scores = new HashMap<>();
-        final Map<String, Set<String>> agreement = new HashMap<>();
+                .collect(Collectors.toMap(word -> word, word -> commitment.of(cite.apply(word)),
+                        (first, again) -> first, LinkedHashMap::new));
+        final Map<String, Double> scores = new TreeMap<>();
+        final Map<String, Set<String>> agreement = new TreeMap<>();
         final List<RefusedTopic> refused = new ArrayList<>();
         final long inPhrase = words.stream().distinct().count();
         topicsIn(commitments).forEach(topic -> {
             final Set<String> agreeing = words.stream().distinct()
                     .filter(word -> commitments.get(word).containsKey(topic))
-                    .collect(Collectors.toUnmodifiableSet());
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
             final TopicScore score = new TopicScore(agreed(agreeing, topic, commitments, weightByWord),
                     agreeing.size(), inPhrase, expectedIn(topic));
             if (score.stands()) {
@@ -208,7 +212,7 @@ public final class PhraseTopics {
         });
         return scores.isEmpty() ? new Reading(Map.of(), Map.of(), 0.0, refused)
                 : new Reading(normalised(scores), agreement, credenceOf(agreement.values().stream()
-                        .flatMap(Set::stream).collect(Collectors.toUnmodifiableSet())), refused);
+                        .flatMap(Set::stream).collect(Collectors.toCollection(TreeSet::new))), refused);
     }
 
     /**
@@ -243,15 +247,17 @@ public final class PhraseTopics {
                 .orElse(Double.NEGATIVE_INFINITY));
     }
 
+    /** Every topic a word of the phrase voted for, in their own alphabetical order. */
     private static Set<String> topicsIn(final Map<String, Map<String, Double>> commitments) {
         return commitments.values().stream()
                 .flatMap(topics -> topics.keySet().stream())
-                .collect(Collectors.toUnmodifiableSet());
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
     private static Map<String, Double> normalised(final Map<String, Double> scores) {
         final double total = scores.values().stream().mapToDouble(Double::doubleValue).sum();
         return scores.entrySet().stream()
-                .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, score -> score.getValue() / total));
+                .collect(Collectors.toMap(Map.Entry::getKey, score -> score.getValue() / total,
+                        (first, again) -> first, TreeMap::new));
     }
 }

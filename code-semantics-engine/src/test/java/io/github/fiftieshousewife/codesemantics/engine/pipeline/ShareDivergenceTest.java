@@ -57,4 +57,11 @@ class ShareDivergenceTest {
                 () -> assertThat(divergence.support(left, right)).containsExactlyInAnyOrder("word", "topic",
                         "buffer"));
     }
+
+    @Test
+    void namesTheSupportInItsOwnAlphabeticalOrder() {
+        assertThat(divergence.support(Map.of("word", 0.6, "buffer", 0.4),
+                Map.of("topic", 0.5, "buffer", 0.5)))
+                .containsExactly("buffer", "topic", "word");
+    }
 }

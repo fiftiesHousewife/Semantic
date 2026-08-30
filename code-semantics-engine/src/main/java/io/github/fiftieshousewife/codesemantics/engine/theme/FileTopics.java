@@ -1,8 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
@@ -21,6 +23,11 @@ import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
  * only in a file's prose is a theme the code itself does not carry, and a reader deciding whether to believe
  * a ranking needs to see which kind it is.
  *
+ * <p>The three maps are held in their topics' own alphabetical order. A share and a dominant topic are both
+ * taken over them, double addition is not associative, and the immutable maps of {@code Map.copyOf} state no
+ * iteration order — two runs over one file therefore disagreed in the last bit and, where two topics tied
+ * exactly, on which of them led.
+ *
  * <p>Mass and references are both kept because they answer different questions. Mass is what the resources
  * committed and is what a share is taken over; references is a plain occurrence count and is what a reader
  * means by "how often does this file talk about that". A single ambiguous word can carry a lot of references
@@ -33,9 +40,9 @@ public record FileTopics(String path, int lines, Map<String, Double> massByTopic
 
     public FileTopics {
         Objects.requireNonNull(path, "path");
-        massByTopic = Map.copyOf(massByTopic);
-        nameMassByTopic = Map.copyOf(nameMassByTopic);
-        referencesByTopic = Map.copyOf(referencesByTopic);
+        massByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(massByTopic));
+        nameMassByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(nameMassByTopic));
+        referencesByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(referencesByTopic));
     }
 
     /** How much of a topic's mass here came from a name the repository declared rather than from prose. */
