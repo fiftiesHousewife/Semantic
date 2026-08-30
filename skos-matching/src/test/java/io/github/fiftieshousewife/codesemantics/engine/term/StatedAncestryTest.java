@@ -63,8 +63,9 @@ class StatedAncestryTest {
                         .as("three of the five sit beneath Field, which is more than half")
                         .containsExactly("Field"),
                 () -> assertThat(spread.topOfTheBranchOf("Under"))
-                        .as("naming Field says only which vocabulary matched")
-                        .isEqualTo("Under"),
+                        .as("naming Field says only which vocabulary matched, and nothing else stands "
+                                + "above Under, so there is no branch to name")
+                        .isEmpty(),
                 () -> assertThat(spread.rootOf("Under"))
                         .as("the raw walk is unchanged")
                         .isEqualTo("Field"));
@@ -77,7 +78,23 @@ class StatedAncestryTest {
                 concept("UnderRight", "Right")));
         assertAll(
                 () -> assertThat(even.fieldLevels()).isEmpty(),
-                () -> assertThat(even.topOfTheBranchOf("UnderLeft")).isEqualTo("Left"));
+                () -> assertThat(even.topOfTheBranchOf("UnderLeft")).hasValue("Left"));
+    }
+
+    @Test
+    void namesNoTopWhereThePublisherStatesNothingAboveTheConcept() {
+        final StatedAncestry flat = StatedAncestry.over(List.of(
+                concept("InterestAccrualsMethod", ""), concept("Elsewhere", ""),
+                concept("Apart", "Elsewhere")));
+
+        assertAll(
+                () -> assertThat(flat.topOfTheBranchOf("InterestAccrualsMethod"))
+                        .as("FpML declares 616 of its 1,405 types with no base type, and a concept is not "
+                                + "the top of a branch it is the whole of")
+                        .isEmpty(),
+                () -> assertThat(flat.rootOf("InterestAccrualsMethod"))
+                        .as("the raw walk still answers with the concept, which is what it is for")
+                        .isEqualTo("InterestAccrualsMethod"));
     }
 
     private static SkosConcept concept(final String label, final String broader) {

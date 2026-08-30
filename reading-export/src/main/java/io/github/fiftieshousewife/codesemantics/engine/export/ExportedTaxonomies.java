@@ -96,7 +96,7 @@ public final class ExportedTaxonomies {
                 .term(sighting.term())
                 .definition(concept.definition())
                 .placedUnder(concept.broader())
-                .atTheTopOfItsBranch(ancestry.topOfTheBranchOf(concept.prefLabel()))
+                .atTheTopOfItsBranch(ancestry.topOfTheBranchOf(concept.prefLabel()).orElse(""))
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())
                 .wordsInTerm(sighting.length())

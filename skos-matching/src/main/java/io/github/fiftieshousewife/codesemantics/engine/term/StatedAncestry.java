@@ -77,7 +77,8 @@ public final class StatedAncestry {
     }
 
     /**
-     * The broadest concept above this one that still tells a reader something, root first.
+     * The broadest concept <em>above</em> this one that still tells a reader something, or nothing where no
+     * such concept exists.
      *
      * <p>A publisher's own name for its whole field is an ancestor of nearly everything it states, so
      * naming it says only which vocabulary matched — which the reading already said. CSO puts 80% of its
@@ -86,15 +87,18 @@ public final class StatedAncestry {
      * outright majority of the vocabulary sits beneath and stops at the first that is not one.
      *
      * <p><b>The bound is a majority because that is where one level outweighs everything outside it</b>,
-     * which is the rule {@code PublishedPaths.fieldLevels} already states for the same reason. A
-     * vocabulary with no such level is unchanged, and a concept whose whole chain is field levels answers
-     * with itself rather than with nothing.
+     * which is the rule {@code PublishedPaths.fieldLevels} already states for the same reason.
+     *
+     * <p><b>The concept itself is never the answer.</b> A publisher that states nothing above a concept has
+     * placed it nowhere, and answering with the concept reads as a placement the publisher did not make:
+     * FpML declares 616 of its 1,405 types with no base type, so a third of its matches named themselves.
+     * {@link #rootOf} answers with the concept, because a walk that must return a coordinate has to.
      */
-    public String topOfTheBranchOf(final String prefLabel) {
+    public Optional<String> topOfTheBranchOf(final String prefLabel) {
         return of(prefLabel).stream()
+                .filter(above -> !above.equals(prefLabel))
                 .filter(above -> !fieldLevels().contains(above))
-                .findFirst()
-                .orElse(prefLabel);
+                .findFirst();
     }
 
     /**
