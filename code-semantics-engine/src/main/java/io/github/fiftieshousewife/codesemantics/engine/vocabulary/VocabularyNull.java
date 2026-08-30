@@ -1,9 +1,11 @@
 package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
@@ -59,7 +61,9 @@ public final class VocabularyNull {
 
     /** The bars keyed the way a {@link ChosenWord}'s claims name their references. */
     public static Map<String, Double> byReference(final List<Bar> bars) {
-        return bars.stream().collect(Collectors.toUnmodifiableMap(Bar::reference, Bar::bits));
+        final TreeMap<String, Double> byReference = new TreeMap<>();
+        bars.forEach(bar -> byReference.put(bar.reference(), bar.bits()));
+        return Collections.unmodifiableSortedMap(byReference);
     }
 
     /**

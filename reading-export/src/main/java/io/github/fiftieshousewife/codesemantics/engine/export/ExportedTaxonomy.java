@@ -1,8 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 import lombok.Builder;
 
@@ -121,6 +123,6 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
         Objects.requireNonNull(bar, "bar");
         concepts = List.copyOf(concepts);
         branches = List.copyOf(branches);
-        matchesByNormalisation = Map.copyOf(matchesByNormalisation);
+        matchesByNormalisation = Collections.unmodifiableSortedMap(new TreeMap<>(matchesByNormalisation));
     }
 }

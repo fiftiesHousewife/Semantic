@@ -1,8 +1,11 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -43,13 +46,18 @@ public final class SpecificTerms implements TermIndex {
 
     private SpecificTerms(final TermIndex published, final Set<List<String>> kept) {
         this.published = published;
-        this.kept = Set.copyOf(kept);
+        this.kept = Collections.unmodifiableSet(kept);
     }
 
+    /**
+     * The kept terms, held in their own words' order. Callers walk this set to build an index of their own,
+     * so a set whose iteration order the JVM chooses gives a different index on every run.
+     */
     public static SpecificTerms of(final TermIndex published, final WorkingJavaRuns corpus) {
         return new SpecificTerms(published, published.terms().stream()
                 .filter(term -> isThePublishersOwn(term, corpus))
-                .collect(Collectors.toUnmodifiableSet()));
+                .collect(Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(term -> String.join(" ", term))))));
     }
 
     /** The source this library bundles the corpus for. */

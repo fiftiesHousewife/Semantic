@@ -1,11 +1,14 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import io.github.fiftieshousewife.bi.lexicon.PublishedTerms;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
@@ -31,18 +34,29 @@ public final class WordKeyedConcepts {
 
     private WordKeyedConcepts(final Map<List<String>, List<SkosConcept>> byWords,
                               final Map<String, List<String>> broaderByLabel) {
-        this.byWords = Map.copyOf(byWords);
+        this.byWords = Collections.unmodifiableMap(byWords);
         this.broaderByLabel = Map.copyOf(broaderByLabel);
     }
 
+    /**
+     * The index, keyed by a term's words and held in those words' own order.
+     *
+     * <p>The order is stated because callers walk it. A term the same words normalise to is appended to
+     * whatever is already under that key, and the parent a concept states is written under its label with
+     * the last writer winning — so an index whose iteration order the JVM chooses named a match's concepts
+     * differently and kept a different parent on every run.
+     */
     public static WordKeyedConcepts of(final PublishedTerms published, final IdentifierWords words) {
-        final Map<List<String>, List<SkosConcept>> byWords = new HashMap<>();
+        final Map<List<String>, List<SkosConcept>> byWords = new TreeMap<>(BY_WORDS);
         published.terms().stream().distinct()
                 .forEach(term -> byWords.computeIfAbsent(words.of(term).words(), key -> new ArrayList<>())
                         .addAll(published.conceptsOf(term)));
         byWords.remove(List.of());
         return new WordKeyedConcepts(byWords, broaderIn(byWords));
     }
+
+    /** A term's place in the index: its words, spelled as one run, in that run's own order. */
+    static final Comparator<List<String>> BY_WORDS = Comparator.comparing(term -> String.join(" ", term));
 
     /**
      * A term the source states no parent for ends its chain, which is a fact about the resource.
@@ -53,7 +67,7 @@ public final class WordKeyedConcepts {
      * siblings of each of its parents.
      */
     private static Map<String, List<String>> broaderIn(final Map<List<String>, List<SkosConcept>> byWords) {
-        final Map<String, List<String>> broaderByLabel = new HashMap<>();
+        final Map<String, List<String>> broaderByLabel = new LinkedHashMap<>();
         byWords.values().stream().flatMap(List::stream)
                 .filter(concept -> !concept.broaderConcepts().isEmpty())
                 .forEach(concept -> broaderByLabel.put(key(concept.prefLabel()), concept.broaderConcepts()));
