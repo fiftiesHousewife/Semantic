@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
@@ -134,7 +135,7 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
      * grouping is the publisher's own {@code broader} column and nothing here decides it.
      */
     public List<Branch> branchesOf(final String source) {
-        final Map<String, List<ExportedTaxonomy.Concept>> byBranch = vocabularies.stream()
+        final Map<String, List<ExportedConcept>> byBranch = vocabularies.stream()
                 .filter(vocabulary -> source.equals(vocabulary.vocabulary()))
                 .flatMap(vocabulary -> vocabulary.concepts().stream())
                 .filter(concept -> concept.wordsInTerm() > SINGLE_WORD)
@@ -157,18 +158,18 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
      * <em>common</em>. A concept whose whole ancestry is field levels groups under nothing, and is then
      * named by the phrase itself.
      */
-    private static String subjectOf(final ExportedTaxonomy.Concept concept) {
+    private static String subjectOf(final ExportedConcept concept) {
         return concept.statedPath().isEmpty() ? "" : concept.statedPath().getLast();
     }
 
-    private static Branch branch(final Map.Entry<String, List<ExportedTaxonomy.Concept>> under) {
+    private static Branch branch(final Map.Entry<String, List<ExportedConcept>> under) {
         final Map<String, Written> byConcept = new LinkedHashMap<>();
         under.getValue().stream()
-                .sorted(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences).reversed())
+                .sorted(Comparator.comparingInt(ExportedConcept::occurrences).reversed())
                 .forEach(concept -> byConcept.putIfAbsent(concept.concept(),
                         new Written(concept.concept(), concept.definition(), concept.occurrences())));
         return new Branch(under.getKey(), List.copyOf(byConcept.values()),
-                under.getValue().stream().mapToInt(ExportedTaxonomy.Concept::occurrences).sum());
+                under.getValue().stream().mapToInt(ExportedConcept::occurrences).sum());
     }
 
     /**

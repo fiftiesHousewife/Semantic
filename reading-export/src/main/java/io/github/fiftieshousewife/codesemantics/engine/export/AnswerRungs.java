@@ -128,9 +128,9 @@ public enum AnswerRungs {
 
     private static ExportedAnswer answer(final ExportedTaxonomy vocabulary, final int shortest,
                                          final String qualifiedBy) {
-        final Optional<ExportedTaxonomy.Concept> answering = answering(vocabulary, shortest);
+        final Optional<ExportedConcept> answering = answering(vocabulary, shortest);
         return ExportedAnswer.fromATaxonomy(vocabulary.vocabulary(),
-                answering.map(ExportedTaxonomy.Concept::statedPath).orElseGet(List::of),
+                answering.map(ExportedConcept::statedPath).orElseGet(List::of),
                 answering.map(AnswerRungs::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
                 qualifiedBy, vocabulary.bar().timesTheBar());
     }
@@ -184,28 +184,28 @@ public enum AnswerRungs {
      * <p>Occurrences break the tie last, so the rule never prefers a rare defined-and-placed concept to a
      * common one that is equally well stated.
      */
-    private static Optional<ExportedTaxonomy.Concept> answering(final ExportedTaxonomy vocabulary,
+    private static Optional<ExportedConcept> answering(final ExportedTaxonomy vocabulary,
                                                                 final int shortest) {
         return vocabulary.concepts().stream()
                 .filter(concept -> shortest > SINGLE_WORD
                         ? concept.wordsInTerm() > SINGLE_WORD : concept.wordsInTerm() == SINGLE_WORD)
                 .max(Comparator.comparing(AnswerRungs::isDefined)
                         .thenComparing(AnswerRungs::isPlaced)
-                        .thenComparing(ExportedTaxonomy.Concept::occurrences));
+                        .thenComparing(ExportedConcept::occurrences));
     }
 
     /** Whether the publisher says what the concept means, which is what reaching it buys. */
-    private static boolean isDefined(final ExportedTaxonomy.Concept concept) {
+    private static boolean isDefined(final ExportedConcept concept) {
         return !concept.definition().isBlank();
     }
 
     /** Whether the publisher states anything above it, which a concept at the top of its tree does not. */
-    private static boolean isPlaced(final ExportedTaxonomy.Concept concept) {
+    private static boolean isPlaced(final ExportedConcept concept) {
         return !concept.placedUnder().isBlank();
     }
 
     /** The concept named, and what the publisher says it means where it says anything. */
-    private static String stated(final ExportedTaxonomy.Concept concept) {
+    private static String stated(final ExportedConcept concept) {
         return concept.definition().isBlank()
                 ? concept.concept() : concept.concept() + " — " + concept.definition();
     }

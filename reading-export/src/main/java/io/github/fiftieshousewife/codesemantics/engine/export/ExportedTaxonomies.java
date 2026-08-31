@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,6 +14,8 @@ import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescription;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 
 /**
@@ -32,9 +35,9 @@ public final class ExportedTaxonomies {
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
                                final BranchAgreement agreement, final PhraseBar bar,
-                               final StatedAncestry ancestry) {
-        return new ExportedTaxonomy(vocabulary, concepts(matched, ancestry), branches(matched, agreement),
-                matchesByNormalisation(matched), barOf(bar));
+                               final StatedAncestry ancestry, final StatedDescriptions described) {
+        return new ExportedTaxonomy(vocabulary, concepts(matched, ancestry, described),
+                branches(matched, agreement), matchesByNormalisation(matched), barOf(bar));
     }
 
     private static ExportedTaxonomy.Bar barOf(final PhraseBar bar) {
@@ -77,25 +80,34 @@ public final class ExportedTaxonomies {
     }
 
     /** Ordered by what each term is worth — how often it was written, weighed by how much it narrows. */
-    private static List<ExportedTaxonomy.Concept> concepts(final MatchedTerms matched,
-                                                          final StatedAncestry ancestry) {
+    private static List<ExportedConcept> concepts(final MatchedTerms matched,
+                                                  final StatedAncestry ancestry,
+                                                  final StatedDescriptions described) {
         return matched.byMass(matched.distinctTerms()).stream()
-                .flatMap(sighting -> rows(sighting, ancestry))
+                .flatMap(sighting -> rows(sighting, ancestry, described))
                 .toList();
     }
 
-    private static Stream<ExportedTaxonomy.Concept> rows(final TermSighting sighting,
-                                                         final StatedAncestry ancestry) {
-        return sighting.concepts().stream().map(concept -> row(sighting, concept, ancestry));
+    private static Stream<ExportedConcept> rows(final TermSighting sighting,
+                                                final StatedAncestry ancestry,
+                                                final StatedDescriptions described) {
+        return sighting.concepts().stream().map(concept -> row(sighting, concept, ancestry, described));
     }
 
-    private static ExportedTaxonomy.Concept row(final TermSighting sighting, final SkosConcept concept,
-                                                final StatedAncestry ancestry) {
-        return ExportedTaxonomy.Concept.builder()
+    /**
+     * A concept the publisher describes nowhere at or above it carries an empty description and an empty
+     * node, rather than the concept's own name against no prose.
+     */
+    private static ExportedConcept row(final TermSighting sighting, final SkosConcept concept,
+                                       final StatedAncestry ancestry, final StatedDescriptions described) {
+        final Optional<StatedDescription> nearest = described.of(concept.prefLabel());
+        return ExportedConcept.builder()
                 .concept(concept.prefLabel())
                 .term(sighting.term())
                 .normalisation(sighting.rung().level())
                 .definition(concept.definition())
+                .description(nearest.map(StatedDescription::prose).orElse(""))
+                .descriptionStatedFor(nearest.map(StatedDescription::statedFor).orElse(""))
                 .placedUnder(concept.broader())
                 .statedPath(ancestry.pathAbove(concept.prefLabel()))
                 .occurrences(sighting.occurrences())

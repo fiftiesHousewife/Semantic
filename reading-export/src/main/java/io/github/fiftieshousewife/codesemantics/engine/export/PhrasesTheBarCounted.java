@@ -22,7 +22,7 @@ public final class PhrasesTheBarCounted {
         return taxonomy.concepts().stream()
                 .filter(concept -> concept.wordsInTerm() > 1)
                 .filter(concept -> DRAWN_AT.equals(concept.normalisation()))
-                .map(ExportedTaxonomy.Concept::term)
+                .map(ExportedConcept::term)
                 .collect(Collectors.toUnmodifiableSet());
     }
 }

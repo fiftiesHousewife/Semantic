@@ -11,12 +11,12 @@ class PhrasesTheBarCountedTest {
 
     private static final SightingSite SOMEWHERE = new SightingSite("A.java", 1);
 
-    private static ExportedTaxonomy.Concept found(final String term, final String normalisation) {
-        return new ExportedTaxonomy.Concept(term, term, normalisation, "what it means", "Product",
-                List.of("Product"), 9, 0.5, term.split(" ").length, 0.9, SOMEWHERE);
+    private static ExportedConcept found(final String term, final String normalisation) {
+        return new ExportedConcept(term, term, normalisation, "what it means", "what it means", term,
+                "Product", List.of("Product"), 9, 0.5, term.split(" ").length, 0.9, SOMEWHERE);
     }
 
-    private static ExportedTaxonomy publishing(final ExportedTaxonomy.Concept... concepts) {
+    private static ExportedTaxonomy publishing(final ExportedConcept... concepts) {
         return new ExportedTaxonomy("FpML", List.of(concepts), List.of(), Map.of(),
                 new ExportedTaxonomy.Bar(1, 0, 0, 1.0, 0, 0.001, 7, 999));
     }

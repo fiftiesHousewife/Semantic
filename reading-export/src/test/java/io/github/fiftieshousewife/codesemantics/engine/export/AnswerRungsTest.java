@@ -18,11 +18,11 @@ class AnswerRungsTest {
         return placedUnder.isBlank() ? List.of() : List.of(placedUnder);
     }
 
-    private static ExportedTaxonomy.Concept phrase(final String concept, final String placedUnder,
+    private static ExportedConcept phrase(final String concept, final String placedUnder,
                                                    final int occurrences) {
-        return new ExportedTaxonomy.Concept(concept, concept.toLowerCase(java.util.Locale.ROOT), "words",
-                "what " + concept + " means", placedUnder, pathOf(placedUnder), occurrences, 0.5, 2, 0.9,
-                SOMEWHERE);
+        return new ExportedConcept(concept, concept.toLowerCase(java.util.Locale.ROOT), "words",
+                "what " + concept + " means", "what " + concept + " means", concept, placedUnder,
+                pathOf(placedUnder), occurrences, 0.5, 2, 0.9, SOMEWHERE);
     }
 
     private static ExportedTaxonomy cleared(final String vocabulary, final String placedUnder,
@@ -48,13 +48,14 @@ class AnswerRungsTest {
                 new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0));
     }
 
-    private static ExportedTaxonomy.Concept concept(final String name, final String placedUnder,
+    private static ExportedConcept concept(final String name, final String placedUnder,
                                                     final String definition, final int occurrences) {
-        return new ExportedTaxonomy.Concept(name, name.toLowerCase(java.util.Locale.ROOT), "words", definition,
-                placedUnder, pathOf(placedUnder), occurrences, 0.5, 2, 0.9, SOMEWHERE);
+        return new ExportedConcept(name, name.toLowerCase(java.util.Locale.ROOT), "words", definition,
+                definition, definition.isBlank() ? "" : name, placedUnder, pathOf(placedUnder), occurrences,
+                0.5, 2, 0.9, SOMEWHERE);
     }
 
-    private static ExportedTaxonomy vocabulary(final List<ExportedTaxonomy.Concept> concepts) {
+    private static ExportedTaxonomy vocabulary(final List<ExportedConcept> concepts) {
         return new ExportedTaxonomy("FpML", concepts, List.of(), Map.of(),
                 new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, 999));
     }

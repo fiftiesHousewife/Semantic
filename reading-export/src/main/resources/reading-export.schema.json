@@ -435,7 +435,9 @@
                 "wordsInTerm",
                 "shareOfEachName",
                 "firstWrittenAt",
-                "definition"
+                "definition",
+                "description",
+                "descriptionStatedFor"
               ],
               "properties": {
                 "concept": {
@@ -460,6 +462,16 @@
                 },
                 "definition": {
                   "description": "What the publisher says the concept means, empty where it states nothing. It is the whole reason a taxonomy is matched rather than a word list: the node carries the meaning, and a reading that reaches a node and drops its definition has matched a name.",
+                  "type": "string"
+                },
+                "description": {
+                  "title": "Nearest prose the publisher states",
+                  "description": "The prose the publisher states at or above the concept, taken from the nearest level that states any, and empty where no level does. It equals `definition` wherever the publisher describes the concept itself. CSO states no prose for `public keys` and places it under `public key cryptography`, which the Wikipedia article CSO's own `owl:sameAs` names is summarised for, so the summary describes the match. A level an outright majority of the vocabulary sits beneath is stepped over, because naming it says only which vocabulary matched.",
+                  "type": "string"
+                },
+                "descriptionStatedFor": {
+                  "title": "Concept the description is stated for",
+                  "description": "The concept `description` is stated for: this concept where the publisher describes it, the level the walk climbed to where it does not, and empty where nothing describes it at any level. A summary of `public key cryptography` is not a definition of `public keys`, so a report printing the one prints the other.",
                   "type": "string"
                 },
                 "placedUnder": {

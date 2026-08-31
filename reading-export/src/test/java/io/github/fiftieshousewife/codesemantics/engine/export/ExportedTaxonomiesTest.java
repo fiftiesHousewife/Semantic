@@ -5,6 +5,7 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
@@ -21,8 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ExportedTaxonomiesTest {
 
     private static SkosConcept concept(final String label, final String broader) {
+        return described(label, broader, "what the publisher says it means");
+    }
+
+    private static SkosConcept described(final String label, final String broader,
+                                         final String definition) {
         return new SkosConcept("http://purl.org/olia/olia.owl#" + label, label, "", broader, "class",
-                "olia", "what the publisher says it means", "");
+                "olia", definition, "");
     }
 
     private static TermSighting sighting(final List<String> words, final double specificity,
@@ -53,22 +59,29 @@ class ExportedTaxonomiesTest {
             SubjectAreas.fromClasspath());
 
     /** The publisher's own chain over the same rows, so the export states where a concept's branch ends. */
-    private static final StatedAncestry ANCESTRY = StatedAncestry.over(
-            List.of(concept("Verb", "WordClass"), concept("Noun", "WordClass"), concept("WordClass", ""),
-                    concept("Phrase", "Constituent"), concept("Clause", "Constituent"),
-                    concept("Constituent", "")));
+    private static final List<SkosConcept> PUBLISHED = List.of(
+            concept("Verb", "WordClass"), concept("Noun", "WordClass"), concept("WordClass", ""),
+            concept("Phrase", "Constituent"), concept("Clause", "Constituent"),
+            concept("Constituent", ""));
+
+    private static final StatedAncestry ANCESTRY = StatedAncestry.over(PUBLISHED);
+
+    /** The publisher's own prose over the same rows, so a row states what its publisher says it is. */
+    private static final StatedDescriptions DESCRIBED = StatedDescriptions.over(PUBLISHED, ANCESTRY);
 
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
+                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
-                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "words",
-                                "what the publisher says it means", "WordClass", List.of("WordClass"), 20,
-                                0.8, 1, 1.0,
+                        .isEqualTo(new ExportedConcept("Verb", "verb", "words",
+                                "what the publisher says it means",
+                                "what the publisher says it means", "Verb", "WordClass",
+                                List.of("WordClass"), 20, 0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 
@@ -76,9 +89,10 @@ class ExportedTaxonomiesTest {
     void writesATermTwoConceptsReadAsTwice() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("root"), 0.9, 4, concept("Root", "Morpheme"),
-                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
+                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE, ANCESTRY,
+                DESCRIBED);
 
-        assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::placedUnder)
+        assertThat(exported.concepts()).map(ExportedConcept::placedUnder)
                 .as("which concept the repository meant is a question about evidence")
                 .containsExactly("Morpheme", "SyntacticHead");
     }
@@ -87,16 +101,18 @@ class ExportedTaxonomiesTest {
     void ordersTheConceptsBySpecificityTimesOccurrences() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("clause"), 0.9, 2, concept("Clause", "Constituent")),
-                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
+                        sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING,
+                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
-        assertThat(exported.concepts()).map(ExportedTaxonomy.Concept::concept)
+        assertThat(exported.concepts()).map(ExportedConcept::concept)
                 .containsExactly("Noun", "Clause");
     }
 
     @Test
     void statesWhatEachBranchIsWorthAndWhatConditioningOnItWouldLeave() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
+                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.branches()).singleElement()
@@ -122,7 +138,7 @@ class ExportedTaxonomiesTest {
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
                 matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent,
-                ABOVE_CHANCE, ANCESTRY);
+                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
         assertThat(exported.branches())
                 .as("a taxonomy that cannot be weighed is not one that weighs zero")
@@ -135,19 +151,61 @@ class ExportedTaxonomiesTest {
                 matched(sighting(TermRung.WORDS, List.of("verb"), 0.8, 20, concept("Verb", "WordClass")),
                         sighting(TermRung.LEMMAS, List.of("phrases"), 0.7, 9,
                                 concept("Phrase", "Constituent"))),
-                AGREEING, ABOVE_CHANCE, ANCESTRY);
+                AGREEING, ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
         assertThat(exported.concepts())
-                .extracting(ExportedTaxonomy.Concept::term, ExportedTaxonomy.Concept::normalisation)
+                .extracting(ExportedConcept::term, ExportedConcept::normalisation)
                 .as("a match found in the words written and one a dictionary reached are not the same "
                         + "evidence, and the count the bar tested is the first")
                 .containsExactly(tuple("verb", "words"), tuple("phrases", "lemmas"));
     }
 
     @Test
+    void describesAConceptItsPublisherStatesNoProseForByTheNearestLevelItDoes() {
+        final List<SkosConcept> published = List.of(
+                described("PublicKeys", "PublicKeyCryptography", ""),
+                described("PublicKeyCryptography", "", "a cryptosystem of key pairs"));
+        final StatedAncestry ancestry = StatedAncestry.over(published);
+
+        final ExportedTaxonomy exported = taxonomies.of("CSO",
+                matched(sighting(List.of("public", "keys"), 0.9, 3,
+                        described("PublicKeys", "PublicKeyCryptography", ""))),
+                AGREEING, ABOVE_CHANCE, ancestry, StatedDescriptions.over(published, ancestry));
+
+        assertAll(
+                () -> assertThat(exported.concepts().getFirst().definition())
+                        .as("the publisher states nothing about the concept itself")
+                        .isEmpty(),
+                () -> assertThat(exported.concepts().getFirst().description())
+                        .isEqualTo("a cryptosystem of key pairs"),
+                () -> assertThat(exported.concepts().getFirst().descriptionStatedFor())
+                        .as("a report printing the branch's prose has to say whose it is")
+                        .isEqualTo("PublicKeyCryptography"));
+    }
+
+    @Test
+    void leavesTheDescriptionEmptyWhereNoLevelAtOrAboveTheConceptStatesAny() {
+        final List<SkosConcept> published = List.of(described("SessionTypes", "TypeSystems", ""),
+                described("TypeSystems", "", ""));
+        final StatedAncestry ancestry = StatedAncestry.over(published);
+
+        final ExportedTaxonomy exported = taxonomies.of("CSO",
+                matched(sighting(List.of("session", "types"), 0.9, 3,
+                        described("SessionTypes", "TypeSystems", ""))),
+                AGREEING, ABOVE_CHANCE, ancestry, StatedDescriptions.over(published, ancestry));
+
+        assertAll(
+                () -> assertThat(exported.concepts().getFirst().description()).isEmpty(),
+                () -> assertThat(exported.concepts().getFirst().descriptionStatedFor())
+                        .as("naming a node against no prose would read as a description that is missing")
+                        .isEmpty());
+    }
+
+    @Test
     void countsEveryNormalisationLevelIncludingTheOnesProducingNoMatch() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING, ABOVE_CHANCE, ANCESTRY);
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
+                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())

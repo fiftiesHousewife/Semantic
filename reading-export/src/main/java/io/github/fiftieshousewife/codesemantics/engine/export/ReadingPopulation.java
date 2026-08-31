@@ -36,7 +36,7 @@ public enum ReadingPopulation {
         public Set<String> in(final ReadingExport export) {
             return export.taxonomies().stream()
                     .flatMap(taxonomy -> taxonomy.concepts().stream())
-                    .map(ExportedTaxonomy.Concept::concept)
+                    .map(ExportedConcept::concept)
                     .collect(Collectors.toUnmodifiableSet());
         }
     };

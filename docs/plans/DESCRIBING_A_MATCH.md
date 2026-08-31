@@ -41,9 +41,9 @@ A concept is described by the nearest node at or above it that its own publisher
 
 `cso-topics.tsv` has nothing at any level. From `public keys` the stated path runs *public key cryptography → authentication → security of data → computer security → computer science*, and all five are empty.
 
-[`cso-abstracts.tsv`](../../lexicon/src/main/resources/cso-abstracts.tsv) is already bundled and holds 5,294 Wikipedia summaries, one for each topic CSO's own `owl:sameAs` names. Its header states the standing: *reading the article CSO names is following the publisher's own link; nothing here pairs two vocabularies, CSO paired them.* The placement path reads it. The term path does not, which is the whole of CSO's 0%.
+[`cso-abstracts.tsv`](../../lexicon/src/main/resources/cso-abstracts.tsv) is bundled and holds 5,294 Wikipedia summaries, one for each topic CSO's own `owl:sameAs` names. Its header states the standing: *reading the article CSO names is following the publisher's own link; nothing here pairs two vocabularies, CSO paired them.* `CsoTopics` already joins it, which is the 83 described at the node; the 5,294 summaries cover fewer than half of CSO's 11,438 topics, so a matched topic is still often bare.
 
-Joining it moves CSO from 83 describable to 296 of 337:
+Walking up to the nearest level a summary covers moves CSO from 83 describable to 296 of 337:
 
 | Steps up | Concepts | Example |
 |---|---|---|
@@ -56,13 +56,30 @@ Joining it moves CSO from 83 describable to 296 of 337:
 
 The walk degrades into `computer science`, which is CSO's own **field level** — 80% of its topics sit beneath it — and `StatedAncestry.fieldLevels` already computes exactly that set by the majority rule, for exactly this reason. Refusing a description taken from a field level costs 15 of CSO's 337 and needs no bound of its own. `Common` does the same for FIX, at 2 of 109.
 
-## The repair that the measurement supports
+## The repair that the measurement supports — landed at schema 24.0
 
 **Describe a matched concept by the nearest node at or above it that its publisher describes; refuse a node an outright majority of the vocabulary sits beneath; name the node the description came from.**
 
 The last clause is not presentation. A summary of *public key cryptography* is not a definition of *public keys*, and a page that prints one under the other states something the publisher did not.
 
 It moves no figure in the reading. A description is display: it enters no count, no bar and no placement, so it is verified by reading the pages rather than by re-reading the corpus.
+
+`StatedDescriptions` is the walk. It climbs `StatedAncestry.pathAbove`, which already steps over a level an outright majority of the vocabulary sits beneath, so the field-level refusal needed no rule of its own. Every concept row carries two further fields:
+
+| Field | Holds |
+|---|---|
+| `definition` | what the publisher states about the concept itself, unchanged — it is what `AnswerRungs` still ranks on, so no answer moved |
+| `description` | the nearest prose at or above the concept, empty where no level states any |
+| `descriptionStatedFor` | the concept that prose is stated for: the concept itself, the level the walk climbed to, or empty |
+
+On this repository the walk describes 14 CSO rows that were bare and one OLiA row:
+
+| Vocabulary | Rows | At the node | By walking up | Nothing at any level |
+|---|---|---|---|---|
+| OLiA | 130 | 127 | 2 — `Initialism` from `Abbreviation` | 1 |
+| CSO | 40 | 12 | 14 | 14 |
+
+Eleven of the fourteen CSO climbs are one step: `query languages` from *database systems*, `value functions` from *reinforcement learning*, `word sense` from *word sense disambiguation*. `computer science` never supplies one, which is the majority rule working.
 
 ## The repair the measurement refutes
 
