@@ -150,10 +150,12 @@ class DrawnReadingsTest {
     @Test
     void carriesEveryBranchThePublisherStatesForThePhrasesTheRepositoryWrote() {
         final ExportedTaxonomy.Concept written = new ExportedTaxonomy.Concept("public keys",
-                "public keys", "", "public key cryptography", List.of("cryptography", "public key cryptography"), 52, 0.5, 2, 0.9,
+                "public keys", "words", "", "public key cryptography",
+                List.of("cryptography", "public key cryptography"), 52, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept alsoWritten = new ExportedTaxonomy.Concept("file systems",
-                "file systems", "", "operating systems", List.of("computer science", "operating systems"), 8, 0.5, 2, 0.9,
+                "file systems", "words", "", "operating systems",
+                List.of("computer science", "operating systems"), 8, 0.5, 2, 0.9,
                 new SightingSite("B.java", 1));
         final DrawnReading.Drawing drawing = drawn.of(List.of(row("santuario",
                 List.of(taxonomy("CSO", "public keys", 2.0)),
@@ -171,15 +173,18 @@ class DrawnReadingsTest {
     @Test
     void poolsWhatEveryAnsweringPublisherPlacesThePhrasesUnder() {
         final ExportedTaxonomy.Concept agreement = new ExportedTaxonomy.Concept("key agreement",
-                "key agreement", "a protocol whereby two parties agree a shared key",
-                "public key cryptography | encryption", List.of("computer security", "public key cryptography"), 60, 0.5, 2, 0.9,
+                "key agreement", "words", "a protocol whereby two parties agree a shared key",
+                "public key cryptography | encryption",
+                List.of("computer security", "public key cryptography"), 60, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept certificates = new ExportedTaxonomy.Concept(
-                "public key certificates", "public key certificates", "",
-                "public key cryptography", List.of("computer security", "public key cryptography"), 18, 0.5, 2, 0.9,
+                "public key certificates", "public key certificates", "words", "",
+                "public key cryptography",
+                List.of("computer security", "public key cryptography"), 18, 0.5, 2, 0.9,
                 new SightingSite("B.java", 1));
         final ExportedTaxonomy.Concept hashes = new ExportedTaxonomy.Concept("hash functions",
-                "hash functions", "", "cryptography", List.of("computer security", "cryptography"), 12, 0.5, 2, 0.9,
+                "hash functions", "words", "", "cryptography",
+                List.of("computer security", "cryptography"), 12, 0.5, 2, 0.9,
                 new SightingSite("C.java", 1));
         final DrawnReading santuario = drawn.of(List.of(row("santuario",
                 List.of(taxonomy("CSO", "key agreement — a protocol", 1.3)),
@@ -203,11 +208,13 @@ class DrawnReadingsTest {
 
     @Test
     void showsASubjectAPublisherStatesInEnglishBeforeOneItStatesAsAnIdentifier() {
-        final ExportedTaxonomy.Concept written = new ExportedTaxonomy.Concept("MsgSeqNum", "msg seq num",
-                "Integer message sequence number", "Session", List.of("Session"), 800, 0.5, 3, 0.9,
+        final ExportedTaxonomy.Concept written = new ExportedTaxonomy.Concept("MsgSeqNum",
+                "msg seq num", "words", "Integer message sequence number", "Session", List.of("Session"),
+                800, 0.5, 3, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept alsoWritten = new ExportedTaxonomy.Concept("key agreement",
-                "key agreement", "a protocol", "public key cryptography", List.of("public key cryptography"), 9, 0.5, 2, 0.9,
+                "key agreement", "words", "a protocol", "public key cryptography",
+                List.of("public key cryptography"), 9, 0.5, 2, 0.9,
                 new SightingSite("B.java", 1));
         final DrawnReading reading = drawn.of(List.of(row("mine",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4), taxonomy("CSO", "key agreement", 1.3)),
@@ -225,10 +232,11 @@ class DrawnReadingsTest {
     @Test
     void refusesToRankAnEnglishLabelAboveStrongerEvidenceLabelledAsAnIdentifier() {
         final ExportedTaxonomy.Concept deposit = new ExportedTaxonomy.Concept("Term Deposit",
-                "term deposit", "a deposit held for a fixed term", "Loans and Deposits", List.of("Loans and Deposits"), 43,
-                0.5, 2, 0.9, new SightingSite("A.java", 1));
+                "term deposit", "words", "a deposit held for a fixed term", "Loans and Deposits",
+                List.of("Loans and Deposits"), 43, 0.5, 2, 0.9, new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept functions = new ExportedTaxonomy.Concept("value functions",
-                "value functions", "", "reinforcement learning", List.of("reinforcement learning"), 39, 0.5, 2, 0.9,
+                "value functions", "words", "", "reinforcement learning",
+                List.of("reinforcement learning"), 39, 0.5, 2, 0.9,
                 new SightingSite("B.java", 1));
         final DrawnReading strata = drawn.of(List.of(row("strata",
                 List.of(taxonomy("BIAN", "Term Deposit", 2.0), taxonomy("CSO", "value functions", 1.06)),
@@ -289,11 +297,12 @@ class DrawnReadingsTest {
     @Test
     void givesEverySubjectANameAReaderCanRead() {
         final ExportedTaxonomy.Concept handling = new ExportedTaxonomy.Concept("ExecutionReport",
-                "execution report", "", "SingleGeneralOrderHandling", List.of("SingleGeneralOrderHandling"), 16, 0.5, 2, 0.9,
+                "execution report", "words", "", "SingleGeneralOrderHandling",
+                List.of("SingleGeneralOrderHandling"), 16, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept sequence = new ExportedTaxonomy.Concept("SeqNum",
-                "seq num", "Integer message sequence number.", "MsgSeqNum", List.of("MsgSeqNum"), 659, 0.5, 3,
-                0.9, new SightingSite("B.java", 1));
+                "seq num", "words", "Integer message sequence number.", "MsgSeqNum",
+                List.of("MsgSeqNum"), 659, 0.5, 3, 0.9, new SightingSite("B.java", 1));
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4)),
                 List.of(new ExportedTaxonomy("FIX", List.of(sequence, handling), List.of(), Map.of(),
@@ -343,10 +352,10 @@ class DrawnReadingsTest {
     @Test
     void ranksASourceByHowManyPhrasesBeyondChanceItReachedRatherThanByTheRatio() {
         final ExportedTaxonomy.Concept weakness = new ExportedTaxonomy.Concept("Process Control",
-                "process control", "", "External Control", List.of("External Control"), 4, 0.5, 2, 0.9,
+                "process control", "words", "", "External Control", List.of("External Control"), 4, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedTaxonomy.Concept topic = new ExportedTaxonomy.Concept("target language",
-                "target language", "", "machine translations", List.of("machine translations"), 35, 0.5,
+                "target language", "words", "", "machine translations", List.of("machine translations"), 35, 0.5,
                 2, 0.9, new SightingSite("B.java", 1));
         final DrawnReading tika = drawn.of(List.of(row("tika",
                 List.of(taxonomy("CWE", "Process Control", 2.0), taxonomy("CSO", "target language", 1.43)),
@@ -369,7 +378,7 @@ class DrawnReadingsTest {
     @Test
     void groupsAConceptUnderTheNearestLevelThatIsNotTheVocabularysOwnField() {
         final ExportedTaxonomy.Concept beneathTheField = new ExportedTaxonomy.Concept("MiscFeeType",
-                "misc fee type", "", "Common", List.of(), 4, 0.5, 3, 0.9,
+                "misc fee type", "words", "", "Common", List.of(), 4, 0.5, 3, 0.9,
                 new SightingSite("A.java", 1));
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MiscFeeType", 10.4)),
@@ -388,7 +397,7 @@ class DrawnReadingsTest {
 
     @Test
     void keepsTwoPublishersNamingOneSubjectApart() {
-        final ExportedTaxonomy.Concept written = new ExportedTaxonomy.Concept("Session", "session", "",
+        final ExportedTaxonomy.Concept written = new ExportedTaxonomy.Concept("Session", "session", "words", "",
                 "Common", List.of(), 4, 0.5, 2, 0.9, new SightingSite("A.java", 1));
         final DrawnReading reading = drawn.of(List.of(row("mine",
                 List.of(taxonomy("FIX", "MsgSeqNum", 2.0), taxonomy("FpML", "Scheme", 1.5)),

@@ -3,7 +3,6 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -95,6 +94,7 @@ public final class ExportedTaxonomies {
         return ExportedTaxonomy.Concept.builder()
                 .concept(concept.prefLabel())
                 .term(sighting.term())
+                .normalisation(sighting.rung().level())
                 .definition(concept.definition())
                 .placedUnder(concept.broader())
                 .statedPath(ancestry.pathAbove(concept.prefLabel()))
@@ -108,6 +108,6 @@ public final class ExportedTaxonomies {
 
     private static Map<String, Integer> matchesByNormalisation(final MatchedTerms matched) {
         return Stream.of(TermRung.values()).collect(Collectors.toUnmodifiableMap(
-                rung -> rung.name().toLowerCase(Locale.ROOT), rung -> matched.at(rung).spansFound()));
+                TermRung::level, rung -> matched.at(rung).spansFound()));
     }
 }

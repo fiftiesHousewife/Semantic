@@ -42,7 +42,10 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      * words a repository writes at all stands above such a bar.
      *
      * @param phrases            how many of the vocabulary's terms of more than one word the repository
-     *                           writes, counted once each however often it wrote them
+     *                           writes at the {@code words} level, counted once each however often it wrote
+     *                           them. The deals are taken at that level too. {@link #concepts()} lists
+     *                           matches at all four levels and states {@link Concept#normalisation()} on
+     *                           each, so the rows at {@code words} are the ones this count tested
      * @param chanceExpectedBest the count the best of a field this size reaches by chance alone
      * @param median             the middle of the deals, for a reader comparing the two bars
      * @param timesTheBar        the observed count divided by that bar. <b>It is not comparable between two
@@ -75,6 +78,10 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      * @param term           the run of words the repository wrote to reach it, which is not the label: a
      *                       two-word term reaches a concept CSO labels {@code capital}, and a reading
      *                       carrying only the label cannot say which phrase was written
+     * @param normalisation  what both sides were normalised to before they were compared, which is the
+     *                       level {@link ExportedTaxonomy#matchesByNormalisation()} keys its counts by.
+     *                       {@link Bar#phrases()} counts only the rows at {@code words}, so without this a
+     *                       reader cannot tell the rows the bar tested from the ones a dictionary reached
      * @param definition     what the publisher says the concept means, empty where it states nothing. It
      *                       is the whole reason a taxonomy is matched rather than a word list: the node
      *                       carries the meaning, and a reading that reaches a node and drops its
@@ -98,8 +105,8 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      * @param firstWrittenAt the file and line it was first written at
      */
     @Builder
-    public record Concept(String concept, String term, String definition, String placedUnder,
-                          List<String> statedPath, int occurrences, double specificity,
+    public record Concept(String concept, String term, String normalisation, String definition,
+                          String placedUnder, List<String> statedPath, int occurrences, double specificity,
                           int wordsInTerm, double shareOfEachName, SightingSite firstWrittenAt) {
 
         public Concept {

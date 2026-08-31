@@ -36,21 +36,28 @@ Drawing the null over all four rungs would make the bar test the published count
 
 ## What is left, and it is small
 
-**Carry the rung on each published concept row.** `TermSighting` already holds it, and its own javadoc states that the rung *belongs on the sighting rather than only on the reading*. `ExportedTaxonomies.row` drops it when it builds `ExportedTaxonomy.Concept`. Adding it lets a reader separate the 69 rows the bar tested from the 18 a dictionary reached, without moving any figure the reading computes.
+**Carry the level on each published concept row.** `TermSighting` already holds it, and its own javadoc states that it *belongs on the sighting rather than only on the reading*. `ExportedTaxonomies.row` dropped it when it built `ExportedTaxonomy.Concept`. Carrying it lets a reader separate the 69 rows the bar tested from the 18 a dictionary reached, without moving any figure the reading computes. It is published as `normalisation`, the word the schema already uses for the four levels in `matchesByNormalisation`.
 
 `taxonomies[].matchesByNormalisation` already counts spans per rung, so the export states the totals and withholds the attribution per row.
 
-The page then has what it needs to say which matches the bar tested — and `bar.phrases` should be read as *the count at the words rung*, which its own javadoc does not currently say.
+The page then has what it needs to say which matches the bar tested, and `bar.phrases` is read as *the count at the words level*, which its javadoc and its schema description now state.
 
 ## The order of work
 
-| | Step | Costs | Settled by |
-|--:|---|---|---|
-| 1 | `rung` on `ExportedTaxonomy.Concept`, from the sighting that already carries it | a schema bump and a reading | every published row states the rung it was found at, and the rows at `words` number exactly `bar.phrases` |
-| 2 | `bar.phrases` javadoc and schema description say the count is the words rung's | nothing | a reader cannot take 87 for the number that cleared a bar of 25 |
-| 3 | The page separates them | a page rebuild | the evidence list shows which matches the bar tested |
+| | Step | Costs | Settled by | State |
+|--:|---|---|---|---|
+| 1 | `normalisation` on `ExportedTaxonomy.Concept`, from the sighting that already carries it | a schema bump and a reading | every published row states the level it was found at, and the rows at `words` number exactly `bar.phrases` | **done**, schema 23.0 |
+| 2 | `bar.phrases` javadoc and schema description say the count is the words level's | nothing | a reader cannot take 87 for the number that cleared a bar of 25 | **done** |
+| 3 | The page separates them | a page rebuild, which needs the eleven evaluation members read again at 23.0 | the evidence list shows which matches the bar tested | not started |
 
-Step 1's check is the one that matters: **if the published rows at the `words` rung do not number exactly `bar.phrases`, something other than the ladder explains the gap** and this document is wrong.
+Step 1's check is the one that matters: **if the published rows at the `words` level do not number exactly `bar.phrases`, something other than the ladder explains the gap** and this document is wrong. It holds on both vocabularies of this repository, exactly:
+
+| Vocabulary | `bar.phrases` | Distinct multi-word terms at `words` | Distinct multi-word terms above `words` |
+|---|---|---|---|
+| OLiA | 4 | 4 | 2 — `base forms`, `list markers` |
+| CSO | 7 | 7 | 6 — `query language`, `style sheet`, `trading system`, `value function`, `word class`, `words senses` |
+
+`PhrasesTheBarCounted` is the count, and `ReadingExportDiagnostic` asserts it against `bar.phrases` for every vocabulary of every reading the `read` task writes. A repository where the two disagree fails the read rather than publishing the gap unsaid.
 
 ## What was measured on the way
 

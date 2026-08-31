@@ -427,6 +427,7 @@
               "required": [
                 "concept",
                 "term",
+                "normalisation",
                 "placedUnder",
                 "statedPath",
                 "occurrences",
@@ -445,6 +446,17 @@
                 "term": {
                   "description": "The run of words the repository wrote to reach the concept. It is not the concept's label: a two-word term reaches a concept CSO labels `capital`, so a reading carrying only the label cannot say which phrase was written.",
                   "type": "string"
+                },
+                "normalisation": {
+                  "title": "Level the two sides were compared at",
+                  "description": "What both sides were normalised to before they were compared, which is one of the levels `matchesByNormalisation` counts. `bar.phrases` counts the rows at `words` only, so a row at `lemmas`, `expansions` or `senses` is a match the bar did not test: `payment date` reaches FpML's `PaymentDates` at `lemmas`.",
+                  "type": "string",
+                  "enum": [
+                    "words",
+                    "lemmas",
+                    "expansions",
+                    "senses"
+                  ]
                 },
                 "definition": {
                   "description": "What the publisher says the concept means, empty where it states nothing. It is the whole reason a taxonomy is matched rather than a word list: the node carries the meaning, and a reading that reaches a node and drops its definition has matched a name.",
@@ -904,7 +916,7 @@
       ],
       "properties": {
         "phrases": {
-          "description": "How many of the vocabulary's terms of more than one word the repository writes, counted once each however often it wrote them. A term the reference corpus of working Java has been shown to write is removed from the vocabulary before this is counted, so what is counted is the publisher's own vocabulary.",
+          "description": "How many of the vocabulary's terms of more than one word the repository writes at the `words` level, counted once each however often it wrote them. The deals are taken at that level too, so both figures here are the words the two sides wrote and neither counts a match a dictionary reached. `concepts` lists matches at all four levels and states which on every row, so the rows at `words` are the ones this count tested. A term the reference corpus of working Java has been shown to write is removed from the vocabulary before this is counted, so what is counted is the publisher's own vocabulary.",
           "type": "integer",
           "minimum": 0
         },

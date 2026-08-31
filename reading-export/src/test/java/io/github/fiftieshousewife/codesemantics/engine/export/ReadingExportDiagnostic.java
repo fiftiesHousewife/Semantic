@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -21,13 +22,31 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 @Tag("diagnostic")
 class ReadingExportDiagnostic {
 
-    @Test
-    void writesTheExportOverTheReadingSharedWithTheOtherDiagnostics() throws IOException {
-        final Path file = ExportCommand.wrote(System.getProperty("cs.commit", ""));
+    private static Path file;
 
-        final ReadingExport written = new ExportFile().in(file);
+    private static ReadingExport written;
+
+    @BeforeAll
+    static void wroteTheExportOverTheReadingSharedWithTheOtherDiagnostics() throws IOException {
+        file = ExportCommand.wrote(System.getProperty("cs.commit", ""));
+        written = new ExportFile().in(file);
+    }
+
+    @Test
+    void writesTheExportAtTheVersionThisBuildStates() {
         assertAll(
                 () -> assertThat(file).exists(),
                 () -> assertThat(written.schemaVersion()).isEqualTo(ReadingExport.SCHEMA_VERSION));
+    }
+
+    @Test
+    void publishesAtTheLevelEachBarWasDrawnAtExactlyThePhrasesItCounted() {
+        final PhrasesTheBarCounted counted = new PhrasesTheBarCounted();
+
+        assertThat(written.taxonomies()).isNotEmpty().allSatisfy(taxonomy ->
+                assertThat(counted.in(taxonomy))
+                        .as("%s publishes matches from four normalisation levels and its bar counted one",
+                                taxonomy.vocabulary())
+                        .hasSize(taxonomy.bar().phrases()));
     }
 }

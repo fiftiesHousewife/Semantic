@@ -15,6 +15,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedTaxonomiesTest {
@@ -26,7 +27,13 @@ class ExportedTaxonomiesTest {
 
     private static TermSighting sighting(final List<String> words, final double specificity,
                                          final int occurrences, final SkosConcept... concepts) {
-        return new TermSighting(words, List.of(concepts), TermRung.WORDS, specificity, occurrences,
+        return sighting(TermRung.WORDS, words, specificity, occurrences, concepts);
+    }
+
+    private static TermSighting sighting(final TermRung rung, final List<String> words,
+                                         final double specificity, final int occurrences,
+                                         final SkosConcept... concepts) {
+        return new TermSighting(words, List.of(concepts), rung, specificity, occurrences,
                 occurrences, List.of("engine/src/main/java/Reading.java:9"));
     }
 
@@ -59,8 +66,9 @@ class ExportedTaxonomiesTest {
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
-                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "what the publisher says it means",
-                                "WordClass", List.of("WordClass"), 20, 0.8, 1, 1.0,
+                        .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "words",
+                                "what the publisher says it means", "WordClass", List.of("WordClass"), 20,
+                                0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 
@@ -119,6 +127,21 @@ class ExportedTaxonomiesTest {
         assertThat(exported.branches())
                 .as("a taxonomy that cannot be weighed is not one that weighs zero")
                 .isEmpty();
+    }
+
+    @Test
+    void statesTheNormalisationLevelEachRowWasFoundAt() {
+        final ExportedTaxonomy exported = taxonomies.of("OLiA",
+                matched(sighting(TermRung.WORDS, List.of("verb"), 0.8, 20, concept("Verb", "WordClass")),
+                        sighting(TermRung.LEMMAS, List.of("phrases"), 0.7, 9,
+                                concept("Phrase", "Constituent"))),
+                AGREEING, ABOVE_CHANCE, ANCESTRY);
+
+        assertThat(exported.concepts())
+                .extracting(ExportedTaxonomy.Concept::term, ExportedTaxonomy.Concept::normalisation)
+                .as("a match found in the words written and one a dictionary reached are not the same "
+                        + "evidence, and the count the bar tested is the first")
+                .containsExactly(tuple("verb", "words"), tuple("phrases", "lemmas"));
     }
 
     @Test

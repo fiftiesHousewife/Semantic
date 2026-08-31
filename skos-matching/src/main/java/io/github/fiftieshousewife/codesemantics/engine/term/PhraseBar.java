@@ -12,7 +12,8 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.ChanceExpectedBest;
  * {@link ChanceExpectedBest} exists to stop.
  *
  * @param vocabulary         the publisher whose phrases were counted
- * @param observed           how many of its phrases stand in the repository's declared names
+ * @param observed           how many of its phrases stand in the repository's declared names, compared at
+ *                           the words both sides wrote and at no rung above them
  * @param chanceExpectedBest the count the best of a field this size reaches by chance alone
  * @param median             the middle of the draws, for a reader comparing the two bars
  * @param atLeastAsExtreme   how many draws reached the observed count or beat it

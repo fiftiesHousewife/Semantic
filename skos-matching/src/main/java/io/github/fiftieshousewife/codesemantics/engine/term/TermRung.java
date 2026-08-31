@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
+import java.util.Locale;
+
 /**
  * What both sides of a match were normalised to before they were compared, narrowest first.
  *
@@ -40,5 +42,10 @@ public enum TermRung {
     /** What both sides became, in words a report can print. */
     public String normalisation() {
         return normalisation;
+    }
+
+    /** The name a report keys this level by, which is the one the export states on every count and row. */
+    public String level() {
+        return name().toLowerCase(Locale.ROOT);
     }
 }
