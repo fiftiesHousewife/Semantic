@@ -72,6 +72,44 @@ class StatedAncestryTest {
     }
 
     @Test
+    void keepsEveryLevelBetweenTheTopOfABranchAndTheConcept() {
+        final StatedAncestry deep = StatedAncestry.over(List.of(
+                concept("Aspect", ""), concept("Value", "Aspect"),
+                concept("QuantitativeValue", "Value"), concept("PresentValue", "QuantitativeValue"),
+                concept("Elsewhere", ""), concept("Apart", "")));
+        assertAll(
+                () -> assertThat(deep.pathAbove("PresentValue"))
+                        .as("the two ends of this path drop Value between them")
+                        .containsExactly("Aspect", "Value", "QuantitativeValue"),
+                () -> assertThat(deep.topOfTheBranchOf("PresentValue")).hasValue("Aspect"));
+    }
+
+    @Test
+    void statesOneLevelWhereThePublisherStatesOneAncestor() {
+        final StatedAncestry flat = StatedAncestry.over(List.of(
+                concept("Session", ""), concept("MsgSeqNum", "Session"), concept("Elsewhere", "")));
+        assertAll(
+                () -> assertThat(flat.pathAbove("MsgSeqNum"))
+                        .as("FIX places 5,434 of its 7,170 rows one level down, and a path of one is "
+                                + "what the two ends printed twice")
+                        .containsExactly("Session"),
+                () -> assertThat(flat.pathAbove("Session")).isEmpty());
+    }
+
+    @Test
+    void stepsPastAFieldLevelInThePathAsWellAsAtItsTop() {
+        final StatedAncestry spread = StatedAncestry.over(List.of(
+                concept("Common", ""), concept("Section", "Common"), concept("Field", "Section"),
+                concept("Second", "Common"), concept("Third", "Common")));
+        assertAll(
+                () -> assertThat(spread.fieldLevels()).containsExactly("Common"),
+                () -> assertThat(spread.pathAbove("Field"))
+                        .as("Common names only the vocabulary that matched, wherever in the path it "
+                                + "stands")
+                        .containsExactly("Section"));
+    }
+
+    @Test
     void leavesAVocabularyWithNoSuchLevelUnchanged() {
         final StatedAncestry even = StatedAncestry.over(List.of(
                 concept("Left", ""), concept("Right", ""), concept("UnderLeft", "Left"),

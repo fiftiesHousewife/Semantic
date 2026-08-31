@@ -17,8 +17,24 @@ class SenseRunsTest {
     }
 
     @Test
-    void readsEachWordSeparatelyWhereTheDictionaryHoldsNoEntryForTheRun() {
-        assertThat(senses.of(List.of("base", "form"))).hasValueSatisfying(run -> assertThat(run).hasSize(2));
+    void readsNothingWhereTheDictionaryHoldsNoEntryForTheWholeRun() {
+        assertThat(senses.of(List.of("base", "form")))
+                .as("reading a run word by word made two words sharing a commonest sense into one word, "
+                        + "and where the two runs carry the same words it only repeats the lemma rung")
+                .isEmpty();
+    }
+
+    @Test
+    void refusesToReadOneWordAsAnotherTheyShareASenseWith() {
+        assertAll(
+                () -> assertThat(senses.of(List.of("set", "window")))
+                        .as("set and put share a sense, and FIBO's PutWindow is not a window anything "
+                                + "is set in")
+                        .isEqualTo(senses.of(List.of("put", "window"))).isEmpty(),
+                () -> assertThat(senses.of(List.of("packet", "header")))
+                        .as("packet and package share one, and FpML's PackageHeader is not a packet "
+                                + "header")
+                        .isEmpty());
     }
 
     @Test

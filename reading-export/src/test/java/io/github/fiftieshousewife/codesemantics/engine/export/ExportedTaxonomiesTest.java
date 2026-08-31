@@ -60,7 +60,7 @@ class ExportedTaxonomiesTest {
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
                 () -> assertThat(exported.concepts()).singleElement()
                         .isEqualTo(new ExportedTaxonomy.Concept("Verb", "verb", "what the publisher says it means",
-                                "WordClass", "WordClass", 20, 0.8, 1, 1.0,
+                                "WordClass", List.of("WordClass"), 20, 0.8, 1, 1.0,
                                 new SightingSite("engine/src/main/java/Reading.java", 9))));
     }
 
@@ -129,8 +129,9 @@ class ExportedTaxonomiesTest {
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())
                         .as("a level producing no match reads as a zero")
-                        .containsOnlyKeys("words", "lemmas", "senses"),
+                        .containsOnlyKeys("words", "lemmas", "expansions", "senses"),
                 () -> assertThat(exported.matchesByNormalisation()).containsEntry("words", 20)
-                        .containsEntry("lemmas", 0).containsEntry("senses", 0));
+                        .containsEntry("lemmas", 0).containsEntry("expansions", 0)
+                        .containsEntry("senses", 0));
     }
 }

@@ -64,6 +64,7 @@ public final class TermReading {
     private static List<TermIndex> ladder(final TermIndex index) {
         return List.of(index,
                 NormalisedTerms.over(index, LemmaRuns.fromClasspath()),
+                NormalisedTerms.over(index, ExpandedRuns.fromClasspath()),
                 NormalisedTerms.over(index, SenseRuns.fromClasspath()));
     }
 

@@ -95,10 +95,25 @@ public final class StatedAncestry {
      * {@link #rootOf} answers with the concept, because a walk that must return a coordinate has to.
      */
     public Optional<String> topOfTheBranchOf(final String prefLabel) {
+        return pathAbove(prefLabel).stream().findFirst();
+    }
+
+    /**
+     * Every concept the publisher states above this one, broadest first, with the levels naming the
+     * scheme's own field stepped over. Empty where the publisher states nothing above it.
+     *
+     * <p>This is the whole of what {@link #topOfTheBranchOf} returns the first of, and the two ends of it
+     * are what a reading used to carry instead. The ends coincide wherever a publisher states one ancestor
+     * — FIX places 5,434 of its 7,170 rows directly under {@code Common}, and FpML declares 616 of its
+     * 1,405 types with no base type at all — and they hide the middle wherever it states several: FIBO
+     * puts {@code PresentValue} under {@code QuantitativeValue} under {@code Value} under {@code Aspect},
+     * and the two ends drop {@code Value}.
+     */
+    public List<String> pathAbove(final String prefLabel) {
         return of(prefLabel).stream()
                 .filter(above -> !above.equals(prefLabel))
                 .filter(above -> !fieldLevels().contains(above))
-                .findFirst();
+                .toList();
     }
 
     /**

@@ -20,13 +20,16 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 public enum TermRung {
 
     /** The run of words as both sides wrote it. */
-    WORDS("the words themselves"),
+    WORDS("the words exactly as written"),
 
-    /** The dictionary form of each word, which is one word's inflections and not a second word. */
-    LEMMAS("the dictionary form of each word"),
+    /** The dictionary form of each word, from WordNet: one word's inflections and not a second word. */
+    LEMMAS("the dictionary form of each word, from WordNet"),
 
-    /** The sense the dictionary carries each word in, which two different spellings can share. */
-    SENSES("the sense the dictionary carries each word in");
+    /** The longer word Wiktionary cites a shortened one as standing for, which is still one word. */
+    EXPANSIONS("the expansion Wiktionary cites for a shortened word"),
+
+    /** The meaning of each word, normalised to a WordNet sense, which two different spellings can share. */
+    SENSES("the meaning of each word, normalised to a WordNet sense");
 
     private final String normalisation;
 

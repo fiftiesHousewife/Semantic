@@ -33,12 +33,12 @@ class ReadingExportSchemaTest {
 
     private static final ReadingExport EXPORT = ReadingExport.of(
             new ExportedSummary("CodeSemantics", "610c4e9",
-                    List.of(new ExportedAnswer("taxonomy", "OLiA", "WordClass", "WordClass",
+                    List.of(ExportedAnswer.fromATaxonomy("OLiA", List.of("WordClass"),
                                     "Verb — a word that signifies an action or state",
-                                    "12 phrases against the 3 a deal of its own words reaches"),
-                            new ExportedAnswer("taxonomy", "CSO", "cryptography", "cryptology",
+                                    "12 phrases against the 3 a deal of its own words reaches", 4.0),
+                            ExportedAnswer.fromATaxonomy("CSO", List.of("cryptology", "cryptography"),
                                     "public key cryptography",
-                                    "4 phrases against the 2 a deal of its own words reaches")),
+                                    "4 phrases against the 2 a deal of its own words reaches", 2.0)),
                     List.of("linguistics"),
                     List.of("WordNet Domains"), PLACEMENT,
                     List.of(new LeadingWord("lemma", 0.02, 40)),
@@ -55,10 +55,10 @@ class ReadingExportSchemaTest {
                                     new SightingSite("Reading.java", 7))))))),
             List.of(new ExportedTaxonomy("OLiA",
                     List.of(new ExportedTaxonomy.Concept("Verb", "verb", "a word that signifies an action",
-                            "WordClass", "WordClass", 20, 0.8, 1, 1.0,
+                            "WordClass", List.of("WordClass"), 20, 0.8, 1, 1.0,
                             new SightingSite("Reading.java", 9))),
                     List.of(new ExportedTaxonomy.Branch("WordClass", 0.52, 16.0, 8.32, List.of("verb"))),
-                    Map.of("words", 973, "lemmas", 201, "senses", 130),
+                    Map.of("words", 973, "lemmas", 201, "expansions", 12, "senses", 130),
                     new ExportedTaxonomy.Bar(12, 3, 2, 4.0, 7, 999))),
             new SetAside(1_325, 625, 14, 9, 1, 56, 2, 118, 0));
 
@@ -141,7 +141,7 @@ class ReadingExportSchemaTest {
     private static ReadingExport twoTaxonomies() {
         final List<ExportedTaxonomy> both = List.of(EXPORT.taxonomies().getFirst(),
                 new ExportedTaxonomy("CSO", List.of(), List.of(),
-                        Map.of("words", 0, "lemmas", 0, "senses", 0),
+                        Map.of("words", 0, "lemmas", 0, "expansions", 0, "senses", 0),
                         new ExportedTaxonomy.Bar(4, 1, 0, 4.0, 7, 999)));
         return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(),
                 EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside());

@@ -22,6 +22,15 @@ import io.github.fiftieshousewife.bi.lexicon.WordSense;
  * <p><b>A run with a word the dictionary does not know normalises to nothing.</b> Not to itself, and not to
  * the words it could read: a reading that cannot cite abstains, and half a run of senses would be a comparison
  * this library invented for the half it could read.
+ *
+ * <p><b>Only a run the dictionary holds whole is read as senses.</b> Reading a run word by word — each word
+ * as the sense the dictionary carries it in — was tried and produced false matches, because two different
+ * words sharing a commonest sense then became the same word. English synonymy is not the synonymy of a
+ * technical vocabulary: {@code set} and {@code put} share a sense and FIBO's {@code PutWindow} is not a
+ * window anything is set in, {@code packet} and {@code package} share one and FpML's {@code PackageHeader}
+ * is not a packet header, and {@code scheme} read as {@code Strategy} named a FIBO strategy for an XML
+ * scheme. Where the two runs carry the same words this path only repeats what {@link LemmaRuns} already
+ * matched; where they do not, everything it adds is a substitution no publisher stated.
  */
 public final class SenseRuns implements TermNormalisation<List<WordSense>> {
 
@@ -35,11 +44,10 @@ public final class SenseRuns implements TermNormalisation<List<WordSense>> {
         return new SenseRuns(WordNetLexicon.fromClasspath());
     }
 
-    /** The senses this run of words reads as, or nothing where any part of it cannot be read at all. */
+    /** The sense this run reads as where the dictionary holds the whole of it, and nothing otherwise. */
     @Override
     public Optional<List<WordSense>> of(final List<String> words) {
-        return words.isEmpty() ? Optional.empty()
-                : asOneEntry(words).map(List::of).or(() -> wordByWord(words));
+        return words.isEmpty() ? Optional.empty() : asOneEntry(words).map(List::of);
     }
 
     @Override
@@ -49,13 +57,5 @@ public final class SenseRuns implements TermNormalisation<List<WordSense>> {
 
     private Optional<WordSense> asOneEntry(final List<String> words) {
         return lexicon.commonestSense(String.join(" ", words));
-    }
-
-    private Optional<List<WordSense>> wordByWord(final List<String> words) {
-        final List<WordSense> read = words.stream()
-                .map(lexicon::commonestSense)
-                .flatMap(Optional::stream)
-                .toList();
-        return Optional.of(read).filter(senses -> senses.size() == words.size());
     }
 }

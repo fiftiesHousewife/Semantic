@@ -30,6 +30,11 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String subject() {
+            return "linguistic annotation";
+        }
+
+        @Override
         public String publishedAt() {
             return "https://github.com/acoli-repo/olia";
         }
@@ -53,6 +58,11 @@ public enum MatchedTaxonomies {
         }
 
         @Override
+        public String subject() {
+            return "computer science";
+        }
+
+        @Override
         public String publishedAt() {
             return "https://cso.kmi.open.ac.uk/";
         }
@@ -67,6 +77,22 @@ public enum MatchedTaxonomies {
 
     /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
     public abstract String description();
+
+    /**
+     * The subject the standard itself is about, in as few words as the publisher's own name and scope
+     * statement allow.
+     *
+     * <p><b>It is a curated statement of a published standard and not of a corpus</b>, which is the
+     * distinction that decides what this library may write down: FpML's own scope is derivatives, OLiA's
+     * own name is the Ontologies of Linguistic Annotation, and FIX's own expansion is Financial
+     * Information eXchange. Nothing here is observed from the repositories that were read.
+     *
+     * <p>It answers the question a reader opens the page with. A repository writing {@code MsgSeqNum} and
+     * {@code BeginString} is doing financial information exchange, and the identifiers say so to nobody.
+     * <b>It is drawn beside the concepts and never instead of them</b> — answering at the vocabulary is
+     * the blocking this cascade already refuses, because the evidence supports descending.
+     */
+    public abstract String subject();
 
     /** Where the publisher publishes it, so a page naming a vocabulary can link to the thing it names. */
     public abstract String publishedAt();

@@ -36,6 +36,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String subject() {
+            return "financial instruments, parties and agreements";
+        }
+
+        @Override
         public String publishedAt() {
             return "https://spec.edmcouncil.org/fibo/";
         }
@@ -60,6 +65,11 @@ public enum ControlTaxonomies {
         @Override
         public String description() {
             return "The Financial products Markup Language: how a derivatives trade is written down on the wire.";
+        }
+
+        @Override
+        public String subject() {
+            return "derivatives";
         }
 
         @Override
@@ -90,6 +100,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String subject() {
+            return "financial information exchange";
+        }
+
+        @Override
         public String publishedAt() {
             return "https://www.fixtrading.org/standards/fix-orchestra/";
         }
@@ -113,6 +128,11 @@ public enum ControlTaxonomies {
         @Override
         public String description() {
             return "The Common Weakness Enumeration: the names MITRE states for software weaknesses.";
+        }
+
+        @Override
+        public String subject() {
+            return "software weaknesses";
         }
 
         @Override
@@ -143,6 +163,11 @@ public enum ControlTaxonomies {
         }
 
         @Override
+        public String subject() {
+            return "banking business capabilities";
+        }
+
+        @Override
         public String publishedAt() {
             return "https://bian.org/servicelandscape/";
         }
@@ -157,6 +182,22 @@ public enum ControlTaxonomies {
 
     /** The publisher and what its terms state, in one sentence, for a page naming the vocabulary. */
     public abstract String description();
+
+    /**
+     * The subject the standard itself is about, in as few words as the publisher's own name and scope
+     * statement allow.
+     *
+     * <p><b>It is a curated statement of a published standard and not of a corpus</b>, which is the
+     * distinction that decides what this library may write down: FpML's own scope is derivatives, OLiA's
+     * own name is the Ontologies of Linguistic Annotation, and FIX's own expansion is Financial
+     * Information eXchange. Nothing here is observed from the repositories that were read.
+     *
+     * <p>It answers the question a reader opens the page with. A repository writing {@code MsgSeqNum} and
+     * {@code BeginString} is doing financial information exchange, and the identifiers say so to nobody.
+     * <b>It is drawn beside the concepts and never instead of them</b> — answering at the vocabulary is
+     * the blocking this cascade already refuses, because the evidence supports descending.
+     */
+    public abstract String subject();
 
     /** Where the publisher publishes it, so a page naming a vocabulary can link to the thing it names. */
     public abstract String publishedAt();

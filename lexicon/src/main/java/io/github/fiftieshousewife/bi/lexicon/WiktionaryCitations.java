@@ -46,6 +46,11 @@ public final class WiktionaryCitations {
         return citationsByToken.getOrDefault(token.toLowerCase(Locale.ROOT), List.of());
     }
 
+    /** Every token the file cites a reading for, so a caller can ask which of them cite only one. */
+    public Set<String> tokens() {
+        return citationsByToken.keySet();
+    }
+
     private static WiktionaryCitations load() {
         final Map<String, List<Citation>> citations = new HashMap<>();
         final Map<String, String> canonicalTopics = new HashMap<>();

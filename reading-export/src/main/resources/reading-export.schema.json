@@ -64,8 +64,7 @@
             "required": [
               "sourceType",
               "source",
-              "placedUnder",
-              "atTheTopOfItsBranch",
+              "statedPath",
               "result",
               "qualifiedBy"
             ],
@@ -83,13 +82,13 @@
                 "description": "The publisher, under the name it states. Empty where nothing answered.",
                 "type": "string"
               },
-              "placedUnder": {
-                "description": "Where the publisher places what answered, kept because a definition read without it is a sentence with no field around it: `Session` says which part of the FIX protocol `MsgSeqNum` belongs to. Empty at a root of the taxonomy, and empty for a subject scheme, which places a repository rather than a concept.",
-                "type": "string"
-              },
-              "atTheTopOfItsBranch": {
-                "description": "The last concept the publisher's chain above the answer reaches: the walk up its own `broader` column, stopping where the file carries no row for the next parent, and the concept itself where the publisher states none above it. It differs from `placedUnder` by how deep a publisher's tree is, which is why both are here. OLiA states nothing above `InflectionTypeFeature`, so the two read alike; FIBO states `PresentValue` beneath `QuantitativeValue` beneath `Value`, and only the top of that says which part of FIBO the concept belongs to. Empty for a subject scheme, which places a repository rather than a concept.",
-                "type": "string"
+              "statedPath": {
+                "title": "Where the publisher places what answered",
+                "description": "Every level the publisher states above what answered, broadest first, with the levels naming the publisher's own field stepped over \u2014 the levels an outright majority of the vocabulary sits beneath, which name only the vocabulary that matched. Empty where the publisher states nothing above it, which FpML does for 616 of its 1,405 types. It is the whole path and not its two ends: FIX places 5,434 of its 7,170 rows one level down, so the two ends were the same label on those, and FIBO states `Aspect \u2192 Value \u2192 QuantitativeValue \u2192 PresentValue`, where the two ends dropped `Value`. For a subject scheme it is the archive the answering category sits in, and empty where the archive is itself the answer.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "result": {
                 "description": "What that publisher says this repository is. For a taxonomy it is the publisher's own definition of the concept the repository wrote most, named before it \u2014 the node carries the meaning, and reporting only its name would have matched a name. A concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer; where the vocabulary defines none of what was matched, what the vocabulary covers is the most the publishers say. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification \u2014 stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
@@ -98,6 +97,18 @@
               "qualifiedBy": {
                 "description": "How it cleared its own bar, in the unit that bar is set in.",
                 "type": "string"
+              },
+              "timesItsBar": {
+                "title": "Times its own chance bar",
+                "description": "How many times the count a deal of its own words reaches this vocabulary's phrase count came to. Present only where `sourceType` is `taxonomy`: a subject scheme faces no permutation bar, and a source that cannot speak in a unit leaves the field out rather than writing a zero into it.",
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "bitsPastChance": {
+                "title": "Bits nearer than chance reached",
+                "description": "How much nearer the repository stood to this subject than the nearest subject of a scheme of chance stood. Present only where `sourceType` is `subject scheme`: a vocabulary states no distance, and the two strengths are different quantities that are never stated in one another's unit.",
+                "type": "number",
+                "exclusiveMinimum": 0
               }
             }
           }
@@ -417,7 +428,7 @@
                 "concept",
                 "term",
                 "placedUnder",
-                "atTheTopOfItsBranch",
+                "statedPath",
                 "occurrences",
                 "specificity",
                 "wordsInTerm",
@@ -444,9 +455,12 @@
                   "description": "The publisher's own parent for this concept, empty at a root of the taxonomy. OLiA places `Verb` under `WordClass`.",
                   "type": "string"
                 },
-                "atTheTopOfItsBranch": {
-                  "description": "The last concept the publisher's chain above this one reaches, stopping where the file carries no row for the next parent. `placedUnder` is one step; this is the end of the walk, and the two differ by how deep the publisher's tree is.",
-                  "type": "string"
+                "statedPath": {
+                  "description": "Every level the publisher states above this concept, broadest first, with the levels naming the publisher's own field stepped over. `placedUnder` is the raw `broader` cell and this is the whole walk: a concept FIX places directly under `Common` states `placedUnder` as `Common` and an empty path, because `Common` holds 68% of FIX and names only the vocabulary that matched.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "occurrences": {
                   "title": "Occurrences",
@@ -527,27 +541,33 @@
           },
           "matchesByNormalisation": {
             "title": "Matches per normalisation level",
-            "description": "How many matches each level produced. The levels are reported separately and never summed: a term found in the words themselves and a term found in what a dictionary says those words mean carry different weight as evidence.",
+            "description": "How many matches each level produced. The levels are reported separately and never summed: a term found in the words exactly as written and a term found in what a dictionary says those words mean carry different weight as evidence.",
             "type": "object",
             "additionalProperties": false,
             "required": [
               "words",
               "lemmas",
+              "expansions",
               "senses"
             ],
             "properties": {
               "words": {
-                "description": "Both sides compared as the sequence of words each writes. `adjectivePhrase` matches OLiA's `AdjectivePhrase`.",
+                "description": "Both sides compared as the words each writes, exactly as written. `adjectivePhrase` matches OLiA's `AdjectivePhrase`.",
                 "type": "integer",
                 "minimum": 0
               },
               "lemmas": {
-                "description": "Both sides reduced to each word's dictionary form. `phrases` matches `Phrase`.",
+                "description": "Both sides reduced to each word's dictionary form, from [WordNet](https://wordnet.princeton.edu/). `phrases` matches `Phrase`.",
+                "type": "integer",
+                "minimum": 0
+              },
+              "expansions": {
+                "description": "Both sides with a shortened word written out as the expansion [Wiktionary](https://en.wiktionary.org/) cites for it, then reduced to dictionary forms. `extract info` matches `extracting information`. A token several sources expand differently \u2014 `msg` as message, Madison Square Garden and monosodium glutamate \u2014 is not expanded at all, because nothing in the citations ranks them.",
                 "type": "integer",
                 "minimum": 0
               },
               "senses": {
-                "description": "Both sides reduced to the WordNet synset carrying each word. Reported, and contributing to no other figure in this document.",
+                "description": "Both sides taken as the meaning of each word, normalised to a [WordNet](https://wordnet.princeton.edu/) sense, and only where WordNet holds the whole phrase as one entry. Reading a run word by word was tried and made two words sharing a commonest sense into one word, matching `set window` to `PutWindow` and `packet header` to `PackageHeader`. Reported, and contributing to no other figure in this document.",
                 "type": "integer",
                 "minimum": 0
               }

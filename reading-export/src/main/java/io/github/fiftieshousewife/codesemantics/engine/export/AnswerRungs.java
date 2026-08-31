@@ -105,20 +105,13 @@ public enum AnswerRungs {
         @Override
         List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.summary().placedIn().stream()
-                    .flatMap(scheme -> Stream.of(scheme.archive(), scheme.category())
-                            .filter(ExportedPlacement.Level::standsApartFromChance)
-                            .map(level -> new ExportedAnswer(SCHEME, scheme.scheme(), "", "",
-                                    level.subject(),
-                                    String.format(Locale.ROOT, "%.3f bits nearer than chance reached",
-                                            level.nearestByChanceBits() - level.divergenceBits()))))
+                    .map(AnswerRungs::placed)
+                    .flatMap(Optional::stream)
                     .toList();
         }
     };
 
-    private static final String TAXONOMY = "taxonomy";
-    private static final String SCHEME = "subject scheme";
     private static final String AFTER_THE_PUBLISHER = ":";
-    private static final String SEVERAL_PARENTS = "|";
     private static final int SINGLE_WORD = 1;
     private static final int PHRASE = 2;
 
@@ -136,18 +129,38 @@ public enum AnswerRungs {
     private static ExportedAnswer answer(final ExportedTaxonomy vocabulary, final int shortest,
                                          final String qualifiedBy) {
         final Optional<ExportedTaxonomy.Concept> answering = answering(vocabulary, shortest);
-        return new ExportedAnswer(TAXONOMY, vocabulary.vocabulary(),
-                answering.map(ExportedTaxonomy.Concept::placedUnder).map(AnswerRungs::firstOf).orElse(""),
-                answering.map(ExportedTaxonomy.Concept::atTheTopOfItsBranch).orElse(""),
+        return ExportedAnswer.fromATaxonomy(vocabulary.vocabulary(),
+                answering.map(ExportedTaxonomy.Concept::statedPath).orElseGet(List::of),
                 answering.map(AnswerRungs::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
-                qualifiedBy);
+                qualifiedBy, vocabulary.bar().timesTheBar());
     }
 
-    /** A publisher naming several parents at once is taken at the first, because a path is one answer. */
-    private static String firstOf(final String stated) {
-        return stated.contains(SEVERAL_PARENTS)
-                ? stated.substring(0, stated.indexOf(SEVERAL_PARENTS)).strip()
-                : stated.strip();
+    /**
+     * One scheme's placement as one answer, and none where neither of its levels stands apart from chance.
+     *
+     * <p><b>The two levels are one path and not two answers.</b> The archive is the category's stated
+     * parent — arXiv puts {@code Audio and Speech Processing} in {@code Electrical Engineering and Systems
+     * Science} — so naming both as sibling answers repeats the scheme's name with nothing saying which
+     * level each is, which is the answering-by-omission this cascade exists to stop. The category is the
+     * answer where it stands apart, with the archive as its path; the archive answers alone where only it
+     * does, standing at a path of nothing.
+     */
+    private static Optional<ExportedAnswer> placed(final ExportedPlacement scheme) {
+        if (scheme.category().standsApartFromChance()) {
+            return Optional.of(answerOf(scheme, scheme.category(),
+                    List.of(scheme.archive().subject())));
+        }
+        return scheme.archive().standsApartFromChance()
+                ? Optional.of(answerOf(scheme, scheme.archive(), List.of()))
+                : Optional.empty();
+    }
+
+    private static ExportedAnswer answerOf(final ExportedPlacement scheme,
+                                           final ExportedPlacement.Level level,
+                                           final List<String> statedPath) {
+        final double past = level.nearestByChanceBits() - level.divergenceBits();
+        return ExportedAnswer.fromASubjectScheme(scheme.scheme(), statedPath, level.subject(),
+                String.format(Locale.ROOT, "%.3f bits nearer than chance reached", past), past);
     }
 
     /**
