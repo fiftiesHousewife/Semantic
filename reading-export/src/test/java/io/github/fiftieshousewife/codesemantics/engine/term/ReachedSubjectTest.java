@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import org.junit.jupiter.api.Tag;
@@ -51,10 +52,33 @@ class ReachedSubjectTest {
         final List<SkosConcept> published = POOLED.in(CSO.published());
         final Map<String, Integer> written =
                 POOLED.writtenUnder(MATCHED.writtenByConcept(fixture), CSO.published());
-        final List<WrittenSubtree> ranked =
-                WrittenSubtree.in(TaxonomyTree.of(published, written, Function.identity()), MASS);
+        final TaxonomyTree tree = TaxonomyTree.of(published, written, Function.identity());
+        final List<WrittenSubtree> ranked = WrittenSubtree.in(tree, MASS);
         report(fixture, written, ranked, target);
+        beneath(tree, ranked.getFirst());
         return ranked;
+    }
+
+    /**
+     * The concepts the leading branch's count rests on, named. A pinned count that moves is a claim until
+     * somebody can say which concept left, and the list is what says it.
+     */
+    private static void beneath(final TaxonomyTree tree, final WrittenSubtree leading) {
+        System.out.printf("%n  written beneath %s: %s%n", leading.concept(),
+                nodesIn(tree).filter(node -> node.label().equals(leading.concept()))
+                        .findFirst()
+                        .map(branch -> branch.writtenHere().stream()
+                                .map(node -> node.label() + " " + node.written()).toList())
+                        .orElse(List.of()));
+    }
+
+    private static Stream<TaxonomyTree.Node> nodesIn(final TaxonomyTree tree) {
+        return tree.roots().stream().flatMap(ReachedSubjectTest::nodesUnder);
+    }
+
+    private static Stream<TaxonomyTree.Node> nodesUnder(final TaxonomyTree.Node node) {
+        return Stream.concat(Stream.of(node),
+                node.children().stream().flatMap(ReachedSubjectTest::nodesUnder));
     }
 
     private static void report(final String fixture, final Map<String, Integer> written,
@@ -79,6 +103,8 @@ class ReachedSubjectTest {
         System.out.printf("  reaching no concept: %s%n", MATCHED.unresolvedIn(fixture));
         System.out.printf("  reaching several: %s%n", reached.entrySet().stream()
                 .filter(run -> run.getValue() > 1).toList());
+        System.out.printf("  folded into another spelling: %s%n", raw.keySet().stream()
+                .filter(label -> !pooled.containsKey(label)).toList());
     }
 
     private static void rank(final String heading, final List<WrittenSubtree> ranked, final int concepts,
@@ -102,10 +128,16 @@ class ReachedSubjectTest {
 
     /**
      * The target for Apache Tika is a branch about documents, formats or text, and it is not met. CSO states
-     * {@code parsing} beneath computational linguistics, formal languages and natural language processing and
-     * beneath nothing about documents, so Tika's 748 spans of <em>parse</em> — a sixth of everything it
-     * writes — can reach no other branch. The figure is held here so a change to which leaves the matcher
-     * admits is visible as a change to this answer.
+     * {@code parsing algorithm} beneath computational linguistics, formal languages and natural language
+     * processing and beneath nothing about documents, so Tika's 748 spans of <em>parse</em> — a sixth of
+     * everything it writes — can reach no other branch. The figure is held here so a change to which leaves
+     * the matcher admits is visible as a change to this answer.
+     *
+     * <p>The count is the ten {@link #beneath} names. It was eleven until CSO's own duplicate spellings were
+     * collapsed: the ontology published {@code parsing} and {@code parsing_algorithm} as two rows, each
+     * naming the other as an equivalent label and both beneath the same three branches, and Tika's
+     * {@code parse}, {@code parsing}, {@code parsed} and {@code parses} were counted as two concepts of the
+     * branch rather than one. The vocabulary lost a duplicate; the reading lost nothing.
      */
     @Test
     void readsApacheTikasParsingAsLanguageBecauseCsoStatesItNowhereElse() {
@@ -113,7 +145,7 @@ class ReachedSubjectTest {
 
         assertAll(
                 () -> assertThat(ranked.getFirst().concept()).isEqualTo("natural languages"),
-                () -> assertThat(ranked.getFirst().conceptsWritten()).isEqualTo(11));
+                () -> assertThat(ranked.getFirst().conceptsWritten()).isEqualTo(10));
     }
 
     @Test
