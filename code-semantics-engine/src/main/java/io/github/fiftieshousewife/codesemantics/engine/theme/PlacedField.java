@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 
 import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
 import io.github.fiftieshousewife.bi.lexicon.CsoSubjects;
 import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
@@ -74,6 +75,28 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
         final CsoSubjects cso = CsoSubjects.fromClasspath();
         return of(cso, reading, SubjectAreas.pooledFromClasspath(cso),
                 SubjectAreas.leavesFromClasspath(cso), seed);
+    }
+
+    /**
+     * Placed against the BIAN Service Landscape, at its business domains and the service domains stated
+     * beneath them.
+     *
+     * <p><b>No reading publishes this, because it was measured and refused.</b> Over the eleven evaluation
+     * members on 2026-08-31 the business-domain level stood apart from chance on nine of them — maven,
+     * tika, santuario, aeron and besu among them — and the two it could not separate were fineract and
+     * strata, the only banking and derivatives libraries in the set. It named two subjects across eleven
+     * repositories: {@code Cross Channel} ten times and {@code Channel Specific} once. A scheme that
+     * answers the same thing for a build tool and a payments library has not placed either.
+     *
+     * <p>The likely cause is the size of the field it is judged against: 319 service domains pool into 43
+     * business domains, where arXiv states 155 and OpenAlex 4,516, so the null has too few subjects to say
+     * that something is always nearest. It is kept here so the measurement can be repeated — the probe
+     * calls it — and any repair has to move that table before a reading publishes it.
+     */
+    public static PlacedField ofBian(final TopicDistribution reading, final long seed) {
+        final BianServiceDomains bian = BianServiceDomains.fromClasspath();
+        return of(bian, reading, SubjectAreas.pooledFromClasspath(bian),
+                SubjectAreas.leavesFromClasspath(bian), seed);
     }
 
     /**

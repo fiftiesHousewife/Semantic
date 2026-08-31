@@ -17,6 +17,11 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
  *
  * <p>Run it against a vocabulary of a field the repository has nothing to do with and the honest result is
  * that nothing clears the null. That is the control, and a source failing it is not thereby a bad source.
+ *
+ * <p><b>BIAN has failed that control twice.</b> {@link PlacedField#ofBian} states the second measurement:
+ * at both of the levels BIAN publishes, it stood apart on nine of the eleven evaluation members and could
+ * not separate the two that are actually about banking. Both levels are drawn here so a repair is measured
+ * against the same table rather than against this one-level reading.
  */
 public final class FunctionalPlacementProbe {
 
@@ -40,6 +45,7 @@ public final class FunctionalPlacementProbe {
         final SubjectNull.Chance chance = SubjectNull.seeded(TreeReading.SEED).of(
                 placements.getFirst().bits(), repository,
                 published.stream().map(SkosConcept::definition).toList());
+        pooled(repository);
 
         System.out.printf("%n%s — %d concepts stated, %d the reading could place%n", taxonomy.source(),
                 published.size(), read.size());
@@ -53,4 +59,21 @@ public final class FunctionalPlacementProbe {
                 chance.standsApart() ? "STANDS APART FROM CHANCE" : "says only that the taxonomy is large");
     }
 
+    /**
+     * The same tree at both of the levels BIAN publishes, which is what a reading would draw. The
+     * business-domain level is the one that stood apart on nine of eleven members and named two subjects
+     * between them, so it is printed beside the service domains rather than left to be inferred.
+     */
+    private static void pooled(final TopicDistribution repository) {
+        final PlacedField field = PlacedField.ofBian(repository, TreeReading.SEED);
+        System.out.printf("%n%s at both levels%n", field.scheme());
+        System.out.printf("  business domain %-34s %.4f vs chance %.4f — %s%n",
+                field.nearestArchive().label(), field.nearestArchive().bits(),
+                field.archiveChance().chanceNearest(),
+                field.archiveChance().standsApart() ? "STANDS APART" : "within chance");
+        System.out.printf("  service domain  %-34s %.4f vs chance %.4f — %s%n",
+                field.nearestCategory().label(), field.nearestCategory().bits(),
+                field.categoryChance().chanceNearest(),
+                field.categoryChance().standsApart() ? "STANDS APART" : "within chance");
+    }
 }
