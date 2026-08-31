@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "20.0",
+  "schemaVersion" : "22.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "",
@@ -13,8 +13,8 @@
     }, {
       "sourceType" : "taxonomy",
       "source" : "FpML",
-      "statedPath" : [ "Scheme" ],
-      "result" : "PartyName — The data type used for the legal name of an organization.",
+      "statedPath" : [ ],
+      "result" : "ContactInformation — A type that represents how to contact an individual or organization.",
       "qualifiedBy" : "6 phrases against the 4 a deal of its own words reaches",
       "timesItsBar" : 1.5
     }, {
@@ -16707,6 +16707,8 @@
       "chanceExpectedBest" : 21,
       "median" : 16,
       "timesTheBar" : 1.4285714285714286,
+      "atLeastAsExtreme" : 1,
+      "chanceRate" : 0.002,
       "field" : 7,
       "resamples" : 999
     }
@@ -17721,6 +17723,8 @@
       "chanceExpectedBest" : 4,
       "median" : 2,
       "timesTheBar" : 1.25,
+      "atLeastAsExtreme" : 65,
+      "chanceRate" : 0.066,
       "field" : 7,
       "resamples" : 999
     }
@@ -17884,8 +17888,8 @@
       "concept" : "ProductType",
       "term" : "product type",
       "definition" : "",
-      "placedUnder" : "NonEmptyLongScheme",
-      "statedPath" : [ "NonEmptyLongScheme" ],
+      "placedUnder" : "",
+      "statedPath" : [ ],
       "occurrences" : 6,
       "specificity" : 0.8661830959862992,
       "wordsInTerm" : 2,
@@ -17926,8 +17930,8 @@
       "concept" : "PartyName",
       "term" : "party name",
       "definition" : "The data type used for the legal name of an organization.",
-      "placedUnder" : "Scheme",
-      "statedPath" : [ "Scheme" ],
+      "placedUnder" : "",
+      "statedPath" : [ ],
       "occurrences" : 2,
       "specificity" : 0.8230814594813067,
       "wordsInTerm" : 2,
@@ -17954,8 +17958,8 @@
       "concept" : "LcType",
       "term" : "lc type",
       "definition" : "A list of L/C types.",
-      "placedUnder" : "Scheme",
-      "statedPath" : [ "Scheme" ],
+      "placedUnder" : "",
+      "statedPath" : [ ],
       "occurrences" : 1,
       "specificity" : 1.0,
       "wordsInTerm" : 2,
@@ -18038,8 +18042,8 @@
       "concept" : "PartyRole",
       "term" : "party role",
       "definition" : "A type describing a role played by a party in one or more transactions. Examples include roles such as guarantor, custodian, confirmation service provider, etc. This can be extended to provide custom roles.",
-      "placedUnder" : "Scheme",
-      "statedPath" : [ "Scheme" ],
+      "placedUnder" : "",
+      "statedPath" : [ ],
       "occurrences" : 1,
       "specificity" : 0.8332455891202115,
       "wordsInTerm" : 2,
@@ -18081,12 +18085,6 @@
       "mass" : 79.01588368610236,
       "kept" : 26.77794542054255,
       "terms" : [ "strategy", "scheme", "options", "repo", "option", "fra", "swap", "schemes" ]
-    }, {
-      "branch" : "Scheme",
-      "agreesWithTheRepository" : 0.41409539777878174,
-      "mass" : 3.479408508082825,
-      "kept" : 1.440807050189435,
-      "terms" : [ "party name", "lc type", "party role" ]
     } ],
     "matchesByNormalisation" : {
       "expansions" : 10,
@@ -18099,6 +18097,8 @@
       "chanceExpectedBest" : 4,
       "median" : 2,
       "timesTheBar" : 1.5,
+      "atLeastAsExtreme" : 18,
+      "chanceRate" : 0.019,
       "field" : 7,
       "resamples" : 999
     }
@@ -18217,6 +18217,8 @@
       "chanceExpectedBest" : 2,
       "median" : 1,
       "timesTheBar" : 2.0,
+      "atLeastAsExtreme" : 16,
+      "chanceRate" : 0.017,
       "field" : 7,
       "resamples" : 999
     }
@@ -18228,7 +18230,43 @@
     "wordsTheLanguageSupplies" : 22,
     "scopesWithinChance" : 209,
     "matchesDiscardedByBranchRule" : 83,
-    "vocabulariesBelowTheirChanceBar" : 3,
+    "vocabulariesBelowTheirChanceBar" : [ {
+      "vocabulary" : "OLiA",
+      "bar" : {
+        "phrases" : 3,
+        "chanceExpectedBest" : 3,
+        "median" : 1,
+        "timesTheBar" : 1.0,
+        "atLeastAsExtreme" : 156,
+        "chanceRate" : 0.157,
+        "field" : 7,
+        "resamples" : 999
+      }
+    }, {
+      "vocabulary" : "FIX",
+      "bar" : {
+        "phrases" : 8,
+        "chanceExpectedBest" : 10,
+        "median" : 7,
+        "timesTheBar" : 0.8,
+        "atLeastAsExtreme" : 369,
+        "chanceRate" : 0.37,
+        "field" : 7,
+        "resamples" : 999
+      }
+    }, {
+      "vocabulary" : "BIAN",
+      "bar" : {
+        "phrases" : 0,
+        "chanceExpectedBest" : 1,
+        "median" : 0,
+        "timesTheBar" : 0.0,
+        "atLeastAsExtreme" : 999,
+        "chanceRate" : 1.0,
+        "field" : 7,
+        "resamples" : 999
+      }
+    } ],
     "termsWorkingJavaAlsoWrites" : 2761,
     "filesTheParserCouldNotRead" : 0
   }
