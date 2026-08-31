@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "3a7c493fc9cbaae42585625156ec2ea3100df132",
-  "commit" : "3a7c493fc9cbaae42585625156ec2ea3100df132",
+  "previousCommit" : "83f41f23b56436d7f91decc47b7138a146a65f43",
+  "commit" : "83f41f23b56436d7f91decc47b7138a146a65f43",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -60,7 +60,7 @@
   }, {
     "figure" : "OpenAlex archive — chance reaches",
     "before" : "32.4%",
-    "after" : "32.4%"
+    "after" : "32.3%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
     "before" : "yes",
@@ -107,7 +107,7 @@
     "after" : "yes"
   }, {
     "figure" : "CSO archive — subjects nearer than chance",
-    "before" : "3",
+    "before" : "4",
     "after" : "3"
   }, {
     "figure" : "CSO category — nearest subject",
