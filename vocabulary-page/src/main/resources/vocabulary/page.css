@@ -1,0 +1,83 @@
+/* The tokens every page shares: the sheet's colours, and one colour per bundled publisher. Each page's
+   own stylesheet holds only what is its own, and is carried into the document after this one. */
+:root {
+    color-scheme: light dark;
+    --paper: #f4f6f5;
+    --raised: #ffffff;
+    --ink: #12181c;
+    --ink-soft: #4a5860;
+    --ink-faint: #7f8f97;
+    --rule: #dde3e2;
+    --count: #2a78d6;
+    --reached: #1baf7a;
+    --missed: #d95926;
+    --v-olia: #2a78d6;
+    --v-cso: #eb6834;
+    --v-fibo: #1baf7a;
+    --v-fpml: #eda100;
+    --v-fix: #e87ba4;
+    --v-cwe: #008300;
+    --v-bian: #4a3aa7;
+    --v-arxiv: #7f8f97;
+    --v-openalex: #4a5860;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #101518;
+        --raised: #171e22;
+        --ink: #eaf0ee;
+        --ink-soft: #9fb0b4;
+        --ink-faint: #6d8085;
+        --rule: #262f34;
+        --count: #3987e5;
+        --reached: #199e70;
+        --missed: #eb6834;
+        --v-olia: #3987e5;
+        --v-cso: #d95926;
+        --v-fibo: #199e70;
+        --v-fpml: #c98500;
+        --v-fix: #d55181;
+        --v-cwe: #008300;
+        --v-bian: #9085e9;
+        --v-arxiv: #6d8085;
+        --v-openalex: #9fb0b4;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.sheet {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 4rem;
+}
+
+h1 {
+    font-size: 1.6rem;
+    margin: 0 0 0.25rem;
+}
+
+.lede {
+    max-width: 52rem;
+    color: var(--ink-soft);
+}
+
+.nav {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+}
+
+.nav a,
+.lede a {
+    color: var(--count);
+}
+
+.silent {
+    color: var(--ink-faint);
+}

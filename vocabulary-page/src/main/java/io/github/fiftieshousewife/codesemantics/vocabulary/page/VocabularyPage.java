@@ -53,7 +53,7 @@ public final class VocabularyPage {
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
                                 a("trees").withHref("term-trees.html"), text(" · "),
-                                a("every repository").withHref("../index.html")),
+                                a("every reading").withHref("../readings.html")),
                         p().withClass("lede").with(
                                 text("Every rule between the declared names and the export's signals, "
                                         + "one row per rule with what it leaves. A word survives by its "

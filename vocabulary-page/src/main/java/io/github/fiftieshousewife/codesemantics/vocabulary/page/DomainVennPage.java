@@ -63,11 +63,12 @@ public final class DomainVennPage {
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
                                 a("trees").withHref("term-trees.html"), text(" · "),
-                                a("every repository").withHref("../index.html")),
+                                a("every reading").withHref("../readings.html")),
                                 p().withClass("lede").with(
-                                        text("The three domains carrying the most of this repository's "
-                                                + "significant words, drawn as overlapping sets under the "
-                                                + "source chosen above the figure. Under the "),
+                                        text("What every bundled domain source made of this "
+                                                + "repository's significant words, one row each, with a "
+                                                + "source's name opening the three domains it puts most "
+                                                + "of the weight on as overlapping sets. Under the "),
                                         a("WordNet domains").withHref(WORDNET_DOMAINS),
                                         text(" sources a word sits in every domain any of its "),
                                         a("senses").withHref(WORDNET),
@@ -81,7 +82,9 @@ public final class DomainVennPage {
                                         a("CSO").withHref(CSO),
                                         text(" in every area holding a topic whose own label carries "
                                                 + "it. Either way, an overlap holds the words placed in "
-                                                + "both of its domains.")),
+                                                + "both of its domains. The sources' labels are never "
+                                                + "mapped onto one another, so each row states what its "
+                                                + "own publisher states.")),
                                 p().withClass("sources"),
                                 p().withClass("back"),
                                 div().withClass("figure")),
@@ -115,7 +118,11 @@ public final class DomainVennPage {
                                         + "weight, above a smallest readable radius, and two circles "
                                         + "overlap only where at least one word sits in both.")),
                                 li().with(text("A count opens its overlap's words, and a word opens its "
-                                        + "place in the vocabulary."))),
+                                        + "place in the vocabulary.")),
+                                li().with(text("On the summary a source's share is of the weight it "
+                                        + "could put on any label at all, so a source placing a tenth "
+                                        + "of the words names a leading domain about a tenth of the "
+                                        + "repository."))),
                         p().withClass("foot")),
                 script().withType("application/json").withId("overlap").with(rawHtml(data)),
                 script(rawHtml(behaviour)));

@@ -28,12 +28,15 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * @param vocabularies every vocabulary the reading published, which is every one that beat its own bar
  * @param placedIn     one entry per subject scheme, at both of its levels
  * @param lambda       the share of word occurrences some bundled resource could be cited for
+ * @param vocabulariesBelowTheirChanceBar how many vocabularies the reading matched and set aside because
+ *                     the repository wrote no more of them than a deal of their own words reaches
  * @param statedArea   the subject area a manifest states for this repository, and none where it states one
  *                     for no repository or none for this one
  */
 public record ReadingRow(String repository, List<ExportedAnswer> answers, List<String> about,
                          List<ExportedTaxonomy> vocabularies, List<ExportedPlacement> placedIn,
-                         double lambda, Optional<String> statedArea) {
+                         double lambda, int vocabulariesBelowTheirChanceBar,
+                         Optional<String> statedArea) {
 
     /** The scheme the manifest's areas are named in, which is the only tree they can be walked up. */
     private static final String SCORED_SCHEME = "OpenAlex";
@@ -51,7 +54,8 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
     public static ReadingRow of(final ReadingExport export, final Optional<String> statedArea) {
         return new ReadingRow(export.summary().repository(), export.summary().answers(),
                 export.summary().about(), export.taxonomies(), export.summary().placedIn(),
-                export.summary().shareOfWordsWithACitation(), statedArea);
+                export.summary().shareOfWordsWithACitation(),
+                export.setAside().vocabulariesBelowTheirChanceBar(), statedArea);
     }
 
     /**
@@ -130,7 +134,7 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
                 .filter(vocabulary -> source.equals(vocabulary.vocabulary()))
                 .flatMap(vocabulary -> vocabulary.concepts().stream())
                 .filter(concept -> concept.wordsInTerm() > SINGLE_WORD)
-                .collect(Collectors.groupingBy(ExportedTaxonomy.Concept::placedUnder,
+                .collect(Collectors.groupingBy(ReadingRow::subjectOf,
                         LinkedHashMap::new, Collectors.toList()));
         return byBranch.entrySet().stream()
                 .map(ReadingRow::branch)
@@ -139,24 +143,53 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
                 .toList();
     }
 
+    /**
+     * The nearest level the publisher states above a concept that is not its own name for its field.
+     *
+     * <p><b>It is {@code statedPath} and not {@code placedUnder}.</b> The raw parent is whatever the
+     * publisher's column says, and for 5,434 of FIX's 7,170 rows that is {@code Common}, which 68% of FIX
+     * sits beneath and which therefore names only the vocabulary that matched. The path already steps
+     * over such a level; grouping by the raw column did not, so quickfixj was described as being about
+     * <em>common</em>. A concept whose whole ancestry is field levels groups under nothing, and is then
+     * named by the phrase itself.
+     */
+    private static String subjectOf(final ExportedTaxonomy.Concept concept) {
+        return concept.statedPath().isEmpty() ? "" : concept.statedPath().getLast();
+    }
+
     private static Branch branch(final Map.Entry<String, List<ExportedTaxonomy.Concept>> under) {
-        return new Branch(under.getKey(),
-                under.getValue().stream()
-                        .sorted(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences).reversed())
-                        .map(ExportedTaxonomy.Concept::concept)
-                        .distinct()
-                        .toList(),
+        final Map<String, Written> byConcept = new LinkedHashMap<>();
+        under.getValue().stream()
+                .sorted(Comparator.comparingInt(ExportedTaxonomy.Concept::occurrences).reversed())
+                .forEach(concept -> byConcept.putIfAbsent(concept.concept(),
+                        new Written(concept.concept(), concept.definition(), concept.occurrences())));
+        return new Branch(under.getKey(), List.copyOf(byConcept.values()),
                 under.getValue().stream().mapToInt(ExportedTaxonomy.Concept::occurrences).sum());
+    }
+
+    /**
+     * One concept the repository wrote, with what its publisher says it means.
+     *
+     * <p><b>The label alone says nothing.</b> {@code PresentValue}, {@code MsgSeqNum} and
+     * {@code ExchangeId} are identifiers, not English, and a page naming one has matched a name — which
+     * is the whole failure a taxonomy is matched rather than a word list to avoid. The definition is the
+     * meaning and travels with the label wherever the label goes.
+     *
+     * @param concept     the label the publisher states
+     * @param definition  what the publisher says it means, empty where the publisher states nothing
+     * @param occurrences how often the repository wrote it
+     */
+    public record Written(String concept, String definition, int occurrences) {
     }
 
     /**
      * One branch of one publisher, and the concepts the repository wrote in it.
      *
      * @param branch      the concept the publisher states above them, empty where it states none
-     * @param concepts    the concepts written there, most-written first
+     * @param concepts    the concepts written there with their definitions, most-written first
      * @param occurrences how many times the repository wrote them in all
      */
-    public record Branch(String branch, List<String> concepts, int occurrences) {
+    public record Branch(String branch, List<Written> concepts, int occurrences) {
 
         public Branch {
             concepts = List.copyOf(concepts);

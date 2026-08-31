@@ -260,12 +260,16 @@ h1 {
 
 .summary-scale {
     margin: 0.35rem 0 0.1rem;
+    background: var(--rule);
+    border-radius: 2px;
+    max-width: 34rem;
 }
 
 .summary-bar {
     height: 0.55rem;
     min-width: 3px;
     border-radius: 2px;
+    background: var(--ink-faint);
 }
 
 .summary-bar.v-olia { background: var(--v-olia); }
@@ -275,3 +279,39 @@ h1 {
 .summary-bar.v-fix { background: var(--v-fix); }
 .summary-bar.v-cwe { background: var(--v-cwe); }
 .summary-bar.v-bian { background: var(--v-bian); }
+
+.overlaps .leaders {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 1.1rem;
+    margin: 0.2rem 0 0.45rem;
+}
+
+.overlaps .leaders .leader {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+}
+
+.overlaps .leaders .domain {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.overlaps .leaders .share {
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+}
+
+.overlaps .leaders .none {
+    color: var(--ink-faint);
+}
+
+.overlaps .summary-row .held {
+    margin: 0.35rem 0 0;
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+}

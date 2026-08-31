@@ -71,7 +71,7 @@ public final class TaxonomyMatchesPage {
                 div().withClass("sheet").with(
                         h1("Matches per vocabulary"),
                         p().withClass("nav").with(
-                                a("every repository").withHref("index.html")),
+                                a("every reading").withHref("readings.html")),
                         p().withClass("lede").with(text("Each reading's reported term matches as one "
                                 + "bar per kind of term, each vocabulary's share of the reading's "
                                 + "matches as a segment. Phrases — terms of two or more words — stand "

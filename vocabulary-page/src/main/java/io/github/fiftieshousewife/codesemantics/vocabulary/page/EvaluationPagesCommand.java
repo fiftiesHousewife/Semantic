@@ -1,27 +1,24 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Writes the pages for every published reading under {@code output/} — the tree's own and one per
- * evaluation member — one folder per repository, with an index naming them all. It consumes the readings
- * already taken and takes none itself.
+ * evaluation member — one folder per repository, and the readings page comparing them, which is the root
+ * every page links back to. It consumes the readings already taken and takes none itself.
  */
 @Slf4j
 public final class EvaluationPagesCommand {
 
     private static final String OUTPUT = "output";
-    private static final String INDEX = "index.html";
+    private static final String MANIFEST_PROPERTY = "cs.reading.manifest";
 
     private EvaluationPagesCommand() {
     }
@@ -30,7 +27,7 @@ public final class EvaluationPagesCommand {
         final Path reports = Path.of(VocabularyPageCommand.REPORTS);
         final List<String> written = pages(readings(Path.of(OUTPUT)), reports);
         log.info("{} repositories: file://{}", written.size(),
-                reports.resolve(INDEX).toAbsolutePath());
+                reports.resolve(ReadingsCommand.PAGE).toAbsolutePath());
     }
 
     /** Every folder under {@code output/} holding a reading — {@code json/} first, then the members. */
@@ -52,12 +49,23 @@ public final class EvaluationPagesCommand {
         for (final Path folder : readings) {
             pagesOf(ReadingFolder.at(folder), reports);
         }
+        MatchesCommand.wrote(reports, readings);
         TaxonomyMatchesCommand.wrote(reports, TaxonomyMatchesCommand.rows(readings));
-        final List<String> repositories = written(reports);
-        Files.createDirectories(reports);
-        Files.writeString(reports.resolve(INDEX),
-                new PagesIndex(read("domain-venn.css")).markup(repositories));
-        return repositories;
+        final StatedAreas stated = statedAreas();
+        ReadingsCommand.wrote(reports, ReadingsCommand.rows(readings, stated), stated);
+        return written(reports);
+    }
+
+    /**
+     * The manifest the run names, or none.
+     *
+     * <p>It is named rather than found because the manifest this project keeps is a test fixture whose own
+     * header states in capitals that it never votes, so a published page must not be able to find it. A
+     * consumer drawing its own tree names none and the stated-area mark is drawn for no reading.
+     */
+    private static StatedAreas statedAreas() {
+        final String named = System.getProperty(MANIFEST_PROPERTY, "");
+        return named.isBlank() ? StatedAreas.none() : StatedAreas.at(Path.of(named));
     }
 
     private static void pagesOf(final ReadingFolder reading, final Path reports) throws IOException {
@@ -77,18 +85,6 @@ public final class EvaluationPagesCommand {
                     .map(folder -> folder.getFileName().toString())
                     .sorted()
                     .toList();
-        }
-    }
-
-    private static String read(final String asset) throws IOException {
-        try (InputStream source = EvaluationPagesCommand.class.getClassLoader()
-                .getResourceAsStream("vocabulary/" + asset)) {
-            if (source == null) {
-                throw new IllegalStateException(String.format(Locale.ROOT,
-                        "The index's %s is not on the classpath",
-                        asset));
-            }
-            return new String(source.readAllBytes(), StandardCharsets.UTF_8);
         }
     }
 }

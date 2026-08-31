@@ -60,7 +60,7 @@ public final class TermTreesPage {
                                 a("words").withHref("vocabulary.html"), text(" · "),
                                 a("domains").withHref("domain-venn.html"), text(" · "),
                                 a("trees").withHref("term-trees.html"), text(" · "),
-                                a("every repository").withHref("../index.html")),
+                                a("every reading").withHref("../readings.html")),
                         p().withClass("lede").with(
                                 text("Each matched vocabulary's phrases found in this repository's "
                                         + "declared names — "),

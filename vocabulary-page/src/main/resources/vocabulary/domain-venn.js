@@ -41,6 +41,10 @@
     }
 
     function render(source) {
+        if (source === data.domainSummarySource) {
+            renderDomainSummary();
+            return;
+        }
         if (source === data.phraseSummarySource) {
             renderSummary();
             return;
@@ -48,13 +52,14 @@
         var overlap = data.overlaps[source];
         var phrases = (data.phraseSources || []).indexOf(source) >= 0;
         var vocabulary = phrases ? source.replace(/ phrases$/, "") : null;
+        var domainSource = !phrases;
         var sets = overlap.domains.length;
         byWord = {};
         document.querySelector(".fold").className = "fold";
         var figure = document.querySelector(".figure");
         figure.textContent = "";
         figure.style.display = "";
-        drawBack(phrases ? vocabulary : null);
+        drawBack(phrases ? vocabulary : null, domainSource ? source : null);
         document.querySelector(".overlaps").textContent = "";
         readout.textContent = "Rest on a word or a count for its figures.";
 
@@ -343,19 +348,29 @@
         drawFoot();
     }
 
-    function drawBack(vocabulary) {
+    function returning(said, to) {
+        var back = element("a", null, said);
+        back.href = "#s-" + encodeURIComponent(to);
+        back.addEventListener("click", function (event) {
+            event.preventDefault();
+            show(to);
+        });
+        return back;
+    }
+
+    function drawBack(vocabulary, domainSource) {
         var back = document.querySelector(".back");
         back.textContent = "";
+        if (domainSource) {
+            back.appendChild(returning("← every domain source", data.domainSummarySource));
+            back.appendChild(document.createTextNode(" · the three domains " + domainSource
+                + " puts most of this repository's weight on"));
+            return;
+        }
         if (!vocabulary) {
             return;
         }
-        var all = element("a", null, "← every vocabulary");
-        all.href = "#s-" + encodeURIComponent(data.phraseSummarySource);
-        all.addEventListener("click", function (event) {
-            event.preventDefault();
-            show(data.phraseSummarySource);
-        });
-        back.appendChild(all);
+        back.appendChild(returning("← every vocabulary", data.phraseSummarySource));
         back.appendChild(document.createTextNode(" · " + vocabulary + "'s matched phrases, drawn "
             + "over the areas where its matches part ways · "));
         var tree = element("a", null, "tree");
@@ -363,13 +378,69 @@
         back.appendChild(tree);
     }
 
-    function renderSummary() {
+    /* Every domain source at once: what each of them made of the same words, with its own name opening
+       its overlap. The labels are never pooled — three publishers' words for overlapping subject matter
+       are not the same label — so what a reader compares is each source's leaders and its coverage. */
+    function renderDomainSummary() {
         byWord = {};
-        drawBack(null);
+        drawBack(null, null);
         document.querySelector(".fold").className = "fold summary";
+        figureIsHidden();
+        var panel = document.querySelector(".overlaps");
+        panel.textContent = "";
+        readout.textContent = "A source's name opens the three domains it puts most of the weight on.";
+        var summary = data.domainSummary;
+        summary.rows.forEach(function (row) {
+            var section = element("section", "summary-row");
+            var heading = element("h2");
+            heading.appendChild(returning(row.source, row.source));
+            section.appendChild(heading);
+            var leaders = element("div", "leaders");
+            if (row.leading.length === 0) {
+                leaders.appendChild(element("span", "none",
+                    "This source labels none of this repository's words."));
+            }
+            row.leading.forEach(function (leader, index) {
+                var named = element("span", "leader");
+                named.appendChild(element("span", "chip set-" + index));
+                named.appendChild(element("span", "domain", leader.domain));
+                named.appendChild(element("span", "share",
+                    (100 * leader.share).toFixed(0) + "%"));
+                leaders.appendChild(named);
+            });
+            section.appendChild(leaders);
+            var scale = element("div", "summary-scale");
+            var bar = element("div", "summary-bar");
+            bar.style.width = (100 * row.placedShare).toFixed(1) + "%";
+            scale.appendChild(bar);
+            section.appendChild(scale);
+            section.appendChild(element("p", "held",
+                row.placedWords + " of " + summary.significantWords + " words labelled, "
+                    + (100 * row.placedShare).toFixed(0) + "% · " + row.description));
+            panel.appendChild(section);
+        });
+        document.querySelector(".foot").textContent = "Each source states its own labels and they are "
+            + "never mapped onto one another: WordNet's computer_science, OpenAlex's Artificial "
+            + "Intelligence and CSO's computer systems are three publishers' words for overlapping "
+            + "subject matter, and deciding which of them mean the same thing would be a judgement this "
+            + "library made rather than one it can cite. The bar is how many of the same words a source "
+            + "labelled with anything, so a source reaching a tenth of them names a leading domain "
+            + "about a tenth of the repository. A leader's own share is of the weight that source "
+            + "placed. How many words no source reached is not stated: each row counts the words its "
+            + "own source is silent about, and two sources are silent about different words.";
+    }
+
+    function figureIsHidden() {
         var figure = document.querySelector(".figure");
         figure.textContent = "";
         figure.style.display = "none";
+    }
+
+    function renderSummary() {
+        byWord = {};
+        drawBack(null, null);
+        document.querySelector(".fold").className = "fold summary";
+        figureIsHidden();
         var panel = document.querySelector(".overlaps");
         panel.textContent = "";
         readout.textContent = "A vocabulary's name opens its overlap; tree opens the publisher's hierarchy.";
@@ -414,8 +485,12 @@
             + "English more often than terms of art and are not drawn.";
     }
 
+    /* Which picker button a source stands under: a source reached by drilling keeps its summary lit. */
     function pickerSourceOf(source) {
-        return (data.phraseSources || []).indexOf(source) >= 0 ? data.phraseSummarySource : source;
+        if ((data.phraseSources || []).indexOf(source) >= 0) {
+            return data.phraseSummarySource;
+        }
+        return (data.domainSources || []).indexOf(source) >= 0 ? data.domainSummarySource : source;
     }
 
     var buttons = [];
@@ -443,11 +518,12 @@
         ? decodeURIComponent(location.hash.slice(3)) : null;
     var known = linkedSource && (sources.indexOf(linkedSource) >= 0
         || data.overlaps[linkedSource] !== undefined
-        || linkedSource === data.phraseSummarySource);
-    var opened = known ? linkedSource : sources[0];
+        || linkedSource === data.phraseSummarySource
+        || linkedSource === data.domainSummarySource);
+    var opened = known ? linkedSource : data.domainSummarySource;
 
     document.querySelector(".repository").textContent =
-        data.overlaps[sources[0]].repository;
+        data.overlaps[Object.keys(data.overlaps)[0]].repository;
     show(opened);
 
     /* A link from the vocabulary names one word; stand on it in its overlap. */

@@ -8,13 +8,14 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Writes the one page comparing every published reading under {@code output/}.
  *
  * <p>Properties: {@code cs.reading.manifest} names a file stating an area per repository, and where the
- * run names none the stated-area column is empty on every row. It is named rather than found because the
+ * run names none the stated-area mark is drawn for no reading. It is named rather than found because the
  * manifest this project keeps is a test fixture whose own header states that it never votes.
  */
 @Slf4j
@@ -23,7 +24,11 @@ public final class ReadingsCommand {
     static final String PAGE = "readings.html";
 
     private static final String OUTPUT = "output";
+    private static final String RESOURCES = "vocabulary/";
+    private static final String SHARED = "page.css";
     private static final String STYLESHEET = "readings.css";
+    private static final String BEHAVIOUR = "readings.js";
+    private static final String DATA = "readings.json";
     private static final String MANIFEST_PROPERTY = "cs.reading.manifest";
 
     private ReadingsCommand() {
@@ -50,7 +55,11 @@ public final class ReadingsCommand {
             throws IOException {
         Files.createDirectories(reports);
         final Path page = reports.resolve(PAGE);
-        Files.writeString(page, new ReadingsPage(stylesheet()).markup(readings, stated));
+        final String data = new ObjectMapper()
+                .writeValueAsString(new DrawnReadings().of(readings, stated));
+        Files.writeString(page.resolveSibling(DATA), data);
+        Files.writeString(page,
+                new ReadingsPage(data, read(SHARED) + read(STYLESHEET), read(BEHAVIOUR)).markup());
         return page;
     }
 
@@ -60,13 +69,13 @@ public final class ReadingsCommand {
         return named.isBlank() ? StatedAreas.none() : StatedAreas.at(Path.of(named));
     }
 
-    private static String stylesheet() throws IOException {
+    /** The stylesheets and the script, read whole from the files they are authored in. */
+    private static String read(final String asset) throws IOException {
         try (InputStream source = ReadingsCommand.class.getClassLoader()
-                .getResourceAsStream("vocabulary/" + STYLESHEET)) {
+                .getResourceAsStream(RESOURCES + asset)) {
             if (source == null) {
                 throw new IllegalStateException(String.format(Locale.ROOT,
-                        "The readings page's %s is not on the classpath",
-                        STYLESHEET));
+                        "The readings page's %s is not on the classpath", asset));
             }
             return new String(source.readAllBytes(), StandardCharsets.UTF_8);
         }

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class EvaluationPagesCommandTest {
 
     @Test
-    void writesEveryPagePerPublishedReadingAndAnIndexNamingThem(@TempDir final Path output,
+    void writesEveryPagePerPublishedReadingAndTheReadingsPageTheyLinkBackTo(@TempDir final Path output,
                                                                 @TempDir final Path reports)
             throws IOException {
         PublishedReadingFixture.wrote(output.resolve("json"));
@@ -28,9 +28,12 @@ class EvaluationPagesCommandTest {
                 () -> assertThat(reports.resolve("a-repository").resolve("vocabulary.html")).exists(),
                 () -> assertThat(reports.resolve("a-repository").resolve("domain-venn.html")).exists(),
                 () -> assertThat(reports.resolve("a-repository").resolve("term-trees.html")).exists(),
-                () -> assertThat(Files.readString(reports.resolve("index.html")))
-                        .contains("a-repository/vocabulary.html")
-                        .contains("a-repository/domain-venn.html")
-                        .contains("a-repository/term-trees.html"));
+                () -> assertThat(reports.resolve("readings.html")).exists(),
+                () -> assertThat(Files.readString(reports.resolve("readings.json")))
+                        .contains("\"repository\":\"a-repository\""),
+                () -> assertThat(Files.readString(reports.resolve("a-repository")
+                        .resolve("term-trees.html")))
+                        .as("the readings page is the root every page links back to")
+                        .contains("../readings.html"));
     }
 }

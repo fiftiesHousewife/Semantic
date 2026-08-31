@@ -87,12 +87,9 @@ tasks.register<JavaExec>("discoursePass") {
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
-// Both pages for every published reading under output/, one folder per repository with an index. It
-// consumes the readings already taken and takes none itself.
-//   ./gradlew evaluationPages
-// Every published reading in one table: what it is about, the vocabulary that beat its own chance bar,
-// where each scheme places it, and the area a named manifest states for it. It reads the readings under
-// output/ and no tree.
+// Every published reading on one figure: each source that answered, placed by how far past its own
+// chance bar it stands, with the evidence beneath it and the area a named manifest states for it. It
+// reads the readings under output/ and no tree.
 //   ./gradlew readings
 //   ./gradlew readings -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
 tasks.register<JavaExec>("readings") {
@@ -104,13 +101,18 @@ tasks.register<JavaExec>("readings") {
     System.getProperty("cs.reading.manifest")?.let { systemProperty("cs.reading.manifest", it) }
 }
 
+// Every page for every published reading under output/, one folder per repository, and the readings
+// page they all link back to. It consumes the readings already taken and takes none itself.
+//   ./gradlew evaluationPages
+//   ./gradlew evaluationPages -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
 tasks.register<JavaExec>("evaluationPages") {
     group = "verification"
-    description = "Writes both pages for every published reading under output/, with an index"
+    description = "Writes every page for every published reading under output/, and the readings page"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.EvaluationPagesCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "4g"
     workingDir = rootDir
+    System.getProperty("cs.reading.manifest")?.let { systemProperty("cs.reading.manifest", it) }
 }
 
 // Every published reading's reported term matches per vocabulary on one page, phrases apart from

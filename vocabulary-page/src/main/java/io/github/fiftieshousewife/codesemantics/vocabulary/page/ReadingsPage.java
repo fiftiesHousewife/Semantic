@@ -1,234 +1,119 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
-import j2html.tags.DomContent;
-import j2html.tags.specialized.TdTag;
 import j2html.tags.specialized.BodyTag;
-import j2html.tags.specialized.TrTag;
 
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.body;
 import static j2html.TagCreator.div;
-import static j2html.TagCreator.details;
-import static j2html.TagCreator.li;
-import static j2html.TagCreator.summary;
-import static j2html.TagCreator.ul;
-import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
+import static j2html.TagCreator.li;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.rawHtml;
-import static j2html.TagCreator.span;
+import static j2html.TagCreator.script;
 import static j2html.TagCreator.style;
-import static j2html.TagCreator.table;
-import static j2html.TagCreator.tbody;
-import static j2html.TagCreator.td;
 import static j2html.TagCreator.text;
-import static j2html.TagCreator.th;
-import static j2html.TagCreator.thead;
-import static j2html.TagCreator.tr;
+import static j2html.TagCreator.ul;
 
 /**
- * Every published reading, one row each, stating what it is about and nothing more.
+ * Every published reading on one figure, each answering source placed by how far past its own chance bar
+ * it stands, with the evidence behind each reading beneath it.
  *
- * <p><b>One answer, not an inventory.</b> Every earlier form of this page listed every vocabulary that
- * cleared, the phrases each matched and both subject schemes beside them, and left the reader to decide
- * which to believe — which is the defect the export itself was fixed for. The reading now names the most
- * specific evidence that stood above chance, and this draws that: what kind of thing answered, which
- * publisher, and what that publisher says the repository is.
+ * <p>Markup is never a string in a Java file, the stylesheet and the script are their own files carried
+ * whole into the page, and the figure is drawn by the script from the data block — the same contract as
+ * {@link DomainVennPage}, for the same reason: a mark's position is geometry, and geometry belongs where
+ * it can be computed.
  *
- * <p>The subject schemes appear only where no vocabulary answered. A scheme places quickfixj under
- * <em>Wireless Networks and Protocols</em> while FIX stands at ten times its own bar, and showing both
- * would be putting a weaker answer beside a stronger one as though a reader should weigh them.
+ * <p><b>A table was tried and is what this replaces.</b> Nine columns, one of them a paragraph and eight
+ * of them four characters, and a reader could not see from it which readings rest on strong evidence and
+ * which cleared their bar by a tenth. The figure says that without a figure being read.
+ *
+ * <p>The heading, the lede and the figure share one viewport height, so every reading is on screen before
+ * anything scrolls; the evidence follows below it.
  */
 public final class ReadingsPage {
 
-    private static final String NONE = "—";
+    private static final String PERMUTATION = "https://www.jstor.org/stable/2984158";
+    private static final String DIVERGENCE = "https://ieeexplore.ieee.org/document/61115";
 
-    /** One branch is what the answer already names, so the list opens only where there is more. */
-    private static final int TWO = 2;
-
-    private final PublisherLinks publishers = PublisherLinks.all();
-
-    /** A full stop and the space after it, which is where a sentence ends and an abbreviation does not. */
-    private static final String SENTENCE_END = ". ";
-
+    private final String data;
     private final String stylesheet;
+    private final String behaviour;
 
-    public ReadingsPage(final String stylesheet) {
+    public ReadingsPage(final String data, final String stylesheet, final String behaviour) {
+        this.data = data;
         this.stylesheet = stylesheet;
+        this.behaviour = behaviour;
     }
 
-    public String markup(final List<ReadingRow> readings, final StatedAreas stated) {
-        return PageDocument.of("The readings", page(readings, stated).render());
+    public String markup() {
+        return PageDocument.of("The readings", page().render());
     }
 
-    private BodyTag page(final List<ReadingRow> readings, final StatedAreas stated) {
+    private BodyTag page() {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The readings"),
-                        p().withClass("lede").with(text("One row per source that cleared the bar of the "
-                                + "rung answering a reading, ranked by how far it cleared it. A "
-                                + "vocabulary's terms of more than one word answer first, then its "
-                                + "one-word terms, then every subject scheme level standing apart from "
-                                + "chance — and a reading answered by a scheme is one whose vocabularies "
-                                + "said nothing.")),
-                        table().withClass("readings").with(head(),
-                                tbody(each(readings, row -> each(rows(row, stated), line -> line))))));
-    }
-
-    private static DomContent head() {
-        return thead(tr(th("repository"), th("source type"), th("source"), th().with(text("cleared its bar by"))
-                        .withTitle("How many of the publisher's terms of more than one word this "
-                                + "repository writes, against the count the best of a field of seven "
-                                + "reaches by dealing that publisher's own words at random. Two sources "
-                                + "answering one reading are rarely equal evidence."),
-                th("top of its branch"),
-                th("placed under"), th("result"),
-                th().with(text("words a resource can cite"))
-                        .withTitle("Of every word occurrence the reading saw, the share some bundled "
-                                + "resource states something about — WordNet, the topic vocabularies, the "
-                                + "frequency lists. It is the reading's own coverage of the tree and not "
-                                + "a score: a word nothing can be cited for is seen and not read."),
-                th("stated area")));
-    }
-
-    /**
-     * One line per answer. The cells describing the reading rather than one of its answers are written on
-     * the first line and span the rest, so a reader sees one repository however many sources answered it.
-     */
-    private List<TrTag> rows(final ReadingRow reading, final StatedAreas stated) {
-        final List<ExportedAnswer> answers = reading.answers();
-        return IntStream.range(0, answers.size())
-                .mapToObj(rank -> row(reading, answers.get(rank), rank, answers.size(), stated))
-                .toList();
-    }
-
-    private TrTag row(final ReadingRow reading, final ExportedAnswer answer, final int rank,
-                      final int answers, final StatedAreas stated) {
-        return tr(Stream.of(
-                        repository(reading, rank, answers),
-                        sourceType(answer, rank, answers),
-                        Stream.of(td(source(answer)),
-                                td(cleared(reading, answer)).withClass("bar"),
-                                td(named(answer.atTheTopOfItsBranch())),
-                                td(named(answer.placedUnder())),
-                                td(result(answer), branches(reading, answer)).withClass("result")),
-                        readingWide(reading, rank, answers, stated))
-                .flatMap(cells -> cells)
-                .toArray(DomContent[]::new));
-    }
-
-    /** The repository's own cell, written once and spanning its answers. */
-    private static Stream<DomContent> repository(final ReadingRow reading, final int rank,
-                                                 final int answers) {
-        return rank > 0 ? Stream.of()
-                : Stream.of(spanning(td(a(reading.repository())
-                        .withHref(reading.repository() + "/vocabulary.html")), answers));
-    }
-
-    /** The figures that belong to the reading and not to one answer, written once and spanning its answers. */
-    private Stream<DomContent> readingWide(final ReadingRow reading, final int rank, final int answers,
-                                           final StatedAreas stated) {
-        return rank > 0 ? Stream.of()
-                : Stream.of(spanning(td(share(reading.lambda())), answers),
-                        spanning(td(area(reading, stated)), answers));
-    }
-
-    private static DomContent spanning(final TdTag cell, final int answers) {
-        return answers > 1 ? cell.attr("rowspan", answers) : cell;
-    }
-
-    private static String kindOf(final ExportedAnswer answer) {
-        return answer.sourceType().replace(' ', '-');
-    }
-
-    /**
-     * The publisher, linked to where it publishes. The link's text is the publisher's own name, and a
-     * source neither enumeration states is written without one rather than pointed somewhere guessed at.
-     */
-    private DomContent source(final ExportedAnswer answer) {
-        if (answer.source().isBlank()) {
-            return span(NONE).withClass("silent");
-        }
-        return publishers.of(answer.source())
-                .map(href -> (DomContent) a(answer.source()).withHref(href)
-                        .withTitle(answer.qualifiedBy()))
-                .orElseGet(() -> span(answer.source()).withTitle(answer.qualifiedBy()));
-    }
-
-    /**
-     * The kind of thing that answered, written once and spanning the reading's answers. Every answer of one
-     * reading comes from the rung that answered it, so the cell says the same thing on every line.
-     */
-    private static Stream<DomContent> sourceType(final ExportedAnswer answer, final int rank,
-                                                 final int answers) {
-        return rank > 0 ? Stream.of()
-                : Stream.of(spanning(td(span(answer.sourceType()).withClass(kindOf(answer))), answers));
-    }
-
-    /** How far this source cleared its own bar, and on how many phrases. */
-    private static DomContent cleared(final ReadingRow reading, final ExportedAnswer answer) {
-        return reading.barOf(answer.source())
-                .map(bar -> (DomContent) span(String.format(Locale.ROOT, "%d × %.1f", bar.phrases(),
-                        bar.timesTheBar())).withTitle(answer.qualifiedBy()))
-                .orElseGet(() -> span(NONE).withClass("silent"));
-    }
-
-    /** A concept the publisher names, or a mark saying the publisher named none. */
-    private static DomContent named(final String concept) {
-        return concept.isBlank() ? span(NONE).withClass("silent") : span(concept);
-    }
-
-    /**
-     * What the publisher says, to its first sentence, with the whole of it on the cell.
-     *
-     * <p>A publisher writes as much as it likes: OLiA's {@code BaseForm} runs to a paragraph on English
-     * tagsets and cites two sources inside it. The reading carries all of it, because a definition is
-     * evidence and truncating evidence loses it; a table shows the sentence that says what the thing is.
-     */
-    private static DomContent result(final ExportedAnswer answer) {
-        return answer.result().isBlank()
-                ? span(answer.qualifiedBy()).withClass("silent")
-                : span(firstSentenceOf(answer.result())).withTitle(answer.result());
-    }
-
-    /**
-     * Every branch the answering publisher states for the phrases this repository wrote, opened from the
-     * answer. The answer is one concept of one branch; this is the rest of what the publisher said, and
-     * the count stands in the summary so nothing is folded away without saying how much.
-     */
-    private static DomContent branches(final ReadingRow reading, final ExportedAnswer answer) {
-        final List<ReadingRow.Branch> stated = reading.branchesOf(answer.source());
-        return stated.size() < TWO ? span() : details(
-                summary(String.format(Locale.ROOT, "%d branches, %d phrases", stated.size(),
-                        stated.stream().mapToInt(branch -> branch.concepts().size()).sum())),
-                ul().with(each(stated, branch -> li().with(
-                        span(branch.branch().isBlank() ? NONE : branch.branch()).withClass("branch"),
-                        text(" " + String.join(", ", branch.concepts()))))));
-    }
-
-    private static String firstSentenceOf(final String stated) {
-        final int stop = stated.indexOf(SENTENCE_END);
-        return stop < 0 || stop + 2 >= stated.length()
-                ? stated : stated.substring(0, stop + 1);
-    }
-
-    private static DomContent area(final ReadingRow reading, final StatedAreas stated) {
-        return reading.statedArea()
-                .map(area -> span(area).withClass(
-                        stated.reached(reading.repository(), reading.subjects()) ? "reached" : "missed"))
-                .map(DomContent.class::cast)
-                .orElseGet(() -> span(NONE).withClass("silent")
-                        .withTitle("no manifest states an area for this repository"));
-    }
-
-    private static String share(final double share) {
-        return String.format(Locale.ROOT, "%.1f%%", share * 100.0);
+                        p().withClass("nav").with(
+                                a("matches per vocabulary").withHref("taxonomy-matches.html")),
+                        p().withClass("lede").with(
+                                text("What each repository is about: the subjects its publishers place "
+                                        + "the phrases it wrote under, most-written first. A subject is "
+                                        + "the publisher's own — this repository writes "
+                                        + "key agreement and public key certificates, and CSO states "
+                                        + "that both sit under public key cryptography. Two publishers "
+                                        + "naming one subject stay two entries, because deciding they "
+                                        + "meant the same thing is a judgement nothing here can cite. "
+                                        + "Rest on one for the phrases behind it. Beneath each, where "
+                                        + "a subject scheme separated the repository from a scheme of "
+                                        + "chance, the subject it stood nearest to — nothing is matched "
+                                        + "there and the answer is a distance against published prose, "
+                                        + "which is weaker evidence than a publisher stating that a run "
+                                        + "this repository wrote is a term of its field. It is here "
+                                        + "because a scheme names a subject in ordinary English where a "
+                                        + "vocabulary names an identifier.")),
+                        div().withClass("about"),
+                        p().withClass("readout"),
+                        div().withClass("fold").with(
+                                h1("How far past chance each answer stands"),
+                                p().withClass("lede").with(
+                                        text("Every published reading, and every source that cleared the "
+                                                + "bar of the rung answering it. A source stands where "
+                                                + "its own evidence puts it: a vocabulary at the "
+                                                + "multiple of the count the best of a field of seven "
+                                                + "reaches by "),
+                                        a("dealing").withHref(PERMUTATION),
+                                        text(" that publisher's own words at random, a subject scheme at "
+                                                + "how many bits nearer than a scheme of chance its "
+                                                + "placement stood, in "),
+                                        a("Jensen–Shannon divergence").withHref(DIVERGENCE),
+                                        text(". The two are different quantities and share no axis, so "
+                                                + "the schemes stand in their own band — and a reading "
+                                                + "a scheme answered is one whose vocabularies said "
+                                                + "nothing.")),
+                                p().withClass("views"),
+                                div().withClass("figure")),
+                        div().withClass("evidence"),
+                        ul().withClass("method").with(
+                                li().with(text("A mark's position is how far past its own bar the source "
+                                        + "stands, on a log scale with the bar itself at the left. A "
+                                        + "mark on the rule cleared by nothing worth reading.")),
+                                li().with(text("A mark's area is how many of the publisher's terms of "
+                                        + "more than one word the repository wrote, which is the count "
+                                        + "the bar is computed over. A scheme matches nothing and its "
+                                        + "marks are one size.")),
+                                li().with(text("The path beside an answer is every level the publisher "
+                                        + "states above it, broadest first, with the levels an outright "
+                                        + "majority of that vocabulary sits beneath left off — CSO's "
+                                        + "computer science, FIX's Common, FIBO's FND — because a level "
+                                        + "every match shares names only the vocabulary that matched.")),
+                                li().with(text("A path of nothing is the publisher placing the concept "
+                                        + "nowhere, which FpML does for 616 of its 1,405 types.")),
+                                li().with(text("The mark beside a repository is whether the area a "
+                                        + "manifest states for it is the area a scheme placed it in, or "
+                                        + "one that area descends from. It is drawn only where a "
+                                        + "manifest names the repository, and it scores nothing.")))),
+                script().withType("application/json").withId("readings").with(rawHtml(data)),
+                script(rawHtml(behaviour)));
     }
 }

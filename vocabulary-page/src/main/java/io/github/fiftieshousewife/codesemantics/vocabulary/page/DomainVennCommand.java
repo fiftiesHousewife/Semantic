@@ -119,17 +119,25 @@ public final class DomainVennCommand {
         return arms;
     }
 
+    /** The summary the page opens on, which is every domain source at once rather than a chosen one. */
+    static final String DOMAIN_SUMMARY = "Domains";
+
     static Path wrote(final Path folder, final Map<String, DomainOverlap> overlaps,
                       final List<MatchedTermDomains.SummaryRow> summary,
                       final List<String> phraseSources, final int signals) throws IOException {
         Files.createDirectories(folder);
-        final List<String> pickable = overlaps.keySet().stream()
-                .filter(source -> !phraseSources.contains(source))
-                .collect(Collectors.toCollection(ArrayList::new));
-        pickable.add(MatchedTermDomains.SOURCE);
+        final Map<String, DomainOverlap> domainSources = overlaps.entrySet().stream()
+                .filter(source -> !phraseSources.contains(source.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (first, later) -> first, LinkedHashMap::new));
+        final List<String> pickable = new ArrayList<>(List.of(DOMAIN_SUMMARY,
+                MatchedTermDomains.SOURCE));
         final String data = new ObjectMapper().writeValueAsString(Map.of(
                 "overlaps", overlaps,
                 "sources", pickable,
+                "domainSummarySource", DOMAIN_SUMMARY,
+                "domainSummary", DomainSources.of(domainSources),
+                "domainSources", List.copyOf(domainSources.keySet()),
                 "phraseSummarySource", MatchedTermDomains.SOURCE,
                 "phraseSummary", summary,
                 "phraseSources", phraseSources,
