@@ -139,8 +139,24 @@
     "after" : "17"
   }, {
     "figure" : "Concepts written",
-    "before" : "248",
-    "after" : "248"
+    "before" : "232",
+    "after" : "237"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "CONCEPT",
+    "name" : "dialogue",
+    "entered" : true
+  }, {
+    "population" : "CONCEPT",
+    "name" : "information contents",
+    "entered" : true
+  }, {
+    "population" : "CONCEPT",
+    "name" : "retrieval-augmented generation",
+    "entered" : true
+  }, {
+    "population" : "CONCEPT",
+    "name" : "vocabulary",
+    "entered" : true
+  } ]
 }
