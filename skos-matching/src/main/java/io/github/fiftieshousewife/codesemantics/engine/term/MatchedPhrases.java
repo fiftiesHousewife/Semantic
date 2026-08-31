@@ -1,8 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * How many of a published source's terms of more than one word stand inside a repository's declared names,
@@ -31,27 +29,18 @@ import java.util.Set;
  */
 public final class MatchedPhrases {
 
-    private final TermSpans spans;
+    private final ReachedPhrases reached;
 
-    private final PhraseStarts starts;
-
-    public MatchedPhrases(final TermSpans spans, final PhraseStarts starts) {
-        this.spans = spans;
-        this.starts = starts;
+    public MatchedPhrases(final ReachedPhrases reached) {
+        this.reached = reached;
     }
 
     /** The reading over one source's published spellings, which is the ladder's lowest rung. */
     public static MatchedPhrases over(final TermIndex index) {
-        return new MatchedPhrases(new TermSpans(index), PhraseStarts.of(index));
+        return new MatchedPhrases(ReachedPhrases.over(index));
     }
 
     public int in(final List<WrittenRun> names) {
-        final Set<String> found = new HashSet<>();
-        names.stream()
-                .filter(name -> starts.couldBeIn(name.words()))
-                .forEach(name -> spans.phrasesIn(name.words()).stream()
-                        .filter(span -> !name.declaredAt().restatesItsType(span.words()))
-                        .forEach(span -> found.add(String.join(" ", span.words()))));
-        return found.size();
+        return reached.in(names).terms();
     }
 }

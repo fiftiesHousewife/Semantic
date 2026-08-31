@@ -16,11 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class ExportedReadingTest {
 
     private static RepositoryReading reading(final Path root) throws IOException {
+        return RepositoryReading.of(sourceUnder(root));
+    }
+
+    private static Path sourceUnder(final Path root) throws IOException {
         final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
         Files.createDirectories(scope);
         Files.writeString(scope.resolve("NounPhrase.java"),
                 "package a; /** Reads a noun phrase. */ class NounPhrase { String headword; String lemma; }");
-        return RepositoryReading.of(root);
+        return root;
     }
 
     @Test
@@ -52,5 +56,18 @@ class ExportedReadingTest {
                 () -> assertThat(read.schemaVersion()).isEqualTo(export.schemaVersion()),
                 () -> assertThat(read.summary().repository()).isEqualTo(export.summary().repository()),
                 () -> assertThat(read.signals()).hasSameSizeAs(export.signals()));
+    }
+
+    @Test
+    void exportsADirectoryWithoutTheCallerAssemblingAReading(@TempDir final Path root) throws IOException {
+        final ReadingExport export = new ExportedReading().of(sourceUnder(root), "c0ffee");
+
+        assertAll(
+                () -> assertThat(export.schemaVersion()).isEqualTo(ReadingExport.SCHEMA_VERSION),
+                () -> assertThat(export.summary().repository()).isEqualTo(root.getFileName().toString()),
+                () -> assertThat(export.summary().commit()).isEqualTo("c0ffee"),
+                () -> assertThat(export.taxonomies())
+                        .as("a caller naming no vocabulary is judged against every bundled one")
+                        .isNotEmpty());
     }
 }

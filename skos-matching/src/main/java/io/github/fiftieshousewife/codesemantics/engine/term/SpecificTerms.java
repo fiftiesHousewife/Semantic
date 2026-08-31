@@ -44,9 +44,17 @@ public final class SpecificTerms implements TermIndex {
     private final TermIndex published;
     private final Set<List<String>> kept;
 
+    /**
+     * The longest kept term, taken once. {@link TermSpans} asks for it when it is built, which is once per
+     * deal per vocabulary, and reading it off the whole set each time is a pass over every term the index
+     * keeps.
+     */
+    private final int longestTerm;
+
     private SpecificTerms(final TermIndex published, final Set<List<String>> kept) {
         this.published = published;
         this.kept = Collections.unmodifiableSet(kept);
+        this.longestTerm = kept.stream().mapToInt(List::size).max().orElse(0);
     }
 
     /**
@@ -82,7 +90,7 @@ public final class SpecificTerms implements TermIndex {
 
     @Override
     public int longestTerm() {
-        return kept.stream().mapToInt(List::size).max().orElse(0);
+        return longestTerm;
     }
 
     @Override

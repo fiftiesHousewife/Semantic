@@ -274,9 +274,105 @@ That table is the field-of-two reading and is superseded by the one above. Under
 
 **Kept when** the 36 level readings do not fall below the 33 standing apart recorded on 2026-08-28, and rung 1 answers on quickfixj, strata, fineract and jpos and stays silent on maven, tika, santuario, besu and aeron. **Refuted by** blocking — rung 1 abstaining on a finance member whose stated area a bundled vocabulary covers — or by the placement falling, which would mean the cascade's bar is doing damage the arms were not doing alone.
 
+**What the twelve committed readings show, at schema 18.0.** The placement half of the criterion holds: 35 of 36 level readings stand apart from chance. The silence half was written against the wrong cases, and reading the matched terms rather than the counts says why.
+
+**CSO answers correctly on the four repositories the criterion expected silence from.** It is a computing vocabulary and they are computing repositories, so silence there would be the worse reading.
+
+| Reading | What CSO matched | What the repository is |
+|---|---|---|
+| aeron | `uni cast` 112, `control channel` 96, `udp` 59, `rtt` 38 | a UDP transport library |
+| santuario | `xml` 1,285, `rsa` 376, `encryption` 212, `key agreement` 18, `block cipher` 16 | XML signature and encryption |
+| besu | `hash functions` 1,662, `public key` 165, `byte code` 24 | an Ethereum client |
+| tika | `parsing algorithm` 556, `xml` 489, `html` 342, `source language` 25, `target language` 34 | a parser and detector toolkit |
+
+**The defect the criterion was pointing at is elsewhere: a finance vocabulary answering on ordinary English it happens to use as a class label.** The publisher's own definition is what shows it.
+
+| Reading | Match | The publisher's definition | What the word is in the repository |
+|---|---|---|---|
+| besu | FIX `account` 1,239 | "Account mnemonic as agreed between buy and sell sides, e.g. broker and institution" | an Ethereum account |
+| besu | FIX `pool` 287 | "For Fixed Income, identifies MBS / ABS pool" | the transaction pool |
+| besu | FIX `range` 418 → Scope | "Specifies the market scope of the market data" | a range of blocks |
+| santuario | FIX `issuer` 43 | "Name of security issuer (e.g. International Business Machines, GNMA)" | an X.509 certificate issuer |
+| santuario | FIX `subject` 40 | "The subject of an Email message" | an X.509 certificate subject |
+| tika, jpos | FIBO `index` 481, 211 | "indirect shortcut derived from and pointing into, a greater volume of values" | an array index |
+| quickfixj | FpML `message` 697 | "the basic structure of all FpML messages" | a FIX message |
+| quickfixj | FIX `test` 926 → Testing | "Messages used to request for or communicate information related to testing, e.g. algorithmic trading" | a unit test |
+
+`ExportedAnswer`'s own javadoc states the rule these break — a vocabulary's single-word terms are its weakest evidence, because `name`, `value` and `share` are class labels in a finance ontology and everyday words everywhere else. **The bar does not use it.** `MatchedPhrases` counts distinct terms, so `merchant identifier` written once and `index` written 211 times each count one.
+
+**The bar is already restricted to multi-word terms.** `MatchedPhrases` counts "how many of a published source's terms of more than one word stand inside a repository's declared names", and `ScrambledTerms` deals over the same field. So the single-word matches above never faced the bar and never counted towards it; what they do is answer, because `AnswerRungs` picks the concept the repository wrote most and a common word wins that comparison.
+
+**What the bar refuses to count is how often, and that is what separates the answers.** Its javadoc states the ground: one published phrase written eight hundred times is one phrase the repository knows, and counting distinct terms is what makes a deal of the source a comparable reference, because a deal states as many terms as the source does. Occurrences falling on multi-word terms:
+
+| Answers that hold | | Answers that do not | |
+|---|--:|---|--:|
+| fineract, FIBO | 4,948 | jpos, FIBO | 7 |
+| strata, FpML | 4,120 | quickfixj, FpML | 9 |
+| strata, FIBO | 3,008 | santuario, FIX | 9 |
+| fineract, CSO | 2,092 | tika, CWE | 8 |
+| quickfixj, FIX | 717 | tika, FIBO | 21 |
+| aeron, CSO | 435 | besu, FIX | 64 |
+
+tika clears on FpML with nine terms written 25 times between them — `contact info` 10, `product type` 6, `packet header` 2. quickfixj clears on FIX with 53 written 717 times. The bar reads those as 9 against 53 and the deal it is compared to is drawn the same way, so neither the observed figure nor the null can see the difference.
+
+### Step 6 — the unit the bar counts in
+
+**Built 2026-08-30, as a probe and not as a reading.** `PhraseCount` is the contract, so the observed figure and every figure of the null stay one function of one kind of input — the property `MatchedPhrases` states as its reason for existing. `MatchedPhrases` implements it unchanged; `PhraseOccurrences` implements the other question that class names and declines, summing over the names a term stands in where the first collects them into a set. `CountedPhrases` is the enum carrying the two, `HOW_MANY` and `HOW_OFTEN`, and `TermOrderNull.seeded(seed)` still means the first, so no published figure moves. `./gradlew phraseUnit` draws both over one tree and `./gradlew phraseUnitAll` over every cloned member in one JVM.
+
+The null stays sound in the second unit for the reason it was sound in the first. A deal of a source's own words is matched against the same declared names the source is, so a dealt run is written as often as the names it stands in, exactly as a published term is. What the distinct count bought — that a deal states as many terms as the source does — a repository held still supplies instead: neither side's occurrences can move, because the names are the same names.
+
+**A raw occurrence count cannot be the figure the reading publishes.** [`THE_LITERATURE.md`](THE_LITERATURE.md) §5.2 refuses log-likelihood, PMI, t-score, %DIFF and Bayes factors on one line — a bound must follow from the statistic's definition — and keeps only the statistics that bound themselves: Dice at 1, logDice at 14 by derivation, NPMI in [−1, 1], Jensen-Shannon at one bit. `MatchedPhrases` has that maximum: a source of 130 terms cannot score 131. An occurrence count is bounded by how many names the repository declares, which is a fact about the repository and not about the statistic, and `qualifiedBy` reports the figure. Weighing each occurrence by `PhraseSpecificity` does not repair it, because a weight in [0, 1] times an unbounded count is unbounded.
+
+**The bounded form is a share:** the occurrences standing on a source's terms over the repository's declared runs, which bounds itself at 1 by its own definition. It is comparable between a source and a deal of it for the same reason the count is — one repository, held still, is the denominator on both sides — so the verdicts are identical and only what is published changes. Tika writes 25 runs of 57,812 where quickfixj writes 712 of 11,030, which is the separation the distinct count cannot state.
+
+**What the survey says about the direction, and it is not all one way.** §2.4 records that document-level resampling is the correct null, because Mildenberger shows the token-level sampling model behind the standard keyness tests is the specific reason they produce false positives — words clump in documents. Counting occurrences makes this a token statistic. It is not a token-level sampling model, because the deal is of the vocabulary and the clumping enters both sides, but the exposure is the one that section names. §4.3 compounds it: the bar is a high order statistic already flagged as assuming independence and resting on few of them.
+
+**The frequency-based term recognisers cannot be cited in support.** C-value, NC-value, ATR4S and TermSuite weigh a candidate by its frequency of occurrence, and §5.2 refuses the family on the doctrine line — a 229-word stop list built by hand from a tenth of the scored corpus — with reported precision of 31–38% beside it. C-value also damps frequency by the logarithm of a term's length and subtracts the frequency of the terms nesting it. Neither damping is present here.
+
+**Measured on all eleven members, one seed, 999 deals, in one JVM — 1,497 seconds.** Seventy-seven verdicts, of which the two units disagree about fourteen.
+
+| | Vocabularies clearing |
+|---|--:|
+| counting how many terms | 26 |
+| counting how often they stand | 22 |
+| clearing both | 17 |
+
+**Each unit admits false positives the other refuses, and the fourteen disagreements are all of them.**
+
+Counting how many admits a vocabulary that writes a handful of generic terms once or twice each: tika clears FIBO on `responsible party` 5 and `set window` 4, FpML on `contact info` 10 and `packet header` 2, CWE on `process control` 4 and `infinite loop` 2; jpos clears FIBO on `merchant identifier`, `merchant category code` and `bank identifier`, each written once; santuario clears FIX on `card number` 4 and `language code` 2. Nine such clears fall when the count is by occurrence.
+
+**Counting how often admits a vocabulary that writes one ordinary compound constantly, and aeron is the case that settles it.** FpML clears aeron at 17.5 times its bar on three terms and 857 occurrences, and `correlation_id` alone supplies 850 of them. FpML states it because a derivatives message carries a correlation id; aeron writes it because a transport does. OLiA clears aeron the same way. `MatchedPhrases` predicts this failure in the sentence that states its own rule — one published phrase written eight hundred times is one phrase the repository knows — and the case arrived at eight hundred and fifty.
+
+**Requiring both bars refuses all fourteen.** It keeps every strong answer: FIX on quickfixj at 52 terms and 712 occurrences, FIBO and FpML on strata at 47 and 69 terms over 2,877 and 2,694 occurrences, BIAN on jpos, CSO on tika, santuario and aeron, FIX on fix-trading-simulator at 9 terms and 147 occurrences. It costs two clears that may be right: BIAN on fineract, a banking vocabulary on a banking platform, resting on one term written 818 times — the shape aeron refutes — and FIX on strata, which fails the term count at 42 against a bar of 44 and passes the occurrence count at 1.4.
+
+**The two statistics measure different things and a vocabulary of a repository's field satisfies both.** How many says the evidence is spread across the publisher's vocabulary rather than resting on one collision; how often says it is written rather than incidental. Each keeps the maximum its own definition gives it, so a conjunction of the two is bounded as each is, and it is stricter than either — which §4.3 already records the single bar as being.
+
+**What the measurement decided.** Neither unit replaces the other. Counting how often is refuted as a replacement by aeron; counting how many is refuted as sufficient by tika. **Requiring both is what the eleven members support**, and the reported figures stay bounded: the term count by the number of terms the source states, and the occurrence count as a share of the repository's declared runs.
+
+**The seed variance, at three seeds over all eleven members — 4,622 seconds.** Seventy-four of the seventy-seven verdicts are the same at every seed. Three are not, and each moves in one unit while the other holds it steady.
+
+| Reading | Source | How many | How often |
+|---|---|---|---|
+| strata | BIAN | yes no no | yes yes yes |
+| quickfixj | FpML | yes yes yes | yes yes no |
+| besu | FIX | yes no yes | yes yes yes |
+
+**All three are marginal, and the conjunction inherits the instability rather than curing it.** Each clears its moving bar between 1.0 and 2.0 times: BIAN writes two of strata's terms against a bar of one, FpML eight of quickfixj's occurrences against seven, FIX ten of besu's terms against nine. Requiring both bars makes a verdict as firm as its weaker half, so all three move under the conjunction too — fourteen of the seventeen that clear both are seed-independent, and three are not.
+
+**§4.3's own standard says what that means.** A non-zero variance at 999 draws establishes that 999 is too few. The bar for a field of seven is the 125th smallest of 999, and the count below that quantile is Binomial, so a bar separating 8 from 7 is estimated from a handful of order statistics. The section names the remedy: more draws. It also names the second reading of the same fact — that a verdict clearing its bar by less than about twice is one the draw decides, and reporting it as a clear states more than the measurement supports.
+
+*Settled by:* the same eleven members at 10⁴ draws, reporting whether the three settle and whether any of the other seventy-four move. Until then `HOW_MANY` is what the reading publishes, and the conjunction is the candidate the evidence supports rather than the rule the reading applies.
+
+
 ### Step 5 — the entry point
 
-One published class taking a directory and returning the export, and a README section showing the call and the coordinate. Every entry point sits in a test source set today, so no caller outside this repository can reach any of the above. It depends on none of steps 1 to 4 and can be built first if the surface matters more than the answer.
+**Landed 2026-08-30.** `ExportedReading.of(Path, String)` reads a directory and returns the export. It composes the two calls a consumer had to make itself and nothing else: `RepositoryReading.of(directory)`, then the vocabulary list `everyBundledVocabularyBesidesOlia()` states. The commit stays an argument because the library reads no `.git`, and a caller with none passes the empty string.
+
+The overloads beneath it are unchanged, so a program already holding a reading, a term reading, a field placement or the chance bars over the published names passes them instead of paying for them twice. Writing the document is `new ExportFile().wrote(file, export)`, which was already published and checks the document against `reading-export.schema.json` before it reaches a file.
+
+`ExportedReadingTest.exportsADirectoryWithoutTheCallerAssemblingAReading` is what says the call works from outside every diagnostic: it writes one class into a temporary directory and asserts the export comes back at the stated schema version, naming that directory and judged against every bundled vocabulary. It costs 122 s against the 73 s of the two tests beside it, which name no vocabulary: the difference is what matching all seven bundled ones over a one-class tree costs.
+
+The README's `Calling it from Java` section states the call and the coordinate — `io.github.fiftieshousewife:reading-export:0.1.0-SNAPSHOT`, resolvable from `~/.m2` after `./gradlew publishToMavenLocal` and nowhere else until the Maven Central row lands. The same edit removed a paragraph claiming `ReportFolder` renders markdown and an HTML twin, which `PublishedFormat` has refused since the output became JSON only.
 
 ## The order of work
 
@@ -285,7 +381,7 @@ One published class taking a directory and returning the export, and a README se
 | 1 | ~~the pooled run table as a bundled resource~~ **landed 2026-08-28** | one pool and one build | the twelve rows reproduce; both provenance tests pass; no reading moves |
 | 2 | ~~`SpecificTerms` on the index~~ **landed 2026-08-28** | one build, then `phraseNull` per member | 37 clears become 22; jpos and strata hold; FpML on tika falls 4.0 to 1.5 and still clears; four of FIX's five non-trading clears fall. `PhraseSpecificity` reading runs against runs moved to step 3 |
 | 3 | ~~the bar in `reading.json`, matches below it withheld and counted~~ **landed 2026-08-28** | one build, one self read, a profile | schema 13.0; a self read costs 37 s more; OLiA publishes 130 concepts where it published 142 |
-| 4 | the cascade in `about` and `aboutStatedBy` | a schema bump and the full backtest | 36 level readings hold at 33 apart, and rung 1 answers on the four finance members and no others |
-| 5 | the published entry point | one build and a README section | it is callable from outside the test source set |
+| 4 | ~~the cascade in `about` and `aboutStatedBy`~~ **landed 2026-08-29, revised the same day to `summary.answers`** | a schema bump and the full backtest | Schema 17.0, and 18.0 once CSO joined the schemes. **The placement half holds and the silence half does not**: 35 of the 36 committed level readings stand apart from chance, and the phrase rung answers on eleven of the twelve readings where the criterion expected four. The margins are in the table under step 4 |
+| 5 | ~~the published entry point~~ **landed 2026-08-30** | one build and a README section | `ExportedReading.of(Path, String)` reads a directory and returns the export, with no diagnostic, system property or test framework between a caller and it. The README states the coordinate |
 
 **Refuted by:** rung 1 answering on repositories outside every bundled vocabulary's field after the termhood bar is applied, or the 36 level readings falling at step 4. Either returns the export to three unrelated blocks, which is a worse reader experience and an honest one.

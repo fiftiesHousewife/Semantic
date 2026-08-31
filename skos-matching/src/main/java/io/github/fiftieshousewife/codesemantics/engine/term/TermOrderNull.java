@@ -2,8 +2,11 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Whether a source's phrases stand in a repository's declared names because of the orders the source
@@ -31,40 +34,71 @@ public final class TermOrderNull {
 
     private final long seed;
 
+    private final CountedPhrases counted;
+
     public TermOrderNull(final int resamples, final long seed) {
+        this(resamples, seed, CountedPhrases.HOW_MANY);
+    }
+
+    public TermOrderNull(final int resamples, final long seed, final CountedPhrases counted) {
         this.resamples = resamples;
         this.seed = seed;
+        this.counted = counted;
     }
 
     public static TermOrderNull seeded(final long seed) {
         return new TermOrderNull(RESAMPLES, seed);
     }
 
+    /** The same draw counted the other way, which is what says whether the choice of statistic matters. */
+    public static TermOrderNull seeded(final long seed, final CountedPhrases counted) {
+        return new TermOrderNull(RESAMPLES, seed, counted);
+    }
+
     /** Each source's observed phrase count over one repository, and the bar its own words set. */
     public List<PhraseBar> over(final List<WrittenRun> written, final List<TermIndex> judged) {
-        final int[][] chance = dealt(written, judged);
-        return IntStream.range(0, judged.size())
-                .mapToObj(source -> PhraseBar.of(judged.get(source).source(),
-                        MatchedPhrases.over(judged.get(source)).in(written),
-                        chance[source], judged.size()))
+        return inEachUnitOver(written, judged).get(counted);
+    }
+
+    /**
+     * Every source's bars in both units, from one set of deals and one walk of the names per deal.
+     *
+     * <p>A reading wanting both used to draw the whole null twice, which walked every declared name twice
+     * per deal and dealt every vocabulary twice.
+     */
+    public Map<CountedPhrases, List<PhraseBar>> inEachUnitOver(final List<WrittenRun> written,
+                                                               final List<TermIndex> judged) {
+        final List<PhraseReach> observed = judged.stream()
+                .map(index -> ReachedPhrases.over(index).in(written))
                 .toList();
+        final Map<CountedPhrases, int[][]> chance = dealt(written, judged);
+        return Stream.of(CountedPhrases.values())
+                .collect(Collectors.toMap(unit -> unit,
+                        unit -> IntStream.range(0, judged.size())
+                                .mapToObj(source -> PhraseBar.of(judged.get(source).source(),
+                                        unit.of(observed.get(source)),
+                                        chance.get(unit)[source], judged.size()))
+                                .toList()));
     }
 
-    /** Every source's count on each deal of itself, one row per source, sorted so a quantile can be read. */
-    private int[][] dealt(final List<WrittenRun> written, final List<TermIndex> judged) {
-        final int[][] byDeal = Arrays.stream(new Random(seed).longs(resamples).toArray()).parallel()
-                .mapToObj(drawn -> counted(written, judged, new Random(drawn)))
-                .toArray(int[][]::new);
-        return IntStream.range(0, judged.size())
-                .mapToObj(source -> Arrays.stream(byDeal)
-                        .mapToInt(deal -> deal[source]).sorted().toArray())
-                .toArray(int[][]::new);
+    /** Every source's reach on each deal of itself, sorted per unit so a quantile can be read. */
+    private Map<CountedPhrases, int[][]> dealt(final List<WrittenRun> written,
+                                               final List<TermIndex> judged) {
+        final PhraseReach[][] byDeal = Arrays.stream(new Random(seed).longs(resamples).toArray()).parallel()
+                .mapToObj(drawn -> reachedOnADeal(written, judged, new Random(drawn)))
+                .toArray(PhraseReach[][]::new);
+        return Stream.of(CountedPhrases.values())
+                .collect(Collectors.toMap(unit -> unit,
+                        unit -> IntStream.range(0, judged.size())
+                                .mapToObj(source -> Arrays.stream(byDeal)
+                                        .mapToInt(deal -> unit.of(deal[source])).sorted().toArray())
+                                .toArray(int[][]::new)));
     }
 
-    private static int[] counted(final List<WrittenRun> written, final List<TermIndex> judged,
-                                 final Random draws) {
+    private static PhraseReach[] reachedOnADeal(final List<WrittenRun> written,
+                                                final List<TermIndex> judged, final Random draws) {
         return judged.stream()
-                .mapToInt(index -> MatchedPhrases.over(ScrambledTerms.of(index, draws)).in(written))
-                .toArray();
+                .map(index -> ReachedPhrases.over(ScrambledTerms.of(index, draws)).in(written))
+                .toArray(PhraseReach[]::new);
     }
 }

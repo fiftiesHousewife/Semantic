@@ -74,4 +74,33 @@ class TermOrderNullTest {
         assertThat(barsOver(List.of(ITS_ORDERS)))
                 .isEqualTo(barsOver(List.of(ITS_ORDERS)));
     }
+
+    @Test
+    void countsHowManyTermsWereWrittenUnlessItIsAskedForHowOften() {
+        final List<WrittenRun> written = aRepositoryWriting(20);
+
+        assertAll(
+                () -> assertThat(new TermOrderNull(DEALS, 11L).over(written, List.of(ITS_ORDERS))
+                        .getFirst().observed())
+                        .as("each of the six published orders, counted once")
+                        .isEqualTo(ITS_ORDERS.terms().size()),
+                () -> assertThat(new TermOrderNull(DEALS, 11L, CountedPhrases.HOW_OFTEN)
+                        .over(written, List.of(ITS_ORDERS)).getFirst().observed())
+                        .as("the same six, counted once for every name each stands in")
+                        .isEqualTo(ITS_ORDERS.terms().size() * 20));
+    }
+
+    @Test
+    void drawsItsBarInWhicheverUnitItCounts() {
+        final List<WrittenRun> written = aRepositoryWriting(20);
+        final PhraseBar many = new TermOrderNull(DEALS, 11L).over(written, List.of(ITS_ORDERS)).getFirst();
+        final PhraseBar often = new TermOrderNull(DEALS, 11L, CountedPhrases.HOW_OFTEN)
+                .over(written, List.of(ITS_ORDERS)).getFirst();
+
+        assertAll(
+                () -> assertThat(often.observed()).isGreaterThan(many.observed()),
+                () -> assertThat(often.exceedsChance())
+                        .as("a source whose orders the repository writes stands above either bar")
+                        .isTrue());
+    }
 }

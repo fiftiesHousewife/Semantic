@@ -254,7 +254,29 @@ A run writes three files under `output/json/`. Every key below is in [`reading.j
 
 ## Calling it from Java
 
-**A directory in, one validated export out.** `RepositoryReading` takes the path and reads it; `ExportedReading` turns that into the same document `output/json/reading.json` holds.
+The coordinate is the `reading-export` module, which brings the engine and the matcher with it:
+
+```kotlin
+implementation("io.github.fiftieshousewife:reading-export:0.1.0-SNAPSHOT")
+```
+
+Nothing is on Maven Central yet. `./gradlew publishToMavenLocal` puts the jars in `~/.m2/repository` under that coordinate, which is what a consumer builds against today.
+
+**A directory in, one validated export out.** `ExportedReading` takes the path, reads it, and returns the same document `output/json/reading.json` holds. The commit is an argument because the library reads no `.git`: what a working tree is checked out at is a fact its caller states, and a caller with none passes the empty string.
+
+```java
+ReadingExport export = new ExportedReading().of(Path.of("/path/to/repository"), "43cbdae6");
+```
+
+Writing it is one more call, and `ExportFile` checks the document against [the schema every export is validated against](reading-export/src/main/resources/reading-export.schema.json) before it reaches a file, so a run produces a document matching that schema or produces none:
+
+```java
+new ExportFile().wrote(Path.of("reading.json"), export);
+```
+
+A reading writes JSON and nothing else. `PublishedFormat` refuses any name whose suffix it does not state.
+
+**A caller who already holds a reading passes it in.** `RepositoryReading` is the parse and the topical reading on their own, and `ExportedReading` takes one where a program has already computed it, along with a term reading, a field placement and the chance bars over the published names — each an overload, so a run whose diagnostics took them does not take them again.
 
 ```java
 RepositoryReading reading = RepositoryReading.of(Path.of("/path/to/repository"));
@@ -262,8 +284,6 @@ ReadingExport export = new ExportedReading().of(reading, "43cbdae6");
 ```
 
 It takes the directory rather than finding one: nothing in it reads a system property, asks which tree a test is running inside, or memoises across a JVM. A run of diagnostics does want a shared reading per tree, and `TreeReading` holds that on the test side — which is why the decision about how long a reading lives stays out of the API.
-
-**Reports too.** `ReportFolder` takes a directory and writes a report's markdown, with the page beside it rendered by whatever the caller supplies — the default writes the HTML twin this repository's reports have, and a consumer wanting markdown alone passes a renderer returning nothing. That keeps the markup library out of the published jar while leaving the behaviour unchanged.
 
 **It says what it is doing.** A large tree takes minutes, and a caller watching silence cannot tell a slow parse from a hung one, so each stage logs what it is starting and what it found through SLF4J at `INFO` on `RepositoryReading`:
 
@@ -570,7 +590,7 @@ A named file that cannot be read **fails rather than falling back** to the bundl
 
 Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside `Rare`, `Common` and the rest. This repository writes `Preferred` once and none of its siblings, so the match is discarded. `Verb` survives, because `Noun`, `Clause` and `Phrase` are written too. A match of more than one word — Tika's `AdjectivePhrase` against OLiA's — needs no such support, because two words matching by chance is far less likely than one.
 
-**The three bundled term taxonomies** — the functional ones are above:
+**The bundled term taxonomies:**
 
 | Taxonomy | Field | What it tests |
 |---|---|---|
@@ -582,6 +602,18 @@ Worked example: OLiA places `Preferred` under `UsageAndFrequencyFeature`, beside
 | [CWE](https://cwe.mitre.org/) — Common Weakness Enumeration 4.13 | security | the security case: weakness names are phrases, and each match cites MITRE's own page for it |
 
 A vocabulary matching inside its own domain establishes nothing, because any sufficiently large word list matches something somewhere. What has to be shown is that it produces few or no matches outside that domain.
+
+**How a vocabulary is judged.** Matching a term says a repository wrote a run of words some publisher states. It does not say the publisher's subject reached the repository, because any sufficiently large word list matches something somewhere. Three stages settle that, and each is a comparison against a published resource.
+
+| Stage | Class | What it does |
+|---|---|---|
+| 1 | [`SpecificTerms`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/SpecificTerms.java) | Removes from the field every term working Java has been shown to write. `time zone`, `mime type` and `resource type` are published by somebody and written by everybody, so a vocabulary is judged only on the terms that are its own. The reference is [the runs a seeded draw of a hundred repositories writes](reference-corpus/src/main/resources/reference-corpus-run-shares.tsv), and a run counts as written where its share exceeds its own standard error |
+| 2 | [`MatchedPhrases`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/MatchedPhrases.java) | Counts how many of the surviving terms **of more than one word** stand in the declared names, each term once however often it is written. One term written eight hundred times is one term the repository knows |
+| 3 | [`TermOrderNull`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermOrderNull.java) | Deals the source's own words across its own terms 999 times and recounts, keeping how many terms the source states, how long each is, and its whole word list. Only which words the publisher put beside which is destroyed. [`ChanceExpectedBest`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/ChanceExpectedBest.java) reads the quantile from the number of vocabularies competing |
+
+**The repository is held still and the vocabulary is dealt.** Declared names are compositional — a repository writes the same words beside each other over and over — so dealing the repository instead would put a source's words together in orders nobody wrote, and every source whose words a repository writes at all would stand above such a bar.
+
+Worked example, read at commit `baacc3d`: this repository writes four of OLiA's multi-word terms, among them `base form` and `verb phrase`. A deal of OLiA's own words across its own terms reaches two, over a field of seven vocabularies at 999 deals. Four against two is twice what OLiA's word list alone reaches, so `taxonomies` carries OLiA and its `bar` records the arithmetic. The other six vocabularies read here stay below their own bars, and `setAside.vocabulariesBelowTheirChanceBar` counts them.
 
 ## Modules
 

@@ -40,8 +40,17 @@ public final class ScrambledTerms implements TermIndex {
      * the same tree, which is what a chance bar cannot be. Sorting by the term's own words is a stated order
      * and costs one sort of a list already in memory.
      */
-    private static final Comparator<List<String>> BY_ITS_OWN_WORDS =
-            Comparator.comparing(term -> String.join(" ", term));
+    private static final Comparator<Spelled> BY_ITS_OWN_WORDS = Comparator.comparing(Spelled::spelling);
+
+    /**
+     * A term beside the spelling its own words give it.
+     *
+     * <p>{@link Comparator#comparing} keeps no key, so spelling the term inside the comparator spells it
+     * again on every comparison — of the order of {@code 2 n log n} times for a vocabulary of n terms, on
+     * every one of the null's deals. Spelling it once per term and sorting on that is the same order.
+     */
+    private record Spelled(String spelling, List<String> term) {
+    }
 
     private final TermIndex published;
 
@@ -53,7 +62,11 @@ public final class ScrambledTerms implements TermIndex {
     }
 
     public static ScrambledTerms of(final TermIndex published, final Random draws) {
-        final List<List<String>> terms = published.terms().stream().sorted(BY_ITS_OWN_WORDS).toList();
+        final List<List<String>> terms = published.terms().stream()
+                .map(term -> new Spelled(String.join(" ", term), term))
+                .sorted(BY_ITS_OWN_WORDS)
+                .map(Spelled::term)
+                .toList();
         final String[] pool = terms.stream().flatMap(List::stream).toArray(String[]::new);
         permuted(pool, draws);
         return new ScrambledTerms(published, dealt(published, terms, pool));

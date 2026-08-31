@@ -183,6 +183,20 @@ tasks.register<JavaExec>("phraseNull") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Each bundled vocabulary judged twice at one seed: on how many of its phrases the repository wrote, which
+// is what the reading publishes, and on how often those phrases stand in declared names. It prints; nothing
+// votes on it and no published figure moves.
+//   ./gradlew phraseUnit
+//   ./gradlew phraseUnit -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("phraseUnit") {
+    group = "verification"
+    description = "Judges each vocabulary on how many of its phrases were written and on how often"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.PhraseUnitProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Which of each vocabulary's phrases the repository writes, and which of those working Java writes too.
 // The workings behind phraseNull's two halves; it prints and writes nothing.
 //   ./gradlew termhood
@@ -300,6 +314,27 @@ val evaluationMembers: List<String> = layout.projectDirectory.file("src/test/res
     .readLines()
     .filter { it.isNotBlank() && !it.startsWith("#") }
     .map { it.substringBefore('\t') }
+
+// The same two units over every cloned evaluation-set member, in one JVM, several members at a time. Each
+// vocabulary's index and its corpus filter are computed once and shared, where one fork per member computes
+// both seven times over.
+//   ./gradlew phraseUnitAll -Dcs.evaluation.dir=<directory holding the clones>
+tasks.register<JavaExec>("phraseUnitAll") {
+    group = "verification"
+    description = "Judges every evaluation-set member in both units, in one JVM"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.PhraseUnitCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "12g"
+    evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
+    // The seeds the null is drawn at. One seed is one estimate of a bar that is an order statistic of the
+    // deals, so several say whether a verdict rests on which deals were drawn.
+    System.getProperty("cs.seeds")?.let { systemProperty("cs.seeds", it) }
+    doFirst {
+        if (evaluationDirectory == null) {
+            throw GradleException("phraseUnitAll needs -Dcs.evaluation.dir=<directory holding the clones>.")
+        }
+    }
+}
 
 val memberReadings = evaluationMembers.map { member ->
     tasks.register<Test>("evaluationRead${member.replaceFirstChar(Char::uppercase)}") {

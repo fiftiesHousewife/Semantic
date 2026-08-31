@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,10 +36,11 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
 
 /**
- * One working tree read into the export a consumer receives. With {@link RepositoryReading} it is the whole
- * of what a program embedding this library has to call: a directory in, one validated document out. Every
- * reading it composes is one the reports also run, at the same seed, so the file and the documents state the
- * same figures — and none of the documents has to be written for the file to exist.
+ * One working tree read into the export a consumer receives, and the whole of what a program embedding this
+ * library has to call: a directory in, one validated document out. A caller already holding a
+ * {@link RepositoryReading}, a term reading or a field placement passes it instead of paying for it twice.
+ * Every reading it composes runs at the reading's own seed, so two callers of one tree state the same
+ * figures.
  */
 public final class ExportedReading {
 
@@ -72,6 +74,20 @@ public final class ExportedReading {
      */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
         return of(reading, commit, everyBundledVocabularyBesidesOlia());
+    }
+
+    /**
+     * The whole of the published surface: a directory in, one validated export out.
+     *
+     * <p>The commit is an argument because the library reads no {@code .git}. What a working tree is
+     * checked out at is a fact its caller states, and a caller with none states the empty string.
+     *
+     * <p>The reading it takes is not shared with any other, which is {@link RepositoryReading}'s rule:
+     * a caller reading one tree twice, or several trees in one program, decides for itself how long a
+     * reading lives.
+     */
+    public ReadingExport of(final Path directory, final String commit) {
+        return of(RepositoryReading.of(directory), commit);
     }
 
     /**
