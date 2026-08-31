@@ -43,6 +43,16 @@ class FpmlConceptsTest {
               <xsd:simpleType name="Scheme">
                 <xsd:restriction base="xsd:anyURI"/>
               </xsd:simpleType>
+              <xsd:simpleType name="NonEmptyScheme">
+                <xsd:restriction base="Scheme"/>
+              </xsd:simpleType>
+              <xsd:complexType name="PartyRole">
+                <xsd:complexContent>
+                  <xsd:extension base="Classifier">
+                    <xsd:sequence/>
+                  </xsd:extension>
+                </xsd:complexContent>
+              </xsd:complexType>
               <xsd:element name="swap" type="Swap"/>
             </xsd:schema>
             """;
@@ -73,13 +83,31 @@ class FpmlConceptsTest {
     }
 
     @Test
-    void carriesABaseNamingATypeTheSetCarriesNoComplexTypeFor() {
-        assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("AccountId"))
-                .as("NonEmptyScheme is one of FpML's own simple types, and 235 of the 1,405 types extend "
-                        + "one — 195 extend Scheme alone. Writing those as unplaced said FpML states no "
-                        + "base for them, which is false")
-                .extracting(SkosConcept::broader)
-                .containsExactly("NonEmptyScheme");
+    void statesABaseTheSchemaDeclaresASimpleTypeAsAFormatAndNotAsABroaderSubject() {
+        assertAll(
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("AccountId"))
+                        .as("FpML declares NonEmptyScheme a simple type, so it is a format constraint and "
+                                + "not a subject to climb to")
+                        .extracting(SkosConcept::broader)
+                        .containsExactly(""),
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("AccountId"))
+                        .as("the publisher stated it, so it is kept out of the subject walk rather than "
+                                + "thrown away")
+                        .extracting(SkosConcept::note)
+                        .containsExactly("NonEmptyScheme"));
+    }
+
+    @Test
+    void carriesABaseTheSetDeclaresNothingAtAllFor() {
+        assertAll(
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("PartyRole"))
+                        .as("FIBO places 228 rows under the OMG Commons Ontology Library's own classes, "
+                                + "and a rule dropping an undeclared base would take those with it")
+                        .extracting(SkosConcept::broader)
+                        .containsExactly("Classifier"),
+                () -> assertThat(read()).filteredOn(concept -> concept.prefLabel().equals("PartyRole"))
+                        .extracting(SkosConcept::note)
+                        .containsExactly(""));
     }
 
     @Test
@@ -100,8 +128,8 @@ class FpmlConceptsTest {
         final List<SkosConcept> concepts = read();
 
         assertAll(
-                () -> assertThat(concepts).hasSize(4),
+                () -> assertThat(concepts).hasSize(5),
                 () -> assertThat(concepts).extracting(SkosConcept::prefLabel)
-                        .doesNotContain("Scheme", "swap"));
+                        .doesNotContain("Scheme", "NonEmptyScheme", "swap"));
     }
 }

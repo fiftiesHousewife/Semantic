@@ -23,14 +23,20 @@ class FpmlTermsTest {
                 () -> assertThat(terms.conceptsOf("creditdefaultswap").getFirst().broader())
                         .isEqualTo("Product"),
                 () -> assertThat(terms.conceptsOf("verificationmethod").getFirst().broader())
-                        .as("FpML states this type's base in its own namespace, and a simple type is "
-                                + "still what the publisher stated")
+                        .as("FpML declares Scheme a simple type, so it is a format constraint and not a "
+                                + "subject the walk may climb to")
+                        .isEmpty(),
+                () -> assertThat(terms.conceptsOf("verificationmethod").getFirst().note())
+                        .as("the publisher stated it, so it is kept out of the subject walk rather than "
+                                + "thrown away")
                         .isEqualTo("Scheme"),
                 () -> assertThat(withA(SkosConcept::broader))
-                        .as("789 of the 1,405 types state a base FpML writes in its own namespace; 616 "
-                                + "state none at all. It was 554 while a base naming one of FpML's own "
-                                + "simple types — 195 extend Scheme alone — was written as no base.")
-                        .isEqualTo(789));
+                        .as("554 of the 1,405 types state a base that is another complex type. The other "
+                                + "235 extend one of FpML's own simple types — 195 extend Scheme alone — "
+                                + "and those bases are stated in note, because a page grouping 510 "
+                                + "sightings of account type under a name for a string describes nothing.")
+                        .isEqualTo(554),
+                () -> assertThat(withA(SkosConcept::note)).isEqualTo(235));
     }
 
     @Test

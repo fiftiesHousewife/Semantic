@@ -28,15 +28,17 @@ public class FpmlTermsTsv {
                 """
                 + "# Columns: " + SkosTsv.COLUMNS + ".\n"
                 + """
-                # prefLabel is the complex type's own name. broader is its xsd:extension base, dropped where
-                # the base carries a namespace prefix — such a base is XML Schema's, not FpML's — and
-                # where it names a type this file carries no complex type for, as Scheme and
-                # NonEmptyScheme are simple types: a roll-up must not climb to a concept nothing here
-                # can answer for. definition is the type's
+                # prefLabel is the complex type's own name. broader is its xsd:extension base, dropped
+                # where the base carries a namespace prefix — such a base is XML Schema's, not FpML's.
+                # A base the schema set declares as a simple type is a format constraint and not a
+                # broader subject, so it is stated in note instead: 195 types extend Scheme and 32
+                # NonEmptyScheme, and placing account type beneath a name for a string is a subject the
+                # publisher did not state. A base the set declares nothing at all for stays in broader,
+                # because nothing here can say it is not a subject. definition is the type's
                 # own xsd:documentation with its line breaks collapsed. module is the product area in the
-                # schema file's own name: ird, cd, fx, eqd. NOT CARRIED, and said outright: simple types,
-                # which are format constraints rather than subjects, and global elements, each of which
-                # restates a complex type under a lowercased name.
+                # schema file's own name: ird, cd, fx, eqd. NOT CARRIED, and said outright: simple types
+                # as concepts of their own, and global elements, each of which restates a complex type
+                # under a lowercased name.
                 #
                 # Which schemas: the FpML 5.11 confirmation view, which is the fullest statement of the
                 # products the standard covers — the other views restate its types with fields removed.
