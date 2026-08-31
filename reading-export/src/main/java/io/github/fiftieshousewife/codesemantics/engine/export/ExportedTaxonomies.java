@@ -40,7 +40,8 @@ public final class ExportedTaxonomies {
 
     private static ExportedTaxonomy.Bar barOf(final PhraseBar bar) {
         return new ExportedTaxonomy.Bar(bar.observed(), bar.chanceExpectedBest(), bar.median(),
-                bar.timesTheBar(), bar.field(), bar.resamples());
+                bar.timesTheBar(), bar.atLeastAsExtreme(), bar.chanceRate(), bar.field(),
+                bar.resamples());
     }
 
     /**

@@ -45,12 +45,22 @@ public record ExportedTaxonomy(String vocabulary, List<Concept> concepts, List<B
      *                           writes, counted once each however often it wrote them
      * @param chanceExpectedBest the count the best of a field this size reaches by chance alone
      * @param median             the middle of the deals, for a reader comparing the two bars
-     * @param timesTheBar        the observed count divided by that bar
+     * @param timesTheBar        the observed count divided by that bar. <b>It is not comparable between two
+     *                           vocabularies</b>: it scales with the bar, and the bar scales with how many
+     *                           terms the publisher states
+     * @param atLeastAsExtreme   how many of the deals reached the observed count or beat it
+     * @param chanceRate         how often chance alone produced a count this large, which is
+     *                           {@code (atLeastAsExtreme + 1) / (resamples + 1)} and is bounded in
+     *                           {@code [1/1000, 1]} by the estimator's own definition. <b>It is the one
+     *                           figure here that compares two vocabularies of different sizes</b>, because
+     *                           it is a probability rather than a count: BIAN states 319 terms and CSO
+     *                           14,259, so a count favours CSO on any repository and a ratio favours
+     *                           whichever has the lower bar
      * @param field              how many vocabularies competed, which is what sets the quantile
      * @param resamples          how many deals were taken
      */
-    public record Bar(int phrases, int chanceExpectedBest, int median, double timesTheBar, int field,
-                      int resamples) {
+    public record Bar(int phrases, int chanceExpectedBest, int median, double timesTheBar,
+                      int atLeastAsExtreme, double chanceRate, int field, int resamples) {
 
         /** Whether the repository wrote more of this vocabulary's phrases than the field reaches by chance. */
         public boolean exceedsChance() {

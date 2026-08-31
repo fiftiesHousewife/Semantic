@@ -1,8 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.util.List;
+
 /**
- * Counts of what the reading measured and the export's three lists omit. The rows themselves stay in the
- * generated reports.
+ * What the reading measured and the export's three lists omit: a count for each rule that removed
+ * something, and a row for each vocabulary the reading judged and refused.
  *
  * <p>A count is what lets a consumer tell two hundred signals out of nine hundred candidates from two hundred
  * out of nine thousand, without reading a list of refusals to find out.
@@ -22,9 +24,12 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
  *                                        this repository choosing them
  * @param scopesWithinChance              scopes at least one of 999 chance resamples matched or exceeded
  * @param matchesDiscardedByBranchRule    one-word terms written without another concept from their branch
- * @param vocabulariesBelowTheirChanceBar  vocabularies matched and not published, because the repository
- *                                        wrote no more of their phrases than a deal of their own words
- *                                        reaches. Their concepts are left out with them
+ * @param vocabulariesBelowTheirChanceBar  one row per vocabulary matched and not published, because the
+ *                                        repository wrote no more of their phrases than a deal of their own
+ *                                        words reaches. Each carries the bar it failed, so the refusal can
+ *                                        be argued with from this file. Their concepts are left out with
+ *                                        them. Every vocabulary the reading judged is named either here or
+ *                                        in {@code taxonomies}, and none in both
  * @param termsWorkingJavaAlsoWrites      terms of those vocabularies the reference corpus has been shown to
  *                                        write, summed over every vocabulary matched. They are removed from
  *                                        the index before either side of the bar is counted, so a
@@ -36,6 +41,25 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryThreshold,
                        int wordsWithinTheReferencesError, int wordsTheLanguageSupplies,
                        int scopesWithinChance, int matchesDiscardedByBranchRule,
-                       int vocabulariesBelowTheirChanceBar, int termsWorkingJavaAlsoWrites,
-                       int filesTheParserCouldNotRead) {
+                       List<RefusedVocabulary> vocabulariesBelowTheirChanceBar,
+                       int termsWorkingJavaAlsoWrites, int filesTheParserCouldNotRead) {
+
+    public SetAside {
+        vocabulariesBelowTheirChanceBar = List.copyOf(vocabulariesBelowTheirChanceBar);
+    }
+
+    /**
+     * One vocabulary the reading matched and refused, with the count it reached and the count a deal of
+     * its own words reaches.
+     *
+     * <p>The refusal is a measurement rather than a judgement about the publisher. CSO states 14,259 terms
+     * and a permutation of its own word list reaches many accidental matches, so CSO clears a higher bar
+     * than OLiA on the same repository and can be refused where OLiA is published. The two counts are here
+     * because that is the whole of the argument.
+     *
+     * @param vocabulary the publisher's name for it, as {@code taxonomies[].vocabulary} states it
+     * @param bar        what it reached and what a deal of its own words reaches
+     */
+    public record RefusedVocabulary(String vocabulary, ExportedTaxonomy.Bar bar) {
+    }
 }

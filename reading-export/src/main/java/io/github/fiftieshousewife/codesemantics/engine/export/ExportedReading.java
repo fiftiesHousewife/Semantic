@@ -174,8 +174,7 @@ public final class ExportedReading {
                 .thresholds(vocabulary.bars())
                 .themes(reported)
                 .taxonomies(taxonomies)
-                .setAside(setAside(summary, vocabulary, legibility, terms, parsed,
-                        matched.size() - taxonomies.size(),
+                .setAside(setAside(summary, vocabulary, legibility, terms, parsed, refused(matched),
                         judged.stream().mapToInt(SpecificTerms::refused).sum()))
                 .build();
         return answering(answered);
@@ -336,9 +335,21 @@ public final class ExportedReading {
                 .toList();
     }
 
+    /**
+     * Every vocabulary the reading matched and refused, with the bar each failed, so a reader can argue
+     * with the refusal from the file rather than take the count on trust.
+     */
+    static List<SetAside.RefusedVocabulary> refused(final List<ExportedTaxonomy> matched) {
+        return matched.stream()
+                .filter(one -> !one.bar().exceedsChance())
+                .map(one -> new SetAside.RefusedVocabulary(one.vocabulary(), one.bar()))
+                .toList();
+    }
+
     private static SetAside setAside(final ReadingSummary summary, final Vocabulary vocabulary,
                                      final RepositoryLegibility legibility, final CorroboratedReading terms,
-                                     final ParsedRepository parsed, final int belowTheirChanceBar,
+                                     final ParsedRepository parsed,
+                                     final List<SetAside.RefusedVocabulary> belowTheirChanceBar,
                                      final int termsWorkingJavaAlsoWrites) {
         final RefusedWords refused = new RefusedWords();
         return new SetAside(

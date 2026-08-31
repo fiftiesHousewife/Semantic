@@ -29,7 +29,7 @@ class AnswerRungsTest {
                                             final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(phrase(vocabulary + "Concept", placedUnder, 10)),
                 List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, 7, 999));
+                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, 0, 0.001, 7, 999));
     }
 
     private static ExportedPlacement.Level level(final String subject, final boolean apart) {
@@ -45,7 +45,7 @@ class AnswerRungsTest {
                         List.of("computing"), List.of("WordNet Domains"), placedIn, List.of(), List.of(),
                         List.of(), 0.98, 0.8, new ExportedSummary.Counts(0, 0, 0)),
                 List.of(), Map.of(), List.of(), taxonomies,
-                new SetAside(0, 0, 0, 0, 0, 0, 0, 0, 0));
+                new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0));
     }
 
     private static ExportedTaxonomy.Concept concept(final String name, final String placedUnder,
@@ -56,7 +56,7 @@ class AnswerRungsTest {
 
     private static ExportedTaxonomy vocabulary(final List<ExportedTaxonomy.Concept> concepts) {
         return new ExportedTaxonomy("FpML", concepts, List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 7, 999));
+                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, 999));
     }
 
     @Test

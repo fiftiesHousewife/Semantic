@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 
@@ -40,7 +41,30 @@ class ExportedReadingTest {
                         .isNotEmpty(),
                 () -> assertThat(export.setAside())
                         .as("what was seen and not read is reported, not dropped")
-                        .isNotNull());
+                        .isNotNull(),
+                () -> assertThat(export.setAside().vocabulariesBelowTheirChanceBar())
+                        .extracting(SetAside.RefusedVocabulary::vocabulary)
+                        .as("every vocabulary judged is named here or in taxonomies, and none in both")
+                        .doesNotContainAnyElementsOf(export.taxonomies().stream()
+                                .map(ExportedTaxonomy::vocabulary).toList()));
+    }
+
+    private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {
+        return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
+                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 0, 0.001, 7, 999));
+    }
+
+    @Test
+    void namesEveryVocabularyItRefusedWithTheBarItFailed() {
+        final List<SetAside.RefusedVocabulary> refused = ExportedReading.refused(
+                List.of(judged("FpML", 69, 25), judged("CSO", 17, 16), judged("BIAN", 1, 4)));
+
+        assertAll(
+                () -> assertThat(refused).extracting(SetAside.RefusedVocabulary::vocabulary)
+                        .as("a count cannot be argued with and a row can")
+                        .containsExactly("BIAN"),
+                () -> assertThat(refused.getFirst().bar().phrases()).isEqualTo(1),
+                () -> assertThat(refused.getFirst().bar().chanceExpectedBest()).isEqualTo(4));
     }
 
     @Test

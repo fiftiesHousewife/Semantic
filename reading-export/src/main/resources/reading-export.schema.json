@@ -399,7 +399,7 @@
     },
     "taxonomies": {
       "title": "Taxonomy evaluations",
-      "description": "One entry per published vocabulary the repository's declared names were matched against. No entry states a subject placement: the placements this reading computes are the vocabulary reading's, over the dictionary topics of the words a repository declares, and they are stated under `summary.placedIn`, one per scheme.",
+      "description": "One entry per published vocabulary the repository's declared names were matched against. No entry states a subject placement: the placements this reading computes are the vocabulary reading's, over the dictionary topics of the words a repository declares, and they are stated under `summary.placedIn`, one per scheme. Only a vocabulary whose count exceeds its bar appears here; `setAside.vocabulariesBelowTheirChanceBar` carries a row for each of the rest, with the bar it failed.",
       "type": "array",
       "items": {
         "type": "object",
@@ -574,57 +574,14 @@
             }
           },
           "bar": {
-            "title": "How the vocabulary's phrase count stands against chance",
-            "description": "What a deal of this vocabulary's own words reaches on this repository, and how far its real count stands above that. The reference holds the repository still and deals the vocabulary: it keeps how many terms the publisher states, how long each is and its whole list of words, and destroys only which of its words it published beside which. A vocabulary whose word list is what reached the repository scores the same either way; one whose published orders reached it loses them. Dealing the repository instead would answer a different question, because declared names are compositional and a deal of them puts a vocabulary's words together in orders nobody wrote. Only vocabularies whose count exceeds `chanceExpectedBest` appear in this array at all; `setAside.vocabulariesBelowTheirChanceBar` counts the rest.",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "phrases",
-              "chanceExpectedBest",
-              "median",
-              "timesTheBar",
-              "field",
-              "resamples"
-            ],
-            "properties": {
-              "phrases": {
-                "description": "How many of the vocabulary's terms of more than one word the repository writes, counted once each however often it wrote them. A term the reference corpus of working Java has been shown to write is removed from the vocabulary before this is counted, so what is counted is the publisher's own vocabulary.",
-                "type": "integer",
-                "minimum": 0
-              },
-              "chanceExpectedBest": {
-                "description": "The count the best of a field this size reaches by chance alone, read off the deals at the quantile the field sets. Every vocabulary is tested at once, so the bar is what the best of them would reach and not what one of them would.",
-                "type": "integer",
-                "minimum": 0
-              },
-              "median": {
-                "description": "The middle of the deals, so a reader can see both bars rather than one.",
-                "type": "integer",
-                "minimum": 0
-              },
-              "timesTheBar": {
-                "description": "`phrases` divided by `chanceExpectedBest`. It is not comparable between two readings whose vocabularies lost different numbers of terms to the corpus, because the bar moves with the count.",
-                "type": "number",
-                "minimum": 0
-              },
-              "field": {
-                "description": "How many vocabularies competed, which is what sets the quantile the bar is read at.",
-                "type": "integer",
-                "minimum": 1
-              },
-              "resamples": {
-                "description": "How many deals were taken.",
-                "type": "integer",
-                "minimum": 1
-              }
-            }
+            "$ref": "#/$defs/chanceBar"
           }
         }
       }
     },
     "setAside": {
       "title": "What the lists omit",
-      "description": "Counts of what the reading measured and the three lists above omit. The rows themselves are in the generated reports.",
+      "description": "What the reading measured and the three lists above omit: a count for each rule that removed something, and a row for each vocabulary the reading judged and refused. The rows behind the counts are in the generated reports.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -670,9 +627,25 @@
           "minimum": 0
         },
         "vocabulariesBelowTheirChanceBar": {
-          "description": "Vocabularies matched against this repository and not published, because it wrote no more of their phrases than a deal of their own words reaches. Their concepts are left out with them.",
-          "type": "integer",
-          "minimum": 0
+          "description": "One row per vocabulary matched against this repository and not published, because it wrote no more of their phrases than a deal of their own words reaches. Each carries the bar it failed, so the refusal can be argued with from this file: CSO states 14,259 terms and a permutation of its own word list reaches many accidental matches, so CSO clears a higher bar than OLiA on the same repository and is refused where OLiA is published. Their concepts are left out with them. Every vocabulary the reading judged is named either here or in `taxonomies`, and none in both.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "vocabulary",
+              "bar"
+            ],
+            "properties": {
+              "vocabulary": {
+                "description": "The publisher's name for it, as `taxonomies[].vocabulary` states it.",
+                "type": "string"
+              },
+              "bar": {
+                "$ref": "#/$defs/chanceBar"
+              }
+            }
+          }
         },
         "termsWorkingJavaAlsoWrites": {
           "description": "Terms of the matched vocabularies that the reference corpus of working Java has been shown to write, summed over every vocabulary. They are removed from the index before either side of `taxonomies[].bar` is counted, so a vocabulary is judged on the terms that are its own: FpML states MimeType and TimeZone beside CapFloor, and only a corpus says which is FpML's subject. It counts the vocabularies' terms and not this repository's matches, because counting matches needs the reading run twice.",
@@ -911,6 +884,65 @@
           "items": {
             "$ref": "#/$defs/witness"
           }
+        }
+      }
+    },
+    "chanceBar": {
+      "title": "How the vocabulary's phrase count stands against chance",
+      "description": "What a deal of this vocabulary's own words reaches on this repository, and how far its real count stands above that. The reference holds the repository still and deals the vocabulary: it keeps how many terms the publisher states, how long each is and its whole list of words, and destroys only which of its words it published beside which. A vocabulary whose word list is what reached the repository scores the same either way; one whose published orders reached it loses them. Dealing the repository instead would answer a different question, because declared names are compositional and a deal of them puts a vocabulary's words together in orders nobody wrote.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phrases",
+        "chanceExpectedBest",
+        "median",
+        "timesTheBar",
+        "atLeastAsExtreme",
+        "chanceRate",
+        "field",
+        "resamples"
+      ],
+      "properties": {
+        "phrases": {
+          "description": "How many of the vocabulary's terms of more than one word the repository writes, counted once each however often it wrote them. A term the reference corpus of working Java has been shown to write is removed from the vocabulary before this is counted, so what is counted is the publisher's own vocabulary.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "chanceExpectedBest": {
+          "description": "The count the best of a field this size reaches by chance alone, read off the deals at the quantile the field sets. Every vocabulary is tested at once, so the bar is what the best of them would reach and not what one of them would.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "median": {
+          "description": "The middle of the deals, so a reader can see both bars rather than one.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "timesTheBar": {
+          "description": "`phrases` divided by `chanceExpectedBest`. It is not comparable between two readings whose vocabularies lost different numbers of terms to the corpus, because the bar moves with the count.",
+          "type": "number",
+          "minimum": 0
+        },
+        "atLeastAsExtreme": {
+          "description": "How many of the deals reached the observed count or beat it.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "chanceRate": {
+          "description": "How often chance alone produced a count this large: `(atLeastAsExtreme + 1) / (resamples + 1)`, bounded in [1/1000, 1] by the estimator's own definition. This is the one figure on the bar that compares two vocabularies of different sizes, because it is a probability rather than a count. `phrases` scales with how many terms the publisher states \u2014 BIAN states 319 and CSO 14,259 \u2014 and `timesTheBar` scales with the bar, so neither orders two vocabularies against each other.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "field": {
+          "description": "How many vocabularies competed, which is what sets the quantile the bar is read at.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "resamples": {
+          "description": "How many deals were taken.",
+          "type": "integer",
+          "minimum": 1
         }
       }
     }
