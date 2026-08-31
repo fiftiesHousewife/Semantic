@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
@@ -29,13 +30,72 @@ final class DrawnReadings {
 
     /** Every reading, strongest first, with the vocabularies any of them answered from. */
     DrawnReading.Drawing of(final List<ReadingRow> readings, final StatedAreas stated) {
+        final Set<String> shared = subjectsAMajorityNames(readings);
         final List<DrawnReading> drawn = readings.stream()
-                .map(reading -> reading(reading, stated))
+                .map(reading -> reading(reading, stated, shared))
                 .sorted(Comparator.comparingDouble(DrawnReading::strength).reversed()
                         .thenComparing(DrawnReading::repository))
                 .toList();
         return new DrawnReading.Drawing(drawn, sourcesOf(drawn));
     }
+
+    /** A set of one reading has nothing to be told apart from, so no subject is refused for failing to. */
+    private static final int NOTHING_TO_SEPARATE = 1;
+
+    /**
+     * The subjects an outright majority of the readings drawn name, which therefore say which vocabulary
+     * matched rather than what any one repository is about.
+     *
+     * <p>CSO answers ten of the twelve readings published here and states {@code computer science} for
+     * every one of them, so a reader comparing them learns from that word only that they are all
+     * software. FpML, FIX and FIBO answer five each and their subjects separate the readings that carry
+     * them from the readings that do not.
+     *
+     * <p><b>The bound is a majority because that is where one subject outweighs everything outside it</b>,
+     * which is the rule {@code StatedAncestry.fieldLevels} already states over a vocabulary's own concepts
+     * for the same reason. It is derived from the set being drawn and moves when that set does, rather
+     * than naming a vocabulary here.
+     */
+    Set<String> subjectsAMajorityNames(final List<ReadingRow> readings) {
+        if (readings.size() <= NOTHING_TO_SEPARATE) {
+            return Set.of();
+        }
+        final Map<String, Long> readingsNaming = readings.stream()
+                .flatMap(reading -> reading.answers().stream()
+                        .map(ExportedAnswer::source)
+                        .map(subjects::of)
+                        .flatMap(Optional::stream)
+                        .distinct())
+                .collect(Collectors.groupingBy(subject -> subject, Collectors.counting()));
+        return readingsNaming.entrySet().stream()
+                .filter(subject -> 2 * subject.getValue() > readings.size())
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toUnmodifiableSet());
+    }
+
+    /**
+     * The answers of one reading, rarest by chance first.
+     *
+     * <p><b>The rate is the ranking and the count is the tie-break.</b> Ranking by how many phrases a
+     * publisher reached past its bar puts the largest vocabulary first on every repository, because the
+     * count scales with how many terms the publisher states: CSO states 14,259 topics and BIAN 319, so on
+     * jpos CSO led on 16 phrases past a bar of 10 while standing at only 1.6 times that bar — the weakest
+     * ratio of the five that answered — and BIAN's <em>Card Capture</em>, <em>Point of Service</em> and
+     * <em>Savings Account</em> came last on three. Ranking by the ratio instead has the opposite bias, and
+     * it is the one this page was changed away from: it called four matches against a chance of two
+     * stronger than thirty against twenty-one.
+     *
+     * <p>The rate is a probability drawn from each publisher's own 999 deals, so it is comparable between
+     * publishers of any size and nothing about it is chosen. It is also coarse — a count no deal reached
+     * saturates at {@code 1/1000} — so two publishers that never occur by chance are separated by the
+     * count past their bar, which is the figure the rate has run out of resolution to state.
+     */
+    private static final Comparator<DrawnReading.DrawnAnswer> RAREST_BY_CHANCE =
+            Comparator.comparingDouble(DrawnReading.DrawnAnswer::chanceRate)
+                    .thenComparing(Comparator.comparingInt(DrawnReading.DrawnAnswer::beyondChance)
+                            .reversed())
+                    .thenComparing(Comparator.comparingDouble(DrawnReading.DrawnAnswer::strength)
+                            .reversed());
 
     /** Every source that answered anywhere, in the order the strongest answers name them. */
     private static List<String> sourcesOf(final List<DrawnReading> readings) {
@@ -46,35 +106,43 @@ final class DrawnReadings {
                 .toList();
     }
 
-    private DrawnReading reading(final ReadingRow reading, final StatedAreas stated) {
+    private DrawnReading reading(final ReadingRow reading, final StatedAreas stated,
+                                 final Set<String> shared) {
         final Optional<String> area = reading.statedArea();
         final List<DrawnReading.DrawnAnswer> answers = reading.answers().stream()
                 .map(answer -> answer(reading, answer))
-                .sorted(Comparator.comparingInt(DrawnReading.DrawnAnswer::beyondChance).reversed()
-                        .thenComparing(Comparator.comparingDouble(DrawnReading.DrawnAnswer::strength)
-                                .reversed()))
+                .sorted(RAREST_BY_CHANCE)
                 .toList();
-        return new DrawnReading(reading.repository(), sourceTypeOf(reading), about(answers), answers,
-                subjectsOf(answers), placedIn(reading), reading.lambda(), area.orElse(null),
+        return new DrawnReading(reading.repository(), sourceTypeOf(reading), about(answers, shared),
+                answers, subjectsOf(answers), placedIn(reading), reading.lambda(), area.orElse(null),
                 area.map(named -> stated.reached(reading.repository(), reading.subjects())).orElse(null),
                 reading.vocabulariesBelowTheirChanceBar());
     }
 
     /**
-     * What the standards that answered are about, strongest first and each named once.
+     * What the standards that answered are about, strongest first, each named once, and without the
+     * subjects a majority of the readings drawn name.
      *
      * <p>Two standards about the same thing state it once: FIBO and FpML both answer strata, and a line
      * reading <em>derivatives, derivatives</em> would be the page repeating itself rather than the
      * publishers agreeing.
+     *
+     * <p>A reading whose every answer came from a standard a majority names is left with no line at all.
+     * That is the correct outcome: nothing was said about it that was not said about most of the others.
      */
-    private List<String> about(final List<DrawnReading.DrawnAnswer> answers) {
+    private List<String> about(final List<DrawnReading.DrawnAnswer> answers, final Set<String> shared) {
         return answers.stream()
                 .map(DrawnReading.DrawnAnswer::source)
                 .map(subjects::of)
                 .flatMap(Optional::stream)
+                .filter(subject -> !shared.contains(subject))
                 .distinct()
                 .toList();
     }
+
+    /** What a source stating no chance rate carries — a subject scheme, which is ranked beneath every
+     * vocabulary that answered because the cascade already prefers a matched phrase to a divergence. */
+    private static final double CERTAIN = 1.0;
 
     /** A publisher naming several parents at once is taken at the first, because a path is one answer. */
     private static final String SEVERAL_PARENTS = "|";
@@ -87,9 +155,9 @@ final class DrawnReadings {
      * merging them would be this library deciding that two publishers said the same thing.
      */
     private List<DrawnReading.Subject> subjectsOf(final List<DrawnReading.DrawnAnswer> answers) {
-        final Map<String, Integer> beyondBySource = answers.stream()
+        final Map<String, Double> rateBySource = answers.stream()
                 .collect(Collectors.toMap(DrawnReading.DrawnAnswer::source,
-                        DrawnReading.DrawnAnswer::beyondChance, (first, later) -> first));
+                        DrawnReading.DrawnAnswer::chanceRate, (first, later) -> first));
         final Map<String, DrawnReading.Subject> pooled = new LinkedHashMap<>();
         answers.forEach(answer -> answer.branches().forEach(branch -> {
             final String subject = firstOf(branch.branch());
@@ -101,8 +169,8 @@ final class DrawnReadings {
         return pooled.values().stream()
                 .map(this::readable)
                 .sorted(Comparator
-                        .comparingInt((DrawnReading.Subject subject) ->
-                                beyondBySource.getOrDefault(subject.source(), 0)).reversed()
+                        .comparingDouble((DrawnReading.Subject subject) ->
+                                rateBySource.getOrDefault(subject.source(), CERTAIN))
                         .thenComparing(this::formOf)
                         .thenComparing(Comparator.comparingInt(DrawnReading.Subject::occurrences)
                                 .reversed())
@@ -195,6 +263,7 @@ final class DrawnReadings {
                 reading.barOf(answer.source()).map(bar -> bar.phrases()).orElse(0),
                 reading.barOf(answer.source())
                         .map(bar -> bar.phrases() - bar.chanceExpectedBest()).orElse(0),
+                reading.barOf(answer.source()).map(bar -> bar.chanceRate()).orElse(CERTAIN),
                 reading.branchesOf(answer.source()));
     }
 

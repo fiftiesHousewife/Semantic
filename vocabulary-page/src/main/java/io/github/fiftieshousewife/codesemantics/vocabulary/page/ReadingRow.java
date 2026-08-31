@@ -12,6 +12,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
+import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
 
 /**
  * One published reading as the comparison page states it: what it is about, every vocabulary whose phrase
@@ -28,14 +29,16 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * @param vocabularies every vocabulary the reading published, which is every one that beat its own bar
  * @param placedIn     one entry per subject scheme, at both of its levels
  * @param lambda       the share of word occurrences some bundled resource could be cited for
- * @param vocabulariesBelowTheirChanceBar how many vocabularies the reading matched and set aside because
- *                     the repository wrote no more of them than a deal of their own words reaches
+ * @param vocabulariesBelowTheirChanceBar every vocabulary the reading matched and set aside because the
+ *                     repository wrote no more of them than a deal of their own words reaches, each with
+ *                     the bar it failed
  * @param statedArea   the subject area a manifest states for this repository, and none where it states one
  *                     for no repository or none for this one
  */
 public record ReadingRow(String repository, List<ExportedAnswer> answers, List<String> about,
                          List<ExportedTaxonomy> vocabularies, List<ExportedPlacement> placedIn,
-                         double lambda, int vocabulariesBelowTheirChanceBar,
+                         double lambda,
+                         List<SetAside.RefusedVocabulary> vocabulariesBelowTheirChanceBar,
                          Optional<String> statedArea) {
 
     /** The scheme the manifest's areas are named in, which is the only tree they can be walked up. */
@@ -48,6 +51,7 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
         about = List.copyOf(about);
         vocabularies = List.copyOf(vocabularies);
         placedIn = List.copyOf(placedIn);
+        vocabulariesBelowTheirChanceBar = List.copyOf(vocabulariesBelowTheirChanceBar);
     }
 
     /** The reading, with the area a manifest states for it. */

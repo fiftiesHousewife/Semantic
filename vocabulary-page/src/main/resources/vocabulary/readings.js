@@ -397,7 +397,7 @@
             head.appendChild(views);
             head.appendChild(element("span", "held", reading.sourceType + " · "
                 + (100 * reading.citableShare).toFixed(1) + "% of words a resource can cite · "
-                + reading.belowTheirChanceBar + " vocabularies below their bar"));
+                + reading.belowTheirChanceBar.length + " vocabularies below their bar"));
             if (reading.statedArea) {
                 head.appendChild(element("span",
                     "area " + (reading.reachedItsArea ? "reached" : "missed"),
@@ -466,6 +466,18 @@
         return said;
     }
 
+    /* Which vocabularies were judged and refused, with both counts. A count on its own cannot be argued
+       with: a reader wants to know that CSO wrote 17 phrases against the 16 a deal of its own words
+       reaches, and that OLiA wrote 6 against 2 on the same repository. */
+    function refusedSentence(reading) {
+        var each = reading.belowTheirChanceBar.map(function (refused) {
+            return refused.vocabulary + " " + refused.bar.phrases + " against "
+                + refused.bar.chanceExpectedBest;
+        });
+        return element("p", "refused", "Matched and set aside for writing no more phrases than a deal of "
+            + "the publisher's own words reaches: " + each.join(", ") + ".");
+    }
+
     function placedSentence(reading) {
         var levels = reading.placedIn.map(function (scheme) {
             return [scheme.archive, scheme.category].filter(Boolean).join(" \u203A ");
@@ -489,11 +501,14 @@
         } else {
             block.appendChild(element("p", "wrote",
                 "No vocabulary cleared the count a deal of its own words reaches, so none is published "
-                    + "and none is drawn on here. " + reading.belowTheirChanceBar
+                    + "and none is drawn on here. " + reading.belowTheirChanceBar.length
                     + " were matched and set aside; their matches are in evidence.json."));
         }
         if (reading.placedIn.length) {
             block.appendChild(placedSentence(reading));
+        }
+        if (reading.belowTheirChanceBar.length) {
+            block.appendChild(refusedSentence(reading));
         }
         var views = element("p", "views-of");
         [["words", "vocabulary.html"], ["domains", "domain-venn.html"],

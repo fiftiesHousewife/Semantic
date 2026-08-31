@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
+
 /**
  * One published reading as the comparison page draws it: the repository, every source that answered with
  * the strength it answered at, and the figures that belong to the reading rather than to one answer.
@@ -24,24 +26,29 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  *                           {@code MsgSeqNum} is doing financial information exchange and the identifier
  *                           says so to nobody, so this is the frame that makes the concepts readable. It
  *                           stands above them and never in place of them: answering at the vocabulary is
- *                           the blocking the answering cascade refuses
+ *                           the blocking the answering cascade refuses. A subject an outright majority of
+ *                           the readings drawn name is left out and the list is empty where every answer
+ *                           came from one
  * @param subjects           what the repository is about: every subject its publishers place its matched
  *                           phrases under, pooled across the answering vocabularies, most-written first
  * @param placedIn           where every subject scheme places the repository, at the levels that stand
  *                           apart from chance
- * @param belowTheirChanceBar how many vocabularies the reading matched and set aside for failing their bar
+ * @param belowTheirChanceBar every vocabulary the reading matched and set aside for failing its bar, each
+ *                           with the count it reached and the count a deal of its own words reaches. The
+ *                           refusal is a measurement and the page states it as one
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record DrawnReading(String repository, String sourceType, List<String> about,
                            List<DrawnAnswer> answers, List<Subject> subjects, List<Placement> placedIn,
                            double citableShare, String statedArea, Boolean reachedItsArea,
-                           int belowTheirChanceBar) {
+                           List<SetAside.RefusedVocabulary> belowTheirChanceBar) {
 
     public DrawnReading {
         about = List.copyOf(about);
         answers = List.copyOf(answers);
         subjects = List.copyOf(subjects);
         placedIn = List.copyOf(placedIn);
+        belowTheirChanceBar = List.copyOf(belowTheirChanceBar);
     }
 
     /**
@@ -124,12 +131,19 @@ public record DrawnReading(String repository, String sourceType, List<String> ab
      * @param phrases     how many of the publisher's phrases the repository wrote, zero for a scheme
      * @param beyondChance how many more of them than the count a deal of the publisher's own words
      *                    reaches — the evidence in the unit it was counted in, and zero for a scheme
+     * @param chanceRate  how often chance alone reached this source's count, bounded in {@code [1/1000, 1]}
+     *                    by the estimator's own definition. <b>This is what the answers are ranked by</b>,
+     *                    because it is the only figure on the bar that compares two publishers of different
+     *                    sizes: a count favours the publisher that states the most terms and a ratio
+     *                    favours the one with the lowest bar. A scheme states none and carries 1.0, which
+     *                    ranks it last among vocabularies and is where the cascade already puts it
      * @param branches    every branch the publisher states for those phrases, most-written first
      */
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public record DrawnAnswer(String source, String publishedAt, List<String> statedPath, String concept,
                               String definition, double strength, String unit, String qualifiedBy,
-                              int phrases, int beyondChance, List<ReadingRow.Branch> branches) {
+                              int phrases, int beyondChance, double chanceRate,
+                              List<ReadingRow.Branch> branches) {
 
         /** The unit a vocabulary's strength is stated in. */
         public static final String TIMES_ITS_BAR = "times its bar";
