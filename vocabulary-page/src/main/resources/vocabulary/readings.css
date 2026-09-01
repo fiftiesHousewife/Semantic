@@ -36,6 +36,11 @@
     font-weight: 600;
 }
 
+.about-row .wrote .more {
+    color: var(--ink-faint);
+    font-size: 0.85rem;
+}
+
 .about-row .placed {
     margin: 0 0 0.35rem;
     color: var(--ink-faint);
@@ -94,15 +99,15 @@
     font-size: 0.8rem;
 }
 
-.evidence .stated .phrases {
+.evidence .stated .concepts {
     margin-top: 0.15rem;
 }
 
-.evidence .stated .phrase-line {
+.evidence .stated .concept-line {
     line-height: 1.45;
 }
 
-.evidence .stated .phrase {
+.evidence .stated .concept {
     font-weight: 600;
     color: var(--ink-soft);
 }
@@ -122,7 +127,7 @@
     margin: 0.15rem 0 0.4rem;
 }
 
-.answer details .written .phrase {
+.answer details .written .concept {
     font-weight: 600;
     color: var(--ink);
 }
@@ -350,7 +355,7 @@
     padding-left: 1rem;
 }
 
-.answer details .branch {
+.answer details .parent {
     font-weight: 600;
     color: var(--ink-soft);
 }

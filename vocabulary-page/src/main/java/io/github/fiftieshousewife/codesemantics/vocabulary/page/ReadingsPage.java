@@ -64,7 +64,8 @@ public final class ReadingsPage {
                                         + "that both sit under public key cryptography. Two publishers "
                                         + "naming one subject stay two entries, because deciding they "
                                         + "meant the same thing is a judgement nothing here can cite. "
-                                        + "Rest on one for the phrases behind it. Above them, what the "
+                                        + "Rest on one for the concepts behind it, each named as its "
+                                        + "publisher spells it. Above them, what the "
                                         + "standards that answered are themselves about: FpML's "
                                         + "derivatives, CWE's software weaknesses. A subject an outright "
                                         + "majority of these readings name is left out, because it "
@@ -109,6 +110,9 @@ public final class ReadingsPage {
                                         + "more than one word the repository wrote, which is the count "
                                         + "the bar is computed over. A scheme matches nothing and its "
                                         + "marks are one size.")),
+                                li().with(text("A parent is the one level the publisher states directly "
+                                        + "above a concept, and the fold groups the concepts a "
+                                        + "vocabulary matched by it.")),
                                 li().with(text("The path beside an answer is every level the publisher "
                                         + "states above it, broadest first, with the levels an outright "
                                         + "majority of that vocabulary sits beneath left off — CSO's "
@@ -118,7 +122,7 @@ public final class ReadingsPage {
                                         + "nowhere, which FpML does for 616 of its 1,405 types.")),
                                 li().with(text("The count beside a source is taken at the words level: "
                                         + "both it and the deals behind the bar compare the words the two "
-                                        + "sides wrote. A phrase a dictionary reached is listed and says "
+                                        + "sides wrote. A match a dictionary reached is listed and says "
                                         + "which level reached it, and the bar did not test it.")),
                                 li().with(text("A description is the nearest prose the publisher states "
                                         + "at or above the concept. Where it states none for the concept "

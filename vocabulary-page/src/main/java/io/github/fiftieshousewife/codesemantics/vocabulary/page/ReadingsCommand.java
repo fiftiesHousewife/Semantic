@@ -24,10 +24,11 @@ public final class ReadingsCommand {
     static final String PAGE = "readings.html";
 
     private static final String OUTPUT = "output";
+    static final String SHARED = "page.css";
+    static final String STYLESHEET = "readings.css";
+    static final String BEHAVIOUR = "readings.js";
+
     private static final String RESOURCES = "vocabulary/";
-    private static final String SHARED = "page.css";
-    private static final String STYLESHEET = "readings.css";
-    private static final String BEHAVIOUR = "readings.js";
     private static final String DATA = "readings.json";
     private static final String MANIFEST_PROPERTY = "cs.reading.manifest";
 
@@ -70,7 +71,7 @@ public final class ReadingsCommand {
     }
 
     /** The stylesheets and the script, read whole from the files they are authored in. */
-    private static String read(final String asset) throws IOException {
+    static String read(final String asset) throws IOException {
         try (InputStream source = ReadingsCommand.class.getClassLoader()
                 .getResourceAsStream(RESOURCES + asset)) {
             if (source == null) {

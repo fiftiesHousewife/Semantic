@@ -294,27 +294,27 @@
         if (answer.branches.length < 2) {
             return null;
         }
-        var phrases = 0;
+        var concepts = 0;
         var counted = 0;
         answer.branches.forEach(function (branch) {
             branch.concepts.forEach(function (concept) {
-                phrases += 1;
+                concepts += 1;
                 counted += concept.normalisation === COUNTED_LEVEL ? 1 : 0;
             });
         });
         var details = element("details");
         details.appendChild(element("summary", null,
-            "every phrase " + answer.source + " places: " + answer.branches.length
-                + " branches, " + phrases + " phrases, " + counted
+            "every concept " + answer.source + " matched: " + answer.branches.length
+                + " parents, " + concepts + " concepts, " + counted
                 + " of them at the level the bar counts"));
         var list = element("ul");
         answer.branches.forEach(function (branch) {
             var item = element("li");
-            item.appendChild(element("span", "branch", branch.branch || "placed nowhere"));
+            item.appendChild(element("span", "parent", branch.branch || "placed nowhere"));
             var written = element("ul", "written");
             branch.concepts.forEach(function (concept) {
                 var line = element("li");
-                line.appendChild(element("span", "phrase", concept.concept));
+                line.appendChild(element("span", "concept", concept.concept));
                 line.appendChild(element("span", "occurrences", String(concept.occurrences)));
                 if (concept.normalisation !== COUNTED_LEVEL) {
                     line.appendChild(element("span", "level",
@@ -345,10 +345,10 @@
         line.appendChild(element("span", "from", subject.subject
             ? subject.source + " places these here"
             : subject.source + " states nothing above this"));
-        var phrases = element("div", "phrases");
+        var concepts = element("div", "concepts");
         subject.concepts.forEach(function (written) {
-            var each = element("div", "phrase-line");
-            each.appendChild(element("span", "phrase", written.concept));
+            var each = element("div", "concept-line");
+            each.appendChild(element("span", "concept", written.concept));
             each.appendChild(element("span", "occurrences", String(written.occurrences)));
             each.appendChild(element("span", "definition", written.description
                 || (subject.source + " states nothing about it at any level")));
@@ -356,9 +356,9 @@
                 each.appendChild(element("span", "stated-for",
                     subject.source + " states this for " + written.descriptionStatedFor));
             }
-            phrases.appendChild(each);
+            concepts.appendChild(each);
         });
-        line.appendChild(phrases);
+        line.appendChild(concepts);
         line.addEventListener("mouseenter", function () {
             readout.textContent = reading.repository + " writes " + writtenHere(subject)
                 + " — " + subject.occurrences + " occurrences.";
