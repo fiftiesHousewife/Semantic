@@ -89,18 +89,19 @@ public record DrawnReading(String repository, String sourceType, List<String> ab
      *
      * @param subject     the label the publisher states above the phrases
      * @param source      the publisher that states it
-     * <p><b>The phrases carry their definitions.</b> {@code PresentValue} is an identifier and says
+     * <p><b>The phrases carry their descriptions.</b> {@code PresentValue} is an identifier and says
      * nothing to a reader; FIBO's own "value of an asset today" is what it means, and a chip naming the
-     * label without it has shown a name.
+     * label without it has shown a name. Where a publisher describes no concept but describes the level
+     * above it, that prose is carried with the level it is stated for named beside it.
      *
      * @param readable    the subject as a reader can read it: the publisher's own phrase where it wrote
      *                    one, the identifier split into its words where every one of them is English, and
      *                    what the publisher says the most-written concept here means where it is not
      * @param occurrences how often the repository wrote the phrases placed there
-     * @param concepts    those phrases with their definitions, most-written first
+     * @param concepts    those phrases with what their publisher says about them, most-written first
      */
     public record Subject(String subject, String readable, String source, int occurrences,
-                          List<ReadingRow.Written> concepts) {
+                          List<WrittenConcept> concepts) {
 
         public Subject {
             concepts = List.copyOf(concepts);
@@ -143,7 +144,7 @@ public record DrawnReading(String repository, String sourceType, List<String> ab
     public record DrawnAnswer(String source, String publishedAt, List<String> statedPath, String concept,
                               String definition, double strength, String unit, String qualifiedBy,
                               int phrases, int beyondChance, double chanceRate,
-                              List<ReadingRow.Branch> branches) {
+                              List<WrittenBranch> branches) {
 
         /** The unit a vocabulary's strength is stated in. */
         public static final String TIMES_ITS_BAR = "times its bar";

@@ -208,7 +208,7 @@ final class DrawnReadings {
 
     private static DrawnReading.Subject and(final DrawnReading.Subject first,
                                             final DrawnReading.Subject later) {
-        final List<ReadingRow.Written> concepts = new ArrayList<>(first.concepts());
+        final List<WrittenConcept> concepts = new ArrayList<>(first.concepts());
         later.concepts().stream().filter(concept -> !concepts.contains(concept)).forEach(concepts::add);
         return new DrawnReading.Subject(first.subject(), first.readable(), first.source(),
                 first.occurrences() + later.occurrences(), concepts);

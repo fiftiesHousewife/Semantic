@@ -286,17 +286,27 @@
         return link;
     }
 
+    /* The level the chance bar counts. A match found at any other level is a real match the bar never
+       tested, so the count and the list are not the same figure and each row says which it is in. */
+    var COUNTED_LEVEL = "words";
+
     function branchesOf(answer) {
         if (answer.branches.length < 2) {
             return null;
         }
-        var phrases = answer.branches.reduce(function (sum, branch) {
-            return sum + branch.concepts.length;
-        }, 0);
+        var phrases = 0;
+        var counted = 0;
+        answer.branches.forEach(function (branch) {
+            branch.concepts.forEach(function (concept) {
+                phrases += 1;
+                counted += concept.normalisation === COUNTED_LEVEL ? 1 : 0;
+            });
+        });
         var details = element("details");
         details.appendChild(element("summary", null,
             "every phrase " + answer.source + " places: " + answer.branches.length
-                + " branches, " + phrases + " phrases"));
+                + " branches, " + phrases + " phrases, " + counted
+                + " of them at the level the bar counts"));
         var list = element("ul");
         answer.branches.forEach(function (branch) {
             var item = element("li");
@@ -306,8 +316,16 @@
                 var line = element("li");
                 line.appendChild(element("span", "phrase", concept.concept));
                 line.appendChild(element("span", "occurrences", String(concept.occurrences)));
-                if (concept.definition) {
-                    line.appendChild(element("span", "definition", concept.definition));
+                if (concept.normalisation !== COUNTED_LEVEL) {
+                    line.appendChild(element("span", "level",
+                        "matched at " + concept.normalisation + ", which the bar did not count"));
+                }
+                if (concept.description) {
+                    line.appendChild(element("span", "definition", concept.description));
+                    if (concept.descriptionStatedFor !== concept.concept) {
+                        line.appendChild(element("span", "stated-for",
+                            answer.source + " states this for " + concept.descriptionStatedFor));
+                    }
                 }
                 written.appendChild(line);
             });
@@ -332,8 +350,12 @@
             var each = element("div", "phrase-line");
             each.appendChild(element("span", "phrase", written.concept));
             each.appendChild(element("span", "occurrences", String(written.occurrences)));
-            each.appendChild(element("span", "definition", written.definition
-                || (subject.source + " states no definition for it")));
+            each.appendChild(element("span", "definition", written.description
+                || (subject.source + " states nothing about it at any level")));
+            if (written.description && written.descriptionStatedFor !== written.concept) {
+                each.appendChild(element("span", "stated-for",
+                    subject.source + " states this for " + written.descriptionStatedFor));
+            }
             phrases.appendChild(each);
         });
         line.appendChild(phrases);
@@ -425,7 +447,7 @@
     var SUBJECTS_ABOVE = 6;
 
     function named(written) {
-        return written.definition ? written.concept + " — " + written.definition : written.concept;
+        return written.description ? written.concept + " — " + written.description : written.concept;
     }
 
 

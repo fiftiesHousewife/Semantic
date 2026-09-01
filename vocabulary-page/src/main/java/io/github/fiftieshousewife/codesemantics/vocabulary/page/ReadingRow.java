@@ -77,18 +77,18 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
      * meant; a page listing terms would show the same run twice for that reason alone, so the rows are
      * folded back to one per term.
      */
-    public List<Phrase> phrases() {
-        final Map<String, Phrase> byTerm = new LinkedHashMap<>();
+    public List<WrittenPhrase> phrases() {
+        final Map<String, WrittenPhrase> byTerm = new LinkedHashMap<>();
         vocabularies.forEach(vocabulary -> vocabulary.concepts().stream()
                 .filter(concept -> concept.wordsInTerm() > 1)
                 .forEach(concept -> byTerm.merge(
                         vocabulary.vocabulary() + " " + concept.term(),
-                        new Phrase(vocabulary.vocabulary(), concept.term(), concept.occurrences(),
+                        new WrittenPhrase(vocabulary.vocabulary(), concept.term(), concept.occurrences(),
                                 concept.placedUnder()),
                         (first, second) -> first.occurrences() >= second.occurrences() ? first : second)));
         return byTerm.values().stream()
-                .sorted(Comparator.comparingInt(Phrase::occurrences).reversed()
-                        .thenComparing(Phrase::term))
+                .sorted(Comparator.comparingInt(WrittenPhrase::occurrences).reversed()
+                        .thenComparing(WrittenPhrase::term))
                 .toList();
     }
 
@@ -134,7 +134,7 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
      * — and naming only the most-written of them says far less than the publisher already said. The
      * grouping is the publisher's own {@code broader} column and nothing here decides it.
      */
-    public List<Branch> branchesOf(final String source) {
+    public List<WrittenBranch> branchesOf(final String source) {
         final Map<String, List<ExportedConcept>> byBranch = vocabularies.stream()
                 .filter(vocabulary -> source.equals(vocabulary.vocabulary()))
                 .flatMap(vocabulary -> vocabulary.concepts().stream())
@@ -143,8 +143,8 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
                         LinkedHashMap::new, Collectors.toList()));
         return byBranch.entrySet().stream()
                 .map(ReadingRow::branch)
-                .sorted(Comparator.comparingInt(Branch::occurrences).reversed()
-                        .thenComparing(Branch::branch))
+                .sorted(Comparator.comparingInt(WrittenBranch::occurrences).reversed()
+                        .thenComparing(WrittenBranch::branch))
                 .toList();
     }
 
@@ -162,53 +162,15 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
         return concept.statedPath().isEmpty() ? "" : concept.statedPath().getLast();
     }
 
-    private static Branch branch(final Map.Entry<String, List<ExportedConcept>> under) {
-        final Map<String, Written> byConcept = new LinkedHashMap<>();
+    private static WrittenBranch branch(final Map.Entry<String, List<ExportedConcept>> under) {
+        final Map<String, WrittenConcept> byConcept = new LinkedHashMap<>();
         under.getValue().stream()
                 .sorted(Comparator.comparingInt(ExportedConcept::occurrences).reversed())
                 .forEach(concept -> byConcept.putIfAbsent(concept.concept(),
-                        new Written(concept.concept(), concept.definition(), concept.occurrences())));
-        return new Branch(under.getKey(), List.copyOf(byConcept.values()),
+                        new WrittenConcept(concept.concept(), concept.description(),
+                                concept.descriptionStatedFor(), concept.normalisation(),
+                                concept.occurrences())));
+        return new WrittenBranch(under.getKey(), List.copyOf(byConcept.values()),
                 under.getValue().stream().mapToInt(ExportedConcept::occurrences).sum());
-    }
-
-    /**
-     * One concept the repository wrote, with what its publisher says it means.
-     *
-     * <p><b>The label alone says nothing.</b> {@code PresentValue}, {@code MsgSeqNum} and
-     * {@code ExchangeId} are identifiers, not English, and a page naming one has matched a name — which
-     * is the whole failure a taxonomy is matched rather than a word list to avoid. The definition is the
-     * meaning and travels with the label wherever the label goes.
-     *
-     * @param concept     the label the publisher states
-     * @param definition  what the publisher says it means, empty where the publisher states nothing
-     * @param occurrences how often the repository wrote it
-     */
-    public record Written(String concept, String definition, int occurrences) {
-    }
-
-    /**
-     * One branch of one publisher, and the concepts the repository wrote in it.
-     *
-     * @param branch      the concept the publisher states above them, empty where it states none
-     * @param concepts    the concepts written there with their definitions, most-written first
-     * @param occurrences how many times the repository wrote them in all
-     */
-    public record Branch(String branch, List<Written> concepts, int occurrences) {
-
-        public Branch {
-            concepts = List.copyOf(concepts);
-        }
-    }
-
-    /**
-     * One published term of more than one word that the repository wrote.
-     *
-     * @param vocabulary  the publisher that states it
-     * @param term        the label the publisher states
-     * @param occurrences how often the repository wrote it
-     * @param placedUnder the concept the publisher places it under
-     */
-    public record Phrase(String vocabulary, String term, int occurrences, String placedUnder) {
     }
 }

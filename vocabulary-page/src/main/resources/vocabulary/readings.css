@@ -111,6 +111,11 @@
     color: var(--ink-soft);
 }
 
+.evidence .stated .stated-for {
+    color: var(--ink-faint);
+    display: block;
+}
+
 .answer details .written {
     list-style: none;
     padding-left: 0.8rem;
@@ -130,6 +135,12 @@
 
 .answer details .written .definition {
     color: var(--ink-soft);
+}
+
+.answer details .written .stated-for,
+.answer details .written .level {
+    color: var(--ink-faint);
+    display: block;
 }
 
 .fold {

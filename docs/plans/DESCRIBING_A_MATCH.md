@@ -2,7 +2,7 @@
 
 A reading names concepts a repository wrote — `public keys`, `MsgSeqNum`, `Card Capture`. A label is not a description, and this states what each publisher supplies beside its labels, where the gaps are, and which of two repairs the measurement supports.
 
-Every figure here is counted over the 846 distinct concepts the twelve committed readings under [`output/`](../../output) matched, at reading schema 22.0.
+Every figure here is counted over the 846 distinct concepts the twelve committed readings under [`output/`](../../output) matched. The survey was taken at reading schema 22.0 and the repair is measured at 24.0, on readings regenerated after it.
 
 ## What each publisher supplies
 
@@ -72,14 +72,22 @@ It moves no figure in the reading. A description is display: it enters no count,
 | `description` | the nearest prose at or above the concept, empty where no level states any |
 | `descriptionStatedFor` | the concept that prose is stated for: the concept itself, the level the walk climbed to, or empty |
 
-On this repository the walk describes 14 CSO rows that were bare and one OLiA row:
+**It reproduces the survey.** Counted the same way over the twelve readings regenerated at 24.0 — the 846 distinct concepts they match:
 
-| Vocabulary | Rows | At the node | By walking up | Nothing at any level |
+| Vocabulary | Matched | At the node | By walking up | Nothing at any level |
 |---|---|---|---|---|
-| OLiA | 130 | 127 | 2 — `Initialism` from `Abbreviation` | 1 |
-| CSO | 40 | 12 | 14 | 14 |
+| CSO | 337 | 84 | 213 | 40 |
+| FIBO | 161 | 156 | 0 | 5 |
+| FpML | 145 | 122 | 10 | 13 |
+| FIX | 109 | 102 | 5 | 2 |
+| OLiA | 84 | 82 | 1 | 1 |
+| BIAN | 5 | 5 | 0 | 0 |
+| CWE | 5 | 5 | 0 | 0 |
+| **All** | **846** | **556** | **229** | **61** |
 
-Eleven of the fourteen CSO climbs are one step: `query languages` from *database systems*, `value functions` from *reinforcement learning*, `word sense` from *word sense disambiguation*. `computer science` never supplies one, which is the majority rule working.
+Every figure the survey predicted lands within one concept of it: 555 at the node against 556, 229 by walking up exactly, and 62 undescribed against 61. The last column pools the survey's two — a concept nothing describes and one whose only description sits at a field level are both empty here, because the export states the description and the node it came from and there is no third thing for it to say.
+
+Eleven of this repository's fourteen CSO climbs are one step: `query languages` from *database systems*, `value functions` from *reinforcement learning*, `word sense` from *word sense disambiguation*. `computer science` supplies none, which is the majority rule working.
 
 ## The repair the measurement refutes
 

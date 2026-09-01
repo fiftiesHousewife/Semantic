@@ -116,6 +116,15 @@ public final class ReadingsPage {
                                         + "every match shares names only the vocabulary that matched.")),
                                 li().with(text("A path of nothing is the publisher placing the concept "
                                         + "nowhere, which FpML does for 616 of its 1,405 types.")),
+                                li().with(text("The count beside a source is taken at the words level: "
+                                        + "both it and the deals behind the bar compare the words the two "
+                                        + "sides wrote. A phrase a dictionary reached is listed and says "
+                                        + "which level reached it, and the bar did not test it.")),
+                                li().with(text("A description is the nearest prose the publisher states "
+                                        + "at or above the concept. Where it states none for the concept "
+                                        + "itself, the level it does state one for is named: CSO says "
+                                        + "nothing about public keys and describes public key "
+                                        + "cryptography, which is what the line then shows.")),
                                 li().with(text("The mark beside a repository is whether the area a "
                                         + "manifest states for it is the area a scheme placed it in, or "
                                         + "one that area descends from. It is drawn only where a "

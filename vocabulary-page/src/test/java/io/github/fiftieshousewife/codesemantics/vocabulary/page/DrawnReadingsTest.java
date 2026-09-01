@@ -164,17 +164,55 @@ class DrawnReadingsTest {
                         new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, 999))),
                 Optional.empty())), StatedAreas.none());
         assertAll(
-                () -> assertThat(only(drawing).branches()).extracting(ReadingRow.Branch::branch)
+                () -> assertThat(only(drawing).branches()).extracting(WrittenBranch::branch)
                         .containsExactly("public key cryptography", "operating systems"),
                 () -> assertThat(only(drawing).branches().getFirst().concepts())
-                        .extracting(ReadingRow.Written::concept).containsExactly("public keys"),
+                        .extracting(WrittenConcept::concept).containsExactly("public keys"),
                 () -> assertThat(only(drawing).phrases()).isEqualTo(2));
+    }
+
+    @Test
+    void carriesTheLevelAPublisherDescribesWhenItDescribesTheConceptNowhere() {
+        final ExportedConcept keys = new ExportedConcept("public keys", "public keys", "words", "",
+                "a cryptosystem of key pairs", "public key cryptography", "public key cryptography",
+                List.of("computer security", "public key cryptography"), 52, 0.5, 2, 0.9,
+                new SightingSite("A.java", 1));
+        final DrawnReading santuario = drawn.of(List.of(row("santuario",
+                List.of(taxonomy("CSO", "public keys", 2.0)),
+                List.of(new ExportedTaxonomy("CSO", List.of(keys), List.of(), Map.of(),
+                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, 999))),
+                Optional.empty())), StatedAreas.none()).readings().getFirst();
+
+        final WrittenConcept written = santuario.subjects().getFirst().concepts().getFirst();
+        assertAll(
+                () -> assertThat(written.description()).isEqualTo("a cryptosystem of key pairs"),
+                () -> assertThat(written.descriptionStatedFor())
+                        .as("a summary of the branch is not a definition of what sits in it, so the page "
+                                + "has to be able to say whose it is")
+                        .isEqualTo("public key cryptography"));
+    }
+
+    @Test
+    void carriesTheLevelAMatchWasFoundAtSoThePageCanSayWhichTheBarCounted() {
+        final ExportedConcept reached = new ExportedConcept("PaymentDates", "payment date", "lemmas",
+                "the dates a payment falls on", "the dates a payment falls on", "PaymentDates", "Product",
+                List.of("Product"), 350, 0.5, 2, 0.9, new SightingSite("A.java", 1));
+        final DrawnReading strata = drawn.of(List.of(row("strata",
+                List.of(taxonomy("FpML", "PaymentDates", 2.0)),
+                List.of(new ExportedTaxonomy("FpML", List.of(reached), List.of(), Map.of(),
+                        new ExportedTaxonomy.Bar(1, 0, 0, 2.0, 0, 0.001, 7, 999))),
+                Optional.empty())), StatedAreas.none()).readings().getFirst();
+
+        assertThat(strata.subjects().getFirst().concepts().getFirst().normalisation())
+                .as("the bar counts the words level, and a match a dictionary reached is not in it")
+                .isEqualTo("lemmas");
     }
 
     @Test
     void poolsWhatEveryAnsweringPublisherPlacesThePhrasesUnder() {
         final ExportedConcept agreement = new ExportedConcept("key agreement",
-                "key agreement", "words", "a protocol whereby two parties agree a shared key", "", "",
+                "key agreement", "words", "a protocol whereby two parties agree a shared key",
+                "a protocol whereby two parties agree a shared key", "key agreement",
                 "public key cryptography | encryption",
                 List.of("computer security", "public key cryptography"), 60, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
@@ -199,9 +237,9 @@ class DrawnReadingsTest {
                         .containsExactly("public key cryptography", "cryptography"),
                 () -> assertThat(santuario.subjects().getFirst().occurrences()).isEqualTo(78),
                 () -> assertThat(santuario.subjects().getFirst().concepts())
-                        .extracting(ReadingRow.Written::concept)
+                        .extracting(WrittenConcept::concept)
                         .containsExactly("key agreement", "public key certificates"),
-                () -> assertThat(santuario.subjects().getFirst().concepts().getFirst().definition())
+                () -> assertThat(santuario.subjects().getFirst().concepts().getFirst().description())
                         .as("PresentValue and key agreement are identifiers; the definition is the "
                                 + "meaning and travels with the label")
                         .isEqualTo("a protocol whereby two parties agree a shared key"));
@@ -210,11 +248,12 @@ class DrawnReadingsTest {
     @Test
     void showsASubjectAPublisherStatesInEnglishBeforeOneItStatesAsAnIdentifier() {
         final ExportedConcept written = new ExportedConcept("MsgSeqNum",
-                "msg seq num", "words", "Integer message sequence number", "", "", "Session", List.of("Session"),
+                "msg seq num", "words", "Integer message sequence number", "Integer message sequence number",
+                "MsgSeqNum", "Session", List.of("Session"),
                 800, 0.5, 3, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedConcept alsoWritten = new ExportedConcept("key agreement",
-                "key agreement", "words", "a protocol", "", "", "public key cryptography",
+                "key agreement", "words", "a protocol", "a protocol", "key agreement", "public key cryptography",
                 List.of("public key cryptography"), 9, 0.5, 2, 0.9,
                 new SightingSite("B.java", 1));
         final DrawnReading reading = drawn.of(List.of(row("mine",
@@ -233,7 +272,8 @@ class DrawnReadingsTest {
     @Test
     void refusesToRankAnEnglishLabelAboveStrongerEvidenceLabelledAsAnIdentifier() {
         final ExportedConcept deposit = new ExportedConcept("Term Deposit",
-                "term deposit", "words", "a deposit held for a fixed term", "", "", "Loans and Deposits",
+                "term deposit", "words", "a deposit held for a fixed term", "a deposit held for a fixed term",
+                "Term Deposit", "Loans and Deposits",
                 List.of("Loans and Deposits"), 43, 0.5, 2, 0.9, new SightingSite("A.java", 1));
         final ExportedConcept functions = new ExportedConcept("value functions",
                 "value functions", "words", "", "", "", "reinforcement learning",
@@ -302,7 +342,8 @@ class DrawnReadingsTest {
                 List.of("SingleGeneralOrderHandling"), 16, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedConcept sequence = new ExportedConcept("SeqNum",
-                "seq num", "words", "Integer message sequence number.", "", "", "MsgSeqNum",
+                "seq num", "words", "Integer message sequence number.", "Integer message sequence number.", "SeqNum",
+                "MsgSeqNum",
                 List.of("MsgSeqNum"), 659, 0.5, 3, 0.9, new SightingSite("B.java", 1));
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4)),
@@ -356,7 +397,8 @@ class DrawnReadingsTest {
                 "process control", "words", "", "", "", "External Control", List.of("External Control"), 4, 0.5, 2, 0.9,
                 new SightingSite("A.java", 1));
         final ExportedConcept topic = new ExportedConcept("target language",
-                "target language", "words", "", "", "", "machine translations", List.of("machine translations"), 35, 0.5,
+                "target language", "words", "", "", "", "machine translations", List.of("machine translations"), 35,
+                0.5,
                 2, 0.9, new SightingSite("B.java", 1));
         final DrawnReading tika = drawn.of(List.of(row("tika",
                 List.of(taxonomy("CWE", "Process Control", 2.0), taxonomy("CSO", "target language", 1.43)),
