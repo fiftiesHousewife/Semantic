@@ -46,20 +46,40 @@ The page then has what it needs to say which matches the bar tested, and `bar.ph
 
 | | Step | Costs | Settled by | State |
 |--:|---|---|---|---|
-| 1 | `normalisation` on `ExportedTaxonomy.Concept`, from the sighting that already carries it | a schema bump and a reading | every published row states the level it was found at, and the rows at `words` number exactly `bar.phrases` | **done**, schema 23.0 |
+| 1 | `normalisation` on `ExportedConcept`, from the sighting that already carries it | a schema bump and a reading | every published row states the level it was found at, and the rows at `words` are bounded above by `bar.phrases` | **done**, schema 23.0 |
 | 2 | `bar.phrases` javadoc and schema description say the count is the words level's | nothing | a reader cannot take 87 for the number that cleared a bar of 25 | **done** |
-| 3 | The page separates them | a page rebuild, which needs the eleven evaluation members read again at 23.0 | the evidence list shows which matches the bar tested | not started |
+| 3 | The page separates them | a page rebuild | each evidence line states the level it was matched at, and the summary states how many of the phrases the bar counted | **done** |
 
-Step 1's check is the one that matters: **if the published rows at the `words` level do not number exactly `bar.phrases`, something other than the ladder explains the gap** and this document is wrong. It holds on both vocabularies of this repository, exactly:
+Step 1's check was: **if the published rows at the `words` level do not number exactly `bar.phrases`, something other than the ladder explains the gap.** It was run on all twelve committed readings, 28 vocabulary-and-reading pairs. **It holds on 27 of them and fails by one on the 28th**, and the ladder is still the explanation — it runs both ways.
 
-| Vocabulary | `bar.phrases` | Distinct multi-word terms at `words` | Distinct multi-word terms above `words` |
-|---|---|---|---|
-| OLiA | 4 | 4 | 2 — `base forms`, `list markers` |
-| CSO | 7 | 7 | 6 — `query language`, `style sheet`, `trading system`, `value function`, `word class`, `words senses` |
+On strata, which is where the gap was found, both figures reproduce exactly:
 
-`PhrasesTheBarCounted` is the count, and `ReadingExportDiagnostic` asserts it against `bar.phrases` for every vocabulary of every reading the `read` task writes. A repository where the two disagree fails the read rather than publishing the gap unsaid.
+| Reading | Vocabulary | `bar.phrases` | At `words` | Above `words` |
+|---|---|---|---|---|
+| strata | FpML | 69 | 69 | 18 |
+| strata | FIBO | 47 | 47 | 19 |
+| tika | CSO | 30 | 30 | 34 |
+| this tree | OLiA | 4 | 4 | 2 |
+| this tree | CSO | 7 | 7 | 6 |
+| **fineract** | **CSO** | **31** | **30** | 28 |
+
+### The ladder also hides a phrase, and the one case is named
+
+The bar walks one level and the reading walks four, longest-first. A run a dictionary answered consumes words a shorter published phrase began in, so the reading never asks about the shorter phrase.
+
+fineract declares `SmsMessageDeliveryReportData`, which the splitter reads as *sms message delivery report data*. CSO publishes `sms messages` under *short message services* and `message delivery` under *delay tolerant networks*.
+
+| Walk | At *sms* | Then |
+|---|---|---|
+| the bar, one level | `sms message` is not a spelling CSO publishes, so nothing answers and the walk moves on one word | `message delivery` answers, and the bar counts it |
+| the reading, four levels | `sms message` answers at the lemmas level against `sms messages` | the walk resumes past *delivery*, and `message delivery` is never asked about |
+
+**This can only lose a phrase the bar counted, never add one**, because every run the one-level walk asks about the ladder asks about too, at a length at least as great. So the published rows at `words` are bounded above by `bar.phrases` by the walk's own definition, and that is what `ReadingExportDiagnostic` asserts for every vocabulary of every reading the `read` task writes. `PhrasesTheBarCounted` is the count; `./gradlew countedPhrases -Dcs.clone.dir=<path>` names the difference.
+
+The cost is one phrase in 28 readings and it is not worth a repair: making the two agree means either walking the bar over four levels, which `MatchedPhrases` refuses above, or walking the reading over one, which discards every dictionary match.
 
 ## What was measured on the way
 
-- The gap is 18 of 87 for FpML and 19 of 66 for FIBO, and in both the count of dictionary-reached terms matches the gap exactly. That agreement was inferred from the exported rows before the code was read, and the code then confirmed the mechanism.
+- The gap is 18 of 87 for FpML and 19 of 66 for FIBO, and in both the count of dictionary-reached terms matches the gap exactly. That agreement was inferred from the exported rows before the code was read, and the code then confirmed the mechanism, and the regenerated readings then reproduced both figures.
 - FIX did not answer strata, so the gap is unmeasured for it.
+- Across the twelve readings the counts above the words level run from 0 to 34. Four vocabularies reach nothing above it on any reading they answer — FIX on fix-trading-simulator, quickfixj and santuario, BIAN everywhere — and CSO reaches most, because it is the vocabulary whose labels are English words a dictionary can inflect.

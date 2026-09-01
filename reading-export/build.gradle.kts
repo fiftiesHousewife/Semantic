@@ -198,6 +198,18 @@ tasks.register<JavaExec>("phraseUnit") {
 }
 
 // Which of each vocabulary's phrases the repository writes, and which of those working Java writes too.
+// The phrases each vocabulary's bar counted against the phrases the reading publishes at that level, named
+// on both sides. It prints; nothing votes on it and no published figure moves.
+//   ./gradlew countedPhrases -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("countedPhrases") {
+    group = "verification"
+    description = "Names the phrases a bar counted that the reading does not publish at the counted level"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.CountedPhraseProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // The workings behind phraseNull's two halves; it prints and writes nothing.
 //   ./gradlew termhood
 //   ./gradlew termhood -Dcs.clone.dir=<path>

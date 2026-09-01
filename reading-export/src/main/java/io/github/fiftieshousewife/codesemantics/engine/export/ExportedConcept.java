@@ -13,8 +13,9 @@ import lombok.Builder;
  *                       carrying only the label cannot say which phrase was written
  * @param normalisation  what both sides were normalised to before they were compared, which is the
  *                       level {@link ExportedTaxonomy#matchesByNormalisation()} keys its counts by.
- *                       {@link ExportedTaxonomy.Bar#phrases()} counts only the rows at {@code words}, so without this a
- *                       reader cannot tell the rows the bar tested from the ones a dictionary reached
+ *                       {@link ExportedTaxonomy.Bar#phrases()} counts the rows at {@code words} only,
+ *                       so without this a reader cannot tell the rows the bar tested from the ones a
+ *                       dictionary reached
  * @param definition     what the publisher says the concept means, empty where it states nothing. It
  *                       is the whole reason a taxonomy is matched rather than a word list: the node
  *                       carries the meaning, and a reading that reaches a node and drops its
