@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "28d95b2adb95b7e15a558b23017694d2e5991b29",
-  "commit" : "1a55ee6b317a810c6b802e26c412254a7f48e29d",
+  "previousCommit" : "735469c41c7f28facd11f095577368022c2dabe0",
+  "commit" : "933033689a60a869caf1ee32493369b81f2e241f",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -15,7 +15,7 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.9%",
+    "before" : "32.8%",
     "after" : "32.8%"
   }, {
     "figure" : "arXiv archive — chance reaches",
@@ -47,7 +47,7 @@
     "after" : "yes"
   }, {
     "figure" : "arXiv category — subjects nearer than chance",
-    "before" : "1",
+    "before" : "2",
     "after" : "2"
   }, {
     "figure" : "OpenAlex archive — nearest subject",
@@ -55,7 +55,7 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "24.5%",
+    "before" : "24.4%",
     "after" : "24.4%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
@@ -79,7 +79,7 @@
     "after" : "42.0%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "49.5%",
+    "before" : "49.6%",
     "after" : "49.6%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -87,7 +87,7 @@
     "after" : "yes"
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
-    "before" : "9",
+    "before" : "10",
     "after" : "10"
   }, {
     "figure" : "CSO archive — nearest subject",
@@ -139,7 +139,7 @@
     "after" : "8"
   }, {
     "figure" : "Concepts written",
-    "before" : "170",
+    "before" : "171",
     "after" : "171"
   } ],
   "crossings" : [ ]

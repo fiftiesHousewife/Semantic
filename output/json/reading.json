@@ -2,7 +2,7 @@
   "schemaVersion" : "24.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "1a55ee6b317a810c6b802e26c412254a7f48e29d",
+    "commit" : "933033689a60a869caf1ee32493369b81f2e241f",
     "answers" : [ {
       "sourceType" : "taxonomy",
       "source" : "OLiA",
@@ -24,17 +24,17 @@
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.32811362085766355,
-        "nearestByChanceBits" : 0.4100167917491738,
+        "divergenceBits" : 0.3281234754753456,
+        "nearestByChanceBits" : 0.4099717493317992,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.09525427442378824,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -63,8 +63,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -93,8 +93,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -124,12 +124,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.050642298688321374,
+          "shareOfRepository" : 0.05062775111460818,
           "shareOfSubject" : 0.04201526301980961,
           "carriedBy" : [ {
             "word" : "folder",
-            "occurrences" : 69,
-            "mass" : 17.950407130761125,
+            "occurrences" : 68,
+            "mass" : 17.950696481685373,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -158,8 +158,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 929,
-            "mass" : 12.165165133816382,
+            "occurrences" : 905,
+            "mass" : 12.037775193174493,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -219,12 +219,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.057959786364166696,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -254,7 +254,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -283,8 +283,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -314,7 +314,7 @@
           } ]
         }, {
           "topic" : "mathematics",
-          "shareOfRepository" : 0.02762528049890531,
+          "shareOfRepository" : 0.02762743339911229,
           "shareOfSubject" : 0.0837654616508017,
           "carriedBy" : [ {
             "word" : "count",
@@ -348,8 +348,8 @@
             } ]
           }, {
             "word" : "function",
-            "occurrences" : 103,
-            "mass" : 7.1565030632138695,
+            "occurrences" : 101,
+            "mass" : 7.15390807887699,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "query_language function",
@@ -378,8 +378,8 @@
             } ]
           }, {
             "word" : "category",
-            "occurrences" : 121,
-            "mass" : 6.689741563027737,
+            "occurrences" : 108,
+            "mass" : 6.59041961465236,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a closed axis where a blob's content came from say reads the unit scale floored at zero because an axis confidence answers only how strongly the evidence argues for a value the rival categories carrying whatever argues against",
@@ -410,23 +410,23 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computer Science",
-          "divergenceBits" : 0.32811362085766355,
+          "divergenceBits" : 0.3281234754753456,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.41759078741264233,
-        "nearestByChanceBits" : 0.4533889456413678,
+        "divergenceBits" : 0.41762063319646314,
+        "nearestByChanceBits" : 0.45336038534274076,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.29116490470844086,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -455,8 +455,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -485,8 +485,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -516,12 +516,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.050642298688321374,
+          "shareOfRepository" : 0.05062775111460818,
           "shareOfSubject" : 0.1988212717053439,
           "carriedBy" : [ {
             "word" : "folder",
-            "occurrences" : 69,
-            "mass" : 17.950407130761125,
+            "occurrences" : 68,
+            "mass" : 17.950696481685373,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -550,8 +550,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 929,
-            "mass" : 12.165165133816382,
+            "occurrences" : 905,
+            "mass" : 12.037775193174493,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -611,12 +611,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.03444105429393757,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -646,7 +646,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -675,8 +675,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -706,12 +706,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.032507525255702004,
+          "shareOfRepository" : 0.03250606362616779,
           "shareOfSubject" : 0.04550674520553252,
           "carriedBy" : [ {
             "word" : "phrase",
-            "occurrences" : 391,
-            "mass" : 30.624243798511042,
+            "occurrences" : 389,
+            "mass" : 30.620916766663626,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "phrase",
@@ -740,8 +740,8 @@
             } ]
           }, {
             "word" : "occurrence",
-            "occurrences" : 315,
-            "mass" : 21.268727448297298,
+            "occurrences" : 313,
+            "mass" : 21.257850744156872,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -770,8 +770,8 @@
             } ]
           }, {
             "word" : "part_of_speech",
-            "occurrences" : 45,
-            "mass" : 17.191104053272834,
+            "occurrences" : 44,
+            "mass" : 17.188557304951622,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "part_of_speech",
@@ -802,11 +802,11 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.41759078741264233,
+          "divergenceBits" : 0.41762063319646314,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         }, {
           "subject" : "Logic in Computer Science",
-          "divergenceBits" : 0.45291832991121195,
+          "divergenceBits" : 0.45291944837079096,
           "carriedBy" : [ "linguistics", "law", "grammar", "mathematics" ]
         } ]
       }
@@ -814,17 +814,17 @@
       "scheme" : "OpenAlex",
       "archive" : {
         "subject" : "Artificial Intelligence",
-        "divergenceBits" : 0.24425811698244662,
-        "nearestByChanceBits" : 0.32373376056716235,
+        "divergenceBits" : 0.24424327825547024,
+        "nearestByChanceBits" : 0.32369802401710596,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.050642298688321374,
+          "shareOfRepository" : 0.05062775111460818,
           "shareOfSubject" : 0.051788477844356924,
           "carriedBy" : [ {
             "word" : "folder",
-            "occurrences" : 69,
-            "mass" : 17.950407130761125,
+            "occurrences" : 68,
+            "mass" : 17.950696481685373,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -853,8 +853,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 929,
-            "mass" : 12.165165133816382,
+            "occurrences" : 905,
+            "mass" : 12.037775193174493,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -914,12 +914,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.04212588362286053,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -948,8 +948,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -978,8 +978,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1009,12 +1009,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.03860535541994597,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -1044,7 +1044,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -1073,8 +1073,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -1104,7 +1104,7 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03246218084502306,
+          "shareOfRepository" : 0.032461440493646444,
           "shareOfSubject" : 0.031383018737252584,
           "carriedBy" : [ {
             "word" : "file",
@@ -1138,8 +1138,8 @@
             } ]
           }, {
             "word" : "entry",
-            "occurrences" : 268,
-            "mass" : 24.104739711892737,
+            "occurrences" : 263,
+            "mass" : 24.092786263296624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1169,7 +1169,7 @@
           }, {
             "word" : "argument",
             "occurrences" : 50,
-            "mass" : 2.601342927468536,
+            "mass" : 2.601342408601259,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a type argument counts as written and the package a type lives in does not",
@@ -1200,39 +1200,39 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Artificial Intelligence",
-          "divergenceBits" : 0.24425811698244662,
+          "divergenceBits" : 0.24424327825547024,
           "carriedBy" : [ "computing", "linguistics", "law", "telecommunication" ]
         }, {
           "subject" : "Language and Linguistics",
-          "divergenceBits" : 0.2942123545024986,
+          "divergenceBits" : 0.29419526939433815,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "grammar" ]
         }, {
           "subject" : "Computer Networks and Communications",
-          "divergenceBits" : 0.2963451618101378,
+          "divergenceBits" : 0.2963335702926498,
           "carriedBy" : [ "computing", "law", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Communication",
-          "divergenceBits" : 0.31294790899545555,
+          "divergenceBits" : 0.3129379583514099,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.31769016259519783,
+          "divergenceBits" : 0.3176742742945265,
           "carriedBy" : [ "computing", "mathematics", "law", "telecommunication" ]
         } ]
       },
       "category" : {
         "subject" : "Authorship Attribution and Profiling",
-        "divergenceBits" : 0.41989986837166626,
-        "nearestByChanceBits" : 0.49556886560758723,
+        "divergenceBits" : 0.419908830375112,
+        "nearestByChanceBits" : 0.49553342446402765,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.13591228753579862,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -1261,8 +1261,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -1291,8 +1291,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1322,12 +1322,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.05727574758654847,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -1357,7 +1357,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -1386,8 +1386,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -1417,12 +1417,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.032507525255702004,
+          "shareOfRepository" : 0.03250606362616779,
           "shareOfSubject" : 0.06265905228920483,
           "carriedBy" : [ {
             "word" : "phrase",
-            "occurrences" : 391,
-            "mass" : 30.624243798511042,
+            "occurrences" : 389,
+            "mass" : 30.620916766663626,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "phrase",
@@ -1451,8 +1451,8 @@
             } ]
           }, {
             "word" : "occurrence",
-            "occurrences" : 315,
-            "mass" : 21.268727448297298,
+            "occurrences" : 313,
+            "mass" : 21.257850744156872,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -1481,8 +1481,8 @@
             } ]
           }, {
             "word" : "part_of_speech",
-            "occurrences" : 45,
-            "mass" : 17.191104053272834,
+            "occurrences" : 44,
+            "mass" : 17.188557304951622,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "part_of_speech",
@@ -1512,7 +1512,7 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03246218084502306,
+          "shareOfRepository" : 0.032461440493646444,
           "shareOfSubject" : 0.14045600674094758,
           "carriedBy" : [ {
             "word" : "file",
@@ -1546,8 +1546,8 @@
             } ]
           }, {
             "word" : "entry",
-            "occurrences" : 268,
-            "mass" : 24.104739711892737,
+            "occurrences" : 263,
+            "mass" : 24.092786263296624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1577,7 +1577,7 @@
           }, {
             "word" : "argument",
             "occurrences" : 50,
-            "mass" : 2.601342927468536,
+            "mass" : 2.601342408601259,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a type argument counts as written and the package a type lives in does not",
@@ -1608,43 +1608,43 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Authorship Attribution and Profiling",
-          "divergenceBits" : 0.41989986837166626,
+          "divergenceBits" : 0.419908830375112,
           "carriedBy" : [ "linguistics", "law", "grammar", "telecommunication" ]
         }, {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.42217398720918153,
+          "divergenceBits" : 0.4221568196115266,
           "carriedBy" : [ "linguistics", "computing", "grammar", "telecommunication" ]
         }, {
           "subject" : "Medical Research and Practices",
-          "divergenceBits" : 0.4506748943788114,
+          "divergenceBits" : 0.45062729645470667,
           "carriedBy" : [ "linguistics", "publishing", "law", "mathematics" ]
         }, {
           "subject" : "Linguistics and language evolution",
-          "divergenceBits" : 0.46656923733408384,
+          "divergenceBits" : 0.4665491824659948,
           "carriedBy" : [ "linguistics", "grammar", "telecommunication", "law" ]
         }, {
           "subject" : "Mental Health via Writing",
-          "divergenceBits" : 0.47463361946624205,
+          "divergenceBits" : 0.47460545021274686,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         }, {
           "subject" : "Library Science and Information Systems",
-          "divergenceBits" : 0.47725433481903234,
+          "divergenceBits" : 0.4772230381602959,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         }, {
           "subject" : "Media Discourse and Social  Analysis",
-          "divergenceBits" : 0.4805145080225735,
+          "divergenceBits" : 0.48048147833014426,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "law" ]
         }, {
           "subject" : "Speech and dialogue systems",
-          "divergenceBits" : 0.48801625935900356,
+          "divergenceBits" : 0.48796524288199866,
           "carriedBy" : [ "linguistics", "computing", "mathematics", "law" ]
         }, {
           "subject" : "Reading and Literacy Development",
-          "divergenceBits" : 0.4935685977622602,
+          "divergenceBits" : 0.4935429963948634,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         }, {
           "subject" : "Language Development and Disorders",
-          "divergenceBits" : 0.49527824062790354,
+          "divergenceBits" : 0.4952270281182952,
           "carriedBy" : [ "linguistics", "publishing", "computing", "grammar" ]
         } ]
       }
@@ -1652,17 +1652,17 @@
       "scheme" : "CSO",
       "archive" : {
         "subject" : "linguistics",
-        "divergenceBits" : 0.19568984936783562,
-        "nearestByChanceBits" : 0.26865482127370766,
+        "divergenceBits" : 0.19567285366855294,
+        "nearestByChanceBits" : 0.2686470862555272,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.1142972931592318,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -1691,8 +1691,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -1721,8 +1721,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -1752,12 +1752,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.050642298688321374,
+          "shareOfRepository" : 0.05062775111460818,
           "shareOfSubject" : 0.0528427988062776,
           "carriedBy" : [ {
             "word" : "folder",
-            "occurrences" : 69,
-            "mass" : 17.950407130761125,
+            "occurrences" : 68,
+            "mass" : 17.950696481685373,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -1786,8 +1786,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 929,
-            "mass" : 12.165165133816382,
+            "occurrences" : 905,
+            "mass" : 12.037775193174493,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -1847,12 +1847,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.0398452709217564,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -1882,7 +1882,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -1911,8 +1911,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -1942,12 +1942,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.032507525255702004,
+          "shareOfRepository" : 0.03250606362616779,
           "shareOfSubject" : 0.03435342866050414,
           "carriedBy" : [ {
             "word" : "phrase",
-            "occurrences" : 391,
-            "mass" : 30.624243798511042,
+            "occurrences" : 389,
+            "mass" : 30.620916766663626,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "phrase",
@@ -1976,8 +1976,8 @@
             } ]
           }, {
             "word" : "occurrence",
-            "occurrences" : 315,
-            "mass" : 21.268727448297298,
+            "occurrences" : 313,
+            "mass" : 21.257850744156872,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -2006,8 +2006,8 @@
             } ]
           }, {
             "word" : "part_of_speech",
-            "occurrences" : 45,
-            "mass" : 17.191104053272834,
+            "occurrences" : 44,
+            "mass" : 17.188557304951622,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "part_of_speech",
@@ -2038,35 +2038,35 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "linguistics",
-          "divergenceBits" : 0.19568984936783562,
+          "divergenceBits" : 0.19567285366855294,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         }, {
           "subject" : "computer science",
-          "divergenceBits" : 0.237437355689303,
+          "divergenceBits" : 0.23742200855237655,
           "carriedBy" : [ "computing", "law", "linguistics", "mathematics" ]
         }, {
           "subject" : "engineering",
-          "divergenceBits" : 0.25835760127680013,
+          "divergenceBits" : 0.2583323397009369,
           "carriedBy" : [ "linguistics", "law", "mathematics", "geography" ]
         }, {
           "subject" : "semantics",
-          "divergenceBits" : 0.26763263706728957,
+          "divergenceBits" : 0.26761585465652526,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "information technology",
-        "divergenceBits" : 0.2442219943923293,
-        "nearestByChanceBits" : 0.28564509446681496,
+        "divergenceBits" : 0.2442092718159186,
+        "nearestByChanceBits" : 0.28563206015118897,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.145494447831956,
+          "shareOfRepository" : 0.1454949780349926,
           "shareOfSubject" : 0.07439848262047431,
           "carriedBy" : [ {
             "word" : "word",
-            "occurrences" : 2592,
-            "mass" : 146.80510605497935,
+            "occurrences" : 2570,
+            "mass" : 146.77210750409165,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -2095,8 +2095,8 @@
             } ]
           }, {
             "word" : "term",
-            "occurrences" : 727,
-            "mass" : 89.76052062037355,
+            "occurrences" : 716,
+            "mass" : 89.4480858860898,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -2125,8 +2125,8 @@
             } ]
           }, {
             "word" : "name",
-            "occurrences" : 1319,
-            "mass" : 36.843216302121505,
+            "occurrences" : 1305,
+            "mass" : 36.77834224987889,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -2156,12 +2156,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.050642298688321374,
+          "shareOfRepository" : 0.05062775111460818,
           "shareOfSubject" : 0.04237025419630549,
           "carriedBy" : [ {
             "word" : "folder",
-            "occurrences" : 69,
-            "mass" : 17.950407130761125,
+            "occurrences" : 68,
+            "mass" : 17.950696481685373,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -2190,8 +2190,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 929,
-            "mass" : 12.165165133816382,
+            "occurrences" : 905,
+            "mass" : 12.037775193174493,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -2251,12 +2251,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03464910573758778,
+          "shareOfRepository" : 0.034650498289854725,
           "shareOfSubject" : 0.0534275712956762,
           "carriedBy" : [ {
             "word" : "claim",
-            "occurrences" : 169,
-            "mass" : 14.090845112340395,
+            "occurrences" : 168,
+            "mass" : 14.089271489954147,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a domain wiktionary's topic labels claim a word for",
@@ -2286,7 +2286,7 @@
           }, {
             "word" : "summary",
             "occurrences" : 76,
-            "mass" : 7.2873417971719325,
+            "mass" : 7.321466876422412,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the fetched wikipedia summaries of the topics cso states a same as for and the date they were read",
@@ -2315,8 +2315,8 @@
             } ]
           }, {
             "word" : "file",
-            "occurrences" : 674,
-            "mass" : 7.003542053461285,
+            "occurrences" : 671,
+            "mass" : 6.902328723986172,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the pooled topical domain of a file or package read as a prior over its tokens senses",
@@ -2346,7 +2346,7 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03246218084502306,
+          "shareOfRepository" : 0.032461440493646444,
           "shareOfSubject" : 0.027303457282118193,
           "carriedBy" : [ {
             "word" : "file",
@@ -2380,8 +2380,8 @@
             } ]
           }, {
             "word" : "entry",
-            "occurrences" : 268,
-            "mass" : 24.104739711892737,
+            "occurrences" : 263,
+            "mass" : 24.092786263296624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -2411,7 +2411,7 @@
           }, {
             "word" : "argument",
             "occurrences" : 50,
-            "mass" : 2.601342927468536,
+            "mass" : 2.601342408601259,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a type argument counts as written and the package a type lives in does not",
@@ -2442,15 +2442,15 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "information technology",
-          "divergenceBits" : 0.2442219943923293,
+          "divergenceBits" : 0.2442092718159186,
           "carriedBy" : [ "linguistics", "computing", "law", "telecommunication" ]
         }, {
           "subject" : "ontology",
-          "divergenceBits" : 0.2671192895364255,
+          "divergenceBits" : 0.26711502808822424,
           "carriedBy" : [ "linguistics", "law", "computing", "grammar" ]
         }, {
           "subject" : "speech communication",
-          "divergenceBits" : 0.28144463513497675,
+          "divergenceBits" : 0.2814331077244495,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -2529,31 +2529,31 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.04052152222408566,
+      "divergenceBits" : 0.040522890705597045,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.11598368019015858,
+      "divergenceBits" : 0.11597664232871402,
       "writesMoreOf" : [ "linguistics", "grammar" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.08455830357827487,
+      "divergenceBits" : 0.08456261462686639,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "repository-clones/src/main/java",
-      "divergenceBits" : 0.3152569932356214,
+      "divergenceBits" : 0.31526336562940505,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "skos-matching/src/main/java",
-      "divergenceBits" : 0.08965179750434141,
+      "divergenceBits" : 0.08963859163814084,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "skos-matching/src/test/java",
-      "divergenceBits" : 0.11593554601023022,
+      "divergenceBits" : 0.11592993188631921,
       "writesMoreOf" : [ "linguistics" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9809342347879533,
-    "shareOfMassOnNoSubject" : 0.8470446371279181,
+    "shareOfWordsWithACitation" : 0.9809731655159006,
+    "shareOfMassOnNoSubject" : 0.8470409751707527,
     "counts" : {
       "signals" : 282,
       "themes" : 8,
@@ -5952,12 +5952,12 @@
   "themes" : [ {
     "topic" : "computing",
     "scope" : "repository-clones/src/main/java",
-    "shareOfRepository" : 0.008232454921656189,
-    "divergenceBits" : 0.0759159257094776,
+    "shareOfRepository" : 0.008231578025303653,
+    "divergenceBits" : 0.07592933847831163,
     "carriedBy" : [ {
       "word" : "folder",
-      "occurrences" : 69,
-      "mass" : 17.950407130761125,
+      "occurrences" : 68,
+      "mass" : 17.950696481685373,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "it is the clone a diagnostic reads when nothing else is named the self reading and it is what tells a report folder that a reading is of this repository rather than of somebody else's which is the difference between publishing a figure and overwriting one",
@@ -5986,8 +5986,8 @@
       } ]
     }, {
       "word" : "repository",
-      "occurrences" : 929,
-      "mass" : 12.165165133816382,
+      "occurrences" : 905,
+      "mass" : 12.037775193174493,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "every constant names a resource or a repository fact that can be shown to a reader who asks why there is no constant for an assertion because a reading that cannot cite a source abstains rather than voting",
@@ -6046,8 +6046,8 @@
       } ]
     }, {
       "word" : "dictionary",
-      "occurrences" : 341,
-      "mass" : 6.714230574534003,
+      "occurrences" : 342,
+      "mass" : 6.718091241549578,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a published dictionary or registry",
@@ -6076,8 +6076,8 @@
       } ]
     }, {
       "word" : "directory",
-      "occurrences" : 161,
-      "mass" : 5.384483542749234,
+      "occurrences" : 159,
+      "mass" : 5.380266284592551,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the jar file specification reserves that directory for the format's own metadata so a file under it is named by a platform contract rather than by this repository",
@@ -6106,8 +6106,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 4.864611236622678,
+      "occurrences" : 183,
+      "mass" : 4.8976736530187,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -6166,8 +6166,8 @@
       } ]
     }, {
       "word" : "export",
-      "occurrences" : 117,
-      "mass" : 3.2422462762764215,
+      "occurrences" : 112,
+      "mass" : 2.9783112552663904,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a package the running platform itself exports the standard library quoted rather than chosen",
@@ -6198,12 +6198,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/main/java",
-    "shareOfRepository" : 0.023441054544232173,
-    "divergenceBits" : 0.007587388842487459,
+    "shareOfRepository" : 0.023441413196231147,
+    "divergenceBits" : 0.0075872867891001415,
     "carriedBy" : [ {
       "word" : "word",
-      "occurrences" : 2592,
-      "mass" : 146.80510605497935,
+      "occurrences" : 2570,
+      "mass" : 146.77210750409165,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -6232,8 +6232,8 @@
       } ]
     }, {
       "word" : "term",
-      "occurrences" : 727,
-      "mass" : 89.76052062037355,
+      "occurrences" : 716,
+      "mass" : 89.4480858860898,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6262,8 +6262,8 @@
       } ]
     }, {
       "word" : "name",
-      "occurrences" : 1319,
-      "mass" : 36.843216302121505,
+      "occurrences" : 1305,
+      "mass" : 36.77834224987889,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -6352,8 +6352,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 8.360110195325127,
+      "occurrences" : 183,
+      "mass" : 8.417203036107207,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -6383,7 +6383,7 @@
     }, {
       "word" : "form",
       "occurrences" : 193,
-      "mass" : 8.326300917383955,
+      "mass" : 8.329000241976477,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "signed log odds votes by summation the maximum entropy fellegi sunter combination form where a positive weight argues for and a negative weight argues against and a pool through the signed folded logistic anchored so that no evidence reads zero rather than the logistic midpoint",
@@ -6444,12 +6444,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/test/java",
-    "shareOfRepository" : 0.023441054544232173,
-    "divergenceBits" : 0.006164500402389174,
+    "shareOfRepository" : 0.023441413196231147,
+    "divergenceBits" : 0.0061644082924149565,
     "carriedBy" : [ {
       "word" : "word",
-      "occurrences" : 2592,
-      "mass" : 146.80510605497935,
+      "occurrences" : 2570,
+      "mass" : 146.77210750409165,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -6478,8 +6478,8 @@
       } ]
     }, {
       "word" : "term",
-      "occurrences" : 727,
-      "mass" : 89.76052062037355,
+      "occurrences" : 716,
+      "mass" : 89.4480858860898,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6508,8 +6508,8 @@
       } ]
     }, {
       "word" : "name",
-      "occurrences" : 1319,
-      "mass" : 36.843216302121505,
+      "occurrences" : 1305,
+      "mass" : 36.77834224987889,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -6598,8 +6598,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 8.360110195325127,
+      "occurrences" : 183,
+      "mass" : 8.417203036107207,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -6629,7 +6629,7 @@
     }, {
       "word" : "form",
       "occurrences" : 193,
-      "mass" : 8.326300917383955,
+      "mass" : 8.329000241976477,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "signed log odds votes by summation the maximum entropy fellegi sunter combination form where a positive weight argues for and a negative weight argues against and a pool through the signed folded logistic anchored so that no evidence reads zero rather than the logistic midpoint",
@@ -6690,12 +6690,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.023441054544232173,
-    "divergenceBits" : 0.006142186020194378,
+    "shareOfRepository" : 0.023441413196231147,
+    "divergenceBits" : 0.0061420940751442075,
     "carriedBy" : [ {
       "word" : "word",
-      "occurrences" : 2592,
-      "mass" : 146.80510605497935,
+      "occurrences" : 2570,
+      "mass" : 146.77210750409165,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -6724,8 +6724,8 @@
       } ]
     }, {
       "word" : "term",
-      "occurrences" : 727,
-      "mass" : 89.76052062037355,
+      "occurrences" : 716,
+      "mass" : 89.4480858860898,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6754,8 +6754,8 @@
       } ]
     }, {
       "word" : "name",
-      "occurrences" : 1319,
-      "mass" : 36.843216302121505,
+      "occurrences" : 1305,
+      "mass" : 36.77834224987889,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -6844,8 +6844,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 8.360110195325127,
+      "occurrences" : 183,
+      "mass" : 8.417203036107207,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -6875,7 +6875,7 @@
     }, {
       "word" : "form",
       "occurrences" : 193,
-      "mass" : 8.326300917383955,
+      "mass" : 8.329000241976477,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "signed log odds votes by summation the maximum entropy fellegi sunter combination form where a positive weight argues for and a negative weight argues against and a pool through the signed folded logistic anchored so that no evidence reads zero rather than the logistic midpoint",
@@ -6936,12 +6936,12 @@
   }, {
     "topic" : "grammar",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.00543775166676505,
-    "divergenceBits" : 0.0043042672396587205,
+    "shareOfRepository" : 0.00543768158788689,
+    "divergenceBits" : 0.004304711092213021,
     "carriedBy" : [ {
       "word" : "phrase",
-      "occurrences" : 391,
-      "mass" : 30.624243798511042,
+      "occurrences" : 389,
+      "mass" : 30.620916766663626,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "phrase",
@@ -6970,8 +6970,8 @@
       } ]
     }, {
       "word" : "occurrence",
-      "occurrences" : 315,
-      "mass" : 21.268727448297298,
+      "occurrences" : 313,
+      "mass" : 21.257850744156872,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "occurrence",
@@ -7000,8 +7000,8 @@
       } ]
     }, {
       "word" : "part_of_speech",
-      "occurrences" : 45,
-      "mass" : 17.191104053272834,
+      "occurrences" : 44,
+      "mass" : 17.188557304951622,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "part_of_speech",
@@ -7030,8 +7030,8 @@
       } ]
     }, {
       "word" : "verb",
-      "occurrences" : 96,
-      "mass" : 9.268292336590783,
+      "occurrences" : 93,
+      "mass" : 9.266888885638595,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -7061,7 +7061,7 @@
     }, {
       "word" : "headword",
       "occurrences" : 36,
-      "mass" : 8.466868117880974,
+      "mass" : 8.466868123734475,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the refusal covers the sense labelled resource as well as the headword table because letters standing for somebody's shorthand is a fact about the letters and not about which dictionary was asked",
@@ -7090,8 +7090,8 @@
       } ]
     }, {
       "word" : "clause",
-      "occurrences" : 40,
-      "mass" : 3.9375300163229263,
+      "occurrences" : 39,
+      "mass" : 3.9374318864687545,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the commonest two letter entries of the list are the words english supplies to hold a sentence together and a split evidenced by one as mill is reads a clause into a compound",
@@ -7120,8 +7120,8 @@
       } ]
     }, {
       "word" : "subject",
-      "occurrences" : 615,
-      "mass" : 2.8423473553212113,
+      "occurrences" : 596,
+      "mass" : 2.8190861002000522,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the subject domain word net domains assigns a sense",
@@ -7150,8 +7150,8 @@
       } ]
     }, {
       "word" : "noun",
-      "occurrences" : 105,
-      "mass" : 1.52122564775843,
+      "occurrences" : 102,
+      "mass" : 1.5188842652432093,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7182,12 +7182,12 @@
   }, {
     "topic" : "grammar",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.00543775166676505,
-    "divergenceBits" : 0.0028294174998352573,
+    "shareOfRepository" : 0.00543768158788689,
+    "divergenceBits" : 0.0028297793396797662,
     "carriedBy" : [ {
       "word" : "phrase",
-      "occurrences" : 391,
-      "mass" : 30.624243798511042,
+      "occurrences" : 389,
+      "mass" : 30.620916766663626,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "phrase",
@@ -7216,8 +7216,8 @@
       } ]
     }, {
       "word" : "occurrence",
-      "occurrences" : 315,
-      "mass" : 21.268727448297298,
+      "occurrences" : 313,
+      "mass" : 21.257850744156872,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "occurrence",
@@ -7246,8 +7246,8 @@
       } ]
     }, {
       "word" : "part_of_speech",
-      "occurrences" : 45,
-      "mass" : 17.191104053272834,
+      "occurrences" : 44,
+      "mass" : 17.188557304951622,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "part_of_speech",
@@ -7276,8 +7276,8 @@
       } ]
     }, {
       "word" : "verb",
-      "occurrences" : 96,
-      "mass" : 9.268292336590783,
+      "occurrences" : 93,
+      "mass" : 9.266888885638595,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "verb",
@@ -7307,7 +7307,7 @@
     }, {
       "word" : "headword",
       "occurrences" : 36,
-      "mass" : 8.466868117880974,
+      "mass" : 8.466868123734475,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the refusal covers the sense labelled resource as well as the headword table because letters standing for somebody's shorthand is a fact about the letters and not about which dictionary was asked",
@@ -7336,8 +7336,8 @@
       } ]
     }, {
       "word" : "clause",
-      "occurrences" : 40,
-      "mass" : 3.9375300163229263,
+      "occurrences" : 39,
+      "mass" : 3.9374318864687545,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the commonest two letter entries of the list are the words english supplies to hold a sentence together and a split evidenced by one as mill is reads a clause into a compound",
@@ -7366,8 +7366,8 @@
       } ]
     }, {
       "word" : "subject",
-      "occurrences" : 615,
-      "mass" : 2.8423473553212113,
+      "occurrences" : 596,
+      "mass" : 2.8190861002000522,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the subject domain word net domains assigns a sense",
@@ -7396,8 +7396,8 @@
       } ]
     }, {
       "word" : "noun",
-      "occurrences" : 105,
-      "mass" : 1.52122564775843,
+      "occurrences" : 102,
+      "mass" : 1.5188842652432093,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7428,12 +7428,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.023441054544232173,
-    "divergenceBits" : 0.001275108063077077,
+    "shareOfRepository" : 0.023441413196231147,
+    "divergenceBits" : 0.0012750659664721529,
     "carriedBy" : [ {
       "word" : "word",
-      "occurrences" : 2592,
-      "mass" : 146.80510605497935,
+      "occurrences" : 2570,
+      "mass" : 146.77210750409165,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -7462,8 +7462,8 @@
       } ]
     }, {
       "word" : "term",
-      "occurrences" : 727,
-      "mass" : 89.76052062037355,
+      "occurrences" : 716,
+      "mass" : 89.4480858860898,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -7492,8 +7492,8 @@
       } ]
     }, {
       "word" : "name",
-      "occurrences" : 1319,
-      "mass" : 36.843216302121505,
+      "occurrences" : 1305,
+      "mass" : 36.77834224987889,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -7582,8 +7582,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 8.360110195325127,
+      "occurrences" : 183,
+      "mass" : 8.417203036107207,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -7613,7 +7613,7 @@
     }, {
       "word" : "form",
       "occurrences" : 193,
-      "mass" : 8.326300917383955,
+      "mass" : 8.329000241976477,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "signed log odds votes by summation the maximum entropy fellegi sunter combination form where a positive weight argues for and a negative weight argues against and a pool through the signed folded logistic anchored so that no evidence reads zero rather than the logistic midpoint",
@@ -7674,12 +7674,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.023441054544232173,
-    "divergenceBits" : 0.0010320396519390134,
+    "shareOfRepository" : 0.023441413196231147,
+    "divergenceBits" : 0.001032001769771555,
     "carriedBy" : [ {
       "word" : "word",
-      "occurrences" : 2592,
-      "mass" : 146.80510605497935,
+      "occurrences" : 2570,
+      "mass" : 146.77210750409165,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a concept is a word net synset an offset and a part_of_speech",
@@ -7708,8 +7708,8 @@
       } ]
     }, {
       "word" : "term",
-      "occurrences" : 727,
-      "mass" : 89.76052062037355,
+      "occurrences" : 716,
+      "mass" : 89.4480858860898,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -7738,8 +7738,8 @@
       } ]
     }, {
       "word" : "name",
-      "occurrences" : 1319,
-      "mass" : 36.843216302121505,
+      "occurrences" : 1305,
+      "mass" : 36.77834224987889,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the sense key as its own source names it so that a reading can be interrogated back to the published entry it rests on rather than only to the concept it produced",
@@ -7828,8 +7828,8 @@
       } ]
     }, {
       "word" : "parse",
-      "occurrences" : 185,
-      "mass" : 8.360110195325127,
+      "occurrences" : 183,
+      "mass" : 8.417203036107207,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "compound parses",
@@ -7859,7 +7859,7 @@
     }, {
       "word" : "form",
       "occurrences" : 193,
-      "mass" : 8.326300917383955,
+      "mass" : 8.329000241976477,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "signed log odds votes by summation the maximum entropy fellegi sunter combination form where a positive weight argues for and a negative weight argues against and a pool through the signed folded logistic anchored so that no evidence reads zero rather than the logistic midpoint",
@@ -10133,219 +10133,219 @@
     } ],
     "branches" : [ {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.44194262377192056,
+      "agreesWithTheRepository" : 0.441932756144769,
       "mass" : 330.1279782331011,
-      "kept" : 145.89762488085617,
+      "kept" : 145.89436730105467,
       "terms" : [ "source", "sources", "document", "citations", "origin", "sentence", "heading", "author", "abstracts", "sentences", "title", "origins", "documents", "headline", "authors" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.4242619359511349,
+      "agreesWithTheRepository" : 0.42426538881374026,
       "mass" : 166.51078558342704,
-      "kept" : 70.64418824836908,
+      "kept" : 70.644763187234,
       "terms" : [ "phrase", "phrases", "clause", "fragment", "glob", "clauses" ]
     }, {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.305948941423974,
+      "agreesWithTheRepository" : 0.3059289022994213,
       "mass" : 155.2778819505271,
-      "kept" : 47.507103609320566,
+      "kept" : 47.50399197650388,
       "terms" : [ "token", "text", "tokens", "script", "scripts", "texts", "string", "character" ]
     }, {
       "branch" : "Morpheme",
-      "agreesWithTheRepository" : 0.291511458845781,
+      "agreesWithTheRepository" : 0.2915124876383819,
       "mass" : 143.16545565209026,
-      "kept" : 41.734370833461796,
+      "kept" : 41.73451812102327,
       "terms" : [ "root", "roots", "stem", "stems", "affix" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.4833894063671276,
+      "agreesWithTheRepository" : 0.4834020442878567,
       "mass" : 94.52634599861587,
-      "kept" : 45.69303427832463,
+      "kept" : 45.694228894792175,
       "terms" : [ "verb", "noun", "residual", "adjective", "verbs", "nouns", "punctuation", "adjectives" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.4061548469074222,
+      "agreesWithTheRepository" : 0.40615731472090466,
       "mass" : 48.12208411483401,
-      "kept" : 19.5450177065265,
+      "kept" : 19.545136462854483,
       "terms" : [ "symbol", "abbreviation", "abbreviations", "acronym", "foreign", "date", "symbols" ]
     }, {
       "branch" : "EntityType",
-      "agreesWithTheRepository" : 0.2305924286053127,
+      "agreesWithTheRepository" : 0.23061840678050458,
       "mass" : 40.79331684993504,
-      "kept" : 9.406630003292545,
+      "kept" : 9.407689739224331,
       "terms" : [ "times", "sum", "sums", "program", "timed", "plan" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.267693339725335,
+      "agreesWithTheRepository" : 0.2676932497667564,
       "mass" : 40.76350689664928,
-      "kept" : 10.912119300080771,
+      "kept" : 10.912115633053634,
       "terms" : [ "function", "functions", "object" ]
     }, {
       "branch" : "Assessment",
-      "agreesWithTheRepository" : 0.26913616964961684,
+      "agreesWithTheRepository" : 0.269146084766191,
       "mass" : 40.0380856217521,
-      "kept" : 10.775697004341758,
+      "kept" : 10.776093986628105,
       "terms" : [ "definition", "evaluation", "definitions" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.2629928597405176,
+      "agreesWithTheRepository" : 0.26299226322141317,
       "mass" : 39.18214024029867,
-      "kept" : 10.30462311255016,
+      "kept" : 10.304599739654954,
       "terms" : [ "suffix", "prefix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.19061012494660282,
+      "agreesWithTheRepository" : 0.19061618722961854,
       "mass" : 37.19883369020402,
-      "kept" : 7.090474337557686,
+      "kept" : 7.0906998474153715,
       "terms" : [ "mean", "means", "meaning", "meant", "supports" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.1803799814016209,
+      "agreesWithTheRepository" : 0.18038953754789422,
       "mass" : 31.572420560801323,
-      "kept" : 5.695032633561496,
+      "kept" : 5.695334344230577,
       "terms" : [ "evidence", "evidences", "evidenced" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.10943286551949591,
+      "agreesWithTheRepository" : 0.10943191546199259,
       "mass" : 26.33079278810288,
-      "kept" : 2.8814541062021752,
+      "kept" : 2.8814290904349185,
       "terms" : [ "gives", "given", "gave", "give" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.056623634114021375,
+      "agreesWithTheRepository" : 0.05662721914196736,
       "mass" : 20.49204994917898,
-      "kept" : 1.160334338568561,
+      "kept" : 1.1604078031402993,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "CoherenceRelation",
-      "agreesWithTheRepository" : 0.20336052411457445,
+      "agreesWithTheRepository" : 0.20336382720167642,
       "mass" : 18.138629363590578,
-      "kept" : 3.68868117409979,
+      "kept" : 3.688741087572488,
       "terms" : [ "expansion", "expansions", "comparison" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.3141138320532907,
+      "agreesWithTheRepository" : 0.31410029003283846,
       "mass" : 16.425210688525507,
-      "kept" : 5.159385871655416,
+      "kept" : 5.15916344111634,
       "terms" : [ "quoted", "quotes", "quote", "slash", "quoting" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.342246364741504,
+      "agreesWithTheRepository" : 0.34224336672748573,
       "mass" : 12.147481238967716,
-      "kept" : 4.157431294802322,
+      "kept" : 4.157394876483281,
       "terms" : [ "head", "predicate", "heads" ]
     }, {
       "branch" : "Abbreviation",
-      "agreesWithTheRepository" : 0.30855112428714804,
+      "agreesWithTheRepository" : 0.3085843409256004,
       "mass" : 12.0,
-      "kept" : 3.7026134914457765,
+      "kept" : 3.7030120911072046,
       "terms" : [ "initialism", "initialisms" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.22648004693935017,
+      "agreesWithTheRepository" : 0.22648598132238357,
       "mass" : 10.680395982588175,
-      "kept" : 2.4188965834674168,
+      "kept" : 2.418959965028126,
       "terms" : [ "initials", "simple", "initial" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.3090450729800086,
+      "agreesWithTheRepository" : 0.30901179245047616,
       "mass" : 10.202700473666406,
-      "kept" : 3.153094312477403,
+      "kept" : 3.1527547612029783,
       "terms" : [ "preferred", "prefers" ]
     }, {
       "branch" : "Determiner",
-      "agreesWithTheRepository" : 0.2929023102100414,
+      "agreesWithTheRepository" : 0.2929340609175701,
       "mass" : 9.92151751246525,
-      "kept" : 2.906035400190455,
+      "kept" : 2.9063504153912345,
       "terms" : [ "article" ]
     }, {
       "branch" : "Condition",
-      "agreesWithTheRepository" : 0.4024862944757137,
+      "agreesWithTheRepository" : 0.40245818812688616,
       "mass" : 9.536250016312355,
-      "kept" : 3.8382099322595242,
+      "kept" : 3.837941903090059,
       "terms" : [ "result" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.33428128338409774,
+      "agreesWithTheRepository" : 0.3343149543899077,
       "mass" : 9.120624094224437,
-      "kept" : 3.048853927481269,
+      "kept" : 3.049161028068136,
       "terms" : [ "past", "perfect", "present" ]
     }, {
       "branch" : "NumberFeature",
-      "agreesWithTheRepository" : 0.16594374426348374,
+      "agreesWithTheRepository" : 0.1659468954951905,
       "mass" : 8.381850311717518,
-      "kept" : 1.3909156245824532,
+      "kept" : 1.3909420377349169,
       "terms" : [ "plural", "plurals", "singular", "trials" ]
     }, {
       "branch" : "InflectionTypeFeature",
-      "agreesWithTheRepository" : 0.31423998781041135,
+      "agreesWithTheRepository" : 0.31424870488469064,
       "mass" : 6.477087534090995,
-      "kept" : 2.0353599077597213,
+      "kept" : 2.0354163690128697,
       "terms" : [ "base form", "inflected", "inflects", "base forms" ]
     }, {
       "branch" : "TextualOrganizationalRelation",
-      "agreesWithTheRepository" : 0.2597859132966635,
+      "agreesWithTheRepository" : 0.25978477508837655,
       "mass" : 3.6770518908540857,
-      "kept" : 0.9552462837047521,
+      "kept" : 0.9552420984538184,
       "terms" : [ "attribution", "extra" ]
     }, {
       "branch" : "DegreeFeature",
-      "agreesWithTheRepository" : 0.4049911824030421,
+      "agreesWithTheRepository" : 0.4050119850413469,
       "mass" : 3.368278811882048,
-      "kept" : 1.3641232186872243,
+      "kept" : 1.3641932877730576,
       "terms" : [ "positive", "superlatives", "comparatives" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.36053191312122895,
+      "agreesWithTheRepository" : 0.36057562256166803,
       "mass" : 3.3591601663941995,
-      "kept" : 1.2110844412707265,
+      "kept" : 1.2112312682819448,
       "terms" : [ "third", "seconds" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.15530798941649065,
+      "agreesWithTheRepository" : 0.15530387824090575,
       "mass" : 1.9614432551680498,
-      "kept" : 0.30462780831468644,
+      "kept" : 0.30461974447706464,
       "terms" : [ "commas", "colon" ]
     }, {
       "branch" : "Noun",
-      "agreesWithTheRepository" : 0.2771375970787622,
+      "agreesWithTheRepository" : 0.27713469838657456,
       "mass" : 1.9460011801163422,
-      "kept" : 0.5393100909698786,
+      "kept" : 0.5393044501114607,
       "terms" : [ "proper noun", "common noun" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.39239866618225966,
+      "agreesWithTheRepository" : 0.3924418437573517,
       "mass" : 1.5563710786254865,
-      "kept" : 0.6107179353372857,
+      "kept" : 0.6107851356664041,
       "terms" : [ "exception", "alternative" ]
     }, {
       "branch" : "UsageAndFrequencyFeature",
-      "agreesWithTheRepository" : 0.13778904342839798,
+      "agreesWithTheRepository" : 0.13779102678143126,
       "mass" : 1.375740698664048,
-      "kept" : 0.1895619948744351,
+      "kept" : 0.18956472345392278,
       "terms" : [ "impossible", "possible" ]
     }, {
       "branch" : "Collocation",
-      "agreesWithTheRepository" : 0.23125906724192688,
+      "agreesWithTheRepository" : 0.2312751909991716,
       "mass" : 1.0,
-      "kept" : 0.23125906724192688,
+      "kept" : 0.2312751909991716,
       "terms" : [ "idiom" ]
     }, {
       "branch" : "Phrase",
-      "agreesWithTheRepository" : 0.368322830172125,
+      "agreesWithTheRepository" : 0.3683542691055061,
       "mass" : 0.9846282823908662,
-      "kept" : 0.36266107563772215,
+      "kept" : 0.3626920313006974,
       "terms" : [ "verb phrase" ]
     }, {
       "branch" : "LayoutElement",
-      "agreesWithTheRepository" : 0.0906531771207773,
+      "agreesWithTheRepository" : 0.0906869843719438,
       "mass" : 0.9662517571829544,
-      "kept" : 0.08759379168716867,
+      "kept" : 0.08762645800301382,
       "terms" : [ "list markers" ]
     }, {
       "branch" : "Given",
-      "agreesWithTheRepository" : 0.14060195126821512,
+      "agreesWithTheRepository" : 0.14062540315572647,
       "mass" : 0.7001974984209243,
-      "kept" : 0.09844913455110493,
+      "kept" : 0.09846555550407363,
       "terms" : [ "active" ]
     } ],
     "matchesByNormalisation" : {
@@ -11066,81 +11066,81 @@
     } ],
     "branches" : [ {
       "branch" : "linguistics",
-      "agreesWithTheRepository" : 0.4181588309372467,
+      "agreesWithTheRepository" : 0.41816049883488515,
       "mass" : 129.77547584641184,
-      "kept" : 54.266761264260474,
+      "kept" : 54.266977716470166,
       "terms" : [ "vocabulary", "vocabularies", "vocabularys", "linguistic terms" ]
     }, {
       "branch" : "computational linguistics | formal languages | natural language processing",
-      "agreesWithTheRepository" : 0.28978223736771697,
+      "agreesWithTheRepository" : 0.2897685363496644,
       "mass" : 45.0,
-      "kept" : 13.040200681547264,
+      "kept" : 13.039584135734897,
       "terms" : [ "parse", "parsed", "parses", "parsing" ]
     }, {
       "branch" : "natural language processing",
-      "agreesWithTheRepository" : 0.4135155774835074,
+      "agreesWithTheRepository" : 0.4134981344886609,
       "mass" : 39.066402748431244,
-      "kept" : 16.154566092720827,
+      "kept" : 16.153884657659013,
       "terms" : [ "part of speech", "synset", "synsets", "word class" ]
     }, {
       "branch" : "description logic | semantic web",
-      "agreesWithTheRepository" : 0.1606001115762206,
+      "agreesWithTheRepository" : 0.16058737431410205,
       "mass" : 9.69596054805278,
-      "kept" : 1.5571723458559092,
+      "kept" : 1.5570488458649179,
       "terms" : [ "owl" ]
     }, {
       "branch" : "mathematics",
-      "agreesWithTheRepository" : 0.2174317693639035,
+      "agreesWithTheRepository" : 0.21743286971935458,
       "mass" : 4.624548683716212,
-      "kept" : 1.005523802809927,
+      "kept" : 1.00552889145728,
       "terms" : [ "statistic", "probability" ]
     }, {
       "branch" : "semantic web",
-      "agreesWithTheRepository" : 0.27117265490791564,
+      "agreesWithTheRepository" : 0.2711554202344736,
       "mass" : 4.0,
-      "kept" : 1.0846906196316626,
+      "kept" : 1.0846216809378944,
       "terms" : [ "rdf" ]
     }, {
       "branch" : "database systems",
-      "agreesWithTheRepository" : 0.3543745046025099,
+      "agreesWithTheRepository" : 0.3543602774575577,
       "mass" : 1.943650581823497,
-      "kept" : 0.6887802120540819,
+      "kept" : 0.6887525594555179,
       "terms" : [ "query language" ]
     }, {
       "branch" : "commerce",
-      "agreesWithTheRepository" : 0.16444789805764587,
+      "agreesWithTheRepository" : 0.16444323685672016,
       "mass" : 1.7597829176585305,
-      "kept" : 0.28939260184669663,
+      "kept" : 0.2893843991449318,
       "terms" : [ "trading system" ]
     }, {
       "branch" : "network coding",
-      "agreesWithTheRepository" : 0.134701480841886,
+      "agreesWithTheRepository" : 0.13468615259215866,
       "mass" : 1.6733488147659799,
-      "kept" : 0.22540256331399228,
+      "kept" : 0.22537691380547858,
       "terms" : [ "two sources" ]
     }, {
       "branch" : "correlation analysis",
-      "agreesWithTheRepository" : 0.25804126428407276,
+      "agreesWithTheRepository" : 0.2580676060137009,
       "mass" : 0.9819610707359441,
-      "kept" : 0.2533864761704448,
+      "kept" : 0.25341234272347546,
       "terms" : [ "logistic" ]
     }, {
       "branch" : "java",
-      "agreesWithTheRepository" : 0.3588204574099185,
+      "agreesWithTheRepository" : 0.358844400818346,
       "mass" : 0.9543995842810126,
-      "kept" : 0.34245809538354904,
+      "kept" : 0.34248094696259845,
       "terms" : [ "java program" ]
     }, {
       "branch" : "artificial intelligence",
-      "agreesWithTheRepository" : 0.3249664875611274,
+      "agreesWithTheRepository" : 0.32497500327310264,
       "mass" : 0.8951665704211911,
-      "kept" : 0.29089913617191504,
+      "kept" : 0.2909067591525986,
       "terms" : [ "machine learning" ]
     }, {
       "branch" : "reinforcement learning",
-      "agreesWithTheRepository" : 0.297027434274058,
+      "agreesWithTheRepository" : 0.2970374582165794,
       "mass" : 0.8757785146132804,
-      "kept" : 0.26013024518792827,
+      "kept" : 0.26013902394142024,
       "terms" : [ "value function" ]
     } ],
     "matchesByNormalisation" : {
@@ -11161,7 +11161,7 @@
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 3102,
+    "wordOccurrencesNoResourceCovers" : 3034,
     "wordsBelowEveryThreshold" : 1000,
     "wordsWithinTheReferencesError" : 30,
     "wordsTheLanguageSupplies" : 10,
