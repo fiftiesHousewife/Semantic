@@ -1,5 +1,7 @@
 # Phrase evidence reaches the divergence arithmetic
 
+> **Ended.** Parts 1, 2 and 3b landed and were measured; part 3a was built, measured on the nine and refuted, and [`ONE_ANSWER.md`](ONE_ANSWER.md) continued the work. This document is kept for the two refutations recorded in it — permuting the repository, and refusing a term another vocabulary states — which [`BACKLOG.md`](../../BACKLOG.md) says are not to be retried.
+
 **This is the design the commission of 2026-08-27 asked for**, written after the reading it required. [`PHRASE_EVIDENCE_NOTES.md`](PHRASE_EVIDENCE_NOTES.md) holds the full notes: every figure below with its primary source, the exact quotes, and a verified/unverified mark per claim — including one case where a fetch summariser invented a plausible figure that the fetched text refutes, so an unverified figure from this round is treated as wrong until read at the primary.
 
 Three parts, ordered by cost and by what each unblocks. Every criterion is stated before its run, and the repositories a part is tuned on and measured on stay disjoint.

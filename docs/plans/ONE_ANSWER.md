@@ -1,5 +1,7 @@
 # One answer, backed off
 
+> **Complete.** Steps 1 to 5 landed through 2026-08-30 and step 6 was measured to a conclusion on all eleven members. This document is kept because [`ONE_PAGE.md`](ONE_PAGE.md) builds on the design it states; what is still open from it is rows 10 and 11 of [`BACKLOG.md`](../../BACKLOG.md).
+
 A reader wants one statement of what a repository is about and one citation for it. The reading currently publishes three unrelated blocks — `summary.about` from the word arm, `summary.placedIn` from the two topic indexes, and `taxonomies` from the term arm — with nothing stating which of them answers, and with the term arm carrying no chance bar at all. This plan makes the export name one answer, taken from the most specific evidence that stands above chance, and report only what stands above chance beneath it.
 
 The design was arrived at by refutation, not by argument: [`PHRASE_EVIDENCE.md`](PHRASE_EVIDENCE.md) records part 3a, which joined the two arms at the **unit** and was measured on the nine evaluation-set members on 2026-08-28. It fell from 33 of 36 level readings standing apart from chance to 22. Joining them at the **answer** is the alternative that the same measurement points to, and the difference is the whole of why this plan exists.
