@@ -64,13 +64,29 @@ public final class EvaluationReadCommand {
     private static Outcome read(final ClonedMembers clones, final Member member) {
         try {
             final TreeReading reading = TreeReading.of(clones.treeOf(member));
-            ExportCommand.wrote(reading, "");
+            ExportCommand.wrote(reading, commitOf(member));
             EvidenceCommand.wrote(reading);
             return new Outcome(member.name(), true, "read");
         } catch (final RuntimeException | IOException failed) {
             log.error("Reading evaluation-set member {} failed", member.name(), failed);
             return new Outcome(member.name(), false, failed.toString());
         }
+    }
+
+    /**
+     * The commit a member's reading is written at, which is the one its manifest row pinned. The library
+     * reads no {@code .git}, and this run reads several trees in one JVM, so a single supplied commit could
+     * only be right for one of them. A member pinning none would be written as a reading of no stated
+     * revision, which cannot be checked against the tree that produced it, so it fails here.
+     */
+    static String commitOf(final Member member) {
+        if (member.sha().isBlank()) {
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "The evaluation-set manifest pins no commit for %s, and a reading of an unnamed "
+                    + "revision cannot be checked against the tree that produced it.",
+                    member.name()));
+        }
+        return member.sha();
     }
 
     private static Outcome completed(final Future<Outcome> read) {
