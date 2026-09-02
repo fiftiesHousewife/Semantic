@@ -6,7 +6,7 @@ Those documents are outside the corpus this library reads — [`.readingignore`]
 
 New to the terms? [`docs/GLOSSARY.md`](docs/GLOSSARY.md) defines every linguistic and statistical word used here, with a reference for each. Library choices and their licences are in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
 
-**State on 2026-09-02, at reading schema 25.0.** The description's ordering and the layout coverage count are landed and unpushed at `a788ef4` through `2a4a510`; everything before them is pushed. `cleanTest checkAll` is green over all ten test tasks, the `pinned` findings are green on an uncached run, and `./gradlew read` is green. All twelve member readings are regenerated at 25.0 and the pages are rebuilt from them. `setAside.javaFilesNoScopeReached` is the added field, so the schema rises; no field was renamed or removed.
+**State on 2026-09-02, at reading schema 25.0.** The description's ordering and the layout coverage count are landed and unpushed at `a788ef4` through `b194fab`; everything before them is pushed. `cleanTest checkAll` is green over all ten test tasks, the `pinned` findings are green on an uncached run, and `./gradlew read` is green. All twelve member readings are regenerated at 25.0 and the pages are rebuilt from them. `setAside.javaFilesNoScopeReached` is the added field, so the schema rises; no field was renamed or removed.
 
 ## What the codebase does, step by step
 
