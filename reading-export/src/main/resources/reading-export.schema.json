@@ -84,7 +84,7 @@
               },
               "statedPath": {
                 "title": "Where the publisher places what answered",
-                "description": "Every level the publisher states above what answered, broadest first, with the levels naming the publisher's own field stepped over \u2014 the levels an outright majority of the vocabulary sits beneath, which name only the vocabulary that matched. Empty where the publisher states nothing above it, which FpML does for 616 of its 1,405 types. It is the whole path and not its two ends: FIX places 5,434 of its 7,170 rows one level down, so the two ends were the same label on those, and FIBO states `Aspect \u2192 Value \u2192 QuantitativeValue \u2192 PresentValue`, where the two ends dropped `Value`. For a subject scheme it is the archive the answering category sits in, and empty where the archive is itself the answer.",
+                "description": "Every level the publisher states above what answered, broadest first, and where it states none, the module it files the concept in \u2014 FIBO's domain, FpML's schema file group, BIAN's business area. The levels naming the publisher's own field are stepped over, both a level an outright majority of the vocabulary sits beneath and a module a majority is filed under, because either names only the vocabulary that matched. Empty where the publisher states neither. It is the whole path and not its two ends: FIX places 5,434 of its 7,170 rows one level down, so the two ends were the same label on those, and FIBO states `Aspect \u2192 Value \u2192 QuantitativeValue \u2192 PresentValue`, where the two ends dropped `Value`. For a subject scheme it is the archive the answering category sits in, and empty where the archive is itself the answer.",
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -480,7 +480,7 @@
                   "type": "string"
                 },
                 "statedPath": {
-                  "description": "Every level the publisher states above this concept, broadest first, with the levels naming the publisher's own field stepped over. `placedUnder` is the raw `broader` cell and this is the whole walk: a concept FIX places directly under `Common` states `placedUnder` as `Common` and an empty path, because `Common` holds 68% of FIX and names only the vocabulary that matched.",
+                  "description": "Every level the publisher states above this concept, broadest first, and where it states none, the module it files the concept in \u2014 FIBO's domain, FpML's schema file group, BIAN's business area. The levels naming the publisher's own field are stepped over, both a level an outright majority sits beneath and a module a majority is filed under. `placedUnder` is the raw `broader` cell and this is the whole walk: a concept FIX places directly under `Common` states `placedUnder` as `Common` and an empty path, because `Common` holds 68% of FIX and names only the vocabulary that matched. FpML declares 616 of its 1,405 types with no base type and files each one in a product area, so `AccountType` states `shared`.",
                   "type": "array",
                   "items": {
                     "type": "string"

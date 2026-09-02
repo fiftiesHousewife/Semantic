@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
+import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
@@ -21,6 +22,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermOrderNull;
 import io.github.fiftieshousewife.codesemantics.engine.term.WrittenRuns;
@@ -158,17 +160,17 @@ public final class ExportedReading {
         final List<ExportedTaxonomy> matched = new ArrayList<>(List.of(new ExportedTaxonomies().of(
                 LinguisticTerms.fromClasspath().source(), terms.matched(),
                 BranchAgreement.between(reads, OliaTerms.fromClasspath().concepts(), areas),
-                bars.getFirst(), olia,
+                bars.getFirst(), new StatedPaths(olia, OliaTerms.fromClasspath().concepts()),
                 StatedDescriptions.over(OliaTerms.fromClasspath().concepts(), olia))));
         IntStream.range(1, published.size()).forEach(at -> {
             final StatedAncestry ancestry = new StatedAncestry(published.get(at));
+            final List<SkosConcept> concepts = published.get(at).publishedConcepts();
             matched.add(new ExportedTaxonomies().of(
                     published.get(at).source(),
-                    CorroboratedReading.of(judged.get(at), published.get(at).publishedConcepts(), parsed)
-                            .matched(),
-                    BranchAgreement.between(reads, published.get(at).publishedConcepts(), areas),
-                    bars.get(at), ancestry,
-                    StatedDescriptions.over(published.get(at).publishedConcepts(), ancestry)));
+                    CorroboratedReading.of(judged.get(at), concepts, parsed).matched(),
+                    BranchAgreement.between(reads, concepts, areas),
+                    bars.get(at), new StatedPaths(ancestry, concepts),
+                    StatedDescriptions.over(concepts, ancestry)));
         });
         final List<ExportedTaxonomy> taxonomies = matched.stream()
                 .filter(one -> one.bar().exceedsChance())

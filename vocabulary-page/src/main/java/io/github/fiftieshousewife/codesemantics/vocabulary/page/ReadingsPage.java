@@ -111,15 +111,20 @@ public final class ReadingsPage {
                                         + "the bar is computed over. A scheme matches nothing and its "
                                         + "marks are one size.")),
                                 li().with(text("A parent is the one level the publisher states directly "
-                                        + "above a concept, and the fold groups the concepts a "
-                                        + "vocabulary matched by it.")),
+                                        + "above a concept, or where it states none the module it "
+                                        + "files the concept in — FpML's product area, FIBO's "
+                                        + "domain. The fold groups the concepts a vocabulary "
+                                        + "matched by it.")),
                                 li().with(text("The path beside an answer is every level the publisher "
                                         + "states above it, broadest first, with the levels an outright "
                                         + "majority of that vocabulary sits beneath left off — CSO's "
-                                        + "computer science, FIX's Common, FIBO's FND — because a level "
-                                        + "every match shares names only the vocabulary that matched.")),
+                                        + "computer science, FIX's Common — because a level every match "
+                                        + "shares names only the vocabulary that matched. The same "
+                                        + "leaves off the module a majority is filed in, FIBO's FND.")),
                                 li().with(text("A path of nothing is the publisher placing the concept "
-                                        + "nowhere, which FpML does for 616 of its 1,405 types.")),
+                                        + "nowhere and filing it in nothing, which FIBO does for "
+                                        + "the rows it takes from the OMG Commons Ontology "
+                                        + "Library.")),
                                 li().with(text("The count beside a source is taken at the words level: "
                                         + "both it and the deals behind the bar compare the words the two "
                                         + "sides wrote. A match a dictionary reached is listed and says "

@@ -13,9 +13,9 @@ import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
-import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescription;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 
 /**
@@ -35,8 +35,8 @@ public final class ExportedTaxonomies {
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
                                final BranchAgreement agreement, final PhraseBar bar,
-                               final StatedAncestry ancestry, final StatedDescriptions described) {
-        return new ExportedTaxonomy(vocabulary, concepts(matched, ancestry, described),
+                               final StatedPaths paths, final StatedDescriptions described) {
+        return new ExportedTaxonomy(vocabulary, concepts(matched, paths, described),
                 branches(matched, agreement), matchesByNormalisation(matched), barOf(bar));
     }
 
@@ -81,17 +81,17 @@ public final class ExportedTaxonomies {
 
     /** Ordered by what each term is worth — how often it was written, weighed by how much it narrows. */
     private static List<ExportedConcept> concepts(final MatchedTerms matched,
-                                                  final StatedAncestry ancestry,
+                                                  final StatedPaths paths,
                                                   final StatedDescriptions described) {
         return matched.byMass(matched.distinctTerms()).stream()
-                .flatMap(sighting -> rows(sighting, ancestry, described))
+                .flatMap(sighting -> rows(sighting, paths, described))
                 .toList();
     }
 
     private static Stream<ExportedConcept> rows(final TermSighting sighting,
-                                                final StatedAncestry ancestry,
+                                                final StatedPaths paths,
                                                 final StatedDescriptions described) {
-        return sighting.concepts().stream().map(concept -> row(sighting, concept, ancestry, described));
+        return sighting.concepts().stream().map(concept -> row(sighting, concept, paths, described));
     }
 
     /**
@@ -99,7 +99,7 @@ public final class ExportedTaxonomies {
      * node, rather than the concept's own name against no prose.
      */
     private static ExportedConcept row(final TermSighting sighting, final SkosConcept concept,
-                                       final StatedAncestry ancestry, final StatedDescriptions described) {
+                                       final StatedPaths paths, final StatedDescriptions described) {
         final Optional<StatedDescription> nearest = described.of(concept.prefLabel());
         return ExportedConcept.builder()
                 .concept(concept.prefLabel())
@@ -109,7 +109,7 @@ public final class ExportedTaxonomies {
                 .description(nearest.map(StatedDescription::prose).orElse(""))
                 .descriptionStatedFor(nearest.map(StatedDescription::statedFor).orElse(""))
                 .placedUnder(concept.broader())
-                .statedPath(ancestry.pathAbove(concept.prefLabel()))
+                .statedPath(paths.above(concept.prefLabel()))
                 .occurrences(sighting.occurrences())
                 .specificity(sighting.specificity())
                 .wordsInTerm(sighting.length())

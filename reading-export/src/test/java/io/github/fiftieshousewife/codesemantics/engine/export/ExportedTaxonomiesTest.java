@@ -6,6 +6,7 @@ import java.util.Map;
 import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
@@ -20,6 +21,10 @@ import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedTaxonomiesTest {
+
+    private static SkosConcept filed(final String label, final String module) {
+        return new SkosConcept("urn:" + label, label, "", "", "class", module, "", "");
+    }
 
     private static SkosConcept concept(final String label, final String broader) {
         return described(label, broader, "what the publisher says it means");
@@ -66,6 +71,8 @@ class ExportedTaxonomiesTest {
 
     private static final StatedAncestry ANCESTRY = StatedAncestry.over(PUBLISHED);
 
+    private static final StatedPaths PATHS = new StatedPaths(ANCESTRY, PUBLISHED);
+
     /** The publisher's own prose over the same rows, so a row states what its publisher says it is. */
     private static final StatedDescriptions DESCRIBED = StatedDescriptions.over(PUBLISHED, ANCESTRY);
 
@@ -73,7 +80,7 @@ class ExportedTaxonomiesTest {
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
-                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.vocabulary()).isEqualTo("OLiA"),
@@ -89,7 +96,7 @@ class ExportedTaxonomiesTest {
     void writesATermTwoConceptsReadAsTwice() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("root"), 0.9, 4, concept("Root", "Morpheme"),
-                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE, ANCESTRY,
+                        concept("Root", "SyntacticHead"))), AGREEING, ABOVE_CHANCE, PATHS,
                 DESCRIBED);
 
         assertThat(exported.concepts()).map(ExportedConcept::placedUnder)
@@ -102,7 +109,7 @@ class ExportedTaxonomiesTest {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("clause"), 0.9, 2, concept("Clause", "Constituent")),
                         sighting(List.of("noun"), 0.8, 30, concept("Noun", "WordClass"))), AGREEING,
-                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertThat(exported.concepts()).map(ExportedConcept::concept)
                 .containsExactly("Noun", "Clause");
@@ -112,7 +119,7 @@ class ExportedTaxonomiesTest {
     void statesWhatEachBranchIsWorthAndWhatConditioningOnItWouldLeave() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
-                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.branches()).singleElement()
@@ -138,7 +145,7 @@ class ExportedTaxonomiesTest {
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
                 matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), silent,
-                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertThat(exported.branches())
                 .as("a taxonomy that cannot be weighed is not one that weighs zero")
@@ -151,7 +158,7 @@ class ExportedTaxonomiesTest {
                 matched(sighting(TermRung.WORDS, List.of("verb"), 0.8, 20, concept("Verb", "WordClass")),
                         sighting(TermRung.LEMMAS, List.of("phrases"), 0.7, 9,
                                 concept("Phrase", "Constituent"))),
-                AGREEING, ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                AGREEING, ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertThat(exported.concepts())
                 .extracting(ExportedConcept::term, ExportedConcept::normalisation)
@@ -166,11 +173,12 @@ class ExportedTaxonomiesTest {
                 described("PublicKeys", "PublicKeyCryptography", ""),
                 described("PublicKeyCryptography", "", "a cryptosystem of key pairs"));
         final StatedAncestry ancestry = StatedAncestry.over(published);
+        final StatedPaths paths = new StatedPaths(ancestry, published);
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
                 matched(sighting(List.of("public", "keys"), 0.9, 3,
                         described("PublicKeys", "PublicKeyCryptography", ""))),
-                AGREEING, ABOVE_CHANCE, ancestry, StatedDescriptions.over(published, ancestry));
+                AGREEING, ABOVE_CHANCE, paths, StatedDescriptions.over(published, ancestry));
 
         assertAll(
                 () -> assertThat(exported.concepts().getFirst().definition())
@@ -184,15 +192,36 @@ class ExportedTaxonomiesTest {
     }
 
     @Test
+    void placesAConceptItsPublisherStatesNoParentForUnderTheModuleItFilesItIn() {
+        final List<SkosConcept> published = List.of(filed("AccountType", "shared"),
+                filed("ReasonCode", "doc"), filed("ReportId", "msg"), filed("Rate", "shared"));
+        final StatedAncestry ancestry = StatedAncestry.over(published);
+
+        final ExportedTaxonomy exported = taxonomies.of("FpML",
+                matched(sighting(List.of("account", "type"), 0.9, 510, filed("AccountType", "shared")),
+                        sighting(List.of("reason", "code"), 0.9, 74, filed("ReasonCode", "doc"))),
+                AGREEING, ABOVE_CHANCE, new StatedPaths(ancestry, published),
+                StatedDescriptions.over(published, ancestry));
+
+        assertThat(exported.concepts())
+                .extracting(ExportedConcept::concept, ExportedConcept::statedPath)
+                .as("FpML declares 616 of its 1,405 types with no base type, and a page grouping them "
+                        + "by their nearest level pools every one of them into a group with no name")
+                .containsExactly(tuple("AccountType", List.of("shared")),
+                        tuple("ReasonCode", List.of("doc")));
+    }
+
+    @Test
     void leavesTheDescriptionEmptyWhereNoLevelAtOrAboveTheConceptStatesAny() {
         final List<SkosConcept> published = List.of(described("SessionTypes", "TypeSystems", ""),
                 described("TypeSystems", "", ""));
         final StatedAncestry ancestry = StatedAncestry.over(published);
+        final StatedPaths paths = new StatedPaths(ancestry, published);
 
         final ExportedTaxonomy exported = taxonomies.of("CSO",
                 matched(sighting(List.of("session", "types"), 0.9, 3,
                         described("SessionTypes", "TypeSystems", ""))),
-                AGREEING, ABOVE_CHANCE, ancestry, StatedDescriptions.over(published, ancestry));
+                AGREEING, ABOVE_CHANCE, paths, StatedDescriptions.over(published, ancestry));
 
         assertAll(
                 () -> assertThat(exported.concepts().getFirst().description()).isEmpty(),
@@ -205,7 +234,7 @@ class ExportedTaxonomiesTest {
     void countsEveryNormalisationLevelIncludingTheOnesProducingNoMatch() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
                 matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
-                ABOVE_CHANCE, ANCESTRY, DESCRIBED);
+                ABOVE_CHANCE, PATHS, DESCRIBED);
 
         assertAll(
                 () -> assertThat(exported.matchesByNormalisation())

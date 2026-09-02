@@ -149,14 +149,15 @@ public record ReadingRow(String repository, List<ExportedAnswer> answers, List<S
     }
 
     /**
-     * The nearest level the publisher states above a concept that is not its own name for its field.
+     * The nearest level the publisher states above a concept that is not its own name for its field, which
+     * for a concept it states no parent for is the module it files that concept in.
      *
      * <p><b>It is {@code statedPath} and not {@code placedUnder}.</b> The raw parent is whatever the
      * publisher's column says, and for 5,434 of FIX's 7,170 rows that is {@code Common}, which 68% of FIX
      * sits beneath and which therefore names only the vocabulary that matched. The path already steps
      * over such a level; grouping by the raw column did not, so quickfixj was described as being about
-     * <em>common</em>. A concept whose whole ancestry is field levels groups under nothing, and is then
-     * named by the phrase itself.
+     * <em>common</em>. A concept whose whole ancestry is field levels and whose publisher files it in
+     * nothing groups under nothing, and is then named by the phrase itself.
      */
     private static String subjectOf(final ExportedConcept concept) {
         return concept.statedPath().isEmpty() ? "" : concept.statedPath().getLast();

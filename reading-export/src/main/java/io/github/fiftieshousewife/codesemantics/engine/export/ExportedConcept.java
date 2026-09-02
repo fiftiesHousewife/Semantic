@@ -22,13 +22,17 @@ import lombok.Builder;
  *                       definition has matched a name
  * @param placedUnder    the concept the publisher places it directly under, empty at a root of the
  *                       taxonomy
- * @param statedPath     every level the publisher states above it, broadest first, with the levels
- *                       naming the publisher's own field stepped over. {@code placedUnder} is the raw
- *                       {@code broader} cell and this is the whole walk: a concept FIX places directly
- *                       under {@code Common} reads {@code placedUnder=Common} and an empty path,
- *                       because {@code Common} holds 68% of FIX and names only the vocabulary that
- *                       matched. FIBO states {@code Aspect → Value → QuantitativeValue → PresentValue}
- *                       and the whole of it is here
+ * @param statedPath     every level the publisher states above it, broadest first, and where it
+ *                       states none, the module it files the concept in — FIBO's domain, FpML's
+ *                       schema file group, BIAN's business area. The levels naming the publisher's
+ *                       own field are stepped over, both a level an outright majority sits beneath
+ *                       and a module a majority is filed under. {@code placedUnder} is the raw
+ *                       {@code broader} cell and this is the whole walk: a concept FIX places
+ *                       directly under {@code Common} reads {@code placedUnder=Common} and an empty
+ *                       path, because {@code Common} holds 68% of FIX and names only the vocabulary
+ *                       that matched. FpML declares 616 of its 1,405 types with no base type and
+ *                       files each one in a product area, so {@code AccountType} reads
+ *                       {@code shared}
  * @param occurrences    how often the repository wrote it
  * @param specificity    how much writing the term narrows, bounded in {@code [0, 1]} by the frequency
  *                       list's own length

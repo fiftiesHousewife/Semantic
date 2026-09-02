@@ -30,11 +30,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  *
  * @param sourceType     what kind of thing answered — a taxonomy of terms, or a scheme of subjects
  * @param source         the publisher, under the name it states
- * @param statedPath     every level the publisher states above what answered, broadest first, with the
- *                       levels naming the publisher's own field stepped over. Empty where the publisher
- *                       states nothing above it, which FpML does for 616 of its 1,405 types. It is the
- *                       whole path and not its two ends: FIX places 5,434 of its 7,170 rows one level
- *                       down, so the two ends were the same label on those, and FIBO states
+ * @param statedPath     every level the publisher states above what answered, broadest first, and where
+ *                       it states none, the module it files the concept in. The levels naming the
+ *                       publisher's own field are stepped over. Empty where the publisher states
+ *                       neither, which FIX does for the rows it places under {@code Common} and files
+ *                       in nothing. It is the whole path and not its two ends: FIX places 5,434 of its
+ *                       7,170 rows one level down, so the two ends were the same label on those, and
+ *                       FIBO states
  *                       {@code Aspect → Value → QuantitativeValue → PresentValue}, where the two ends
  *                       dropped {@code Value}. For a subject scheme it is the archive the category sits in
  * @param result         what that publisher says this repository is: its own definition of the concept the
