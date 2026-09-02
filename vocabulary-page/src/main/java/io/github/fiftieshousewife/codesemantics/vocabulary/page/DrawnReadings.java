@@ -149,15 +149,19 @@ final class DrawnReadings {
 
     /**
      * Every subject the answering publishers place this repository's phrases under, pooled and ranked by
-     * how often the repository wrote what sits there.
+     * whether its publisher describes it and by how much of the repository sits under it.
      *
      * <p>One entry per publisher and subject. Two publishers naming one subject stay two entries, because
      * merging them would be this library deciding that two publishers said the same thing.
+     *
+     * <p><b>The description is not ordered by the evidence.</b> Ranking these by each source's own chance
+     * rate imported the ordering of {@code answers} into the line a reader reads for meaning, and the two
+     * are not the same question: CSO ranks first by chance rate on most readings and states a definition
+     * for a fifth of its topics, so a reader was handed {@code public keys} and nothing that says what it
+     * is, above BIAN's <em>Card Capture</em>, which BIAN defines. {@code answers} keeps the chance rate,
+     * which is what says whose evidence is the stronger.
      */
     private List<DrawnReading.Subject> subjectsOf(final List<DrawnReading.DrawnAnswer> answers) {
-        final Map<String, Double> rateBySource = answers.stream()
-                .collect(Collectors.toMap(DrawnReading.DrawnAnswer::source,
-                        DrawnReading.DrawnAnswer::chanceRate, (first, later) -> first));
         final Map<String, DrawnReading.Subject> pooled = new LinkedHashMap<>();
         answers.forEach(answer -> answer.branches().forEach(branch -> {
             final String subject = firstOf(branch.branch());
@@ -168,14 +172,27 @@ final class DrawnReadings {
         }));
         return pooled.values().stream()
                 .map(this::readable)
-                .sorted(Comparator
-                        .comparingDouble((DrawnReading.Subject subject) ->
-                                rateBySource.getOrDefault(subject.source(), CERTAIN))
-                        .thenComparing(this::formOf)
-                        .thenComparing(Comparator.comparingInt(DrawnReading.Subject::occurrences)
-                                .reversed())
-                        .thenComparing(DrawnReading.Subject::subject))
+                .sorted(describedFirst())
                 .toList();
+    }
+
+    /**
+     * The order the description is drawn in: a subject its publisher describes, then one stated in
+     * English, then the share of the repository written under it.
+     *
+     * <p>The share is the subject's occurrences, because every subject of one reading is a share of the
+     * same repository and a count and a share order identically over them.
+     */
+    private Comparator<DrawnReading.Subject> describedFirst() {
+        return Comparator
+                .comparing(DrawnReadings::describedBy)
+                .thenComparing(this::formOf)
+                .thenComparing(Comparator.comparingInt(DrawnReading.Subject::occurrences).reversed())
+                .thenComparing(DrawnReading.Subject::subject);
+    }
+
+    private static SubjectDescription describedBy(final DrawnReading.Subject subject) {
+        return SubjectDescription.of(subject.concepts());
     }
 
     /** The subject with the name a reader can read, which is the publisher's or the grammar's. */
@@ -187,18 +204,14 @@ final class DrawnReadings {
     }
 
     /**
-     * Whether the subject reads as English once the grammar has had it, which breaks a tie the strength
-     * leaves.
+     * Whether the subject reads as English once the grammar has had it, which breaks a tie between two
+     * subjects their publishers both describe or both leave undescribed.
      *
      * <p><b>It is not what the ranking runs on.</b> Ranking a phrase above an identifier put CSO's
      * <em>reinforcement learning</em> and <em>value functions</em> above BIAN's <em>Term Deposit</em> and
      * FIBO's {@code PresentValue} on a derivatives library — because CSO labels in English and FIBO does
-     * not. CSO cleared its bar there by 1.06 times and FIBO by 2.77, so the reading had already measured
-     * which was the better evidence and the label's shape was overriding it. The strength answers first,
-     * and how the label reads decides only between sources the strength cannot separate — strata's FIBO
-     * at 2.765 and FpML at 2.760. Within one source it separates {@code SingleGeneralOrderHandling},
-     * which anglicises, from {@code MsgSeqNum}, which does not — quickfixj wrote the second forty times
-     * as often and it tells a reader nothing.
+     * not, and CSO defines neither of those two topics. Whether the publisher says what a concept means
+     * answers first, and how the label reads decides only between subjects that cannot separate.
      */
     private LabelForm formOf(final DrawnReading.Subject subject) {
         return LabelForm.of(subject.subject()) == LabelForm.PHRASE

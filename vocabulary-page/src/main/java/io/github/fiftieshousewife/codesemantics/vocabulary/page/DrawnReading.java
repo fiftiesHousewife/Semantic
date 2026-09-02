@@ -30,7 +30,8 @@ import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
  *                           the readings drawn name is left out and the list is empty where every answer
  *                           came from one
  * @param subjects           what the repository is about: every subject its publishers place its matched
- *                           phrases under, pooled across the answering vocabularies, most-written first
+ *                           phrases under, pooled across the answering vocabularies, ordered by how much
+ *                           of the repository the publisher describes there
  * @param placedIn           where every subject scheme places the repository, at the levels that stand
  *                           apart from chance
  * @param belowTheirChanceBar every vocabulary the reading matched and set aside for failing its bar, each

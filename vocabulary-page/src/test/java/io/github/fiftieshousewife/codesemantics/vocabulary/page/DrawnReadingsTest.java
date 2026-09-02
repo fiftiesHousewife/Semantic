@@ -232,8 +232,8 @@ class DrawnReadingsTest {
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(santuario.subjects()).extracting(DrawnReading.Subject::subject)
-                        .as("a publisher naming several parents is taken at the first, and a subject is "
-                                + "ranked by how often the repository wrote what sits under it")
+                        .as("a publisher naming several parents is taken at the first, and CSO defines "
+                                + "key agreement where it defines nothing under cryptography")
                         .containsExactly("public key cryptography", "cryptography"),
                 () -> assertThat(santuario.subjects().getFirst().occurrences()).isEqualTo(78),
                 () -> assertThat(santuario.subjects().getFirst().concepts())
@@ -246,7 +246,7 @@ class DrawnReadingsTest {
     }
 
     @Test
-    void showsASubjectAPublisherStatesInEnglishBeforeOneItStatesAsAnIdentifier() {
+    void ranksTwoDescribedSubjectsByTheShareOfTheRepositoryWrittenUnderThem() {
         final ExportedConcept written = new ExportedConcept("MsgSeqNum",
                 "msg seq num", "words", "Integer message sequence number", "Integer message sequence number",
                 "MsgSeqNum", "Session", List.of("Session"),
@@ -264,13 +264,13 @@ class DrawnReadingsTest {
                                 new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(reading.subjects()).extracting(DrawnReading.Subject::subject)
-                .as("FIX cleared its bar by 10.4 times and CSO by 1.3, and the reading had already "
-                        + "measured which was the better evidence")
+                .as("FIX says what MsgSeqNum means and CSO says what key agreement means, so what "
+                        + "separates them is that the repository wrote 800 of the first and 9 of the second")
                 .containsExactly("Session", "public key cryptography");
     }
 
     @Test
-    void refusesToRankAnEnglishLabelAboveStrongerEvidenceLabelledAsAnIdentifier() {
+    void refusesToRankAnUndescribedEnglishLabelAboveASubjectItsPublisherDescribes() {
         final ExportedConcept deposit = new ExportedConcept("Term Deposit",
                 "term deposit", "words", "a deposit held for a fixed term", "a deposit held for a fixed term",
                 "Term Deposit", "Loans and Deposits",
@@ -287,8 +287,9 @@ class DrawnReadingsTest {
                                 new ExportedTaxonomy.Bar(17, 16, 15, 1.06, 0, 0.001, 7, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(strata.subjects()).extracting(DrawnReading.Subject::subject)
-                .as("CSO labels in English and BIAN does not, and CSO cleared its bar by 1.06 against "
-                        + "BIAN's 2.0 — reinforcement learning is not what a derivatives library is about")
+                .as("CSO labels in English and says nothing about value functions, where BIAN says what "
+                        + "a Term Deposit is — reinforcement learning is not what a derivatives library "
+                        + "is about")
                 .containsExactly("Loans and Deposits", "reinforcement learning");
     }
 
@@ -352,13 +353,60 @@ class DrawnReadingsTest {
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::readable)
-                        .as("an identifier every word of which English ranks outranks one carrying "
-                                + "shorthand, however much oftener the second was written; the "
-                                + "shorthand still gets the best name grammar can give it")
-                        .containsExactly("single general order handling", "msg seq num"),
+                        .as("the shorthand gets the best name grammar can give it, and FIX states what "
+                                + "SeqNum means where it states nothing under SingleGeneralOrderHandling")
+                        .containsExactly("msg seq num", "single general order handling"),
                 () -> assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::subject)
                         .as("the publisher's own label is kept beside the readable name")
-                        .containsExactly("SingleGeneralOrderHandling", "MsgSeqNum"));
+                        .containsExactly("MsgSeqNum", "SingleGeneralOrderHandling"));
+    }
+
+    @Test
+    void ranksAnIdentifierEveryWordOfWhichEnglishRanksAboveOneCarryingShorthand() {
+        final ExportedConcept handling = new ExportedConcept("ExecutionReport",
+                "execution report", "words", "", "", "", "SingleGeneralOrderHandling",
+                List.of("SingleGeneralOrderHandling"), 16, 0.5, 2, 0.9,
+                new SightingSite("A.java", 1));
+        final ExportedConcept sequence = new ExportedConcept("SeqNum",
+                "seq num", "words", "", "", "", "MsgSeqNum",
+                List.of("MsgSeqNum"), 659, 0.5, 3, 0.9, new SightingSite("B.java", 1));
+        final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
+                List.of(taxonomy("FIX", "MsgSeqNum", 10.4)),
+                List.of(new ExportedTaxonomy("FIX", List.of(sequence, handling), List.of(), Map.of(),
+                        new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, 999))),
+                Optional.empty())), StatedAreas.none()).readings().getFirst();
+        assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::readable)
+                .as("FIX describes neither, so how the label reads decides: every word of "
+                        + "SingleGeneralOrderHandling is English and msg is not, however much oftener "
+                        + "the repository wrote the second")
+                .containsExactly("single general order handling", "msg seq num");
+    }
+
+    @Test
+    void ordersTheDescriptionByWhatThePublisherDescribesWhileTheAnswersKeepTheirChanceRate() {
+        final ExportedConcept keys = new ExportedConcept("public keys",
+                "public keys", "words", "", "", "", "public key cryptography",
+                List.of("public key cryptography"), 30, 0.5, 2, 0.9, new SightingSite("A.java", 1));
+        final ExportedConcept capture = new ExportedConcept("Card Capture",
+                "card capture", "words", "", "the capture of a card transaction at the point of service",
+                "Card Capture", "Cards", List.of("Cards"), 9, 0.5, 2, 0.9,
+                new SightingSite("B.java", 1));
+        final DrawnReading jpos = drawn.of(List.of(row("jpos",
+                List.of(taxonomy("CSO", "public keys", 1.6), taxonomy("BIAN", "Card Capture", 1.5)),
+                List.of(new ExportedTaxonomy("CSO", List.of(keys), List.of(), Map.of(),
+                                new ExportedTaxonomy.Bar(16, 10, 9, 1.6, 0, 0.001, 7, 999)),
+                        new ExportedTaxonomy("BIAN", List.of(capture), List.of(), Map.of(),
+                                new ExportedTaxonomy.Bar(3, 2, 1, 1.5, 40, 0.041, 7, 999))),
+                Optional.empty())), StatedAreas.none()).readings().getFirst();
+        assertAll(
+                () -> assertThat(jpos.answers()).extracting(DrawnReading.DrawnAnswer::source)
+                        .as("chance reached CSO's count least often, which is what says whose evidence "
+                                + "is the stronger")
+                        .containsExactly("CSO", "BIAN"),
+                () -> assertThat(jpos.subjects()).extracting(DrawnReading.Subject::subject)
+                        .as("BIAN says what Card Capture is and CSO says nothing about public keys, and "
+                                + "the evidence ordering is not the description's")
+                        .containsExactly("Cards", "public key cryptography"));
     }
 
     private static ExportedTaxonomy vocabulary(final String source, final int phrases, final int byChance,
