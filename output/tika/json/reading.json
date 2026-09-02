@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "24.0",
+  "schemaVersion" : "25.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "43cbdae69472863f53f4f712f0331a1cd62f0615",
@@ -18979,6 +18979,7 @@
       }
     } ],
     "termsWorkingJavaAlsoWrites" : 2761,
-    "filesTheParserCouldNotRead" : 0
+    "filesTheParserCouldNotRead" : 0,
+    "javaFilesNoScopeReached" : 0
   }
 }

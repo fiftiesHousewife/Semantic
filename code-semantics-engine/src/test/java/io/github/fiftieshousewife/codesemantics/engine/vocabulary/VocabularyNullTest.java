@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
 import org.junit.jupiter.api.Test;
 
@@ -58,6 +59,15 @@ class VocabularyNullTest {
         assertThat(chance.over(wrote(4_000), List.of(reference)).getFirst().bits())
                 .as("more occurrences is a better estimate of the reference, so chance reaches less far")
                 .isLessThan(chance.over(wrote(400), List.of(reference)).getFirst().bits());
+    }
+
+    @Test
+    void setsTheBarAtTheDivergencesOwnMaximumForARepositoryThatWroteNothing() {
+        assertThat(chance.over(wrote(0), List.of(evenOver(200))).getFirst().bits())
+                .as("a tree of configuration, or one laid out where no scope looks, leaves every draw "
+                        + "empty; a bar of zero would admit every word that followed and the maximum "
+                        + "admits none, which is the reading abstaining rather than voting")
+                .isEqualTo(ShareDivergence.MAXIMUM_BITS);
     }
 
     private static WrittenWords wrote(final int words) {

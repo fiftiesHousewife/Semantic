@@ -23,6 +23,13 @@ public final class ShareDivergence {
 
     private static final double LOG_2 = Math.log(2.0);
 
+    /**
+     * The largest value the statistic can take, which follows from its definition and is attained only
+     * where the two supports are disjoint. A caller with no comparison to make states this rather than
+     * zero: a distance of zero says the two agreed, and no comparison is not agreement.
+     */
+    public static final double MAXIMUM_BITS = 1.0;
+
     /** The divergence between the two, in bits, bounded at 1 by its own definition. */
     public double between(final Map<String, Double> left, final Map<String, Double> right) {
         return support(left, right).stream()

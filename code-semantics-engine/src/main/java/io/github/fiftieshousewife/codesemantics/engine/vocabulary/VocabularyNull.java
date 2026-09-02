@@ -87,7 +87,18 @@ public final class VocabularyNull {
             trimTo(highest, kept);
         }
         trimTo(highest, quantileFrom(field, drawn));
-        return new Bar(reference.name(), highest.element(), field, resamples, drawn);
+        return new Bar(reference.name(), barFrom(highest), field, resamples, drawn);
+    }
+
+    /**
+     * The bar the drawn claims set, and the divergence's own maximum where the draws produced none.
+     *
+     * <p>A repository that wrote no word at all — a tree of configuration, or one laid out where no scope
+     * looks — leaves every draw empty and the quantile with nothing in it. A bar of zero would admit every
+     * word that followed; the maximum admits none, which is the reading abstaining rather than voting.
+     */
+    private static double barFrom(final PriorityQueue<Double> highest) {
+        return highest.isEmpty() ? ShareDivergence.MAXIMUM_BITS : highest.element();
     }
 
     /** How many of the highest claims the quantile will need, with room for the draws to vary. */

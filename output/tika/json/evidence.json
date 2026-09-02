@@ -5,7 +5,7 @@
   "lines" : 417750,
   "topics" : 539,
   "unplaced" : 0.7332005955930195,
-  "elapsedMillis" : 137724,
+  "elapsedMillis" : 127666,
   "linkage" : "permalinks into github.com/apache/tika at 43cbdae",
   "edges" : [ {
     "from" : "computing",

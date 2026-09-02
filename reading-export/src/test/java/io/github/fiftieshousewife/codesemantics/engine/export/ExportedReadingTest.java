@@ -53,17 +53,23 @@ class ExportedReadingTest {
     }
 
     @Test
-    void statesHowMuchJavaTheLayoutHidFromEveryScope(@TempDir final Path root) throws IOException {
+    void readsATreeLaidOutWhereNoScopeLooksAndSaysHowMuchTheLayoutHid(@TempDir final Path root)
+            throws IOException {
         final Path elsewhere = root.resolve("src-core").resolve("a");
         Files.createDirectories(elsewhere);
         Files.writeString(elsewhere.resolve("Elsewhere.java"), "package a; class Elsewhere { String word; }");
 
-        final ReadingExport export = new ExportedReading().of(reading(root), "c0ffee", List.of());
+        final ReadingExport export = new ExportedReading().of(RepositoryReading.of(root), "c0ffee", List.of());
 
-        assertThat(export.setAside().javaFilesNoScopeReached())
-                .as("a tree laid out where no scope looks reads as empty, and the count is what says the "
-                        + "layout hid the source rather than that there was none")
-                .isOne();
+        assertAll(
+                () -> assertThat(export.summary().counts().signals())
+                        .as("no scope means no word, and a reading of no words is a reading")
+                        .isZero(),
+                () -> assertThat(export.setAside().javaFilesNoScopeReached())
+                        .as("and the count is what says the layout hid the source rather than that there "
+                                + "was none, which is the whole of the difference between this reading "
+                                + "and a reading of a tree holding no Java")
+                        .isOne());
     }
 
     private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {
