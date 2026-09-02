@@ -28,6 +28,17 @@ public final class ChangeFile {
         Files.writeString(file, mapper.writeValueAsString(changes));
     }
 
+    /**
+     * Removes any comparison already at this path, for a run with nothing to compare against.
+     *
+     * <p>A schema change is that run, and there the file is already there. Leaving it sets a comparison
+     * between two readings of the previous shape beside a reading of the new one, which reads as the change
+     * this run made.
+     */
+    public void removed(final Path file) throws IOException {
+        Files.deleteIfExists(file);
+    }
+
     /** The same object back, which is what says the shape survives a round trip. */
     public ReadingChanges in(final Path file) throws IOException {
         return mapper.readValue(Files.readString(file), ReadingChanges.class);

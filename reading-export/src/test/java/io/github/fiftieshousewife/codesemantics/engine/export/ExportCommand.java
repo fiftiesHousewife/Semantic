@@ -76,13 +76,18 @@ public final class ExportCommand {
     }
 
     /**
-     * The comparison is written only where there is something to compare against. A first run has no previous
-     * reading, and a file saying every figure moved from nothing would be about that rather than about the
-     * repository.
+     * The comparison is written only where there is something to compare against, and any comparison already
+     * on disk is removed where there is not. A first run has no previous reading, and a file saying every
+     * figure moved from nothing would be about that rather than about the repository.
+     *
+     * <p>A schema change is the other case with nothing to compare against, and there the file is already
+     * there: leaving it would set a comparison between two readings of the previous shape beside a reading of
+     * the new one, which reads as the change this run made.
      */
     private static void wroteChanges(final ReportFolder folder, final Optional<ReadingExport> previous,
                                      final ReadingExport current) throws IOException {
         if (previous.isEmpty()) {
+            new ChangeFile().removed(folder.file(CHANGES));
             return;
         }
         new ChangeFile().wrote(folder.file(CHANGES), ReadingChanges.between(previous.get(), current));
