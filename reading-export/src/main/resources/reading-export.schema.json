@@ -617,7 +617,8 @@
         "matchesDiscardedByBranchRule",
         "vocabulariesBelowTheirChanceBar",
         "termsWorkingJavaAlsoWrites",
-        "filesTheParserCouldNotRead"
+        "filesTheParserCouldNotRead",
+        "javaFilesNoScopeReached"
       ],
       "properties": {
         "wordOccurrencesNoResourceCovers": {
@@ -678,6 +679,11 @@
         },
         "filesTheParserCouldNotRead": {
           "description": "Files the parse rejected. The reading counts them and continues, so a narrowed corpus stays a reported figure.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "javaFilesNoScopeReached": {
+          "description": "Java files under the root that no scope holds. A scope is `<module>/src/<sourceSet>/java`, which is where Gradle and Maven declare sources and is what keeps generated output out of the reading without a list of directories to ignore, so a tree laid out any other way yields no scope and reads as empty. This count is what tells that reading from a reading of a repository holding no Java at all: a figure above zero beside `summary.counts.files` of zero says the layout hid the source rather than that there was none. Files the tree's own `.readingignore` excludes are not counted, because the repository refused those itself.",
           "type": "integer",
           "minimum": 0
         }

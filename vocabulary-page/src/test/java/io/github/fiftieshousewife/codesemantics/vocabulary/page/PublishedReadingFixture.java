@@ -79,7 +79,7 @@ final class PublishedReadingFixture {
                         signal("parsers", 0.006, 0.005, 20)),
                 Map.of("ordinary English", 0.0018, "the reference corpus", 0.002),
                 List.of(), List.of(),
-                new SetAside(0, 1, 1, 1, 0, 0, List.of(), 0, 0));
+                new SetAside(0, 1, 1, 1, 0, 0, List.of(), 0, 0, 0));
     }
 
     private static ExportedSignal signal(final String word, final double bits, final double margin,

@@ -63,7 +63,7 @@ class ReadingExportSchemaTest {
                     new ExportedTaxonomy.Bar(12, 3, 2, 4.0, 0, 0.001, 7, 999))),
             new SetAside(1_325, 625, 14, 9, 1, 56,
                     List.of(new SetAside.RefusedVocabulary("CSO",
-                            new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 0, 0.001, 7, 999))), 118, 0));
+                            new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 0, 0.001, 7, 999))), 118, 0, 0));
 
     private final ExportFile file = new ExportFile();
 

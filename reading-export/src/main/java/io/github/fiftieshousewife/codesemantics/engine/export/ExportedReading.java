@@ -12,6 +12,7 @@ import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
+import io.github.fiftieshousewife.codesemantics.engine.reading.UnreadJavaFiles;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
@@ -184,7 +185,7 @@ public final class ExportedReading {
                 .themes(reported)
                 .taxonomies(taxonomies)
                 .setAside(setAside(summary, vocabulary, legibility, terms, parsed, refused(matched),
-                        judged.stream().mapToInt(SpecificTerms::refused).sum()))
+                        judged.stream().mapToInt(SpecificTerms::refused).sum(), reading))
                 .build();
         return answering(answered);
     }
@@ -359,7 +360,8 @@ public final class ExportedReading {
                                      final RepositoryLegibility legibility, final CorroboratedReading terms,
                                      final ParsedRepository parsed,
                                      final List<SetAside.RefusedVocabulary> belowTheirChanceBar,
-                                     final int termsWorkingJavaAlsoWrites) {
+                                     final int termsWorkingJavaAlsoWrites,
+                                     final RepositoryReading reading) {
         final RefusedWords refused = new RefusedWords();
         return new SetAside(
                 legibility.repository().counts().words() - legibility.repository().counts().read(),
@@ -369,6 +371,8 @@ public final class ExportedReading {
                         .count(),
                 refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
                 summary.withheld().size(), terms.refusedByBranch(), belowTheirChanceBar,
-                termsWorkingJavaAlsoWrites, parsed.unsoundFiles());
+                termsWorkingJavaAlsoWrites, parsed.unsoundFiles(),
+                new UnreadJavaFiles().under(reading.root(),
+                        RepositoryReading.scopesUnder(reading.root())));
     }
 }

@@ -96,7 +96,7 @@ Three files under `output/json/`, all committed, so the current figures can be r
 | [`evidence.json`](output/json/evidence.json) | the workings: every word with the subjects it contributed to, every dropped topic with the rule that dropped it, every run no resource covered, and every file with the topic leading it | nothing, and it states its own `schemaVersion` |
 | `changes.json` | each figure before and after, and every topic, word and concept that entered or left | written only where a previous reading shares the same `schemaVersion` |
 
-`reading.json` is at `schemaVersion` **24.0**. The version rises when a field is added, renamed or removed, so a consumer branches on it. [`ReadingExportSchemaTest`](reading-export/src/test/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingExportSchemaTest.java) fails the build on a change the schema does not state.
+`reading.json` is at `schemaVersion` **25.0**. The version rises when a field is added, renamed or removed, so a consumer branches on it. [`ReadingExportSchemaTest`](reading-export/src/test/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingExportSchemaTest.java) fails the build on a change the schema does not state.
 
 | Section | Holds | One entry per |
 |---|---|---|

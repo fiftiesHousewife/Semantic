@@ -70,15 +70,22 @@ class AwkwardRepositoryTest {
         Files.createDirectories(elsewhere);
         Files.writeString(elsewhere.resolve("Elsewhere.java"), "package a; class Elsewhere { String word; }");
 
-        assertThat(new JavaSourceScopes().under(root))
-                .as("A LIMIT, PINNED. A scope is <module>/src/<set>/java, which is where Gradle and Maven "
-                        + "declare sources and is what keeps generated output out of the reading with no "
-                        + "list of directories to ignore. A repository laid out any other way — Bazel, "
-                        + "Android, a bare java/ or src/ — therefore reads as having no Java in it at all, "
-                        + "and reads so silently. In an evaluation set that is a member scoring zero for a reason "
-                        + "that has nothing to do with what it is about, so the layout has to be recorded "
-                        + "beside each member or the arm is measuring build conventions.")
-                .isEmpty();
+        assertAll(
+                () -> assertThat(new JavaSourceScopes().under(root))
+                        .as("A LIMIT, PINNED. A scope is <module>/src/<set>/java, which is where Gradle "
+                                + "and Maven declare sources and is what keeps generated output out of "
+                                + "the reading with no list of directories to ignore. A repository laid "
+                                + "out any other way — Bazel, Android, a bare java/ or src/ — therefore "
+                                + "reads as having no Java in it at all. In an evaluation set that is a "
+                                + "member scoring zero for a reason that has nothing to do with what it "
+                                + "is about, so the layout has to be recorded beside each member or the "
+                                + "arm is measuring build conventions.")
+                        .isEmpty(),
+                () -> assertThat(new UnreadJavaFiles().under(root, scopesUnder(root)))
+                        .as("and the reading no longer reads so silently: the count says a Java file was "
+                                + "seen and not read, which is what tells this from a tree holding no "
+                                + "Java at all")
+                        .isOne());
     }
 
     @Test

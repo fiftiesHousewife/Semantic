@@ -45,7 +45,7 @@ class AnswerRungsTest {
                         List.of("computing"), List.of("WordNet Domains"), placedIn, List.of(), List.of(),
                         List.of(), 0.98, 0.8, new ExportedSummary.Counts(0, 0, 0)),
                 List.of(), Map.of(), List.of(), taxonomies,
-                new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0));
+                new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0, 0));
     }
 
     private static ExportedConcept concept(final String name, final String placedUnder,

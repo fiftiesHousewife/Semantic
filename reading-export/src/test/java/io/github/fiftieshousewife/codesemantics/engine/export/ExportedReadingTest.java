@@ -42,11 +42,28 @@ class ExportedReadingTest {
                 () -> assertThat(export.setAside())
                         .as("what was seen and not read is reported, not dropped")
                         .isNotNull(),
+                () -> assertThat(export.setAside().javaFilesNoScopeReached())
+                        .as("every Java file of this tree sits in a scope, so the layout hid none of it")
+                        .isZero(),
                 () -> assertThat(export.setAside().vocabulariesBelowTheirChanceBar())
                         .extracting(SetAside.RefusedVocabulary::vocabulary)
                         .as("every vocabulary judged is named here or in taxonomies, and none in both")
                         .doesNotContainAnyElementsOf(export.taxonomies().stream()
                                 .map(ExportedTaxonomy::vocabulary).toList()));
+    }
+
+    @Test
+    void statesHowMuchJavaTheLayoutHidFromEveryScope(@TempDir final Path root) throws IOException {
+        final Path elsewhere = root.resolve("src-core").resolve("a");
+        Files.createDirectories(elsewhere);
+        Files.writeString(elsewhere.resolve("Elsewhere.java"), "package a; class Elsewhere { String word; }");
+
+        final ReadingExport export = new ExportedReading().of(reading(root), "c0ffee", List.of());
+
+        assertThat(export.setAside().javaFilesNoScopeReached())
+                .as("a tree laid out where no scope looks reads as empty, and the count is what says the "
+                        + "layout hid the source rather than that there was none")
+                .isOne();
     }
 
     private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {

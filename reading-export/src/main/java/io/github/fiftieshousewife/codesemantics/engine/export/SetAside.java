@@ -37,12 +37,19 @@ import java.util.List;
  *                                        vocabularies' terms and not this repository's matches: counting
  *                                        matches needs the reading run twice
  * @param filesTheParserCouldNotRead      files the parse rejected, counted so the corpus stays reported
+ * @param javaFilesNoScopeReached         Java files under the root that no scope holds. A scope is
+ *                                        {@code <module>/src/<sourceSet>/java}, so a tree laid out any
+ *                                        other way yields no scope and reads as empty. This count is what
+ *                                        tells that reading from a reading of a repository holding no Java
+ *                                        at all, which is the same document without it. Files the tree's
+ *                                        own {@code .readingignore} excludes are not counted
  */
 public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryThreshold,
                        int wordsWithinTheReferencesError, int wordsTheLanguageSupplies,
                        int scopesWithinChance, int matchesDiscardedByBranchRule,
                        List<RefusedVocabulary> vocabulariesBelowTheirChanceBar,
-                       int termsWorkingJavaAlsoWrites, int filesTheParserCouldNotRead) {
+                       int termsWorkingJavaAlsoWrites, int filesTheParserCouldNotRead,
+                       int javaFilesNoScopeReached) {
 
     public SetAside {
         vocabulariesBelowTheirChanceBar = List.copyOf(vocabulariesBelowTheirChanceBar);
