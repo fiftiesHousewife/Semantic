@@ -6,7 +6,7 @@ Those documents are outside the corpus this library reads — [`.readingignore`]
 
 New to the terms? [`docs/GLOSSARY.md`](docs/GLOSSARY.md) defines every linguistic and statistical word used here, with a reference for each. Library choices and their licences are in [`docs/DEPENDENCIES.md`](docs/DEPENDENCIES.md).
 
-**State on 2026-09-02, at reading schema 24.0.** `cleanTest checkAll` is green over all ten test tasks, the `pinned` findings are green on an uncached run, and `./gradlew read` is green. All twelve member readings are regenerated at 24.0 and the pages are rebuilt from them. `statedPath` names the module a publisher files a concept in where it states no level above it, so the occurrences the readings group under no branch fall from 4,126 to 261; the schema is unchanged, because no field was added, renamed or removed.
+**State on 2026-09-02, at reading schema 24.0.** Everything is pushed and the working tree is level with `origin/main`. `cleanTest checkAll` is green over all ten test tasks, the `pinned` findings are green on an uncached run, and `./gradlew read` is green. All twelve member readings are regenerated at 24.0 and the pages are rebuilt from them. `statedPath` names the module a publisher files a concept in where it states no level above it, so the occurrences the readings group under no branch fall from 4,126 to 261; the schema is unchanged, because no field was added, renamed or removed.
 
 ## What the codebase does, step by step
 
