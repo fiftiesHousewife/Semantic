@@ -505,7 +505,7 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 | [Aeron](https://github.com/aeron-io/aeron), [Besu](https://github.com/besu-eth/besu) | Computer Science | out of domain |
 | [Strata](https://github.com/OpenGamma/Strata), [Fineract](https://github.com/apache/fineract), [QuickFIX/J](https://github.com/quickfix-j/quickfixj), [jPOS](https://github.com/jpos/jPOS), [fix-trading-simulator](https://github.com/felipewind/fix-trading-simulator), [jmeter-iso8583](https://github.com/tilln/jmeter-iso8583) | Finance | in domain, for the finance vocabularies |
 
-**What the twelve readings show, at schema 24.0.** Each vocabulary's answer is stated as the multiple of the count a chance deal of its own words reaches.
+**What the twelve readings show, at schema 25.0.** Each vocabulary's answer is stated as the multiple of the count a chance deal of its own words reaches.
 
 | Reading | The vocabularies that answered |
 |---|---|
