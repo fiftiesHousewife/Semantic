@@ -32,9 +32,13 @@ class PhraseSpecificityTest {
     }
 
     @Test
-    void isNoMoreSpecificForCarryingTheCommonestWordInEnglish() {
+    void isMoreSpecificForCarryingTheCommonestWordInEnglishThanForNotCarryingIt() {
         assertThat(specificity.of(List.of("the", "name")))
-                .isEqualTo(specificity.of(List.of("name")));
+                .as("a run is ordinary exactly to the extent that every word in it is, so a second word "
+                        + "makes it less ordinary however common that word is. WordSpecificity weighs "
+                        + "rank 1 at log(2) / log(size + 1) and not at zero, because a weight of exactly "
+                        + "zero is the gate its javadoc says it is not")
+                .isGreaterThan(specificity.of(List.of("name")));
     }
 
     @Test
