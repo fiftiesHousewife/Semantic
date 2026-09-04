@@ -19,18 +19,19 @@ import java.util.stream.Collectors;
  */
 public final class ArxivSubjects implements PublishedSubjects {
 
-    private static final String PUBLISHED_AT = "https://arxiv.org/category_taxonomy";
+    /** What the resource states about itself, so its name and its link are not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("arxiv-taxonomy.tsv");
 
-    private static final String SCHEME = "arXiv";
+
 
     @Override
     public String scheme() {
-        return SCHEME;
+        return STATED.shortName();
     }
 
     @Override
     public String publishedAt() {
-        return PUBLISHED_AT;
+        return STATED.publishedAt();
     }
 
 

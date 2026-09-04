@@ -44,8 +44,13 @@ public class FpmlTermsTsv {
                 # products the standard covers — the other views restate its types with fields removed.
                 #
                 # Name: Financial products Markup Language 5.11
-                # Publisher: the International Swaps and Derivatives Association (https://www.fpml.org/)
+                # Short name: FpML
+                # Publisher: the International Swaps and Derivatives Association
+                # Published at: https://www.fpml.org/
                 # Kind: terms
+                # Description: The Financial products Markup Language: how a derivatives trade is written down on \
+                the wire.
+                # Subject: derivatives
                 # Source: the FpML 5.11 confirmation schemas as the HandCoded toolkit repository vendors
                 """
                 + "#   them, at " + source + ",\n"

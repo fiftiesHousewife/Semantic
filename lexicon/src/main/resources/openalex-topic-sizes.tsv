@@ -15,7 +15,7 @@
 # so those are absent rather than zero.
 #
 # Name: OpenAlex topic works and citation counts
-# Publisher: OpenAlex (https://openalex.org/)
+# Publisher: OpenAlex
 # Kind: frequencies
 # Source: OpenAlex's own topics snapshot, s3://openalex/data/jsonl/topics/ at 2026-06-26, the manifest and the 6 parts it names, stating 4516 records,
 #   pinned by the SHA-256 ContentDigest states over the manifest and the parts it names:

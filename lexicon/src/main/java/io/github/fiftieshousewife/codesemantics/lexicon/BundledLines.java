@@ -27,9 +27,8 @@ final class BundledLines {
 
     /** Every data line of the named classpath resource, in file order. */
     static List<String> of(final String resource) {
-        final InputStream stream = Objects.requireNonNull(
-                BundledLines.class.getResourceAsStream("/" + resource), resource);
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream(resource),
+                StandardCharsets.UTF_8))) {
             return dataLines(reader.lines());
         } catch (final IOException e) {
             throw new IllegalStateException(String.format(Locale.ROOT,
@@ -47,6 +46,25 @@ final class BundledLines {
                     "Failed to read %s",
                     file), e);
         }
+    }
+
+    /** The leading comment block of the named classpath resource, which is where it states what it is. */
+    static List<String> headerOf(final String resource) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream(resource),
+                StandardCharsets.UTF_8))) {
+            return reader.lines()
+                    .takeWhile(line -> line.isBlank() || line.startsWith(COMMENT))
+                    .filter(line -> !line.isBlank())
+                    .toList();
+        } catch (final IOException e) {
+            throw new IllegalStateException(String.format(Locale.ROOT,
+                    "Failed to read the bundled resource %s",
+                    resource), e);
+        }
+    }
+
+    private static InputStream stream(final String resource) {
+        return Objects.requireNonNull(BundledLines.class.getResourceAsStream("/" + resource), resource);
     }
 
     private static List<String> dataLines(final Stream<String> lines) {

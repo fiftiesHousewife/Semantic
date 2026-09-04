@@ -17,8 +17,12 @@
 # 5294 rows, 5159 of them stating prose, 368402 words in all.
 #
 # Name: Wikipedia summaries of the Computer Science Ontology's topics
-# Publisher: the Wikimedia Foundation (https://en.wikipedia.org/)
+# Short name: CSO
+# Publisher: the Wikimedia Foundation
+# Published at: https://en.wikipedia.org/
 # Kind: subjects
+# Description: Wikipedia's summaries of the Computer Science Ontology's topics: what each topic is.
+# Subject: computer science
 # Source: the Wikimedia REST summary API, https://en.wikipedia.org/api/rest_v1/, one
 #   request per article CSO names, following redirects. The links themselves come from
 #   CSO 3.5's own owl:sameAs statements, in the archive cso-topics.tsv is pinned to.

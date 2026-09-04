@@ -22,11 +22,12 @@ import java.util.stream.Collectors;
  */
 public final class BianServiceDomains implements PublishedSubjects {
 
+    /** What the resource states about itself, so its name and its link are not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("bian-service-domains.tsv");
+
     private static final String RESOURCE = "bian-service-domains.tsv";
 
-    private static final String SCHEME = "BIAN";
 
-    private static final String PUBLISHED_AT = "https://bian.org/servicelandscape/";
 
     private final Map<String, SkosConcept> byConcept;
 
@@ -46,12 +47,12 @@ public final class BianServiceDomains implements PublishedSubjects {
 
     @Override
     public String scheme() {
-        return SCHEME;
+        return STATED.shortName();
     }
 
     @Override
     public String publishedAt() {
-        return PUBLISHED_AT;
+        return STATED.publishedAt();
     }
 
     /** Every service domain the landscape states, each with its role definition. */

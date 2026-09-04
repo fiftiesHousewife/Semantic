@@ -24,8 +24,12 @@
 # this file deciding what the publisher may say.
 #
 # Name: Ontologies of Linguistic Annotation
-# Publisher: the ACoLi lab, Goethe University Frankfurt (https://github.com/acoli-repo/olia)
+# Short name: OLiA
+# Publisher: the ACoLi lab, Goethe University Frankfurt
+# Published at: https://github.com/acoli-repo/olia
 # Kind: terms
+# Description: The Ontologies of Linguistic Annotation: the terms linguistic annotation schemes state parts of speech, morphology and syntax in.
+# Subject: linguistic annotation
 # Source: OLiA's core ontology olia.owl, read from
 #   https://raw.githubusercontent.com/acoli-repo/olia/d3bd4f1aef9047b33186bfb2a1795401f3f1a4a6/owl/core/olia.owl.
 # Licence: CC BY 3.0 Unported, stated by the ontology itself (dct:license

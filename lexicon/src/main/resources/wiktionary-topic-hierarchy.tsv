@@ -6,7 +6,7 @@
 # label a headword states from one another of its labels already implies.
 #
 # Name: wiktextract's topic generalisation map
-# Publisher: Tatu Ylonen (https://github.com/tatuylonen/wiktextract)
+# Publisher: Tatu Ylonen
 # Kind: words
 # Source: wiktextract's own topic_generalize_map, read from
 #   https://raw.githubusercontent.com/tatuylonen/wiktextract/872fc7bfc15c388eca84591268d6f35759c42290/src/wiktextract/topics.py.

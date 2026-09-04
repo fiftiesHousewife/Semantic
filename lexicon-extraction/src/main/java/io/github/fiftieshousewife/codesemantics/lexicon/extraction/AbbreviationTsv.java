@@ -36,7 +36,7 @@ public class AbbreviationTsv {
                 # the reader votes.
                 #
                 # Name: Wiktionary abbreviation senses
-                # Publisher: Wiktionary (https://en.wiktionary.org/), through wiktextract at kaikki.org
+                # Publisher: Wiktionary, through wiktextract at kaikki.org
                 # Kind: words
                 # Source: Wiktionary (https://en.wiktionary.org/), read from the wiktextract JSONL published
                 #   at kaikki.org: the English extract (https://kaikki.org/dictionary/English/) and the

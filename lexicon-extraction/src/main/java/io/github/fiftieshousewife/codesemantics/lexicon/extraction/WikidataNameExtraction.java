@@ -131,7 +131,7 @@ public final class WikidataNameExtraction {
                 # answered by votes this file does not cast.
                 #
                 # Name: Wikidata given and family names
-                # Publisher: Wikidata (https://www.wikidata.org/)
+                # Publisher: Wikidata
                 # Kind: words
                 # Source: Wikidata, items referenced as a person's given name (P735) or family name
                 #   (P734) by at least five subjects, under every rdfs:label in every language; the

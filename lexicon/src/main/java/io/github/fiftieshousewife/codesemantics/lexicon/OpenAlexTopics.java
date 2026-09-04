@@ -19,18 +19,19 @@ import java.util.stream.Collectors;
  */
 public final class OpenAlexTopics implements PublishedSubjects {
 
-    private static final String PUBLISHED_AT = "https://openalex.org/";
+    /** What the resource states about itself, so its name and its link are not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("openalex-topics.tsv");
 
-    private static final String SCHEME = "OpenAlex";
+
 
     @Override
     public String scheme() {
-        return SCHEME;
+        return STATED.shortName();
     }
 
     @Override
     public String publishedAt() {
-        return PUBLISHED_AT;
+        return STATED.publishedAt();
     }
 
 

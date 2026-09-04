@@ -30,7 +30,7 @@ public class TopicHierarchyTsv {
                 # label a headword states from one another of its labels already implies.
                 #
                 # Name: wiktextract's topic generalisation map
-                # Publisher: Tatu Ylonen (https://github.com/tatuylonen/wiktextract)
+                # Publisher: Tatu Ylonen
                 # Kind: words
                 # Source: wiktextract's own topic_generalize_map, read from
                 #  \s""" + revision + """

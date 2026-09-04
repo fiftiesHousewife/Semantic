@@ -39,8 +39,12 @@ public class OpenAlexTopicsTsv {
                 # label for anything.
                 #
                 # Name: OpenAlex topics
-                # Publisher: OpenAlex (https://openalex.org/)
+                # Short name: OpenAlex
+                # Publisher: OpenAlex
+                # Published at: https://openalex.org/
                 # Kind: subjects
+                # Description: OpenAlex's topics: the subject areas the literature is placed under.
+                # Subject: research subject areas
                 # Source:\s""" + source + """
                 ,
                 #   pinned by the SHA-256 ContentDigest states over the manifest and the parts it names:

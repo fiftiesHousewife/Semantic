@@ -39,7 +39,7 @@ final class XwndDomainsTsv {
                 #
                 """
                 + "# Name: eXtended WordNet Domains\n"
-                + "# Publisher: the IXA group, University of the Basque Country (https://adimen.ehu.eus/web/XWND)\n"
+                + "# Publisher: the IXA group, University of the Basque Country\n"
                 + "# Kind: words\n"
                 + "# Source: " + sourceUrl + ", accepted only at\n"
                 + "#   sha256 " + archiveSha256 + ";\n"

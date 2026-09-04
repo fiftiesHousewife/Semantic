@@ -37,8 +37,12 @@ public class NistCsfTsv {
                 # withdrawn are not carried, which is what leaves 1.1's categories out.
                 #
                 # Name: NIST Cybersecurity Framework 2.0
-                # Publisher: the National Institute of Standards and Technology (https://www.nist.gov/cyberframework)
+                # Short name: NIST CSF
+                # Publisher: the National Institute of Standards and Technology
+                # Published at: https://www.nist.gov/cyberframework
                 # Kind: subjects
+                # Description: The NIST Cybersecurity Framework: the outcomes NIST states a security function as.
+                # Subject: cybersecurity outcomes
                 # Source: NIST_CSF_v2.0_catalog.json at version\s""" + version + """
                 , the OSCAL edition
                 #   NIST publishes of the Cybersecurity Framework 2.0, read from

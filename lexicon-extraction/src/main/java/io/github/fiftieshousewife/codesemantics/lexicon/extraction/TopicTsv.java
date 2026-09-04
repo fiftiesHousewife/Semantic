@@ -28,7 +28,7 @@ public class TopicTsv {
                 # word — membership is a vote's evidence, never a decision.
                 #
                 # Name: Wiktionary topic vocabulary
-                # Publisher: Wiktionary (https://en.wiktionary.org/), through wiktextract at kaikki.org
+                # Publisher: Wiktionary, through wiktextract at kaikki.org
                 # Kind: words
                 # Source: Wiktionary (https://en.wiktionary.org/), read from the wiktextract JSONL published
                 #   at kaikki.org (https://kaikki.org/dictionary/English/); Tatu Ylonen: "Wiktextract:

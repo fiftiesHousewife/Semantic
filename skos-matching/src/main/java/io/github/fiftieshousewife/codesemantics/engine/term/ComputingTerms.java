@@ -8,6 +8,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.StatedProvenance;
 
 /**
  * The Computer Science Ontology as a {@link TermIndex}: the topics computer science research is indexed by,
@@ -19,7 +20,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  */
 public final class ComputingTerms implements TermIndex {
 
-    private static final String SOURCE = "CSO";
+    /** What the resource states about itself, so the name a match cites is not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("cso-topics.tsv");
 
     private final WordKeyedConcepts concepts;
 
@@ -58,7 +60,7 @@ public final class ComputingTerms implements TermIndex {
 
     @Override
     public String source() {
-        return SOURCE;
+        return STATED.shortName();
     }
 
     @Override

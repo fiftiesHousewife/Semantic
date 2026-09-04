@@ -46,6 +46,13 @@ class VocabularyProvenanceTest {
     private static final List<String> KINDS =
             List.of("terms", "subjects", "words", "identifiers", "frequencies");
 
+    /** The two kinds a reading reads as a taxonomy of concepts, matching one and placing against the other. */
+    private static final List<String> TAXONOMY_KINDS = List.of("terms", "subjects");
+
+    /** What a taxonomy states beyond the three every bundled resource does. */
+    private static final List<String> TAXONOMY_KEYS =
+            List.of("Short name", "Published at", "Description", "Subject");
+
     @Test
     void everyBundledVocabularyDeclaresItsSourceAndItsLicence() {
         assertAll(BundledVocabulary.files().stream().map(file -> () -> assertThat(header(file))
@@ -75,6 +82,19 @@ class VocabularyProvenanceTest {
     }
 
     @Test
+    void everyBundledTaxonomyStatesWhatACitationSaysAndWhatItIsAbout() {
+        assertAll(BundledVocabulary.files().stream().filter(VocabularyProvenanceTest::isATaxonomy)
+                .map(file -> () -> assertAll(TAXONOMY_KEYS.stream().map(key -> () ->
+                        assertThat(BundledVocabulary.stated(file, key))
+                                .as("%s states Kind: %s, so a reading places or matches it and needs a %s: "
+                                        + "line. A taxonomy's own header is where the pages, the export and "
+                                        + "the evidence read what it is; a class stating it beside them is a "
+                                        + "second statement nothing checks against this one.",
+                                        file.getFileName(), BundledVocabulary.stated(file, KIND), key)
+                                .isNotBlank()))));
+    }
+
+    @Test
     void everyBundledVocabularyStatesWhichKindOfThingItsRowsAre() {
         assertAll(BundledVocabulary.files().stream().map(file -> () ->
                 assertThat(BundledVocabulary.stated(file, KIND))
@@ -82,6 +102,10 @@ class VocabularyProvenanceTest {
                                 + "taxonomy on without enumerating one by hand, so it is a closed set and "
                                 + "a new value is a deliberate change to it.", file.getFileName(), KINDS)
                         .isIn(KINDS)));
+    }
+
+    private static boolean isATaxonomy(final Path file) {
+        return TAXONOMY_KINDS.contains(BundledVocabulary.stated(file, KIND));
     }
 
     private static String header(final Path file) {

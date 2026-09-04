@@ -8,6 +8,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 import io.github.fiftieshousewife.codesemantics.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.StatedProvenance;
 
 /**
  * The Ontologies of Linguistic Annotation as a {@link TermIndex}: the vocabulary a program writing about
@@ -18,7 +19,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  */
 public final class LinguisticTerms implements TermIndex {
 
-    private static final String SOURCE = "OLiA";
+    /** What the resource states about itself, so the name a match cites is not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("olia-terms.tsv");
 
     private final WordKeyedConcepts concepts;
 
@@ -56,7 +58,7 @@ public final class LinguisticTerms implements TermIndex {
 
     @Override
     public String source() {
-        return SOURCE;
+        return STATED.shortName();
     }
 
     @Override

@@ -54,7 +54,7 @@ public class OpenAlexTopicSizesTsv {
                 # so those are absent rather than zero.
                 #
                 # Name: OpenAlex topic works and citation counts
-                # Publisher: OpenAlex (https://openalex.org/)
+                # Publisher: OpenAlex
                 # Kind: frequencies
                 # Source:\s""" + source + """
                 ,

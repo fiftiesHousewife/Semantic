@@ -107,6 +107,28 @@ Every one of them is read against the permutation null and not against its own c
 | `identifiers` | a name a standard's own registry or runtime states | 2 |
 | `frequencies` | a count or a share, read as a denominator | 3 |
 
+### Step 2a: the header is the statement, and the classes stop repeating it — landed 2026-09-04
+
+The three keys step 1 named could not carry what step 2 needs, because the enums state five things and not three. A taxonomy's header now carries all seven, and `StatedProvenance` reads them:
+
+| Key | On | Replaces |
+|---|---|---|
+| `# Name:` | all 24 | — |
+| `# Publisher:` | all 24 | — |
+| `# Kind:` | all 24 | the matched/control split, once step 2b lands |
+| `# Short name:` | the 11 taxonomies | `TermIndex.source()`, `PublishedSubjects.scheme()` and `TermVocabularies.publisher()` — the same string in three places |
+| `# Published at:` | the 11 | `PublishedSubjects.publishedAt()` and the enums' `publishedAt()` |
+| `# Description:` | the 11 | the enums' `description()` |
+| `# Subject:` | the 11 | the enums' `subject()` |
+
+Eleven constants are gone from seven classes: `ArxivSubjects`, `OpenAlexTopics`, `CsoSubjects` and `BianServiceDomains` read their name and their link off the file, and `LinguisticTerms`, `ComputingTerms` and `FinanceTerms` read the name a match cites off it.
+
+### What step 2 cannot do, and this is a finding rather than a decision
+
+**The matched list is not derivable from the header, and `TaxonomyShape` — the class that claimed to derive it — is dead.** Its javadoc says prose per concept means a distribution to place against and labels without prose mean terms to match, naming CSO, OLiA and FIBO as the second case. Read against the files: OLiA states 1,216 definitions over 1,312 concepts, FIBO 1,792 over 1,833, FIX 7,003 over 7,170, and CSO is the only one of the seven stating none. The rule would now put six of the seven matched vocabularies in the placed set. Nothing calls it — `InjectedTaxonomy.shape()` is its only caller and nothing calls that — so no reading is wrong; the rule is simply stale, and the files moved under it when the definitions the extractions had been discarding were carried.
+
+So `# Kind:` states what a row is and not what the reading does with it. BIAN is the case that settles it: it carries prose for all 319 rows, so its rows are `subjects`, and the reading matches its labels as terms anyway. **Which vocabularies a reading matches is this library's choice, and it stays in code.** What the header can check is the other direction, and step 2b enforces it: a resource stating `# Kind: terms` that no reading matches is a vocabulary bundled and never read.
+
 **The header is written twice and only one of the pair is checked.** The renderer in `lexicon-extraction` holds the header, the committed TSV carries a copy, and nothing compares them — which was already true of `Source:` and `Licence:` and is now true of three lines a reading will select on. `sql-functions` is the one source needing neither a network route nor a local copy: regenerated through its renderer, the committed file gains exactly the three lines and nothing else, so that pair is shown to agree. The other nineteen rest on care. Closing that is its own row.
 
 ## The criterion

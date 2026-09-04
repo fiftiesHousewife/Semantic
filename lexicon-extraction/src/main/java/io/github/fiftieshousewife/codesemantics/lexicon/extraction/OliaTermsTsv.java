@@ -46,8 +46,13 @@ public class OliaTermsTsv {
                 # this file deciding what the publisher may say.
                 #
                 # Name: Ontologies of Linguistic Annotation
-                # Publisher: the ACoLi lab, Goethe University Frankfurt (https://github.com/acoli-repo/olia)
+                # Short name: OLiA
+                # Publisher: the ACoLi lab, Goethe University Frankfurt
+                # Published at: https://github.com/acoli-repo/olia
                 # Kind: terms
+                # Description: The Ontologies of Linguistic Annotation: the terms linguistic annotation schemes \
+                state parts of speech, morphology and syntax in.
+                # Subject: linguistic annotation
                 # Source: OLiA's core ontology olia.owl, read from
                 #  \s""" + source + """
                 .

@@ -32,9 +32,10 @@ import java.util.stream.Stream;
  */
 public final class CsoSubjects implements PublishedSubjects {
 
-    private static final String PUBLISHED_AT = "https://cso.kmi.open.ac.uk/";
+    /** What the resource states about itself, so its name and its link are not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("cso-topics.tsv");
 
-    private static final String SCHEME = "CSO";
+
 
     /** What separates one label from the next, as OpenAlex separates the keywords of a topic. */
     private static final String LISTED = ", ";
@@ -69,12 +70,12 @@ public final class CsoSubjects implements PublishedSubjects {
 
     @Override
     public String scheme() {
-        return SCHEME;
+        return STATED.shortName();
     }
 
     @Override
     public String publishedAt() {
-        return PUBLISHED_AT;
+        return STATED.publishedAt();
     }
 
     /** Every topic the ontology states, each stating its parents by their identifiers. */

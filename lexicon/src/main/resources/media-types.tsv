@@ -10,7 +10,7 @@
 # it makes one — a deprecated identifier is still the registry's identifier, so the row stays.
 #
 # Name: IANA media type registries
-# Publisher: the Internet Assigned Numbers Authority (https://www.iana.org/assignments/media-types/)
+# Publisher: the Internet Assigned Numbers Authority
 # Kind: identifiers
 # Source: IANA media types, https://www.iana.org/assignments/media-types/ (application.csv, audio.csv, font.csv, haptics.csv, image.csv, message.csv, model.csv, multipart.csv, text.csv, video.csv), retrieved 2026-08-19
 #   (the registry states no revision, so the file set is the citation, pinned by the SHA-256

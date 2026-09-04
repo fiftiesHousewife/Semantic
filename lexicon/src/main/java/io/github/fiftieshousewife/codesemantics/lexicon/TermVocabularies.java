@@ -14,7 +14,7 @@ import java.util.List;
 public enum TermVocabularies {
 
     /** The Ontologies of Linguistic Annotation. */
-    OLIA("OLiA") {
+    OLIA("olia-terms.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return OliaTerms.fromClasspath().concepts();
@@ -22,7 +22,7 @@ public enum TermVocabularies {
     },
 
     /** The Computer Science Ontology. */
-    CSO("CSO") {
+    CSO("cso-topics.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return CsoTopics.fromClasspath().concepts();
@@ -30,7 +30,7 @@ public enum TermVocabularies {
     },
 
     /** The Financial Industry Business Ontology. */
-    FIBO("FIBO") {
+    FIBO("fibo-terms.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return FiboTerms.fromClasspath().concepts();
@@ -38,7 +38,7 @@ public enum TermVocabularies {
     },
 
     /** The Financial products Markup Language. */
-    FPML("FpML") {
+    FPML("fpml-terms.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return FpmlTerms.fromClasspath().concepts();
@@ -46,7 +46,7 @@ public enum TermVocabularies {
     },
 
     /** The FIX protocol, as FIX Orchestra states it. */
-    FIX("FIX") {
+    FIX("fix-terms.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return FixTerms.fromClasspath().concepts();
@@ -54,7 +54,7 @@ public enum TermVocabularies {
     },
 
     /** The Common Weakness Enumeration. */
-    CWE("CWE") {
+    CWE("cwe-terms.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return CweTerms.fromClasspath().concepts();
@@ -62,22 +62,27 @@ public enum TermVocabularies {
     },
 
     /** The BIAN Service Landscape. */
-    BIAN("BIAN") {
+    BIAN("bian-service-domains.tsv") {
         @Override
         public List<SkosConcept> concepts() {
             return BianServiceDomains.fromClasspath().concepts();
         }
     };
 
-    private final String publisher;
+    private final String resource;
 
-    TermVocabularies(final String publisher) {
-        this.publisher = publisher;
+    TermVocabularies(final String resource) {
+        this.resource = resource;
     }
 
-    /** The publisher's own short name, which is what a match cites. */
+    /** The publisher's own short name, which is what a match cites, off the resource's own header. */
     public String publisher() {
-        return publisher;
+        return StatedProvenance.of(resource).shortName();
+    }
+
+    /** What the resource states about itself: its name, its publisher, its link and what it is about. */
+    public StatedProvenance stated() {
+        return StatedProvenance.of(resource);
     }
 
     /** Every concept the bundled extraction states, in the order the file states them. */

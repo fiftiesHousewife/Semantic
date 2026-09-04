@@ -8,6 +8,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
 import io.github.fiftieshousewife.codesemantics.lexicon.FiboTerms;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.StatedProvenance;
 
 /**
  * The Financial Industry Business Ontology as a {@link TermIndex}, read the same way {@link LinguisticTerms}
@@ -20,7 +21,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  */
 public final class FinanceTerms implements TermIndex {
 
-    private static final String SOURCE = "FIBO";
+    /** What the resource states about itself, so the name a match cites is not stated twice. */
+    private static final StatedProvenance STATED = StatedProvenance.of("fibo-terms.tsv");
 
     private final WordKeyedConcepts concepts;
 
@@ -58,7 +60,7 @@ public final class FinanceTerms implements TermIndex {
 
     @Override
     public String source() {
-        return SOURCE;
+        return STATED.shortName();
     }
 
     @Override

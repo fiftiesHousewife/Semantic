@@ -37,8 +37,12 @@ public class ArxivTaxonomyTsv {
                 # a test.
                 #
                 # Name: arXiv subject taxonomy
-                # Publisher: arXiv, Inc. (https://arxiv.org/category_taxonomy)
+                # Short name: arXiv
+                # Publisher: arXiv, Inc.
+                # Published at: https://arxiv.org/category_taxonomy
                 # Kind: subjects
+                # Description: arXiv's subject taxonomy: the subject areas research is classified into.
+                # Subject: research subject areas
                 # Source: arXiv's own taxonomy definitions, the module its software classifies by, read from
                 #  \s""" + source + """
                 .

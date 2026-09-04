@@ -37,8 +37,12 @@ public class CweTermsTsv {
                 # is a grouping a view draws for navigation, not a weakness.
                 #
                 # Name: Common Weakness Enumeration 4.13
-                # Publisher: The MITRE Corporation (https://cwe.mitre.org/)
+                # Short name: CWE
+                # Publisher: The MITRE Corporation
+                # Published at: https://cwe.mitre.org/
                 # Kind: terms
+                # Description: The Common Weakness Enumeration: the names MITRE states for software weaknesses.
+                # Subject: software weaknesses
                 # Source: the CWE 4.13 catalog XML as the OWASP cwe-sdk-javascript repository vendors it,
                 """
                 + "#   at " + source + ",\n"

@@ -41,8 +41,13 @@ public class FixTermsTsv {
                 # values, and neither is a subject a declared name can be about.
                 #
                 # Name: FIX Orchestra, FIX Latest
-                # Publisher: the FIX Trading Community (https://www.fixtrading.org/standards/fix-orchestra/)
+                # Short name: FIX
+                # Publisher: the FIX Trading Community
+                # Published at: https://www.fixtrading.org/standards/fix-orchestra/
                 # Kind: terms
+                # Description: The FIX protocol as FIX Orchestra states it: how the front office talks to the market \
+                and the back office settles.
+                # Subject: financial information exchange
                 # Source: OrchestraFIXLatest.xml in the FIX Trading Community's own orchestrations
                 """
                 + "#   repository, at " + source + ",\n"

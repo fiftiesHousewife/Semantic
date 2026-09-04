@@ -32,7 +32,7 @@ public class SqlFunctionTsv {
                 # "Absolute value", which is the citation, not a guess about it.
                 #
                 # Name: DuckDB's own function catalogue
-                # Publisher: DuckDB (https://duckdb.org/docs/stable/sql/functions/overview)
+                # Publisher: DuckDB
                 # Kind: identifiers
                 # Source: DuckDB's duckdb_functions() catalogue, read from the embedded engine at
                 #   version\s""" + engineVersion + """

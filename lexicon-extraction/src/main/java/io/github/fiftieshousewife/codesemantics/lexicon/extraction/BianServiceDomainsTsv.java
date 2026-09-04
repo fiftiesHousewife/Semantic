@@ -33,8 +33,12 @@ public class BianServiceDomainsTsv {
                 # purpose. A domain BIAN states no role definition for is not carried.
                 #
                 # Name: BIAN Service Landscape
-                # Publisher: the Banking Industry Architecture Network (https://bian.org/servicelandscape/)
+                # Short name: BIAN
+                # Publisher: the Banking Industry Architecture Network
+                # Published at: https://bian.org/servicelandscape/
                 # Kind: subjects
+                # Description: The BIAN Service Landscape: the business capabilities a bank's services are named by.
+                # Subject: banking business capabilities
                 # Source: BIAN's own published artefacts, one specification file per service domain, at
                 """
                 + "#   " + source + ",\n"
