@@ -8,8 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 
 /**
  * The kinds of evidence a reading can answer from, strongest first. The first kind that qualifies answers,
@@ -228,10 +227,7 @@ public enum EvidenceKinds {
                 .count();
     }
 
-    private static final Map<String, String> DESCRIPTIONS = Stream.concat(
-                    Stream.of(MatchedTaxonomies.values())
-                            .map(one -> Map.entry(one.index().source(), one.description())),
-                    Stream.of(ControlTaxonomies.values())
-                            .map(one -> Map.entry(one.index().source(), one.description())))
+    private static final Map<String, String> DESCRIPTIONS = Stream.of(BundledTaxonomies.values())
+            .map(one -> Map.entry(one.source(), one.description()))
             .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
 }

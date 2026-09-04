@@ -34,11 +34,11 @@ public final class SubjectConditioningProbe {
         final TreeReading reading = TreeReading.ofTheCloneUnderReading();
         final TopicDistribution repository = reading.themes().repository().comparison();
         System.out.printf("%n%s%n", reading.root());
-        java.util.Arrays.stream(MatchedTaxonomies.values())
+        java.util.Arrays.stream(BundledTaxonomies.values())
                 .forEach(taxonomy -> report(taxonomy, reading, repository));
     }
 
-    private static void report(final MatchedTaxonomies taxonomy, final TreeReading reading,
+    private static void report(final BundledTaxonomies taxonomy, final TreeReading reading,
                                final TopicDistribution repository) {
         final List<SkosConcept> published = taxonomy.publishedConcepts();
         final BranchAgreement agreement = BranchAgreement.between(repository, published,

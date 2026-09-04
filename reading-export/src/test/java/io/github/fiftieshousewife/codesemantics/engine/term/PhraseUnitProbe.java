@@ -62,9 +62,7 @@ public final class PhraseUnitProbe {
 
     /** Every vocabulary a reading matches and every control it is judged against, in that order. */
     private static List<TermIndex> judged() {
-        return Stream.concat(
-                        Stream.of(MatchedTaxonomies.values()).map(MatchedTaxonomies::index),
-                        Stream.of(ControlTaxonomies.values()).map(ControlTaxonomies::index))
+        return Stream.of(BundledTaxonomies.values()).map(BundledTaxonomies::index)
                 .toList();
     }
 }

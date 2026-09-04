@@ -27,10 +27,10 @@ public final class CountedPhraseProbe {
         final List<WrittenRun> written = WrittenRuns.fromClasspath().in(tree.parsed());
         System.out.printf("%n%s — %d declared runs%n", tree.root().getFileName(), written.size());
         System.out.printf("%n%-8s %8s %8s   %s%n", "source", "counted", "published", "counted and unreached");
-        List.of(MatchedTaxonomies.values()).forEach(taxonomy -> row(taxonomy, tree, written));
+        List.of(BundledTaxonomies.values()).forEach(taxonomy -> row(taxonomy, tree, written));
     }
 
-    private static void row(final MatchedTaxonomies taxonomy, final TreeReading tree,
+    private static void row(final BundledTaxonomies taxonomy, final TreeReading tree,
                             final List<WrittenRun> written) {
         final SpecificTerms judged = SpecificTerms.of(taxonomy.index());
         final Set<String> counted = countedBy(judged, written);
@@ -52,7 +52,7 @@ public final class CountedPhraseProbe {
     }
 
     private static Set<String> publishedAtTheCountedLevel(final SpecificTerms judged,
-                                                          final MatchedTaxonomies taxonomy,
+                                                          final BundledTaxonomies taxonomy,
                                                           final TreeReading tree) {
         return CorroboratedReading.of(judged, taxonomy.index().publishedConcepts(), tree.parsed())
                 .matched()

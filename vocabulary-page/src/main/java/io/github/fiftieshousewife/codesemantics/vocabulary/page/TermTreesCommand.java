@@ -14,8 +14,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 import lombok.extern.slf4j.Slf4j;
@@ -58,12 +57,8 @@ public final class TermTreesCommand {
     /** Every vocabulary a reading matches, under the name its publisher states, in the order drawn. */
     private static Map<String, List<SkosConcept>> published() {
         final Map<String, List<SkosConcept>> published = new LinkedHashMap<>();
-        Stream.of(MatchedTaxonomies.values())
-                .forEach(taxonomy -> published.put(taxonomy.index().source(),
-                        taxonomy.publishedConcepts()));
-        Stream.of(ControlTaxonomies.values())
-                .forEach(control -> published.put(control.index().source(),
-                        control.publishedConcepts()));
+        Stream.of(BundledTaxonomies.values())
+                .forEach(taxonomy -> published.put(taxonomy.source(), taxonomy.publishedConcepts()));
         return published;
     }
 

@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 
 /**
  * What each bundled standard is itself about, by the name a reading calls it.
@@ -26,10 +25,8 @@ final class PublisherSubjects {
 
     static PublisherSubjects all() {
         final Map<String, String> byName = new LinkedHashMap<>();
-        Stream.of(MatchedTaxonomies.values())
-                .forEach(one -> byName.put(one.index().source(), one.subject()));
-        Stream.of(ControlTaxonomies.values())
-                .forEach(one -> byName.put(one.index().source(), one.subject()));
+        Stream.of(BundledTaxonomies.values())
+                .forEach(one -> byName.put(one.source(), one.subject()));
         return new PublisherSubjects(byName);
     }
 

@@ -62,9 +62,7 @@ public final class TermhoodProbe {
     }
 
     private static List<TermIndex> judged() {
-        return Stream.concat(
-                        Stream.of(MatchedTaxonomies.values()).map(MatchedTaxonomies::index),
-                        Stream.of(ControlTaxonomies.values()).map(ControlTaxonomies::index))
+        return Stream.of(BundledTaxonomies.values()).map(BundledTaxonomies::index)
                 .toList();
     }
 }

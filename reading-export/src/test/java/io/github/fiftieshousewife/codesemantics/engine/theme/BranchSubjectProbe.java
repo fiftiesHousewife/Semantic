@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
@@ -41,11 +41,11 @@ public final class BranchSubjectProbe {
     public static void main(final String[] args) {
         final List<SubjectTopics> topics = SubjectAreas.topicsFromClasspath();
         System.out.printf("%nOpenAlex, %d topics read%n", topics.size());
-        java.util.Arrays.stream(MatchedTaxonomies.values())
+        java.util.Arrays.stream(BundledTaxonomies.values())
                 .forEach(taxonomy -> report(taxonomy, topics));
     }
 
-    private static void report(final MatchedTaxonomies taxonomy, final List<SubjectTopics> topics) {
+    private static void report(final BundledTaxonomies taxonomy, final List<SubjectTopics> topics) {
         final List<SkosConcept> published = taxonomy.publishedConcepts();
         final Map<String, List<SkosConcept>> byBranch = branches(published);
         final long describing = published.stream().filter(BranchSubjectProbe::describes).count();

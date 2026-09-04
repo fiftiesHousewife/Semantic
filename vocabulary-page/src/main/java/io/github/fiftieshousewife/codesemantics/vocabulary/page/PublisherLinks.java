@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.CsoSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
@@ -33,10 +32,8 @@ final class PublisherLinks {
 
     static PublisherLinks all() {
         final Map<String, String> byName = new LinkedHashMap<>();
-        Stream.of(MatchedTaxonomies.values())
-                .forEach(one -> byName.put(one.index().source(), one.publishedAt()));
-        Stream.of(ControlTaxonomies.values())
-                .forEach(one -> byName.put(one.index().source(), one.publishedAt()));
+        Stream.of(BundledTaxonomies.values())
+                .forEach(one -> byName.put(one.source(), one.publishedAt()));
         Stream.<PublishedSubjects>of(ArxivSubjects.fromClasspath(), OpenAlexTopics.fromClasspath(),
                         CsoSubjects.fromClasspath())
                 .forEach(scheme -> byName.put(scheme.scheme(), scheme.publishedAt()));

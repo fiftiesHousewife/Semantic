@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatch;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatches;
 
@@ -67,27 +66,17 @@ record ReadingEvidence(String schemaVersion, String repository, int files, int l
     /**
      * Every bundled taxonomy's matching of one tree, under the name its publisher states. The readings are
      * asked for rather than taken, so a run that has already matched a taxonomy does not match it twice.
+     *
+     * <p>Every one of the seven on the same basis, which is what the export publishes them on. Two lists
+     * used to arrive here and only one of them was narrowed to the terms the reference corpus says are a
+     * vocabulary's own: the two the reading held were, and the five matched here for the comparison were
+     * not. Nothing decided that — it followed from which enum a vocabulary sat in.
      */
-    static List<TermMatch> matching(final java.util.function.Function<MatchedTaxonomies,
+    static List<TermMatch> matching(final java.util.function.Function<BundledTaxonomies,
             CorroboratedReading> read) {
         final TermMatches matches = new TermMatches();
-        return Stream.of(MatchedTaxonomies.values())
-                .flatMap(taxonomy -> matches.of(taxonomy.index().source(), read.apply(taxonomy)).stream())
-                .toList();
-    }
-
-    /**
-     * The out-of-domain controls' matching of the same tree, beside {@link #matching} in the one list.
-     * The controls vote on nothing; their matches are recorded because the comparison is the evidence.
-     */
-    static List<TermMatch> matchingWithControls(final java.util.function.Function<MatchedTaxonomies,
-            CorroboratedReading> read, final ParsedRepository parsed) {
-        final TermMatches matches = new TermMatches();
-        return Stream.concat(
-                        matching(read).stream(),
-                        Stream.of(ControlTaxonomies.values())
-                                .flatMap(control -> matches.of(control.index().source(),
-                                        control.reading(parsed)).stream()))
+        return Stream.of(BundledTaxonomies.values())
+                .flatMap(taxonomy -> matches.of(taxonomy.source(), read.apply(taxonomy)).stream())
                 .toList();
     }
 }

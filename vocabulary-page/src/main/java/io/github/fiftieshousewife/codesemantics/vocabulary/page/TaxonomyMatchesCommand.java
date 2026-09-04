@@ -12,8 +12,7 @@ import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,10 +59,7 @@ public final class TaxonomyMatchesCommand {
 
     /** The vocabularies the matching enumerates, under the names their publishers state. */
     static List<String> vocabularies() {
-        return Stream.concat(
-                        Stream.of(MatchedTaxonomies.values()).map(taxonomy -> taxonomy.index().source()),
-                        Stream.of(ControlTaxonomies.values()).map(control -> control.index().source()))
-                .toList();
+        return Stream.of(BundledTaxonomies.values()).map(BundledTaxonomies::source).toList();
     }
 
     static Path wrote(final Path reports, final List<RepositoryMatches> rows) throws IOException {

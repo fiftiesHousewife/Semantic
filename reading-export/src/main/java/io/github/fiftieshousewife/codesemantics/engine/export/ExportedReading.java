@@ -13,10 +13,9 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading
 import io.github.fiftieshousewife.codesemantics.engine.reading.UnreadJavaFiles;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
@@ -99,12 +98,7 @@ public final class ExportedReading {
      * list, so a caller supplying its own term reading judges the same field the default does.
      */
     public static List<TermIndex> everyBundledVocabularyBesidesOlia() {
-        return Stream.concat(
-                        Stream.of(MatchedTaxonomies.values())
-                                .filter(taxonomy -> taxonomy != MatchedTaxonomies.OLIA)
-                                .map(MatchedTaxonomies::index),
-                        Stream.of(ControlTaxonomies.values()).map(ControlTaxonomies::index))
-                .toList();
+        return BundledTaxonomies.besides(BundledTaxonomies.OLIA);
     }
 
     /**

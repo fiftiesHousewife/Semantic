@@ -3,8 +3,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
@@ -19,13 +18,9 @@ record BundledVocabularies(String name, String description, List<SkosConcept> pu
     }
 
     static List<BundledVocabularies> all() {
-        return Stream.concat(
-                        Stream.of(MatchedTaxonomies.values())
-                                .map(taxonomy -> new BundledVocabularies(taxonomy.index().source(),
-                                        taxonomy.description(), taxonomy.publishedConcepts())),
-                        Stream.of(ControlTaxonomies.values())
-                                .map(control -> new BundledVocabularies(control.index().source(),
-                                        control.description(), control.publishedConcepts())))
+        return Stream.of(BundledTaxonomies.values())
+                .map(taxonomy -> new BundledVocabularies(taxonomy.source(), taxonomy.description(),
+                        taxonomy.publishedConcepts()))
                 .toList();
     }
 }

@@ -5,7 +5,7 @@ import java.util.Locale;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.ConceptTopics;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 
 /**
  * Every path of the reading placed against every bundled subject scheme, printed side by side.
@@ -36,7 +36,7 @@ public final class PathPlacementProbe {
         final ConceptTopics concepts = ConceptTopics.fromClasspath();
         final List<ReadingPath> paths = new java.util.ArrayList<>();
         paths.add(new ReadingPath("vocabulary", reading.themes().repository().comparison(), ""));
-        java.util.stream.Stream.of(MatchedTaxonomies.values()).forEach(taxonomy -> {
+        java.util.stream.Stream.of(BundledTaxonomies.values()).forEach(taxonomy -> {
             final var matched = reading.terms(taxonomy).matched();
             paths.add(new ReadingPath("concepts " + taxonomy.index().source(), concepts.of(matched),
                     String.format(Locale.ROOT, "%d of %d matched concepts state prose",

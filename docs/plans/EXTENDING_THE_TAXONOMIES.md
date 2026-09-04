@@ -123,6 +123,30 @@ The three keys step 1 named could not carry what step 2 needs, because the enums
 
 Eleven constants are gone from seven classes: `ArxivSubjects`, `OpenAlexTopics`, `CsoSubjects` and `BianServiceDomains` read their name and their link off the file, and `LinguisticTerms`, `ComputingTerms` and `FinanceTerms` read the name a match cites off it.
 
+### Step 2b: one list of what is bundled — landed 2026-09-04
+
+`BundledTaxonomies` is the seven, in the order the two lists concatenated to, and `MatchedTaxonomies` and `ControlTaxonomies` are deleted. Nothing about a vocabulary is stated in it: the name a match cites, the description, the subject and the link all come off the resource's own header through `TermVocabularies`, and what is left per entry is the `TermIndex` and, for CSO alone, that its concepts are the ones its index reaches a term for rather than the whole published list.
+
+`TermVocabularies` stays. `PublishedTermRuns` needs the seven vocabularies' concepts and lives in `code-semantics-engine`, which sits below the module a `TermIndex` lives in — so the membership list is in `lexicon` and the indexes are in `skos-matching`. **Three enumerations became two, not one**, and the plan counted two because it had not found the third.
+
+### The one place the split was load-bearing, and what moving it cost
+
+Nine of the ten call sites concatenated the two lists, so the split was already ignored. The tenth was not. `ReadingEvidence` recorded the matched taxonomies' matches from readings narrowed by `SpecificTerms` — the terms the reference corpus says are a vocabulary's own — and the controls' matches from the whole index, because the controls' readings were taken here rather than reused. **Nothing decided that**: it followed from which enum a vocabulary sat in, and the export narrows all seven when it publishes them.
+
+So the evidence recorded five of its seven vocabularies on a basis the export does not publish them on. `matching` now reads every one of the seven the way the export does, `matchingWithControls` is deleted, and `reading.json` is untouched by the change because the export never took that path.
+
+### What the eleven members measured
+
+`evaluationReadAll` over all eleven, then jpos read a second time against the old code for a straight before and after:
+
+| | Result |
+|---|---|
+| `reading.json` | **every published figure identical.** The one difference is `summary.commit`, blank in a single-member run and populated by the sweep, which is a metadata artefact this repository already knew about |
+| `evidence.json`, OLiA and CSO | unchanged — 111 and 100 matches on jpos, 238 and 221 on tika |
+| `evidence.json`, the other five | fewer matches, which is the narrowing arriving. On jpos: CWE 5 to 3, FIX 47 to 42, FpML 70 to 65, FIBO and BIAN unchanged. On tika: FpML 114 to 93, FIBO 157 to 155, FIX 70 to 66, CWE 13 to 7 |
+
+**Only `matches` moves in `evidence.json`** — no other key of it differs, and no key of `reading.json` does. The answers this library publishes are untouched; the workings behind five of the seven vocabularies are now recorded on the basis the answers use.
+
 ### What step 2 cannot do, and this is a finding rather than a decision
 
 **The matched list is not derivable from the header, and `TaxonomyShape` — the class that claimed to derive it — is dead.** Its javadoc says prose per concept means a distribution to place against and labels without prose mean terms to match, naming CSO, OLiA and FIBO as the second case. Read against the files: OLiA states 1,216 definitions over 1,312 concepts, FIBO 1,792 over 1,833, FIX 7,003 over 7,170, and CSO is the only one of the seven stating none. The rule would now put six of the seven matched vocabularies in the placed set. Nothing calls it — `InjectedTaxonomy.shape()` is its only caller and nothing calls that — so no reading is wrong; the rule is simply stale, and the files moved under it when the definitions the extractions had been discarding were carried.

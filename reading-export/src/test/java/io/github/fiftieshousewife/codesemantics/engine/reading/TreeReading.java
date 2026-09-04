@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
-import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
@@ -49,7 +49,7 @@ public final class TreeReading {
     private static final Map<Match, CorroboratedReading> TERMS = new ConcurrentHashMap<>();
 
     /** One tree read against one taxonomy, which is what a corroborated reading is of. */
-    private record Match(Path root, MatchedTaxonomies taxonomy) {
+    private record Match(Path root, BundledTaxonomies taxonomy) {
     }
 
     /** Each tree's arXiv placement at the shared seed, with both chance draws inside it. */
@@ -109,7 +109,7 @@ public final class TreeReading {
 
     /** The in-domain term vocabulary read over this tree, computed once per JVM like the reading itself. */
     public CorroboratedReading terms() {
-        return terms(MatchedTaxonomies.OLIA);
+        return terms(BundledTaxonomies.OLIA);
     }
 
     /**
@@ -120,7 +120,7 @@ public final class TreeReading {
      * publisher's whole concept list still supplies the branch rule, because what a publisher states about
      * its own tree is not narrowed by what a corpus writes.
      */
-    public CorroboratedReading terms(final MatchedTaxonomies taxonomy) {
+    public CorroboratedReading terms(final BundledTaxonomies taxonomy) {
         return TERMS.computeIfAbsent(new Match(root, taxonomy),
                 match -> CorroboratedReading.of(SpecificTerms.of(match.taxonomy().index()),
                         match.taxonomy().publishedConcepts(), parsed()));
