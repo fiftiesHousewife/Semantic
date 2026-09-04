@@ -30,15 +30,14 @@ public final class WiktionaryExtraction {
     private final AbbreviationTsv abbreviationTsv = new AbbreviationTsv();
     private final TopicTsv topicTsv = new TopicTsv();
 
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 4 || args[2].isBlank() || args[3].isBlank()) {
-            throw new IllegalArgumentException("Usage: WiktionaryExtraction "
-                    + "<English kaikki jsonl or jsonl.gz dump; blank downloads it> "
-                    + "<Translingual dump; blank downloads it> <abbreviations tsv> <topics tsv>");
-        }
-        final Path english = args[0].isBlank() ? WiktionaryDump.english().fetch() : Path.of(args[0]);
-        final Path translingual = args[1].isBlank() ? WiktionaryDump.translingual().fetch() : Path.of(args[1]);
-        new WiktionaryExtraction().extract(List.of(english, translingual), Path.of(args[2]), Path.of(args[3]));
+    /** The dumps a caller named, downloading the published one wherever the caller named none. */
+    public List<Path> dumps(final String english, final String translingual) throws IOException {
+        return List.of(dump(english, WiktionaryDump.english()),
+                dump(translingual, WiktionaryDump.translingual()));
+    }
+
+    private static Path dump(final String stated, final WiktionaryDump published) throws IOException {
+        return stated.isBlank() ? published.fetch() : Path.of(stated);
     }
 
     public void extract(final List<Path> dumps, final Path abbreviationsOut, final Path topicsOut)
@@ -72,8 +71,7 @@ public final class WiktionaryExtraction {
     }
 
     private static void write(final Path output, final String text) throws IOException {
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, text);
+        new BundledResource(output).written(text);
     }
 
     private static BufferedReader open(final Path dump) throws IOException {

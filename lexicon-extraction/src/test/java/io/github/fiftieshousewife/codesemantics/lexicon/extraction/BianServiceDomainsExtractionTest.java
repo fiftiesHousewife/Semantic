@@ -13,7 +13,7 @@ class BianServiceDomainsExtractionTest {
 
     @Test
     void refusesASpecificationSetThatIsNotTheRevisionTheHeaderWouldCite() {
-        assertThatThrownBy(() -> extraction.asRecorded(List.of(new ContentDigest.Member(
+        assertThatThrownBy(() -> extraction.source().pinned(List.of(new ContentDigest.Member(
                 "Drifted/DriftedSpecification.csv", "\"Role Definition\"\tMoved.\n"
                         .getBytes(StandardCharsets.UTF_8)))))
                 .isInstanceOf(IllegalArgumentException.class)

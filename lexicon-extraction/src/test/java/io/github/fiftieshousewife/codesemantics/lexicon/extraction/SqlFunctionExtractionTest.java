@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SqlFunctionExtractionTest {
 
@@ -36,12 +35,5 @@ class SqlFunctionExtractionTest {
         final Path output = directory.resolve("sql-functions.tsv");
         new SqlFunctionExtraction().extract(output);
         assertThat(Files.readString(output)).contains("abs\tAbsolute value");
-    }
-
-    @Test
-    void refusesToRunWithoutAnOutputPath() {
-        assertThat(assertThrows(IllegalArgumentException.class,
-                () -> SqlFunctionExtraction.main(new String[] {"  "})))
-                .hasMessageContaining("Usage");
     }
 }

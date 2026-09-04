@@ -14,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  *
  * <p>The registry states no revision, so the file set itself is the citation: whatever is read is accepted
  * only if it digests to the recorded value, so a copy that is not the file set this class cites fails
- * instead of being bundled. The CSVs are read from a local directory — {@code -Pmediatypes=<path>} — one
+ * instead of being bundled. The CSVs are read from a local directory — {@code -Psource=<path>} — one
  * file per registry as IANA serves them at
  * {@code https://www.iana.org/assignments/media-types/<registry>.csv}.
  */
@@ -29,32 +29,26 @@ public final class MediaTypeExtraction {
     static final List<String> REGISTRIES = List.of("application", "audio", "font", "haptics", "image",
             "message", "model", "multipart", "text", "video");
 
-    private static final String SET_DIGEST =
-            "fd3eea02e8610628e4a3b6eb0b66a415fdbf973ce1e73e667be24b12cd505aeb";
-
     private final MediaTypeConcepts concepts = new MediaTypeConcepts();
 
     private final MediaTypesTsv tsv = new MediaTypesTsv();
 
-    private final ContentDigest digest = new ContentDigest();
-
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: MediaTypeExtraction <registry csv directory> <tsv>");
-        }
-        new MediaTypeExtraction().extract(Path.of(args[0]), Path.of(args[1]));
-    }
+    private final PinnedSet source = new PinnedSet(SOURCE, "registry CSVs",
+            "fd3eea02e8610628e4a3b6eb0b66a415fdbf973ce1e73e667be24b12cd505aeb");
 
     public void extract(final Path directory, final Path output) throws IOException {
-        final List<ContentDigest.Member> read = pinned(readAll(directory));
+        final List<ContentDigest.Member> read = source.pinned(readAll(directory));
         final List<SkosConcept> types = read.stream()
                 .flatMap(member -> concepts
                         .in(member.name().replace(".csv", ""),
                                 new String(member.bytes(), StandardCharsets.UTF_8))
                         .stream())
                 .toList();
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(types, SOURCE, SET_DIGEST));
+        new BundledResource(output).written(tsv.render(types, source.citation(), source.digest()));
+    }
+
+    PinnedSet source() {
+        return source;
     }
 
     private static List<ContentDigest.Member> readAll(final Path directory) throws IOException {
@@ -70,17 +64,5 @@ public final class MediaTypeExtraction {
                     }
                 })
                 .toList();
-    }
-
-    /** What was read is the cited file set only if it digests to the recorded value. */
-    List<ContentDigest.Member> pinned(final List<ContentDigest.Member> read) {
-        final String found = digest.of(read);
-        if (!SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException(String.format(Locale.ROOT,
-                    "The registry CSVs read digest to %s, where the file set this class cites digests to "
-                    + "%s",
-                    found, SET_DIGEST));
-        }
-        return read;
     }
 }

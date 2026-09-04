@@ -43,8 +43,9 @@ class WiktionaryExtractionTest {
         final Path abbreviations = workDir.resolve("out/wiktionary-abbreviations.tsv");
         final Path topics = workDir.resolve("out/wiktionary-topics.tsv");
 
-        WiktionaryExtraction.main(new String[] {
-                dump.toString(), translingual.toString(), abbreviations.toString(), topics.toString()});
+        final WiktionaryExtraction extraction = new WiktionaryExtraction();
+        extraction.extract(extraction.dumps(dump.toString(), translingual.toString()),
+                abbreviations, topics);
 
         assertAll(
                 () -> assertThat(dataRows(abbreviations)).containsExactly(
@@ -73,10 +74,12 @@ class WiktionaryExtractionTest {
     }
 
     @Test
-    void refusesToRunWithoutOutputPaths() {
-        assertThatThrownBy(() -> WiktionaryExtraction.main(new String[] {"en.jsonl", "mul.jsonl", "out.tsv"}))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("Usage");
+    void readsTheDumpsACallerNamesWithoutDownloadingEither() throws IOException {
+        final Path english = workDir.resolve("en.jsonl");
+        final Path translingual = workDir.resolve("mul.jsonl");
+
+        assertThat(new WiktionaryExtraction().dumps(english.toString(), translingual.toString()))
+                .containsExactly(english, translingual);
     }
 
     private static List<String> dataRows(final Path output) throws IOException {

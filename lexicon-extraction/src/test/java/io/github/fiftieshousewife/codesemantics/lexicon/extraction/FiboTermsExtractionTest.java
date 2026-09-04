@@ -20,10 +20,10 @@ class FiboTermsExtractionTest {
 
     @Test
     void refusesOntologiesThatAreNotTheOnesThatRevisionHeld() {
-        assertThatThrownBy(() -> extraction.asRecorded(List.of(new ContentDigest.Member("DER/Swaps.rdf",
+        assertThatThrownBy(() -> extraction.ontologies().pinned(List.of(new ContentDigest.Member("DER/Swaps.rdf",
                 "not what the revision holds".getBytes(StandardCharsets.UTF_8)))))
                 .as("the manifest names the members; this is what says the members have not moved")
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("digest to");
+                .hasMessageContaining("1 ontologies digesting to");
     }
 }

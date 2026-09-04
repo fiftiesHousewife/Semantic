@@ -1,26 +1,39 @@
 # The extractors
 
-**This remains the debt, and the queue behind it is unchanged** — the standards a repository implements, a second linguistics taxonomy, the classification run's Trove classifiers would each arrive as another copy of the same steps, and the copy is what the restructure removes. Two arrivals were taken ahead of it on an explicit decision (2026-08-18): CSO and BIAN were bundled with extractors of their own — `CsoTopicsExtraction`, `BianServiceDomainsExtraction` — because both files already existed unregenerable, which was the worse debt.
-
-`lexicon-extraction` holds 44 classes and every source is extracted by the same six steps, written out again each time. Six `*Extraction` classes state them; the next four sources the plans name would state them twice more each.
+**Landed 2026-09-04.** `lexicon-extraction` stated the same six steps once per source; it states them once. The queue behind it — the standards a repository implements, a second linguistics taxonomy, the classification run's Trove classifiers — no longer arrives as another copy.
 
 ## What every extraction does, in order
 
 1. Pin a revision — a commit, never a branch.
 2. Name the source at that revision, as a URL a reader can open.
-3. Read it: fetch it, or read the local copy a `-P` property names.
-4. **Verify the blob id git would give what was read**, so a run without a network route still writes the permalink honestly and a fetch answered by something else fails.
+3. Read it: fetch it, or read the local copy a `-Psource` property names.
+4. **Verify the digest the publisher's own revision holds**, so a run without a network route still writes the permalink honestly and a fetch answered by something else fails.
 5. Parse the source's own format into rows.
 6. Write the TSV with its provenance header.
 
-Steps 1–4 and 6 are identical in `OliaTermsExtraction`, `NistCsfExtraction`, `FiboTermsExtraction`, `SqlFunctionExtraction`, `ArxivTaxonomyExtraction`, `WiktionaryExtraction` and both Wikidata extractions. **Only step 5 differs**, and it is the only step that is about the source at all.
+**Only step 5 differs**, and it is the only step that is about the source at all.
 
-## The shape
+## What each step is now, and what it replaced
 
-- `PinnedSource` — revision, URI, expected blob id, and the property that overrides the fetch. One record, constructed per source.
-- `Extraction` — one method: rows from the text that was read. Each source implements this and nothing else.
-- One runner that composes the two, carries the `main`, and writes the header.
+| Step | The one place | It replaced |
+|---|---|---|
+| 4, for a source that is one file | `PinnedSource`, which asks whether git would give the bytes the blob id that revision holds | already the one place before this change |
+| 4, for a source that is a set of files | **`PinnedSet`**, over `ContentDigest` | seven hand-written acceptances with seven refusal messages — `CsoTopicsExtraction.pinned`, `FpmlTermsExtraction.asRecorded`, `FiboTermsExtraction.asRecorded`, `BianServiceDomainsExtraction.asRecorded`, `MediaTypeExtraction.pinned`, `OpenAlexTopicsExtraction.pinned`, and `XwndDomainsExtraction`, which reimplemented SHA-256 beside the class that already computes it |
+| 6 | **`BundledResource`** | fifteen copies of `Files.createDirectories(output.toAbsolutePath().getParent())` followed by `Files.writeString` |
+| the arguments | **`StatedSources`**, which reads a source an extraction downloads for itself as blank and refuses one it reads off disk by name | sixteen `main` methods, each restating its own argument order and its own usage string, called through a `String[]` that `BundledExtractions` had already built from typed values |
+| the routing | **`BundledExtraction`**, a record of the name, what it reads and the reading | an enum of eighteen anonymous subclasses. What each extraction reads is now prose a caller sees: naming a taxonomy nothing bundles prints every name and what each takes |
+| 5 | `Extraction`, one method | — |
 
-**What settles it:** every existing extraction is expressible with no behaviour change — the bundled TSVs are byte-identical after the move, which is a straight before-and-after over files already in the tree. **Abandon if** a source needs step 4 loosened; the blob-id check is what makes an extraction citable, and a source that cannot be pinned is a source that cannot be bundled.
+`FiboTermsExtraction` is the one source pinned both ways, and it states both: `PinnedSource` for the manifest's own blob, `PinnedSet` for the ontologies the manifest names.
 
-**Why it is worth doing before the next source lands, not after.** Four more vocabularies are named across the plans — a second linguistics taxonomy, PyPI Trove classifiers, one or more industry ontologies — and each would otherwise arrive as another copy of the same 80 lines, with the provenance rules re-stated rather than inherited. It also pairs with the split `INDUSTRY_VOCABULARIES.md` states: the module is flat because the publisher had nowhere to live but the class name.
+## What settled it
+
+**One source runs end to end with no network route and no local copy — `sql-functions`, read out of the embedded query engine** — and `git diff` over the regenerated `lexicon/src/main/resources/sql-functions.tsv` reports nothing. That is the whole path through the new shape: `ExtractionCommand`, `BundledExtractions`, `StatedSources`, `SqlFunctionExtraction`, `BundledResource`.
+
+The other seventeen sources need a checkout, an archive or a network route the agent shell does not have, so their byte-identity rests on the constants: every recorded digest and every source citation moved unchanged into its `PinnedSet`, and each is the value the committed TSV's own header carries.
+
+**One refusal moved deliberately.** `XwndDomainsExtraction` wrote to a path it hardcoded relative to the working directory, ignoring the resource directory every other extraction was handed. It takes the path now.
+
+## What is left
+
+`BundledExtractions` is 133 lines against the 150 the repository holds to. `CsoConcepts` at 174 and `OwlClasses` at 169 are over it and this change did not touch them.

@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HexFormat;
 import java.util.Locale;
 import java.util.zip.ZipFile;
 
@@ -29,41 +26,28 @@ public final class XwndDomainsExtraction {
             "67ce20a24eeb03ccb604327761e4c7958fc761016f6833384493b7479fb3ad70";
 
     private static final String INDEX_ENTRY = "net/sf/extjwnl/data/wordnet/wn30/index.sense";
-    private static final Path OUT = Path.of("lexicon/src/main/resources/xwnd-domains.tsv");
 
-    private XwndDomainsExtraction() {
-    }
+    private static final ContentDigest DIGEST = new ContentDigest();
 
-    public static void main(final String[] arguments) throws IOException {
-        final Path archive = Path.of(arguments[0]);
-        final Path index = Path.of(arguments[1]);
+    public void extract(final Path archive, final Path index, final Path output) throws IOException {
         accept(archive, ARCHIVE_SHA256, "the XWND distribution");
         accept(index, INDEX_SHA256, "the WordNet 3.0 data artefact");
         try (InputStream vectors = Files.newInputStream(archive);
              ZipFile jar = new ZipFile(index.toFile());
              InputStream senses = jar.getInputStream(jar.getEntry(INDEX_ENTRY))) {
-            Files.writeString(OUT, new XwndDomainsTsv().render(XwndConcepts.in(vectors, senses),
-                    SOURCE_URL, ARCHIVE_SHA256, INDEX_URL, INDEX_SHA256));
+            new BundledResource(output).written(new XwndDomainsTsv().render(
+                    XwndConcepts.in(vectors, senses), SOURCE_URL, ARCHIVE_SHA256, INDEX_URL, INDEX_SHA256));
         }
     }
 
     /** The file's bytes must digest to the recorded constant, or nothing is read from it. */
     static void accept(final Path file, final String recorded, final String what) throws IOException {
-        final String digest = sha256(file);
+        final String digest = DIGEST.hexOf(Files.readAllBytes(file));
         if (!recorded.equals(digest)) {
             throw new IllegalStateException(String.format(Locale.ROOT,
                     "The file at %s digests to %s where %s digests to %s. A table built from unverified "
                             + "bytes states a provenance it does not have.",
                     file, digest, what, recorded));
-        }
-    }
-
-    private static String sha256(final Path file) throws IOException {
-        try {
-            return HexFormat.of().formatHex(
-                    MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(file)));
-        } catch (final NoSuchAlgorithmException e) {
-            throw new IllegalStateException("Every JVM ships SHA-256", e);
         }
     }
 }

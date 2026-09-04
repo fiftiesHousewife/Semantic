@@ -30,14 +30,6 @@ public final class CsoAbstractsExtraction {
 
     private final CsoAbstractsTsv tsv = new CsoAbstractsTsv();
 
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 3) {
-            throw new IllegalArgumentException(
-                    "Usage: CsoAbstractsExtraction <summaries.jsonl> <tsv> <retrieved>");
-        }
-        new CsoAbstractsExtraction().extract(Path.of(args[0]), Path.of(args[1]), args[2]);
-    }
-
     public void extract(final Path summaries, final Path output, final String retrieved)
             throws IOException {
         final List<CsoAbstractsTsv.Summary> read = Files.readAllLines(summaries, StandardCharsets.UTF_8)
@@ -51,8 +43,7 @@ public final class CsoAbstractsExtraction {
                     "%s states no summary, so there is nothing to bundle",
                     summaries));
         }
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(read, retrieved));
+        new BundledResource(output).written(tsv.render(read, retrieved));
     }
 
     /**

@@ -13,8 +13,8 @@ class MediaTypeExtractionTest {
     void refusesAFileSetThatIsNotTheOneThisClassCites() {
         final List<ContentDigest.Member> other = List.of(new ContentDigest.Member("application.csv",
                 "Name,Template,Reference\n".getBytes(StandardCharsets.UTF_8)));
-        assertThatThrownBy(() -> new MediaTypeExtraction().pinned(other))
+        assertThatThrownBy(() -> new MediaTypeExtraction().source().pinned(other))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("where the file set this class cites digests to");
+                .hasMessageContaining("1 registry CSVs digesting to");
     }
 }

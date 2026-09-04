@@ -3,7 +3,6 @@ package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
@@ -11,7 +10,7 @@ import java.nio.file.Path;
  * a pinned revision rather than at a branch, for the same reason every citation this library renders is a
  * permalink: a reading that cannot be reproduced is not a citation.
  *
- * <p>Whatever it reads — the published catalogue or the copy {@code -Pcatalog=<path>} names — is accepted
+ * <p>Whatever it reads — the published catalogue or the copy {@code -Psource} names — is accepted
  * only if git would give it the blob id that revision holds. So an extraction run without a network route
  * still writes the permalink as its source, having shown rather than assumed that it read what the
  * permalink holds, and a fetch answered by something other than the catalogue fails instead of being
@@ -32,18 +31,10 @@ public final class NistCsfExtraction {
 
     private final PinnedSource source = new PinnedSource(CATALOG, REVISION, CATALOG_BLOB);
 
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: NistCsfExtraction <catalog or blank> <tsv>");
-        }
-        new NistCsfExtraction().extract(args[0], Path.of(args[1]));
-    }
-
     public void extract(final String catalog, final Path output) throws IOException {
         final OscalCatalog document =
                 new OscalCatalog(new String(source.read(catalog), StandardCharsets.UTF_8));
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(concepts.in(document.controls()), document.version(),
+        new BundledResource(output).written(tsv.render(concepts.in(document.controls()), document.version(),
                 source.permalink()));
     }
 

@@ -2,12 +2,11 @@ package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 
 import java.io.IOException;
 import java.net.URI;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
  * Reads the CWE catalog into the bundled TSV, from the one XML file the OWASP SDK repository vendors:
- * {@code -Pcwe=<path to cwe-archive.xml>}, or the permalink itself where a network route exists.
+ * {@code -Psource=<path to cwe-archive.xml>}, or the permalink itself where a network route exists.
  *
  * <p>The file is taken at a pinned commit rather than at a branch, for the same reason every citation this
  * library renders is a permalink, and it is accepted only if git would give its bytes the blob id that
@@ -31,17 +30,9 @@ public final class CweTermsExtraction {
                     + REVISION + "/raw/cwe-archive.xml"),
             REVISION, CATALOG_BLOB);
 
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: CweTermsExtraction <cwe-archive.xml> <tsv>");
-        }
-        new CweTermsExtraction().extract(args[0], Path.of(args[1]));
-    }
-
     public void extract(final String catalog, final Path output) throws IOException {
         final byte[] read = source.read(catalog);
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(concepts.in(read), SOURCE, CATALOG_BLOB));
+        new BundledResource(output).written(tsv.render(concepts.in(read), SOURCE, CATALOG_BLOB));
     }
 
     PinnedSource source() {

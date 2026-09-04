@@ -30,7 +30,7 @@ class OpenAlexTopicsExtractionTest {
 
     @Test
     void refusesASnapshotThatIsNotTheOneTheHeaderWouldCite() {
-        assertThatThrownBy(() -> new OpenAlexTopicsExtraction().pinned(List.of(
+        assertThatThrownBy(() -> new OpenAlexTopicsExtraction().source().pinned(List.of(
                 new ContentDigest.Member(PART, "moved".getBytes(StandardCharsets.UTF_8)))))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("1536cbda3cc11838aaa67ef9c9c5f2b327a8ac8875ad07f306f4da44c16e8048");

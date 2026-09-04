@@ -1,7 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -31,18 +30,9 @@ public final class SqlFunctionExtraction {
 
     private final SqlFunctionTsv tsv = new SqlFunctionTsv();
 
-    public static void main(final String[] args) throws IOException, SQLException {
-        if (args.length < 1 || args[0].isBlank()) {
-            throw new IllegalArgumentException("Usage: SqlFunctionExtraction <sql functions tsv>");
-        }
-        new SqlFunctionExtraction().extract(Path.of(args[0]));
-    }
-
     public void extract(final Path output) throws IOException, SQLException {
         try (Connection connection = DriverManager.getConnection(IN_MEMORY)) {
-            final String text = tsv.render(catalogue(connection), version(connection));
-            Files.createDirectories(output.toAbsolutePath().getParent());
-            Files.writeString(output, text);
+            new BundledResource(output).written(tsv.render(catalogue(connection), version(connection)));
         }
     }
 

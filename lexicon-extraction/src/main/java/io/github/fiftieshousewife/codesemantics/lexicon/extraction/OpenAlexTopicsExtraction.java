@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
@@ -21,7 +20,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * <p>OpenAlex states no revision for a snapshot beyond the day it was taken, so the download itself is the
  * citation: the manifest and the parts it names are accepted only if together they digest to the value
  * recorded here, and any other download fails instead of being bundled. The snapshot is read from a local
- * directory — {@code -Popenalex=<path>} — because the publisher serves it from S3 rather than over HTTP
+ * directory — {@code -Psource=<path>} — because the publisher serves it from S3 rather than over HTTP
  * from a permalink.
  */
 public final class OpenAlexTopicsExtraction {
@@ -46,9 +45,7 @@ public final class OpenAlexTopicsExtraction {
 
     private final OpenAlexTopicSizesTsv sizes = new OpenAlexTopicSizesTsv();
 
-    private final ContentDigest digest = new ContentDigest();
-
-    private final String setDigest;
+    private final PinnedSet source;
 
     public OpenAlexTopicsExtraction() {
         this(SET_DIGEST);
@@ -56,15 +53,7 @@ public final class OpenAlexTopicsExtraction {
 
     /** The same reading against a snapshot a test builds, so the whole pipeline is exercised and not the refusal alone. */
     OpenAlexTopicsExtraction(final String setDigest) {
-        this.setDigest = setDigest;
-    }
-
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 3) {
-            throw new IllegalArgumentException(
-                    "Usage: OpenAlexTopicsExtraction <snapshot directory> <taxonomy tsv> <sizes tsv>");
-        }
-        new OpenAlexTopicsExtraction().extract(Path.of(args[0]), Path.of(args[1]), Path.of(args[2]));
+        this.source = new PinnedSet(SNAPSHOT, "snapshot members", setDigest);
     }
 
     public void extract(final Path directory, final Path taxonomyOutput, final Path sizesOutput)
@@ -72,29 +61,18 @@ public final class OpenAlexTopicsExtraction {
         final byte[] stated = Files.readAllBytes(manifestIn(directory));
         final OpenAlexManifest manifest = OpenAlexManifest.of(stated);
         final List<ContentDigest.Member> parts = snapshot.in(directory, manifest);
-        pinned(Stream.concat(Stream.of(new ContentDigest.Member(MANIFEST, stated)), parts.stream()).toList());
+        source.pinned(
+                Stream.concat(Stream.of(new ContentDigest.Member(MANIFEST, stated)), parts.stream()).toList());
         final List<String> records = recordsIn(parts);
         final List<SkosConcept> read = concepts.in(records);
-        final String source = source(manifest);
-        written(taxonomyOutput, tsv.render(read, source, setDigest));
-        written(sizesOutput, sizes.render(concepts.topicsIn(records), source, setDigest));
+        final String cited = cited(manifest);
+        new BundledResource(taxonomyOutput).written(tsv.render(read, cited, source.digest()));
+        new BundledResource(sizesOutput)
+                .written(sizes.render(concepts.topicsIn(records), cited, source.digest()));
     }
 
-    private static void written(final Path output, final String rendered) throws IOException {
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, rendered);
-    }
-
-    /** What was read is the cited snapshot only if the manifest and its parts digest to the recorded value. */
-    List<ContentDigest.Member> pinned(final List<ContentDigest.Member> read) {
-        final String found = digest.of(read);
-        if (!setDigest.equals(found)) {
-            throw new IllegalArgumentException(String.format(Locale.ROOT,
-                    "The manifest and the %s parts read digest to %s, where the snapshot this class cites "
-                    + "digests to %s",
-                    (read.size() - 1), found, setDigest));
-        }
-        return read;
+    PinnedSet source() {
+        return source;
     }
 
     private List<String> recordsIn(final List<ContentDigest.Member> parts) throws IOException {
@@ -105,7 +83,7 @@ public final class OpenAlexTopicsExtraction {
         return records;
     }
 
-    private static String source(final OpenAlexManifest manifest) {
+    private static String cited(final OpenAlexManifest manifest) {
         return "OpenAlex's own topics snapshot, " + SNAPSHOT + " at " + manifest.date() + ", the manifest "
                 + "and the " + manifest.parts().size() + " parts it names, stating "
                 + manifest.recordCount() + " records";

@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Stream;
 
 /**
@@ -17,37 +16,30 @@ import java.util.stream.Stream;
  * library renders is a permalink. The repository states no manifest, so the set is the specification files
  * a checkout holds, and it is accepted only if together they digest to the value recorded here — a checkout
  * of any other revision fails instead of being bundled. It reads a checkout, as the FIBO extraction does:
- * {@code -Pbian=<path to an artefacts checkout>}.
+ * {@code -Psource=<path to an artefacts checkout>}.
  */
 public final class BianServiceDomainsExtraction {
 
     private static final String REVISION = "a928c56e7989492f7214b2bd0ae7b204644efc03";
 
-    private static final String SOURCE = "https://github.com/bian-official/artefacts/tree/" + REVISION;
-
     private static final String SPECIFICATION = "Specification.csv";
-
-    private static final String SET_DIGEST =
-            "a6eca3a102942b5cc699653f243c24cfe1923f6bb580cd99a9655e38ba49fa19";
 
     private final BianConcepts concepts = new BianConcepts();
 
     private final BianServiceDomainsTsv tsv = new BianServiceDomainsTsv();
 
-    private final ContentDigest digest = new ContentDigest();
-
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: BianServiceDomainsExtraction <artefacts checkout> <tsv>");
-        }
-        new BianServiceDomainsExtraction().extract(Path.of(args[0]), Path.of(args[1]));
-    }
+    private final PinnedSet source = new PinnedSet(
+            "https://github.com/bian-official/artefacts/tree/" + REVISION, "specifications",
+            "a6eca3a102942b5cc699653f243c24cfe1923f6bb580cd99a9655e38ba49fa19");
 
     public void extract(final Path checkout, final Path output) throws IOException {
-        final List<ContentDigest.Member> specifications = specificationsUnder(checkout);
-        asRecorded(specifications);
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(concepts.in(specifications), SOURCE, SET_DIGEST));
+        final List<ContentDigest.Member> specifications = source.pinned(specificationsUnder(checkout));
+        new BundledResource(output).written(
+                tsv.render(concepts.in(specifications), source.citation(), source.digest()));
+    }
+
+    PinnedSet source() {
+        return source;
     }
 
     /** Every service domain's specification file, in the order the sorted directory names give. */
@@ -63,17 +55,6 @@ public final class BianServiceDomainsExtraction {
                             Files.readAllBytes(specification)));
                 }
             }
-        }
-        return specifications;
-    }
-
-    /** The checkout is the pinned revision's only if its specification set digests to what was recorded. */
-    List<ContentDigest.Member> asRecorded(final List<ContentDigest.Member> specifications) {
-        final String found = digest.of(specifications);
-        if (!SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException(String.format(Locale.ROOT,
-                    "The %s specifications read digest to %s, where revision %s holds %s",
-                    specifications.size(), found, REVISION, SET_DIGEST));
         }
         return specifications;
     }

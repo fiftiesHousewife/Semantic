@@ -24,7 +24,8 @@ dependencies {
 
 // One task for every bundled extraction. BundledExtractions knows each taxonomy's source shape and the
 // resource files it writes; the extraction's own class holds the pin, the acceptance and the download
-// permalink where one exists. Sources that are downloads (wiktionary, the QLever queries) fetch on blank.
+// permalink where one exists. Sources that are downloads (wiktionary, the QLever queries) fetch on blank,
+// and a source read off disk is refused blank by name. Naming no taxonomy lists every one and what it reads.
 //   ./gradlew extract -Ptaxonomy=cwe -Psource=/path/to/cwe-archive.xml
 //   ./gradlew extract -Ptaxonomy=xwnd -Psource=path/to/xwnd.tgz,path/to/index.sense
 //   ./gradlew extract -Ptaxonomy=sql-functions

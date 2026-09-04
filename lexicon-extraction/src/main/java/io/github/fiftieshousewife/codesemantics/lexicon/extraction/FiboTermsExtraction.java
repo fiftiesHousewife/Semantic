@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -20,20 +19,15 @@ import java.util.Map;
  * fails the extraction rather than bundling something the header would then misdescribe.
  *
  * <p>It reads a checkout — there is no useful "fetch it yourself" path for a hundred files behind one
- * commit, and a clone is what a person running this already has. {@code -Pfibo=<path to a FIBO checkout>}.
+ * commit, and a clone is what a person running this already has. {@code -Psource=<path to a FIBO checkout>}.
  */
 public final class FiboTermsExtraction {
 
     private static final String REVISION = "119fa8c091aa4beece7d22aefa6fe138021a4355";
 
-    private static final String SOURCE = "https://github.com/edmcouncil/fibo/tree/" + REVISION;
-
     private static final String MANIFEST = "AboutFIBOProd-TBoxOnly.rdf";
 
     private static final String MANIFEST_BLOB = "69b9b10debbd5ad37e62a302d04e37ecbc063cc0";
-
-    private static final String ONTOLOGY_SET_DIGEST =
-            "4799041cdc99a1d970e4f6a6285bd17d981ef71e51e1e156017158957271748f";
 
     private final FiboManifest manifest = new FiboManifest();
 
@@ -47,43 +41,32 @@ public final class FiboTermsExtraction {
             URI.create("https://raw.githubusercontent.com/edmcouncil/fibo/" + REVISION + "/" + MANIFEST),
             REVISION, MANIFEST_BLOB);
 
-    private final ContentDigest digest = new ContentDigest();
-
-    public static void main(final String[] args) throws IOException {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Usage: FiboTermsExtraction <fibo checkout> <tsv>");
-        }
-        new FiboTermsExtraction().extract(Path.of(args[0]), Path.of(args[1]));
-    }
+    private final PinnedSet ontologies = new PinnedSet(
+            "https://github.com/edmcouncil/fibo/tree/" + REVISION, "ontologies",
+            "4799041cdc99a1d970e4f6a6285bd17d981ef71e51e1e156017158957271748f");
 
     public void extract(final Path checkout, final Path output) throws IOException {
         final byte[] read = source.pinned(Files.readAllBytes(checkout.resolve(MANIFEST)));
-        final List<String> ontologies = manifest.ontologiesIn(read);
-        final List<ContentDigest.Member> members = membersOf(checkout, ontologies);
+        final List<String> named = manifest.ontologiesIn(read);
+        final List<ContentDigest.Member> members = ontologies.pinned(membersOf(checkout, named));
         final List<OwlClass> owl = merged(members);
-        Files.createDirectories(output.toAbsolutePath().getParent());
-        Files.writeString(output, tsv.render(concepts.in(owl), SOURCE, ontologies.size(), asRecorded(members)));
+        new BundledResource(output).written(tsv.render(concepts.in(owl), ontologies.citation(), named.size(),
+                ontologies.digest()));
     }
 
     PinnedSource source() {
         return source;
     }
 
-    /** And the ontologies it names are that revision's only if together they digest to what was recorded. */
-    String asRecorded(final List<ContentDigest.Member> members) {
-        final String found = digest.of(members);
-        if (!ONTOLOGY_SET_DIGEST.equals(found)) {
-            throw new IllegalArgumentException(String.format(Locale.ROOT,
-                    "The %s ontologies read digest to %s, where revision %s holds %s",
-                    members.size(), found, REVISION, ONTOLOGY_SET_DIGEST));
-        }
-        return found;
+    /** The set the manifest names, pinned by a digest over all of it — the manifest's own blob is not that. */
+    PinnedSet ontologies() {
+        return ontologies;
     }
 
-    private static List<ContentDigest.Member> membersOf(final Path checkout, final List<String> ontologies)
+    private static List<ContentDigest.Member> membersOf(final Path checkout, final List<String> named)
             throws IOException {
         final List<ContentDigest.Member> members = new ArrayList<>();
-        for (final String ontology : ontologies) {
+        for (final String ontology : named) {
             members.add(new ContentDigest.Member(ontology,
                     Files.readAllBytes(checkout.resolve(ontology))));
         }

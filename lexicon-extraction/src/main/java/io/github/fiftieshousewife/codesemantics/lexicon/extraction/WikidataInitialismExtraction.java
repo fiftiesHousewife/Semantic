@@ -36,10 +36,6 @@ public final class WikidataInitialismExtraction {
         this.endpoint = endpoint;
     }
 
-    public static void main(final String[] args) throws IOException, InterruptedException {
-        new WikidataInitialismExtraction(new QleverWikidata()).extractTo(Path.of(args[0]));
-    }
-
     void extractTo(final Path tsv) throws IOException, InterruptedException {
         final Map<String, Set<String>> tokensByItem = tokensByItem();
         final List<String> items = List.copyOf(tokensByItem.keySet());

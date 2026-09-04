@@ -14,9 +14,9 @@ class FpmlTermsExtractionTest {
         final List<ContentDigest.Member> schemas = List.of(new ContentDigest.Member(
                 "fpml-ird-5-11.xsd", "<schema/>".getBytes(StandardCharsets.UTF_8)));
 
-        assertThatThrownBy(() -> new FpmlTermsExtraction().asRecorded(schemas))
+        assertThatThrownBy(() -> new FpmlTermsExtraction().source().pinned(schemas))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("digest to")
+                .hasMessageContaining("1 schemas digesting to")
                 .hasMessageContaining("cf7a6cba14470313505559e662252cff8d3afda5");
     }
 }

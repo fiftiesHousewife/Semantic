@@ -3,212 +3,131 @@ package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
- * Every bundled vocabulary's extraction, enumerated so one command runs any of them: the entry knows its
- * source shape and the resource files it writes, and the build script no longer states either.
+ * Every bundled vocabulary's extraction, listed so one command runs any of them: the entry knows its source
+ * shape and the resource files it writes, and the build script no longer states either.
  *
- * <p>Each entry delegates to its extraction's own {@code main}, so an extraction still runs standalone and
- * its own class still documents its pin, its acceptance and its refusals. What lives here is only the
- * routing: the name a caller extracts by, how many sources the extraction takes, and which files under
- * {@code lexicon/src/main/resources} it writes. A source left blank is passed as blank — the extractions
- * that can fetch their own permalink accept that, and the ones that cannot refuse it themselves.
+ * <p>What lives here is only the routing — the name a caller extracts by, the sources the extraction takes
+ * in the order it takes them, and which files under {@code lexicon/src/main/resources} it writes. The
+ * extraction's own class holds the pin, the acceptance and the parse. A source an extraction downloads for
+ * itself is read through {@link StatedSources#orDownloaded}, which passes blank; one it reads off disk goes
+ * through {@link StatedSources#path}, which refuses blank and names what was missing.
  */
-public enum BundledExtractions {
+public final class BundledExtractions {
 
-    /** The Wiktionary dumps: the English and the Translingual kaikki JSONL, blank to download each. */
-    WIKTIONARY("wiktionary") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            WiktionaryExtraction.main(new String[] {source(sources, 0), source(sources, 1),
-                    output(resources, "wiktionary-abbreviations.tsv"),
-                    output(resources, "wiktionary-topics.tsv")});
-        }
-    },
+    private static final List<BundledExtraction> BUNDLED = List.of(
+            new BundledExtraction("wiktionary",
+                    "the English and the Translingual kaikki JSONL dumps, blank to download each",
+                    BundledExtractions::wiktionary),
+            new BundledExtraction("topic-hierarchy",
+                    "wiktextract's own topic-generalise map at the pinned revision, blank to download it",
+                    (sources, resources) -> new TopicHierarchyExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("wiktionary-topic-hierarchy.tsv"))),
+            new BundledExtraction("nist-csf",
+                    "NIST's OSCAL edition of the Cybersecurity Framework, blank to download the catalog",
+                    (sources, resources) -> new NistCsfExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("nist-csf-functions.tsv"))),
+            new BundledExtraction("arxiv",
+                    "arXiv's taxonomy module at the pinned revision, blank to download it",
+                    (sources, resources) -> new ArxivTaxonomyExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("arxiv-taxonomy.tsv"))),
+            new BundledExtraction("olia",
+                    "the OLiA core ontology at the pinned revision, blank to download it",
+                    (sources, resources) -> new OliaTermsExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("olia-terms.tsv"))),
+            new BundledExtraction("wikidata-initialisms",
+                    "nothing — Wikidata's short names and aliases come over the QLever SPARQL endpoint",
+                    (sources, resources) -> new WikidataInitialismExtraction(new QleverWikidata())
+                            .extractTo(resources.resolve("wikidata-initialisms.tsv"))),
+            new BundledExtraction("wikidata-names",
+                    "nothing — Wikidata's given and family names come over the QLever SPARQL endpoint",
+                    (sources, resources) -> new WikidataNameExtraction(new QleverWikidata())
+                            .extractTo(resources.resolve("wikidata-names.tsv"))),
+            new BundledExtraction("sql-functions",
+                    "nothing — the function catalogue is read out of the embedded query engine",
+                    (sources, resources) -> new SqlFunctionExtraction()
+                            .extract(resources.resolve("sql-functions.tsv"))),
+            new BundledExtraction("cso",
+                    "the CSO CSV, unzipped, because the publisher serves it inside an archive",
+                    (sources, resources) -> new CsoTopicsExtraction()
+                            .extract(sources.path(0, "the CSO CSV, unzipped"),
+                                    resources.resolve("cso-topics.tsv"))),
+            new BundledExtraction("cso-abstracts",
+                    "the fetched Wikipedia summaries, one per line, and the date they were read",
+                    (sources, resources) -> new CsoAbstractsExtraction()
+                            .extract(sources.path(0, "the fetched summaries, one per line"),
+                                    resources.resolve("cso-abstracts.tsv"),
+                                    sources.stated(1, "the date the summaries were fetched"))),
+            new BundledExtraction("bian",
+                    "a checkout of BIAN's artefacts repository at the pinned commit",
+                    (sources, resources) -> new BianServiceDomainsExtraction()
+                            .extract(sources.path(0, "an artefacts checkout"),
+                                    resources.resolve("bian-service-domains.tsv"))),
+            new BundledExtraction("cwe",
+                    "the CWE catalog XML at the pinned commit, blank to download the permalink",
+                    (sources, resources) -> new CweTermsExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("cwe-terms.tsv"))),
+            new BundledExtraction("fix",
+                    "the FIX Orchestra file at the pinned commit, blank to download the permalink",
+                    (sources, resources) -> new FixTermsExtraction().extract(sources.orDownloaded(0),
+                            resources.resolve("fix-terms.tsv"))),
+            new BundledExtraction("fpml",
+                    "a checkout of the HandCoded toolkit, which vendors the FpML 5.11 schemas",
+                    (sources, resources) -> new FpmlTermsExtraction()
+                            .extract(sources.path(0, "a fpml-toolkit-java checkout"),
+                                    resources.resolve("fpml-terms.tsv"))),
+            new BundledExtraction("fibo",
+                    "a FIBO checkout at the pinned commit — far too large to fetch file by file",
+                    (sources, resources) -> new FiboTermsExtraction()
+                            .extract(sources.path(0, "a fibo checkout"),
+                                    resources.resolve("fibo-terms.tsv"))),
+            new BundledExtraction("media-types",
+                    "the directory holding IANA's ten per-registry CSVs",
+                    (sources, resources) -> new MediaTypeExtraction()
+                            .extract(sources.path(0, "the directory of registry CSVs"),
+                                    resources.resolve("media-types.tsv"))),
+            new BundledExtraction("openalex",
+                    "the directory holding OpenAlex's topics snapshot: the manifest and the parts it names",
+                    (sources, resources) -> new OpenAlexTopicsExtraction()
+                            .extract(sources.path(0, "the snapshot directory"),
+                                    resources.resolve("openalex-topics.tsv"),
+                                    resources.resolve("openalex-topic-sizes.tsv"))),
+            new BundledExtraction("xwnd",
+                    "the eXtended WordNet Domains archive and WordNet 3.0's own index, in that order",
+                    (sources, resources) -> new XwndDomainsExtraction()
+                            .extract(sources.path(0, "the XWND distribution archive"),
+                                    sources.path(1, "the WordNet 3.0 data artefact"),
+                                    resources.resolve("xwnd-domains.tsv"))));
 
-    /** wiktextract's own topic-generalise map, at the pinned revision; blank downloads it. */
-    TOPIC_HIERARCHY("topic-hierarchy") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            TopicHierarchyExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "wiktionary-topic-hierarchy.tsv")});
-        }
-    },
-
-    /** NIST's OSCAL edition of the Cybersecurity Framework; blank downloads the pinned catalog. */
-    NIST_CSF("nist-csf") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            NistCsfExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "nist-csf-functions.tsv")});
-        }
-    },
-
-    /** arXiv's taxonomy module, at the pinned revision; blank downloads it. */
-    ARXIV("arxiv") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            ArxivTaxonomyExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "arxiv-taxonomy.tsv")});
-        }
-    },
-
-    /** The OLiA core ontology, at the pinned revision; blank downloads it. */
-    OLIA("olia") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            OliaTermsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "olia-terms.tsv")});
-        }
-    },
-
-    /** Wikidata's short names and aliases, via the QLever SPARQL endpoint. */
-    WIKIDATA_INITIALISMS("wikidata-initialisms") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            WikidataInitialismExtraction.main(new String[] {
-                    output(resources, "wikidata-initialisms.tsv")});
-        }
-    },
-
-    /** Wikidata's given and family names, via the QLever SPARQL endpoint. */
-    WIKIDATA_NAMES("wikidata-names") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            WikidataNameExtraction.main(new String[] {output(resources, "wikidata-names.tsv")});
-        }
-    },
-
-    /** DuckDB's own function catalogue, read from the embedded engine — no source at all. */
-    SQL_FUNCTIONS("sql-functions") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            SqlFunctionExtraction.main(new String[] {output(resources, "sql-functions.tsv")});
-        }
-    },
-
-    /** The CSO CSV, handed over unzipped because the publisher serves it inside an archive. */
-    CSO("cso") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            CsoTopicsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "cso-topics.tsv")});
-        }
-    },
-
-    /** The fetched Wikipedia summaries of the topics CSO states a sameAs for, and the date they were read. */
-    CSO_ABSTRACTS("cso-abstracts") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            CsoAbstractsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "cso-abstracts.tsv"), source(sources, 1)});
-        }
-    },
-
-    /** A checkout of BIAN's artefacts repository at the pinned commit. */
-    BIAN("bian") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            BianServiceDomainsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "bian-service-domains.tsv")});
-        }
-    },
-
-    /** The CWE catalog XML at the pinned commit; blank downloads the permalink. */
-    CWE("cwe") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            CweTermsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "cwe-terms.tsv")});
-        }
-    },
-
-    /** The FIX Orchestra file at the pinned commit; blank downloads the permalink. */
-    FIX("fix") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            FixTermsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "fix-terms.tsv")});
-        }
-    },
-
-    /** A checkout of the HandCoded toolkit repository, which vendors the FpML 5.11 schemas. */
-    FPML("fpml") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            FpmlTermsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "fpml-terms.tsv")});
-        }
-    },
-
-    /** A FIBO checkout at the pinned commit — far too large to fetch file by file. */
-    FIBO("fibo") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            FiboTermsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "fibo-terms.tsv")});
-        }
-    },
-
-    /** The directory holding IANA's ten per-registry CSVs. */
-    MEDIA_TYPES("media-types") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            MediaTypeExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "media-types.tsv")});
-        }
-    },
-
-    /** The directory holding OpenAlex's topics snapshot: the manifest and the parts it names. */
-    OPENALEX("openalex") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            OpenAlexTopicsExtraction.main(new String[] {source(sources, 0),
-                    output(resources, "openalex-topics.tsv"),
-                    output(resources, "openalex-topic-sizes.tsv")});
-        }
-    },
-
-    /** The eXtended WordNet Domains archive and WordNet 3.0's own index, in that order. */
-    XWND("xwnd") {
-        @Override
-        void extract(final List<String> sources, final Path resources) throws Exception {
-            XwndDomainsExtraction.main(new String[] {source(sources, 0), source(sources, 1)});
-        }
-    };
-
-    private final String taxonomy;
-
-    BundledExtractions(final String taxonomy) {
-        this.taxonomy = taxonomy;
+    private BundledExtractions() {
     }
 
-    /** The name a caller extracts by: {@code ./gradlew extract -Ptaxonomy=<this> -Psource=<path[,path]>}. */
-    public String taxonomy() {
-        return taxonomy;
-    }
-
-    /** Runs the entry's own extraction, which throws what its main declares. */
-    abstract void extract(List<String> sources, Path resources) throws Exception;
-
-    /** The entry the caller named, or a refusal that lists what can be named. */
-    public static BundledExtractions named(final String taxonomy) {
-        return Stream.of(values())
-                .filter(extraction -> extraction.taxonomy.equals(taxonomy))
+    /** The entry the caller named, or a refusal stating every name and what each of them reads. */
+    public static BundledExtraction named(final String taxonomy) {
+        return BUNDLED.stream()
+                .filter(bundled -> bundled.taxonomy().equals(taxonomy))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(String.format(Locale.ROOT,
-                        "No bundled extraction is named %s. The names: %s",
-                        taxonomy,
-                        Stream.of(values()).map(BundledExtractions::taxonomy).toList())));
+                        "No bundled extraction is named %s. What is bundled, and what each reads:%s",
+                        taxonomy, BUNDLED.stream().map(BundledExtractions::line).collect(Collectors.joining()))));
     }
 
-    /** The named source, or blank where the caller stated fewer — the extraction's own rules then apply. */
-    static String source(final List<String> sources, final int at) {
-        return at < sources.size() ? sources.get(at) : "";
+    /** Every bundled extraction, in the order this file lists them. */
+    public static List<BundledExtraction> all() {
+        return BUNDLED;
     }
 
-    static String output(final Path resources, final String file) {
-        return resources.resolve(file).toString();
+    private static String line(final BundledExtraction bundled) {
+        return System.lineSeparator() + "  " + bundled.taxonomy() + " reads " + bundled.reads();
+    }
+
+    /** Two dumps into two files, and the only entry whose sources are resolved before the reading runs. */
+    private static void wiktionary(final StatedSources sources, final Path resources) throws Exception {
+        final WiktionaryExtraction extraction = new WiktionaryExtraction();
+        extraction.extract(extraction.dumps(sources.orDownloaded(0), sources.orDownloaded(1)),
+                resources.resolve("wiktionary-abbreviations.tsv"),
+                resources.resolve("wiktionary-topics.tsv"));
     }
 }
