@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "85d9adb3646ee855e7497af6e012e215b090d18f",
-  "commit" : "21532dfc3c4e264a53841c4da6d5966a3b8de1b4",
+  "previousCommit" : "21532dfc3c4e264a53841c4da6d5966a3b8de1b4",
+  "commit" : "100c946873a263ee9755e88e1971f609766b694c",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -56,7 +56,7 @@
   }, {
     "figure" : "OpenAlex archive — divergence",
     "before" : "24.5%",
-    "after" : "24.5%"
+    "after" : "24.4%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
     "before" : "31.9%",
@@ -88,7 +88,7 @@
   }, {
     "figure" : "OpenAlex category — subjects nearer than chance",
     "before" : "10",
-    "after" : "10"
+    "after" : "9"
   }, {
     "figure" : "CSO archive — nearest subject",
     "before" : "linguistics",
@@ -100,7 +100,7 @@
   }, {
     "figure" : "CSO archive — chance reaches",
     "before" : "27.0%",
-    "after" : "27.0%"
+    "after" : "26.9%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
     "before" : "yes",
@@ -115,11 +115,11 @@
     "after" : "information technology"
   }, {
     "figure" : "CSO category — divergence",
-    "before" : "24.8%",
-    "after" : "24.7%"
+    "before" : "24.7%",
+    "after" : "24.6%"
   }, {
     "figure" : "CSO category — chance reaches",
-    "before" : "28.9%",
+    "before" : "28.8%",
     "after" : "28.8%"
   }, {
     "figure" : "CSO category — stands apart from chance",
@@ -132,15 +132,27 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "281",
-    "after" : "281"
+    "after" : "282"
   }, {
     "figure" : "Topics reported",
     "before" : "9",
-    "after" : "9"
+    "after" : "10"
   }, {
     "figure" : "Concepts written",
     "before" : "171",
     "after" : "171"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "line",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "resource",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "checkout",
+    "entered" : false
+  } ]
 }
