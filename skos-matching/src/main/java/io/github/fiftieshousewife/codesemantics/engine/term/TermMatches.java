@@ -18,8 +18,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  *
  * <p><b>The entries need not partition the uncorroborated reading, and the count does not either.</b>
  * {@link CorroboratedReading#refusedByBranch()} subtracts one reading's size from the other's, so a term the
- * re-read reached at a different rung nets out of it. Here the same term appears twice — refused at the rung
- * that lost it and reported at the rung that answered instead — because both are what happened.
+ * re-read reached at a different normalisation nets out of it. Here the same term appears twice — refused at the
+ * normalisation that lost it and reported at the one that answered instead — because both are what happened.
  *
  * <p>Ordered by what each match is worth — how often it was written, weighed by how much writing it narrows
  * — so the file reads in the order that decides the answer.
@@ -43,13 +43,13 @@ public final class TermMatches {
 
     private static TermMatch match(final String vocabulary, final TermSighting sighting,
                                    final TermOutcome outcome) {
-        return new TermMatch(vocabulary, sighting.term(), sighting.length(), sighting.rung(),
+        return new TermMatch(vocabulary, sighting.term(), sighting.length(), sighting.normalisation(),
                 sighting.specificity(), sighting.occurrences(), outcome,
                 sighting.concepts().stream().map(SkosConcept::prefLabel).toList(), sighting.sites());
     }
 
     /**
-     * A term is one match per rung it was found at. The same words reached through the dictionary form and
+     * A term is one match per normalisation it was found at. The same words reached through the dictionary form and
      * through the words themselves are two strengths of evidence, and one key covering both would report the
      * branch rule as having removed a match it left standing.
      */
@@ -58,6 +58,6 @@ public final class TermMatches {
     }
 
     private static String keyOf(final TermSighting sighting) {
-        return sighting.rung().name() + " " + sighting.term();
+        return sighting.normalisation().name() + " " + sighting.term();
     }
 }

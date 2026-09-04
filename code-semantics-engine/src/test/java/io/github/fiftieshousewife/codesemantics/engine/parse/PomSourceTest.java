@@ -47,7 +47,7 @@ class PomSourceTest {
     }
 
     @Test
-    void readsAModuleStatedAsAPathAsRungsTheSplitterDividesAt() {
+    void readsAModuleStatedAsAPathAsLevelsTheSplitterDividesAt() {
         assertThat(read("<module>parsers/pdf</module>"))
                 .extracting(NameOccurrence::text)
                 .containsExactly("parsers.pdf");

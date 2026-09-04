@@ -59,7 +59,7 @@ Where the publisher documents the concept, its first clause is a better name tha
 
 `Session` states nothing. But the repository wrote `MsgSeqNum`, `BeginString` and `ResendRequest` under it, and FIX documents all three. A subject with no name of its own can be named by the concepts it holds — *session: message sequence number, begin string, resend request*.
 
-**This is the one that needs a stated rule**, because choosing among the members is a judgement. The rule that follows the existing doctrine: take the members in the order the reading already ranks them — most-written first — and state the first that carries documentation. That is Katz backoff at the label, which `AnswerRungs` already runs at the answer.
+**This is the one that needs a stated rule**, because choosing among the members is a judgement. The rule that follows the existing doctrine: take the members in the order the reading already ranks them — most-written first — and state the first that carries documentation. That is Katz backoff at the label, which `EvidenceKinds` already runs at the answer.
 
 ### 4 — extract what is dropped
 

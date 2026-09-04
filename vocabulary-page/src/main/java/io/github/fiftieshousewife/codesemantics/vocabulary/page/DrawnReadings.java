@@ -260,7 +260,7 @@ final class DrawnReadings {
         return level.standsApartFromChance() ? level.subject() : "";
     }
 
-    /** The rung that answered, which every answer of one reading comes from. */
+    /** The normalisation that answered, which every answer of one reading comes from. */
     private static String sourceTypeOf(final ReadingRow reading) {
         return reading.answers().getFirst().sourceType();
     }

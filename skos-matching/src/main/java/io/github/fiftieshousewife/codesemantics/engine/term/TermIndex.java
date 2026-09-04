@@ -77,5 +77,5 @@ public interface TermIndex {
      * What this index compares at, so every span it answers records how far the two sides had to be
      * generalised before they met.
      */
-    TermRung rung();
+    MatchNormalisation normalisation();
 }

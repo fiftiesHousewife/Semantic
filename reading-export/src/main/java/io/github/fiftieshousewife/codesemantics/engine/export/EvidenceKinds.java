@@ -17,12 +17,12 @@ import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
  *
  * <p><b>Nothing is dropped for coming second.</b> Taking the single best source hides the rest, and the
  * rest are often the ones a reader wants: on jPOS five vocabularies clear the phrase bar and only BIAN
- * places its matched concept under {@code Cards}, which is what the library is. The rungs still back off —
+ * places its matched concept under {@code Cards}, which is what the library is. The kinds still back off —
  * a reading answered by a subject scheme is one whose vocabularies said nothing — but the backoff is
- * between rungs and never inside one.
+ * between kinds and never inside one.
  *
  * <p>It is an ordered list of evidence kinds and not the levels of one hierarchy: a term vocabulary and a
- * subject scheme sit in different published trees. Each rung states its own bar, and none of them is
+ * subject scheme sit in different published trees. Each kind states its own bar, and none of them is
  * chosen here — the permutation bar, the branch corroboration and the subject null all belong to the
  * readings this reads off.
  *
@@ -49,7 +49,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
  * CSO was the case that needed it on every reading, and needs it less now that its matched topics carry
  * the summary of the article CSO itself names.
  */
-public enum AnswerRungs {
+public enum EvidenceKinds {
 
     /**
      * A published vocabulary's terms of more than one word.
@@ -57,7 +57,7 @@ public enum AnswerRungs {
      * <p><b>Only where a bar was actually formed.</b> Where a vocabulary's counts are small the deals reach
      * nothing at the quantile the field sets, and a bar of zero admits any single match: quickfixj once
      * answered with a linguistic-annotation vocabulary matched once. A bar of zero is the test failing to
-     * be made rather than the vocabulary passing it, so the rung declines and the next one answers.
+     * be made rather than the vocabulary passing it, so the kind declines and the next one answers.
      */
     MATCHED_PHRASES {
         @Override
@@ -79,14 +79,14 @@ public enum AnswerRungs {
      * <p>They carry no permutation bar and do not need a second one: a one-word term is admitted only where
      * the repository writes another concept from the branch its publisher placed it under, which is the
      * corroboration the reading already applies. What corroboration cannot do is separate a vocabulary from
-     * chance, so this rung answers only where no vocabulary's phrases could.
+     * chance, so this kind answers only where no vocabulary's phrases could.
      */
     CORROBORATED_TERMS {
         @Override
         List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.taxonomies().stream()
                     .filter(one -> singleWordTerms(one) > 0)
-                    .sorted(Comparator.comparingInt(AnswerRungs::singleWordTerms).reversed())
+                    .sorted(Comparator.comparingInt(EvidenceKinds::singleWordTerms).reversed())
                     .map(one -> answer(one, SINGLE_WORD, String.format(Locale.ROOT,
                             "%d one-word terms, each written beside another concept of its branch",
                             singleWordTerms(one))))
@@ -105,7 +105,7 @@ public enum AnswerRungs {
         @Override
         List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.summary().placedIn().stream()
-                    .map(AnswerRungs::placed)
+                    .map(EvidenceKinds::placed)
                     .flatMap(Optional::stream)
                     .toList();
         }
@@ -115,10 +115,10 @@ public enum AnswerRungs {
     private static final int SINGLE_WORD = 1;
     private static final int PHRASE = 2;
 
-    /** What the reading is about: every source that cleared the bar of the first rung to qualify. */
+    /** What the reading is about: every source that cleared the bar of the first kind to qualify. */
     public static List<ExportedAnswer> answering(final ReadingExport reading) {
         return Stream.of(values())
-                .map(rung -> rung.of(reading))
+                .map(kind -> kind.of(reading))
                 .filter(answers -> !answers.isEmpty())
                 .findFirst()
                 .orElseGet(() -> List.of(ExportedAnswer.NONE));
@@ -131,7 +131,7 @@ public enum AnswerRungs {
         final Optional<ExportedConcept> answering = answering(vocabulary, shortest);
         return ExportedAnswer.fromATaxonomy(vocabulary.vocabulary(),
                 answering.map(ExportedConcept::statedPath).orElseGet(List::of),
-                answering.map(AnswerRungs::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
+                answering.map(EvidenceKinds::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
                 qualifiedBy, vocabulary.bar().timesTheBar());
     }
 
@@ -164,9 +164,9 @@ public enum AnswerRungs {
     }
 
     /**
-     * The concept this repository wrote most, of the length the rung qualified on.
+     * The concept this repository wrote most, of the length the kind qualified on.
      *
-     * <p><b>A rung answers with the evidence that cleared its own bar.</b> The phrase bar is computed over
+     * <p><b>A kind answers with the evidence that cleared its own bar.</b> The phrase bar is computed over
      * terms of more than one word, so answering it with a one-word concept would answer with evidence that
      * never faced it — strata answered {@code Value}, "perceived worth of something", where its phrases say
      * {@code PresentValue} written 1,429 times, and jPOS answered {@code Index} where its phrases say
@@ -189,8 +189,8 @@ public enum AnswerRungs {
         return vocabulary.concepts().stream()
                 .filter(concept -> shortest > SINGLE_WORD
                         ? concept.wordsInTerm() > SINGLE_WORD : concept.wordsInTerm() == SINGLE_WORD)
-                .max(Comparator.comparing(AnswerRungs::isDefined)
-                        .thenComparing(AnswerRungs::isPlaced)
+                .max(Comparator.comparing(EvidenceKinds::isDefined)
+                        .thenComparing(EvidenceKinds::isPlaced)
                         .thenComparing(ExportedConcept::occurrences));
     }
 

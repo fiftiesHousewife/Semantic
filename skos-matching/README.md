@@ -9,7 +9,7 @@ The bundled vocabularies are read from `lexicon` — [OLiA](https://acoli-repo.g
 | Step | Class | What it does |
 |---|---|---|
 | key the vocabulary | `WordKeyedConcepts` (in the engine), wrapped by `LinguisticTerms`, `ComputingTerms`, `FinanceTerms`, `InjectedTerms` | each published term becomes the words its own identifier reads as |
-| find the spans | `TermSpans`, `TermMatches` | the runs of declared words that equal a published term, longest span first, at each rung of normalisation — as written, as lemmas, as senses — reported separately by `NormalisedTerms` and never summed |
+| find the spans | `TermSpans`, `TermMatches` | the runs of declared words that equal a published term, longest span first, at each normalisation — as written, as lemmas, as senses — reported separately by `NormalisedTerms` and never summed |
 | weigh the span | `PhraseSpecificity` | what the run narrows, in [0, 1] |
 | corroborate | `CorroboratedReading`, `BranchAgreement`, `WrittenSubtree`, `WrittenMass` | whether the concepts matched sit together under the branches the publisher states, and how much of a branch the repository wrote |
 | read the publisher's prose | `ConceptTopics`, `WrittenKeywords`, `KeywordSpecificity` | the matched concepts as a distribution over the same topics code is read as, in the publisher's words rather than the repository's |

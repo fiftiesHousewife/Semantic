@@ -12,7 +12,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
  * <p>It is the narrowest generalisation there is, and it is the one that has to be measured on its own.
  * A taxonomy publishes singulars and a program declares whatever its sentence needed, so most of what a
  * broader reading appears to buy is really this: one word and its inflections, which is not a claim about
- * meaning at all. Reporting it apart is what keeps a rung that compares senses from taking the credit for a
+ * meaning at all. Reporting it apart is what keeps a normalisation that compares senses from taking the credit for a
  * plural.
  *
  * <p>It abstains where any word of the run has no dictionary form — including a word too short for the
@@ -40,7 +40,7 @@ public final class LemmaRuns implements TermNormalisation<List<String>> {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.LEMMAS;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.LEMMAS;
     }
 }

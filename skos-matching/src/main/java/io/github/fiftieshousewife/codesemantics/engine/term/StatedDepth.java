@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * How many rungs below the root of its own branch a taxonomy states each concept, and the deepest chain it
+ * How many normalisations below the root of its own branch a taxonomy states each concept, and the deepest chain it
  * states anywhere.
  *
  * <p>It is a citation and not a heuristic: the publisher stated every edge, and {@link TaxonomyTree} already
- * holds them in the shape a rung count can be read off. Nothing here decided that {@code Result} sits six
- * rungs under {@code Relation} and {@code Verb} directly under its own root.
+ * holds them in the shape a normalisation count can be read off. Nothing here decided that {@code Result} sits six
+ * normalisations under {@code Relation} and {@code Verb} directly under its own root.
  *
  * <p>The bound is the source's own. A depth read as a share divides by the deepest chain the publisher
  * states, so a shallow taxonomy and a deep one are read on one scale without a level count being chosen here,
@@ -21,29 +21,29 @@ import java.util.Map;
  */
 public final class StatedDepth {
 
-    private final Map<String, Integer> rungsBelowRoot;
+    private final Map<String, Integer> levelsBelowRoot;
     private final int deepest;
 
-    private StatedDepth(final Map<String, Integer> rungsBelowRoot) {
-        this.rungsBelowRoot = Map.copyOf(rungsBelowRoot);
-        this.deepest = this.rungsBelowRoot.values().stream().mapToInt(Integer::intValue).max().orElse(0);
+    private StatedDepth(final Map<String, Integer> levelsBelowRoot) {
+        this.levelsBelowRoot = Map.copyOf(levelsBelowRoot);
+        this.deepest = this.levelsBelowRoot.values().stream().mapToInt(Integer::intValue).max().orElse(0);
     }
 
     public static StatedDepth of(final TaxonomyTree tree) {
-        final Map<String, Integer> rungs = new HashMap<>();
-        tree.roots().forEach(root -> record(root, 0, rungs));
-        return new StatedDepth(rungs);
+        final Map<String, Integer> normalisations = new HashMap<>();
+        tree.roots().forEach(root -> record(root, 0, normalisations));
+        return new StatedDepth(normalisations);
     }
 
-    private static void record(final TaxonomyTree.Node node, final int rungs,
+    private static void record(final TaxonomyTree.Node node, final int normalisations,
                                final Map<String, Integer> found) {
-        found.put(node.label(), rungs);
-        node.children().forEach(child -> record(child, rungs + 1, found));
+        found.put(node.label(), normalisations);
+        node.children().forEach(child -> record(child, normalisations + 1, found));
     }
 
     /** How far below the root of its branch the source puts this concept. A root is zero. */
     public int below(final String prefLabel) {
-        return rungsBelowRoot.getOrDefault(prefLabel, 0);
+        return levelsBelowRoot.getOrDefault(prefLabel, 0);
     }
 
     /** The deepest the source states anything, which is what bounds a depth read as a share. */

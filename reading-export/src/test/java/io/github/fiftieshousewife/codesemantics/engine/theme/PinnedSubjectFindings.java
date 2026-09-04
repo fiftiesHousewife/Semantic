@@ -67,7 +67,7 @@ class PinnedSubjectFindings {
                 () -> assertThat(nearest.subList(0, nearest.indexOf("cs.CL")))
                         .as("and every subject standing NEARER than it must be computer science, not one "
                                 + "right answer among wrong ones. This asked the same of the whole window "
-                                + "of three and stopped being true when the package rungs were read: "
+                                + "of three and stopped being true when the package normalisations were read: "
                                 + "`math.MP` was already fourth at 0.4719 and moved to third at 0.4556, "
                                 + "swapping with `cs.LO`, while `cs.SY` came from 0.4111 to 0.3850 and "
                                 + "`cs.CL` did not move. It is not the vague-description defect below — "

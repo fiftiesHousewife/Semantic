@@ -46,7 +46,7 @@ final class ReachTable {
     }
 
     /**
-     * Of the keywords a repository declared exactly as published, how many no rung of the ladder matched.
+     * Of the keywords a repository declared exactly as published, how many no normalisation matched.
      * A run written and not found is a defect in the matcher rather than an absence in the code, and it is
      * the cheapest of the repairs the buckets name.
      */
@@ -57,7 +57,7 @@ final class ReachTable {
         final List<KeywordReach> unmatched = declared.stream()
                 .filter(keyword -> !matched.contains(keyword.concept()))
                 .toList();
-        System.out.printf(ROW, "  of those, no rung matched", unmatched.size(),
+        System.out.printf(ROW, "  of those, no normalisation matched", unmatched.size(),
                 declared.isEmpty() ? 0.0 : unmatched.size() * 100.0 / declared.size());
         unmatched.stream().limit(10).forEach(keyword ->
                 System.out.printf("      %s%n", keyword.keyword()));

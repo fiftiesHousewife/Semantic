@@ -78,7 +78,7 @@ class ParsedRepositoryTest {
                 .toList();
 
         assertThat(words)
-                .as("a package is the taxonomy its author chose, and every rung of it is one of the words")
+                .as("a package is the taxonomy its author chose, and every normalisation of it is one of the words")
                 .containsExactlyInAnyOrder("engine", "theme", "parse");
     }
 

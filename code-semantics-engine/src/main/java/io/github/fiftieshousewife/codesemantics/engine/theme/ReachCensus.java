@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * repair each one needs.
  *
  * <p>A ranking says which topics were reached and cannot say why the rest were not. The buckets are
- * different answers with different prices: a run written exactly as published that no rung matched is a
+ * different answers with different prices: a run written exactly as published that no normalisation matched is a
  * matcher defect, a run whose every word is written but never adjacent is a naming convention, and a run no
  * word of which appears is a subject the code has nothing to do with. Reporting them as one number is what
  * makes an expensive repair look as promising as a cheap one.

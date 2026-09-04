@@ -1,6 +1,6 @@
 # One page, with the evidence beneath it
 
-The pages have the shape the export has just stopped having. [`ONE_ANSWER.md`](ONE_ANSWER.md) exists because `reading.json` published three unrelated blocks with nothing stating which of them answered; the pictures publish four unrelated views per repository with the same silence, and a reader opening `index.html` is given three links and no reason to prefer one. This plan gives the pages the shape of the answer: one page per reading that states what the repository is about and what bar that cleared, with every rung's evidence beneath it, and one page across readings that compares them.
+The pages have the shape the export has just stopped having. [`ONE_ANSWER.md`](ONE_ANSWER.md) exists because `reading.json` published three unrelated blocks with nothing stating which of them answered; the pictures publish four unrelated views per repository with the same silence, and a reader opening `index.html` is given three links and no reason to prefer one. This plan gives the pages the shape of the answer: one page per reading that states what the repository is about and what bar that cleared, with every normalisation's evidence beneath it, and one page across readings that compares them.
 
 ## What is drawn today
 
@@ -31,11 +31,11 @@ Three further tasks — `discoursePass`, `corroboratedWeight`, `domainCarriers` 
 
 ### One page per reading — `reading.html`
 
-Top of the page, in one line: **the answer, the publisher who stated it, and how many times its bar it made.** Beneath it, one section per rung of `ONE_ANSWER.md`'s cascade, each showing a figure and opening to the evidence that produced it. Nothing on the page is drawn that the reading does not carry, and each section names the JSON key it came from.
+Top of the page, in one line: **the answer, the publisher who stated it, and how many times its bar it made.** Beneath it, one section per normalisation of `ONE_ANSWER.md`'s cascade, each showing a figure and opening to the evidence that produced it. Nothing on the page is drawn that the reading does not carry, and each section names the JSON key it came from.
 
 | Section | Figure it shows | What it opens to | From |
 |---|---|---|---|
-| the answer | the branch or subject, its publisher, times the bar | the rung that produced it, and the rungs beneath that did not answer | `summary.about`, `summary.aboutStatedBy` |
+| the answer | the branch or subject, its publisher, times the bar | the normalisation that produced it, and the normalisations beneath that did not answer | `summary.about`, `summary.aboutStatedBy` |
 | its published terms | each vocabulary that beat its bar, `phrases` against `chanceExpectedBest` | the publisher's own hierarchy, matched concepts at their stated places — today's `term-trees` | `taxonomies[].bar`, `taxonomies[].concepts` |
 | where it is placed | both schemes at both levels, divergence against what chance reaches | the topics carrying the distance, with the words and the quotations | `summary.placedIn` |
 | the words it chose | the funnel of the ranking's rules, then the cloud — today's `vocabulary` page | the tiles, each opening its spellings and senses | `signals`, `setAside` |
@@ -90,7 +90,7 @@ The last column is the one no page has today and the one a reader most wants: it
 
 ## Open questions
 
-**1. Whether `reading.html` should draw the rungs that did not answer.** Showing them keeps the cascade a ranking rather than a gate, which is `ONE_ANSWER.md`'s own argument for keeping every rung's figures in the export. Hiding them is shorter. *Settled by:* drawing them collapsed, and seeing whether a reader opens them.
+**1. Whether `reading.html` should draw the normalisations that did not answer.** Showing them keeps the cascade a ranking rather than a gate, which is `ONE_ANSWER.md`'s own argument for keeping every normalisation's figures in the export. Hiding them is shorter. *Settled by:* drawing them collapsed, and seeing whether a reader opens them.
 
 **2. Whether the evaluation manifest may reach a page at all.** It is a test fixture, off the published classpath, and its own header says so in capitals: *it is a test fixture and it never votes*. Drawing the stated area beside a placement is not a vote — nothing is scored by it — but it does put this project's own curated judgement on a picture. *Settled by:* a contract decision, not a measurement. The safe form draws it only where the page is generated from the evaluation set, and never for an arbitrary reading a consumer points the command at.
 
@@ -140,7 +140,7 @@ The same shallowness hides the middle of a deep path. Strata's FIBO answer state
 
 ### B and C — a scheme answers with a path too
 
-`AnswerRungs` flattens one `ExportedPlacement` into two `ExportedAnswer`s, one per level, so a scheme's archive and its category become sibling rows carrying the same source name with nothing distinguishing them. Both then read `—` under `cleared its bar by`, because that column asks `ReadingRow.barOf`, which searches only the vocabularies. The strength is not missing — `qualifiedBy` already says *0.053 bits nearer than chance reached* — the page discards it. A reader cannot rank maven's five answers, and ranking them is the column's only job.
+`EvidenceKinds` flattens one `ExportedPlacement` into two `ExportedAnswer`s, one per level, so a scheme's archive and its category become sibling rows carrying the same source name with nothing distinguishing them. Both then read `—` under `cleared its bar by`, because that column asks `ReadingRow.barOf`, which searches only the vocabularies. The strength is not missing — `qualifiedBy` already says *0.053 bits nearer than chance reached* — the page discards it. A reader cannot rank maven's five answers, and ranking them is the column's only job.
 
 ### F is not a page defect
 
@@ -294,7 +294,7 @@ Steps 1a to 1f of the section above, in one change. `git log` holds the detail; 
 
 | Step | What changed |
 |---|---|
-| 1a | `StatedAncestry.pathAbove` returns the whole walk, and `topOfTheBranchOf` is now the first of it. `ExportedTaxonomy.Concept` and `ExportedAnswer` carry `statedPath` in place of `atTheTopOfItsBranch`; `ExportedAnswer` carries `timesItsBar` **or** `bitsPastChance` and refuses to be built with the wrong one, or with both. `AnswerRungs.PLACED_SUBJECT` answers once per scheme, the archive standing as the category's path. `schemaVersion` is **19.0** |
+| 1a | `StatedAncestry.pathAbove` returns the whole walk, and `topOfTheBranchOf` is now the first of it. `ExportedTaxonomy.Concept` and `ExportedAnswer` carry `statedPath` in place of `atTheTopOfItsBranch`; `ExportedAnswer` carries `timesItsBar` **or** `bitsPastChance` and refuses to be built with the wrong one, or with both. `EvidenceKinds.PLACED_SUBJECT` answers once per scheme, the archive standing as the category's path. `schemaVersion` is **19.0** |
 | 1b | `page.css` holds the tokens all five stylesheets copied, and the publisher palette two of them copied. `readings.css` is rewritten and its six dead rules are gone |
 | 1c | `readings.js` draws the figure: one row per reading, one mark per answering source, position by strength on a log scale, area by phrases matched, a dashed rule at the bar, and a separate band with its own scale for the schemes. A readout beneath it states the arithmetic on hover and on focus |
 | 1d | The table is gone. One section per reading beneath the figure — the publisher, its strength, the whole stated path, the definition, and the branches — and clicking a mark scrolls to it |

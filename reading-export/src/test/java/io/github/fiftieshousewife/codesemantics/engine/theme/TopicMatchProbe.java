@@ -57,7 +57,7 @@ public final class TopicMatchProbe {
         final List<List<String>> prose = runs.ofNames(parsed, NameForm::isProse);
         final FurthestWritten written = FurthestWritten.in(declared, runs.ofDeclarations(parsed));
         final FurthestWritten inProse = FurthestWritten.in(prose);
-        final Map<String, String> rungByConcept = matchedRungs(reading);
+        final Map<String, String> normalisationByConcept = matchedNormalisations(reading);
         final Map<String, Double> massByTopic = new java.util.HashMap<>();
         reading.every().sightings().forEach(sighting -> sighting.concepts().forEach(keyword ->
                 massByTopic.merge(keyword.broader(), sighting.mass(), Double::sum)));
@@ -71,7 +71,7 @@ public final class TopicMatchProbe {
                 .filter(topic -> wanted.stream()
                         .anyMatch(part -> topic.prefLabel().toLowerCase(Locale.ROOT).contains(part)))
                 .forEach(topic -> {
-                    report(topic, keywords, identifiers, written, inProse, rungByConcept);
+                    report(topic, keywords, identifiers, written, inProse, normalisationByConcept);
                     final int rank = IntStream.range(0, ranked.size())
                             .filter(place -> ranked.get(place).getKey().equals(topic.concept()))
                             .findFirst().orElse(-1);
@@ -83,26 +83,26 @@ public final class TopicMatchProbe {
 
     private static void report(final SkosConcept topic, final List<SkosConcept> keywords,
                                final IdentifierWords identifiers, final FurthestWritten written,
-                               final FurthestWritten inProse, final Map<String, String> rungByConcept) {
+                               final FurthestWritten inProse, final Map<String, String> normalisationByConcept) {
         System.out.printf("%n== %s (%s)%n", topic.prefLabel(), topic.concept());
         System.out.printf("%-34s  %s%n", "published keyword", "how far the repository got");
         keywords.stream()
                 .filter(keyword -> keyword.broader().equals(topic.concept()))
                 .forEach(keyword -> System.out.printf("%-34s  %s%n", keyword.prefLabel(),
                         outcome(identifiers.of(keyword.prefLabel()).words(), keyword, written, inProse,
-                                rungByConcept)));
+                                normalisationByConcept)));
     }
 
     /** The furthest the repository got towards writing this keyword, and no further. */
     private static String outcome(final List<String> words, final SkosConcept keyword,
                                   final FurthestWritten written, final FurthestWritten inProse,
-                                  final Map<String, String> rungByConcept) {
-        if (rungByConcept.containsKey(keyword.concept())) {
-            return "MATCHED on " + rungByConcept.get(keyword.concept());
+                                  final Map<String, String> normalisationByConcept) {
+        if (normalisationByConcept.containsKey(keyword.concept())) {
+            return "MATCHED on " + normalisationByConcept.get(keyword.concept());
         }
         final FurthestWritten.Reached reached = written.of(words);
         return switch (reached.reach()) {
-            case AS_THIS_RUN -> "declared as this run, and no rung matched it";
+            case AS_THIS_RUN -> "declared as this run, and no normalisation matched it";
             case ACROSS_ONE_DECLARATION -> "declared across one declaration, never inside one name";
             case EVERY_WORD_NEVER_ADJACENT -> "every word declared, never adjacent"
                     + (inProse.of(words).reach() == FurthestWritten.Reach.AS_THIS_RUN
@@ -116,14 +116,14 @@ public final class TopicMatchProbe {
     }
 
     /** Which keyword concepts were matched, and what both sides were normalised to when they met. */
-    private static Map<String, String> matchedRungs(final CorroboratedReading reading) {
+    private static Map<String, String> matchedNormalisations(final CorroboratedReading reading) {
         return reading.every().sightings().stream()
                 .flatMap(sighting -> sighting.concepts().stream()
-                        .map(concept -> Map.entry(concept.concept(), rungOf(sighting))))
+                        .map(concept -> Map.entry(concept.concept(), normalisationOf(sighting))))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (first, later) -> first));
     }
 
-    private static String rungOf(final TermSighting sighting) {
-        return sighting.rung().normalisation();
+    private static String normalisationOf(final TermSighting sighting) {
+        return sighting.normalisation().normalisation();
     }
 }

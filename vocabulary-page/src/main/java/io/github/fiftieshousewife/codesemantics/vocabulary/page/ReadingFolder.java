@@ -51,7 +51,7 @@ public final class ReadingFolder {
     }
 
     /** One term match of the workings: the vocabulary, the term, its size, and where it was placed. */
-    public record TermMatchRow(String vocabulary, String term, int wordsInTerm, String rung,
+    public record TermMatchRow(String vocabulary, String term, int wordsInTerm, String normalisation,
                                int occurrences, String outcome, List<String> concepts) {
 
         public TermMatchRow {
@@ -72,7 +72,7 @@ public final class ReadingFolder {
                         match.path("vocabulary").asText(),
                         match.path("term").asText(),
                         match.path("wordsInTerm").asInt(),
-                        match.path("rung").asText(),
+                        match.path("normalisation").asText(),
                         match.path("occurrences").asInt(),
                         match.path("outcome").asText(),
                         concepts));

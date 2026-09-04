@@ -88,7 +88,7 @@ Name what does the thing. *The branch rule discards 56 terms*, never *56 terms w
 
 ### Define an ambiguous term where it first appears, and link it
 
-*Sense*, *scope*, *span*, *mass*, *rung*, *divergence*, *lemma* all carry an everyday meaning beside the technical one. Give the technical one in a clause at first use and link whoever published it — WordNet for *sense* and *lemma*, W3C for *SKOS*, Unicode for a segmentation rule. Anything named — a statistic, a standard, a taxonomy, an archive — carries a link the first time it appears, and a **References** section at the foot collects them, in alphabetical order.
+*Sense*, *scope*, *span*, *mass*, *normalisation*, *divergence*, *lemma* all carry an everyday meaning beside the technical one. Give the technical one in a clause at first use and link whoever published it — WordNet for *sense* and *lemma*, W3C for *SKOS*, Unicode for a segmentation rule. Anything named — a statistic, a standard, a taxonomy, an archive — carries a link the first time it appears, and a **References** section at the foot collects them, in alphabetical order.
 
 ### A worked example beside anything specialist
 

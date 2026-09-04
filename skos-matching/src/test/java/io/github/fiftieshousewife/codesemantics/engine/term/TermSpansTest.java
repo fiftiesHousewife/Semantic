@@ -18,11 +18,11 @@ class TermSpansTest {
     private static final String SOURCE = "a taxonomy";
 
     @Test
-    void asksARungItsLongestTermOnceHoweverManyPositionsThePhraseHas() {
-        final ReachCountingIndex rung = new ReachCountingIndex();
-        new TermSpans(rung).in(List.of("read", "common", "noun", "at"));
+    void asksANormalisationItsLongestTermOnceHoweverManyPositionsThePhraseHas() {
+        final ReachCountingIndex normalisation = new ReachCountingIndex();
+        new TermSpans(normalisation).in(List.of("read", "common", "noun", "at"));
 
-        assertThat(rung.reachAskings()).isEqualTo(1);
+        assertThat(normalisation.reachAskings()).isEqualTo(1);
     }
 
     @Test
@@ -86,34 +86,35 @@ class TermSpansTest {
 
     @Test
     void saysTheWordsThemselvesAnsweredWhereTheyDid() {
-        assertThat(ladderOver("noun").in(List.of("noun")).getFirst().rung()).isEqualTo(TermRung.WORDS);
+        assertThat(normalisedSpansOver("noun").in(List.of("noun")).getFirst().normalisation())
+                .isEqualTo(MatchNormalisation.WORDS);
     }
 
     @Test
     void fallsToTheDictionaryFormBeforeItFallsToTheMeaning() {
-        assertThat(ladderOver("noun phrase").in(List.of("noun", "phrases")).getFirst().rung())
-                .isEqualTo(TermRung.LEMMAS);
+        assertThat(normalisedSpansOver("noun phrase").in(List.of("noun", "phrases")).getFirst().normalisation())
+                .isEqualTo(MatchNormalisation.LEMMAS);
     }
 
     @Test
     void fallsToTheMeaningOnlyWhereTheWordsSaidNothing() {
-        final List<TermSpan> found = ladderOver("noun phrase").in(List.of("nominal", "phrase"));
+        final List<TermSpan> found = normalisedSpansOver("noun phrase").in(List.of("nominal", "phrase"));
 
         assertAll(
                 () -> assertThat(found).hasSize(1),
-                () -> assertThat(found.getFirst().rung()).isEqualTo(TermRung.SENSES),
+                () -> assertThat(found.getFirst().normalisation()).isEqualTo(MatchNormalisation.SENSES),
                 () -> assertThat(found.getFirst().words()).containsExactly("nominal", "phrase"));
     }
 
     @Test
-    void takesTheWordsThemselvesWhereBothRungsWouldHaveAnswered() {
-        assertThat(ladderOver("noun phrase").in(List.of("noun", "phrase")).getFirst().rung())
-                .isEqualTo(TermRung.WORDS);
+    void takesTheWordsThemselvesWhereBothNormalisationsWouldHaveAnswered() {
+        assertThat(normalisedSpansOver("noun phrase").in(List.of("noun", "phrase")).getFirst().normalisation())
+                .isEqualTo(MatchNormalisation.WORDS);
     }
 
     @Test
-    void abstainsOnARunNoRungOfTheLadderAnswers() {
-        assertThat(ladderOver("noun phrase").in(List.of("interest", "rate"))).isEmpty();
+    void abstainsOnARunNoNormalisationReads() {
+        assertThat(normalisedSpansOver("noun phrase").in(List.of("interest", "rate"))).isEmpty();
     }
 
     @Test
@@ -140,7 +141,7 @@ class TermSpansTest {
         return new TermSpans(publishing(SOURCE, terms));
     }
 
-    private static TermSpans ladderOver(final String... terms) {
+    private static TermSpans normalisedSpansOver(final String... terms) {
         final TermIndex published = publishing(SOURCE, terms);
         return new TermSpans(published,
                 NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
@@ -178,8 +179,8 @@ class TermSpansTest {
         }
 
         @Override
-        public TermRung rung() {
-            return TermRung.WORDS;
+        public MatchNormalisation normalisation() {
+            return MatchNormalisation.WORDS;
         }
 
         int reachAskings() {

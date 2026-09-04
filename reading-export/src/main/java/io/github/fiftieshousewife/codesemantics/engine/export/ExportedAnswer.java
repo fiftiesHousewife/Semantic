@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * One source's statement of what a repository is about, and what that rests on. A reading holds one of
- * these per source that cleared the bar of the rung answering it.
+ * these per source that cleared the bar of the normalisation answering it.
  *
  * <p>The reading holds three kinds of evidence and they are not equally good. A published vocabulary's
  * multi-word terms are the strongest: a repository outside a field does not write {@code cap floor} or
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * finance ontology and everyday words everywhere else. A subject scheme is neither — it publishes prose
  * rather than identifiers, so nothing is matched and the answer is a distance.
  *
- * <p>So the answering rung is the first of those that qualifies, and every source of that rung which
+ * <p>So the answering normalisation is the first of those that qualifies, and every source of that normalisation which
  * cleared its bar states its own answer. A reading that names a subject scheme is a reading whose
  * vocabularies said nothing, which is a fact about the repository worth stating rather than a gap to fill
  * from a weaker source in silence.

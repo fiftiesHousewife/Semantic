@@ -22,7 +22,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermMatches;
  *
  * <p>{@code matches} carries what the reading refused as well as what it kept, which is the half a consumer
  * cannot reconstruct: {@code reading.json} states how many matches the branch rule discarded and never which
- * ones. A term is one entry per rung it was found at, and the sites are {@code path:line} against the commit
+ * ones. A term is one entry per normalisation it was found at, and the sites are {@code path:line} against the commit
  * {@code linkage} names.
  *
  * <p>{@code setAside} is the same for the words: {@code reading.json} counts what no resource covers and what
@@ -44,7 +44,7 @@ record ReadingEvidence(String schemaVersion, String repository, int files, int l
                        List<RankedWord> vocabulary) {
 
     /** Rises when a key here is added, renamed or removed. No schema checks it. */
-    static final String VERSION = "5.0";
+    static final String VERSION = "6.0";
 
     /**
      * One ranked word of the vocabulary with the whole of its verdict: the claim, the margin the verdict

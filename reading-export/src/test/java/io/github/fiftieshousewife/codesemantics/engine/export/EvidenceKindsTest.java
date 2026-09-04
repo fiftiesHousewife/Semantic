@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.within;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class AnswerRungsTest {
+class EvidenceKindsTest {
 
     private static final SightingSite SOMEWHERE = new SightingSite("A.java", 1);
 
@@ -62,7 +62,7 @@ class AnswerRungsTest {
 
     @Test
     void answersWithAConceptThePublisherPlacesRatherThanOneItStatesNothingAbove() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(vocabulary(List.of(
                         concept("Message", "", "the basic structure of all FpML messages", 693),
                         concept("Swap", "Product", "swap streams and additional payments", 18)))),
@@ -78,7 +78,7 @@ class AnswerRungsTest {
 
     @Test
     void stillPrefersADefinedConceptToAPlacedOneTheSourceSaysNothingAbout() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(vocabulary(List.of(
                         concept("Cards", "Business", "", 900),
                         concept("CardCapture", "", "capture the card payment transaction", 4)))),
@@ -89,7 +89,7 @@ class AnswerRungsTest {
 
     @Test
     void answersWithTheMostWrittenWhereTwoAreStatedAlike() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(vocabulary(List.of(
                         concept("Rare", "Product", "a rare one", 2),
                         concept("Common", "Product", "a common one", 40)))),
@@ -100,7 +100,7 @@ class AnswerRungsTest {
 
     @Test
     void answersWithEveryVocabularyThatClearedThePhraseBarRatherThanTheBestOfThem() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(cleared("FIBO", "", 6, 3), cleared("BIAN", "Cards", 3, 2),
                         cleared("FIX", "Common", 7, 5)),
                 List.of()));
@@ -113,14 +113,14 @@ class AnswerRungsTest {
 
     @Test
     void leavesOutAVocabularyWhoseBarWasNeverFormed() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(cleared("OLiA", "WordClass", 4, 2), cleared("CWE", "", 1, 0)), List.of()));
         assertThat(answers).extracting(ExportedAnswer::source).containsExactly("OLiA");
     }
 
     @Test
     void answersOncePerSchemeWithItsArchiveAsThePathToItsCategory() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(List.of(),
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
                                 level("Computation and Language", true)),
                         new ExportedPlacement("CSO", level("linguistics", true),
@@ -139,7 +139,7 @@ class AnswerRungsTest {
 
     @Test
     void leavesOutASchemeNeitherOfWhoseLevelsStandsApartFromChance() {
-        assertThat(AnswerRungs.answering(reading(List.of(),
+        assertThat(EvidenceKinds.answering(reading(List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", false),
                         level("Computation and Language", false))))))
                 .containsExactly(ExportedAnswer.NONE);
@@ -147,9 +147,9 @@ class AnswerRungsTest {
 
     @Test
     void statesEachSourceTypesStrengthInItsOwnUnitAndLeavesOutTheOtherOne() {
-        final List<ExportedAnswer> vocabularies = AnswerRungs.answering(reading(
+        final List<ExportedAnswer> vocabularies = EvidenceKinds.answering(reading(
                 List.of(cleared("FIX", "Session", 52, 5)), List.of()));
-        final List<ExportedAnswer> schemes = AnswerRungs.answering(reading(List.of(),
+        final List<ExportedAnswer> schemes = EvidenceKinds.answering(reading(List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
                         level("Computation and Language", true)))));
         assertAll(
@@ -177,13 +177,13 @@ class AnswerRungsTest {
 
     @Test
     void statesOneAnswerSayingSoWhereNothingQualified() {
-        assertThat(AnswerRungs.answering(reading(List.of(), List.of())))
+        assertThat(EvidenceKinds.answering(reading(List.of(), List.of())))
                 .containsExactly(ExportedAnswer.NONE);
     }
 
     @Test
-    void backsOffBetweenRungsAndNeverInsideOne() {
-        final List<ExportedAnswer> answers = AnswerRungs.answering(reading(
+    void backsOffBetweenKindsAndNeverInsideOne() {
+        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(
                 List.of(cleared("FIBO", "", 6, 3)),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
                         level("Computation and Language", true)))));

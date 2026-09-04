@@ -15,7 +15,7 @@ import lombok.Builder;
  *
  * @param repository                the directory the reading was pointed at
  * @param commit                    the commit the working tree stood on, stated by the caller
- * @param answers                   every source that cleared the bar of the first rung to qualify, ranked by
+ * @param answers                   every source that cleared the bar of the first normalisation to qualify, ranked by
  *                                  how far it cleared it. One entry saying so where nothing qualified
  * @param about                     the topics that make some part of this repository unlike the rest of it
  * @param placedIn                  where every bundled scheme places it, at both the levels each states.

@@ -28,9 +28,9 @@ class CopiedCommentsTest {
     @Test
     void weighsProseWrittenWhereItStandsAtOne() {
         final CopiedComments copied = CopiedComments.over(List.of(
-                List.of(comment("The rungs are a ladder, not a choice")), List.of(comment(HEADER))));
+                List.of(comment("The normalisations are ordered, not a choice")), List.of(comment(HEADER))));
 
-        assertThat(copied.weightOf("The rungs are a ladder, not a choice")).isEqualTo(1.0);
+        assertThat(copied.weightOf("The normalisations are ordered, not a choice")).isEqualTo(1.0);
     }
 
     @Test

@@ -17,9 +17,9 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * A saved set of matches, resolved back to the concepts of the taxonomy that states them.
  *
  * <p>The file records the run of words a span was matched on rather than the concept it reached, and a run
- * reaches its concept through whichever rung answered. Looking it up by spelling alone loses every match a
+ * reaches its concept through whichever normalisation answered. Looking it up by spelling alone loses every match a
  * dictionary form made: Apache Tika's 666 spans of <em>parse</em> are CSO's {@code parsing}, and 43 of its
- * 91 runs are no label CSO publishes. Putting the runs back through the same ladder is what returns the mass
+ * 91 runs are no label CSO publishes. Putting the runs back through the same normalisations is what returns the mass
  * to the label the publisher wrote.
  */
 final class MatchedFixture {
@@ -28,12 +28,12 @@ final class MatchedFixture {
 
     private static final String COMMENT = "#";
 
-    private final List<TermIndex> ladder;
+    private final List<TermIndex> normalisations;
 
     private final IdentifierWords words;
 
     MatchedFixture(final TermIndex published) {
-        this.ladder = List.of(published,
+        this.normalisations = List.of(published,
                 NormalisedTerms.over(published, LemmaRuns.fromClasspath()),
                 NormalisedTerms.over(published, SenseRuns.fromClasspath()));
         this.words = IdentifierWords.fromClasspath();
@@ -63,10 +63,10 @@ final class MatchedFixture {
         return reached;
     }
 
-    /** The narrowest rung that answers is the one that answers, which is the order the reading asks in. */
+    /** The narrowest normalisation that answers is the one that answers, which is the order the reading asks in. */
     private List<SkosConcept> conceptsOf(final String term) {
         final List<String> run = words.of(term).words();
-        return ladder.stream().map(rung -> rung.conceptsOf(run))
+        return normalisations.stream().map(normalisation -> normalisation.conceptsOf(run))
                 .filter(found -> !found.isEmpty())
                 .findFirst().orElse(List.of());
     }

@@ -26,7 +26,7 @@ public final class PhraseOccurrences {
         this.reached = reached;
     }
 
-    /** The reading over one source's published spellings, at the same rung {@link MatchedPhrases} reads. */
+    /** The reading over one source's published spellings, at the same normalisation {@link MatchedPhrases} reads. */
     public static PhraseOccurrences over(final TermIndex index) {
         return new PhraseOccurrences(ReachedPhrases.over(index));
     }

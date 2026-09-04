@@ -31,7 +31,7 @@ class TaxonomyMatchesCommandTest {
                         .findFirst()
                         .orElseThrow()
                         .phraseOccurrences())
-                        .as("interest rate at the words rung and credit risk at a spelling rung both count")
+                        .as("interest rate at the words normalisation and credit risk at a spelling one both count")
                         .isEqualTo(11));
     }
 

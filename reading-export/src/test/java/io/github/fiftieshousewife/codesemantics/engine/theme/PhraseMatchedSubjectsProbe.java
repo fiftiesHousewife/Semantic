@@ -12,7 +12,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.InjectedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.KeywordSpecificity;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchNormalisation;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopicSizes;
 import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
@@ -85,10 +85,10 @@ public final class PhraseMatchedSubjectsProbe {
                 KeywordSpecificity.fromClasspath());
         arms.print("every match", every);
         breadth(arms, every);
-        java.util.Arrays.stream(TermRung.values()).forEach(rung -> {
-            final List<TermSighting> found = reading.every().at(rung).sightings();
-            arms.print("rung: " + rung.normalisation(), found);
-            arms.print("rung: " + rung.normalisation() + ", runs of more than one word",
+        java.util.Arrays.stream(MatchNormalisation.values()).forEach(normalisation -> {
+            final List<TermSighting> found = reading.every().at(normalisation).sightings();
+            arms.print("normalisation: " + normalisation.normalisation(), found);
+            arms.print("normalisation: " + normalisation.normalisation() + ", runs of more than one word",
                     found.stream().filter(sighting -> sighting.length() > 1).toList());
         });
         arms.print("corroborated by the branch rule", corroborated);

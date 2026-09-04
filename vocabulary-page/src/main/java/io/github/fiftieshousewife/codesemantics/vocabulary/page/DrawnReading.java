@@ -15,8 +15,8 @@ import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
  * manifest the caller names.
  *
  * @param repository         the tree the reading was taken of
- * @param sourceType         the rung that answered — every answer of one reading comes from it
- * @param answers            every source that cleared that rung's bar, strongest first
+ * @param sourceType         the normalisation that answered — every answer of one reading comes from it
+ * @param answers            every source that cleared that normalisation's bar, strongest first
  * @param citableShare       the share of word occurrences some bundled resource could be cited for
  * @param statedArea         the area a manifest states for this repository, absent where it states none
  * @param reachedItsArea     whether the reading's placement descends from that area, absent with the area

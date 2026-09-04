@@ -40,8 +40,8 @@ public final class FixtureNameSource implements SourceReader {
     private static int endOfTestResources(final Path file) {
         return IntStream.rangeClosed(0, file.getNameCount() - TEST_RESOURCES.size() - 1)
                 .filter(start -> IntStream.range(0, TEST_RESOURCES.size())
-                        .allMatch(rung -> TEST_RESOURCES.get(rung)
-                                .equals(file.getName(start + rung).toString())))
+                        .allMatch(normalisation -> TEST_RESOURCES.get(normalisation)
+                                .equals(file.getName(start + normalisation).toString())))
                 .map(start -> start + TEST_RESOURCES.size())
                 .findFirst()
                 .orElse(-1);

@@ -20,8 +20,8 @@ public final class TermTally {
     private final PhraseSpecificity specificity;
     private final Map<List<String>, TermSighting> byTerm = new HashMap<>();
     private final Map<List<String>, Integer> restatedTypes = new HashMap<>();
-    private final Map<TermRung, Integer> filesByRung = new EnumMap<>(TermRung.class);
-    private final Set<TermRung> rungsInThisFile = EnumSet.noneOf(TermRung.class);
+    private final Map<MatchNormalisation, Integer> filesByNormalisation = new EnumMap<>(MatchNormalisation.class);
+    private final Set<MatchNormalisation> normalisationsInThisFile = EnumSet.noneOf(MatchNormalisation.class);
 
     private int namesRead;
     private int filesRead;
@@ -36,15 +36,15 @@ public final class TermTally {
     }
 
     /**
-     * Closes the file being read, counting it once against every rung that answered in it. A file is counted
-     * for each rung separately because a rung that matched nowhere and a rung that matched everywhere are the
-     * distinction the ladder exists to report.
+     * Closes the file being read, counting it once against every normalisation that answered in it. A file is counted
+     * for each normalisation separately because a normalisation that matched nowhere and a normalisation that matched
+     * everywhere are the distinction the normalisations exist to report.
      */
     public void readFile() {
         filesRead++;
-        filesMatched += rungsInThisFile.isEmpty() ? 0 : 1;
-        rungsInThisFile.forEach(rung -> filesByRung.merge(rung, 1, Integer::sum));
-        rungsInThisFile.clear();
+        filesMatched += normalisationsInThisFile.isEmpty() ? 0 : 1;
+        normalisationsInThisFile.forEach(normalisation -> filesByNormalisation.merge(normalisation, 1, Integer::sum));
+        normalisationsInThisFile.clear();
     }
 
     /**
@@ -52,9 +52,9 @@ public final class TermTally {
      * whole name covers 1; {@code Source} inside {@code EvidenceSource} covers a half.
      */
     public void saw(final TermSpan span, final String site, final double coverage) {
-        rungsInThisFile.add(span.rung());
+        normalisationsInThisFile.add(span.normalisation());
         byTerm.merge(span.words(),
-                new TermSighting(span.words(), span.concepts(), span.rung(), specificity.of(span.words()),
+                new TermSighting(span.words(), span.concepts(), span.normalisation(), specificity.of(span.words()),
                         1, coverage, List.of(site)),
                 (seen, arrived) -> seen.seenAgain(site, coverage));
     }
@@ -68,7 +68,7 @@ public final class TermTally {
     }
 
     public MatchedTerms matched() {
-        return new MatchedTerms(List.copyOf(byTerm.values()), namesRead, filesRead, filesMatched, filesByRung,
+        return new MatchedTerms(List.copyOf(byTerm.values()), namesRead, filesRead, filesMatched, filesByNormalisation,
                 restatedTypes);
     }
 }

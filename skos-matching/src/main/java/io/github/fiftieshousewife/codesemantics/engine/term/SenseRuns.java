@@ -51,8 +51,8 @@ public final class SenseRuns implements TermNormalisation<List<WordSense>> {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.SENSES;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.SENSES;
     }
 
     private Optional<WordSense> asOneEntry(final List<String> words) {

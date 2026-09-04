@@ -69,8 +69,8 @@ class CorroboratedReadingTest {
         }
 
         @Override
-        public TermRung rung() {
-            return TermRung.WORDS;
+        public MatchNormalisation normalisation() {
+            return MatchNormalisation.WORDS;
         }
     }
 
@@ -115,8 +115,8 @@ class CorroboratedReadingTest {
         }
 
         @Override
-        public TermRung rung() {
-            return published.rung();
+        public MatchNormalisation normalisation() {
+            return published.normalisation();
         }
     }
 
@@ -184,7 +184,7 @@ class CorroboratedReadingTest {
     }
 
     @Test
-    void keepsAOneWordRunReadAtTheSenseRungWhoseBranchTheRepositoryWrote(@TempDir final Path root)
+    void keepsAOneWordRunReadAtTheSenseNormalisationWhoseBranchTheRepositoryWrote(@TempDir final Path root)
             throws IOException {
         final SkosConcept namePart = concept("name part", "");
         final SkosConcept familyName = concept("family name", "name part");
@@ -206,10 +206,10 @@ class CorroboratedReadingTest {
                         .contains("surname"),
                 () -> assertThat(reading.matched().sightings().stream()
                         .filter(sighting -> sighting.term().equals("surname"))
-                        .findFirst().orElseThrow().rung())
+                        .findFirst().orElseThrow().normalisation())
                         .as("the dictionary read surname as family name, and proper noun written in the "
                                 + "same branch corroborates it")
-                        .isEqualTo(TermRung.SENSES));
+                        .isEqualTo(MatchNormalisation.SENSES));
     }
 
     @Test

@@ -22,7 +22,7 @@ public final class ReachedPhrases {
         this.starts = starts;
     }
 
-    /** The walk over one source's published spellings, at the rung {@link MatchedPhrases} states. */
+    /** The walk over one source's published spellings, at the normalisation {@link MatchedPhrases} states. */
     public static ReachedPhrases over(final TermIndex index) {
         return new ReachedPhrases(new TermSpans(index), PhraseStarts.of(index));
     }

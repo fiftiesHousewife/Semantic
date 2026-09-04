@@ -15,9 +15,9 @@ class DrawnMatchesTest {
     private final DrawnMatches drawn = new DrawnMatches();
 
     private static ReadingFolder.TermMatchRow match(final String vocabulary, final String term,
-                                                    final int words, final String rung,
+                                                    final int words, final String normalisation,
                                                     final int occurrences, final String outcome) {
-        return new ReadingFolder.TermMatchRow(vocabulary, term, words, rung, occurrences, outcome,
+        return new ReadingFolder.TermMatchRow(vocabulary, term, words, normalisation, occurrences, outcome,
                 List.of(term.toUpperCase(java.util.Locale.ROOT)));
     }
 

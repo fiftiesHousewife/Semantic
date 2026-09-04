@@ -22,7 +22,7 @@ public final class PomSource implements SourceReader {
     private static final String POM_FILE = "pom.xml";
     private static final Pattern MODULE_ENTRY = Pattern.compile("<module>\\s*([^<]+?)\\s*</module>");
     private static final Pattern DESCRIPTION = Pattern.compile("(?s)<description>(.*?)</description>");
-    /** A module stated as a path names one directory per segment; dots are the rungs the splitter divides at. */
+    /** A module stated as a path names one directory per segment; a dot is where the splitter divides. */
     private static final char PATH_SEPARATOR = '/';
     private static final char QUALIFIER = '.';
 

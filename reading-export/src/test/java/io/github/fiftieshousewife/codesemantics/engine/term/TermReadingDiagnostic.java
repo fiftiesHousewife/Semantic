@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
  * Matches the declared names of the repository under reading against a published taxonomy's own terms, and
- * writes what it found: the match at each rung, the taxonomy tree it occupies, and what branch corroboration
+ * writes what it found: the match at each normalisation, the taxonomy tree it occupies, and what branch corroboration
  * costs and buys.
  *
  * <p>OLiA is the taxonomy, and the out-of-domain arm is the half of the measurement that decides: a domain

@@ -38,9 +38,9 @@ public final class ReadStageTimingsProbe {
         timed("published-names chance draws", reading::namesChance);
         final List<TermIndex> matched = timed("matched taxonomy indexes", ExportCommand::alsoMatched);
         for (final TermIndex index : matched) {
-            timed(index.source() + " lemma rung build (the reading builds each rung twice)",
+            timed(index.source() + " lemma normalisation build (the reading builds each normalisation twice)",
                     () -> NormalisedTerms.over(index, LemmaRuns.fromClasspath()));
-            timed(index.source() + " sense rung build (the reading builds each rung twice)",
+            timed(index.source() + " sense normalisation build (the reading builds each normalisation twice)",
                     () -> NormalisedTerms.over(index, SenseRuns.fromClasspath()));
             timed(index.source() + ", every match and corroborated",
                     () -> CorroboratedReading.of(index, index.publishedConcepts(),

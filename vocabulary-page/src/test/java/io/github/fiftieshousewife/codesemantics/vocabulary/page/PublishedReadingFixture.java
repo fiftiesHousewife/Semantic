@@ -31,16 +31,16 @@ final class PublishedReadingFixture {
                 {
                   "schemaVersion": "5.0",
                   "matches": [
-                    {"vocabulary": "FIBO", "term": "interest rate", "wordsInTerm": 2, "rung": "WORDS",
+                    {"vocabulary": "FIBO", "term": "interest rate", "wordsInTerm": 2, "normalisation": "WORDS",
                      "specificity": 0.9, "occurrences": 6, "outcome": "REPORTED",
                      "concepts": ["InterestRate"], "sites": ["A.java:1"]},
-                    {"vocabulary": "FIBO", "term": "coupon", "wordsInTerm": 1, "rung": "WORDS",
+                    {"vocabulary": "FIBO", "term": "coupon", "wordsInTerm": 1, "normalisation": "WORDS",
                      "specificity": 0.5, "occurrences": 40, "outcome": "REPORTED",
                      "concepts": ["Coupon"], "sites": ["A.java:1"]},
-                    {"vocabulary": "BIAN", "term": "term deposit", "wordsInTerm": 2, "rung": "WORDS",
+                    {"vocabulary": "BIAN", "term": "term deposit", "wordsInTerm": 2, "normalisation": "WORDS",
                      "specificity": 0.9, "occurrences": 3, "outcome": "REPORTED",
                      "concepts": ["Term Deposit"], "sites": ["A.java:2"]},
-                    {"vocabulary": "FIBO", "term": "credit risk", "wordsInTerm": 2, "rung": "LEMMAS",
+                    {"vocabulary": "FIBO", "term": "credit risk", "wordsInTerm": 2, "normalisation": "LEMMAS",
                      "specificity": 0.9, "occurrences": 5, "outcome": "REPORTED",
                      "concepts": ["CreditRisk"], "sites": ["A.java:3"]}
                   ],

@@ -109,8 +109,8 @@ public final class SpecificTerms implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return published.rung();
+    public MatchNormalisation normalisation() {
+        return published.normalisation();
     }
 
     private static boolean isThePublishersOwn(final List<String> term, final WorkingJavaRuns corpus) {

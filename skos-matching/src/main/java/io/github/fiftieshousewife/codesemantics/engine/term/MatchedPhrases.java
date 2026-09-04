@@ -22,10 +22,10 @@ import java.util.List;
  * about; a deal of the <em>source</em> states as many terms as the source does, so the two sides can be
  * counted the same way.
  *
- * <p><b>The words themselves, and not the rungs above them.</b> A rung comparing what the dictionary says
- * two runs mean is a claim about the dictionary, and a deal of a publisher's spellings is no reference for
- * it. The rung is carried on every span the reading reports, so this counts one of the figures the reading
- * already states apart rather than a fourth one.
+ * <p><b>The words themselves, and not the normalisations above them.</b> A normalisation comparing what the dictionary
+ * says two runs mean is a claim about the dictionary, and a deal of a publisher's spellings is no reference for it. The
+ * normalisation is carried on every span the reading reports, so this counts one of the figures the reading already
+ * states apart rather than a fourth one.
  */
 public final class MatchedPhrases {
 
@@ -35,7 +35,7 @@ public final class MatchedPhrases {
         this.reached = reached;
     }
 
-    /** The reading over one source's published spellings, which is the ladder's lowest rung. */
+    /** The reading over one source's published spellings, which is the normalisations's lowest normalisation. */
     public static MatchedPhrases over(final TermIndex index) {
         return new MatchedPhrases(ReachedPhrases.over(index));
     }

@@ -34,7 +34,7 @@ class StatedDepthTest {
     }
 
     @Test
-    void countsTheRungsThePublisherStatesBetweenAConceptAndTheRootOfItsBranch() {
+    void countsTheLevelsThePublisherStatesBetweenAConceptAndTheRootOfItsBranch() {
         final StatedDepth depth = depth();
 
         assertAll(

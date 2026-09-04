@@ -20,7 +20,7 @@ class SenseRunsTest {
     void readsNothingWhereTheDictionaryHoldsNoEntryForTheWholeRun() {
         assertThat(senses.of(List.of("base", "form")))
                 .as("reading a run word by word made two words sharing a commonest sense into one word, "
-                        + "and where the two runs carry the same words it only repeats the lemma rung")
+                        + "and where the two runs carry the same words it only repeats the lemma normalisation")
                 .isEmpty();
     }
 

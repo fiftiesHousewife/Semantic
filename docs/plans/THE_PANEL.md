@@ -31,7 +31,7 @@ For each member, one of four outcomes, and each is a legitimate result:
 
 | Outcome | What it means | What is reported |
 |---|---|---|
-| **A term taxonomy exists and is redistributable** | The matcher can run. FpML, FIBO, CDM, FDC3, OLiA, XBRL | the match rate, split by rung and by term length, against both nulls |
+| **A term taxonomy exists and is redistributable** | The matcher can run. FpML, FIBO, CDM, FDC3, OLiA, XBRL | the match rate, split by normalisation and by term length, against both nulls |
 | **A functional taxonomy exists** | Not matched — diverged against, as a reference distribution. NIST CSF, APQC | the divergence per function, against a permuted-assignment null |
 | **Only a general subject scheme applies** | arXiv, CSO. A placement rather than a match | the nearest subjects and the chance-expected best |
 | **Nothing citable exists** | The honest state for most software domains today | recorded as a gap, with what a source would have to publish |

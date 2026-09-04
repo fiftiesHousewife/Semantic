@@ -38,7 +38,7 @@ class VocabularyMatchCountsTest {
     }
 
     @Test
-    void countsATermOnceHoweverManyRungsMatchedIt() {
+    void countsATermOnceHoweverManyNormalisationsMatchedIt() {
         final List<VocabularyMatchCounts> counts = VocabularyMatchCounts.of(List.of("FpML"), List.of(
                 row("FpML", "interest rate", 2, 40, "REPORTED"),
                 row("FpML", "interest rate", 2, 32, "REPORTED")));

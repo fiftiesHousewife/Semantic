@@ -16,15 +16,15 @@ class TermMatchesTest {
                 "what the publisher says it means", "");
     }
 
-    private static TermSighting sighting(final List<String> words, final TermRung rung,
+    private static TermSighting sighting(final List<String> words, final MatchNormalisation normalisation,
                                          final double specificity, final int occurrences,
                                          final SkosConcept... concepts) {
-        return new TermSighting(words, List.of(concepts), rung, specificity, occurrences, occurrences,
+        return new TermSighting(words, List.of(concepts), normalisation, specificity, occurrences, occurrences,
                 List.of("lexicon/src/main/java/Reading.java:9"));
     }
 
     private static MatchedTerms terms(final TermSighting... sightings) {
-        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(TermRung.WORDS, 12), Map.of());
+        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(MatchNormalisation.WORDS, 12), Map.of());
     }
 
     private static CorroboratedReading reading(final MatchedTerms every, final MatchedTerms matched) {
@@ -36,8 +36,8 @@ class TermMatchesTest {
     private final TermMatches matches = new TermMatches();
 
     @Test
-    void carriesEveryAdmittedTermWithTheRungItWasFoundAt() {
-        final TermSighting verb = sighting(List.of("verb"), TermRung.WORDS, 0.8, 20,
+    void carriesEveryAdmittedTermWithTheNormalisationItWasFoundAt() {
+        final TermSighting verb = sighting(List.of("verb"), MatchNormalisation.WORDS, 0.8, 20,
                 concept("Verb", "WordClass"));
 
         final List<TermMatch> read = matches.of("OLiA", reading(terms(verb), terms(verb)));
@@ -46,7 +46,7 @@ class TermMatchesTest {
                 () -> assertThat(read).hasSize(1),
                 () -> assertThat(read.getFirst().term()).isEqualTo("verb"),
                 () -> assertThat(read.getFirst().vocabulary()).isEqualTo("OLiA"),
-                () -> assertThat(read.getFirst().rung()).isEqualTo(TermRung.WORDS),
+                () -> assertThat(read.getFirst().normalisation()).isEqualTo(MatchNormalisation.WORDS),
                 () -> assertThat(read.getFirst().wordsInTerm()).isEqualTo(1),
                 () -> assertThat(read.getFirst().occurrences()).isEqualTo(20),
                 () -> assertThat(read.getFirst().concepts()).containsExactly("Verb"),
@@ -57,9 +57,9 @@ class TermMatchesTest {
 
     @Test
     void carriesATermTheBranchRuleRemovedAndSaysWhichRuleRemovedIt() {
-        final TermSighting verb = sighting(List.of("verb"), TermRung.WORDS, 0.8, 20,
+        final TermSighting verb = sighting(List.of("verb"), MatchNormalisation.WORDS, 0.8, 20,
                 concept("Verb", "WordClass"));
-        final TermSighting source = sighting(List.of("source"), TermRung.WORDS, 0.4, 188,
+        final TermSighting source = sighting(List.of("source"), MatchNormalisation.WORDS, 0.4, 188,
                 concept("Source", "TextStructuralUnit"));
 
         final List<TermMatch> read = matches.of("OLiA", reading(terms(verb, source), terms(verb)));
@@ -75,10 +75,10 @@ class TermMatchesTest {
     }
 
     @Test
-    void keepsOneTermFoundAtTwoRungsAsTwoMatches() {
-        final TermSighting written = sighting(List.of("phrase"), TermRung.WORDS, 0.7, 10,
+    void keepsOneTermFoundAtTwoNormalisationsAsTwoMatches() {
+        final TermSighting written = sighting(List.of("phrase"), MatchNormalisation.WORDS, 0.7, 10,
                 concept("Phrase", "SyntacticUnit"));
-        final TermSighting lemmatised = sighting(List.of("phrases"), TermRung.LEMMAS, 0.7, 4,
+        final TermSighting lemmatised = sighting(List.of("phrases"), MatchNormalisation.LEMMAS, 0.7, 4,
                 concept("Phrase", "SyntacticUnit"));
 
         final List<TermMatch> read = matches.of("OLiA",
@@ -86,34 +86,34 @@ class TermMatchesTest {
 
         assertAll(
                 () -> assertThat(read).hasSize(2),
-                () -> assertThat(read).extracting(TermMatch::rung)
-                        .containsExactlyInAnyOrder(TermRung.WORDS, TermRung.LEMMAS));
+                () -> assertThat(read).extracting(TermMatch::normalisation)
+                        .containsExactlyInAnyOrder(MatchNormalisation.WORDS, MatchNormalisation.LEMMAS));
     }
 
     @Test
-    void reportsATermRefusedAtOneRungAndAdmittedAtAnotherAsBoth() {
-        final TermSighting written = sighting(List.of("result"), TermRung.WORDS, 0.6, 8,
+    void reportsATermRefusedAtOneNormalisationAndAdmittedAtAnotherAsBoth() {
+        final TermSighting written = sighting(List.of("result"), MatchNormalisation.WORDS, 0.6, 8,
                 concept("Cause", "SemanticRelation"));
-        final TermSighting sensed = sighting(List.of("result"), TermRung.SENSES, 0.6, 8,
+        final TermSighting sensed = sighting(List.of("result"), MatchNormalisation.SENSES, 0.6, 8,
                 concept("Cause", "SemanticRelation"));
 
         final List<TermMatch> read = matches.of("OLiA", reading(terms(written), terms(sensed)));
 
         assertAll(
                 () -> assertThat(read).hasSize(2),
-                () -> assertThat(read).filteredOn(match -> match.rung() == TermRung.WORDS)
+                () -> assertThat(read).filteredOn(match -> match.normalisation() == MatchNormalisation.WORDS)
                         .singleElement()
                         .extracting(TermMatch::outcome).isEqualTo(TermOutcome.REFUSED_BY_BRANCH_RULE),
-                () -> assertThat(read).filteredOn(match -> match.rung() == TermRung.SENSES)
+                () -> assertThat(read).filteredOn(match -> match.normalisation() == MatchNormalisation.SENSES)
                         .singleElement()
                         .extracting(TermMatch::outcome).isEqualTo(TermOutcome.REPORTED));
     }
 
     @Test
     void ordersByWhatEachMatchIsWorthSoTheFileReadsInTheOrderThatDecidesTheAnswer() {
-        final TermSighting rare = sighting(List.of("hypotaxis"), TermRung.WORDS, 0.9, 3,
+        final TermSighting rare = sighting(List.of("hypotaxis"), MatchNormalisation.WORDS, 0.9, 3,
                 concept("Hypotaxis", "DiscourseRelation"));
-        final TermSighting common = sighting(List.of("name"), TermRung.WORDS, 0.2, 400,
+        final TermSighting common = sighting(List.of("name"), MatchNormalisation.WORDS, 0.2, 400,
                 concept("Name", "TextUnit"));
 
         final List<TermMatch> read = matches.of("OLiA",

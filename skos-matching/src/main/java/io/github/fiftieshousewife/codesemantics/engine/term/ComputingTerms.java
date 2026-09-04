@@ -62,8 +62,8 @@ public final class ComputingTerms implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.WORDS;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.WORDS;
     }
 
     private static final ComputingTerms CLASSPATH_DEFAULTS = new ComputingTerms(

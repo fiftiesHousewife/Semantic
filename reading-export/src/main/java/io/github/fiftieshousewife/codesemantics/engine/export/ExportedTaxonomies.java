@@ -14,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescription;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchNormalisation;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
@@ -104,7 +104,7 @@ public final class ExportedTaxonomies {
         return ExportedConcept.builder()
                 .concept(concept.prefLabel())
                 .term(sighting.term())
-                .normalisation(sighting.rung().level())
+                .normalisation(sighting.normalisation().level())
                 .definition(concept.definition())
                 .description(nearest.map(StatedDescription::prose).orElse(""))
                 .descriptionStatedFor(nearest.map(StatedDescription::statedFor).orElse(""))
@@ -119,7 +119,7 @@ public final class ExportedTaxonomies {
     }
 
     private static Map<String, Integer> matchesByNormalisation(final MatchedTerms matched) {
-        return Stream.of(TermRung.values()).collect(Collectors.toUnmodifiableMap(
-                TermRung::level, rung -> matched.at(rung).spansFound()));
+        return Stream.of(MatchNormalisation.values()).collect(Collectors.toUnmodifiableMap(
+                MatchNormalisation::level, normalisation -> matched.at(normalisation).spansFound()));
     }
 }

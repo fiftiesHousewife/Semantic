@@ -26,7 +26,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * <p>Each dealt run carries the concepts of the term whose place it took, so two dealt runs reading alike
  * hold both, exactly as two terms a publisher spells alike do.
  *
- * <p>It is keyed by the words themselves and answers at that rung only. Both nulls here are drawn there, for
+ * <p>It is keyed by the words themselves and answers at that normalisation only. Both nulls here are drawn there, for
  * the reason {@link MatchedPhrases} states.
  */
 public final class ScrambledTerms implements TermIndex {
@@ -124,7 +124,7 @@ public final class ScrambledTerms implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return published.rung();
+    public MatchNormalisation normalisation() {
+        return published.normalisation();
     }
 }

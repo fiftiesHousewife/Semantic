@@ -156,7 +156,7 @@ Turn the match into an answer: for each category, the share of that category's s
 
 ### Chunk 6 — Fix the description arm
 
-Two changes, both from the same finding. Draw the null **at each category's own description length** rather than a common one, and pool a category's subtree descriptions to its root the way a package's rungs are already pooled — which is Song & Roth's own aggregation and the direct precedent for it.
+Two changes, both from the same finding. Draw the null **at each category's own description length** rather than a common one, and pool a category's subtree descriptions to its root the way a package's normalisations are already pooled — which is Song & Roth's own aggregation and the direct precedent for it.
 
 Before either, run the truncation study, which needs no panel and no new resource: truncate each arXiv description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. **Measurement.** If the ranking changes before 1/4, the present placement is measuring description length, and that is a finding to publish in the reports whether or not the fix lands. **Blocked on** nothing.
 

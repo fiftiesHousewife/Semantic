@@ -82,7 +82,7 @@ class BehavioursTest {
         assertThat(read("""
                 package example;
                 class Reading {
-                    int rung() { return 0; }
+                    int normalisation() { return 0; }
                 }
                 """))
                 .isEmpty();

@@ -42,6 +42,6 @@ class LemmaRunsTest {
 
     @Test
     void saysItAnsweredOnDictionaryFormsRatherThanOnMeanings() {
-        assertThat(lemmas.rung()).isEqualTo(TermRung.LEMMAS);
+        assertThat(lemmas.normalisation()).isEqualTo(MatchNormalisation.LEMMAS);
     }
 }

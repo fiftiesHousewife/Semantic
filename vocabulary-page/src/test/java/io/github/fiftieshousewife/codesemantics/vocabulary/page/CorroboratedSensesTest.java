@@ -50,7 +50,7 @@ class CorroboratedSensesTest {
     }
 
     @Test
-    void leavesAMatchAtASpellingRungOutOfTheEvidence() {
+    void leavesAMatchAtASpellingNormalisationOutOfTheEvidence() {
         assertThat(corroborated.of(List.of(uncounted("Credit Risk", "finance"))))
                 .singleElement()
                 .satisfies(sense -> assertThat(sense.uses()).isZero());

@@ -25,8 +25,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * repository happens to write would score a perfect stated share on one word, which is the failure
  * {@code WrittenSubtree} already met with one share.
  *
- * <p>A keyword matched at several rungs of the ladder counts once. It is one agreement the publisher and
- * the repository reached, and counting it per rung would weigh a topic by how many ways a dictionary could
+ * <p>A keyword matched at several normalisations counts once. It is one agreement the publisher and
+ * the repository reached, and counting it per normalisation would weigh a topic by how many ways a dictionary could
  * reach the same run.
  */
 public record WrittenKeywords(String topic, int keywordsWritten, int keywordsPublished, double statedShare,

@@ -62,7 +62,7 @@ public final class FinanceTerms implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.WORDS;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.WORDS;
     }
 }

@@ -80,7 +80,7 @@ class SpecificTermsTest {
     void speaksForThePublisherItWraps() {
         assertAll(
                 () -> assertThat(specific().source()).isEqualTo("FpML"),
-                () -> assertThat(specific().rung()).isEqualTo(FPML.rung()),
+                () -> assertThat(specific().normalisation()).isEqualTo(FPML.normalisation()),
                 () -> assertThat(specific().reads(List.of("cap", "floor"))).isTrue());
     }
 

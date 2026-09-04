@@ -9,7 +9,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchNormalisation;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
@@ -38,18 +38,18 @@ class ExportedTaxonomiesTest {
 
     private static TermSighting sighting(final List<String> words, final double specificity,
                                          final int occurrences, final SkosConcept... concepts) {
-        return sighting(TermRung.WORDS, words, specificity, occurrences, concepts);
+        return sighting(MatchNormalisation.WORDS, words, specificity, occurrences, concepts);
     }
 
-    private static TermSighting sighting(final TermRung rung, final List<String> words,
+    private static TermSighting sighting(final MatchNormalisation normalisation, final List<String> words,
                                          final double specificity, final int occurrences,
                                          final SkosConcept... concepts) {
-        return new TermSighting(words, List.of(concepts), rung, specificity, occurrences,
+        return new TermSighting(words, List.of(concepts), normalisation, specificity, occurrences,
                 occurrences, List.of("engine/src/main/java/Reading.java:9"));
     }
 
     private static MatchedTerms matched(final TermSighting... sightings) {
-        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(TermRung.WORDS, 12), Map.of());
+        return new MatchedTerms(List.of(sightings), 900, 40, 12, Map.of(MatchNormalisation.WORDS, 12), Map.of());
     }
 
     private final ExportedTaxonomies taxonomies = new ExportedTaxonomies();
@@ -155,8 +155,8 @@ class ExportedTaxonomiesTest {
     @Test
     void statesTheNormalisationLevelEachRowWasFoundAt() {
         final ExportedTaxonomy exported = taxonomies.of("OLiA",
-                matched(sighting(TermRung.WORDS, List.of("verb"), 0.8, 20, concept("Verb", "WordClass")),
-                        sighting(TermRung.LEMMAS, List.of("phrases"), 0.7, 9,
+                matched(sighting(MatchNormalisation.WORDS, List.of("verb"), 0.8, 20, concept("Verb", "WordClass")),
+                        sighting(MatchNormalisation.LEMMAS, List.of("phrases"), 0.7, 9,
                                 concept("Phrase", "Constituent"))),
                 AGREEING, ABOVE_CHANCE, PATHS, DESCRIBED);
 

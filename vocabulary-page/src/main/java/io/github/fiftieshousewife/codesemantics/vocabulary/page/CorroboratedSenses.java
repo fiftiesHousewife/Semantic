@@ -15,7 +15,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
  * takes the run's occurrence count as its {@code uses}, and every other sense keeps the uncounted weight.
  *
  * <p>The written runs are the committed evidence and nothing else: the multi-word terms the span walk
- * matched at the words themselves — the spelling rungs are left out because admitting a variant an entry
+ * matched at the words themselves — the spelling normalisations are left out because admitting a variant an entry
  * forbids is the documented route to overgeneration — and the collocated dictionary units the reading
  * merged. An arm with any counted sense is untouched, because counting frames never mix: WordNet's arm
  * keeps its tagged-corpus counts whatever the repository wrote.
@@ -24,7 +24,7 @@ final class CorroboratedSenses {
 
     private static final Pattern WORDS = Pattern.compile("\\p{L}+");
 
-    private static final String WORDS_RUNG = "WORDS";
+    private static final String WORDS_NORMALISATION = "WORDS";
 
     private final Map<String, Integer> occurrencesByRun;
 
@@ -37,7 +37,7 @@ final class CorroboratedSenses {
         final Map<String, Integer> runs = new HashMap<>();
         reading.termMatches().stream()
                 .filter(match -> match.wordsInTerm() > 1)
-                .filter(match -> WORDS_RUNG.equals(match.rung()))
+                .filter(match -> WORDS_NORMALISATION.equals(match.normalisation()))
                 .forEach(match -> runs.merge(runOf(match.term()), match.occurrences(), Integer::sum));
         reading.collocatedUnits().forEach((unit, occurrences) ->
                 runs.merge(runOf(unit), occurrences, Integer::sum));

@@ -43,7 +43,7 @@ class ReadingExportDiagnostic {
      * The bar counts the walk over one level and the reading walks four, longest-first, so a long run a
      * dictionary answered consumes words a shorter published phrase began in and the reading never reaches
      * it. That can only lose a phrase the bar counted, never add one, because every run the one-level walk
-     * asks about the ladder asks about too and takes at a length at least as great. {@code countedPhrases}
+     * asks about the normalisations asks about too and takes at a length at least as great. {@code countedPhrases}
      * names the difference for one clone — on fineract it is CSO's {@code message delivery}, hidden by
      * {@code sms message} answering one word earlier at the lemmas level.
      */

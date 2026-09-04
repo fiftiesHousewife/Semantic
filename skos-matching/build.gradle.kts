@@ -4,7 +4,7 @@ plugins {
 }
 
 description = "Matching declared names against published SKOS vocabularies: the word-keyed taxonomy " +
-        "index, the span matcher over the rungs of normalisation, the branch corroboration and the " +
+        "index, the span matcher over the normalisations, the branch corroboration and the " +
         "subject scoring of what was matched"
 
 dependencies {

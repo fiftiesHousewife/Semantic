@@ -16,11 +16,10 @@ import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
  * its dictionary form: {@code extract info} as <em>extract information</em>, which is what a taxonomy
  * publishing {@code extracting information} wrote.
  *
- * <p>It sits between the lemma rung and the sense rung because that is the size of the step it takes. A
- * lemma is one word and its inflections. An expansion is one word and the longer word a dictionary states
- * it stands for, which is still one word — where a sense is any other word that happens to share a
- * meaning, and is the rung whose word-by-word reading had to be taken out for turning {@code set} into
- * {@code put}.
+ * <p>It sits between the lemma normalisation and the sense normalisation because that is the size of the step it takes.
+ * A lemma is one word and its inflections. An expansion is one word and the longer word a dictionary states it stands
+ * for, which is still one word — where a sense is any other word that happens to share a meaning, and is the
+ * normalisation whose word-by-word reading had to be taken out for turning {@code set} into {@code put}.
  *
  * <p><b>A token several sources expand differently is not expanded at all.</b> Wiktionary cites
  * {@code msg} as <em>message</em>, <em>Madison Square Garden</em> and <em>monosodium glutamate</em>, and
@@ -28,7 +27,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
  * Mineworkers. Nothing in the file ranks them — its own header says it cites usage and leaves the reader
  * to vote — so choosing one would be this library stating which reading a repository meant. Of the 22,411
  * tokens it cites, 15,048 carry exactly one expansion and only those are read; the rest keep the word as
- * written, which is what the narrower rungs already compare.
+ * written, which is what the narrower normalisations already compare.
  *
  * <p><b>A word English uses in its own right is written out only where the expansion means the same
  * thing.</b> Wiktionary cites an abbreviation sense for plenty of ordinary words — {@code head} as
@@ -88,7 +87,7 @@ public final class ExpandedRuns implements TermNormalisation<List<String>> {
 
     /**
      * The run written out and read as dictionary forms, or nothing where a word has no dictionary form —
-     * the lemma rung's own rule, because this rung ends in a lemma.
+     * the lemma normalisation's own rule, because this normalisation ends in a lemma.
      */
     @Override
     public Optional<List<String>> of(final List<String> run) {
@@ -105,7 +104,7 @@ public final class ExpandedRuns implements TermNormalisation<List<String>> {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.EXPANSIONS;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.EXPANSIONS;
     }
 }

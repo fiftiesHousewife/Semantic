@@ -27,7 +27,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
  */
 public final class ParsedRepository {
 
-    /** The dot the tail begins with once its shared coordinate is taken off, which names no rung. */
+    /** The dot the tail begins with once its shared coordinate is taken off, which names no normalisation. */
     private static final Pattern LEADING_QUALIFIER = Pattern.compile("^\\.");
 
     private final List<ParsedFile> files;

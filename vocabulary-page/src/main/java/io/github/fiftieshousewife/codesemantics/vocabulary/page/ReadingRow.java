@@ -25,7 +25,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
  * its own repository has no such file, and a column it cannot fill says so rather than guessing.
  *
  * @param repository   the tree the reading was taken of
- * @param answers      every source that cleared the answering rung's bar, ranked by how far it cleared it
+ * @param answers      every source that cleared the answering normalisation's bar, ranked by how far it cleared it
  * @param about        the topics the word reading names, in its own order
  * @param vocabularies every vocabulary the reading published, which is every one that beat its own bar
  * @param placedIn     one entry per subject scheme, at both of its levels

@@ -36,9 +36,9 @@ class PinnedTermFindings {
         final MatchedTerms matched = reading.every();
         final MatchedTerms corroborated = reading.matched();
 
-        final MatchedTerms onWords = matched.at(TermRung.WORDS);
-        final MatchedTerms onLemmas = matched.at(TermRung.LEMMAS);
-        final MatchedTerms onSenses = matched.at(TermRung.SENSES);
+        final MatchedTerms onWords = matched.at(MatchNormalisation.WORDS);
+        final MatchedTerms onLemmas = matched.at(MatchNormalisation.LEMMAS);
+        final MatchedTerms onSenses = matched.at(MatchNormalisation.SENSES);
         final List<String> carrying = onWords.byMass(TERMS_HELD).stream().map(TermSighting::term).toList();
         final List<String> longer = onWords.longerThanOneWord().stream().map(TermSighting::term).toList();
         assertAll(
@@ -73,10 +73,10 @@ class PinnedTermFindings {
                                 + "generalisation: the ontology publishes singulars and a program declares "
                                 + "whatever its sentence needed, and `base forms` meeting `BaseForm` is one "
                                 + "word inflected rather than a claim about meaning. It is separated from "
-                                + "the sense rung so that the sense rung cannot take credit for a plural.")
+                                + "the sense normalisation so that it cannot take credit for a plural.")
                         .contains("base forms"),
                 () -> assertThat(oneWordShare(onSenses))
-                        .as("A FINDING, PINNED, AND IT REFUSES THE RUNG AS SPECIFIED. Normalising both "
+                        .as("A FINDING, PINNED, AND IT REFUSES THE NORMALISATION AS SPECIFIED. Normalising both "
                                 + "sides to WordNet's most frequent sense was queued because it is where "
                                 + "`lemma` could meet `BaseForm` and `article` could meet `Determiner`. It "
                                 + "buys neither: WordNet holds no entry for `base form` at all, and it "
@@ -85,19 +85,19 @@ class PinnedTermFindings {
                                 + "tree is every span but one a single word long — `subject` and `theme` reading as "
                                 + "`Topic`, `cite` as `Referring`, `place` and `put` as `Set`, `sum` as "
                                 + "`Amount`, `auto` as `Automobile` — against a design whose whole premise "
-                                + "is that the multi-word term is the signal. The rung stays, reported "
+                                + "is that the multi-word term is the signal. The normalisation stays, reported "
                                 + "apart and voting on nothing, because the figure is the argument for "
                                 + "refusing it.")
                         .isGreaterThan(0.99),
                 () -> assertThat(onSenses.byMass(TERMS_HELD)).map(TermSighting::term)
-                        .as("A FINDING, PINNED. The sense rung's largest gain is this repository's own "
+                        .as("A FINDING, PINNED. The sense normalisation's largest gain is this repository's own "
                                 + "measured artefact arriving by a second route: `topic`, `theme` and "
                                 + "`subject` are one WordNet entry, which is what already puts `music` "
                                 + "under everything the theme reading says. A term matcher exists so that "
-                                + "a match needs no English in between, and this rung puts the English "
+                                + "a match needs no English in between, and this normalisation puts the English "
                                 + "back.")
                         .contains("subject", "theme"),
-                () -> assertThat(oneWordShare(corroborated.at(TermRung.WORDS)))
+                () -> assertThat(oneWordShare(corroborated.at(MatchNormalisation.WORDS)))
                         .as("WHAT THE CORROBORATION HAD TO DO. Requiring the branch to hold more than the "
                                 + "one concept must move the share the whole design turns on, or it is a "
                                 + "rule the data does not need.")
@@ -122,7 +122,7 @@ class PinnedTermFindings {
                 .toList(), depth);
 
         assertAll(
-                () -> assertThat(refused.meanRungPerConcept())
+                () -> assertThat(refused.meanLevelPerConcept())
                         .as("A PREDICTION, REFUTED, AND THE ARM IT WAS THE WHOLE OF. The depth arm expected "
                                 + "a term that means something to a field to sit deep in that field's "
                                 + "hierarchy and an ordinary English word the field happens to have claimed "
@@ -131,18 +131,18 @@ class PinnedTermFindings {
                                 + "deeper than what it admitted, on this tree and on the one out-of-domain "
                                 + "member read so far. OLiA's deep chains are its discourse relations and "
                                 + "its named entities, both made of ordinary English, and the morphosyntax "
-                                + "a program writing about grammar declares stands one rung down because "
+                                + "a program writing about grammar declares stands one normalisation down because "
                                 + "OLiA states no named parent for it.")
-                        .isGreaterThan(admitted.meanRungPerConcept()),
+                        .isGreaterThan(admitted.meanLevelPerConcept()),
                 () -> assertThat(depth.below("Result"))
                         .as("THE FOUR MATCHES THE ARM WAS WRITTEN ABOUT. `Result`, `Object`, `Exception` "
                                 + "and `String` were said to share the property of sitting near the roots. "
-                                + "Three of the four sit below the median rung and `Result` is as deep as "
+                                + "Three of the four sit below the median normalisation and `Result` is as deep as "
                                 + "this taxonomy goes, so the shared property was never depth.")
                         .isGreaterThan(depth.below("Verb")),
                 () -> assertThat(admitted.at(1).spans())
                         .as("Where the field's own vocabulary sits. `Verb`, `Noun`, `Token`, `Clause`, "
-                                + "`Phrase` and `Diacritic` are all one rung down, which is the rung a "
+                                + "`Phrase` and `Diacritic` are all one level down, which is the level a "
                                 + "depth weight would have discounted hardest.")
                         .isPositive());
     }

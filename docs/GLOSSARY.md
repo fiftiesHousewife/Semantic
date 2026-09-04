@@ -13,11 +13,11 @@ This library reads code with the tools of lexical semantics and the arithmetic o
 | **Token** | One indivisible piece of text after splitting — roughly, one word. [Tokenization](https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization) | `Tokeniser`, `IdentifierWords` |
 | **Identifier** | A name the programmer chose: a class, method, field or variable. The unit this library reads | `NameOccurrence`, `IdentifierWords` |
 | **Lemma** | The dictionary form of a word. *phrases*, *phrasing* and *phrased* all have the lemma **phrase**. [Lemma](https://en.wikipedia.org/wiki/Lemma_(morphology)) | `LemmaRuns`, `ContentWords` |
-| **Lemmatisation** | Reducing an inflected word to its lemma, using a dictionary rather than by chopping letters off. [Lemmatisation](https://en.wikipedia.org/wiki/Lemmatisation) | `LemmaRuns` — the middle rung of the term-matching ladder. It exists so that `phrases` meeting `Phrase` is scored as *one word inflected* and not as a claim about meaning |
+| **Lemmatisation** | Reducing an inflected word to its lemma, using a dictionary rather than by chopping letters off. [Lemmatisation](https://en.wikipedia.org/wiki/Lemmatisation) | `LemmaRuns` — the middle normalisation a term match can be made at. It exists so that `phrases` meeting `Phrase` is scored as *one word inflected* and not as a claim about meaning |
 | **Stemming** | The cruder cousin: chopping suffixes without consulting a dictionary, so *universe* and *university* collapse. Not used here | — |
 | **Headword** | The form a dictionary files an entry under, before any sense is chosen. A resource labelling the *headword* makes a vaguer claim than one labelling a sense | `TopicCitations`, Wiktionary topics |
 | **Sense** | One distinct meaning of a word. *cite* has eight in WordNet; only one is about a courtroom | `WordSense`, `SenseRuns` |
-| **Synset** | WordNet's unit: a **set of synonyms** that share one sense, so *topic*, *theme* and *subject* are one synset. Comparing two words as synsets is comparing meanings rather than spellings. [WordNet](https://wordnet.princeton.edu/) | `SenseRuns`, `WordNetLexicon`. **Still used**, as the broadest rung of the ladder — and *refused as evidence*, because every match it buys on this tree is one word long |
+| **Synset** | WordNet's unit: a **set of synonyms** that share one sense, so *topic*, *theme* and *subject* are one synset. Comparing two words as synsets is comparing meanings rather than spellings. [WordNet](https://wordnet.princeton.edu/) | `SenseRuns`, `WordNetLexicon`. **Still used**, as the broadest normalisation a term match can be made at — and *refused as evidence*, because every match it buys on this tree is one word long |
 | **Polysemy** | One word carrying several related senses. The whole difficulty this library argues with | `SenseCoverage` |
 | **Homograph** | Two unrelated words spelled the same — *file* the container and *file* the rank formation | `SENSE_DISAMBIGUATION.md` |
 | **Word-sense disambiguation** | Deciding which sense a word carries *in this position*. [WSD](https://en.wikipedia.org/wiki/Word-sense_disambiguation) | `PhraseTopics` — a phrase's words as context for one another |
@@ -32,7 +32,7 @@ This library reads code with the tools of lexical semantics and the arithmetic o
 | **Morpheme** | The smallest meaningful part: *un-*, *read*, *-able* | `WordMorphology` |
 | **Affix / prefix / suffix** | A morpheme attached to a word — before it, after it, or generally | `WordMorphology`, and OLiA's `Affix`, `Prefix`, `Suffix` |
 | **Stem / root** | What is left of a word once its affixes are taken off | OLiA's `Stem`, `Root` |
-| **Inflection** | A change of form that does not change the word — *phrase* → *phrases* | the lemma rung exists to price this correctly |
+| **Inflection** | A change of form that does not change the word — *phrase* → *phrases* | the lemma normalisation exists to price this correctly |
 | **Derivation** | A change of form that makes a *new* word — *segment* → *segmenter* | the unbuilt half of [`BEHAVIOURS.md`](plans/BEHAVIOURS.md) |
 | **Compound** | One word made of several — `topicDistribution`, or `userid` written without a boundary | `WordSegmenter`, `CompoundParses` |
 | **Acronym / initialism / abbreviation** | Shortened forms. An acronym is pronounced as a word (*NATO*), an initialism spelled out (*HTTP*) | `wikidata-initialisms.tsv`, `WordNetAbbreviations` |
@@ -111,7 +111,7 @@ One further rule that is about length rather than meaning: one- and two-letter f
 | **Scope** | One source set or the documentation, read as a unit and compared against the whole repository |
 | **Blob** | A `(content, path)` pair in git. Content-addressed, so an unchanged file across five hundred commits is one observation |
 | **Provenance header** | The comment block at the top of every bundled resource stating its source URL, its pinned revision and its licence. A resource without one fails the build |
-| **Rung** | Which normalisation a term match was made at — the words, their lemmas, or their senses. Carried on every match, and never summed across |
+| **Normalisation** | What both sides of a term match were turned into before they were compared — the words, their lemmas, their expansions, or their senses. Carried on every match, and never summed across |
 
 ---
 

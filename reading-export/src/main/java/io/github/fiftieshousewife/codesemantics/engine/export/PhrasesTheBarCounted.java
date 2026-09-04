@@ -3,7 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchNormalisation;
 
 /**
  * The terms of one published taxonomy that its chance bar counted: those of more than one word found at the
@@ -21,7 +21,7 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 public final class PhrasesTheBarCounted {
 
     /** The level both the observed count and the deals are drawn at, stated by the matcher rather than here. */
-    private static final String DRAWN_AT = TermRung.WORDS.level();
+    private static final String DRAWN_AT = MatchNormalisation.WORDS.level();
 
     public Set<String> in(final ExportedTaxonomy taxonomy) {
         return taxonomy.concepts().stream()

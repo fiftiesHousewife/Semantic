@@ -41,12 +41,12 @@ public final class TermReading {
      * that order, narrowest first, each asked only where the one before it said nothing.
      */
     public static TermReading over(final TermIndex index) {
-        return reading(ladder(index));
+        return reading(normalisations(index));
     }
 
     /**
-     * The same ladder with the branch rule applied to what each rung answers, rather than to the source's own
-     * spellings before the ladder is built.
+     * The same normalisations with the branch rule applied to what each normalisation answers, rather than to the
+     * source's own spellings before the normalisations is built.
      *
      * <p>The order matters and it was measured. Corroborating the index first puts the rule on the length of
      * the term <em>the publisher</em> wrote, so a two-word term admitted unconditionally there can still be
@@ -56,21 +56,21 @@ public final class TermReading {
      * applied where the repository's run is what is being asked about.
      */
     public static TermReading corroboratedBy(final TermIndex index, final StatedSiblings siblings) {
-        return reading(ladder(index).stream()
-                .map(rung -> (TermIndex) CorroboratedTerms.of(rung, siblings))
+        return reading(normalisations(index).stream()
+                .map(normalisation -> (TermIndex) CorroboratedTerms.of(normalisation, siblings))
                 .toList());
     }
 
-    private static List<TermIndex> ladder(final TermIndex index) {
+    private static List<TermIndex> normalisations(final TermIndex index) {
         return List.of(index,
                 NormalisedTerms.over(index, LemmaRuns.fromClasspath()),
                 NormalisedTerms.over(index, ExpandedRuns.fromClasspath()),
                 NormalisedTerms.over(index, SenseRuns.fromClasspath()));
     }
 
-    private static TermReading reading(final List<TermIndex> rungs) {
+    private static TermReading reading(final List<TermIndex> normalisations) {
         return new TermReading(IdentifierWords.fromClasspath(),
-                new TermSpans(rungs.toArray(TermIndex[]::new)), PhraseSpecificity.fromClasspath());
+                new TermSpans(normalisations.toArray(TermIndex[]::new)), PhraseSpecificity.fromClasspath());
     }
 
     public MatchedTerms of(final ParsedRepository parsed) {
@@ -122,7 +122,7 @@ public final class TermReading {
         return narrowedByTheName == 0.0 ? 0.0 : specificity.of(span.words()) / narrowedByTheName;
     }
 
-    /** The ladder's answer for one already-folded run, which is what a recorded reading rereads. */
+    /** The normalisations's answer for one already-folded run, which is what a recorded reading rereads. */
     Optional<TermSpan> answerFor(final List<String> run) {
         return spans.answerFor(run, 0, run.size());
     }

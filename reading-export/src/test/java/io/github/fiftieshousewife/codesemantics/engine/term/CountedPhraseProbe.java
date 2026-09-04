@@ -11,7 +11,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
  * named on both sides.
  *
  * <p>The two counts should agree, because both are the walk over the publisher's own spellings. Where they
- * do not, the difference is what the ladder cost: the reading offers a run to four levels longest-first, so a
+ * do not, the difference is what the normalisations cost: the reading offers a run to four levels longest-first, so a
  * long run answered by a dictionary consumes words a shorter published phrase began in, and the bar — which
  * walks one level — finds the shorter phrase the reading never reached. This prints those phrases rather than
  * the difference between two totals, because a count that disagrees by one is a claim until the phrase is
@@ -56,7 +56,7 @@ public final class CountedPhraseProbe {
                                                           final TreeReading tree) {
         return CorroboratedReading.of(judged, taxonomy.index().publishedConcepts(), tree.parsed())
                 .matched()
-                .at(TermRung.WORDS)
+                .at(MatchNormalisation.WORDS)
                 .longerThanOneWord().stream()
                 .map(TermSighting::term)
                 .collect(Collectors.toUnmodifiableSet());

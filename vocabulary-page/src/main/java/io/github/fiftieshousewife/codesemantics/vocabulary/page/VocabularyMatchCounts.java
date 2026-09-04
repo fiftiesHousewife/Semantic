@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * One vocabulary's reported term matches on one reading, phrases counted apart from single words: the
  * distinct terms and their summed occurrences, a phrase being a term of {@value #PHRASE_WORDS} or more
- * words. A term matched at several rungs counts once among the distinct terms and each match's
+ * words. A term matched at several normalisations counts once among the distinct terms and each match's
  * occurrences count toward the sum.
  */
 record VocabularyMatchCounts(String vocabulary, int phraseTerms, int phraseOccurrences,

@@ -91,7 +91,7 @@ public final class Behaviours {
 
     /**
      * Whether the verb reading stands. A surface the verb index carries as written always does; one reached
-     * only through an inflection loses to a noun the dictionary indexes directly — {@code rung} is the noun,
+     * only through an inflection loses to a noun the dictionary indexes directly — {@code normalisation} is the noun,
      * and reading it as ring sets an inference over a stated entry.
      */
     private boolean outranksTheNounReading(final String written, final String verb) {

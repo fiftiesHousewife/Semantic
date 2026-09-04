@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
+import io.github.fiftieshousewife.codesemantics.engine.term.MatchNormalisation;
 
 /**
  * Every term match a reading recorded, drawn one per line so a reader can check what the description
@@ -41,7 +41,7 @@ final class DrawnMatches {
                                     final Map<String, ExportedTaxonomy.Bar> bars) {
         final ExportedTaxonomy.Bar bar = bars.get(match.vocabulary());
         return new DrawnMatch(repository, match.vocabulary(), match.term(), match.concepts(),
-                match.occurrences(), matchedOn(match.rung()), match.outcome(),
+                match.occurrences(), matchedOn(match.normalisation()), match.outcome(),
                 bar == null ? 0 : bar.phrases(), bar == null ? 0 : bar.chanceExpectedBest());
     }
 
@@ -52,7 +52,7 @@ final class DrawnMatches {
      */
     private static String matchedOn(final String stated) {
         try {
-            return TermRung.valueOf(stated).normalisation();
+            return MatchNormalisation.valueOf(stated).normalisation();
         } catch (final IllegalArgumentException unknownToThisVersion) {
             return stated.toLowerCase(java.util.Locale.ROOT);
         }

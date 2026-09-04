@@ -105,8 +105,8 @@ class ScrambledTermsTest {
             }
 
             @Override
-            public TermRung rung() {
-                return published.rung();
+            public MatchNormalisation normalisation() {
+                return published.normalisation();
             }
         };
     }

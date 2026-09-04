@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
  * <p><b>It refuses no name the walk would have found a phrase in.</b> Comparing the words themselves, a run
  * matches a published term only where its first word is that term's first word, so the first words of the
  * terms the source publishes are the whole of what can begin one. That is true of the words and of nothing
- * above them: a rung reading a whole run as one dictionary entry can match two runs sharing no word at all,
- * which is why the null this serves is drawn at the rung the repository's own words answer at.
+ * above them: a normalisation reading a whole run as one dictionary entry can match two runs sharing no word at all,
+ * which is why the null this serves is drawn at the normalisation the repository's own words answer at.
  */
 public final class PhraseStarts {
 

@@ -74,7 +74,7 @@ class CorroboratedTermsTest {
 
         assertAll(
                 () -> assertThat(terms.source()).isEqualTo("OLiA"),
-                () -> assertThat(terms.rung()).isEqualTo(TermRung.WORDS),
+                () -> assertThat(terms.normalisation()).isEqualTo(MatchNormalisation.WORDS),
                 () -> assertThat(terms.longestTerm()).isEqualTo(1),
                 () -> assertThat(terms.terms()).contains(List.of("Preferred")),
                 () -> assertThat(terms.broaderOf("Preferred")).contains("UsageAndFrequencyFeature"));

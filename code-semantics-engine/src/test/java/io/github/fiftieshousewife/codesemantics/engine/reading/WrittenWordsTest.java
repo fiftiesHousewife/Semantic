@@ -43,13 +43,13 @@ class WrittenWordsTest {
         final WrittenWords other = new WrittenWords();
         written.saw("word", "Engine.java:1", true);
         other.saw("word", "Lexicon.java:1", true);
-        other.saw("rung", "Lexicon.java:2", true);
+        other.saw("normalisation", "Lexicon.java:2", true);
 
         final WrittenWords pooled = WrittenWords.pooling(List.of(written, other));
 
         assertAll(
                 () -> assertThat(pooled.occurrencesOf("word")).isEqualTo(2),
-                () -> assertThat(pooled.occurrencesOf("rung")).isOne(),
+                () -> assertThat(pooled.occurrencesOf("normalisation")).isOne(),
                 () -> assertThat(pooled.siteOf("word")).isEqualTo("Engine.java:1"));
     }
 
@@ -57,7 +57,7 @@ class WrittenWordsTest {
     void readsWhatWasWrittenAsADistributionOverWords() {
         written.saw("word", "Engine.java:1", true);
         written.saw("word", "Engine.java:2", true);
-        written.saw("rung", "Engine.java:3", true);
+        written.saw("normalisation", "Engine.java:3", true);
 
         assertAll(
                 () -> assertThat(written.shareByWord().get("word")).isCloseTo(2.0 / 3.0, offset(1e-12)),

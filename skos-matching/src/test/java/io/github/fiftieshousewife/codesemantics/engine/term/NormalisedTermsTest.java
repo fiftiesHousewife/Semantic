@@ -67,10 +67,10 @@ class NormalisedTermsTest {
     }
 
     @Test
-    void saysWhichRungItAnsweredOn() {
+    void saysWhichNormalisationItAnsweredOn() {
         assertAll(
-                () -> assertThat(sensing("noun").rung()).isEqualTo(TermRung.SENSES),
-                () -> assertThat(lemmatising("noun").rung()).isEqualTo(TermRung.LEMMAS));
+                () -> assertThat(sensing("noun").normalisation()).isEqualTo(MatchNormalisation.SENSES),
+                () -> assertThat(lemmatising("noun").normalisation()).isEqualTo(MatchNormalisation.LEMMAS));
     }
 
     private static TermIndex sensing(final String... terms) {

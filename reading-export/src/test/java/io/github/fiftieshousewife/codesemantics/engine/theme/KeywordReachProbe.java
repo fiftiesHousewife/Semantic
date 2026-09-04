@@ -77,7 +77,7 @@ public final class KeywordReachProbe {
                 .filter(keyword -> !marked.contains(keyword.topic())).toList());
     }
 
-    /** Which keyword concepts some rung of the ladder found, so a run written and missed can be named. */
+    /** Which keyword concepts some normalisation found, so a run written and missed can be named. */
     private static Set<String> matchedConcepts(final CorroboratedReading reading) {
         return reading.every().sightings().stream()
                 .flatMap(sighting -> sighting.concepts().stream())

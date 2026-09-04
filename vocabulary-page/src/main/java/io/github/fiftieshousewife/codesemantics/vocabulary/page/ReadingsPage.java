@@ -86,7 +86,7 @@ public final class ReadingsPage {
                                 h1("How far past chance each answer stands"),
                                 p().withClass("lede").with(
                                         text("Every published reading, and every source that cleared the "
-                                                + "bar of the rung answering it. A source stands where "
+                                                + "bar of the normalisation answering it. A source stands where "
                                                 + "its own evidence puts it: a vocabulary at the "
                                                 + "multiple of the count the best of a field of seven "
                                                 + "reaches by "),

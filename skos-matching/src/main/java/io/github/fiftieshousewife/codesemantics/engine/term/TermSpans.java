@@ -27,11 +27,11 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * That is the same rule the rest of the library obeys — a reading that cannot cite says nothing — applied to
  * the one place where saying something slightly wrong would be easy and cheap.
  *
- * <p><b>The rungs are a ladder, not a choice.</b> Each is the same taxonomy normalised to something narrower
+ * <p><b>The normalisations are ordered, not a choice.</b> Each is the same taxonomy normalised to something narrower
  * or broader — the words themselves, then what the dictionary says they mean — and a run is offered to each in
- * turn until one answers. Length is settled before the rung is: a longer run is the stronger claim whichever
- * rung found it, and the rung breaks the tie between two readings of the same run. Which one answered is
- * carried on the span, so the two are never added together.
+ * turn until one answers. Length is settled before the normalisation is: a longer run is the stronger claim whichever
+ * normalisation found it, and the normalisation breaks the tie between two readings of the same run. Which one answered
+ * is carried on the span, so the two are never added together.
  */
 public final class TermSpans {
 
@@ -41,12 +41,12 @@ public final class TermSpans {
     /** The shortest run a walk reporting only phrases will ask about. */
     private static final int PHRASE_LENGTH = 2;
 
-    private final List<TermIndex> rungs;
+    private final List<TermIndex> normalisations;
     private final int longestTerm;
 
-    public TermSpans(final TermIndex... rungs) {
-        this.rungs = List.of(rungs);
-        this.longestTerm = this.rungs.stream().mapToInt(TermIndex::longestTerm).max().orElse(0);
+    public TermSpans(final TermIndex... normalisations) {
+        this.normalisations = List.of(normalisations);
+        this.longestTerm = this.normalisations.stream().mapToInt(TermIndex::longestTerm).max().orElse(0);
     }
 
     /** Every term the source publishes within this phrase, in the order the phrase states them. */
@@ -104,31 +104,33 @@ public final class TermSpans {
         return answerFor(run, from, to);
     }
 
-    /** The narrowest rung that answers for a run already folded to lower case, of the rungs that read it. */
+    /** The narrowest normalisation that answers for a run already folded to lower case, of those that read it. */
     Optional<TermSpan> answerFor(final List<String> run, final int from, final int to) {
-        return rungsReading(run).stream()
-                .map(rung -> statedBy(rung, run, from, to))
+        return normalisationsReading(run).stream()
+                .map(normalisation -> statedBy(normalisation, run, from, to))
                 .flatMap(Optional::stream)
                 .findFirst();
     }
 
     /**
-     * The rungs up to the first that cannot read the run, which is where the ladder stops.
+     * The normalisations up to the first that cannot read the run, which is where the normalisations stops.
      *
-     * <p>A rung that abstains has not searched and found nothing — it could not look, and a broader rung must
-     * not answer in its place. WordNet carries no dictionary form for {@code id}, so the rung that compares
-     * dictionary forms abstains; letting the rung that compares meanings answer anyway is how a name written
-     * {@code id} reaches a term spelled {@code ids} through the psychoanalytic noun. The narrowest rung that
-     * <em>answers</em> is the one that answers, and a rung that cannot read has not answered.
+     * <p>A normalisation that abstains has not searched and found nothing — it could not look, and a broader
+     * normalisation must not answer in its place. WordNet carries no dictionary form for {@code id}, so the
+     * normalisation that compares dictionary forms abstains; letting the normalisation that compares meanings answer
+     * anyway is how a name written {@code id} reaches a term spelled {@code ids} through the psychoanalytic noun. The
+     * narrowest normalisation that <em>answers</em> is the one that answers, and a normalisation that cannot read has
+     * not answered.
      */
-    private List<TermIndex> rungsReading(final List<String> run) {
-        return rungs.stream().takeWhile(rung -> rung.reads(run)).toList();
+    private List<TermIndex> normalisationsReading(final List<String> run) {
+        return normalisations.stream().takeWhile(normalisation -> normalisation.reads(run)).toList();
     }
 
-    private static Optional<TermSpan> statedBy(final TermIndex rung, final List<String> run,
+    private static Optional<TermSpan> statedBy(final TermIndex normalisation, final List<String> run,
                                                final int from, final int to) {
-        final List<SkosConcept> concepts = rung.conceptsOf(run);
+        final List<SkosConcept> concepts = normalisation.conceptsOf(run);
         return concepts.isEmpty() ? Optional.empty()
-                : Optional.of(new TermSpan(from, to, run, concepts, rung.source(), rung.rung()));
+                : Optional.of(new TermSpan(from, to, run, concepts,
+                        normalisation.source(), normalisation.normalisation()));
     }
 }

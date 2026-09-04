@@ -19,28 +19,30 @@ import java.util.stream.Collectors;
  * <p>The files nothing matched in are carried for the same reason a legibility reading carries its
  * denominator. A vocabulary firing hard in three files and nowhere else is a fact about those three files.
  *
- * <p>It can be asked for one rung of the ladder at a time and it has no method that sums across them. A term
+ * <p>It can be asked for one normalisation at a time and it has no method that sums across them. A term
  * found in the words a repository wrote and a term found in what the dictionary says those words mean are
  * different strengths of evidence, and one figure covering both would be read as the stronger.
  */
 public record MatchedTerms(List<TermSighting> sightings, int namesRead, int filesRead, int filesMatched,
-                           Map<TermRung, Integer> filesMatchedByRung,
+                           Map<MatchNormalisation, Integer> filesMatchedByNormalisation,
                            Map<List<String>, Integer> restatedTypes) {
 
     public MatchedTerms {
         sightings = List.copyOf(sightings);
-        filesMatchedByRung = Map.copyOf(filesMatchedByRung);
+        filesMatchedByNormalisation = Map.copyOf(filesMatchedByNormalisation);
         restatedTypes = Map.copyOf(restatedTypes);
     }
 
     /**
-     * The same reading with only what one rung of the ladder answered, over the same denominators — the names
-     * and the files are what every rung was offered, and only what was found on them narrows.
+     * The same reading with only what one normalisation answered, over the same denominators — the names
+     * and the files are what every normalisation was offered, and only what was found on them narrows.
      */
-    public MatchedTerms at(final TermRung rung) {
-        final int files = filesMatchedByRung.getOrDefault(rung, 0);
-        return new MatchedTerms(sightings.stream().filter(sighting -> sighting.rung() == rung).toList(),
-                namesRead, filesRead, files, Map.of(rung, files), restatedTypes);
+    public MatchedTerms at(final MatchNormalisation normalisation) {
+        final int files = filesMatchedByNormalisation.getOrDefault(normalisation, 0);
+        return new MatchedTerms(sightings.stream()
+                .filter(sighting -> sighting.normalisation() == normalisation)
+                .toList(),
+                namesRead, filesRead, files, Map.of(normalisation, files), restatedTypes);
     }
 
     /** How many spans were the declaration's own type spelled again, and so are not terms anyone reached for. */

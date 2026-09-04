@@ -61,7 +61,7 @@ final class PublishedTerms implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return TermRung.WORDS;
+    public MatchNormalisation normalisation() {
+        return MatchNormalisation.WORDS;
     }
 }

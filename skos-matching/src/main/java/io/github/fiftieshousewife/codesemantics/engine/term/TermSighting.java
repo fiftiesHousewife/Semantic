@@ -13,15 +13,15 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * matching two hundred times with nowhere to see it is a claim; the same term with a file and a line is a
  * reading someone can argue with.
  *
- * <p>The rung is what the two sides were compared at, and it belongs on the sighting rather than only on the
+ * <p>The normalisation is what the two sides were compared at, and it belongs on the sighting rather than only on the
  * report so that no consumer can sum a reading across it by accident.
  *
  * @param coverage the share of what each declared name narrows that this term accounted for, summed over
  *                 its occurrences. A term written as the whole of a name adds 1, so the figure is bounded
  *                 above by the occurrence count and reaches it only where every sighting was a whole name.
  */
-public record TermSighting(List<String> words, List<SkosConcept> concepts, TermRung rung, double specificity,
-                           int occurrences, double coverage, List<String> sites) {
+public record TermSighting(List<String> words, List<SkosConcept> concepts, MatchNormalisation normalisation,
+                           double specificity, int occurrences, double coverage, List<String> sites) {
 
     /** Enough places to check a pattern; a figure nobody can look up is a claim rather than evidence. */
     private static final int SITES_KEPT = 12;
@@ -37,7 +37,7 @@ public record TermSighting(List<String> words, List<SkosConcept> concepts, TermR
         if (seen.size() < SITES_KEPT && !seen.contains(site)) {
             seen.add(site);
         }
-        return new TermSighting(words, concepts, rung, specificity, occurrences + 1, coverage + covering,
+        return new TermSighting(words, concepts, normalisation, specificity, occurrences + 1, coverage + covering,
                 seen);
     }
 

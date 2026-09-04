@@ -192,12 +192,12 @@ public final class ExportedReading {
 
     /**
      * The same reading with {@code summary.answers} filled from every source that cleared the bar of the
-     * most specific rung that qualified. They are taken from the finished export rather than from the
+     * most specific normalisation that qualified. They are taken from the finished export rather than from the
      * readings behind it, so the answers and the blocks a consumer reads them against are one document.
      */
     private static ReadingExport answering(final ReadingExport export) {
         return new ReadingExport(export.schemaVersion(),
-                answered(export.summary(), AnswerRungs.answering(export)), export.signals(),
+                answered(export.summary(), EvidenceKinds.answering(export)), export.signals(),
                 export.thresholds(), export.themes(), export.taxonomies(), export.setAside());
     }
 

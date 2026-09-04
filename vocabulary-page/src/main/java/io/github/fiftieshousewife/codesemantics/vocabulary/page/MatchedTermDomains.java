@@ -143,7 +143,7 @@ final class MatchedTermDomains {
                 .orElse(groupings.getLast());
     }
 
-    /** One counted sense per matched concept, its area the domain, pooled over the rungs that matched. */
+    /** One counted sense per matched concept, its area the domain, pooled over the normalisations that matched. */
     private static List<CountedSenseDomains> sensesOf(final List<ReadingFolder.TermMatchRow> rows,
                                                       final Map<String, String> areaByConcept) {
         return rows.stream()

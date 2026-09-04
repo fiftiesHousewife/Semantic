@@ -21,7 +21,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  *
  * <p><b>It generalises, and generalising is the risk.</b> The dictionary reads {@code topic}, {@code theme}
  * and {@code subject} as one entry, so a repository writing about topics meets a taxonomy stating subjects
- * whether or not either meant the other. That is why the rung is recorded on every span and reported apart: a
+ * whether or not either meant the other. That is why the normalisation is recorded on every span and reported apart: a
  * match made here is a weaker claim than a match made on the words, and a reading that added the two together
  * would be unable to say which kind it had found.
  *
@@ -86,8 +86,8 @@ public final class NormalisedTerms<K> implements TermIndex {
     }
 
     @Override
-    public TermRung rung() {
-        return normalisation.rung();
+    public MatchNormalisation normalisation() {
+        return normalisation.normalisation();
     }
 
     /** How many distinct normal forms the source's terms read as, which is fewer than the runs it publishes. */
