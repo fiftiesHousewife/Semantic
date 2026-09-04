@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * What a bundled taxonomy must be able to answer for its terms to be matched against code, and nothing more.

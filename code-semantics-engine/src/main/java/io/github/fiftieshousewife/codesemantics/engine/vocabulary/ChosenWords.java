@@ -7,8 +7,8 @@ import java.util.Map;
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ShareDivergence;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
-import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WrittenWords;
+import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 
 /**
  * The words this repository chose, ranked by how much more of it they are than of anything it is read

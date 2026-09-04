@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * Whether a word carries subject matter at all, and what its dictionary form is — one question, because the

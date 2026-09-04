@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

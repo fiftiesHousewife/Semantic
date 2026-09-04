@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.PublishedTerms;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.bi.lexicon.SkosRows;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.PublishedTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosRows;
 
 /**
  * The taxonomy a reading places against: the one a caller names, or the bundled one where a caller names

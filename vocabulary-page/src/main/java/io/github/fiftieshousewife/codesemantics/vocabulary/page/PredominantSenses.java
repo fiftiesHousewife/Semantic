@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
  * The sense weighting a repository's own names state: each sense of a word weighed by how much of the

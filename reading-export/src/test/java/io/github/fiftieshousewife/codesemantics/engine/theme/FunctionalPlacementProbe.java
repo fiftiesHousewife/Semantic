@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.BianServiceDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Places the repository under reading against a functional taxonomy: the bundled BIAN Service Landscape,

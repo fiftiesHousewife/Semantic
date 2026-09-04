@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 final class PublishedTerms implements TermIndex {
 

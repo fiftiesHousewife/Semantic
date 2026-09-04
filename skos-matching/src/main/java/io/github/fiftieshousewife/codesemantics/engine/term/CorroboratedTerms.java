@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * A published taxonomy answering only where the repository writes more than one concept in the branch the

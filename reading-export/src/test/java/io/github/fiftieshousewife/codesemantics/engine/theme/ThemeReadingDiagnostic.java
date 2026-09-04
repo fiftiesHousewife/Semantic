@@ -5,8 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
+import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermMatch;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermOutcome;
 import org.junit.jupiter.api.Tag;

@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.WorkingJavaRuns;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * A published source with the runs working Java writes anyway left out, so what is counted against it is the

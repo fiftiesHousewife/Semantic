@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryTopics;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * The runs of adjacent words a topical resource publishes as one entry of its own — {@code break_point},

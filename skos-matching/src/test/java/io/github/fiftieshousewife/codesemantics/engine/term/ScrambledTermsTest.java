@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 import org.junit.jupiter.api.Test;
 

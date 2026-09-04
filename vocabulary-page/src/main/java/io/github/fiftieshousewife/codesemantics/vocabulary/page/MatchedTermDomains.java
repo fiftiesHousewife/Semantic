@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
  * One vocabulary's reported phrase matches as a domain overlap drawn inside the vocabulary: each matched

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.OliaTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 
 /**

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;

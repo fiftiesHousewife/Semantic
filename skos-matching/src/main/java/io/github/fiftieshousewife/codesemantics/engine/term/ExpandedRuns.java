@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryCitations;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryCitations;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * A run of words with a shortened word written out as the expansion a citation states for it, and then in

@@ -2,9 +2,9 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.nio.file.Path;
 
-import io.github.fiftieshousewife.bi.lexicon.MediaTypes;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ImportOrigin;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.lexicon.MediaTypes;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

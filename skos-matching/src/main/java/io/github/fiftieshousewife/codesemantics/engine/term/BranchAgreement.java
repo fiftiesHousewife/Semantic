@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SharedMass;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * How much of what a taxonomy's branch is about the repository under reading is also about.

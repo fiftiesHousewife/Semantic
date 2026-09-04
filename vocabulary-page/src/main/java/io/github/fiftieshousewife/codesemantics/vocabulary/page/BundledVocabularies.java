@@ -3,9 +3,9 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.ControlTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Every term vocabulary the matching enumerates, under the name its publisher states, with the one-line

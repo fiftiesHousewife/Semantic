@@ -3,13 +3,13 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 import java.util.List;
 import java.util.Locale;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.NameTokens;
-import io.github.fiftieshousewife.bi.lexicon.SqlFunctions;
-import io.github.fiftieshousewife.bi.lexicon.WikidataInitialisms;
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryCitations;
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryTopics;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.NameTokens;
+import io.github.fiftieshousewife.codesemantics.lexicon.SqlFunctions;
+import io.github.fiftieshousewife.codesemantics.lexicon.WikidataInitialisms;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryCitations;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 

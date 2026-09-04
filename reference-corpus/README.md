@@ -122,7 +122,7 @@ A row reading `buffer<TAB>1234<TAB>2.000e-03` states 1,234 occurrences across th
 
 **The shares are written rounded, so `PooledWordShares` normalises them on reading.** A divergence is taken between distributions, and a column summing to 0.9998 is not one.
 
-The file's header carries the drawing manifest whole — the frame, the seed, the publication test, and one comment row per pinned repository. A restatement goes stale against the file it describes; a copy cannot. [`VocabularyProvenanceTest`](../lexicon/src/test/java/io/github/fiftieshousewife/bi/lexicon/VocabularyProvenanceTest.java) covers this module's resources and fails the build for a bundled file carrying no provenance header.
+The file's header carries the drawing manifest whole — the frame, the seed, the publication test, and one comment row per pinned repository. A restatement goes stale against the file it describes; a copy cannot. [`VocabularyProvenanceTest`](../lexicon/src/test/java/io/github/fiftieshousewife/codesemantics/lexicon/VocabularyProvenanceTest.java) covers this module's resources and fails the build for a bundled file carrying no provenance header.
 
 ## Definitions
 

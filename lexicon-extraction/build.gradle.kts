@@ -31,7 +31,7 @@ dependencies {
 tasks.register<JavaExec>("extract") {
     group = "build"
     description = "Extracts a bundled vocabulary TSV (-Ptaxonomy=<name>, -Psource=<path[,path]>)"
-    mainClass = "io.github.fiftieshousewife.bi.lexicon.extraction.ExtractionCommand"
+    mainClass = "io.github.fiftieshousewife.codesemantics.lexicon.extraction.ExtractionCommand"
     classpath = sourceSets["main"].runtimeClasspath
     workingDir = rootDir
     maxHeapSize = "4g"

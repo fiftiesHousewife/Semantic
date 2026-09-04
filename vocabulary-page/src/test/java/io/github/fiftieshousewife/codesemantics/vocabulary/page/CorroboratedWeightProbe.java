@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
  * Prints, for every published reading under {@code output/}, what the corroborated sense weight changes

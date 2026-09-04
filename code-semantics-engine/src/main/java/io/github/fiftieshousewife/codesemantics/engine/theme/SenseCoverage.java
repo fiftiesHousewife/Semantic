@@ -1,7 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * How much of a word a sense-labelled resource actually speaks for: the share of its senses that were given

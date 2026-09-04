@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordSense;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordSense;
 
 /**
  * A dictionary that answers only the two questions a topical reading asks of one: which subjects label a

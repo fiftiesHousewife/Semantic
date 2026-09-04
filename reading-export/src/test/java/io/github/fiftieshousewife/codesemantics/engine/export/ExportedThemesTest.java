@@ -5,22 +5,22 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
-import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary.Distinctive;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary.Field;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary.Legibility;
+import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.theme.FileTopics;
 import io.github.fiftieshousewife.codesemantics.engine.theme.JensenShannon.Contribution;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PermutationNull.Chance;
+import io.github.fiftieshousewife.codesemantics.engine.theme.RefusedTopics;
 import io.github.fiftieshousewife.codesemantics.engine.theme.RepositoryThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ScopeDivergence;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ScopeThemes;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
-import io.github.fiftieshousewife.codesemantics.engine.theme.RefusedTopics;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicWitnesses;
 import io.github.fiftieshousewife.codesemantics.engine.theme.UnreadPhrases;
-import io.github.fiftieshousewife.codesemantics.engine.theme.Workings;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordSightings;
+import io.github.fiftieshousewife.codesemantics.engine.theme.Workings;
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
 import org.junit.jupiter.api.Test;
 

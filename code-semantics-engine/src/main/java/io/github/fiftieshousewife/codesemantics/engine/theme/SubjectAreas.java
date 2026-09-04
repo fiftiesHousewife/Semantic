@@ -2,13 +2,13 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.PublishedSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The bundled subject taxonomy, read into distributions a scope can be compared with.

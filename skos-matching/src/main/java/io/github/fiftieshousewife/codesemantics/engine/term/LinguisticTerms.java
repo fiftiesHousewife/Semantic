@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
+import io.github.fiftieshousewife.codesemantics.lexicon.OliaTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The Ontologies of Linguistic Annotation as a {@link TermIndex}: the vocabulary a program writing about

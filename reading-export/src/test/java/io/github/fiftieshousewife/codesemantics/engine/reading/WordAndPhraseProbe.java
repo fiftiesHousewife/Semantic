@@ -12,10 +12,10 @@ import io.github.fiftieshousewife.codesemantics.engine.behaviour.PropertyAccesso
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryCitations;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordSpecificity;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.FunctionWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryCitations;
 
 /**
  * Every word and multi-word phrase a tree's chosen names state four or more times: the words folded to

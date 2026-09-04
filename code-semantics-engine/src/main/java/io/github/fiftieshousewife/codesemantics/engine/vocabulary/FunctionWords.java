@@ -2,9 +2,9 @@ package io.github.fiftieshousewife.codesemantics.engine.vocabulary;
 
 import java.util.Optional;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 
 /**

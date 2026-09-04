@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryTopics;
 
 /**
  * The subjects a resource claims a headword for, with no sense structure to read. A dictionary that

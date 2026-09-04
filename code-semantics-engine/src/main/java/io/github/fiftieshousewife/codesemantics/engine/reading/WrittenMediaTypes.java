@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.MediaTypes;
+import io.github.fiftieshousewife.codesemantics.lexicon.MediaTypes;
 
 /**
  * The registered media types a tree writes as string literals. The parse discards every literal, because a

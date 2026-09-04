@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.WordKeyedConcepts;
+import io.github.fiftieshousewife.codesemantics.lexicon.FiboTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The Financial Industry Business Ontology as a {@link TermIndex}, read the same way {@link LinguisticTerms}

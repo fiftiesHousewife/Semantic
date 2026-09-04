@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Places a repository against OpenAlex's topics three times: once against each statement the publisher

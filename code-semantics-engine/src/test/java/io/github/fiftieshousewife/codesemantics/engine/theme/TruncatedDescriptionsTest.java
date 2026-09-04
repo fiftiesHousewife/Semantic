@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

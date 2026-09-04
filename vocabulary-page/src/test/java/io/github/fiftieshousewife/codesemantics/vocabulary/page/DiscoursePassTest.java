@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 import org.junit.jupiter.api.Test;
 

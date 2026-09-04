@@ -8,15 +8,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
-import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescription;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
+import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * One taxonomy's evaluation as a consumer receives it: every concept the repository writes, with the

@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The areas a topic scheme places a word under, read from the scheme's own topic labels — the shape

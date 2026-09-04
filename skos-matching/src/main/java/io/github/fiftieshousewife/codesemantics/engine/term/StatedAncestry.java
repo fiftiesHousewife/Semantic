@@ -33,7 +33,7 @@ public final class StatedAncestry {
     public StatedAncestry(final TermIndex index) {
         this.lookUp = label -> label.flatMap(index::broaderOf);
         this.labels = () -> index.publishedConcepts().stream()
-                .map(io.github.fiftieshousewife.bi.lexicon.SkosConcept::prefLabel).toList();
+                .map(io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::prefLabel).toList();
     }
 
     private StatedAncestry(final java.util.Map<String, String> broaderByLabel) {
@@ -48,10 +48,10 @@ public final class StatedAncestry {
      * publisher's rows. A concept stated beneath several is walked through the first, because a chain is
      * one path and the publisher's own order decides which.
      */
-    public static StatedAncestry over(final java.util.List<io.github.fiftieshousewife.bi.lexicon.SkosConcept> published) {
+    public static StatedAncestry over(final java.util.List<io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept> published) {
         return new StatedAncestry(published.stream().collect(java.util.stream.Collectors.toMap(
-                io.github.fiftieshousewife.bi.lexicon.SkosConcept::prefLabel,
-                io.github.fiftieshousewife.bi.lexicon.SkosConcept::broader, (first, later) -> first)));
+                io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::prefLabel,
+                io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::broader, (first, later) -> first)));
     }
 
     private static String firstOf(final String stated) {

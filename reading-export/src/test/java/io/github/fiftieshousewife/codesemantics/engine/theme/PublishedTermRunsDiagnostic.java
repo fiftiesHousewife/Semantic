@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

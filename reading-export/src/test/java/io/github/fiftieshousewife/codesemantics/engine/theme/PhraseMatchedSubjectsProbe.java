@@ -5,19 +5,19 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopicSizes;
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.RegisteredFormats;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.JavaSourceScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
-import io.github.fiftieshousewife.codesemantics.engine.term.KeywordSpecificity;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.InjectedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.KeywordSpecificity;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopicSizes;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.RegisteredFormats;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Places the repository under reading among OpenAlex's topics by the runs of words it declares, rather than

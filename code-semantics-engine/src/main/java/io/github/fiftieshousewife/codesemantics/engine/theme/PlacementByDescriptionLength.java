@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The nearest subject read again at each of several description lengths, so that a placement can be asked

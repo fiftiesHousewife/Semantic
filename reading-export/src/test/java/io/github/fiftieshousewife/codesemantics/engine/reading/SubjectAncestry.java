@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * A subject label and every OpenAlex concept above it, walked through the {@code broader} column the

@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

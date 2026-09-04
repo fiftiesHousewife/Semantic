@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
  * The corroborated weight a repository's own writing gives a subject scheme's senses: within an arm whose

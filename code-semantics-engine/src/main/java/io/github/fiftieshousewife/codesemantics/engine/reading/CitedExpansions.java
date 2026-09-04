@@ -2,8 +2,8 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryCitations;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryCitations;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * Whether a form does more work as an abbreviation than as a word.

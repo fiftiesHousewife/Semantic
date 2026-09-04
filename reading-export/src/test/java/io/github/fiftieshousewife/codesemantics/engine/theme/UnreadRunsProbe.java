@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.term.SenseRuns;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * Which words stop a published keyword being read as a run of senses.

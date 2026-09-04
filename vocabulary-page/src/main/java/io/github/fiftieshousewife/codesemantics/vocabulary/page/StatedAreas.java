@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedUnder;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ProbabilityOfSuperiority;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * What somebody outside this project states each repository is about, read from a manifest the caller

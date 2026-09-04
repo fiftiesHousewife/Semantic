@@ -3,7 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.Locale;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * A subject's description cut to a share of the words its publisher wrote, so a placement can be taken again

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

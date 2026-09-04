@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * How a taxonomy can be read, which follows from what its publisher wrote rather than from what anybody

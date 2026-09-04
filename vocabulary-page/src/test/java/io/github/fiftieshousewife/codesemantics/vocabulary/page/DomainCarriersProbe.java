@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
  * Prints, for one clone and each domain source, the leading domains with the words that carry them — each

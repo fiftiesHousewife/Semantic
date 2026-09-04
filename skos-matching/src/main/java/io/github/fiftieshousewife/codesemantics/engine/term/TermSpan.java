@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * One published term found in a phrase: where it began, where it ended, the words it was written in — folded

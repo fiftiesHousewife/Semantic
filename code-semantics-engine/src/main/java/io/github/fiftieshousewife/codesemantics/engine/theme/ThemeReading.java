@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
-import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
-import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
 

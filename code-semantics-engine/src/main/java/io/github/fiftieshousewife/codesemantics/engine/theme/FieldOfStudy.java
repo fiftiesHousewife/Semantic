@@ -2,8 +2,8 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * What the field a repository belongs to is <em>itself</em> about, stated by the taxonomy that publishes the

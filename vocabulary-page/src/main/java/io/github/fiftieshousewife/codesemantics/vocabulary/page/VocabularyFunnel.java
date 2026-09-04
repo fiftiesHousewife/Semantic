@@ -8,11 +8,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordSense;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordSense;
 
 /**
  * The narrowing that produces the export's signals, one count per rule, ending in one tile per meaning.

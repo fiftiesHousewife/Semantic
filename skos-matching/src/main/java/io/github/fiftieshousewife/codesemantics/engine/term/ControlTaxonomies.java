@@ -2,13 +2,13 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.CweTerms;
-import io.github.fiftieshousewife.bi.lexicon.FixTerms;
-import io.github.fiftieshousewife.bi.lexicon.FpmlTerms;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.bi.lexicon.TermVocabularies;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
+import io.github.fiftieshousewife.codesemantics.lexicon.CweTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.FixTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.FpmlTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.TermVocabularies;
 
 /**
  * The out-of-domain controls, enumerated the way {@link MatchedTaxonomies} enumerates what every run

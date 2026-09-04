@@ -2,12 +2,12 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.BianServiceDomains;
-import io.github.fiftieshousewife.bi.lexicon.CsoSubjects;
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.BianServiceDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CsoSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.PublishedSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Where a reading stands among the published subjects of a scheme, at both levels the scheme states, each
@@ -68,7 +68,7 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
      * Placed against the Computer Science Ontology, at its twelve roots and the topics stated beneath them.
      *
      * <p><b>CSO states no prose</b>, so each subject is read from the labels of the topics stated beneath
-     * it — see {@link io.github.fiftieshousewife.bi.lexicon.CsoSubjects}. The null is drawn from the same
+     * it — see {@link io.github.fiftieshousewife.codesemantics.lexicon.CsoSubjects}. The null is drawn from the same
      * labels, so chance is filled from the vocabulary the comparison runs on.
      */
     public static PlacedField ofCso(final TopicDistribution reading, final long seed) {

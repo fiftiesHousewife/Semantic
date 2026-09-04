@@ -6,10 +6,10 @@ import java.util.Set;
 
 import io.github.fiftieshousewife.codesemantics.engine.Thresholds;
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
-import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
-import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.OpenSpaceAccumulator;
+import io.github.fiftieshousewife.codesemantics.engine.pipeline.ValueShare;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
 import io.github.fiftieshousewife.codesemantics.name.WordSegmenter;

@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedFile;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.name.WordSegmenter;
 
 /**

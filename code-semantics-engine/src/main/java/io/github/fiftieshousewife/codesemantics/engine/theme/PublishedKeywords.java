@@ -3,7 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The runs of words a subject scheme publishes as its own keywords, each as a concept beneath the topic

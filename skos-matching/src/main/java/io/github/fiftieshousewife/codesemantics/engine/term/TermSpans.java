@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * The published terms a phrase contains: the longest match at each position, taken left to right, with no two

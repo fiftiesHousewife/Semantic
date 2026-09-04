@@ -3,9 +3,9 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.fiftieshousewife.bi.lexicon.Lexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
-import io.github.fiftieshousewife.bi.lexicon.WordSense;
+import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordSense;
 
 /**
  * A run of words as the meanings behind it: the sense the dictionary carries each word in, in the order the

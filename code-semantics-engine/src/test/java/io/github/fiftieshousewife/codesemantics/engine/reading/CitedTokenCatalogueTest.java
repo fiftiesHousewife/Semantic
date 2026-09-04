@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.WikidataInitialisms;
+import io.github.fiftieshousewife.codesemantics.lexicon.WikidataInitialisms;
 import io.github.fiftieshousewife.codesemantics.name.CitedTokens;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 import org.junit.jupiter.api.Test;

@@ -17,8 +17,8 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.ClonedMembers;
-import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet;
 import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet.Member;
+import io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationSet;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReadMembersAtOnce;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 

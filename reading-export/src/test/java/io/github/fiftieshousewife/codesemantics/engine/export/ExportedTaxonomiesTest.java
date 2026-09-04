@@ -3,17 +3,17 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.List;
 import java.util.Map;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
-import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
-import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
+import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermRung;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermSighting;
 import io.github.fiftieshousewife.codesemantics.engine.theme.SubjectAreas;
 import io.github.fiftieshousewife.codesemantics.engine.theme.TopicDistribution;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

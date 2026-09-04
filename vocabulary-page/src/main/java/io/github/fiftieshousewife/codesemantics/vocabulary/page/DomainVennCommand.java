@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.fiftieshousewife.bi.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
 import io.github.fiftieshousewife.codesemantics.engine.term.SubjectDomains;
 import io.github.fiftieshousewife.codesemantics.engine.term.TopicLabelDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 import lombok.extern.slf4j.Slf4j;
 

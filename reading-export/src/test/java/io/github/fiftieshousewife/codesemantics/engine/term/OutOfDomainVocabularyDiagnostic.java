@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.FiboTerms;
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.lexicon.FiboTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.OliaTerms;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 

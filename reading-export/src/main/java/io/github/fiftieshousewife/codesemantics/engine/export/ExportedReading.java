@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.OliaTerms;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
@@ -38,6 +36,8 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedNames;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull;
+import io.github.fiftieshousewife.codesemantics.lexicon.OliaTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * One working tree read into the export a consumer receives, and the whole of what a program embedding this

@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.List;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * One published term as a repository wrote it: how often it appeared in a declared name, how much of those

@@ -3,7 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.reading;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.github.fiftieshousewife.bi.lexicon.RegisteredFormats;
+import io.github.fiftieshousewife.codesemantics.lexicon.RegisteredFormats;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 import org.junit.jupiter.api.Test;
 

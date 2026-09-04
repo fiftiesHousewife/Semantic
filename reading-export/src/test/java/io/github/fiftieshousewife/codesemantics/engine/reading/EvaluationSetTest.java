@@ -4,8 +4,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.fiftieshousewife.bi.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedUnder;
+import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;

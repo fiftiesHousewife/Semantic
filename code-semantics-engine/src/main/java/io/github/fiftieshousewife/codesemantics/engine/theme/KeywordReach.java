@@ -1,7 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * How far a repository got towards one keyword a subject scheme published, in its declared names and in its

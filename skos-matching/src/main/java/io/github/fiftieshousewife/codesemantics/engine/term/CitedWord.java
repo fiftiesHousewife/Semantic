@@ -2,12 +2,12 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.Locale;
 
-import io.github.fiftieshousewife.bi.lexicon.WikidataInitialisms;
 import io.github.fiftieshousewife.codesemantics.engine.reading.DictionaryWords;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipeline;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordPipelines;
 import io.github.fiftieshousewife.codesemantics.engine.reading.WordStage;
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
+import io.github.fiftieshousewife.codesemantics.lexicon.WikidataInitialisms;
 import io.github.fiftieshousewife.codesemantics.name.WholeWords;
 import io.github.fiftieshousewife.codesemantics.name.WordRanks;
 

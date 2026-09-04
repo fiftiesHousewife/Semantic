@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 import lombok.extern.slf4j.Slf4j;
 

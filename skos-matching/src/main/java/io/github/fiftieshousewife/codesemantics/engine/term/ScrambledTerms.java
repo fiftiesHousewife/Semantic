@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * A published source with its own words dealt across its own terms, each term keeping the number of words it

@@ -3,8 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 import java.util.List;
 import java.util.stream.Stream;
 
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
-import io.github.fiftieshousewife.bi.lexicon.TermVocabularies;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.TermVocabularies;
 
 /**
  * The term taxonomies every reading matches, enumerated so the run and its documentation state one list.

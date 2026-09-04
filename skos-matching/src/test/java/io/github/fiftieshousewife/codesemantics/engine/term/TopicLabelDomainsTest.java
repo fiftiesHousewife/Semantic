@@ -2,9 +2,9 @@ package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.fiftieshousewife.bi.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.bi.lexicon.CsoTopics;
-import io.github.fiftieshousewife.bi.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
+import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
+import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

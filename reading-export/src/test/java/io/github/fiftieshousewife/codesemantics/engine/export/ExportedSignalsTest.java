@@ -3,8 +3,8 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 import java.util.List;
 import java.util.Map;
 
-import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord.ReferenceClaim;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.ChosenWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWord;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.SuppliedWord;

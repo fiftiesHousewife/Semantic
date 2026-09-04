@@ -2,7 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Set;
 
-import io.github.fiftieshousewife.bi.lexicon.WiktionaryTopicHierarchy;
+import io.github.fiftieshousewife.codesemantics.lexicon.WiktionaryTopicHierarchy;
 
 /**
  * What a topic already says by being that topic — every broader subject it generalises to, transitively. A

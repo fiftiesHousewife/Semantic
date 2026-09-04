@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import io.github.fiftieshousewife.bi.lexicon.PublishedSubjects;
-import io.github.fiftieshousewife.bi.lexicon.SkosConcept;
+import io.github.fiftieshousewife.codesemantics.lexicon.PublishedSubjects;
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Whether a subject sits under the area of the scheme's own hierarchy the expected result names.
