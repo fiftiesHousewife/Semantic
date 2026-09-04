@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "78e962b56e6be0f09f9fbce3c7ffbed8d7e108ee",
-  "commit" : "85d9adb3646ee855e7497af6e012e215b090d18f",
+  "previousCommit" : "85d9adb3646ee855e7497af6e012e215b090d18f",
+  "commit" : "21532dfc3c4e264a53841c4da6d5966a3b8de1b4",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -15,7 +15,7 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "33.1%",
+    "before" : "33.2%",
     "after" : "33.2%"
   }, {
     "figure" : "arXiv archive — chance reaches",
@@ -35,7 +35,7 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.1%",
+    "before" : "42.3%",
     "after" : "42.3%"
   }, {
     "figure" : "arXiv category — chance reaches",
@@ -47,7 +47,7 @@
     "after" : "yes"
   }, {
     "figure" : "arXiv category — subjects nearer than chance",
-    "before" : "2",
+    "before" : "1",
     "after" : "1"
   }, {
     "figure" : "OpenAlex archive — nearest subject",
@@ -59,7 +59,7 @@
     "after" : "24.5%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "32.1%",
+    "before" : "31.9%",
     "after" : "31.9%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -99,7 +99,7 @@
     "after" : "19.8%"
   }, {
     "figure" : "CSO archive — chance reaches",
-    "before" : "26.9%",
+    "before" : "27.0%",
     "after" : "27.0%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
@@ -116,11 +116,11 @@
   }, {
     "figure" : "CSO category — divergence",
     "before" : "24.8%",
-    "after" : "24.8%"
+    "after" : "24.7%"
   }, {
     "figure" : "CSO category — chance reaches",
-    "before" : "28.8%",
-    "after" : "28.9%"
+    "before" : "28.9%",
+    "after" : "28.8%"
   }, {
     "figure" : "CSO category — stands apart from chance",
     "before" : "yes",
@@ -131,7 +131,7 @@
     "after" : "3"
   }, {
     "figure" : "Words above the bar",
-    "before" : "282",
+    "before" : "281",
     "after" : "281"
   }, {
     "figure" : "Topics reported",
@@ -142,17 +142,5 @@
     "before" : "171",
     "after" : "171"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "checkout",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "abstracts",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "recorded",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }
