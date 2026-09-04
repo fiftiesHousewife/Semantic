@@ -51,7 +51,7 @@ public final class PooledRunsTsv {
                 # often working Java writes a vocabulary's own terms, and a run no index states would read as
                 # absent from the corpus whatever the corpus writes. The word table is pooled under the
                 # dictionaries alone, which is the index a reading runs on. This one is read only where a
-                # published term is judged against general Java, and by nothing in the word arm.
+                # published term is judged against general Java, and by nothing in the word path.
                 #
                 # Each repository's shares are taken over its runs alone, so this table is a distribution
                 # over runs and a run's rank in it is a rank among runs.

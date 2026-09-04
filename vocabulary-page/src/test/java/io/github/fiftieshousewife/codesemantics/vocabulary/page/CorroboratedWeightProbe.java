@@ -13,7 +13,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
  * Prints, for every published reading under {@code output/}, what the corroborated sense weight changes
- * on each subject scheme's arm: how many words gained a corroborated sense, each word whose leading
+ * on each subject scheme's path: how many words gained a corroborated sense, each word whose leading
  * domain moves with its shares before and after, and the placing labels that moved it. It prints;
  * nothing votes on it and no published figure moves.
  */
@@ -32,14 +32,14 @@ public final class CorroboratedWeightProbe {
         final ReadingExport export = reading.export();
         final List<ScoredWord> words = SignificantWords.of(export).words();
         final Map<String, Function<String, List<CountedSenseDomains>>> before =
-                DomainVennCommand.subjectArms(CorroboratedSenses.none());
+                DomainVennCommand.subjectSources(CorroboratedSenses.none());
         final Map<String, Function<String, List<CountedSenseDomains>>> after =
-                DomainVennCommand.subjectArms(CorroboratedSenses.fromCommittedEvidence(reading));
+                DomainVennCommand.subjectSources(CorroboratedSenses.fromCommittedEvidence(reading));
         System.out.printf("%n== %s%n", export.summary().repository());
-        before.keySet().forEach(arm -> diffed(arm, words, before.get(arm), after.get(arm)));
+        before.keySet().forEach(path -> diffed(path, words, before.get(path), after.get(path)));
     }
 
-    private static void diffed(final String arm, final List<ScoredWord> words,
+    private static void diffed(final String path, final List<ScoredWord> words,
                                final Function<String, List<CountedSenseDomains>> before,
                                final Function<String, List<CountedSenseDomains>> after) {
         final List<String> corroborated = words.stream()
@@ -50,7 +50,7 @@ public final class CorroboratedWeightProbe {
             return;
         }
         System.out.printf("  %s — %d of %d words carry a corroborated sense%n",
-                arm, corroborated.size(), words.size());
+                path, corroborated.size(), words.size());
         corroborated.forEach(word -> moved(word, before.apply(word), after.apply(word)));
     }
 

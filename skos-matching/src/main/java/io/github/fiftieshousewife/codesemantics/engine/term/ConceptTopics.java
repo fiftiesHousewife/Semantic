@@ -12,14 +12,14 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * The concepts a repository writes, read as a distribution over the same topics a body of code is read as —
  * in the publisher's words rather than the repository's.
  *
- * <p><b>The definition is what makes this a second arm and not the first one again.</b> A concept's label is
- * a word the repository itself wrote, so reading labels would re-read the vocabulary the words arm already
+ * <p><b>The definition is what makes this a second path and not the first one again.</b> A concept's label is
+ * a word the repository itself wrote, so reading labels would re-read the vocabulary the words path already
  * read. The publisher's own prose about the concept is text this repository had no hand in, and it goes
  * through the reading a subject description goes through, so what comes back is comparable with both.
  *
  * <p><b>A publisher stating no prose contributes nothing, and that is a correct outcome.</b> CSO states a
  * definition for any of its rows, so it is silent here whatever the repository matched. Reading its
- * labels instead would be this arm voting with the other arm's evidence.
+ * labels instead would be this path voting with the other path's evidence.
  *
  * <p>A term two concepts read as divides its mass between them. The evidence is that the repository wrote
  * something the publisher states under both, and handing each the whole of it would count the writing twice.

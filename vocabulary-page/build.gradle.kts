@@ -127,12 +127,12 @@ tasks.register<JavaExec>("taxonomyMatches") {
     workingDir = rootDir
 }
 
-// What the corroborated sense weight changes on each subject scheme's arm, for every published reading
+// What the corroborated sense weight changes on each subject scheme's source, for every published reading
 // under output/: the drawn domains before and after, and each word whose region moves.
 //   ./gradlew corroboratedWeight
 tasks.register<JavaExec>("corroboratedWeight") {
     group = "verification"
-    description = "Prints each arm's domain placements before and after the corroborated sense weight"
+    description = "Prints each source's domain placements before and after the corroborated sense weight"
     mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.CorroboratedWeightProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "4g"

@@ -110,7 +110,7 @@ So the gap is not that functional taxonomies are absent. It is that **one functi
 |---|---|---|
 | arXiv | yes, median 18 words | readable, and it survives truncation to a half — see [the classification plan](CLASSIFYING_A_REPOSITORY.md) |
 | NIST CSF | yes, one stated outcome per subcategory | readable the day somebody writes the reading |
-| **PyPI Trove** | **no** | a term taxonomy of activities, and it cannot feed the description arm at all |
+| **PyPI Trove** | **no** | a term taxonomy of activities, and it cannot feed the description path at all |
 | **GitHub topics** | yes, but for formats rather than activities | measured this session: ten of the twelve names a text-extraction toolkit needs are absent, and nothing published maps its flat set onto Trove's `::` paths |
 | BIAN, TOGAF, APQC | expected yes — each states what a capability or process *does* | this is the property to confirm while the licence is being read |
 
@@ -193,9 +193,9 @@ The repository's most-written word is a flat third music, and it is written 315 
 
 **The floor did not disappear, it changed identity — from `music` to `law`.** Under abstention `law` becomes the top theme at 0.0666, because `cite` and `witness` are not flat: WordNet labels only the courtroom sense of `cite` and the bibliographic sense carries no label at all, so the concentration rule reads a confident wrong answer as strong evidence. That is the measurement settling the argument. **Reweighting cannot fix a sense that was never read**, and the queue is right as it stands: most-frequent-sense first, then re-run both variants — the harness is now in the tree, so each is a two-line change and one `read`.
 
-**That makes this repository the in-domain corpus for stage 3, and it costs nothing to read.** FIBO used this tree as the out-of-domain control because the right answer was known to be *nothing*. CSO inverts it: the right answer is known to be *computational linguistics*, and a taxonomy that cannot place a library about lemmas, senses and word frequencies under language is failing the easiest case it will ever be given. Run it here first, before any panel is cloned.
+**That makes this repository the in-domain corpus for stage 3, and it costs nothing to read.** FIBO used this tree as the out-of-domain control because the right answer was known to be *nothing*. CSO inverts it: the right answer is known to be *computational linguistics*, and a taxonomy that cannot place a library about lemmas, senses and word frequencies under language is failing the easiest case it will ever be given. Run it here first, before any evaluation set is cloned.
 
-Two limits on that, stated so the result is not over-claimed. It is a **smoke test, not the measurement** — a known-answer check on the tree the reading was developed against is exactly what the doctrine means by marking your own homework, so the held-out panel (`apache/lucene` → information retrieval, `netty/netty` → computer networks, `bcgit/bc-java` → cryptography) is still what decides. And a taxonomy naming this tree `natural language processing` has told us something we already knew; what would be worth having is the branch it puts *beside* that one.
+Two limits on that, stated so the result is not over-claimed. It is a **smoke test, not the measurement** — a known-answer check on the tree the reading was developed against is exactly what the doctrine means by marking your own homework, so the held-out evaluation set (`apache/lucene` → information retrieval, `netty/netty` → computer networks, `bcgit/bc-java` → cryptography) is still what decides. And a taxonomy naming this tree `natural language processing` has told us something we already knew; what would be worth having is the branch it puts *beside* that one.
 
 ### What to do with this
 
@@ -216,7 +216,7 @@ The file is bundled and nothing in the engine reads it, which is the honest stat
 
 - **A reference distribution per function.** Each function's own overview plus every category and subcategory statement beneath it, read through `ContentWords` and `TopicCitations` exactly as a scope is, so a function and a scope are two distributions over the same topic space and `JensenShannon` compares them directly. `definitionsUnder` is already the accessor for it.
 - **A null of the right shape.** `PermutationNull` resamples files within a repository and answers the wrong question again here. Permute the **statement-to-function assignment** within the framework, preserving how many statements each function has, so a function keeps its size and only which sentences belong to it is chance.
-- **A known answer to fail against.** This tree is *not* a security codebase, so the honest first result is that no function clears its null. A functional reading that confidently places a lemma-and-frequency library under `PROTECT` has told us the reading is measuring nothing. Two panel members with a known answer would settle it — `bcgit/bc-java` under `PROTECT`, and something with no security surface at all — which needs the panel `-Dcs.evaluation.dir` is being built for anyway.
+- **A known answer to fail against.** This tree is *not* a security codebase, so the honest first result is that no function clears its null. A functional reading that confidently places a lemma-and-frequency library under `PROTECT` has told us the reading is measuring nothing. Two evaluation set members with a known answer would settle it — `bcgit/bc-java` under `PROTECT`, and something with no security surface at all — which needs the evaluation set `-Dcs.evaluation.dir` is being built for anyway.
 
 **Abandon if:** no repository with a real security surface clears the permuted-assignment null, or this tree clears it. Either one means the six functions are being told apart by everyday English rather than by what they partition.
 

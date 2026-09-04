@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  * <p>Drawn from the same hundred repositories, at the same commits, under the same frame and seed, and
  * pooled under an index that states the bundled term vocabularies' own labels as well as the dictionaries'
  * collocations — a run no index states is never merged and so would read as absent whatever the corpus
- * writes. It is a second table and not a replacement: nothing in the word arm reads it, and the word table
+ * writes. It is a second table and not a replacement: nothing in the word path reads it, and the word table
  * is untouched by it.
  */
 public final class PooledRunShares {

@@ -29,4 +29,4 @@ SQL is the cheaper of the two and the more valuable: a schema is the shortest st
 
 - The clone states it: `maven.compiler.release`, a Gradle toolchain, `.java-version`, or a module descriptor.
 - `ModuleFinder.of(<other JDK>/jmods)` reads another installation without running it, so the delegation survives — nothing is bundled and nothing is listed.
-- **What settles it:** the share of a member's declared words the reference refuses, read against its own stated release and against the running JVM. If the two agree to within a point the defect is cosmetic and is recorded as such; if they do not, every panel figure taken against the wrong release is restated.
+- **What settles it:** the share of a member's declared words the reference refuses, read against its own stated release and against the running JVM. If the two agree to within a point the defect is cosmetic and is recorded as such; if they do not, every evaluation set figure taken against the wrong release is restated.

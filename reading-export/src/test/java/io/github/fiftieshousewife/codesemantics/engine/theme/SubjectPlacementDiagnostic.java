@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 /**
  * Places the repository under reading against a published subject taxonomy, and writes what it found.
  *
- * <p>All three arms are computed and reported: the placement at the level the taxonomy reports at, the
+ * <p>All three paths are computed and reported: the placement at the level the taxonomy reports at, the
  * placement at its leaves, and the placement by the mass a subject and a repository put in the same topics.
  * Each is drawn against its own null, because a ranking on its own would be a horoscope.
  *
@@ -64,7 +64,7 @@ class SubjectPlacementDiagnostic {
                 () -> assertThat(chance.chanceNearest()).as("the leaf null is drawn and reported")
                         .isPositive(),
                 () -> assertThat(sharedChance.chanceNearest())
-                        .as("and so is the shared-mass arm's, so a reader sees the margin and judges it "
+                        .as("and so is the shared-mass path's, so a reader sees the margin and judges it "
                                 + "rather than being handed a direction. It sits within a hundredth of a "
                                 + "bit of its bar on this tree and flips when one file is added. A null "
                                 + "drawn at each subject's own description length is what would settle it.")

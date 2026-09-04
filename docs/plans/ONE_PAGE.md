@@ -23,7 +23,7 @@ Three further tasks — `discoursePass`, `corroboratedWeight`, `domainCarriers` 
 
 **2. They are stale against schema 13.0 and cannot say so.** `taxonomies` now carries `bar`, and holds only the vocabularies whose phrase count beats what a deal of their own words reaches. `TermTreesPage`'s javadoc still states it draws "the taxonomies every run matches and the out-of-domain controls alike"; the export no longer carries the ones that failed. So the trees page draws fewer vocabularies than it used to and states no reason, no page draws a bar at all, and the two counts step 3 added — `setAside.vocabulariesBelowTheirChanceBar` and `setAside.termsWorkingJavaAlsoWrites` — reach no picture. On this repository that is the difference between drawing two vocabularies and drawing one.
 
-**3. The word arms never took the shape the phrase view proved.** The backlog states it as its own row: *the phrase view lists every vocabulary and drills into an overlap; the word sources still draw one three-set venn each.* The summary-and-drill shape works and only one of four views uses it.
+**3. The word paths never took the shape the phrase view proved.** The backlog states it as its own row: *the phrase view lists every vocabulary and drills into an overlap; the word sources still draw one three-set venn each.* The summary-and-drill shape works and only one of four views uses it.
 
 **4. Two navigation roots and an unlinked page.** `index.html` names the per-repository views, `taxonomy-matches.html` compares across readings and is reached from it, and `control-matches.html` is drawn by `evaluationPages` and linked from nowhere.
 

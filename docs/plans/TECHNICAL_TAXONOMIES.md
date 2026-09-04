@@ -1,6 +1,6 @@
 # Taxonomies for the domains software itself works in
 
-Seven domains to cover: computer science, data analysis, DevOps and testing, cyber security, AI, workflow, and business intelligence. [The industry plan](INDUSTRY_VOCABULARIES.md) covers the field a repository sits *beside* — finance, and the standards a repository implements. This one covers the field a repository sits *in*, which is where nearly every tree the panel will ever hold actually lives.
+Seven domains to cover: computer science, data analysis, DevOps and testing, cyber security, AI, workflow, and business intelligence. [The industry plan](INDUSTRY_VOCABULARIES.md) covers the field a repository sits *beside* — finance, and the standards a repository implements. This one covers the field a repository sits *in*, which is where nearly every tree the evaluation set will ever hold actually lives.
 
 **It is the answer to a defect already stated.** arXiv classifies research: it has `cs.SE` for the whole of software engineering, no category for a payments system, and none for a test harness or a build tool either. A reading that places a Kubernetes operator in *Systems and Control* has been given no better option. These seven are the vocabulary a repository writes rather than the field a paper is filed under.
 
@@ -28,7 +28,7 @@ Seven domains to cover: computer science, data analysis, DevOps and testing, cyb
 
 **The honest reading of this row: computer science has no good term taxonomy.** Its vocabulary is ordinary English — *cache*, *tree*, *stream*, *thread* — which is the exact collision the term matcher already fails on. The six domains below are narrower and their vocabularies are better spelled.
 
-**And it has no good functional taxonomy either, which is the larger gap.** A functional taxonomy needs prose per category, because prose is what the divergence compares. arXiv states it and classifies research; PyPI Trove states none at all, so the target [the classification plan](CLASSIFYING_A_REPOSITORY.md) selected is a term taxonomy of activities and cannot feed the description arm. GitHub's topics were named to fill that gap and were measured this session against Apache Tika: they state formats where Trove states activities, ten of the twelve names a text-extraction toolkit needs are absent, and no publisher maps the flat topic set onto Trove's `::` paths. **Trove also states no classifier for streaming at all** — no name of its 321 contains the word.
+**And it has no good functional taxonomy either, which is the larger gap.** A functional taxonomy needs prose per category, because prose is what the divergence compares. arXiv states it and classifies research; PyPI Trove states none at all, so the target [the classification plan](CLASSIFYING_A_REPOSITORY.md) selected is a term taxonomy of activities and cannot feed the description path. GitHub's topics were named to fill that gap and were measured this session against Apache Tika: they state formats where Trove states activities, ten of the twelve names a text-extraction toolkit needs are absent, and no publisher maps the flat topic set onto Trove's `::` paths. **Trove also states no classifier for streaming at all** — no name of its 321 contains the word.
 
 So the software-domain functional taxonomy is still unfound, and the two candidates named for the *business* domains — BIAN and TOGAF — are queued in [the domain landscape](DOMAIN_LANDSCAPE.md) with their licences flagged for human review. Neither is reachable from an agent shell, so neither can be settled the way arXiv's MIT and NIST's CC0 were, from the publisher's own file.
 
@@ -77,7 +77,7 @@ So the software-domain functional taxonomy is still unfound, and the two candida
 | **CSO's machine-learning branch** | topics | no | as CSO above |
 | arXiv `cs.AI`, `cs.LG`, `cs.CL`, `stat.ML` | descriptions | — | **bundled**, functional |
 
-**AI is the domain where the term/functional split matters most.** A library that *implements* models writes ONNX's operator names; a library that *applies* them writes nothing of the kind and can only be placed by distribution. Both arms are needed and they answer different questions.
+**AI is the domain where the term/functional split matters most.** A library that *implements* models writes ONNX's operator names; a library that *applies* them writes nothing of the kind and can only be placed by distribution. Both paths are needed and they answer different questions.
 
 ### Workflow
 
@@ -100,7 +100,7 @@ So the software-domain functional taxonomy is still unfound, and the two candida
 
 ## The pre-work, in order
 
-**None of it is extraction, and none of it is blocked on the panel.**
+**None of it is extraction, and none of it is blocked on the evaluation set.**
 
 | | What | Produces | Blocked on |
 |--:|---|---|---|

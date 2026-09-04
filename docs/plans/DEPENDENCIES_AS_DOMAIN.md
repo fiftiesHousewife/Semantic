@@ -27,7 +27,7 @@ Start at 2. It reuses machinery that exists, it needs no new bundled resource, a
 
 ### What settles it, stated before it runs
 
-The known-answer test is free and it is this tree: a reading that cannot place a repository importing `net.sf.extjwnl`, JavaParser and Jackson under language and parsing has failed the easiest case it will ever be given. Then the panel, where the answer is known and was not chosen by us — `netty/netty` depends on `io.netty`'s own transport stack and JDK networking; `bcgit/bc-java` depends on nothing and is the honest hard case; `apache/lucene` depends on analysis and codec modules.
+The known-answer test is free and it is this tree: a reading that cannot place a repository importing `net.sf.extjwnl`, JavaParser and Jackson under language and parsing has failed the easiest case it will ever be given. Then the evaluation set, where the answer is known and was not chosen by us — `netty/netty` depends on `io.netty`'s own transport stack and JDK networking; `bcgit/bc-java` depends on nothing and is the honest hard case; `apache/lucene` depends on analysis and codec modules.
 
 **Abandon if:** the POM descriptions place this tree no better than its identifiers already do, or if the placement is carried by build-tooling dependencies every Java repository has — JUnit, AssertJ, Lombok — in which case the reading is measuring *that this is a Java project* and the honest thing is to say so. Note that a test dependency is a statement about how a repository is built and not about what it is for, and the scopes are already separated, so that split is available without deciding anything by hand.
 

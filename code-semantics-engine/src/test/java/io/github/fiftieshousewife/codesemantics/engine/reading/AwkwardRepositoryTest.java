@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * one that does not wholly parse, one that is mostly not code at all, and one that imports nothing outside
  * itself.
  *
- * <p>Each of them is a legitimate member — the degenerate arm exists precisely because a reading that only
+ * <p>Each of them is a legitimate member — the degenerate path exists precisely because a reading that only
  * works on well-formed libraries has been measured on the easy half of the world. So each must produce a
  * reading rather than an exception, and the figure it produces must be reported rather than assumed away.
  * The tree this library was developed against parses cleanly end to end, which is exactly why nothing here
@@ -79,7 +79,7 @@ class AwkwardRepositoryTest {
                                 + "reads as having no Java in it at all. In an evaluation set that is a "
                                 + "member scoring zero for a reason that has nothing to do with what it "
                                 + "is about, so the layout has to be recorded beside each member or the "
-                                + "arm is measuring build conventions.")
+                                + "path is measuring build conventions.")
                         .isEmpty(),
                 () -> assertThat(new UnreadJavaFiles().under(root, scopesUnder(root)))
                         .as("and the reading no longer reads so silently: the count says a Java file was "

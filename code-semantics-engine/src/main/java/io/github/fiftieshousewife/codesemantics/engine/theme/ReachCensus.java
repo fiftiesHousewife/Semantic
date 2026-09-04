@@ -45,7 +45,7 @@ public record ReachCensus(Map<FurthestWritten.Reach, Long> inDeclarations,
         return keywords == 0 ? 0.0 : declared(reach) / (double) keywords;
     }
 
-    /** The share a prose arm would add, which is the size of the decision about reading sentences. */
+    /** The share a prose path would add, which is the size of the decision about reading sentences. */
     public double shareOnlyInProse() {
         return keywords == 0 ? 0.0 : onlyInProse / (double) keywords;
     }

@@ -43,7 +43,7 @@ class EvaluationSetTest {
                         () -> assertThat(member.statedBy())
                                 .as("what the area was judged from, recorded before the reading was run")
                                 .isNotBlank(),
-                        () -> assertThat(member.arm()).isNotBlank()));
+                        () -> assertThat(member.expectedResult()).isNotBlank()));
     }
 
     @Test
@@ -75,11 +75,11 @@ class EvaluationSetTest {
     void expectsEachMemberBeneathTheDirectoryTheRunNames() {
         final EvaluationSet.Member member = new EvaluationSet.Member("junit-framework",
                 "https://github.com/junit-team/junit-framework.git", "0".repeat(40), "EPL-2.0",
-                "a testing framework", "the repository's own README", "out-of-domain");
+                "a testing framework", "the repository's own README", "negative-control");
 
         assertAll(
                 () -> assertThat(member.under(Path.of("/clones")))
                         .isEqualTo(Path.of("/clones", "junit-framework")),
-                () -> assertThat(member.arm()).isEqualTo("out-of-domain"));
+                () -> assertThat(member.expectedResult()).isEqualTo("negative-control"));
     }
 }

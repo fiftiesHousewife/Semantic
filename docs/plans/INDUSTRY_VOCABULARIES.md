@@ -58,7 +58,7 @@ The format is **OASIS genericode**, with `Code`, `Source` and `Description` colu
 
 **Nothing below is extracted until [the extractors](THE_EXTRACTORS.md) are restructured.** That is the stated order: six extraction classes already repeat the same six steps, and each new source adds a seventh copy. The licence reading below can proceed in parallel, because it produces a verdict rather than a file.
 
-The panel member exposed the case directly. **Tika's subject matter is file formats and metadata standards, and it writes them as constants rather than as prose** — so a match against a registry Tika implements is the repository writing a term its publisher defined, not an English word a taxonomy happens to have claimed. It is the same argument that puts FpML ahead of a thesaurus, applied to a domain that is not finance.
+The evaluation-set member exposed the case directly. **Tika's subject matter is file formats and metadata standards, and it writes them as constants rather than as prose** — so a match against a registry Tika implements is the repository writing a term its publisher defined, not an English word a taxonomy happens to have claimed. It is the same argument that puts FpML ahead of a thesaurus, applied to a domain that is not finance.
 
 | Candidate | What it publishes | Where the repository writes it | Licence — **read before anything is bundled** |
 |---|---|---|---|
@@ -89,7 +89,7 @@ That is what "convert it to SKOS" should mean here. Emitting SKOS *RDF* and read
 
 **The span reading itself has landed**, built against OLiA rather than FIBO because that was the taxonomy whose licence could be read: `TermIndex`, `LinguisticTerms`, `TermSpans`, `TermSpan`, `PhraseSpecificity`, and `TermReading` over a repository's declared names. Longest match left to right, bounded by the index's own longest term, a hit advancing past itself and a miss advancing one word. **A partial match abstains**: only a term the resource actually publishes votes, and a prefix that is not itself a published term is not a citation. It matches the raw words rather than the offered lemmas, because `OfferedWords` drops function words and would manufacture adjacency the author never wrote. A new source needs an extraction, a provenance header and a `TermIndex` — no new reading.
 
-What is left of this part is the join, and it stays undone until the out-of-domain arm has run. `PhraseTopics` is at the line limit, so it splits: `AgreeingWords` (today's body, moved), `MatchedTerms` (the span reading's votes), and a pooled `PhraseTopics` over an ordered list of both. `TopicCitations` does not change — the term reading is its sibling, not its replacement.
+What is left of this part is the join, and it stays undone until the out-of-domain path has run. `PhraseTopics` is at the line limit, so it splits: `AgreeingWords` (today's body, moved), `MatchedTerms` (the span reading's votes), and a pooled `PhraseTopics` over an ordered list of both. `TopicCitations` does not change — the term reading is its sibling, not its replacement.
 
 **Synonyms are never grouped by hand.** SKOS `altLabel`, `klink:relatedEquivalent` and `cmns-av:synonym` are each a published statement of synonymy, so each is a citation. Where a source publishes none — FIBO largely does not, at 11% coverage — the reading abstains rather than borrowing WordNet, because a WordNet synonym of a term's head noun is a statement about English and not about the taxonomy.
 
@@ -97,9 +97,9 @@ What is left of this part is the join, and it stays undone until the out-of-doma
 
 ### What settles it, stated before it runs
 
-A domain vocabulary must fire on a repository in its domain and **not** on one outside it. Held-out in-domain: `OpenGamma/Strata` and `apache/fineract`, both Apache-2.0. Out of domain: `netty/netty`, `junit-team/junit-framework`, `bcgit/bc-java`, and this tree — whose out-of-domain arm is already measured above. Tuned on `paritytrading/parity` and `JavaMoney/moneta`, drawn disjointly.
+A domain vocabulary must fire on a repository in its domain and **not** on one outside it. Held-out in-domain: `OpenGamma/Strata` and `apache/fineract`, both Apache-2.0. Out of domain: `netty/netty`, `junit-team/junit-framework`, `bcgit/bc-java`, and this tree — whose out-of-domain path is already measured above. Tuned on `paritytrading/parity` and `JavaMoney/moneta`, drawn disjointly.
 
-Two nulls, because the existing one is the wrong shape: `PermutationNull` resamples files *within* a repository and cannot answer a between-repository question. Pool the panel's files for the first; permute the **term-to-concept** assignment within the taxonomy for the second, preserving branch and term-length distributions, so the matcher hits the same spans in the same places and only the branch reported is chance.
+Two nulls, because the existing one is the wrong shape: `PermutationNull` resamples files *within* a repository and cannot answer a between-repository question. Pool the evaluation set's files for the first; permute the **term-to-concept** assignment within the taxonomy for the second, preserving branch and term-length distributions, so the matcher hits the same spans in the same places and only the branch reported is chance.
 
 **Abandon if:** in-domain mass does not clear the pooled null; multi-word matches in domain are not orders of magnitude above the 3-in-63,275 baseline; discrimination survives only when single-word terms are excluded **by hand**; or an audit of 50 sampled spans finds fewer than 40 genuine.
 
@@ -148,7 +148,7 @@ Header carries `Source:` naming the archive URL and each scheme's own `Version`,
 | `TermSpans` (engine) | the longest-match, non-overlapping cover of a phrase's ordered words |
 | `TermSpan` (engine, record) | `from`, `to`, `words`, `concept`, `source` |
 | `PhraseSpecificity` (engine) | an n-gram's surprisal off the bundled frequency list, the sibling of `WordSpecificity` |
-| `DomainTermDiagnostic` (engine, test, `@Tag("diagnostic")`) | runs the panel and writes `domain-terms.md` |
+| `DomainTermDiagnostic` (engine, test, `@Tag("diagnostic")`) | runs the evaluation set and writes `domain-terms.md` |
 
 `./gradlew domainRead`, modelled on `read`, reading `-Dcs.evaluation.dir` — which `cs.java-conventions` must forward beside `cs.clone.dir`, the only two properties the test convention passes to the forked JVM.
 
@@ -164,16 +164,16 @@ Header carries `Source:` naming the archive URL and each scheme's own `Version`,
 
 #### What stage 1 reports, and what would end it
 
-`domainRead` writes, per repository in the panel: matched spans per thousand identifier occurrences, split by term length; the schemes that matched; and the count of files where nothing matched. The out-of-domain arm is already measured for FIBO — 1,789 one-word against 3 multi-word on this tree — and FpML's codes are single tokens, so **the one-word rate is exactly what has to be shown to be discriminating here**. That is the risk this stage exists to measure: FpML may be code-shaped and still be measuring the English words *credit*, *equity* and *option*.
+`domainRead` writes, per repository in the evaluation set: matched spans per thousand identifier occurrences, split by term length; the schemes that matched; and the count of files where nothing matched. The out-of-domain path is already measured for FIBO — 1,789 one-word against 3 multi-word on this tree — and FpML's codes are single tokens, so **the one-word rate is exactly what has to be shown to be discriminating here**. That is the risk this stage exists to measure: FpML may be code-shaped and still be measuring the English words *credit*, *equity* and *option*.
 
 Abandon if in-domain matching does not clear the pooled permutation null, or if it clears only once single-token codes are excluded by hand.
 
 ### Staging
 
-1. **A term source and a diagnostic, with the reading untouched.** Landed for OLiA — `TermIndex`, `TermSpans`, `PhraseSpecificity` and `terms.md` under `read` — and what remains of it is the arm that decides: a repository the vocabulary should say **nothing** about. That needs `./gradlew domainRead` behind `-Dcs.evaluation.dir`, which `cs.java-conventions` must forward beside `cs.clone.dir`. `extractFiboTerms` and `fibo-terms.tsv` are the same shape again for a domain this tree is outside of. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
+1. **A term source and a diagnostic, with the reading untouched.** Landed for OLiA — `TermIndex`, `TermSpans`, `PhraseSpecificity` and `terms.md` under `read` — and what remains of it is the path that decides: a repository the vocabulary should say **nothing** about. That needs `./gradlew domainRead` behind `-Dcs.evaluation.dir`, which `cs.java-conventions` must forward beside `cs.clone.dir`. `extractFiboTerms` and `fibo-terms.tsv` are the same shape again for a domain this tree is outside of. If a kill criterion fires, two files are deleted and no reading was ever corrupted.
 2. **The votes join the reading** — `MatchedTerms`, `TermCitations`, new `EvidenceSource` and `Weights` entries, and the FIBO module as the roll-up level the resource itself names.
 3. **CSO and the vocabulary-against-repository table**, which is also the first real attempt on `computing` versus `computer_science` — if CSO maps them, that mapping is CSO's statement rather than ours.
-4. **Synonymy and abbreviations**, and the surface-versus-lemma comparison as an A/B on the held-out panel.
+4. **Synonymy and abbreviations**, and the surface-versus-lemma comparison as an A/B on the held-out evaluation set.
 5. **STW**, only if the first three pass.
 
 Note the roll-up here runs **opposite** to `StatedTopics`: there the resource published a closure and the hierarchy subtracts what was derived; here the resource states one concept and the hierarchy rolls it up. Same interface shape, opposite direction, and the javadoc has to say so.

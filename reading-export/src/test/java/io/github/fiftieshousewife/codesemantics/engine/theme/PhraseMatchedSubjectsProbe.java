@@ -40,7 +40,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * often its keywords were written; two shares rank it by how many of them were written. Which one places a
  * repository better is what the probe is run to find out.
  *
- * <p>Two further arms split every match by whether the IANA media type registry states each of its words as
+ * <p>Two further paths split every match by whether the IANA media type registry states each of its words as
  * a format name. A repository that parses a format writes that format's name as freely as one that studies
  * it, so the split says how much of a placement rests on the formats a tool reads. The registry also states
  * ordinary English — {@code index}, {@code collection}, {@code node} — so the split is a measurement and
@@ -81,18 +81,18 @@ public final class PhraseMatchedSubjectsProbe {
         System.out.printf("%d topics, %d keywords published%n", topics.size(), keywords.size());
         System.out.printf("expected result: a topic under %s outranks one that is not%n", area);
 
-        final SubjectArms arms = new SubjectArms(topics, keywords, PlacedUnder.in(OpenAlexTopics.fromClasspath(), area), area,
+        final SubjectScorings paths = new SubjectScorings(topics, keywords, PlacedUnder.in(OpenAlexTopics.fromClasspath(), area), area,
                 KeywordSpecificity.fromClasspath());
-        arms.print("every match", every);
-        breadth(arms, every);
+        paths.print("every match", every);
+        breadth(paths, every);
         java.util.Arrays.stream(MatchNormalisation.values()).forEach(normalisation -> {
             final List<TermSighting> found = reading.every().at(normalisation).sightings();
-            arms.print("normalisation: " + normalisation.normalisation(), found);
-            arms.print("normalisation: " + normalisation.normalisation() + ", runs of more than one word",
+            paths.print("normalisation: " + normalisation.normalisation(), found);
+            paths.print("normalisation: " + normalisation.normalisation() + ", runs of more than one word",
                     found.stream().filter(sighting -> sighting.length() > 1).toList());
         });
-        arms.print("corroborated by the branch rule", corroborated);
-        arms.print("runs of more than one word", runs);
+        paths.print("corroborated by the branch rule", corroborated);
+        paths.print("runs of more than one word", runs);
 
         final RegisteredFormats formats = RegisteredFormats.fromClasspath();
         final List<TermSighting> namingFormats = every.stream()
@@ -102,8 +102,8 @@ public final class PhraseMatchedSubjectsProbe {
                 .filter(sighting -> !formats.namesAll(sighting.words()))
                 .toList();
         printFormatRuns(namingFormats);
-        arms.print("every match, less the runs the media type registry names", namingNothingRegistered);
-        arms.print("only the runs the media type registry names", namingFormats);
+        paths.print("every match, less the runs the media type registry names", namingNothingRegistered);
+        paths.print("only the runs the media type registry names", namingFormats);
     }
 
     /**
@@ -119,17 +119,17 @@ public final class PhraseMatchedSubjectsProbe {
      * length and puts the result in {@code (0, 1]}, so the broadest topic still votes at the smallest weight
      * the file can express.
      */
-    private static void breadth(final SubjectArms arms, final List<TermSighting> every) {
+    private static void breadth(final SubjectScorings paths, final List<TermSighting> every) {
         final OpenAlexTopicSizes sizes = OpenAlexTopicSizes.fromClasspath();
         final double largest = Math.log(sizes.size() + 1.0);
         final java.util.function.ToDoubleFunction<String> narrowness =
                 topic -> Math.log(sizes.rankOf(topic) + 1.0) / largest;
-        arms.massWeighted("every match", "summed mass by the topic's share of the literature", every,
+        paths.massWeighted("every match", "summed mass by the topic's share of the literature", every,
                 sizes::share);
-        arms.massWeighted("every match", "summed mass by how little the topic covers", every, narrowness);
-        arms.weighted("every match", "two shares by the topic's share of the literature", every,
+        paths.massWeighted("every match", "summed mass by how little the topic covers", every, narrowness);
+        paths.weighted("every match", "two shares by the topic's share of the literature", every,
                 sizes::share);
-        arms.weighted("every match", "two shares by how little the topic covers", every, narrowness);
+        paths.weighted("every match", "two shares by how little the topic covers", every, narrowness);
     }
 
     /** The runs the registry caught, most-written first, so a reader can see what the split rests on. */

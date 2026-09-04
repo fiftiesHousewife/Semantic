@@ -83,12 +83,13 @@ Multi-module structure with a `build-logic/` included build. The root `build.gra
 - No `*Helper`, `*Util`, `*Manager`, `*Processor`. Name a class after what it represents or produces.
 - No methods starting with `handle`, `process`, `do`, `perform`. Name a method after what it returns or what it changes.
 - No abbreviations unless universally understood in context (`id`, `url`, `sha`).
-- **No invented idioms, and no term borrowed from a field that means something else there.** A word chosen because it sounds precise is a word every reader has to be taught, and one already in use elsewhere teaches them something false. Where a concept has a standard name in statistics, machine learning or linguistics, use that name; where it has none, use plain English that says the mechanism. Two are in the tree now and are wrong:
+- **No invented idioms, and no term borrowed from a field that means something else there.** A word chosen because it sounds precise is a word every reader has to be taught, and one already in use elsewhere teaches them something false. Where a concept has a standard name in statistics, machine learning or linguistics, use that name; where it has none, use plain English that says the mechanism. Three were in the tree and are refused:
 
-  | In the tree | Where it comes from, and why it misleads | Use instead |
+  | Refused | Where it comes from, and why it misleads | Use instead |
   |---|---|---|
-  | `panel` | Econometrics, where panel data is repeated observations of the same units *over time*. This is a set of repositories read once each | **evaluation set** — the repositories a reading is measured on, held out from the ones it was developed against |
-  | `arm` | Clinical trials, where an arm is a group receiving one treatment. This column says what a member is there to demonstrate | **expected result** — and its values are ordinary controls: a member the vocabulary should fire on is a positive control, one it should stay silent on a negative control |
+  | `panel` | Econometrics, where panel data is repeated observations of the same units *over time*. A set of repositories read once each is not that | **evaluation set** — the repositories a reading is measured on, held out from the ones it was developed against |
+  | `arm` | Clinical trials, where an arm is a group receiving one treatment. It said two different things here: what a member is there to demonstrate, and one of the reading's own paths | **expected result** for the first, with values that are ordinary controls — a member the vocabularies should fire on is a positive control, one they should stay silent on a negative control — and **path** for the second |
+  | `rung` | A metaphor, and it carried three meanings at once: what a match was normalised to, which kind of evidence answered, and how deep a concept sits in its publisher's tree | **normalisation**, **kind** and **level** — each the word the export already publishes |
 - Parameterless factories are `newInstance()`, not `of()`.
 - No magic strings. A literal appearing more than once, or whose meaning is not self-evident, is a named constant — named after the value, with no `VAR_`/`STR_`/`KEY_` prefix.
 - **Prefer monadic functions.** A method taking a string label to vary its behaviour should be several clearly-named methods instead.

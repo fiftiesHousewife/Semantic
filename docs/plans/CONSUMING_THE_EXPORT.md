@@ -9,7 +9,7 @@ Four uses. Each would change the shape of the file, which is why they are listed
 | 1 | **A diff of two runs** | did this change move the figure it was meant to move | nothing — two files and a comparison |
 | 2 | **A catalogue row per repository** | across an estate, which repositories are about what | a run per repository, which `-Dcs.clone.dir` already gives |
 | 3 | **A build check** | has this repository drifted away from the domain it states | a stated domain per repository, held outside the reading |
-| 4 | **A pull request comment** | what does this author's work add to the picture | the pull request arm, which is [the export's](THE_EXPORT.md) own first outstanding item |
+| 4 | **A pull request comment** | what does this author's work add to the picture | the pull request path, which is [the export's](THE_EXPORT.md) own first outstanding item |
 
 ## 1. A diff of two runs
 
@@ -39,7 +39,7 @@ A repository states its domain — a Trove classifier, a DOAP category, a line i
 
 ## 4. A pull request comment
 
-The use the export was designed around, and the one that needs the most. [The export](THE_EXPORT.md) states the arm; [supplied text](SUPPLIED_TEXT.md) states the safeguard — a pull request is its own scope, reported with the repository's reading beside it and without it, or an author who describes the domain in a description gets that description handed back as a finding.
+The use the export was designed around, and the one that needs the most. [The export](THE_EXPORT.md) states the path; [supplied text](SUPPLIED_TEXT.md) states the safeguard — a pull request is its own scope, reported with the repository's reading beside it and without it, or an author who describes the domain in a description gets that description handed back as a finding.
 
 ## What is decided by building any of them
 

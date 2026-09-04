@@ -24,15 +24,15 @@ Three findings converge on one architecture, and are set out with their numbers 
 
 The corresponding move here: **promote step 8 to be the classifier.** `TermSpans` already matches a taxonomy's multi-word concepts in the order they were written, and `CorroboratedTerms` already requires a branch to hold more than the one concept. That machinery produces a **concept identifier**, which is an answer a reader can check, where the topical reading produces a domain label that needs a second inference before it is one. The backlog has recorded since it was written that nothing from step 8 feeds step 5; the reason it could not — the topical reading read a word at a time where a taxonomy publishes phrases — is gone.
 
-## The three arms
+## The three paths
 
-| Arm | What it reads | State |
+| Path | What it reads | State |
 |---|---|---|
 | **Concept match** | Which of the taxonomy's own concepts the repository declares, corroborated by branch | Built. `TermSpans`, `CorroboratedTerms`, `TaxonomyTree`. Not wired to an answer |
 | **Description similarity** | The category's own prose, pooled through the same pipeline as the repository | Built. `SubjectAreas`, `SubjectPlacement`. Needs a length-matched null and subtree pooling |
 | **Dependency coordinates** | What the repository declares it is built on | Not built. `ImportOrigins` already sorts imports into platform, own and third-party |
 
-The third arm is the strongest untapped signal for this task specifically. A coordinate denotes one artefact somebody else published, so it needs no sense disambiguation at all: `org.apache.lucene` is better evidence that a repository does information retrieval than any English word inside it. [`DEPENDENCIES_AS_DOMAIN.md`](DEPENDENCIES_AS_DOMAIN.md) proposes it already and is blocked on nothing.
+The third path is the strongest untapped signal for this task specifically. A coordinate denotes one artefact somebody else published, so it needs no sense disambiguation at all: `org.apache.lucene` is better evidence that a repository does information retrieval than any English word inside it. [`DEPENDENCIES_AS_DOMAIN.md`](DEPENDENCIES_AS_DOMAIN.md) proposes it already and is blocked on nothing.
 
 ## The taxonomy to classify into
 
@@ -42,7 +42,7 @@ arXiv is the wrong target for repositories. It classifies research fields, its d
 
 What has no category at all is most of what commercial software is written for: payments and settlement, accounting and ledgers, e-commerce and order management, health records, logistics, telecommunications operations, identity, customer relationship management, build and deployment tooling. arXiv is a preprint archive, so its categories are subjects people publish papers about. A payments repository read against it is placed by resemblance to whichever research field shares its words, and the reading has no way to state that the right answer was absent from the list.
 
-**This is the argument for the Trove target below**, whose 321 classifiers under 25 roots include `Topic :: Office/Business :: Financial :: Point-Of-Sale`, `Topic :: Communications :: Telephony` and `Topic :: System :: Logging`. **What settles it:** the share of a panel whose stated category has a nearest arXiv subject at all, against the same share under Trove. **Nothing is bundled before [the extractors](THE_EXTRACTORS.md) are restructured.**
+**This is the argument for the Trove target below**, whose 321 classifiers under 25 roots include `Topic :: Office/Business :: Financial :: Point-Of-Sale`, `Topic :: Communications :: Telephony` and `Topic :: System :: Logging`. **What settles it:** the share of an evaluation set whose stated category has a nearest arXiv subject at all, against the same share under Trove. **Nothing is bundled before [the extractors](THE_EXTRACTORS.md) are restructured.**
 
 A vocabulary fit for this task needs four things, and **no single candidate has all four**:
 
@@ -59,13 +59,13 @@ Two decisions follow.
 
 **The target taxonomy and the validation labels must be different vocabularies.** Apache DOAP is ground truth — an institution stating a category in a document separate from the code — and it is a poor classification target, because `library` is not subject matter and every Java project would match it meaninglessly. Classifying into DOAP and scoring against DOAP would be circular.
 
-**The target is PyPI Trove's `Topic ::` classifiers, unless ACM CCS turns out to permit indexing use.** Trove is Apache-2.0, hierarchical by construction, and is a published statement of what software is *for*; the hierarchy is what `CorroboratedTerms` requires. Its weakness is that it carries no definitions, which starves the description arm — and GitHub's topic set was named to supply them, each of its 1,255 topics carrying a `short_description` and a `wikipedia_url` under CC BY 4.0. **Chunk 2 measured that pairing and it is weaker than this table implies**: GitHub's set names formats where Trove names activities, and no publisher maps the one to the other. ACM CCS is the discipline's own classification and better shaped than either, but its stated terms restrict it to educational and research use, which is incompatible with bundling it into a published artefact. **Reading that licence is the first task in chunk 2** and it settles which vocabulary the rest of this plan targets.
+**The target is PyPI Trove's `Topic ::` classifiers, unless ACM CCS turns out to permit indexing use.** Trove is Apache-2.0, hierarchical by construction, and is a published statement of what software is *for*; the hierarchy is what `CorroboratedTerms` requires. Its weakness is that it carries no definitions, which starves the description path — and GitHub's topic set was named to supply them, each of its 1,255 topics carrying a `short_description` and a `wikipedia_url` under CC BY 4.0. **Chunk 2 measured that pairing and it is weaker than this table implies**: GitHub's set names formats where Trove names activities, and no publisher maps the one to the other. ACM CCS is the discipline's own classification and better shaped than either, but its stated terms restrict it to educational and research use, which is incompatible with bundling it into a published artefact. **Reading that licence is the first task in chunk 2** and it settles which vocabulary the rest of this plan targets.
 
 The bundled OLiA and FIBO stay where they are, as out-of-domain controls rather than classification targets: a reading that fires FIBO's vocabulary on a compiler is broken, and that is a test rather than an answer.
 
 ## What would end this
 
-If concept match cannot separate repositories that share a stated category from those that do not — chunk 4 below — then the reading is measuring Java rather than subject matter, and no amount of arm-combining will repair it. That is the kill line, and it is deliberately placed before any of the building work.
+If concept match cannot separate repositories that share a stated category from those that do not — chunk 4 below — then the reading is measuring Java rather than subject matter, and no amount of path-combining will repair it. That is the kill line, and it is deliberately placed before any of the building work.
 
 ## The expected ceiling, stated in advance
 
@@ -102,27 +102,27 @@ Measuring both ways on one tree is what attributes the swap to the composition: 
 
 That closes the defect `PinnedSubjectFindings` had recorded as open — but by 0.0016 bits, which is inside the margin that class already declines to assert an order across, so the pin asserts the leading pair and not their order. The explanation the defect carried was wrong: it blamed the vaguest description arXiv publishes, `cs.ET`, which was twelfth at 0.5388 throughout. Chunk 6's length-matched null is still what would make the order worth asserting.
 
-### Chunk 2 — Read two licences, then name the panel
+### Chunk 2 — Read two licences, then name the evaluation set
 
-**First, settle the target vocabulary**, because every later chunk matches against it. Read ACM CCS's stated terms: if they permit use in indexing and redistribution of the concept list, CCS is the target; if they are educational-and-research only, the target is PyPI Trove's `Topic ::` classifiers under Apache-2.0, with GitHub's topic descriptions (CC BY 4.0) supplying the prose the description arm needs. Record the answer and the URL read in the resource's provenance header, which is where this repository already keeps such things.
+**First, settle the target vocabulary**, because every later chunk matches against it. Read ACM CCS's stated terms: if they permit use in indexing and redistribution of the concept list, CCS is the target; if they are educational-and-research only, the target is PyPI Trove's `Topic ::` classifiers under Apache-2.0, with GitHub's topic descriptions (CC BY 4.0) supplying the prose the description path needs. Record the answer and the URL read in the resource's provenance header, which is where this repository already keeps such things.
 
-**Settled: the target is PyPI Trove.** ACM states, at [acm.org/publications/class-2012](https://www.acm.org/publications/class-2012) read 2026-08-15, that "the full CCS classification tree is freely available for educational and research purposes in HTML format". Educational and research use is not redistribution in a published artefact, so CCS is out as a bundled target — it stays readable as prior art. Trove is verified Apache-2.0 at [pypa/trove-classifiers](https://github.com/pypa/trove-classifiers): **321 `Topic ::` classifiers, 25 roots, hierarchy by `::` to depth 4**, which is the hierarchy `CorroboratedTerms` requires. Its weakness stands as the plan predicted — no definitions — so GitHub's topic descriptions under CC BY 4.0 remain what the description arm needs.
+**Settled: the target is PyPI Trove.** ACM states, at [acm.org/publications/class-2012](https://www.acm.org/publications/class-2012) read 2026-08-15, that "the full CCS classification tree is freely available for educational and research purposes in HTML format". Educational and research use is not redistribution in a published artefact, so CCS is out as a bundled target — it stays readable as prior art. Trove is verified Apache-2.0 at [pypa/trove-classifiers](https://github.com/pypa/trove-classifiers): **321 `Topic ::` classifiers, 25 roots, hierarchy by `::` to depth 4**, which is the hierarchy `CorroboratedTerms` requires. Its weakness stands as the plan predicted — no definitions — so GitHub's topic descriptions under CC BY 4.0 remain what the description path needs.
 
 Neither page is reachable from the build or from an agent's shell: `acm.org` answers a Cloudflare challenge to `curl` whatever user-agent it states. It was read in a browser, which is worth writing down so the next reader does not spend the attempt again.
 
-**How far the two sources cover the panel member already read**, measured 2026-08-16 against Apache Tika, which is a text extractor and the case the swap is meant to improve. Both licences reproduce: Trove states Apache-2.0 in [pypa/trove-classifiers](https://github.com/pypa/trove-classifiers), 321 `Topic ::` classifiers; [github/explore](https://github.com/github/explore) states CC BY 4.0 in `LICENSE.txt`, and its README states it for the topic content.
+**How far the two sources cover the evaluation-set member already read**, measured 2026-08-16 against Apache Tika, which is a text extractor and the case the swap is meant to improve. Both licences reproduce: Trove states Apache-2.0 in [pypa/trove-classifiers](https://github.com/pypa/trove-classifiers), 321 `Topic ::` classifiers; [github/explore](https://github.com/github/explore) states CC BY 4.0 in `LICENSE.txt`, and its README states it for the topic content.
 
 Trove covers the subject matter arXiv has one category for. Its `Text Processing` root states `Filters`, `Indexing`, `Linguistic` and `Markup ::` for HTML, XML, SGML, LaTeX, Markdown and reStructuredText; `System :: Archiving :: Compression`, `Multimedia :: Graphics`, `Multimedia :: Sound/Audio`, `Multimedia :: Video`, `Office/Business :: Office Suites`, `Scientific/Engineering :: Image Recognition` and `Internet :: WWW/HTTP :: Indexing/Search` are the rest of what a format toolkit does. arXiv offers `cs.CL` Computation and Language at 39.2%, and offers it to this repository too.
 
 **Trove states no classifier for streaming.** No name of the 321 contains `stream`, and no candidate in this plan or in [the technical taxonomies](TECHNICAL_TAXONOMIES.md) supplies one. A repository whose subject matter is a pipeline over byte streams has no home in the target vocabulary, and the reading will place it somewhere anyway.
 
-**The description arm is thinner than this plan assumed.** GitHub's topics carry a `short_description`, a `wikipedia_url` and a paragraph — `parsing` states 55 words of it — but ten of the twelve names Tika's subject matter needs are absent:
+**The description path is thinner than this plan assumed.** GitHub's topics carry a `short_description`, a `wikipedia_url` and a paragraph — `parsing` states 55 words of it — but ten of the twelve names Tika's subject matter needs are absent:
 
 | Present | Absent |
 |---|---|
 | `parsing`, `xml`, `latex`, `markdown`, `csv`, `json`, `yaml`, `image-processing`, `computer-vision`, `video`, `i18n`, `crawler` | `pdf`, `ocr`, `streaming`, `stream-processing`, `metadata`, `compression`, `file-format`, `markup`, `information-retrieval`, `text-mining` |
 
-The absences are one kind of name and the presences another: GitHub's set states **formats and technologies**, and a Trove classifier states an **activity**. So the two sources do not meet where the description arm needs them to. **And nothing published maps one to the other** — GitHub's topics are flat, with `related` and `aliases` inside their own set and no `Topic ::` path anywhere — so joining `Topic :: Text Processing :: Markup :: XML` to `xml` is an inference this project would be making, which is the shape the doctrine refuses. Either the join is derived from something a publisher states, or the description arm reads Trove's classifier names alone and the plan says so.
+The absences are one kind of name and the presences another: GitHub's set states **formats and technologies**, and a Trove classifier states an **activity**. So the two sources do not meet where the description path needs them to. **And nothing published maps one to the other** — GitHub's topics are flat, with `related` and `aliases` inside their own set and no `Topic ::` path anywhere — so joining `Topic :: Text Processing :: Markup :: XML` to `xml` is an inference this project would be making, which is the shape the doctrine refuses. Either the join is derived from something a publisher states, or the description path reads Trove's classifier names alone and the plan says so.
 
 **Extraction note.** `api.github.com/repos/github/explore/contents/topics` truncates at 1,000 entries and gives no indication that it has. The 1,255 figure this plan quotes needs a clone or the git-tree endpoint.
 
@@ -132,9 +132,9 @@ The absences are one kind of name and the presences another: GitHub's set states
 
 !curl -sS -o /tmp/asf-projects.json https://projects.apache.org/json/foundation/projects.json
 
-**Measurement.** Members named, categories covered, and the count dropped by filtering `retired` and `no-tlp-doap`, which occupy 115 of the 375 category slots. **Ends if** fewer than five categories retain at least five Java members, in which case the panel is too thin to test anything and F-Droid becomes the first arm instead.
+**Measurement.** Members named, categories covered, and the count dropped by filtering `retired` and `no-tlp-doap`, which occupy 115 of the 375 category slots. **Ends if** fewer than five categories retain at least five Java members, in which case the evaluation set is too thin to test anything and F-Droid becomes the first path instead.
 
-### Chunk 3 — Read the panel and report what happens
+### Chunk 3 — Read the evaluation set and report what happens
 
 Run the existing reading over the named members via `evaluationRead` and report per member: λ, the share of mass settling on no subject, files that did not parse, and wall clock. No classification yet.
 
@@ -152,13 +152,13 @@ Report no accuracy against a foreign taxonomy and no F1@k: neither carries a bou
 
 Turn the match into an answer: for each category, the share of that category's subtree the repository writes, corroborated by branch, ranked. The score must be bounded by its own definition — a share of a subtree bounds at 1 — and judged against a null drawn from the taxonomy itself rather than a chosen threshold.
 
-**Measurement.** On the panel, how often the stated category appears first, and in the first three, against two trivial baselines measured beside it: the majority category, and BM25 over the repository's README against the category descriptions. **Ends if** it does not beat both. **Blocked on** chunk 4 passing.
+**Measurement.** On the evaluation set, how often the stated category appears first, and in the first three, against two trivial baselines measured beside it: the majority category, and BM25 over the repository's README against the category descriptions. **Ends if** it does not beat both. **Blocked on** chunk 4 passing.
 
-### Chunk 6 — Fix the description arm
+### Chunk 6 — Fix the description path
 
 Two changes, both from the same finding. Draw the null **at each category's own description length** rather than a common one, and pool a category's subtree descriptions to its root the way a package's normalisations are already pooled — which is Song & Roth's own aggregation and the direct precedent for it.
 
-Before either, run the truncation study, which needs no panel and no new resource: truncate each arXiv description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. **Measurement.** If the ranking changes before 1/4, the present placement is measuring description length, and that is a finding to publish in the reports whether or not the fix lands. **Blocked on** nothing.
+Before either, run the truncation study, which needs no evaluation set and no new resource: truncate each arXiv description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. **Measurement.** If the ranking changes before 1/4, the present placement is measuring description length, and that is a finding to publish in the reports whether or not the fix lands. **Blocked on** nothing.
 
 **The truncation study has run, and the placement clears the bar by one step.** `TruncatedDescriptions` cuts a description to the first ⌈share × words⌉ words and leaves every other property the publisher stated; `PlacementByDescriptionLength` places the repository again at each share off the same repository reading, the same dictionaries and the same divergence, so only the words that left can move a subject. `DescriptionLengthReport` writes it as a section of [`subjects.md`](../../output/json/reading.json), which means it runs on any clone rather than only here.
 
@@ -173,14 +173,14 @@ Before either, run the truncation study, which needs no panel and no new resourc
 
 **What this does not settle.** The study moves one side and holds the other. A repository read at a quarter of its own words against full descriptions would ask the same question from the other end, and the asymmetry Song and Roth report is between the two sides rather than in either one.
 
-### Chunk 7 — The dependency arm
+### Chunk 7 — The dependency path
 
 Read the coordinates `ImportOrigins` already sorts as third-party as evidence in their own right: the artefact denotes one published thing, so no dictionary is asked and no sense is disambiguated. A coordinate is matched against the taxonomy by the same span walk the concepts use.
 
-**Measurement.** On the panel, the same first-place and first-three counts as chunk 5, from coordinates alone. The interesting number is not whether it beats the concept arm but whether it is **wrong in different places**, because that is what makes combining them worth anything. **Blocked on** chunk 4 passing.
+**Measurement.** On the evaluation set, the same first-place and first-three counts as chunk 5, from coordinates alone. The interesting number is not whether it beats the concept path but whether it is **wrong in different places**, because that is what makes combining them worth anything. **Blocked on** chunk 4 passing.
 
-### Chunk 8 — Combine the arms, and measure against the baselines
+### Chunk 8 — Combine the paths, and measure against the baselines
 
-Combine the three arms. The combination must be derived rather than chosen: pool where this library pools — log-linear over the arms, which is the operator that does not double-count dependent evidence ([Genest & Zidek 1986](https://projecteuclid.org/journals/statistical-science/volume-1/issue-1/Combining-Probability-Distributions-A-Critique-and-an-Annotated-Bibliography/10.1214/ss/1177013825.full)) — and weight each arm by a figure it reports about itself rather than by a constant fitted here.
+Combine the three paths. The combination must be derived rather than chosen: pool where this library pools — log-linear over the paths, which is the operator that does not double-count dependent evidence ([Genest & Zidek 1986](https://projecteuclid.org/journals/statistical-science/volume-1/issue-1/Combining-Probability-Distributions-A-Critique-and-an-Annotated-Bibliography/10.1214/ss/1177013825.full)) — and weight each path by a figure it reports about itself rather than by a constant fitted here.
 
-**Measurement.** First-place and first-three counts on the panel against the majority-class and BM25 baselines, with the per-arm figures beside the combination so that an arm carrying nothing is visible. Report the tail explicitly: the categories with fewest members are where this will fail, and a headline that hides them is the propensity-scored-precision lesson from extreme multi-label classification restated. **Ends if** the combination does not beat its best single arm — in which case ship the arm and delete the combiner. **Blocked on** chunks 5, 6 and 7.
+**Measurement.** First-place and first-three counts on the evaluation set against the majority-class and BM25 baselines, with the per-path figures beside the combination so that an path carrying nothing is visible. Report the tail explicitly: the categories with fewest members are where this will fail, and a headline that hides them is the propensity-scored-precision lesson from extreme multi-label classification restated. **Ends if** the combination does not beat its best single path — in which case ship the path and delete the combiner. **Blocked on** chunks 5, 6 and 7.

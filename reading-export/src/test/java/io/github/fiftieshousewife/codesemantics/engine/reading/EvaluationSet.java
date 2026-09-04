@@ -34,7 +34,7 @@ public final class EvaluationSet {
 
     /** One member: where it came from, what it is pinned at, and what it is here to answer. */
     public record Member(String name, String origin, String sha, String licence, String area,
-            String statedBy, String arm) {
+            String statedBy, String expectedResult) {
 
         /**
          * The four columns cloning reads. The rest of the row states what the reading is scored against,

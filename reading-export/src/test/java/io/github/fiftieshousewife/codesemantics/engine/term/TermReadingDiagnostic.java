@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * writes what it found: the match at each normalisation, the taxonomy tree it occupies, and what branch corroboration
  * costs and buys.
  *
- * <p>OLiA is the taxonomy, and the out-of-domain arm is the half of the measurement that decides: a domain
+ * <p>OLiA is the taxonomy, and the out-of-domain path is the half of the measurement that decides: a domain
  * vocabulary must fire on a repository in its domain and <em>not</em> on one outside it. So what is asserted
  * here holds wherever the reading is pointed — that a specificity is a share, that a vocabulary matching
  * every file would be measuring English rather than a field, and that corroboration keeps every multi-word

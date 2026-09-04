@@ -21,7 +21,7 @@ public record KeywordReach(String concept, String keyword, String topic,
                 declarations.of(words).reach(), prose.of(words).reach());
     }
 
-    /** Written as this run in a sentence and never in a declared name, which is what a prose arm would buy. */
+    /** Written as this run in a sentence and never in a declared name, which is what a prose path would buy. */
     public boolean writtenOnlyInProse() {
         return inDeclarations != FurthestWritten.Reach.AS_THIS_RUN
                 && inProse == FurthestWritten.Reach.AS_THIS_RUN;

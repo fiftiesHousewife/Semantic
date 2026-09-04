@@ -22,7 +22,7 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.StatedRuns;
  * that matches a published term against a declared name has no edge rule in it.
  *
  * <p>Each repository's shares are taken again over its runs alone, so the table is a distribution over runs
- * and a run's rank is read against other runs. Nothing in the word arm reads it: the word table states every
+ * and a run's rank is read against other runs. Nothing in the word path reads it: the word table states every
  * unit a reading produces, runs included, and is untouched by this.
  */
 public final class CorpusRuns {

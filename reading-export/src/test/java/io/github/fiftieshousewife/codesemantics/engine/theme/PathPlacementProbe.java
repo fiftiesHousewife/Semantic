@@ -8,17 +8,17 @@ import io.github.fiftieshousewife.codesemantics.engine.term.ConceptTopics;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTaxonomies;
 
 /**
- * Every arm of the reading placed against every bundled subject scheme, printed side by side.
+ * Every path of the reading placed against every bundled subject scheme, printed side by side.
  *
- * <p>Two arms reach a subject and only one of them used to. The vocabulary arm reads the words a repository
- * declares; the concept arm reads the publisher's prose about the concepts it writes. Each becomes a
+ * <p>Two paths reach a subject and only one of them used to. The vocabulary path reads the words a repository
+ * declares; the concept path reads the publisher's prose about the concepts it writes. Each becomes a
  * distribution over the same dictionary topics, so one placement compares both, and each is drawn against
  * its own scheme's own null.
  *
  * <p>Nothing here votes. It prints, and the expected result it prints against was written down before it was
  * built.
  */
-public final class ArmPlacementProbe {
+public final class PathPlacementProbe {
 
     /** The topics recorded as this repository's expected result, before any of this existed. */
     private static final List<String> EXPECTED = List.of("linguistics and terminology studies",
@@ -26,7 +26,7 @@ public final class ArmPlacementProbe {
 
     private static final int TOP = 10;
 
-    private ArmPlacementProbe() {
+    private PathPlacementProbe() {
     }
 
     public static void main(final String[] args) {
@@ -34,30 +34,30 @@ public final class ArmPlacementProbe {
         System.out.printf("Reading %s%n%n", reading.root());
 
         final ConceptTopics concepts = ConceptTopics.fromClasspath();
-        final List<Arm> arms = new java.util.ArrayList<>();
-        arms.add(new Arm("vocabulary", reading.themes().repository().comparison(), ""));
+        final List<ReadingPath> paths = new java.util.ArrayList<>();
+        paths.add(new ReadingPath("vocabulary", reading.themes().repository().comparison(), ""));
         java.util.stream.Stream.of(MatchedTaxonomies.values()).forEach(taxonomy -> {
             final var matched = reading.terms(taxonomy).matched();
-            arms.add(new Arm("concepts " + taxonomy.index().source(), concepts.of(matched),
+            paths.add(new ReadingPath("concepts " + taxonomy.index().source(), concepts.of(matched),
                     String.format(Locale.ROOT, "%d of %d matched concepts state prose",
                             concepts.describedAmong(matched), matched.sightings().stream()
                                     .mapToInt(sighting -> sighting.concepts().size()).sum())));
         });
-        arms.forEach(arm -> report(arm, TreeReading.SEED));
-        agreement(arms);
+        paths.forEach(path -> report(path, TreeReading.SEED));
+        agreement(paths);
     }
 
     /**
-     * One arm's reading, taken once. Each placement against OpenAlex draws a 999-resample null over 4,516
+     * One path's reading, taken once. Each placement against OpenAlex draws a 999-resample null over 4,516
      * subjects, so a caller that asked for the same field twice would pay for it twice.
      */
-    private record Arm(String name, TopicDistribution reading, String note) {
+    private record ReadingPath(String name, TopicDistribution reading, String note) {
     }
 
-    private static void report(final Arm arm, final long seed) {
-        final TopicDistribution read = arm.reading();
-        System.out.printf("== %-18s %3d topics%s%n", arm.name(), read.topics().size(),
-                arm.note().isBlank() ? "" : "   (" + arm.note() + ")");
+    private static void report(final ReadingPath path, final long seed) {
+        final TopicDistribution read = path.reading();
+        System.out.printf("== %-18s %3d topics%s%n", path.name(), read.topics().size(),
+                path.note().isBlank() ? "" : "   (" + path.note() + ")");
         if (read.isEmpty()) {
             System.out.printf("   ABSTAINS — nothing to place%n%n");
             return;
@@ -105,15 +105,15 @@ public final class ArmPlacementProbe {
     }
 
     /**
-     * How far the arms agree, over the topics all of them place mass in. Two arms that rank alike are one
-     * arm read twice, and combining them would state a corroboration neither earned.
+     * How far the paths agree, over the topics all of them place mass in. Two paths that rank alike are one
+     * path read twice, and combining them would state a corroboration neither earned.
      */
-    private static void agreement(final List<Arm> arms) {
-        System.out.println("== agreement between the arms, Spearman's rho");
-        final List<TopicDistribution> read = arms.stream().map(Arm::reading).toList();
-        for (int first = 0; first < arms.size(); first++) {
-            for (int second = first + 1; second < arms.size(); second++) {
-                System.out.printf("   %-11s %-11s %s%n", arms.get(first).name(), arms.get(second).name(),
+    private static void agreement(final List<ReadingPath> paths) {
+        System.out.println("== agreement between the paths, Spearman's rho");
+        final List<TopicDistribution> read = paths.stream().map(ReadingPath::reading).toList();
+        for (int first = 0; first < paths.size(); first++) {
+            for (int second = first + 1; second < paths.size(); second++) {
+                System.out.printf("   %-11s %-11s %s%n", paths.get(first).name(), paths.get(second).name(),
                         correlation(read.get(first), read.get(second)));
             }
         }

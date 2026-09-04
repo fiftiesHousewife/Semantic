@@ -66,7 +66,7 @@ class FiboTermsTest {
     @Test
     void abstainsOnATermTheOntologyDoesNotState() {
         assertThat(terms.conceptsOf("adjectivephrase"))
-                .as("a finance ontology knows nothing about grammar, and the out-of-domain arm is the "
+                .as("a finance ontology knows nothing about grammar, and the out-of-domain path is the "
                         + "whole reason this vocabulary is bundled")
                 .isEmpty();
     }

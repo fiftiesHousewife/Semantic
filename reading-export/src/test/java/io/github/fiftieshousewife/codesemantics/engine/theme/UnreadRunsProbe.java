@@ -14,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 /**
  * Which words stop a published keyword being read as a run of senses.
  *
- * <p>A sense match needs both sides to reach the same key, so the scheme's own side bounds the arm however
+ * <p>A sense match needs both sides to reach the same key, so the scheme's own side bounds the path however
  * well the repository's side reads. This counts what the dictionary cannot read on the scheme side and
  * names the words responsible, so a decision to bundle a catalogue of abbreviations is taken against the
  * words that would actually be bought rather than against the ones it is easy to imagine.

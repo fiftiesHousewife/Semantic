@@ -543,7 +543,7 @@ class DrawnReadingsTest {
             throws IOException {
         final Path manifest = directory.resolve("evaluation-set.tsv");
         Files.writeString(manifest, "# a manifest\ntika\torigin\tsha\tApache-2.0\tComputer Science\t"
-                + "its own GitHub description\tout-of-domain\n");
+                + "its own GitHub description\tnegative-control\n");
         final StatedAreas stated = StatedAreas.at(manifest);
         final DrawnReading tika = drawn.of(List.of(row("tika",
                 List.of(taxonomy("CSO", "the topics computer science is indexed by", 1.4)), List.of(),

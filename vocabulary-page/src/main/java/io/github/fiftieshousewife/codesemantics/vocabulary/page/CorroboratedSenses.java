@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
 /**
- * The corroborated weight a repository's own writing gives a subject scheme's senses: within an arm whose
+ * The corroborated weight a repository's own writing gives a subject scheme's senses: within an path whose
  * senses are all uncounted, a sense whose placing label the repository wrote as one run of adjacent words
  * takes the run's occurrence count as its {@code uses}, and every other sense keeps the uncounted weight.
  *
  * <p>The written runs are the committed evidence and nothing else: the multi-word terms the span walk
  * matched at the words themselves — the spelling normalisations are left out because admitting a variant an entry
  * forbids is the documented route to overgeneration — and the collocated dictionary units the reading
- * merged. An arm with any counted sense is untouched, because counting frames never mix: WordNet's arm
+ * merged. An path with any counted sense is untouched, because counting frames never mix: WordNet's path
  * keeps its tagged-corpus counts whatever the repository wrote.
  */
 final class CorroboratedSenses {
@@ -49,7 +49,7 @@ final class CorroboratedSenses {
     }
 
     /**
-     * The arm's senses with the corroborated weights, unchanged where any sense carries a count of its
+     * The path's senses with the corroborated weights, unchanged where any sense carries a count of its
      * own. A sense with no written placing label keeps the uncounted weight, and a word with no senses
      * still has none — corroboration adds weight only where labels already exist.
      */

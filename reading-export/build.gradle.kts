@@ -430,7 +430,7 @@ tasks.register("evaluationRead") {
             throw GradleException("The evaluation-set manifest names no member, so this would report an empty " +
                 "result table as a result. src/test/resources/evaluation-set.tsv states what a member costs " +
                 "to add: a licence verified at the revision, a domain stated by somebody outside this " +
-                "project, a pinned SHA, and an arm.")
+                "project, a pinned SHA, and an expected result.")
         }
     }
     doLast {
@@ -527,13 +527,13 @@ tasks.register<JavaExec>("shortNames") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
-// Every arm of the reading placed against every bundled subject scheme, side by side, with how far the
-// arms agree. Nothing here votes; it prints.
-//   ./gradlew armPlacement -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("armPlacement") {
+// Every path of the reading placed against every bundled subject scheme, side by side, with how far the
+// paths agree. Nothing here votes; it prints.
+//   ./gradlew pathPlacement -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("pathPlacement") {
     group = "verification"
-    description = "Places the vocabulary, concept and behaviour arms against arXiv and OpenAlex alike"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.ArmPlacementProbe"
+    description = "Places the vocabulary, concept and behaviour paths against arXiv and OpenAlex alike"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PathPlacementProbe"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }

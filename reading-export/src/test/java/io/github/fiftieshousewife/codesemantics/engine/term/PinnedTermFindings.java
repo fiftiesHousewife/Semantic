@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * repository in its domain and not on one outside it, and the first half can be run here with nothing cloned.
  *
  * <p>It is a smoke test and not the measurement. The taxonomy that fits this tree was chosen after reading
- * the tree, which is exactly what the doctrine means by marking your own homework, and the out-of-domain arm
+ * the tree, which is exactly what the doctrine means by marking your own homework, and the out-of-domain path
  * — the one that decides — needs repositories this reading was not written for. So these read
  * {@link HostTree} and not the clone {@code -Dcs.clone.dir} names: the terms `phrase` and `common noun` are
  * findings about this codebase, and the whole point of the evaluation set is that they will not hold on the next one.
@@ -57,7 +57,7 @@ class PinnedTermFindings {
                                 + "same shape a finance ontology showed on a repository with no finance in "
                                 + "it. The frequency weight narrows the gap and does not close it: `first` "
                                 + "carries more than `sentence` does. So the one-word rate is not yet known "
-                                + "to discriminate, and only the out-of-domain arm can settle it.")
+                                + "to discriminate, and only the out-of-domain path can settle it.")
                         .isGreaterThan(0.9),
                 () -> assertThat(longer)
                         .as("A DEFECT, PINNED AND NOW CLOSED. `Collocation` read as col / location because "
@@ -123,7 +123,7 @@ class PinnedTermFindings {
 
         assertAll(
                 () -> assertThat(refused.meanLevelPerConcept())
-                        .as("A PREDICTION, REFUTED, AND THE ARM IT WAS THE WHOLE OF. The depth arm expected "
+                        .as("A PREDICTION, REFUTED, AND THE PATH IT WAS THE WHOLE OF. The depth path expected "
                                 + "a term that means something to a field to sit deep in that field's "
                                 + "hierarchy and an ordinary English word the field happens to have claimed "
                                 + "to sit near a root, so depth would separate the two with no word listed. "
@@ -135,7 +135,7 @@ class PinnedTermFindings {
                                 + "OLiA states no named parent for it.")
                         .isGreaterThan(admitted.meanLevelPerConcept()),
                 () -> assertThat(depth.below("Result"))
-                        .as("THE FOUR MATCHES THE ARM WAS WRITTEN ABOUT. `Result`, `Object`, `Exception` "
+                        .as("THE FOUR MATCHES THE PATH WAS WRITTEN ABOUT. `Result`, `Object`, `Exception` "
                                 + "and `String` were said to share the property of sitting near the roots. "
                                 + "Three of the four sit below the median normalisation and `Result` is as deep as "
                                 + "this taxonomy goes, so the shared property was never depth.")

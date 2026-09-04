@@ -20,7 +20,7 @@ A change to the reading is judged on the evaluation set — the eleven repositor
 
 **Never re-fetch.** `evaluationFetch` reaches the network, is tagged `backtest` so no ordinary run touches it, and fetches only where a tree is not already at its pin. The clones are already there. A member runs to hundreds of megabytes.
 
-The manifest's last column holds the expected result and is still headed `arm` on disk; the rename is backlogged.
+The manifest's last column is `expected-result`, and its values are ordinary controls: `positive-control` for a member the bundled vocabularies should fire on, `negative-control` for one they should stay silent on.
 
 ## The run
 
@@ -33,7 +33,7 @@ One line, and `$HOME` rather than `~` — neither bash nor zsh expands a tilde a
 | | |
 |---|---|
 | What it does | reads every cloned member in one JVM, several at a time. The count is the JVM's heap divided by the 3 GB the build gives one member's fork, and the first log line states it |
-| What it costs | about sixteen minutes for all eleven. Half of that is the term arm's chance bar — 999 deals of each published vocabulary, per member |
+| What it costs | about sixteen minutes for all eleven. Half of that is the term path's chance bar — 999 deals of each published vocabulary, per member |
 | What it writes | `output/<member>/json/reading.json`, `evidence.json` and `changes.json` — the same three files the self read writes, one folder per member |
 
 - **Never `evaluationRead`.** It forks one JVM per member and takes thirty-one minutes for the same answers. One JVM is most of the saving: a bundled subject scheme is read into distributions once and shared, instead of once per member.

@@ -1,7 +1,7 @@
 # The backtest evaluation set: the repositories this reading is measured on, as opposed to the one it was
 # developed against. One row per member, and the answer for each comes from outside this project.
 #
-# Columns: name, origin, sha, licence, area, stated-by, arm
+# Columns: name, origin, sha, licence, area, stated-by, expected-result
 #   name        the directory the clone is expected under -Dcs.evaluation.dir
 #   origin      the URL it is cloned from
 #   sha         the commit it is pinned to. A reading of a moving target is not reproducible, and
@@ -24,7 +24,9 @@
 #               is that it is recorded BEFORE the reading is run and never revised afterwards. An
 #               answer chosen after reading the tree is the same defect as choosing OLiA after
 #               reading this one.
-#   arm         in-domain | out-of-domain | no-taxonomy | degenerate
+#   expected-result  positive-control | negative-control | no-taxonomy | degenerate
+#               What the member is here to demonstrate. A member the bundled vocabularies should fire
+#               on is a positive control; one they should stay silent on is a negative control.
 #
 # Source: THIS PROJECT. That has to be said outright. Every other file bundled here is a curated
 #   statement of a published standard, which is citable; this is a curated observation of a corpus,
@@ -34,7 +36,7 @@
 #   carry their own, which is what the licence column is for.
 #
 # What a member costs to add is: verify the licence at the revision, record the stated domain and
-# who stated it, pin the SHA, and put it in an arm. Every domain needs at least one out-of-domain
+# who stated it, pin the SHA, and state its expected result. Every domain needs at least one negative
 # member, because a vocabulary that fires in its domain proves nothing until it is shown not to
 # fire outside it, and the honest first result for those is silence.
 #
@@ -54,12 +56,12 @@
 # Origins are the github.com/apache mirrors rather than the gitbox or svn URLs the DOAP records
 #   name, because those are what can be cloned without credentials.
 #
-# The arm is relative to the taxonomies this repository bundles. An Apache project about content
+# The expected result is relative to the taxonomies this repository bundles. An Apache project about content
 #   extraction or big data is one neither OLiA nor FIBO should say anything about, and that silence is
 #   the control the industry-vocabulary reading has been blocked on. `santuario` is the exception and
-#   is marked in-domain for one taxonomy only: the bundled NIST Cybersecurity Framework partitions what
+#   is a positive control for one taxonomy only: the bundled NIST Cybersecurity Framework partitions what
 #   a security project does, and until this member there was no repository to fire it on. It is
-#   out-of-domain for OLiA and FIBO like every other member.
+#   a negative control for OLiA and FIBO like every other member.
 #
 # THE PROTOCOL A MEMBER IMPLEMENTS AND THE PROTOCOL A MEMBER USES ARE DIFFERENT TESTS, and until
 #   2026-08-28 every finance member was the first kind. quickfixj is a FIX engine, jPOS implements
@@ -84,14 +86,14 @@
 #   is a property of the question rather than a defect: an application that uses a protocol is smaller
 #   than the engine that implements it. Their areas were recorded on 2026-08-28, before either was
 #   read, from what each project publishes about itself and from nothing else.
-tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	Computer Science	its own GitHub description: a toolkit that detects and extracts metadata and text from files	out-of-domain
-maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	Computer Science	its own GitHub description: a software project management and comprehension tool	out-of-domain
-santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	Computer Science	its own GitHub description: a library implementing XML digital signature and encryption	in-domain
-strata	https://github.com/OpenGamma/Strata.git	39c46e342a4a95ac083d66287f038f6ae276692a	Apache-2.0	Finance	its own GitHub topics: market-risk, quantitative-finance, derivatives, otc, etd	in-domain
-fineract	https://github.com/apache/fineract.git	aae4feb2921db141374ca70303a5ba746fe180a1	Apache-2.0	Finance	its own GitHub topics: banking, microfinance, lending, savings	in-domain
-quickfixj	https://github.com/quickfix-j/quickfixj.git	369182d9dbf34399ee5942c8b267c279edaa3fba	LicenseRef-QuickFIX-1.0	Finance	its own GitHub topics: fixprotocol, financial-information-exchange, trading-systems	in-domain
-jpos	https://github.com/jpos/jPOS.git	9465cbdeb5d81e6e3e21066880de9495a150a554	AGPL-3.0	Finance	its own GitHub topics: iso-8583, iso8583 — card payment messages	in-domain
-besu	https://github.com/besu-eth/besu.git	a2da1185ad85c1f0c41341a4ed197a81cf93f17e	Apache-2.0	Computer Science	its own GitHub topics: blockchain, ethereum, p2p — a node, not a finance application	out-of-domain
-aeron	https://github.com/aeron-io/aeron.git	673430af82cecac2b66e7040f792c33464a5df2d	Apache-2.0	Computer Science	its own GitHub topics: messaging, ipc, multicast-streams	out-of-domain
-fix-trading-simulator	https://github.com/felipewind/fix-trading-simulator.git	722b0f8679cf2227c4d957762791b2ae977335db	MIT	Finance	its own GitHub topics: fixprotocol, quickfixj — a broker and a stock exchange exchanging FIX messages	in-domain
-jmeter-iso8583	https://github.com/tilln/jmeter-iso8583.git	b90aaecfa532e2e662404f7018218fdbb9c294aa	MIT	Finance	its own GitHub topics: iso8583, jpos, pos — card payment messages, sent as a JMeter plugin	in-domain
+tika	https://github.com/apache/tika.git	43cbdae69472863f53f4f712f0331a1cd62f0615	Apache-2.0	Computer Science	its own GitHub description: a toolkit that detects and extracts metadata and text from files	negative-control
+maven	https://github.com/apache/maven.git	7ff92c685ccad4fa58c96c393a75959ff2dac70c	Apache-2.0	Computer Science	its own GitHub description: a software project management and comprehension tool	negative-control
+santuario	https://github.com/apache/santuario-xml-security-java.git	6e978eeaa04c30974476ae5e64faeab7a8a97dcd	Apache-2.0	Computer Science	its own GitHub description: a library implementing XML digital signature and encryption	positive-control
+strata	https://github.com/OpenGamma/Strata.git	39c46e342a4a95ac083d66287f038f6ae276692a	Apache-2.0	Finance	its own GitHub topics: market-risk, quantitative-finance, derivatives, otc, etd	positive-control
+fineract	https://github.com/apache/fineract.git	aae4feb2921db141374ca70303a5ba746fe180a1	Apache-2.0	Finance	its own GitHub topics: banking, microfinance, lending, savings	positive-control
+quickfixj	https://github.com/quickfix-j/quickfixj.git	369182d9dbf34399ee5942c8b267c279edaa3fba	LicenseRef-QuickFIX-1.0	Finance	its own GitHub topics: fixprotocol, financial-information-exchange, trading-systems	positive-control
+jpos	https://github.com/jpos/jPOS.git	9465cbdeb5d81e6e3e21066880de9495a150a554	AGPL-3.0	Finance	its own GitHub topics: iso-8583, iso8583 — card payment messages	positive-control
+besu	https://github.com/besu-eth/besu.git	a2da1185ad85c1f0c41341a4ed197a81cf93f17e	Apache-2.0	Computer Science	its own GitHub topics: blockchain, ethereum, p2p — a node, not a finance application	negative-control
+aeron	https://github.com/aeron-io/aeron.git	673430af82cecac2b66e7040f792c33464a5df2d	Apache-2.0	Computer Science	its own GitHub topics: messaging, ipc, multicast-streams	negative-control
+fix-trading-simulator	https://github.com/felipewind/fix-trading-simulator.git	722b0f8679cf2227c4d957762791b2ae977335db	MIT	Finance	its own GitHub topics: fixprotocol, quickfixj — a broker and a stock exchange exchanging FIX messages	positive-control
+jmeter-iso8583	https://github.com/tilln/jmeter-iso8583.git	b90aaecfa532e2e662404f7018218fdbb9c294aa	MIT	Finance	its own GitHub topics: iso8583, jpos, pos — card payment messages, sent as a JMeter plugin	positive-control

@@ -14,9 +14,9 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * One reading of a repository against a subject scheme, printed under both scorings so neither is adopted
- * silently. Summed occurrence mass is what the arm shipped with; two shares is what repair 0 proposes.
+ * silently. Summed occurrence mass is what the path shipped with; two shares is what repair 0 proposes.
  */
-final class SubjectArms {
+final class SubjectScorings {
 
     private static final int SHOWN = 10;
 
@@ -34,7 +34,7 @@ final class SubjectArms {
 
     private final SuperiorityFigures figures;
 
-    SubjectArms(final List<SkosConcept> topics, final List<SkosConcept> keywords,
+    SubjectScorings(final List<SkosConcept> topics, final List<SkosConcept> keywords,
                 final PlacedUnder expectation, final String area, final KeywordSpecificity narrows) {
         this.topics = topics;
         this.keywords = keywords;

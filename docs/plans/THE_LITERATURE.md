@@ -58,7 +58,7 @@ Explicit Semantic Analysis is the closest published analogue to this comparison.
 
 A second sensitivity is documented in the same line of work: rewording the category descriptions alone moved 20-Newsgroups micro-F1 from **0.625 to 0.682** ([Song & Roth 2014](https://cdn.aaai.org/ojs/8938/8938-13-12466-1-2-20201228.pdf)). arXiv's prose is fixed and cannot be tuned without marking one's own homework, so this is a limit to state rather than a parameter to adjust.
 
-**Measurement that settles it.** Truncate each description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. If the ranking changes before 1/4, the placement is measuring description length. This requires no panel and no new resource.
+**Measurement that settles it.** Truncate each description progressively — full, 1/2, 1/4, 1/16 — and record the point at which the winning subject changes. If the ranking changes before 1/4, the placement is measuring description length. This requires no evaluation set and no new resource.
 
 ### 4.3 The chance-expected-best bar assumes independence, and rests on few order statistics
 
@@ -147,7 +147,7 @@ Replace the hard most-frequent-sense selection with a domain-vector argmax condi
 
 **Measurement that settles it.** The share of words whose argmax sense differs from the `getUseCount` selection. Below approximately 5% the change is cosmetic and should not ship. Above it, report the change in unplaced mass and in the number of scopes exceeding the permutation null, on repositories this reading was not written for.
 
-## 7. The backtest panel
+## 7. The backtest evaluation set
 
 This remains the item every other reading waits on. The survey's most directly useful result is a set of candidate sources with verified licences.
 
@@ -165,9 +165,9 @@ Verified absences: **Maven Central**'s POM model has no category, topic or keywo
 
 ### 7.2 Construction
 
-Apache DOAP is the strongest arm: an institution states the category, in a document separate from the code, over a real body of Java. Two defects require handling. `retired` and `no-tlp-doap` are statuses occupying 115 of 375 category slots in the same field as domains, and the vocabulary is uncontrolled. Filtering to the 255 Java projects leaves seven categories with usable mass: `library` 55, `big-data` 29, `build-management` 13, `database` 12, `xml` 10, `web-framework` 7, `network-server` 6.
+Apache DOAP is the strongest path: an institution states the category, in a document separate from the code, over a real body of Java. Two defects require handling. `retired` and `no-tlp-doap` are statuses occupying 115 of 375 category slots in the same field as domains, and the vocabulary is uncontrolled. Filtering to the 255 Java projects leaves seven categories with usable mass: `library` 55, `big-data` 29, `build-management` 13, `database` 12, `xml` 10, `web-framework` 7, `network-server` 6.
 
-F-Droid is the natural second arm because its population is genuinely disjoint — Android applications against server-side Java libraries — which is what the rule against tuning and measuring on the same data requires.
+F-Droid is the natural second path because its population is genuinely disjoint — Android applications against server-side Java libraries — which is what the rule against tuning and measuring on the same data requires.
 
 Because two candidate label sets are share-alike (F-Droid AGPL-3.0, awesome-java CC BY-SA 4.0), `panel.tsv` must **cite rather than copy**: one category token per member with the source URL and retrieval date. Thirty tokens are facts rather than a substantial reproduction of an 821-entry list, and this is the shape the manifest's `stated-by` column already has.
 
@@ -181,7 +181,7 @@ Per-member λ, per-member unplaced mass, and per-member subject placement agains
 
 Accuracy against a foreign taxonomy must not be reported, and neither should F1@k: neither carries a bound that follows from its definition here, and a winner must qualify against a chance-expected maximum.
 
-### 7.4 Why the panel cannot be borrowed from the existing literature
+### 7.4 Why the evaluation set cannot be borrowed from the existing literature
 
 The software-engineering literature evaluates almost entirely against labels its own authors produced after seeing the model output. Baldi et al. validate against a scattering metric they define; Panichella et al. evaluate on traceability and feature-location proxies; Hindle et al. apply an external requirements taxonomy after the topics exist, at ROC 0.6–0.8, and the follow-up asks practitioners to interpret topics after seeing them, reporting that some could not be labelled at all. Repository-classification results — the strongest is LR+TF-IDF at **F1@5 0.470 / Recall@5 0.890** over 152K repositories and 228 GitHub featured topics (Izadi et al., EMSE 26:93, 2021) — are inapplicable here because the owner who set the topic also wrote the README the classifier reads. LabelGit is the nearest to an ex-ante external label and reports **no classifier baseline**; the only published figure against those labels is a weak-labelling follow-up at approximately **50% of files and above 50% of packages** correctly annotated. ⚠ *LASCAD and HiGitClass unverified.*
 
@@ -190,10 +190,10 @@ The software-engineering literature evaluates almost entirely against labels its
 Each item states what it changes and what would settle it. Nothing here is scheduled; the ordering reflects cost against the risk each addresses.
 
 1. **Correct the file weighting in every divergence** (§4.1). No new resource. Settled by the Spearman correlation between rankings before and after.
-2. **Truncation study of the arXiv descriptions** (§4.2). No new resource, no panel. Settled by the truncation fraction at which the winning subject changes.
-3. **Name the panel** (§7). Blocked only on a decision, not on machinery. Settled by §7.3.
+2. **Truncation study of the arXiv descriptions** (§4.2). No new resource, no evaluation set. Settled by the truncation fraction at which the winning subject changes.
+3. **Name the evaluation set** (§7). Blocked only on a decision, not on machinery. Settled by §7.3.
 4. **Max-T permutation null** (§4.3). No additional draws. Settled by the count of qualifying scopes under each procedure, measured off-tree.
-5. **Butler et al.'s 28,000-identifier tokenisation oracle** — 60 Java projects, 16.5 MSLOC — turns `Tokeniser`'s documented narrowness into a number without needing a panel.
+5. **Butler et al.'s 28,000-identifier tokenisation oracle** — 60 Java projects, 16.5 MSLOC — turns `Tokeniser`'s documented narrowness into a number without needing an evaluation set.
 6. **Domain-vector sense selection under the file prior** (§6.3).
 7. **WordNet lexicographer files as a second axis** (§5.1). Settled by the share of the currently unplaced mass the 45-way partition receives; below 50%, the second accumulator is not worth building.
 8. **eXtended WordNet Domains as a graded vote** (§5.1). Settled by whether the 48.5% unlabelled-lemma gap closes without the repository's divergence to its nearest arXiv subject rising.

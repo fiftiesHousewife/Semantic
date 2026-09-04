@@ -91,8 +91,8 @@ public final class DomainVennCommand {
 
     /**
      * The overlaps under every bundled domain source, in the order the page offers them. The subject
-     * schemes' arms are all uncounted, so each takes the corroborated weight of the labels the
-     * repository wrote; WordNet's arms keep their tagged-corpus counts.
+     * schemes' paths are all uncounted, so each takes the corroborated weight of the labels the
+     * repository wrote; WordNet's paths keep their tagged-corpus counts.
      */
     static Map<String, DomainOverlap> overlaps(final String repository, final List<ScoredWord> words,
                                                final CorroboratedSenses corroborated) {
@@ -102,21 +102,21 @@ public final class DomainVennCommand {
                 DomainOverlap.of(repository, words, lexicon::countedSenseDomainsOf));
         bySource.put("eXtended WordNet Domains",
                 DomainOverlap.of(repository, words, lexicon::extendedCountedSenseDomainsOf));
-        subjectArms(corroborated).forEach((arm, senses) ->
-                bySource.put(arm, DomainOverlap.of(repository, words, senses)));
+        subjectSources(corroborated).forEach((path, senses) ->
+                bySource.put(path, DomainOverlap.of(repository, words, senses)));
         return bySource;
     }
 
-    /** The subject schemes' arms — the all-uncounted ones the corroborated weight applies to — by name. */
-    static Map<String, Function<String, List<CountedSenseDomains>>> subjectArms(
+    /** The subject schemes' paths — the all-uncounted ones the corroborated weight applies to — by name. */
+    static Map<String, Function<String, List<CountedSenseDomains>>> subjectSources(
             final CorroboratedSenses corroborated) {
-        final Map<String, Function<String, List<CountedSenseDomains>>> arms = new LinkedHashMap<>();
-        arms.put("arXiv categories",
+        final Map<String, Function<String, List<CountedSenseDomains>>> paths = new LinkedHashMap<>();
+        paths.put("arXiv categories",
                 word -> corroborated.of(ARXIV_CATEGORIES.countedSenseDomainsOf(word)));
-        arms.put("OpenAlex subfields",
+        paths.put("OpenAlex subfields",
                 word -> corroborated.of(OPENALEX_SUBFIELDS.countedSenseDomainsOf(word)));
-        arms.put("CSO topics", word -> corroborated.of(CSO_TOPICS.countedSenseDomainsOf(word)));
-        return arms;
+        paths.put("CSO topics", word -> corroborated.of(CSO_TOPICS.countedSenseDomainsOf(word)));
+        return paths;
     }
 
     /** The summary the page opens on, which is every domain source at once rather than a chosen one. */

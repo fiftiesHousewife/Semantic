@@ -18,11 +18,11 @@ The cheap half. A caller supplies prose the repository does not contain and the 
 
 The expensive half, and the value is that nobody has to paste anything: point the reading at a JIRA project or a GitHub repository's issues and it reads the titles and bodies of the work the code was written to do.
 
-**What it costs.** A credential, which nothing in this library currently takes and which must never reach a report, a log line or a committed figure. A rate limit and a network dependency, where every reading today is a function of a directory. And a pinned retrieval — the panel manifest already establishes the shape: a reading of a moving target is not reproducible, so an issue set has to be recorded at a stated time with a stated query, the way `panel.tsv` records a sha256 of what it read and when.
+**What it costs.** A credential, which nothing in this library currently takes and which must never reach a report, a log line or a committed figure. A rate limit and a network dependency, where every reading today is a function of a directory. And a pinned retrieval — the evaluation set manifest already establishes the shape: a reading of a moving target is not reproducible, so an issue set has to be recorded at a stated time with a stated query, the way `panel.tsv` records a sha256 of what it read and when.
 
 **What it buys that the tree cannot.** An issue states the domain in the domain's own words rather than in the code's. `TERM_MATCHING` measures a matcher that cannot tell a term of a field from an English word a taxonomy claimed; a tracker is the one source where the field's own vocabulary is written by the same people in unconstrained prose.
 
-**What settles it:** whether a repository's placement against a published subject taxonomy moves toward the domain its own tracker states, on a member of the panel where that domain was recorded by somebody outside this project before the reading ran. **Abandon if** the tracker text places a repository no better than its README does — a README costs no credential.
+**What settles it:** whether a repository's placement against a published subject taxonomy moves toward the domain its own tracker states, on a member of the evaluation set where that domain was recorded by somebody outside this project before the reading ran. **Abandon if** the tracker text places a repository no better than its README does — a README costs no credential.
 
 ## Order
 

@@ -109,13 +109,13 @@ Two consequences neither planned nor unwelcome. `FileTopics.dominant` was passin
 
 What it moved, on this tree: ι fell by a factor of about four and a half — `linguistics` 0.1991 → 0.0468 — because **77.9% of the observed mass is settled on no subject**, against λ = 0.978. Almost every word is citable and almost none of them settles anything, which is the disagreement the two figures existed to expose and which no single number could have stated. The qualified topics did not change, and the placement still stands apart from chance.
 
-**What stage 1 did not do, and the measurement that would settle it.** A divergence still compares the two readings *among what each placed*. Putting the unplaced share into the comparison is defensible — a scope nothing could be read in really is unlike one that was read — but it would make illegibility answer the question "which topics account for the departure", and it would break every comparison against a reading that states no unplaced mass of its own: a single word's own reading, and ordinary English. The measurement that would settle it is to run both and compare the qualified topics against the panel, where a scope's legibility and its subject are independent; on this tree they are not, because the least legible scope is the documentation and the documentation is where the subject is stated.
+**What stage 1 did not do, and the measurement that would settle it.** A divergence still compares the two readings *among what each placed*. Putting the unplaced share into the comparison is defensible — a scope nothing could be read in really is unlike one that was read — but it would make illegibility answer the question "which topics account for the departure", and it would break every comparison against a reading that states no unplaced mass of its own: a single word's own reading, and ordinary English. The measurement that would settle it is to run both and compare the qualified topics against the evaluation set, where a scope's legibility and its subject are independent; on this tree they are not, because the least legible scope is the documentation and the documentation is where the subject is stated.
 
 **Stage 2 — one unit per resource.** Remove the structural discount from WordNet and carry it as abstention instead; settle the doctrinal question above for Wiktionary and apply whichever reading was chosen. **The figure to watch is `music`**, which should fall without anything being excluded, and `linguistics`, which should rise.
 
 **Stage 3 — pool instead of sum.** `PooledLogOdds` over the per-resource readings of one topic. Ships when a topic two resources both name outranks a topic one resource names twice as loudly, with a fixture proving exactly that, and when the README's claim about log-linear pooling is true.
 
-**Stage 4 — the constants, and only now.** `prose`, `dependency` and the two resource weights as an A/B on a held-out panel, never on this tree. The measurement already exists in the report: the **from names** column beside every theme, and the case to watch is a theme that exists only in the prose.
+**Stage 4 — the constants, and only now.** `prose`, `dependency` and the two resource weights as an A/B on a held-out evaluation set, never on this tree. The measurement already exists in the report: the **from names** column beside every theme, and the case to watch is a theme that exists only in the prose.
 
 ### Tests that come first
 
@@ -126,7 +126,7 @@ What it moved, on this tree: ι fell by a factor of about four and a half — `l
 
 ### What settles it, and what would end it
 
-The known-answer test is this tree and it is free: `music` and `medicine` are carried by `topic`, `phrase` and `subject`, and this repository is not about any of the three. A change that does not move them has not worked. The held-out check is the panel, where `law` must not lead a repository with no courtroom in it.
+The known-answer test is this tree and it is free: `music` and `medicine` are carried by `topic`, `phrase` and `subject`, and this repository is not about any of the three. A change that does not move them has not worked. The held-out check is the evaluation set, where `law` must not lead a repository with no courtroom in it.
 
 **Abandon if:** the three stages together leave the theme ranking where it is, in which case the reading is limited by what the resources label rather than by how their labels are combined — and the honest conclusion is that the topical reading cannot be repaired from inside and the effort belongs to the sense work and the dependency reading instead. That is a real possibility and it is worth saying out loud: filtering, reweighting and abstention-on-a-flat-word have each already been tried on this same table and each failed.
 
