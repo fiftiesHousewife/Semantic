@@ -36,6 +36,9 @@ public class CweTermsTsv {
                 # line breaks collapsed. NOT CARRIED, and said outright: categories and views — a category
                 # is a grouping a view draws for navigation, not a weakness.
                 #
+                # Name: Common Weakness Enumeration 4.13
+                # Publisher: The MITRE Corporation (https://cwe.mitre.org/)
+                # Kind: terms
                 # Source: the CWE 4.13 catalog XML as the OWASP cwe-sdk-javascript repository vendors it,
                 """
                 + "#   at " + source + ",\n"

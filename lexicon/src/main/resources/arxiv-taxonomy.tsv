@@ -14,6 +14,9 @@
 # category arXiv does not state as live is not carried, and neither is the group it marks as
 # a test.
 #
+# Name: arXiv subject taxonomy
+# Publisher: arXiv, Inc. (https://arxiv.org/category_taxonomy)
+# Kind: subjects
 # Source: arXiv's own taxonomy definitions, the module its software classifies by, read from
 #   https://raw.githubusercontent.com/arxiv/arxiv-base/a5985f621b07a4031c9e9b4f870a2206a9aa15a7/arxiv/taxonomy/definitions.py.
 # Licence: MIT, Copyright (c) 2026 arXiv, Inc.

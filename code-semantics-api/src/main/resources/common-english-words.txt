@@ -2,6 +2,9 @@
 # line inserted above another changes what every consumer reads; blank and comment lines are skipped
 # before ranking, which is why this header does not shift the list it introduces.
 #
+# Name: the 20,000 commonest English words
+# Publisher: the Leipzig Corpora Collection, Leipzig University (https://wortschatz.uni-leipzig.de/)
+# Kind: words
 # Source: derived from the Leipzig Corpora Collection word-frequency files of three English corpora —
 #   eng_news_2023_1M (news, 2023), eng_wikipedia_2016_1M (encyclopedic, 2016) and eng-au_web_2020_1M
 #   (general web, 2020), one million sentences each — downloaded from

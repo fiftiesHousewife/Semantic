@@ -40,6 +40,9 @@ public class FixTermsTsv {
                 # datatypes and code sets — a datatype is a value format and a code set an enumeration of
                 # values, and neither is a subject a declared name can be about.
                 #
+                # Name: FIX Orchestra, FIX Latest
+                # Publisher: the FIX Trading Community (https://www.fixtrading.org/standards/fix-orchestra/)
+                # Kind: terms
                 # Source: OrchestraFIXLatest.xml in the FIX Trading Community's own orchestrations
                 """
                 + "#   repository, at " + source + ",\n"

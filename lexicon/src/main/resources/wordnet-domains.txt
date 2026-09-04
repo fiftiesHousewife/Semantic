@@ -5,6 +5,9 @@
 # is required. Per-sense readings join on the sense number, which can shift between WordNet 3.0 and 3.1;
 # the join is therefore an approximation, shared by the commonest-sense reading and the counted weighting.
 #
+# Name: WordNet Domains 3.2, lifted to WordNet 3.0
+# Publisher: Fondazione Bruno Kessler (http://wndomains.fbk.eu/)
+# Kind: words
 # Source: WordNet Domains 3.2, Fondazione Bruno Kessler (http://wndomains.fbk.eu/), as lifted to
 #   WordNet 3.0 by the morungos/lifted-wordnet-domains distribution
 #   (https://github.com/morungos/lifted-wordnet-domains, file wordnet-domains-3.2-wordnet-3.0.txt),

@@ -27,6 +27,9 @@ public class TopicTsv {
                 # labels across its senses, comma-separated. The dictionary saying which domains claim the
                 # word — membership is a vote's evidence, never a decision.
                 #
+                # Name: Wiktionary topic vocabulary
+                # Publisher: Wiktionary (https://en.wiktionary.org/), through wiktextract at kaikki.org
+                # Kind: words
                 # Source: Wiktionary (https://en.wiktionary.org/), read from the wiktextract JSONL published
                 #   at kaikki.org (https://kaikki.org/dictionary/English/); Tatu Ylonen: "Wiktextract:
                 #   Wiktionary as Machine-Readable Structured Data", LREC 2022.

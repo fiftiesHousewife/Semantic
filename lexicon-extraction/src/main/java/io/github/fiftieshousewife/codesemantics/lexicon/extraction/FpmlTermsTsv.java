@@ -43,6 +43,9 @@ public class FpmlTermsTsv {
                 # Which schemas: the FpML 5.11 confirmation view, which is the fullest statement of the
                 # products the standard covers — the other views restate its types with fields removed.
                 #
+                # Name: Financial products Markup Language 5.11
+                # Publisher: the International Swaps and Derivatives Association (https://www.fpml.org/)
+                # Kind: terms
                 # Source: the FpML 5.11 confirmation schemas as the HandCoded toolkit repository vendors
                 """
                 + "#   them, at " + source + ",\n"

@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.lexicon;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 /**
- * Every bundled vocabulary says where it came from and on what terms.
+ * Every bundled vocabulary says what it is, who publishes it, where it came from and on what terms.
  *
  * <p>A word list is evidence, and evidence without a source cannot be checked, corrected or replaced. The
  * cost is not hypothetical: the frequency list deciding term familiarity and segmentation cost arrived in one
@@ -17,15 +18,33 @@ import static org.junit.jupiter.api.Assertions.assertAll;
  * documented it as carrying junk and worked around that with magic rank thresholds, which is what reasoning
  * about a list you cannot look up eventually forces.
  *
- * <p>The header is prose and this test does not read it — it only insists that both questions are answered
- * somewhere in it. What the answer says is for the person reading the diff, which is the point: a file whose
- * terms turn out to be restrictive states so in the one place nobody bundling it can miss.
+ * <p>Source and Licence are prose and this test does not read them — it only insists that both questions are
+ * answered somewhere in the header. Name, Publisher and Kind are read, because a reading that discovers what
+ * it bundles from these lines cannot fall back on a class stating them a second time.
  */
 class VocabularyProvenanceTest {
 
     private static final String SOURCE = "source:";
 
     private static final String LICENCE = "licence:";
+
+    private static final String NAME = "Name";
+
+    private static final String PUBLISHER = "Publisher";
+
+    private static final String KIND = "Kind";
+
+    /**
+     * What a row is, which is a fact about the publisher's file and not about this library's use of it.
+     *
+     * <p>{@code terms} and {@code subjects} are the two ways a taxonomy of concepts can be read, and are
+     * what a reading selects on. The other three are not taxonomies at all: {@code words} is what a
+     * dictionary or a name registry states about a word or a sense, {@code identifiers} is a name a
+     * standard's own registry or runtime states, and {@code frequencies} is a count or a share read as a
+     * denominator.
+     */
+    private static final List<String> KINDS =
+            List.of("terms", "subjects", "words", "identifiers", "frequencies");
 
     @Test
     void everyBundledVocabularyDeclaresItsSourceAndItsLicence() {
@@ -38,6 +57,31 @@ class VocabularyProvenanceTest {
                         file.getFileName())
                 .contains(SOURCE)
                 .contains(LICENCE)));
+    }
+
+    @Test
+    void everyBundledVocabularyNamesItselfAndWhoPublishesIt() {
+        assertAll(BundledVocabulary.files().stream().map(file -> () -> assertAll(
+                () -> assertThat(BundledVocabulary.stated(file, NAME))
+                        .as("%s states no Name: line. The header is where a reading finds out what a "
+                                + "resource is, and a name stated in a class beside it is a second "
+                                + "statement nothing checks against this one.", file.getFileName())
+                        .isNotBlank(),
+                () -> assertThat(BundledVocabulary.stated(file, PUBLISHER))
+                        .as("%s states no Publisher: line. Name whoever publishes it and link where they "
+                                + "publish it, so a page citing this file can link the thing it names.",
+                                file.getFileName())
+                        .isNotBlank())));
+    }
+
+    @Test
+    void everyBundledVocabularyStatesWhichKindOfThingItsRowsAre() {
+        assertAll(BundledVocabulary.files().stream().map(file -> () ->
+                assertThat(BundledVocabulary.stated(file, KIND))
+                        .as("%s states no Kind: line naming one of %s. It is what a reading selects a "
+                                + "taxonomy on without enumerating one by hand, so it is a closed set and "
+                                + "a new value is a deliberate change to it.", file.getFileName(), KINDS)
+                        .isIn(KINDS)));
     }
 
     private static String header(final Path file) {

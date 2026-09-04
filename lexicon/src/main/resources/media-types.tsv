@@ -9,6 +9,9 @@
 # publishes none. note carries the registry's reference, and its own deprecation statement where
 # it makes one — a deprecated identifier is still the registry's identifier, so the row stays.
 #
+# Name: IANA media type registries
+# Publisher: the Internet Assigned Numbers Authority (https://www.iana.org/assignments/media-types/)
+# Kind: identifiers
 # Source: IANA media types, https://www.iana.org/assignments/media-types/ (application.csv, audio.csv, font.csv, haptics.csv, image.csv, message.csv, model.csv, multipart.csv, text.csv, video.csv), retrieved 2026-08-19
 #   (the registry states no revision, so the file set is the citation, pinned by the SHA-256
 #   ContentDigest states over the ten CSVs: fd3eea02e8610628e4a3b6eb0b66a415fdbf973ce1e73e667be24b12cd505aeb).

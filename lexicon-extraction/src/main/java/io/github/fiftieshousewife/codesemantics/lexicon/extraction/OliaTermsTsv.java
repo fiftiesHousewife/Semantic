@@ -45,6 +45,9 @@ public class OliaTermsTsv {
                 # ontology marks xml:lang="de"; it is carried like the rest, because refusing it would be
                 # this file deciding what the publisher may say.
                 #
+                # Name: Ontologies of Linguistic Annotation
+                # Publisher: the ACoLi lab, Goethe University Frankfurt (https://github.com/acoli-repo/olia)
+                # Kind: terms
                 # Source: OLiA's core ontology olia.owl, read from
                 #  \s""" + source + """
                 .

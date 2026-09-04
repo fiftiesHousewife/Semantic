@@ -54,6 +54,9 @@ public class CsoAbstractsTsv {
                         "# %d rows, %d of them stating prose, %d words in all.%n",
                         summaries.size(), described, words)
                 + "#\n"
+                + "# Name: Wikipedia summaries of the Computer Science Ontology's topics\n"
+                + "# Publisher: the Wikimedia Foundation (https://en.wikipedia.org/)\n"
+                + "# Kind: subjects\n"
                 + "# Source: the Wikimedia REST summary API, https://en.wikipedia.org/api/rest_v1/, one\n"
                 + "#   request per article CSO names, following redirects. The links themselves come from\n"
                 + "#   CSO 3.5's own owl:sameAs statements, in the archive cso-topics.tsv is pinned to.\n"

@@ -11,6 +11,9 @@
 # than one, up to 13. Every parent is carried, joined with the separator SkosConcept states
 # for a repeated property, and SkosConcept.broaderConcepts reads them back. Nothing is dropped.
 #
+# Name: Computer Science Ontology 3.5
+# Publisher: the Knowledge Media Institute, The Open University (https://cso.kmi.open.ac.uk/)
+# Kind: terms
 # Source: CSO 3.5, https://cso.kmi.open.ac.uk/download (CSO.3.5.csv) (the download states
 #   no revision, so the archive is the citation, pinned by the SHA-256 ContentDigest states
 #   over CSO.3.5.csv: 1fa427ecb26a92d6077a54b5da41833e3eea6a194567091e336e8425f4cc11d4).

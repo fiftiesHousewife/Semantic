@@ -38,6 +38,9 @@ public class OpenAlexTopicsTsv {
                 # identifies it in a scheme outside this one. altLabel is empty: OpenAlex states no second
                 # label for anything.
                 #
+                # Name: OpenAlex topics
+                # Publisher: OpenAlex (https://openalex.org/)
+                # Kind: subjects
                 # Source:\s""" + source + """
                 ,
                 #   pinned by the SHA-256 ContentDigest states over the manifest and the parts it names:

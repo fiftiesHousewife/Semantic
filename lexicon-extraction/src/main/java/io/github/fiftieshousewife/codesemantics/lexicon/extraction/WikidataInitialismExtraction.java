@@ -118,6 +118,9 @@ public final class WikidataInitialismExtraction {
                 # whether the schema at hand means that entity is the caller's question, answered by votes this
                 # file does not cast.
                 #
+                # Name: Wikidata short names and aliases written in capitals
+                # Publisher: Wikidata (https://www.wikidata.org/)
+                # Kind: words
                 # Source: Wikidata (CC0 1.0, https://creativecommons.org/publicdomain/zero/1.0/), English and
                 #   multilingual aliases (skos:altLabel) and short names (P1813) written entirely in capitals,
                 #   two to four letters, on items with an English label; items that are scholarly articles

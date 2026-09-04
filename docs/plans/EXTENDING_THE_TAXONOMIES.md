@@ -88,10 +88,26 @@ Every one of them is read against the permutation null and not against its own c
 
 ## What to build, in order
 
-1. **Three more keyed lines in the provenance header** — `# Name:`, `# Publisher:`, `# Kind: terms \| subjects` — enforced by `VocabularyProvenanceTest` exactly as `# Source:` and `# Licence:` already are. The header becomes the whole statement of what a resource is, which is where the doctrine already puts source and licence.
+1. **Three more keyed lines in the provenance header** — `# Name:`, `# Publisher:`, `# Kind:` — enforced by `VocabularyProvenanceTest` exactly as `# Source:` and `# Licence:` already are. The header becomes the whole statement of what a resource is, which is where the doctrine already puts source and licence. **Landed 2026-09-04**, and see below for what the kinds turned out to be.
 2. **`BundledTaxonomies` reads those headers** and replaces `MatchedTaxonomies` and `ControlTaxonomies`. The matched/control split goes with them: both enums' own javadoc says which is which depends on the repository under reading rather than on the vocabulary, and `ControlTaxonomies`' javadoc calling them "of a field the read repositories are not in" was already true only of this repository.
 3. **The export states the field's membership**, not only its size. `taxonomies[].bar.field` is 7; beside it belongs the seven names, so a moved bar can be read against a changed set.
 4. **`ServiceLoader<TermIndex>` for a consumer's own**, entering the same field and published in the same list as the bundled ones — a vocabulary somebody else wrote is judged by the same bar or it is not evidence.
+
+## What step 1 landed, and the two things it settled that the step did not state
+
+`VocabularyProvenanceTest` reads all three lines off every one of the 24 bundled resources, and `BundledVocabulary.stated` is what reads a `# Key: value` line back.
+
+**`terms | subjects` covers 11 of the 24 files.** The two ways a taxonomy of concepts can be read are the two this step named, and they are what a reading selects on. The other 13 are not taxonomies at all, and forcing either value onto them would have been a false statement in the one place the doctrine puts true ones. The closed set is five, each naming what a row is rather than what this library does with it:
+
+| Kind | A row is | Files |
+|--:|---|--:|
+| `terms` | a concept a publisher states, whose labels are matched against declared names | 6 |
+| `subjects` | a concept a publisher states, carrying prose a reading is compared against | 5 |
+| `words` | what a dictionary or a name registry states about a word or a sense | 8 |
+| `identifiers` | a name a standard's own registry or runtime states | 2 |
+| `frequencies` | a count or a share, read as a denominator | 3 |
+
+**The header is written twice and only one of the pair is checked.** The renderer in `lexicon-extraction` holds the header, the committed TSV carries a copy, and nothing compares them — which was already true of `Source:` and `Licence:` and is now true of three lines a reading will select on. `sql-functions` is the one source needing neither a network route nor a local copy: regenerated through its renderer, the committed file gains exactly the three lines and nothing else, so that pair is shown to agree. The other nineteen rest on care. Closing that is its own row.
 
 ## The criterion
 

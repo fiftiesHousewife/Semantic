@@ -38,6 +38,9 @@ final class XwndDomainsTsv {
                 #             one over the 117,536 synsets, so weights compare across domains.
                 #
                 """
+                + "# Name: eXtended WordNet Domains\n"
+                + "# Publisher: the IXA group, University of the Basque Country (https://adimen.ehu.eus/web/XWND)\n"
+                + "# Kind: words\n"
                 + "# Source: " + sourceUrl + ", accepted only at\n"
                 + "#   sha256 " + archiveSha256 + ";\n"
                 + "#   joined through index.sense of " + indexUrl + ",\n"

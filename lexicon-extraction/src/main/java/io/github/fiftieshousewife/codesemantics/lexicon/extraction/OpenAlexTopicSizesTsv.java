@@ -53,6 +53,9 @@ public class OpenAlexTopicSizesTsv {
                 . One row per topic; OpenAlex counts no subfield, field or domain,
                 # so those are absent rather than zero.
                 #
+                # Name: OpenAlex topic works and citation counts
+                # Publisher: OpenAlex (https://openalex.org/)
+                # Kind: frequencies
                 # Source:\s""" + source + """
                 ,
                 #   pinned by the SHA-256 ContentDigest states over the manifest and the parts it names:

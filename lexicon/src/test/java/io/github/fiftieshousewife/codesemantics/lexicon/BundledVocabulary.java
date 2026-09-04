@@ -52,6 +52,20 @@ final class BundledVocabulary {
         }
     }
 
+    /**
+     * The value a header states for a key, off its own {@code # Key: value} line, or blank where it states
+     * none. Only the first such line is read: a key stated twice is the file disagreeing with itself, and
+     * the first statement is the one a reader reaches.
+     */
+    static String stated(final Path file, final String key) {
+        final String prefix = COMMENT + " " + key + ":";
+        return header(file).lines()
+                .filter(line -> line.startsWith(prefix))
+                .map(line -> line.substring(prefix.length()).strip())
+                .findFirst()
+                .orElse("");
+    }
+
     private static Stream<Path> filesIn(final Path directory) {
         try (Stream<Path> entries = Files.list(directory)) {
             return entries.filter(Files::isRegularFile).toList().stream();

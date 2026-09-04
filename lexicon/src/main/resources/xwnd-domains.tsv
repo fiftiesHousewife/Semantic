@@ -13,6 +13,9 @@
 #   weight    that domain's propagation weight for the synset. Each domain's vector sums to
 #             one over the 117,536 synsets, so weights compare across domains.
 #
+# Name: eXtended WordNet Domains
+# Publisher: the IXA group, University of the Basque Country (https://adimen.ehu.eus/web/XWND)
+# Kind: words
 # Source: https://adimen.ehu.eus/web/files/XWND/xwnd-30g.tgz, accepted only at
 #   sha256 bf7e85e57db36771a926649d4cfddad579e87c3f925cc3ab68465a0304555aac;
 #   joined through index.sense of https://repo1.maven.org/maven2/net/sf/extjwnl/extjwnl-data-wn30/1.2/extjwnl-data-wn30-1.2.jar,

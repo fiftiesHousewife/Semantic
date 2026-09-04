@@ -60,6 +60,9 @@ public class FiboTermsTsv {
                 .
                 # Walking a directory instead would make this project's own selection the corpus.
                 #
+                # Name: Financial Industry Business Ontology
+                # Publisher: the EDM Council (https://spec.edmcouncil.org/fibo/)
+                # Kind: terms
                 # Source: the FIBO repository at\s""" + source + """
                 .
                 #   The manifest is pinned by the blob id that revision holds. The ontologies it names are

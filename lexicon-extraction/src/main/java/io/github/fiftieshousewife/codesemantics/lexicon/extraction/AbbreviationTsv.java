@@ -35,6 +35,9 @@ public class AbbreviationTsv {
                 # kind. A token with several cited expansions keeps one row each — this file cites usage,
                 # the reader votes.
                 #
+                # Name: Wiktionary abbreviation senses
+                # Publisher: Wiktionary (https://en.wiktionary.org/), through wiktextract at kaikki.org
+                # Kind: words
                 # Source: Wiktionary (https://en.wiktionary.org/), read from the wiktextract JSONL published
                 #   at kaikki.org: the English extract (https://kaikki.org/dictionary/English/) and the
                 #   Translingual extract (https://kaikki.org/dictionary/Translingual/), which carries the

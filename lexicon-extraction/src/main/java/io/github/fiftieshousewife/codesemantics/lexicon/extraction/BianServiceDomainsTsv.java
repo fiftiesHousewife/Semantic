@@ -32,6 +32,9 @@ public class BianServiceDomainsTsv {
                 # definition and the example of use joined, which is what BIAN states about the domain's
                 # purpose. A domain BIAN states no role definition for is not carried.
                 #
+                # Name: BIAN Service Landscape
+                # Publisher: the Banking Industry Architecture Network (https://bian.org/servicelandscape/)
+                # Kind: subjects
                 # Source: BIAN's own published artefacts, one specification file per service domain, at
                 """
                 + "#   " + source + ",\n"

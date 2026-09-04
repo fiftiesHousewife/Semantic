@@ -22,6 +22,9 @@
 #   One read writes a table per weighting — reference-corpus-pooled-occurrences.tsv, reference-corpus-mean-of-shares.tsv — so they differ in
 #   this line and in the share column alone.
 #
+# Name: the reference corpus, over words
+# Publisher: this library, from a seeded draw of public Java repositories
+# Kind: frequencies
 # Source: reference-corpus-published.tsv, copied below, which states the frame, the predicate and
 #   the seed. Every repository was cloned at the commit it pins.
 # Licence: these counts are this project's measurement of publicly available source. Every

@@ -130,6 +130,9 @@ public final class WikidataNameExtraction {
                 # three ways. Whether a sampled value is made of such tokens is the caller's question,
                 # answered by votes this file does not cast.
                 #
+                # Name: Wikidata given and family names
+                # Publisher: Wikidata (https://www.wikidata.org/)
+                # Kind: words
                 # Source: Wikidata, items referenced as a person's given name (P735) or family name
                 #   (P734) by at least five subjects, under every rdfs:label in every language; the
                 #   script is the majority Unicode script of the token's letters. Queried via the

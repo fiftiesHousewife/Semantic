@@ -36,6 +36,9 @@ public class ArxivTaxonomyTsv {
                 # category arXiv does not state as live is not carried, and neither is the group it marks as
                 # a test.
                 #
+                # Name: arXiv subject taxonomy
+                # Publisher: arXiv, Inc. (https://arxiv.org/category_taxonomy)
+                # Kind: subjects
                 # Source: arXiv's own taxonomy definitions, the module its software classifies by, read from
                 #  \s""" + source + """
                 .

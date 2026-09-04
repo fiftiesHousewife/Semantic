@@ -31,6 +31,9 @@ public class SqlFunctionTsv {
                 # own description is what states the words the name stands for — abs is published as
                 # "Absolute value", which is the citation, not a guess about it.
                 #
+                # Name: DuckDB's own function catalogue
+                # Publisher: DuckDB (https://duckdb.org/docs/stable/sql/functions/overview)
+                # Kind: identifiers
                 # Source: DuckDB's duckdb_functions() catalogue, read from the embedded engine at
                 #   version\s""" + engineVersion + """
                 ; scalar and aggregate functions only.

@@ -16,6 +16,9 @@
 # identifies it in a scheme outside this one. altLabel is empty: OpenAlex states no second
 # label for anything.
 #
+# Name: OpenAlex topics
+# Publisher: OpenAlex (https://openalex.org/)
+# Kind: subjects
 # Source: OpenAlex's own topics snapshot, s3://openalex/data/jsonl/topics/ at 2026-06-26, the manifest and the 6 parts it names, stating 4516 records,
 #   pinned by the SHA-256 ContentDigest states over the manifest and the parts it names:
 #   1536cbda3cc11838aaa67ef9c9c5f2b327a8ac8875ad07f306f4da44c16e8048.
