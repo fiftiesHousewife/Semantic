@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.List;
+
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Reads arXiv's own taxonomy module into the bundled TSV. The module is taken at a pinned revision rather
@@ -34,7 +37,12 @@ public final class ArxivTaxonomyExtraction {
 
     public void extract(final String module, final Path output) throws IOException {
         final String read = new String(source.read(module), StandardCharsets.UTF_8);
-        new BundledResource(output).written(tsv.render(concepts.in(taxonomy.in(read)), source.permalink()));
+        new BundledResource(output).written(rendered(concepts.in(taxonomy.in(read))));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, source.permalink());
     }
 
     PinnedSource source() {

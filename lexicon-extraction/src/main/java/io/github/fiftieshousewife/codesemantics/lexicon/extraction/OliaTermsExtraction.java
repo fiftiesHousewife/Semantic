@@ -3,6 +3,9 @@ package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
+import java.util.List;
+
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Reads OLiA's core ontology into the bundled TSV. The ontology is taken at a pinned revision rather than at
@@ -33,7 +36,12 @@ public final class OliaTermsExtraction {
 
     public void extract(final String ontology, final Path output) throws IOException {
         final byte[] read = source.read(ontology);
-        new BundledResource(output).written(tsv.render(concepts.in(classes.in(read)), source.permalink()));
+        new BundledResource(output).written(rendered(concepts.in(classes.in(read))));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, source.permalink());
     }
 
     PinnedSource source() {

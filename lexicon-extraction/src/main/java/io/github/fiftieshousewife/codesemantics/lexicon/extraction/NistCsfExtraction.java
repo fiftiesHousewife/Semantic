@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.List;
+
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Reads NIST's OSCAL edition of the Cybersecurity Framework into the bundled TSV. The catalogue is taken at
@@ -34,8 +37,12 @@ public final class NistCsfExtraction {
     public void extract(final String catalog, final Path output) throws IOException {
         final OscalCatalog document =
                 new OscalCatalog(new String(source.read(catalog), StandardCharsets.UTF_8));
-        new BundledResource(output).written(tsv.render(concepts.in(document.controls()), document.version(),
-                source.permalink()));
+        new BundledResource(output).written(rendered(concepts.in(document.controls()), document.version()));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read, final String catalogVersion) {
+        return tsv.render(read, catalogVersion, source.permalink());
     }
 
     PinnedSource source() {

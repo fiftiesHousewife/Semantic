@@ -3,7 +3,7 @@
 # most of these terms are phrases: 89% of FIBO's labels are more than one word — interest
 # rate swap, asset backed security, credit default swap. That is why it is bundled. A
 # one-word term is what a repository outside the domain hits by accident, and a phrase is
-# what it does not, so a vocabulary of phrases is the arm that can show a domain reading
+# what it does not, so a vocabulary of phrases is the path that can show a domain reading
 # firing where its publisher's field is and staying silent everywhere else.
 #
 # Columns: concept, prefLabel, altLabel, broader, kind, module, definition, note.

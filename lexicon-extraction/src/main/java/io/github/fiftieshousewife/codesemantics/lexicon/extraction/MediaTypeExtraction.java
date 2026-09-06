@@ -44,7 +44,12 @@ public final class MediaTypeExtraction {
                                 new String(member.bytes(), StandardCharsets.UTF_8))
                         .stream())
                 .toList();
-        new BundledResource(output).written(tsv.render(types, source.citation(), source.digest()));
+        new BundledResource(output).written(rendered(types));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> types) {
+        return tsv.render(types, source.citation(), source.digest());
     }
 
     PinnedSet source() {

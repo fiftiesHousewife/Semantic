@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+
 /**
  * Reads the BIAN Service Landscape into the bundled TSV, from the artefacts repository's one specification
  * file per service domain.
@@ -34,8 +36,12 @@ public final class BianServiceDomainsExtraction {
 
     public void extract(final Path checkout, final Path output) throws IOException {
         final List<ContentDigest.Member> specifications = source.pinned(specificationsUnder(checkout));
-        new BundledResource(output).written(
-                tsv.render(concepts.in(specifications), source.citation(), source.digest()));
+        new BundledResource(output).written(rendered(concepts.in(specifications)));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, source.citation(), source.digest());
     }
 
     PinnedSet source() {

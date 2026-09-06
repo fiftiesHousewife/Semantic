@@ -66,9 +66,14 @@ public final class OpenAlexTopicsExtraction {
         final List<String> records = recordsIn(parts);
         final List<SkosConcept> read = concepts.in(records);
         final String cited = cited(manifest);
-        new BundledResource(taxonomyOutput).written(tsv.render(read, cited, source.digest()));
+        new BundledResource(taxonomyOutput).written(rendered(read, cited));
         new BundledResource(sizesOutput)
                 .written(sizes.render(concepts.topicsIn(records), cited, source.digest()));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read, final String cited) {
+        return tsv.render(read, cited, source.digest());
     }
 
     PinnedSet source() {

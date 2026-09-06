@@ -8,6 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+
 /**
  * Reads the FpML 5.11 confirmation schemas into the bundled TSV, from a checkout of the HandCoded toolkit
  * repository, which vendors each FpML release whole: {@code -Psource=<path to a fpml-toolkit-java checkout>}.
@@ -33,7 +35,12 @@ public final class FpmlTermsExtraction {
 
     public void extract(final Path checkout, final Path output) throws IOException {
         final List<ContentDigest.Member> schemas = source.pinned(schemasUnder(checkout));
-        new BundledResource(output).written(tsv.render(concepts.in(schemas), source.citation(), source.digest()));
+        new BundledResource(output).written(rendered(concepts.in(schemas)));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, source.citation(), source.digest());
     }
 
     PinnedSet source() {

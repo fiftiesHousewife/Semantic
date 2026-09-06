@@ -3,6 +3,9 @@ package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
+import java.util.List;
+
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Reads the CWE catalog into the bundled TSV, from the one XML file the OWASP SDK repository vendors:
@@ -32,7 +35,12 @@ public final class CweTermsExtraction {
 
     public void extract(final String catalog, final Path output) throws IOException {
         final byte[] read = source.read(catalog);
-        new BundledResource(output).written(tsv.render(concepts.in(read), SOURCE, CATALOG_BLOB));
+        new BundledResource(output).written(rendered(concepts.in(read)));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, SOURCE, CATALOG_BLOB);
     }
 
     PinnedSource source() {

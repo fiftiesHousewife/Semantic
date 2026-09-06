@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
+
 /**
  * Reads the Computer Science Ontology's published CSV into the bundled TSV.
  *
@@ -28,8 +30,12 @@ public final class CsoTopicsExtraction {
 
     public void extract(final Path csv, final Path output) throws IOException {
         final byte[] read = pinned(Files.readAllBytes(csv));
-        new BundledResource(output).written(tsv.render(concepts.in(new String(read, StandardCharsets.UTF_8)),
-                source.citation(), source.digest()));
+        new BundledResource(output).written(rendered(concepts.in(new String(read, StandardCharsets.UTF_8))));
+    }
+
+    /** The committed file for these concepts, rendered once so the test and the extraction agree on it. */
+    String rendered(final List<SkosConcept> read) {
+        return tsv.render(read, source.citation(), source.digest());
     }
 
     PinnedSet source() {
