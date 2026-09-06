@@ -1,0 +1,146 @@
+{
+  "previousCommit" : "ded6bd0acff01b033e732d23f17dce68ee0ac303",
+  "commit" : "d653ad7171cddaac77450b76e2a8854d8c582ee3",
+  "moved" : [ {
+    "figure" : "λ — words a resource can be cited for",
+    "before" : "98.1%",
+    "after" : "98.1%"
+  }, {
+    "figure" : "Mass settled on no subject",
+    "before" : "84.5%",
+    "after" : "84.4%"
+  }, {
+    "figure" : "arXiv archive — nearest subject",
+    "before" : "Computer Science",
+    "after" : "Computer Science"
+  }, {
+    "figure" : "arXiv archive — divergence",
+    "before" : "33.2%",
+    "after" : "33.2%"
+  }, {
+    "figure" : "arXiv archive — chance reaches",
+    "before" : "41.1%",
+    "after" : "41.1%"
+  }, {
+    "figure" : "arXiv archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv archive — subjects nearer than chance",
+    "before" : "1",
+    "after" : "1"
+  }, {
+    "figure" : "arXiv category — nearest subject",
+    "before" : "Computation and Language",
+    "after" : "Computation and Language"
+  }, {
+    "figure" : "arXiv category — divergence",
+    "before" : "42.3%",
+    "after" : "42.3%"
+  }, {
+    "figure" : "arXiv category — chance reaches",
+    "before" : "45.4%",
+    "after" : "45.4%"
+  }, {
+    "figure" : "arXiv category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv category — subjects nearer than chance",
+    "before" : "2",
+    "after" : "2"
+  }, {
+    "figure" : "OpenAlex archive — nearest subject",
+    "before" : "Artificial Intelligence",
+    "after" : "Artificial Intelligence"
+  }, {
+    "figure" : "OpenAlex archive — divergence",
+    "before" : "24.6%",
+    "after" : "24.6%"
+  }, {
+    "figure" : "OpenAlex archive — chance reaches",
+    "before" : "32.1%",
+    "after" : "32.1%"
+  }, {
+    "figure" : "OpenAlex archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex archive — subjects nearer than chance",
+    "before" : "5",
+    "after" : "5"
+  }, {
+    "figure" : "OpenAlex category — nearest subject",
+    "before" : "Authorship Attribution and Profiling",
+    "after" : "Authorship Attribution and Profiling"
+  }, {
+    "figure" : "OpenAlex category — divergence",
+    "before" : "42.2%",
+    "after" : "42.3%"
+  }, {
+    "figure" : "OpenAlex category — chance reaches",
+    "before" : "49.5%",
+    "after" : "49.5%"
+  }, {
+    "figure" : "OpenAlex category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex category — subjects nearer than chance",
+    "before" : "9",
+    "after" : "9"
+  }, {
+    "figure" : "CSO archive — nearest subject",
+    "before" : "linguistics",
+    "after" : "linguistics"
+  }, {
+    "figure" : "CSO archive — divergence",
+    "before" : "19.9%",
+    "after" : "19.9%"
+  }, {
+    "figure" : "CSO archive — chance reaches",
+    "before" : "27.2%",
+    "after" : "27.2%"
+  }, {
+    "figure" : "CSO archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "CSO archive — subjects nearer than chance",
+    "before" : "4",
+    "after" : "4"
+  }, {
+    "figure" : "CSO category — nearest subject",
+    "before" : "information technology",
+    "after" : "information technology"
+  }, {
+    "figure" : "CSO category — divergence",
+    "before" : "24.8%",
+    "after" : "24.8%"
+  }, {
+    "figure" : "CSO category — chance reaches",
+    "before" : "29.0%",
+    "after" : "29.0%"
+  }, {
+    "figure" : "CSO category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "CSO category — subjects nearer than chance",
+    "before" : "3",
+    "after" : "3"
+  }, {
+    "figure" : "Words above the bar",
+    "before" : "282",
+    "after" : "282"
+  }, {
+    "figure" : "Topics reported",
+    "before" : "10",
+    "after" : "9"
+  }, {
+    "figure" : "Concepts written",
+    "before" : "170",
+    "after" : "170"
+  } ],
+  "crossings" : [ ]
+}
