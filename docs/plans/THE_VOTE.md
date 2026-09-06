@@ -69,7 +69,7 @@ The consequence compounds with defect 1: an unlabelled word is not merely absent
 
 ### Defect 3 — votes are summed where this library says they are pooled
 
-`TopicCitations` returns a list of votes and the tally adds them. So two independent resources agreeing that a word is about `grammar` is worth exactly what one resource saying `grammar` twice as loudly is worth: there is no corroboration term at all. `PooledLogOdds` is in `code-semantics-api`, tested, and consumed only by `AxisEvidenceAccumulator` — the closed-axis reading. The README meanwhile describes the geometric mean as "the log-linear pooling this library uses everywhere". It is not used here, and one of the two has to move.
+`TopicCitations` returns a list of votes and the tally adds them. So two independent resources agreeing that a word is about `grammar` is worth exactly what one resource saying `grammar` twice as loudly is worth: there is no corroboration term at all. `PooledLogOdds` is in `code-semantics-engine`, tested, and consumed only by `AxisEvidenceAccumulator` — the closed-axis reading. The README meanwhile describes the geometric mean as "the log-linear pooling this library uses everywhere". It is not used here, and one of the two has to move.
 
 ### The design, stated before any of it is written
 

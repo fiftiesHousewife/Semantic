@@ -9,7 +9,6 @@ tasks.register("checkAll") {
         ":repository-clones:check",
         ":reference-corpus-extraction:check",
         ":reference-corpus:check",
-        ":code-semantics-api:check",
         ":code-semantics-engine:check",
         ":skos-matching:check",
         ":vocabulary-page:check",

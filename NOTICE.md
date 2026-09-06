@@ -18,7 +18,7 @@ The library's own dependencies are declared in `gradle/libs.versions.toml`, with
 | `lexicon/src/main/resources/wordnet-domains.txt` | 92,617 | WordNet Domains 3.2, Fondazione Bruno Kessler, lifted to WordNet 3.0 by the `morungos/lifted-wordnet-domains` project | CC BY 3.0, attribution as the header states it |
 | `lexicon/src/main/resources/xwnd-domains.tsv` | [eXtended WordNet Domains](https://adimen.ehu.eus/web/XWND), IXA group, University of the Basque Country (UPV/EHU) | CC BY 3.0 | one leading domain per WordNet 3.0 synset, keyed by sense key through WordNet 3.0's own `index.sense` (WordNet licence, Princeton University) |
 | `lexicon/src/main/resources/sql-functions.tsv` | 506 | DuckDB's own `duckdb_functions()` catalogue, read from the embedded engine — no download | MIT (DuckDB) |
-| `code-semantics-api/src/main/resources/common-english-words.txt` | 20,000 | three Leipzig Corpora Collection frequency files, normalised per-million before merging | CC BY 4.0 |
+| `code-semantics-engine/src/main/resources/common-english-words.txt` | 20,000 | three Leipzig Corpora Collection frequency files, normalised per-million before merging | CC BY 4.0 |
 | `lexicon/src/main/resources/fibo-terms.tsv` | 1,833 | the Financial Industry Business Ontology's production T-Box, read from a checkout of the ontologies its own manifest names | MIT (EDM Council) |
 | `lexicon/src/main/resources/olia-terms.tsv` | 1,312 | the Ontologies of Linguistic Annotation core ontology, read as RDF/XML at a pinned revision | CC BY 3.0 |
 | `lexicon/src/main/resources/arxiv-taxonomy.tsv` | 174 | arXiv's own taxonomy definitions, read from the module its software classifies by, at a pinned revision | MIT (arXiv, Inc.) |

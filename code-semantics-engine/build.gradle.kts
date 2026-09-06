@@ -3,11 +3,11 @@ plugins {
     id("cs.maven-publish")
 }
 
-description = "The reading pipeline implementing code-semantics-api: repository walk, syntax parse, " +
-        "identifier splitting, sense citation, concept resolution and the scope statistics over them"
+description = "The reading pipeline and its model records: repository walk, syntax parse, identifier " +
+        "splitting, sense citation, the attributed evidence trail, the permalink anchor and the scope " +
+        "statistics over them"
 
 dependencies {
-    api(project(":code-semantics-api"))
     implementation(project(":lexicon"))
     implementation(project(":reference-corpus"))
     implementation(libs.javaparser.core)

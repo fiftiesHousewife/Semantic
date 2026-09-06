@@ -1,6 +1,5 @@
 package io.github.fiftieshousewife.codesemantics.repository;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,13 +10,11 @@ import java.util.Objects;
  * <p>{@code host} travels with the facts rather than living in a constant, so an enterprise host renders its
  * own permalinks.
  */
-public record RepositoryFacts(String host, String owner, String name, String defaultBranch,
-                              List<PullRequestFacts> pullRequests) {
+public record RepositoryFacts(String host, String owner, String name, String defaultBranch) {
 
     public RepositoryFacts {
         Objects.requireNonNull(host, "host");
         Objects.requireNonNull(owner, "owner");
         Objects.requireNonNull(name, "name");
-        pullRequests = List.copyOf(pullRequests);
     }
 }
