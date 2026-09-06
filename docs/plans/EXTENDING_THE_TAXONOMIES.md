@@ -155,6 +155,12 @@ So `# Kind:` states what a row is and not what the reading does with it. BIAN is
 
 **The header is written twice and only one of the pair is checked.** The renderer in `lexicon-extraction` holds the header, the committed TSV carries a copy, and nothing compares them — which was already true of `Source:` and `Licence:` and is now true of three lines a reading will select on. `sql-functions` is the one source needing neither a network route nor a local copy: regenerated through its renderer, the committed file gains exactly the three lines and nothing else, so that pair is shown to agree. The other nineteen rest on care. Closing that is its own row.
 
+### Step 4: a consumer's own vocabulary — landed 2026-09-06
+
+`ProvidedTermIndexes` reads `ServiceLoader.load(TermIndex.class)` and orders the result by the sources' own names, because `ServiceLoader` yields providers in an order the deployment decides and a reading must not change because two jars swapped places. `ExportedReading.vocabulariesBesidesOlia()` is the one statement of the default field — the bundled vocabularies, then the provided ones — and the default export path takes it, so registering an implementation in `META-INF/services` is the whole of the cost. `JudgedTaxonomies` refuses a field where two vocabularies state one source name, because the bar and every match cite the name and a shared one says nothing.
+
+A provided vocabulary is judged as evidence and nothing more: the description, subject and link the pages print read off the bundled resources' provenance headers, and `EvidenceKinds` states an empty coverage line for a source it holds no header for. That is the honest floor — what the consumer's jar does not state, no page invents.
+
 ## The criterion
 
 A refactor that changes no reading has a byte-equality test, and this one does: **run the eleven evaluation members with the seven enumerated vocabularies and with the seven discovered from their headers, and require every published figure to be identical.** Anything that moves is a disagreement between what a file states about itself and what the enumeration stated about it, which is the defect this change exists to remove.

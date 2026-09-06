@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
@@ -9,6 +10,7 @@ import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
 import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.ProvidedTermIndexes;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedField;
@@ -42,7 +44,7 @@ public final class ExportedReading {
      * which is the enum deciding in advance the question the chance bar exists to ask.
      */
     public ReadingExport of(final RepositoryReading reading, final String commit) {
-        return of(reading, commit, everyBundledVocabularyBesidesOlia());
+        return of(reading, commit, vocabulariesBesidesOlia());
     }
 
     /**
@@ -60,16 +62,24 @@ public final class ExportedReading {
     }
 
     /**
-     * Every bundled term vocabulary but OLiA, which the reading holds separately. One statement of the
-     * list, so a caller supplying its own term reading judges the same field the default does.
+     * The field the default reading judges besides OLiA, which the reading holds separately: every bundled
+     * term vocabulary, then any the classpath provides through {@code ServiceLoader<TermIndex>}, in the
+     * order of their sources' own names. One statement of the list, so a caller supplying its own term
+     * reading judges the same field the default does — a provided vocabulary is judged by the same
+     * permutation bar as the bundled ones, and {@code taxonomies[].bar.fieldMembers} records that it was
+     * in the field.
      */
-    public static List<TermIndex> everyBundledVocabularyBesidesOlia() {
-        return BundledTaxonomies.besides(BundledTaxonomies.OLIA);
+    public static List<TermIndex> vocabulariesBesidesOlia() {
+        return Stream.concat(
+                        BundledTaxonomies.besides(BundledTaxonomies.OLIA).stream(),
+                        ProvidedTermIndexes.fromClasspath().stream())
+                .toList();
     }
 
     /**
      * The enumerated taxonomies and any the caller supplies, each matched and reported as its own taxonomy.
-     * A consumer injects its own by path and passes the index here.
+     * A consumer injects its own by path and passes the index here, or registers it through
+     * {@code ServiceLoader<TermIndex>} and takes the default.
      */
     public ReadingExport of(final RepositoryReading reading, final String commit,
                             final List<TermIndex> alsoMatched) {

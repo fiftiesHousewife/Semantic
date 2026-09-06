@@ -61,6 +61,8 @@ ReadingExport export = new ExportedReading().of(reading, "43cbdae6");
 
 It takes the directory rather than finding one. Nothing in it reads a system property, asks which tree a test is running inside, or memoises across a JVM.
 
+**A consumer's own vocabulary enters the same field.** A jar on the classpath registering a [`TermIndex`](skos-matching/src/main/java/io/github/fiftieshousewife/codesemantics/engine/term/TermIndex.java) implementation in `META-INF/services` — [`ServiceLoader`](https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/ServiceLoader.html)'s own contract — is matched beside the bundled vocabularies and judged by the same permutation bar. Adding one moves every bundled vocabulary's bar, because each bar sits at a quantile set by the size of the field it competes in, and `taxonomies[].bar.fieldMembers` names that field so the movement is attributable.
+
 **It states what it is doing.** A large tree takes minutes, so each stage logs what it started and what it found, through SLF4J at `INFO` on `RepositoryReading`:
 
 ```

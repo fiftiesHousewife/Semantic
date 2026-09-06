@@ -24,7 +24,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.TermVocabularies;
  * header through {@link TermVocabularies}, so a vocabulary that is re-extracted or re-published carries its
  * own account of what it became.
  *
- * <p>A consumer wanting one more injects it by path and passes the index alongside these.
+ * <p>A consumer wanting one more injects it by path and passes the index alongside these, or registers a
+ * {@link TermIndex} implementation through {@code ServiceLoader} and {@link ProvidedTermIndexes} finds it.
  */
 public enum BundledTaxonomies {
 

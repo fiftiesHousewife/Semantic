@@ -2,6 +2,9 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -48,9 +51,9 @@ final class JudgedTaxonomies {
                  final CorroboratedReading terms) {
         final TopicDistribution reads = reading.themes().repository().comparison();
         final SubjectAreas areas = SubjectAreas.fromClasspath();
-        final List<TermIndex> published = Stream.concat(
+        final List<TermIndex> published = refusingASharedSource(Stream.concat(
                         Stream.<TermIndex>of(LinguisticTerms.fromClasspath()), alsoMatched.stream())
-                .toList();
+                .toList());
         final List<SpecificTerms> judged = published.stream().map(SpecificTerms::of).toList();
         final List<PhraseBar> bars = TermOrderNull.seeded(reading.seed())
                 .over(WrittenRuns.fromClasspath().in(reading.parsed()), List.copyOf(judged));
@@ -82,6 +85,27 @@ final class JudgedTaxonomies {
                 CorroboratedReading.of(specific, concepts, reading.parsed()).matched(),
                 BranchAgreement.between(reads, concepts, areas), bar,
                 new StatedPaths(ancestry, concepts), StatedDescriptions.over(concepts, ancestry));
+    }
+
+    /**
+     * A field where two vocabularies state one source name would publish two taxonomies a reader cannot
+     * tell apart, and every bar and match citing the name would not say which vocabulary spoke.
+     */
+    static List<TermIndex> refusingASharedSource(final List<TermIndex> field) {
+        final List<String> shared = field.stream()
+                .collect(Collectors.groupingBy(TermIndex::source, Collectors.counting()))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .sorted()
+                .toList();
+        if (!shared.isEmpty()) {
+            throw new IllegalArgumentException(String.format(Locale.ROOT,
+                    "Two vocabularies in one field state one source name, so a match citing it would not "
+                            + "say which spoke: %s",
+                    shared));
+        }
+        return field;
     }
 
     /**
