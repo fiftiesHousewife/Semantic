@@ -93,6 +93,16 @@ public final class BundledExtractions {
                     (sources, resources) -> new PronomFormatsExtraction()
                             .extract(sources.path(0, "the DROID signature file"),
                                     resources.resolve("pronom-formats.tsv"))),
+            new BundledExtraction("csrc",
+                    "the CSRC glossary export JSON, unzipped, because NIST serves it inside an archive",
+                    (sources, resources) -> new CsrcGlossaryExtraction()
+                            .extract(sources.path(0, "the glossary export JSON, unzipped"),
+                                    resources.resolve("csrc-glossary.tsv"))),
+            new BundledExtraction("jose",
+                    "the directory holding IANA's nine JOSE registry CSVs",
+                    (sources, resources) -> new JoseTermsExtraction()
+                            .extract(sources.path(0, "the directory of registry CSVs"),
+                                    resources.resolve("jose-terms.tsv"))),
             new BundledExtraction("media-types",
                     "the directory holding IANA's ten per-registry CSVs",
                     (sources, resources) -> new MediaTypeExtraction()

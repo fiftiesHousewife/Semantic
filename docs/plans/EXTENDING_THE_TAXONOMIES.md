@@ -129,7 +129,27 @@ besu's separation widens without the functions, and the leak halves without dyin
 
 **The candidate is refused as extracted, in both variants.** One reading is recorded without being argued from: over the terms the reference corpus does not show working Java writing — the basis the export publishes its judgement on — the nouns-only vocabulary separates besu at 2 phrases against 0 and touches nothing else but a single phrase on strata. A proposal to enter it on that basis would repeat the FIX and FpML pattern of arguing a vocabulary past its control, and the rule those refusals set stands: do not re-propose without a mechanism that predicts the behaviour.
 
-The CSRC glossary and the IANA JOSE registries are fetched and unmeasured.
+### The XML security candidates were measured the same day, and both are refused as extracted
+
+Both were extracted through the bundled machinery and judged unbundled by `phraseNull`, in the same field as the bundled seven on all eleven evaluation members. `CsrcGlossaryExtraction` reads the CSRC glossary export — pinned by digest, because the glossary is rebuilt continuously and states no version — into 9,140 terms, each at the glossary's own permalink and carrying the abbreviations and synonyms the glossary states; one statement holds this file shape's statement separator and is set aside, counted in the TSV header. `JoseTermsExtraction` reads the nine IANA JOSE registry CSVs into 140 registered values, each carrying the registered string byte for byte and the publisher's English description of it.
+
+| Member | CSRC | narrowed | JOSE | narrowed |
+|---|---|---|---|---|
+| tika | 46 / 17 — 2.7×, clears | 5 / 1, clears | 5 / 2 — 2.5×, clears | 0 |
+| besu | 93 / 31 — 3.0×, clears | 15 / 1, clears | 8 / 3 — 2.7×, clears | 1 / 0, clears |
+| fineract | 65 / 31 — 2.1×, clears | 7 / 1, clears | 3 / 2 — 1.5×, clears | 0 |
+| jpos | 61 / 13 — 4.7×, clears | 12 / 1, clears | 6 / 2 — 3.0×, clears | 0 |
+| strata | 22 / 12 — 1.8×, clears | 4 / 1, clears | 1 / 1 | 0 |
+| aeron | 36 / 18 — 2.0×, clears | 3 / 1, clears | 2 / 1 — 2.0×, clears | 0 |
+| quickfixj | 19 / 7 — 2.7×, clears | 6 / 0, clears | 1 / 1 | 0 |
+| maven | 34 / 15 — 2.3×, clears | 5 / 1, clears | 4 / 1 — 4.0×, clears | 0 |
+| santuario | **63 / 11 — 5.7×, clears** | 6 / 0, clears | **15 / 3 — 5.0×, clears** | 0 |
+| jmeter-iso8583 | 7 / 2 — 3.5×, clears | 0 | 2 / 0 — 2.0×, clears | 0 |
+| fix-trading-simulator | 0 / 1 | 0 | 0 / 0 | 0 |
+
+**The CSRC glossary is a glossary of everything NIST's publications define, and it clears the bar on ten of the eleven members.** On its own field it is real: santuario writes 63 of its phrases against a chance-expected 11 — `signature verification` 31, `xml signature` 29, `key wrapping key` 33, `block cipher`, `triple des`, `rsa oaep`, `key agreement`, `diffie hellman` — the widest raw separation in the table. But the leak is not the general-word leak the termhood narrowing closed for execution-specs, because NIST also publishes a blockchain glossary and its terms are in the export: besu's `time stamp` 409, `access list` 282, `block header` 273, `genesis block` 159, `op code` 137 and `hard fork` are all labels NIST genuinely states and all of besu's own field, so the narrowing *widens* besu's clearance to 15 phrases against 1 rather than ending it, and eight other members clear on the narrowed basis with it. On the settle counts: `cert` 269 and `sig` 227 do not leave santuario's unread tail — the glossary states each only as a single word (and `cert` as Computer Emergency Response Team, a sense santuario does not write), and single-word matches stay refused without corroboration; `inbound xml sec` is not stated at all. One reading is recorded without being argued from: every CSRC definition cites the NIST publication that wrote it, so a variant selecting terms by what their citing publication is about would be an extraction rule reading the publisher's own statement — but the FIX/FpML rule stands, and no variant is proposed without a mechanism that predicts the silence control.
+
+**The JOSE registries separate santuario the most and stay above the bar on seven controls.** santuario writes 15 of the 140 values' phrases against a chance-expected 3 — `encryption algorithm` 52, `public key` 52, `encrypted key` 33, `derived key`, `ecdh es`, `rsa oaep` — but the registry describes its values in the English any program handling keys writes (`key value`, `key pair`, `key type`, `content type`), and besu, jpos, maven and tika clear their bars on exactly those. The termhood narrowing silences every member including santuario — besu alone keeps 1 phrase against 0 — so nothing distinctive survives it: the registered strings themselves, `HS256`, `x5c`, `kty`, are JSON member names santuario's declared names never write, and `sig` 227 stays a refused single word. **Both are refused as extracted**, and the XML security seam stays open with no candidate standing.
 
 ## What to build, in order
 
