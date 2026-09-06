@@ -56,7 +56,7 @@ public final class StatedPaths {
     }
 
     /** The module this concept is filed in, and none where the publisher states one for nothing above it. */
-    Optional<String> moduleOf(final String prefLabel) {
+    public Optional<String> moduleOf(final String prefLabel) {
         return filedUnder(prefLabel).filter(module -> !sharedModules().contains(module));
     }
 

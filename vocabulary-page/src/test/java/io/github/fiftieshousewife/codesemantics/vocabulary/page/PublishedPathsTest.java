@@ -30,30 +30,38 @@ class PublishedPathsTest {
 
     @Test
     void climbsTheStatedBroaderChainRootFirst() {
-        assertThat(PATHS.pathOf("InterestRateSwap"))
+        assertThat(PATHS.pathPastTheFieldOf("InterestRateSwap"))
                 .containsExactly("Agreement", "Contract", "InterestRateSwap");
     }
 
     @Test
     void standsAConceptWithNoStatedLevelsAboveAtItsOwnRoot() {
-        assertThat(PATHS.pathOf("Agreement")).containsExactly("Agreement");
+        assertThat(PATHS.pathPastTheFieldOf("Agreement")).containsExactly("Agreement");
     }
 
     @Test
     void drawsTheNameOnlyLevelsOverATopWhoseBroaderIsNotARow() {
-        assertThat(PATHS.pathOf("Term Deposit"))
+        assertThat(PATHS.pathPastTheFieldOf("Term Deposit"))
                 .containsExactly("Products", "Loans and Deposits", "Term Deposit");
     }
 
     @Test
-    void climbsIntoTheStatedModuleWhereTheChainTopsOutWithoutAParent() {
-        assertThat(PATHS.pathOf("PresentValue"))
+    void climbsIntoTheStatedModuleOverTheChainsTop() {
+        assertThat(PATHS.pathPastTheFieldOf("PresentValue"))
                 .containsExactly("FND", "MonetaryAmount", "PresentValue");
     }
 
     @Test
-    void namesALevelHoldingTheMajorityOfTheSchemeAsItsField() {
-        assertThat(DOMINATED.fieldLevels()).containsExactly("Everything");
+    void climbsIntoTheModuleWhereAChainTopsOutInItsOwnLabel() {
+        final PublishedPaths bian = new PublishedPaths(List.of(
+                concept("Financial Control", "Financial Control", "Finance And Risk Management"),
+                concept("Financial Compliance", "Financial Control", "Finance And Risk Management"),
+                concept("ATM Network Operations", "", "Channels"),
+                concept("Account Reconciliation", "", "Operations")));
+
+        assertThat(bian.pathPastTheFieldOf("Financial Compliance"))
+                .containsExactly("Finance And Risk Management", "Financial Control",
+                        "Financial Compliance");
     }
 
     @Test
@@ -65,16 +73,5 @@ class PublishedPathsTest {
     @Test
     void keepsAConceptThatItselfNamesTheFieldRatherThanLeavingItNoPath() {
         assertThat(DOMINATED.pathPastTheFieldOf("Everything")).containsExactly("Everything");
-    }
-
-    @Test
-    void leavesAPathAloneWhereNoLevelHoldsAMajority() {
-        assertThat(PATHS.pathPastTheFieldOf("InterestRateSwap"))
-                .containsExactly("Agreement", "Contract", "InterestRateSwap");
-    }
-
-    @Test
-    void namesTheBroadestStatedLevelAsTheRoot() {
-        assertThat(PATHS.rootOf("PresentValue")).isEqualTo("FND");
     }
 }
