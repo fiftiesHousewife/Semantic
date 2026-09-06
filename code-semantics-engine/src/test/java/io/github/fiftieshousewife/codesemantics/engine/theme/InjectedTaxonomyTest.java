@@ -43,6 +43,21 @@ class InjectedTaxonomyTest {
     }
 
     @Test
+    void publishesAltLabelsAsTermsTheWayTheBundledSourcesDo() throws IOException {
+        final Path file = directory.resolve("labelled.tsv");
+        Files.write(file, List.of(
+                "Format\tExtensible Hypertext Markup Language\txhtml | application/xhtml+xml\t\tformat\t\t\t"));
+        final InjectedTaxonomy injected = InjectedTaxonomy.named(file);
+
+        assertAll(
+                () -> assertThat(injected.terms())
+                        .containsExactly("Extensible Hypertext Markup Language", "xhtml",
+                                "application/xhtml+xml"),
+                () -> assertThat(injected.conceptsOf("XHTML")).hasSize(1),
+                () -> assertThat(injected.conceptsOf("xhtml")).hasSize(1));
+    }
+
+    @Test
     void readsTheBundledTaxonomyWhereACallerNamesNone() {
         assertAll(
                 () -> assertThat(InjectedTaxonomy.bundled().described()).hasSizeGreaterThan(100),

@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.PublishedTerms;
@@ -36,8 +37,11 @@ public final class InjectedTaxonomy implements PublishedTerms {
     private InjectedTaxonomy(final List<SkosConcept> concepts, final String source) {
         this.concepts = List.copyOf(concepts);
         this.source = source;
-        this.byLabel = this.concepts.stream().filter(concept -> !concept.prefLabel().isBlank())
-                .collect(Collectors.groupingBy(concept -> concept.prefLabel().toLowerCase(Locale.ROOT)));
+        this.byLabel = this.concepts.stream()
+                .flatMap(concept -> labelsOf(concept)
+                        .map(label -> Map.entry(label.toLowerCase(Locale.ROOT), concept)))
+                .collect(Collectors.groupingBy(Map.Entry::getKey,
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
     }
 
     /** The taxonomy in the named file, read exactly as a bundled one is. */
@@ -78,9 +82,16 @@ public final class InjectedTaxonomy implements PublishedTerms {
         return byLabel.getOrDefault(term.toLowerCase(Locale.ROOT), List.of());
     }
 
+    /** The stated labels, preferred and alternate alike, which is what the bundled term sources publish. */
     @Override
     public List<String> terms() {
-        return concepts.stream().map(SkosConcept::prefLabel).filter(label -> !label.isBlank()).toList();
+        return concepts.stream().flatMap(InjectedTaxonomy::labelsOf).toList();
+    }
+
+    private static Stream<String> labelsOf(final SkosConcept concept) {
+        return Stream.concat(Stream.of(concept.prefLabel()),
+                        concept.altLabels().stream())
+                .filter(label -> !label.isBlank());
     }
 
     /** Every concept the taxonomy states a description for, which is what a placement can be taken against. */

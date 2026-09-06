@@ -88,6 +88,30 @@ One measurement per candidate, all of the same shape: extract the labels, bundle
 
 Every one of them is read against the permutation null and not against its own count, because a vocabulary of several hundred terms raises every other vocabulary's bar on all twelve readings. **That is why step 3 below runs first.**
 
+### What the first two candidates measured, 2026-09-06
+
+Both were extracted through the bundled machinery and judged unbundled, by `phraseNull -Ptaxonomy=<tsv>`, in the same field as the bundled seven on all eleven evaluation members. `PronomFormatsExtraction` reads the DROID signature file V125 into 2,571 formats carrying 6,768 labels — names, extensions and media types. `ExecutionSpecTermsExtraction` reads the one fork the specification's own `FORK_CRITERIA` statements schedule last — bpo2 at the pinned commit — into 824 declarations, each with the first paragraph of its own docstring. Each cell below is written phrases against the chance-expected maximum a deal of the vocabulary's own words sets; **narrowed** repeats the judgement over the terms `SpecificTerms` keeps — those the reference corpus does not show working Java writing.
+
+| Member | PRONOM | narrowed | execution-specs | narrowed |
+|---|---|---|---|---|
+| tika | **20 / 6 — 3.3×, clears** | 1 / 0, clears | 8 / 6 — 1.3×, clears | 0 |
+| besu | 3 / 4 | 0 | **163 / 26 — 6.3×, clears** | 2 / 0, clears |
+| fineract | 0 / 4 | 0 | 23 / 9 — 2.6×, clears | 0 |
+| jpos | 2 / 2 | 0 | 10 / 4 — 2.5×, clears | 0 |
+| strata | 1 / 2 | 0 | 7 / 3 — 2.3×, clears | 1 / 0, clears |
+| aeron | 2 / 3 | 0 | 10 / 5 — 2.0×, clears | 0 |
+| quickfixj | 0 / 1 | 0 | 3 / 2 — 1.5×, clears | 0 |
+| maven | 3 / 3 | 0 | 4 / 3 — 1.3×, clears | 0 |
+| santuario | 0 / 2 | 0 | 0 / 2 | 0 |
+| jmeter-iso8583 | 0 / 0 | 0 | 0 / 1 | 0 |
+| fix-trading-simulator | 0 / 0 | 0 | 0 / 0 | 0 |
+
+**PRONOM clears only in its own field.** On the settle counts: tika's `xhtml` 352 moves — the registry states `xhtml` as an extension of fmt/102 and fmt/103 — and `config` 503 does not, because PRONOM writes *Configuration File* and never the token, which is the miss the survey table above already names. The cost the source carries: its single-letter extensions (`c`, `h`, `m`, `r`) stand in roughly 1,600 occurrences of tika's unread tail as junk single-word matches, which the phrase bar never counts and the short-word rule refuses. This is the first term vocabulary to pass the out-of-domain control that FIX and FpML failed twice; what remains before bundling is the promotion decision itself, and EDAM stays unmeasured unless PRONOM's coverage is judged short.
+
+**execution-specs separates its own field by more than any bundled vocabulary separates any member — and fails the silence control raw.** besu writes 163 of its phrases against a chance-expected 26. On the settle counts: `blockchain` 624, `gas` and `nonce` are stated, and `evm` 122, `receipt` 87, `withdrawals` 77 and `ommers` 55 leave besu's unread tail with them; `frame` 791 and `tx` 304 are not stated — the specification writes `transaction` in full and has no frame. But the raw labels also clear the bar on seven of the ten members outside the field, and the leak has a name: the specification writes its state and comparison helpers in general words — `account`, `balance`, `amount`, `account_exists`, `less_than`, `greater_than` — and a banking platform declares exactly those. The termhood narrowing refuses 456 of the 647 terms and ends the leak on every member while keeping besu above its bar at 2 phrases against 0 (strata stands at 1 against 0 beside it). **Do not bundle as extracted.** The next measurement is stated: an extraction rule that keeps the classes, fields and constants and drops the module-level functions — the helpers are all functions, the distinctive vocabulary (`base_fee_per_gas`, `SetCodeTransaction`, the opcode mnemonics) is not — rerun over the same eleven members.
+
+The CSRC glossary and the IANA JOSE registries are fetched and unmeasured.
+
 ## What to build, in order
 
 1. **Three more keyed lines in the provenance header** — `# Name:`, `# Publisher:`, `# Kind:` — enforced by `VocabularyProvenanceTest` exactly as `# Source:` and `# Licence:` already are. The header becomes the whole statement of what a resource is, which is where the doctrine already puts source and licence. **Landed 2026-09-04**, and see below for what the kinds turned out to be.

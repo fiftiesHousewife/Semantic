@@ -173,7 +173,7 @@ tasks.register<JavaExec>("injectedTermMatch") {
 // destroyed: deal the repository's words across its own declared names 999 times and recount. A vocabulary of
 // the tree's field should stand above its bar and a control should not.
 //   ./gradlew phraseNull
-//   ./gradlew phraseNull -Dcs.clone.dir=<path>
+//   ./gradlew phraseNull -Dcs.clone.dir=<path> -Ptaxonomy=<comma-joined candidate taxonomy tsvs, judged in the same field>
 tasks.register<JavaExec>("phraseNull") {
     group = "verification"
     description = "Judges each vocabulary's phrase count against a permutation of the repository's own words"
@@ -181,6 +181,9 @@ tasks.register<JavaExec>("phraseNull") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "6g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    args = (findProperty("taxonomy") as String?)?.split(",")?.map {
+        rootProject.layout.projectDirectory.file(it.trim()).asFile.absolutePath
+    }.orEmpty()
 }
 
 // Each bundled vocabulary judged twice at one seed: on how many of its phrases the repository wrote, which

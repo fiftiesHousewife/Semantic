@@ -1,10 +1,12 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
+import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 
 /**
  * How many of each bundled vocabulary's phrases stand in the declared names of the repository under reading,
@@ -24,7 +26,7 @@ public final class PhraseNullProbe {
     public static void main(final String[] arguments) {
         final TreeReading tree = TreeReading.ofTheCloneUnderReading();
         final List<WrittenRun> written = WrittenRuns.fromClasspath().in(tree.parsed());
-        final List<TermIndex> published = judged();
+        final List<TermIndex> published = judged(arguments);
         final List<SpecificTerms> specific = published.stream().map(SpecificTerms::of).toList();
         final long began = System.nanoTime();
         final List<PhraseBar> all = TermOrderNull.seeded(TreeReading.SEED).over(written, published);
@@ -50,9 +52,14 @@ public final class PhraseNullProbe {
                 specific.refused(), specific.refused() + specific.terms().size());
     }
 
-    /** Every vocabulary a reading matches and every control it is judged against, in that order. */
-    private static List<TermIndex> judged() {
-        return Stream.of(BundledTaxonomies.values()).map(BundledTaxonomies::index)
+    /** The bundled field, then every candidate file named as an argument, judged by the same bar. */
+    private static List<TermIndex> judged(final String[] candidates) {
+        return Stream.concat(
+                        Stream.of(BundledTaxonomies.values()).map(BundledTaxonomies::index),
+                        Stream.of(candidates)
+                                .map(Path::of)
+                                .map(path -> InjectedTerms.of(InjectedTaxonomy.named(path),
+                                        path.getFileName().toString())))
                 .toList();
     }
 }

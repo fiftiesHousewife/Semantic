@@ -83,6 +83,16 @@ public final class BundledExtractions {
                     (sources, resources) -> new FiboTermsExtraction()
                             .extract(sources.path(0, "a fibo checkout"),
                                     resources.resolve("fibo-terms.tsv"))),
+            new BundledExtraction("execution-specs",
+                    "an ethereum/execution-specs checkout at the pinned commit",
+                    (sources, resources) -> new ExecutionSpecTermsExtraction()
+                            .extract(sources.path(0, "an execution-specs checkout"),
+                                    resources.resolve("execution-spec-terms.tsv"))),
+            new BundledExtraction("pronom",
+                    "the DROID signature file at the pinned release, read off disk",
+                    (sources, resources) -> new PronomFormatsExtraction()
+                            .extract(sources.path(0, "the DROID signature file"),
+                                    resources.resolve("pronom-formats.tsv"))),
             new BundledExtraction("media-types",
                     "the directory holding IANA's ten per-registry CSVs",
                     (sources, resources) -> new MediaTypeExtraction()
