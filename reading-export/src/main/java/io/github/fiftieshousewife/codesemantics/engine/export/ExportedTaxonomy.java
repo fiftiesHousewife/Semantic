@@ -60,10 +60,23 @@ public record ExportedTaxonomy(String vocabulary, List<ExportedConcept> concepts
      *                           14,259, so a count favours CSO on any repository and a ratio favours
      *                           whichever has the lower bar
      * @param field              how many vocabularies competed, which is what sets the quantile
+     * @param fieldMembers       the vocabularies that competed, in the order they were judged. Adding a
+     *                           vocabulary moves every other vocabulary's bar, so a moved bar is read
+     *                           against a changed membership rather than a bare count
      * @param resamples          how many deals were taken
      */
     public record Bar(int phrases, int chanceExpectedBest, int median, double timesTheBar,
-                      int atLeastAsExtreme, double chanceRate, int field, int resamples) {
+                      int atLeastAsExtreme, double chanceRate, int field, List<String> fieldMembers,
+                      int resamples) {
+
+        public Bar {
+            fieldMembers = List.copyOf(fieldMembers);
+            if (field != fieldMembers.size()) {
+                throw new IllegalArgumentException(
+                        "the field's size is %d but %d members are named".formatted(field,
+                                fieldMembers.size()));
+            }
+        }
 
         /** Whether the repository wrote more of this vocabulary's phrases than the field reaches by chance. */
         public boolean exceedsChance() {

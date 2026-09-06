@@ -930,6 +930,7 @@
         "atLeastAsExtreme",
         "chanceRate",
         "field",
+        "fieldMembers",
         "resamples"
       ],
       "properties": {
@@ -965,9 +966,17 @@
           "maximum": 1
         },
         "field": {
-          "description": "How many vocabularies competed, which is what sets the quantile the bar is read at.",
+          "description": "How many vocabularies competed, which is what sets the quantile the bar is read at. It equals the length of `fieldMembers`.",
           "type": "integer",
           "minimum": 1
+        },
+        "fieldMembers": {
+          "description": "The vocabularies that competed, in the order they were judged. Adding a vocabulary moves every other vocabulary's bar on every reading, so a bar that moved between two readings is read against a changed membership rather than a bare count.",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
         },
         "resamples": {
           "description": "How many deals were taken.",

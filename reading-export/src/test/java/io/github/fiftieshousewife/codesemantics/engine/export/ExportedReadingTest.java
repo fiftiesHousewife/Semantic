@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class ExportedReadingTest {
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     private static RepositoryReading reading(final Path root) throws IOException {
         return RepositoryReading.of(sourceUnder(root));
     }
@@ -74,7 +77,7 @@ class ExportedReadingTest {
 
     private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 0, 0.001, 7, 999));
+                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
     }
 
     @Test

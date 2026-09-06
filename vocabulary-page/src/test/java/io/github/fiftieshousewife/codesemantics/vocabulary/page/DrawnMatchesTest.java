@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class DrawnMatchesTest {
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     private final DrawnMatches drawn = new DrawnMatches();
 
     private static ReadingFolder.TermMatchRow match(final String vocabulary, final String term,
@@ -24,7 +27,7 @@ class DrawnMatchesTest {
     private static ExportedTaxonomy published(final String vocabulary, final int phrases,
                                               final int byChance) {
         return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, byChance, byChance, 1.0 * phrases / byChance, 0, 0.001, 7, 999));
+                new ExportedTaxonomy.Bar(phrases, byChance, byChance, 1.0 * phrases / byChance, 0, 0.001, 7, FIELD, 999));
     }
 
     @Test

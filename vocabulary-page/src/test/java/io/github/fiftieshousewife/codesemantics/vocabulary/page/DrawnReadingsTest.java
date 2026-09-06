@@ -22,11 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class DrawnReadingsTest {
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     private final DrawnReadings drawn = new DrawnReadings();
 
     private static final List<SetAside.RefusedVocabulary> REFUSED = List.of(
-            new SetAside.RefusedVocabulary("CSO", new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 0, 0.001, 7, 999)),
-            new SetAside.RefusedVocabulary("FIX", new ExportedTaxonomy.Bar(3, 5, 2, 0.6, 0, 0.001, 7, 999)));
+            new SetAside.RefusedVocabulary("CSO", new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 0, 0.001, 7, FIELD, 999)),
+            new SetAside.RefusedVocabulary("FIX", new ExportedTaxonomy.Bar(3, 5, 2, 0.6, 0, 0.001, 7, FIELD, 999)));
 
     /** The record checks the flag against its own two figures, so the pair follows the flag. */
     private static ExportedPlacement.Level level(final String subject, final boolean apart) {
@@ -161,7 +164,7 @@ class DrawnReadingsTest {
         final DrawnReading.Drawing drawing = drawn.of(List.of(row("santuario",
                 List.of(taxonomy("CSO", "public keys", 2.0)),
                 List.of(new ExportedTaxonomy("CSO", List.of(written, alsoWritten), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none());
         assertAll(
                 () -> assertThat(only(drawing).branches()).extracting(WrittenBranch::branch)
@@ -180,7 +183,7 @@ class DrawnReadingsTest {
         final DrawnReading santuario = drawn.of(List.of(row("santuario",
                 List.of(taxonomy("CSO", "public keys", 2.0)),
                 List.of(new ExportedTaxonomy("CSO", List.of(keys), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
 
         final WrittenConcept written = santuario.subjects().getFirst().concepts().getFirst();
@@ -200,7 +203,7 @@ class DrawnReadingsTest {
         final DrawnReading strata = drawn.of(List.of(row("strata",
                 List.of(taxonomy("FpML", "PaymentDates", 2.0)),
                 List.of(new ExportedTaxonomy("FpML", List.of(reached), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(1, 0, 0, 2.0, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(1, 0, 0, 2.0, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
 
         assertThat(strata.subjects().getFirst().concepts().getFirst().normalisation())
@@ -228,7 +231,7 @@ class DrawnReadingsTest {
         final DrawnReading santuario = drawn.of(List.of(row("santuario",
                 List.of(taxonomy("CSO", "key agreement — a protocol", 1.3)),
                 List.of(new ExportedTaxonomy("CSO", List.of(agreement, certificates, hashes), List.of(),
-                        Map.of(), new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, 999))),
+                        Map.of(), new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(santuario.subjects()).extracting(DrawnReading.Subject::subject)
@@ -259,9 +262,9 @@ class DrawnReadingsTest {
         final DrawnReading reading = drawn.of(List.of(row("mine",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4), taxonomy("CSO", "key agreement", 1.3)),
                 List.of(new ExportedTaxonomy("FIX", List.of(written), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, 999)),
+                                new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, FIELD, 999)),
                         new ExportedTaxonomy("CSO", List.of(alsoWritten), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, 999))),
+                                new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(reading.subjects()).extracting(DrawnReading.Subject::subject)
                 .as("FIX says what MsgSeqNum means and CSO says what key agreement means, so what "
@@ -282,9 +285,9 @@ class DrawnReadingsTest {
         final DrawnReading strata = drawn.of(List.of(row("strata",
                 List.of(taxonomy("BIAN", "Term Deposit", 2.0), taxonomy("CSO", "value functions", 1.06)),
                 List.of(new ExportedTaxonomy("BIAN", List.of(deposit), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, 999)),
+                                new ExportedTaxonomy.Bar(2, 1, 0, 2.0, 0, 0.001, 7, FIELD, 999)),
                         new ExportedTaxonomy("CSO", List.of(functions), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(17, 16, 15, 1.06, 0, 0.001, 7, 999))),
+                                new ExportedTaxonomy.Bar(17, 16, 15, 1.06, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(strata.subjects()).extracting(DrawnReading.Subject::subject)
                 .as("CSO labels in English and says nothing about value functions, where BIAN says what "
@@ -349,7 +352,7 @@ class DrawnReadingsTest {
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4)),
                 List.of(new ExportedTaxonomy("FIX", List.of(sequence, handling), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::readable)
@@ -373,7 +376,7 @@ class DrawnReadingsTest {
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MsgSeqNum", 10.4)),
                 List.of(new ExportedTaxonomy("FIX", List.of(sequence, handling), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(52, 5, 4, 10.4, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::readable)
                 .as("FIX describes neither, so how the label reads decides: every word of "
@@ -394,9 +397,9 @@ class DrawnReadingsTest {
         final DrawnReading jpos = drawn.of(List.of(row("jpos",
                 List.of(taxonomy("CSO", "public keys", 1.6), taxonomy("BIAN", "Card Capture", 1.5)),
                 List.of(new ExportedTaxonomy("CSO", List.of(keys), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(16, 10, 9, 1.6, 0, 0.001, 7, 999)),
+                                new ExportedTaxonomy.Bar(16, 10, 9, 1.6, 0, 0.001, 7, FIELD, 999)),
                         new ExportedTaxonomy("BIAN", List.of(capture), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(3, 2, 1, 1.5, 40, 0.041, 7, 999))),
+                                new ExportedTaxonomy.Bar(3, 2, 1, 1.5, 40, 0.041, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(jpos.answers()).extracting(DrawnReading.DrawnAnswer::source)
@@ -413,7 +416,7 @@ class DrawnReadingsTest {
                                                final int atLeastAsExtreme) {
         return new ExportedTaxonomy(source, List.of(), List.of(), Map.of(),
                 new ExportedTaxonomy.Bar(phrases, byChance, byChance, (double) phrases / byChance,
-                        atLeastAsExtreme, (atLeastAsExtreme + 1.0) / 1000, 7, 999));
+                        atLeastAsExtreme, (atLeastAsExtreme + 1.0) / 1000, 7, FIELD, 999));
     }
 
     @Test
@@ -451,9 +454,9 @@ class DrawnReadingsTest {
         final DrawnReading tika = drawn.of(List.of(row("tika",
                 List.of(taxonomy("CWE", "Process Control", 2.0), taxonomy("CSO", "target language", 1.43)),
                 List.of(new ExportedTaxonomy("CWE", List.of(weakness), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, 999)),
+                                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, FIELD, 999)),
                         new ExportedTaxonomy("CSO", List.of(topic), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(30, 21, 16, 1.43, 0, 0.001, 7, 999))),
+                                new ExportedTaxonomy.Bar(30, 21, 16, 1.43, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(tika.answers()).extracting(DrawnReading.DrawnAnswer::source)
@@ -474,7 +477,7 @@ class DrawnReadingsTest {
         final DrawnReading quickfixj = drawn.of(List.of(row("quickfixj",
                 List.of(taxonomy("FIX", "MiscFeeType", 10.4)),
                 List.of(new ExportedTaxonomy("FIX", List.of(beneathTheField), List.of(), Map.of(),
-                        new ExportedTaxonomy.Bar(52, 5, 3, 10.4, 0, 0.001, 7, 999))),
+                        new ExportedTaxonomy.Bar(52, 5, 3, 10.4, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(quickfixj.subjects()).extracting(DrawnReading.Subject::subject)
@@ -493,9 +496,9 @@ class DrawnReadingsTest {
         final DrawnReading reading = drawn.of(List.of(row("mine",
                 List.of(taxonomy("FIX", "MsgSeqNum", 2.0), taxonomy("FpML", "Scheme", 1.5)),
                 List.of(new ExportedTaxonomy("FIX", List.of(written), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, 999)),
+                                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, FIELD, 999)),
                         new ExportedTaxonomy("FpML", List.of(written), List.of(), Map.of(),
-                                new ExportedTaxonomy.Bar(3, 2, 1, 1.5, 0, 0.001, 7, 999))),
+                                new ExportedTaxonomy.Bar(3, 2, 1, 1.5, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
         assertThat(reading.subjects()).extracting(DrawnReading.Subject::source)
                 .as("deciding two publishers meant the same thing is a judgement nothing here can cite")

@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class EvidenceKindsTest {
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     private static final SightingSite SOMEWHERE = new SightingSite("A.java", 1);
 
     private static List<String> pathOf(final String placedUnder) {
@@ -29,7 +32,7 @@ class EvidenceKindsTest {
                                             final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(phrase(vocabulary + "Concept", placedUnder, 10)),
                 List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, 0, 0.001, 7, 999));
+                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
     }
 
     private static ExportedPlacement.Level level(final String subject, final boolean apart) {
@@ -57,7 +60,7 @@ class EvidenceKindsTest {
 
     private static ExportedTaxonomy vocabulary(final List<ExportedConcept> concepts) {
         return new ExportedTaxonomy("FpML", concepts, List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, 999));
+                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, FIELD, 999));
     }
 
     @Test

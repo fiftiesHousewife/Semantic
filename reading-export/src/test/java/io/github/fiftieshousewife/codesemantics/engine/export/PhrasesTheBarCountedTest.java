@@ -9,6 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class PhrasesTheBarCountedTest {
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     private static final SightingSite SOMEWHERE = new SightingSite("A.java", 1);
 
     private static ExportedConcept found(final String term, final String normalisation) {
@@ -18,7 +21,7 @@ class PhrasesTheBarCountedTest {
 
     private static ExportedTaxonomy publishing(final ExportedConcept... concepts) {
         return new ExportedTaxonomy("FpML", List.of(concepts), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(1, 0, 0, 1.0, 0, 0.001, 7, 999));
+                new ExportedTaxonomy.Bar(1, 0, 0, 1.0, 0, 0.001, 7, FIELD, 999));
     }
 
     private final PhrasesTheBarCounted counted = new PhrasesTheBarCounted();

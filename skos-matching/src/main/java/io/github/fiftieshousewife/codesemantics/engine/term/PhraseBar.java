@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.Arrays;
+import java.util.List;
 
 import io.github.fiftieshousewife.codesemantics.engine.theme.ChanceExpectedBest;
 
@@ -18,16 +19,22 @@ import io.github.fiftieshousewife.codesemantics.engine.theme.ChanceExpectedBest;
  * @param median             the middle of the draws, for a reader comparing the two bars
  * @param atLeastAsExtreme   how many draws reached the observed count or beat it
  * @param resamples          how many draws were taken
- * @param field              how many sources competed, which is what sets the quantile
+ * @param field              the sources that competed, in the order they were judged. Its size is what sets
+ *                           the quantile, so a bar that moved between two readings can be read against a
+ *                           changed field rather than a bare count
  */
 public record PhraseBar(String vocabulary, int observed, int chanceExpectedBest, int median,
-                        int atLeastAsExtreme, int resamples, int field) {
+                        int atLeastAsExtreme, int resamples, List<String> field) {
+
+    public PhraseBar {
+        field = List.copyOf(field);
+    }
 
     /** The bar a sorted field of chance counts sets, and where the observed count sits in it. */
     public static PhraseBar of(final String vocabulary, final int observed, final int[] sortedChance,
-                               final int field) {
+                               final List<String> field) {
         return new PhraseBar(vocabulary, observed,
-                sortedChance[ChanceExpectedBest.furthestIn(field, sortedChance.length)],
+                sortedChance[ChanceExpectedBest.furthestIn(field.size(), sortedChance.length)],
                 sortedChance[sortedChance.length / 2],
                 (int) Arrays.stream(sortedChance).filter(drawn -> drawn >= observed).count(),
                 sortedChance.length, field);

@@ -64,9 +64,10 @@ class TermOrderNullTest {
     }
 
     @Test
-    void statesTheFieldAsTheNumberOfSourcesCompeting() {
+    void statesTheFieldAsTheSourcesCompeting() {
         assertThat(barsOver(List.of(ITS_ORDERS, OTHER_ORDERS))).extracting(PhraseBar::field)
-                .containsExactly(2, 2);
+                .containsExactly(List.of("its orders", "other orders"),
+                        List.of("its orders", "other orders"));
     }
 
     @Test

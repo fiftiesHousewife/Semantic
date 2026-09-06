@@ -68,6 +68,7 @@ public final class TermOrderNull {
      */
     public Map<CountedPhrases, List<PhraseBar>> inEachUnitOver(final List<WrittenRun> written,
                                                                final List<TermIndex> judged) {
+        final List<String> field = judged.stream().map(TermIndex::source).toList();
         final List<PhraseReach> observed = judged.stream()
                 .map(index -> ReachedPhrases.over(index).in(written))
                 .toList();
@@ -75,9 +76,9 @@ public final class TermOrderNull {
         return Stream.of(CountedPhrases.values())
                 .collect(Collectors.toMap(unit -> unit,
                         unit -> IntStream.range(0, judged.size())
-                                .mapToObj(source -> PhraseBar.of(judged.get(source).source(),
+                                .mapToObj(source -> PhraseBar.of(field.get(source),
                                         unit.of(observed.get(source)),
-                                        chance.get(unit)[source], judged.size()))
+                                        chance.get(unit)[source], field))
                                 .toList()));
     }
 

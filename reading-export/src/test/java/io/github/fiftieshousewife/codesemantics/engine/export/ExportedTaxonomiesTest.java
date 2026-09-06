@@ -54,8 +54,11 @@ class ExportedTaxonomiesTest {
 
     private final ExportedTaxonomies taxonomies = new ExportedTaxonomies();
 
+    private static final List<String> FIELD =
+            List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
+
     /** A bar stated rather than drawn, so a test of the export is not a test of the permutation. */
-    private static final PhraseBar ABOVE_CHANCE = new PhraseBar("OLiA", 12, 3, 2, 4, 999, 7);
+    private static final PhraseBar ABOVE_CHANCE = new PhraseBar("OLiA", 12, 3, 2, 4, 999, FIELD);
 
     /** A branch reading stated rather than drawn, so a test of the export is not a test of the dictionary. */
     private static final BranchAgreement AGREEING = BranchAgreement.between(
@@ -75,6 +78,17 @@ class ExportedTaxonomiesTest {
 
     /** The publisher's own prose over the same rows, so a row states what its publisher says it is. */
     private static final StatedDescriptions DESCRIBED = StatedDescriptions.over(PUBLISHED, ANCESTRY);
+
+    @Test
+    void publishesTheFieldsMembershipBesideItsSize() {
+        final ExportedTaxonomy exported = taxonomies.of("OLiA",
+                matched(sighting(List.of("verb"), 0.8, 20, concept("Verb", "WordClass"))), AGREEING,
+                ABOVE_CHANCE, PATHS, DESCRIBED);
+
+        assertAll(
+                () -> assertThat(exported.bar().fieldMembers()).isEqualTo(FIELD),
+                () -> assertThat(exported.bar().field()).isEqualTo(FIELD.size()));
+    }
 
     @Test
     void carriesEachConceptWithThePublishersOwnPlacementOfIt() {
