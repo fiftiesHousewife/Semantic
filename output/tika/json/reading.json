@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "25.0",
+  "schemaVersion" : "26.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "43cbdae69472863f53f4f712f0331a1cd62f0615",
@@ -17145,6 +17145,7 @@
       "atLeastAsExtreme" : 1,
       "chanceRate" : 0.002,
       "field" : 7,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
       "resamples" : 999
     }
   }, {
@@ -18350,6 +18351,7 @@
       "atLeastAsExtreme" : 65,
       "chanceRate" : 0.066,
       "field" : 7,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
       "resamples" : 999
     }
   }, {
@@ -18796,6 +18798,7 @@
       "atLeastAsExtreme" : 18,
       "chanceRate" : 0.019,
       "field" : 7,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
       "resamples" : 999
     }
   }, {
@@ -18931,6 +18934,7 @@
       "atLeastAsExtreme" : 16,
       "chanceRate" : 0.017,
       "field" : 7,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
       "resamples" : 999
     }
   } ],
@@ -18951,6 +18955,7 @@
         "atLeastAsExtreme" : 156,
         "chanceRate" : 0.157,
         "field" : 7,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
         "resamples" : 999
       }
     }, {
@@ -18963,6 +18968,7 @@
         "atLeastAsExtreme" : 369,
         "chanceRate" : 0.37,
         "field" : 7,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
         "resamples" : 999
       }
     }, {
@@ -18975,6 +18981,7 @@
         "atLeastAsExtreme" : 999,
         "chanceRate" : 1.0,
         "field" : 7,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
         "resamples" : 999
       }
     } ],
