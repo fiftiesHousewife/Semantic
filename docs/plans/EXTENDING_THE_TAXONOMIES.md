@@ -78,6 +78,8 @@ Three fields were surveyed, one per repository whose unread runs reach no bundle
 
 One measurement per candidate, all of the same shape: extract the labels, bundle behind a flag, and count what moves.
 
+[`fetch-candidate-vocabularies.sh`](../../fetch-candidate-vocabularies.sh) fetches every candidate's source into `~/vocabulary-sources`, recording each file's pin and sha256 in a manifest. It needs a shell with network access — the agent sandbox and the extraction JVMs have none — and an extraction then takes the fetched copy by path.
+
 | Candidate | The count that settles it |
 |---|---|
 | PRONOM or EDAM | the share of tika's `xhtml` 352 and `config` 503 occurrences that move from unread to matched |
