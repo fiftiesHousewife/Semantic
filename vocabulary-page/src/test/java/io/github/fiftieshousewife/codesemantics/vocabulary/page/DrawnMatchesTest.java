@@ -27,7 +27,8 @@ class DrawnMatchesTest {
     private static ExportedTaxonomy published(final String vocabulary, final int phrases,
                                               final int byChance) {
         return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, byChance, byChance, 1.0 * phrases / byChance, 0, 0.001, 7, FIELD, 999));
+                new ExportedTaxonomy.Bar(phrases, byChance, byChance, 1.0 * phrases / byChance, 0, 0.001,
+                        7, FIELD, 999));
     }
 
     @Test

@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
  * <p>It decomposes per topic exactly as the divergence does, and it is bounded by its own definition: taken
  * among what each side placed, both sets of shares sum to 1, so the shared part cannot exceed 1 and reaches
  * it only where the two are the same distribution. What no topic took is left out for the reason
- * {@link JensenShannon} leaves it out — a subject cannot be agreed on with a reading that named none. Reported as {@code 1 - shared} so that it runs the way every other comparison here
+ * {@link JensenShannon} leaves it out — a subject cannot be agreed on with a reading that named none.
+ * Reported as {@code 1 - shared} so that it runs the way every other comparison here
  * runs, smaller being nearer; that complement is the total variation distance, which is where the bound
  * comes from and not a normalisation chosen to produce one.
  */

@@ -33,7 +33,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
  * reading recovers it; where it does not, the verb is simply absent and the reading says so by omitting it.
  *
  * <p>The names the source language's own convention claims are refused before the dictionary is asked:
- * The {@link io.github.fiftieshousewife.codesemantics.engine.reading.Dialect} states which, and cites the specification that claims them. It arrives by
+ * The {@link io.github.fiftieshousewife.codesemantics.engine.reading.Dialect} states which, and cites
+ * the specification that claims them. It arrives by
  * injection because it is Java's and a reading of another language would inject that language's own.
  */
 public final class Behaviours {

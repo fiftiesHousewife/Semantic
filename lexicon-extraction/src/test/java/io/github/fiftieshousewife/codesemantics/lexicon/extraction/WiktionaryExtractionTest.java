@@ -18,17 +18,20 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class WiktionaryExtractionTest {
 
     private static final String DUMP = """
-            {"word":"avg","lang_code":"en","senses":[{"tags":["abbreviation"],"alt_of":[{"word":"average"}],"topics":["mathematics"]}]}
+            {"word":"avg","lang_code":"en","senses":[{"tags":["abbreviation"],\
+            "alt_of":[{"word":"average"}],"topics":["mathematics"]}]}
             {"word":"average","lang_code":"en","senses":[{"tags":["uncountable"],"glosses":["The arithmetic mean."]}]}
             {"word":"pts","lang_code":"en","senses":[{"tags":["abbreviation"],"alt_of":[{"word":"points"}]}]}
-            {"word":"break point","lang_code":"en","senses":[{"topics":["tennis","sports"],"glosses":["A point that would win the game."]}]}
+            {"word":"break point","lang_code":"en","senses":[{"topics":["tennis","sports"],\
+            "glosses":["A point that would win the game."]}]}
             """;
 
     private static final String TRANSLINGUAL_DUMP = """
             {"word":"kJ","lang_code":"mul","pos":"symbol","senses":[{"tags":["alt-of","symbol"],\
             "alt_of":[{"word":"kilojoule","extra":"an SI unit of work or energy equal to 10\\u00b3 joules"}],\
             "topics":["metrology"]}]}
-            {"word":"kj","lang_code":"mul","pos":"symbol","senses":[{"glosses":["ISO 639-1 language code for Kwanyama."]}]}
+            {"word":"kj","lang_code":"mul","pos":"symbol","senses":[{"glosses":\
+            ["ISO 639-1 language code for Kwanyama."]}]}
             """;
 
     @TempDir

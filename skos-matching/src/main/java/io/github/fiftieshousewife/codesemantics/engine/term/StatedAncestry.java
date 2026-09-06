@@ -1,10 +1,17 @@
 package io.github.fiftieshousewife.codesemantics.engine.term;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+
+import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
 /**
  * Where the taxonomy itself puts a term: the chain of concepts it states above one, broadest first.
@@ -24,19 +31,20 @@ public final class StatedAncestry {
 
     private static final String FIRST_STATED = " | ";
 
-    private final java.util.function.UnaryOperator<Optional<String>> lookUp;
+    private final UnaryOperator<Optional<String>> lookUp;
 
-    private final java.util.function.Supplier<List<String>> labels;
+    private final Supplier<List<String>> labels;
 
     private Set<String> fieldLevels;
 
     public StatedAncestry(final TermIndex index) {
         this.lookUp = label -> label.flatMap(index::broaderOf);
         this.labels = () -> index.publishedConcepts().stream()
-                .map(io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::prefLabel).toList();
+                .map(SkosConcept::prefLabel)
+                .toList();
     }
 
-    private StatedAncestry(final java.util.Map<String, String> broaderByLabel) {
+    private StatedAncestry(final Map<String, String> broaderByLabel) {
         this.lookUp = label -> label.map(broaderByLabel::get)
                 .filter(parent -> parent != null && !parent.isBlank())
                 .map(StatedAncestry::firstOf);
@@ -48,10 +56,10 @@ public final class StatedAncestry {
      * publisher's rows. A concept stated beneath several is walked through the first, because a chain is
      * one path and the publisher's own order decides which.
      */
-    public static StatedAncestry over(final java.util.List<io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept> published) {
-        return new StatedAncestry(published.stream().collect(java.util.stream.Collectors.toMap(
-                io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::prefLabel,
-                io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept::broader, (first, later) -> first)));
+    public static StatedAncestry over(final List<SkosConcept> published) {
+        return new StatedAncestry(published.stream()
+                .collect(Collectors.toMap(SkosConcept::prefLabel, SkosConcept::broader,
+                        (first, later) -> first)));
     }
 
     private static String firstOf(final String stated) {
@@ -123,14 +131,14 @@ public final class StatedAncestry {
     Set<String> fieldLevels() {
         if (fieldLevels == null) {
             final List<String> published = labels.get();
-            final java.util.Map<String, Integer> beneath = new java.util.HashMap<>();
+            final Map<String, Integer> beneath = new HashMap<>();
             published.forEach(label -> of(label).stream()
                     .filter(above -> !above.equals(label))
                     .forEach(above -> beneath.merge(above, 1, Integer::sum)));
             fieldLevels = beneath.entrySet().stream()
                     .filter(level -> 2 * level.getValue() > published.size())
-                    .map(java.util.Map.Entry::getKey)
-                    .collect(java.util.stream.Collectors.toUnmodifiableSet());
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toUnmodifiableSet());
         }
         return fieldLevels;
     }

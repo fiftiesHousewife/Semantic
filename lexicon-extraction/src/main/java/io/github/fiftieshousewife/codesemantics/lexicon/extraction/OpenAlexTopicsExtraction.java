@@ -51,7 +51,10 @@ public final class OpenAlexTopicsExtraction {
         this(SET_DIGEST);
     }
 
-    /** The same reading against a snapshot a test builds, so the whole pipeline is exercised and not the refusal alone. */
+    /**
+     * The same reading against a snapshot a test builds, so the whole pipeline is exercised and not the
+     * refusal alone.
+     */
     OpenAlexTopicsExtraction(final String setDigest) {
         this.source = new PinnedSet(SNAPSHOT, "snapshot members", setDigest);
     }

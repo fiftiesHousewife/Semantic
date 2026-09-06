@@ -41,7 +41,8 @@ public enum WordStage {
      * Forms the dictionaries cite for more different things than they mean as a word — {@code buf},
      * {@code ref}, {@code pom}, {@code uri}. The letters do not determine a word.
      */
-    SHORTHAND("Words that are not abbreviations", "forms the dictionaries cite for several different things, such as buf, ref and pom"),
+    SHORTHAND("Words that are not abbreviations",
+            "forms the dictionaries cite for several different things, such as buf, ref and pom"),
 
     /**
      * Words English supplied rather than the author — {@code the}, {@code a}, {@code of}, {@code by}.

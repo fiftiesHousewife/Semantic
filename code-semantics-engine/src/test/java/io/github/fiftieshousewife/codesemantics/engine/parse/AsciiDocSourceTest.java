@@ -51,7 +51,8 @@ class AsciiDocSourceTest {
 
     @Test
     void blanksALiteralBlockAndACommentBlock() {
-        final String text = "prose\n....\nraw output kept from the reading\n....\n////\na hidden note\n////\nmore prose";
+        final String text = "prose\n....\nraw output kept from the reading\n....\n////\na hidden note\n////\n"
+                + "more prose";
         assertThat(lines(text)).containsExactly("prose", "more prose");
     }
 

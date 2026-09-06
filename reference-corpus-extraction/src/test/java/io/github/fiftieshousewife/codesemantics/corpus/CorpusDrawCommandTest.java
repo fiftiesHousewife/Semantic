@@ -126,7 +126,8 @@ class CorpusDrawCommandTest {
                 gone\thttps://github.com/old/gone.git\tdef456\tMIT\t7\t2019-01-01T00:00:00Z\t1
                 """);
         final DrawRequest asked = new DrawRequest(FRAME, UNTIL, 20260821L, 1,
-                directory.resolve("record.json"), false, java.util.Set.of(), java.util.Optional.of(manifest), java.util.OptionalLong.empty());
+                directory.resolve("record.json"), false, java.util.Set.of(),
+                java.util.Optional.of(manifest), java.util.OptionalLong.empty());
 
         CorpusDrawCommand.drew(asked, new Stated(1), PINS);
 

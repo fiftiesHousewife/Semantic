@@ -82,7 +82,7 @@ class ExportedReadingTest {
 
     @Test
     void namesEveryVocabularyItRefusedWithTheBarItFailed() {
-        final List<SetAside.RefusedVocabulary> refused = ExportedReading.refused(
+        final List<SetAside.RefusedVocabulary> refused = JudgedTaxonomies.refused(
                 List.of(judged("FpML", 69, 25), judged("CSO", 17, 16), judged("BIAN", 1, 4)));
 
         assertAll(

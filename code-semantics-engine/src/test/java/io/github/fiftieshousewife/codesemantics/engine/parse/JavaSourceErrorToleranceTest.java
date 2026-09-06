@@ -46,9 +46,11 @@ class JavaSourceErrorToleranceTest {
     @Test
     void recoversNothingFromAnErrorInTheStructureRatherThanInABody() {
         assertAll(
-                () -> assertThat(parser.read(Path.of("Sample.java"), "package a;\nclass Page { void read( { } }\n").occurrences())
+                () -> assertThat(parser.read(Path.of("Sample.java"),
+                        "package a;\nclass Page { void read( { } }\n").occurrences())
                         .isEmpty(),
-                () -> assertThat(parser.read(Path.of("Sample.java"), "package a;\nclass Page { int cursor;\n").occurrences())
+                () -> assertThat(parser.read(Path.of("Sample.java"),
+                        "package a;\nclass Page { int cursor;\n").occurrences())
                         .as("an unclosed type takes its declarations with it")
                         .isEmpty(),
                 () -> assertThat(parser.read(Path.of("Sample.java"), "(((").outcome())

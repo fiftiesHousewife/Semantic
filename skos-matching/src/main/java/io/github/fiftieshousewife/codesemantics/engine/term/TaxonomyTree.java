@@ -15,7 +15,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  * Any SKOS-shaped source as the tree it is, with the concepts a repository writes marked in place.
  *
  * <p>It is general on purpose. Every taxonomy this library bundles is normalised to the same columns —
- * its concept identifier, its preferred label and its broader concept — so one tree serves OLiA, arXiv's subject scheme,
+ * its concept identifier, its preferred label and its broader concept — so one tree serves OLiA,
+ * arXiv's subject scheme,
  * NIST's framework and whatever comes next, and a new source needs an extraction rather than a viewer.
  *
  * <p>The {@code broader} column names a concept rather than pointing at one, which is what a taxonomy

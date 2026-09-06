@@ -2,6 +2,14 @@ package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.util.List;
 
+import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
+import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
+import io.github.fiftieshousewife.codesemantics.engine.reading.UnreadJavaFiles;
+import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
+import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
+import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
+
 /**
  * What the reading measured and the export's three lists omit: a count for each rule that removed
  * something, and a row for each vocabulary the reading judged and refused.
@@ -53,6 +61,26 @@ public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryT
 
     public SetAside {
         vocabulariesBelowTheirChanceBar = List.copyOf(vocabulariesBelowTheirChanceBar);
+    }
+
+    /** Each count taken from the rule that removed what it counts. */
+    static SetAside counted(final ReadingSummary summary, final Vocabulary vocabulary,
+                            final RepositoryLegibility legibility, final CorroboratedReading terms,
+                            final ParsedRepository parsed,
+                            final List<RefusedVocabulary> belowTheirChanceBar,
+                            final int termsWorkingJavaAlsoWrites, final RepositoryReading reading) {
+        final RefusedWords refused = new RefusedWords();
+        return new SetAside(
+                legibility.repository().counts().words() - legibility.repository().counts().read(),
+                refused.in(vocabulary.ranked(), vocabulary.bars()).size(),
+                (int) vocabulary.ranked().stream()
+                        .filter(word -> word.withinTheReferencesError(vocabulary.bars()))
+                        .count(),
+                refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
+                summary.withheld().size(), terms.refusedByBranch(), belowTheirChanceBar,
+                termsWorkingJavaAlsoWrites, parsed.unsoundFiles(),
+                new UnreadJavaFiles().under(reading.root(),
+                        RepositoryReading.scopesUnder(reading.root())));
     }
 
     /**

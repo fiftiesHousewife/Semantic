@@ -45,9 +45,9 @@ final class DomainMasses {
                 .sum());
     }
 
-    static Map<String, Double> claimByDomain(final List<ScoredWord> words,
-                                             final Map<String, List<CountedSenseDomains>> senses,
-                                             final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
+    static Map<String, Double> claimByDomain(
+            final List<ScoredWord> words, final Map<String, List<CountedSenseDomains>> senses,
+            final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
         return words.stream()
                 .flatMap(word -> sharesOf(word, senses.get(word.word()),
                         weightByWord.apply(word.word())).entrySet().stream())

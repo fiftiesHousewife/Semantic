@@ -81,7 +81,8 @@ public final class PhraseMatchedSubjectsProbe {
         System.out.printf("%d topics, %d keywords published%n", topics.size(), keywords.size());
         System.out.printf("expected result: a topic under %s outranks one that is not%n", area);
 
-        final SubjectScorings paths = new SubjectScorings(topics, keywords, PlacedUnder.in(OpenAlexTopics.fromClasspath(), area), area,
+        final SubjectScorings paths = new SubjectScorings(topics, keywords,
+                PlacedUnder.in(OpenAlexTopics.fromClasspath(), area), area,
                 KeywordSpecificity.fromClasspath());
         paths.print("every match", every);
         breadth(paths, every);

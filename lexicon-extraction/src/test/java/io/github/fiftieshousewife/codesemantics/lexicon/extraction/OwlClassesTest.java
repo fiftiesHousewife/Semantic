@@ -53,7 +53,8 @@ class OwlClassesTest {
         final OwlClass noun = owl("CommonNoun");
         assertAll(
                 () -> assertThat(noun.concept()).isEqualTo("http://purl.org/olia/olia.owl#CommonNoun"),
-                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#label")).containsExactly("common noun"),
+                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#label"))
+                        .containsExactly("common noun"),
                 () -> assertThat(noun.broader()).isEqualTo("Noun"));
     }
 
@@ -61,7 +62,8 @@ class OwlClassesTest {
     void readsWhatTheOntologySaysAConceptMeansAndWhereItTookItFrom() {
         final OwlClass noun = owl("CommonNoun");
         assertAll(
-                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#comment")).first(as(STRING)).contains("A noun that is not"),
+                () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#comment"))
+                        .first(as(STRING)).contains("A noun that is not"),
                 () -> assertThat(noun.statedIn("http://www.w3.org/2002/07/owl#versionInfo")).contains("EAGLES"));
     }
 
@@ -72,7 +74,8 @@ class OwlClassesTest {
                 () -> assertThat(noun.statedIn("http://www.w3.org/2000/01/rdf-schema#comment"))
                         .as("a definition stated in the second class element is one the ontology states")
                         .hasSize(2).last(as(STRING)).isEqualTo("Not a proper noun."),
-                () -> assertThat(noun.statedIn("http://www.w3.org/2002/07/owl#versionInfo")).containsExactly("EAGLES", "Santorini 1991"));
+                () -> assertThat(noun.statedIn("http://www.w3.org/2002/07/owl#versionInfo"))
+                        .containsExactly("EAGLES", "Santorini 1991"));
     }
 
     @Test

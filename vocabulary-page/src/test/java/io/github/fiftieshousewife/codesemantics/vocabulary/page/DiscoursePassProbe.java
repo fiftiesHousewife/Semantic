@@ -74,7 +74,8 @@ public final class DiscoursePassProbe {
     /** The words whose leading domain the neighbours change, strongest claims first. */
     private static void flips(final List<ScoredWord> words,
                               final Function<String, List<CountedSenseDomains>> senses,
-                              final Function<String, java.util.function.ToDoubleFunction<CountedSenseDomains>> weights) {
+                              final Function<String,
+                                      java.util.function.ToDoubleFunction<CountedSenseDomains>> weights) {
         final List<String> moved = new java.util.ArrayList<>();
         int covered = 0;
         for (final ScoredWord word : words) {

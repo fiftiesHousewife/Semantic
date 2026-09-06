@@ -90,7 +90,8 @@ class AwkwardRepositoryTest {
 
     @Test
     void readsATreeThatImportsNothingOutsideItself(@TempDir final Path root) throws IOException {
-        sourceFile(root, "Alone.java", "package a; class Alone { int count; void add(int amount) { count += amount; } }");
+        sourceFile(root, "Alone.java",
+                "package a; class Alone { int count; void add(int amount) { count += amount; } }");
 
         final ParsedRepository parsed = parse(root);
 

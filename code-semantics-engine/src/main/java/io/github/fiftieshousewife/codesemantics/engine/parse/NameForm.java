@@ -71,7 +71,10 @@ public enum NameForm {
     /** A line of the repository's own documentation — a README, a plan, a backlog. */
     DOCUMENTATION(Vocabulary.PROSE, Authorship.QUOTED);
 
-    /** Whether a form's words were picked by this repository to name a thing, or stand for something somebody else declared. */
+    /**
+     * Whether a form's words were picked by this repository to name a thing, or stand for something
+     * somebody else declared.
+     */
     private enum Authorship {
         CHOSEN, QUOTED
     }

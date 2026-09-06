@@ -68,7 +68,8 @@ class TaxonomyTreeTest {
 
     @Test
     void namesTheConceptsABranchsClaimRestsOn() {
-        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5, "Verb", 9), TaxonomyTreeTest::asWords);
+        final TaxonomyTree tree = TaxonomyTree.of(TAXONOMY, Map.of("CommonNoun", 5, "Verb", 9),
+                TaxonomyTreeTest::asWords);
 
         assertThat(tree.roots().getFirst().writtenHere()).extracting(TaxonomyTree.Node::label)
                 .containsExactly("Verb", "CommonNoun");
@@ -93,7 +94,8 @@ class TaxonomyTreeTest {
 
     @Test
     void standsAConceptAtItsOwnRootWhereTheSourceDoesNotCarryItsStatedParent() {
-        final TaxonomyTree tree = TaxonomyTree.of(List.of(concept("Orphan", "SomethingImported")), Map.of(), TaxonomyTreeTest::asWords);
+        final TaxonomyTree tree = TaxonomyTree.of(List.of(concept("Orphan", "SomethingImported")),
+                Map.of(), TaxonomyTreeTest::asWords);
 
         assertThat(tree.roots()).extracting(TaxonomyTree.Node::label).containsExactly("Orphan");
     }
