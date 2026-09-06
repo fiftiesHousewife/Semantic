@@ -2,7 +2,6 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,9 +12,8 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
  * Turns the published readings into what the comparison page draws, ordered so the strongest evidence
  * stands first.
  *
- * <p>A reading is ordered by its strongest answer and its answers among themselves by their own strength,
- * because two sources answering one reading are rarely equal evidence and a list that does not order them
- * reads as though they were.
+ * <p>A reading is ordered by its strongest answer and its answers by their own strength: two sources
+ * answering one reading are rarely equal evidence, and an unordered list reads as though they were.
  */
 final class DrawnReadings {
 
@@ -23,9 +21,11 @@ final class DrawnReadings {
 
     private final DrawnSubjects subjects = new DrawnSubjects();
 
+    private final SeparatingSubjects separating = new SeparatingSubjects();
+
     /** Every reading, strongest first, with the vocabularies any of them answered from. */
     DrawnReading.Drawing of(final List<ReadingRow> readings, final StatedAreas stated) {
-        final Set<String> shared = subjects.subjectsAMajorityNames(readings);
+        final Set<String> shared = separating.subjectsAMajorityNames(readings);
         final List<DrawnReading> drawn = readings.stream()
                 .map(reading -> reading(reading, stated, shared))
                 .sorted(Comparator.comparingDouble(DrawnReading::strength).reversed()
@@ -74,7 +74,7 @@ final class DrawnReadings {
                 .sorted(RAREST_BY_CHANCE)
                 .toList();
         return new DrawnReading(reading.repository(), sourceTypeOf(reading),
-                subjects.about(answers, shared), answers, subjects.of(answers), placedIn(reading),
+                separating.about(answers, shared), answers, subjects.of(answers), placedIn(reading),
                 reading.lambda(), area.orElse(null),
                 area.map(named -> stated.reached(reading.repository(), reading.subjects())).orElse(null),
                 reading.vocabulariesBelowTheirChanceBar());
