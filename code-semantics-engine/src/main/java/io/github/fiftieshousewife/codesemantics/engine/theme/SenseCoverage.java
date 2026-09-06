@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Set;
+
 import io.github.fiftieshousewife.codesemantics.lexicon.Lexicon;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
@@ -53,6 +55,19 @@ public final class SenseCoverage {
             return 1.0;
         }
         return Math.min(1.0, Math.max(sensesLabelled(word), headwordClaims(word)) / (double) senses);
+    }
+
+    /**
+     * How much of a phrase's carrying words the resources actually spoke for — the geometric mean of their
+     * sense coverage, zero where nothing carries. It scales what the phrase commits without touching what
+     * it is about, because a label on one sense of six is a weak claim about the word and no claim at all
+     * about which subject is right.
+     */
+    public double of(final Set<String> carrying) {
+        return carrying.isEmpty() ? 0.0 : Math.exp(carrying.stream()
+                .mapToDouble(word -> Math.log(of(word)))
+                .average()
+                .orElse(0.0));
     }
 
     private int sensesLabelled(final String word) {

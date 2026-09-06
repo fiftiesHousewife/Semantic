@@ -15,6 +15,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading
 import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.XwndSenseDomains;
 
 /**
  * Prints both passes of the domain reading for every clone under {@code -Dcs.evaluation.dir}, or for the
@@ -64,9 +65,9 @@ public final class DiscoursePassProbe {
         row("discourse-guided", discourse);
         row("names-around", named);
         row("extended domains", DomainOverlap.of(name, words,
-                WordNetLexicon.fromClasspath()::extendedCountedSenseDomainsOf));
+                XwndSenseDomains.fromClasspath()::countedSenseDomainsOf));
         row("extended weighed", DomainOverlap.of(name, words,
-                WordNetLexicon.fromClasspath()::weighedExtendedCountedSenseDomainsOf));
+                XwndSenseDomains.fromClasspath()::weighedCountedSenseDomainsOf));
         counted(words, senses);
         flips(words, senses, PredominantSenses.weights(words, senses, neighbours));
     }

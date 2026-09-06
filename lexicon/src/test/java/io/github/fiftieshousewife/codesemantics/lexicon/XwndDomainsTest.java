@@ -10,10 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 class XwndDomainsTest {
 
     private final Lexicon lexicon = WordNetLexicon.fromClasspath();
+    private final XwndSenseDomains xwnd = XwndSenseDomains.fromClasspath();
 
     @Test
     void statesOneEntryPerDictionarySense() {
-        assertThat(((WordNetLexicon) lexicon).extendedCountedSenseDomainsOf("bank"))
+        assertThat(xwnd.countedSenseDomainsOf("bank"))
                 .hasSize(lexicon.senseCount("bank"));
     }
 
@@ -24,7 +25,7 @@ class XwndDomainsTest {
                 "packet", "cache", "socket", "parser", "token", "grammar", "verb", "noun", "sentence",
                 "money", "trade", "market", "risk", "signal", "domain");
         final List<CountedSenseDomains> senses = words.stream()
-                .flatMap(word -> ((WordNetLexicon) lexicon).extendedCountedSenseDomainsOf(word).stream())
+                .flatMap(word -> xwnd.countedSenseDomainsOf(word).stream())
                 .toList();
         final long labelled = senses.stream().filter(sense -> !sense.domains().isEmpty()).count();
         final double rate = (double) labelled / senses.size();
@@ -39,14 +40,14 @@ class XwndDomainsTest {
     @Test
     void weighsEachLabelByItsPropagationWeightAgainstTheUniformWeight() {
         final List<CountedSenseDomains> weighed =
-                ((WordNetLexicon) lexicon).weighedExtendedCountedSenseDomainsOf("bank");
+                xwnd.weighedCountedSenseDomainsOf("bank");
 
         assertAll(
                 () -> assertThat(weighed)
                         .extracting(CountedSenseDomains::domains)
                         .as("the labels are the same as the unweighed reading's")
-                        .containsExactlyElementsOf(((WordNetLexicon) lexicon)
-                                .extendedCountedSenseDomainsOf("bank").stream()
+                        .containsExactlyElementsOf(xwnd
+                                .countedSenseDomainsOf("bank").stream()
                                 .map(CountedSenseDomains::domains)
                                 .toList()),
                 () -> assertThat(weighed)

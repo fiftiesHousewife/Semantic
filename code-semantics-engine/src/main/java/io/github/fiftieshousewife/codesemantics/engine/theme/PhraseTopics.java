@@ -1,17 +1,15 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
-import java.util.stream.Collectors;
 
 /**
  * What a <em>phrase</em> is about, read from its words together rather than one at a time.
@@ -34,9 +32,9 @@ import java.util.stream.Collectors;
  *       scored alone.</li>
  * </ul>
  *
- * <p>The reading also carries its {@link Reading#credence()}: how much of its carrying words the resources
- * spoke for at all. A phrase resting on words whose everyday senses were never labelled is a confident
- * reading of very little, and the amount it commits says so where its shares cannot.
+ * <p>The reading also carries its {@link PhraseReading#credence()}: how much of its carrying words the
+ * resources spoke for at all. A phrase resting on words whose everyday senses were never labelled is a
+ * confident reading of very little, and the amount it commits says so where its shares cannot.
  *
  * <p>The shares are normalised, so <b>a phrase commits one unit however long it is</b>. A twenty-word javadoc
  * sentence and a two-word field name are one observation each, which is the same choice the plan makes at
@@ -49,15 +47,7 @@ public final class PhraseTopics {
     private final TopicCommitment commitment;
     private final SenseCoverage coverage;
     private final TopicDistribution prior;
-    private final Set<String> declaredHere;
-    private final String layoutWord;
-
-    /**
-     * The language whose naming conventions this reading may cite. It arrives from the pipeline rather than
-     * being built here, so the one place that states what a convention is states it for every reading.
-     */
-    private final io.github.fiftieshousewife.codesemantics.engine.reading.Dialect dialect =
-            io.github.fiftieshousewife.codesemantics.engine.reading.Dialect.java();
+    private final PhraseGrammar grammar;
 
     public PhraseTopics(final TopicCitations citations, final TopicCommitment commitment,
                         final SenseCoverage coverage) {
@@ -71,8 +61,7 @@ public final class PhraseTopics {
         this.commitment = commitment;
         this.coverage = coverage;
         this.prior = prior;
-        this.declaredHere = declaredHere;
-        this.layoutWord = layoutWord;
+        this.grammar = new PhraseGrammar(citations, declaredHere, layoutWord);
     }
 
     /**
@@ -105,47 +94,12 @@ public final class PhraseTopics {
     }
 
     /**
-     * One phrase's reading: the subjects it is about, which words agreed, how much was spoken for, and the
-     * subjects its words voted for that a rule then removed.
-     *
-     * <p>{@code refused} is the half a reader cannot reconstruct from the rest. A topic absent from
-     * {@code shareByTopic} was either never voted for or was voted for and taken out, and only the reading
-     * itself knows which.
-     */
-    public record Reading(Map<String, Double> shareByTopic, Map<String, Set<String>> agreementByTopic,
-                          double credence, List<RefusedTopic> refused) {
-
-        public Reading {
-            shareByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(shareByTopic));
-            agreementByTopic = Collections.unmodifiableSortedMap(new TreeMap<>(agreementByTopic));
-            refused = List.copyOf(refused);
-        }
-
-        public boolean isEmpty() {
-            return shareByTopic.isEmpty();
-        }
-
-        /**
-         * How much of a single subject the phrase settled on, in {@code (0, 1]} — Simpson's index over its
-         * own shares. A phrase whose words agree on one thing is worth a whole unit; one that could not
-         * decide between four is worth a quarter, and says so by committing less rather than by committing
-         * the same amount more vaguely. It is the same rule a single word obeys, applied where the reading
-         * now actually happens.
-         */
-        public double coherence() {
-            return shareByTopic.values().stream().mapToDouble(share -> share * share).sum();
-        }
-    }
-
-    private static final Reading NOTHING = new Reading(Map.of(), Map.of(), 0.0, List.of());
-
-    /**
      * What the phrase is about, as a distribution summing to one over the subjects its words agree on.
      *
      * @param words        the phrase's words, already offered in their dictionary form
      * @param weightByWord what each word is worth on its own — how much it narrows a subject at all
      */
-    public Reading of(final List<String> words, final Map<String, Double> weightByWord) {
+    public PhraseReading of(final List<String> words, final Map<String, Double> weightByWord) {
         return of(words, weightByWord, citations::of);
     }
 
@@ -154,55 +108,24 @@ public final class PhraseTopics {
      *
      * @param form where the phrase was written, which is what says how each of its words is being used
      */
-    public Reading of(final List<String> words, final Map<String, Double> weightByWord,
-                      final NameForm form) {
-        return of(words, weightByWord, reading(form, words));
+    public PhraseReading of(final List<String> words, final Map<String, Double> weightByWord,
+                            final NameForm form) {
+        return of(words, weightByWord, grammar.citing(form, words));
     }
 
-    /**
-     * How each word of a phrase in this position is to be read. An identifier is a noun phrase, so its words
-     * are nouns; a method name is a clause, so its first word is what the method does; a sentence is neither,
-     * so the corpus's own counts decide. It is grammar read off the parse, which is what makes it permitted
-     * where a list of words would not be.
-     */
-    private java.util.function.Function<String, List<TopicVote>> reading(final NameForm form,
-                                                                        final List<String> words) {
-        if (form.isProse()) {
-            return word -> declaredHere.contains(word) ? citations.of(word) : citations.inProse(word);
-        }
-        final boolean accessor = form == NameForm.METHOD && dialect.namesAConvention(words);
-        final Set<String> verbs = form == NameForm.METHOD && !accessor ? Set.of(words.getFirst()) : Set.of();
-        final String prefix = accessor ? words.getFirst() : "";
-        final String head = words.getLast();
-        return word -> {
-            if (word.equals(prefix) || word.equals(layoutWord)) {
-                return List.of();
-            }
-            if (verbs.contains(word)) {
-                return citations.ofVerb(word);
-            }
-            return word.equals(head) ? citations.of(word) : citations.inProse(word);
-        };
-    }
-
-    private Reading of(final List<String> words, final Map<String, Double> weightByWord,
-                       final java.util.function.Function<String, List<TopicVote>> cite) {
+    private PhraseReading of(final List<String> words, final Map<String, Double> weightByWord,
+                             final Function<String, List<TopicVote>> cite) {
         if (words.isEmpty()) {
-            return NOTHING;
+            return PhraseReading.NOTHING;
         }
-        final Map<String, Map<String, Double>> commitments = words.stream().distinct()
-                .collect(Collectors.toMap(word -> word, word -> commitment.of(cite.apply(word)),
-                        (first, again) -> first, LinkedHashMap::new));
+        final WordCommitments commitments = new WordCommitments(words, cite, commitment);
         final Map<String, Double> scores = new TreeMap<>();
         final Map<String, Set<String>> agreement = new TreeMap<>();
         final List<RefusedTopic> refused = new ArrayList<>();
-        final long inPhrase = words.stream().distinct().count();
-        topicsIn(commitments).forEach(topic -> {
-            final Set<String> agreeing = words.stream().distinct()
-                    .filter(word -> commitments.get(word).containsKey(topic))
-                    .collect(Collectors.toCollection(LinkedHashSet::new));
-            final TopicScore score = new TopicScore(agreed(agreeing, topic, commitments, weightByWord),
-                    agreeing.size(), inPhrase, expectedIn(topic));
+        commitments.topics().forEach(topic -> {
+            final Set<String> agreeing = commitments.agreeing(topic);
+            final TopicScore score = new TopicScore(commitments.agreed(agreeing, topic, weightByWord),
+                    agreeing.size(), commitments.words(), expectedIn(topic));
             if (score.stands()) {
                 scores.put(topic, score.value());
                 agreement.put(topic, agreeing);
@@ -210,54 +133,18 @@ public final class PhraseTopics {
             }
             score.refusals().forEach(rule -> refused.add(new RefusedTopic(topic, rule)));
         });
-        return scores.isEmpty() ? new Reading(Map.of(), Map.of(), 0.0, refused)
-                : new Reading(normalised(scores), agreement, credenceOf(agreement.values().stream()
-                        .flatMap(Set::stream).collect(Collectors.toCollection(TreeSet::new))), refused);
+        if (scores.isEmpty()) {
+            return new PhraseReading(Map.of(), Map.of(), 0.0, refused);
+        }
+        final Set<String> carrying = agreement.values().stream()
+                .flatMap(Set::stream)
+                .collect(Collectors.toCollection(TreeSet::new));
+        return PhraseReading.normalised(scores, agreement, coverage.of(carrying), refused);
     }
 
-    /**
-     * How much the file this phrase sits in is already about the topic, as a factor bounded in
-     * {@code [1, 2]} by what a share is. Context promotes and never removes: a topic the file holds a third
-     * of is worth a third more, and a topic the file has not reached is left exactly as the phrase read it.
-     */
+    /** The prior's promotion factor, in {@code [1, 2]} by what a share is — {@link #under} states the rule. */
     private double expectedIn(final String topic) {
         return prior.isEmpty() ? 1.0 : 1.0 + prior.shareOf(topic);
     }
 
-    /**
-     * How much of the phrase's carrying words the resources actually spoke for — the geometric mean of their
-     * sense coverage. It scales what the phrase commits without touching what it is about, because a label
-     * on one sense of six is a weak claim about the word and no claim at all about which subject is right.
-     */
-    private double credenceOf(final Set<String> carrying) {
-        return carrying.isEmpty() ? 0.0 : Math.exp(carrying.stream()
-                .mapToDouble(word -> Math.log(coverage.of(word)))
-                .average()
-                .orElse(0.0));
-    }
-
-    /** The geometric mean of what the agreeing words committed, each weighted by what it is worth. */
-    private static double agreed(final Set<String> agreeing, final String topic,
-                                 final Map<String, Map<String, Double>> commitments,
-                                 final Map<String, Double> weightByWord) {
-        return Math.exp(agreeing.stream()
-                .mapToDouble(word -> Math.log(commitments.get(word).get(topic)
-                        * weightByWord.getOrDefault(word, 1.0)))
-                .average()
-                .orElse(Double.NEGATIVE_INFINITY));
-    }
-
-    /** Every topic a word of the phrase voted for, in their own alphabetical order. */
-    private static Set<String> topicsIn(final Map<String, Map<String, Double>> commitments) {
-        return commitments.values().stream()
-                .flatMap(topics -> topics.keySet().stream())
-                .collect(Collectors.toCollection(TreeSet::new));
-    }
-
-    private static Map<String, Double> normalised(final Map<String, Double> scores) {
-        final double total = scores.values().stream().mapToDouble(Double::doubleValue).sum();
-        return scores.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, score -> score.getValue() / total,
-                        (first, again) -> first, TreeMap::new));
-    }
 }

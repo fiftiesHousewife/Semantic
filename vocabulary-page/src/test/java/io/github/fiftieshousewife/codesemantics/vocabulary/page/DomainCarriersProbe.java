@@ -10,6 +10,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.CloneUnderReading
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.XwndSenseDomains;
 
 /**
  * Prints, for one clone and each domain source, the leading domains with the words that carry them — each
@@ -31,8 +32,8 @@ public final class DomainCarriersProbe {
         System.out.printf("%s — %d significant words%n",
                 reading.root().getFileName(), words.size());
         carriers("the bundled lift", words, lexicon::countedSenseDomainsOf);
-        carriers("extended domains", words, lexicon::extendedCountedSenseDomainsOf);
-        carriers("extended weighed", words, lexicon::weighedExtendedCountedSenseDomainsOf);
+        carriers("extended domains", words, XwndSenseDomains.fromClasspath()::countedSenseDomainsOf);
+        carriers("extended weighed", words, XwndSenseDomains.fromClasspath()::weighedCountedSenseDomainsOf);
     }
 
     static void carriers(final String source, final List<ScoredWord> words,

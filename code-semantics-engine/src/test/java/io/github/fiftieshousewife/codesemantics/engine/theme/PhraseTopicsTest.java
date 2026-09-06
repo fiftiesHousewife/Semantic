@@ -23,7 +23,7 @@ class PhraseTopicsTest {
 
     @Test
     void aWordSpellingTheSourceSetVotesNothing() {
-        final PhraseTopics.Reading scoped = topics.under(TopicDistribution.NOTHING, Set.of(), "test")
+        final PhraseReading scoped = topics.under(TopicDistribution.NOTHING, Set.of(), "test")
                 .of(List.of("test", "parser"), FULL_WEIGHT, NameForm.TYPE);
 
         assertAll(
@@ -36,10 +36,10 @@ class PhraseTopicsTest {
 
     @Test
     void promotesTheTopicTheFileIsAboutAndKeepsEveryOtherOneTheWordsNamed() {
-        final PhraseTopics.Reading unconditioned = topics.of(AMBIGUOUS, ONE_WORD, NameForm.TYPE);
+        final PhraseReading unconditioned = topics.of(AMBIGUOUS, ONE_WORD, NameForm.TYPE);
         final String read = unconditioned.shareByTopic().keySet().stream().sorted().findFirst().orElseThrow();
 
-        final PhraseTopics.Reading conditioned = topics
+        final PhraseReading conditioned = topics
                 .under(TopicDistribution.of(Map.of(read, 1.0), 0.0), Set.of(), "")
                 .of(AMBIGUOUS, ONE_WORD, NameForm.TYPE);
 
@@ -61,7 +61,7 @@ class PhraseTopicsTest {
 
     @Test
     void theSameWordVotesWhereItDoesNotSpellTheSourceSet() {
-        final PhraseTopics.Reading unscoped =
+        final PhraseReading unscoped =
                 topics.of(List.of("test", "parser"), FULL_WEIGHT, NameForm.TYPE);
 
         assertThat(unscoped.agreementByTopic().values().stream().flatMap(Set::stream))

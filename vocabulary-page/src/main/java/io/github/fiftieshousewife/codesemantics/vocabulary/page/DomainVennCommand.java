@@ -22,6 +22,7 @@ import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.XwndSenseDomains;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -101,7 +102,7 @@ public final class DomainVennCommand {
         bySource.put("WordNet Domains",
                 DomainOverlap.of(repository, words, lexicon::countedSenseDomainsOf));
         bySource.put("eXtended WordNet Domains",
-                DomainOverlap.of(repository, words, lexicon::extendedCountedSenseDomainsOf));
+                DomainOverlap.of(repository, words, XwndSenseDomains.fromClasspath()::countedSenseDomainsOf));
         subjectSources(corroborated).forEach((path, senses) ->
                 bySource.put(path, DomainOverlap.of(repository, words, senses)));
         return bySource;

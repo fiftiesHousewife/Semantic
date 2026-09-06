@@ -103,7 +103,7 @@ public final class TopicTally {
         lemmas.forEach(lemma -> workings.sightings().saw(lemma, site, form.isChosenName()));
         final Map<String, Double> worthByWord = worthOf(form, lemmas);
         final double worth = offered.formWorth(form) * weight * mostNarrowing(worthByWord);
-        final PhraseTopics.Reading reading = phrases.of(lemmas, worthByWord, form);
+        final PhraseReading reading = phrases.of(lemmas, worthByWord, form);
         refused(reading, run, site);
         if (reading.isEmpty()) {
             workings.unread().record(UnreadReason.NO_RESOURCE_STATED_A_TOPIC, run, site);
@@ -139,7 +139,7 @@ public final class TopicTally {
      * Kept for the same reason the witnesses are: a reading stating only what it admitted cannot be asked
      * why a subject the words plainly name is absent from it.
      */
-    private void refused(final PhraseTopics.Reading reading, final String phrase, final String site) {
+    private void refused(final PhraseReading reading, final String phrase, final String site) {
         reading.refused().forEach(refused ->
                 workings.refused().record(refused.rule(), refused.topic(), phrase, site));
     }
