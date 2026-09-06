@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "ded6bd0acff01b033e732d23f17dce68ee0ac303",
-  "commit" : "d653ad7171cddaac77450b76e2a8854d8c582ee3",
+  "previousCommit" : "d653ad7171cddaac77450b76e2a8854d8c582ee3",
+  "commit" : "f215be4d5339f9fe688b3496cafc6d6cef9a74eb",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
     "after" : "98.1%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.5%",
+    "before" : "84.4%",
     "after" : "84.4%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -20,7 +20,7 @@
   }, {
     "figure" : "arXiv archive — chance reaches",
     "before" : "41.1%",
-    "after" : "41.1%"
+    "after" : "41.2%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
@@ -40,7 +40,7 @@
   }, {
     "figure" : "arXiv category — chance reaches",
     "before" : "45.4%",
-    "after" : "45.4%"
+    "after" : "45.5%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -75,8 +75,8 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "42.2%",
-    "after" : "42.3%"
+    "before" : "42.3%",
+    "after" : "42.2%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
     "before" : "49.5%",
@@ -96,7 +96,7 @@
   }, {
     "figure" : "CSO archive — divergence",
     "before" : "19.9%",
-    "after" : "19.9%"
+    "after" : "19.8%"
   }, {
     "figure" : "CSO archive — chance reaches",
     "before" : "27.2%",
@@ -120,7 +120,7 @@
   }, {
     "figure" : "CSO category — chance reaches",
     "before" : "29.0%",
-    "after" : "29.0%"
+    "after" : "28.9%"
   }, {
     "figure" : "CSO category — stands apart from chance",
     "before" : "yes",
@@ -132,15 +132,31 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "282",
-    "after" : "282"
+    "after" : "284"
   }, {
     "figure" : "Topics reported",
-    "before" : "10",
+    "before" : "9",
     "after" : "9"
   }, {
     "figure" : "Concepts written",
     "before" : "170",
     "after" : "170"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "carrying",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "layout",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "net",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "children",
+    "entered" : false
+  } ]
 }
