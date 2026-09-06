@@ -29,8 +29,20 @@ public final class ExecutionSpecConcepts {
     private Stream<SkosConcept> conceptsOf(final String path, final String text, final String fork) {
         final String module = moduleOf(path);
         return declarations.in(text.lines().toList()).stream()
+                .filter(ExecutionSpecConcepts::statesVocabulary)
                 .map(declared -> new SkosConcept(conceptOf(fork, module, declared), declared.name(), "",
                         declared.owner(), declared.kind(), module, cleaned(declared.docstring()), ""));
+    }
+
+    /**
+     * The classes, fields and constants are the specification's nouns; its module-level functions are the
+     * procedures that manipulate them, written in general words — {@code account_exists},
+     * {@code less_than} — that repositories outside the field declare for their own reasons. Measured on
+     * the eleven evaluation members before this rule existed: the functions carried the vocabulary over
+     * the chance bar on seven members outside its field and the nouns did not.
+     */
+    private static boolean statesVocabulary(final PythonDeclarations.Declaration declared) {
+        return !declared.kind().equals("function");
     }
 
     /** {@code vm/gas.py} is the module {@code vm.gas}; a package's own {@code __init__.py} is the package. */

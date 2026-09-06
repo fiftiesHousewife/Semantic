@@ -38,12 +38,11 @@ class ExecutionSpecConceptsTest {
     }
 
     @Test
-    void statesTheSpecificationsOwnReferencePathAsTheConcept() {
+    void statesTheSpecificationsOwnReferencePathAsTheConceptAndRefusesAFunction() {
         assertThat(read()).extracting(SkosConcept::concept)
                 .containsExactly(
                         "ethereum.forks.bpo2.blocks.Withdrawal",
-                        "ethereum.forks.bpo2.blocks.Withdrawal.validator_index",
-                        "ethereum.forks.bpo2.vm.gas.calculate_blob_gas_price");
+                        "ethereum.forks.bpo2.blocks.Withdrawal.validator_index");
     }
 
     @Test

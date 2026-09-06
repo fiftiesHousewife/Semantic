@@ -110,6 +110,25 @@ Both were extracted through the bundled machinery and judged unbundled, by `phra
 
 **execution-specs separates its own field by more than any bundled vocabulary separates any member — and fails the silence control raw.** besu writes 163 of its phrases against a chance-expected 26. On the settle counts: `blockchain` 624, `gas` and `nonce` are stated, and `evm` 122, `receipt` 87, `withdrawals` 77 and `ommers` 55 leave besu's unread tail with them; `frame` 791 and `tx` 304 are not stated — the specification writes `transaction` in full and has no frame. But the raw labels also clear the bar on seven of the ten members outside the field, and the leak has a name: the specification writes its state and comparison helpers in general words — `account`, `balance`, `amount`, `account_exists`, `less_than`, `greater_than` — and a banking platform declares exactly those. The termhood narrowing refuses 456 of the 647 terms and ends the leak on every member while keeping besu above its bar at 2 phrases against 0 (strata stands at 1 against 0 beside it). **Do not bundle as extracted.** The next measurement is stated: an extraction rule that keeps the classes, fields and constants and drops the module-level functions — the helpers are all functions, the distinctive vocabulary (`base_fee_per_gas`, `SetCodeTransaction`, the opcode mnemonics) is not — rerun over the same eleven members.
 
+### The stated second variant was measured the same day, and it fails the same control
+
+Dropping the module-level functions takes the vocabulary to 612 rows — classes, fields and constants, the opcode mnemonics kept — and was rerun on the eight members with a non-zero count (a removed term cannot raise a count of zero, so the three silent members stay silent by arithmetic).
+
+| Member | nouns only | narrowed |
+|---|---|---|
+| besu | **118 / 18 — 6.6×, clears** | 2 / 0, clears |
+| jpos | 5 / 2 — 2.5×, clears | 0 |
+| fineract | 11 / 6 — 1.8×, clears | 0 |
+| aeron | 5 / 3 — 1.7×, clears | 0 |
+| strata | 3 / 2 — 1.5×, clears | 1 / 0, clears |
+| tika | 4 / 4 | 0 |
+| maven | 2 / 2 | 0 |
+| quickfixj | 1 / 1 | 0 |
+
+besu's separation widens without the functions, and the leak halves without dying. The residue is named, by `injectedTermMatch` over the two worst controls: fineract writes `transaction type` 397 times, and `account write`, `create account`, `new account`, `transaction state`, `legacy transaction` and `access list` beside it; jpos writes `time stamp`, `transaction type`, `validator index` and `stack overflow error` — the last colliding with the platform's own class name. Every one is a label the specification genuinely states, and every one is a noun any transaction system writes. No structural rule separates `transaction_type` from `base_fee_per_gas`; the distinction is what the words mean, and that is the job of the field's shared bar, not of an extraction.
+
+**The candidate is refused as extracted, in both variants.** One reading is recorded without being argued from: over the terms the reference corpus does not show working Java writing — the basis the export publishes its judgement on — the nouns-only vocabulary separates besu at 2 phrases against 0 and touches nothing else but a single phrase on strata. A proposal to enter it on that basis would repeat the FIX and FpML pattern of arguing a vocabulary past its control, and the rule those refusals set stands: do not re-propose without a mechanism that predicts the behaviour.
+
 The CSRC glossary and the IANA JOSE registries are fetched and unmeasured.
 
 ## What to build, in order

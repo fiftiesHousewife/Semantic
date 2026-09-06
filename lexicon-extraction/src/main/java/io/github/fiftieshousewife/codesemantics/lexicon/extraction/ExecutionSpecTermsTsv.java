@@ -25,7 +25,7 @@ public class ExecutionSpecTermsTsv {
         return """
                 # The Ethereum execution-layer specification, as the terms a program working on a
                 # distributed ledger actually writes. The specification is executable Python, and its
-                # declared names are its vocabulary: base_fee_per_gas, validate_header, SetCodeTransaction,
+                # declared nouns are its vocabulary: base_fee_per_gas, SetCodeTransaction, excess_blob_gas,
                 # the EVM's own opcode mnemonics. Most read as phrases of more than one word, which is what
                 # a repository outside the domain does not hit by accident. Each concept is the dotted
                 # reference path the specification's own docstrings cite.
@@ -34,10 +34,12 @@ public class ExecutionSpecTermsTsv {
                 + "# Columns: " + SkosTsv.COLUMNS + ".\n"
                 + """
                 # prefLabel is the declared name as the specification writes it. kind is what the module
-                # states it as: class, function, field or constant. broader is the class holding a field or
+                # states it as: class, field or constant. broader is the class holding a field or
                 # constant, blank at module level. module is the file's dotted path inside the fork.
                 # definition is the first paragraph of the declaration's own docstring. NOT CARRIED, and
-                # said outright: methods — the specification's classes are data declarations and their few
+                # said outright: functions and methods — the specification's functions are the procedures
+                # that manipulate its nouns, written in general words (account_exists, less_than) that
+                # repositories outside the field declare for their own reasons, and its classes' few
                 # methods are machinery; names beginning with an underscore, the language's own convention
                 # for a private name; and every other fork package, because each fork restates the whole
                 # specification and one statement of it is the vocabulary.
