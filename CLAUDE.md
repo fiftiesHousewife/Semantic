@@ -159,7 +159,7 @@ This library's claims are measurements. A change that cannot be shown to move a 
 1. `./gradlew cleanTest checkAll` — **a cached `BUILD SUCCESSFUL` reads exactly like a real green.** Run `cleanTest` before trusting one.
 2. Gate on the actual `BUILD SUCCESSFUL` log line, not a background exit code.
 3. Never run Gradle concurrently with another Gradle invocation, and never pipe Gradle through `tail`.
-4. If the change adds, removes or renames a Java file — or changes how a name is read — run `./gradlew read`, then land the regenerated figures in a follow-up commit that touches no Java.
+4. Regenerate the reading once per push, never per commit: if any unpushed commit adds, removes or renames a Java file — or changes how a name is read — run `./gradlew read` immediately before the push and land the regenerated figures in a follow-up commit that touches no Java.
 5. **Never `git push` without explicit instruction.**
 
 ---

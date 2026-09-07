@@ -46,6 +46,12 @@ tasks.test {
             excludeTags("generate", "diagnostic", "pinned", "backtest")
         }
     }
+    // A tagged run reads the repository tree as its corpus, and the tree is not a declared input, so a
+    // cached result can be stale against a change the cache key never saw — a markdown file, another
+    // module's source. The default run reads only its declared classpath and stays cacheable.
+    outputs.doNotCacheIf("a tagged run reads the repository tree, which is not a declared input") {
+        System.getProperty("include.tags") != null
+    }
     // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM
     // otherwise), so a diagnostic can be pointed at a clone of the caller's choosing.
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }

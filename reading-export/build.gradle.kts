@@ -271,6 +271,7 @@ tasks.register<Test>("read") {
         includeTags(if (System.getProperty("cs.clone.dir") == null) "diagnostic | pinned" else "diagnostic")
     }
     outputs.upToDateWhen { false }
+    outputs.doNotCacheIf("reads a repository tree, which is not a declared input") { true }
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
@@ -360,6 +361,7 @@ val memberReadings = evaluationMembers.map { member ->
         maxHeapSize = "3g"
         useJUnitPlatform { includeTags("diagnostic") }
         outputs.upToDateWhen { false }
+        outputs.doNotCacheIf("reads a repository tree, which is not a declared input") { true }
         testLogging.showStandardStreams = true
         systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
         evaluationDirectory?.let { systemProperty("cs.clone.dir", "$it/$member") }
@@ -384,6 +386,7 @@ tasks.register<Test>("evaluationFetch") {
     maxHeapSize = "3g"
     useJUnitPlatform { includeTags("backtest") }
     outputs.upToDateWhen { false }
+    outputs.doNotCacheIf("reads a repository tree, which is not a declared input") { true }
     testLogging.showStandardStreams = true
     evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
 }
