@@ -36,6 +36,28 @@ tasks.withType<JavaCompile> {
     options.compilerArgs.addAll(listOf("-Xlint:all", "-Xlint:-processing", "-Werror"))
 }
 
+// The 150-line target is a convention a review holds; 200 is the bound the build refuses. A class that
+// long is holding more than one responsibility, and the fix is a split by responsibility, not a reformat.
+val longestMainClass = 200
+val classLength = tasks.register("classLength") {
+    description = "Fails where a file under src/main/java exceeds $longestMainClass lines"
+    group = "verification"
+    val sources = fileTree(layout.projectDirectory.dir("src/main/java")) { include("**/*.java") }
+    inputs.files(sources).withPropertyName("mainSources")
+    val root = projectDir
+    doLast {
+        val over = sources.files
+            .map { file -> file to file.readLines().size }
+            .filter { (_, lines) -> lines > longestMainClass }
+            .sortedByDescending { (_, lines) -> lines }
+        if (over.isNotEmpty()) {
+            val named = over.joinToString("\n") { (file, lines) -> "  $lines ${file.relativeTo(root)}" }
+            throw GradleException(
+                "A file under src/main/java is over $longestMainClass lines; split it by responsibility:\n$named")
+        }
+    }
+}
+
 tasks.test {
     maxHeapSize = "1g"
     useJUnitPlatform {
@@ -99,4 +121,5 @@ tasks.named<org.gradle.testing.jacoco.tasks.JacocoCoverageVerification>("jacocoT
 
 tasks.check {
     dependsOn(tasks.named("jacocoTestCoverageVerification"))
+    dependsOn(classLength)
 }

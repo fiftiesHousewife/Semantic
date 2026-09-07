@@ -8,7 +8,7 @@ Consumer counts are files outside `code-semantics-api` importing the class, over
 
 | Package | Classes | Consumed | Dead |
 |---|---|---|---|
-| `name` | `Tokeniser`, `WordSegmenter`, `WordRanks`, `WholeWords`, `CitedTokens`, `PieceCost`, `CompoundParses`, `WordMorphology` | `WordRanks` 10, `WordSegmenter` 8, `Tokeniser` 2, `WholeWords` 2, `CitedTokens` 1; `PieceCost` and `CompoundParses` are `WordSegmenter`'s own | `WordMorphology` — 0 external consumers, and its prefix list has no citation (backlog row 6) |
+| `name` | `Tokeniser`, `WordSegmenter`, `WordRanks`, `WholeWords`, `CitedTokens`, `PieceCost`, `CompoundParses`, `WordMorphology` | `WordRanks` 10, `WordSegmenter` 8, `Tokeniser` 2, `WholeWords` 2, `CitedTokens` 1; `PieceCost` and `CompoundParses` are `WordSegmenter`'s own | `WordMorphology` — 0 external consumers, and its prefix list has no citation (backlog row 5) |
 | `model` | `EvidenceSource`, `EvidenceSourceType`, `PooledLogOdds`, `AxisVote`, `AxisResolution` | `EvidenceSource` 29, the rest 1–2 each | none |
 | `repository` | `SourceAnchor`, `BlobOrigin`, `BlobOriginVote`, `RepositoryFacts`, `PullRequestFacts` | `SourceAnchor` 4, `BlobOrigin` 3, `BlobOriginVote` 2, `RepositoryFacts` 1 | `PullRequestFacts` — referenced only by `RepositoryFacts` |
 | `symbol` | `SymbolPipelineStage`, `SymbolContext`, `SymbolKind` | 0 | the whole package |
@@ -20,7 +20,7 @@ Two structural facts decide the shape of the fix. Only `code-semantics-engine` d
 
 Delete `symbol/`, `concept/` and `PullRequestFacts`, with their tests. They are the contracts of the concept and behaviour paths the plans abandoned — [`ONE_ANSWER.md`](ONE_ANSWER.md) settled the reading on the vocabulary alone — and they are what backlog row 46 names: a class nobody calls that still reads as a promise.
 
-`WordMorphology` is deleted here too if step 1's own grep confirms nothing reaches it but its test; if anything does, it stays for row 6 to settle by measurement.
+`WordMorphology` is deleted here too if step 1's own grep confirms nothing reaches it but its test; if anything does, it stays for row 5 to settle by measurement.
 
 **Settled by**: a grep over every module's `src` finding no reference, and `cleanTest checkAll` green. No reading figure is an argument either way — nothing calls these classes — but the deletion changes this repository's own corpus, so the self reading is regenerated (step 3).
 
