@@ -3,12 +3,9 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 
@@ -115,28 +112,14 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                                         final Function<String, List<CountedSenseDomains>> senses,
                                         final Function<String, ToDoubleFunction<CountedSenseDomains>> weightByWord) {
         final Map<String, List<CountedSenseDomains>> sensesByWord = sensesByWord(words, senses);
-        final Map<String, Set<String>> statedByWord = words.stream()
-                .collect(Collectors.toMap(ScoredWord::word,
-                        word -> statedIn(sensesByWord.get(word.word()))));
         final Map<String, Double> claimByDomain =
                 DomainMasses.claimByDomain(words, sensesByWord, weightByWord);
         final List<Drawn> drawn = leading(claimByDomain);
         final List<String> names = drawn.stream().map(Drawn::domain).toList();
-        return new DomainOverlap(repository, drawn, regions(words, statedByWord, sensesByWord, names),
-                leftOut(claimByDomain, names), words.size(),
-                (int) words.stream()
-                        .filter(word -> !statedByWord.get(word.word()).isEmpty())
-                        .filter(word -> within(statedByWord.get(word.word()), names).isEmpty())
-                        .count(),
-                (int) words.stream().filter(word -> statedByWord.get(word.word()).isEmpty()).count(),
+        final OverlapRegions regions = new OverlapRegions(words, sensesByWord, names);
+        return new DomainOverlap(repository, drawn, regions.regions(), leftOut(claimByDomain, names),
+                words.size(), regions.wordsInOtherDomainsOnly(), regions.wordsWithoutALabelledSense(),
                 DomainMasses.unlabelledShare(words, sensesByWord, weightByWord));
-    }
-
-    /** Every domain any sense of the word states, in one alphabetical set. */
-    private static Set<String> statedIn(final List<CountedSenseDomains> senses) {
-        return senses.stream()
-                .flatMap(sense -> sense.domains().stream())
-                .collect(Collectors.toCollection(TreeSet::new));
     }
 
     private static List<Drawn> leading(final Map<String, Double> claimByDomain) {
@@ -145,65 +128,6 @@ public record DomainOverlap(String repository, List<Drawn> domains, List<Region>
                         .thenComparing(Map.Entry::getKey))
                 .limit(DOMAINS_DRAWN)
                 .map(entry -> new Drawn(entry.getKey(), entry.getValue()))
-                .toList();
-    }
-
-    /** The seven possible overlaps in a fixed order, kept even where empty so the picture can say so. */
-    private static List<Region> regions(final List<ScoredWord> words,
-                                        final Map<String, Set<String>> statedByWord,
-                                        final Map<String, List<CountedSenseDomains>> sensesByWord,
-                                        final List<String> drawn) {
-        final Map<List<Integer>, List<Placed>> placed = words.stream()
-                .filter(word -> !within(statedByWord.get(word.word()), drawn).isEmpty())
-                .collect(Collectors.groupingBy(word -> within(statedByWord.get(word.word()), drawn),
-                        Collectors.mapping(word -> placed(word, statedByWord,
-                                sensesByWord.get(word.word()), drawn), Collectors.toList())));
-        return overlapsOf(drawn.size()).stream()
-                .map(overlap -> new Region(overlap, ranked(placed.getOrDefault(overlap, List.of()))))
-                .toList();
-    }
-
-    private static Placed placed(final ScoredWord word, final Map<String, Set<String>> statedByWord,
-                                 final List<CountedSenseDomains> senses, final List<String> drawn) {
-        return new Placed(word.word(), word.claim(), statedByWord.get(word.word()).size() == 1,
-                placingLabels(senses, drawn));
-    }
-
-    /** The placing labels of the senses stating a drawn domain, distinct, in the publisher's sense order. */
-    private static List<String> placingLabels(final List<CountedSenseDomains> senses,
-                                              final List<String> drawn) {
-        return senses.stream()
-                .filter(sense -> sense.domains().stream().anyMatch(drawn::contains))
-                .flatMap(sense -> sense.placingLabels().stream())
-                .distinct()
-                .toList();
-    }
-
-    private static List<Placed> ranked(final List<Placed> words) {
-        return words.stream()
-                .sorted(Comparator.comparingDouble(Placed::claim).reversed()
-                        .thenComparing(Placed::word))
-                .toList();
-    }
-
-    /** The drawn domains this word's senses state, as indices into the drawn list. */
-    private static List<Integer> within(final Set<String> stated, final List<String> drawn) {
-        return IntStream.range(0, drawn.size())
-                .filter(index -> stated.contains(drawn.get(index)))
-                .boxed()
-                .toList();
-    }
-
-    /** Every non-empty subset of the drawn domains, singletons first, then pairs, then all three. */
-    private static List<List<Integer>> overlapsOf(final int drawn) {
-        return IntStream.range(1, 1 << drawn)
-                .boxed()
-                .map(bits -> IntStream.range(0, drawn)
-                        .filter(index -> (bits & (1 << index)) != 0)
-                        .boxed()
-                        .toList())
-                .sorted(Comparator.comparingInt((List<Integer> overlap) -> overlap.size())
-                        .thenComparing(List::toString))
                 .toList();
     }
 
