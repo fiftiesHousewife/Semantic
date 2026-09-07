@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "495673e910b2ab277eba2e0fdd28f9c223f56b97",
-  "commit" : "a4e306e32a88176c61ef64aeb6326b41966fbdca",
+  "previousCommit" : "a4e306e32a88176c61ef64aeb6326b41966fbdca",
+  "commit" : "c2a6e506919b7103896b2f31944dd9aa3edb592f",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -20,7 +20,7 @@
   }, {
     "figure" : "arXiv archive — chance reaches",
     "before" : "41.1%",
-    "after" : "41.1%"
+    "after" : "41.2%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
     "before" : "yes",
