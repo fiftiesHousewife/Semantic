@@ -2,7 +2,7 @@
   "schemaVersion" : "26.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "796663aa7a99154b9fe6d321117c404dae519435",
+    "commit" : "d6fa98674d99080cf47fc195d42e37c17e41a809",
     "answers" : [ {
       "sourceType" : "taxonomy",
       "source" : "OLiA",
@@ -24,17 +24,17 @@
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.3317290750913415,
-        "nearestByChanceBits" : 0.41170275179924737,
+        "divergenceBits" : 0.3318446832630553,
+        "nearestByChanceBits" : 0.41179195962015586,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.09524941564767571,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -64,7 +64,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -94,7 +94,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -124,7 +124,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.04901525475488,
+          "shareOfRepository" : 0.048980027920052835,
           "shareOfSubject" : 0.04201125461161316,
           "carriedBy" : [ {
             "word" : "folder",
@@ -158,8 +158,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 911,
-            "mass" : 11.994299604999128,
+            "occurrences" : 912,
+            "mass" : 11.994124256515986,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -189,7 +189,7 @@
           }, {
             "word" : "git",
             "occurrences" : 59,
-            "mass" : 8.156085350294946,
+            "mass" : 8.156085302147245,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is not a git read",
@@ -219,12 +219,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.057965321576252955,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -254,7 +254,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -314,12 +314,12 @@
           } ]
         }, {
           "topic" : "mathematics",
-          "shareOfRepository" : 0.02709019724989229,
+          "shareOfRepository" : 0.027066718373276552,
           "shareOfSubject" : 0.08375082328906187,
           "carriedBy" : [ {
             "word" : "count",
             "occurrences" : 225,
-            "mass" : 11.453803987498642,
+            "mass" : 11.453824011062107,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "counts",
@@ -349,7 +349,7 @@
           }, {
             "word" : "function",
             "occurrences" : 106,
-            "mass" : 7.764129274444845,
+            "mass" : 7.76412927437041,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a sentence was not english requires its function words and neither was a name standing for the type beside it nor a dependency's coordinates",
@@ -379,7 +379,7 @@
           }, {
             "word" : "category",
             "occurrences" : 107,
-            "mass" : 6.508766039038364,
+            "mass" : 6.508766841760883,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a coordinate denotes an artefact somebody else published so asking a dictionary what it means is a category error and the dictionary answers",
@@ -410,23 +410,23 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computer Science",
-          "divergenceBits" : 0.3317290750913415,
+          "divergenceBits" : 0.3318446832630553,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.42525050068693077,
-        "nearestByChanceBits" : 0.45234098055052213,
+        "divergenceBits" : 0.4253814390168905,
+        "nearestByChanceBits" : 0.4524577433966451,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.29112893241037313,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -456,7 +456,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -486,7 +486,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -516,7 +516,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.04901525475488,
+          "shareOfRepository" : 0.048980027920052835,
           "shareOfSubject" : 0.19882022421291679,
           "carriedBy" : [ {
             "word" : "folder",
@@ -550,8 +550,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 911,
-            "mass" : 11.994299604999128,
+            "occurrences" : 912,
+            "mass" : 11.994124256515986,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -581,7 +581,7 @@
           }, {
             "word" : "git",
             "occurrences" : 59,
-            "mass" : 8.156085350294946,
+            "mass" : 8.156085302147245,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is not a git read",
@@ -611,12 +611,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.03444697468868257,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -646,7 +646,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -706,12 +706,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.030815130289628664,
+          "shareOfRepository" : 0.030783753412163332,
           "shareOfSubject" : 0.0454944893513016,
           "carriedBy" : [ {
             "word" : "phrase",
             "occurrences" : 393,
-            "mass" : 30.772747732216413,
+            "mass" : 30.77274698249481,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -741,7 +741,7 @@
           }, {
             "word" : "occurrence",
             "occurrences" : 316,
-            "mass" : 21.47828797769038,
+            "mass" : 21.477269351362708,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -771,7 +771,7 @@
           }, {
             "word" : "part_of_speech",
             "occurrences" : 42,
-            "mass" : 16.092271991664227,
+            "mass" : 16.092272002855808,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -802,7 +802,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.42525050068693077,
+          "divergenceBits" : 0.4253814390168905,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -810,12 +810,12 @@
       "scheme" : "OpenAlex",
       "archive" : {
         "subject" : "Artificial Intelligence",
-        "divergenceBits" : 0.24500298397600492,
-        "nearestByChanceBits" : 0.3173641335537633,
+        "divergenceBits" : 0.24499153254641054,
+        "nearestByChanceBits" : 0.31730324701164386,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.04901525475488,
+          "shareOfRepository" : 0.048980027920052835,
           "shareOfSubject" : 0.05178837563128419,
           "carriedBy" : [ {
             "word" : "folder",
@@ -849,8 +849,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 911,
-            "mass" : 11.994299604999128,
+            "occurrences" : 912,
+            "mass" : 11.994124256515986,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -880,7 +880,7 @@
           }, {
             "word" : "git",
             "occurrences" : 59,
-            "mass" : 8.156085350294946,
+            "mass" : 8.156085302147245,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is not a git read",
@@ -910,12 +910,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.042123093909517025,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -945,7 +945,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -975,7 +975,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -1005,12 +1005,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.038606564241872365,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -1040,7 +1040,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1100,12 +1100,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03361540249769391,
+          "shareOfRepository" : 0.033579735117709876,
           "shareOfSubject" : 0.03138153192808851,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 386,
-            "mass" : 66.76006488910784,
+            "mass" : 66.76005256541566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1135,7 +1135,7 @@
           }, {
             "word" : "entry",
             "occurrences" : 271,
-            "mass" : 26.081176814880944,
+            "mass" : 26.081210571213308,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -1196,39 +1196,39 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Artificial Intelligence",
-          "divergenceBits" : 0.24500298397600492,
+          "divergenceBits" : 0.24499153254641054,
           "carriedBy" : [ "computing", "linguistics", "law", "telecommunication" ]
         }, {
           "subject" : "Language and Linguistics",
-          "divergenceBits" : 0.29684436662755564,
+          "divergenceBits" : 0.29696639327402463,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "grammar" ]
         }, {
           "subject" : "Computer Networks and Communications",
-          "divergenceBits" : 0.2981676852015285,
+          "divergenceBits" : 0.2982565981731271,
           "carriedBy" : [ "computing", "law", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Communication",
-          "divergenceBits" : 0.3063264254600254,
+          "divergenceBits" : 0.30641200436862737,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.3162189917199029,
+          "divergenceBits" : 0.31630964115938354,
           "carriedBy" : [ "computing", "mathematics", "law", "telecommunication" ]
         } ]
       },
       "category" : {
         "subject" : "Authorship Attribution and Profiling",
-        "divergenceBits" : 0.4203971332485362,
-        "nearestByChanceBits" : 0.49374075838239434,
+        "divergenceBits" : 0.42044761865423785,
+        "nearestByChanceBits" : 0.4938407765626447,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.13590510080966223,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -1258,7 +1258,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -1288,7 +1288,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -1318,12 +1318,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.057266379389465764,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -1353,7 +1353,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1413,12 +1413,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03361540249769391,
+          "shareOfRepository" : 0.033579735117709876,
           "shareOfSubject" : 0.14042872668774878,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 386,
-            "mass" : 66.76006488910784,
+            "mass" : 66.76005256541566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1448,7 +1448,7 @@
           }, {
             "word" : "entry",
             "occurrences" : 271,
-            "mass" : 26.081176814880944,
+            "mass" : 26.081210571213308,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -1508,12 +1508,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.030815130289628664,
+          "shareOfRepository" : 0.030783753412163332,
           "shareOfSubject" : 0.06264848298519216,
           "carriedBy" : [ {
             "word" : "phrase",
             "occurrences" : 393,
-            "mass" : 30.772747732216413,
+            "mass" : 30.77274698249481,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -1543,7 +1543,7 @@
           }, {
             "word" : "occurrence",
             "occurrences" : 316,
-            "mass" : 21.47828797769038,
+            "mass" : 21.477269351362708,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -1573,7 +1573,7 @@
           }, {
             "word" : "part_of_speech",
             "occurrences" : 42,
-            "mass" : 16.092271991664227,
+            "mass" : 16.092272002855808,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -1604,39 +1604,39 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Authorship Attribution and Profiling",
-          "divergenceBits" : 0.4203971332485362,
+          "divergenceBits" : 0.42044761865423785,
           "carriedBy" : [ "linguistics", "law", "telecommunication", "grammar" ]
         }, {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.42914921761335195,
+          "divergenceBits" : 0.429332651256929,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "grammar" ]
         }, {
           "subject" : "Medical Research and Practices",
-          "divergenceBits" : 0.4545626016370553,
+          "divergenceBits" : 0.4546092201229745,
           "carriedBy" : [ "linguistics", "publishing", "law", "mathematics" ]
         }, {
           "subject" : "Mental Health via Writing",
-          "divergenceBits" : 0.47128513174063963,
+          "divergenceBits" : 0.47136339044644804,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         }, {
           "subject" : "Linguistics and language evolution",
-          "divergenceBits" : 0.47161402637000494,
+          "divergenceBits" : 0.4717392784219156,
           "carriedBy" : [ "linguistics", "telecommunication", "grammar", "law" ]
         }, {
           "subject" : "Media Discourse and Social  Analysis",
-          "divergenceBits" : 0.4754172767267652,
+          "divergenceBits" : 0.4755633874667351,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "law" ]
         }, {
           "subject" : "Library Science and Information Systems",
-          "divergenceBits" : 0.4780727614438793,
+          "divergenceBits" : 0.47816430404410526,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         }, {
           "subject" : "Reading and Literacy Development",
-          "divergenceBits" : 0.4887538713744105,
+          "divergenceBits" : 0.48885164500239225,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         }, {
           "subject" : "Speech and dialogue systems",
-          "divergenceBits" : 0.49177374477412555,
+          "divergenceBits" : 0.49182269973108567,
           "carriedBy" : [ "linguistics", "computing", "mathematics", "law" ]
         } ]
       }
@@ -1644,17 +1644,17 @@
       "scheme" : "CSO",
       "archive" : {
         "subject" : "linguistics",
-        "divergenceBits" : 0.1972241948162484,
-        "nearestByChanceBits" : 0.27056718942415336,
+        "divergenceBits" : 0.19721867437331486,
+        "nearestByChanceBits" : 0.2706020635408384,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.11428553689228892,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -1684,7 +1684,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -1714,7 +1714,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -1744,7 +1744,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.04901525475488,
+          "shareOfRepository" : 0.048980027920052835,
           "shareOfSubject" : 0.05284707797133278,
           "carriedBy" : [ {
             "word" : "folder",
@@ -1778,8 +1778,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 911,
-            "mass" : 11.994299604999128,
+            "occurrences" : 912,
+            "mass" : 11.994124256515986,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -1809,7 +1809,7 @@
           }, {
             "word" : "git",
             "occurrences" : 59,
-            "mass" : 8.156085350294946,
+            "mass" : 8.156085302147245,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is not a git read",
@@ -1839,12 +1839,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.03984878719744651,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -1874,7 +1874,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1934,12 +1934,12 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.030815130289628664,
+          "shareOfRepository" : 0.030783753412163332,
           "shareOfSubject" : 0.03435090649794227,
           "carriedBy" : [ {
             "word" : "phrase",
             "occurrences" : 393,
-            "mass" : 30.772747732216413,
+            "mass" : 30.77274698249481,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -1969,7 +1969,7 @@
           }, {
             "word" : "occurrence",
             "occurrences" : 316,
-            "mass" : 21.47828797769038,
+            "mass" : 21.477269351362708,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "occurrence",
@@ -1999,7 +1999,7 @@
           }, {
             "word" : "part_of_speech",
             "occurrences" : 42,
-            "mass" : 16.092271991664227,
+            "mass" : 16.092272002855808,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -2030,35 +2030,35 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "linguistics",
-          "divergenceBits" : 0.1972241948162484,
+          "divergenceBits" : 0.19721867437331486,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         }, {
           "subject" : "computer science",
-          "divergenceBits" : 0.23879101720616164,
+          "divergenceBits" : 0.23884122622457848,
           "carriedBy" : [ "computing", "law", "linguistics", "mathematics" ]
         }, {
           "subject" : "engineering",
-          "divergenceBits" : 0.2576503672359829,
+          "divergenceBits" : 0.25768041601829417,
           "carriedBy" : [ "linguistics", "law", "mathematics", "geography" ]
         }, {
           "subject" : "semantics",
-          "divergenceBits" : 0.2704310658992949,
+          "divergenceBits" : 0.2705429939694009,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "information technology",
-        "divergenceBits" : 0.24698150979728703,
-        "nearestByChanceBits" : 0.2907359515630467,
+        "divergenceBits" : 0.2471124934199186,
+        "nearestByChanceBits" : 0.29075298802879473,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.141518725761421,
+          "shareOfRepository" : 0.14146607772827408,
           "shareOfSubject" : 0.07440422500917063,
           "carriedBy" : [ {
             "word" : "word",
             "occurrences" : 2614,
-            "mass" : 149.08425699599556,
+            "mass" : 149.084245667017,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "shortest prose word",
@@ -2088,7 +2088,7 @@
           }, {
             "word" : "term",
             "occurrences" : 754,
-            "mass" : 95.09805046557905,
+            "mass" : 95.09805171469998,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "of one term",
@@ -2118,7 +2118,7 @@
           }, {
             "word" : "name",
             "occurrences" : 1355,
-            "mass" : 38.11561645278533,
+            "mass" : 38.115620318379214,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -2148,7 +2148,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.04901525475488,
+          "shareOfRepository" : 0.048980027920052835,
           "shareOfSubject" : 0.0423680999216988,
           "carriedBy" : [ {
             "word" : "folder",
@@ -2182,8 +2182,8 @@
             } ]
           }, {
             "word" : "repository",
-            "occurrences" : 911,
-            "mass" : 11.994299604999128,
+            "occurrences" : 912,
+            "mass" : 11.994124256515986,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -2213,7 +2213,7 @@
           }, {
             "word" : "git",
             "occurrences" : 59,
-            "mass" : 8.156085350294946,
+            "mass" : 8.156085302147245,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "it is not a git read",
@@ -2243,12 +2243,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03489545507477555,
+          "shareOfRepository" : 0.03486816377572567,
           "shareOfSubject" : 0.05342952369951923,
           "carriedBy" : [ {
             "word" : "claim",
             "occurrences" : 172,
-            "mass" : 14.061866550286286,
+            "mass" : 14.061918161171466,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the names the source language's own convention claims are refused before the dictionary is asked",
@@ -2278,7 +2278,7 @@
           }, {
             "word" : "file",
             "occurrences" : 779,
-            "mass" : 8.366286057859414,
+            "mass" : 8.3662935059983,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -2338,12 +2338,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.03361540249769391,
+          "shareOfRepository" : 0.033579735117709876,
           "shareOfSubject" : 0.027300098627321873,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 386,
-            "mass" : 66.76006488910784,
+            "mass" : 66.76005256541566,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -2373,7 +2373,7 @@
           }, {
             "word" : "entry",
             "occurrences" : 271,
-            "mass" : 26.081176814880944,
+            "mass" : 26.081210571213308,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -2434,15 +2434,15 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "information technology",
-          "divergenceBits" : 0.24698150979728703,
+          "divergenceBits" : 0.2471124934199186,
           "carriedBy" : [ "linguistics", "computing", "law", "telecommunication" ]
         }, {
           "subject" : "ontology",
-          "divergenceBits" : 0.2722467675304258,
+          "divergenceBits" : 0.2723333376421796,
           "carriedBy" : [ "linguistics", "law", "computing", "grammar" ]
         }, {
           "subject" : "speech communication",
-          "divergenceBits" : 0.2840685354833248,
+          "divergenceBits" : 0.2840964732713617,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -2473,12 +2473,12 @@
       "occurrences" : 111
     }, {
       "word" : "concepts",
-      "divergenceBits" : 0.003946070302315985,
-      "occurrences" : 107
+      "divergenceBits" : 0.004024435863721767,
+      "occurrences" : 109
     }, {
       "word" : "written",
-      "divergenceBits" : 0.003582504896789751,
-      "occurrences" : 101
+      "divergenceBits" : 0.0036213033964895476,
+      "occurrences" : 102
     }, {
       "word" : "share",
       "divergenceBits" : 0.003349789767754783,
@@ -2521,39 +2521,39 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.042714365838415765,
+      "divergenceBits" : 0.04274694124613546,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.12218600250154037,
+      "divergenceBits" : 0.12224959573556816,
       "writesMoreOf" : [ "linguistics", "grammar" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.09073241859021497,
+      "divergenceBits" : 0.0908128753292145,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "repository-clones/src/main/java",
-      "divergenceBits" : 0.31680488064875156,
+      "divergenceBits" : 0.31668637293644236,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "skos-matching/src/main/java",
-      "divergenceBits" : 0.11364246520346305,
+      "divergenceBits" : 0.11155581418839843,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "skos-matching/src/test/java",
-      "divergenceBits" : 0.11390813377496109,
+      "divergenceBits" : 0.11387874778364819,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "vocabulary-page/src/main/java",
-      "divergenceBits" : 0.09569016026340292,
+      "divergenceBits" : 0.09571341361476057,
       "writesMoreOf" : [ "grammar" ]
     }, {
       "scope" : "reading-export/src/test/resources",
-      "divergenceBits" : 0.7609602097455469,
+      "divergenceBits" : 0.7609777867236153,
       "writesMoreOf" : [ "linguistics" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9808863441793818,
-    "shareOfMassOnNoSubject" : 0.8429808390349871,
+    "shareOfWordsWithACitation" : 0.9808593560293332,
+    "shareOfMassOnNoSubject" : 0.8430042962691859,
     "counts" : {
       "signals" : 291,
       "themes" : 10,
@@ -2635,10 +2635,10 @@
   }, {
     "readFrom" : "CLONE",
     "word" : "concepts",
-    "occurrences" : 107,
-    "occurrencesInNames" : 107,
-    "divergenceBits" : 0.003946070302315985,
-    "marginBits" : 0.0037242355810281004,
+    "occurrences" : 109,
+    "occurrencesInNames" : 109,
+    "divergenceBits" : 0.004024435863721767,
+    "marginBits" : 0.003801449199751798,
     "closestReference" : "the reference corpus",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/InjectedTaxonomy.java",
@@ -2647,10 +2647,10 @@
   }, {
     "readFrom" : "CLONE",
     "word" : "written",
-    "occurrences" : 101,
-    "occurrencesInNames" : 101,
-    "divergenceBits" : 0.003582504896789751,
-    "marginBits" : 0.003582504896789751,
+    "occurrences" : 102,
+    "occurrencesInNames" : 102,
+    "divergenceBits" : 0.0036213033964895476,
+    "marginBits" : 0.0036213033964895476,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/behaviour/Behaviours.java",
@@ -2707,10 +2707,10 @@
   }, {
     "readFrom" : "CLONE",
     "word" : "published",
-    "occurrences" : 86,
-    "occurrencesInNames" : 86,
-    "divergenceBits" : 0.0029300029143177484,
-    "marginBits" : 0.0029300029143177484,
+    "occurrences" : 87,
+    "occurrencesInNames" : 87,
+    "divergenceBits" : 0.0029683762218534943,
+    "marginBits" : 0.0029683762218534943,
     "closestReference" : "ordinary English",
     "firstWrittenAt" : {
       "file" : "code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/reading/PublishedFormat.java",
@@ -6060,8 +6060,8 @@
   "themes" : [ {
     "topic" : "computing",
     "scope" : "repository-clones/src/main/java",
-    "shareOfRepository" : 0.008028473240450517,
-    "divergenceBits" : 0.07620384492189523,
+    "shareOfRepository" : 0.008022256970097645,
+    "divergenceBits" : 0.07623682486140446,
     "carriedBy" : [ {
       "word" : "folder",
       "occurrences" : 68,
@@ -6094,8 +6094,8 @@
       } ]
     }, {
       "word" : "repository",
-      "occurrences" : 911,
-      "mass" : 11.994299604999128,
+      "occurrences" : 912,
+      "mass" : 11.994124256515986,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -6125,7 +6125,7 @@
     }, {
       "word" : "git",
       "occurrences" : 59,
-      "mass" : 8.156085350294946,
+      "mass" : 8.156085302147245,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "it is not a git read",
@@ -6155,7 +6155,7 @@
     }, {
       "word" : "dictionary",
       "occurrences" : 345,
-      "mass" : 6.928710559371207,
+      "mass" : 6.9287105795787935,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -6185,7 +6185,7 @@
     }, {
       "word" : "directory",
       "occurrences" : 173,
-      "mass" : 6.1095244970463565,
+      "mass" : 6.109528398404866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the jar file specification reserves that directory for the format's own metadata so a file under it is named by a platform contract rather than by this repository",
@@ -6215,7 +6215,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 4.884301051191082,
+      "mass" : 4.884301264804806,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -6245,7 +6245,7 @@
     }, {
       "word" : "unread",
       "occurrences" : 17,
-      "mass" : 3.8168821759563327,
+      "mass" : 3.8168823020954346,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "unread",
@@ -6275,7 +6275,7 @@
     }, {
       "word" : "export",
       "occurrences" : 136,
-      "mass" : 3.430613607126478,
+      "mass" : 3.430613607492913,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a package the running platform itself exports the standard library quoted rather than chosen",
@@ -6306,12 +6306,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.008005041085538692,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.008015721613639375,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -6341,7 +6341,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6371,7 +6371,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -6401,7 +6401,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -6431,7 +6431,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -6461,7 +6461,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -6491,7 +6491,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -6521,7 +6521,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -6552,12 +6552,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "reading-export/src/test/resources",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.006052263571487037,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.0060614565011113085,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -6587,7 +6587,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6617,7 +6617,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -6647,7 +6647,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -6677,7 +6677,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -6707,7 +6707,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -6737,7 +6737,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -6767,7 +6767,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -6798,12 +6798,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/test/java",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.005640172084589716,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.005649048881046649,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -6833,7 +6833,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -6863,7 +6863,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -6893,7 +6893,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -6923,7 +6923,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -6953,7 +6953,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -6983,7 +6983,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -7013,7 +7013,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -7044,12 +7044,12 @@
   }, {
     "topic" : "grammar",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.005135450301482782,
-    "divergenceBits" : 0.0048570707715142845,
+    "shareOfRepository" : 0.0051301527440792685,
+    "divergenceBits" : 0.004867584086620471,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 393,
-      "mass" : 30.772747732216413,
+      "mass" : 30.77274698249481,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -7079,7 +7079,7 @@
     }, {
       "word" : "occurrence",
       "occurrences" : 316,
-      "mass" : 21.47828797769038,
+      "mass" : 21.477269351362708,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "occurrence",
@@ -7109,7 +7109,7 @@
     }, {
       "word" : "part_of_speech",
       "occurrences" : 42,
-      "mass" : 16.092271991664227,
+      "mass" : 16.092272002855808,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -7169,7 +7169,7 @@
     }, {
       "word" : "headword",
       "occurrences" : 36,
-      "mass" : 8.465995614952316,
+      "mass" : 8.465995682798948,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the refusal covers the sense labelled resource as well as the headword table because letters standing for somebody's shorthand is a fact about the letters and not about which dictionary was asked",
@@ -7229,7 +7229,7 @@
     }, {
       "word" : "subject",
       "occurrences" : 616,
-      "mass" : 2.7797393164953927,
+      "mass" : 2.7797393530812866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "0 is two distributions that are identical 100 is two that share no subject at all and 34 1 is a third of the way between them",
@@ -7259,7 +7259,7 @@
     }, {
       "word" : "noun",
       "occurrences" : 108,
-      "mass" : 1.6128232852204538,
+      "mass" : 1.6128232964120388,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7290,12 +7290,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/main/java",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.003639737633002134,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.003437532863286248,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -7325,7 +7325,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -7355,7 +7355,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -7385,7 +7385,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7415,7 +7415,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -7445,7 +7445,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -7475,7 +7475,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -7505,7 +7505,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -7536,12 +7536,12 @@
   }, {
     "topic" : "grammar",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.005135450301482782,
-    "divergenceBits" : 0.002652451780206801,
+    "shareOfRepository" : 0.0051301527440792685,
+    "divergenceBits" : 0.0026598857939541575,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 393,
-      "mass" : 30.772747732216413,
+      "mass" : 30.77274698249481,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -7571,7 +7571,7 @@
     }, {
       "word" : "occurrence",
       "occurrences" : 316,
-      "mass" : 21.47828797769038,
+      "mass" : 21.477269351362708,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "occurrence",
@@ -7601,7 +7601,7 @@
     }, {
       "word" : "part_of_speech",
       "occurrences" : 42,
-      "mass" : 16.092271991664227,
+      "mass" : 16.092272002855808,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -7661,7 +7661,7 @@
     }, {
       "word" : "headword",
       "occurrences" : 36,
-      "mass" : 8.465995614952316,
+      "mass" : 8.465995682798948,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the refusal covers the sense labelled resource as well as the headword table because letters standing for somebody's shorthand is a fact about the letters and not about which dictionary was asked",
@@ -7721,7 +7721,7 @@
     }, {
       "word" : "subject",
       "occurrences" : 616,
-      "mass" : 2.7797393164953927,
+      "mass" : 2.7797393530812866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "0 is two distributions that are identical 100 is two that share no subject at all and 34 1 is a third of the way between them",
@@ -7751,7 +7751,7 @@
     }, {
       "word" : "noun",
       "occurrences" : 108,
-      "mass" : 1.6128232852204538,
+      "mass" : 1.6128232964120388,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7782,12 +7782,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.0013620619362517787,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.0013665185337739215,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -7817,7 +7817,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -7847,7 +7847,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -7877,7 +7877,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -7907,7 +7907,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -7937,7 +7937,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -7967,7 +7967,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -7997,7 +7997,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -8028,12 +8028,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.02333685491289779,
-    "divergenceBits" : 0.0013480601027946147,
+    "shareOfRepository" : 0.02332561801548156,
+    "divergenceBits" : 0.0013521080251662574,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2614,
-      "mass" : 149.08425699599556,
+      "mass" : 149.084245667017,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "shortest prose word",
@@ -8063,7 +8063,7 @@
     }, {
       "word" : "term",
       "occurrences" : 754,
-      "mass" : 95.09805046557905,
+      "mass" : 95.09805171469998,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "of one term",
@@ -8093,7 +8093,7 @@
     }, {
       "word" : "name",
       "occurrences" : 1355,
-      "mass" : 38.11561645278533,
+      "mass" : 38.115620318379214,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "how long a word must be before a dictionary entry for it is taken as subject matter where the author did not choose it as a name",
@@ -8123,7 +8123,7 @@
     }, {
       "word" : "reading",
       "occurrences" : 428,
-      "mass" : 27.89964488285306,
+      "mass" : 27.899644498217345,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -8153,7 +8153,7 @@
     }, {
       "word" : "english",
       "occurrences" : 52,
-      "mass" : 9.395754593505414,
+      "mass" : 9.395754399606519,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "ordinary english",
@@ -8183,7 +8183,7 @@
     }, {
       "word" : "form",
       "occurrences" : 205,
-      "mass" : 8.562238506707578,
+      "mass" : 8.562240998577321,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the dictionary's entries for one and two letter forms are symbol readings is the ampere beryllium a printer's measure and a symbol reading of an article is a misreading by construction",
@@ -8213,7 +8213,7 @@
     }, {
       "word" : "parse",
       "occurrences" : 186,
-      "mass" : 8.386752674587235,
+      "mass" : 8.386755684624912,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "in carries the layout's own word in front of the sentence its author wrote so the sentence is what is left parse xml and a name that is only the layout's word yields nothing",
@@ -8243,7 +8243,7 @@
     }, {
       "word" : "lexicon",
       "occurrences" : 70,
-      "mass" : 5.979586968578361,
+      "mass" : 5.97960134777393,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "lexicon",
@@ -8274,12 +8274,12 @@
   }, {
     "topic" : "grammar",
     "scope" : "vocabulary-page/src/main/java",
-    "shareOfRepository" : 0.005135450301482782,
-    "divergenceBits" : 0.0012096607448557539,
+    "shareOfRepository" : 0.0051301527440792685,
+    "divergenceBits" : 0.001214860810078041,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 393,
-      "mass" : 30.772747732216413,
+      "mass" : 30.77274698249481,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the unit is the phrase so a twenty word sentence and a two word field name each commit once and volume decides nothing",
@@ -8309,7 +8309,7 @@
     }, {
       "word" : "occurrence",
       "occurrences" : 316,
-      "mass" : 21.47828797769038,
+      "mass" : 21.477269351362708,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "occurrence",
@@ -8339,7 +8339,7 @@
     }, {
       "word" : "part_of_speech",
       "occurrences" : 42,
-      "mass" : 16.092271991664227,
+      "mass" : 16.092272002855808,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "an adjective or adverb the dictionary knows and neither part_of_speech carries reads as uncited here an understatement of word net's coverage and the direction an unverified figure should err in",
@@ -8399,7 +8399,7 @@
     }, {
       "word" : "headword",
       "occurrences" : 36,
-      "mass" : 8.465995614952316,
+      "mass" : 8.465995682798948,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the refusal covers the sense labelled resource as well as the headword table because letters standing for somebody's shorthand is a fact about the letters and not about which dictionary was asked",
@@ -8459,7 +8459,7 @@
     }, {
       "word" : "subject",
       "occurrences" : 616,
-      "mass" : 2.7797393164953927,
+      "mass" : 2.7797393530812866,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "0 is two distributions that are identical 100 is two that share no subject at all and 34 1 is a third of the way between them",
@@ -8489,7 +8489,7 @@
     }, {
       "word" : "noun",
       "occurrences" : 108,
-      "mass" : 1.6128232852204538,
+      "mass" : 1.6128232964120388,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "outranks the noun reading",
@@ -10716,219 +10716,219 @@
     } ],
     "branches" : [ {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.43778638790120733,
+      "agreesWithTheRepository" : 0.43783306189022275,
       "mass" : 348.35377939192756,
-      "kept" : 152.504542791726,
+      "kept" : 152.52080185219882,
       "terms" : [ "source", "sources", "document", "origin", "citations", "sentence", "heading", "author", "abstracts", "sentences", "title", "origins", "documents", "headline", "authors" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.4176955468213205,
+      "agreesWithTheRepository" : 0.4177137817786226,
       "mass" : 167.34834514286993,
-      "kept" : 69.90065853409413,
+      "kept" : 69.9037101240224,
       "terms" : [ "phrase", "phrases", "clause", "fragment", "glob", "clauses" ]
     }, {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.3042175421267974,
+      "agreesWithTheRepository" : 0.3041774353716304,
       "mass" : 161.52870884773853,
-      "kept" : 49.13986678857409,
+      "kept" : 49.13338839619589,
       "terms" : [ "token", "text", "tokens", "script", "texts", "scripts", "string", "character" ]
     }, {
       "branch" : "Morpheme",
-      "agreesWithTheRepository" : 0.2930829404755181,
+      "agreesWithTheRepository" : 0.2930696799244941,
       "mass" : 148.00392232126808,
-      "kept" : 43.37742475582741,
+      "kept" : 43.37546214226373,
       "terms" : [ "root", "roots", "stem", "stems", "affix" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.47642734214206595,
+      "agreesWithTheRepository" : 0.47647037136316106,
       "mass" : 97.25618257080194,
-      "kept" : 46.33550456909069,
+      "kept" : 46.33968942687339,
       "terms" : [ "verb", "noun", "residual", "adjective", "verbs", "nouns", "punctuation", "adjectives" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.26468546261699083,
+      "agreesWithTheRepository" : 0.26466415420675277,
       "mass" : 44.3026770160357,
-      "kept" : 11.726274561160537,
+      "kept" : 11.725330541544034,
       "terms" : [ "function", "functions", "object" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.4007125712943795,
+      "agreesWithTheRepository" : 0.4007070240444924,
       "mass" : 44.26454588184385,
-      "kept" : 17.737359997491687,
+      "kept" : 17.73711445099454,
       "terms" : [ "abbreviation", "symbol", "abbreviations", "acronym", "foreign", "date", "symbols" ]
     }, {
       "branch" : "Assessment",
-      "agreesWithTheRepository" : 0.2646492976377381,
+      "agreesWithTheRepository" : 0.2646530505714094,
       "mass" : 44.06524354531451,
-      "kept" : 11.661835754503358,
+      "kept" : 11.662001128439593,
       "terms" : [ "definition", "evaluation", "definitions" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.26130216174691595,
+      "agreesWithTheRepository" : 0.26122833622415564,
       "mass" : 41.07919640447686,
-      "kept" : 10.73408282331594,
+      "kept" : 10.731050130166807,
       "terms" : [ "suffix", "prefix", "suffixes", "prefixes", "prefixed" ]
     }, {
       "branch" : "EntityType",
-      "agreesWithTheRepository" : 0.2259218142018538,
+      "agreesWithTheRepository" : 0.225832610314092,
       "mass" : 40.81119010718462,
-      "kept" : 9.220138108751899,
+      "kept" : 9.216497591930152,
       "terms" : [ "times", "sum", "sums", "program", "timed", "plan" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.1900553949959642,
+      "agreesWithTheRepository" : 0.19003383830757395,
       "mass" : 37.20739234504135,
-      "kept" : 7.071465648906647,
+      "kept" : 7.0706635807440525,
       "terms" : [ "mean", "means", "meaning", "meant", "supports" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.1787325351763816,
+      "agreesWithTheRepository" : 0.17865933285588087,
       "mass" : 28.648000822695348,
-      "kept" : 5.120329814775405,
+      "kept" : 5.118232714637477,
       "terms" : [ "evidence", "evidenced" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.10764855881238564,
+      "agreesWithTheRepository" : 0.10772544111420135,
       "mass" : 25.788033561867238,
-      "kept" : 2.77604464754044,
+      "kept" : 2.7780272909199772,
       "terms" : [ "gives", "given", "gave", "give" ]
     }, {
       "branch" : "CoherenceRelation",
-      "agreesWithTheRepository" : 0.2011190773284415,
+      "agreesWithTheRepository" : 0.20119552014630004,
       "mass" : 20.520479195125226,
-      "kept" : 4.127059842061065,
+      "kept" : 4.1286284853145485,
       "terms" : [ "expansion", "comparison", "expansions" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.05836232589427717,
+      "agreesWithTheRepository" : 0.058349433652104266,
       "mass" : 20.494005165911208,
-      "kept" : 1.19607780837191,
+      "kept" : 1.195813594694218,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.31276340417585313,
+      "agreesWithTheRepository" : 0.31272235478557614,
       "mass" : 18.15582168514103,
-      "kept" : 5.678476595854483,
+      "kept" : 5.67773131044433,
       "terms" : [ "quoted", "quotes", "quote", "slash", "quoting" ]
     }, {
       "branch" : "Abbreviation",
-      "agreesWithTheRepository" : 0.305133412244755,
+      "agreesWithTheRepository" : 0.3050553574606326,
       "mass" : 11.0,
-      "kept" : 3.356467534692305,
+      "kept" : 3.355608932066959,
       "terms" : [ "initialism", "initialisms" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.3439721613124175,
+      "agreesWithTheRepository" : 0.3440296438395355,
       "mass" : 10.947312177289387,
-      "kept" : 3.7655706301839773,
+      "kept" : 3.7661999093530776,
       "terms" : [ "head", "predicate", "heads" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.22851119200396444,
+      "agreesWithTheRepository" : 0.2285747963011031,
       "mass" : 10.681275089415482,
-      "kept" : 2.4407909028045838,
+      "kept" : 2.441470277799191,
       "terms" : [ "initials", "simple", "initial" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.3039363332142897,
+      "agreesWithTheRepository" : 0.3038625342584122,
       "mass" : 10.20297020249805,
-      "kept" : 3.1010533512419163,
+      "kept" : 3.100300382694123,
       "terms" : [ "preferred", "prefers" ]
     }, {
       "branch" : "Condition",
-      "agreesWithTheRepository" : 0.39668859569655995,
+      "agreesWithTheRepository" : 0.39656149400853974,
       "mass" : 10.13689814342047,
-      "kept" : 4.021191889232532,
+      "kept" : 4.019903472367215,
       "terms" : [ "result" ]
     }, {
       "branch" : "Determiner",
-      "agreesWithTheRepository" : 0.29384057332517677,
+      "agreesWithTheRepository" : 0.2939434285828394,
       "mass" : 9.92273242193627,
-      "kept" : 2.9157013838140737,
+      "kept" : 2.916721989014049,
       "terms" : [ "article" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.33145831019399724,
+      "agreesWithTheRepository" : 0.3313716103259855,
       "mass" : 9.124322393412307,
-      "kept" : 3.0243324821856916,
+      "kept" : 3.023541404638486,
       "terms" : [ "past", "perfect", "present" ]
     }, {
       "branch" : "NumberFeature",
-      "agreesWithTheRepository" : 0.1660205896761576,
+      "agreesWithTheRepository" : 0.16598199229944044,
       "mass" : 8.381911472315872,
-      "kept" : 1.3915698852472314,
+      "kept" : 1.3912463654525247,
       "terms" : [ "plural", "plurals", "singular", "trials" ]
     }, {
       "branch" : "InflectionTypeFeature",
-      "agreesWithTheRepository" : 0.31273936025615967,
+      "agreesWithTheRepository" : 0.31270595674195273,
       "mass" : 7.380133442868868,
-      "kept" : 2.3080582115278987,
+      "kept" : 2.307811689135591,
       "terms" : [ "base form", "inflected", "base forms", "inflects" ]
     }, {
       "branch" : "TextualOrganizationalRelation",
-      "agreesWithTheRepository" : 0.2588991546494969,
+      "agreesWithTheRepository" : 0.2589673179758314,
       "mass" : 3.6771422000415463,
-      "kept" : 0.9520090071167476,
+      "kept" : 0.9522596533605073,
       "terms" : [ "attribution", "extra" ]
     }, {
       "branch" : "DegreeFeature",
-      "agreesWithTheRepository" : 0.4005781798852346,
+      "agreesWithTheRepository" : 0.4004620117529055,
       "mass" : 3.368502306833202,
-      "kept" : 1.349348523010458,
+      "kept" : 1.348957210388727,
       "terms" : [ "positive", "superlatives", "comparatives" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.36111166481322193,
+      "agreesWithTheRepository" : 0.36107889610688304,
       "mass" : 3.36002517570154,
-      "kept" : 1.2133442850119216,
+      "kept" : 1.2132341813336478,
       "terms" : [ "third", "seconds" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.15658856374213043,
+      "agreesWithTheRepository" : 0.15657751767378092,
       "mass" : 2.961445797259401,
-      "kept" : 0.463728543993018,
+      "kept" : 0.4636958316603281,
       "terms" : [ "commas", "colon" ]
     }, {
       "branch" : "Noun",
-      "agreesWithTheRepository" : 0.2731125397983939,
+      "agreesWithTheRepository" : 0.27302990470718336,
       "mass" : 1.9460338968157356,
-      "kept" : 0.5314862600931112,
+      "kept" : 0.531325449404549,
       "terms" : [ "proper noun", "common noun" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.38700700505348357,
+      "agreesWithTheRepository" : 0.3869156940776132,
       "mass" : 1.55646220418557,
-      "kept" : 0.6023617761208011,
+      "kept" : 0.6022196540380316,
       "terms" : [ "exception", "alternative" ]
     }, {
       "branch" : "UsageAndFrequencyFeature",
-      "agreesWithTheRepository" : 0.13697819663803815,
+      "agreesWithTheRepository" : 0.1369464424942821,
       "mass" : 1.3760812094362147,
-      "kept" : 0.18849312249606318,
+      "kept" : 0.18844942621551872,
       "terms" : [ "impossible", "possible" ]
     }, {
       "branch" : "Collocation",
-      "agreesWithTheRepository" : 0.2309591181820826,
+      "agreesWithTheRepository" : 0.23093429698634724,
       "mass" : 1.0,
-      "kept" : 0.2309591181820826,
+      "kept" : 0.23093429698634724,
       "terms" : [ "idiom" ]
     }, {
       "branch" : "Phrase",
-      "agreesWithTheRepository" : 0.3666943365395947,
+      "agreesWithTheRepository" : 0.36678708131184334,
       "mass" : 0.9846316452490014,
-      "kept" : 0.36105884789047216,
+      "kept" : 0.3611501673281596,
       "terms" : [ "verb phrase" ]
     }, {
       "branch" : "LayoutElement",
-      "agreesWithTheRepository" : 0.0922065526993993,
+      "agreesWithTheRepository" : 0.09217673510874906,
       "mass" : 0.9662714343318825,
-      "kept" : 0.08909655793164686,
+      "kept" : 0.08906774604556095,
       "terms" : [ "list markers" ]
     }, {
       "branch" : "Given",
-      "agreesWithTheRepository" : 0.13703601351896794,
+      "agreesWithTheRepository" : 0.13698497978896274,
       "mass" : 0.7002922349816723,
-      "kept" : 0.0959652561801767,
+      "kept" : 0.09592951765533192,
       "terms" : [ "active" ]
     } ],
     "matchesByNormalisation" : {
@@ -11667,87 +11667,87 @@
     } ],
     "branches" : [ {
       "branch" : "linguistics",
-      "agreesWithTheRepository" : 0.4118809625967562,
+      "agreesWithTheRepository" : 0.4118426272920776,
       "mass" : 137.2047618219025,
-      "kept" : 56.51202937206387,
+      "kept" : 56.50676958571607,
       "terms" : [ "vocabulary", "vocabularies", "vocabularys", "linguistic terms" ]
     }, {
       "branch" : "computational linguistics | formal languages | natural language processing",
-      "agreesWithTheRepository" : 0.2835321293775359,
+      "agreesWithTheRepository" : 0.2833947444054076,
       "mass" : 47.0,
-      "kept" : 13.326010080744188,
+      "kept" : 13.319552987054156,
       "terms" : [ "parse", "parsed", "parses", "parsing" ]
     }, {
       "branch" : "natural language processing",
-      "agreesWithTheRepository" : 0.404690301535725,
+      "agreesWithTheRepository" : 0.4046106793749824,
       "mass" : 35.42896304034395,
-      "kept" : 14.33775773589485,
+      "kept" : 14.334936805304709,
       "terms" : [ "part of speech", "synset", "synsets", "word class" ]
     }, {
       "branch" : "description logic | semantic web",
-      "agreesWithTheRepository" : 0.1581013441400214,
+      "agreesWithTheRepository" : 0.15806356748227596,
       "mass" : 9.695979820655218,
-      "kept" : 1.5329474424001135,
+      "kept" : 1.532581160688922,
       "terms" : [ "owl" ]
     }, {
       "branch" : "mathematics",
-      "agreesWithTheRepository" : 0.21362787046578294,
+      "agreesWithTheRepository" : 0.21366365731346282,
       "mass" : 4.624592238512353,
-      "kept" : 0.9879417916859821,
+      "kept" : 0.9881072912640032,
       "terms" : [ "statistic", "probability" ]
     }, {
       "branch" : "semantic web",
-      "agreesWithTheRepository" : 0.27011556939570236,
+      "agreesWithTheRepository" : 0.27002154874107764,
       "mass" : 4.0,
-      "kept" : 1.0804622775828094,
+      "kept" : 1.0800861949643106,
       "terms" : [ "rdf" ]
     }, {
       "branch" : "database systems",
-      "agreesWithTheRepository" : 0.3465723062226014,
+      "agreesWithTheRepository" : 0.3464899138958309,
       "mass" : 1.9436857757219912,
-      "kept" : 0.6736276618640364,
+      "kept" : 0.673467517070464,
       "terms" : [ "query language" ]
     }, {
       "branch" : "commerce",
-      "agreesWithTheRepository" : 0.1652217939881048,
+      "agreesWithTheRepository" : 0.16518183304208708,
       "mass" : 1.7601986615338518,
-      "kept" : 0.29082318063408386,
+      "kept" : 0.2907528414303899,
       "terms" : [ "trading system" ]
     }, {
       "branch" : "network coding",
-      "agreesWithTheRepository" : 0.13374763373932255,
+      "agreesWithTheRepository" : 0.13368999567966072,
       "mass" : 1.674288941785136,
-      "kept" : 0.22393218415967633,
+      "kept" : 0.22383568139375856,
       "terms" : [ "two sources" ]
     }, {
       "branch" : "correlation analysis",
-      "agreesWithTheRepository" : 0.25354268068508573,
+      "agreesWithTheRepository" : 0.25347849816281554,
       "mass" : 0.9819621492795076,
-      "kept" : 0.2489693156596147,
+      "kept" : 0.24890629085210006,
       "terms" : [ "logistic" ]
     }, {
       "branch" : "java",
-      "agreesWithTheRepository" : 0.3580042345167101,
+      "agreesWithTheRepository" : 0.3579562756137375,
       "mass" : 0.9544408216841325,
-      "kept" : 0.3416938557585276,
+      "kept" : 0.3416480818237674,
       "terms" : [ "java program" ]
     }, {
       "branch" : "artificial intelligence",
-      "agreesWithTheRepository" : 0.327450830852814,
+      "agreesWithTheRepository" : 0.32745492561664064,
       "mass" : 0.8952469797557356,
-      "kept" : 0.293149367339488,
+      "kept" : 0.2931530331644366,
       "terms" : [ "machine learning" ]
     }, {
       "branch" : "reinforcement learning",
-      "agreesWithTheRepository" : 0.29641041836566817,
+      "agreesWithTheRepository" : 0.29645239527859873,
       "mass" : 0.8758983060168866,
-      "kept" : 0.2596253833322454,
+      "kept" : 0.2596621508391731,
       "terms" : [ "value function" ]
     }, {
       "branch" : "image quality",
-      "agreesWithTheRepository" : 0.08959816642146384,
+      "agreesWithTheRepository" : 0.08956028372902546,
       "mass" : 0.852134989323425,
-      "kept" : 0.07634973258695255,
+      "kept" : 0.07631745141923602,
       "terms" : [ "no reference" ]
     } ],
     "matchesByNormalisation" : {
@@ -11769,7 +11769,7 @@
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 3148,
+    "wordOccurrencesNoResourceCovers" : 3153,
     "wordsBelowEveryThreshold" : 1008,
     "wordsWithinTheReferencesError" : 21,
     "wordsTheLanguageSupplies" : 10,

@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "c2a6e506919b7103896b2f31944dd9aa3edb592f",
-  "commit" : "796663aa7a99154b9fe6d321117c404dae519435",
+  "previousCommit" : "796663aa7a99154b9fe6d321117c404dae519435",
+  "commit" : "d6fa98674d99080cf47fc195d42e37c17e41a809",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -75,7 +75,7 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "42.1%",
+    "before" : "42.0%",
     "after" : "42.0%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
