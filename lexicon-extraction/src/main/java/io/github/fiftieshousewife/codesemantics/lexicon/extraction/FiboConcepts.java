@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.lexicon.extraction;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
@@ -28,7 +29,9 @@ import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
  *       taken from — then {@code cmns-av:explanatoryNote}, {@code skos:note} and {@code skos:example}</td></tr>
  *   <tr><td>{@code broader}</td><td>the first superclass stated by name, whichever ontology publishes it</td></tr>
  *   <tr><td>{@code module}</td><td>the FIBO domain the concept's own URI names — {@code FBC}, {@code SEC},
- *       {@code DER} — which is the roll-up level the publisher itself uses</td></tr>
+ *       {@code DER} — which is the roll-up level the publisher itself uses; a class taken from the OMG
+ *       Commons Ontology Library names its module the same way — {@code Organizations},
+ *       {@code Identifiers}</td></tr>
  * </table>
  *
  * <p><b>A superclass this file set does not itself carry is still the superclass FIBO states.</b> FIBO
@@ -65,6 +68,8 @@ public class FiboConcepts {
 
     private static final String ONTOLOGY = "/fibo/ontology/";
 
+    private static final String COMMONS_LIBRARY = "/spec/Commons/";
+
     private static final String NOTHING = "";
 
     private final JoinedStatements statements = new JoinedStatements();
@@ -92,16 +97,26 @@ public class FiboConcepts {
     }
 
     /**
-     * The FIBO domain the concept's URI names. A concept URI reads
-     * {@code https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/DebtInstruments/Bond}, and the segment after
-     * the ontology root is the module the publisher files it under.
+     * The module the concept's own URI names. A FIBO URI reads
+     * {@code https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/DebtInstruments/Bond} and the segment after
+     * the ontology root is the domain the publisher files it under; a class taken from the OMG Commons
+     * Ontology Library reads {@code https://www.omg.org/spec/Commons/Organizations/LegalEntity} and names
+     * its module the same way.
      */
     private static String moduleOf(final OwlClass owl) {
-        final int root = owl.concept().indexOf(ONTOLOGY);
+        return Stream.of(ONTOLOGY, COMMONS_LIBRARY)
+                .map(root -> moduleAfter(owl.concept(), root))
+                .filter(module -> !module.isEmpty())
+                .findFirst()
+                .orElse(NOTHING);
+    }
+
+    private static String moduleAfter(final String concept, final String ontologyRoot) {
+        final int root = concept.indexOf(ontologyRoot);
         if (root < 0) {
             return NOTHING;
         }
-        final String path = owl.concept().substring(root + ONTOLOGY.length());
+        final String path = concept.substring(root + ontologyRoot.length());
         final int next = path.indexOf('/');
         return next < 0 ? NOTHING : path.substring(0, next);
     }

@@ -1867,26 +1867,26 @@ https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesListings/List
 https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesListings/Listing	Listing	market listing	SecurityRegistryEntry	class	SEC	catalog entry for a securities offering managed by an exchange that provides the terms under which that security is made available on that exchange	
 https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesListings/ListingService	ListingService		FinancialService	class	SEC	service provided by an exchange to facilitate securities trading	
 https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesListings/RegisteredSecurity	RegisteredSecurity		Security	class	SEC	security that is registered with some registration authority	
-https://www.omg.org/spec/Commons/BusinessAuthorizations/LegallyDelegatedAuthority	LegallyDelegatedAuthority		ControllingParty	class			
-https://www.omg.org/spec/Commons/BusinessAuthorizations/ResponsibleParty	ResponsibleParty			class			
-https://www.omg.org/spec/Commons/Classifiers/ClassificationScheme	ClassificationScheme		Scheme	class			
-https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeSet	CodeSet		Scheme	class			
-https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName	ContextualName		Name	class			
-https://www.omg.org/spec/Commons/ContextualIdentifiers/StructuredIdentifier	StructuredIdentifier			class			Use parseRegex and constructRegex annotation properties to express the rules for deconstructing and composing the actual composite identifiers from their constituent parts as appropriate. | For a fictional business identifier, the rule used to parse a composite identifier might be fibo-fnd-arr-id:parseRegex "RA([0-9]{6})-([0-9A-Z]*)", and fibo-fnd-arr-id:constructRegex "$1-$2", where RA represents a text value corresponding to the registration authority for the business identifier.
-https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme	IdentificationScheme		Scheme	class			
-https://www.omg.org/spec/Commons/Locations/BusinessCenter	BusinessCenter			class			http://www.fpml.org/coding-scheme/business-center | Note that business centers, as defined in FpML, are intended for use in specifying the business calendar used by that municipality, or by certain organizations located in that municipality.
-https://www.omg.org/spec/Commons/Locations/Municipality	Municipality			class			
-https://www.omg.org/spec/Commons/Organizations/FormalOrganization	FormalOrganization			class			
-https://www.omg.org/spec/Commons/Organizations/LegalEntity	LegalEntity			class			https://www.gleif.org/en/about-lei/common-data-file-format/lei-cdf-format/lei-cdf-format-version-2-1 | Examples of eligible legal entities include, without limitation: - all financial intermediaries; - banks and finance companies; - all entities that issue equity, debt or other securities for other capital structures; - all entities listed on an exchange; - all entities that trade stock or debt, investment vehicles, including mutual funds, pension funds and alternative investment vehicles constituted as corporate entities or collective investment agreements (including umbrella funds as well as funds under an umbrella structure, hedge funds, private equity funds, etc.); - all entities under the purview of a financial regulator and their affiliates, subsidiaries and holding companies; - counterparties to financial transactions.
-https://www.omg.org/spec/Commons/Organizations/LegalPerson	LegalPerson			class			
-https://www.omg.org/spec/Commons/Organizations/Organization	Organization			class			
-https://www.omg.org/spec/Commons/Organizations/OrganizationIdentifier	OrganizationIdentifier			class			
-https://www.omg.org/spec/Commons/Organizations/OrganizationName	OrganizationName			class			
-https://www.omg.org/spec/Commons/Organizations/Service	Service			class			
-https://www.omg.org/spec/Commons/Organizations/ServiceProvider	ServiceProvider		FunctionalEntity	class			
-https://www.omg.org/spec/Commons/PartiesAndSituations/Agent	Agent			class			
-https://www.omg.org/spec/Commons/PartiesAndSituations/Party	Party	independent party		class			
-https://www.omg.org/spec/Commons/QuantitiesAndUnits/Expression	Expression		Specification	class			
-https://www.omg.org/spec/Commons/RegulatoryAgencies/RegulatoryAgency	RegulatoryAgency			class			
-https://www.omg.org/spec/Commons/RegulatoryAgencies/RegulatoryReport	RegulatoryReport		Report	class			
-https://www.omg.org/spec/Commons/SitesAndFacilities/TractOfLand	TractOfLand			class			
+https://www.omg.org/spec/Commons/BusinessAuthorizations/LegallyDelegatedAuthority	LegallyDelegatedAuthority		ControllingParty	class	BusinessAuthorizations		
+https://www.omg.org/spec/Commons/BusinessAuthorizations/ResponsibleParty	ResponsibleParty			class	BusinessAuthorizations		
+https://www.omg.org/spec/Commons/Classifiers/ClassificationScheme	ClassificationScheme		Scheme	class	Classifiers		
+https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeSet	CodeSet		Scheme	class	CodesAndCodeSets		
+https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName	ContextualName		Name	class	ContextualDesignators		
+https://www.omg.org/spec/Commons/ContextualIdentifiers/StructuredIdentifier	StructuredIdentifier			class	ContextualIdentifiers		Use parseRegex and constructRegex annotation properties to express the rules for deconstructing and composing the actual composite identifiers from their constituent parts as appropriate. | For a fictional business identifier, the rule used to parse a composite identifier might be fibo-fnd-arr-id:parseRegex "RA([0-9]{6})-([0-9A-Z]*)", and fibo-fnd-arr-id:constructRegex "$1-$2", where RA represents a text value corresponding to the registration authority for the business identifier.
+https://www.omg.org/spec/Commons/Identifiers/IdentificationScheme	IdentificationScheme		Scheme	class	Identifiers		
+https://www.omg.org/spec/Commons/Locations/BusinessCenter	BusinessCenter			class	Locations		http://www.fpml.org/coding-scheme/business-center | Note that business centers, as defined in FpML, are intended for use in specifying the business calendar used by that municipality, or by certain organizations located in that municipality.
+https://www.omg.org/spec/Commons/Locations/Municipality	Municipality			class	Locations		
+https://www.omg.org/spec/Commons/Organizations/FormalOrganization	FormalOrganization			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/LegalEntity	LegalEntity			class	Organizations		https://www.gleif.org/en/about-lei/common-data-file-format/lei-cdf-format/lei-cdf-format-version-2-1 | Examples of eligible legal entities include, without limitation: - all financial intermediaries; - banks and finance companies; - all entities that issue equity, debt or other securities for other capital structures; - all entities listed on an exchange; - all entities that trade stock or debt, investment vehicles, including mutual funds, pension funds and alternative investment vehicles constituted as corporate entities or collective investment agreements (including umbrella funds as well as funds under an umbrella structure, hedge funds, private equity funds, etc.); - all entities under the purview of a financial regulator and their affiliates, subsidiaries and holding companies; - counterparties to financial transactions.
+https://www.omg.org/spec/Commons/Organizations/LegalPerson	LegalPerson			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/Organization	Organization			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/OrganizationIdentifier	OrganizationIdentifier			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/OrganizationName	OrganizationName			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/Service	Service			class	Organizations		
+https://www.omg.org/spec/Commons/Organizations/ServiceProvider	ServiceProvider		FunctionalEntity	class	Organizations		
+https://www.omg.org/spec/Commons/PartiesAndSituations/Agent	Agent			class	PartiesAndSituations		
+https://www.omg.org/spec/Commons/PartiesAndSituations/Party	Party	independent party		class	PartiesAndSituations		
+https://www.omg.org/spec/Commons/QuantitiesAndUnits/Expression	Expression		Specification	class	QuantitiesAndUnits		
+https://www.omg.org/spec/Commons/RegulatoryAgencies/RegulatoryAgency	RegulatoryAgency			class	RegulatoryAgencies		
+https://www.omg.org/spec/Commons/RegulatoryAgencies/RegulatoryReport	RegulatoryReport		Report	class	RegulatoryAgencies		
+https://www.omg.org/spec/Commons/SitesAndFacilities/TractOfLand	TractOfLand			class	SitesAndFacilities		

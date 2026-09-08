@@ -36,13 +36,17 @@ class FiboConceptsTest {
     private static final OwlClass DANGLING = new OwlClass(FIBO + "FND/Utilities/Thing",
             "Thing", "SomethingTheCommonsVocabularyStates", Map.of());
 
+    private static final OwlClass COMMONS_CLASS = new OwlClass(
+            "https://www.omg.org/spec/Commons/Organizations/LegalEntity",
+            "LegalEntity", "Party", Map.of());
+
     private final List<SkosConcept> concepts =
-            new FiboConcepts().in(List.of(SWAP, DEFAULT_SWAP, DANGLING));
+            new FiboConcepts().in(List.of(SWAP, DEFAULT_SWAP, DANGLING, COMMONS_CLASS));
 
     @Test
     void takesTheTermAsPublishedBecauseThatIsWhatTheCodeWouldWrite() {
         assertThat(concepts).extracting(SkosConcept::prefLabel)
-                .containsExactly("InterestRateSwap", "CreditDefaultSwap", "Thing");
+                .containsExactly("InterestRateSwap", "CreditDefaultSwap", "Thing", "LegalEntity");
     }
 
     @Test
@@ -79,6 +83,14 @@ class FiboConceptsTest {
         assertAll(
                 () -> assertThat(concept("InterestRateSwap").module()).isEqualTo("DER"),
                 () -> assertThat(concept("Thing").module()).isEqualTo("FND"));
+    }
+
+    @Test
+    void filesAClassTakenFromTheCommonsLibraryUnderTheCommonsModuleItsUriNames() {
+        assertThat(concept("LegalEntity").module())
+                .as("a Commons URI names its module the same way a FIBO URI names its domain, and a "
+                        + "blank here is what groups the concept under nothing")
+                .isEqualTo("Organizations");
     }
 
     @Test
