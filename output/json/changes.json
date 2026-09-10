@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "864fd5d5e7280d11245743d735b07642736cbe2a",
-  "commit" : "8ef8915a950f1b04eafd7002395064a5db40596b",
+  "previousCommit" : "8ef8915a950f1b04eafd7002395064a5db40596b",
+  "commit" : "203aaecc13e8ebd25154e1e6db904387e928152c",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -36,11 +36,11 @@
   }, {
     "figure" : "arXiv category — divergence",
     "before" : "42.5%",
-    "after" : "42.5%"
+    "after" : "42.6%"
   }, {
     "figure" : "arXiv category — chance reaches",
     "before" : "45.2%",
-    "after" : "45.2%"
+    "after" : "45.3%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -76,7 +76,7 @@
   }, {
     "figure" : "OpenAlex category — divergence",
     "before" : "42.0%",
-    "after" : "42.0%"
+    "after" : "42.1%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
     "before" : "49.4%",
@@ -136,11 +136,27 @@
   }, {
     "figure" : "Topics reported",
     "before" : "10",
-    "after" : "10"
+    "after" : "8"
   }, {
     "figure" : "Concepts written",
     "before" : "171",
     "after" : "171"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "re",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "samples",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "resamples",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "subtype",
+    "entered" : false
+  } ]
 }
