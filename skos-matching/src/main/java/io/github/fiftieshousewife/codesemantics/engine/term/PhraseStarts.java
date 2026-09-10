@@ -20,18 +20,36 @@ import java.util.stream.Collectors;
  */
 public final class PhraseStarts {
 
+    /** The shortest run a walk reporting only phrases will ask about. */
+    private static final int PHRASE_LENGTH = 2;
+
+    /** The shortest run a walk reporting every term will ask about. */
+    private static final int ANY_LENGTH = 1;
+
     private final Set<String> words;
 
-    private PhraseStarts(final Set<String> words) {
+    private final int shortestRun;
+
+    private PhraseStarts(final Set<String> words, final int shortestRun) {
         this.words = Set.copyOf(words);
+        this.shortestRun = shortestRun;
     }
 
     /** The first word of every term this source publishes in more than one word. */
     public static PhraseStarts of(final TermIndex index) {
-        return new PhraseStarts(index.terms().stream()
-                .filter(term -> term.size() > 1)
+        return new PhraseStarts(firstWords(index, PHRASE_LENGTH), PHRASE_LENGTH);
+    }
+
+    /** The first word of every term this source publishes, whatever its length. */
+    public static PhraseStarts ofEveryTerm(final TermIndex index) {
+        return new PhraseStarts(firstWords(index, ANY_LENGTH), ANY_LENGTH);
+    }
+
+    private static Set<String> firstWords(final TermIndex index, final int shortestTerm) {
+        return index.terms().stream()
+                .filter(term -> term.size() >= shortestTerm)
                 .map(List::getFirst)
-                .collect(Collectors.toUnmodifiableSet()));
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     /** How many words the source publishes a phrase beginning at, which is what the gate narrows to. */
@@ -44,6 +62,6 @@ public final class PhraseStarts {
      * this library compares does.
      */
     public boolean couldBeIn(final List<String> run) {
-        return run.size() > 1 && run.stream().anyMatch(words::contains);
+        return run.size() >= shortestRun && run.stream().anyMatch(words::contains);
     }
 }

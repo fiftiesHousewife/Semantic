@@ -92,6 +92,41 @@ class TermOrderNullTest {
     }
 
     @Test
+    void countsATermOfOneWordOnlyWhereEveryTermIsReported() {
+        final List<WrittenRun> written = List.of(run(List.of("interest", "rate")),
+                run(List.of("collateral")));
+        final TermIndex published = publishing("a taxonomy", "interest rate", "collateral");
+
+        assertAll(
+                () -> assertThat(new TermOrderNull(DEALS, 11L).over(written, List.of(published))
+                        .getFirst().observed())
+                        .as("the walk the reading publishes counts the phrase alone")
+                        .isEqualTo(1),
+                () -> assertThat(new TermOrderNull(DEALS, 11L, CountedPhrases.HOW_MANY,
+                        ReportedSpans.EVERY_TERM).over(written, List.of(published))
+                        .getFirst().observed())
+                        .as("the every-term walk counts the phrase and the single word")
+                        .isEqualTo(2));
+    }
+
+    @Test
+    void neverPutsASourceOfOnlySingleWordsAboveItsBar() {
+        final TermIndex oneWorders = publishing("one worders", "collateral", "ledger", "account");
+        final List<WrittenRun> written = List.of(run(List.of("collateral")),
+                run(List.of("ledger")), run(List.of("account")));
+
+        final PhraseBar bar = new TermOrderNull(DEALS, 11L, CountedPhrases.HOW_MANY,
+                ReportedSpans.EVERY_TERM).over(written, List.of(oneWorders)).getFirst();
+
+        assertAll(
+                () -> assertThat(bar.observed()).isEqualTo(3),
+                () -> assertThat(bar.exceedsChance())
+                        .as("a deal of terms of one word states the same terms, so a single word has "
+                                + "no published order for a deal to destroy")
+                        .isFalse());
+    }
+
+    @Test
     void drawsItsBarInWhicheverUnitItCounts() {
         final List<WrittenRun> written = aRepositoryWriting(20);
         final PhraseBar many = new TermOrderNull(DEALS, 11L).over(written, List.of(ITS_ORDERS)).getFirst();

@@ -17,20 +17,32 @@ public final class ReachedPhrases {
 
     private final PhraseStarts starts;
 
+    private final ReportedSpans reported;
+
     public ReachedPhrases(final TermSpans spans, final PhraseStarts starts) {
+        this(spans, starts, ReportedSpans.PHRASES);
+    }
+
+    public ReachedPhrases(final TermSpans spans, final PhraseStarts starts, final ReportedSpans reported) {
         this.spans = spans;
         this.starts = starts;
+        this.reported = reported;
     }
 
     /** The walk over one source's published spellings, at the normalisation {@link MatchedPhrases} states. */
     public static ReachedPhrases over(final TermIndex index) {
-        return new ReachedPhrases(new TermSpans(index), PhraseStarts.of(index));
+        return over(index, ReportedSpans.PHRASES);
+    }
+
+    /** The same walk reporting the spans the caller asks for, of one length rule or the other. */
+    public static ReachedPhrases over(final TermIndex index, final ReportedSpans reported) {
+        return new ReachedPhrases(new TermSpans(index), reported.startsOf(index), reported);
     }
 
     public PhraseReach in(final List<WrittenRun> names) {
         final List<String> standing = names.stream()
                 .filter(name -> starts.couldBeIn(name.words()))
-                .flatMap(name -> spans.phrasesIn(name.words()).stream()
+                .flatMap(name -> reported.in(spans, name.words()).stream()
                         .filter(span -> !name.declaredAt().restatesItsType(span.words()))
                         .map(span -> String.join(" ", span.words())))
                 .toList();

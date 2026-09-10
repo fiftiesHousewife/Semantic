@@ -46,6 +46,21 @@ class ReachedPhrasesTest {
     }
 
     @Test
+    void countsATermOfOneWordWhereEveryTermIsReported() {
+        final PhraseReach reach = ReachedPhrases.over(PUBLISHED, ReportedSpans.EVERY_TERM).in(WRITTEN);
+
+        assertAll(
+                () -> assertThat(reach.terms()).isEqualTo(3),
+                () -> assertThat(reach.occurrences()).isEqualTo(4));
+    }
+
+    @Test
+    void reportsOnlyPhrasesUnlessAskedForEveryTerm() {
+        assertThat(ReachedPhrases.over(PUBLISHED, ReportedSpans.PHRASES).in(WRITTEN))
+                .isEqualTo(ReachedPhrases.over(PUBLISHED).in(WRITTEN));
+    }
+
+    @Test
     void countsNothingForASourceWhoseOrdersTheRepositoryNeverWrote() {
         final PhraseReach reach = ReachedPhrases.over(publishing("other", "date maturity")).in(WRITTEN);
 

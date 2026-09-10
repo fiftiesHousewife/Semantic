@@ -12,6 +12,9 @@ class PhraseStartsTest {
     private static final PhraseStarts STARTS =
             PhraseStarts.of(publishing("a taxonomy", "interest rate", "maturity date", "ledger"));
 
+    private static final PhraseStarts EVERY_TERM =
+            PhraseStarts.ofEveryTerm(publishing("a taxonomy", "interest rate", "maturity date", "ledger"));
+
     @Test
     void countsTheFirstWordOfEveryTermOfMoreThanOneWord() {
         assertThat(STARTS.count()).isEqualTo(2);
@@ -40,5 +43,20 @@ class PhraseStartsTest {
     @Test
     void countsNoWordOfATermTheSourcePublishesInOneWord() {
         assertThat(STARTS.couldBeIn(List.of("ledger", "ledger"))).isFalse();
+    }
+
+    @Test
+    void countsTheFirstWordOfEveryTermWhereEveryTermIsReported() {
+        assertThat(EVERY_TERM.count()).isEqualTo(3);
+    }
+
+    @Test
+    void admitsARunOfOneWordWhereEveryTermIsReported() {
+        assertThat(EVERY_TERM.couldBeIn(List.of("ledger"))).isTrue();
+    }
+
+    @Test
+    void refusesARunHoldingNoWordAnyTermBeginsAtWhereEveryTermIsReported() {
+        assertThat(EVERY_TERM.couldBeIn(List.of("rate", "date"))).isFalse();
     }
 }

@@ -36,14 +36,23 @@ public final class TermOrderNull {
 
     private final CountedPhrases counted;
 
+    private final ReportedSpans reported;
+
     public TermOrderNull(final int resamples, final long seed) {
         this(resamples, seed, CountedPhrases.HOW_MANY);
     }
 
     public TermOrderNull(final int resamples, final long seed, final CountedPhrases counted) {
+        this(resamples, seed, counted, ReportedSpans.PHRASES);
+    }
+
+    /** The same null with the walk chosen too, so single-word terms can be judged against their own deal. */
+    public TermOrderNull(final int resamples, final long seed, final CountedPhrases counted,
+                         final ReportedSpans reported) {
         this.resamples = resamples;
         this.seed = seed;
         this.counted = counted;
+        this.reported = reported;
     }
 
     public static TermOrderNull seeded(final long seed) {
@@ -70,7 +79,7 @@ public final class TermOrderNull {
                                                                final List<TermIndex> judged) {
         final List<String> field = judged.stream().map(TermIndex::source).toList();
         final List<PhraseReach> observed = judged.stream()
-                .map(index -> ReachedPhrases.over(index).in(written))
+                .map(index -> ReachedPhrases.over(index, reported).in(written))
                 .toList();
         final Map<CountedPhrases, int[][]> chance = dealt(written, judged);
         return Stream.of(CountedPhrases.values())
@@ -96,10 +105,10 @@ public final class TermOrderNull {
                                 .toArray(int[][]::new)));
     }
 
-    private static PhraseReach[] reachedOnADeal(final List<WrittenRun> written,
-                                                final List<TermIndex> judged, final Random draws) {
+    private PhraseReach[] reachedOnADeal(final List<WrittenRun> written,
+                                         final List<TermIndex> judged, final Random draws) {
         return judged.stream()
-                .map(index -> ReachedPhrases.over(ScrambledTerms.of(index, draws)).in(written))
+                .map(index -> ReachedPhrases.over(ScrambledTerms.of(index, draws), reported).in(written))
                 .toArray(PhraseReach[]::new);
     }
 }

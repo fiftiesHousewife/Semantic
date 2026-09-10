@@ -213,6 +213,20 @@ tasks.register<JavaExec>("countedPhrases") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Each bundled vocabulary judged at both walks at one seed: on its phrases alone, which is what the
+// reading publishes, and on every term it states including those of one word. Both nulls share their
+// deals, so a verdict that moves is moved by the single words. It prints; no published figure moves.
+//   ./gradlew termLength
+//   ./gradlew termLength -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("termLength") {
+    group = "verification"
+    description = "Judges each vocabulary on its phrases alone and on every term including single words"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.TermLengthProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // The workings behind phraseNull's two halves; it prints and writes nothing.
 //   ./gradlew termhood
 //   ./gradlew termhood -Dcs.clone.dir=<path>
@@ -348,6 +362,23 @@ tasks.register<JavaExec>("phraseUnitAll") {
     doFirst {
         if (evaluationDirectory == null) {
             throw GradleException("phraseUnitAll needs -Dcs.evaluation.dir=<directory holding the clones>.")
+        }
+    }
+}
+
+// The same two walks over every cloned evaluation-set member, in one JVM, several members at a time.
+//   ./gradlew termLengthAll -Dcs.evaluation.dir=<directory holding the clones>
+tasks.register<JavaExec>("termLengthAll") {
+    group = "verification"
+    description = "Judges every evaluation-set member at both walks, in one JVM"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.term.TermLengthCommand"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "12g"
+    evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
+    System.getProperty("cs.seeds")?.let { systemProperty("cs.seeds", it) }
+    doFirst {
+        if (evaluationDirectory == null) {
+            throw GradleException("termLengthAll needs -Dcs.evaluation.dir=<directory holding the clones>.")
         }
     }
 }
