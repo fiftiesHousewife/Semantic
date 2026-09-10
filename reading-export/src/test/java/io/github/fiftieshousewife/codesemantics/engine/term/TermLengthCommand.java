@@ -49,9 +49,10 @@ public final class TermLengthCommand {
         final List<Member> members = clones.in(EvaluationSet.fromClasspath());
         final List<TermIndex> judged = judged();
         final List<Long> seeds = DrawnSeeds.stated().seeds();
+        final int resamples = DrawnResamples.stated().count();
         final long began = System.nanoTime();
         final List<Judged> all = seeds.stream()
-                .flatMap(seed -> judgedAll(clones, members, judged, seed).stream())
+                .flatMap(seed -> judgedAll(clones, members, judged, seed, resamples).stream())
                 .toList();
         printAgreement(all, seeds);
         log.info("Judged {} members at {} seeds in {} seconds", members.size(), seeds.size(),
@@ -97,26 +98,29 @@ public final class TermLengthCommand {
     }
 
     private static List<Judged> judgedAll(final ClonedMembers clones, final List<Member> members,
-                                          final List<TermIndex> judged, final long seed) {
+                                          final List<TermIndex> judged, final long seed,
+                                          final int resamples) {
         final int atOnce = ReadMembersAtOnce.inThisJvm().count();
-        log.info("Judging {} members at both walks at seed {}, {} at a time, largest first",
-                members.size(), seed, atOnce);
+        log.info("Judging {} members at both walks at seed {}, {} deals each, {} at a time, largest first",
+                members.size(), seed, resamples, atOnce);
         try (ExecutorService reads = Executors.newFixedThreadPool(atOnce)) {
             final Map<Member, Future<Judged>> submitted = longestFirst(clones, members).stream()
                     .collect(Collectors.toMap(member -> member,
-                            member -> reads.submit(() -> judgedOne(clones, member, judged, seed)),
+                            member -> reads.submit(() -> judgedOne(clones, member, judged, seed,
+                                    resamples)),
                             (first, second) -> first, LinkedHashMap::new));
             return members.stream().map(member -> completed(submitted.get(member))).toList();
         }
     }
 
     private static Judged judgedOne(final ClonedMembers clones, final Member member,
-                                    final List<TermIndex> judged, final long seed) {
+                                    final List<TermIndex> judged, final long seed,
+                                    final int resamples) {
         final long began = System.nanoTime();
         final TreeReading tree = TreeReading.of(clones.treeOf(member));
         final List<WrittenRun> written = WrittenRuns.fromClasspath().in(tree.parsed());
-        final List<PhraseBar> phrases = TermOrderNull.seeded(seed).over(written, judged);
-        final List<PhraseBar> everyTerm = new TermOrderNull(TermOrderNull.RESAMPLES, seed,
+        final List<PhraseBar> phrases = new TermOrderNull(resamples, seed).over(written, judged);
+        final List<PhraseBar> everyTerm = new TermOrderNull(resamples, seed,
                 CountedPhrases.HOW_MANY, ReportedSpans.EVERY_TERM).over(written, judged);
         final Judged done = new Judged(seed, member.name(), written.size(), phrases, everyTerm,
                 judged.stream().map(index -> TermLengthProbe.singleWords(index, written)).toList());
@@ -167,7 +171,7 @@ public final class TermLengthCommand {
     /** Synchronised so two members finishing together cannot interleave their rows. */
     private static synchronized void print(final Judged judged) {
         System.out.printf("%n%s at seed %d — %d declared runs, %d deals of each vocabulary%n",
-                judged.member(), judged.seed(), judged.runs(), TermOrderNull.RESAMPLES);
+                judged.member(), judged.seed(), judged.runs(), judged.phrases().getFirst().resamples());
         System.out.printf("%n%-8s   %8s %8s %7s %7s   %8s %8s %7s %7s   %-34s %s%n",
                 "source", "phrases", "bar", "times", "clears",
                 "terms", "bar", "times", "clears", "verdict", "most-written single words");

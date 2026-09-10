@@ -359,6 +359,8 @@ tasks.register<JavaExec>("phraseUnitAll") {
     // The seeds the null is drawn at. One seed is one estimate of a bar that is an order statistic of the
     // deals, so several say whether a verdict rests on which deals were drawn.
     System.getProperty("cs.seeds")?.let { systemProperty("cs.seeds", it) }
+    // How many deals each null takes. More deals narrow the bar's own sampling noise.
+    System.getProperty("cs.resamples")?.let { systemProperty("cs.resamples", it) }
     doFirst {
         if (evaluationDirectory == null) {
             throw GradleException("phraseUnitAll needs -Dcs.evaluation.dir=<directory holding the clones>.")
@@ -376,6 +378,7 @@ tasks.register<JavaExec>("termLengthAll") {
     maxHeapSize = "12g"
     evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
     System.getProperty("cs.seeds")?.let { systemProperty("cs.seeds", it) }
+    System.getProperty("cs.resamples")?.let { systemProperty("cs.resamples", it) }
     doFirst {
         if (evaluationDirectory == null) {
             throw GradleException("termLengthAll needs -Dcs.evaluation.dir=<directory holding the clones>.")

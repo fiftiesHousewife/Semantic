@@ -50,9 +50,10 @@ public final class PhraseUnitCommand {
         final List<TermIndex> judged = judged().stream().map(SpecificTerms::of)
                 .map(TermIndex.class::cast).toList();
         final List<Long> seeds = DrawnSeeds.stated().seeds();
+        final int resamples = DrawnResamples.stated().count();
         final long began = System.nanoTime();
         final List<Judged> all = seeds.stream()
-                .flatMap(seed -> judgedAll(clones, members, judged, seed).stream())
+                .flatMap(seed -> judgedAll(clones, members, judged, seed, resamples).stream())
                 .toList();
         all.stream().filter(judgement -> judgement.seed() == seeds.getFirst())
                 .forEach(PhraseUnitCommand::print);
@@ -106,26 +107,29 @@ public final class PhraseUnitCommand {
     }
 
     private static List<Judged> judgedAll(final ClonedMembers clones, final List<Member> members,
-                                          final List<TermIndex> judged, final long seed) {
+                                          final List<TermIndex> judged, final long seed,
+                                          final int resamples) {
         final int atOnce = ReadMembersAtOnce.inThisJvm().count();
-        log.info("Judging {} members in both units at seed {}, {} at a time, largest first",
-                members.size(), seed, atOnce);
+        log.info("Judging {} members in both units at seed {}, {} deals each, {} at a time, largest first",
+                members.size(), seed, resamples, atOnce);
         try (ExecutorService reads = Executors.newFixedThreadPool(atOnce)) {
             final Map<Member, Future<Judged>> submitted = longestFirst(clones, members).stream()
                     .collect(Collectors.toMap(member -> member,
-                            member -> reads.submit(() -> judgedOne(clones, member, judged, seed)),
+                            member -> reads.submit(() -> judgedOne(clones, member, judged, seed,
+                                    resamples)),
                             (first, second) -> first, LinkedHashMap::new));
             return members.stream().map(member -> completed(submitted.get(member))).toList();
         }
     }
 
     private static Judged judgedOne(final ClonedMembers clones, final Member member,
-                                    final List<TermIndex> judged, final long seed) {
+                                    final List<TermIndex> judged, final long seed,
+                                    final int resamples) {
         final long began = System.nanoTime();
         final TreeReading tree = TreeReading.of(clones.treeOf(member));
         final List<WrittenRun> written = WrittenRuns.fromClasspath().in(tree.parsed());
         final Map<CountedPhrases, List<PhraseBar>> bars =
-                TermOrderNull.seeded(seed).inEachUnitOver(written, judged);
+                new TermOrderNull(resamples, seed).inEachUnitOver(written, judged);
         final Judged done = new Judged(seed, member.name(), written.size(),
                 bars.get(CountedPhrases.HOW_MANY), bars.get(CountedPhrases.HOW_OFTEN));
         log.info("{} judged at seed {} in {}s — {} declared runs, {} of {} verdicts changed",
@@ -177,7 +181,7 @@ public final class PhraseUnitCommand {
 
     private static void print(final Judged judged) {
         System.out.printf("%n%s — %d declared runs, %d deals of each vocabulary%n",
-                judged.member(), judged.runs(), TermOrderNull.RESAMPLES);
+                judged.member(), judged.runs(), judged.many().getFirst().resamples());
         System.out.printf("%n%-8s   %8s %8s %7s %7s   %8s %8s %7s %7s   %s%n",
                 "source", "terms", "bar", "times", "clears",
                 "written", "bar", "times", "clears", "verdict");
