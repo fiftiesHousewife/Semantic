@@ -34,42 +34,23 @@ class WordMorphologyTest {
     }
 
     @Test
-    void readsADerivationAsTheWordItDerivesFrom() {
-        assertAll(
-                () -> assertThat(morphology.carriesAPrefix("unforced")).isTrue(),
-                () -> assertThat(morphology.carriesAPrefix("nonzero")).isTrue(),
-                () -> assertThat(morphology.carriesAPrefix("recount")).isTrue(),
-                () -> assertThat(morphology.carriesAPrefix("misread")).isTrue());
-    }
-
-    @Test
     void readsAGluedCompoundAsNoWordsMorphology() {
         assertAll(
-                () -> assertThat(morphology.growsAKnownWord("pushevent")).isFalse(),
-                () -> assertThat(morphology.growsAKnownWord("userid")).isFalse(),
-                () -> assertThat(morphology.growsAKnownWord("dslcontext")).isFalse());
-    }
-
-    @Test
-    void tellsABrandingResidualFromADerivationalPrefix() {
-        assertAll(
-                () -> assertThat(morphology.carriesAPrefix("gharchive"))
-                        .as("gh is not a prefix English derives with, so gharchive stays a compound")
-                        .isFalse(),
-                () -> assertThat(morphology.carriesAPrefix("unranked")).isTrue());
+                () -> assertThat(morphology.carriesASuffix("pushevent")).isFalse(),
+                () -> assertThat(morphology.carriesASuffix("userid")).isFalse(),
+                () -> assertThat(morphology.carriesASuffix("dslcontext")).isFalse());
     }
 
     @Test
     void provesNothingByStrippingAnAffixOffAFragment() {
-        assertAll(
-                () -> assertThat(morphology.carriesASuffix("ins")).isFalse(),
-                () -> assertThat(morphology.carriesAPrefix("undo")).isFalse());
+        assertThat(morphology.carriesASuffix("ins")).isFalse();
     }
 
     @Test
-    void readsEitherEdgeWhenAskedForBoth() {
-        assertAll(
-                () -> assertThat(morphology.growsAKnownWord("sugars")).isTrue(),
-                () -> assertThat(morphology.growsAKnownWord("unforced")).isTrue());
+    void readsNoDerivationalPrefixBecauseNoCitationStatesTheirMembership() {
+        assertThat(morphology.carriesASuffix("unforced"))
+                .as("forced with un in front is not an inflection of unforce, and the leading edge is "
+                        + "no longer read")
+                .isFalse();
     }
 }

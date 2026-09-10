@@ -74,12 +74,14 @@ class IdentifierWordsTest {
 
     @Test
     void beginsANewWordAtACapitalWrittenAfterADigit() {
+        final IdentifierWords reading = IdentifierWords.fromClasspath();
+
         assertAll(
-                () -> assertThat(words.of("utf8Decode").words()).containsExactly("utf8", "decode"),
-                () -> assertThat(words.of("mp3VariableBitRate").words())
+                () -> assertThat(reading.of("utf8Decode").words()).containsExactly("utf8", "decode"),
+                () -> assertThat(reading.of("mp3VariableBitRate").words())
                         .containsExactly("mp3", "variable", "bit", "rate"),
-                () -> assertThat(words.of("JBIG2Image").words()).containsExactly("jbig2", "image"),
-                () -> assertThat(words.of("SHA256Digest").words()).containsExactly("sha256", "digest"));
+                () -> assertThat(reading.of("JBIG2Image").words()).containsExactly("jbig2", "image"),
+                () -> assertThat(reading.of("SHA256Digest").words()).containsExactly("sha256", "digest"));
     }
 
     @Test

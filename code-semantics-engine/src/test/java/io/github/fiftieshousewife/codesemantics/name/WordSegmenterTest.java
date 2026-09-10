@@ -110,18 +110,27 @@ class WordSegmenterTest {
     }
 
     @Test
-    void leavesAKnownWordsPrefixDerivationUnsegmented() {
+    void readsAPrefixedDerivationByWordFrequencyAlone() {
         assertAll(
                 () -> assertThat(segmenter.segment("unforced"))
-                        .as("un + forced is forced grown by a prefix, not a brand glued to a word").isEmpty(),
-                () -> assertThat(segmenter.segment("unranked")).isEmpty(),
-                () -> assertThat(segmenter.segment("nonfat")).isEmpty(),
-                () -> assertThat(segmenter.segment("nonzero")).isEmpty(),
-                () -> assertThat(segmenter.segment("recount")).isEmpty(),
-                () -> assertThat(segmenter.segment("resend")).isEmpty(),
-                () -> assertThat(segmenter.segment("prepaid")).isEmpty(),
-                () -> assertThat(segmenter.segment("misread")).isEmpty(),
-                () -> assertThat(segmenter.segment("overrated")).isEmpty()
+                        .as("no citation states English's derivational prefixes, so the frequency parse "
+                                + "decides and the base word is recovered beside the prefix residual")
+                        .contains(List.of("un", "forced")),
+                () -> assertThat(segmenter.segment("unranked")).contains(List.of("un", "ranked")),
+                () -> assertThat(segmenter.segment("nonzero")).contains(List.of("non", "zero")),
+                () -> assertThat(segmenter.segment("misread")).contains(List.of("mis", "read")),
+                () -> assertThat(segmenter.segment("overrated")).contains(List.of("over", "rated"))
+        );
+    }
+
+    @Test
+    void misreadsADerivationWhosePiecesSpellOtherWords() {
+        assertAll(
+                () -> assertThat(segmenter.segment("resend"))
+                        .as("the frequency parse prices res + end above resend staying whole, which is "
+                                + "the stated cost of deleting the uncited prefix list")
+                        .contains(List.of("res", "end")),
+                () -> assertThat(segmenter.segment("prepaid")).contains(List.of("prep", "aid"))
         );
     }
 

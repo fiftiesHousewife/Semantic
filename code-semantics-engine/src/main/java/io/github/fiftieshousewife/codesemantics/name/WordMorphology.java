@@ -11,7 +11,9 @@ import java.util.Set;
  *
  * <p>The rules are grammar — where a word's own edges are — and not vocabulary. What they consult is the
  * frequency list, so a stem is a word because a published resource ranks it and never because this class
- * says so.
+ * says so. Only the trailing edge is read: English's inflectional endings are a near-closed class, where a
+ * list of derivational prefixes has no citation stating its membership, so a prefixed derivation the
+ * frequency list does not rank is read by word frequency alone.
  */
 final class WordMorphology {
 
@@ -25,10 +27,6 @@ final class WordMorphology {
      */
     private static final Set<String> VOWEL_INITIAL_SUFFIXES = Set.of("es", "y", "ed", "ing", "er");
 
-    /** Derivational beginnings that do the same from the front: unforced, nonzero, recount. */
-    private static final List<String> PREFIXES = List.of(
-            "un", "re", "de", "non", "pre", "dis", "mis", "over", "under", "sub", "anti", "semi");
-
     /** Shorter than this a stem is a fragment, and stripping an affix off it proves nothing. */
     private static final int MIN_STEM_LENGTH = 2;
 
@@ -36,11 +34,6 @@ final class WordMorphology {
 
     WordMorphology(final WordRanks words) {
         this.words = words;
-    }
-
-    /** Whether the run is a known word carrying a derivational affix at either edge. */
-    boolean growsAKnownWord(final String compound) {
-        return carriesASuffix(compound) || carriesAPrefix(compound);
     }
 
     /**
@@ -59,20 +52,6 @@ final class WordMorphology {
                 compound.length() > suffix.length() + MIN_STEM_LENGTH
                         && compound.endsWith(suffix)
                         && namesAStem(compound.substring(0, compound.length() - suffix.length()), suffix));
-    }
-
-    /**
-     * The mirror of {@link #carriesASuffix} on the leading edge: a derivational prefix in front of a known
-     * word is that word grown by morphology, not a compound — {@code unforced} is forced with un in front,
-     * which must not be read as a brand called un glued to forced the way {@code gharchive} is gh glued to
-     * archive. The branding-residual tolerance stays for residuals that are not derivational prefixes, which
-     * is exactly what separates gh from un.
-     */
-    boolean carriesAPrefix(final String compound) {
-        return PREFIXES.stream().anyMatch(prefix ->
-                compound.length() > prefix.length() + MIN_STEM_LENGTH
-                        && compound.startsWith(prefix)
-                        && words.knows(compound.substring(prefix.length())));
     }
 
     /** Whether the stripped stem is a known word, as it stands or with an elided silent {@code e} restored. */

@@ -107,7 +107,7 @@ public final class WordSegmenter {
                 || words.knows(compound)
                 || dictionary.carries(compound)
                 || cited.recognises(compound)
-                || morphology.growsAKnownWord(compound);
+                || morphology.carriesASuffix(compound);
     }
 
     private static double averagePieceLength(final List<String> pieces) {
