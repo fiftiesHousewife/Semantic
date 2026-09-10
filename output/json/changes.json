@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "8ef8915a950f1b04eafd7002395064a5db40596b",
-  "commit" : "203aaecc13e8ebd25154e1e6db904387e928152c",
+  "previousCommit" : "203aaecc13e8ebd25154e1e6db904387e928152c",
+  "commit" : "311e14f3c13195bcf2d0b9d883dcc572dd979339",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.1%",
@@ -35,11 +35,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.5%",
+    "before" : "42.6%",
     "after" : "42.6%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
+    "before" : "45.3%",
     "after" : "45.3%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -75,7 +75,7 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "42.0%",
+    "before" : "42.1%",
     "after" : "42.1%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
@@ -100,7 +100,7 @@
   }, {
     "figure" : "CSO archive — chance reaches",
     "before" : "27.1%",
-    "after" : "27.1%"
+    "after" : "27.0%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
     "before" : "yes",
@@ -108,7 +108,7 @@
   }, {
     "figure" : "CSO archive — subjects nearer than chance",
     "before" : "4",
-    "after" : "4"
+    "after" : "3"
   }, {
     "figure" : "CSO category — nearest subject",
     "before" : "information technology",
@@ -120,7 +120,7 @@
   }, {
     "figure" : "CSO category — chance reaches",
     "before" : "29.1%",
-    "after" : "29.1%"
+    "after" : "29.0%"
   }, {
     "figure" : "CSO category — stands apart from chance",
     "before" : "yes",
@@ -135,28 +135,12 @@
     "after" : "291"
   }, {
     "figure" : "Topics reported",
-    "before" : "10",
-    "after" : "8"
+    "before" : "8",
+    "after" : "9"
   }, {
     "figure" : "Concepts written",
     "before" : "171",
     "after" : "171"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "re",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "samples",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "resamples",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "subtype",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }
