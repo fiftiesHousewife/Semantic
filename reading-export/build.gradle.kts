@@ -567,6 +567,20 @@ tasks.register<JavaExec>("shortNames") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// One repository read twice, the second time from a copy stating every file the scopes name, with the two
+// exports compared block by block. The pull request path reads a directory a fetch step wrote, and this is
+// the property it rests on. It prints and throws where a block differs; no published figure moves.
+//   ./gradlew copiedReading
+//   ./gradlew copiedReading -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("copiedReading") {
+    group = "verification"
+    description = "Reads a copy stating every file and compares its export with the tree's own"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.CopiedTreeProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // Every path of the reading placed against every bundled subject scheme, side by side, with how far the
 // paths agree. Nothing here votes; it prints.
 //   ./gradlew pathPlacement -Dcs.clone.dir=<path>

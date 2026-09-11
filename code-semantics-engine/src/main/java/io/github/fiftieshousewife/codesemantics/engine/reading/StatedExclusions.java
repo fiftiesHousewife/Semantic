@@ -20,7 +20,8 @@ import java.util.Locale;
  */
 public final class StatedExclusions {
 
-    private static final String FILE = ".readingignore";
+    /** The file a repository states its exclusions in, named here once for every reader and writer of it. */
+    public static final String FILE = ".readingignore";
     private static final String COMMENT = "#";
     private static final String GLOB = "glob:";
 
