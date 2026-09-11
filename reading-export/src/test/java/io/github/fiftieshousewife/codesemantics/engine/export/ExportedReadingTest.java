@@ -75,6 +75,28 @@ class ExportedReadingTest {
                         .isOne());
     }
 
+    @Test
+    void countsEveryJudgedVocabularysBranchRuleDiscardsInOneFigure(@TempDir final Path root)
+            throws IOException {
+        final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
+        Files.createDirectories(scope);
+        Files.writeString(scope.resolve("NounPhrase.java"),
+                "package a; /** Reads a noun phrase. */ class NounPhrase "
+                        + "{ String headword; String hypotaxis; String zeugma; }");
+        final RepositoryReading reading = RepositoryReading.of(root);
+        final ExportedReading exported = new ExportedReading();
+
+        final int oliaAlone = exported.of(reading, "", List.of())
+                .setAside().matchesDiscardedByBranchRule();
+        final int withTwoLoneTerms = exported.of(reading, "", List.of(LoneTerms.newInstance()))
+                .setAside().matchesDiscardedByBranchRule();
+
+        assertThat(withTwoLoneTerms - oliaAlone)
+                .as("each of the fixture's one-word terms is written without a branch sibling, so both "
+                        + "of its discards join the count beside the bundled vocabulary's")
+                .isEqualTo(2);
+    }
+
     private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
                 new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));

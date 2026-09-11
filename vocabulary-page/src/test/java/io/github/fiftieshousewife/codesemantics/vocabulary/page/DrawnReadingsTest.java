@@ -40,7 +40,12 @@ class DrawnReadingsTest {
 
     private static ExportedAnswer taxonomy(final String source, final String result,
                                            final double timesItsBar) {
-        return ExportedAnswer.fromATaxonomy(source, List.of("a branch"), result,
+        return taxonomy(source, result, null, timesItsBar);
+    }
+
+    private static ExportedAnswer taxonomy(final String source, final String result,
+                                           final String definition, final double timesItsBar) {
+        return ExportedAnswer.fromATaxonomy(source, List.of("a branch"), result, definition,
                 "22 phrases against the 2 a deal reaches", timesItsBar);
     }
 
@@ -64,7 +69,7 @@ class DrawnReadingsTest {
     @Test
     void statesEachSourcesStrengthInTheUnitItsOwnSourceTypeUses() {
         final DrawnReading.Drawing vocabularies = drawn.of(
-                List.of(row("quickfixj", taxonomy("FIX", "MsgSeqNum — a sequence number", 10.4))),
+                List.of(row("quickfixj", taxonomy("FIX", "MsgSeqNum", "a sequence number", 10.4))),
                 StatedAreas.none());
         final DrawnReading.Drawing schemes = drawn.of(
                 List.of(row("maven", ExportedAnswer.fromASubjectScheme("arXiv", List.of("Computer Science"),
@@ -85,7 +90,7 @@ class DrawnReadingsTest {
         final DrawnReading.Drawing drawing = drawn.of(List.of(row("strata",
                 ExportedAnswer.fromATaxonomy("FIBO",
                         List.of("Aspect", "Value", "QuantitativeValue"),
-                        "PresentValue — value of an asset today", "47 phrases", 2.8))),
+                        "PresentValue", "value of an asset today", "47 phrases", 2.8))),
                 StatedAreas.none());
         assertThat(only(drawing).statedPath())
                 .as("the two ends of this path dropped Value between them")
@@ -95,7 +100,7 @@ class DrawnReadingsTest {
     @Test
     void statesNoPathWhereThePublisherPlacesTheConceptNowhere() {
         final DrawnReading.Drawing drawing = drawn.of(List.of(row("tika",
-                ExportedAnswer.fromATaxonomy("FpML", List.of(), "PartyName — a party's name",
+                ExportedAnswer.fromATaxonomy("FpML", List.of(), "PartyName", "a party's name",
                         "6 phrases", 1.5))), StatedAreas.none());
         assertThat(only(drawing).statedPath())
                 .as("FpML declares 616 of its 1,405 types with no base type")
@@ -103,9 +108,9 @@ class DrawnReadingsTest {
     }
 
     @Test
-    void splitsTheConceptFromWhatItsPublisherSaysItMeans() {
+    void carriesTheConceptAndItsDefinitionAsTheExportStatesThem() {
         final DrawnReading.Drawing drawing = drawn.of(List.of(row("mine", taxonomy("OLiA",
-                "BaseForm — Strong inflection is a characteristic of lexemes. "
+                "BaseForm", "Strong inflection is a characteristic of lexemes. "
                         + "In traditional English tagsets, ambiguities are not resolved.", 2.0))),
                 StatedAreas.none());
         assertAll(
@@ -229,7 +234,7 @@ class DrawnReadingsTest {
                 List.of("computer security", "cryptography"), 12, 0.5, 2, 0.9,
                 new SightingSite("C.java", 1));
         final DrawnReading santuario = drawn.of(List.of(row("santuario",
-                List.of(taxonomy("CSO", "key agreement — a protocol", 1.3)),
+                List.of(taxonomy("CSO", "key agreement", "a protocol", 1.3)),
                 List.of(new ExportedTaxonomy("CSO", List.of(agreement, certificates, hashes), List.of(),
                         Map.of(), new ExportedTaxonomy.Bar(9, 7, 6, 1.3, 0, 0.001, 7, FIELD, 999))),
                 Optional.empty())), StatedAreas.none()).readings().getFirst();
@@ -508,7 +513,7 @@ class DrawnReadingsTest {
     @Test
     void drawsWhereEverySchemePlacesItEvenWhereAVocabularyAnswered() {
         final DrawnReading reading = drawn.of(
-                List.of(row("mine", taxonomy("OLiA", "BaseForm — strong inflection", 2.0))),
+                List.of(row("mine", taxonomy("OLiA", "BaseForm", "strong inflection", 2.0))),
                 StatedAreas.none()).readings().getFirst();
         assertAll(
                 () -> assertThat(reading.placedIn()).singleElement()

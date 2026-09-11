@@ -1,5 +1,7 @@
 # One page, with the evidence beneath it
 
+**Steps 2–5 are superseded by [a page of findings](A_PAGE_OF_FINDINGS.md).** The review below, Pippa's corrections and the nine mechanisms carry forward there; step 1's `readings.html` remains the landing page that plan replaces.
+
 The pages have the shape the export has just stopped having. [`ONE_ANSWER.md`](ONE_ANSWER.md) exists because `reading.json` published three unrelated blocks with nothing stating which of them answered; the pictures publish four unrelated views per repository with the same silence, and a reader opening `index.html` is given three links and no reason to prefer one. This plan gives the pages the shape of the answer: one page per reading that states what the repository is about and what bar that cleared, with every normalisation's evidence beneath it, and one page across readings that compares them.
 
 ## What is drawn today

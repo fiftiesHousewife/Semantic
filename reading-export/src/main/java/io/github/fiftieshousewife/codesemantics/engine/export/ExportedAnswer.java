@@ -39,8 +39,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  *                       FIBO states
  *                       {@code Aspect → Value → QuantitativeValue → PresentValue}, where the two ends
  *                       dropped {@code Value}. For a subject scheme it is the archive the category sits in
- * @param result         what that publisher says this repository is: its own definition of the concept the
- *                       repository wrote most, or the subject it places the repository nearest to
+ * @param result         the name of what answered: the concept the repository wrote most for a taxonomy,
+ *                       the subject the scheme places the repository nearest to, and empty where nothing
+ *                       is named — a vocabulary none of whose matched concepts qualified to be named
+ *                       states what it covers in {@code definition}
+ * @param definition     what the publisher says {@code result} means, absent where it states nothing and
+ *                       for a subject scheme, whose subject label is its whole statement
  * @param qualifiedBy    how it cleared its own bar, in the unit that bar is set in
  * @param timesItsBar    how many times its own chance bar a vocabulary's phrase count reached, and absent
  *                       for every other source type
@@ -49,15 +53,22 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ExportedAnswer(String sourceType, String source, List<String> statedPath, String result,
-                             String qualifiedBy, Double timesItsBar, Double bitsPastChance) {
+                             String definition, String qualifiedBy, Double timesItsBar,
+                             Double bitsPastChance) {
 
-    static final String TAXONOMY = "taxonomy";
-    static final String SCHEME = "subject scheme";
-    static final String NOTHING = "nothing";
+    /** The {@code sourceType} of a vocabulary's answer, as the document writes it. */
+    public static final String TAXONOMY = "taxonomy";
+
+    /** The {@code sourceType} of a subject scheme's answer. */
+    public static final String SCHEME = "subject scheme";
+
+    /** The {@code sourceType} of the one answer a reading with no qualifying evidence states. */
+    public static final String NOTHING = "nothing";
 
     /** What a reading with no qualifying evidence answers. It is a result and not a missing field. */
     public static final ExportedAnswer NONE =
-            new ExportedAnswer(NOTHING, "", List.of(), "", "no evidence stood above chance", null, null);
+            new ExportedAnswer(NOTHING, "", List.of(), "", null, "no evidence stood above chance", null,
+                    null);
 
     public ExportedAnswer {
         Objects.requireNonNull(sourceType, "sourceType");
@@ -79,15 +90,17 @@ public record ExportedAnswer(String sourceType, String source, List<String> stat
 
     /** A vocabulary's answer, whose strength is a multiple of the bar a deal of its own words reaches. */
     public static ExportedAnswer fromATaxonomy(final String source, final List<String> statedPath,
-                                               final String result, final String qualifiedBy,
-                                               final double timesItsBar) {
-        return new ExportedAnswer(TAXONOMY, source, statedPath, result, qualifiedBy, timesItsBar, null);
+                                               final String result, final String definition,
+                                               final String qualifiedBy, final double timesItsBar) {
+        return new ExportedAnswer(TAXONOMY, source, statedPath, result, definition, qualifiedBy,
+                timesItsBar, null);
     }
 
     /** A scheme's answer, whose strength is how far inside the chance figure the placement stood. */
     public static ExportedAnswer fromASubjectScheme(final String source, final List<String> statedPath,
                                                     final String result, final String qualifiedBy,
                                                     final double bitsPastChance) {
-        return new ExportedAnswer(SCHEME, source, statedPath, result, qualifiedBy, null, bitsPastChance);
+        return new ExportedAnswer(SCHEME, source, statedPath, result, null, qualifiedBy, null,
+                bitsPastChance);
     }
 }

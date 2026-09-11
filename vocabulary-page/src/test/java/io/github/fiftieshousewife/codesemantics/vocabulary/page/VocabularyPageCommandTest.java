@@ -23,9 +23,9 @@ class VocabularyPageCommandTest {
         assertAll(
                 () -> assertThat(funnel.repository()).isEqualTo("a-repository"),
                 () -> assertThat(funnel.field()).isEqualTo(6),
-                () -> assertThat(funnel.field() - funnel.belowChance() - funnel.withinError()
-                        - funnel.languageSupplied())
-                        .as("the export's own counts account for every word between field and signals")
+                () -> assertThat(funnel.field() - funnel.belowChance() - funnel.languageSupplied())
+                        .as("the words within the reference's error are inside the below-threshold count, "
+                                + "so the funnel subtracts them once")
                         .isEqualTo(funnel.signals()),
                 () -> assertThat(funnel.signals()).isEqualTo(3),
                 () -> assertThat(funnel.words())
@@ -42,7 +42,7 @@ class VocabularyPageCommandTest {
     @Test
     void writesOnePageEmbeddingTheStylesheetTheScriptAndTheData(@TempDir final Path reports)
             throws IOException {
-        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 4, 1, 1, 4, 3,
+        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 5, 1, 1, 4, 3,
                 List.of(), List.of(), List.of());
 
         final Path page = VocabularyPageCommand.wrote(reports, funnel, List.of("linguistics"));

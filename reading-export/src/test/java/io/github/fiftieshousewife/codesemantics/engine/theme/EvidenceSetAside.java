@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.List;
+import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibility;
 import io.github.fiftieshousewife.codesemantics.engine.reading.UnreadWords;
@@ -19,15 +20,16 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.VocabularyNull
  * supplies cleared every threshold and was left out anyway. Pooling them would need a discriminator meaning
  * different things on each side.
  *
- * <p><b>The last two reconcile the export's count and it does not name them apart.</b>
- * {@code setAside.wordsBelowEveryThreshold} subtracts the signals from the ranking, so it carries both rules
- * under the name of one.
+ * <p>{@code wordsBelowEveryThreshold} matches the export's count of the same name, which includes the words
+ * the export also counts under {@code wordsWithinTheReferencesError}: each row's {@code verdict} names which
+ * of the two rules removed it.
  *
- * <p>Both are carried whole rather than ranked and truncated. They are what a reading cannot see, so a
+ * <p>All three are carried whole rather than ranked and truncated. They are what a reading cannot see, so a
  * ceiling on them would be the reading deciding how much of its own blindness to report.
  *
  * @param wordsNoResourceCovers    every word no bundled resource has an entry for, most-written first
- * @param wordsBelowEveryThreshold every word a reference's own bar refused, with which references and by how much
+ * @param wordsBelowEveryThreshold every word whose margin a reference's own bar refused, each with the rule
+ *                                 that removed it and what every refusing reference said
  * @param wordsTheLanguageSupplies every word that cleared every bar and is English rather than a subject
  */
 record EvidenceSetAside(List<UnreadWords.Sighting> wordsNoResourceCovers,
@@ -38,7 +40,7 @@ record EvidenceSetAside(List<UnreadWords.Sighting> wordsNoResourceCovers,
                                final List<VocabularyNull.Bar> bars) {
         final UnreadWords unread = legibility.repository().unread();
         final RefusedWords refused = new RefusedWords();
-        final java.util.Map<String, Double> byReference = VocabularyNull.byReference(bars);
+        final Map<String, Double> byReference = VocabularyNull.byReference(bars);
         return new EvidenceSetAside(unread.mostWritten(unread.occurrences().size()),
                 refused.in(ranked, byReference), refused.suppliedByTheLanguage(ranked, byReference));
     }

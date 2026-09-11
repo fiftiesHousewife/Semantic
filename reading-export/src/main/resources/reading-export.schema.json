@@ -91,7 +91,12 @@
                 }
               },
               "result": {
-                "description": "What that publisher says this repository is. For a taxonomy it is the publisher's own definition of the concept the repository wrote most, named before it \u2014 the node carries the meaning, and reporting only its name would have matched a name. A concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer; where the vocabulary defines none of what was matched, what the vocabulary covers is the most the publishers say. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification \u2014 stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
+                "description": "The name of what answered. For a taxonomy it is the concept the repository wrote most; a concept the publisher defines nothing for is passed over for the next one written, which is Katz backoff at the answer, and where the vocabulary defines none of what was matched the field is empty and `definition` carries what the vocabulary covers. Answering at the branch or at the vocabulary was tried and is the `blocking` failure of hierarchical classification \u2014 stopping at an internal node when the evidence supports descending. For a subject scheme it is the subject itself.",
+                "type": "string"
+              },
+              "definition": {
+                "title": "What the publisher says the result means",
+                "description": "The publisher's own prose for `result` \u2014 the node carries the meaning, and a reading that reaches a node and drops its definition has matched a name. Where `result` is empty it carries what the vocabulary covers. Absent where the publisher states nothing, and for a subject scheme, whose subject label is its whole statement.",
                 "type": "string"
               },
               "qualifiedBy": {
@@ -381,7 +386,7 @@
           },
           "divergenceBits": {
             "title": "Term of the divergence in bits",
-            "description": "How much of the scope's total divergence this topic accounts for. The terms across all topics sum to the scope's `divergenceBits`.",
+            "description": "How much of the scope's total divergence this topic accounts for. The terms across every topic of the scope sum to the scope's figure, and only the leading topics are listed here, so summing the listed rows understates it.",
             "type": "number",
             "minimum": 0,
             "maximum": 1
@@ -632,7 +637,7 @@
           "minimum": 0
         },
         "wordsWithinTheReferencesError": {
-          "description": "Words whose scores clear every reference's threshold while the margin \u2014 the same score with the reference's own sampling error held against the word \u2014 does not. A reference's share is an estimate from a drawn sample, and a verdict that holds only at the estimate's exact value has not been shown to stand above chance.",
+          "description": "Words whose scores clear every reference's threshold while the margin \u2014 the same score with the reference's own sampling error held against the word \u2014 does not. A reference's share is an estimate from a drawn sample, and a verdict that holds only at the estimate's exact value has not been shown to stand above chance. These words are inside `wordsBelowEveryThreshold`, which counts by margin: this count says how many of that figure fell on the error rule alone.",
           "type": "integer",
           "minimum": 0
         },
@@ -647,7 +652,7 @@
           "minimum": 0
         },
         "matchesDiscardedByBranchRule": {
-          "description": "Terms of one word the repository writes without writing any other concept from the same branch of the taxonomy. The branch rule discards them.",
+          "description": "Distinct terms of one word the repository writes without writing any other concept from the same branch of their vocabulary, summed over every vocabulary judged — the refused ones among them. A term the branch rule refused at one normalisation and another normalisation reported is counted as reported. `evidence.json` lists each discarded term as a `matches` row whose outcome names the rule.",
           "type": "integer",
           "minimum": 0
         },

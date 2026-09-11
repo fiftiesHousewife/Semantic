@@ -40,7 +40,7 @@ class ThemeReadingDiagnostic {
         final RepositoryThemes themes = reading.themes();
         final ReportFolder reports = ReportFolder.forReadingOf(root);
 
-        EvidenceCommand.wrote(reading);
+        EvidenceCommand.wrote(reading, System.getProperty("cs.commit", ""));
 
         assertAll(
                 () -> assertThat(themes.rankings()).as("a repository of names reads as some subject").isNotEmpty(),

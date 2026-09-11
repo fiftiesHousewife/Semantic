@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -113,8 +114,8 @@ final class DrawnReadings {
         return new DrawnReading.DrawnAnswer(answer.source(),
                 publishers.of(answer.source()).orElse(null),
                 answer.statedPath(),
-                DrawnReading.conceptOf(answer.result()),
-                DrawnReading.definitionOf(answer.result()),
+                answer.result(),
+                Objects.requireNonNullElse(answer.definition(), ""),
                 strengthOf(answer), unitOf(answer),
                 answer.qualifiedBy(),
                 reading.barOf(answer.source()).map(bar -> bar.phrases()).orElse(0),

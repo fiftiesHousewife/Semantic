@@ -81,6 +81,39 @@ class RefusedWordsTest {
     }
 
     @Test
+    void listsAWordWhoseClaimsClearWhileAMarginDoesNotAndNamesTheRuleApart() {
+        final ChosenWord unsettled = word("buffer", 60,
+                new ChosenWord.ReferenceClaim("ordinary English", 0.001, 0.05, true, 0.005),
+                claim("the platform's own API", 0.06, true));
+
+        final List<RefusedWord> read = refused.in(List.of(unsettled), BARS);
+
+        assertAll(
+                () -> assertThat(read).singleElement()
+                        .extracting(RefusedWord::verdict)
+                        .isEqualTo(WordVerdict.WITHIN_THE_REFERENCES_ERROR),
+                () -> assertThat(read.getFirst().refusedBy())
+                        .as("the reference whose error holds the word is named, with the margin that "
+                                + "failed beside the claim that cleared")
+                        .singleElement()
+                        .satisfies(one -> assertAll(
+                                () -> assertThat(one.reference()).isEqualTo("ordinary English"),
+                                () -> assertThat(one.claimBits()).isEqualTo(0.05),
+                                () -> assertThat(one.marginBits()).isEqualTo(0.005),
+                                () -> assertThat(one.barBits()).isEqualTo(0.01))));
+    }
+
+    @Test
+    void namesTheThresholdRuleOnAWordARawClaimAlreadyRefused() {
+        final ChosenWord thin = word("the", 900, claim("ordinary English", 0.004, false),
+                claim("the platform's own API", 0.003, false));
+
+        assertThat(refused.in(List.of(thin), BARS)).singleElement()
+                .extracting(RefusedWord::verdict)
+                .isEqualTo(WordVerdict.BELOW_A_THRESHOLD);
+    }
+
+    @Test
     void keepsAWordEnglishSuppliesOutOfTheRefusalsBecauseItClearedEveryBar() {
         final ChosenWord supplied = englishSupplied("beside", claim("ordinary English", 0.05, true),
                 claim("the platform's own API", 0.06, true));

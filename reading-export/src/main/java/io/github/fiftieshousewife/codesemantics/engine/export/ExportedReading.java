@@ -127,8 +127,9 @@ public final class ExportedReading {
                 .thresholds(vocabulary.bars())
                 .themes(reported)
                 .taxonomies(judgement.published())
-                .setAside(SetAside.counted(summary, vocabulary, legibility, terms, reading.parsed(),
-                        judgement.refused(), judgement.termsWorkingJavaAlsoWrites(), reading))
+                .setAside(SetAside.counted(summary, vocabulary, legibility, judgement.refusedByBranch(),
+                        reading.parsed(), judgement.refused(), judgement.termsWorkingJavaAlsoWrites(),
+                        reading))
                 .build();
         return answering(answered);
     }

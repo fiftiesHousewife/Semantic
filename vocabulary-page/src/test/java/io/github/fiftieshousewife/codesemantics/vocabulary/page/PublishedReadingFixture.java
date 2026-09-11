@@ -52,17 +52,17 @@ final class PublishedReadingFixture {
                   },
                   "vocabulary": [
                     {"word": "coupon", "claim": 0.010, "margin": 0.009, "timesChance": 5.0,
-                     "occurrences": 40, "leftAt": ""},
+                     "occurrences": 40, "verdict": "SIGNAL"},
                     {"word": "lemma", "claim": 0.008, "margin": 0.007, "timesChance": 4.0,
-                     "occurrences": 30, "leftAt": ""},
+                     "occurrences": 30, "verdict": "SIGNAL"},
                     {"word": "parsers", "claim": 0.006, "margin": 0.005, "timesChance": 3.0,
-                     "occurrences": 20, "leftAt": ""},
+                     "occurrences": 20, "verdict": "SIGNAL"},
                     {"word": "get", "claim": -0.002, "margin": -0.003, "timesChance": -1.5,
-                     "occurrences": 200, "leftAt": "chance"},
+                     "occurrences": 200, "verdict": "BELOW_A_THRESHOLD"},
                     {"word": "buf", "claim": 0.0001, "margin": -0.0001, "timesChance": -0.1,
-                     "occurrences": 12, "leftAt": "error"},
+                     "occurrences": 12, "verdict": "WITHIN_THE_REFERENCES_ERROR"},
                     {"word": "by", "claim": 0.003, "margin": 0.002, "timesChance": 1.4,
-                     "occurrences": 15, "leftAt": "english"}
+                     "occurrences": 15, "verdict": "SUPPLIED_BY_THE_LANGUAGE"}
                   ]
                 }
                 """);
@@ -79,7 +79,7 @@ final class PublishedReadingFixture {
                         signal("parsers", 0.006, 0.005, 20)),
                 Map.of("ordinary English", 0.0018, "the reference corpus", 0.002),
                 List.of(), List.of(),
-                new SetAside(0, 1, 1, 1, 0, 0, List.of(), 0, 0, 0));
+                new SetAside(0, 2, 1, 1, 0, 0, List.of(), 0, 0, 0));
     }
 
     private static ExportedSignal signal(final String word, final double bits, final double margin,

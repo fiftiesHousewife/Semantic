@@ -1,0 +1,437 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fifties-housewife/code-semantics/evidence-export.schema.json",
+  "title": "Evidence export",
+  "description": "The workings behind one reading: the path that reached the answers `reading.json` states. Its shape moves with the reading — `schemaVersion` rises when a key is added, renamed or removed, and no consumer contract holds it still — and this schema is what stops the writer changing the shape without stating it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "repository",
+    "commit",
+    "seed",
+    "files",
+    "lines",
+    "topics",
+    "unplaced",
+    "elapsedMillis",
+    "linkage",
+    "edges",
+    "scopes",
+    "filesRead",
+    "matches",
+    "setAside",
+    "workings",
+    "vocabulary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "description": "The version of this document's shape. It rises when a key is added, renamed or removed.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "repository": {
+      "description": "The name of the directory the reading was pointed at.",
+      "type": "string"
+    },
+    "commit": {
+      "description": "The revision the caller states for the tree that was read, empty where it states none. The reading opens no .git.",
+      "type": "string"
+    },
+    "seed": {
+      "description": "The seed every null in the reading was drawn with. The repository, the commit and the seed are the run: a reader holding this file can repeat it.",
+      "type": "integer"
+    },
+    "files": {
+      "description": "Files the reading read.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "lines": {
+      "description": "Lines across those files.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "topics": {
+      "description": "Distinct topics the reading ranked.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "unplaced": {
+      "description": "The share of observed evidence resolving to no subject.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "elapsedMillis": {
+      "description": "How long the reading took. A fact about the machine rather than the repository: two runs of one unchanged tree differ on it and on nothing a reading reports.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "linkage": {
+      "description": "What the `url` fields in this document are: permalinks into a hosted repository at a commit, or links opening the file in the reader's own editor.",
+      "type": "string"
+    },
+    "edges": {
+      "description": "Pairs of topics that share words, with the words two topics were both read from.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["from", "to", "occurrences", "words"],
+        "properties": {
+          "from": {"type": "string"},
+          "to": {"type": "string"},
+          "occurrences": {"type": "integer", "minimum": 0},
+          "words": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "scopes": {
+      "description": "Every scope the build compiles as a unit, each with its divergence from the whole repository, the chance figures beside it, and the topics accounting for the divergence. The scopes within chance are here too, which is what `reading.json` omits.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "files", "lines", "bits", "nullMedian", "excess", "atLeastAsExtreme", "resamples", "exceedsChance", "contributions"],
+        "properties": {
+          "name": {"type": "string"},
+          "files": {"type": "integer", "minimum": 0},
+          "lines": {"type": "integer", "minimum": 0},
+          "bits": {
+            "description": "The Jensen-Shannon divergence between this scope's distribution over subjects and the whole repository's, bounded at 1 bit by base-2 logarithms.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "nullMedian": {"type": "number", "minimum": 0, "maximum": 1},
+          "excess": {
+            "description": "`bits` minus `nullMedian` — negative where the scope diverges less than a chance scope of its size.",
+            "type": "number"
+          },
+          "atLeastAsExtreme": {
+            "description": "How many chance resamples reached this scope's divergence or beat it.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "resamples": {"type": "integer", "minimum": 1},
+          "exceedsChance": {"type": "boolean"},
+          "contributions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["topic", "shareOfDivergence", "scopeShare", "referenceShare", "concentratedInScope", "carriedBy"],
+              "properties": {
+                "topic": {"type": "string"},
+                "shareOfDivergence": {"type": "number", "minimum": 0, "maximum": 1},
+                "scopeShare": {"type": "number", "minimum": 0, "maximum": 1},
+                "referenceShare": {"type": "number", "minimum": 0, "maximum": 1},
+                "concentratedInScope": {
+                  "description": "Whether the scope writes the topic at a higher density than the repository does.",
+                  "type": "boolean"
+                },
+                "carriedBy": {"type": "array", "items": {"$ref": "#/$defs/witness"}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "filesRead": {
+      "description": "Every file read, with the topic leading it and that topic's share of the file.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "lines", "dominant", "share"],
+        "properties": {
+          "path": {"type": "string"},
+          "lines": {"type": "integer", "minimum": 0},
+          "dominant": {"description": "The topic leading the file, empty where nothing was read from it.", "type": "string"},
+          "share": {"type": "number", "minimum": 0, "maximum": 1}
+        }
+      }
+    },
+    "matches": {
+      "description": "Every published term a bundled vocabulary found in a declared name, admitted or removed — one entry per term and normalisation, each matched over the index narrowed to the terms the reference corpus says are the vocabulary's own. The removed entries are the half `reading.json` counts and never lists.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["vocabulary", "term", "wordsInTerm", "normalisation", "specificity", "occurrences", "outcome", "concepts", "sites"],
+        "properties": {
+          "vocabulary": {"type": "string"},
+          "term": {"description": "The run of words the repository wrote.", "type": "string"},
+          "wordsInTerm": {"type": "integer", "minimum": 1},
+          "normalisation": {
+            "description": "What both sides were normalised to before they were compared.",
+            "type": "string",
+            "enum": ["WORDS", "LEMMAS", "EXPANSIONS", "SENSES"]
+          },
+          "specificity": {"type": "number", "minimum": 0, "maximum": 1},
+          "occurrences": {"type": "integer", "minimum": 1},
+          "outcome": {
+            "description": "REPORTED, or REFUSED_BY_BRANCH_RULE for a one-word term written without another concept from its publisher's branch. A term with no REPORTED entry at any normalisation is one of `reading.json`'s `matchesDiscardedByBranchRule`.",
+            "type": "string",
+            "enum": ["REPORTED", "REFUSED_BY_BRANCH_RULE"]
+          },
+          "concepts": {
+            "description": "The concepts the term reaches, under the labels the publisher states. Each REPORTED entry's concepts appear as rows of `reading.json`'s `taxonomies[].concepts`.",
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "sites": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "setAside": {
+      "description": "The rows behind three of the counts `reading.json` states under `setAside`, carried whole rather than ranked and truncated.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wordsNoResourceCovers", "wordsBelowEveryThreshold", "wordsTheLanguageSupplies"],
+      "properties": {
+        "wordsNoResourceCovers": {
+          "description": "Every word no bundled resource has an entry for, most-written first.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["word", "occurrences", "site"],
+            "properties": {
+              "word": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 1},
+              "site": {"type": "string"}
+            }
+          }
+        },
+        "wordsBelowEveryThreshold": {
+          "description": "Every word whose margin a reference's own bar refused. The count matches `reading.json`'s `wordsBelowEveryThreshold`, and each row's `verdict` names which of the two rules removed it.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["word", "occurrences", "share", "site", "verdict", "refusedBy"],
+            "properties": {
+              "word": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 1},
+              "share": {"type": "number", "minimum": 0, "maximum": 1},
+              "site": {"type": "string"},
+              "verdict": {
+                "type": "string",
+                "enum": ["BELOW_A_THRESHOLD", "WITHIN_THE_REFERENCES_ERROR"]
+              },
+              "refusedBy": {
+                "description": "Every reference whose bar the word's margin did not clear, with the claim, the margin and the bar in bits. A claim above the bar beside a margin below it is the error rule.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["reference", "claimBits", "marginBits", "barBits"],
+                  "properties": {
+                    "reference": {"type": "string"},
+                    "claimBits": {"type": "number"},
+                    "marginBits": {"type": "number"},
+                    "barBits": {"type": "number", "minimum": 0}
+                  }
+                }
+              }
+            }
+          }
+        },
+        "wordsTheLanguageSupplies": {
+          "description": "Every word that cleared every bar and is English rather than a subject.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["word", "occurrences", "share", "site"],
+            "properties": {
+              "word": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 1},
+              "share": {"type": "number", "minimum": 0, "maximum": 1},
+              "site": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "workings": {
+      "description": "The path that places: what the resources said about every word the reading offered, what a rule removed, and what nothing read at all.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rules", "words", "removed", "unread"],
+      "properties": {
+        "rules": {
+          "description": "Every rule that can remove a topic, with its whole effect on this reading — so a reader can see whether a rule is taking anything out before looking for what.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rule", "stated", "topicsRemoved", "removals"],
+            "properties": {
+              "rule": {"type": "string"},
+              "stated": {"description": "What the rule does, in words.", "type": "string"},
+              "topicsRemoved": {"type": "integer", "minimum": 0},
+              "removals": {"type": "integer", "minimum": 0}
+            }
+          }
+        },
+        "words": {
+          "description": "One row per word the reading offered, ordered by `carried`. `shareByTopic` is what the resources state about the word; `carried` is what the word contributed, and the two disagree because a word can be offered, recorded, and then contribute nothing.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["word", "occurrences", "carried", "writtenAsAName", "firstSite", "senseCoverage", "specificity", "asHeadWord", "inASentence", "asVerb", "shareByTopic"],
+            "properties": {
+              "word": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 0},
+              "carried": {"type": "number", "minimum": 0},
+              "writtenAsAName": {
+                "description": "Whether the repository ever declared something with the word, rather than only writing prose about something.",
+                "type": "boolean"
+              },
+              "firstSite": {"type": "string"},
+              "senseCoverage": {
+                "description": "The share of the word's senses some resource put a subject on.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "specificity": {"type": "number", "minimum": 0, "maximum": 1},
+              "asHeadWord": {"$ref": "#/$defs/topicVotes"},
+              "inASentence": {"$ref": "#/$defs/topicVotes"},
+              "asVerb": {"$ref": "#/$defs/topicVotes"},
+              "shareByTopic": {
+                "type": "object",
+                "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}
+              }
+            }
+          }
+        },
+        "removed": {
+          "description": "One row per rule and topic, with a handful of the phrases it happened in — the half a reader cannot reconstruct, because a topic absent from an answer was either never voted for or voted for and taken out, and only the reading knows which.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["rule", "topic", "occurrences", "quotations"],
+            "properties": {
+              "rule": {"type": "string"},
+              "topic": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 1},
+              "quotations": {"type": "array", "items": {"$ref": "#/$defs/sitedQuotation"}}
+            }
+          }
+        },
+        "unread": {
+          "description": "Every run of words nothing placed, kept as a run, with which of the two ways it went unread.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["reason", "phrase", "occurrences", "firstSite"],
+            "properties": {
+              "reason": {
+                "description": "The first two are findings — a gap in the resources. A dependency's coordinates were never asked about, because what a dependency states is stated by the artefact it names rather than by its spelling.",
+                "type": "string",
+                "enum": ["NO_WORD_REACHED_A_RESOURCE", "NO_RESOURCE_STATED_A_TOPIC", "A_DEPENDENCY_NAMES_IT"]
+              },
+              "phrase": {"type": "string"},
+              "occurrences": {"type": "integer", "minimum": 1},
+              "firstSite": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "vocabulary": {
+      "description": "Every ranked word with the whole of its verdict, so the funnel from the field to the signals is arguable row by row. The rows with verdict SIGNAL are `reading.json`'s `signals`; the counts under its `setAside` partition the rest.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["word", "claim", "margin", "occurrences", "verdict"],
+        "properties": {
+          "word": {"type": "string"},
+          "claim": {
+            "description": "The weakest reference's claim in bits, signed by which side writes the word more densely.",
+            "type": "number"
+          },
+          "margin": {
+            "description": "The same claim with the reference's own sampling error held against the word. The verdict rests on it.",
+            "type": "number"
+          },
+          "timesChance": {
+            "description": "The margin as a multiple of its own reference's threshold, at whichever leaves the least room. Absent where no reference has a positive bar.",
+            "type": "number"
+          },
+          "occurrences": {"type": "integer", "minimum": 1},
+          "verdict": {
+            "description": "SIGNAL, or the one rule that removed the word.",
+            "type": "string",
+            "enum": ["SIGNAL", "BELOW_A_THRESHOLD", "WITHIN_THE_REFERENCES_ERROR", "SUPPLIED_BY_THE_LANGUAGE"]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "witness": {
+      "description": "One word's testimony for a topic: occurrences and mass disagree and both are stated, because a word written five hundred times can carry almost no mass.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["word", "occurrences", "mass", "sources", "quotations"],
+      "properties": {
+        "word": {"type": "string"},
+        "occurrences": {"type": "integer", "minimum": 0},
+        "mass": {"type": "number", "minimum": 0},
+        "sources": {"type": "array", "items": {"type": "string"}},
+        "quotations": {"type": "array", "items": {"$ref": "#/$defs/linkedQuotation"}}
+      }
+    },
+    "linkedQuotation": {
+      "description": "The phrase a word was read in, with the site as a path and a link of the kind `linkage` names.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phrase", "site"],
+      "properties": {
+        "phrase": {"type": "string"},
+        "site": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["where", "url"],
+          "properties": {
+            "where": {"description": "`path:line` against the commit `linkage` names.", "type": "string"},
+            "url": {"type": "string"}
+          }
+        }
+      }
+    },
+    "sitedQuotation": {
+      "description": "The phrase a word was read in, with the site as `path:line` alone.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phrase", "site"],
+      "properties": {
+        "phrase": {"type": "string"},
+        "site": {"type": "string"}
+      }
+    },
+    "topicVotes": {
+      "description": "What the resources state about a word read one way, each vote naming the subject, its mass and the resource that cast it. What a resource states and never what the word contributed.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["topic", "mass", "source"],
+        "properties": {
+          "topic": {"type": "string"},
+          "mass": {"type": "number", "minimum": 0},
+          "source": {"type": "string"}
+        }
+      }
+    }
+  }
+}

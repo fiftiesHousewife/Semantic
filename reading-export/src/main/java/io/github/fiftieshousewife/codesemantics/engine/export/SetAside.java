@@ -7,7 +7,6 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryLegibil
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.UnreadJavaFiles;
 import io.github.fiftieshousewife.codesemantics.engine.summary.ReadingSummary;
-import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
 
 /**
@@ -31,7 +30,10 @@ import io.github.fiftieshousewife.codesemantics.engine.vocabulary.RefusedWords;
  * @param wordsTheLanguageSupplies        words clearing every threshold that English supplied rather than
  *                                        this repository choosing them
  * @param scopesWithinChance              scopes at least one of 999 chance resamples matched or exceeded
- * @param matchesDiscardedByBranchRule    one-word terms written without another concept from their branch
+ * @param matchesDiscardedByBranchRule    distinct one-word terms written without another concept from their
+ *                                        branch, summed over every vocabulary judged — the refused ones
+ *                                        among them. A term the branch rule refused at one normalisation
+ *                                        and another normalisation reported is counted as reported
  * @param vocabulariesBelowTheirChanceBar  one row per vocabulary matched and not published, because the
  *                                        repository wrote no more of their phrases than a deal of their own
  *                                        words reaches. Each carries the bar it failed, so the refusal can
@@ -65,7 +67,7 @@ public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryT
 
     /** Each count taken from the rule that removed what it counts. */
     static SetAside counted(final ReadingSummary summary, final Vocabulary vocabulary,
-                            final RepositoryLegibility legibility, final CorroboratedReading terms,
+                            final RepositoryLegibility legibility, final int refusedByBranch,
                             final ParsedRepository parsed,
                             final List<RefusedVocabulary> belowTheirChanceBar,
                             final int termsWorkingJavaAlsoWrites, final RepositoryReading reading) {
@@ -77,7 +79,7 @@ public record SetAside(int wordOccurrencesNoResourceCovers, int wordsBelowEveryT
                         .filter(word -> word.withinTheReferencesError(vocabulary.bars()))
                         .count(),
                 refused.suppliedByTheLanguage(vocabulary.ranked(), vocabulary.bars()).size(),
-                summary.withheld().size(), terms.refusedByBranch(), belowTheirChanceBar,
+                summary.withheld().size(), refusedByBranch, belowTheirChanceBar,
                 termsWorkingJavaAlsoWrites, parsed.unsoundFiles(),
                 new UnreadJavaFiles().under(reading.root(),
                         RepositoryReading.scopesUnder(reading.root())));

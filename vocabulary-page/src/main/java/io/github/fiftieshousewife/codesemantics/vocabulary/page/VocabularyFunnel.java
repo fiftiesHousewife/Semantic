@@ -19,7 +19,8 @@ import io.github.fiftieshousewife.codesemantics.lexicon.WordSense;
  *
  * <p>These are the ranking's own rules and no others, so every count here is one the export states:
  * {@code belowChance} is {@code setAside.wordsBelowEveryThreshold}, {@code withinError} is
- * {@code setAside.wordsWithinTheReferencesError}, {@code languageSupplied} is
+ * {@code setAside.wordsWithinTheReferencesError} — a subset of {@code belowChance}, so the words below the
+ * bar at their raw claims number {@code belowChance - withinError} — {@code languageSupplied} is
  * {@code setAside.wordsTheLanguageSupplies}, and {@code signals} is the length of {@code signals}.
  *
  * <p>Two merges follow the rules, and neither removes anything. Two spellings with one dictionary form
@@ -32,10 +33,10 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
                                List<Form> forms, List<Tile> tiles) {
 
     /**
-     * One ranked word with the rule that sets it aside, or none where it survives to the signals —
-     * what a funnel row shows when it is asked for its own population.
+     * One ranked word with its verdict — {@code SIGNAL} or the rule that removed it — what a funnel row
+     * shows when it is asked for its own population.
      */
-    public record Ranked(String word, double claim, double timesChance, String leftAt) {
+    public record Ranked(String word, double claim, double timesChance, String verdict) {
     }
 
     /** One dictionary form of the signals, the population between the spellings and the meanings. */
@@ -72,7 +73,7 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
                 words.size(),
                 workings.stream()
                         .map(word -> new Ranked(word.word(), word.claim(), word.timesChance(),
-                                word.leftAt()))
+                                word.verdict()))
                         .toList(),
                 words.stream()
                         .sorted(Comparator.comparingDouble(Word::claim).reversed()
@@ -90,7 +91,7 @@ public record VocabularyFunnel(String repository, int field, int belowChance, in
     private static List<Word> merged(final List<ReadingFolder.RankedWord> workings) {
         final ContentWords content = ContentWords.fromClasspath();
         return workings.stream()
-                .filter(word -> word.leftAt().isEmpty())
+                .filter(word -> "SIGNAL".equals(word.verdict()))
                 .collect(Collectors.groupingBy(word -> content.lemmaOrSurface(word.word())))
                 .entrySet().stream()
                 .map(entry -> word(entry.getKey(), entry.getValue()))

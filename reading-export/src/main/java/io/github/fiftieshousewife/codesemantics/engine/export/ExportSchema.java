@@ -32,13 +32,18 @@ public final class ExportSchema {
     }
 
     public static ExportSchema fromClasspath() {
-        try (InputStream stated = ExportSchema.class.getResourceAsStream(RESOURCE)) {
+        return fromClasspath(RESOURCE);
+    }
+
+    /** The schema at another classpath resource, for a sibling document checked the same way. */
+    public static ExportSchema fromClasspath(final String resource) {
+        try (InputStream stated = ExportSchema.class.getResourceAsStream(resource)) {
             return new ExportSchema(JsonSchemaFactory
                     .getInstance(SpecVersion.VersionFlag.V202012).getSchema(stated));
         } catch (final IOException e) {
             throw new UncheckedIOException(String.format(Locale.ROOT,
                     "Failed to read %s",
-                    RESOURCE), e);
+                    resource), e);
         }
     }
 

@@ -41,9 +41,11 @@ final class JudgedTaxonomies {
      * @param published                  the vocabularies whose phrase count exceeds their chance bar
      * @param refused                    a row per vocabulary judged and not published, with the bar it failed
      * @param termsWorkingJavaAlsoWrites the vocabularies' terms the reference corpus writes, summed
+     * @param refusedByBranch            the distinct terms the branch rule discarded, summed over every
+     *                                   vocabulary judged, the refused ones among them
      */
     record Judgement(List<ExportedTaxonomy> published, List<SetAside.RefusedVocabulary> refused,
-                     int termsWorkingJavaAlsoWrites) {
+                     int termsWorkingJavaAlsoWrites, int refusedByBranch) {
     }
 
     /** The OLiA reading arrives from the caller because the reading's diagnostics already took it. */
@@ -57,14 +59,18 @@ final class JudgedTaxonomies {
         final List<SpecificTerms> judged = published.stream().map(SpecificTerms::of).toList();
         final List<PhraseBar> bars = TermOrderNull.seeded(reading.seed())
                 .over(WrittenRuns.fromClasspath().in(reading.parsed()), List.copyOf(judged));
+        final List<CorroboratedReading> matchings = new ArrayList<>(List.of(terms));
+        IntStream.range(1, published.size()).forEach(at -> matchings.add(CorroboratedReading.of(
+                judged.get(at), published.get(at).publishedConcepts(), reading.parsed())));
         final List<ExportedTaxonomy> matched = new ArrayList<>(List.of(olia(terms, reads, areas,
                 bars.getFirst())));
-        IntStream.range(1, published.size()).forEach(at -> matched.add(judged(reading, reads, areas,
-                published.get(at), judged.get(at), bars.get(at))));
+        IntStream.range(1, published.size()).forEach(at -> matched.add(judged(reads, areas,
+                published.get(at), matchings.get(at), bars.get(at))));
         return new Judgement(
                 matched.stream().filter(one -> one.bar().exceedsChance()).toList(),
                 refused(matched),
-                judged.stream().mapToInt(SpecificTerms::refused).sum());
+                judged.stream().mapToInt(SpecificTerms::refused).sum(),
+                matchings.stream().mapToInt(CorroboratedReading::refusedByBranch).sum());
     }
 
     private static ExportedTaxonomy olia(final CorroboratedReading terms, final TopicDistribution reads,
@@ -76,13 +82,12 @@ final class JudgedTaxonomies {
                 new StatedPaths(ancestry, concepts), StatedDescriptions.over(concepts, ancestry));
     }
 
-    private static ExportedTaxonomy judged(final RepositoryReading reading, final TopicDistribution reads,
-                                           final SubjectAreas areas, final TermIndex index,
-                                           final SpecificTerms specific, final PhraseBar bar) {
+    private static ExportedTaxonomy judged(final TopicDistribution reads, final SubjectAreas areas,
+                                           final TermIndex index, final CorroboratedReading matching,
+                                           final PhraseBar bar) {
         final StatedAncestry ancestry = new StatedAncestry(index);
         final List<SkosConcept> concepts = index.publishedConcepts();
-        return new ExportedTaxonomies().of(index.source(),
-                CorroboratedReading.of(specific, concepts, reading.parsed()).matched(),
+        return new ExportedTaxonomies().of(index.source(), matching.matched(),
                 BranchAgreement.between(reads, concepts, areas), bar,
                 new StatedPaths(ancestry, concepts), StatedDescriptions.over(concepts, ancestry));
     }

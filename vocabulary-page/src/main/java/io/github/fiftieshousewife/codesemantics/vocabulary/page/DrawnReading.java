@@ -1,7 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -174,21 +173,4 @@ public record DrawnReading(String repository, String sourceType, List<String> ab
         }
     }
 
-    /** A concept named before its definition, as the export writes it, split back into the two. */
-    static String conceptOf(final String result) {
-        return named(result).orElse(result);
-    }
-
-    /** What the publisher says the concept means, and nothing where the export carries only a name. */
-    static String definitionOf(final String result) {
-        return named(result).map(concept -> result.substring(concept.length() + SEPARATOR.length()))
-                .orElse("");
-    }
-
-    private static final String SEPARATOR = " — ";
-
-    private static Optional<String> named(final String result) {
-        final int separator = result.indexOf(SEPARATOR);
-        return separator < 0 ? Optional.empty() : Optional.of(result.substring(0, separator));
-    }
 }

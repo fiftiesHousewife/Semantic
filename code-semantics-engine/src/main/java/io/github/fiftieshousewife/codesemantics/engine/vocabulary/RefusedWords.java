@@ -47,10 +47,11 @@ public final class RefusedWords {
 
     private static RefusedWord refused(final ChosenWord word, final Map<String, Double> barByReference) {
         return new RefusedWord(word.word(), word.occurrences(), word.share(), word.site(),
+                WordVerdict.of(word, barByReference),
                 word.against().stream()
-                        .filter(claim -> claim.claim() <= barByReference.get(claim.reference()))
+                        .filter(claim -> claim.margin() <= barByReference.get(claim.reference()))
                         .map(claim -> new RefusedWord.Refusal(claim.reference(), claim.claim(),
-                                barByReference.get(claim.reference())))
+                                claim.margin(), barByReference.get(claim.reference())))
                         .toList());
     }
 }

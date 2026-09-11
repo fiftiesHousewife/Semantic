@@ -26,8 +26,16 @@ final class AnswerFromATaxonomy {
         final Optional<ExportedConcept> answering = answering(vocabulary, length);
         return ExportedAnswer.fromATaxonomy(vocabulary.vocabulary(),
                 answering.map(ExportedConcept::statedPath).orElseGet(List::of),
-                answering.map(AnswerFromATaxonomy::stated).orElseGet(() -> covers(vocabulary.vocabulary())),
+                answering.map(ExportedConcept::concept).orElse(""),
+                answering.isPresent()
+                        ? statedOrNothing(answering.get().definition())
+                        : statedOrNothing(covers(vocabulary.vocabulary())),
                 qualifiedBy, vocabulary.bar().timesTheBar());
+    }
+
+    /** The prose where the publisher states any, and an absent field rather than an empty one where not. */
+    private static String statedOrNothing(final String prose) {
+        return prose.isBlank() ? null : prose;
     }
 
     /**
@@ -68,12 +76,6 @@ final class AnswerFromATaxonomy {
     /** Whether the publisher states anything above it, which a concept at the top of its tree does not. */
     private static boolean isPlaced(final ExportedConcept concept) {
         return !concept.placedUnder().isBlank();
-    }
-
-    /** The concept named, and what the publisher says it means where it says anything. */
-    private static String stated(final ExportedConcept concept) {
-        return concept.definition().isBlank()
-                ? concept.concept() : concept.concept() + " — " + concept.definition();
     }
 
     /**

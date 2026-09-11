@@ -25,7 +25,7 @@
 
     function surviving(rules) {
         return funnel.ranked.filter(function (word) {
-            return rules.indexOf(word.leftAt) < 0;
+            return rules.indexOf(word.verdict) < 0;
         }).map(function (word) {
             return {label: word.word, claim: word.claim, timesChance: word.timesChance,
                 members: [word.word], domains: []};
@@ -51,15 +51,21 @@
     var steps = [
         {left: funnel.field, rule: "the declared names of the published source sets, as words",
             population: function () { return surviving([]); }},
-        {left: funnel.field - funnel.belowChance, removed: funnel.belowChance,
+        {left: funnel.field - (funnel.belowChance - funnel.withinError),
+            removed: funnel.belowChance - funnel.withinError,
             rule: "within what a reference reaches by chance",
-            population: function () { return surviving(["chance"]); }},
-        {left: funnel.field - funnel.belowChance - funnel.withinError, removed: funnel.withinError,
+            population: function () { return surviving(["BELOW_A_THRESHOLD"]); }},
+        {left: funnel.field - funnel.belowChance, removed: funnel.withinError,
             rule: "above the bars only inside the reference's own sampling error",
-            population: function () { return surviving(["chance", "error"]); }},
+            population: function () {
+                return surviving(["BELOW_A_THRESHOLD", "WITHIN_THE_REFERENCES_ERROR"]);
+            }},
         {left: funnel.signals, removed: funnel.languageSupplied,
             rule: "supplied by English rather than chosen — the signals are what remain",
-            population: function () { return surviving(["chance", "error", "english"]); }},
+            population: function () {
+                return surviving(["BELOW_A_THRESHOLD", "WITHIN_THE_REFERENCES_ERROR",
+                    "SUPPLIED_BY_THE_LANGUAGE"]);
+            }},
         {left: funnel.words, rule: "two spellings with one dictionary form count once",
             population: fromForms},
         {left: funnel.tiles.length, rule: "two words with one commonest sense share a tile",

@@ -65,7 +65,7 @@ public final class EvaluationReadCommand {
         try {
             final TreeReading reading = TreeReading.of(clones.treeOf(member));
             ExportCommand.wrote(reading, commitOf(member));
-            EvidenceCommand.wrote(reading);
+            EvidenceCommand.wrote(reading, commitOf(member));
             return new Outcome(member.name(), true, "read");
         } catch (final RuntimeException | IOException failed) {
             log.error("Reading evaluation-set member {} failed", member.name(), failed);

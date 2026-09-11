@@ -44,10 +44,11 @@ public final class ReadingFolder {
 
     /**
      * One ranked word of the vocabulary workings: its claim, the margin the verdict rests on, that margin
-     * as a multiple of the tightest chance threshold, and the rule that set it aside or none.
+     * as a multiple of the tightest chance threshold, and the verdict — {@code SIGNAL} or the rule that
+     * removed the word.
      */
     public record RankedWord(String word, double claim, double margin, double timesChance,
-                             int occurrences, String leftAt) {
+                             int occurrences, String verdict) {
     }
 
     /** One term match of the workings: the vocabulary, the term, its size, and where it was placed. */
@@ -116,7 +117,7 @@ public final class ReadingFolder {
                     word.path("margin").asDouble(),
                     word.path("timesChance").asDouble(),
                     word.path("occurrences").asInt(),
-                    word.path("leftAt").asText())));
+                    word.path("verdict").asText())));
             return List.copyOf(ranked);
         } catch (final IOException e) {
             throw new UncheckedIOException("No readable workings at " + folder, e);

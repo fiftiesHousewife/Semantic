@@ -37,10 +37,10 @@ class ReadingExportSchemaTest {
     private static final ReadingExport EXPORT = ReadingExport.of(
             new ExportedSummary("CodeSemantics", "610c4e9",
                     List.of(ExportedAnswer.fromATaxonomy("OLiA", List.of("WordClass"),
-                                    "Verb — a word that signifies an action or state",
+                                    "Verb", "a word that signifies an action or state",
                                     "12 phrases against the 3 a deal of its own words reaches", 4.0),
                             ExportedAnswer.fromATaxonomy("CSO", List.of("cryptology", "cryptography"),
-                                    "public key cryptography",
+                                    "public key cryptography", null,
                                     "4 phrases against the 2 a deal of its own words reaches", 2.0)),
                     List.of("linguistics"),
                     List.of("WordNet Domains"), PLACEMENT,

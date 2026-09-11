@@ -72,8 +72,9 @@ class EvidenceKindsTest {
                 List.of()));
         assertAll(
                 () -> assertThat(answers).singleElement()
-                        .extracting(ExportedAnswer::result, ExportedAnswer::statedPath)
-                        .containsExactly("Swap — swap streams and additional payments",
+                        .extracting(ExportedAnswer::result, ExportedAnswer::definition,
+                                ExportedAnswer::statedPath)
+                        .containsExactly("Swap", "swap streams and additional payments",
                                 List.of("Product")),
                 () -> assertThat(answers).singleElement().extracting(ExportedAnswer::result)
                         .asString().doesNotContain("Message"));
@@ -86,8 +87,9 @@ class EvidenceKindsTest {
                         concept("Cards", "Business", "", 900),
                         concept("CardCapture", "", "capture the card payment transaction", 4)))),
                 List.of()));
-        assertThat(answers).singleElement().extracting(ExportedAnswer::result)
-                .asString().startsWith("CardCapture — ");
+        assertThat(answers).singleElement()
+                .extracting(ExportedAnswer::result, ExportedAnswer::definition)
+                .containsExactly("CardCapture", "capture the card payment transaction");
     }
 
     @Test
@@ -97,8 +99,9 @@ class EvidenceKindsTest {
                         concept("Rare", "Product", "a rare one", 2),
                         concept("Common", "Product", "a common one", 40)))),
                 List.of()));
-        assertThat(answers).singleElement().extracting(ExportedAnswer::result)
-                .asString().startsWith("Common — ");
+        assertThat(answers).singleElement()
+                .extracting(ExportedAnswer::result, ExportedAnswer::definition)
+                .containsExactly("Common", "a common one");
     }
 
     @Test
@@ -172,7 +175,7 @@ class EvidenceKindsTest {
 
     @Test
     void refusesAnAnswerStatingAStrengthItsSourceTypeCannotHave() {
-        assertThatThrownBy(() -> new ExportedAnswer("taxonomy", "FIX", List.of(), "Session",
+        assertThatThrownBy(() -> new ExportedAnswer("taxonomy", "FIX", List.of(), "Session", null,
                 "cleared", 2.0, 0.1))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("only a subject scheme stands a distance");
