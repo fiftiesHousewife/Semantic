@@ -61,6 +61,8 @@ The nine mechanisms [the pages review](ONE_PAGE.md) names are the implementation
 
 ## The order of work, and what settles each step
 
+All five steps landed on 2026-09-11, with one remainder. `FindingSentences` renders the three patterns and the per-level placement sentences; `ReadingPage` draws the six sections with the cloud and the overlap adapted into `reading.js`; `LandingPage` draws the cards with a log-scaled mark per answering source; `./gradlew pages` writes every page and the landing, and the six page commands, five pages, twenty-two support classes and ten scripts and stylesheets are deleted. The three printing probes stay in `vocabulary-page`: they read `CorroboratedSenses`, `PredominantSenses` and `SubjectSenseSources`, which live beside the page classes, so moving the probes means moving that cluster — a separate decision.
+
 | | Step | Settled by |
 |--:|---|---|
 | 1 | The sentence renderer: `answers[]` in, the three patterns out, as a tested class with no page around it | every committed reading renders; a reading with `ExportedAnswer.NONE` renders the no-source sentence; a scheme answer renders its bits |

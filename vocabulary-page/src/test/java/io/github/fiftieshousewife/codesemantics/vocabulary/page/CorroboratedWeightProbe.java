@@ -23,7 +23,7 @@ public final class CorroboratedWeightProbe {
     }
 
     public static void main(final String[] arguments) throws IOException {
-        for (final Path folder : EvaluationPagesCommand.readings(Path.of("output"))) {
+        for (final Path folder : PagesCommand.readings(Path.of("output"))) {
             probe(ReadingFolder.at(folder));
         }
     }
@@ -32,9 +32,9 @@ public final class CorroboratedWeightProbe {
         final ReadingExport export = reading.export();
         final List<ScoredWord> words = SignificantWords.of(export).words();
         final Map<String, Function<String, List<CountedSenseDomains>>> before =
-                DomainVennCommand.subjectSources(CorroboratedSenses.none());
+                SubjectSenseSources.bySource(CorroboratedSenses.none());
         final Map<String, Function<String, List<CountedSenseDomains>>> after =
-                DomainVennCommand.subjectSources(CorroboratedSenses.fromCommittedEvidence(reading));
+                SubjectSenseSources.bySource(CorroboratedSenses.fromCommittedEvidence(reading));
         System.out.printf("%n== %s%n", export.summary().repository());
         before.keySet().forEach(path -> diffed(path, words, before.get(path), after.get(path)));
     }

@@ -20,6 +20,7 @@ It works in the terms of lexical semantics and information theory. The [glossary
 | `./gradlew read` | reads this repository and writes the three files under [`output/json/`](output/json) |
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and writes its files under `output/<name>/json/` |
 | `./gradlew readingExport` | writes [`reading.json`](output/json/reading.json) alone |
+| `./gradlew pages` | writes one findings page per published reading under `output/`, and the card page comparing them, under `vocabulary-page/build/reports/vocabulary/` |
 | `./gradlew checkAll` | tests and coverage verification, which is what [the build](.github/workflows/build.yml) runs on every push and pull request |
 
 A read of this repository takes about four and a half minutes. [Limitations](#limitations) states where that time goes.

@@ -1,0 +1,71 @@
+/* The landing page's own styles; the shared tokens arrive from page.css before this file. */
+h1 {
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem;
+}
+
+.lede {
+    color: var(--ink-soft);
+    max-width: 46rem;
+    margin: 0 0 2rem;
+}
+
+.card {
+    background: var(--raised);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 0 0 1rem;
+}
+
+.card h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.5rem;
+}
+
+.card h2 a {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.card h2 a:hover,
+.card h2 a:focus {
+    text-decoration: underline;
+}
+
+.finding {
+    max-width: 46rem;
+    margin: 0 0 0.75rem;
+}
+
+.strength {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0.25rem 0;
+}
+
+.strength .source {
+    flex: 0 0 6em;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+}
+
+.strength .bar {
+    height: 0.5em;
+    border-radius: 3px;
+    background: var(--count);
+    max-width: 24rem;
+    flex: 0 1 auto;
+    min-width: 2px;
+}
+
+.strength.scheme .bar {
+    background: var(--ink-faint);
+}
+
+.strength .value {
+    color: var(--ink-faint);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}

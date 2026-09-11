@@ -7,6 +7,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
+import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
 
 /**
  * A reading's answers as plain-English sentences, one per answering source, with the figure beside the
@@ -37,7 +38,7 @@ public final class FindingSentences {
      */
     public String placement(final String scheme, final ExportedPlacement.Level level) {
         final String figures = String.format(Locale.ROOT,
-                "%s's nearest subject is %s, at %.3f bits against the %.3f its shuffle reaches",
+                "%s’s nearest subject is %s, at %.3f bits against the %.3f its shuffle reaches",
                 scheme, level.subject(), level.divergenceBits(), level.nearestByChanceBits());
         if (!level.standsApartFromChance()) {
             return figures + " — no nearer than the shuffle, so the scheme places this repository nowhere.";
@@ -49,6 +50,15 @@ public final class FindingSentences {
                     figures, level.nearerThanChance().size());
         }
         return figures + ", and no other subject is nearer than the shuffle.";
+    }
+
+    /** One refused vocabulary as a sentence carrying the two counts the refusal rests on. */
+    public String refused(final SetAside.RefusedVocabulary vocabulary) {
+        return String.format(Locale.ROOT,
+                "The repository writes %d of %s’s phrases; a deal of %s’s own words reaches %d, so %s "
+                        + "says nothing here.",
+                vocabulary.bar().phrases(), vocabulary.vocabulary(), vocabulary.vocabulary(),
+                vocabulary.bar().chanceExpectedBest(), vocabulary.vocabulary());
     }
 
     private String answered(final ReadingExport reading, final ExportedAnswer answer) {
@@ -78,7 +88,7 @@ public final class FindingSentences {
 
     private static String phrases(final ExportedTaxonomy vocabulary) {
         return String.format(Locale.ROOT,
-                "%s states %d of its phrases in this repository's declared names, against the %d the "
+                "%s states %d of its phrases in this repository’s declared names, against the %d the "
                         + "best of a field of %d reaches by dealing its own words at random.",
                 vocabulary.vocabulary(), vocabulary.bar().phrases(),
                 vocabulary.bar().chanceExpectedBest(), vocabulary.bar().field());
@@ -86,7 +96,7 @@ public final class FindingSentences {
 
     private static String oneWordTerms(final ExportedTaxonomy vocabulary) {
         return String.format(Locale.ROOT,
-                "The repository writes %d of %s's one-word terms, each beside another concept of the "
+                "The repository writes %d of %s’s one-word terms, each beside another concept of the "
                         + "branch its publisher files it in.",
                 vocabulary.concepts().stream().filter(concept -> concept.wordsInTerm() == 1).count(),
                 vocabulary.vocabulary());
@@ -111,9 +121,9 @@ public final class FindingSentences {
 
     private static String fromAScheme(final ExportedAnswer answer) {
         final String where = answer.statedPath().isEmpty()
-                ? String.format(Locale.ROOT, "%s's nearest top-level grouping is %s",
+                ? String.format(Locale.ROOT, "%s’s nearest top-level grouping is %s",
                         answer.source(), answer.result())
-                : String.format(Locale.ROOT, "%s's nearest subject is %s, inside %s",
+                : String.format(Locale.ROOT, "%s’s nearest subject is %s, inside %s",
                         answer.source(), answer.result(),
                         String.join(LEVEL_SEPARATOR, answer.statedPath()));
         return String.format(Locale.ROOT,
@@ -125,7 +135,7 @@ public final class FindingSentences {
     private static String nothingQualified(final ReadingExport reading) {
         return String.format(Locale.ROOT,
                 "Nothing qualified: the %d vocabularies judged wrote no more of their phrases here than "
-                        + "deals of their own words reach, and no scheme's nearest subject is nearer "
+                        + "deals of their own words reach, and no scheme’s nearest subject is nearer "
                         + "than its shuffle reaches.",
                 reading.taxonomies().size()
                         + reading.setAside().vocabulariesBelowTheirChanceBar().size());

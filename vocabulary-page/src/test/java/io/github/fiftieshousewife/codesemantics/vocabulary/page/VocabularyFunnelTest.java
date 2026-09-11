@@ -1,9 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -11,7 +9,7 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-class VocabularyPageCommandTest {
+class VocabularyFunnelTest {
 
     @Test
     void funnelsAPublishedReadingFromItsNamesToItsMeanings(@TempDir final Path folder)
@@ -37,22 +35,5 @@ class VocabularyPageCommandTest {
                                 SignificantWords.of(reading.export()).words().stream()
                                         .map(ScoredWord::word)
                                         .toList()));
-    }
-
-    @Test
-    void writesOnePageEmbeddingTheStylesheetTheScriptAndTheData(@TempDir final Path reports)
-            throws IOException {
-        final VocabularyFunnel funnel = new VocabularyFunnel("a-repository", 10, 5, 1, 1, 4, 3,
-                List.of(), List.of(), List.of());
-
-        final Path page = VocabularyPageCommand.wrote(reports, funnel, List.of("linguistics"));
-
-        assertAll(
-                () -> assertThat(page).exists(),
-                () -> assertThat(reports.resolve("vocabulary.json")).exists(),
-                () -> assertThat(Files.readString(page))
-                        .contains("a-repository")
-                        .contains("<style>")
-                        .contains("<script>"));
     }
 }

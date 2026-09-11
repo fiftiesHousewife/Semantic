@@ -31,46 +31,7 @@ tasks.test {
     maxHeapSize = "3g"
 }
 
-// One published reading's vocabulary: the funnel of the export's rules and the cloud of meanings. It
-// consumes output/json (or -Dcs.reading.dir=<folder>) and reads no tree.
-//   ./gradlew vocabularyPage
-tasks.register<JavaExec>("vocabularyPage") {
-    group = "verification"
-    description = "Draws a published reading's vocabulary as the funnel of the export's rules"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.VocabularyPageCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "3g"
-    workingDir = rootDir
-    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
-}
 
-// The same reading's significant words placed by the domains their senses state, as overlapping sets
-// under the reader's choice of domain source. Consumes output/json (or -Dcs.reading.dir=<folder>).
-//   ./gradlew domainVenn
-tasks.register<JavaExec>("domainVenn") {
-    group = "verification"
-    description = "Draws the significant words' domains as overlapping sets, one picture per source"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.DomainVennCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "3g"
-    workingDir = rootDir
-    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
-}
-
-
-
-// The same reading's term trees: each matched vocabulary's phrases at their places in the publisher's
-// hierarchy, with the unmatched remainder greyed. Consumes output/json (or -Dcs.reading.dir=<folder>).
-//   ./gradlew termTrees
-tasks.register<JavaExec>("termTrees") {
-    group = "verification"
-    description = "Draws each matched vocabulary's phrases as a tree in the publisher's hierarchy"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.TermTreesCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "3g"
-    workingDir = rootDir
-    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
-}
 
 // Both passes of the domain reading over every evaluation clone, with how much of the sense weighting
 // rests on published counts. It prints; nothing votes on it and no published figure moves.
@@ -87,44 +48,18 @@ tasks.register<JavaExec>("discoursePass") {
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
 }
 
-// Every published reading on one figure: each source that answered, placed by how far past its own
-// chance bar it stands, with the evidence beneath it and the area a named manifest states for it. It
-// reads the readings under output/ and no tree.
-//   ./gradlew readings
-//   ./gradlew readings -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
-tasks.register<JavaExec>("readings") {
+// One findings page per published reading under output/, each into a folder of its repository's name.
+// It consumes the readings already taken and takes none itself.
+//   ./gradlew pages
+//   ./gradlew pages -Dcs.reading.dir=<folder holding reading.json and evidence.json>
+tasks.register<JavaExec>("pages") {
     group = "verification"
-    description = "Writes the one page comparing every published reading under output/"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.ReadingsCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    workingDir = rootDir
-    System.getProperty("cs.reading.manifest")?.let { systemProperty("cs.reading.manifest", it) }
-}
-
-// Every page for every published reading under output/, one folder per repository, and the readings
-// page they all link back to. It consumes the readings already taken and takes none itself.
-//   ./gradlew evaluationPages
-//   ./gradlew evaluationPages -Dcs.reading.manifest=reading-export/src/test/resources/evaluation-set.tsv
-tasks.register<JavaExec>("evaluationPages") {
-    group = "verification"
-    description = "Writes every page for every published reading under output/, and the readings page"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.EvaluationPagesCommand"
-    classpath = sourceSets["main"].runtimeClasspath
-    maxHeapSize = "4g"
-    workingDir = rootDir
-    System.getProperty("cs.reading.manifest")?.let { systemProperty("cs.reading.manifest", it) }
-}
-
-// Every published reading's reported term matches per vocabulary on one page, phrases apart from
-// single words. It consumes the committed readings under output/ and reads no tree.
-//   ./gradlew taxonomyMatches
-tasks.register<JavaExec>("taxonomyMatches") {
-    group = "verification"
-    description = "Draws every reading's reported matches per vocabulary, phrases apart from words"
-    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.TaxonomyMatchesCommand"
+    description = "Writes one findings page per published reading under output/, and the card page"
+    mainClass = "io.github.fiftieshousewife.codesemantics.vocabulary.page.PagesCommand"
     classpath = sourceSets["main"].runtimeClasspath
     maxHeapSize = "3g"
     workingDir = rootDir
+    System.getProperty("cs.reading.dir")?.let { systemProperty("cs.reading.dir", it) }
 }
 
 // What the corroborated sense weight changes on each subject scheme's source, for every published reading

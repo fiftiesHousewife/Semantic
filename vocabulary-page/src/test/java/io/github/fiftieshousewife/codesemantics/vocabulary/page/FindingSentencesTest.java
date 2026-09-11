@@ -56,7 +56,7 @@ class FindingSentencesTest {
                 List.of(vocabulary("FIX", 52, 5, List.of())), List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement()
-                .isEqualTo("FIX states 52 of its phrases in this repository's declared names, against "
+                .isEqualTo("FIX states 52 of its phrases in this repository’s declared names, against "
                         + "the 5 the best of a field of 7 reaches by dealing its own words at random. "
                         + "It places MsgSeqNum under Session. “Integer message sequence number.”");
     }
@@ -95,7 +95,7 @@ class FindingSentencesTest {
                 List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement().asString()
-                .startsWith("The repository writes 2 of OLiA's one-word terms, each beside another "
+                .startsWith("The repository writes 2 of OLiA’s one-word terms, each beside another "
                         + "concept of the branch its publisher files it in.");
     }
 
@@ -107,7 +107,7 @@ class FindingSentencesTest {
                 List.of(), List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement()
-                .isEqualTo("arXiv's nearest subject is Computation and Language, inside Computer "
+                .isEqualTo("arXiv’s nearest subject is Computation and Language, inside Computer "
                         + "Science — 0.053 bits nearer than the nearest subject of a scheme built "
                         + "by shuffling the real descriptions.");
     }
@@ -123,7 +123,7 @@ class FindingSentencesTest {
 
         assertThat(sentences.of(reading)).singleElement()
                 .isEqualTo("Nothing qualified: the 2 vocabularies judged wrote no more of their "
-                        + "phrases here than deals of their own words reach, and no scheme's nearest "
+                        + "phrases here than deals of their own words reach, and no scheme’s nearest "
                         + "subject is nearer than its shuffle reaches.");
     }
 
@@ -135,7 +135,7 @@ class FindingSentencesTest {
                         contender("Stylometry")));
 
         assertThat(sentences.placement("OpenAlex", level))
-                .isEqualTo("OpenAlex's nearest subject is Authorship Attribution and Profiling, at "
+                .isEqualTo("OpenAlex’s nearest subject is Authorship Attribution and Profiling, at "
                         + "0.421 bits against the 0.494 its shuffle reaches — 3 subjects are "
                         + "nearer than the shuffle, and the instrument cannot separate them.");
     }
@@ -146,7 +146,7 @@ class FindingSentencesTest {
                 "Computer Science", 0.45, 0.40, List.of(), List.of());
 
         assertThat(sentences.placement("arXiv", level))
-                .isEqualTo("arXiv's nearest subject is Computer Science, at 0.450 bits against the "
+                .isEqualTo("arXiv’s nearest subject is Computer Science, at 0.450 bits against the "
                         + "0.400 its shuffle reaches — no nearer than the shuffle, so the scheme "
                         + "places this repository nowhere.");
     }
@@ -158,7 +158,7 @@ class FindingSentencesTest {
                 List.of(contender("Computer Science")));
 
         assertThat(sentences.placement("arXiv", level))
-                .isEqualTo("arXiv's nearest subject is Computer Science, at 0.332 bits against the "
+                .isEqualTo("arXiv’s nearest subject is Computer Science, at 0.332 bits against the "
                         + "0.412 its shuffle reaches, and no other subject is nearer than the shuffle.");
     }
 
