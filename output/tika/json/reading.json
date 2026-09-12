@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "29.0",
+  "schemaVersion" : "30.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "43cbdae69472863f53f4f712f0331a1cd62f0615",
@@ -25,17 +25,17 @@
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.33555201979686694,
-        "nearestByChanceBits" : 0.41186078886391814,
+        "divergenceBits" : 0.33566834055629396,
+        "nearestByChanceBits" : 0.41186131160908307,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.09524941564767571,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -65,7 +65,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -125,7 +125,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.0810894522820115,
           "carriedBy" : [ {
             "word" : "handler",
@@ -220,12 +220,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.04201125461161316,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -315,7 +315,7 @@
           } ]
         }, {
           "topic" : "computer_science",
-          "shareOfRepository" : 0.031001207913291414,
+          "shareOfRepository" : 0.030999015098181218,
           "shareOfSubject" : 0.04388064160930043,
           "carriedBy" : [ {
             "word" : "parser",
@@ -411,27 +411,27 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computer Science",
-          "divergenceBits" : 0.33555201979686694,
+          "divergenceBits" : 0.33566834055629396,
           "carriedBy" : [ "linguistics", "programming", "computing", "computer_science" ]
         }, {
           "subject" : "Electrical Engineering and Systems Science",
-          "divergenceBits" : 0.378810164159603,
+          "divergenceBits" : 0.37881195790806954,
           "carriedBy" : [ "computing", "programming", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.41354052256848356,
-        "nearestByChanceBits" : 0.4651398493961483,
+        "divergenceBits" : 0.41363540855992004,
+        "nearestByChanceBits" : 0.46524527850281083,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.19882022421291679,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -521,12 +521,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.29112893241037313,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -556,7 +556,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -616,7 +616,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.04014800028907947,
           "carriedBy" : [ {
             "word" : "handler",
@@ -711,12 +711,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.029075767676545183,
+          "shareOfRepository" : 0.028872419588230114,
           "shareOfSubject" : 0.03444697468868257,
           "carriedBy" : [ {
             "word" : "file",
-            "occurrences" : 10551,
-            "mass" : 78.58677436461758,
+            "occurrences" : 10530,
+            "mass" : 78.37272819792267,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "see the notice file distributed with this work for additional information regarding copyright ownership",
@@ -807,11 +807,11 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.41354052256848356,
+          "divergenceBits" : 0.41363540855992004,
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Networking and Internet Architecture",
-          "divergenceBits" : 0.41754232561561067,
+          "divergenceBits" : 0.4174946456247605,
           "carriedBy" : [ "computing", "programming", "computer_science", "telecommunication" ]
         } ]
       }
@@ -819,17 +819,17 @@
       "scheme" : "OpenAlex",
       "archive" : {
         "subject" : "Artificial Intelligence",
-        "divergenceBits" : 0.22950519951573148,
-        "nearestByChanceBits" : 0.32422122699250144,
+        "divergenceBits" : 0.22952945979784614,
+        "nearestByChanceBits" : 0.3242146418490391,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.05178837563128419,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -919,12 +919,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.042123093909517025,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -954,7 +954,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -1014,12 +1014,12 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.029075767676545183,
+          "shareOfRepository" : 0.028872419588230114,
           "shareOfSubject" : 0.038606564241872365,
           "carriedBy" : [ {
             "word" : "file",
-            "occurrences" : 10551,
-            "mass" : 78.58677436461758,
+            "occurrences" : 10530,
+            "mass" : 78.37272819792267,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "see the notice file distributed with this work for additional information regarding copyright ownership",
@@ -1109,7 +1109,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.027831114865995696,
           "carriedBy" : [ {
             "word" : "handler",
@@ -1205,35 +1205,35 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Artificial Intelligence",
-          "divergenceBits" : 0.22950519951573148,
+          "divergenceBits" : 0.22952945979784614,
           "carriedBy" : [ "computing", "linguistics", "law", "programming" ]
         }, {
           "subject" : "Computer Networks and Communications",
-          "divergenceBits" : 0.24208822257107077,
+          "divergenceBits" : 0.2421031645387417,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.2722269740257257,
+          "divergenceBits" : 0.27222000281124764,
           "carriedBy" : [ "computing", "law", "computer_science", "linguistics" ]
         }, {
           "subject" : "Information Systems",
-          "divergenceBits" : 0.31754132271584984,
+          "divergenceBits" : 0.3175937012714852,
           "carriedBy" : [ "computing", "computer_science", "law", "programming" ]
         } ]
       },
       "category" : {
         "subject" : "Natural Language Processing Techniques",
-        "divergenceBits" : 0.43865704453336785,
-        "nearestByChanceBits" : 0.4975854181526703,
+        "divergenceBits" : 0.4386586994950083,
+        "nearestByChanceBits" : 0.4976983336875318,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.17377156170937663,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -1323,12 +1323,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.1846443376305288,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1358,7 +1358,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -1418,7 +1418,7 @@
           } ]
         }, {
           "topic" : "computer_science",
-          "shareOfRepository" : 0.031001207913291414,
+          "shareOfRepository" : 0.030999015098181218,
           "shareOfSubject" : 0.04202341570842977,
           "carriedBy" : [ {
             "word" : "parser",
@@ -1513,7 +1513,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.025733981433628043,
           "carriedBy" : [ {
             "word" : "handler",
@@ -1609,51 +1609,51 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.43865704453336785,
+          "divergenceBits" : 0.4386586994950083,
           "carriedBy" : [ "computing", "linguistics", "computer_science", "programming" ]
         }, {
           "subject" : "Mobile Agent-Based Network Management",
-          "divergenceBits" : 0.47147960538127986,
+          "divergenceBits" : 0.4715550258113803,
           "carriedBy" : [ "computing", "computer_science", "law", "computer-languages" ]
         }, {
           "subject" : "Usability and User Interface Design",
-          "divergenceBits" : 0.4743010021275766,
+          "divergenceBits" : 0.47441792752907636,
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Image Retrieval and Classification Techniques",
-          "divergenceBits" : 0.47567175016242924,
+          "divergenceBits" : 0.4757159572597642,
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         }, {
           "subject" : "Embedded Systems Design Techniques",
-          "divergenceBits" : 0.476185143421538,
+          "divergenceBits" : 0.4761574338818297,
           "carriedBy" : [ "computing", "computer_science", "linguistics", "mathematics" ]
         }, {
           "subject" : "Advanced Software Engineering Methodologies",
-          "divergenceBits" : 0.47904470785193465,
+          "divergenceBits" : 0.47902497564469054,
           "carriedBy" : [ "computing", "computer_science", "software", "mathematics" ]
         }, {
           "subject" : "Data Visualization and Analytics",
-          "divergenceBits" : 0.4797260050155072,
+          "divergenceBits" : 0.47979214832054384,
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         }, {
           "subject" : "Software-Defined Networks and 5G",
-          "divergenceBits" : 0.48444611188618386,
+          "divergenceBits" : 0.48448608890355743,
           "carriedBy" : [ "computing", "programming", "computer_science", "law" ]
         }, {
           "subject" : "Marine and Coastal Research",
-          "divergenceBits" : 0.4898911183104496,
+          "divergenceBits" : 0.48984354319423135,
           "carriedBy" : [ "computing", "computer_science", "linguistics", "telecommunication" ]
         }, {
           "subject" : "Personal Information Management and User Behavior",
-          "divergenceBits" : 0.4922183756517932,
+          "divergenceBits" : 0.49238441739451533,
           "carriedBy" : [ "computing", "linguistics", "programming", "law" ]
         }, {
           "subject" : "Caching and Content Delivery",
-          "divergenceBits" : 0.49252861935306663,
+          "divergenceBits" : 0.4925434259167358,
           "carriedBy" : [ "computing", "linguistics", "telecommunication", "electronics" ]
         }, {
           "subject" : "Security and Verification in Computing",
-          "divergenceBits" : 0.4966207853625561,
+          "divergenceBits" : 0.4968281977651504,
           "carriedBy" : [ "computing", "programming", "law", "computer_science" ]
         } ]
       }
@@ -1661,17 +1661,17 @@
       "scheme" : "CSO",
       "archive" : {
         "subject" : "computer science",
-        "divergenceBits" : 0.22259061335714728,
-        "nearestByChanceBits" : 0.26719938081228356,
+        "divergenceBits" : 0.22262631833281224,
+        "nearestByChanceBits" : 0.2672101786628705,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.04839114925188922,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -1761,7 +1761,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.03621155700572308,
           "carriedBy" : [ {
             "word" : "handler",
@@ -1856,12 +1856,12 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.03397979110979993,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -1891,7 +1891,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -1951,7 +1951,7 @@
           } ]
         }, {
           "topic" : "computer_science",
-          "shareOfRepository" : 0.031001207913291414,
+          "shareOfRepository" : 0.030999015098181218,
           "shareOfSubject" : 0.05447364978072683,
           "carriedBy" : [ {
             "word" : "parser",
@@ -2047,27 +2047,27 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "computer science",
-          "divergenceBits" : 0.22259061335714728,
+          "divergenceBits" : 0.22262631833281224,
           "carriedBy" : [ "computing", "programming", "linguistics", "computer_science" ]
         }, {
           "subject" : "linguistics",
-          "divergenceBits" : 0.2298565489909742,
+          "divergenceBits" : 0.2299062926533684,
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         } ]
       },
       "category" : {
         "subject" : "information technology",
-        "divergenceBits" : 0.27968277787824825,
-        "nearestByChanceBits" : 0.30076097622056064,
+        "divergenceBits" : 0.2797069898146316,
+        "nearestByChanceBits" : 0.300842860813693,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.06174375672276797,
+          "shareOfRepository" : 0.06172440819503058,
           "shareOfSubject" : 0.07440422500917063,
           "carriedBy" : [ {
             "word" : "name",
             "occurrences" : 4007,
-            "mass" : 318.6942839544337,
+            "mass" : 318.6942868133213,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "class name",
@@ -2097,7 +2097,7 @@
           }, {
             "word" : "context",
             "occurrences" : 2286,
-            "mass" : 190.86995951237185,
+            "mass" : 190.86996853292356,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -2157,12 +2157,12 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.21940151894162463,
+          "shareOfRepository" : 0.21944853729425914,
           "shareOfSubject" : 0.0423680999216988,
           "carriedBy" : [ {
             "word" : "metadata",
             "occurrences" : 4373,
-            "mass" : 2271.4068612773845,
+            "mass" : 2271.4070118710624,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -2252,7 +2252,7 @@
           } ]
         }, {
           "topic" : "programming",
-          "shareOfRepository" : 0.04350161148866629,
+          "shareOfRepository" : 0.04350697766497776,
           "shareOfSubject" : 0.031435838835156375,
           "carriedBy" : [ {
             "word" : "handler",
@@ -2347,7 +2347,7 @@
           } ]
         }, {
           "topic" : "computer_science",
-          "shareOfRepository" : 0.031001207913291414,
+          "shareOfRepository" : 0.030999015098181218,
           "shareOfSubject" : 0.0359240317835985,
           "carriedBy" : [ {
             "word" : "parser",
@@ -2443,11 +2443,11 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "information technology",
-          "divergenceBits" : 0.27968277787824825,
+          "divergenceBits" : 0.2797069898146316,
           "carriedBy" : [ "linguistics", "computing", "programming", "computer_science" ]
         }, {
           "subject" : "operating systems",
-          "divergenceBits" : 0.3005341479862712,
+          "divergenceBits" : 0.30067643376064174,
           "carriedBy" : [ "computing", "computer_science", "law", "linguistics" ]
         } ]
       }
@@ -2526,63 +2526,63 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
-      "divergenceBits" : 0.06935060145234938,
+      "divergenceBits" : 0.06933585687726984,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-core/src/test/java",
-      "divergenceBits" : 0.0984989033377597,
+      "divergenceBits" : 0.0984938928323707,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
-      "divergenceBits" : 0.22579556991025063,
+      "divergenceBits" : 0.22574638594580998,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-      "divergenceBits" : 0.1593651622499694,
+      "divergenceBits" : 0.15933868141350346,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
-      "divergenceBits" : 0.15820130839512053,
+      "divergenceBits" : 0.15815792739195725,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-translate/src/test/java",
-      "divergenceBits" : 0.4420258286184937,
+      "divergenceBits" : 0.441983635525246,
       "writesMoreOf" : [ "linguistics", "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources",
-      "divergenceBits" : 0.44173174696574374,
+      "divergenceBits" : 0.44184808774265927,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources",
-      "divergenceBits" : 0.3957683809071858,
+      "divergenceBits" : 0.395723184247945,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources",
-      "divergenceBits" : 0.42318208728000045,
+      "divergenceBits" : 0.42322407705579657,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources",
-      "divergenceBits" : 0.36926257890862835,
+      "divergenceBits" : 0.369211710312534,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
-      "divergenceBits" : 0.21729305680102212,
+      "divergenceBits" : 0.21733524245203417,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources",
-      "divergenceBits" : 0.31916872489057363,
+      "divergenceBits" : 0.3191961501403954,
       "writesMoreOf" : [ "software" ]
     }, {
       "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-      "divergenceBits" : 0.7890655914900399,
+      "divergenceBits" : 0.7890718654699521,
       "writesMoreOf" : [ "software", "linguistics" ]
     }, {
       "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
-      "divergenceBits" : 0.3570591871297313,
+      "divergenceBits" : 0.3571006061759557,
       "writesMoreOf" : [ "software" ]
     } ],
-    "shareOfWordsWithACitation" : 0.9708810789607658,
-    "shareOfMassOnNoSubject" : 0.7338506213657342,
+    "shareOfWordsWithACitation" : 0.9708538347799209,
+    "shareOfMassOnNoSubject" : 0.733850659336996,
     "counts" : {
       "signals" : 628,
       "themes" : 17,
@@ -10133,12 +10133,12 @@
   "themes" : [ {
     "topic" : "linguistics",
     "scope" : "tika-translate/src/test/java",
-    "shareOfRepository" : 0.014798115035265142,
-    "divergenceBits" : 0.046000435332920205,
+    "shareOfRepository" : 0.014795440507914096,
+    "divergenceBits" : 0.04601362721972141,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.6942839544337,
+      "mass" : 318.6942868133213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -10168,7 +10168,7 @@
     }, {
       "word" : "context",
       "occurrences" : 2286,
-      "mass" : 190.86995951237185,
+      "mass" : 190.86996853292356,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -10228,7 +10228,7 @@
     }, {
       "word" : "bigram",
       "occurrences" : 526,
-      "mass" : 63.31205217732342,
+      "mass" : 63.31206381447102,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the byte bigram typicality models cannot both decodes look like typical latin and on common dominated docs the discriminating bytes are diluted to noise",
@@ -10258,7 +10258,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.64509669261779,
+      "mass" : 55.64510168912944,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -10287,8 +10287,8 @@
       } ]
     }, {
       "word" : "language",
-      "occurrences" : 3157,
-      "mass" : 53.83658915469334,
+      "occurrences" : 3150,
+      "mass" : 53.82055149416201,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "see the license for the specific language governing permissions and limitations under the license",
@@ -10318,7 +10318,7 @@
     }, {
       "word" : "word",
       "occurrences" : 581,
-      "mass" : 26.004777260407334,
+      "mass" : 26.004790714377,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "test acronyms followed by word",
@@ -10379,8 +10379,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-pipes/tika-pipes-integration-tests/src/test/resources",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.031270114060224494,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.031268626251515344,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -10534,7 +10534,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -10564,7 +10564,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -10625,8 +10625,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-translate/src/test/java",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.02946690827433233,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.02946545597821474,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -10780,7 +10780,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -10810,7 +10810,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -10871,12 +10871,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.029172529377959083,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.029158225277647068,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -11117,8 +11117,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-code-module/src/test/resources",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.028368336399030403,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.028366906500832845,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11272,7 +11272,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -11302,7 +11302,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -11363,8 +11363,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.027286167459856767,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.027284760231678525,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11518,7 +11518,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -11548,7 +11548,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -11609,8 +11609,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.02460766715089366,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.024606318877006712,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -11764,7 +11764,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -11794,7 +11794,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -11855,12 +11855,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-extended/tika-parser-scientific-module/src/test/resources",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.023173526675154613,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.023160736597910958,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -12101,8 +12101,8 @@
   }, {
     "topic" : "software",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-miscoffice-module/src/test/resources",
-    "shareOfRepository" : 0.005838332814103007,
-    "divergenceBits" : 0.02073596032262747,
+    "shareOfRepository" : 0.005838539750480543,
+    "divergenceBits" : 0.0207347056733899,
     "carriedBy" : [ {
       "word" : "excel",
       "occurrences" : 151,
@@ -12256,7 +12256,7 @@
     }, {
       "word" : "comment",
       "occurrences" : 359,
-      "mass" : 3.4232214242363113,
+      "mass" : 3.4232212697199915,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "add comments for bnd to generate osgi metadata for service mediator spec https bnd bndtools org chapters 230 manifest annotations html meta infservices annotations",
@@ -12286,7 +12286,7 @@
     }, {
       "word" : "update",
       "occurrences" : 244,
-      "mass" : 2.517073706064459,
+      "mass" : 2.51712625615965,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "hyperlink update",
@@ -12347,12 +12347,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/resources",
-    "shareOfRepository" : 0.014798115035265142,
-    "divergenceBits" : 0.014398870306735295,
+    "shareOfRepository" : 0.014795440507914096,
+    "divergenceBits" : 0.014406583494306173,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.6942839544337,
+      "mass" : 318.6942868133213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12382,7 +12382,7 @@
     }, {
       "word" : "context",
       "occurrences" : 2286,
-      "mass" : 190.86995951237185,
+      "mass" : 190.86996853292356,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -12442,7 +12442,7 @@
     }, {
       "word" : "bigram",
       "occurrences" : 526,
-      "mass" : 63.31205217732342,
+      "mass" : 63.31206381447102,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the byte bigram typicality models cannot both decodes look like typical latin and on common dominated docs the discriminating bytes are diluted to noise",
@@ -12472,7 +12472,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.64509669261779,
+      "mass" : 55.64510168912944,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12501,8 +12501,8 @@
       } ]
     }, {
       "word" : "language",
-      "occurrences" : 3157,
-      "mass" : 53.83658915469334,
+      "occurrences" : 3150,
+      "mass" : 53.82055149416201,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "see the license for the specific language governing permissions and limitations under the license",
@@ -12532,7 +12532,7 @@
     }, {
       "word" : "word",
       "occurrences" : 581,
-      "mass" : 26.004777260407334,
+      "mass" : 26.004790714377,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "test acronyms followed by word",
@@ -12593,12 +12593,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "tika-langdetect/tika-langdetect-charsoup/src/test/java",
-    "shareOfRepository" : 0.014798115035265142,
-    "divergenceBits" : 0.014042093512687544,
+    "shareOfRepository" : 0.014795440507914096,
+    "divergenceBits" : 0.014049715131088998,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.6942839544337,
+      "mass" : 318.6942868133213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -12628,7 +12628,7 @@
     }, {
       "word" : "context",
       "occurrences" : 2286,
-      "mass" : 190.86995951237185,
+      "mass" : 190.86996853292356,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -12688,7 +12688,7 @@
     }, {
       "word" : "bigram",
       "occurrences" : 526,
-      "mass" : 63.31205217732342,
+      "mass" : 63.31206381447102,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the byte bigram typicality models cannot both decodes look like typical latin and on common dominated docs the discriminating bytes are diluted to noise",
@@ -12718,7 +12718,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.64509669261779,
+      "mass" : 55.64510168912944,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -12747,8 +12747,8 @@
       } ]
     }, {
       "word" : "language",
-      "occurrences" : 3157,
-      "mass" : 53.83658915469334,
+      "occurrences" : 3150,
+      "mass" : 53.82055149416201,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "see the license for the specific language governing permissions and limitations under the license",
@@ -12778,7 +12778,7 @@
     }, {
       "word" : "word",
       "occurrences" : 581,
-      "mass" : 26.004777260407334,
+      "mass" : 26.004790714377,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "test acronyms followed by word",
@@ -12839,12 +12839,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-mail-module/src/test/resources",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.013831694331763157,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.01382176036348557,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13085,12 +13085,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/test/resources",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.013132305783544046,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.013122622216453633,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13331,12 +13331,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/test/java",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.011742338986381967,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.011733174613432401,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -13577,12 +13577,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xmp-commons/src/test/resources",
-    "shareOfRepository" : 0.014798115035265142,
-    "divergenceBits" : 0.00345900548965173,
+    "shareOfRepository" : 0.014795440507914096,
+    "divergenceBits" : 0.0034628648849027704,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.6942839544337,
+      "mass" : 318.6942868133213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13612,7 +13612,7 @@
     }, {
       "word" : "context",
       "occurrences" : 2286,
-      "mass" : 190.86995951237185,
+      "mass" : 190.86996853292356,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -13672,7 +13672,7 @@
     }, {
       "word" : "bigram",
       "occurrences" : 526,
-      "mass" : 63.31205217732342,
+      "mass" : 63.31206381447102,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the byte bigram typicality models cannot both decodes look like typical latin and on common dominated docs the discriminating bytes are diluted to noise",
@@ -13702,7 +13702,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.64509669261779,
+      "mass" : 55.64510168912944,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -13731,8 +13731,8 @@
       } ]
     }, {
       "word" : "language",
-      "occurrences" : 3157,
-      "mass" : 53.83658915469334,
+      "occurrences" : 3150,
+      "mass" : 53.82055149416201,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "see the license for the specific language governing permissions and limitations under the license",
@@ -13762,7 +13762,7 @@
     }, {
       "word" : "word",
       "occurrences" : 581,
-      "mass" : 26.004777260407334,
+      "mass" : 26.004790714377,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "test acronyms followed by word",
@@ -13823,12 +13823,12 @@
   }, {
     "topic" : "linguistics",
     "scope" : "tika-core/src/main/java",
-    "shareOfRepository" : 0.014798115035265142,
-    "divergenceBits" : 0.0031721945782219128,
+    "shareOfRepository" : 0.014795440507914096,
+    "divergenceBits" : 0.0031758928494642364,
     "carriedBy" : [ {
       "word" : "name",
       "occurrences" : 4007,
-      "mass" : 318.6942839544337,
+      "mass" : 318.6942868133213,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "class name",
@@ -13858,7 +13858,7 @@
     }, {
       "word" : "context",
       "occurrences" : 2286,
-      "mass" : 190.86995951237185,
+      "mass" : 190.86996853292356,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the context key is recorded in the idx file for runtime resolution",
@@ -13918,7 +13918,7 @@
     }, {
       "word" : "bigram",
       "occurrences" : 526,
-      "mass" : 63.31205217732342,
+      "mass" : 63.31206381447102,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "the byte bigram typicality models cannot both decodes look like typical latin and on common dominated docs the discriminating bytes are diluted to noise",
@@ -13948,7 +13948,7 @@
     }, {
       "word" : "prefix",
       "occurrences" : 663,
-      "mass" : 55.64509669261779,
+      "mass" : 55.64510168912944,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "catch dash prefixed",
@@ -13977,8 +13977,8 @@
       } ]
     }, {
       "word" : "language",
-      "occurrences" : 3157,
-      "mass" : 53.83658915469334,
+      "occurrences" : 3150,
+      "mass" : 53.82055149416201,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "see the license for the specific language governing permissions and limitations under the license",
@@ -14008,7 +14008,7 @@
     }, {
       "word" : "word",
       "occurrences" : 581,
-      "mass" : 26.004777260407334,
+      "mass" : 26.004790714377,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "test acronyms followed by word",
@@ -14069,12 +14069,12 @@
   }, {
     "topic" : "computing",
     "scope" : "tika-core/src/test/java",
-    "shareOfRepository" : 0.07399640777113949,
-    "divergenceBits" : 0.0011280656226361069,
+    "shareOfRepository" : 0.07400417007531325,
+    "divergenceBits" : 0.0011252065660526077,
     "carriedBy" : [ {
       "word" : "metadata",
       "occurrences" : 4373,
-      "mass" : 2271.4068612773845,
+      "mass" : 2271.4070118710624,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "public class my filter implements metadata filter another interface explicit parse context key when class implements multiple known interfaces",
@@ -16783,327 +16783,327 @@
     } ],
     "branches" : [ {
       "branch" : "computational linguistics | formal languages | natural language processing",
-      "agreesWithTheRepository" : 0.2682326778454147,
+      "agreesWithTheRepository" : 0.2682186214947974,
       "mass" : 651.0,
-      "kept" : 174.619473277365,
+      "kept" : 174.61032259311312,
       "terms" : [ "parse", "parsing", "parsed", "parses" ]
     }, {
       "branch" : "computer hardware",
-      "agreesWithTheRepository" : 0.3072271952449068,
+      "agreesWithTheRepository" : 0.307252303969976,
       "mass" : 263.34606977804185,
-      "kept" : 80.90707439667732,
+      "kept" : 80.91368668074142,
       "terms" : [ "detector", "detectors" ]
     }, {
       "branch" : "cryptography | security of data",
-      "agreesWithTheRepository" : 0.1751542459201269,
+      "agreesWithTheRepository" : 0.17519229719483204,
       "mass" : 77.75567740767103,
-      "kept" : 13.619237042349267,
+      "kept" : 13.62219574499019,
       "terms" : [ "encoding", "encryption", "encodings" ]
     }, {
       "branch" : "authentication | cryptography",
-      "agreesWithTheRepository" : 0.4510857933800854,
+      "agreesWithTheRepository" : 0.4509140180997931,
       "mass" : 76.80155918860927,
-      "kept" : 34.644092259421406,
+      "kept" : 34.63089965006489,
       "terms" : [ "hash", "hashes", "hashed" ]
     }, {
       "branch" : "software architecture patterns",
-      "agreesWithTheRepository" : 0.19063983064172121,
+      "agreesWithTheRepository" : 0.19065651226621538,
       "mass" : 66.17458248406568,
-      "kept" : 12.615511197548892,
+      "kept" : 12.61661509708495,
       "terms" : [ "print", "layer", "printing", "printed" ]
     }, {
       "branch" : "audio acoustics",
-      "agreesWithTheRepository" : 0.11289893797838636,
+      "agreesWithTheRepository" : 0.11292666233564957,
       "mass" : 46.838793800774795,
-      "kept" : 5.288050076296101,
+      "kept" : 5.289348651749211,
       "terms" : [ "audio", "audio file" ]
     }, {
       "branch" : "operating systems",
-      "agreesWithTheRepository" : 0.3345548476600058,
+      "agreesWithTheRepository" : 0.3344053750253273,
       "mass" : 45.79060248687711,
-      "kept" : 15.319468039257055,
+      "kept" : 15.312623597259826,
       "terms" : [ "file system", "linux" ]
     }, {
       "branch" : "wireless networks",
-      "agreesWithTheRepository" : 0.32760715368481785,
+      "agreesWithTheRepository" : 0.3276427992664666,
       "mass" : 34.079928506227944,
-      "kept" : 11.164828375707422,
+      "kept" : 11.166043174581576,
       "terms" : [ "gram", "grams" ]
     }, {
       "branch" : "internet",
-      "agreesWithTheRepository" : 0.27492605323879143,
+      "agreesWithTheRepository" : 0.27496858181347933,
       "mass" : 33.87925662171099,
-      "kept" : 9.314290309671192,
+      "kept" : 9.315731146166799,
       "terms" : [ "email", "emails" ]
     }, {
       "branch" : "queuing network",
-      "agreesWithTheRepository" : 0.3765414696448291,
+      "agreesWithTheRepository" : 0.3765737084565721,
       "mass" : 29.671951237151475,
-      "kept" : 11.172720126066721,
+      "kept" : 11.173676714516704,
       "terms" : [ "queue", "priority queue" ]
     }, {
       "branch" : "engineering",
-      "agreesWithTheRepository" : 0.24841441478319332,
+      "agreesWithTheRepository" : 0.24842668714527874,
       "mass" : 24.73256662158514,
-      "kept" : 6.143926063387413,
+      "kept" : 6.144229590400295,
       "terms" : [ "engine", "phone", "telephone", "automation" ]
     }, {
       "branch" : "intrusion detection | network security",
-      "agreesWithTheRepository" : 0.18240638408197057,
+      "agreesWithTheRepository" : 0.18223974123626077,
       "mass" : 24.0,
-      "kept" : 4.377753217967294,
+      "kept" : 4.373753789670259,
       "terms" : [ "ids" ]
     }, {
       "branch" : "ldpc codes",
-      "agreesWithTheRepository" : 0.2596631738384545,
+      "agreesWithTheRepository" : 0.2596748066400568,
       "mass" : 23.10772372792742,
-      "kept" : 6.000224883375798,
+      "kept" : 6.000493690941406,
       "terms" : [ "block length" ]
     }, {
       "branch" : "target language",
-      "agreesWithTheRepository" : 0.3529632107297118,
+      "agreesWithTheRepository" : 0.35295256596126595,
       "mass" : 21.870983907665114,
-      "kept" : 7.7196527018673375,
+      "kept" : 7.719419890307957,
       "terms" : [ "source language" ]
     }, {
       "branch" : "cache memory",
-      "agreesWithTheRepository" : 0.3690872699804104,
+      "agreesWithTheRepository" : 0.36896210950697955,
       "mass" : 20.0,
-      "kept" : 7.381745399608208,
+      "kept" : 7.379242190139591,
       "terms" : [ "cached", "caching" ]
     }, {
       "branch" : "mathematics",
-      "agreesWithTheRepository" : 0.19793403214232103,
+      "agreesWithTheRepository" : 0.1979580109592063,
       "mass" : 19.1732002667758,
-      "kept" : 3.7950288378751593,
+      "kept" : 3.795488588533461,
       "terms" : [ "probabilities", "probability", "statistics", "statistic" ]
     }, {
       "branch" : "multi core",
-      "agreesWithTheRepository" : 0.23689974906330508,
+      "agreesWithTheRepository" : 0.23694086913678147,
       "mass" : 16.995684633864045,
-      "kept" : 4.026273424921462,
+      "kept" : 4.026972288722388,
       "terms" : [ "multi threaded" ]
     }, {
       "branch" : "encryption",
-      "agreesWithTheRepository" : 0.14775499879204695,
+      "agreesWithTheRepository" : 0.1477702040852522,
       "mass" : 10.864279689296959,
-      "kept" : 1.6052516323685324,
+      "kept" : 1.605416826926672,
       "terms" : [ "decoding", "decodings", "data encryption" ]
     }, {
       "branch" : "classification | machine learning",
-      "agreesWithTheRepository" : 0.27952132015797904,
+      "agreesWithTheRepository" : 0.2795423061490125,
       "mass" : 9.0,
-      "kept" : 2.5156918814218114,
+      "kept" : 2.5158807553411124,
       "terms" : [ "classifier" ]
     }, {
       "branch" : "computer science",
-      "agreesWithTheRepository" : 0.38859368928147586,
+      "agreesWithTheRepository" : 0.3886216608610747,
       "mass" : 7.782763525878081,
-      "kept" : 3.0243327913262705,
+      "kept" : 3.024550487515733,
       "terms" : [ "cad", "internet", "software" ]
     }, {
       "branch" : "security of data",
-      "agreesWithTheRepository" : 0.3921572038625875,
+      "agreesWithTheRepository" : 0.39201473022108324,
       "mass" : 7.422648891542776,
-      "kept" : 2.9108452345611497,
+      "kept" : 2.909787702743964,
       "terms" : [ "authentication" ]
     }, {
       "branch" : "natural language processing",
-      "agreesWithTheRepository" : 0.29032624754922176,
+      "agreesWithTheRepository" : 0.2903345290227095,
       "mass" : 6.688615042560369,
-      "kept" : 1.9418805066078302,
+      "kept" : 1.941935898195975,
       "terms" : [ "word embedded", "word embeded", "word class" ]
     }, {
       "branch" : "sensors",
-      "agreesWithTheRepository" : 0.14255836270895134,
+      "agreesWithTheRepository" : 0.14260163944669735,
       "mass" : 6.0,
-      "kept" : 0.855350176253708,
+      "kept" : 0.8556098366801841,
       "terms" : [ "mem" ]
     }, {
       "branch" : "information extraction",
-      "agreesWithTheRepository" : 0.19315555605967966,
+      "agreesWithTheRepository" : 0.19316905859170203,
       "mass" : 5.901735487704055,
-      "kept" : 1.1399529998446216,
+      "kept" : 1.1400326882170317,
       "terms" : [ "extract info" ]
     }, {
       "branch" : "buffer storage | computer workstations | operating systems | random access storage | reduced instruction set computing",
-      "agreesWithTheRepository" : 0.1553204657472153,
+      "agreesWithTheRepository" : 0.15530896544900236,
       "mass" : 5.235100548098786,
-      "kept" : 0.8131182553642056,
+      "kept" : 0.8130580501467276,
       "terms" : [ "cpu" ]
     }, {
       "branch" : "digital libraries",
-      "agreesWithTheRepository" : 0.39766702130172354,
+      "agreesWithTheRepository" : 0.3977486462493294,
       "mass" : 4.856961624570827,
-      "kept" : 1.9314534618198609,
+      "kept" : 1.93184991105799,
       "terms" : [ "dublin core" ]
     }, {
       "branch" : "data compression",
-      "agreesWithTheRepository" : 0.3570686930801381,
+      "agreesWithTheRepository" : 0.35712400914743925,
       "mass" : 4.846963056298838,
-      "kept" : 1.730698763920338,
+      "kept" : 1.7309668788549664,
       "terms" : [ "compression ratio", "compression method", "lossless" ]
     }, {
       "branch" : "software",
-      "agreesWithTheRepository" : 0.20555564785140884,
+      "agreesWithTheRepository" : 0.2055686092459169,
       "mass" : 4.812106935015834,
-      "kept" : 0.989155758557437,
+      "kept" : 0.9892181301738368,
       "terms" : [ "mat lab", "gps" ]
     }, {
       "branch" : "access control policies",
-      "agreesWithTheRepository" : 0.43946740228894643,
+      "agreesWithTheRepository" : 0.4393091649480056,
       "mass" : 4.7801378880258385,
-      "kept" : 2.100714780233686,
+      "kept" : 2.099958383924954,
       "terms" : [ "access permission", "access permissions" ]
     }, {
       "branch" : "image analysis | image processing",
-      "agreesWithTheRepository" : 0.22103008784824166,
+      "agreesWithTheRepository" : 0.22105407923689405,
       "mass" : 4.396431824656858,
-      "kept" : 0.9717437124227107,
+      "kept" : 0.9718491889272998,
       "terms" : [ "image quality", "digital image" ]
     }, {
       "branch" : "hash functions",
-      "agreesWithTheRepository" : 0.27252280688350483,
+      "agreesWithTheRepository" : 0.27240419846598557,
       "mass" : 3.9307163606656044,
-      "kept" : 1.0712098556715055,
+      "kept" : 1.0707436396242498,
       "terms" : [ "hash values", "hash value" ]
     }, {
       "branch" : "asynchronous transfer mode | image coding | multiplexing | voice/data communication systems",
-      "agreesWithTheRepository" : 0.27373734151068596,
+      "agreesWithTheRepository" : 0.2735470516552144,
       "mass" : 3.899111597824725,
-      "kept" : 1.067332443042023,
+      "kept" : 1.0665904816596057,
       "terms" : [ "variable bit rate" ]
     }, {
       "branch" : "automation",
-      "agreesWithTheRepository" : 0.21477592943147863,
+      "agreesWithTheRepository" : 0.21488078727780133,
       "mass" : 3.2493737174748003,
-      "kept" : 0.6978872602408691,
+      "kept" : 0.6982279825707811,
       "terms" : [ "process control" ]
     }, {
       "branch" : "machine learning",
-      "agreesWithTheRepository" : 0.15624015801464586,
+      "agreesWithTheRepository" : 0.1562793091595569,
       "mass" : 2.8862681803885786,
-      "kept" : 0.4509509965765559,
+      "kept" : 0.4510639972803384,
       "terms" : [ "feature extraction", "feature vector" ]
     }, {
       "branch" : "software engineering",
-      "agreesWithTheRepository" : 0.3903999417031879,
+      "agreesWithTheRepository" : 0.3902514840964813,
       "mass" : 2.689197527659368,
-      "kept" : 1.0498625580265744,
+      "kept" : 1.0494633261976567,
       "terms" : [ "source code" ]
     }, {
       "branch" : "adaptive boosting",
-      "agreesWithTheRepository" : 0.10867878727660982,
+      "agreesWithTheRepository" : 0.10868976424608658,
       "mass" : 2.424597715635425,
-      "kept" : 0.26350233936889644,
+      "kept" : 0.2635289541040144,
       "terms" : [ "boost" ]
     }, {
       "branch" : "bayesian methods | decision trees",
-      "agreesWithTheRepository" : 0.19567794655259726,
+      "agreesWithTheRepository" : 0.1957009760414507,
       "mass" : 2.0,
-      "kept" : 0.39135589310519453,
+      "kept" : 0.3914019520829014,
       "terms" : [ "naive bayes" ]
     }, {
       "branch" : "user interfaces",
-      "agreesWithTheRepository" : 0.2935845904755519,
+      "agreesWithTheRepository" : 0.29360935778133274,
       "mass" : 1.9684130134177857,
-      "kept" : 0.5778957284310077,
+      "kept" : 0.577944480718014,
       "terms" : [ "gui" ]
     }, {
       "branch" : "text processing",
-      "agreesWithTheRepository" : 0.4307164864270055,
+      "agreesWithTheRepository" : 0.43054020655955266,
       "mass" : 1.835337738183871,
-      "kept" : 0.7905102219974443,
+      "kept" : 0.7901866889042259,
       "terms" : [ "word processing" ]
     }, {
       "branch" : "character recognition",
-      "agreesWithTheRepository" : 0.1919609288990902,
+      "agreesWithTheRepository" : 0.19198279184597467,
       "mass" : 1.6715770356114508,
-      "kept" : 0.32087748048236164,
+      "kept" : 0.3209140260823045,
       "terms" : [ "character set" ]
     }, {
       "branch" : "document images",
-      "agreesWithTheRepository" : 0.32130100480235907,
+      "agreesWithTheRepository" : 0.3213261577189886,
       "mass" : 1.0,
-      "kept" : 0.32130100480235907,
+      "kept" : 0.3213261577189886,
       "terms" : [ "skew angle" ]
     }, {
       "branch" : "ontology",
-      "agreesWithTheRepository" : 0.2299789713816515,
+      "agreesWithTheRepository" : 0.22982199514752066,
       "mass" : 0.9947690671474618,
-      "kept" : 0.22877596682485826,
+      "kept" : 0.22861981172286763,
       "terms" : [ "ontology concept" ]
     }, {
       "branch" : "information theory",
-      "agreesWithTheRepository" : 0.10196753278046568,
+      "agreesWithTheRepository" : 0.10199888939705719,
       "mass" : 0.9799878939270508,
-      "kept" : 0.09992694769846606,
+      "kept" : 0.09995767680312026,
       "terms" : [ "info contents" ]
     }, {
       "branch" : "ontology | vocabulary control",
-      "agreesWithTheRepository" : 0.10211784768217205,
+      "agreesWithTheRepository" : 0.10211865977486341,
       "mass" : 0.9785670556477456,
-      "kept" : 0.09992916153542807,
+      "kept" : 0.09992995622258197,
       "terms" : [ "controlled vocabulary" ]
     }, {
       "branch" : "variable bit rate",
-      "agreesWithTheRepository" : 0.24366394282864395,
+      "agreesWithTheRepository" : 0.24365299119411254,
       "mass" : 0.9689096740910503,
-      "kept" : 0.23608835143384174,
+      "kept" : 0.23607774028919715,
       "terms" : [ "constant bit rate" ]
     }, {
       "branch" : "audio systems",
-      "agreesWithTheRepository" : 0.18443945195261213,
+      "agreesWithTheRepository" : 0.1844754829146016,
       "mass" : 0.957233640949287,
-      "kept" : 0.17655164812729,
+      "kept" : 0.1765861381762221,
       "terms" : [ "audio stream" ]
     }, {
       "branch" : "factorization",
-      "agreesWithTheRepository" : 0.10801302850230733,
+      "agreesWithTheRepository" : 0.10801227782133972,
       "mass" : 0.9330459869578416,
-      "kept" : 0.10078112278324082,
+      "kept" : 0.1007804223633765,
       "terms" : [ "data matrix" ]
     }, {
       "branch" : "multiagent system",
-      "agreesWithTheRepository" : 0.39102230184077647,
+      "agreesWithTheRepository" : 0.3908596200310157,
       "mass" : 0.9309336929977491,
-      "kept" : 0.3640158354971146,
+      "kept" : 0.36386438951917044,
       "terms" : [ "software agent" ]
     }, {
       "branch" : "delay tolerant networks",
-      "agreesWithTheRepository" : 0.20605967509284503,
+      "agreesWithTheRepository" : 0.20609642056035074,
       "mass" : 0.9269887060786101,
-      "kept" : 0.19101499158929522,
+      "kept" : 0.19104905422267257,
       "terms" : [ "message delivery" ]
     }, {
       "branch" : "mathematical morphology",
-      "agreesWithTheRepository" : 0.2785789044095066,
+      "agreesWithTheRepository" : 0.27838810774972583,
       "mass" : 0.9253883979201804,
-      "kept" : 0.2577936860458724,
+      "kept" : 0.25761712503054934,
       "terms" : [ "structure element" ]
     }, {
       "branch" : "text classification",
-      "agreesWithTheRepository" : 0.2769098115845063,
+      "agreesWithTheRepository" : 0.27677721213399326,
       "mass" : 0.9122146740824315,
-      "kept" : 0.25260119352478794,
+      "kept" : 0.2524802343602547,
       "terms" : [ "text feature" ]
     }, {
       "branch" : "linguistics",
-      "agreesWithTheRepository" : 0.31664547911352353,
+      "agreesWithTheRepository" : 0.31665562008071363,
       "mass" : 0.9047096128496257,
-      "kept" : 0.2864722088193801,
+      "kept" : 0.2864813834498806,
       "terms" : [ "vocabulary" ]
     }, {
       "branch" : "file systems",
-      "agreesWithTheRepository" : 0.3500846363134842,
+      "agreesWithTheRepository" : 0.3501633933545369,
       "mass" : 0.8785320381537521,
-      "kept" : 0.30756056906680035,
+      "kept" : 0.3076297596505953,
       "terms" : [ "small file" ]
     }, {
       "branch" : "image segmentation",
-      "agreesWithTheRepository" : 0.2481677875829445,
+      "agreesWithTheRepository" : 0.24825054409241482,
       "mass" : 0.8769512942466007,
-      "kept" : 0.21763106251117867,
+      "kept" : 0.21770363593926598,
       "terms" : [ "single image" ]
     } ],
     "matchesByNormalisation" : {
@@ -18143,5 +18143,1625 @@
     "filesTheParserCouldNotRead" : 0,
     "javaFilesNoScopeReached" : 0
   },
-  "pullRequests" : [ ]
+  "pullRequests" : [ {
+    "number" : 3153,
+    "author" : "tballison",
+    "headSha" : "7c80965e8f14c0465c7fdf3858009ed6cb691c30",
+    "baseSha" : "68e57621168adf9e8e3004e3ff4ea6fd5e4c3cd7",
+    "files" : 35,
+    "thresholds" : {
+      "ordinary English" : 9.296519293072331E-4,
+      "the reference corpus" : 9.376929596641818E-4
+    },
+    "signals" : [ {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "component",
+      "occurrences" : 23,
+      "occurrencesInNames" : 23,
+      "divergenceBits" : 0.010385215786062836,
+      "marginBits" : 0.010106920912047746,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 240
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parser",
+      "occurrences" : 21,
+      "occurrencesInNames" : 21,
+      "divergenceBits" : 0.0097938587635059,
+      "marginBits" : 0.009658176323358024,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "load",
+      "occurrences" : 24,
+      "occurrencesInNames" : 24,
+      "divergenceBits" : 0.009366052286098043,
+      "marginBits" : 0.00904716067335254,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 155
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parent",
+      "occurrences" : 24,
+      "occurrencesInNames" : 24,
+      "divergenceBits" : 0.00875841710289152,
+      "marginBits" : 0.008315229922809959,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 193
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "components",
+      "occurrences" : 14,
+      "occurrencesInNames" : 14,
+      "divergenceBits" : 0.0065749792670582695,
+      "marginBits" : 0.006477391014918807,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 198
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embedded",
+      "occurrences" : 14,
+      "occurrencesInNames" : 14,
+      "divergenceBits" : 0.00656079390725951,
+      "marginBits" : 0.006462306381901047,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedMetadataLookup.java",
+        "line" : 31
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parse",
+      "occurrences" : 16,
+      "occurrencesInNames" : 16,
+      "divergenceBits" : 0.006132697259991454,
+      "marginBits" : 0.005910611618266069,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 148
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "root",
+      "occurrences" : 15,
+      "occurrencesInNames" : 15,
+      "divergenceBits" : 0.005677494997487375,
+      "marginBits" : 0.00546511176017599,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHook.java",
+        "line" : 39
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "handler",
+      "occurrences" : 15,
+      "occurrencesInNames" : 15,
+      "divergenceBits" : 0.005243686969914452,
+      "marginBits" : 0.0050087138392447,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 236
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "path",
+      "occurrences" : 22,
+      "occurrencesInNames" : 22,
+      "divergenceBits" : 0.004881361894708334,
+      "marginBits" : 0.004346465381485429,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedMetadataLookup.java",
+        "line" : 40
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embed",
+      "occurrences" : 10,
+      "occurrencesInNames" : 10,
+      "divergenceBits" : 0.004718975556051442,
+      "marginBits" : 0.00459959073382406,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbedTask.java",
+        "line" : 42
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "node",
+      "occurrences" : 13,
+      "occurrencesInNames" : 13,
+      "divergenceBits" : 0.004325622352878313,
+      "marginBits" : 0.00399793390336551,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 249
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "target",
+      "occurrences" : 15,
+      "occurrencesInNames" : 15,
+      "divergenceBits" : 0.004114300144750872,
+      "marginBits" : 0.003747974345354014,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceDispatcher.java",
+        "line" : 206
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "metadata",
+      "occurrences" : 11,
+      "occurrencesInNames" : 11,
+      "divergenceBits" : 0.003970346762235108,
+      "marginBits" : 0.003620891691771577,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedMetadataLookup.java",
+        "line" : 31
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "inference",
+      "occurrences" : 8,
+      "occurrencesInNames" : 8,
+      "divergenceBits" : 0.003904270723626392,
+      "marginBits" : 0.003904270723626392,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "config",
+      "occurrences" : 18,
+      "occurrencesInNames" : 18,
+      "divergenceBits" : 0.003402101852032458,
+      "marginBits" : 0.002940698515902959,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 138
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detect",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.003366927106940342,
+      "marginBits" : 0.003366927106940342,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 38
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "write",
+      "occurrences" : 10,
+      "occurrencesInNames" : 10,
+      "divergenceBits" : 0.00324830122689136,
+      "marginBits" : 0.0029974823927901685,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 438
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "mime",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.003242408014484198,
+      "marginBits" : 0.003167839756988808,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbedTask.java",
+        "line" : 90
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "hooks",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.0028183208925892053,
+      "marginBits" : 0.0027346151755479604,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 228
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "limit",
+      "occurrences" : 8,
+      "occurrencesInNames" : 8,
+      "divergenceBits" : 0.0027897064971011184,
+      "marginBits" : 0.002617993699874981,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 438
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embedding",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.002684385292616975,
+      "marginBits" : 0.00257443234276169,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 84
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "type",
+      "occurrences" : 20,
+      "occurrencesInNames" : 20,
+      "divergenceBits" : 0.0026834046356049297,
+      "marginBits" : 0.0023712099913472226,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceUnit.java",
+        "line" : 74
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "file_size",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.002615839081595365,
+      "marginBits" : 0.002505347273660503,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 360
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "tasks",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.0026125267870182297,
+      "marginBits" : 0.00251098678349111,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 64
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "bytes",
+      "occurrences" : 10,
+      "occurrencesInNames" : 10,
+      "divergenceBits" : 0.0025540350247770438,
+      "marginBits" : 0.0022440814660484015,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHook.java",
+        "line" : 53
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "get",
+      "occurrences" : 50,
+      "occurrencesInNames" : 50,
+      "divergenceBits" : 0.002553399663800253,
+      "marginBits" : 0.0021077965410328013,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 102
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "max",
+      "occurrences" : 13,
+      "occurrencesInNames" : 13,
+      "divergenceBits" : 0.0024991565332725305,
+      "marginBits" : 0.0021898772313284453,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 69
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "reached",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.0022201447909581066,
+      "marginBits" : 0.0022201447909581066,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 438
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "millis",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.002185819544779243,
+      "marginBits" : 0.0020436506312154577,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 183
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "units",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.002178260839324406,
+      "marginBits" : 0.002178260839324406,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceDispatcher.java",
+        "line" : 206
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "loader",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.002129499682821957,
+      "marginBits" : 0.0019192522927850128,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/InferenceLoader.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "field",
+      "occurrences" : 10,
+      "occurrencesInNames" : 10,
+      "divergenceBits" : 0.002048425404979677,
+      "marginBits" : 0.0017205604015961488,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/ChunkTarget.java",
+        "line" : 80
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "content",
+      "occurrences" : 9,
+      "occurrencesInNames" : 9,
+      "divergenceBits" : 0.0020189605709973607,
+      "marginBits" : 0.0017638241013298117,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 282
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "auto",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.0019613230588675415,
+      "marginBits" : 0.0017739388436812309,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 38
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embeddings",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0019359600498723005,
+      "marginBits" : 0.0019157832216929202,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 394
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "wrapper",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.0019116665435438018,
+      "marginBits" : 0.001815849296544542,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 79
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "recursive",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0018976852855887556,
+      "marginBits" : 0.0018671893113677597,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 79
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "bindings",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0018540759958474318,
+      "marginBits" : 0.0018033699647697233,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceSelection.java",
+        "line" : 47
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "key",
+      "occurrences" : 18,
+      "occurrencesInNames" : 18,
+      "divergenceBits" : 0.0017691953020587481,
+      "marginBits" : 0.0013641845196245925,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 336
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "secure",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0016884441171758037,
+      "marginBits" : 0.0016041115346958888,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 282
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "engine",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0016759640569490128,
+      "marginBits" : 0.0016022230435482105,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 56
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "chunks",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.001657229133602615,
+      "marginBits" : 0.0013402248335687684,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 69
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "entry",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.0015863193526186648,
+      "marginBits" : 0.0013303544667979826,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 221
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "enabled",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.0015802570011662627,
+      "marginBits" : 0.001269217655849435,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 78
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parsers",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0014773914199496634,
+      "marginBits" : 0.0014740687794585398,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 78
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "failed",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0014238329394975838,
+      "marginBits" : 0.0013141065462395672,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 194
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "lift",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.001374014538685599,
+      "marginBits" : 0.001374014538685599,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 384
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detector",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.001361134127348174,
+      "marginBits" : 0.0013136448534296799,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 116
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "kept",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0012635216815491761,
+      "marginBits" : 0.0012635216815491761,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedMetadataLookup.java",
+        "line" : 40
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "base64",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0012458783867419726,
+      "marginBits" : 0.0011847104017517326,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIImageEmbeddingParser.java",
+        "line" : 197
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "types",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.0012444446252948826,
+      "marginBits" : 0.0010886026627666984,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbedTask.java",
+        "line" : 90
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "chars",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.001229987077587422,
+      "marginBits" : 0.001183142909557484,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 349
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "exclude",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0011927637151727692,
+      "marginBits" : 0.001139764894504569,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+        "line" : 39
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "default",
+      "occurrences" : 8,
+      "occurrencesInNames" : 8,
+      "divergenceBits" : 0.0011622715329127594,
+      "marginBits" : 0.0010103110203435238,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/AutoDetectParser.java",
+        "line" : 102
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "offer",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.001069326148666706,
+      "marginBits" : 0.001069326148666706,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHook.java",
+        "line" : 53
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "depth",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0010665226126781362,
+      "marginBits" : 9.796990684766368E-4,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/sax/AbstractRecursiveParserWrapperHandler.java",
+        "line" : 86
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "unknown",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0010448133097817965,
+      "marginBits" : 9.7259766106049E-4,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/RecursiveParserWrapper.java",
+        "line" : 325
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "adp",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 9.881422924901185E-4,
+      "marginBits" : 9.881422924901185E-4,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 414
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "tika",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 9.881422924901185E-4,
+      "marginBits" : 9.881422924901185E-4,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 98
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detectors",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 9.581199763561421E-4,
+      "marginBits" : 9.581199763561421E-4,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 297
+      }
+    } ],
+    "statement" : {
+      "sentences" : 4,
+      "words" : 33,
+      "divergenceBits" : 0.3817130208932524,
+      "chanceDivergenceBits" : 0.5805068835226874,
+      "chanceRate" : 0.962,
+      "resamples" : 999,
+      "topics" : [ ]
+    }
+  }, {
+    "number" : 3154,
+    "author" : "tballison",
+    "headSha" : "9351a7063d41ec9a47a50b444a9f0242fd765860",
+    "baseSha" : "fa7ea0996857fd785d782d0cb887c04b996dddb9",
+    "files" : 11,
+    "thresholds" : {
+      "ordinary English" : 0.0020773214292214254,
+      "the reference corpus" : 0.002064293163725369
+    },
+    "signals" : [ {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "component",
+      "occurrences" : 23,
+      "occurrencesInNames" : 23,
+      "divergenceBits" : 0.027578074859272435,
+      "marginBits" : 0.027226981267796442,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 239
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "load",
+      "occurrences" : 24,
+      "occurrencesInNames" : 24,
+      "divergenceBits" : 0.026858033534455896,
+      "marginBits" : 0.02642161382994048,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 154
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "components",
+      "occurrences" : 14,
+      "occurrencesInNames" : 14,
+      "divergenceBits" : 0.017098909771531647,
+      "marginBits" : 0.016979880368760965,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 197
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "node",
+      "occurrences" : 13,
+      "occurrencesInNames" : 13,
+      "divergenceBits" : 0.013496335116006026,
+      "marginBits" : 0.013010923383671238,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 248
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "key",
+      "occurrences" : 18,
+      "occurrencesInNames" : 18,
+      "divergenceBits" : 0.01122276644500722,
+      "marginBits" : 0.010252670825227912,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 162
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "config",
+      "occurrences" : 12,
+      "occurrencesInNames" : 12,
+      "divergenceBits" : 0.008119640109733808,
+      "marginBits" : 0.007441790651552794,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/EngineLoader.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "type",
+      "occurrences" : 14,
+      "occurrencesInNames" : 14,
+      "divergenceBits" : 0.008007119633412801,
+      "marginBits" : 0.007491503283491736,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/EngineLoader.java",
+        "line" : 64
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "root",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.006932653803246728,
+      "marginBits" : 0.006705678128272475,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 79
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "loader",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.0064203626774857305,
+      "marginBits" : 0.006115641613389226,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/EngineLoader.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "engine",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.005862663343893087,
+      "marginBits" : 0.005759201342913741,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/Engine.java",
+        "line" : 26
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embeddings",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0049538557515016466,
+      "marginBits" : 0.004930061362432433,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 187
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "engines",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.004852534551600664,
+      "marginBits" : 0.004852534551600664,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/EngineRegistry.java",
+        "line" : 36
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parse",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.004596272666212582,
+      "marginBits" : 0.004395116729894635,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 98
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parser",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0044994361001821125,
+      "marginBits" : 0.004387742526681926,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/Engine.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "array",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.004105190025805303,
+      "marginBits" : 0.00381984436636023,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 207
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "millis",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.004097009230785173,
+      "marginBits" : 0.003921298010409816,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 170
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "batch",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.003888335439067008,
+      "marginBits" : 0.0036690922304548164,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
+        "line" : 33
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detect",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.00365721953635709,
+      "marginBits" : 0.00365721953635709,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 394
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "metadata",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.003572990578388393,
+      "marginBits" : 0.003236855704073176,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 316
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "mime",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.003530478324633937,
+      "marginBits" : 0.0034543716517628793,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
+        "line" : 30
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "images",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.003495098327792858,
+      "marginBits" : 0.003495098327792858,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
+        "line" : 30
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "embedding",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0034556029445756012,
+      "marginBits" : 0.0033380295314207466,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
+        "line" : 27
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "path",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.0033260976801944963,
+      "marginBits" : 0.0028768807838128706,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 187
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "header",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.003103275891628398,
+      "marginBits" : 0.0028655812230306233,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 195
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "prefix",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0030065722739518273,
+      "marginBits" : 0.0027287216072951212,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 203
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "default",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.002770657647283104,
+      "marginBits" : 0.002543855572212214,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 186
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "get",
+      "occurrences" : 20,
+      "occurrencesInNames" : 20,
+      "divergenceBits" : 0.002667531085470927,
+      "marginBits" : 0.002211823158952941,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/EngineRegistry.java",
+        "line" : 32
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "auto",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0026668194147049704,
+      "marginBits" : 0.002456281502746166,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 394
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "base",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0026644729058248047,
+      "marginBits" : 0.002470949184605416,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 146
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "list",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.0025532484126901105,
+      "marginBits" : 0.0022216400861011566,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 624
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "adp",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0025,
+      "marginBits" : 0.0025,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 409
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "tika",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0025,
+      "marginBits" : 0.0025,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 98
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "keys",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0024759143821593815,
+      "marginBits" : 0.0022973848403339374,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 357
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detectors",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.002465301769692747,
+      "marginBits" : 0.002465301769692747,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 292
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "inference",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.002454846865593086,
+      "marginBits" : 0.002454846865593086,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/inference/Engine.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "json",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.002419893443664049,
+      "marginBits" : 0.0021834545354844203,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaJsonConfig.java",
+        "line" : 98
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "url",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.002416362033439989,
+      "marginBits" : 0.0020932889089442107,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/OpenAIEmbeddingEngine.java",
+        "line" : 146
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "types",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0023109724225913227,
+      "marginBits" : 0.002109030186816966,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
+        "line" : 30
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "serialize",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.002179688560244525,
+      "marginBits" : 0.002070140411959564,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 845
+      }
+    } ],
+    "statement" : {
+      "sentences" : 2,
+      "words" : 13,
+      "divergenceBits" : 0.45962020182967245,
+      "chanceDivergenceBits" : 0.71219635251283,
+      "chanceRate" : 0.989,
+      "resamples" : 999,
+      "topics" : [ ]
+    }
+  }, {
+    "number" : 3156,
+    "author" : "tballison",
+    "headSha" : "a5ef1793fc00f20e6d6db888c11a2a75a947ea29",
+    "baseSha" : "dccc702fca054c47f43fa3c7ce73cc328ace1ebf",
+    "files" : 14,
+    "thresholds" : {
+      "ordinary English" : 0.0028418877398813974,
+      "the reference corpus" : 0.0029169530290188736
+    },
+    "signals" : [ {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "load",
+      "occurrences" : 21,
+      "occurrencesInNames" : 21,
+      "divergenceBits" : 0.03446547813075174,
+      "marginBits" : 0.033999510605842276,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 223
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "component",
+      "occurrences" : 19,
+      "occurrencesInNames" : 19,
+      "divergenceBits" : 0.03296464982201069,
+      "marginBits" : 0.03259994579287375,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 43
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "config",
+      "occurrences" : 19,
+      "occurrencesInNames" : 19,
+      "divergenceBits" : 0.02501968811231653,
+      "marginBits" : 0.02397261142798491,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "node",
+      "occurrences" : 14,
+      "occurrencesInNames" : 14,
+      "divergenceBits" : 0.022112606819078222,
+      "marginBits" : 0.021550684577586385,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 64
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "json",
+      "occurrences" : 8,
+      "occurrencesInNames" : 8,
+      "divergenceBits" : 0.010627367585153112,
+      "marginBits" : 0.010203982189556517,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 270
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "types",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.010513132348153218,
+      "marginBits" : 0.010168112470684838,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 238
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "loader",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.009614865248334383,
+      "marginBits" : 0.009272246647120714,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "enricher",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.008992805755395683,
+      "marginBits" : 0.008992805755395683,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/enricher/ContentEnricher.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "instantiate",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.007095240817600654,
+      "marginBits" : 0.007045392224261166,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 62
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "mime",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.0069470602494807,
+      "marginBits" : 0.006858530876781162,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 229
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "clazz",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.006668361781948066,
+      "marginBits" : 0.006174464480320338,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 270
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parser",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.006653313766989379,
+      "marginBits" : 0.006529690898010295,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/parser/enricher/ContentEnricher.java",
+        "line" : 1
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "metadata",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.00560331342094236,
+      "marginBits" : 0.0052085497474555625,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 321
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detect",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.005297463031982593,
+      "marginBits" : 0.005297463031982593,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 399
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "class",
+      "occurrences" : 5,
+      "occurrencesInNames" : 5,
+      "divergenceBits" : 0.005014881851728518,
+      "marginBits" : 0.004556064890476705,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 63
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "list",
+      "occurrences" : 6,
+      "occurrencesInNames" : 6,
+      "divergenceBits" : 0.004933197726145365,
+      "marginBits" : 0.004485462714706196,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 634
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "type",
+      "occurrences" : 7,
+      "occurrencesInNames" : 7,
+      "divergenceBits" : 0.00443531594721356,
+      "marginBits" : 0.004039751513731562,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 257
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "auto",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.004187445351988816,
+      "marginBits" : 0.003940338336440014,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 399
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "parse",
+      "occurrences" : 3,
+      "occurrencesInNames" : 3,
+      "divergenceBits" : 0.0038158497132150778,
+      "marginBits" : 0.0036276451553288796,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 257
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "adp",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003597122302158273,
+      "marginBits" : 0.003597122302158273,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 414
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "detectors",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003560590170252347,
+      "marginBits" : 0.003560590170252347,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 297
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "cleaned",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0035325827086809957,
+      "marginBits" : 0.003498570533330436,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 184
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "unwrap",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003504559039798165,
+      "marginBits" : 0.003471954888222527,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ContentEnricherLoader.java",
+        "line" : 150
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "default",
+      "occurrences" : 4,
+      "occurrencesInNames" : 4,
+      "divergenceBits" : 0.003497648258338806,
+      "marginBits" : 0.0032465979140781863,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 251
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "filters",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003308225688286463,
+      "marginBits" : 0.0032473992278772876,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 229
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "components",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0032966171167946924,
+      "marginBits" : 0.0032140464856476926,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 719
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "serialize",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003249080042235677,
+      "marginBits" : 0.0031264134786188804,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 861
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "exclude",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0032374247144094856,
+      "marginBits" : 0.003166218057418061,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 181
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "defaults",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.003137345730330582,
+      "marginBits" : 0.002983611921661331,
+      "closestReference" : "the reference corpus",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/TikaLoader.java",
+        "line" : 493
+      }
+    }, {
+      "readFrom" : "PULL_REQUEST",
+      "word" : "include",
+      "occurrences" : 2,
+      "occurrencesInNames" : 2,
+      "divergenceBits" : 0.0028537400529739234,
+      "marginBits" : 0.0028537400529739234,
+      "closestReference" : "ordinary English",
+      "firstWrittenAt" : {
+        "file" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ComponentInstantiator.java",
+        "line" : 180
+      }
+    } ],
+    "statement" : {
+      "sentences" : 3,
+      "words" : 23,
+      "divergenceBits" : 0.6345841406497033,
+      "chanceDivergenceBits" : 0.6486612401816417,
+      "chanceRate" : 0.3,
+      "resamples" : 999,
+      "topics" : [ ]
+    }
+  } ]
 }
