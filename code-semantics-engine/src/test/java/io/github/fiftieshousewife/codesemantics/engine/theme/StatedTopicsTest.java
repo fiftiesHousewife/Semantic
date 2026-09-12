@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
 
@@ -57,6 +58,21 @@ class StatedTopicsTest {
     @Test
     void carriesAnUnknownWordThroughAsUnclaimed() {
         assertThat(over(Set.of()).of("extjwnl")).isEmpty();
+    }
+
+    @Test
+    void consultsTheResourcesOnceForAWordHoweverOftenItIsRead() {
+        final AtomicInteger consulted = new AtomicInteger();
+        final StatedTopics topics = new StatedTopics(word -> {
+            consulted.incrementAndGet();
+            return Set.of("computing", "engineering");
+        }, BROADER);
+
+        topics.of("bot");
+        topics.of("bot");
+        topics.of("serve");
+
+        assertThat(consulted.get()).isEqualTo(2);
     }
 
     @Test

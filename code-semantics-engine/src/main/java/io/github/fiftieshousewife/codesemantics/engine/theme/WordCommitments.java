@@ -5,7 +5,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -14,25 +15,27 @@ final class WordCommitments {
 
     private final Map<String, Map<String, Double>> byWord;
 
+    /** Indexed once at construction: the caller asks for every topic in turn, and a scan per ask is the
+     * phrase's word count times its topic count again. */
+    private final SortedMap<String, Set<String>> agreeingByTopic = new TreeMap<>();
+
     WordCommitments(final List<String> words, final Function<String, List<TopicVote>> cite,
                     final TopicCommitment commitment) {
         this.byWord = words.stream().distinct()
                 .collect(Collectors.toMap(word -> word, word -> commitment.of(cite.apply(word)),
                         (first, again) -> first, LinkedHashMap::new));
+        byWord.forEach((word, topics) -> topics.keySet().forEach(
+                topic -> agreeingByTopic.computeIfAbsent(topic, voted -> new LinkedHashSet<>()).add(word)));
     }
 
     /** Every topic a word of the phrase voted for, in their own alphabetical order. */
     Set<String> topics() {
-        return byWord.values().stream()
-                .flatMap(topics -> topics.keySet().stream())
-                .collect(Collectors.toCollection(TreeSet::new));
+        return agreeingByTopic.keySet();
     }
 
     /** The words agreeing on the topic, in the order they were written. */
     Set<String> agreeing(final String topic) {
-        return byWord.keySet().stream()
-                .filter(word -> byWord.get(word).containsKey(topic))
-                .collect(Collectors.toCollection(LinkedHashSet::new));
+        return agreeingByTopic.getOrDefault(topic, Set.of());
     }
 
     /** The geometric mean of what the agreeing words committed, each weighted by what it is worth. */

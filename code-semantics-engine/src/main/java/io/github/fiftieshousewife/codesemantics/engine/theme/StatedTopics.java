@@ -1,6 +1,8 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +26,9 @@ public final class StatedTopics implements HeadwordTopics {
     private final HeadwordTopics carried;
     private final BroaderTopics broader;
 
+    /** The fold is pure over bundled resources, and a read asks the same word many times. */
+    private final Map<String, Set<String>> read = new ConcurrentHashMap<>();
+
     public StatedTopics(final HeadwordTopics carried, final BroaderTopics broader) {
         this.carried = carried;
         this.broader = broader;
@@ -35,6 +40,10 @@ public final class StatedTopics implements HeadwordTopics {
 
     @Override
     public Set<String> of(final String word) {
+        return read.computeIfAbsent(word, this::stated);
+    }
+
+    private Set<String> stated(final String word) {
         final Set<String> labels = carried.of(word);
         final Set<String> implied = impliedWithin(labels);
         final Set<String> stated = labels.stream()

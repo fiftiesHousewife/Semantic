@@ -2,7 +2,9 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
@@ -53,6 +55,11 @@ public final class TopicCitations {
     public interface PublishedTerm {
         boolean states(String word);
     }
+
+    /** Each part-of-speech reading of a word is pure over bundled resources and asked once per phrase word. */
+    private final Map<String, List<TopicVote>> nouns = new ConcurrentHashMap<>();
+    private final Map<String, List<TopicVote>> verbs = new ConcurrentHashMap<>();
+    private final Map<String, List<TopicVote>> spoken = new ConcurrentHashMap<>();
 
     private final SenseDomains senseDomains;
     private final SenseDomains verbSenses;
@@ -106,7 +113,7 @@ public final class TopicCitations {
 
     /** Every topical reading of the word as a noun, or an empty list when neither resource claims it. */
     public List<TopicVote> of(final String word) {
-        return readAs(senseDomains, word);
+        return nouns.computeIfAbsent(word, noun -> readAs(senseDomains, noun));
     }
 
     /**
@@ -115,7 +122,7 @@ public final class TopicCitations {
      * what says which was written.
      */
     public List<TopicVote> ofVerb(final String word) {
-        return readAs(verbSenses, word);
+        return verbs.computeIfAbsent(word, verb -> readAs(verbSenses, verb));
     }
 
     /**
@@ -124,7 +131,7 @@ public final class TopicCitations {
      * into its noun sense made a library that reads repositories evidence for the publishing trade.
      */
     public List<TopicVote> inProse(final String word) {
-        return readAs(anyPartSenses, word);
+        return spoken.computeIfAbsent(word, prose -> readAs(anyPartSenses, prose));
     }
 
     /**

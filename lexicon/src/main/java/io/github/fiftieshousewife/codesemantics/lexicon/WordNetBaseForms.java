@@ -8,7 +8,9 @@ import net.sf.extjwnl.dictionary.Dictionary;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A word's dictionary base form, resolved through WordNet's own morphology so plural forms reach their
@@ -20,7 +22,14 @@ import java.util.Optional;
  */
 final class WordNetBaseForms {
 
+    /** One word and the part of speech it was asked as: the whole of what a lookup depends on. */
+    private record Lookup(POS partOfSpeech, String word) {
+    }
+
     private final Dictionary dictionary;
+
+    /** Morphology is pure over the dictionary, and a read asks the same word many times. */
+    private final Map<Lookup, Optional<String>> read = new ConcurrentHashMap<>();
 
     WordNetBaseForms(final Dictionary dictionary) {
         this.dictionary = dictionary;
@@ -31,14 +40,18 @@ final class WordNetBaseForms {
         if (!isSingleWord(lower)) {
             return Optional.empty();
         }
+        return read.computeIfAbsent(new Lookup(partOfSpeech, lower), this::resolved);
+    }
+
+    private Optional<String> resolved(final Lookup lookup) {
         try {
             final IndexWord base = dictionary.getMorphologicalProcessor()
-                    .lookupBaseForm(partOfSpeech, lower);
+                    .lookupBaseForm(lookup.partOfSpeech(), lookup.word());
             return Optional.ofNullable(base).map(IndexWord::getLemma);
         } catch (final JWNLException e) {
             throw new IllegalStateException(String.format(Locale.ROOT,
                     "WordNet base-form lookup failed for \"%s\"",
-                    word), e);
+                    lookup.word()), e);
         }
     }
 

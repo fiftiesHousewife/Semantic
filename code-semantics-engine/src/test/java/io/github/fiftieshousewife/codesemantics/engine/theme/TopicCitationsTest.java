@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.engine.theme;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.github.fiftieshousewife.codesemantics.engine.Weights;
 import io.github.fiftieshousewife.codesemantics.model.EvidenceSource;
@@ -26,6 +27,24 @@ class TopicCitationsTest {
 
     private static double massOf(final List<TopicVote> votes, final String topic) {
         return votes.stream().filter(vote -> topic.equals(vote.topic())).mapToDouble(TopicVote::mass).sum();
+    }
+
+    @Test
+    void consultsTheResourcesOnceForAWordHoweverOftenItIsCited() {
+        final AtomicInteger consulted = new AtomicInteger();
+        final TopicCitations citations = reading(word -> {
+            consulted.incrementAndGet();
+            return List.of();
+        }, NO_TOPICS);
+
+        citations.of("word");
+        citations.of("word");
+        citations.ofVerb("word");
+        citations.of("other");
+
+        assertThat(consulted.get())
+                .as("the same word as the same part of speech is one question, asked once")
+                .isEqualTo(3);
     }
 
     @Test
