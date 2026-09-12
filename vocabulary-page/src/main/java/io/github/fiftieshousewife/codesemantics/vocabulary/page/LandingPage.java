@@ -45,6 +45,8 @@ public final class LandingPage {
 
     private final FindingSentences sentences = new FindingSentences();
 
+    private final CardSentences cards = new CardSentences();
+
     private final AnswerStrengths strengths = new AnswerStrengths();
 
     private final ContentWords content = ContentWords.fromClasspath();
@@ -130,7 +132,7 @@ public final class LandingPage {
         return reading.summary().answers().stream()
                 .filter(answer -> top.get().source().equals(answer.source()))
                 .findFirst()
-                .map(answer -> sentences.cardClaim(reading, answer))
+                .map(answer -> cards.cardClaim(reading, answer))
                 .orElseGet(() -> sentences.of(reading).getFirst());
     }
 
@@ -154,7 +156,7 @@ public final class LandingPage {
         final String leadSource = ranked.stream().findFirst()
                 .map(AnswerStrengths.Strength::source)
                 .orElse("");
-        return sentences.alsoAnswered(reading, leadSource);
+        return cards.alsoAnswered(reading, leadSource);
     }
 
     private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {
