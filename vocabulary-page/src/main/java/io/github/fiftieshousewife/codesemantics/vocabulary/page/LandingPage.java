@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
+import io.github.fiftieshousewife.codesemantics.engine.theme.ContentWords;
 import j2html.tags.specialized.ArticleTag;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.DivTag;
@@ -45,6 +46,8 @@ public final class LandingPage {
     private final FindingSentences sentences = new FindingSentences();
 
     private final AnswerStrengths strengths = new AnswerStrengths();
+
+    private final ContentWords content = ContentWords.fromClasspath();
 
     public LandingPage(final String stylesheet) {
         this.stylesheet = stylesheet;
@@ -94,8 +97,10 @@ public final class LandingPage {
                 h2().with(a(reading.summary().repository())
                         .withHref(reading.summary().repository() + "/reading.html")),
                 p(lead(reading, ranked)).withClass("about"),
-                iff(!reading.summary().leadingWords().isEmpty(),
-                        p(ownWords(reading)).withClass("finding")),
+                iff(!alsoAnswered(reading, ranked).isEmpty(),
+                        p(alsoAnswered(reading, ranked)).withClass("also")),
+                iff(!ownWords(reading).isEmpty(),
+                        p("Writes most: " + ownWords(reading) + ".").withClass("finding")),
                 div().withClass("strengths").with(
                         each(ranked, strength -> mark(strength, widest))));
     }
@@ -130,15 +135,26 @@ public final class LandingPage {
     }
 
     /**
-     * The repository's own strongest words, asserted by nothing: a reader seeing {@code block, hash, gas,
-     * transaction} concludes blockchain whether or not any citable vocabulary can say it, which is exactly
-     * the case the refused candidates leave open.
+     * The repository's own strongest words that carry subject matter, asserted by no taxonomy: a reader
+     * seeing {@code block, hash, gas, transaction} concludes blockchain whether or not any citable
+     * vocabulary can say it. Which words carry subject matter is the dictionary's answer and not a list
+     * written here — {@code ContentWords} cites WordNet's open-class coverage, so jpos's {@code m} and
+     * {@code len}, which no dictionary reads, are refused where {@code pin} and {@code length} stand.
      */
-    private static String ownWords(final ReadingExport reading) {
-        return "Writes most: " + reading.summary().leadingWords().stream()
+    private String ownWords(final ReadingExport reading) {
+        return reading.signals().stream()
+                .map(signal -> PublishedSpelling.shown(signal.word()))
+                .filter(word -> content.lemmaOf(word).isPresent())
                 .limit(OWN_WORDS)
-                .map(word -> PublishedSpelling.shown(word.word()))
-                .collect(Collectors.joining(", ")) + ".";
+                .collect(Collectors.joining(", "));
+    }
+
+    private String alsoAnswered(final ReadingExport reading,
+                                final List<AnswerStrengths.Strength> ranked) {
+        final String leadSource = ranked.stream().findFirst()
+                .map(AnswerStrengths.Strength::source)
+                .orElse("");
+        return sentences.alsoAnswered(reading, leadSource);
     }
 
     private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {

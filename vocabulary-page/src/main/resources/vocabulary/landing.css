@@ -35,6 +35,13 @@ h1 {
     font-weight: 600;
 }
 
+.also {
+    max-width: 46rem;
+    margin: 0 0 0.35rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}
+
 .finding {
     max-width: 46rem;
     margin: 0 0 0.75rem;

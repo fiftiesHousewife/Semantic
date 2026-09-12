@@ -8,7 +8,8 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
-import io.github.fiftieshousewife.codesemantics.engine.export.LeadingWord;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSignal;
+import io.github.fiftieshousewife.codesemantics.engine.export.ReadingSource;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
 import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
@@ -164,18 +165,41 @@ class LandingPageTest {
     }
 
     @Test
-    void showsTheRepositorysOwnLeadingWordsAssertedByNothing() {
+    void showsTheOwnWordsADictionaryCanReadAndRefusesTheRest() {
         final ReadingExport reading = ReadingExport.of(
-                new ExportedSummary("besu", "c0ffee", List.of(ExportedAnswer.NONE), List.of(),
-                        List.of(), List.of(),
-                        List.of(new LeadingWord("block", 0.03, 900), new LeadingWord("hash", 0.02, 800),
-                                new LeadingWord("gas", 0.02, 700)),
-                        List.of(), List.of(), 0.9, 0.5, new ExportedSummary.Counts(3, 0, 0)),
-                List.of(), Map.of(), List.of(), List.of(),
+                new ExportedSummary("jpos", "c0ffee", List.of(ExportedAnswer.NONE), List.of(),
+                        List.of(), List.of(), List.of(), List.of(), List.of(), 0.9, 0.5,
+                        new ExportedSummary.Counts(4, 0, 0)),
+                List.of(signal("len", 494), signal("m", 318), signal("pin", 307),
+                        signal("length", 200)),
+                Map.of(), List.of(), List.of(),
                 new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0, 0));
 
         assertThat(landing.markup(List.of(reading)))
-                .contains("Writes most: block, hash, gas.");
+                .as("which words carry subject matter is the dictionary's answer, so len and m are "
+                        + "refused where pin and length stand")
+                .contains("Writes most: pin, length.");
+    }
+
+    private static ExportedSignal signal(final String word, final int occurrences) {
+        return new ExportedSignal(ReadingSource.CLONE, word, occurrences, occurrences, 0.01, 0.009,
+                "the reference corpus", new SightingSite("A.java", 1));
+    }
+
+    @Test
+    void namesEveryOtherSourceThatClearedWithItsPlacement() {
+        final ReadingExport reading = reading("jpos",
+                List.of(ExportedAnswer.fromATaxonomy("FIBO", List.of("Identifier"),
+                                "MerchantIdentifier", null, "6 phrases", 2.0),
+                        ExportedAnswer.fromATaxonomy("BIAN", List.of("Cards"), "Card Capture", null,
+                                "3 phrases", 1.5)),
+                List.of(), List.of(),
+                List.of(new ExportedTaxonomy("FIBO", List.of(), List.of(),
+                        Map.of("words", 6, "lemmas", 0, "expansions", 0, "senses", 0),
+                        new ExportedTaxonomy.Bar(6, 3, 2, 2.0, 0, 0.001, 7, FIELD, 999))));
+
+        assertThat(landing.markup(List.of(reading)))
+                .contains("Also: BIAN \u2014 Card Capture, under Cards.");
     }
 
     @Test

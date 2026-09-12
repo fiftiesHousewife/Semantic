@@ -82,6 +82,27 @@ public final class FindingSentences {
         return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
     }
 
+    /**
+     * Every other source that cleared its bar, each with the concept it places and where the publisher
+     * files it — the export's own warning is that naming only the best hides the rest: on jpos only BIAN
+     * places its concept under Cards. Empty where the lead was the only qualifying source.
+     */
+    public String alsoAnswered(final ReadingExport reading, final String leadSource) {
+        final String others = reading.summary().answers().stream()
+                .filter(answer -> ExportedAnswer.TAXONOMY.equals(answer.sourceType()))
+                .filter(answer -> !answer.source().equals(leadSource))
+                .filter(answer -> !answer.result().isEmpty())
+                .map(FindingSentences::alsoOne)
+                .collect(Collectors.joining("; "));
+        return others.isEmpty() ? "" : "Also: " + others + ".";
+    }
+
+    private static String alsoOne(final ExportedAnswer answer) {
+        final String placed = answer.statedPath().isEmpty() ? ""
+                : ", under " + PublishedSpelling.shown(answer.statedPath().getLast());
+        return answer.source() + " \u2014 " + PublishedSpelling.shown(answer.result()) + placed;
+    }
+
     /** One sentence per entry of {@code summary.answers}, in the export's own order. */
     public List<String> of(final ReadingExport reading) {
         if (ExportedAnswer.NOTHING.equals(reading.summary().answers().getFirst().sourceType())) {
