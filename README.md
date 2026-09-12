@@ -503,26 +503,30 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 
 | Member | Stated area | Expected |
 |---|---|---|
-| [Apache Tika](https://github.com/apache/tika) | Computer Science | out of domain |
+| [Apache Tika](https://github.com/apache/tika) | Computer Science | in domain, for the document-format vocabulary |
 | [Apache Maven](https://github.com/apache/maven) | Computer Science | out of domain — a build tool has no subject matter a bundled vocabulary covers, so reaching nothing is the correct result |
 | [Apache Santuario](https://github.com/apache/santuario-xml-security-java) | Computer Science | in domain, for the security vocabulary |
 | [Aeron](https://github.com/aeron-io/aeron), [Besu](https://github.com/besu-eth/besu) | Computer Science | out of domain |
 | [Strata](https://github.com/OpenGamma/Strata), [Fineract](https://github.com/apache/fineract), [QuickFIX/J](https://github.com/quickfix-j/quickfixj), [jPOS](https://github.com/jpos/jPOS), [fix-trading-simulator](https://github.com/felipewind/fix-trading-simulator), [jmeter-iso8583](https://github.com/tilln/jmeter-iso8583) | Finance | in domain, for the finance vocabularies |
 
-**What the twelve readings show, at schema 25.0.** Each vocabulary's answer is stated as the multiple of the count a chance deal of its own words reaches.
+**What the twelve readings show, at schema 29.0.** A vocabulary answers only where both counting units clear — more distinct terms than the best chance deal reaches, and more total occurrences than it reaches — and each answer is stated as the smaller of its two multiples, the unit that nearly refused it.
 
 | Reading | The vocabularies that answered |
 |---|---|
-| QuickFIX/J | FIX ×10.4, FIBO ×2.0, FpML ×1.5 |
-| fix-trading-simulator | FIX ×9.0 |
-| Strata | FIBO ×2.76, FpML ×2.76, BIAN ×2.0 |
-| jPOS | FIBO ×2.0, FpML ×2.0, CSO ×1.6 |
-| Fineract | FIBO ×1.76, FpML ×1.27, CSO ×1.15 |
-| Apache Tika | CWE ×2.0, FpML ×1.5, CSO ×1.43 |
-| this repository | OLiA ×2.0, CSO ×1.33 |
-| **Apache Maven** | **none** — no vocabulary reached it, and the reading answers from a subject scheme instead |
+| QuickFIX/J | FIX ×10, FIBO ×1.9, FpML ×1.1 |
+| fix-trading-simulator | FIX ×9 |
+| Strata | FIBO ×2.9, FpML ×2.9, BIAN ×2 |
+| jPOS | BIAN ×1.5, FIX ×1.4, FpML ×1.3 |
+| Fineract | FIBO ×1.8, CSO ×1 |
+| Apache Tika | PRONOM ×1.9, CSO ×1.4 |
+| jmeter-iso8583 | CSO ×1.5 |
+| Apache Santuario | CSO ×1.3 |
+| Aeron | CSO ×1.1 |
+| this repository | OLiA ×1.5 |
+| **Besu** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
+| **Apache Maven** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
 
-The two FIX engines lead with FIX, the derivatives and banking libraries lead with FIBO, and the build tool is reached by nothing. **Across the twelve readings, 65 of the 72 subject-scheme level readings stand apart from chance**: arXiv on 20 of 24, OpenAlex on 23 of 24, CSO on 22 of 24.
+The two FIX engines lead with FIX, the derivatives and banking libraries lead with FIBO or BIAN, the document toolkit leads with PRONOM, and the build tool and the Ethereum client are reached by nothing — besu's own vocabulary is blockchain's, which no bundled source states, and the refusal is the correct reading. **Across the twelve readings, 65 of the 72 subject-scheme level readings stand apart from chance**: arXiv on 20 of 24, OpenAlex on 23 of 24, CSO on 22 of 24.
 
 **What the same measurement refuses.** A term vocabulary states prose per concept, so it can be offered to the placement machinery as though it were a subject scheme. Three have been, and all three fail the out-of-domain control:
 

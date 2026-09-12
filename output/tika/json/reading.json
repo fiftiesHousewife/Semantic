@@ -1,40 +1,23 @@
 {
-  "schemaVersion" : "28.0",
+  "schemaVersion" : "29.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "43cbdae69472863f53f4f712f0331a1cd62f0615",
     "answers" : [ {
       "sourceType" : "taxonomy",
-      "source" : "CWE",
-      "statedPath" : [ "Improper Control of a Resource Through its Lifetime", "Exposure of Resource to Wrong Sphere", "External Control of Critical State Data", "External Control of File Name or Path" ],
-      "result" : "Process Control",
-      "definition" : "Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker.",
-      "qualifiedBy" : "4 phrases against the 2 a deal of its own words reaches",
-      "timesItsBar" : 2.0
-    }, {
-      "sourceType" : "taxonomy",
-      "source" : "FpML",
-      "statedPath" : [ "shared" ],
-      "result" : "ContactInformation",
-      "definition" : "A type that represents how to contact an individual or organization.",
-      "qualifiedBy" : "6 phrases against the 4 a deal of its own words reaches",
-      "timesItsBar" : 1.5
+      "source" : "PRONOM",
+      "statedPath" : [ ],
+      "result" : "Mach-O",
+      "qualifiedBy" : "16 phrases against the 4 a deal of its own words reaches, and 70 occurrences against the deals’ 37",
+      "timesItsBar" : 1.8918918918918919
     }, {
       "sourceType" : "taxonomy",
       "source" : "CSO",
       "statedPath" : [ "communication", "information theory", "machine translations", "target language" ],
       "result" : "source language",
       "definition" : "In language, translation is the communication of the meaning of a source-language text by means of an equivalent target-language text. The English language draws a terminological distinction between translating written texts and interpreting oral or signed communications between languages.",
-      "qualifiedBy" : "30 phrases against the 21 a deal of its own words reaches",
-      "timesItsBar" : 1.4285714285714286
-    }, {
-      "sourceType" : "taxonomy",
-      "source" : "FIBO",
-      "statedPath" : [ "Good", "Commodity", "NegotiableCommodity" ],
-      "result" : "GeneratedResource",
-      "definition" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
-      "qualifiedBy" : "5 phrases against the 4 a deal of its own words reaches",
-      "timesItsBar" : 1.25
+      "qualifiedBy" : "30 phrases against the 22 a deal of its own words reaches, and 141 occurrences against the deals’ 94",
+      "timesItsBar" : 1.3636363636363635
     } ],
     "about" : [ "computing", "linguistics", "software" ],
     "aboutStatedBy" : [ "WordNet Domains", "Wiktionary topics" ],
@@ -2514,32 +2497,32 @@
       "concept" : "parsing algorithm",
       "publishedBy" : "CSO"
     }, {
-      "concept" : "Index",
-      "publishedBy" : "FIBO"
-    }, {
-      "concept" : "Exception",
-      "publishedBy" : "FpML"
-    }, {
-      "concept" : "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
-      "publishedBy" : "CWE"
+      "concept" : "Mach-O",
+      "publishedBy" : "PRONOM"
     }, {
       "concept" : "xml",
       "publishedBy" : "CSO"
     }, {
-      "concept" : "Request",
-      "publishedBy" : "FIBO"
-    }, {
-      "concept" : "Document",
-      "publishedBy" : "FpML"
-    }, {
-      "concept" : "Process Control",
-      "publishedBy" : "CWE"
+      "concept" : "WordPerfect",
+      "publishedBy" : "PRONOM"
     }, {
       "concept" : "html",
       "publishedBy" : "CSO"
     }, {
-      "concept" : "Control",
-      "publishedBy" : "FIBO"
+      "concept" : "Microsoft OneNote",
+      "publishedBy" : "PRONOM"
+    }, {
+      "concept" : "sensors",
+      "publishedBy" : "CSO"
+    }, {
+      "concept" : "Quicktime",
+      "publishedBy" : "PRONOM"
+    }, {
+      "concept" : "servers",
+      "publishedBy" : "CSO"
+    }, {
+      "concept" : "WebP",
+      "publishedBy" : "PRONOM"
     } ],
     "distinctiveScopes" : [ {
       "scope" : "tika-core/src/main/java",
@@ -2603,7 +2586,7 @@
     "counts" : {
       "signals" : 628,
       "themes" : 17,
-      "concepts" : 238
+      "concepts" : 197
     }
   },
   "signals" : [ {
@@ -17131,1819 +17114,924 @@
     },
     "bar" : {
       "phrases" : 30,
-      "chanceExpectedBest" : 21,
-      "median" : 16,
-      "timesTheBar" : 1.4285714285714286,
-      "atLeastAsExtreme" : 0,
-      "chanceRate" : 0.001,
-      "field" : 7,
-      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
+      "chanceExpectedBest" : 22,
+      "median" : 17,
+      "timesTheBar" : 1.3636363636363635,
+      "occurrences" : 141,
+      "occurrencesChanceExpectedBest" : 94,
+      "occurrencesTimesTheBar" : 1.5,
+      "atLeastAsExtreme" : 2,
+      "chanceRate" : 0.003,
+      "field" : 8,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
       "resamples" : 999
     }
   }, {
-    "vocabulary" : "FIBO",
+    "vocabulary" : "PRONOM",
     "concepts" : [ {
-      "concept" : "Index",
-      "term" : "index",
-      "normalisation" : "words",
-      "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "description" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "descriptionStatedFor" : "Index",
-      "placedUnder" : "Reference",
-      "statedPath" : [ "Reference" ],
-      "occurrences" : 481,
-      "specificity" : 0.7796556101930647,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8557261429061025,
-      "firstWrittenAt" : {
-        "file" : "tika-annotation-processor/src/main/java/org/apache/tika/annotation/TikaComponentProcessor.java",
-        "line" : 206
-      }
-    }, {
-      "concept" : "Request",
-      "term" : "request",
-      "normalisation" : "words",
-      "definition" : "event in which some party asks another party for something at some point in time",
-      "description" : "event in which some party asks another party for something at some point in time",
-      "descriptionStatedFor" : "Request",
-      "placedUnder" : "Occurrence",
-      "statedPath" : [ "Occurrence" ],
-      "occurrences" : 170,
-      "specificity" : 0.747639828666644,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7685459212693605,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java",
-        "line" : 628
-      }
-    }, {
-      "concept" : "Control",
-      "term" : "control",
-      "normalisation" : "words",
-      "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "description" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "descriptionStatedFor" : "Control",
-      "placedUnder" : "Situation",
-      "statedPath" : [ "Situation" ],
-      "occurrences" : 76,
-      "specificity" : 0.5732046526678786,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6024808514516447,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/detect/TextDetector.java",
-        "line" : 76
-      }
-    }, {
-      "concept" : "Strategy",
-      "term" : "strategy",
-      "normalisation" : "words",
-      "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "description" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Approach",
-      "statedPath" : [ "Approach" ],
-      "occurrences" : 42,
-      "specificity" : 0.7184889328016285,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7451451740217911,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/SpoolingStrategy.java",
-        "line" : 46
-      }
-    }, {
-      "concept" : "Request",
-      "term" : "requested",
-      "normalisation" : "lemmas",
-      "definition" : "event in which some party asks another party for something at some point in time",
-      "description" : "event in which some party asks another party for something at some point in time",
-      "descriptionStatedFor" : "Request",
-      "placedUnder" : "Occurrence",
-      "statedPath" : [ "Occurrence" ],
-      "occurrences" : 36,
-      "specificity" : 0.8278495853466638,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8334899964757463,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/config/ParseTimeout.java",
-        "line" : 178
-      }
-    }, {
-      "concept" : "Strategy",
-      "term" : "scheme",
-      "normalisation" : "senses",
-      "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "description" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Approach",
-      "statedPath" : [ "Approach" ],
-      "occurrences" : 33,
-      "specificity" : 0.7492252021297383,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7671152913188348,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/XMPIdq.java",
-        "line" : 34
-      }
-    }, {
-      "concept" : "Action",
-      "term" : "action",
-      "normalisation" : "words",
-      "definition" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
-      "description" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
-      "descriptionStatedFor" : "Action",
-      "placedUnder" : "Occurrence",
-      "statedPath" : [ "Occurrence" ],
-      "occurrences" : 37,
-      "specificity" : 0.61754621455328,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7763324498167081,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/gui/TikaGUI.java",
-        "line" : 264
-      }
-    }, {
-      "concept" : "Address",
-      "term" : "address",
-      "normalisation" : "words",
-      "definition" : "index to a location to which communications may be delivered",
-      "description" : "index to a location to which communications may be delivered",
-      "descriptionStatedFor" : "Address",
-      "placedUnder" : "Index",
-      "statedPath" : [ "Reference", "Index" ],
-      "occurrences" : 32,
-      "specificity" : 0.6795373911229805,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7825093942516841,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 410
-      }
-    }, {
-      "concept" : "Future",
-      "term" : "futures",
-      "normalisation" : "lemmas",
-      "definition" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
-      "description" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
-      "descriptionStatedFor" : "Future",
-      "placedUnder" : "DerivativeInstrument",
-      "statedPath" : [ "Situation", "Agreement", "Contract", "WrittenContract", "FinancialInstrument", "DerivativeInstrument" ],
-      "occurrences" : 21,
-      "specificity" : 0.8988205185626396,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9903638589107276,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/detect/MagicDetectorTest.java",
-        "line" : 291
-      }
-    }, {
-      "concept" : "Index",
-      "term" : "indices",
-      "normalisation" : "lemmas",
-      "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "description" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "descriptionStatedFor" : "Index",
-      "placedUnder" : "Reference",
-      "statedPath" : [ "Reference" ],
-      "occurrences" : 18,
-      "specificity" : 0.9484905367416678,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9756044934986122,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/PageAnchoring.java",
-        "line" : 106
-      }
-    }, {
-      "concept" : "Mean",
-      "term" : "mean",
-      "normalisation" : "words",
-      "definition" : "most common measure of central tendency; the average of a set of numbers",
-      "description" : "most common measure of central tendency; the average of a set of numbers",
-      "descriptionStatedFor" : "Mean",
-      "placedUnder" : "StatisticalMeasure",
-      "statedPath" : [ "Measure", "StatisticalMeasure" ],
-      "occurrences" : 22,
-      "specificity" : 0.6858503229069585,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.787243470836046,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/CalibrateTopK.java",
-        "line" : 316
-      }
-    }, {
-      "concept" : "Method",
-      "term" : "method",
-      "normalisation" : "words",
-      "definition" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
-      "description" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
-      "descriptionStatedFor" : "Method",
-      "placedUnder" : "Approach",
-      "statedPath" : [ "Approach" ],
-      "occurrences" : 20,
-      "specificity" : 0.696997684051002,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7836040019853752,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-        "line" : 411
-      }
-    }, {
-      "concept" : "Request",
-      "term" : "requests",
-      "normalisation" : "lemmas",
-      "definition" : "event in which some party asks another party for something at some point in time",
-      "description" : "event in which some party asks another party for something at some point in time",
-      "descriptionStatedFor" : "Request",
-      "placedUnder" : "Occurrence",
-      "statedPath" : [ "Occurrence" ],
-      "occurrences" : 16,
-      "specificity" : 0.8367742316571343,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8969762565579096,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/renderer/CompositeRenderer.java",
-        "line" : 61
-      }
-    }, {
-      "concept" : "Minor",
-      "term" : "minor",
-      "normalisation" : "words",
-      "definition" : "a person under a certain age, usually the age of majority in a given jurisdiction, which legally demarcates childhood from adulthood",
-      "description" : "a person under a certain age, usually the age of majority in a given jurisdiction, which legally demarcates childhood from adulthood",
-      "descriptionStatedFor" : "Minor",
-      "placedUnder" : "Person",
-      "statedPath" : [ "Party", "Person" ],
-      "occurrences" : 14,
-      "specificity" : 0.7634242939571289,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.816363943445473,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 953
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "kept",
-      "normalisation" : "senses",
-      "definition" : "",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 14,
-      "specificity" : 0.7203581229685309,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7962507776497155,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/TrainLanguageModel.java",
-        "line" : 746
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "kept",
-      "normalisation" : "senses",
-      "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "Asset",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 14,
-      "specificity" : 0.7203581229685309,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7962507776497155,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/TrainLanguageModel.java",
-        "line" : 746
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "keep",
-      "normalisation" : "senses",
-      "definition" : "",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 16,
-      "specificity" : 0.5940627132497935,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6339921901065849,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/parser/multiple/AbstractMultipleParser.java",
-        "line" : 351
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "keep",
-      "normalisation" : "senses",
-      "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "Asset",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 16,
-      "specificity" : 0.5940627132497935,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6339921901065849,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/parser/multiple/AbstractMultipleParser.java",
-        "line" : 351
-      }
-    }, {
-      "concept" : "Option",
-      "term" : "options",
-      "normalisation" : "lemmas",
-      "definition" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
-      "description" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
-      "descriptionStatedFor" : "Option",
-      "placedUnder" : "DerivativeInstrument",
-      "statedPath" : [ "Situation", "Agreement", "Contract", "WrittenContract", "FinancialInstrument", "DerivativeInstrument" ],
-      "occurrences" : 13,
-      "specificity" : 0.6932766235628366,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6970989989311701,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/AsyncHelperTest.java",
-        "line" : 93
-      }
-    }, {
-      "concept" : "Person",
-      "term" : "person",
-      "normalisation" : "words",
-      "definition" : "individual human being, with consciousness of self",
-      "description" : "individual human being, with consciousness of self",
-      "descriptionStatedFor" : "Person",
-      "placedUnder" : "Party",
-      "statedPath" : [ "Party" ],
-      "occurrences" : 13,
-      "specificity" : 0.6000683436955223,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7845122554824144,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 568
-      }
-    }, {
-      "concept" : "Affiliation",
-      "term" : "affiliations",
-      "normalisation" : "lemmas",
-      "definition" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
-      "description" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
-      "descriptionStatedFor" : "Affiliation",
-      "placedUnder" : "Control",
-      "statedPath" : [ "Situation", "Control" ],
-      "occurrences" : 7,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 194
-      }
-    }, {
-      "concept" : "Asset",
-      "term" : "plus",
-      "normalisation" : "senses",
-      "definition" : "something of monetary value that is owned or provides benefit to some party",
-      "description" : "something of monetary value that is owned or provides benefit to some party",
-      "descriptionStatedFor" : "Asset",
-      "placedUnder" : "Undergoer",
-      "statedPath" : [ "Undergoer" ],
-      "occurrences" : 9,
-      "specificity" : 0.7220350728779603,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7647591507799953,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 37
-      }
-    }, {
-      "concept" : "Right",
-      "term" : "rights",
-      "normalisation" : "lemmas",
-      "definition" : "entitlement to perform certain actions (or not), or to be in certain states (or not); or entitlement that requires others to perform certain actions or be in certain states (or not)",
-      "description" : "entitlement to perform certain actions (or not), or to be in certain states (or not); or entitlement that requires others to perform certain actions or be in certain states (or not)",
-      "descriptionStatedFor" : "Right",
-      "placedUnder" : "LegalConstruct",
-      "statedPath" : [ "LegalConstruct" ],
-      "occurrences" : 9,
-      "specificity" : 0.6622075969167762,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8142795016496817,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/DublinCore.java",
-        "line" : 159
-      }
-    }, {
-      "concept" : "Action",
-      "term" : "actions",
-      "normalisation" : "lemmas",
-      "definition" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
-      "description" : "event announced, initiated or carried out by an organization that affects a legal entity or the securities it issues and may have a material impact on that entity's stakeholders, such as shareholders and creditors",
-      "descriptionStatedFor" : "Action",
-      "placedUnder" : "Occurrence",
-      "statedPath" : [ "Occurrence" ],
-      "occurrences" : 8,
-      "specificity" : 0.7374304397208389,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7922785825191376,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/gui/ParsingTransferHandler.java",
-        "line" : 119
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "keeps",
-      "normalisation" : "senses",
-      "definition" : "",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 7,
-      "specificity" : 0.8296660108151306,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8301335396634357,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/extractor/EmbeddedDocumentUtilExtensionTest.java",
-        "line" : 106
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "keeps",
-      "normalisation" : "senses",
-      "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "Asset",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 7,
-      "specificity" : 0.8296660108151306,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8301335396634357,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/extractor/EmbeddedDocumentUtilExtensionTest.java",
-        "line" : 106
-      }
-    }, {
-      "concept" : "Affiliation",
-      "term" : "affiliation",
-      "normalisation" : "words",
-      "definition" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
-      "description" : "situation in which a controlled party is affiliated with a controlling party for some period of time",
-      "descriptionStatedFor" : "Affiliation",
-      "placedUnder" : "Control",
-      "statedPath" : [ "Situation", "Control" ],
-      "occurrences" : 6,
-      "specificity" : 0.9483390756830834,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9684395492586133,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 534
-      }
-    }, {
-      "concept" : "ResponsibleParty",
-      "term" : "responsible party",
+      "concept" : "Mach-O",
+      "term" : "mach o",
       "normalisation" : "words",
       "definition" : "",
       "description" : "",
       "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "BusinessAuthorizations" ],
-      "occurrences" : 5,
-      "specificity" : 0.8835576018644542,
+      "statedPath" : [ ],
+      "occurrences" : 19,
+      "specificity" : 0.9935285859448796,
       "wordsInTerm" : 2,
-      "shareOfEachName" : 0.88840771095195,
+      "shareOfEachName" : 0.9943199488217354,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
-        "line" : 40
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/mime/TestMimeTypes.java",
+        "line" : 752
       }
     }, {
-      "concept" : "Option",
-      "term" : "option",
-      "normalisation" : "words",
-      "definition" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
-      "description" : "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future",
-      "descriptionStatedFor" : "Option",
-      "placedUnder" : "DerivativeInstrument",
-      "statedPath" : [ "Situation", "Agreement", "Contract", "WrittenContract", "FinancialInstrument", "DerivativeInstrument" ],
-      "occurrences" : 6,
-      "specificity" : 0.7232160690323771,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.725710930279981,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
-        "line" : 633
-      }
-    }, {
-      "concept" : "Median",
-      "term" : "median",
-      "normalisation" : "words",
-      "definition" : "value of the variate dividing the total frequency of a data sample, population, or probability distribution, into two halves",
-      "description" : "value of the variate dividing the total frequency of a data sample, population, or probability distribution, into two halves",
-      "descriptionStatedFor" : "Median",
-      "placedUnder" : "StatisticalMeasure",
-      "statedPath" : [ "Measure", "StatisticalMeasure" ],
-      "occurrences" : 5,
-      "specificity" : 0.8335454740291476,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8357759648792097,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/tools/BucketSaturationAnalyzer.java",
-        "line" : 134
-      }
-    }, {
-      "concept" : "Control",
-      "term" : "controls",
-      "normalisation" : "lemmas",
-      "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "description" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "descriptionStatedFor" : "Control",
-      "placedUnder" : "Situation",
-      "statedPath" : [ "Situation" ],
-      "occurrences" : 5,
-      "specificity" : 0.8128796817680082,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8612736687538428,
-      "firstWrittenAt" : {
-        "file" : "tika-encoding-detectors/tika-encoding-detector-mojibuster/src/test/java/org/apache/tika/ml/chardetect/Utf16ColumnFeatureExtractorTest.java",
-        "line" : 331
-      }
-    }, {
-      "concept" : "Address",
-      "term" : "addresses",
-      "normalisation" : "lemmas",
-      "definition" : "index to a location to which communications may be delivered",
-      "description" : "index to a location to which communications may be delivered",
-      "descriptionStatedFor" : "Address",
-      "placedUnder" : "Index",
-      "statedPath" : [ "Reference", "Index" ],
-      "occurrences" : 4,
-      "specificity" : 0.8358805374417603,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8825114851047079,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-ml/tika-parser-nlp-module/src/main/java/org/apache/tika/parser/journal/TEIDOMParser.java",
-        "line" : 286
-      }
-    }, {
-      "concept" : "Interest",
-      "term" : "interest",
-      "normalisation" : "words",
-      "definition" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
-      "description" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
-      "descriptionStatedFor" : "Interest",
-      "placedUnder" : "MonetaryAmount",
-      "statedPath" : [ "ScalarQuantityValue", "MonetaryAmount" ],
-      "occurrences" : 5,
-      "specificity" : 0.6256798740556893,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6258895874217523,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/ProfilerBase.java",
-        "line" : 98
-      }
-    }, {
-      "concept" : "Person",
-      "term" : "persons",
-      "normalisation" : "lemmas",
-      "definition" : "individual human being, with consciousness of self",
-      "description" : "individual human being, with consciousness of self",
-      "descriptionStatedFor" : "Person",
-      "placedUnder" : "Party",
-      "statedPath" : [ "Party" ],
-      "occurrences" : 3,
-      "specificity" : 0.7891736151412057,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8674086101433556,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Office.java",
-        "line" : 193
-      }
-    }, {
-      "concept" : "Balance",
-      "term" : "balance",
-      "normalisation" : "words",
-      "definition" : "amount of money available or owed",
-      "description" : "amount of money available or owed",
-      "descriptionStatedFor" : "Balance",
-      "placedUnder" : "MonetaryAmount",
-      "statedPath" : [ "ScalarQuantityValue", "MonetaryAmount" ],
-      "occurrences" : 3,
-      "specificity" : 0.7413645571153714,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7414350431063018,
-      "firstWrittenAt" : {
-        "file" : "tika-ml/tika-ml-chardetect/src/main/java/org/apache/tika/ml/chardetect/tools/RebalanceCharsetTraining.java",
-        "line" : 67
-      }
-    }, {
-      "concept" : "Method",
-      "term" : "methods",
-      "normalisation" : "lemmas",
-      "definition" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
-      "description" : "approach distinguished by systematic, repeatable procedures and operational specificity for doing or calculating something, consisting of defined steps or rules to achieve a result",
-      "descriptionStatedFor" : "Method",
-      "placedUnder" : "Approach",
-      "statedPath" : [ "Approach" ],
-      "occurrences" : 3,
-      "specificity" : 0.707859371563326,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7095414574454016,
-      "firstWrittenAt" : {
-        "file" : "tika-serialization/src/test/java/org/apache/tika/config/AllLimitsTest.java",
-        "line" : 125
-      }
-    }, {
-      "concept" : "Examiner",
-      "term" : "tester",
-      "normalisation" : "senses",
-      "definition" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
-      "description" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
-      "descriptionStatedFor" : "Examiner",
-      "placedUnder" : "ResponsibleParty",
-      "statedPath" : [ "ResponsibleParty" ],
-      "occurrences" : 2,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/test/java/org/apache/tika/eval/app/db/AbstractBufferTest.java",
-        "line" : 88
-      }
-    }, {
-      "concept" : "GeneratedResource",
-      "term" : "generated resource",
-      "normalisation" : "words",
-      "definition" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
-      "description" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
-      "descriptionStatedFor" : "GeneratedResource",
-      "placedUnder" : "NegotiableCommodity",
-      "statedPath" : [ "Good", "Commodity", "NegotiableCommodity" ],
-      "occurrences" : 2,
-      "specificity" : 0.9559395785300384,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9606066549964851,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedDocumentUtil.java",
-        "line" : 227
-      }
-    }, {
-      "concept" : "OrganizationName",
-      "term" : "organization name",
+      "concept" : "Mach-O",
+      "term" : "mach o",
       "normalisation" : "words",
       "definition" : "",
       "description" : "",
       "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "Organizations" ],
-      "occurrences" : 2,
-      "specificity" : 0.8851046971813903,
+      "statedPath" : [ ],
+      "occurrences" : 19,
+      "specificity" : 0.9935285859448796,
       "wordsInTerm" : 2,
-      "shareOfEachName" : 0.889428492645812,
+      "shareOfEachName" : 0.9943199488217354,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
-        "line" : 46
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/mime/TestMimeTypes.java",
+        "line" : 752
       }
     }, {
-      "concept" : "Future",
-      "term" : "future",
-      "normalisation" : "words",
-      "definition" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
-      "description" : "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time",
-      "descriptionStatedFor" : "Future",
-      "placedUnder" : "DerivativeInstrument",
-      "statedPath" : [ "Situation", "Agreement", "Contract", "WrittenContract", "FinancialInstrument", "DerivativeInstrument" ],
-      "occurrences" : 3,
-      "specificity" : 0.5876771709313616,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.5878042899123307,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/async/AsyncEmitter.java",
-        "line" : 47
-      }
-    }, {
-      "concept" : "RealProperty",
-      "term" : "real property",
-      "normalisation" : "words",
-      "definition" : "physical asset defined as land together with any structures that are permanently attached to that land, such as houses, trees, fences and improvements",
-      "description" : "physical asset defined as land together with any structures that are permanently attached to that land, such as houses, trees, fences and improvements",
-      "descriptionStatedFor" : "RealProperty",
-      "placedUnder" : "PhysicalAsset",
-      "statedPath" : [ "Undergoer", "Asset", "TangibleAsset", "PhysicalAsset" ],
-      "occurrences" : 2,
-      "specificity" : 0.8520895033471503,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8526921483878882,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/metadata/MetadataTypedAccessorsTest.java",
-        "line" : 38
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "holding",
+      "concept" : "WordPerfect",
+      "term" : "word perfect",
       "normalisation" : "words",
       "definition" : "",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
+      "description" : "",
+      "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 2,
-      "specificity" : 0.7493461291143998,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.75690794430831,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java/org/apache/tika/parser/xml/AttributeDependantMetadataHandler.java",
-        "line" : 41
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "holding",
-      "normalisation" : "words",
-      "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "Asset",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 2,
-      "specificity" : 0.7493461291143998,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.75690794430831,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-xml-module/src/main/java/org/apache/tika/parser/xml/AttributeDependantMetadataHandler.java",
-        "line" : 41
-      }
-    }, {
-      "concept" : "Examiner",
-      "term" : "testers",
-      "normalisation" : "senses",
-      "definition" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
-      "description" : "party empowered as an official representative by a regulatory agency to investigate and review specified documents for accuracy and truthfulness",
-      "descriptionStatedFor" : "Examiner",
-      "placedUnder" : "ResponsibleParty",
-      "statedPath" : [ "ResponsibleParty" ],
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/test/java/org/apache/tika/eval/app/db/AbstractBufferTest.java",
-        "line" : 52
-      }
-    }, {
-      "concept" : "Index",
-      "term" : "indexed",
-      "normalisation" : "lemmas",
-      "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "description" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "descriptionStatedFor" : "Index",
-      "placedUnder" : "Reference",
-      "statedPath" : [ "Reference" ],
-      "occurrences" : 1,
-      "specificity" : 0.9926291886986759,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9927078030792132,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Photoshop.java",
-        "line" : 42
-      }
-    }, {
-      "concept" : "Index",
-      "term" : "indexes",
-      "normalisation" : "lemmas",
-      "definition" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "description" : "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge",
-      "descriptionStatedFor" : "Index",
-      "placedUnder" : "Reference",
-      "statedPath" : [ "Reference" ],
-      "occurrences" : 1,
-      "specificity" : 0.9841651759396192,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9841651759396192,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java/org/apache/tika/detect/zip/FrictionlessPackageDetector.java",
-        "line" : 39
-      }
-    }, {
-      "concept" : "GeneratedResource",
-      "term" : "generate resource",
-      "normalisation" : "lemmas",
-      "definition" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
-      "description" : "negotiable commodity obtained via some generation process, including electricity, renewable energy, or any power/energy delivered through a utility network or provider",
-      "descriptionStatedFor" : "GeneratedResource",
-      "placedUnder" : "NegotiableCommodity",
-      "statedPath" : [ "Good", "Commodity", "NegotiableCommodity" ],
-      "occurrences" : 1,
-      "specificity" : 0.9570900818791306,
+      "statedPath" : [ ],
+      "occurrences" : 11,
+      "specificity" : 0.8920826331907138,
       "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9751719627853531,
+      "shareOfEachName" : 0.9050243317113846,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedDocumentUtil.java",
-        "line" : 214
-      }
-    }, {
-      "concept" : "RelationshipManager",
-      "term" : "relationships manager",
-      "normalisation" : "lemmas",
-      "definition" : "responsible party who manages a client's account and oversees their relationship with the service provider",
-      "description" : "responsible party who manages a client's account and oversees their relationship with the service provider",
-      "descriptionStatedFor" : "RelationshipManager",
-      "placedUnder" : "ResponsibleParty",
-      "statedPath" : [ "ResponsibleParty" ],
-      "occurrences" : 1,
-      "specificity" : 0.927994591860413,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/ooxml/xwpf/ml2006/RelationshipsManager.java",
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/WordPerfect.java",
         "line" : 25
       }
     }, {
-      "concept" : "Swap",
-      "term" : "swap",
-      "normalisation" : "words",
-      "definition" : "derivative instrument whereby counterparties agree to exchange periodic streams of cash flows or liabilities from two different financial instruments with each other",
-      "description" : "derivative instrument whereby counterparties agree to exchange periodic streams of cash flows or liabilities from two different financial instruments with each other",
-      "descriptionStatedFor" : "Swap",
-      "placedUnder" : "DerivativeInstrument",
-      "statedPath" : [ "Situation", "Agreement", "Contract", "WrittenContract", "FinancialInstrument", "DerivativeInstrument" ],
-      "occurrences" : 1,
-      "specificity" : 0.9134641475220232,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9149443662527912,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/filter/LegacyKeyMigrationFilter.java",
-        "line" : 238
-      }
-    }, {
-      "concept" : "StreetAddress",
-      "term" : "street address",
-      "normalisation" : "words",
-      "definition" : "index to a location that consists of a primary address number, predirectional, street name, suffix, postdirectional, and an optional secondary unit",
-      "description" : "index to a location that consists of a primary address number, predirectional, street name, suffix, postdirectional, and an optional secondary unit",
-      "descriptionStatedFor" : "StreetAddress",
-      "placedUnder" : "AddressComponent",
-      "statedPath" : [ "Aspect", "AddressComponent" ],
-      "occurrences" : 1,
-      "specificity" : 0.8818389847174346,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8818389847174346,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 909
-      }
-    }, {
-      "concept" : "Strategy",
-      "term" : "schemes",
-      "normalisation" : "senses",
-      "definition" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "description" : "high-level approach that guides decision-making and the coordination of actions and plans in pursuit of some aim",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Approach",
-      "statedPath" : [ "Approach" ],
-      "occurrences" : 1,
-      "specificity" : 0.8565223994677523,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8565223994677523,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/main/java/org/apache/tika/parser/html/HtmlHandler.java",
-        "line" : 402
-      }
-    }, {
-      "concept" : "Balance",
-      "term" : "balanced",
-      "normalisation" : "lemmas",
-      "definition" : "amount of money available or owed",
-      "description" : "amount of money available or owed",
-      "descriptionStatedFor" : "Balance",
-      "placedUnder" : "MonetaryAmount",
-      "statedPath" : [ "ScalarQuantityValue", "MonetaryAmount" ],
-      "occurrences" : 1,
-      "specificity" : 0.8543244688003477,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8543244688003477,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
-        "line" : 1061
-      }
-    }, {
-      "concept" : "TelephoneNumber",
-      "term" : "phone number",
-      "normalisation" : "senses",
-      "definition" : "virtual address that may be assigned to a fixed-line telephone subscriber station connected to a telephone line or to a wireless electronic telephony device, such as a radio telephone or a mobile telephone, or to other devices or services for data transmission via the public switched telephone network (PSTN) or other public and private networks",
-      "description" : "virtual address that may be assigned to a fixed-line telephone subscriber station connected to a telephone line or to a wireless electronic telephony device, such as a radio telephone or a mobile telephone, or to other devices or services for data transmission via the public switched telephone network (PSTN) or other public and private networks",
-      "descriptionStatedFor" : "TelephoneNumber",
-      "placedUnder" : "VirtualAddress",
-      "statedPath" : [ "Reference", "Index", "Address", "VirtualAddress" ],
-      "occurrences" : 1,
-      "specificity" : 0.851941438912128,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.851941438912128,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testPhoneNumberExtractor.odt",
-        "line" : 1
-      }
-    }, {
-      "concept" : "ServiceResource",
-      "term" : "service resources",
-      "normalisation" : "lemmas",
-      "definition" : "negotiable commodity involving services such as transportation, communications, and trade",
-      "description" : "negotiable commodity involving services such as transportation, communications, and trade",
-      "descriptionStatedFor" : "ServiceResource",
-      "placedUnder" : "NegotiableCommodity",
-      "statedPath" : [ "Good", "Commodity", "NegotiableCommodity" ],
-      "occurrences" : 1,
-      "specificity" : 0.8504303071821302,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9132063348442891,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/config/ServiceLoader.java",
-        "line" : 213
-      }
-    }, {
-      "concept" : "Asset",
-      "term" : "asset",
-      "normalisation" : "words",
-      "definition" : "something of monetary value that is owned or provides benefit to some party",
-      "description" : "something of monetary value that is owned or provides benefit to some party",
-      "descriptionStatedFor" : "Asset",
-      "placedUnder" : "Undergoer",
-      "statedPath" : [ "Undergoer" ],
-      "occurrences" : 1,
-      "specificity" : 0.7901061262710763,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8008508295514274,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/AndroidBinaryXMLTest.java",
-        "line" : 99
-      }
-    }, {
-      "concept" : "Control",
-      "term" : "controlled",
-      "normalisation" : "lemmas",
-      "definition" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "description" : "situation in which some party has the power to direct or strongly influence the direction of the management and policies related to something",
-      "descriptionStatedFor" : "Control",
-      "placedUnder" : "Situation",
-      "statedPath" : [ "Situation" ],
-      "occurrences" : 1,
-      "specificity" : 0.77507758134688,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7811220678617733,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 531
-      }
-    }, {
-      "concept" : "Interest",
-      "term" : "interesting",
-      "normalisation" : "lemmas",
-      "definition" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
-      "description" : "the cost of using credit, or another's money, expressed as a rate per period of time, payable by a debtor to a creditor in consideration of the credit extended to the debtor",
-      "descriptionStatedFor" : "Interest",
-      "placedUnder" : "MonetaryAmount",
-      "statedPath" : [ "ScalarQuantityValue", "MonetaryAmount" ],
-      "occurrences" : 1,
-      "specificity" : 0.74349994119089,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.74349994119089,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/ooxml/XSSFExcelExtractorDecorator.java",
-        "line" : 1176
-      }
-    }, {
-      "concept" : "Claim",
-      "term" : "claims",
-      "normalisation" : "lemmas",
-      "definition" : "demand or assertion made by one party on another, based on facts that, taken together, give rise to a legally enforceable right or judicial action",
-      "description" : "demand or assertion made by one party on another, based on facts that, taken together, give rise to a legally enforceable right or judicial action",
-      "descriptionStatedFor" : "Claim",
-      "placedUnder" : "LegalConstruct",
-      "statedPath" : [ "LegalConstruct" ],
-      "occurrences" : 1,
-      "specificity" : 0.7201162689124877,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.742848988104172,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-plugins/tika-pipes-atlassian-jwt/src/main/java/org/apache/tika/pipes/fetcher/atlassianjwt/AtlassianJwtGenerator.java",
-        "line" : 61
-      }
-    }, {
-      "concept" : "Difference",
-      "term" : "difference",
-      "normalisation" : "words",
-      "definition" : "quantity by which amounts differ; the remainder left after subtraction of one value from another",
-      "description" : "quantity by which amounts differ; the remainder left after subtraction of one value from another",
-      "descriptionStatedFor" : "Difference",
-      "placedUnder" : "StatisticalMeasure",
-      "statedPath" : [ "Measure", "StatisticalMeasure" ],
-      "occurrences" : 1,
-      "specificity" : 0.705741279798233,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/UnpackerResourceTest.java",
-        "line" : 627
-      }
-    }, {
-      "concept" : "Person",
-      "term" : "individual",
-      "normalisation" : "senses",
-      "definition" : "individual human being, with consciousness of self",
-      "description" : "individual human being, with consciousness of self",
-      "descriptionStatedFor" : "Person",
-      "placedUnder" : "Party",
-      "statedPath" : [ "Party" ],
-      "occurrences" : 1,
-      "specificity" : 0.6561576725311152,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6591768387296817,
-      "firstWrittenAt" : {
-        "file" : "tika-serialization/src/test/java/org/apache/tika/config/AllLimitsTest.java",
-        "line" : 106
-      }
-    }, {
-      "concept" : "Mean",
-      "term" : "means",
-      "normalisation" : "lemmas",
-      "definition" : "most common measure of central tendency; the average of a set of numbers",
-      "description" : "most common measure of central tendency; the average of a set of numbers",
-      "descriptionStatedFor" : "Mean",
-      "placedUnder" : "StatisticalMeasure",
-      "statedPath" : [ "Measure", "StatisticalMeasure" ],
-      "occurrences" : 1,
-      "specificity" : 0.6013848423981941,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6018208500092543,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/metadata/TestPageAnchoring.java",
-        "line" : 43
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "held",
-      "normalisation" : "senses",
-      "definition" : "",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 1,
-      "specificity" : 0.592074412323159,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6016958642798361,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/parser/CompositeParserTest.java",
-        "line" : 181
-      }
-    }, {
-      "concept" : "Holding",
-      "term" : "held",
-      "normalisation" : "senses",
-      "definition" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "description" : "owned financial interest consisting of legal or beneficial ownership of an asset or security that confers economic rights on its owner",
-      "descriptionStatedFor" : "Holding",
-      "placedUnder" : "Asset",
-      "statedPath" : [ "Undergoer", "Asset" ],
-      "occurrences" : 1,
-      "specificity" : 0.592074412323159,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6016958642798361,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/test/java/org/apache/tika/parser/CompositeParserTest.java",
-        "line" : 181
-      }
-    }, {
-      "concept" : "Party",
-      "term" : "party",
+      "concept" : "Microsoft OneNote",
+      "term" : "microsoft one note",
       "normalisation" : "words",
       "definition" : "",
       "description" : "",
       "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "PartiesAndSituations" ],
-      "occurrences" : 1,
-      "specificity" : 0.5912101500985403,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6284917011770388,
+      "statedPath" : [ ],
+      "occurrences" : 10,
+      "specificity" : 0.9552372356651214,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 0.9552372356651213,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
-        "line" : 36
-      }
-    } ],
-    "branches" : [ {
-      "branch" : "Reference",
-      "agreesWithTheRepository" : 0.22146274078122943,
-      "mass" : 394.06397252885245,
-      "kept" : 87.27048739937877,
-      "terms" : [ "index", "indices", "indexed", "indexes" ]
-    }, {
-      "branch" : "Occurrence",
-      "agreesWithTheRepository" : 0.24389771673974286,
-      "mass" : 199.03839710856158,
-      "kept" : 48.54501059831641,
-      "terms" : [ "request", "requested", "action", "requests", "actions" ]
-    }, {
-      "branch" : "Approach",
-      "agreesWithTheRepository" : 0.14353159798618328,
-      "mass" : 71.82102104312753,
-      "kept" : 10.308585919319391,
-      "terms" : [ "strategy", "scheme", "method", "methods", "schemes" ]
-    }, {
-      "branch" : "Situation",
-      "agreesWithTheRepository" : 0.2665120347372954,
-      "mass" : 48.40302959294569,
-      "kept" : 12.89998990426548,
-      "terms" : [ "control", "controls", "controlled" ]
-    }, {
-      "branch" : "DerivativeInstrument",
-      "agreesWithTheRepository" : 0.3148264885808644,
-      "mass" : 34.90361907064268,
-      "kept" : 10.988583830774528,
-      "terms" : [ "futures", "options", "option", "future", "swap" ]
-    }, {
-      "branch" : "Index",
-      "agreesWithTheRepository" : 0.12791615404664142,
-      "mass" : 25.088718665702416,
-      "kept" : 3.209252401674838,
-      "terms" : [ "address", "addresses" ]
-    }, {
-      "branch" : "StatisticalMeasure",
-      "agreesWithTheRepository" : 0.15322759406812814,
-      "mass" : 20.56356059629525,
-      "kept" : 3.1509049156444835,
-      "terms" : [ "mean", "median", "difference", "means" ]
-    }, {
-      "branch" : "Asset",
-      "agreesWithTheRepository" : 0.22295089881650315,
-      "mass" : 13.744222939907003,
-      "kept" : 3.0642868579866676,
-      "terms" : [ "kept", "keep", "keeps", "holding", "held" ]
-    }, {
-      "branch" : "Control",
-      "agreesWithTheRepository" : 0.14915823667328365,
-      "mass" : 12.6900344540985,
-      "kept" : 1.892823162496548,
-      "terms" : [ "affiliations", "affiliation" ]
-    }, {
-      "branch" : "Party",
-      "agreesWithTheRepository" : 0.06663272857536658,
-      "mass" : 10.824566985996523,
-      "kept" : 0.7212704339237801,
-      "terms" : [ "person", "persons", "individual" ]
-    }, {
-      "branch" : "Person",
-      "agreesWithTheRepository" : 0.1379354704965943,
-      "mass" : 10.687940115399805,
-      "kept" : 1.4742460484570965,
-      "terms" : [ "minor" ]
-    }, {
-      "branch" : "Undergoer",
-      "agreesWithTheRepository" : 0.27231841818323643,
-      "mass" : 7.288421782172719,
-      "kept" : 1.9847714907735199,
-      "terms" : [ "plus", "asset" ]
-    }, {
-      "branch" : "MonetaryAmount",
-      "agreesWithTheRepository" : 0.17174298289198978,
-      "mass" : 6.950317451615799,
-      "kept" : 1.1936682511867502,
-      "terms" : [ "interest", "balance", "balanced", "interesting" ]
-    }, {
-      "branch" : "LegalConstruct",
-      "agreesWithTheRepository" : 0.1422286819661842,
-      "mass" : 6.679984641163474,
-      "kept" : 0.9500854110670348,
-      "terms" : [ "rights", "claims" ]
-    }, {
-      "branch" : "ResponsibleParty",
-      "agreesWithTheRepository" : 0.15987863104873282,
-      "mass" : 3.927994591860413,
-      "kept" : 0.6280023981134688,
-      "terms" : [ "tester", "testers", "relationships manager" ]
-    }, {
-      "branch" : "NegotiableCommodity",
-      "agreesWithTheRepository" : 0.2249895591505257,
-      "mass" : 3.7193995461213376,
-      "kept" : 0.8368260641865052,
-      "terms" : [ "generated resource", "generate resource", "service resources" ]
-    }, {
-      "branch" : "PhysicalAsset",
-      "agreesWithTheRepository" : 0.07113383731523398,
-      "mass" : 1.7041790066943006,
-      "kept" : 0.12122479221822942,
-      "terms" : [ "real property" ]
-    }, {
-      "branch" : "AddressComponent",
-      "agreesWithTheRepository" : 0.34973191298984146,
-      "mass" : 0.8818389847174346,
-      "kept" : 0.308407235074248,
-      "terms" : [ "street address" ]
-    }, {
-      "branch" : "VirtualAddress",
-      "agreesWithTheRepository" : 0.19625080586464919,
-      "mass" : 0.851941438912128,
-      "kept" : 0.1671941939359939,
-      "terms" : [ "phone number" ]
-    } ],
-    "matchesByNormalisation" : {
-      "expansions" : 0,
-      "lemmas" : 153,
-      "senses" : 86,
-      "words" : 953
-    },
-    "bar" : {
-      "phrases" : 5,
-      "chanceExpectedBest" : 4,
-      "median" : 2,
-      "timesTheBar" : 1.25,
-      "atLeastAsExtreme" : 61,
-      "chanceRate" : 0.062,
-      "field" : 7,
-      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
-      "resamples" : 999
-    }
-  }, {
-    "vocabulary" : "FpML",
-    "concepts" : [ {
-      "concept" : "Exception",
-      "term" : "exception",
-      "normalisation" : "words",
-      "definition" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
-      "description" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
-      "descriptionStatedFor" : "Exception",
-      "placedUnder" : "Message",
-      "statedPath" : [ "Document", "Message" ],
-      "occurrences" : 181,
-      "specificity" : 0.8207461353596254,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8323445814911785,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
-        "line" : 680
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/onenote/CheckedFileNodePushBack.java",
+        "line" : 1
       }
     }, {
-      "concept" : "Document",
-      "term" : "document",
+      "concept" : "Quicktime",
+      "term" : "quick time",
       "normalisation" : "words",
-      "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "description" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "descriptionStatedFor" : "Document",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "doc" ],
-      "occurrences" : 163,
-      "specificity" : 0.769542713736677,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7976784747696357,
+      "statedPath" : [ ],
+      "occurrences" : 7,
+      "specificity" : 0.8493409133387457,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.8892990621640429,
       "firstWrittenAt" : {
-        "file" : "tika-app/src/main/java/org/apache/tika/cli/TikaCLI.java",
-        "line" : 1378
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/QuickTime.java",
+        "line" : 25
       }
     }, {
-      "concept" : "Message",
-      "term" : "message",
+      "concept" : "WebP",
+      "term" : "web p",
       "normalisation" : "words",
-      "definition" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
-      "description" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
-      "descriptionStatedFor" : "Message",
-      "placedUnder" : "Document",
-      "statedPath" : [ "Document" ],
-      "occurrences" : 106,
-      "specificity" : 0.7210002492668722,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8458897715653122,
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/exception/EmbeddedLimitReachedException.java",
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "WebP",
+      "term" : "web p",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "WebP",
+      "term" : "web p",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "WebP",
+      "term" : "web p",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "WebP",
+      "term" : "web p",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "WebP",
+      "term" : "web p",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 5,
+      "specificity" : 0.9347584806956323,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9352850679538411,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-image-module/src/main/java/org/apache/tika/parser/image/ImageMetadataExtractor.java",
+        "line" : 157
+      }
+    }, {
+      "concept" : "AppleSingle",
+      "term" : "apple single",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 4,
+      "specificity" : 0.9016465515871799,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9019145865768436,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/apple/AppleSingleFileParserTest.java",
+        "line" : 31
+      }
+    }, {
+      "concept" : "AppleSingle",
+      "term" : "apple single",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 4,
+      "specificity" : 0.9016465515871799,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9019145865768436,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/parser/apple/AppleSingleFileParserTest.java",
+        "line" : 31
+      }
+    }, {
+      "concept" : "Debug File",
+      "term" : "debug file",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 2,
+      "specificity" : 1.0,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/libpst/LibPstParser.java",
+        "line" : 132
+      }
+    }, {
+      "concept" : "ICC Profile",
+      "term" : "icc profile",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 2,
+      "specificity" : 0.9883960691064884,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9943767425455976,
+      "firstWrittenAt" : {
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Photoshop.java",
         "line" : 50
       }
     }, {
-      "concept" : "Strategy",
-      "term" : "strategy",
-      "normalisation" : "words",
-      "definition" : "A type defining a group of products making up a single trade.",
-      "description" : "A type defining a group of products making up a single trade.",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 42,
-      "specificity" : 0.7184889328016285,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7451451740217911,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/SpoolingStrategy.java",
-        "line" : 46
-      }
-    }, {
-      "concept" : "Document",
-      "term" : "documents",
-      "normalisation" : "lemmas",
-      "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "description" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "descriptionStatedFor" : "Document",
-      "placedUnder" : "",
-      "statedPath" : [ "doc" ],
-      "occurrences" : 35,
-      "specificity" : 0.7494669114495235,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7629568323346716,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Office.java",
-        "line" : 220
-      }
-    }, {
-      "concept" : "Strategy",
-      "term" : "scheme",
-      "normalisation" : "senses",
-      "definition" : "A type defining a group of products making up a single trade.",
-      "description" : "A type defining a group of products making up a single trade.",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 33,
-      "specificity" : 0.7492252021297383,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.7671152913188348,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/XMPIdq.java",
-        "line" : 34
-      }
-    }, {
-      "concept" : "Exception",
-      "term" : "exceptions",
-      "normalisation" : "lemmas",
-      "definition" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
-      "description" : "A type defining the basic content for a message sent to inform another system that some exception has been detected.",
-      "descriptionStatedFor" : "Exception",
-      "placedUnder" : "Message",
-      "statedPath" : [ "Document", "Message" ],
-      "occurrences" : 21,
-      "specificity" : 0.8776987245835016,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9328991261740127,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/parser/ParseRecord.java",
-        "line" : 135
-      }
-    }, {
-      "concept" : "ContactInformation",
-      "term" : "contact info",
-      "normalisation" : "expansions",
-      "definition" : "A type that represents how to contact an individual or organization.",
-      "description" : "A type that represents how to contact an individual or organization.",
-      "descriptionStatedFor" : "ContactInformation",
-      "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 10,
-      "specificity" : 0.9543611401101927,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9643236975435702,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 345
-      }
-    }, {
-      "concept" : "Option",
-      "term" : "options",
-      "normalisation" : "lemmas",
-      "definition" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
-      "description" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
-      "descriptionStatedFor" : "Option",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 13,
-      "specificity" : 0.6932766235628366,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6970989989311701,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/AsyncHelperTest.java",
-        "line" : 93
-      }
-    }, {
-      "concept" : "Repo",
-      "term" : "repo",
-      "normalisation" : "words",
-      "definition" : "A Repo, modeled as an FpML:Product. Note: this Repo model is a candidate model for further industry input.",
-      "description" : "A Repo, modeled as an FpML:Product. Note: this Repo model is a candidate model for further industry input.",
-      "descriptionStatedFor" : "Repo",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 8,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-e2e-tests/tika-server/src/test/java/org/apache/tika/server/e2e/RunUatSmokeTest.java",
-        "line" : 323
-      }
-    }, {
-      "concept" : "Message",
-      "term" : "messages",
-      "normalisation" : "lemmas",
-      "definition" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
-      "description" : "A type defining the basic structure of all FpML messages which is refined by its derived types.",
-      "descriptionStatedFor" : "Message",
-      "placedUnder" : "Document",
-      "statedPath" : [ "Document" ],
-      "occurrences" : 7,
-      "specificity" : 0.7903479803271195,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9220573767074062,
-      "firstWrittenAt" : {
-        "file" : "tika-grpc/src/test/java/org/apache/tika/pipes/grpc/PipesBiDirectionalStreamingIntegrationTest.java",
-        "line" : 184
-      }
-    }, {
-      "concept" : "ProductType",
-      "term" : "product type",
+      "concept" : "ICC Profile",
+      "term" : "icc profile",
       "normalisation" : "words",
       "definition" : "",
       "description" : "",
       "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 6,
-      "specificity" : 0.8663192721546216,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9543632468939026,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/WordPerfect.java",
-        "line" : 43
-      }
-    }, {
-      "concept" : "Option",
-      "term" : "option",
-      "normalisation" : "words",
-      "definition" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
-      "description" : "A type for defining the common features of options. Buyer/seller information is not normally used in Transparency view but is optional in case the information is needed for administrative purposes such as Reporting Party determination.",
-      "descriptionStatedFor" : "Option",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 6,
-      "specificity" : 0.7232160690323771,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.725710930279981,
-      "firstWrittenAt" : {
-        "file" : "tika-app/src/test/java/org/apache/tika/cli/TikaCLITest.java",
-        "line" : 633
-      }
-    }, {
-      "concept" : "Document",
-      "term" : "documented",
-      "normalisation" : "lemmas",
-      "definition" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "description" : "The abstract base type from which all FpML compliant messages and documents must be derived.",
-      "descriptionStatedFor" : "Document",
-      "placedUnder" : "",
-      "statedPath" : [ "doc" ],
+      "statedPath" : [ ],
       "occurrences" : 2,
-      "specificity" : 0.8650571087148385,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8650572157584355,
+      "specificity" : 0.9883960691064884,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9943767425455976,
       "firstWrittenAt" : {
-        "file" : "tika-serialization/src/test/java/org/apache/tika/metadata/filter/TestMetadataFilter.java",
-        "line" : 293
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Photoshop.java",
+        "line" : 50
       }
     }, {
-      "concept" : "PartyName",
-      "term" : "party name",
+      "concept" : "ICC Profile",
+      "term" : "icc profile",
       "normalisation" : "words",
-      "definition" : "The data type used for the legal name of an organization.",
-      "description" : "The data type used for the legal name of an organization.",
-      "descriptionStatedFor" : "PartyName",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
       "placedUnder" : "",
-      "statedPath" : [ "shared" ],
+      "statedPath" : [ ],
       "occurrences" : 2,
-      "specificity" : 0.8233535897827698,
+      "specificity" : 0.9883960691064884,
       "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8527455441626588,
+      "shareOfEachName" : 0.9943767425455976,
       "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
+        "file" : "tika-core/src/main/java/org/apache/tika/metadata/Photoshop.java",
+        "line" : 50
+      }
+    }, {
+      "concept" : "Log File",
+      "term" : "log file",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 2,
+      "specificity" : 0.9616224088577793,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.967887737236641,
+      "firstWrittenAt" : {
+        "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/EvalConfig.java",
+        "line" : 78
+      }
+    }, {
+      "concept" : "Error File",
+      "term" : "error file",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 2,
+      "specificity" : 0.9415373743607439,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9797542777171726,
+      "firstWrittenAt" : {
+        "file" : "tika-pipes/tika-pipes-core/src/main/java/org/apache/tika/pipes/core/PerClientServerManager.java",
+        "line" : 549
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Adobe Illustrator",
+      "term" : "adobe illustrator",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9984296365587665,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9984360390562342,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/resources/test-documents/testPDF_AdobeIllustrator.pdf",
+        "line" : 1
+      }
+    }, {
+      "concept" : "EndNote Import File",
+      "term" : "end note import file",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9944908507367451,
+      "wordsInTerm" : 4,
+      "shareOfEachName" : 0.9944908507367451,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testEndNoteImportFile.enw",
+        "line" : 1
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "Rich Text Format",
+      "term" : "rich text format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9845838257597407,
+      "wordsInTerm" : 3,
+      "shareOfEachName" : 1.0,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/JackcessExtractor.java",
+        "line" : 73
+      }
+    }, {
+      "concept" : "ZIP Format",
+      "term" : "zip format",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9841231199213201,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9845888232424215,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-zip-commons/src/main/java/org/apache/tika/detect/zip/DefaultZipContainerDetector.java",
+        "line" : 231
+      }
+    }, {
+      "concept" : "WebM",
+      "term" : "web m",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9290360563121483,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9326519995427651,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/mime/TestMimeTypes.java",
+        "line" : 1092
+      }
+    }, {
+      "concept" : "WebM",
+      "term" : "web m",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9290360563121483,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9326519995427651,
+      "firstWrittenAt" : {
+        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/java/org/apache/tika/mime/TestMimeTypes.java",
+        "line" : 1092
+      }
+    }, {
+      "concept" : "BASIC File",
+      "term" : "basic file",
+      "normalisation" : "words",
+      "definition" : "",
+      "description" : "",
+      "descriptionStatedFor" : "",
+      "placedUnder" : "",
+      "statedPath" : [ ],
+      "occurrences" : 1,
+      "specificity" : 0.9231319420841655,
+      "wordsInTerm" : 2,
+      "shareOfEachName" : 0.9318883784742374,
+      "firstWrittenAt" : {
+        "file" : "tika-pipes/tika-async-cli/src/test/java/org/apache/tika/async/cli/FileListPipesIteratorTest.java",
         "line" : 36
       }
-    }, {
-      "concept" : "Fra",
-      "term" : "fra",
-      "normalisation" : "words",
-      "definition" : "A type defining a Forward Rate Agreement (FRA) product.",
-      "description" : "A type defining a Forward Rate Agreement (FRA) product.",
-      "descriptionStatedFor" : "Fra",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-core/src/test/resources/common_tokens/fra",
-        "line" : 1
-      }
-    }, {
-      "concept" : "LcType",
-      "term" : "lc type",
-      "normalisation" : "words",
-      "definition" : "A list of L/C types.",
-      "description" : "A list of L/C types.",
-      "descriptionStatedFor" : "LcType",
-      "placedUnder" : "",
-      "statedPath" : [ "loan" ],
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-pipes/tika-pipes-plugins/tika-pipes-jdbc/src/main/java/org/apache/tika/pipes/emitter/jdbc/JDBCEmitter.java",
-        "line" : 469
-      }
-    }, {
-      "concept" : "Swap",
-      "term" : "swap",
-      "normalisation" : "words",
-      "definition" : "A type defining swap streams and additional payments between the principal parties involved in the swap.",
-      "description" : "A type defining swap streams and additional payments between the principal parties involved in the swap.",
-      "descriptionStatedFor" : "Swap",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 1,
-      "specificity" : 0.9134641475220232,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9149443662527912,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/filter/LegacyKeyMigrationFilter.java",
-        "line" : 238
-      }
-    }, {
-      "concept" : "FixedRate",
-      "term" : "fixed rate",
-      "normalisation" : "words",
-      "definition" : "The calculation period fixed rate. A per annum rate, expressed as a decimal. A fixed rate of 5% would be represented as 0.05.",
-      "description" : "The calculation period fixed rate. A per annum rate, expressed as a decimal. A fixed rate of 5% would be represented as 0.05.",
-      "descriptionStatedFor" : "FixedRate",
-      "placedUnder" : "",
-      "statedPath" : [ "cd" ],
-      "occurrences" : 1,
-      "specificity" : 0.9061029462496729,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-audiovideo-module/src/main/java/org/apache/tika/parser/ogg/VorbisParser.java",
-        "line" : 105
-      }
-    }, {
-      "concept" : "StreetAddress",
-      "term" : "street address",
-      "normalisation" : "words",
-      "definition" : "A type that describes the set of street and building number information that identifies a postal address within a city.",
-      "description" : "A type that describes the set of street and building number information that identifies a postal address within a city.",
-      "descriptionStatedFor" : "StreetAddress",
-      "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 1,
-      "specificity" : 0.8818389847174346,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8818389847174346,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/IPTC.java",
-        "line" : 909
-      }
-    }, {
-      "concept" : "Strategy",
-      "term" : "schemes",
-      "normalisation" : "senses",
-      "definition" : "A type defining a group of products making up a single trade.",
-      "description" : "A type defining a group of products making up a single trade.",
-      "descriptionStatedFor" : "Strategy",
-      "placedUnder" : "Product",
-      "statedPath" : [ "Product" ],
-      "occurrences" : 1,
-      "specificity" : 0.8565223994677523,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.8565223994677523,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-html-module/src/main/java/org/apache/tika/parser/html/HtmlHandler.java",
-        "line" : 402
-      }
-    }, {
-      "concept" : "TelephoneNumber",
-      "term" : "phone number",
-      "normalisation" : "senses",
-      "definition" : "A type that represents a telephonic contact.",
-      "description" : "A type that represents a telephonic contact.",
-      "descriptionStatedFor" : "TelephoneNumber",
-      "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 1,
-      "specificity" : 0.851941438912128,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.851941438912128,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-integration-tests/src/test/resources/test-documents/testPhoneNumberExtractor.odt",
-        "line" : 1
-      }
-    }, {
-      "concept" : "PartyRole",
-      "term" : "party role",
-      "normalisation" : "words",
-      "definition" : "A type describing a role played by a party in one or more transactions. Examples include roles such as guarantor, custodian, confirmation service provider, etc. This can be extended to provide custom roles.",
-      "description" : "A type describing a role played by a party in one or more transactions. Examples include roles such as guarantor, custodian, confirmation service provider, etc. This can be extended to provide custom roles.",
-      "descriptionStatedFor" : "PartyRole",
-      "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 1,
-      "specificity" : 0.833478025766408,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8400245365660105,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/ISO19115.java",
-        "line" : 40
-      }
-    }, {
-      "concept" : "Product",
-      "term" : "product",
-      "normalisation" : "words",
-      "definition" : "The base type which all FpML products extend.",
-      "description" : "The base type which all FpML products extend.",
-      "descriptionStatedFor" : "Product",
-      "placedUnder" : "",
-      "statedPath" : [ "shared" ],
-      "occurrences" : 1,
-      "specificity" : 0.6426744710050927,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.6754779892339092,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/metadata/DWG.java",
-        "line" : 35
-      }
     } ],
-    "branches" : [ {
-      "branch" : "Message",
-      "agreesWithTheRepository" : 0.2020417351542657,
-      "mass" : 166.98672371634572,
-      "kept" : 33.73828740737646,
-      "terms" : [ "exception", "exceptions" ]
-    }, {
-      "branch" : "Document",
-      "agreesWithTheRepository" : 0.1232857923868209,
-      "mass" : 81.95846228457829,
-      "kept" : 10.10431396555961,
-      "terms" : [ "message", "messages" ]
-    }, {
-      "branch" : "Product",
-      "agreesWithTheRepository" : 0.3391341055476659,
-      "mass" : 79.02284591545067,
-      "kept" : 26.799342167367385,
-      "terms" : [ "strategy", "scheme", "options", "repo", "option", "fra", "swap", "schemes" ]
-    } ],
-    "matchesByNormalisation" : {
-      "expansions" : 10,
-      "lemmas" : 78,
-      "senses" : 35,
-      "words" : 521
-    },
-    "bar" : {
-      "phrases" : 6,
-      "chanceExpectedBest" : 4,
-      "median" : 2,
-      "timesTheBar" : 1.5,
-      "atLeastAsExtreme" : 15,
-      "chanceRate" : 0.016,
-      "field" : 7,
-      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
-      "resamples" : 999
-    }
-  }, {
-    "vocabulary" : "CWE",
-    "concepts" : [ {
-      "concept" : "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
-      "term" : "css",
-      "normalisation" : "words",
-      "definition" : "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
-      "description" : "The product does not neutralize or incorrectly neutralizes user-controllable input before it is placed in output that is used as a web page that is served to other users.",
-      "descriptionStatedFor" : "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
-      "placedUnder" : "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
-      "statedPath" : [ "Improper Neutralization", "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')" ],
-      "occurrences" : 4,
-      "specificity" : 0.9988985004571925,
-      "wordsInTerm" : 1,
-      "shareOfEachName" : 0.9992684467324564,
-      "firstWrittenAt" : {
-        "file" : "tika-eval/tika-eval-app/src/main/java/org/apache/tika/eval/app/db/MimeBuffer.java",
-        "line" : 85
-      }
-    }, {
-      "concept" : "Process Control",
-      "term" : "process control",
-      "normalisation" : "words",
-      "definition" : "Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker.",
-      "description" : "Executing commands or loading libraries from an untrusted source or in an untrusted environment can cause an application to execute malicious commands (and payloads) on behalf of an attacker.",
-      "descriptionStatedFor" : "Process Control",
-      "placedUnder" : "External Control of File Name or Path",
-      "statedPath" : [ "Improper Control of a Resource Through its Lifetime", "Exposure of Resource to Wrong Sphere", "External Control of Critical State Data", "External Control of File Name or Path" ],
-      "occurrences" : 4,
-      "specificity" : 0.8123434293687001,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.8620087338966677,
-      "firstWrittenAt" : {
-        "file" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-microsoft-module/src/main/java/org/apache/tika/parser/microsoft/rtf/TextExtractor.java",
-        "line" : 802
-      }
-    }, {
-      "concept" : "Loop with Unreachable Exit Condition ('Infinite Loop')",
-      "term" : "infinite loop",
-      "normalisation" : "words",
-      "definition" : "The product contains an iteration or loop with an exit condition that cannot be reached, i.e., an infinite loop.",
-      "description" : "The product contains an iteration or loop with an exit condition that cannot be reached, i.e., an infinite loop.",
-      "descriptionStatedFor" : "Loop with Unreachable Exit Condition ('Infinite Loop')",
-      "placedUnder" : "Excessive Iteration",
-      "statedPath" : [ "Insufficient Control Flow Management", "Excessive Iteration" ],
-      "occurrences" : 2,
-      "specificity" : 0.97977783683672,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 0.9831513650713923,
-      "firstWrittenAt" : {
-        "file" : "tika-langdetect/tika-langdetect-charsoup/src/test/java/org/apache/tika/langdetect/charsoup/core/ScriptAwareFeatureExtractorTest.java",
-        "line" : 319
-      }
-    }, {
-      "concept" : "Buffer Underwrite ('Buffer Underflow')",
-      "term" : "buffer underrun",
-      "normalisation" : "words",
-      "definition" : "The product writes to a buffer using an index or pointer that references a memory location prior to the beginning of the buffer.",
-      "description" : "The product writes to a buffer using an index or pointer that references a memory location prior to the beginning of the buffer.",
-      "descriptionStatedFor" : "Buffer Underwrite ('Buffer Underflow')",
-      "placedUnder" : "Access of Memory Location Before Start of Buffer | Out-of-bounds Write",
-      "statedPath" : [ "Improper Control of a Resource Through its Lifetime", "Incorrect Access of Indexable Resource ('Range Error')", "Improper Restriction of Operations within the Bounds of a Memory Buffer", "Access of Memory Location Before Start of Buffer" ],
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-core/src/main/java/org/apache/tika/io/EndianUtils.java",
-        "line" : 476
-      }
-    }, {
-      "concept" : "Improper Control of Interaction Frequency",
-      "term" : "brute force",
-      "normalisation" : "words",
-      "definition" : "The product does not properly limit the number or frequency of interactions that it has with an actor, such as the number of incoming requests.",
-      "description" : "The product does not properly limit the number or frequency of interactions that it has with an actor, such as the number of incoming requests.",
-      "descriptionStatedFor" : "Improper Control of Interaction Frequency",
-      "placedUnder" : "Insufficient Control Flow Management",
-      "statedPath" : [ "Insufficient Control Flow Management" ],
-      "occurrences" : 1,
-      "specificity" : 1.0,
-      "wordsInTerm" : 2,
-      "shareOfEachName" : 1.0,
-      "firstWrittenAt" : {
-        "file" : "tika-integration-tests/tika-pipes-s3-integration-tests/src/test/java/org/apache/tika/pipes/s3/tests/PipeIntegrationTests.java",
-        "line" : 60
-      }
-    } ],
-    "branches" : [ {
-      "branch" : "Improper Neutralization of Special Elements in Output Used by a Downstream Component ('Injection')",
-      "agreesWithTheRepository" : 0.30521794511072947,
-      "mass" : 3.99559400182877,
-      "kept" : 1.2195269907349335,
-      "terms" : [ "css" ]
-    }, {
-      "branch" : "External Control of File Name or Path",
-      "agreesWithTheRepository" : 0.2202701906999089,
-      "mass" : 3.2493737174748003,
-      "kept" : 0.7157401684034462,
-      "terms" : [ "process control" ]
-    }, {
-      "branch" : "Excessive Iteration",
-      "agreesWithTheRepository" : 0.15992874148125316,
-      "mass" : 1.95955567367344,
-      "kept" : 0.31338927275304246,
-      "terms" : [ "infinite loop" ]
-    }, {
-      "branch" : "Access of Memory Location Before Start of Buffer | Out-of-bounds Write",
-      "agreesWithTheRepository" : 0.09535579726510672,
-      "mass" : 1.0,
-      "kept" : 0.09535579726510672,
-      "terms" : [ "buffer underrun" ]
-    }, {
-      "branch" : "Insufficient Control Flow Management",
-      "agreesWithTheRepository" : 0.32729140389465405,
-      "mass" : 1.0,
-      "kept" : 0.32729140389465405,
-      "terms" : [ "brute force" ]
-    } ],
+    "branches" : [ ],
     "matchesByNormalisation" : {
       "expansions" : 0,
       "lemmas" : 0,
       "senses" : 0,
-      "words" : 12
+      "words" : 70
     },
     "bar" : {
-      "phrases" : 4,
-      "chanceExpectedBest" : 2,
-      "median" : 1,
-      "timesTheBar" : 2.0,
-      "atLeastAsExtreme" : 16,
-      "chanceRate" : 0.017,
-      "field" : 7,
-      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
+      "phrases" : 16,
+      "chanceExpectedBest" : 4,
+      "median" : 2,
+      "timesTheBar" : 4.0,
+      "occurrences" : 70,
+      "occurrencesChanceExpectedBest" : 37,
+      "occurrencesTimesTheBar" : 1.8918918918918919,
+      "atLeastAsExtreme" : 0,
+      "chanceRate" : 0.001,
+      "field" : 8,
+      "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
       "resamples" : 999
     }
   } ],
@@ -18953,7 +18041,7 @@
     "wordsWithinTheReferencesError" : 90,
     "wordsTheLanguageSupplies" : 23,
     "scopesWithinChance" : 209,
-    "matchesDiscardedByBranchRule" : 346,
+    "matchesDiscardedByBranchRule" : 912,
     "vocabulariesBelowTheirChanceBar" : [ {
       "vocabulary" : "OLiA",
       "bar" : {
@@ -18961,10 +18049,45 @@
         "chanceExpectedBest" : 3,
         "median" : 1,
         "timesTheBar" : 1.0,
+        "occurrences" : 3,
+        "occurrencesChanceExpectedBest" : 7,
+        "occurrencesTimesTheBar" : 0.42857142857142855,
         "atLeastAsExtreme" : 157,
         "chanceRate" : 0.158,
-        "field" : 7,
-        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
+        "resamples" : 999
+      }
+    }, {
+      "vocabulary" : "FIBO",
+      "bar" : {
+        "phrases" : 5,
+        "chanceExpectedBest" : 4,
+        "median" : 2,
+        "timesTheBar" : 1.25,
+        "occurrences" : 12,
+        "occurrencesChanceExpectedBest" : 19,
+        "occurrencesTimesTheBar" : 0.631578947368421,
+        "atLeastAsExtreme" : 57,
+        "chanceRate" : 0.058,
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
+        "resamples" : 999
+      }
+    }, {
+      "vocabulary" : "FpML",
+      "bar" : {
+        "phrases" : 6,
+        "chanceExpectedBest" : 4,
+        "median" : 2,
+        "timesTheBar" : 1.5,
+        "occurrences" : 12,
+        "occurrencesChanceExpectedBest" : 14,
+        "occurrencesTimesTheBar" : 0.8571428571428571,
+        "atLeastAsExtreme" : 15,
+        "chanceRate" : 0.016,
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
         "resamples" : 999
       }
     }, {
@@ -18974,10 +18097,29 @@
         "chanceExpectedBest" : 9,
         "median" : 6,
         "timesTheBar" : 0.8888888888888888,
-        "atLeastAsExtreme" : 332,
-        "chanceRate" : 0.333,
-        "field" : 7,
-        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
+        "occurrences" : 12,
+        "occurrencesChanceExpectedBest" : 42,
+        "occurrencesTimesTheBar" : 0.2857142857142857,
+        "atLeastAsExtreme" : 325,
+        "chanceRate" : 0.326,
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
+        "resamples" : 999
+      }
+    }, {
+      "vocabulary" : "CWE",
+      "bar" : {
+        "phrases" : 4,
+        "chanceExpectedBest" : 2,
+        "median" : 1,
+        "timesTheBar" : 2.0,
+        "occurrences" : 8,
+        "occurrencesChanceExpectedBest" : 10,
+        "occurrencesTimesTheBar" : 0.8,
+        "atLeastAsExtreme" : 22,
+        "chanceRate" : 0.023,
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
         "resamples" : 999
       }
     }, {
@@ -18987,14 +18129,17 @@
         "chanceExpectedBest" : 1,
         "median" : 0,
         "timesTheBar" : 0.0,
+        "occurrences" : 0,
+        "occurrencesChanceExpectedBest" : 1,
+        "occurrencesTimesTheBar" : 0.0,
         "atLeastAsExtreme" : 999,
         "chanceRate" : 1.0,
-        "field" : 7,
-        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN" ],
+        "field" : 8,
+        "fieldMembers" : [ "OLiA", "CSO", "FIBO", "FpML", "FIX", "CWE", "BIAN", "PRONOM" ],
         "resamples" : 999
       }
     } ],
-    "termsWorkingJavaAlsoWrites" : 2754,
+    "termsWorkingJavaAlsoWrites" : 2978,
     "filesTheParserCouldNotRead" : 0,
     "javaFilesNoScopeReached" : 0
   },

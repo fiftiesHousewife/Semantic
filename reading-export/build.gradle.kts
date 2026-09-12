@@ -438,6 +438,9 @@ tasks.register<JavaExec>("evaluationReadAll") {
     mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationReadCommand"
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "12g"
+    // The sandbox refuses every live attach, so the run writes its own heap story: read it afterwards
+    // with `grep Pause build/reports/evaluation-read-gc.log` for the pauses and peak occupancy.
+    jvmArgs = listOf("-Xlog:gc*:file=${layout.buildDirectory.get().asFile}/reports/evaluation-read-gc.log:time,uptime,level,tags")
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
     evaluationDirectory?.let { systemProperty("cs.evaluation.dir", it) }
     doFirst {
