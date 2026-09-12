@@ -156,7 +156,7 @@ This library's claims are measurements. A change that cannot be shown to move a 
 
 ## Pre-push checklist
 
-1. `./gradlew cleanTest checkAll` — **a cached `BUILD SUCCESSFUL` reads exactly like a real green.** Run `cleanTest` before trusting one.
+1. `./gradlew cleanTest checkAll --parallel` — **a cached `BUILD SUCCESSFUL` reads exactly like a real green.** Run `cleanTest` before trusting one. `--parallel` halves the wall clock (8m 38s against 18m 39s, measured 2026-09-12) and is safe here because `dependencyUpdates`, the task `gradle.properties` disables parallel execution for, is not in `checkAll`.
 2. Gate on the actual `BUILD SUCCESSFUL` log line, not a background exit code.
 3. Never run Gradle concurrently with another Gradle invocation, and never pipe Gradle through `tail`.
 4. Regenerate the reading once per push, never per commit: if any unpushed commit adds, removes or renames a Java file — or changes how a name is read — run `./gradlew read` immediately before the push and land the regenerated figures in a follow-up commit that touches no Java.
