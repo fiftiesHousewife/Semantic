@@ -8,6 +8,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
+import io.github.fiftieshousewife.codesemantics.engine.export.LeadingWord;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
 import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
@@ -160,6 +161,21 @@ class LandingPageTest {
                         .as("the placement stands twice as far from its chance figure as the "
                                 + "vocabulary does from its bar, so its mark reads first")
                         .isLessThan(page.indexOf("1.3× its chance bar")));
+    }
+
+    @Test
+    void showsTheRepositorysOwnLeadingWordsAssertedByNothing() {
+        final ReadingExport reading = ReadingExport.of(
+                new ExportedSummary("besu", "c0ffee", List.of(ExportedAnswer.NONE), List.of(),
+                        List.of(), List.of(),
+                        List.of(new LeadingWord("block", 0.03, 900), new LeadingWord("hash", 0.02, 800),
+                                new LeadingWord("gas", 0.02, 700)),
+                        List.of(), List.of(), 0.9, 0.5, new ExportedSummary.Counts(3, 0, 0)),
+                List.of(), Map.of(), List.of(), List.of(),
+                new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0, 0));
+
+        assertThat(landing.markup(List.of(reading)))
+                .contains("Writes most: block, hash, gas.");
     }
 
     @Test

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import j2html.tags.specialized.ArticleTag;
@@ -17,6 +18,7 @@ import static j2html.TagCreator.div;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h2;
+import static j2html.TagCreator.iff;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.rawHtml;
 import static j2html.TagCreator.span;
@@ -34,6 +36,9 @@ import static j2html.TagCreator.style;
  * are stated once, in the page's own lede, and each card carries only its claims.
  */
 public final class LandingPage {
+
+    /** How many of the repository's own leading words a card shows; the full ranking is on its page. */
+    private static final int OWN_WORDS = 6;
 
     private final String stylesheet;
 
@@ -89,6 +94,8 @@ public final class LandingPage {
                 h2().with(a(reading.summary().repository())
                         .withHref(reading.summary().repository() + "/reading.html")),
                 p(lead(reading, ranked)).withClass("about"),
+                iff(!reading.summary().leadingWords().isEmpty(),
+                        p(ownWords(reading)).withClass("finding")),
                 div().withClass("strengths").with(
                         each(ranked, strength -> mark(strength, widest))));
     }
@@ -120,6 +127,18 @@ public final class LandingPage {
                 .findFirst()
                 .map(answer -> sentences.cardClaim(reading, answer))
                 .orElseGet(() -> sentences.of(reading).getFirst());
+    }
+
+    /**
+     * The repository's own strongest words, asserted by nothing: a reader seeing {@code block, hash, gas,
+     * transaction} concludes blockchain whether or not any citable vocabulary can say it, which is exactly
+     * the case the refused candidates leave open.
+     */
+    private static String ownWords(final ReadingExport reading) {
+        return "Writes most: " + reading.summary().leadingWords().stream()
+                .limit(OWN_WORDS)
+                .map(word -> PublishedSpelling.shown(word.word()))
+                .collect(Collectors.joining(", ")) + ".";
     }
 
     private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {
