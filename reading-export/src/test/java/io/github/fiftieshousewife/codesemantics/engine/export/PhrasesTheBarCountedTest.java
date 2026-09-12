@@ -21,7 +21,7 @@ class PhrasesTheBarCountedTest {
 
     private static ExportedTaxonomy publishing(final ExportedConcept... concepts) {
         return new ExportedTaxonomy("FpML", List.of(concepts), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(1, 0, 0, 1.0, 0, 0.001, 7, FIELD, 999));
+                new ExportedTaxonomy.Bar(1, 0, 0, 1.0, 20, 0, 1.0, 0, 0.001, 7, FIELD, 999));
     }
 
     private final PhrasesTheBarCounted counted = new PhrasesTheBarCounted();

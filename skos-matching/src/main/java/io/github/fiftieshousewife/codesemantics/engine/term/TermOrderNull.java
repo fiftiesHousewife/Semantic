@@ -70,6 +70,20 @@ public final class TermOrderNull {
     }
 
     /**
+     * Every source judged in both units at once, from one set of deals: the conjunction the reading
+     * publishes, where a source stands outside chance only if both its distinct terms and its total
+     * occurrences do.
+     */
+    public List<ConjunctionBar> inBothUnitsOver(final List<WrittenRun> written,
+                                                final List<TermIndex> judged) {
+        final Map<CountedPhrases, List<PhraseBar>> each = inEachUnitOver(written, judged);
+        return IntStream.range(0, judged.size())
+                .mapToObj(source -> new ConjunctionBar(each.get(CountedPhrases.HOW_MANY).get(source),
+                        each.get(CountedPhrases.HOW_OFTEN).get(source)))
+                .toList();
+    }
+
+    /**
      * Every source's bars in both units, from one set of deals and one walk of the names per deal.
      *
      * <p>A reading wanting both used to draw the whole null twice, which walked every declared name twice

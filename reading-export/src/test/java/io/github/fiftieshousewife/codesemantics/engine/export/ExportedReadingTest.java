@@ -8,36 +8,51 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+/**
+ * A composition's cost does not shrink with the fixture: the chance draws are scheme-sized, so every
+ * {@code of(...)} pays the same seconds a real tree pays. One shared fixture and one shared composition
+ * carry every assertion that does not need a tree of its own.
+ */
 class ExportedReadingTest {
 
     private static final List<String> FIELD =
             List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
 
-    private static RepositoryReading reading(final Path root) throws IOException {
-        return RepositoryReading.of(sourceUnder(root));
+    @TempDir
+    static Path shared;
+
+    private static RepositoryReading reading;
+
+    private static ReadingExport export;
+
+    @BeforeAll
+    static void composedTheSharedFixtureOnce() throws IOException {
+        reading = RepositoryReading.of(sourceUnder(shared));
+        export = new ExportedReading().of(reading, "c0ffee", List.of());
     }
 
     private static Path sourceUnder(final Path root) throws IOException {
         final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
         Files.createDirectories(scope);
         Files.writeString(scope.resolve("NounPhrase.java"),
-                "package a; /** Reads a noun phrase. */ class NounPhrase { String headword; String lemma; }");
+                "package a; /** Reads a noun phrase. */ class NounPhrase "
+                        + "{ String headword; String hypotaxis; String zeugma; }");
         return root;
     }
 
     @Test
-    void exportsAWholeReadingUnderTheStatedSchemaVersion(@TempDir final Path root) throws IOException {
-        final ReadingExport export = new ExportedReading().of(reading(root), "c0ffee", List.of());
+    void exportsAWholeReadingUnderTheStatedSchemaVersion() {
 
         assertAll(
                 () -> assertThat(export.schemaVersion()).isEqualTo(ReadingExport.SCHEMA_VERSION),
-                () -> assertThat(export.summary().repository()).isEqualTo(root.getFileName().toString()),
+                () -> assertThat(export.summary().repository()).isEqualTo(shared.getFileName().toString()),
                 () -> assertThat(export.summary().commit()).isEqualTo("c0ffee"),
                 () -> assertThat(export.taxonomies())
                         .as("the bundled vocabulary is matched even when the caller names no others")
@@ -76,19 +91,9 @@ class ExportedReadingTest {
     }
 
     @Test
-    void countsEveryJudgedVocabularysBranchRuleDiscardsInOneFigure(@TempDir final Path root)
-            throws IOException {
-        final Path scope = root.resolve("module").resolve("src").resolve("main").resolve("java").resolve("a");
-        Files.createDirectories(scope);
-        Files.writeString(scope.resolve("NounPhrase.java"),
-                "package a; /** Reads a noun phrase. */ class NounPhrase "
-                        + "{ String headword; String hypotaxis; String zeugma; }");
-        final RepositoryReading reading = RepositoryReading.of(root);
-        final ExportedReading exported = new ExportedReading();
-
-        final int oliaAlone = exported.of(reading, "", List.of())
-                .setAside().matchesDiscardedByBranchRule();
-        final int withTwoLoneTerms = exported.of(reading, "", List.of(LoneTerms.newInstance()))
+    void countsEveryJudgedVocabularysBranchRuleDiscardsInOneFigure() {
+        final int oliaAlone = export.setAside().matchesDiscardedByBranchRule();
+        final int withTwoLoneTerms = new ExportedReading().of(reading, "", List.of(LoneTerms.newInstance()))
                 .setAside().matchesDiscardedByBranchRule();
 
         assertThat(withTwoLoneTerms - oliaAlone)
@@ -99,7 +104,7 @@ class ExportedReadingTest {
 
     private static ExportedTaxonomy judged(final String vocabulary, final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(), List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
+                new ExportedTaxonomy.Bar(phrases, bar, bar, (double) phrases / bar, phrases * 20, bar * 20, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
     }
 
     @Test
@@ -116,9 +121,7 @@ class ExportedReadingTest {
     }
 
     @Test
-    void writesAnExportItsOwnReaderReadsBack(@TempDir final Path root, @TempDir final Path folder)
-            throws IOException {
-        final ReadingExport export = new ExportedReading().of(reading(root), "", List.of());
+    void writesAnExportItsOwnReaderReadsBack(@TempDir final Path folder) throws IOException {
         final Path file = folder.resolve(ExportFile.NAME);
 
         new ExportFile().wrote(file, export);

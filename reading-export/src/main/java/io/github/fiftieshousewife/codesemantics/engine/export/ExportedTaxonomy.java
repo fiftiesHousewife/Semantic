@@ -51,7 +51,15 @@ public record ExportedTaxonomy(String vocabulary, List<ExportedConcept> concepts
      * @param timesTheBar        the observed count divided by that bar. <b>It is not comparable between two
      *                           vocabularies</b>: it scales with the bar, and the bar scales with how many
      *                           terms the publisher states
-     * @param atLeastAsExtreme   how many of the deals reached the observed count or beat it
+     * @param occurrences        how often the repository writes those terms in total, the second counting
+     *                           unit, judged from the same deals. Measured at ten thousand deals on the
+     *                           eleven evaluation members, each unit alone admits what the other refuses,
+     *                           so the verdict requires both
+     * @param occurrencesChanceExpectedBest the occurrence count the best of a field this size reaches by
+     *                           chance alone
+     * @param occurrencesTimesTheBar the observed occurrences divided by their own bar, with the same
+     *                           caveat as {@code timesTheBar}
+     * @param atLeastAsExtreme   how many of the deals reached the observed term count or beat it
      * @param chanceRate         how often chance alone produced a count this large, which is
      *                           {@code (atLeastAsExtreme + 1) / (resamples + 1)} and is bounded in
      *                           {@code [1/1000, 1]} by the estimator's own definition. <b>It is the one
@@ -66,8 +74,9 @@ public record ExportedTaxonomy(String vocabulary, List<ExportedConcept> concepts
      * @param resamples          how many deals were taken
      */
     public record Bar(int phrases, int chanceExpectedBest, int median, double timesTheBar,
-                      int atLeastAsExtreme, double chanceRate, int field, List<String> fieldMembers,
-                      int resamples) {
+                      int occurrences, int occurrencesChanceExpectedBest,
+                      double occurrencesTimesTheBar, int atLeastAsExtreme, double chanceRate, int field,
+                      List<String> fieldMembers, int resamples) {
 
         public Bar {
             fieldMembers = List.copyOf(fieldMembers);
@@ -78,9 +87,18 @@ public record ExportedTaxonomy(String vocabulary, List<ExportedConcept> concepts
             }
         }
 
-        /** Whether the repository wrote more of this vocabulary's phrases than the field reaches by chance. */
+        /**
+         * Whether the repository stands outside chance in both counting units at once: more distinct
+         * terms than the field's best deal reaches, and more total occurrences than its best deal
+         * reaches. Either alone admits what the other refuses.
+         */
         public boolean exceedsChance() {
-            return phrases > chanceExpectedBest;
+            return phrases > chanceExpectedBest && occurrences > occurrencesChanceExpectedBest;
+        }
+
+        /** The smaller of the two multiples — the unit that nearly refused this vocabulary. */
+        public double bindingMultiple() {
+            return Math.min(timesTheBar, occurrencesTimesTheBar);
         }
     }
 

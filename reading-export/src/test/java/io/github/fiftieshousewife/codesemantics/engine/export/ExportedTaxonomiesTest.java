@@ -5,6 +5,7 @@ import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
+import io.github.fiftieshousewife.codesemantics.engine.term.ConjunctionBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
@@ -58,7 +59,9 @@ class ExportedTaxonomiesTest {
             List.of("OLiA", "CWE", "FIX", "FpML", "FIBO", "BIAN", "CSO");
 
     /** A bar stated rather than drawn, so a test of the export is not a test of the permutation. */
-    private static final PhraseBar ABOVE_CHANCE = new PhraseBar("OLiA", 12, 3, 2, 4, 999, FIELD);
+    private static final ConjunctionBar ABOVE_CHANCE = new ConjunctionBar(
+            new PhraseBar("OLiA", 12, 3, 2, 4, 999, FIELD),
+            new PhraseBar("OLiA", 240, 60, 40, 4, 999, FIELD));
 
     /** A branch reading stated rather than drawn, so a test of the export is not a test of the dictionary. */
     private static final BranchAgreement AGREEING = BranchAgreement.between(

@@ -52,10 +52,10 @@ class ReadingPageTest {
                                 concept("RawData", "raw data", "",
                                         "The session layer of the protocol.", "Session", 3)),
                         List.of(), Map.of("words", 52, "lemmas", 0, "expansions", 0, "senses", 0),
-                        new ExportedTaxonomy.Bar(52, 5, 3, 10.4, 0, 0.001, 7, FIELD, 999))),
+                        new ExportedTaxonomy.Bar(52, 5, 3, 10.4, 1040, 100, 10.4, 0, 0.001, 7, FIELD, 999))),
                 new SetAside(0, 0, 0, 0, 0, 0,
                         List.of(new SetAside.RefusedVocabulary("CSO",
-                                new ExportedTaxonomy.Bar(1, 2, 1, 0.5, 500, 0.5, 7, FIELD, 999))),
+                                new ExportedTaxonomy.Bar(1, 2, 1, 0.5, 20, 40, 0.5, 500, 0.5, 7, FIELD, 999))),
                         0, 0, 0));
     }
 

@@ -433,6 +433,7 @@ A functional taxonomy names what an organisation does rather than what things in
 | [FpML](https://www.fpml.org/) — Financial products Markup Language 5.11 | 1,405 | derivatives trading | the types a trading system writes on the wire |
 | [FIX Orchestra](https://www.fixtrading.org/standards/fix-orchestra/) — FIX Latest | 7,170 | electronic trading | the messages and fields a FIX engine declares, front office through settlement |
 | [CWE](https://cwe.mitre.org/) — Common Weakness Enumeration 4.13 | 959 | security | weakness names are phrases, and each match cites MITRE's own page |
+| [PRONOM](https://www.nationalarchives.gov.uk/pronom/) — The National Archives' format registry, DROID V125 | 2571 | file formats | the first candidate to pass the out-of-domain control: it clears its bar only where documents are the subject |
 | [BIAN](https://github.com/bian-official/artefacts) — Service Landscape | 319 | banking capability | what a bank does, against the payment libraries in the evaluation set |
 
 A run judges all seven and publishes only those whose count exceeds what a chance deal of their own words reaches. On this repository OLiA and CSO are published and the other five are named in `setAside.vocabulariesBelowTheirChanceBar`, each with the count it reached.
@@ -624,6 +625,7 @@ Each answers a question the export raises and does not settle.
 | Relevant domains against a null | Gliozzo, A., Strapparava, C. and Magnini, B. (2004), [*Unsupervised domain relevance estimation for word sense disambiguation*](https://aclanthology.org/W04-3249/), EMNLP |
 | Research topics | [OpenAlex](https://openalex.org/), 4,516 topics under 252 subfields, 26 fields and 4 domains, CC0 |
 | Security weaknesses | [CWE](https://cwe.mitre.org/), The MITRE Corporation. 959 weaknesses of catalog 4.13, under the [CWE Terms of Use](https://cwe.mitre.org/about/termsofuse.html) |
+| File formats | [PRONOM](https://www.nationalarchives.gov.uk/pronom/), The National Archives. 2,571 formats of DROID signature file V125, under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
 | Sense distributions shift with domain | Koeling, R., McCarthy, D. and Carroll, J. (2005), [*Domain-specific sense distributions and predominant sense acquisition*](https://aclanthology.org/H05-1053/), HLT-EMNLP. A domain's own text ranks senses better than the tagged corpus, which is why 1990s counts underweight computing senses here |
 | Subject labels per sense | [WordNet Domains](https://wndomains.fbk.eu/), Fondazione Bruno Kessler. Domain-less senses are absent from the bundled lift, so the share of a word they hold is reported on no domain rather than redistributed |
 | The platform's own vocabulary | `java.lang.module.ModuleFinder.ofSystem()`, and the class file format, [JVMS §4.4](https://docs.oracle.com/javase/specs/jvms/se21/html/jvms-4.html) |

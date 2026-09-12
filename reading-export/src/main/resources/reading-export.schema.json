@@ -1005,6 +1005,9 @@
         "chanceExpectedBest",
         "median",
         "timesTheBar",
+        "occurrences",
+        "occurrencesChanceExpectedBest",
+        "occurrencesTimesTheBar",
         "atLeastAsExtreme",
         "chanceRate",
         "field",
@@ -1029,6 +1032,22 @@
         },
         "timesTheBar": {
           "description": "`phrases` divided by `chanceExpectedBest`. It is not comparable between two readings whose vocabularies lost different numbers of terms to the corpus, because the bar moves with the count.",
+          "type": "number",
+          "minimum": 0
+        },
+        "occurrences": {
+          "title": "Total occurrences of the matched terms",
+          "description": "How often the repository writes the vocabulary's counted terms in total \u2014 the second counting unit, judged from the same deals. The verdict is the conjunction: a vocabulary is published only where both this count and `phrases` stand above their own bars, because measured at ten thousand deals on the eleven evaluation members each unit alone admits what the other refuses \u2014 distinct terms written once or twice each on one side, a single habitual identifier on the other.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "occurrencesChanceExpectedBest": {
+          "description": "The occurrence count the best of a field this size reaches by chance alone.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "occurrencesTimesTheBar": {
+          "description": "The observed occurrences divided by their own bar, with the same caveat as `timesTheBar`: it is not comparable between two vocabularies.",
           "type": "number",
           "minimum": 0
         },

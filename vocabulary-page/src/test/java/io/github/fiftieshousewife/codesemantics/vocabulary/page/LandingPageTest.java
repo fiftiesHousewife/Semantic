@@ -51,7 +51,7 @@ class LandingPageTest {
                 List.of(), List.of(),
                 List.of(new ExportedTaxonomy(source, List.of(), List.of(),
                         Map.of("words", phrases, "lemmas", 0, "expansions", 0, "senses", 0),
-                        new ExportedTaxonomy.Bar(phrases, bar, bar - 1, timesItsBar, 0, 0.001, 7,
+                        new ExportedTaxonomy.Bar(phrases, bar, bar - 1, timesItsBar, phrases * 20, bar * 20, timesItsBar, 0, 0.001, 7,
                                 FIELD, 999))));
     }
 
@@ -91,7 +91,7 @@ class LandingPageTest {
                                 concept("trade date", 10, 2), concept("value", 90, 1)),
                         List.of(),
                         Map.of("words", 47, "lemmas", 0, "expansions", 0, "senses", 0),
-                        new ExportedTaxonomy.Bar(47, 16, 15, 2.9, 0, 0.001, 7, FIELD, 999))));
+                        new ExportedTaxonomy.Bar(47, 16, 15, 2.9, 940, 320, 2.9, 0, 0.001, 7, FIELD, 999))));
 
         assertThat(landing.markup(List.of(reading)))
                 .as("the repository's own most-written terms say finance as no concept path does, "
@@ -152,7 +152,7 @@ class LandingPageTest {
                 List.of(placement("OpenAlex", "Payment Systems", 0.2, 0.4)),
                 List.of(new ExportedTaxonomy("CSO", List.of(), List.of(),
                         Map.of("words", 2, "lemmas", 0, "expansions", 0, "senses", 0),
-                        new ExportedTaxonomy.Bar(2, 1, 0, 1.3, 0, 0.001, 7, FIELD, 999))));
+                        new ExportedTaxonomy.Bar(2, 1, 0, 1.3, 40, 20, 1.3, 0, 0.001, 7, FIELD, 999))));
 
         final String page = landing.markup(List.of(both));
 
@@ -196,7 +196,7 @@ class LandingPageTest {
                 List.of(), List.of(),
                 List.of(new ExportedTaxonomy("FIBO", List.of(), List.of(),
                         Map.of("words", 6, "lemmas", 0, "expansions", 0, "senses", 0),
-                        new ExportedTaxonomy.Bar(6, 3, 2, 2.0, 0, 0.001, 7, FIELD, 999))));
+                        new ExportedTaxonomy.Bar(6, 3, 2, 2.0, 120, 60, 2.0, 0, 0.001, 7, FIELD, 999))));
 
         assertThat(landing.markup(List.of(reading)))
                 .contains("Also: BIAN \u2014 Card Capture, under Cards.");

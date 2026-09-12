@@ -30,7 +30,7 @@ final class AnswerFromATaxonomy {
                 answering.isPresent()
                         ? statedOrNothing(answering.get().definition())
                         : statedOrNothing(covers(vocabulary.vocabulary())),
-                qualifiedBy, vocabulary.bar().timesTheBar());
+                qualifiedBy, vocabulary.bar().bindingMultiple());
     }
 
     /** The prose where the publisher states any, and an absent field rather than an empty one where not. */

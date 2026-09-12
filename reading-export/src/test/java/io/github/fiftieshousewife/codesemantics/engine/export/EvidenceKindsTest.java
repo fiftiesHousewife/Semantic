@@ -32,7 +32,7 @@ class EvidenceKindsTest {
                                             final int phrases, final int bar) {
         return new ExportedTaxonomy(vocabulary, List.of(phrase(vocabulary + "Concept", placedUnder, 10)),
                 List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
+                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, (double) phrases / bar, phrases * 20, bar * 20, (double) phrases / bar, 0, 0.001, 7, FIELD, 999));
     }
 
     private static ExportedPlacement.Level level(final String subject, final boolean apart) {
@@ -60,7 +60,7 @@ class EvidenceKindsTest {
 
     private static ExportedTaxonomy vocabulary(final List<ExportedConcept> concepts) {
         return new ExportedTaxonomy("FpML", concepts, List.of(), Map.of(),
-                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 0, 0.001, 7, FIELD, 999));
+                new ExportedTaxonomy.Bar(4, 2, 1, 2.0, 80, 40, 2.0, 0, 0.001, 7, FIELD, 999));
     }
 
     @Test

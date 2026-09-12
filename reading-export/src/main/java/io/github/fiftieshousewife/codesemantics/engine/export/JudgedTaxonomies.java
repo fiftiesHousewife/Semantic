@@ -12,7 +12,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.CorroboratedReading;
 import io.github.fiftieshousewife.codesemantics.engine.term.LinguisticTerms;
-import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
+import io.github.fiftieshousewife.codesemantics.engine.term.ConjunctionBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.SpecificTerms;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedAncestry;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
@@ -57,8 +57,8 @@ final class JudgedTaxonomies {
                         Stream.<TermIndex>of(LinguisticTerms.fromClasspath()), alsoMatched.stream())
                 .toList());
         final List<SpecificTerms> judged = published.stream().map(SpecificTerms::of).toList();
-        final List<PhraseBar> bars = TermOrderNull.seeded(reading.seed())
-                .over(WrittenRuns.fromClasspath().in(reading.parsed()), List.copyOf(judged));
+        final List<ConjunctionBar> bars = TermOrderNull.seeded(reading.seed())
+                .inBothUnitsOver(WrittenRuns.fromClasspath().in(reading.parsed()), List.copyOf(judged));
         final List<CorroboratedReading> matchings = new ArrayList<>(List.of(terms));
         IntStream.range(1, published.size()).forEach(at -> matchings.add(CorroboratedReading.of(
                 judged.get(at), published.get(at).publishedConcepts(), reading.parsed())));
@@ -74,7 +74,7 @@ final class JudgedTaxonomies {
     }
 
     private static ExportedTaxonomy olia(final CorroboratedReading terms, final TopicDistribution reads,
-                                         final SubjectAreas areas, final PhraseBar bar) {
+                                         final SubjectAreas areas, final ConjunctionBar bar) {
         final StatedAncestry ancestry = new StatedAncestry(LinguisticTerms.fromClasspath());
         final List<SkosConcept> concepts = OliaTerms.fromClasspath().concepts();
         return new ExportedTaxonomies().of(LinguisticTerms.fromClasspath().source(), terms.matched(),
@@ -84,7 +84,7 @@ final class JudgedTaxonomies {
 
     private static ExportedTaxonomy judged(final TopicDistribution reads, final SubjectAreas areas,
                                            final TermIndex index, final CorroboratedReading matching,
-                                           final PhraseBar bar) {
+                                           final ConjunctionBar bar) {
         final StatedAncestry ancestry = new StatedAncestry(index);
         final List<SkosConcept> concepts = index.publishedConcepts();
         return new ExportedTaxonomies().of(index.source(), matching.matched(),

@@ -67,6 +67,14 @@ public enum TermVocabularies {
         public List<SkosConcept> concepts() {
             return BianServiceDomains.fromClasspath().concepts();
         }
+    },
+
+    /** PRONOM, the National Archives' registry of document formats. */
+    PRONOM("pronom-formats.tsv") {
+        @Override
+        public List<SkosConcept> concepts() {
+            return PronomFormats.fromClasspath().concepts();
+        }
     };
 
     private final String resource;

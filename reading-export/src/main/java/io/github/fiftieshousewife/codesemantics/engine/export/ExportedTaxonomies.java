@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.term.BranchAgreement;
 import io.github.fiftieshousewife.codesemantics.engine.term.MatchedTerms;
-import io.github.fiftieshousewife.codesemantics.engine.term.PhraseBar;
+import io.github.fiftieshousewife.codesemantics.engine.term.ConjunctionBar;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescription;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedDescriptions;
 import io.github.fiftieshousewife.codesemantics.engine.term.StatedPaths;
@@ -34,16 +34,19 @@ public final class ExportedTaxonomies {
 
     /** Every normalisation level, including the ones producing no match, which read as a zero. */
     public ExportedTaxonomy of(final String vocabulary, final MatchedTerms matched,
-                               final BranchAgreement agreement, final PhraseBar bar,
+                               final BranchAgreement agreement, final ConjunctionBar bar,
                                final StatedPaths paths, final StatedDescriptions described) {
         return new ExportedTaxonomy(vocabulary, concepts(matched, paths, described),
                 branches(matched, agreement), matchesByNormalisation(matched), barOf(bar));
     }
 
-    private static ExportedTaxonomy.Bar barOf(final PhraseBar bar) {
-        return new ExportedTaxonomy.Bar(bar.observed(), bar.chanceExpectedBest(), bar.median(),
-                bar.timesTheBar(), bar.atLeastAsExtreme(), bar.chanceRate(), bar.field().size(),
-                bar.field(), bar.resamples());
+    /** The deal statistics beyond the two counts — median, extremes, rate — are the term unit's. */
+    private static ExportedTaxonomy.Bar barOf(final ConjunctionBar bar) {
+        return new ExportedTaxonomy.Bar(bar.terms().observed(), bar.terms().chanceExpectedBest(),
+                bar.terms().median(), bar.terms().timesTheBar(), bar.occurrences().observed(),
+                bar.occurrences().chanceExpectedBest(), bar.occurrences().timesTheBar(),
+                bar.terms().atLeastAsExtreme(), bar.terms().chanceRate(), bar.terms().field().size(),
+                bar.terms().field(), bar.terms().resamples());
     }
 
     /**

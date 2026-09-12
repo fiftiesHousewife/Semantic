@@ -7,6 +7,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.theme.InjectedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.lexicon.CweTerms;
 import io.github.fiftieshousewife.codesemantics.lexicon.FixTerms;
+import io.github.fiftieshousewife.codesemantics.lexicon.PronomFormats;
 import io.github.fiftieshousewife.codesemantics.lexicon.FpmlTerms;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 import io.github.fiftieshousewife.codesemantics.lexicon.TermVocabularies;
@@ -96,6 +97,18 @@ public enum BundledTaxonomies {
         @Override
         public TermIndex index() {
             return InjectedTerms.of(InjectedTaxonomy.of(publishedConcepts(), source()), source());
+        }
+    },
+
+    /**
+     * PRONOM, the National Archives' registry of document formats: the first candidate to pass the
+     * out-of-domain control — on the eleven evaluation members it clears its bar only where documents are
+     * the subject.
+     */
+    PRONOM(TermVocabularies.PRONOM) {
+        @Override
+        public TermIndex index() {
+            return InjectedTerms.of(PronomFormats.fromClasspath(), source());
         }
     };
 

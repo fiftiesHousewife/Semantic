@@ -26,7 +26,7 @@ class FindingSentencesTest {
                                                final List<ExportedConcept> concepts) {
         return new ExportedTaxonomy(source, concepts, List.of(),
                 Map.of("words", phrases, "lemmas", 0, "expansions", 0, "senses", 0),
-                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, bar == 0 ? 0.0 : (double) phrases / bar,
+                new ExportedTaxonomy.Bar(phrases, bar, bar - 1, bar == 0 ? 0.0 : (double) phrases / bar, phrases * 20, bar * 20, bar == 0 ? 0.0 : (double) phrases / bar,
                         0, 0.001, 7, FIELD, 999));
     }
 
@@ -116,9 +116,9 @@ class FindingSentencesTest {
     void saysNothingQualifiedWithTheCountOfVocabulariesJudged() {
         final ReadingExport reading = reading(List.of(ExportedAnswer.NONE), List.of(),
                 List.of(new SetAside.RefusedVocabulary("CSO",
-                                new ExportedTaxonomy.Bar(1, 2, 1, 0.5, 500, 0.5, 7, FIELD, 999)),
+                                new ExportedTaxonomy.Bar(1, 2, 1, 0.5, 20, 40, 0.5, 500, 0.5, 7, FIELD, 999)),
                         new SetAside.RefusedVocabulary("FIX",
-                                new ExportedTaxonomy.Bar(0, 3, 2, 0.0, 999, 1.0, 7, FIELD, 999))),
+                                new ExportedTaxonomy.Bar(0, 3, 2, 0.0, 0, 60, 0.0, 999, 1.0, 7, FIELD, 999))),
                 List.of());
 
         assertThat(sentences.of(reading)).singleElement()

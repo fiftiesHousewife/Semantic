@@ -60,11 +60,13 @@ public enum EvidenceKinds {
         List<ExportedAnswer> of(final ReadingExport reading) {
             return reading.taxonomies().stream()
                     .filter(one -> one.bar().chanceExpectedBest() > 0)
-                    .sorted(Comparator.comparingDouble((ExportedTaxonomy one) -> one.bar().timesTheBar())
+                    .sorted(Comparator.comparingDouble((ExportedTaxonomy one) -> one.bar().bindingMultiple())
                             .reversed())
                     .map(one -> TAXONOMY.of(one, TermLength.PHRASE, String.format(Locale.ROOT,
-                            "%d phrases against the %d a deal of its own words reaches",
-                            one.bar().phrases(), one.bar().chanceExpectedBest())))
+                            "%d phrases against the %d a deal of its own words reaches, and %d "
+                                    + "occurrences against the deals\u2019 %d",
+                            one.bar().phrases(), one.bar().chanceExpectedBest(),
+                            one.bar().occurrences(), one.bar().occurrencesChanceExpectedBest())))
                     .toList();
         }
     },
