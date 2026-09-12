@@ -37,6 +37,25 @@ class PullRequestSetTest {
     }
 
     @Test
+    void findsTheStatementTheFetchWroteBesideADirectory() throws IOException {
+        manifest("# Columns: number, author, head-sha, base-sha, directory, retrieved, files",
+                row(3154, "pr-3154"),
+                row(3153, "pr-3153"));
+        Files.writeString(fetched.resolve("pr-3154-statement.md"), "TIKA-4889: Inference engines");
+        Files.writeString(fetched.resolve("pr-3154-template.md"), "Thanks for your contribution!");
+
+        final PullRequestSet set = PullRequestSet.under(fetched);
+
+        assertAll(
+                () -> assertThat(set.statementOf(set.pullRequests().getFirst()))
+                        .contains(fetched.resolve("pr-3154-statement.md")),
+                () -> assertThat(set.templateOf(set.pullRequests().getFirst()))
+                        .contains(fetched.resolve("pr-3154-template.md")),
+                () -> assertThat(set.statementOf(set.pullRequests().getLast())).isEmpty(),
+                () -> assertThat(set.templateOf(set.pullRequests().getLast())).isEmpty());
+    }
+
+    @Test
     void refusesARowStatingTooFewColumns() throws IOException {
         manifest("3154\ttballison\t" + HEAD);
 

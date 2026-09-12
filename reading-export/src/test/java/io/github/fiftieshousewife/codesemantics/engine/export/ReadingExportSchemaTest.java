@@ -73,7 +73,9 @@ class ReadingExportSchemaTest {
             "fa7ea0996857fd785d782d0cb887c04b996dddb9", 11,
             Map.of("ordinary English", 0.0004),
             List.of(new ExportedSignal(ReadingSource.PULL_REQUEST, "inference", 12, 9, 0.03, 0.025,
-                    "ordinary English", new SightingSite("Engine.java", 3))));
+                    "ordinary English", new SightingSite("Engine.java", 3))),
+            new ExportedStatement(4, 31, 0.42, 0.19, 0.001, 999,
+                    List.of(new ExportedStatement.StatedTopic("computing", 0.11, 0.6, 0.2))));
 
     private final ExportFile file = new ExportFile();
 
@@ -183,6 +185,29 @@ class ReadingExportSchemaTest {
                 () -> assertThat(with.taxonomies()).isEqualTo(EXPORT.taxonomies()),
                 () -> assertThat(with.setAside()).isEqualTo(EXPORT.setAside()),
                 () -> assertThat(with.pullRequests()).containsExactly(PULL_REQUEST_READ));
+    }
+
+    @Test
+    void admitsAPullRequestCarryingNoStatement() throws IOException {
+        final ReadingExport with = EXPORT.withPullRequests(List.of(new ExportedPullRequest(3153,
+                "tballison", "7c80965e8f14c0465c7fdf3858009ed6cb691c30",
+                "68e57621168adf9e8e3004e3ff4ea6fd5e4c3cd7", 35, Map.of(), List.of())));
+
+        final String document = file.of(with);
+
+        assertAll(
+                () -> assertThat(schema.refusals(new ObjectMapper().readTree(document))).isEmpty(),
+                () -> assertThat(document)
+                        .as("an unfetched statement is absent, never null")
+                        .doesNotContain("\"statement\""));
+    }
+
+    @Test
+    void refusesAStatementDivergenceOutsideItsOwnBound() throws IOException {
+        final String impossible = file.of(EXPORT.withPullRequests(List.of(PULL_REQUEST_READ)))
+                .replace("0.42,", "1.42,");
+
+        assertThat(schema.refusals(new ObjectMapper().readTree(impossible))).isNotEmpty();
     }
 
     @Test

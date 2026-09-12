@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * One pull request read beside the working tree: what the host states about it, and the signals its changed
  * files carry against the pull request's own chance thresholds.
@@ -21,9 +23,13 @@ import java.util.TreeMap;
  * @param files      how many changed files were read
  * @param thresholds the threshold each reference's own permutation null sets for these files, in bits
  * @param signals    the words and published phrases clearing every one of those thresholds
+ * @param statement  what the pull request says beside what it writes, and absent where no statement was
+ *                   fetched or none of it could be read
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ExportedPullRequest(int number, String author, String headSha, String baseSha, int files,
-                                  Map<String, Double> thresholds, List<ExportedSignal> signals) {
+                                  Map<String, Double> thresholds, List<ExportedSignal> signals,
+                                  ExportedStatement statement) {
 
     public ExportedPullRequest {
         Objects.requireNonNull(author, "author");
@@ -31,5 +37,17 @@ public record ExportedPullRequest(int number, String author, String headSha, Str
         Objects.requireNonNull(baseSha, "baseSha");
         thresholds = Collections.unmodifiableSortedMap(new TreeMap<>(thresholds));
         signals = List.copyOf(signals);
+    }
+
+    public ExportedPullRequest(final int number, final String author, final String headSha,
+                               final String baseSha, final int files, final Map<String, Double> thresholds,
+                               final List<ExportedSignal> signals) {
+        this(number, author, headSha, baseSha, files, thresholds, signals, null);
+    }
+
+    /** The same reading with this statement beside it. Nothing already read moves. */
+    public ExportedPullRequest withStatement(final ExportedStatement stated) {
+        return new ExportedPullRequest(number, author, headSha, baseSha, files, thresholds, signals,
+                stated);
     }
 }

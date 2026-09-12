@@ -1,10 +1,14 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
+
+import io.github.fiftieshousewife.codesemantics.engine.parse.AuthoredLines;
+import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 
 import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
@@ -75,10 +79,38 @@ public final class ExportCommand {
 
     private static List<ExportedPullRequest> read(final PullRequestSet set) {
         final ExportedPullRequests exported = new ExportedPullRequests();
+        final int statements = (int) set.pullRequests().stream()
+                .filter(pullRequest -> set.statementOf(pullRequest).isPresent())
+                .count();
         return set.pullRequests().stream()
-                .map(pullRequest -> exported.of(pullRequest.facts(),
-                        TreeReading.of(set.treeOf(pullRequest)).reading()))
+                .map(pullRequest -> read(exported, set, pullRequest, statements))
                 .toList();
+    }
+
+    /** The statements are judged together, so each is priced against the field of all of them. */
+    private static ExportedPullRequest read(final ExportedPullRequests exported, final PullRequestSet set,
+                                            final PullRequestSet.PullRequest pullRequest,
+                                            final int statements) {
+        final RepositoryReading reading = TreeReading.of(set.treeOf(pullRequest)).reading();
+        return set.statementOf(pullRequest)
+                .map(statement -> exported.of(pullRequest.facts(), reading,
+                        authored(statement, set.templateOf(pullRequest)), statements))
+                .orElseGet(() -> exported.of(pullRequest.facts(), reading));
+    }
+
+    /** The statement without the lines the host's own template supplied, where the fetch pinned one. */
+    private static String authored(final Path statement, final Optional<Path> template) {
+        return template
+                .map(pinned -> AuthoredLines.of(textIn(statement), textIn(pinned)))
+                .orElseGet(() -> textIn(statement));
+    }
+
+    private static String textIn(final Path file) {
+        try {
+            return Files.readString(file);
+        } catch (final IOException e) {
+            throw new UncheckedIOException("Failed to read " + file, e);
+        }
     }
 
     /**

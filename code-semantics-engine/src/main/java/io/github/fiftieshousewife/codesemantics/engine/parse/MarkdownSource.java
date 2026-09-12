@@ -16,12 +16,17 @@ import java.util.stream.IntStream;
  * not read as being about whatever the code sample beneath it calls.
  *
  * <p>Link targets go too. A URL is an address, and the words inside one belong to whoever owns the domain.
+ *
+ * <p>An HTML comment goes because no renderer shows it: what a document says is what its reader sees, and a
+ * licence header hidden in a comment is boilerplate the author was never stating. Fenced blocks are blanked
+ * first, so a comment opener quoted inside an example cannot swallow the prose after it.
  */
 public final class MarkdownSource implements SourceReader {
 
     private static final String MARKDOWN_SUFFIX = ".md";
 
     private static final Pattern FENCED_BLOCK = Pattern.compile("(?ms)^```.*?^```\\s*$");
+    private static final Pattern HTML_COMMENT = Pattern.compile("(?s)<!--.*?-->");
     private static final Pattern INLINE_CODE = Pattern.compile("`[^`]*`");
     private static final Pattern LINK_TARGET = Pattern.compile("]\\([^)]*\\)|https?://\\S+");
     private static final Pattern MARKDOWN_FURNITURE = Pattern.compile("[#>|*_\\[\\]-]+");
@@ -42,11 +47,16 @@ public final class MarkdownSource implements SourceReader {
     }
 
     /**
-     * Fenced blocks are blanked line for line rather than removed, so every line number after one still
-     * points at the line a reader would find.
+     * Fenced blocks and HTML comments are blanked line for line rather than removed, so every line number
+     * after one still points at the line a reader would find.
      */
     private static String withoutCode(final String source) {
-        return FENCED_BLOCK.matcher(source)
+        final String withoutFences = blanked(FENCED_BLOCK, source);
+        return blanked(HTML_COMMENT, withoutFences);
+    }
+
+    private static String blanked(final Pattern hidden, final String source) {
+        return hidden.matcher(source)
                 .replaceAll(block -> block.group()
                         .replaceAll("[^\n]", ""));
     }

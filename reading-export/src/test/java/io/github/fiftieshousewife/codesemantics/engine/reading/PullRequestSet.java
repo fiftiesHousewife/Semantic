@@ -19,6 +19,8 @@ import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
 public final class PullRequestSet {
 
     static final String MANIFEST = "pull-requests.tsv";
+    static final String STATEMENT_SUFFIX = "-statement.md";
+    static final String TEMPLATE_SUFFIX = "-template.md";
     private static final String COMMENT = "#";
     private static final String COLUMN = "\t";
     private static final int COLUMNS = 7;
@@ -76,6 +78,27 @@ public final class PullRequestSet {
     /** The directory holding this pull request's changed files, beneath the manifest's own. */
     public Path treeOf(final PullRequest pullRequest) {
         return directory.resolve(pullRequest.directory());
+    }
+
+    /**
+     * What the pull request says — the statement the fetch wrote beside its directory, where it wrote one.
+     * It sits beside the directory and never inside it, so a reading of the changed files cannot walk it.
+     */
+    public Optional<Path> statementOf(final PullRequest pullRequest) {
+        return besides(pullRequest, STATEMENT_SUFFIX);
+    }
+
+    /**
+     * The repository's own pull request template at the head commit, where the fetch found one stated. A
+     * statement line the template states is the host's prose, and the reading subtracts it.
+     */
+    public Optional<Path> templateOf(final PullRequest pullRequest) {
+        return besides(pullRequest, TEMPLATE_SUFFIX);
+    }
+
+    private Optional<Path> besides(final PullRequest pullRequest, final String suffix) {
+        final Path file = directory.resolve(pullRequest.directory() + suffix);
+        return Files.isRegularFile(file) ? Optional.of(file) : Optional.empty();
     }
 
     private static PullRequest pullRequest(final String line) {

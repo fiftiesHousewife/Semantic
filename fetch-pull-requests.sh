@@ -15,6 +15,14 @@
 # own .readingignore travels with every pull request that has one at its head, because a copy without the
 # tree's stated exclusions would read files the original refuses.
 #
+# What the pull request says — its title, its description and the messages of its commits, as the API states
+# them at retrieval — is written verbatim to pr-<number>-statement.md beside the directory, never inside it:
+# a statement inside the directory would be read as one of the changed files, and the reading keeps what a
+# pull request says apart from what it writes. The repository's own pull request template at the head
+# commit, where it states one, is written to pr-<number>-template.md beside the statement, so the reading
+# can tell the author's words from the lines the host's template supplied. Re-running the script writes a
+# missing statement or template for a directory it keeps.
+#
 # Usage: ./fetch-pull-requests.sh <owner/name> <clone-directory> [target-directory]
 #        PR_AUTHOR=<login>  ./fetch-pull-requests.sh apache/tika ~/evaluation/tika
 #        PR_NUMBERS="7 213" ./fetch-pull-requests.sh apache/tika ~/evaluation/tika ~/pull-requests/tika
@@ -83,11 +91,50 @@ changed_files() {
     done
 }
 
+statement() {
+    local number="$1" file="pr-$number-statement.md"
+    if [ -f "$TARGET/$file" ]; then
+        return
+    fi
+    {
+        api "repos/$REPOSITORY/pulls/$number" | jq -r '.title, "", (.body // "")'
+        local page listed
+        for page in $(seq 1 3); do
+            listed=$(api "repos/$REPOSITORY/pulls/$number/commits?per_page=100&page=$page")
+            [ "$(printf '%s' "$listed" | jq 'length')" -gt 0 ] || break
+            printf '%s' "$listed" | jq -r '.[] | "", .commit.message'
+        done
+    } > "$TARGET/$file"
+    printf 'stated   %s\n' "$file"
+}
+
+# The paths GitHub reads a pull request template from, most specific first.
+TEMPLATE_PATHS=".github/pull_request_template.md .github/PULL_REQUEST_TEMPLATE.md \
+pull_request_template.md PULL_REQUEST_TEMPLATE.md docs/pull_request_template.md \
+docs/PULL_REQUEST_TEMPLATE.md"
+
+template() {
+    local number="$1" head="$2" file="pr-$number-template.md"
+    if [ -f "$TARGET/$file" ]; then
+        return
+    fi
+    local path
+    for path in $TEMPLATE_PATHS; do
+        if git -C "$CLONE" cat-file -e "$head:$path" 2>/dev/null; then
+            git -C "$CLONE" cat-file blob "$head:$path" > "$TARGET/$file"
+            printf 'template %s (%s at the head commit)\n' "$file" "$path"
+            return
+        fi
+    done
+}
+
 fetch() {
     local number="$1" author="$2" head="$3" base="$4"
     local directory="pr-$number"
     if [ -d "$TARGET/$directory" ]; then
         printf 'kept     %s (already present; delete it to re-fetch)\n' "$directory"
+        statement "$number"
+        template "$number" "$head"
         return
     fi
     git -C "$CLONE" fetch --quiet origin "refs/pull/$number/head"
@@ -108,6 +155,8 @@ fetch() {
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "$number" "$author" "$head" "$base" "$directory" "$(date -u +%Y-%m-%d)" "$changed" >> "$MANIFEST"
     printf 'fetched  %s  %s  %s changed files\n' "$directory" "$head" "$changed"
+    statement "$number"
+    template "$number" "$head"
 }
 
 while IFS=$'\t' read -r number author head base; do
