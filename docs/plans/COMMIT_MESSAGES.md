@@ -16,6 +16,20 @@ The research frames the question the same way. Message-against-change inconsiste
 
 **What settles it**: the three tballison pull requests already pinned at `~/evaluation/pull-requests/tika`. PR 3154's messages say inference engines and bindings; its written signals lead with `component`, `load`, `config`. The measure must separate that pair from a pull request whose message matches its diff, and the three divergences are published as readings of the pinned heads. **Abandon if** the safeguard cannot be demonstrated — a reading of the pull request's code with and without its prose supplied must be identical — or if the divergence on the three does not track the gap a person sees.
 
+**Landed 2026-09-12, at reading schema 30.0.** `fetch-pull-requests.sh` writes `pr-<n>-statement.md` — title, description and commit messages verbatim, as the API states them at retrieval — and `pr-<n>-template.md`, the repository's own pull request template at the head commit, beside each directory and never inside it. The reading subtracts every statement line the template states verbatim (`AuthoredLines`: the untouched template is the host's prose, and the subtraction is cited to the repository's own published file), blanks HTML comments as markdown grammar (`MarkdownSource`, because no renderer shows them), reads what remains through the documentation pipeline (`ProseReading`), and publishes the Jensen–Shannon divergence against the changed files' reading in `pullRequests[].statement`, beside the bar `StatementNull` draws: 999 chance statements of the same sentence shape, filled from the tree's own written words at the reading's seed, the bar at the chance-expected furthest of the statements judged together. The safeguard is held by `ExportedPullRequestsTest`: the block with the statement and without it is identical outside `statement`, and a stated word never returns as a signal.
+
+The three readings of the pinned heads, committed in `output/tika/json/reading.json`:
+
+| Pull request | Sentences | Words | Divergence | Its bar | Chance rate |
+|---|---|---|---|---|---|
+| 3153 | 4 | 33 | 0.382 bits | 0.581 | 0.962 |
+| 3154 | 2 | 13 | 0.460 bits | 0.712 | 0.989 |
+| 3156 | 3 | 23 | 0.635 bits | 0.649 | 0.300 |
+
+No statement diverges past its bar. The finding is the other tail: 3153 and 3154 sit closer to their changed files than 96 and 99 of 100 chance statements — each states the code it ships with — and 3156, whose authored prose is one line about a rename plus a merge commit's message, fits worst. This section's expectation that 3154 would separate as a gap conflated two instruments: its *signals* lead with `component`, `load`, `config` against English and the corpus, but in topic space "engines config section" and engine-configuration code agree. The subtraction demonstrated the hazard it exists for: before it, the shared template held every statement at ~250 words and the three divergences barely separated.
+
+**Open here**: a statement below its bar publishes no per-topic decomposition, so the agreement the chance rate states is not yet named in topics — what a reviewer's sentence should say about agreement is section 4's question, and the change-process line in 3156's statement (`Merge branch …`) is section 6's.
+
 ## 2. The commit history as its own scope
 
 The whole history's messages, read as one prose scope of the repository: `git log --format=%B` at the pinned HEAD, written to a file by a fetch step, handed to the reading by path.
