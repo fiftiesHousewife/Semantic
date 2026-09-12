@@ -1,0 +1,162 @@
+{
+  "previousCommit" : "fb165e781ffbe690347a50824eb22c6964b04f13",
+  "commit" : "1416541e584f15ccf11000c174c9d84316aa187b",
+  "moved" : [ {
+    "figure" : "λ — words a resource can be cited for",
+    "before" : "98.2%",
+    "after" : "98.2%"
+  }, {
+    "figure" : "Mass settled on no subject",
+    "before" : "84.3%",
+    "after" : "84.3%"
+  }, {
+    "figure" : "arXiv archive — nearest subject",
+    "before" : "Computer Science",
+    "after" : "Computer Science"
+  }, {
+    "figure" : "arXiv archive — divergence",
+    "before" : "33.0%",
+    "after" : "33.0%"
+  }, {
+    "figure" : "arXiv archive — chance reaches",
+    "before" : "40.8%",
+    "after" : "40.9%"
+  }, {
+    "figure" : "arXiv archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv archive — subjects nearer than chance",
+    "before" : "1",
+    "after" : "1"
+  }, {
+    "figure" : "arXiv category — nearest subject",
+    "before" : "Computation and Language",
+    "after" : "Computation and Language"
+  }, {
+    "figure" : "arXiv category — divergence",
+    "before" : "42.4%",
+    "after" : "42.4%"
+  }, {
+    "figure" : "arXiv category — chance reaches",
+    "before" : "45.2%",
+    "after" : "45.2%"
+  }, {
+    "figure" : "arXiv category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "arXiv category — subjects nearer than chance",
+    "before" : "1",
+    "after" : "1"
+  }, {
+    "figure" : "OpenAlex archive — nearest subject",
+    "before" : "Artificial Intelligence",
+    "after" : "Artificial Intelligence"
+  }, {
+    "figure" : "OpenAlex archive — divergence",
+    "before" : "24.1%",
+    "after" : "24.1%"
+  }, {
+    "figure" : "OpenAlex archive — chance reaches",
+    "before" : "31.3%",
+    "after" : "31.4%"
+  }, {
+    "figure" : "OpenAlex archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex archive — subjects nearer than chance",
+    "before" : "5",
+    "after" : "5"
+  }, {
+    "figure" : "OpenAlex category — nearest subject",
+    "before" : "Authorship Attribution and Profiling",
+    "after" : "Authorship Attribution and Profiling"
+  }, {
+    "figure" : "OpenAlex category — divergence",
+    "before" : "41.5%",
+    "after" : "41.5%"
+  }, {
+    "figure" : "OpenAlex category — chance reaches",
+    "before" : "48.7%",
+    "after" : "48.7%"
+  }, {
+    "figure" : "OpenAlex category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "OpenAlex category — subjects nearer than chance",
+    "before" : "7",
+    "after" : "7"
+  }, {
+    "figure" : "CSO archive — nearest subject",
+    "before" : "linguistics",
+    "after" : "linguistics"
+  }, {
+    "figure" : "CSO archive — divergence",
+    "before" : "19.6%",
+    "after" : "19.6%"
+  }, {
+    "figure" : "CSO archive — chance reaches",
+    "before" : "26.7%",
+    "after" : "26.8%"
+  }, {
+    "figure" : "CSO archive — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "CSO archive — subjects nearer than chance",
+    "before" : "3",
+    "after" : "3"
+  }, {
+    "figure" : "CSO category — nearest subject",
+    "before" : "information technology",
+    "after" : "information technology"
+  }, {
+    "figure" : "CSO category — divergence",
+    "before" : "24.5%",
+    "after" : "24.5%"
+  }, {
+    "figure" : "CSO category — chance reaches",
+    "before" : "28.7%",
+    "after" : "28.8%"
+  }, {
+    "figure" : "CSO category — stands apart from chance",
+    "before" : "yes",
+    "after" : "yes"
+  }, {
+    "figure" : "CSO category — subjects nearer than chance",
+    "before" : "3",
+    "after" : "3"
+  }, {
+    "figure" : "Words above the bar",
+    "before" : "280",
+    "after" : "280"
+  }, {
+    "figure" : "Topics reported",
+    "before" : "11",
+    "after" : "11"
+  }, {
+    "figure" : "Concepts written",
+    "before" : "169",
+    "after" : "169"
+  } ],
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "bars",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "vocabularies",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "length",
+    "entered" : false
+  }, {
+    "population" : "WORD",
+    "name" : "pool",
+    "entered" : false
+  } ]
+}
