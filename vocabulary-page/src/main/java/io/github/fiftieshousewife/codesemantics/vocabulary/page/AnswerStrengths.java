@@ -23,8 +23,12 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  */
 final class AnswerStrengths {
 
-    /** One answer at its strength: the kind names its unit, and the ratio is times-its-own-chance-figure. */
-    record Strength(String kind, String source, String subject, double ratio) {
+    /**
+     * One answer at its strength: the kind names its unit, the ratio is times-its-own-chance-figure, and
+     * contenders is how many subjects the placement's chance margin cannot separate — 1 where the subject
+     * stands alone, and always 1 for a vocabulary, whose bar judges a count rather than a nearest.
+     */
+    record Strength(String kind, String source, String subject, double ratio, int contenders) {
 
         static final String VOCABULARY = "vocabulary";
         static final String SCHEME = "scheme";
@@ -50,7 +54,7 @@ final class AnswerStrengths {
         return reading.summary().answers().stream()
                 .filter(answer -> answer.timesItsBar() != null)
                 .map(answer -> new Strength(Strength.VOCABULARY, answer.source(), answer.result(),
-                        answer.timesItsBar()));
+                        answer.timesItsBar(), 1));
     }
 
     private static Stream<Strength> placements(final ReadingExport reading) {
@@ -58,7 +62,8 @@ final class AnswerStrengths {
                 .flatMap(placement -> Stream.of(placement.archive(), placement.category())
                         .filter(ExportedPlacement.Level::standsApartFromChance)
                         .map(level -> new Strength(Strength.SCHEME, placement.scheme(),
-                                level.subject(), ratioOf(level)))
+                                level.subject(), ratioOf(level),
+                                Math.max(1, level.nearerThanChance().size())))
                         .max(Comparator.comparingDouble(Strength::ratio))
                         .stream());
     }

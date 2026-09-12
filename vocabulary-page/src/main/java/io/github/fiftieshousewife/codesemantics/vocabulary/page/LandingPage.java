@@ -104,6 +104,13 @@ public final class LandingPage {
             return sentences.of(reading).getFirst();
         }
         if (AnswerStrengths.Strength.SCHEME.equals(top.get().kind())) {
+            if (top.get().contenders() > 1) {
+                return String.format(Locale.ROOT,
+                        "No single subject: %s cannot separate %d subjects at its chance margin; %s is "
+                                + "nominally nearest, %s.",
+                        top.get().source(), top.get().contenders(),
+                        PublishedSpelling.shown(top.get().subject()), top.get().label());
+            }
             return String.format(Locale.ROOT, "About %s — placed there by %s, %s.",
                     PublishedSpelling.shown(top.get().subject()), top.get().source(),
                     top.get().label());

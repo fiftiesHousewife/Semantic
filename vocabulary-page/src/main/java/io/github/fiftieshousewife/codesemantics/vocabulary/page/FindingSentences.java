@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Locale;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
@@ -35,22 +37,49 @@ public final class FindingSentences {
             .collect(Collectors.toMap(TermVocabularies::publisher,
                     vocabulary -> vocabulary.stated().subject()));
 
+    /** How many matched terms a card quotes; the whole list is on the member page. */
+    private static final int QUOTED_TERMS = 4;
+
     /**
-     * The claim alone, for a card: what the vocabulary states and where it places its most-written
-     * concept. The figures stand in the marks beside it and the workings once in the page's own lede.
+     * The claim alone, for a card, in the repository's own words: the subject the source's header states,
+     * the count, and the most-written matched terms — {@code present value, settlement date, trade date}
+     * says finance as no concept path does. The figures stand in the marks beside it and the workings once
+     * in the page's own lede.
      */
     public String cardClaim(final ReadingExport reading, final ExportedAnswer answer) {
         final ExportedTaxonomy vocabulary = reading.taxonomies().stream()
                 .filter(one -> one.vocabulary().equals(answer.source()))
                 .findFirst()
                 .orElseThrow();
-        final String stated = aBarWasFormed(reading)
-                ? String.format(Locale.ROOT, "%s states %d of its phrases in the declared names.",
-                        vocabulary.vocabulary(), vocabulary.bar().phrases())
-                : oneWordTerms(vocabulary);
-        final String claim = stated + named(answer);
+        final String counted = aBarWasFormed(reading)
+                ? String.format(Locale.ROOT, "writes %d of %s\u2019s phrases",
+                        vocabulary.bar().phrases(), vocabulary.vocabulary())
+                : String.format(Locale.ROOT, "writes %d of %s\u2019s one-word terms",
+                        vocabulary.concepts().stream()
+                                .filter(concept -> concept.wordsInTerm() == 1)
+                                .count(),
+                        vocabulary.vocabulary());
+        final String terms = mostWrittenTerms(vocabulary);
+        final String claim = terms.isEmpty() ? counted + "." : counted + " \u2014 " + terms + ".";
         final String subject = SUBJECT_BY_SOURCE.get(answer.source());
-        return subject == null ? claim : "About " + subject + ": " + claim;
+        return subject == null ? capitalised(claim) : "About " + subject + ": " + claim;
+    }
+
+    /** The most-written matched terms, phrases before single words, as the repository spelled them. */
+    private static String mostWrittenTerms(final ExportedTaxonomy vocabulary) {
+        return vocabulary.concepts().stream()
+                .sorted(Comparator.comparingInt((ExportedConcept concept) -> concept.wordsInTerm() > 1
+                                ? 0 : 1)
+                        .thenComparing(Comparator.comparingInt(ExportedConcept::occurrences).reversed()))
+                .map(ExportedConcept::term)
+                .map(PublishedSpelling::shown)
+                .distinct()
+                .limit(QUOTED_TERMS)
+                .collect(Collectors.joining(", "));
+    }
+
+    private static String capitalised(final String sentence) {
+        return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
     }
 
     /** One sentence per entry of {@code summary.answers}, in the export's own order. */

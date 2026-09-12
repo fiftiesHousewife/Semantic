@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
+import io.github.fiftieshousewife.codesemantics.engine.export.SightingSite;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,8 +74,33 @@ class LandingPageTest {
                 () -> assertThat(page)
                         .as("a source's name answers nothing on its own, so the card leads with the "
                                 + "subject the vocabulary's own header states")
-                        .contains("About financial information exchange: FIX states 52 of its phrases "
-                                + "in the declared names."));
+                        .contains("About financial information exchange: writes 52 of FIX\u2019s "
+                                + "phrases."));
+    }
+
+    @Test
+    void quotesTheMostWrittenTermsInTheRepositorysOwnWords() {
+        final ReadingExport reading = reading("strata",
+                List.of(ExportedAnswer.fromATaxonomy("FIBO", List.of(), "PresentValue", null,
+                        "47 phrases", 2.9)),
+                List.of(), List.of(),
+                List.of(new ExportedTaxonomy("FIBO",
+                        List.of(concept("present_value", 30, 2), concept("settlement_date", 20, 2),
+                                concept("trade date", 10, 2), concept("value", 90, 1)),
+                        List.of(),
+                        Map.of("words", 47, "lemmas", 0, "expansions", 0, "senses", 0),
+                        new ExportedTaxonomy.Bar(47, 16, 15, 2.9, 0, 0.001, 7, FIELD, 999))));
+
+        assertThat(landing.markup(List.of(reading)))
+                .as("the repository's own most-written terms say finance as no concept path does, "
+                        + "phrases before single words however often a single word is written")
+                .contains("writes 47 of FIBO\u2019s phrases \u2014 present value, settlement date, "
+                        + "trade date, value.");
+    }
+
+    private static ExportedConcept concept(final String term, final int occurrences, final int words) {
+        return new ExportedConcept(term, term, "words", "", "", term, "Branch", List.of("Branch"),
+                occurrences, 0.5, words, 1.0, new SightingSite("A.java", 1));
     }
 
     @Test
@@ -133,6 +160,28 @@ class LandingPageTest {
                         .as("the placement stands twice as far from its chance figure as the "
                                 + "vocabulary does from its bar, so its mark reads first")
                         .isLessThan(page.indexOf("1.3× its chance bar")));
+    }
+
+    @Test
+    void refusesToNameOneSubjectWhereTheChanceMarginHoldsSeveral() {
+        final ExportedPlacement.Level crowded = ExportedPlacement.Level.of("Artificial Intelligence",
+                0.304, 0.412, List.of(),
+                List.of(new ExportedPlacement.Contender("Artificial Intelligence", 0.304, List.of()),
+                        new ExportedPlacement.Contender("Cryptography", 0.31, List.of()),
+                        new ExportedPlacement.Contender("Distributed Computing", 0.32, List.of())));
+
+        final String page = landing.markup(List.of(reading("santuario",
+                List.of(ExportedAnswer.fromASubjectScheme("OpenAlex", List.of(),
+                        "Artificial Intelligence", "0.1 bits", 0.108)),
+                List.of(), List.of(new ExportedPlacement("OpenAlex", crowded, crowded)),
+                List.of())));
+
+        assertThat(page)
+                .as("naming the nominal nearest of an inseparable field asserts what the instrument "
+                        + "cannot say")
+                .contains("No single subject: OpenAlex cannot separate 3 subjects at its chance "
+                        + "margin; Artificial Intelligence is nominally nearest, "
+                        + "1.4\u00d7 nearer than chance.");
     }
 
     @Test
