@@ -77,9 +77,11 @@ tasks.test {
     // Forward the opt-in override to the forked test JVM (a command-line -D reaches only the Gradle JVM
     // otherwise), so a diagnostic can be pointed at a clone of the caller's choosing.
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    // And the directory the backtest's clones sit under. These two are the only properties naming a tree
-    // the reading is pointed at: one clone, or a set of them.
+    // And the directory the backtest's clones sit under, and the one a fetch step filled with pull
+    // requests. These three are the only properties naming trees the reading is pointed at: one clone, a
+    // set of them, or the pull requests read beside one.
     System.getProperty("cs.evaluation.dir")?.let { systemProperty("cs.evaluation.dir", it) }
+    System.getProperty("cs.pullrequests.dir")?.let { systemProperty("cs.pullrequests.dir", it) }
     // And the taxonomy a reading places against, which is a file rather than a tree: a candidate source is
     // measured by the reading that would bundle it, rather than by a copy of that reading written to try it.
     System.getProperty("cs.taxonomy")?.let { systemProperty("cs.taxonomy", it) }

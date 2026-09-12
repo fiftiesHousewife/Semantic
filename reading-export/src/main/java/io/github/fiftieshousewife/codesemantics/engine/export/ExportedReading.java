@@ -115,7 +115,7 @@ public final class ExportedReading {
         final RepositoryLegibility legibility = reading.legibility();
         final ReadingSummary summary = ReadingSummary.of(reading.root().getFileName().toString(),
                 legibility, themes, field, TOPICS_PER_SCOPE);
-        final Vocabulary vocabulary = Vocabulary.of(legibility, namesChance);
+        final Vocabulary vocabulary = Vocabulary.of(legibility, namesChance, ReadingSource.CLONE);
         final List<ExportedSignal> signals = vocabulary.signals();
         final List<ExportedTheme> reported = new ExportedThemes(WITNESSES_HELD).in(summary, themes);
         final JudgedTaxonomies.Judgement judgement =
@@ -143,6 +143,6 @@ public final class ExportedReading {
         return new ReadingExport(export.schemaVersion(),
                 ExportedSummaries.answered(export.summary(), EvidenceKinds.answering(export)),
                 export.signals(), export.thresholds(), export.themes(), export.taxonomies(),
-                export.setAside());
+                export.setAside(), export.pullRequests());
     }
 }

@@ -68,6 +68,13 @@ class ReadingExportSchemaTest {
                     List.of(new SetAside.RefusedVocabulary("CSO",
                             new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 0, 0.001, 7, FIELD, 999))), 118, 0, 0));
 
+    private static final ExportedPullRequest PULL_REQUEST_READ = new ExportedPullRequest(3154,
+            "tballison", "9351a7063d41ec9a47a50b444a9f0242fd765860",
+            "fa7ea0996857fd785d782d0cb887c04b996dddb9", 11,
+            Map.of("ordinary English", 0.0004),
+            List.of(new ExportedSignal(ReadingSource.PULL_REQUEST, "inference", 12, 9, 0.03, 0.025,
+                    "ordinary English", new SightingSite("Engine.java", 3))));
+
     private final ExportFile file = new ExportFile();
 
     private final ExportSchema schema = ExportSchema.fromClasspath();
@@ -96,7 +103,7 @@ class ReadingExportSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final ReadingExport unversioned = new ReadingExport("two", EXPORT.summary(), EXPORT.signals(),
-                EXPORT.thresholds(), EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
+                EXPORT.thresholds(), EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside(), List.of());
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(ExportFile.NAME), unversioned))
@@ -150,11 +157,49 @@ class ReadingExportSchemaTest {
                         Map.of("words", 0, "lemmas", 0, "expansions", 0, "senses", 0),
                         new ExportedTaxonomy.Bar(4, 1, 0, 4.0, 0, 0.001, 7, FIELD, 999)));
         return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(),
-                EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside());
+                EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside(), List.of());
     }
 
     private static int occurrencesOf(final String key, final String document) {
         return document.split(key, -1).length - 1;
+    }
+
+    @Test
+    void admitsADocumentCarryingAPullRequestReadBesideTheTree() throws IOException {
+        final ReadingExport with = EXPORT.withPullRequests(List.of(PULL_REQUEST_READ));
+
+        assertThat(schema.refusals(new ObjectMapper().readTree(file.of(with)))).isEmpty();
+    }
+
+    @Test
+    void leavesEveryRepositoryBlockWhereItStoodWhenPullRequestsArrive() {
+        final ReadingExport with = EXPORT.withPullRequests(List.of(PULL_REQUEST_READ));
+
+        assertAll(
+                () -> assertThat(with.summary()).isEqualTo(EXPORT.summary()),
+                () -> assertThat(with.signals()).isEqualTo(EXPORT.signals()),
+                () -> assertThat(with.thresholds()).isEqualTo(EXPORT.thresholds()),
+                () -> assertThat(with.themes()).isEqualTo(EXPORT.themes()),
+                () -> assertThat(with.taxonomies()).isEqualTo(EXPORT.taxonomies()),
+                () -> assertThat(with.setAside()).isEqualTo(EXPORT.setAside()),
+                () -> assertThat(with.pullRequests()).containsExactly(PULL_REQUEST_READ));
+    }
+
+    @Test
+    void refusesAPullRequestWhoseHeadIsNotACommitSha() throws IOException {
+        final String unpinned = file.of(EXPORT.withPullRequests(List.of(PULL_REQUEST_READ)))
+                .replace("9351a7063d41ec9a47a50b444a9f0242fd765860", "HEAD");
+
+        assertThat(schema.refusals(new ObjectMapper().readTree(unpinned)))
+                .as("a reading of a moving target is not reproducible, so an unpinned head fails here")
+                .isNotEmpty();
+    }
+
+    @Test
+    void refusesASignalStatingASourceTheSchemaDoesNotName() throws IOException {
+        final String unsourced = file.of(EXPORT).replace("\"CLONE\"", "\"SNAPSHOT\"");
+
+        assertThat(schema.refusals(new ObjectMapper().readTree(unsourced))).isNotEmpty();
     }
 
     @Test

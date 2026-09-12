@@ -9,6 +9,7 @@ import java.util.Optional;
 import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
 
+import io.github.fiftieshousewife.codesemantics.engine.reading.PullRequestSet;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ReportFolder;
 import io.github.fiftieshousewife.codesemantics.engine.reading.TreeReading;
 
@@ -36,22 +37,48 @@ public final class ExportCommand {
         wrote(commitIn(arguments));
     }
 
-    /** Reads the clone under reading — shared with any reading already taken in this JVM — and writes the export. */
+    /**
+     * Reads the clone under reading — shared with any reading already taken in this JVM — and writes the
+     * export, with whatever pull requests {@code -Dcs.pullrequests.dir} names read beside it. Only this
+     * path reads them: a run over several named trees attaches no pull request to any of them, because one
+     * fetched set belongs to one repository.
+     */
     static Path wrote(final String commit) throws IOException {
-        return wrote(TreeReading.ofTheCloneUnderReading(), commit);
+        return wrote(TreeReading.ofTheCloneUnderReading(), commit, pullRequestsBeside());
     }
 
     /** The same for a tree the caller names, which is what lets one JVM write the export for several. */
     public static Path wrote(final TreeReading reading, final String commit) throws IOException {
+        return wrote(reading, commit, List.of());
+    }
+
+    private static Path wrote(final TreeReading reading, final String commit,
+                              final List<ExportedPullRequest> pullRequests) throws IOException {
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = previousReading(exports, file);
         final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched(),
-                reading.terms(), reading.arxivField(), reading.namesChance());
+                reading.terms(), reading.arxivField(), reading.namesChance())
+                .withPullRequests(pullRequests);
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
         return file;
+    }
+
+    /** Each pull request the property names, read as its own tree at the commit its manifest row pins. */
+    private static List<ExportedPullRequest> pullRequestsBeside() {
+        return PullRequestSet.fromSystemProperty()
+                .map(ExportCommand::read)
+                .orElse(List.of());
+    }
+
+    private static List<ExportedPullRequest> read(final PullRequestSet set) {
+        final ExportedPullRequests exported = new ExportedPullRequests();
+        return set.pullRequests().stream()
+                .map(pullRequest -> exported.of(pullRequest.facts(),
+                        TreeReading.of(set.treeOf(pullRequest)).reading()))
+                .toList();
     }
 
     /**

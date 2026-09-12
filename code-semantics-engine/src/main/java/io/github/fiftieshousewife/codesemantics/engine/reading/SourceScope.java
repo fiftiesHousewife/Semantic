@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A named set of source files read as one scope — a source directory of the working tree, never a commit, a
- * pull request or a tree at a ref — and the name says which directory it was, so a reading of a working tree
- * can never be mistaken for a reading of a revision that some SHA pins.
+ * A named set of source files read as one scope — always a directory's files, with the name saying which
+ * directory it was. A revision reaches the reading only as a directory a fetch step wrote — a pull request's
+ * changed files at its head commit — and the commit pinning such a directory travels in the caller's stated
+ * facts, never here, so a scope cannot be mistaken for the pin.
  */
 public record SourceScope(String name, List<Path> files) {
 

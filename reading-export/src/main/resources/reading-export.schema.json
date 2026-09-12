@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/fifties-housewife/code-semantics/reading-export.schema.json",
   "title": "Reading export",
-  "description": "One run of the code-semantics reading: what subject matter a repository is concerned with, and the evidence for it. `summary` carries the result. `signals`, `themes` and `taxonomies` carry one piece of evidence per entry. `setAside` counts what the reading measured and these lists omit.",
+  "description": "One run of the code-semantics reading: what subject matter a repository is concerned with, and the evidence for it. `summary` carries the result. `signals`, `themes` and `taxonomies` carry one piece of evidence per entry. `setAside` counts what the reading measured and these lists omit. `pullRequests` carries any pull requests read beside the working tree, each as its own reading.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -12,7 +12,8 @@
     "themes",
     "taxonomies",
     "setAside",
-    "thresholds"
+    "thresholds",
+    "pullRequests"
   ],
   "properties": {
     "schemaVersion": {
@@ -277,70 +278,10 @@
     },
     "signals": {
       "title": "Signals",
-      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsTheLanguageSupplies` counts them; `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold.",
+      "description": "Every word and published phrase the repository writes at a higher density than each reference it is scored against. Words English supplies inside a name \u2014 `by`, `from`, `beside` \u2014 are scored, ranked and omitted here, because writing one is not a choice about subject matter; the vocabulary report prints them under their own heading. `setAside.wordsTheLanguageSupplies` counts them; `setAside.wordsBelowEveryThreshold` counts the words that scored below a threshold. Every entry here is the working tree's own \u2014 a pull request's signals stand in `pullRequests` instead.",
       "type": "array",
       "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "readFrom",
-          "word",
-          "occurrences",
-          "occurrencesInNames",
-          "divergenceBits",
-          "marginBits",
-          "closestReference",
-          "firstWrittenAt"
-        ],
-        "properties": {
-          "readFrom": {
-            "title": "Source read",
-            "description": "Which source supplied the signal. CLONE is the working tree.",
-            "type": "string",
-            "enum": [
-              "CLONE"
-            ]
-          },
-          "word": {
-            "title": "Word",
-            "description": "The word as the identifier splitter produced it. A run of words a topical resource publishes as one entry keeps its spaces: `part of speech` is one word here.",
-            "type": "string"
-          },
-          "occurrences": {
-            "title": "Occurrences",
-            "description": "How many times the repository writes it.",
-            "type": "integer",
-            "minimum": 1
-          },
-          "occurrencesInNames": {
-            "title": "Occurrences in declared names",
-            "description": "How many of those occurrences are a declared name rather than prose. `citationSource` contributes to this count; the javadoc above it does not.",
-            "type": "integer",
-            "minimum": 0
-          },
-          "divergenceBits": {
-            "title": "Score in bits",
-            "description": "This word's term of the Jensen-Shannon divergence between the repository's word distribution and the reference's. Base-2 logarithms bound it at 1 bit. A word the repository writes at the reference's own density scores 0.",
-            "type": "number",
-            "minimum": 0,
-            "maximum": 1
-          },
-          "marginBits": {
-            "title": "Score at the reference's own error",
-            "description": "The same term computed with the reference's share moved one standard error toward the repository's \u2014 the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
-            "type": "number",
-            "minimum": 0,
-            "maximum": 1
-          },
-          "closestReference": {
-            "title": "Reference giving the lowest score",
-            "description": "The reference scoring this word lowest, which is the score reported. `get` scores high against ordinary English and low against the Java platform's own API, so the platform is its closest reference.",
-            "type": "string"
-          },
-          "firstWrittenAt": {
-            "$ref": "#/$defs/site"
-          }
-        }
+        "$ref": "#/$defs/signal"
       }
     },
     "thresholds": {
@@ -693,9 +634,141 @@
           "minimum": 0
         }
       }
+    },
+    "pullRequests": {
+      "title": "Pull requests",
+      "description": "One entry per pull request read beside the working tree, each read as its own tree: the changed files at its head commit, scored against thresholds its own permutation null sets. The blocks above are the working tree's alone, so one document reads the repository with these pull requests and without them. Empty where none was read.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "number",
+          "author",
+          "headSha",
+          "baseSha",
+          "files",
+          "thresholds",
+          "signals"
+        ],
+        "properties": {
+          "number": {
+            "title": "Number",
+            "description": "The pull request number its repository states.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "author": {
+            "title": "Author",
+            "description": "The author the pull request was selected by, as the host states the login.",
+            "type": "string"
+          },
+          "headSha": {
+            "title": "Head commit",
+            "description": "The commit the changed files were read at. Every figure in this entry is a reading of it.",
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "baseSha": {
+            "title": "Base commit",
+            "description": "The commit of the branch the pull request asks to change, recorded when it was fetched.",
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "files": {
+            "title": "Changed files",
+            "description": "How many changed files were read.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "thresholds": {
+            "title": "Chance thresholds",
+            "description": "The threshold each reference's own permutation null sets for this pull request's files, in bits, keyed by the reference's name. A pull request is scored against its own null, never the working tree's: the chance-expected maximum of a few files is not the chance-expected maximum of the tree.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "signals": {
+            "title": "Signals",
+            "description": "The pull request's words and published phrases clearing every one of its thresholds, each stating PULL_REQUEST as its source.",
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/signal"
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {
+    "signal": {
+      "title": "Signal",
+      "description": "One word or published phrase written at a higher density than every reference it is scored against, in whichever source readFrom states.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readFrom",
+        "word",
+        "occurrences",
+        "occurrencesInNames",
+        "divergenceBits",
+        "marginBits",
+        "closestReference",
+        "firstWrittenAt"
+      ],
+      "properties": {
+        "readFrom": {
+          "title": "Source read",
+          "description": "Which source supplied the signal. CLONE is the working tree; PULL_REQUEST is one pull request's changed files at its head commit.",
+          "type": "string",
+          "enum": [
+            "CLONE",
+            "PULL_REQUEST"
+          ]
+        },
+        "word": {
+          "title": "Word",
+          "description": "The word as the identifier splitter produced it. A run of words a topical resource publishes as one entry keeps its spaces: `part of speech` is one word here.",
+          "type": "string"
+        },
+        "occurrences": {
+          "title": "Occurrences",
+          "description": "How many times the repository writes it.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurrencesInNames": {
+          "title": "Occurrences in declared names",
+          "description": "How many of those occurrences are a declared name rather than prose. `citationSource` contributes to this count; the javadoc above it does not.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "divergenceBits": {
+          "title": "Score in bits",
+          "description": "This word's term of the Jensen-Shannon divergence between the repository's word distribution and the reference's. Base-2 logarithms bound it at 1 bit. A word the repository writes at the reference's own density scores 0.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "marginBits": {
+          "title": "Score at the reference's own error",
+          "description": "The same term computed with the reference's share moved one standard error toward the repository's — the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "closestReference": {
+          "title": "Reference giving the lowest score",
+          "description": "The reference scoring this word lowest, which is the score reported. `get` scores high against ordinary English and low against the Java platform's own API, so the platform is its closest reference.",
+          "type": "string"
+        },
+        "firstWrittenAt": {
+          "$ref": "#/$defs/site"
+        }
+      }
+    },
     "site": {
       "title": "File and line",
       "description": "Where to read the evidence behind a figure.",

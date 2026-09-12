@@ -9,7 +9,7 @@ Four uses. Each would change the shape of the file, which is why they are listed
 | 1 | **A diff of two runs** | did this change move the figure it was meant to move | nothing — two files and a comparison |
 | 2 | **A catalogue row per repository** | across an estate, which repositories are about what | a run per repository, which `-Dcs.clone.dir` already gives |
 | 3 | **A build check** | has this repository drifted away from the domain it states | a stated domain per repository, held outside the reading |
-| 4 | **A pull request comment** | what does this author's work add to the picture | the pull request path, which is [the export's](THE_EXPORT.md) own first outstanding item |
+| 4 | **A pull request comment** | what does this author's work add to the picture | nothing new to read — the pull request path landed at schema 28.0, so what remains is the comment itself |
 
 ## 1. A diff of two runs
 
@@ -39,7 +39,7 @@ A repository states its domain — a Trove classifier, a DOAP category, a line i
 
 ## 4. A pull request comment
 
-The use the export was designed around, and the one that needs the most. [The export](THE_EXPORT.md) states the path; [supplied text](SUPPLIED_TEXT.md) states the safeguard — a pull request is its own scope, reported with the repository's reading beside it and without it, or an author who describes the domain in a description gets that description handed back as a finding.
+The use the export was designed around. The path it needed landed at schema 28.0 — [the export](THE_EXPORT.md) states what `pullRequests` holds, and the safeguard [supplied text](SUPPLIED_TEXT.md) states is structural there: a pull request's signals sit in their own block against their own thresholds, and the repository's blocks do not move when one is read. What remains is the comment itself: rendering one `pullRequests` entry — its signals beside the repository's — into the sentence a reviewer reads, and posting it, which is a consumer of the file rather than a change to it.
 
 ## What is decided by building any of them
 

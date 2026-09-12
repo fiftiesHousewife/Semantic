@@ -288,6 +288,7 @@ tasks.register<Test>("read") {
     outputs.doNotCacheIf("reads a repository tree, which is not a declared input") { true }
     testLogging.showStandardStreams = true
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.pullrequests.dir")?.let { systemProperty("cs.pullrequests.dir", it) }
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
     // The export is written by a diagnostic in this same JVM, over the same shared reading, rather than by
     // finalizing with the readingExport JavaExec — a fresh JVM would read the whole tree a second time.
@@ -319,6 +320,7 @@ tasks.register<JavaExec>("readingExport") {
     classpath = sourceSets["test"].runtimeClasspath
     maxHeapSize = "3g"
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+    System.getProperty("cs.pullrequests.dir")?.let { systemProperty("cs.pullrequests.dir", it) }
     systemProperty("cs.output.dir", readingOutput.asFile.absolutePath)
     val tree = System.getProperty("cs.clone.dir") ?: rootProject.projectDir.absolutePath
     argumentProviders.add(CommandLineArgumentProvider {

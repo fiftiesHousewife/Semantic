@@ -6,14 +6,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequests;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedReading;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSignal;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
+import io.github.fiftieshousewife.codesemantics.engine.export.ReadingSource;
+import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
 
 /**
  * Reads one repository twice — the tree itself, and a copy stating every file the scopes name — and compares
@@ -44,6 +50,7 @@ public final class CopiedTreeProbe {
         System.out.printf("%n%s read twice, the second time from %s%n%n", original.root().getFileName(),
                 copies);
         final Map<String, Boolean> blocks = compared(read, reread);
+        blocks.put("pullRequest", pullRequestPathAgrees(read, copy));
         blocks.forEach((block, same) -> System.out.printf("%-12s %s%n", block, same ? "same" : "differs"));
 
         if (blocks.containsValue(false)) {
@@ -82,6 +89,27 @@ public final class CopiedTreeProbe {
                 && read.shareOfWordsWithACitation() == reread.shareOfWordsWithACitation()
                 && read.shareOfMassOnNoSubject() == reread.shareOfMassOnNoSubject()
                 && Objects.equals(read.counts(), reread.counts());
+    }
+
+    /**
+     * The copy composed as a pull request stating every file must carry the tree's own signals at the
+     * tree's own thresholds, differing only in the source each signal states. The facts are placeholders:
+     * nothing here is published, and the property under test is the pipeline, not the pins.
+     */
+    private static boolean pullRequestPathAgrees(final ReadingExport read, final TreeReading copy) {
+        final String placeholder = "0".repeat(40);
+        final ExportedPullRequest pullRequest = new ExportedPullRequests()
+                .of(new PullRequestFacts(1, "copied-tree", placeholder, placeholder, 1), copy.reading());
+        return read.thresholds().equals(pullRequest.thresholds())
+                && read.signals().equals(restamped(pullRequest.signals()));
+    }
+
+    private static List<ExportedSignal> restamped(final List<ExportedSignal> signals) {
+        return signals.stream()
+                .map(signal -> new ExportedSignal(ReadingSource.CLONE, signal.word(), signal.occurrences(),
+                        signal.occurrencesInNames(), signal.divergenceBits(), signal.marginBits(),
+                        signal.closestReference(), signal.firstWrittenAt()))
+                .toList();
     }
 
     private static void deleted(final Path copies) throws IOException {

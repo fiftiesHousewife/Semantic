@@ -21,19 +21,24 @@ import lombok.Builder;
  * {@link SetAside}, so a consumer can tell two hundred signals out of nine hundred candidates from two
  * hundred out of nine thousand without reading a list of refusals. The lists themselves stay in the reports.
  *
+ * <p>{@code pullRequests} carries any pull requests read beside the working tree, each as its own reading
+ * against its own chance thresholds, so the repository's blocks above stand unchanged whether or not any
+ * pull request was read.
+ *
  * <p>The reports are a rendering of this and not the other way round: producing this object requires none of
  * them. Its shape is stated in {@code reading-export.schema.json}, which ships beside it and which every
  * document is checked against before it is written.
  */
 public record ReadingExport(String schemaVersion, ExportedSummary summary, List<ExportedSignal> signals,
                             Map<String, Double> thresholds, List<ExportedTheme> themes,
-                            List<ExportedTaxonomy> taxonomies, SetAside setAside) {
+                            List<ExportedTaxonomy> taxonomies, SetAside setAside,
+                            List<ExportedPullRequest> pullRequests) {
 
     /**
      * The version of this file's shape. It rises when a field is added, renamed or removed, so a consumer's
      * code can branch on it rather than discover a change by failing.
      */
-    public static final String SCHEMA_VERSION = "27.0";
+    public static final String SCHEMA_VERSION = "28.0";
 
     public ReadingExport {
         Objects.requireNonNull(schemaVersion, "schemaVersion");
@@ -43,6 +48,7 @@ public record ReadingExport(String schemaVersion, ExportedSummary summary, List<
         themes = List.copyOf(themes);
         taxonomies = List.copyOf(taxonomies);
         Objects.requireNonNull(setAside, "setAside");
+        pullRequests = List.copyOf(pullRequests);
     }
 
     /** The document at the version this build states, which is the only version it knows how to write. */
@@ -51,6 +57,16 @@ public record ReadingExport(String schemaVersion, ExportedSummary summary, List<
                                    final Map<String, Double> thresholds, final List<ExportedTheme> themes,
                                    final List<ExportedTaxonomy> taxonomies, final SetAside setAside) {
         return new ReadingExport(SCHEMA_VERSION, summary, signals, thresholds, themes, taxonomies,
-                setAside);
+                setAside, List.of());
+    }
+
+    /**
+     * The same document with these pull requests beside it. The blocks already composed do not move: the
+     * repository's reading stands in the file with the pull requests and without them, which is what lets a
+     * consumer check that neither answered the other.
+     */
+    public ReadingExport withPullRequests(final List<ExportedPullRequest> read) {
+        return new ReadingExport(schemaVersion, summary, signals, thresholds, themes, taxonomies,
+                setAside, read);
     }
 }
