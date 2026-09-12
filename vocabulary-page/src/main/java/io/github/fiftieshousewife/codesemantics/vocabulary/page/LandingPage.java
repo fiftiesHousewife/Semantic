@@ -3,12 +3,14 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import j2html.tags.specialized.ArticleTag;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.DivTag;
+import j2html.tags.specialized.PTag;
 
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.article;
@@ -17,19 +19,20 @@ import static j2html.TagCreator.div;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h2;
+import static j2html.TagCreator.iff;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.rawHtml;
 import static j2html.TagCreator.span;
 import static j2html.TagCreator.style;
 
 /**
- * Every published reading as one card: the repository, its strongest finding as a sentence, and one mark
- * per answering source on a scale shared across the cards. The cards are ordered by the kind of evidence
- * that answered and then by its strength, so the strongest findings read first and a reading nothing
- * answered reads last, saying so.
+ * Every published reading as one card, and the answer before the evidence: what the repository is about —
+ * its topics and the subject placement standing apart from chance — then the strongest vocabulary's claim,
+ * then one mark per answer on a scale shared across the cards.
  *
- * <p>A vocabulary's strength is a multiple of its permutation bar and a scheme's is a distance in bits;
- * the two are different quantities, so their marks carry different classes and units and share no scale.
+ * <p>Every answer is measured against its own chance figure, so a vocabulary barely past its bar sits
+ * below a placement standing well apart rather than ahead of it by kind. The workings behind the figures
+ * are stated once, in the page's own lede, and each card carries only its claims.
  */
 public final class LandingPage {
 
@@ -37,93 +40,94 @@ public final class LandingPage {
 
     private final FindingSentences sentences = new FindingSentences();
 
+    private final AnswerStrengths strengths = new AnswerStrengths();
+
     public LandingPage(final String stylesheet) {
         this.stylesheet = stylesheet;
     }
 
     public String markup(final List<ReadingExport> readings) {
-        final double widestBar = readings.stream()
-                .flatMap(reading -> reading.summary().answers().stream())
-                .map(ExportedAnswer::timesItsBar)
-                .filter(times -> times != null && times > 1.0)
-                .mapToDouble(Double::doubleValue)
+        final double widest = readings.stream()
+                .flatMap(reading -> strengths.of(reading).stream())
+                .mapToDouble(AnswerStrengths.Strength::ratio)
+                .filter(ratio -> ratio > 1.0)
                 .max()
                 .orElse(1.0);
-        return PageDocument.of("The readings", page(readings, widestBar).render());
+        return PageDocument.of("The readings", page(readings, widest).render());
     }
 
-    private BodyTag page(final List<ReadingExport> readings, final double widestBar) {
+    private BodyTag page(final List<ReadingExport> readings, final double widest) {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The readings"),
-                        p().withClass("lede").withText("One card per repository: what its declared "
-                                + "names state, said by the publishers whose phrases it writes, "
-                                + "strongest first. A card’s page holds the words, the domains, the "
-                                + "matched phrases and the placements behind its sentence."),
-                        each(ordered(readings), reading -> card(reading, widestBar))));
+                        p().withClass("lede").withText("One card per repository: what it is about, "
+                                + "then the strongest claim, then every answer at its strength. A "
+                                + "vocabulary’s multiple is its phrase count against the best a deal "
+                                + "of its own words reaches; a placement’s is how much nearer its "
+                                + "subject stands than the nearest subject of a scheme built by "
+                                + "shuffling the real descriptions. A card’s name links to the page "
+                                + "holding the words, the domains and the placements behind it."),
+                        each(ordered(readings), reading -> card(reading, widest))));
     }
 
-    /** Vocabulary-answered readings first by their best bar multiple, then schemes by bits, then nothing. */
-    private static List<ReadingExport> ordered(final List<ReadingExport> readings) {
+    /** The furthest-from-chance readings first, whatever kind carried each; nothing-answered last. */
+    private List<ReadingExport> ordered(final List<ReadingExport> readings) {
         return readings.stream()
-                .sorted(Comparator.comparingDouble(LandingPage::strengthOf).reversed())
+                .sorted(Comparator.comparingDouble(this::strongestRatio).reversed())
                 .toList();
     }
 
-    private static double strengthOf(final ReadingExport reading) {
-        return reading.summary().answers().stream()
-                .mapToDouble(LandingPage::rankOf)
-                .max()
+    private double strongestRatio(final ReadingExport reading) {
+        return strengths.strongest(reading)
+                .map(AnswerStrengths.Strength::ratio)
                 .orElse(0.0);
     }
 
-    /** Kinds rank apart — any vocabulary answer above any scheme's — and strength ranks inside a kind. */
-    private static double rankOf(final ExportedAnswer answer) {
-        if (answer.timesItsBar() != null) {
-            return 1_000.0 + answer.timesItsBar();
-        }
-        return answer.bitsPastChance() == null ? 0.0 : answer.bitsPastChance();
-    }
-
-    private ArticleTag card(final ReadingExport reading, final double widestBar) {
+    private ArticleTag card(final ReadingExport reading, final double widest) {
+        final List<AnswerStrengths.Strength> ranked = strengths.of(reading);
         return article().withClass("card").with(
                 h2().with(a(reading.summary().repository())
                         .withHref(reading.summary().repository() + "/reading.html")),
-                p(sentences.of(reading).getFirst()).withClass("finding"),
+                p(sentences.about(reading, ranked)).withClass("about"),
+                iff(claim(reading), claimed -> p(claimed).withClass("finding")),
                 div().withClass("strengths").with(
-                        each(reading.summary().answers().stream()
-                                        .filter(answer -> !ExportedAnswer.NOTHING
-                                                .equals(answer.sourceType()))
-                                        .toList(),
-                                answer -> strength(answer, widestBar))));
+                        each(ranked, strength -> mark(strength, widest))));
     }
 
-    private static DivTag strength(final ExportedAnswer answer, final double widestBar) {
-        return answer.timesItsBar() != null
-                ? mark("vocabulary", answer.source(), barShare(answer.timesItsBar(), widestBar),
-                        String.format(Locale.ROOT, "%.1f× its chance bar", answer.timesItsBar()))
-                : mark("scheme", answer.source(), 0.0,
-                        String.format(Locale.ROOT, "%.3f bits nearer than chance",
-                                answer.bitsPastChance()));
-    }
-
-    /** The mark's share of the scale: logarithmic from the bar itself to the widest clearance drawn. */
-    private static double barShare(final double timesItsBar, final double widestBar) {
-        if (timesItsBar <= 1.0 || widestBar <= 1.0) {
-            return 0.0;
+    /**
+     * The strongest vocabulary's claim, where one answered. A placement needs no second sentence — the
+     * about line already states it — and a reading nothing answered states that in its one sentence.
+     */
+    private Optional<String> claim(final ReadingExport reading) {
+        final Optional<ExportedAnswer> vocabulary = reading.summary().answers().stream()
+                .filter(answer -> answer.timesItsBar() != null)
+                .findFirst();
+        if (vocabulary.isPresent()) {
+            return Optional.of(sentences.cardClaim(reading, vocabulary.get()));
         }
-        return 100.0 * Math.log(timesItsBar) / Math.log(widestBar);
+        if (ExportedAnswer.NOTHING.equals(reading.summary().answers().getFirst().sourceType())) {
+            return Optional.of(sentences.of(reading).getFirst());
+        }
+        return Optional.empty();
     }
 
-    private static DivTag mark(final String kind, final String source, final double share,
-                               final String value) {
-        final DivTag drawn = div().withClass("strength " + kind).with(
-                span(source).withClass("source"));
+    private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {
+        final DivTag drawn = div().withClass("strength " + strength.kind()).with(
+                span(strength.source()).withClass("source"));
+        final double share = barShare(strength.ratio(), widest);
         if (share > 0.0) {
             drawn.with(div().withClass("bar")
                     .withStyle(String.format(Locale.ROOT, "width:%.1f%%", share)));
         }
-        return drawn.with(span(value).withClass("value"));
+        return drawn.with(span(strength.label()).withClass("value"));
+    }
+
+    /** The mark's share of the scale: logarithmic from the chance figure itself to the widest drawn. */
+    private static double barShare(final double ratio, final double widest) {
+        if (ratio <= 1.0 || widest <= 1.0) {
+            return 0.0;
+        }
+        return 100.0 * Math.log(ratio) / Math.log(widest);
     }
 }

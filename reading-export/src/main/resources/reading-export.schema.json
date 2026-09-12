@@ -730,7 +730,7 @@
         },
         "word": {
           "title": "Word",
-          "description": "The word as the identifier splitter produced it. A run of words a topical resource publishes as one entry keeps its spaces: `part of speech` is one word here.",
+          "description": "The word as the identifier splitter produced it. A run of words a topical resource publishes as one entry is one word here, its words joined by the underscore the resources themselves write: `part_of_speech`.",
           "type": "string"
         },
         "occurrences": {

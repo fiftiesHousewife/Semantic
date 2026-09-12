@@ -73,6 +73,18 @@ All five steps landed on 2026-09-11, with one remainder. `FindingSentences` rend
 
 **Refuted by** the check ONE_PAGE.md already states: a reader who cannot name what a repository is about, and what that rests on, from the fold of its page. The second check is this plan's own: a reader who cannot tell a strong finding from a marginal one without reading a number twice.
 
+## The corrections of 2026-09-12
+
+Read against the rebuilt pages, five corrections, and the last of them found the reading rather than the page — the sixth time in eight that a page complaint did.
+
+1. **The answer leads the card.** The card led with the strongest evidence sentence; the question a reader brings is *what is this repository about*. A card now opens with an about line — the topics the dictionaries drew and the strongest subject placement standing apart from chance, its multiple named inline — then the strongest vocabulary's claim, then the marks. Where neither topics nor placement stands apart, the line says so.
+2. **Every answer on one scale, against its own chance figure.** The cards ranked any vocabulary above any scheme by kind, so a vocabulary at 2.0× its bar outranked a placement 1.4× nearer than chance. `AnswerStrengths` puts both kinds on one dimensionless scale — times-its-own-chance-figure — so a near-chance answer sits below a strong one whatever its kind, and the previous rule ("the strongest finding leads and the order is the export's own ranking") is amended: the export's blocks are not re-ranked, but which measured figure speaks first on a card follows the shared scale. Placements come from `summary.placedIn`, not only from `answers`, so a strong placement shows beside a weak vocabulary even where the answering cascade stopped at the vocabulary.
+3. **The workings are stated once.** The clause "against the N the best of a field of 7 reaches by dealing its own words at random" repeated on every card; it now stands once in the landing lede, and a card carries only its claims.
+4. **A link looks like a link.** The card headings linked to the pages in plain ink with no underline; they are underlined and coloured now.
+5. **The published runs were dressed as identifiers.** The signals seemed to hold no phrases; `./gradlew publishedRuns` shows the pipeline carries them end to end — on this repository 20 written, 4 clearing every bar, led by `part_of_speech`; fineract carries 58, strata 36 — but they are spelled with the underscore the topical resources write, so `interest_rate` read as code. The schema's description promised spaces and now states the underscore; pages show the space via `PublishedSpelling`, applied on the landing page's topics. The member pages' word pictures still show the underscore, because the spelling is load-bearing there — WordNet sense lookups key on it — and the one fix that reaches every site is spelling runs with spaces in the export itself at the next schema version, which is this plan's open remainder.
+
+Two reading findings the redesign surfaced, recorded rather than hidden: quickfixj's about line reads "computing, cricket" — FIX's everyday words (`leg`, `over`) carrying a sport topic, the hazard backlog row 33 states, now visible on a page — and several members' strongest placement is a near-chance subject (Artificial Intelligence at 1.3× on quickfixj), which the inline multiple now says plainly.
+
 ## Open questions
 
 1. **Whether section 4 draws the publisher's whole tree or only the matched branches.** The tree page draws everything and most of it is unmatched. *Settled by:* drawing matched branches with their stated paths, and counting whether any committed reading loses a concept the tree page showed.

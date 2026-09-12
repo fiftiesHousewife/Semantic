@@ -24,18 +24,21 @@ h1 {
 }
 
 .card h2 a {
-    color: var(--ink);
-    text-decoration: none;
+    color: var(--count);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
 }
 
-.card h2 a:hover,
-.card h2 a:focus {
-    text-decoration: underline;
+.about {
+    max-width: 46rem;
+    margin: 0 0 0.35rem;
+    font-weight: 600;
 }
 
 .finding {
     max-width: 46rem;
     margin: 0 0 0.75rem;
+    color: var(--ink-soft);
 }
 
 .strength {

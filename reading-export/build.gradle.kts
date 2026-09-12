@@ -569,6 +569,19 @@ tasks.register<JavaExec>("shortNames") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
+// Where the runs a resource publishes as one entry stand at each stage of the signal pipeline, because the
+// schema promises a signal keeps its spaces and no committed reading shows one. It prints; nothing moves.
+//   ./gradlew publishedRuns
+//   ./gradlew publishedRuns -Dcs.clone.dir=<path>
+tasks.register<JavaExec>("publishedRuns") {
+    group = "verification"
+    description = "Prints the published runs at each stage of the signal pipeline, and where they stop"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.vocabulary.PublishedRunProbe"
+    classpath = sourceSets["test"].runtimeClasspath
+    maxHeapSize = "6g"
+    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
+}
+
 // One repository read twice, the second time from a copy stating every file the scopes name, with the two
 // exports compared block by block. The pull request path reads a directory a fetch step wrote, and this is
 // the property it rests on. It prints and throws where a block differs; no published figure moves.

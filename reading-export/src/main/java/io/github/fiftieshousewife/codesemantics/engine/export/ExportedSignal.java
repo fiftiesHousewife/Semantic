@@ -8,8 +8,9 @@ import lombok.Builder;
  * One word or published phrase this repository writes more of than every reference it is read against.
  *
  * @param readFrom               where it was read from
- * @param word                   the word as the splitter produced it; a published run of words keeps its
- *                               spaces and is one entry
+ * @param word                   the word as the splitter produced it; a run of words a topical resource
+ *                               publishes as one entry is one word, underscore-joined as the resources
+ *                               write it
  * @param occurrences            how often it was written
  * @param occurrencesInNames     how many of those were the name of something rather than prose about it
  * @param divergenceBits         its term of the Jensen–Shannon divergence between what this repository
