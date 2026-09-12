@@ -27,3 +27,5 @@ The expensive half, and the value is that nobody has to paste anything: point th
 ## Order
 
 The string and the file come first: they need no credential, no network and no pinning, and they are what makes the safeguard above testable. The tracker follows once a reading can be run with and without supplied text and the difference reported.
+
+One source of supplied text now has its own plan: [commit messages and pull request prose](COMMIT_MESSAGES.md), which needs no credential either — the histories are in the clones — and inherits this plan's safeguard whole.
