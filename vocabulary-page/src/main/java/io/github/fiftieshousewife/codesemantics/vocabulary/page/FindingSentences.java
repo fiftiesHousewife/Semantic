@@ -2,7 +2,6 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
@@ -23,33 +22,6 @@ public final class FindingSentences {
     private static final String LEVEL_SEPARATOR = " › ";
 
     /**
-     * What the repository is about, for a card's first line: the topics the dictionaries drew and the
-     * strongest subject placement standing apart from chance. Where neither stands, the line says so —
-     * silence and absence are indistinguishable, so nothing is silent.
-     */
-    public String about(final ReadingExport reading, final List<AnswerStrengths.Strength> strengths) {
-        final String topics = reading.summary().about().stream()
-                .map(PublishedSpelling::shown)
-                .collect(Collectors.joining(", "));
-        final String placed = strengths.stream()
-                .filter(strength -> AnswerStrengths.Strength.SCHEME.equals(strength.kind()))
-                .findFirst()
-                .map(strength -> String.format(Locale.ROOT, "placed under %s (%s, %s)",
-                        strength.subject(), strength.source(), strength.label()))
-                .orElse("");
-        if (topics.isEmpty() && placed.isEmpty()) {
-            return "No topic or subject placement stands apart from chance.";
-        }
-        if (placed.isEmpty()) {
-            return "About " + topics + ".";
-        }
-        if (topics.isEmpty()) {
-            return capitalised(placed) + ".";
-        }
-        return "About " + topics + "; " + placed + ".";
-    }
-
-    /**
      * The claim alone, for a card: what the vocabulary states and where it places its most-written
      * concept. The figures stand in the marks beside it and the workings once in the page's own lede.
      */
@@ -63,10 +35,6 @@ public final class FindingSentences {
                         vocabulary.vocabulary(), vocabulary.bar().phrases())
                 : oneWordTerms(vocabulary);
         return stated + named(answer);
-    }
-
-    private static String capitalised(final String sentence) {
-        return Character.toUpperCase(sentence.charAt(0)) + sentence.substring(1);
     }
 
     /** One sentence per entry of {@code summary.answers}, in the export's own order. */

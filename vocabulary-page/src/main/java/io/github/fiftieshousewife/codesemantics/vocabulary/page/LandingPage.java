@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import j2html.tags.specialized.ArticleTag;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.DivTag;
-import j2html.tags.specialized.PTag;
 
 import static j2html.TagCreator.a;
 import static j2html.TagCreator.article;
@@ -19,16 +17,17 @@ import static j2html.TagCreator.div;
 import static j2html.TagCreator.each;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h2;
-import static j2html.TagCreator.iff;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.rawHtml;
 import static j2html.TagCreator.span;
 import static j2html.TagCreator.style;
 
 /**
- * Every published reading as one card, and the answer before the evidence: what the repository is about —
- * its topics and the subject placement standing apart from chance — then the strongest vocabulary's claim,
- * then one mark per answer on a scale shared across the cards.
+ * Every published reading as one card: the strongest answer's claim first, then one mark per answer on a
+ * scale shared across the cards. The claim is the answer to what the repository is about — a vocabulary
+ * names the concept it places and where its publisher files it; a placement names the subject — and the
+ * dictionary topics stay off the cards: a topic every code repository shares names the corpus, and a
+ * sense-label argmax puts cricket on a trading engine.
  *
  * <p>Every answer is measured against its own chance figure, so a vocabulary barely past its bar sits
  * below a placement standing well apart rather than ahead of it by kind. The workings behind the figures
@@ -61,8 +60,8 @@ public final class LandingPage {
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
                         h1("The readings"),
-                        p().withClass("lede").withText("One card per repository: what it is about, "
-                                + "then the strongest claim, then every answer at its strength. A "
+                        p().withClass("lede").withText("One card per repository: the strongest answer\u2019s claim, "
+                                + "then every answer at its strength. A "
                                 + "vocabulary’s multiple is its phrase count against the best a deal "
                                 + "of its own words reaches; a placement’s is how much nearer its "
                                 + "subject stands than the nearest subject of a scheme built by "
@@ -89,27 +88,31 @@ public final class LandingPage {
         return article().withClass("card").with(
                 h2().with(a(reading.summary().repository())
                         .withHref(reading.summary().repository() + "/reading.html")),
-                p(sentences.about(reading, ranked)).withClass("about"),
-                iff(claim(reading), claimed -> p(claimed).withClass("finding")),
+                p(lead(reading, ranked)).withClass("about"),
                 div().withClass("strengths").with(
                         each(ranked, strength -> mark(strength, widest))));
     }
 
     /**
-     * The strongest vocabulary's claim, where one answered. A placement needs no second sentence — the
-     * about line already states it — and a reading nothing answered states that in its one sentence.
+     * The strongest answer's claim, whatever kind carried it: a vocabulary names the concept it places and
+     * where its publisher files it, a placement names the subject with its multiple beside it, and a
+     * reading nothing answered says so with the count judged.
      */
-    private Optional<String> claim(final ReadingExport reading) {
-        final Optional<ExportedAnswer> vocabulary = reading.summary().answers().stream()
-                .filter(answer -> answer.timesItsBar() != null)
-                .findFirst();
-        if (vocabulary.isPresent()) {
-            return Optional.of(sentences.cardClaim(reading, vocabulary.get()));
+    private String lead(final ReadingExport reading, final List<AnswerStrengths.Strength> ranked) {
+        final Optional<AnswerStrengths.Strength> top = ranked.stream().findFirst();
+        if (top.isEmpty()) {
+            return sentences.of(reading).getFirst();
         }
-        if (ExportedAnswer.NOTHING.equals(reading.summary().answers().getFirst().sourceType())) {
-            return Optional.of(sentences.of(reading).getFirst());
+        if (AnswerStrengths.Strength.SCHEME.equals(top.get().kind())) {
+            return String.format(Locale.ROOT, "Placed under %s (%s, %s).",
+                    PublishedSpelling.shown(top.get().subject()), top.get().source(),
+                    top.get().label());
         }
-        return Optional.empty();
+        return reading.summary().answers().stream()
+                .filter(answer -> top.get().source().equals(answer.source()))
+                .findFirst()
+                .map(answer -> sentences.cardClaim(reading, answer))
+                .orElseGet(() -> sentences.of(reading).getFirst());
     }
 
     private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {

@@ -73,7 +73,7 @@ class LandingPageTest {
     }
 
     @Test
-    void leadsWithWhatTheRepositoryIsAboutBeforeAnyEvidence() {
+    void leadsWithThePlacementWhereItIsTheStrongestAnswer() {
         final String page = landing.markup(List.of(reading("tika",
                 List.of(ExportedAnswer.fromASubjectScheme("OpenAlex", List.of(), "Data Mining",
                         "0.1 bits", 0.1)),
@@ -81,15 +81,20 @@ class LandingPageTest {
                 List.of(placement("OpenAlex", "Data Mining", 0.3, 0.42)),
                 List.of())));
 
-        assertThat(page)
-                .contains("About computer science, publishing; placed under Data Mining (OpenAlex, 1.4\u00d7 nearer than chance).");
+        assertAll(
+                () -> assertThat(page)
+                        .contains("Placed under Data Mining (OpenAlex, 1.4\u00d7 nearer than chance)."),
+                () -> assertThat(page)
+                        .as("a topic every code repository shares names the corpus, so the dictionary "
+                                + "topics stay off the cards")
+                        .doesNotContain("About computer science"));
     }
 
     @Test
-    void saysSoWhereNoTopicOrPlacementStandsApartFromChance() {
+    void saysSoWhereNothingQualified() {
         assertThat(landing.markup(List.of(reading("maven", List.of(ExportedAnswer.NONE),
                 List.of(), List.of(), List.of()))))
-                .contains("No topic or subject placement stands apart from chance.");
+                .contains("Nothing qualified");
     }
 
     @Test
