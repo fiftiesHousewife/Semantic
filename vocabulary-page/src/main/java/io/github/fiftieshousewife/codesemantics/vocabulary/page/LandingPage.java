@@ -104,7 +104,7 @@ public final class LandingPage {
             return sentences.of(reading).getFirst();
         }
         if (AnswerStrengths.Strength.SCHEME.equals(top.get().kind())) {
-            return String.format(Locale.ROOT, "Placed under %s (%s, %s).",
+            return String.format(Locale.ROOT, "About %s — placed there by %s, %s.",
                     PublishedSpelling.shown(top.get().subject()), top.get().source(),
                     top.get().label());
         }

@@ -69,7 +69,11 @@ class LandingPageTest {
 
         assertAll(
                 () -> assertThat(page).contains("href=\"quickfixj/reading.html\""),
-                () -> assertThat(page).contains("FIX states 52 of its phrases in the declared names."));
+                () -> assertThat(page)
+                        .as("a source's name answers nothing on its own, so the card leads with the "
+                                + "subject the vocabulary's own header states")
+                        .contains("About financial information exchange: FIX states 52 of its phrases "
+                                + "in the declared names."));
     }
 
     @Test
@@ -83,7 +87,7 @@ class LandingPageTest {
 
         assertAll(
                 () -> assertThat(page)
-                        .contains("Placed under Data Mining (OpenAlex, 1.4\u00d7 nearer than chance)."),
+                        .contains("About Data Mining \u2014 placed there by OpenAlex, 1.4\u00d7 nearer than chance."),
                 () -> assertThat(page)
                         .as("a topic every code repository shares names the corpus, so the dictionary "
                                 + "topics stay off the cards")
@@ -124,7 +128,7 @@ class LandingPageTest {
         final String page = landing.markup(List.of(both));
 
         assertAll(
-                () -> assertThat(page).contains("Placed under Payment Systems (OpenAlex, 2.0\u00d7 nearer than chance)."),
+                () -> assertThat(page).contains("About Payment Systems \u2014 placed there by OpenAlex, 2.0\u00d7 nearer than chance."),
                 () -> assertThat(page.indexOf("2.0× nearer than chance"))
                         .as("the placement stands twice as far from its chance figure as the "
                                 + "vocabulary does from its bar, so its mark reads first")

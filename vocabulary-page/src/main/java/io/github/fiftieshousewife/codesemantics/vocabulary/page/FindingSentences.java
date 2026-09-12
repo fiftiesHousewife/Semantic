@@ -1,13 +1,17 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedTaxonomy;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.engine.export.SetAside;
+import io.github.fiftieshousewife.codesemantics.lexicon.TermVocabularies;
 
 /**
  * A reading's answers as plain-English sentences, one per answering source, with the figure beside the
@@ -22,6 +26,16 @@ public final class FindingSentences {
     private static final String LEVEL_SEPARATOR = " › ";
 
     /**
+     * Each bundled vocabulary's stated subject, keyed by the short name a match cites. The card leads with
+     * it because a source's name answers nothing on its own: FIX says finance only to a reader who knows
+     * FIX, where its own header states "financial information exchange". A vocabulary the classpath
+     * provides states no header here and its claim stands without the prefix.
+     */
+    private static final Map<String, String> SUBJECT_BY_SOURCE = Stream.of(TermVocabularies.values())
+            .collect(Collectors.toMap(TermVocabularies::publisher,
+                    vocabulary -> vocabulary.stated().subject()));
+
+    /**
      * The claim alone, for a card: what the vocabulary states and where it places its most-written
      * concept. The figures stand in the marks beside it and the workings once in the page's own lede.
      */
@@ -34,7 +48,9 @@ public final class FindingSentences {
                 ? String.format(Locale.ROOT, "%s states %d of its phrases in the declared names.",
                         vocabulary.vocabulary(), vocabulary.bar().phrases())
                 : oneWordTerms(vocabulary);
-        return stated + named(answer);
+        final String claim = stated + named(answer);
+        final String subject = SUBJECT_BY_SOURCE.get(answer.source());
+        return subject == null ? claim : "About " + subject + ": " + claim;
     }
 
     /** One sentence per entry of {@code summary.answers}, in the export's own order. */
