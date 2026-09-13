@@ -509,7 +509,7 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 | [Aeron](https://github.com/aeron-io/aeron), [Besu](https://github.com/besu-eth/besu) | Computer Science | out of domain |
 | [Strata](https://github.com/OpenGamma/Strata), [Fineract](https://github.com/apache/fineract), [QuickFIX/J](https://github.com/quickfix-j/quickfixj), [jPOS](https://github.com/jpos/jPOS), [fix-trading-simulator](https://github.com/felipewind/fix-trading-simulator), [jmeter-iso8583](https://github.com/tilln/jmeter-iso8583) | Finance | in domain, for the finance vocabularies |
 
-**What the twelve readings show, at schema 29.0.** A vocabulary answers only where both counting units clear — more distinct terms than the best chance deal reaches, and more total occurrences than it reaches — and each answer is stated as the smaller of its two multiples, the unit that nearly refused it.
+**What the twelve readings show, at schema 30.0.** A vocabulary answers only where both counting units clear — more distinct terms than the best chance deal reaches, and more total occurrences than it reaches — and each answer is stated as the smaller of its two multiples, the unit that nearly refused it.
 
 | Reading | The vocabularies that answered |
 |---|---|
@@ -522,7 +522,7 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 | jmeter-iso8583 | CSO ×1.5 |
 | Apache Santuario | CSO ×1.3 |
 | Aeron | CSO ×1.1 |
-| this repository | OLiA ×1.5 |
+| this repository | OLiA ×1.2 |
 | **Besu** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
 | **Apache Maven** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
 
