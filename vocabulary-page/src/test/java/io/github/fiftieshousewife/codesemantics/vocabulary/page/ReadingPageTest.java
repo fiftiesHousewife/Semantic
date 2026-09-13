@@ -59,14 +59,29 @@ class ReadingPageTest {
                         0, 0, 0));
     }
 
-    private final String page = new ReadingPage("", "").markup(reading(), "{}");
+    private static DomainSources sources() {
+        return new DomainSources(List.of(
+                new DomainSources.Row("WordNet Domains",
+                        "Every domain any of the word's WordNet senses states.",
+                        List.of(new DomainSources.Leading("computer_science", 0.41),
+                                new DomainSources.Leading("telecommunication", 0.22)),
+                        143, 0.72),
+                new DomainSources.Row("CSO topics",
+                        "Every area holding a topic whose own label carries the word.",
+                        List.of(new DomainSources.Leading("computer systems", 0.35)),
+                        61, 0.31)),
+                197);
+    }
+
+    private final String page = new ReadingPage("", "").markup(reading(), sources(), "{}");
 
     @Test
     void leadsWithTheFindingSentences() {
         assertAll(
                 () -> assertThat(page).contains("<h1>quickfixj</h1>"),
-                () -> assertThat(page).contains("FIX states 52 of its phrases"),
-                () -> assertThat(page).contains("It places MsgSeqNum under Session."));
+                () -> assertThat(page).contains("FIX places MsgSeqNum under Session."),
+                () -> assertThat(page).contains("The declared names write 52 of its phrases; "
+                        + "chance reaches 5."));
     }
 
     @Test
@@ -105,6 +120,17 @@ class ReadingPageTest {
     }
 
     @Test
+    void namesEveryDomainSourceWithItsCoverageAndItsLeadingDomains() {
+        assertAll(
+                () -> assertThat(page).contains("What each source states about the words"),
+                () -> assertThat(page).contains("WordNet Domains</b> — labels 143 of 197 words; "
+                        + "most weight on computer science (41%), telecommunication (22%). "
+                        + "Every domain any of the word&#x27;s WordNet senses states."),
+                () -> assertThat(page).contains("CSO topics</b> — labels 61 of 197 words; "
+                        + "most weight on computer systems (35%)."));
+    }
+
+    @Test
     void statesTheTwoSharesEverythingRestsOn() {
         assertThat(page)
                 .contains("Some bundled resource can be cited for 98.1% of the word occurrences")
@@ -120,7 +146,7 @@ class ReadingPageTest {
                 List.of(), Map.of(), List.of(), List.of(),
                 new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0, 0));
 
-        assertThat(new ReadingPage("", "").markup(bare, "{}"))
+        assertThat(new ReadingPage("", "").markup(bare, sources(), "{}"))
                 .contains("No published vocabulary wrote more of its phrases here than a deal of its "
                         + "own words reaches.");
     }

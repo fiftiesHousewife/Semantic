@@ -8,12 +8,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
+import io.github.fiftieshousewife.codesemantics.lexicon.XwndSenseDomains;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -84,7 +86,10 @@ public final class PagesCommand {
             final Path repository = reports.resolve(export.summary().repository());
             Files.createDirectories(repository);
             final Path file = repository.resolve(PAGE);
-            Files.writeString(file, page.markup(export, figures(reading, export, lexicon)));
+            final SignificantWords.Significant significant = SignificantWords.of(export);
+            Files.writeString(file, page.markup(export,
+                    DomainSources.of(overlaps(reading, export, significant.words(), lexicon)),
+                    figures(reading, export, significant, lexicon)));
             written.add(file);
         }
         final Path landing = reports.resolve(LANDING);
@@ -97,14 +102,37 @@ public final class PagesCommand {
 
     /** What the page's two figures draw: the meaning tiles, and the leading domains' overlap. */
     private static String figures(final ReadingFolder reading, final ReadingExport export,
+                                  final SignificantWords.Significant significant,
                                   final WordNetLexicon lexicon) throws IOException {
         final DomainOverlap overlap = DomainOverlap.of(export.summary().repository(),
-                SignificantWords.of(export).words(), lexicon::countedSenseDomainsOf);
+                significant.words(), lexicon::countedSenseDomainsOf);
         return new ObjectMapper().writeValueAsString(Map.of(
                 "funnel", VocabularyFunnel.of(reading),
                 "leadingDomains", overlap.domains().stream().map(DomainOverlap.Drawn::domain).toList(),
                 "overlap", overlap,
                 "signals", export.signals().size()));
+    }
+
+    /**
+     * The same significant words under every bundled domain source: WordNet Domains and the eXtended
+     * reduction read their own counted senses, and each subject scheme's all-uncounted senses take the
+     * corroborated weight the committed evidence states.
+     */
+    private static Map<String, DomainOverlap> overlaps(final ReadingFolder reading,
+                                                       final ReadingExport export,
+                                                       final List<ScoredWord> words,
+                                                       final WordNetLexicon lexicon) {
+        final String repository = export.summary().repository();
+        final Map<String, DomainOverlap> bySource = new LinkedHashMap<>();
+        bySource.put("WordNet Domains",
+                DomainOverlap.of(repository, words, lexicon::countedSenseDomainsOf));
+        bySource.put("eXtended WordNet Domains",
+                DomainOverlap.of(repository, words,
+                        XwndSenseDomains.fromClasspath()::countedSenseDomainsOf));
+        SubjectSenseSources.bySource(CorroboratedSenses.fromCommittedEvidence(reading))
+                .forEach((source, senses) ->
+                        bySource.put(source, DomainOverlap.of(repository, words, senses)));
+        return bySource;
     }
 
     /** The stylesheets and the script, read whole from the files they are authored in. */

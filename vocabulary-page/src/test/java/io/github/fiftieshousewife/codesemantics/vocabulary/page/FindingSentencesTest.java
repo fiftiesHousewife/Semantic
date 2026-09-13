@@ -49,16 +49,15 @@ class FindingSentencesTest {
     }
 
     @Test
-    void statesAPhraseAnswerWithTheDealArithmeticThePlacementAndTheProse() {
+    void leadsWithTheClaimThenStatesTheCountsAndTheProse() {
         final ReadingExport reading = reading(
                 List.of(ExportedAnswer.fromATaxonomy("FIX", List.of("Session"), "MsgSeqNum",
                         "Integer message sequence number.", "52 phrases", 10.4)),
                 List.of(vocabulary("FIX", 52, 5, List.of())), List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement()
-                .isEqualTo("FIX states 52 of its phrases in this repository’s declared names, against "
-                        + "the 5 the best of a field of 7 reaches by dealing its own words at random. "
-                        + "It places MsgSeqNum under Session. “Integer message sequence number.”");
+                .isEqualTo("FIX places MsgSeqNum under Session. The declared names write 52 of its "
+                        + "phrases; chance reaches 5. “Integer message sequence number.”");
     }
 
     @Test
@@ -70,7 +69,7 @@ class FindingSentencesTest {
                 List.of(vocabulary("FIBO", 47, 17, List.of())), List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement().asString()
-                .contains("It places PresentValue under Aspect › Value › QuantitativeValue.")
+                .contains("FIBO places PresentValue under Aspect › Value › QuantitativeValue.")
                 .doesNotContain("“");
     }
 
@@ -82,7 +81,7 @@ class FindingSentencesTest {
                 List.of(vocabulary("FpML", 6, 4, List.of())), List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement().asString()
-                .contains("Its most-written concept is PartyName.");
+                .startsWith("FpML’s most-written concept is PartyName.");
     }
 
     @Test
@@ -95,8 +94,9 @@ class FindingSentencesTest {
                 List.of(), List.of());
 
         assertThat(sentences.of(reading)).singleElement().asString()
-                .startsWith("The repository writes 2 of OLiA’s one-word terms, each beside another "
-                        + "concept of the branch its publisher files it in.");
+                .startsWith("OLiA places Verb under a branch. The repository writes 2 of its "
+                        + "one-word terms, each beside another concept of the branch its publisher "
+                        + "files it in.");
     }
 
     @Test

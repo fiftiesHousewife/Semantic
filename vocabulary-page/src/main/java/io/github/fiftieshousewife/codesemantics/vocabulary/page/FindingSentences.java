@@ -73,8 +73,28 @@ public final class FindingSentences {
                 .filter(one -> one.vocabulary().equals(answer.source()))
                 .findFirst()
                 .orElseThrow();
-        return (aBarWasFormed(reading) ? phrases(vocabulary) : oneWordTerms(vocabulary))
-                + named(answer) + quoted(answer);
+        if (answer.result().isEmpty()) {
+            return counted(reading, vocabulary, vocabulary.vocabulary() + "’s") + covered(answer);
+        }
+        return claim(answer) + " " + counted(reading, vocabulary, "its") + quoted(answer);
+    }
+
+    /** The claim first and alone: the concept, and where its publisher files it. */
+    private static String claim(final ExportedAnswer answer) {
+        if (answer.statedPath().isEmpty()) {
+            return answer.source() + "’s most-written concept is " + answer.result() + ".";
+        }
+        return answer.source() + " places " + answer.result() + " under "
+                + String.join(LEVEL_SEPARATOR, answer.statedPath()) + ".";
+    }
+
+    private static String counted(final ReadingExport reading, final ExportedTaxonomy vocabulary,
+                                  final String whose) {
+        return aBarWasFormed(reading) ? phrases(vocabulary, whose) : oneWordTerms(vocabulary, whose);
+    }
+
+    private static String covered(final ExportedAnswer answer) {
+        return answer.definition() == null ? "" : " The vocabulary covers " + answer.definition() + ".";
     }
 
     /**
@@ -86,32 +106,18 @@ public final class FindingSentences {
                 .anyMatch(one -> one.bar().chanceExpectedBest() > 0);
     }
 
-    private static String phrases(final ExportedTaxonomy vocabulary) {
+    private static String phrases(final ExportedTaxonomy vocabulary, final String whose) {
         return String.format(Locale.ROOT,
-                "%s states %d of its phrases in this repository’s declared names, against the %d the "
-                        + "best of a field of %d reaches by dealing its own words at random.",
-                vocabulary.vocabulary(), vocabulary.bar().phrases(),
-                vocabulary.bar().chanceExpectedBest(), vocabulary.bar().field());
+                "The declared names write %d of %s phrases; chance reaches %d.",
+                vocabulary.bar().phrases(), whose, vocabulary.bar().chanceExpectedBest());
     }
 
-    static String oneWordTerms(final ExportedTaxonomy vocabulary) {
+    private static String oneWordTerms(final ExportedTaxonomy vocabulary, final String whose) {
         return String.format(Locale.ROOT,
-                "The repository writes %d of %s’s one-word terms, each beside another concept of the "
+                "The repository writes %d of %s one-word terms, each beside another concept of the "
                         + "branch its publisher files it in.",
                 vocabulary.concepts().stream().filter(concept -> concept.wordsInTerm() == 1).count(),
-                vocabulary.vocabulary());
-    }
-
-    private static String named(final ExportedAnswer answer) {
-        if (answer.result().isEmpty()) {
-            return answer.definition() == null
-                    ? "" : " The vocabulary covers " + answer.definition() + ".";
-        }
-        if (answer.statedPath().isEmpty()) {
-            return " Its most-written concept is " + answer.result() + ".";
-        }
-        return " It places " + answer.result() + " under "
-                + String.join(LEVEL_SEPARATOR, answer.statedPath()) + ".";
+                whose);
     }
 
     private static String quoted(final ExportedAnswer answer) {

@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
@@ -50,11 +51,11 @@ public final class ReadingPage {
     }
 
     /** The whole page: the sections from the reading, the two figures from the data block. */
-    public String markup(final ReadingExport reading, final String data) {
-        return PageDocument.of(reading.summary().repository(), page(reading, data).render());
+    public String markup(final ReadingExport reading, final DomainSources sources, final String data) {
+        return PageDocument.of(reading.summary().repository(), page(reading, sources, data).render());
     }
 
-    private BodyTag page(final ReadingExport reading, final String data) {
+    private BodyTag page(final ReadingExport reading, final DomainSources sources, final String data) {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
@@ -66,6 +67,7 @@ public final class ReadingPage {
                                         sentence -> p(sentence).withClass("finding"))),
                         words(),
                         domains(),
+                        sources(sources),
                         phrases(reading),
                         placements(reading),
                         ground(reading.summary())),
@@ -77,9 +79,11 @@ public final class ReadingPage {
         return section().withId("words").with(
                 h2("The words it chose"),
                 p().withClass("lede").withText("Every signal merged to its dictionary meaning. A "
-                        + "word’s size is its score in bits against the reference writing it lowest, "
-                        + "its weight is how far that score stands outside chance, and a coloured mark "
-                        + "names one of the three leading domains drawn below."),
+                        + "word’s size is its score in bits against whichever of the two references "
+                        + "writes it lower — ordinary English, or a reference corpus of ten Java "
+                        + "repositories read the same way — its weight is how far that score stands "
+                        + "outside chance, and a coloured mark names one of the three leading domains "
+                        + "drawn below."),
                 div().withClass("cloud"),
                 p().withClass("readout cloud-readout"));
     }
@@ -88,13 +92,41 @@ public final class ReadingPage {
         return section().withId("domains").with(
                 h2("What those words are about"),
                 p().withClass("lede").withText("The three domains carrying most of the words’ weight, "
-                        + "as overlapping sets. A word sits in every domain any of its senses states, "
-                        + "so an overlap holds the words placed in both of its domains; a count opens "
-                        + "its overlap’s words."),
+                        + "as overlapping sets — the domains WordNet Domains states for the words’ "
+                        + "senses, weighted by the counts WordNet’s own tagged corpus publishes. A "
+                        + "word sits in every domain any of its senses states, so an overlap holds the "
+                        + "words placed in both of its domains; a count opens its overlap’s words."),
                 div().withClass("figure"),
                 p().withClass("readout venn-readout"),
                 div().withClass("overlaps"),
                 p().withClass("foot"));
+    }
+
+    /** One row per bundled domain source, so the page names the resources the domains come from. */
+    private static SectionTag sources(final DomainSources sources) {
+        return section().withId("sources").with(
+                h2("What each source states about the words"),
+                p().withClass("lede").withText("One row per bundled domain source, over the same "
+                        + "significant words: how many of them it labels with anything, and where it "
+                        + "puts most of the weight it places. The picture above draws WordNet Domains; "
+                        + "the other rows read the same words through their own labels."),
+                ul().withClass("sources").with(each(sources.rows(),
+                        row -> sourceRow(row, sources.significantWords()))));
+    }
+
+    private static LiTag sourceRow(final DomainSources.Row row, final int significantWords) {
+        return li(
+                b(row.source()),
+                text(String.format(Locale.ROOT,
+                        " — labels %d of %d words; most weight on %s. %s",
+                        row.placedWords(), significantWords, leading(row), row.description())));
+    }
+
+    private static String leading(final DomainSources.Row row) {
+        return row.leading().stream()
+                .map(one -> String.format(Locale.ROOT, "%s (%.0f%%)",
+                        PublishedSpelling.shown(one.domain()), one.share() * 100))
+                .collect(Collectors.joining(", "));
     }
 
     private SectionTag phrases(final ReadingExport reading) {
