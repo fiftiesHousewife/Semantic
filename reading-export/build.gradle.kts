@@ -314,17 +314,20 @@ tasks.register<Test>("read") {
 //   ./gradlew pullRequests -Dcs.clone.dir=~/evaluation/tika -Dcs.pullrequests.dir=~/evaluation/pull-requests/tika
 // PR_AUTHOR on the fetch step selects whose pull requests are taken, so a run is per repository and per
 // author. The reading writes output/<name>/json/pull-requests.json and the pages one report per author.
-tasks.register("pullRequests") {
+val pullRequestsTask = tasks.register("pullRequests") {
     group = "verification"
     description = "Reads a repository's fetched pull requests and writes the report for each author"
     dependsOn(tasks.named("read"))
     finalizedBy(":vocabulary-page:pages")
-    doFirst {
-        if (System.getProperty("cs.pullrequests.dir") == null) {
-            throw GradleException(
-                "pullRequests needs -Dcs.pullrequests.dir=<directory fetch-pull-requests.sh filled>. " +
-                    "Run ./fetch-pull-requests.sh first; the library reads no network and no .git.")
-        }
+}
+
+// The check runs before any task does, because the reading it depends on takes minutes: a run missing the
+// property would otherwise read a whole tree before being told what it is missing.
+gradle.taskGraph.whenReady {
+    if (hasTask(pullRequestsTask.get()) && System.getProperty("cs.pullrequests.dir") == null) {
+        throw GradleException(
+            "pullRequests needs -Dcs.pullrequests.dir=<directory fetch-pull-requests.sh filled>. " +
+                "Run ./fetch-pull-requests.sh first; the library reads no network and no .git.")
     }
 }
 
