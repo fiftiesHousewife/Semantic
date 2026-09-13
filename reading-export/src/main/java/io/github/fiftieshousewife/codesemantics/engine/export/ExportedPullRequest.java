@@ -25,11 +25,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @param signals    the words and published phrases clearing every one of those thresholds
  * @param statement  what the pull request says beside what it writes, and absent where no statement was
  *                   fetched or none of it could be read
+ * @param work       the work the pull request states it does, classified against the published change
+ *                   standards, and absent where no statement was fetched
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ExportedPullRequest(int number, String author, String headSha, String baseSha, int files,
                                   Map<String, Double> thresholds, List<ExportedSignal> signals,
-                                  ExportedStatement statement) {
+                                  ExportedStatement statement, ExportedWork work) {
 
     public ExportedPullRequest {
         Objects.requireNonNull(author, "author");
@@ -42,12 +44,18 @@ public record ExportedPullRequest(int number, String author, String headSha, Str
     public ExportedPullRequest(final int number, final String author, final String headSha,
                                final String baseSha, final int files, final Map<String, Double> thresholds,
                                final List<ExportedSignal> signals) {
-        this(number, author, headSha, baseSha, files, thresholds, signals, null);
+        this(number, author, headSha, baseSha, files, thresholds, signals, null, null);
     }
 
     /** The same reading with this statement beside it. Nothing already read moves. */
     public ExportedPullRequest withStatement(final ExportedStatement stated) {
         return new ExportedPullRequest(number, author, headSha, baseSha, files, thresholds, signals,
-                stated);
+                stated, work);
+    }
+
+    /** The same reading with this classification beside it. Nothing already read moves. */
+    public ExportedPullRequest withWork(final ExportedWork classified) {
+        return new ExportedPullRequest(number, author, headSha, baseSha, files, thresholds, signals,
+                statement, classified);
     }
 }

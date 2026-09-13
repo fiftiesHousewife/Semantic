@@ -43,13 +43,15 @@ public final class ExportedPullRequests {
     }
 
     /**
-     * The same block with the statement's divergence beside it, judged in a field of this many statements.
-     * An unreadable statement, or one whose chance field offers no readable draw, leaves the block exactly
-     * as {@link #of(PullRequestFacts, RepositoryReading)} composed it.
+     * The same block with the statement's divergence and the stated work class beside it, the divergence
+     * judged in a field of this many statements. An unreadable statement, or one whose chance field offers
+     * no readable draw, leaves everything but {@code work} exactly as
+     * {@link #of(PullRequestFacts, RepositoryReading)} composed it.
      */
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
                                   final String statement, final int judgedTogether) {
-        final ExportedPullRequest written = of(facts, reading);
+        final ExportedPullRequest written = of(facts, reading)
+                .withWork(new StatedWork().of(statement));
         return statedBesideWritten(statement, judgedTogether, reading)
                 .map(written::withStatement)
                 .orElse(written);

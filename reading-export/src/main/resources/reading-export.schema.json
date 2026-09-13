@@ -796,6 +796,78 @@
                 }
               }
             }
+          },
+          "work": {
+            "title": "The work the pull request states",
+            "description": "The pull request's own statement of what its work is, classified against the published change standards. Only the stated side is here yet: every non-blank line of the authored statement is offered to the Conventional Commits grammar, and a parsed type is kept only where the bundled standard states it. A statement no standard's grammar parses yields counts and no class \u2014 abstention stated, never a guess. Absent where no statement was fetched.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "stated"
+            ],
+            "properties": {
+              "stated": {
+                "title": "Stated class",
+                "description": "What the statement says its change is, under the Conventional Commits grammar.",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "linesRead",
+                  "linesParsed",
+                  "classes"
+                ],
+                "properties": {
+                  "linesRead": {
+                    "title": "Lines read",
+                    "description": "How many non-blank lines of the authored statement were offered to the grammar.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "linesParsed": {
+                    "title": "Lines the grammar parsed",
+                    "description": "How many of those lines the grammar parsed, whatever their type \u2014 a parsed type the standard does not state counts here and in no class.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "classes": {
+                    "title": "Stated classes",
+                    "description": "The types the standard states, most-written first. Empty where no line states one.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "type",
+                        "module",
+                        "lines"
+                      ],
+                      "properties": {
+                        "type": {
+                          "title": "Type",
+                          "description": "The token as the standard writes it \u2014 feat, fix, docs.",
+                          "type": "string"
+                        },
+                        "module": {
+                          "title": "Defining source",
+                          "description": "Which source defines it, as the bundled resource's own column states: specification, or angular-convention.",
+                          "type": "string",
+                          "enum": [
+                            "specification",
+                            "angular-convention"
+                          ]
+                        },
+                        "lines": {
+                          "title": "Lines",
+                          "description": "How many statement lines state it.",
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -52,7 +52,7 @@ class ExportedPullRequestsTest {
         assertAll(
                 () -> assertThat(with.signals()).isEqualTo(without.signals()),
                 () -> assertThat(with.thresholds()).isEqualTo(without.thresholds()),
-                () -> assertThat(with.withStatement(null)).isEqualTo(without),
+                () -> assertThat(with.withStatement(null).withWork(null)).isEqualTo(without),
                 () -> assertThat(with.signals())
                         .as("a stated word must never come back as a written signal")
                         .noneMatch(signal -> signal.word().contains("cryptography")));
@@ -77,5 +77,47 @@ class ExportedPullRequestsTest {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
         assertThat(exported.of(FACTS, reading, "qzxv wvvx", 1).statement()).isNull();
+    }
+
+    @Test
+    void classifiesTheStatedWorkWhereTheStatementWritesConventionalCommits() {
+        final RepositoryReading reading = RepositoryReading.of(tree);
+
+        final ExportedWork.Stated stated = exported.of(FACTS, reading,
+                "fix: stop the parser racing\n\nfeat(lang): add Polish\n\nfix: cache the grammar", 1)
+                .work().stated();
+
+        assertAll(
+                () -> assertThat(stated.linesRead()).isEqualTo(3),
+                () -> assertThat(stated.linesParsed()).isEqualTo(3),
+                () -> assertThat(stated.classes()).containsExactly(
+                        new ExportedWork.StatedClass("fix", "specification", 2),
+                        new ExportedWork.StatedClass("feat", "specification", 1)));
+    }
+
+    @Test
+    void statesNoClassWhereTheStatementTitlesInAnotherStyle() {
+        final RepositoryReading reading = RepositoryReading.of(tree);
+
+        final ExportedWork.Stated stated = exported.of(FACTS, reading,
+                "TIKA-4384: update forbiddenapis\n\nMerge branch 'main' into TIKA-4384", 1)
+                .work().stated();
+
+        assertAll(
+                () -> assertThat(stated.linesRead()).isEqualTo(2),
+                () -> assertThat(stated.linesParsed()).isZero(),
+                () -> assertThat(stated.classes()).isEmpty());
+    }
+
+    @Test
+    void countsAParsedTypeTheStandardDoesNotStateInNoClass() {
+        final RepositoryReading reading = RepositoryReading.of(tree);
+
+        final ExportedWork.Stated stated = exported.of(FACTS, reading, "wip: half a parser", 1)
+                .work().stated();
+
+        assertAll(
+                () -> assertThat(stated.linesParsed()).isEqualTo(1),
+                () -> assertThat(stated.classes()).isEmpty());
     }
 }

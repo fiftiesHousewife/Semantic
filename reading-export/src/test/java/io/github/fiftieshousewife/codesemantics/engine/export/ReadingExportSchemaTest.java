@@ -75,7 +75,9 @@ class ReadingExportSchemaTest {
             List.of(new ExportedSignal(ReadingSource.PULL_REQUEST, "inference", 12, 9, 0.03, 0.025,
                     "ordinary English", new SightingSite("Engine.java", 3))),
             new ExportedStatement(4, 31, 0.42, 0.19, 0.001, 999,
-                    List.of(new ExportedStatement.StatedTopic("computing", 0.11, 0.6, 0.2))));
+                    List.of(new ExportedStatement.StatedTopic("computing", 0.11, 0.6, 0.2))),
+            new ExportedWork(new ExportedWork.Stated(4, 1,
+                    List.of(new ExportedWork.StatedClass("fix", "specification", 1)))));
 
     private final ExportFile file = new ExportFile();
 
