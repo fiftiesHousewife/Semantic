@@ -18900,7 +18900,12 @@
         "linesRead" : 4,
         "linesParsed" : 0,
         "classes" : [ ]
-      }
+      },
+      "issues" : [ {
+        "key" : "TIKA-4889",
+        "type" : "Task",
+        "url" : "https://issues.apache.org/jira/browse/TIKA-4889"
+      } ]
     }
   }, {
     "number" : 3154,
@@ -19395,7 +19400,12 @@
         "linesRead" : 2,
         "linesParsed" : 0,
         "classes" : [ ]
-      }
+      },
+      "issues" : [ {
+        "key" : "TIKA-4889",
+        "type" : "Task",
+        "url" : "https://issues.apache.org/jira/browse/TIKA-4889"
+      } ]
     }
   }, {
     "number" : 3156,
@@ -19782,7 +19792,12 @@
         "linesRead" : 3,
         "linesParsed" : 0,
         "classes" : [ ]
-      }
+      },
+      "issues" : [ {
+        "key" : "TIKA-4889",
+        "type" : "Task",
+        "url" : "https://issues.apache.org/jira/browse/TIKA-4889"
+      } ]
     }
   } ]
 }
