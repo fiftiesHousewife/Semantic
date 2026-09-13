@@ -77,7 +77,9 @@ class ReadingExportSchemaTest {
             new ExportedStatement(4, 31, 0.42, 0.19, 0.001, 999,
                     List.of(new ExportedStatement.StatedTopic("computing", 0.11, 0.6, 0.2))),
             new ExportedWork(new ExportedWork.Stated(4, 1,
-                    List.of(new ExportedWork.StatedClass("fix", "specification", 1)))));
+                    List.of(new ExportedWork.StatedClass("fix", "specification", 1))),
+                    List.of(new ExportedWork.Issue("TIKA-4889", "Task",
+                            "https://issues.apache.org/jira/browse/TIKA-4889"))));
 
     private final ExportFile file = new ExportFile();
 

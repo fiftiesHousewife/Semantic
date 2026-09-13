@@ -49,9 +49,10 @@ public final class ExportedPullRequests {
      * {@link #of(PullRequestFacts, RepositoryReading)} composed it.
      */
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
-                                  final String statement, final int judgedTogether) {
+                                  final String statement, final List<ExportedWork.Issue> issues,
+                                  final int judgedTogether) {
         final ExportedPullRequest written = of(facts, reading)
-                .withWork(new StatedWork().of(statement));
+                .withWork(new ExportedWork(new StatedWork().of(statement), issues));
         return statedBesideWritten(statement, judgedTogether, reading)
                 .map(written::withStatement)
                 .orElse(written);

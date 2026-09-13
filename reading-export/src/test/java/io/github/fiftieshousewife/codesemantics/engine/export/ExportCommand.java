@@ -92,9 +92,12 @@ public final class ExportCommand {
                                             final PullRequestSet.PullRequest pullRequest,
                                             final int statements) {
         final RepositoryReading reading = TreeReading.of(set.treeOf(pullRequest)).reading();
+        final List<ExportedWork.Issue> issues = set.issuesOf(pullRequest)
+                .map(PinnedIssues::in)
+                .orElse(List.of());
         return set.statementOf(pullRequest)
                 .map(statement -> exported.of(pullRequest.facts(), reading,
-                        authored(statement, set.templateOf(pullRequest)), statements))
+                        authored(statement, set.templateOf(pullRequest)), issues, statements))
                 .orElseGet(() -> exported.of(pullRequest.facts(), reading));
     }
 

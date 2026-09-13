@@ -806,6 +806,38 @@
               "stated"
             ],
             "properties": {
+              "issues": {
+                "title": "Issues the statement references",
+                "description": "The tracker's own statements about the issues the statement references: the repository's pom names its tracker in issueManagement, the fetch step reads each referenced issue of that project from the tracker and pins the answer, and the type here is the tracker's word verbatim, never mapped onto another standard's vocabulary. Absent where the statement references no issue of the repository's own tracker, or the repository states no tracker.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "key",
+                    "type",
+                    "url"
+                  ],
+                  "properties": {
+                    "key": {
+                      "title": "Key",
+                      "description": "The issue key, as the statement writes it.",
+                      "type": "string"
+                    },
+                    "type": {
+                      "title": "Stated type",
+                      "description": "The issue type the tracker states, verbatim.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "title": "URL",
+                      "description": "The tracker's own page for the issue.",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
               "stated": {
                 "title": "Stated class",
                 "description": "What the statement says its change is, under the Conventional Commits grammar.",

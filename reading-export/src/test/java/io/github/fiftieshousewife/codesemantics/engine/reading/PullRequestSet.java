@@ -21,6 +21,7 @@ public final class PullRequestSet {
     static final String MANIFEST = "pull-requests.tsv";
     static final String STATEMENT_SUFFIX = "-statement.md";
     static final String TEMPLATE_SUFFIX = "-template.md";
+    static final String ISSUES_SUFFIX = "-issues.tsv";
     private static final String COMMENT = "#";
     private static final String COLUMN = "\t";
     private static final int COLUMNS = 7;
@@ -94,6 +95,15 @@ public final class PullRequestSet {
      */
     public Optional<Path> templateOf(final PullRequest pullRequest) {
         return besides(pullRequest, TEMPLATE_SUFFIX);
+    }
+
+    /**
+     * The tracker's statements about the issues the statement references, where the fetch pinned them:
+     * one row per referenced issue of the project the repository's own pom names, with the type the
+     * tracker states.
+     */
+    public Optional<Path> issuesOf(final PullRequest pullRequest) {
+        return besides(pullRequest, ISSUES_SUFFIX);
     }
 
     private Optional<Path> besides(final PullRequest pullRequest, final String suffix) {

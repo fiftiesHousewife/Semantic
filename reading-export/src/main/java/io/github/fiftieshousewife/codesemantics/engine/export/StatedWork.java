@@ -19,14 +19,14 @@ final class StatedWork {
 
     private final ConventionalCommitTypes types = ConventionalCommitTypes.fromClasspath();
 
-    ExportedWork of(final String statement) {
+    ExportedWork.Stated of(final String statement) {
         final List<String> lines = statement.lines()
                 .filter(line -> !line.isBlank())
                 .toList();
         final List<ConventionalCommitLine> parsed = lines.stream()
                 .flatMap(line -> ConventionalCommitLine.parsed(line).stream())
                 .toList();
-        return new ExportedWork(new ExportedWork.Stated(lines.size(), parsed.size(), classesOf(parsed)));
+        return new ExportedWork.Stated(lines.size(), parsed.size(), classesOf(parsed));
     }
 
     private List<ExportedWork.StatedClass> classesOf(final List<ConventionalCommitLine> parsed) {

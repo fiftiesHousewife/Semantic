@@ -1,6 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.io.IOException;
+import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -47,7 +48,7 @@ class ExportedPullRequestsTest {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
         final ExportedPullRequest without = exported.of(FACTS, reading);
-        final ExportedPullRequest with = exported.of(FACTS, reading, STATEMENT, 1);
+        final ExportedPullRequest with = exported.of(FACTS, reading, STATEMENT, List.of(), 1);
 
         assertAll(
                 () -> assertThat(with.signals()).isEqualTo(without.signals()),
@@ -62,7 +63,7 @@ class ExportedPullRequestsTest {
     void statesTheDivergenceBesideTheReadingWithItsShapeAndItsChance() {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
-        final ExportedStatement statement = exported.of(FACTS, reading, STATEMENT, 1).statement();
+        final ExportedStatement statement = exported.of(FACTS, reading, STATEMENT, List.of(), 1).statement();
 
         assertAll(
                 () -> assertThat(statement.sentences()).isEqualTo(2),
@@ -76,7 +77,7 @@ class ExportedPullRequestsTest {
     void leavesTheStatementOutWhereNothingInItCouldBeRead() {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
-        assertThat(exported.of(FACTS, reading, "qzxv wvvx", 1).statement()).isNull();
+        assertThat(exported.of(FACTS, reading, "qzxv wvvx", List.of(), 1).statement()).isNull();
     }
 
     @Test
@@ -84,7 +85,8 @@ class ExportedPullRequestsTest {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
         final ExportedWork.Stated stated = exported.of(FACTS, reading,
-                "fix: stop the parser racing\n\nfeat(lang): add Polish\n\nfix: cache the grammar", 1)
+                "fix: stop the parser racing\n\nfeat(lang): add Polish\n\nfix: cache the grammar",
+                List.of(), 1)
                 .work().stated();
 
         assertAll(
@@ -100,7 +102,7 @@ class ExportedPullRequestsTest {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
         final ExportedWork.Stated stated = exported.of(FACTS, reading,
-                "TIKA-4384: update forbiddenapis\n\nMerge branch 'main' into TIKA-4384", 1)
+                "TIKA-4384: update forbiddenapis\n\nMerge branch 'main' into TIKA-4384", List.of(), 1)
                 .work().stated();
 
         assertAll(
@@ -110,10 +112,28 @@ class ExportedPullRequestsTest {
     }
 
     @Test
+    void publishesTheTrackersStatementsBesideTheStatedClasses() {
+        final RepositoryReading reading = RepositoryReading.of(tree);
+        final ExportedWork.Issue issue = new ExportedWork.Issue("TIKA-4889", "Task",
+                "https://issues.apache.org/jira/browse/TIKA-4889");
+
+        final ExportedWork work = exported.of(FACTS, reading,
+                "TIKA-4889: Inference engines", List.of(issue), 1).work();
+
+        assertAll(
+                () -> assertThat(work.issues()).containsExactly(issue),
+                () -> assertThat(work.stated().linesParsed())
+                        .as("the tracker's statement stands beside the grammar's abstention, never "
+                                + "in place of it")
+                        .isZero());
+    }
+
+    @Test
     void countsAParsedTypeTheStandardDoesNotStateInNoClass() {
         final RepositoryReading reading = RepositoryReading.of(tree);
 
-        final ExportedWork.Stated stated = exported.of(FACTS, reading, "wip: half a parser", 1)
+        final ExportedWork.Stated stated = exported.of(FACTS, reading, "wip: half a parser",
+                List.of(), 1)
                 .work().stated();
 
         assertAll(

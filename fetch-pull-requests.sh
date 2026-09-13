@@ -15,6 +15,15 @@
 # own .readingignore travels with every pull request that has one at its head, because a copy without the
 # tree's stated exclusions would read files the original refuses.
 #
+# Where the statement references issues of the repository's own tracker, the tracker's statements are
+# pinned too: pom.xml at the head commit names the tracker in <issueManagement>, the statement is searched
+# for keys of the project that URL names, and each referenced issue's own type and summary are written to
+# pr-<number>-issues.tsv beside the statement, as the tracker states them at retrieval. Each repository
+# resolves to its own tracker, and a self-hosted server with a context path and a cloud site both do —
+# the site root is read off the stated /browse/<KEY> or /projects/<KEY> URL. A repository whose pom
+# states no JIRA tracker, a statement referencing no issue, and a tracker that does not answer each get
+# no file.
+#
 # What the pull request says — its title, its description and the messages of its commits, as the API states
 # them at retrieval — is written verbatim to pr-<number>-statement.md beside the directory, never inside it:
 # a statement inside the directory would be read as one of the changed files, and the reading keeps what a
@@ -108,6 +117,78 @@ statement() {
     printf 'stated   %s\n' "$file"
 }
 
+# The <issueManagement> block of pom.xml at the head commit, flattened to one line, or nothing.
+issue_management() {
+    local head="$1"
+    git -C "$CLONE" cat-file blob "$head:pom.xml" 2>/dev/null | tr -d '\n\r' \
+        | grep -o '<issueManagement>.*</issueManagement>' | head -1 || true
+}
+
+issues() {
+    local number="$1" head="$2" file="pr-$number-issues.tsv"
+    local statement_file="$TARGET/pr-$number-statement.md"
+    if [ -f "$TARGET/$file" ] || [ ! -f "$statement_file" ]; then
+        return 0
+    fi
+    local management system url
+    management=$(issue_management "$head")
+    [ -n "$management" ] || return 0
+    system=$(printf '%s' "$management" | grep -o '<system>[^<]*</system>' | sed 's/<[^>]*>//g')
+    url=$(printf '%s' "$management" | grep -o '<url>[^<]*</url>' | sed 's/<[^>]*>//g' | sed 's|/$||')
+    if [ "$(printf '%s' "$system" | tr '[:lower:]' '[:upper:]')" != "JIRA" ] || [ -z "$url" ]; then
+        return 0
+    fi
+    # The project key is the URL's last path segment, in the shape Jira gives keys, and the site root is
+    # what stands before the /browse or /projects segment — so a server with a context path
+    # (issues.apache.org/jira/browse/TIKA) and a cloud site (example.atlassian.net/browse/PROJ or
+    # .../projects/PROJ) all resolve, each repository to its own tracker. A URL of any other shape
+    # states no project this script can read, and no file is written.
+    local project="${url##*/}" root
+    printf '%s' "$project" | grep -qE '^[A-Z][A-Z0-9]*$' || return 0
+    case "$url" in
+        */browse/"$project")   root="${url%/browse/"$project"}" ;;
+        */projects/"$project") root="${url%/projects/"$project"}" ;;
+        *) return 0 ;;
+    esac
+    local issue_api="$root/rest/api/2/issue" browse="$root/browse"
+    local keys
+    keys=$(grep -oE "${project}-[0-9]+" "$statement_file" | awk '!seen[$0]++' || true)
+    [ -n "$keys" ] || return 0
+    local rows issue_key stated type summary
+    rows=$(mktemp)
+    for issue_key in $keys; do
+        stated=$(curl -fsSL --retry 3 "$issue_api/$issue_key?fields=issuetype,summary" || true)
+        if [ -z "$stated" ]; then
+            printf 'unread   %s (the tracker at %s did not answer)\n' "$issue_key" "$issue_api"
+            continue
+        fi
+        type=$(printf '%s' "$stated" | jq -r '.fields.issuetype.name // ""' \
+            | tr '\t\n\r' '   ' | sed 's/[[:space:]]*$//')
+        summary=$(printf '%s' "$stated" | jq -r '.fields.summary // ""' \
+            | tr '\t\n\r' '   ' | sed 's/[[:space:]]*$//')
+        printf '%s\t%s\t%s\t%s\t%s\n' \
+            "$issue_key" "$type" "$browse/$issue_key" "$(date -u +%Y-%m-%d)" "$summary" >> "$rows"
+    done
+    if [ ! -s "$rows" ]; then
+        rm -f "$rows"
+        return 0
+    fi
+    {
+        printf '# Issues the statement of pull request %s references, as the tracker states them.\n' "$number"
+        printf '# The tracker is the repository'"'"'s own statement: pom.xml <issueManagement> at the head\n'
+        printf '# commit names %s (%s), and only keys of that project are read.\n' "$url" "$system"
+        printf '# Columns: key, type, url, retrieved, summary\n'
+        printf '#   key        the issue key, as the statement writes it\n'
+        printf '#   type       the issue type the tracker states, verbatim\n'
+        printf '#   url        the tracker'"'"'s own page for the issue\n'
+        printf '#   retrieved  the UTC date the issue was read from the tracker\n'
+        printf '#   summary    the issue'"'"'s own summary line, verbatim, tabs and line breaks blanked\n'
+        cat "$rows"
+    } > "$TARGET/$file"
+    rm -f "$rows"
+    printf 'issues   %s\n' "$file"
+}
+
 # The paths GitHub reads a pull request template from, most specific first.
 TEMPLATE_PATHS=".github/pull_request_template.md .github/PULL_REQUEST_TEMPLATE.md \
 pull_request_template.md PULL_REQUEST_TEMPLATE.md docs/pull_request_template.md \
@@ -135,6 +216,7 @@ fetch() {
         printf 'kept     %s (already present; delete it to re-fetch)\n' "$directory"
         statement "$number"
         template "$number" "$head"
+        issues "$number" "$head"
         return
     fi
     git -C "$CLONE" fetch --quiet origin "refs/pull/$number/head"
@@ -157,6 +239,7 @@ fetch() {
     printf 'fetched  %s  %s  %s changed files\n' "$directory" "$head" "$changed"
     statement "$number"
     template "$number" "$head"
+    issues "$number" "$head"
 }
 
 while IFS=$'\t' read -r number author head base; do
