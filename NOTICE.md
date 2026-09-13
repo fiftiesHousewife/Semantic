@@ -33,6 +33,7 @@ The library's own dependencies are declared in `gradle/libs.versions.toml`, with
 | `lexicon/src/main/resources/media-types.tsv` | 2,344 | the IANA media type registry, read from the ten per-registry CSVs IANA publishes, the file set pinned by digest | CC0 1.0 — IANA's licensing terms state the protocol registries "may be freely used by any party for any purpose" |
 | `lexicon/src/main/resources/openalex-topics.tsv` | 4,798 | OpenAlex's topics snapshot, the manifest and the six gzipped JSONL parts it names, the download pinned by digest | CC0 1.0 — OpenAlex places its data in the public domain and asks to be cited rather than requiring it |
 | `lexicon/src/main/resources/openalex-topic-sizes.tsv` | 4,516 | The same snapshot, same pass, same digest: the works and citations OpenAlex counts under each topic | CC0 1.0 — as above |
+| `lexicon/src/main/resources/conventional-commit-types.tsv` | 11 | the Conventional Commits v1.0.0 specification's own markdown at a pinned revision, the file pinned by blob id, with type definitions from the Angular commit guidelines at the revision the specification's own link pins | MIT for both (the specification site and the Angular repository) |
 
 ## WordNet, and a gap stated rather than papered over
 

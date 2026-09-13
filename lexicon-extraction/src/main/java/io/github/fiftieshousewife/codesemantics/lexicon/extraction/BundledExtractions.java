@@ -98,6 +98,12 @@ public final class BundledExtractions {
                     (sources, resources) -> new CsrcGlossaryExtraction()
                             .extract(sources.path(0, "the glossary export JSON, unzipped"),
                                     resources.resolve("csrc-glossary.tsv"))),
+            new BundledExtraction("conventional-commits",
+                    "the v1.0.0 specification markdown and the Angular commit guidelines, blank to "
+                            + "download each",
+                    (sources, resources) -> new ConventionalCommitTypesExtraction()
+                            .extract(sources.orDownloaded(0), sources.orDownloaded(1),
+                                    resources.resolve("conventional-commit-types.tsv"))),
             new BundledExtraction("jose",
                     "the directory holding IANA's nine JOSE registry CSVs",
                     (sources, resources) -> new JoseTermsExtraction()
