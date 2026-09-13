@@ -63,9 +63,9 @@ final class AuthorScale {
     private static TrTag files(final ExportedPullRequest pullRequest) {
         final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
         return tr(td(String.valueOf(pullRequest.number())),
-                number(Optional.of(pullRequest.files())),
-                number(written.map(ExportedWork.Written::filesRead)),
-                number(written.map(ExportedWork.Written::filesAdded)),
+                Figure.counted(Optional.of(pullRequest.files())),
+                Figure.counted(written.map(ExportedWork.Written::filesRead)),
+                Figure.counted(written.map(ExportedWork.Written::filesAdded)),
                 kind(written, SourceKind.PRODUCTION), kind(written, SourceKind.TESTS),
                 kind(written, SourceKind.FIXTURES), kind(written, SourceKind.DOCUMENTATION),
                 kind(written, SourceKind.BUILD));
@@ -74,21 +74,18 @@ final class AuthorScale {
     private static TrTag declarations(final ExportedPullRequest pullRequest) {
         final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
         return tr(td(String.valueOf(pullRequest.number())),
-                number(written.map(diff -> diff.added().types())),
-                number(written.map(diff -> diff.added().methods())),
-                number(written.map(diff -> diff.added().fields())),
-                number(written.map(diff -> diff.removed().total())),
-                number(written.map(ExportedWork.Written::kept)));
+                Figure.counted(written.map(diff -> diff.added().types())),
+                Figure.counted(written.map(diff -> diff.added().methods())),
+                Figure.counted(written.map(diff -> diff.added().fields())),
+                Figure.counted(written.map(diff -> diff.removed().total())),
+                Figure.counted(written.map(ExportedWork.Written::kept)));
     }
 
     private static TdTag kind(final Optional<ExportedWork.Written> written, final SourceKind kind) {
-        return number(written.map(diff -> diff.filesByKind().stream()
+        return Figure.counted(written.map(diff -> diff.filesByKind().stream()
                 .filter(files -> kind.published().equals(files.kind()))
                 .mapToInt(ExportedWork.KindFiles::files)
                 .sum()));
     }
 
-    private static TdTag number(final Optional<Integer> figure) {
-        return td(figure.map(String::valueOf).orElse(AuthorWork.ABSENT)).withClass("number");
-    }
 }

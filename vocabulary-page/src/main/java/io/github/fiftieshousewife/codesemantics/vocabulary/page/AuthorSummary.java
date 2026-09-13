@@ -33,7 +33,7 @@ final class AuthorSummary {
                 "%s The reading covers %d of those files, %d of them new, and counts %s added and %s "
                         + "removed.",
                 opened, author.filesRead(), author.filesAdded(),
-                Counted.of(total(author.added()), "declaration"),
+                Counted.of(author.added().total(), "declaration"),
                 removed(author.removed()));
     }
 
@@ -90,11 +90,7 @@ final class AuthorSummary {
     }
 
     private static String removed(final ExportedWork.Declarations declarations) {
-        return total(declarations) == 0 ? "none" : Counted.of(total(declarations), "declaration");
-    }
-
-    private static int total(final ExportedWork.Declarations declarations) {
-        return declarations.types() + declarations.methods() + declarations.fields();
+        return declarations.total() == 0 ? "none" : Counted.of(declarations.total(), "declaration");
     }
 
     /** Each word with how many of the author's pull requests carry it, out of how many there are. */

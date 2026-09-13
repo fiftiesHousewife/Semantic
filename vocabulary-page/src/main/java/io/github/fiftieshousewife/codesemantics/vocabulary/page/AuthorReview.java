@@ -68,19 +68,19 @@ final class AuthorReview {
     private static TrTag added(final ExportedPullRequest pullRequest) {
         final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
         return tr(td(String.valueOf(pullRequest.number())),
-                number(written.map(AuthorReview::statements)),
-                number(written.map(AuthorReview::comment)),
-                td(written.map(AuthorReview::density).orElse(AuthorWork.ABSENT)).withClass("number"),
-                number(written.map(diff -> diff.typesAddedWithoutATest().size())));
+                Figure.counted(written.map(AuthorReview::statements)),
+                Figure.counted(written.map(AuthorReview::comment)),
+                Figure.shown(written.map(AuthorReview::density)),
+                Figure.counted(written.map(diff -> diff.typesAddedWithoutATest().size())));
     }
 
     private static TrTag leaves(final ExportedPullRequest pullRequest) {
         final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
         return tr(td(String.valueOf(pullRequest.number())),
-                number(written.map(diff -> diff.atHead().metrics().longestMethod())),
-                number(written.map(diff -> diff.atHead().metrics().highestComplexity())),
-                number(written.map(diff -> diff.atHead().metrics().deepestNesting())),
-                number(written.map(diff -> diff.atHead().metrics().mostParameters())));
+                Figure.counted(written.map(diff -> diff.atHead().metrics().longestMethod())),
+                Figure.counted(written.map(diff -> diff.atHead().metrics().highestComplexity())),
+                Figure.counted(written.map(diff -> diff.atHead().metrics().deepestNesting())),
+                Figure.counted(written.map(diff -> diff.atHead().metrics().mostParameters())));
     }
 
     private static int comment(final ExportedWork.Written written) {
@@ -93,13 +93,8 @@ final class AuthorReview {
 
     /** How many lines of prose arrived per statement, and a dash where no statement did. */
     private static String density(final ExportedWork.Written written) {
-        if (statements(written) <= 0) {
-            return AuthorWork.ABSENT;
-        }
-        return String.format(Locale.ROOT, "%.2f", (double) comment(written) / statements(written));
+        return statements(written) <= 0 ? Figure.ABSENT
+                : String.format(Locale.ROOT, "%.2f", (double) comment(written) / statements(written));
     }
 
-    private static TdTag number(final Optional<Integer> figure) {
-        return td(figure.map(String::valueOf).orElse(AuthorWork.ABSENT)).withClass("number");
-    }
 }

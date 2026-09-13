@@ -20,6 +20,8 @@ It works in the terms of lexical semantics and information theory. The [glossary
 | `./gradlew read` | reads this repository and writes the three files under [`output/json/`](output/json) |
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and writes its files under `output/<name>/json/` |
 | `./gradlew pullRequests -Dcs.clone.dir=<path> -Dcs.pullrequests.dir=<path>` | reads a checkout and the pull requests [`fetch-pull-requests.sh`](fetch-pull-requests.sh) wrote beside it, then writes a report per author |
+| `./fetch-pull-requests.sh <owner/name> <clone> [target]` | writes one directory per pull request, its base version, what it says, and the tracker's word for every issue it references. `PR_AUTHOR` selects whose are taken |
+| `./fetch-commits.sh <clone> [author] [target]` | writes one repository's commit messages, filtered to an author where one is named, pinned to the commit the clone stands at |
 | `./gradlew readingExport` | writes [`reading.json`](output/json/reading.json) alone |
 | `./gradlew pages` | writes one findings page per published reading under `output/`, one report per pull request author, and the card page comparing the readings, under `vocabulary-page/build/reports/vocabulary/` |
 | `./gradlew checkAll` | tests and coverage verification, which is what [the build](.github/workflows/build.yml) runs on every push and pull request |
@@ -209,7 +211,9 @@ One signal, in full:
 
 ### What a pull request adds to the reading
 
-The library reads no network and no `.git`, so a pull request reaches it as a directory. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) writes four of them, each recording the commit it was taken at: the changed files as the pull request leaves them, the same files as it found them, what the pull request says — its title, its description and its commit messages — and the repository's own pull request template. Where the repository's `pom.xml` names a JIRA tracker under `issueManagement`, the script also records the type that tracker gives each issue the statement mentions.
+The library reads no network and no `.git`, so both a pull request and a commit history reach it as files a fetch step wrote. [`fetch-commits.sh`](fetch-commits.sh) writes one repository's messages, filtered to an author where one is named and pinned to the commit the clone stands at; nothing reads them yet, and what a history says is [its own scope to build](docs/plans/COMMIT_MESSAGES.md).
+
+A pull request reaches it as a directory. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) writes four of them, each recording the commit it was taken at: the changed files as the pull request leaves them, the same files as it found them, what the pull request says — its title, its description and its commit messages — and the repository's own pull request template. Where the repository's `pom.xml` names a JIRA tracker under `issueManagement`, the script also records the type that tracker gives each issue the statement mentions.
 
 Each pull request is then read on its own, against thresholds drawn from the files it changes, and the result is its own document — `pull-requests.json`, at its own `schemaVersion`, beside the reading. It answers a different question about a different corpus: the reading is of a working tree at one commit, this is of the changes proposed against it. A consumer wanting one and not the other reads one file, and the repository's own figures cannot move when this shape does. Each entry answers four questions:
 

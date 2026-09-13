@@ -37,8 +37,6 @@ final class AuthorSubjects {
 
     private static final int TYPES = 3;
 
-    private static final String ABSENT = "—";
-
     private final ContentWords content = ContentWords.fromClasspath();
 
     private final PullRequestWords merged = new PullRequestWords();
@@ -80,7 +78,7 @@ final class AuthorSubjects {
                                final List<PullRequestWords.Merged> merged) {
         final int count = merged.size();
         if (count == 0) {
-            return td(ABSENT).withClass("number");
+            return td(Figure.ABSENT).withClass("number");
         }
         return td().withClass("number").with(a(String.valueOf(count))
                 .withHref(PullRequestAnchors.words(pullRequest)));
@@ -89,14 +87,14 @@ final class AuthorSubjects {
     private static String fit(final ExportedPullRequest pullRequest) {
         return StatementFit.of(pullRequest.statement())
                 .map(StatementFit::shown)
-                .orElse(ABSENT);
+                .orElse(Figure.ABSENT);
     }
 
     /** The leading types, with the rest reachable by the link that counts them. */
     private static TdTag types(final ExportedPullRequest pullRequest) {
         final List<String> added = AuthorWork.typesAdded(pullRequest);
         if (added.isEmpty()) {
-            return td(ABSENT);
+            return td(Figure.ABSENT);
         }
         final TdTag drawn = td().with(code(added.stream().limit(TYPES)
                 .collect(Collectors.joining(", "))));

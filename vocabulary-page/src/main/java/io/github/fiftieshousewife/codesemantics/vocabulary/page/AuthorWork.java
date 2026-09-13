@@ -25,8 +25,6 @@ import static j2html.TagCreator.tr;
 /** One row per pull request: what each of the three sources calls the change. */
 final class AuthorWork {
 
-    static final String ABSENT = "—";
-
     SectionTag markup(final AuthorPullRequests author) {
         return section().withId("work").with(
                 h2("What kind of change each one is"),
@@ -52,14 +50,14 @@ final class AuthorWork {
                         .map(ExportedWork.StatedClass::type)
                         .collect(Collectors.joining(", ")))
                 .filter(stated -> !stated.isEmpty())
-                .orElse(ABSENT);
+                .orElse(Figure.ABSENT);
     }
 
     /** The word a standard's definition covers this change's shape with, where one does. */
     private static String inferredWord(final ExportedPullRequest pullRequest) {
         return AuthorPullRequests.inferredOf(pullRequest)
                 .map(ExportedWork.Inferred::type)
-                .orElse(ABSENT);
+                .orElse(Figure.ABSENT);
     }
 
     /** The shape that definition covers, so the word can be checked against what was measured. */
@@ -67,7 +65,7 @@ final class AuthorWork {
         return AuthorPullRequests.inferredOf(pullRequest)
                 .map(ExportedWork.Inferred::shape)
                 .map(shape -> "it " + shape)
-                .orElse(ABSENT);
+                .orElse(Figure.ABSENT);
     }
 
     private static String trackerType(final ExportedPullRequest pullRequest) {
@@ -76,7 +74,7 @@ final class AuthorWork {
                         .map(issue -> String.format(Locale.ROOT, "%s (%s)", issue.type(), issue.key()))
                         .collect(Collectors.joining(", ")))
                 .filter(stated -> !stated.isEmpty())
-                .orElse(ABSENT);
+                .orElse(Figure.ABSENT);
     }
 
     /** Every type each pull request introduces, listed where it introduces any. */
