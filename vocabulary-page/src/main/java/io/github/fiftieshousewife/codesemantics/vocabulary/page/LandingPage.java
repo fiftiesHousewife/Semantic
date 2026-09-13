@@ -113,7 +113,7 @@ public final class LandingPage {
      * reading nothing answered says so with the count judged.
      */
     private String lead(final ReadingExport reading, final List<AnswerStrengths.Strength> ranked) {
-        final Optional<AnswerStrengths.Strength> top = ranked.stream().findFirst();
+        final Optional<AnswerStrengths.Strength> top = leading(ranked);
         if (top.isEmpty()) {
             return sentences.of(reading).getFirst();
         }
@@ -153,10 +153,22 @@ public final class LandingPage {
 
     private String alsoAnswered(final ReadingExport reading,
                                 final List<AnswerStrengths.Strength> ranked) {
-        final String leadSource = ranked.stream().findFirst()
+        final String leadSource = leading(ranked)
                 .map(AnswerStrengths.Strength::source)
                 .orElse("");
         return cards.alsoAnswered(reading, leadSource);
+    }
+
+    /**
+     * The strongest answer that names one subject. A mark whose chance margin holds several subjects
+     * states a field rather than an answer, so it leads only where nothing on the card names one.
+     */
+    private static Optional<AnswerStrengths.Strength> leading(
+            final List<AnswerStrengths.Strength> ranked) {
+        return ranked.stream()
+                .filter(strength -> strength.contenders() == 1)
+                .findFirst()
+                .or(() -> ranked.stream().findFirst());
     }
 
     private static DivTag mark(final AnswerStrengths.Strength strength, final double widest) {

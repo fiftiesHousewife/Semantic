@@ -225,6 +225,34 @@ class LandingPageTest {
     }
 
     @Test
+    void leadsWithTheAnswerNamingOneConceptOverAStrongerMarkThatCannotSeparateItsField() {
+        final ExportedPlacement.Level crowded = ExportedPlacement.Level.of("Artificial Intelligence",
+                0.2, 0.4, List.of(),
+                List.of(new ExportedPlacement.Contender("Artificial Intelligence", 0.2, List.of()),
+                        new ExportedPlacement.Contender("Cryptography", 0.21, List.of()),
+                        new ExportedPlacement.Contender("Distributed Computing", 0.22, List.of())));
+
+        final String page = landing.markup(List.of(reading("santuario",
+                List.of(ExportedAnswer.fromATaxonomy("CSO", List.of("public key cryptography"),
+                        "key agreement", null, "9 phrases", 1.3)),
+                List.of(), List.of(new ExportedPlacement("OpenAlex", crowded, crowded)),
+                List.of(new ExportedTaxonomy("CSO", List.of(), List.of(),
+                        Map.of("words", 9, "lemmas", 0, "expansions", 0, "senses", 0),
+                        new ExportedTaxonomy.Bar(9, 7, 5, 1.3, 62, 43, 1.4, 0, 0.044, 7, FIELD,
+                                999))))));
+
+        assertAll(
+                () -> assertThat(page)
+                        .as("an answer naming one concept leads over a stronger mark whose chance "
+                                + "margin holds several subjects")
+                        .contains("writes 9 of CSO’s phrases"),
+                () -> assertThat(page).doesNotContain("No single subject"),
+                () -> assertThat(page)
+                        .as("the inseparable placement keeps its mark at its measured strength")
+                        .contains("2.0× nearer than chance"));
+    }
+
+    @Test
     void statesTheWorkingsOnceInTheLedeAndNotOnEveryCard() {
         final String page = landing.markup(List.of(
                 vocabularyAnswered("quickfixj", "FIX", 52, 5, 10.4),
