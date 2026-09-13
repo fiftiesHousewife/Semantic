@@ -1,7 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPlacement;
@@ -45,6 +44,8 @@ public final class ReadingPage {
 
     private final FindingSentences sentences = new FindingSentences();
 
+    private final DomainSourcesSection sourcesSection = new DomainSourcesSection();
+
     public ReadingPage(final String stylesheet, final String behaviour) {
         this.stylesheet = stylesheet;
         this.behaviour = behaviour;
@@ -67,7 +68,7 @@ public final class ReadingPage {
                                         sentence -> p(sentence).withClass("finding"))),
                         words(),
                         domains(),
-                        sources(sources),
+                        sourcesSection.markup(sources),
                         phrases(reading),
                         placements(reading),
                         ground(reading.summary())),
@@ -100,33 +101,6 @@ public final class ReadingPage {
                 p().withClass("readout venn-readout"),
                 div().withClass("overlaps"),
                 p().withClass("foot"));
-    }
-
-    /** One row per bundled domain source, so the page names the resources the domains come from. */
-    private static SectionTag sources(final DomainSources sources) {
-        return section().withId("sources").with(
-                h2("What each source states about the words"),
-                p().withClass("lede").withText("One row per bundled domain source, over the same "
-                        + "significant words: how many of them it labels with anything, and where it "
-                        + "puts most of the weight it places. The picture above draws WordNet Domains; "
-                        + "the other rows read the same words through their own labels."),
-                ul().withClass("sources").with(each(sources.rows(),
-                        row -> sourceRow(row, sources.significantWords()))));
-    }
-
-    private static LiTag sourceRow(final DomainSources.Row row, final int significantWords) {
-        return li(
-                b(row.source()),
-                text(String.format(Locale.ROOT,
-                        " — labels %d of %d words; most weight on %s. %s",
-                        row.placedWords(), significantWords, leading(row), row.description())));
-    }
-
-    private static String leading(final DomainSources.Row row) {
-        return row.leading().stream()
-                .map(one -> String.format(Locale.ROOT, "%s (%.0f%%)",
-                        PublishedSpelling.shown(one.domain()), one.share() * 100))
-                .collect(Collectors.joining(", "));
     }
 
     private SectionTag phrases(final ReadingExport reading) {
