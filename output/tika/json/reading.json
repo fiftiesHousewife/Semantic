@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "30.0",
+  "schemaVersion" : "31.0",
   "summary" : {
     "repository" : "tika",
     "commit" : "43cbdae69472863f53f4f712f0331a1cd62f0615",
@@ -18894,6 +18894,13 @@
       "chanceRate" : 0.962,
       "resamples" : 999,
       "topics" : [ ]
+    },
+    "work" : {
+      "stated" : {
+        "linesRead" : 4,
+        "linesParsed" : 0,
+        "classes" : [ ]
+      }
     }
   }, {
     "number" : 3154,
@@ -19382,6 +19389,13 @@
       "chanceRate" : 0.989,
       "resamples" : 999,
       "topics" : [ ]
+    },
+    "work" : {
+      "stated" : {
+        "linesRead" : 2,
+        "linesParsed" : 0,
+        "classes" : [ ]
+      }
     }
   }, {
     "number" : 3156,
@@ -19762,6 +19776,13 @@
       "chanceRate" : 0.3,
       "resamples" : 999,
       "topics" : [ ]
+    },
+    "work" : {
+      "stated" : {
+        "linesRead" : 3,
+        "linesParsed" : 0,
+        "classes" : [ ]
+      }
     }
   } ]
 }
