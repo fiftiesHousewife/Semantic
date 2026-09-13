@@ -22,7 +22,12 @@ class PagesCommandTest {
 
         final Path page = reports.resolve("a-repository").resolve(PagesCommand.PAGE);
         assertAll(
-                () -> assertThat(written).containsExactly(page, reports.resolve(PagesCommand.LANDING)),
+                () -> assertThat(written).containsExactly(page,
+                        reports.resolve(ChangeShapeTable.FILE), reports.resolve(PagesCommand.LANDING)),
+                () -> assertThat(Files.readString(reports.resolve(ChangeShapeTable.FILE)))
+                        .as("the mapping from a measured shape to a word is written once for every "
+                                + "report to link")
+                        .contains("adds declarations and removes none"),
                 () -> assertThat(Files.readString(reports.resolve(PagesCommand.LANDING)))
                         .contains("href=\"a-repository/reading.html\""),
                 () -> assertThat(page).isRegularFile(),

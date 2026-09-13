@@ -32,6 +32,9 @@ public final class ExportCommand {
     /** What the reading writes beside the export to say what moved since the last one. */
     private static final String CHANGES = ChangeFile.NAME;
 
+    /** What the reading writes beside the export where pull requests were fetched. */
+    private static final String PULL_REQUESTS = PullRequestFile.NAME;
+
     /** The taxonomies matched beside the bundled vocabulary the shared reading already holds. */
     static List<TermIndex> alsoMatched() {
         return ExportedReading.vocabulariesBesidesOlia();
@@ -48,33 +51,43 @@ public final class ExportCommand {
      * fetched set belongs to one repository.
      */
     static Path wrote(final String commit) throws IOException {
-        return wrote(TreeReading.ofTheCloneUnderReading(), commit, pullRequestsBeside());
+        return wrote(TreeReading.ofTheCloneUnderReading(), commit,
+                PullRequestSet.fromSystemProperty());
     }
 
     /** The same for a tree the caller names, which is what lets one JVM write the export for several. */
     public static Path wrote(final TreeReading reading, final String commit) throws IOException {
-        return wrote(reading, commit, List.of());
+        return wrote(reading, commit, Optional.empty());
     }
 
     private static Path wrote(final TreeReading reading, final String commit,
-                              final List<ExportedPullRequest> pullRequests) throws IOException {
+                              final Optional<PullRequestSet> fetched) throws IOException {
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
         final Optional<ReadingExport> previous = previousReading(exports, file);
         final ReadingExport current = new ExportedReading().of(reading.reading(), commit, alsoMatched(),
-                reading.terms(), reading.arxivField(), reading.namesChance())
-                .withPullRequests(pullRequests);
+                reading.terms(), reading.arxivField(), reading.namesChance());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
+        wrotePullRequests(folder, fetched);
         return file;
     }
 
-    /** Each pull request the property names, read as its own tree at the commit its manifest row pins. */
-    private static List<ExportedPullRequest> pullRequestsBeside() {
-        return PullRequestSet.fromSystemProperty()
-                .map(ExportCommand::read)
-                .orElse(List.of());
+    /**
+     * The pull requests the property names, as their own document beside the reading. A run reading none
+     * removes any document already there, so a folder never states a set the run did not read.
+     */
+    private static void wrotePullRequests(final ReportFolder folder,
+                                          final Optional<PullRequestSet> fetched) throws IOException {
+        final Path file = folder.file(PULL_REQUESTS);
+        final PullRequestFile pullRequests = new PullRequestFile();
+        if (fetched.isEmpty()) {
+            pullRequests.removed(file);
+            return;
+        }
+        pullRequests.wrote(file, PullRequestExport.of(fetched.get().repository(),
+                read(fetched.get())));
     }
 
     private static List<ExportedPullRequest> read(final PullRequestSet set) {
@@ -91,14 +104,19 @@ public final class ExportCommand {
     private static ExportedPullRequest read(final ExportedPullRequests exported, final PullRequestSet set,
                                             final PullRequestSet.PullRequest pullRequest,
                                             final int statements) {
-        final RepositoryReading reading = TreeReading.of(set.treeOf(pullRequest)).reading();
+        final Path head = set.treeOf(pullRequest);
+        final RepositoryReading reading = TreeReading.of(head).reading();
         final List<ExportedWork.Issue> issues = set.issuesOf(pullRequest)
                 .map(PinnedIssues::in)
                 .orElse(List.of());
+        final Optional<ExportedWork.Written> written = set.baseOf(pullRequest)
+                .map(base -> new WrittenWork().between(base, head));
         return set.statementOf(pullRequest)
-                .map(statement -> exported.of(pullRequest.facts(), reading,
-                        authored(statement, set.templateOf(pullRequest)), issues, statements))
-                .orElseGet(() -> exported.of(pullRequest.facts(), reading));
+                .map(statement -> exported.of(pullRequest.facts(set.repository()), reading,
+                        authored(statement, set.templateOf(pullRequest)), issues, statements, written))
+                .orElseGet(() -> written
+                        .map(declarations -> exported.of(pullRequest.facts(set.repository()), reading, declarations))
+                        .orElseGet(() -> exported.of(pullRequest.facts(set.repository()), reading)));
     }
 
     /** The statement without the lines the host's own template supplied, where the fetch pinned one. */

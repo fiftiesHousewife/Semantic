@@ -60,6 +60,23 @@ class ExportedPullRequestsTest {
     }
 
     @Test
+    void readsTheChangedFilesIdenticallyWithAndWithoutTheBaseTree() {
+        final RepositoryReading reading = RepositoryReading.of(tree);
+        final ExportedWork.Written written = WrittenFixture.adding(1, 1, 3,
+                List.of(new ExportedWork.NamedDeclaration("LanguageParser.java", "LanguageParser")));
+
+        final ExportedPullRequest without = exported.of(FACTS, reading);
+        final ExportedPullRequest with = exported.of(FACTS, reading, written);
+
+        assertAll(
+                () -> assertThat(with.withWork(null)).isEqualTo(without),
+                () -> assertThat(with.work().written()).isEqualTo(written),
+                () -> assertThat(with.work().stated().linesRead())
+                        .as("a pull request whose statement was not fetched reads no line of one")
+                        .isZero());
+    }
+
+    @Test
     void statesTheDivergenceBesideTheReadingWithItsShapeAndItsChance() {
         final RepositoryReading reading = RepositoryReading.of(tree);
 

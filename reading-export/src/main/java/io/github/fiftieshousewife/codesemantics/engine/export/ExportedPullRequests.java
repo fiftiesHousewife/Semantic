@@ -33,13 +33,35 @@ public final class ExportedPullRequests {
 
     /** The facts the caller states and a reading of the pull request's own directory at its own seed. */
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading) {
+        return changedFiles(facts, reading);
+    }
+
+    /**
+     * The same block with the declarations the changed files add and remove beside it, for a pull request
+     * whose base tree the fetch step pinned and whose statement it did not.
+     */
+    public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
+                                  final ExportedWork.Written written) {
+        return changedFiles(facts, reading)
+                .withWork(work(ExportedWork.Stated.noStatement(), List.of(), Optional.of(written)));
+    }
+
+    private ExportedPullRequest changedFiles(final PullRequestFacts facts,
+                                             final RepositoryReading reading) {
+        return signalled(facts, reading)
+                .withConcepts(new MatchedConcepts().in(reading.parsed()));
+    }
+
+    private ExportedPullRequest signalled(final PullRequestFacts facts,
+                                          final RepositoryReading reading) {
         final RepositoryLegibility legibility = reading.legibility();
         final Vocabulary vocabulary = Vocabulary.of(legibility,
                 ChosenWords.againstEnglishAndTheCorpus()
                         .chanceFor(new PublishedNames().published(legibility), reading.seed()),
                 ReadingSource.PULL_REQUEST);
-        return new ExportedPullRequest(facts.number(), facts.author(), facts.headSha(), facts.baseSha(),
-                facts.files(), vocabulary.bars(), vocabulary.signals());
+        return new ExportedPullRequest(facts.repository(), facts.number(), facts.author(),
+                facts.headSha(), facts.baseSha(), facts.files(), vocabulary.bars(),
+                vocabulary.signals());
     }
 
     /**
@@ -51,11 +73,34 @@ public final class ExportedPullRequests {
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
                                   final String statement, final List<ExportedWork.Issue> issues,
                                   final int judgedTogether) {
-        final ExportedPullRequest written = of(facts, reading)
-                .withWork(new ExportedWork(new StatedWork().of(statement), issues));
+        return of(facts, reading, statement, issues, judgedTogether, Optional.empty());
+    }
+
+    /** The same with the declarations the changed files write, where the fetch step pinned a base tree. */
+    public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
+                                  final String statement, final List<ExportedWork.Issue> issues,
+                                  final int judgedTogether,
+                                  final Optional<ExportedWork.Written> written) {
+        final ExportedPullRequest block = changedFiles(facts, reading)
+                .withWork(work(new StatedWork().of(statement), issues, written));
         return statedBesideWritten(statement, judgedTogether, reading)
-                .map(written::withStatement)
-                .orElse(written);
+                .map(block::withStatement)
+                .orElse(block);
+    }
+
+    private static ExportedWork work(final ExportedWork.Stated stated,
+                                     final List<ExportedWork.Issue> issues,
+                                     final Optional<ExportedWork.Written> written) {
+        return written
+                .map(declarations -> covered(new ExportedWork(stated, issues, declarations)))
+                .orElseGet(() -> new ExportedWork(stated, issues));
+    }
+
+    /** The word a standard's own definition covers the shape with, where one does. */
+    private static ExportedWork covered(final ExportedWork work) {
+        return new InferredChangeKind().of(work.written())
+                .map(work::withInferred)
+                .orElse(work);
     }
 
     private Optional<ExportedStatement> statedBesideWritten(final String statement,

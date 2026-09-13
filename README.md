@@ -19,8 +19,9 @@ It works in the terms of lexical semantics and information theory. The [glossary
 |---|---|
 | `./gradlew read` | reads this repository and writes the three files under [`output/json/`](output/json) |
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and writes its files under `output/<name>/json/` |
+| `./gradlew pullRequests -Dcs.clone.dir=<path> -Dcs.pullrequests.dir=<path>` | reads a checkout and the pull requests [`fetch-pull-requests.sh`](fetch-pull-requests.sh) wrote beside it, then writes a report per author |
 | `./gradlew readingExport` | writes [`reading.json`](output/json/reading.json) alone |
-| `./gradlew pages` | writes one findings page per published reading under `output/`, and the card page comparing them, under `vocabulary-page/build/reports/vocabulary/` |
+| `./gradlew pages` | writes one findings page per published reading under `output/`, one report per pull request author, and the card page comparing the readings, under `vocabulary-page/build/reports/vocabulary/` |
 | `./gradlew checkAll` | tests and coverage verification, which is what [the build](.github/workflows/build.yml) runs on every push and pull request |
 
 A read of this repository takes about four and a half minutes. [Limitations](#limitations) states where that time goes.
@@ -98,8 +99,9 @@ Three files under `output/json/`, all committed, so the current figures can be r
 | [`reading.json`](output/json/reading.json) | the answer and the evidence for it | against [`reading-export.schema.json`](reading-export/src/main/resources/reading-export.schema.json) before the file exists |
 | [`evidence.json`](output/json/evidence.json) | the workings: every word with the subjects it contributed to, every dropped topic with the rule that dropped it, every run no resource covered, and every file with the topic leading it | nothing, and it states its own `schemaVersion` |
 | `changes.json` | each figure before and after, and every topic, word and concept that entered or left | written only where a previous reading shares the same `schemaVersion` |
+| [`pull-requests.json`](output/tika/json/pull-requests.json) | everything a reading discovers about the pull requests fetched beside the tree | against [`pull-requests.schema.json`](reading-export/src/main/resources/pull-requests.schema.json) before the file exists, and it states its own `schemaVersion` |
 
-`reading.json` is at `schemaVersion` **25.0**. The version rises when a field is added, renamed or removed, so a consumer branches on it. [`ReadingExportSchemaTest`](reading-export/src/test/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingExportSchemaTest.java) fails the build on a change the schema does not state.
+`reading.json` is at `schemaVersion` **32.0**. The version rises when a field is added, renamed or removed, so a consumer branches on it. [`ReadingExportSchemaTest`](reading-export/src/test/java/io/github/fiftieshousewife/codesemantics/engine/export/ReadingExportSchemaTest.java) fails the build on a change the schema does not state.
 
 | Section | Holds | One entry per |
 |---|---|---|
@@ -204,6 +206,57 @@ One signal, in full:
 | `filesTheParserCouldNotRead` | 0 |
 
 `wordsTheLanguageSupplies` holds the words English puts inside a name. `massByTopic` is a name about mass and about topics, and `by` is what the language puts between them; against a frequency list drawn from prose it reads as specialist, because prose is not where a program's prepositions are written. Two bundled resources place such a word between them — WordNet carries no noun, verb or adjective entry for it, and the frequency list carries it as a word English is written in.
+
+### What a pull request adds to the reading
+
+The library reads no network and no `.git`, so a pull request reaches it as a directory. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) writes four of them, each recording the commit it was taken at: the changed files as the pull request leaves them, the same files as it found them, what the pull request says — its title, its description and its commit messages — and the repository's own pull request template. Where the repository's `pom.xml` names a JIRA tracker under `issueManagement`, the script also records the type that tracker gives each issue the statement mentions.
+
+Each pull request is then read on its own, against thresholds drawn from the files it changes, and the result is its own document — `pull-requests.json`, at its own `schemaVersion`, beside the reading. It answers a different question about a different corpus: the reading is of a working tree at one commit, this is of the changes proposed against it. A consumer wanting one and not the other reads one file, and the repository's own figures cannot move when this shape does. Each entry answers four questions:
+
+| Field | What it answers |
+|---|---|
+| `signals` | which words the changed files write more densely than both references, each beating a threshold drawn from those files alone |
+| `statement` | how far what the pull request says sits from what it changes, measured against statements of the same shape built from words drawn at random from the code |
+| `work` | what the statement calls the change under [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), what the repository's tracker calls it, which declarations the changed files add and remove, and what a standard's own definition covers the measured shape with |
+| `concepts` | what the bundled vocabularies state for the terms those files write. These are matches and never a placement: a repository is placed only where a vocabulary writes more of its phrases than a deal of that vocabulary's own words reaches, and that bar is drawn over a whole tree, so a few changed files are too small a field for it |
+
+Worked example — [apache/tika](https://github.com/apache/tika) pull request 3153, read at commit `7c80965e`:
+
+| Figure | Value |
+|---|---|
+| Words above both references | 61, strongest `component`, `parser`, `load` |
+| Statement | 33 words, sitting 0.382 bits from the changed files; 96 of 100 statements built at random sit further away |
+| What it says it is | nothing — its title opens with a JIRA key, which Conventional Commits does not define |
+| What its code says it is | `feat`, because it adds declarations and removes none, which is what the specification defines that word as |
+| What the tracker calls it | `Task`, for TIKA-4889 |
+| Files | 35 changed, 34 read — 19 production, 11 tests, 2 fixtures, 2 documentation |
+| Declarations added | 31 types, 145 methods, 75 fields; none removed, 312 left as they were |
+| Types added with no test of their own | 10 |
+
+Four rules decide those figures, and each cites a published statement rather than a convention adopted here.
+
+- **Which files are which.** A file's kind is where the build looks for it: a source set the build publishes is production, the source sets that check it are tests and fixtures.
+- **Which declarations changed.** A declaration is the one it is only where the same file writes the same name inside the same declarations. A renamed method is therefore one removed and one added; matching across a rename would assert an intention the text does not carry.
+- **What kind of change it is.** The word comes from a definition applied to a count — a change that only adds declarations is what Conventional Commits defines `feat` as, and one whose every read file is documentation is what the Angular convention defines `docs` as. A shape no definition covers yields no word, and the mapping says why.
+- **Which types arrived untested.** A type counts as untested where the same pull request adds no class whose name [Maven Surefire's default includes](https://maven.apache.org/surefire/maven-surefire-plugin/test-mojo.html#includes) would run as its test. It says no test arrived with the type; a type an existing test exercises is counted all the same, because the reading runs nothing and measures no coverage.
+
+**Code is counted in statements, prose in lines.** A line count of code moves with the formatter, with the javadoc above it and with where the braces sit, none of which is a fact about what the code does; the statements a method carries are the same however it is laid out, and a block holds statements rather than being one. A type's size is the members it declares. A javadoc is the one thing lines are the unit of, and the report reads the two together as lines of prose per statement added. Complexity is [McCabe's](https://doi.org/10.1109/TSE.1976.233837): one per method, plus one for each point at which control can branch.
+
+**The shape-to-word mapping is a bundled resource**, not a rule in code. [`change-shape-types.tsv`](lexicon/src/main/resources/change-shape-types.tsv) states one row per shape the reading can measure, in the order the rules apply — the first shape a change has is the one that answers, so a change confined to the source sets that check the published ones is `test` even where it adds declarations. Each row quotes the publisher's own definition beside the measurement it is taken to cover, so the pairing can be read one against the other:
+
+| A change that | Is a | Because the standard defines it as |
+|---|---|---|
+| changes documentation and nothing else | `docs` | Documentation only changes |
+| changes only the files that check what the build publishes | `test` | Adding missing tests or correcting existing tests |
+| changes only build files | `build` | Changes that affect the build system or external dependencies |
+| adds declarations and removes none | `feat` | a commit of the type feat introduces a new feature to the codebase |
+| removes declarations and adds none | nothing | Semantic Versioning calls removing something from the published API an incompatible change, which the specification correlates with the `BREAKING CHANGE` footer. The parse states which declaration a name is and who chose it, never whether the published surface carries it, so a removal from the published API cannot be told from a removal of something private. |
+| adds declarations and removes declarations | nothing | More than one definition covers it, and nothing measured chooses between them. |
+| changes lines and neither adds nor removes a declaration | nothing | The Angular convention defines `refactor` as a change that neither fixes a bug nor adds a feature, and the specification defines `fix` as one that repairs a defect. Both cover a change confined to method bodies. |
+
+A tracker type is not mapped. Jira states `Task` as work that needs doing and names no kind of change; `Bug` and `New Feature` would coincide with `fix` and `feat` by both publishers' own definitions, and mapping those is open rather than done.
+
+`./gradlew pages` turns this into one report per author per repository — [`AuthorPage`](vocabulary-page/src/main/java/io/github/fiftieshousewife/codesemantics/vocabulary/page/AuthorPage.java) — opening with three lines: how much the author's pull requests change, what kind of change they are, and what their code is about.
 
 ## Definitions
 

@@ -2,16 +2,20 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportFile;
+import io.github.fiftieshousewife.codesemantics.engine.export.PullRequestExport;
+import io.github.fiftieshousewife.codesemantics.engine.export.PullRequestFile;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 
 /**
@@ -33,12 +37,42 @@ public final class ReadingFolder {
         return new ReadingFolder(folder);
     }
 
+    /**
+     * The published answers where this build can read them, and nothing where the folder holds a reading
+     * of another shape. A sweep over every folder under {@code output/} meets readings taken at older
+     * versions, and one of those is a folder this build cannot draw rather than a failed run.
+     */
+    public Optional<ReadingExport> readable() {
+        try {
+            return Optional.of(export());
+        } catch (final RuntimeException cannotRead) {
+            return Optional.empty();
+        }
+    }
+
     /** The published answers, read under their schema. */
     public ReadingExport export() {
         try {
             return new ExportFile().in(folder.resolve(ExportFile.NAME));
         } catch (final IOException e) {
             throw new UncheckedIOException("No readable reading at " + folder, e);
+        }
+    }
+
+    /**
+     * The pull requests read beside this repository, as their own published document, and nothing where
+     * the run read none. It is a separate file from the reading, so a folder without one is a repository
+     * read on its own rather than a document missing a section.
+     */
+    public Optional<PullRequestExport> pullRequests() {
+        final Path file = folder.resolve(PullRequestFile.NAME);
+        if (!Files.isRegularFile(file)) {
+            return Optional.empty();
+        }
+        try {
+            return Optional.of(new PullRequestFile().in(file));
+        } catch (final IOException e) {
+            throw new UncheckedIOException("No readable pull requests at " + file, e);
         }
     }
 

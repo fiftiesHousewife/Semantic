@@ -38,13 +38,15 @@ class VocabularyProvenanceTest {
      * What a row is, which is a fact about the publisher's file and not about this library's use of it.
      *
      * <p>{@code terms} and {@code subjects} are the two ways a taxonomy of concepts can be read, and are
-     * what a reading selects on. The other three are not taxonomies at all: {@code words} is what a
+     * what a reading selects on. The others are not taxonomies at all: {@code words} is what a
      * dictionary or a name registry states about a word or a sense, {@code identifiers} is a name a
-     * standard's own registry or runtime states, and {@code frequencies} is a count or a share read as a
-     * denominator.
+     * standard's own registry or runtime states, {@code frequencies} is a count or a share read as a
+     * denominator, and {@code mappings} pairs something this library measures with the published
+     * definition that covers it — the one kind whose rows are not a publisher's own file, which is why
+     * such a file quotes the definition beside the measurement for a reader to check the pairing.
      */
     private static final List<String> KINDS =
-            List.of("terms", "subjects", "words", "identifiers", "frequencies");
+            List.of("terms", "subjects", "words", "identifiers", "frequencies", "mappings");
 
     /** The two kinds a reading reads as a taxonomy of concepts, matching one and placing against the other. */
     private static final List<String> TAXONOMY_KINDS = List.of("terms", "subjects");

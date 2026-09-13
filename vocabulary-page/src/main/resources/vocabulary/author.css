@@ -1,0 +1,236 @@
+/* The author report's own styles; the shared tokens arrive from page.css before this file. One vertical
+   rhythm, set here as a step and used everywhere, so sections, paragraphs and table rows line up. */
+:root {
+    --step: 0.75rem;
+    --rule-width: 46rem;
+}
+
+/* The report is prose beside tables, so the sheet is only as wide as the prose wants to be read at plus
+   the columns a table needs. A table sized to its content rather than stretched to the sheet keeps the
+   two within sight of each other; a table wider than the sheet scrolls in its own container. */
+.sheet {
+    max-width: 62rem;
+}
+
+.fold {
+    padding: 3rem 0 var(--step);
+}
+
+.fold h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin: 0 0 calc(var(--step) * 2);
+    text-wrap: balance;
+}
+
+.fold h1 a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--rule);
+}
+
+.fold h1 a:hover,
+.fold h1 a:focus {
+    border-bottom-color: var(--count);
+}
+
+.nav {
+    margin: 0 0 var(--step);
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+}
+
+.nav a {
+    color: var(--ink-faint);
+    text-decoration: none;
+}
+
+.nav a:hover,
+.nav a:focus {
+    color: var(--ink);
+}
+
+.finding {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: var(--rule-width);
+    margin: 0 0 var(--step);
+}
+
+section {
+    margin-top: calc(var(--step) * 4);
+    border-top: 1px solid var(--rule);
+    padding-top: calc(var(--step) * 2);
+}
+
+h2 {
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 var(--step);
+}
+
+h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    margin: calc(var(--step) * 2) 0 calc(var(--step) / 2);
+}
+
+.pull-request-cloud h3,
+section > h3:first-of-type {
+    margin-top: 0;
+}
+
+.lede {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: var(--rule-width);
+    margin: 0 0 calc(var(--step) * 2);
+}
+
+a {
+    color: var(--count);
+}
+
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+}
+
+/* A section the page's own title already names carries no rule above it and no heading of its own. */
+.headless {
+    border-top: 0;
+    margin-top: calc(var(--step) * 2);
+    padding-top: 0;
+}
+
+.scrolls {
+    overflow-x: auto;
+}
+
+table.work {
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    width: auto;
+}
+
+/* A cell carrying a sentence wraps at a readable measure instead of stretching the table to hold it. */
+table.work td {
+    max-width: 26rem;
+}
+
+table.work th,
+table.work td {
+    text-align: left;
+    vertical-align: baseline;
+    padding: calc(var(--step) / 1.5) 1rem calc(var(--step) / 1.5) 0;
+    border-bottom: 1px solid var(--rule);
+}
+
+table.work th {
+    color: var(--ink-faint);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    border-bottom-color: var(--ink-faint);
+}
+
+table.work th.number,
+table.work td.number {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+table.work td:first-child,
+table.work th:first-child {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+table.work sup a {
+    text-decoration: none;
+}
+
+.clouds {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--step) * 2);
+}
+
+.pull-request-cloud .cloud {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0.6rem;
+    max-width: 60rem;
+}
+
+.cloud b {
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    cursor: default;
+}
+
+.cloud b[data-band="0"] { color: var(--ink-faint); }
+.cloud b[data-band="1"] { color: var(--ink-soft); }
+.cloud b[data-band="2"] { color: var(--ink); }
+.cloud b[data-band="3"] { color: var(--count); }
+.cloud b[data-band="4"] { color: var(--missed); }
+
+.cloud b.merged {
+    border-bottom: 1px dotted var(--ink-faint);
+}
+
+.cloud b:focus {
+    outline: 2px solid var(--count);
+    outline-offset: 2px;
+}
+
+.readout {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    min-height: 1.4rem;
+    margin: calc(var(--step) / 2) 0 0;
+}
+
+.readings,
+.notes,
+.authors {
+    max-width: var(--rule-width);
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+}
+
+.readings,
+.authors {
+    list-style: none;
+    padding-left: 0;
+}
+
+.readings li,
+.authors li {
+    margin: 0 0 var(--step);
+    line-height: 1.5;
+}
+
+.notes {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+}
+
+.notes li {
+    margin: 0 0 var(--step);
+}
+
+.notes .token {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85em;
+    color: var(--ink);
+}

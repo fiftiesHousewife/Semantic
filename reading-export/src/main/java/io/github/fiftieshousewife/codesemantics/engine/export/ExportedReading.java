@@ -143,6 +143,6 @@ public final class ExportedReading {
         return new ReadingExport(export.schemaVersion(),
                 ExportedSummaries.answered(export.summary(), EvidenceKinds.answering(export)),
                 export.signals(), export.thresholds(), export.themes(), export.taxonomies(),
-                export.setAside(), export.pullRequests());
+                export.setAside());
     }
 }

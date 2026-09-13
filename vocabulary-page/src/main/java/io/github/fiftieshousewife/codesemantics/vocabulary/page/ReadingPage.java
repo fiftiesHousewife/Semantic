@@ -1,5 +1,6 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
+import java.util.List;
 import java.util.Locale;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedConcept;
@@ -46,17 +47,22 @@ public final class ReadingPage {
 
     private final DomainSourcesSection sourcesSection = new DomainSourcesSection();
 
+    private final PullRequestSection pullRequests = new PullRequestSection();
+
     public ReadingPage(final String stylesheet, final String behaviour) {
         this.stylesheet = stylesheet;
         this.behaviour = behaviour;
     }
 
     /** The whole page: the sections from the reading, the two figures from the data block. */
-    public String markup(final ReadingExport reading, final DomainSources sources, final String data) {
-        return PageDocument.of(reading.summary().repository(), page(reading, sources, data).render());
+    public String markup(final ReadingExport reading, final DomainSources sources, final String data,
+                         final List<AuthorPullRequests> authors) {
+        return PageDocument.of(reading.summary().repository(),
+                page(reading, sources, data, authors).render());
     }
 
-    private BodyTag page(final ReadingExport reading, final DomainSources sources, final String data) {
+    private BodyTag page(final ReadingExport reading, final DomainSources sources, final String data,
+                         final List<AuthorPullRequests> authors) {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
@@ -71,6 +77,7 @@ public final class ReadingPage {
                         sourcesSection.markup(sources),
                         phrases(reading),
                         placements(reading),
+                        pullRequests.markup(authors),
                         ground(reading.summary())),
                 script().withType("application/json").withId("reading").with(rawHtml(data)),
                 script(rawHtml(behaviour)));

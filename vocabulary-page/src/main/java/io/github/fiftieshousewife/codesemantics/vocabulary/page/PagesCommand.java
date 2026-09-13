@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +37,10 @@ public final class PagesCommand {
     private static final String BEHAVIOUR = "reading.js";
 
     private static final String LANDING_STYLESHEET = "landing.css";
+
+    private static final String AUTHOR_STYLESHEET = "author.css";
+
+    private static final String AUTHOR_BEHAVIOUR = "author.js";
 
     private static final String SHARED = "page.css";
 
@@ -76,27 +81,58 @@ public final class PagesCommand {
         final ReadingPage page = new ReadingPage(
                 read(SHARED) + read(STYLESHEET),
                 read(BEHAVIOUR));
+        final AuthorPage authors = new AuthorPage(read(SHARED) + read(AUTHOR_STYLESHEET),
+                read(AUTHOR_BEHAVIOUR));
         final WordNetLexicon lexicon = WordNetLexicon.fromClasspath();
         final List<Path> written = new ArrayList<>();
         final List<ReadingExport> exports = new ArrayList<>();
+        final List<Path> unreadable = new ArrayList<>();
         for (final Path folder : readings) {
             final ReadingFolder reading = ReadingFolder.at(folder);
-            final ReadingExport export = reading.export();
+            final Optional<ReadingExport> readable = reading.readable();
+            if (readable.isEmpty()) {
+                unreadable.add(folder);
+                continue;
+            }
+            final ReadingExport export = readable.get();
             exports.add(export);
             final Path repository = reports.resolve(export.summary().repository());
             Files.createDirectories(repository);
             final Path file = repository.resolve(PAGE);
             final SignificantWords.Significant significant = SignificantWords.of(export);
+            final List<AuthorPullRequests> byAuthor = reading.pullRequests()
+                    .map(fetched -> AuthorPullRequests.in(fetched, export))
+                    .orElse(List.of());
             Files.writeString(file, page.markup(export,
                     DomainSources.of(overlaps(reading, export, significant.words(), lexicon)),
-                    figures(reading, export, significant, lexicon)));
+                    figures(reading, export, significant, lexicon), byAuthor));
             written.add(file);
+            written.addAll(wroteAuthors(authors, repository, byAuthor));
         }
+        Files.writeString(reports.resolve(ChangeShapeTable.FILE),
+                new ChangeShapeTable().markup(read(SHARED) + read(AUTHOR_STYLESHEET)));
+        written.add(reports.resolve(ChangeShapeTable.FILE));
         final Path landing = reports.resolve(LANDING);
         Files.writeString(landing, new LandingPage(
                 read(SHARED) + read(LANDING_STYLESHEET))
                 .markup(exports));
         written.add(landing);
+        if (!unreadable.isEmpty()) {
+            log.info("{} readings were taken at another schema version and are not drawn: {}",
+                    unreadable.size(), unreadable);
+        }
+        return List.copyOf(written);
+    }
+
+    /** One report per author whose pull requests were fetched, beside the repository's own page. */
+    private static List<Path> wroteAuthors(final AuthorPage authors, final Path repository,
+                                           final List<AuthorPullRequests> byAuthor) throws IOException {
+        final List<Path> written = new ArrayList<>();
+        for (final AuthorPullRequests author : byAuthor) {
+            final Path file = repository.resolve(author.file());
+            Files.writeString(file, authors.markup(author));
+            written.add(file);
+        }
         return List.copyOf(written);
     }
 

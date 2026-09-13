@@ -1,0 +1,91 @@
+package io.github.fiftieshousewife.codesemantics.vocabulary.page;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
+import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
+import j2html.tags.specialized.SectionTag;
+import j2html.tags.specialized.TrTag;
+
+import static j2html.TagCreator.div;
+import static j2html.TagCreator.each;
+import static j2html.TagCreator.h2;
+import static j2html.TagCreator.p;
+import static j2html.TagCreator.section;
+import static j2html.TagCreator.span;
+import static j2html.TagCreator.table;
+import static j2html.TagCreator.tbody;
+import static j2html.TagCreator.td;
+import static j2html.TagCreator.th;
+import static j2html.TagCreator.thead;
+import static j2html.TagCreator.tr;
+
+/** One row per pull request: what each of the three sources calls the change. */
+final class AuthorWork {
+
+    static final String ABSENT = "—";
+
+    SectionTag markup(final AuthorPullRequests author) {
+        return section().withId("work").with(
+                h2("What kind of change each one is"),
+                p().withClass("lede").with(
+                        span("What it says is the word its own statement uses; what its code says is the "
+                                + "word a standard's definition covers the measured shape with"),
+                        Footnotes.marker(Footnotes.CONVENTION),
+                        span(". The tracker's word is the tracker's own.")),
+                div().withClass("scrolls").with(table().withClass("work").with(
+                        thead(tr(th("Pull request"), th("It says"), th("Its code says"),
+                                th("Why its code says that"), th("Tracker says"))),
+                        tbody(each(author.pullRequests(), AuthorWork::row)))));
+    }
+
+    private static TrTag row(final ExportedPullRequest pullRequest) {
+        return tr(td(String.valueOf(pullRequest.number())), td(statedClass(pullRequest)),
+                td(inferredWord(pullRequest)), td(shape(pullRequest)), td(trackerType(pullRequest)));
+    }
+
+    private static String statedClass(final ExportedPullRequest pullRequest) {
+        return AuthorPullRequests.workOf(pullRequest)
+                .map(work -> work.stated().classes().stream()
+                        .map(ExportedWork.StatedClass::type)
+                        .collect(Collectors.joining(", ")))
+                .filter(stated -> !stated.isEmpty())
+                .orElse(ABSENT);
+    }
+
+    /** The word a standard's definition covers this change's shape with, where one does. */
+    private static String inferredWord(final ExportedPullRequest pullRequest) {
+        return AuthorPullRequests.inferredOf(pullRequest)
+                .map(ExportedWork.Inferred::type)
+                .orElse(ABSENT);
+    }
+
+    /** The shape that definition covers, so the word can be checked against what was measured. */
+    private static String shape(final ExportedPullRequest pullRequest) {
+        return AuthorPullRequests.inferredOf(pullRequest)
+                .map(ExportedWork.Inferred::shape)
+                .map(shape -> "it " + shape)
+                .orElse(ABSENT);
+    }
+
+    private static String trackerType(final ExportedPullRequest pullRequest) {
+        return AuthorPullRequests.workOf(pullRequest)
+                .map(work -> work.issues().stream()
+                        .map(issue -> String.format(Locale.ROOT, "%s (%s)", issue.type(), issue.key()))
+                        .collect(Collectors.joining(", ")))
+                .filter(stated -> !stated.isEmpty())
+                .orElse(ABSENT);
+    }
+
+    /** Every type each pull request introduces, listed where it introduces any. */
+    static List<String> typesAdded(final ExportedPullRequest pullRequest) {
+        return AuthorPullRequests.writtenOf(pullRequest)
+                .map(ExportedWork.Written::typesAdded)
+                .orElse(List.of())
+                .stream()
+                .map(ExportedWork.NamedDeclaration::name)
+                .toList();
+    }
+}

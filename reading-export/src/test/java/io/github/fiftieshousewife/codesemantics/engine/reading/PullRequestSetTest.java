@@ -30,8 +30,8 @@ class PullRequestSetTest {
 
         assertAll(
                 () -> assertThat(set.pullRequests()).hasSize(2),
-                () -> assertThat(set.pullRequests().getFirst().facts().number()).isEqualTo(3154),
-                () -> assertThat(set.pullRequests().getFirst().facts().headSha()).isEqualTo(HEAD),
+                () -> assertThat(set.pullRequests().getFirst().facts("apache/tika").number()).isEqualTo(3154),
+                () -> assertThat(set.pullRequests().getFirst().facts("apache/tika").headSha()).isEqualTo(HEAD),
                 () -> assertThat(set.treeOf(set.pullRequests().getFirst()))
                         .isEqualTo(fetched.resolve("pr-3154")));
     }
@@ -68,7 +68,7 @@ class PullRequestSetTest {
     void refusesARowWhoseHeadIsNotACommitSha() throws IOException {
         manifest("3154\ttballison\tHEAD\t" + BASE + "\tpr-3154\t2026-09-12\t11");
 
-        assertThatThrownBy(() -> PullRequestSet.under(fetched).pullRequests().getFirst().facts())
+        assertThatThrownBy(() -> PullRequestSet.under(fetched).pullRequests().getFirst().facts("apache/tika"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("headSha");
     }

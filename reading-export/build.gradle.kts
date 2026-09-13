@@ -308,6 +308,26 @@ tasks.register<Test>("read") {
     }
 }
 
+// One repository's pull requests, read and reported in a single command: the reading of the clone, the
+// pull requests fetched beside it, and the pages drawn from both. It is the whole path a reviewer runs.
+//   ./fetch-pull-requests.sh apache/tika ~/evaluation/tika ~/evaluation/pull-requests/tika
+//   ./gradlew pullRequests -Dcs.clone.dir=~/evaluation/tika -Dcs.pullrequests.dir=~/evaluation/pull-requests/tika
+// PR_AUTHOR on the fetch step selects whose pull requests are taken, so a run is per repository and per
+// author. The reading writes output/<name>/json/pull-requests.json and the pages one report per author.
+tasks.register("pullRequests") {
+    group = "verification"
+    description = "Reads a repository's fetched pull requests and writes the report for each author"
+    dependsOn(tasks.named("read"))
+    finalizedBy(":vocabulary-page:pages")
+    doFirst {
+        if (System.getProperty("cs.pullrequests.dir") == null) {
+            throw GradleException(
+                "pullRequests needs -Dcs.pullrequests.dir=<directory fetch-pull-requests.sh filled>. " +
+                    "Run ./fetch-pull-requests.sh first; the library reads no network and no .git.")
+        }
+    }
+}
+
 // The export: one JSON file holding the signals, the themes and every taxonomy result, written without a
 // test framework being involved.
 //   ./gradlew readingExport

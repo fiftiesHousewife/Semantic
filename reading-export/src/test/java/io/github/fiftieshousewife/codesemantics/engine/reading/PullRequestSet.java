@@ -22,7 +22,9 @@ public final class PullRequestSet {
     static final String STATEMENT_SUFFIX = "-statement.md";
     static final String TEMPLATE_SUFFIX = "-template.md";
     static final String ISSUES_SUFFIX = "-issues.tsv";
+    static final String BASE_SUFFIX = "-base";
     private static final String COMMENT = "#";
+    private static final String REPOSITORY_FIELD = "# repository:";
     private static final String COLUMN = "\t";
     private static final int COLUMNS = 7;
 
@@ -32,18 +34,29 @@ public final class PullRequestSet {
     public record PullRequest(int number, String author, String headSha, String baseSha, String directory,
                               String retrieved, int files) {
 
-        /** The five columns the export publishes; the directory and the date are the fetch's own business. */
-        public PullRequestFacts facts() {
-            return new PullRequestFacts(number, author, headSha, baseSha, files);
+        /** The columns the export publishes; the directory and the date are the fetch's own business. */
+        public PullRequestFacts facts(final String repository) {
+            return new PullRequestFacts(repository, number, author, headSha, baseSha, files);
         }
     }
 
     private final Path directory;
     private final List<PullRequest> pullRequests;
+    private final String repository;
 
-    private PullRequestSet(final Path directory, final List<PullRequest> pullRequests) {
+    private PullRequestSet(final Path directory, final List<PullRequest> pullRequests,
+                           final String repository) {
         this.directory = directory;
         this.pullRequests = List.copyOf(pullRequests);
+        this.repository = repository;
+    }
+
+    /**
+     * The repository these pull requests are of, as the fetch step recorded it — {@code owner/name} — and
+     * empty where the manifest predates the field.
+     */
+    public String repository() {
+        return repository;
     }
 
     /** The manifest in the directory the fetch step filled. A directory without one is a wrong path, not an empty set. */
@@ -56,10 +69,11 @@ public final class PullRequestSet {
                     MANIFEST, directory));
         }
         try {
-            return new PullRequestSet(directory, Files.readAllLines(manifest).stream()
+            final List<String> lines = Files.readAllLines(manifest);
+            return new PullRequestSet(directory, lines.stream()
                     .filter(line -> !line.isBlank() && !line.startsWith(COMMENT))
                     .map(PullRequestSet::pullRequest)
-                    .toList());
+                    .toList(), repositoryIn(lines));
         } catch (final IOException e) {
             throw new UncheckedIOException("Failed to read " + manifest, e);
         }
@@ -106,9 +120,28 @@ public final class PullRequestSet {
         return besides(pullRequest, ISSUES_SUFFIX);
     }
 
+    /**
+     * The same changed files at the base commit, where the fetch step wrote them: the tree a reading
+     * differences the head against to say which declarations the pull request adds and removes. An empty
+     * directory is an answer — every changed file is one this pull request adds.
+     */
+    public Optional<Path> baseOf(final PullRequest pullRequest) {
+        final Path base = directory.resolve(pullRequest.directory() + BASE_SUFFIX);
+        return Files.isDirectory(base) ? Optional.of(base) : Optional.empty();
+    }
+
     private Optional<Path> besides(final PullRequest pullRequest, final String suffix) {
         final Path file = directory.resolve(pullRequest.directory() + suffix);
         return Files.isRegularFile(file) ? Optional.of(file) : Optional.empty();
+    }
+
+    /** The repository the manifest names, and empty where it names none. */
+    private static String repositoryIn(final List<String> lines) {
+        return lines.stream()
+                .filter(line -> line.startsWith(REPOSITORY_FIELD))
+                .map(line -> line.substring(REPOSITORY_FIELD.length()).trim())
+                .findFirst()
+                .orElse("");
     }
 
     private static PullRequest pullRequest(final String line) {

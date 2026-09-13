@@ -15,6 +15,11 @@
 # own .readingignore travels with every pull request that has one at its head, because a copy without the
 # tree's stated exclusions would read files the original refuses.
 #
+# The same changed files at the base commit are written to pr-<number>-base/, taken from the clone and never
+# from the host, so a reading can diff the declarations a pull request adds against the declarations that
+# stood before it. A file the pull request adds stands at the head alone and is written at the base not at
+# all, so an empty base directory says every changed file is new.
+#
 # Where the statement references issues of the repository's own tracker, the tracker's statements are
 # pinned too: pom.xml at the head commit names the tracker in <issueManagement>, the statement is searched
 # for keys of the project that URL names, and each referenced issue's own type and summary are written to
@@ -49,6 +54,7 @@ mkdir -p "$TARGET"
 if [ ! -f "$MANIFEST" ]; then
     {
         printf '# Pull requests of %s, each written out at its head commit under the directory named below.\n' "$REPOSITORY"
+        printf '# repository: %s\n' "$REPOSITORY"
         printf '# Columns: number, author, head-sha, base-sha, directory, retrieved, files\n'
         printf '#   number     the pull request number the repository states\n'
         printf '#   author     the GitHub login the selection was filtered on\n'
@@ -209,14 +215,45 @@ template() {
     done
 }
 
+# The same changed files at the base commit, written to pr-<number>-base/ so a reading can diff the
+# declarations the pull request adds against the declarations that stood before it. The paths are the ones
+# already written at the head, so a directory the script keeps needs no further call to the host, and a file
+# the pull request adds stands at the head alone and is written at the base not at all.
+base() {
+    local number="$1" base_sha="$2" directory="pr-$number" into="pr-$number-base"
+    if [ -d "$TARGET/$into" ] || [ ! -d "$TARGET/$directory" ]; then
+        return 0
+    fi
+    if ! git -C "$CLONE" cat-file -e "$base_sha^{commit}" 2>/dev/null; then
+        printf 'unread   %s (the clone at %s does not hold %s)\n' "$into" "$CLONE" "$base_sha"
+        return 0
+    fi
+    local pathspecs=() file relative
+    while IFS= read -r file; do
+        relative="${file#"$TARGET/$directory/"}"
+        if git -C "$CLONE" cat-file -e "$base_sha:$relative" 2>/dev/null; then
+            pathspecs+=("$relative")
+        fi
+    done < <(find "$TARGET/$directory" -type f | sort)
+    mkdir -p "$TARGET/$into"
+    if [ "${#pathspecs[@]}" -eq 0 ]; then
+        printf 'based    %s (every changed file is added by this pull request)\n' "$into"
+        return 0
+    fi
+    git -C "$CLONE" archive "$base_sha" -- "${pathspecs[@]}" | tar -x -C "$TARGET/$into"
+    printf 'based    %s  %s  %s of %s files stood there\n' \
+        "$into" "$base_sha" "${#pathspecs[@]}" "$(find "$TARGET/$directory" -type f | wc -l | tr -d ' ')"
+}
+
 fetch() {
-    local number="$1" author="$2" head="$3" base="$4"
+    local number="$1" author="$2" head="$3" base_sha="$4"
     local directory="pr-$number"
     if [ -d "$TARGET/$directory" ]; then
         printf 'kept     %s (already present; delete it to re-fetch)\n' "$directory"
         statement "$number"
         template "$number" "$head"
         issues "$number" "$head"
+        base "$number" "$base_sha"
         return
     fi
     git -C "$CLONE" fetch --quiet origin "refs/pull/$number/head"
@@ -235,15 +272,16 @@ fetch() {
     mkdir -p "$TARGET/$directory"
     git -C "$CLONE" archive "$head" -- "${pathspecs[@]}" | tar -x -C "$TARGET/$directory"
     printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-        "$number" "$author" "$head" "$base" "$directory" "$(date -u +%Y-%m-%d)" "$changed" >> "$MANIFEST"
+        "$number" "$author" "$head" "$base_sha" "$directory" "$(date -u +%Y-%m-%d)" "$changed" >> "$MANIFEST"
     printf 'fetched  %s  %s  %s changed files\n' "$directory" "$head" "$changed"
     statement "$number"
     template "$number" "$head"
     issues "$number" "$head"
+    base "$number" "$base_sha"
 }
 
-while IFS=$'\t' read -r number author head base; do
-    fetch "$number" "$author" "$head" "$base"
+while IFS=$'\t' read -r number author head base_sha; do
+    fetch "$number" "$author" "$head" "$base_sha"
 done < <(selected)
 
 printf '\nEvery pull request is under %s and listed in %s\n' "$TARGET" "$MANIFEST"

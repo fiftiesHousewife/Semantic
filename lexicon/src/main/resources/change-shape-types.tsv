@@ -1,0 +1,34 @@
+# Which Conventional Commits type a measured change shape falls under, and which shapes fall
+# under none. The type and definition columns are quoted from conventional-commit-types.tsv,
+# which carries the publishers' own words; the shape and measurement columns are this
+# library's, and the pairing is checkable by reading one against the other — a change that
+# only adds declarations against "a commit of the type feat introduces a new feature".
+#
+# The rules are ordered and the first whose shape a change has answers, so a change confined
+# to the source sets that check the published ones is a test even where it adds declarations:
+# nothing the build publishes moved. A shape with an empty type states an abstention, and the
+# note says what stops the reading naming it.
+#
+# Columns: shape, measurement, type, definition, note.
+#   shape        the token the reading names this shape by
+#   measurement  what is measured to decide it, as a clause completing "it ..."
+#   type         the Conventional Commits token, or empty where no definition covers the shape
+#   definition   the publisher's own sentence for that token, quoted
+#   note         why the reading names nothing, on the rows where it does not
+#
+# Name: Conventional Commits types by measured change shape
+# Publisher: this library, quoting the Conventional Commits contributors
+#   (https://www.conventionalcommits.org/en/v1.0.0/) and the Angular convention
+# Kind: mappings
+# Source: the definitions are quoted from conventional-commit-types.tsv, which extracts them
+#   from the specification at v1.0.0 and from @commitlint/config-conventional at the revision
+#   the specification's own link pins. The shapes and the pairings are this library's.
+# Licence: the Conventional Commits specification is CC BY 3.0. The pairings carry the
+#   licence of this library.
+documentation-only	changes documentation and nothing else	docs	Documentation only changes	
+checks-only	changes only the files that check what the build publishes	test	Adding missing tests or correcting existing tests	
+build-only	changes only build files	build	Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)	
+adds-declarations	adds declarations and removes none	feat	a commit of the type feat introduces a new feature to the codebase (this correlates with MINOR in Semantic Versioning).	
+removes-declarations	removes declarations and adds none			Semantic Versioning calls removing something from the published API an incompatible change, which the specification correlates with the BREAKING CHANGE footer. The parse states which declaration a name is and who chose it, never whether the published surface carries it, so the reading cannot tell a removal from the published API from a removal of something private, and names nothing.
+adds-and-removes-declarations	adds declarations and removes declarations			More than one definition covers it — a commit can add a feature and repair a defect in one change — and nothing measured here chooses between them.
+changes-bodies	changes lines and neither adds nor removes a declaration			The Angular convention defines refactor as a change that neither fixes a bug nor adds a feature, and the specification defines fix as one that repairs a defect. Both cover a change confined to method bodies, and nothing measured here separates them.

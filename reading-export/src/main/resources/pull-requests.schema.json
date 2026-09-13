@@ -1,0 +1,841 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fiftieshousewife/CodeSemantics/pull-requests.schema.json",
+  "title": "The pull requests read beside a repository",
+  "description": "Everything a reading discovers about the pull requests fetched beside a working tree: the words each one's changed files write above both references, what its own description says beside what it changes, the work it states and writes, and what published vocabularies call its words. It is a document of its own because it answers a different question about a different corpus, so the repository's own figures cannot move when this shape does.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "repository",
+    "pullRequests"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "title": "Schema version",
+      "description": "The version of this document's shape. It rises when a field is added, renamed or removed. Consuming code branches on it.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "repository": {
+      "title": "Repository",
+      "description": "The repository these pull requests are of, as the host names it — owner/name. Empty where the fetch step recorded none.",
+      "type": "string"
+    },
+    "pullRequests": {
+      "title": "Pull requests read",
+      "description": "One entry per pull request read beside the working tree, each read as its own tree: the changed files at its head commit, scored against thresholds its own permutation null sets. The blocks above are the working tree's alone, so one document reads the repository with these pull requests and without them. Empty where none was read.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "number",
+          "author",
+          "headSha",
+          "baseSha",
+          "files",
+          "thresholds",
+          "signals"
+        ],
+        "properties": {
+          "number": {
+            "title": "Number",
+            "description": "The pull request number its repository states.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "author": {
+            "title": "Author",
+            "description": "The author the pull request was selected by, as the host states the login.",
+            "type": "string"
+          },
+          "headSha": {
+            "title": "Head commit",
+            "description": "The commit the changed files were read at. Every figure in this entry is a reading of it.",
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "baseSha": {
+            "title": "Base commit",
+            "description": "The commit of the branch the pull request asks to change, recorded when it was fetched.",
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "files": {
+            "title": "Changed files",
+            "description": "How many changed files were read.",
+            "type": "integer",
+            "minimum": 1
+          },
+          "thresholds": {
+            "title": "Chance thresholds",
+            "description": "The threshold each reference's own permutation null sets for this pull request's files, in bits, keyed by the reference's name. A pull request is scored against its own null, never the working tree's: the chance-expected maximum of a few files is not the chance-expected maximum of the tree.",
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "signals": {
+            "title": "Signals",
+            "description": "The pull request's words and published phrases clearing every one of its thresholds, each stating PULL_REQUEST as its source.",
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/signal"
+            }
+          },
+          "statement": {
+            "title": "What the pull request says",
+            "description": "The divergence between a reading of the pull request's statement — its title, its description and the messages of its commits, fetched and pinned beside its files — and the reading of its changed files above. The stated words never enter the written reading and the written words never enter the stated one. Absent where no statement was fetched, or where nothing in it could be read. The divergence is a gap, not a verdict: a pull request mixing two concerns states one of them.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sentences",
+              "words",
+              "divergenceBits",
+              "chanceDivergenceBits",
+              "chanceRate",
+              "resamples",
+              "topics"
+            ],
+            "properties": {
+              "sentences": {
+                "title": "Sentences",
+                "description": "How many sentences the readable statement carries, after markdown and hidden comments are stripped.",
+                "type": "integer",
+                "minimum": 1
+              },
+              "words": {
+                "title": "Words",
+                "description": "How many words those sentences carry. The chance sample matches it: the same sentences, each the same length, filled from the changed files' own written words.",
+                "type": "integer",
+                "minimum": 1
+              },
+              "divergenceBits": {
+                "title": "Divergence in bits",
+                "description": "The Jensen–Shannon divergence between the stated and written readings, bounded at 1 bit by its own definition.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "chanceDivergenceBits": {
+                "title": "Chance divergence in bits",
+                "description": "The divergence the furthest of the statements judged together would reach by chance. A statement whose divergenceBits does not exceed it has shown its own length, not a gap.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "chanceRate": {
+                "title": "Chance rate",
+                "description": "How often chance alone drew a divergence at least this large, in the unit the draw count allows.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "resamples": {
+                "title": "Resamples",
+                "description": "How many chance statements could be read at all.",
+                "type": "integer",
+                "minimum": 1
+              },
+              "topics": {
+                "title": "Topics carrying the distance",
+                "description": "Which topics account for the divergence and which side each concentrates in, largest term first. Empty where the divergence does not exceed its chance. Only the leading topics are listed, so summing the rows understates the whole.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "topic",
+                    "divergenceBits",
+                    "statedShare",
+                    "writtenShare"
+                  ],
+                  "properties": {
+                    "topic": {
+                      "title": "Topic",
+                      "description": "The label the topic resource publishes, in that resource's own spelling.",
+                      "type": "string"
+                    },
+                    "divergenceBits": {
+                      "title": "Term of the divergence in bits",
+                      "description": "This topic's term of the divergence. The terms across every topic sum to divergenceBits.",
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "statedShare": {
+                      "title": "Stated share",
+                      "description": "The topic's share of what the statement placed.",
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "writtenShare": {
+                      "title": "Written share",
+                      "description": "The topic's share of what the changed files placed.",
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "work": {
+            "title": "The work the pull request states",
+            "description": "What the pull request's work is, against the published change standards and against its own diff. The stated side parses every non-blank line of the authored statement under the Conventional Commits grammar and keeps a type only where the bundled standard states it, so a statement in another style yields counts and no class — abstention stated, never a guess. The written side is the parse's own answer: the changed files at the head commit read against the same files at the base commit, both pinned by the fetch step. No change class is named from the diff, because no bundled standard states one. Absent where the fetch step pinned neither a statement nor a base tree.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "stated"
+            ],
+            "properties": {
+              "issues": {
+                "title": "Issues the statement references",
+                "description": "The tracker's own statements about the issues the statement references: the repository's pom names its tracker in issueManagement, the fetch step reads each referenced issue of that project from the tracker and pins the answer, and the type here is the tracker's word verbatim, never mapped onto another standard's vocabulary. Absent where the statement references no issue of the repository's own tracker, or the repository states no tracker.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "key",
+                    "type",
+                    "url"
+                  ],
+                  "properties": {
+                    "key": {
+                      "title": "Key",
+                      "description": "The issue key, as the statement writes it.",
+                      "type": "string"
+                    },
+                    "type": {
+                      "title": "Stated type",
+                      "description": "The issue type the tracker states, verbatim.",
+                      "type": "string"
+                    },
+                    "url": {
+                      "title": "URL",
+                      "description": "The tracker's own page for the issue.",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "stated": {
+                "title": "Stated class",
+                "description": "What the statement says its change is, under the Conventional Commits grammar.",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "linesRead",
+                  "linesParsed",
+                  "classes"
+                ],
+                "properties": {
+                  "linesRead": {
+                    "title": "Lines read",
+                    "description": "How many non-blank lines of the authored statement were offered to the grammar.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "linesParsed": {
+                    "title": "Lines the grammar parsed",
+                    "description": "How many of those lines the grammar parsed, whatever their type — a parsed type the standard does not state counts here and in no class.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "classes": {
+                    "title": "Stated classes",
+                    "description": "The types the standard states, most-written first. Empty where no line states one.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "type",
+                        "module",
+                        "lines"
+                      ],
+                      "properties": {
+                        "type": {
+                          "title": "Type",
+                          "description": "The token as the standard writes it — feat, fix, docs.",
+                          "type": "string"
+                        },
+                        "module": {
+                          "title": "Defining source",
+                          "description": "Which source defines it, as the bundled resource's own column states: specification, or angular-convention.",
+                          "type": "string",
+                          "enum": [
+                            "specification",
+                            "angular-convention"
+                          ]
+                        },
+                        "lines": {
+                          "title": "Lines",
+                          "description": "How many statement lines state it.",
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "written": {
+                "title": "Written class",
+                "description": "What the changed files do to the declarations that stood before them: the pull request's tree at its head read against the same files at its base. Declarations are matched as a multiset on the file, the enclosing declarations, the kind and the name, so two overloads of one name are two declarations and a rename is one removed and one added — nothing is matched across a rename, because the alternative is a similarity heuristic asserting an intention the text does not state.",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "filesRead",
+                  "filesAdded",
+                  "added",
+                  "removed",
+                  "kept",
+                  "filesByKind",
+                  "atHead",
+                  "atBase"
+                ],
+                "properties": {
+                  "filesRead": {
+                    "title": "Files read",
+                    "description": "How many of the pull request's files the reading's own scopes reach, which is fewer than the files it changed wherever it changed a file no scope reads.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "filesAdded": {
+                    "title": "Files added",
+                    "description": "How many of those files stand at the head and not at the base.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "added": {
+                    "title": "Declarations added",
+                    "description": "The declarations standing at the head that did not stand at the base, counted by what they are in the syntax. A zero is a count: the parse read the files and found none of that kind added.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "types",
+                      "methods",
+                      "fields"
+                    ],
+                    "properties": {
+                      "types": {
+                        "title": "Types",
+                        "description": "Classes, interfaces, enums, records and annotations.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "methods": {
+                        "title": "Methods",
+                        "description": "Methods and constructors. A constructor is read here where the vocabulary reading leaves it out, because its name being its type's name is a fact about words and not about declarations.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "fields": {
+                        "title": "Fields",
+                        "description": "Fields, enum constants and record components.",
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    }
+                  },
+                  "removed": {
+                    "title": "Declarations removed",
+                    "description": "The declarations standing at the base that do not stand at the head, counted the same way.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "types",
+                      "methods",
+                      "fields"
+                    ],
+                    "properties": {
+                      "types": {
+                        "title": "Types",
+                        "description": "Classes, interfaces, enums, records and annotations.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "methods": {
+                        "title": "Methods",
+                        "description": "Methods and constructors. A constructor is read here where the vocabulary reading leaves it out, because its name being its type's name is a fact about words and not about declarations.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "fields": {
+                        "title": "Fields",
+                        "description": "Fields, enum constants and record components.",
+                        "type": "integer",
+                        "minimum": 0
+                      }
+                    }
+                  },
+                  "kept": {
+                    "title": "Declarations kept",
+                    "description": "How many of the head's declarations stood at the base under the same name in the same enclosing declarations.",
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "filesByKind": {
+                    "title": "Files by kind",
+                    "description": "How many of the files read are of each kind the build's own layout states — production for a source set the build publishes, tests and fixtures for the source sets that check it, documentation for the repository's own prose, build for the files the build is declared in. The counts sum to filesRead.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "kind",
+                        "files"
+                      ],
+                      "properties": {
+                        "kind": {
+                          "title": "Kind",
+                          "description": "production, tests, fixtures, documentation, build, or other.",
+                          "type": "string"
+                        },
+                        "files": {
+                          "title": "Files",
+                          "description": "How many of the files read are of that kind.",
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      }
+                    }
+                  },
+                  "atHead": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "commentLines",
+                      "metrics"
+                    ],
+                    "properties": {
+                      "commentLines": {
+                        "title": "Comment lines",
+                        "description": "How many lines the authors wrote as javadoc or as comments. Prose is the one thing counted in lines: a line count of code moves with the formatter and with the javadoc above it, so the code is counted by what it declares and what its methods carry.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "metrics": {
+                        "title": "Size and complexity",
+                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837): one per method, plus one for each point at which control can branch.",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "types",
+                          "methods",
+                          "statements",
+                          "largestType",
+                          "longestMethod",
+                          "totalComplexity",
+                          "highestComplexity",
+                          "deepestNesting",
+                          "mostParameters"
+                        ],
+                        "properties": {
+                          "types": {
+                            "title": "Types",
+                            "description": "How many types the files declare.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "methods": {
+                            "title": "Methods",
+                            "description": "How many methods and constructors they declare.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "statements": {
+                            "title": "Statements",
+                            "description": "How many statements those methods carry in total. A block holds statements and is not counted as one.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "largestType": {
+                            "title": "Largest type",
+                            "description": "The most members any one type declares.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "longestMethod": {
+                            "title": "Longest method",
+                            "description": "The most statements any one method carries.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "totalComplexity": {
+                            "title": "Total complexity",
+                            "description": "McCabe's complexity summed over every method.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "highestComplexity": {
+                            "title": "Highest complexity",
+                            "description": "The largest any one method reaches.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "deepestNesting": {
+                            "title": "Deepest nesting",
+                            "description": "The deepest block any method holds, counting its own body as one.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "mostParameters": {
+                            "title": "Most parameters",
+                            "description": "The most parameters any one method declares.",
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "title": "At the head commit",
+                    "description": "What the changed files measure as the pull request leaves them."
+                  },
+                  "atBase": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "commentLines",
+                      "metrics"
+                    ],
+                    "properties": {
+                      "commentLines": {
+                        "title": "Comment lines",
+                        "description": "How many lines the authors wrote as javadoc or as comments. Prose is the one thing counted in lines: a line count of code moves with the formatter and with the javadoc above it, so the code is counted by what it declares and what its methods carry.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "metrics": {
+                        "title": "Size and complexity",
+                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837): one per method, plus one for each point at which control can branch.",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "types",
+                          "methods",
+                          "statements",
+                          "largestType",
+                          "longestMethod",
+                          "totalComplexity",
+                          "highestComplexity",
+                          "deepestNesting",
+                          "mostParameters"
+                        ],
+                        "properties": {
+                          "types": {
+                            "title": "Types",
+                            "description": "How many types the files declare.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "methods": {
+                            "title": "Methods",
+                            "description": "How many methods and constructors they declare.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "statements": {
+                            "title": "Statements",
+                            "description": "How many statements those methods carry in total. A block holds statements and is not counted as one.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "largestType": {
+                            "title": "Largest type",
+                            "description": "The most members any one type declares.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "longestMethod": {
+                            "title": "Longest method",
+                            "description": "The most statements any one method carries.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "totalComplexity": {
+                            "title": "Total complexity",
+                            "description": "McCabe's complexity summed over every method.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "highestComplexity": {
+                            "title": "Highest complexity",
+                            "description": "The largest any one method reaches.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "deepestNesting": {
+                            "title": "Deepest nesting",
+                            "description": "The deepest block any method holds, counting its own body as one.",
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "mostParameters": {
+                            "title": "Most parameters",
+                            "description": "The most parameters any one method declares.",
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "title": "At the base commit",
+                    "description": "What the same files measured as the pull request found them."
+                  },
+                  "typesAdded": {
+                    "title": "Types added",
+                    "description": "Every type the change adds, named and pathed. Empty where it adds none.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "path",
+                        "name"
+                      ],
+                      "properties": {
+                        "path": {
+                          "title": "File",
+                          "description": "The file the declaration stands in, relative to the pull request's own directory.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "title": "Name",
+                          "description": "The name, under the declarations it sits inside, written outermost first and separated by dots.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "typesRemoved": {
+                    "title": "Types removed",
+                    "description": "Every type the change removes, named and pathed. Empty where it removes none.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "path",
+                        "name"
+                      ],
+                      "properties": {
+                        "path": {
+                          "title": "File",
+                          "description": "The file the declaration stands in, relative to the pull request's own directory.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "title": "Name",
+                          "description": "The name, under the declarations it sits inside, written outermost first and separated by dots.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "typesAddedWithoutATest": {
+                    "title": "Types added with no test",
+                    "description": "The types the change adds to what the build publishes and adds no test for, where a test is a class whose name Maven Surefire's own default includes would run — Test*, *Test, *Tests, *TestCase — and its subject is the name that pattern leaves. It says no test arrived with the type, never that nothing covers it: a type may be exercised by a test that already stood.",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "path",
+                        "name"
+                      ],
+                      "properties": {
+                        "path": {
+                          "title": "File",
+                          "description": "The file the declaration stands in, relative to the pull request's own directory.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "title": "Name",
+                          "description": "The name, under the declarations it sits inside, written outermost first and separated by dots.",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "inferred": {
+                "title": "The word a definition covers the shape with",
+                "description": "The Conventional Commits type the measured shape of this change falls under, read from the bundled mapping change-shape-types.tsv. That file states one row per shape the reading can measure, in the order its rules apply, quoting the publisher's own definition beside the measurement so the pairing can be checked — a change that only adds declarations against \"a commit of the type feat introduces a new feature\". Shapes the mapping states no type for are rows too, each carrying the reason the reading names nothing. Absent where the shape this change has is one of those.",
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "definition",
+                  "shape"
+                ],
+                "properties": {
+                  "type": {
+                    "title": "Token",
+                    "description": "The token as the standard writes it.",
+                    "type": "string"
+                  },
+                  "definition": {
+                    "title": "Definition",
+                    "description": "The publisher's own sentence, so the word can be checked against the shape.",
+                    "type": "string"
+                  },
+                  "shape": {
+                    "title": "Shape",
+                    "description": "What was measured that the definition covers, as a clause completing \"it …\".",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "repository": {
+            "title": "Repository",
+            "description": "The repository the pull request is of, as the host names it — owner/name. Absent where the fetch step recorded none.",
+            "type": "string"
+          },
+          "concepts": {
+            "title": "What published vocabularies call these words",
+            "description": "The concepts the bundled vocabularies state for terms the changed files write, most written first. These are matches and not a placement: a repository is placed only where a vocabulary writes more of its phrases than a deal of that vocabulary's own words reaches, and that bar is drawn over a whole tree, so a few changed files are too small a field for it. No vocabulary is judged to have answered.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "vocabulary",
+                "term",
+                "concept",
+                "occurrences"
+              ],
+              "properties": {
+                "vocabulary": {
+                  "title": "Vocabulary",
+                  "description": "Which bundled vocabulary states it.",
+                  "type": "string"
+                },
+                "term": {
+                  "title": "Term",
+                  "description": "The words matched, as the files write them.",
+                  "type": "string"
+                },
+                "concept": {
+                  "title": "Concept",
+                  "description": "The concept the vocabulary states for them.",
+                  "type": "string"
+                },
+                "definition": {
+                  "title": "Definition",
+                  "description": "The publisher's own prose for that concept. Absent where it states none.",
+                  "type": "string"
+                },
+                "occurrences": {
+                  "title": "Occurrences",
+                  "description": "How often these files write the term.",
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "signal": {
+      "title": "Signal",
+      "description": "One word or published phrase written at a higher density than every reference it is scored against, in whichever source readFrom states.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readFrom",
+        "word",
+        "occurrences",
+        "occurrencesInNames",
+        "divergenceBits",
+        "marginBits",
+        "closestReference",
+        "firstWrittenAt"
+      ],
+      "properties": {
+        "readFrom": {
+          "title": "Source read",
+          "description": "Which source supplied the signal. CLONE is the working tree; PULL_REQUEST is one pull request's changed files at its head commit.",
+          "type": "string",
+          "enum": [
+            "CLONE",
+            "PULL_REQUEST"
+          ]
+        },
+        "word": {
+          "title": "Word",
+          "description": "The word as the identifier splitter produced it. A run of words a topical resource publishes as one entry is one word here, its words joined by the underscore the resources themselves write: `part_of_speech`.",
+          "type": "string"
+        },
+        "occurrences": {
+          "title": "Occurrences",
+          "description": "How many times the repository writes it.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurrencesInNames": {
+          "title": "Occurrences in declared names",
+          "description": "How many of those occurrences are a declared name rather than prose. `citationSource` contributes to this count; the javadoc above it does not.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "divergenceBits": {
+          "title": "Score in bits",
+          "description": "This word's term of the Jensen-Shannon divergence between the repository's word distribution and the reference's. Base-2 logarithms bound it at 1 bit. A word the repository writes at the reference's own density scores 0.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "marginBits": {
+          "title": "Score at the reference's own error",
+          "description": "The same term computed with the reference's share moved one standard error toward the repository's — the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "closestReference": {
+          "title": "Reference giving the lowest score",
+          "description": "The reference scoring this word lowest, which is the score reported. `get` scores high against ordinary English and low against the Java platform's own API, so the platform is its closest reference.",
+          "type": "string"
+        },
+        "firstWrittenAt": {
+          "$ref": "#/$defs/site"
+        }
+      }
+    },
+    "site": {
+      "title": "File and line",
+      "description": "Where to read the evidence behind a figure.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "line"
+      ],
+      "properties": {
+        "file": {
+          "description": "The path relative to the root of the repository that was read.",
+          "type": "string"
+        },
+        "line": {
+          "description": "The line within that file, counting from 1.",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

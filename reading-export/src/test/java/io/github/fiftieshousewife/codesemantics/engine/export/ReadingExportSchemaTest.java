@@ -68,19 +68,6 @@ class ReadingExportSchemaTest {
                     List.of(new SetAside.RefusedVocabulary("CSO",
                             new ExportedTaxonomy.Bar(17, 16, 9, 1.06, 340, 320, 1.06, 0, 0.001, 7, FIELD, 999))), 118, 0, 0));
 
-    private static final ExportedPullRequest PULL_REQUEST_READ = new ExportedPullRequest(3154,
-            "tballison", "9351a7063d41ec9a47a50b444a9f0242fd765860",
-            "fa7ea0996857fd785d782d0cb887c04b996dddb9", 11,
-            Map.of("ordinary English", 0.0004),
-            List.of(new ExportedSignal(ReadingSource.PULL_REQUEST, "inference", 12, 9, 0.03, 0.025,
-                    "ordinary English", new SightingSite("Engine.java", 3))),
-            new ExportedStatement(4, 31, 0.42, 0.19, 0.001, 999,
-                    List.of(new ExportedStatement.StatedTopic("computing", 0.11, 0.6, 0.2))),
-            new ExportedWork(new ExportedWork.Stated(4, 1,
-                    List.of(new ExportedWork.StatedClass("fix", "specification", 1))),
-                    List.of(new ExportedWork.Issue("TIKA-4889", "Task",
-                            "https://issues.apache.org/jira/browse/TIKA-4889"))));
-
     private final ExportFile file = new ExportFile();
 
     private final ExportSchema schema = ExportSchema.fromClasspath();
@@ -109,7 +96,7 @@ class ReadingExportSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final ReadingExport unversioned = new ReadingExport("two", EXPORT.summary(), EXPORT.signals(),
-                EXPORT.thresholds(), EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside(), List.of());
+                EXPORT.thresholds(), EXPORT.themes(), EXPORT.taxonomies(), EXPORT.setAside());
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(ExportFile.NAME), unversioned))
@@ -163,65 +150,11 @@ class ReadingExportSchemaTest {
                         Map.of("words", 0, "lemmas", 0, "expansions", 0, "senses", 0),
                         new ExportedTaxonomy.Bar(4, 1, 0, 4.0, 80, 20, 4.0, 0, 0.001, 7, FIELD, 999)));
         return new ReadingExport(EXPORT.schemaVersion(), EXPORT.summary(), EXPORT.signals(),
-                EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside(), List.of());
+                EXPORT.thresholds(), EXPORT.themes(), both, EXPORT.setAside());
     }
 
     private static int occurrencesOf(final String key, final String document) {
         return document.split(key, -1).length - 1;
-    }
-
-    @Test
-    void admitsADocumentCarryingAPullRequestReadBesideTheTree() throws IOException {
-        final ReadingExport with = EXPORT.withPullRequests(List.of(PULL_REQUEST_READ));
-
-        assertThat(schema.refusals(new ObjectMapper().readTree(file.of(with)))).isEmpty();
-    }
-
-    @Test
-    void leavesEveryRepositoryBlockWhereItStoodWhenPullRequestsArrive() {
-        final ReadingExport with = EXPORT.withPullRequests(List.of(PULL_REQUEST_READ));
-
-        assertAll(
-                () -> assertThat(with.summary()).isEqualTo(EXPORT.summary()),
-                () -> assertThat(with.signals()).isEqualTo(EXPORT.signals()),
-                () -> assertThat(with.thresholds()).isEqualTo(EXPORT.thresholds()),
-                () -> assertThat(with.themes()).isEqualTo(EXPORT.themes()),
-                () -> assertThat(with.taxonomies()).isEqualTo(EXPORT.taxonomies()),
-                () -> assertThat(with.setAside()).isEqualTo(EXPORT.setAside()),
-                () -> assertThat(with.pullRequests()).containsExactly(PULL_REQUEST_READ));
-    }
-
-    @Test
-    void admitsAPullRequestCarryingNoStatement() throws IOException {
-        final ReadingExport with = EXPORT.withPullRequests(List.of(new ExportedPullRequest(3153,
-                "tballison", "7c80965e8f14c0465c7fdf3858009ed6cb691c30",
-                "68e57621168adf9e8e3004e3ff4ea6fd5e4c3cd7", 35, Map.of(), List.of())));
-
-        final String document = file.of(with);
-
-        assertAll(
-                () -> assertThat(schema.refusals(new ObjectMapper().readTree(document))).isEmpty(),
-                () -> assertThat(document)
-                        .as("an unfetched statement is absent, never null")
-                        .doesNotContain("\"statement\""));
-    }
-
-    @Test
-    void refusesAStatementDivergenceOutsideItsOwnBound() throws IOException {
-        final String impossible = file.of(EXPORT.withPullRequests(List.of(PULL_REQUEST_READ)))
-                .replace("0.42,", "1.42,");
-
-        assertThat(schema.refusals(new ObjectMapper().readTree(impossible))).isNotEmpty();
-    }
-
-    @Test
-    void refusesAPullRequestWhoseHeadIsNotACommitSha() throws IOException {
-        final String unpinned = file.of(EXPORT.withPullRequests(List.of(PULL_REQUEST_READ)))
-                .replace("9351a7063d41ec9a47a50b444a9f0242fd765860", "HEAD");
-
-        assertThat(schema.refusals(new ObjectMapper().readTree(unpinned)))
-                .as("a reading of a moving target is not reproducible, so an unpinned head fails here")
-                .isNotEmpty();
     }
 
     @Test

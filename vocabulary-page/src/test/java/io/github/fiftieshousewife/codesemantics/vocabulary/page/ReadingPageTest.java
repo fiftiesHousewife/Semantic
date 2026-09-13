@@ -73,7 +73,7 @@ class ReadingPageTest {
                 197);
     }
 
-    private final String page = new ReadingPage("", "").markup(reading(), sources(), "{}");
+    private final String page = new ReadingPage("", "").markup(reading(), sources(), "{}", List.of());
 
     @Test
     void leadsWithTheFindingSentences() {
@@ -146,7 +146,7 @@ class ReadingPageTest {
                 List.of(), Map.of(), List.of(), List.of(),
                 new SetAside(0, 0, 0, 0, 0, 0, List.of(), 0, 0, 0));
 
-        assertThat(new ReadingPage("", "").markup(bare, sources(), "{}"))
+        assertThat(new ReadingPage("", "").markup(bare, sources(), "{}", List.of()))
                 .contains("No published vocabulary wrote more of its phrases here than a deal of its "
                         + "own words reaches.");
     }

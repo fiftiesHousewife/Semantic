@@ -12,8 +12,7 @@
     "themes",
     "taxonomies",
     "setAside",
-    "thresholds",
-    "pullRequests"
+    "thresholds"
   ],
   "properties": {
     "schemaVersion": {
@@ -593,7 +592,7 @@
           "minimum": 0
         },
         "matchesDiscardedByBranchRule": {
-          "description": "Distinct terms of one word the repository writes without writing any other concept from the same branch of their vocabulary, summed over every vocabulary judged — the refused ones among them. A term the branch rule refused at one normalisation and another normalisation reported is counted as reported. `evidence.json` lists each discarded term as a `matches` row whose outcome names the rule.",
+          "description": "Distinct terms of one word the repository writes without writing any other concept from the same branch of their vocabulary, summed over every vocabulary judged \u2014 the refused ones among them. A term the branch rule refused at one normalisation and another normalisation reported is counted as reported. `evidence.json` lists each discarded term as a `matches` row whose outcome names the rule.",
           "type": "integer",
           "minimum": 0
         },
@@ -632,275 +631,6 @@
           "description": "Java files under the root that no scope holds. A scope is `<module>/src/<sourceSet>/java`, which is where Gradle and Maven declare sources and is what keeps generated output out of the reading without a list of directories to ignore, so a tree laid out any other way yields no scope and reads as empty. This count is what tells that reading from a reading of a repository holding no Java at all: a figure above zero beside `summary.counts.files` of zero says the layout hid the source rather than that there was none. Files the tree's own `.readingignore` excludes are not counted, because the repository refused those itself.",
           "type": "integer",
           "minimum": 0
-        }
-      }
-    },
-    "pullRequests": {
-      "title": "Pull requests",
-      "description": "One entry per pull request read beside the working tree, each read as its own tree: the changed files at its head commit, scored against thresholds its own permutation null sets. The blocks above are the working tree's alone, so one document reads the repository with these pull requests and without them. Empty where none was read.",
-      "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "number",
-          "author",
-          "headSha",
-          "baseSha",
-          "files",
-          "thresholds",
-          "signals"
-        ],
-        "properties": {
-          "number": {
-            "title": "Number",
-            "description": "The pull request number its repository states.",
-            "type": "integer",
-            "minimum": 1
-          },
-          "author": {
-            "title": "Author",
-            "description": "The author the pull request was selected by, as the host states the login.",
-            "type": "string"
-          },
-          "headSha": {
-            "title": "Head commit",
-            "description": "The commit the changed files were read at. Every figure in this entry is a reading of it.",
-            "type": "string",
-            "pattern": "^[0-9a-f]{40}$"
-          },
-          "baseSha": {
-            "title": "Base commit",
-            "description": "The commit of the branch the pull request asks to change, recorded when it was fetched.",
-            "type": "string",
-            "pattern": "^[0-9a-f]{40}$"
-          },
-          "files": {
-            "title": "Changed files",
-            "description": "How many changed files were read.",
-            "type": "integer",
-            "minimum": 1
-          },
-          "thresholds": {
-            "title": "Chance thresholds",
-            "description": "The threshold each reference's own permutation null sets for this pull request's files, in bits, keyed by the reference's name. A pull request is scored against its own null, never the working tree's: the chance-expected maximum of a few files is not the chance-expected maximum of the tree.",
-            "type": "object",
-            "additionalProperties": {
-              "type": "number",
-              "minimum": 0
-            }
-          },
-          "signals": {
-            "title": "Signals",
-            "description": "The pull request's words and published phrases clearing every one of its thresholds, each stating PULL_REQUEST as its source.",
-            "type": "array",
-            "items": {
-              "$ref": "#/$defs/signal"
-            }
-          },
-          "statement": {
-            "title": "What the pull request says",
-            "description": "The divergence between a reading of the pull request's statement — its title, its description and the messages of its commits, fetched and pinned beside its files — and the reading of its changed files above. The stated words never enter the written reading and the written words never enter the stated one. Absent where no statement was fetched, or where nothing in it could be read. The divergence is a gap, not a verdict: a pull request mixing two concerns states one of them.",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "sentences",
-              "words",
-              "divergenceBits",
-              "chanceDivergenceBits",
-              "chanceRate",
-              "resamples",
-              "topics"
-            ],
-            "properties": {
-              "sentences": {
-                "title": "Sentences",
-                "description": "How many sentences the readable statement carries, after markdown and hidden comments are stripped.",
-                "type": "integer",
-                "minimum": 1
-              },
-              "words": {
-                "title": "Words",
-                "description": "How many words those sentences carry. The chance sample matches it: the same sentences, each the same length, filled from the changed files' own written words.",
-                "type": "integer",
-                "minimum": 1
-              },
-              "divergenceBits": {
-                "title": "Divergence in bits",
-                "description": "The Jensen–Shannon divergence between the stated and written readings, bounded at 1 bit by its own definition.",
-                "type": "number",
-                "minimum": 0,
-                "maximum": 1
-              },
-              "chanceDivergenceBits": {
-                "title": "Chance divergence in bits",
-                "description": "The divergence the furthest of the statements judged together would reach by chance. A statement whose divergenceBits does not exceed it has shown its own length, not a gap.",
-                "type": "number",
-                "minimum": 0,
-                "maximum": 1
-              },
-              "chanceRate": {
-                "title": "Chance rate",
-                "description": "How often chance alone drew a divergence at least this large, in the unit the draw count allows.",
-                "type": "number",
-                "minimum": 0,
-                "maximum": 1
-              },
-              "resamples": {
-                "title": "Resamples",
-                "description": "How many chance statements could be read at all.",
-                "type": "integer",
-                "minimum": 1
-              },
-              "topics": {
-                "title": "Topics carrying the distance",
-                "description": "Which topics account for the divergence and which side each concentrates in, largest term first. Empty where the divergence does not exceed its chance. Only the leading topics are listed, so summing the rows understates the whole.",
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "required": [
-                    "topic",
-                    "divergenceBits",
-                    "statedShare",
-                    "writtenShare"
-                  ],
-                  "properties": {
-                    "topic": {
-                      "title": "Topic",
-                      "description": "The label the topic resource publishes, in that resource's own spelling.",
-                      "type": "string"
-                    },
-                    "divergenceBits": {
-                      "title": "Term of the divergence in bits",
-                      "description": "This topic's term of the divergence. The terms across every topic sum to divergenceBits.",
-                      "type": "number",
-                      "minimum": 0,
-                      "maximum": 1
-                    },
-                    "statedShare": {
-                      "title": "Stated share",
-                      "description": "The topic's share of what the statement placed.",
-                      "type": "number",
-                      "minimum": 0,
-                      "maximum": 1
-                    },
-                    "writtenShare": {
-                      "title": "Written share",
-                      "description": "The topic's share of what the changed files placed.",
-                      "type": "number",
-                      "minimum": 0,
-                      "maximum": 1
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "work": {
-            "title": "The work the pull request states",
-            "description": "The pull request's own statement of what its work is, classified against the published change standards. Only the stated side is here yet: every non-blank line of the authored statement is offered to the Conventional Commits grammar, and a parsed type is kept only where the bundled standard states it. A statement no standard's grammar parses yields counts and no class \u2014 abstention stated, never a guess. Absent where no statement was fetched.",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "stated"
-            ],
-            "properties": {
-              "issues": {
-                "title": "Issues the statement references",
-                "description": "The tracker's own statements about the issues the statement references: the repository's pom names its tracker in issueManagement, the fetch step reads each referenced issue of that project from the tracker and pins the answer, and the type here is the tracker's word verbatim, never mapped onto another standard's vocabulary. Absent where the statement references no issue of the repository's own tracker, or the repository states no tracker.",
-                "type": "array",
-                "minItems": 1,
-                "items": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "required": [
-                    "key",
-                    "type",
-                    "url"
-                  ],
-                  "properties": {
-                    "key": {
-                      "title": "Key",
-                      "description": "The issue key, as the statement writes it.",
-                      "type": "string"
-                    },
-                    "type": {
-                      "title": "Stated type",
-                      "description": "The issue type the tracker states, verbatim.",
-                      "type": "string"
-                    },
-                    "url": {
-                      "title": "URL",
-                      "description": "The tracker's own page for the issue.",
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "stated": {
-                "title": "Stated class",
-                "description": "What the statement says its change is, under the Conventional Commits grammar.",
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "linesRead",
-                  "linesParsed",
-                  "classes"
-                ],
-                "properties": {
-                  "linesRead": {
-                    "title": "Lines read",
-                    "description": "How many non-blank lines of the authored statement were offered to the grammar.",
-                    "type": "integer",
-                    "minimum": 0
-                  },
-                  "linesParsed": {
-                    "title": "Lines the grammar parsed",
-                    "description": "How many of those lines the grammar parsed, whatever their type \u2014 a parsed type the standard does not state counts here and in no class.",
-                    "type": "integer",
-                    "minimum": 0
-                  },
-                  "classes": {
-                    "title": "Stated classes",
-                    "description": "The types the standard states, most-written first. Empty where no line states one.",
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "type",
-                        "module",
-                        "lines"
-                      ],
-                      "properties": {
-                        "type": {
-                          "title": "Type",
-                          "description": "The token as the standard writes it \u2014 feat, fix, docs.",
-                          "type": "string"
-                        },
-                        "module": {
-                          "title": "Defining source",
-                          "description": "Which source defines it, as the bundled resource's own column states: specification, or angular-convention.",
-                          "type": "string",
-                          "enum": [
-                            "specification",
-                            "angular-convention"
-                          ]
-                        },
-                        "lines": {
-                          "title": "Lines",
-                          "description": "How many statement lines state it.",
-                          "type": "integer",
-                          "minimum": 1
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
       }
     }
@@ -957,7 +687,7 @@
         },
         "marginBits": {
           "title": "Score at the reference's own error",
-          "description": "The same term computed with the reference's share moved one standard error toward the repository's — the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
+          "description": "The same term computed with the reference's share moved one standard error toward the repository's \u2014 the score with the reference's own sampling error held against the word. The verdict rests on it: every signal's margin exceeds every reference's chance threshold, and a word whose score clears the thresholds while its margin does not is counted in `setAside.wordsWithinTheReferencesError` instead of listed here.",
           "type": "number",
           "minimum": 0,
           "maximum": 1
