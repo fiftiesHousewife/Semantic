@@ -70,7 +70,7 @@ A sentence that states a mechanism in so few words that the reader has to recons
 | Refused | Why it fails | Write |
 |---|---|---|
 | A file's kind is where the build looks for it | *kind* and *where* are both carrying rules the reader cannot see: nothing says a kind is a name this reading gives, or that *where* means a directory the build declares | The build declares where its source, its tests and its resources live. Each file is counted under the one it sits in |
-| New recounts those the base does not hold | *recounts*, *those* and *the base* each depend on a sentence the reader has not been given | A file is new when the pull request adds it: it stands at the head commit and not at the one it branched from |
+| New recounts those the base does not hold | *recounts*, *those* and *the base* each depend on a sentence the reader has not been given | A file is new when the pull request adds it: it stands at the head commit and not at its base |
 | A fixture is counted by its name alone | *counted by* hides the fact that matters — that nothing opens the file | A fixture's file name is read. Its contents are never opened |
 
 The test: read the sentence as somebody who has not seen the code. If a noun in it could mean three things, name which. If a verb is carrying a rule, state the rule. A second sentence costs the reader four seconds; one they cannot decode costs them the paragraph.
@@ -82,7 +82,20 @@ The test: read the sentence as somebody who has not seen the code. If a noun in 
 - Refused: *The tracker's word is the tracker's own.*
 - Write: *Jira's issue types stay as Jira writes them — a Bug is reported as a Bug and is never rewritten as a `fix`.*
 
-### 8. No justifying tail
+### 8. No stranded preposition
+
+A sentence ending on a preposition leaves its own mechanism dangling: the reader reaches the full stop still holding a relation with nothing on the other side of it. Recast so the verb keeps its object.
+
+| Refused | Why it fails | Write |
+|---|---|---|
+| the word a standard's definition covers the measured shape with | *with* arrives five words after the noun it governs, and the reader has to carry it there | the type whose definition covers what the parse measured |
+| it stands at the head commit and not at the one it branched from | *from* trails a relative clause that has already ended | it stands at the head commit and not at its base |
+| the repositories the reading was tuned on | *on* is carrying the sense of *used for* | the repositories used to tune the reading |
+| what its code says is the word a standard covers the shape with | two stranded prepositions in one sentence, and neither verb states an actor | the bundled mapping names the type whose definition covers those counts |
+
+Recasting usually wants a stronger verb. A sentence that has to end on *with*, *on*, *from* or *for* is one whose verb was too weak to hold its object in place.
+
+### 9. No justifying tail
 
 A clause bolted onto a finished statement to say what the thing does *not* do, or is *not*, defends against a misreading nobody had yet — and the defence is what plants the doubt. The main clause already carries the fact. Delete the tail; where the distinction genuinely changes what the reader does, give it its own sentence with its own subject.
 
@@ -155,6 +168,7 @@ Read the draft once for each line:
 - [ ] No "X, not Y" pairing
 - [ ] Every sentence decodable on one reading by somebody who has not seen the code
 - [ ] No sentence whose predicate restates its subject
+- [ ] No sentence ending on a preposition
 - [ ] No trailing clause saying what the thing does not do
 - [ ] Nothing about the document itself, its history, or planned work
 - [ ] Every sentence carries information the previous one did not

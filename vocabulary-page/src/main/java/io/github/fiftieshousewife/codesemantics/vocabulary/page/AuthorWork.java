@@ -30,11 +30,13 @@ final class AuthorWork {
         return section().withId("work").with(
                 h2("What kind of change each one is"),
                 p().withClass("lede").with(
-                        span("What it says is the word its own statement uses; what its code says is the "
-                                + "word a standard's definition covers the measured shape with"),
+                        span("Conventional Commits\u2019 grammar parses the author\u2019s own statement "
+                                + "and names the type it states. The parse counts what the change adds "
+                                + "and removes, and the bundled mapping names the type whose published "
+                                + "definition covers those counts"),
                         Footnotes.marker(Footnotes.CONVENTION),
-                        span(". Jira's issue types stay as Jira writes them: a Bug is reported as a "
-                                + "Bug and is never rewritten as one of the standard's words.")),
+                        span(". Jira\u2019s issue types stay as Jira writes them: a Bug is reported as a "
+                                + "Bug and is never rewritten as one of the standard\u2019s words.")),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("It says"), th("Its code says"),
                                 th("Why its code says that"), th("Tracker says"))),

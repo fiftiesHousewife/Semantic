@@ -221,7 +221,7 @@ Each pull request is then read on its own, against thresholds drawn from the fil
 |---|---|
 | `signals` | which words the changed files write more densely than both references, each beating a threshold drawn from those files alone |
 | `statement` | how far what the pull request says sits from what it changes, measured against statements of the same shape built from words drawn at random from the code |
-| `work` | what the statement calls the change under [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), what the repository's tracker calls it, which declarations the changed files add and remove, and what a standard's own definition covers the measured shape with |
+| `work` | what the statement calls the change under [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), what the repository's tracker calls it, which declarations the changed files add and remove, and the type whose published definition covers what the parse measured |
 | `concepts` | what the bundled vocabularies state for the terms those files write. These are matches and never a placement: a repository is placed only where a vocabulary writes more of its phrases than a deal of that vocabulary's own words reaches, and that bar is drawn over a whole tree, so a few changed files are too small a field for it |
 
 Worked example — [apache/tika](https://github.com/apache/tika) pull request 3153, read at commit `7c80965e`:

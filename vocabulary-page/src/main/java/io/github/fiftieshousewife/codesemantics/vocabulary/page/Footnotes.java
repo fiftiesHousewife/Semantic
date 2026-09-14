@@ -58,16 +58,15 @@ final class Footnotes {
     private static LiTag convention() {
         return li().withId("note-" + CONVENTION).with(
                 a("Conventional Commits").withHref("https://www.conventionalcommits.org/en/v1.0.0/"),
-                span(" is a convention for writing commit messages: one beginning "),
+                span(" is a convention for writing commit messages: a message beginning "),
                 span("feat:").withClass("token"),
-                span(" says the change adds a feature, one beginning "),
+                span(" states that the change adds a feature, and one beginning "),
                 span("fix:").withClass("token"),
-                span(" that it repairs a defect. Where a pull request's own statement uses none of its "
-                        + "words, the word beside the change is the one that standard's definition "
-                        + "covers the measured shape with — what the code does, rather than what its "
-                        + "author wrote. "),
-                a("Every shape and the word it falls under").withHref("../" + ChangeShapeTable.FILE),
-                span(" is one table, the shapes that name nothing among them."));
+                span(" that it repairs a defect. Where a pull request\u2019s own statement uses none of "
+                        + "its words, the word beside the change is the one whose definition covers what "
+                        + "the parse measured. One table lists "),
+                a("every shape and the word covering it").withHref("../" + ChangeShapeTable.FILE),
+                span(", the shapes that name nothing among them."));
     }
 
     private static LiTag outside() {
