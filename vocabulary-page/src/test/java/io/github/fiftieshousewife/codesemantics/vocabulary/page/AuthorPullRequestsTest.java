@@ -37,6 +37,18 @@ class AuthorPullRequestsTest {
     }
 
     @Test
+    void writesALoginAPathCannotCarryInCharactersItCan() {
+        final AuthorPullRequests bot = AuthorPullRequests.in(fetched(
+                pullRequest(3163, "dependabot[bot]", List.of("parser"))), reading()).getFirst();
+
+        assertAll(
+                () -> assertThat(bot.file()).isEqualTo("dependabot-bot-.html"),
+                () -> assertThat(bot.author())
+                        .as("the login itself is the host's and is written as the host writes it")
+                        .isEqualTo("dependabot[bot]"));
+    }
+
+    @Test
     void sumsTheDeclarationsOfEveryPullRequestReadAgainstABase() {
         final AuthorPullRequests author = AuthorPullRequests.in(fetched(
                 pullRequest(1, "tballison", List.of("parser"))

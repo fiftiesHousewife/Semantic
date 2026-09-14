@@ -15,6 +15,7 @@ import static j2html.TagCreator.h2;
 import static j2html.TagCreator.h3;
 import static j2html.TagCreator.p;
 import static j2html.TagCreator.section;
+import static j2html.TagCreator.span;
 import static j2html.TagCreator.table;
 import static j2html.TagCreator.tbody;
 import static j2html.TagCreator.td;
@@ -32,27 +33,21 @@ final class AuthorScale {
     SectionTag markup(final AuthorPullRequests author) {
         return section().withId("scale").with(
                 h2("How much each one changes"),
-                p().withClass("lede").withText("The five kinds and the unread ones account for every "
-                        + "changed file. Which kind a file is comes from where the build looks for it: "
-                        + "a source set it publishes is production, the source sets that check it are "
-                        + "tests and fixtures. Not read is a file no source set, documentation "
-                        + "directory or build file list reaches — a changelog is changed and never "
-                        + "read. A fixture is read by its name alone and never its contents. New "
-                        + "counts the files standing at the head and not at the base, which is a count "
-                        + "of the same files again rather than a sixth kind."),
+                p().withClass("lede").withText("A file’s kind is where the build looks for it. New "
+                        + "recounts those the base does not hold, and a fixture is counted by its name "
+                        + "alone."),
                 h3("Files it touches"),
                 div().withClass("scrolls").with(table().withClass("work").with(
-                        thead(tr(th("Pull request"), th("Changed").withClass("number"),
+                        thead(tr(th("Pull request"),
+                                th().withClass("number").with(span("Changed"),
+                                        Footnotes.marker(Footnotes.OUTSIDE_THE_BUILD)),
                                 th("Production").withClass("number"), th("Tests").withClass("number"),
                                 th("Fixtures").withClass("number"), th("Docs").withClass("number"),
-                                th("Build").withClass("number"),
-                                th("Not read").withClass("number"),
-                                th("New").withClass("number"))),
+                                th("Build").withClass("number"), th("New").withClass("number"))),
                         tbody(each(author.pullRequests(), AuthorScale::files)))),
                 p().withClass("lede").withText("A declaration is a type, a method or a field. Removed "
-                        + "sums the three kinds. Untouched counts the declarations standing in those "
-                        + "same files that the pull request leaves alone, which is the size of what it "
-                        + "is changing inside."),
+                        + "sums the three. Untouched is what the pull request leaves standing in those "
+                        + "same files, which is the size of what it changes inside."),
                 h3("Declarations it changes"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Types added").withClass("number"),
@@ -64,19 +59,18 @@ final class AuthorScale {
     }
 
     private static TrTag files(final ExportedPullRequest pullRequest) {
-        final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
-        return tr(td(String.valueOf(pullRequest.number())),
+        final Optional<ExportedWork.Written> written = PullRequestWork.written(pullRequest);
+        return tr(PullRequestLink.cell(pullRequest),
                 Figure.counted(Optional.of(pullRequest.files())),
                 kind(written, SourceKind.PRODUCTION), kind(written, SourceKind.TESTS),
                 kind(written, SourceKind.FIXTURES), kind(written, SourceKind.DOCUMENTATION),
                 kind(written, SourceKind.BUILD),
-                Figure.counted(written.map(ExportedWork.Written::filesUnread)),
                 Figure.counted(written.map(ExportedWork.Written::filesAdded)));
     }
 
     private static TrTag declarations(final ExportedPullRequest pullRequest) {
-        final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
-        return tr(td(String.valueOf(pullRequest.number())),
+        final Optional<ExportedWork.Written> written = PullRequestWork.written(pullRequest);
+        return tr(PullRequestLink.cell(pullRequest),
                 Figure.counted(written.map(diff -> diff.added().types())),
                 Figure.counted(written.map(diff -> diff.added().methods())),
                 Figure.counted(written.map(diff -> diff.added().fields())),

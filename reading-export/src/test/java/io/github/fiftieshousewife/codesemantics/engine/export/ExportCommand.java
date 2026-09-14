@@ -71,7 +71,9 @@ public final class ExportCommand {
                 reading.terms(), reading.arxivField(), reading.namesChance());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
-        wrotePullRequests(folder, reading, fetched);
+        wrotePullRequests(folder, reading, fetched, current.taxonomies().stream()
+                .map(ExportedTaxonomy::vocabulary)
+                .toList());
         return file;
     }
 
@@ -80,15 +82,17 @@ public final class ExportCommand {
      * tree measured beside them so each is read against the code it joins.
      */
     private static void wrotePullRequests(final ReportFolder folder, final TreeReading reading,
-                                          final Optional<PullRequestSet> fetched) throws IOException {
+                                          final Optional<PullRequestSet> fetched,
+                                          final List<String> published) throws IOException {
         PullRequestDocument.wrote(folder.file(PULL_REQUESTS).getParent(),
                 fetched.map(PullRequestSet::repository),
                 fetched.map(set -> WrittenWork.ofTheWholeTree(reading.root())),
-                fetched.map(ExportCommand::read).orElse(List.of()));
+                fetched.map(set -> read(set, published)).orElse(List.of()));
     }
 
-    private static List<ExportedPullRequest> read(final PullRequestSet set) {
-        final ExportedPullRequests exported = new ExportedPullRequests();
+    private static List<ExportedPullRequest> read(final PullRequestSet set,
+                                                 final List<String> published) {
+        final ExportedPullRequests exported = new ExportedPullRequests(published);
         final int statements = (int) set.pullRequests().stream()
                 .filter(pullRequest -> set.statementOf(pullRequest).isPresent())
                 .count();

@@ -146,6 +146,37 @@ table.work td.number {
     font-variant-numeric: tabular-nums;
 }
 
+/* Where a figure sits in the repository's own spread. The colour is never the only carrier: each cell
+   also states its band in a title, and the legend names all three. */
+table.work td.band {
+    position: relative;
+    padding-right: 1.6rem;
+}
+
+table.work td.band::after {
+    content: "";
+    position: absolute;
+    right: 0.6rem;
+    top: 0.72em;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+}
+
+table.work td.band[data-band="typical"]::after { background: var(--reached); }
+table.work td.band[data-band="higher"]::after { background: var(--ink-faint); }
+table.work td.band[data-band="unusual"]::after { background: var(--missed); }
+
+.legend {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin: 0 0 var(--step);
+}
+
+.band-typical { color: var(--reached); }
+.band-higher { color: var(--ink-faint); }
+.band-unusual { color: var(--missed); }
+
 /* The repository's own column is what the others are read against, so it stands apart from them. */
 table.work th.reference,
 table.work td.reference {

@@ -57,7 +57,7 @@ final class AuthorSubjects {
     }
 
     private TrTag row(final AuthorPullRequests author, final ExportedPullRequest pullRequest) {
-        return tr(td(String.valueOf(pullRequest.number())), words(pullRequest, merged.of(pullRequest)),
+        return tr(PullRequestLink.cell(pullRequest), words(pullRequest, merged.of(pullRequest)),
                 td(String.valueOf(newToTheRepository(author, pullRequest))).withClass("number"),
                 td(strongest(pullRequest)), td(fit(pullRequest)), types(pullRequest));
     }

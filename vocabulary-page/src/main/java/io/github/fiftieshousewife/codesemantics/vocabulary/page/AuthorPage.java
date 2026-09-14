@@ -45,8 +45,6 @@ import static j2html.TagCreator.ul;
  */
 public final class AuthorPage {
 
-    private static final String HOST = "https://github.com/";
-
     private final String stylesheet;
 
     private final String behaviour;
@@ -79,7 +77,7 @@ public final class AuthorPage {
                         header().withClass("fold").with(
                                 p().withClass("nav").with(a("← " + author.repository())
                                         .withHref("reading.html")),
-                                h1().with(a(author.author()).withHref(HOST + author.author()),
+                                h1().with(a(author.author()).withHref("https://github.com/" + author.author()),
                                         span(" on "),
                                         a(author.repository()).withHref("reading.html")),
                                 p(summary.volume(author)).withClass("finding"),
@@ -133,7 +131,7 @@ public final class AuthorPage {
     private static LiTag typesOf(final ExportedPullRequest pullRequest) {
         final List<String> added = AuthorWork.typesAdded(pullRequest);
         return li().withId(PullRequestAnchors.typesId(pullRequest))
-                .with(b(String.valueOf(pullRequest.number())),
+                .with(b().with(PullRequestLink.numbered(pullRequest)),
                         code(added.isEmpty() ? " none" : " " + String.join(", ", added)));
     }
 
@@ -150,13 +148,13 @@ public final class AuthorPage {
     }
 
     private static LiTag untestedOf(final ExportedPullRequest pullRequest) {
-        final List<String> named = AuthorPullRequests.writtenOf(pullRequest)
+        final List<String> named = PullRequestWork.written(pullRequest)
                 .map(ExportedWork.Written::typesAddedWithoutATest)
                 .orElse(List.of())
                 .stream()
                 .map(ExportedWork.NamedDeclaration::name)
                 .toList();
-        return li(b(String.valueOf(pullRequest.number())),
+        return li(b().with(PullRequestLink.numbered(pullRequest)),
                 code(named.isEmpty() ? " none" : " " + String.join(", ", named)));
     }
 
@@ -170,27 +168,8 @@ public final class AuthorPage {
     }
 
     private static TrTag commit(final ExportedPullRequest pullRequest) {
-        return tr(td().with(number(pullRequest)), td().with(commitLink(pullRequest)),
+        return tr(PullRequestLink.cell(pullRequest), td().with(PullRequestLink.commit(pullRequest)),
                 td(code(pullRequest.baseSha())));
-    }
-
-    /** The pull request number, linking to the host's own page for it where the fetch named one. */
-    private static DomContent number(final ExportedPullRequest pullRequest) {
-        final String shown = String.valueOf(pullRequest.number());
-        if (pullRequest.repository().isEmpty()) {
-            return text(shown);
-        }
-        return a(shown).withHref(String.format(Locale.ROOT, "%s%s/pull/%d", HOST,
-                pullRequest.repository(), pullRequest.number()));
-    }
-
-    /** The commit read, linking to the host's own page for it where the fetch named a repository. */
-    private static DomContent commitLink(final ExportedPullRequest pullRequest) {
-        if (pullRequest.repository().isEmpty()) {
-            return code(pullRequest.headSha());
-        }
-        return a().withHref(String.format(Locale.ROOT, "%s%s/commit/%s", HOST,
-                pullRequest.repository(), pullRequest.headSha())).with(code(pullRequest.headSha()));
     }
 
 }

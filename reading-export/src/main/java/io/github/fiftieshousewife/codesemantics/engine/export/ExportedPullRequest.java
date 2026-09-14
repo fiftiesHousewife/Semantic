@@ -47,10 +47,16 @@ public record ExportedPullRequest(@JsonInclude(JsonInclude.Include.NON_EMPTY) St
      * @param term        the words matched, as the files write them
      * @param concept     the concept the vocabulary states for them
      * @param definition  the publisher's own prose for that concept, and empty where it states none
+     * @param statedPath  every level the publisher states above it, broadest first, so a reader sees the
+     *                    subject the concept sits under and not only the concept
      * @param occurrences how often these files write the term
      */
     public record MatchedConcept(String vocabulary, String term, String concept, String definition,
-                                 int occurrences) {
+                                 List<String> statedPath, int occurrences) {
+
+        public MatchedConcept {
+            statedPath = List.copyOf(statedPath);
+        }
     }
 
     public ExportedPullRequest {

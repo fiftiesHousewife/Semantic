@@ -31,6 +31,9 @@ final class Footnotes {
     /** What an untested type is counted by, and what the count does not say. */
     static final int UNTESTED = 3;
 
+    /** Why the kinds of file sum to fewer than the files changed. */
+    static final int OUTSIDE_THE_BUILD = 4;
+
     private Footnotes() {
     }
 
@@ -44,7 +47,8 @@ final class Footnotes {
     static SectionTag markup() {
         return section().withId("notes").with(
                 h2("Notes"),
-                ol().withClass("notes").with(each(List.of(convention(), fit(), untested()), note -> note)));
+                ol().withClass("notes").with(each(List.of(convention(), fit(), untested(), outside()),
+                        note -> note)));
     }
 
     private static LiTag convention() {
@@ -60,6 +64,16 @@ final class Footnotes {
                         + "author wrote. "),
                 a("Every shape and the word it falls under").withHref("../" + ChangeShapeTable.FILE),
                 span(" is one table, the shapes that name nothing among them."));
+    }
+
+    private static LiTag outside() {
+        return li().withId("note-" + OUTSIDE_THE_BUILD).with(
+                span("The kinds count the files the build declares — its source sets, its module chain, "
+                        + "the documentation directory — so they sum to fewer than the files changed "
+                        + "wherever a pull request touches one the build declares nowhere, such as a "
+                        + "changelog. How many those are is published as "),
+                span("filesUnread").withClass("token"),
+                span("."));
     }
 
     private static LiTag untested() {

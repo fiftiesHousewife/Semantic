@@ -40,12 +40,12 @@ final class AuthorWork {
     }
 
     private static TrTag row(final ExportedPullRequest pullRequest) {
-        return tr(td(String.valueOf(pullRequest.number())), td(statedClass(pullRequest)),
+        return tr(PullRequestLink.cell(pullRequest), td(statedClass(pullRequest)),
                 td(inferredWord(pullRequest)), td(shape(pullRequest)), td(trackerType(pullRequest)));
     }
 
     private static String statedClass(final ExportedPullRequest pullRequest) {
-        return AuthorPullRequests.workOf(pullRequest)
+        return PullRequestWork.of(pullRequest)
                 .map(work -> work.stated().classes().stream()
                         .map(ExportedWork.StatedClass::type)
                         .collect(Collectors.joining(", ")))
@@ -55,21 +55,21 @@ final class AuthorWork {
 
     /** The word a standard's definition covers this change's shape with, where one does. */
     private static String inferredWord(final ExportedPullRequest pullRequest) {
-        return AuthorPullRequests.inferredOf(pullRequest)
+        return PullRequestWork.inferred(pullRequest)
                 .map(ExportedWork.Inferred::type)
                 .orElse(Figure.ABSENT);
     }
 
     /** The shape that definition covers, so the word can be checked against what was measured. */
     private static String shape(final ExportedPullRequest pullRequest) {
-        return AuthorPullRequests.inferredOf(pullRequest)
+        return PullRequestWork.inferred(pullRequest)
                 .map(ExportedWork.Inferred::shape)
                 .map(shape -> "it " + shape)
                 .orElse(Figure.ABSENT);
     }
 
     private static String trackerType(final ExportedPullRequest pullRequest) {
-        return AuthorPullRequests.workOf(pullRequest)
+        return PullRequestWork.of(pullRequest)
                 .map(work -> work.issues().stream()
                         .map(issue -> String.format(Locale.ROOT, "%s (%s)", issue.type(), issue.key()))
                         .collect(Collectors.joining(", ")))
@@ -79,7 +79,7 @@ final class AuthorWork {
 
     /** Every type each pull request introduces, listed where it introduces any. */
     static List<String> typesAdded(final ExportedPullRequest pullRequest) {
-        return AuthorPullRequests.writtenOf(pullRequest)
+        return PullRequestWork.written(pullRequest)
                 .map(ExportedWork.Written::typesAdded)
                 .orElse(List.of())
                 .stream()

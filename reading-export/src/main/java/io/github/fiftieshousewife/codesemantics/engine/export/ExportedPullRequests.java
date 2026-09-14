@@ -29,6 +29,18 @@ public final class ExportedPullRequests {
 
     private static final String STATEMENT = "statement";
 
+    /** The vocabularies the repository's own reading published, which are the ones a change is read against. */
+    private final List<String> published;
+
+    /** For a caller with no repository reading beside it, which asks no vocabulary anything. */
+    public ExportedPullRequests() {
+        this(List.of());
+    }
+
+    public ExportedPullRequests(final List<String> published) {
+        this.published = List.copyOf(published);
+    }
+
     private static final int LEADING_TOPICS = 8;
 
     /** The facts the caller states and a reading of the pull request's own directory at its own seed. */
@@ -49,7 +61,7 @@ public final class ExportedPullRequests {
     private ExportedPullRequest changedFiles(final PullRequestFacts facts,
                                              final RepositoryReading reading) {
         return signalled(facts, reading)
-                .withConcepts(new MatchedConcepts().in(reading.parsed()));
+                .withConcepts(new MatchedConcepts(published).in(reading.parsed()));
     }
 
     private ExportedPullRequest signalled(final PullRequestFacts facts,

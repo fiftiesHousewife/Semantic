@@ -32,16 +32,18 @@ final class AuthorConcepts {
         final SectionTag drawn = section().withId("concepts")
                 .with(h2("What published vocabularies call these words"));
         if (author.pullRequests().stream().allMatch(pullRequest -> pullRequest.concepts().isEmpty())) {
-            return drawn.with(p("No bundled vocabulary states a concept for any term these files write."));
+            return drawn.with(p("No vocabulary this repository published states a concept for any term "
+                    + "these files write."));
         }
         return drawn.with(
-                p().withClass("lede").withText("A row is one term a publisher states a concept for, with "
-                        + "its own prose beside it. No vocabulary is said to have answered: the bar a "
-                        + "placement clears is drawn over a whole tree, and a few changed files are too "
-                        + "small a field for it."),
+                p().withClass("lede").withText("Only the vocabularies this repository's own reading "
+                        + "published are asked; one it refused is refused for the code a pull request "
+                        + "joins. No vocabulary is said to have answered here — that bar is drawn over "
+                        + "a whole tree, and a few changed files are too small a field for it."),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Term"), th("Written").withClass("number"),
-                                th("Vocabulary"), th("Concept"), th("What the publisher states it is"))),
+                                th("Vocabulary"), th("Under"), th("Concept"),
+                                th("What the publisher states it is"))),
                         tbody(each(author.pullRequests(), AuthorConcepts::rows)))));
     }
 
@@ -51,8 +53,9 @@ final class AuthorConcepts {
 
     private static TrTag row(final ExportedPullRequest pullRequest,
                              final ExportedPullRequest.MatchedConcept concept) {
-        return tr(td(b(String.valueOf(pullRequest.number()))), td(code(concept.term())),
+        return tr(PullRequestLink.cell(pullRequest), td(code(concept.term())),
                 td(String.valueOf(concept.occurrences())).withClass("number"),
-                td(concept.vocabulary()), td(concept.concept()), td(concept.definition()));
+                td(concept.vocabulary()), td(String.join(" › ", concept.statedPath())),
+                td(concept.concept()), td(concept.definition()));
     }
 }

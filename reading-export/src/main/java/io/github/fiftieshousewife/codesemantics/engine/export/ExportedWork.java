@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 
 /**
  * The work a pull request does, classified against the published change standards.
@@ -31,13 +33,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  *
  * @param stated   the classes the statement states for its own change
  * @param issues   the tracker's statements about the issues the statement references, empty where it
- *                 references none or no tracker is stated
+ *                 references none or no tracker is stated. It is left out of the document when empty
+ *                 and read back as empty, so a round trip returns the object that was written
  * @param written  what the changed files add to and remove from the declarations at the base commit, absent
  *                 where the fetch step pinned no base tree
  * @param inferred the standard's word for the shape the counts have, absent where no definition covers it
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public record ExportedWork(Stated stated, List<Issue> issues, Written written, Inferred inferred) {
+public record ExportedWork(Stated stated,
+                           @JsonSetter(nulls = Nulls.AS_EMPTY) List<Issue> issues,
+                           Written written, Inferred inferred) {
 
     public ExportedWork {
         Objects.requireNonNull(stated, "stated");

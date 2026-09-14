@@ -32,7 +32,8 @@ class PullRequestSchemaTest {
                             "a commit of the type feat introduces a new feature to the codebase",
                             "adds declarations and removes none")),
             List.of(new ExportedPullRequest.MatchedConcept("CSO", "inference engine", "inference engines",
-                    "a component that applies rules to a knowledge base", 9)));
+                    "a component that applies rules to a knowledge base",
+                    List.of("computer science", "artificial intelligence"), 9)));
 
     private static final PullRequestExport EXPORT = PullRequestExport.of("apache/tika", WrittenFixture.side(400, 3000), List.of(READ));
 

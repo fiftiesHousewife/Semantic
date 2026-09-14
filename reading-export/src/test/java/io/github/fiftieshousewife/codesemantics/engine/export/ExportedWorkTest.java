@@ -42,6 +42,16 @@ class ExportedWorkTest {
     }
 
     @Test
+    void readsBackAWorkBlockWhoseEveryOptionalListIsEmpty() throws Exception {
+        final ExportedWork work = new ExportedWork(ExportedWork.Stated.noStatement(), List.of(),
+                WrittenFixture.adding(0, 1, 0, List.of()), null);
+
+        assertThat(mapper.readValue(mapper.writeValueAsString(work), ExportedWork.class))
+                .as("a list left out because it is empty must come back empty, not as nothing at all")
+                .isEqualTo(work);
+    }
+
+    @Test
     void leavesTheWrittenHalfOutWhereNoBaseTreeWasFetched() throws Exception {
         final String written = mapper.writeValueAsString(
                 new ExportedWork(ExportedWork.Stated.noStatement(), List.of()));

@@ -10,6 +10,7 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import j2html.tags.DomContent;
 import j2html.tags.specialized.SectionTag;
+import j2html.tags.specialized.TdTag;
 import j2html.tags.specialized.TrTag;
 
 import static j2html.TagCreator.a;
@@ -41,9 +42,11 @@ final class AuthorReview {
     private record Measure(String name, Function<MeasuredCode.Metrics, MeasuredCode.Spread> of) {
     }
 
+    private static final String COMPLEXITY = "Complexity per method";
+
     private static final List<Measure> MEASURES = List.of(
             new Measure("Statements per method", MeasuredCode.Metrics::methodStatements),
-            new Measure("Complexity per method", MeasuredCode.Metrics::complexity),
+            new Measure(COMPLEXITY, MeasuredCode.Metrics::complexity),
             new Measure("Nesting per method", MeasuredCode.Metrics::nesting),
             new Measure("Parameters per method", MeasuredCode.Metrics::parameters));
 
@@ -85,7 +88,12 @@ final class AuthorReview {
                                 + "here — nothing below is measured against a threshold chosen by this "
                                 + "reading. "),
                         a("McCabe").withHref("https://doi.org/10.1109/TSE.1976.233837"),
-                        span(", whose complexity this is, proposes ten as the limit for one module.")),
+                        span(", whose complexity this is, proposes ten as the limit for one module, and "
+                                + "a complexity answers to that as well as to this repository.")),
+                p().withClass("legend").with(
+                        span("● ").withClass("band-typical"), span("at or below the median  "),
+                        span("● ").withClass("band-higher"), span("up to the upper quartile  "),
+                        span("● ").withClass("band-unusual"), span("above the upper quartile")),
                 h3("The code it leaves"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Measure"),
@@ -104,12 +112,31 @@ final class AuthorReview {
 
     private static TrTag spreadRow(final AuthorPullRequests author, final Measure measure,
                                    final String at) {
+        final MeasuredCode.Spread reference = measure.of().apply(author.repositoryCode().metrics());
         return tr(td(String.format(Locale.ROOT, "%s, %s", measure.name(), at)),
-                each(author.pullRequests(), pullRequest -> Figure.counted(
-                        AuthorPullRequests.writtenOf(pullRequest)
-                                .map(diff -> at(measure.of().apply(diff.atHead().metrics()), at)))),
-                Figure.counted(Optional.of(at(measure.of().apply(author.repositoryCode().metrics()), at)))
-                        .withClass("number reference"));
+                each(author.pullRequests(), pullRequest -> marked(
+                        PullRequestWork.written(pullRequest)
+                                .map(diff -> at(measure.of().apply(diff.atHead().metrics()), at)),
+                        measure, reference)),
+                Figure.counted(Optional.of(at(reference, at))).withClass("number reference"));
+    }
+
+    /** The figure with where it sits in the repository's own spread, said in colour and in words. */
+    private static TdTag marked(final Optional<Integer> figure, final Measure measure,
+                                final MeasuredCode.Spread reference) {
+        final TdTag cell = Figure.counted(figure);
+        return figure.map(reached -> band(measure, reached, reference))
+                .map(band -> cell.withClass("number band")
+                        .attr("data-band", band.name().toLowerCase(Locale.ROOT))
+                        .withTitle(band.shown()))
+                .orElse(cell);
+    }
+
+    /** Complexity answers to McCabe's own limit as well as to the repository's spread. */
+    private static MetricBand band(final Measure measure, final int figure,
+                                   final MeasuredCode.Spread reference) {
+        return COMPLEXITY.equals(measure.name()) ? MetricBand.ofComplexity(figure, reference)
+                : MetricBand.of(figure, reference);
     }
 
     private static int at(final MeasuredCode.Spread spread, final String at) {
@@ -120,8 +147,8 @@ final class AuthorReview {
     }
 
     private static TrTag addedRow(final ExportedPullRequest pullRequest) {
-        final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
-        return tr(td(String.valueOf(pullRequest.number())),
+        final Optional<ExportedWork.Written> written = PullRequestWork.written(pullRequest);
+        return tr(PullRequestLink.cell(pullRequest),
                 Figure.counted(written.map(AuthorReview::statements)),
                 Figure.counted(written.map(AuthorReview::comment)),
                 Figure.counted(written.map(diff -> diff.typesAddedWithoutATest().size())));

@@ -898,7 +898,7 @@
           },
           "concepts": {
             "title": "What published vocabularies call these words",
-            "description": "The concepts the bundled vocabularies state for terms the changed files write, most written first. These are matches and not a placement: a repository is placed only where a vocabulary writes more of its phrases than a deal of that vocabulary's own words reaches, and that bar is drawn over a whole tree, so a few changed files are too small a field for it. No vocabulary is judged to have answered.",
+            "description": "The concepts the vocabularies this repository's own reading published state for terms the changed files write, most written first. Only those vocabularies are asked: a vocabulary the whole-tree reading refused is refused for the tree a pull request joins, and reading a changed file against it would report the accidental matches that reading already measured and threw out. What is here is still a match and never a placement — the bar a placement clears is drawn over a whole tree, and a few changed files are too small a field for it.",
             "type": "array",
             "items": {
               "type": "object",
@@ -935,6 +935,14 @@
                   "description": "How often these files write the term.",
                   "type": "integer",
                   "minimum": 1
+                },
+                "statedPath": {
+                  "title": "Levels above it",
+                  "description": "Every level the publisher states above the concept, broadest first, so a reader sees the subject it sits under and not only the concept. Where the publisher states none, the module it files the concept in. Empty where it states neither.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }

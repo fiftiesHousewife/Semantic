@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
@@ -52,6 +53,9 @@ public record AuthorPullRequests(String repository, String author,
         this(repository, author, pullRequests, repositoryWords, NOTHING_MEASURED);
     }
 
+    /** What a file name and a URL both carry; every other character of a login is written as a dash. */
+    private static final Pattern AUTHORED = Pattern.compile("[^A-Za-z0-9._-]+");
+
     /** A tree nothing was measured over, so every figure read against it is nought. */
     private static final MeasuredCode NOTHING_MEASURED = new MeasuredCode(0,
             new MeasuredCode.Metrics(0, 0, 0, 0, new MeasuredCode.Spread(0, 0, 0),
@@ -77,9 +81,13 @@ public record AuthorPullRequests(String repository, String author,
                 .toList();
     }
 
-    /** The file the author's report is written to, beside the repository's own findings page. */
+    /**
+     * The file the author's report is written to, beside the repository's own findings page. A login the
+     * host allows but a path does not — {@code dependabot[bot]} — is written in the characters a file
+     * name and a URL both carry.
+     */
     public String file() {
-        return author + ".html";
+        return AUTHORED.matcher(author).replaceAll("-") + ".html";
     }
 
     /** How many files the pull requests changed, as the host stated at the fetch. */
@@ -131,22 +139,17 @@ public record AuthorPullRequests(String repository, String author,
     public Map<String, ExportedWork.Inferred> inferred() {
         final Map<String, ExportedWork.Inferred> covered = new LinkedHashMap<>();
         pullRequests.stream()
-                .map(AuthorPullRequests::inferredOf)
+                .map(PullRequestWork::inferred)
                 .flatMap(Optional::stream)
                 .forEach(word -> covered.putIfAbsent(word.type(), word));
         return Map.copyOf(covered);
-    }
-
-    /** The standard's word for one pull request's shape, where a definition covers it. */
-    public static Optional<ExportedWork.Inferred> inferredOf(final ExportedPullRequest pullRequest) {
-        return workOf(pullRequest).map(ExportedWork::inferred);
     }
 
     /** How many of the author's pull requests each standard's word covers. */
     public Map<String, Integer> inferredCounts() {
         final Map<String, Integer> counts = new LinkedHashMap<>();
         pullRequests.stream()
-                .map(AuthorPullRequests::inferredOf)
+                .map(PullRequestWork::inferred)
                 .flatMap(Optional::stream)
                 .forEach(word -> counts.merge(word.type(), 1, Integer::sum));
         return Map.copyOf(counts);
@@ -168,25 +171,15 @@ public record AuthorPullRequests(String repository, String author,
         return Map.copyOf(types);
     }
 
-    /** The declarations of one pull request, where the fetch step pinned the base tree it needs. */
-    public static Optional<ExportedWork.Written> writtenOf(final ExportedPullRequest pullRequest) {
-        return workOf(pullRequest).map(ExportedWork::written);
-    }
-
-    /** The work of one pull request, where the fetch step pinned a statement or a base tree to read it from. */
-    public static Optional<ExportedWork> workOf(final ExportedPullRequest pullRequest) {
-        return Optional.ofNullable(pullRequest.work());
-    }
-
     private Stream<ExportedWork.Written> written() {
         return pullRequests.stream()
-                .map(AuthorPullRequests::writtenOf)
+                .map(PullRequestWork::written)
                 .flatMap(Optional::stream);
     }
 
     private Stream<ExportedWork> work() {
         return pullRequests.stream()
-                .map(AuthorPullRequests::workOf)
+                .map(PullRequestWork::of)
                 .flatMap(Optional::stream);
     }
 
