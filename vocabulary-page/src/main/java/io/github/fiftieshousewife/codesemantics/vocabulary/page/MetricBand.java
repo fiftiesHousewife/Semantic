@@ -8,17 +8,20 @@ import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
  * <p>The bands are the repository's own quartiles and nothing this reading chose. A method carrying eight
  * statements is ordinary in a repository whose upper quartile is eight and unusual in one whose upper
  * quartile is two, and only the repository can say which it is.
+ *
+ * <p>Each carries a mark of its own shape — a tick, a dash, a cross — so the band a figure sits in reaches
+ * a reader who sees no colour, and every mark differs from the other two in outline as well as in hue.
  */
 enum MetricBand {
 
     /** At or below the middle of the repository's own methods. */
-    TYPICAL("at or below the median"),
+    TYPICAL("at or below the median", "\u2713"),
 
     /** Above the middle and no higher than three quarters of the way up them. */
-    HIGHER("up to the upper quartile"),
+    HIGHER("up to the upper quartile", "\u2013"),
 
     /** Above what three quarters of the repository's own methods reach. */
-    UNUSUAL("above the upper quartile");
+    UNUSUAL("above the upper quartile", "\u2717");
 
     /**
      * The limit <a href="https://doi.org/10.1109/TSE.1976.233837">McCabe's own paper</a> proposes for one
@@ -28,12 +31,20 @@ enum MetricBand {
 
     private final String shown;
 
-    MetricBand(final String shown) {
+    private final String mark;
+
+    MetricBand(final String shown, final String mark) {
         this.shown = shown;
+        this.mark = mark;
     }
 
     String shown() {
         return shown;
+    }
+
+    /** The character standing beside a figure of this band, which is what tells the three apart. */
+    String mark() {
+        return mark;
     }
 
     /** Where this figure sits against the repository's own spread of the same measure. */

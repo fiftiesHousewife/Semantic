@@ -146,8 +146,9 @@ table.work td.number {
     font-variant-numeric: tabular-nums;
 }
 
-/* Where a figure sits in the repository's own spread. The colour is never the only carrier: each cell
-   also states its band in a title, and the legend names all three. */
+/* Where a figure sits in the repository's own spread. The three marks differ in outline — a tick, a dash,
+   a cross — so nothing here is carried by colour alone; each cell also states its band in a title, and the
+   legend names all three. */
 /* The mark sits inside the column's own padding, and every cell and header of a marked table carries
    the same, so a figure stays under the heading it belongs to. */
 table.work.banded th,
@@ -159,19 +160,26 @@ table.work td.band {
     position: relative;
 }
 
-table.work td.band::after {
-    content: "";
+table.work td.band .mark {
     position: absolute;
-    right: 0.6rem;
-    top: 0.72em;
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 50%;
+    right: 0.5rem;
+    top: 0;
+    line-height: inherit;
 }
 
-table.work td.band[data-band="typical"]::after { background: var(--reached); }
-table.work td.band[data-band="higher"]::after { background: var(--ink-faint); }
-table.work td.band[data-band="unusual"]::after { background: var(--missed); }
+.mark {
+    font-size: 0.85em;
+    color: var(--ink-soft);
+}
+
+.mark[data-band="typical"],
+table.work td.band[data-band="typical"] .mark { color: var(--count); }
+
+.mark[data-band="higher"],
+table.work td.band[data-band="higher"] .mark { color: var(--ink-faint); }
+
+.mark[data-band="unusual"],
+table.work td.band[data-band="unusual"] .mark { color: var(--missed); }
 
 .legend {
     font-size: 0.8rem;
@@ -179,9 +187,9 @@ table.work td.band[data-band="unusual"]::after { background: var(--missed); }
     margin: 0 0 var(--step);
 }
 
-.band-typical { color: var(--reached); }
-.band-higher { color: var(--ink-faint); }
-.band-unusual { color: var(--missed); }
+.legend .key + .key {
+    margin-left: 1.2rem;
+}
 
 /* The repository's own column is what the others are read against, so it stands apart from them. */
 table.work th.reference,

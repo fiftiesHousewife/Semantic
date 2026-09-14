@@ -60,7 +60,12 @@ class AuthorTablesTest {
                 () -> assertThat(markup).contains("Complexity per method, worst"),
                 () -> assertThat(markup)
                         .as("the repository's own column is what the others are read against")
-                        .contains("class=\"number reference\""));
+                        .contains("class=\"number reference\""),
+                () -> assertThat(markup)
+                        .as("the band is a shape in the cell, not a colour behind it")
+                        .contains(MetricBand.TYPICAL.mark())
+                        .contains("class=\"mark\""),
+                () -> assertThat(markup).doesNotContain("\u25cf"));
     }
 
     @Test

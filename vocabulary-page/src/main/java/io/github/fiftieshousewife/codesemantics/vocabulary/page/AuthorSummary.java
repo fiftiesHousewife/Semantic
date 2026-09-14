@@ -74,19 +74,14 @@ final class AuthorSummary {
     }
 
     /** Where the words the pull requests share sit, as the vocabularies the repository published file them. */
-    String placed(final AuthorPullRequests author) {
-        final List<String> subjects = author.pullRequests().stream()
+    List<String> placedUnder(final AuthorPullRequests author) {
+        return author.pullRequests().stream()
                 .flatMap(pullRequest -> pullRequest.concepts().stream())
                 .filter(concept -> !concept.statedPath().isEmpty())
                 .map(concept -> concept.statedPath().getFirst())
                 .distinct()
                 .limit(QUOTED_WORDS)
                 .toList();
-        if (subjects.isEmpty()) {
-            return "";
-        }
-        return String.format(Locale.ROOT, " The vocabularies this repository publishes file the terms "
-                + "these files write under %s.", String.join(", ", subjects));
     }
 
     /** Each word the shapes reach, without the count where every change reaches the same one. */

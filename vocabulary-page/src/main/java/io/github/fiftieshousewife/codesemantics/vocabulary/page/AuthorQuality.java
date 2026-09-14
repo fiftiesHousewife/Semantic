@@ -1,31 +1,34 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
-import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
 
 /**
  * What an author's pull requests do to the code, in two sentences drawn from the figures already
  * measured: how much they add and remove, how much of it the build publishes and how much tests it, and
- * how many of them leave a method above what three quarters of the repository's own methods reach.
+ * whether the methods they leave are more complex than the ones already there.
  *
  * <p>Whether that is an improvement is the reader's judgement. A reading that stated one would be
  * asserting something it has not measured.
  */
 final class AuthorQuality {
 
+    /** The share of the pull requests the middle one covers, as the tree's own spreads are taken. */
+    private static final double MIDDLE = 0.5;
+
     /** What the pull requests change, and what a reviewer of them is taking on. */
     String of(final AuthorPullRequests author) {
         if (author.readAgainstABase() == 0) {
             return "";
         }
-        return String.format(Locale.ROOT, "%s %s %s", changed(author), tested(author), spread(author));
+        return String.format(Locale.ROOT, "%s %s %s", changed(author), tested(author),
+                complexity(author));
     }
 
     private static String changed(final AuthorPullRequests author) {
@@ -45,26 +48,35 @@ final class AuthorQuality {
                 untested);
     }
 
-    private static String spread(final AuthorPullRequests author) {
-        final MeasuredCode.Metrics repository = author.repositoryCode().metrics();
-        final long complex = above(author, metrics -> metrics.complexity().highest(),
-                repository.complexity());
-        final long longest = above(author, metrics -> metrics.methodStatements().highest(),
-                repository.methodStatements());
-        return String.format(Locale.ROOT,
-                "In %d of them the most complex method is above what three quarters of the repository's "
-                        + "own methods reach, and in %d the longest method is.",
-                complex, longest);
+    /**
+     * Whether the methods these pull requests leave are more complex than the ones already there, which
+     * is the comparison a reviewer opens with. Both figures are medians, so neither is moved by one
+     * outlying method, and the table below carries each pull request's own spread beside the
+     * repository's.
+     */
+    private static String complexity(final AuthorPullRequests author) {
+        final int repository = author.repositoryCode().metrics().complexity().median();
+        final int theirs = middleOf(written(author)
+                .map(diff -> diff.atHead().metrics().complexity().median())
+                .toList());
+        if (theirs == repository) {
+            return String.format(Locale.ROOT, "Their methods are as complex as the repository\u2019s "
+                    + "own, at a median of %d each.", repository);
+        }
+        return String.format(Locale.ROOT, "Their methods are %s complex than the repository\u2019s own, "
+                + "at a median of %d against %d.", theirs > repository ? "more" : "less", theirs,
+                repository);
     }
 
-    /** How many of the author's pull requests leave a figure above the repository's upper quartile. */
-    private static long above(final AuthorPullRequests author,
-                              final ToIntFunction<MeasuredCode.Metrics> figure,
-                              final MeasuredCode.Spread repository) {
-        return written(author)
-                .filter(diff -> MetricBand.of(figure.applyAsInt(diff.atHead().metrics()), repository)
-                        == MetricBand.UNUSUAL)
-                .count();
+    /**
+     * The value at the smallest rank covering half of them, which is the rule the tree's own spreads are
+     * taken at, so an even count takes the lower of the two middles rather than a figure between them.
+     */
+    private static int middleOf(final List<Integer> figures) {
+        final List<Integer> sorted = figures.stream()
+                .sorted()
+                .toList();
+        return sorted.get((int) Math.ceil(MIDDLE * sorted.size()) - 1);
     }
 
     private static int filesOf(final AuthorPullRequests author, final SourceKind kind) {

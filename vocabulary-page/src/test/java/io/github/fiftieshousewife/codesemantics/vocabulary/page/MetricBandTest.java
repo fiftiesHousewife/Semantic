@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
+import java.util.stream.Stream;
+
 import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import org.junit.jupiter.api.Test;
 
@@ -53,6 +55,17 @@ class MetricBandTest {
         assertThat(MetricBand.of(57, new MeasuredCode.Spread(0, 0, 0)))
                 .as("a report with no repository beside it marks nothing rather than marking all of it")
                 .isEqualTo(MetricBand.TYPICAL);
+    }
+
+    @Test
+    void marksEachBandWithAShapeOfItsOwnRatherThanAColour() {
+        assertAll(
+                () -> assertThat(MetricBand.TYPICAL.mark()).isEqualTo("\u2713"),
+                () -> assertThat(MetricBand.HIGHER.mark()).isEqualTo("\u2013"),
+                () -> assertThat(MetricBand.UNUSUAL.mark()).isEqualTo("\u2717"),
+                () -> assertThat(Stream.of(MetricBand.values()).map(MetricBand::mark).distinct())
+                        .as("a reader who sees no colour still tells the three apart")
+                        .hasSize(MetricBand.values().length));
     }
 
     @Test

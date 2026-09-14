@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 
+import j2html.tags.DomContent;
 import j2html.tags.specialized.HeaderTag;
 import j2html.tags.specialized.PTag;
 
@@ -65,9 +66,25 @@ final class AuthorFold {
         if (words.isEmpty()) {
             return p("They have no subject matter in common.").withClass("finding");
         }
-        return p().withClass("finding").with(span("About "),
-                each(words, word -> span().with(em(word),
-                        text(word.equals(words.getLast()) ? "." : ", "))),
-                span(summary.placed(author)));
+        return p().withClass("finding").with(span("About "), quoted(words), placed(author));
+    }
+
+    /**
+     * Where the vocabularies file these terms, each subject in italics as the words above it are, so a
+     * name a publisher states reads as a name and not as part of the sentence around it.
+     */
+    private DomContent placed(final AuthorPullRequests author) {
+        final List<String> subjects = summary.placedUnder(author);
+        if (subjects.isEmpty()) {
+            return span("");
+        }
+        return span().with(span(" The vocabularies this repository publishes file the terms these "
+                + "files write under "), quoted(subjects));
+    }
+
+    /** A list of names, each in italics, closing with a full stop. */
+    private static DomContent quoted(final List<String> names) {
+        return each(names, name -> span().with(em(name),
+                text(name.equals(names.getLast()) ? "." : ", ")));
     }
 }

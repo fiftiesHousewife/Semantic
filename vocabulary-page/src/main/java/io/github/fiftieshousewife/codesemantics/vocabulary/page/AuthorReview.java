@@ -96,10 +96,7 @@ final class AuthorReview {
                         a("McCabe").withHref("https://doi.org/10.1109/TSE.1976.233837"),
                         span(", whose complexity this is, proposes ten as the limit for one module, and "
                                 + "a complexity answers to that as well as to this repository.")),
-                p().withClass("legend").with(
-                        span("● ").withClass("band-typical"), span("at or below the median  "),
-                        span("● ").withClass("band-higher"), span("up to the upper quartile  "),
-                        span("● ").withClass("band-unusual"), span("above the upper quartile")),
+                p().withClass("legend").with(each(List.of(MetricBand.values()), AuthorReview::key)),
                 h3("The code it leaves"),
                 div().withClass("scrolls").with(table().withClass("work banded").with(
                         thead(tr(th("Measure"),
@@ -127,15 +124,30 @@ final class AuthorReview {
                 Figure.counted(Optional.of(at(reference, at))).withClass("number reference"));
     }
 
-    /** The figure with where it sits in the repository's own spread, said in colour and in words. */
+    /** One band's mark and what it stands for, which is what the marks in the table are read by. */
+    private static DomContent key(final MetricBand band) {
+        return span().withClass("key").with(
+                span(band.mark()).withClass("mark").attr("data-band", named(band)),
+                span(" " + band.shown()));
+    }
+
+    /**
+     * The figure with where it sits in the repository's own spread, marked by a shape and said in words.
+     * The mark differs in outline between the three bands, so a reader seeing no colour reads it too.
+     */
     private static TdTag marked(final Optional<Integer> figure, final Measure measure,
                                 final MeasuredCode.Spread reference) {
         final TdTag cell = Figure.counted(figure);
         return figure.map(reached -> band(measure, reached, reference))
                 .map(band -> cell.withClass("number band")
-                        .attr("data-band", band.name().toLowerCase(Locale.ROOT))
-                        .withTitle(band.shown()))
+                        .attr("data-band", named(band))
+                        .withTitle(band.shown())
+                        .with(span(band.mark()).withClass("mark")))
                 .orElse(cell);
+    }
+
+    private static String named(final MetricBand band) {
+        return band.name().toLowerCase(Locale.ROOT);
     }
 
     /** Complexity answers to McCabe's own limit as well as to the repository's spread. */
