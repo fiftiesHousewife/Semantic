@@ -2,7 +2,7 @@
   "schemaVersion" : "34.0",
   "summary" : {
     "repository" : "CodeSemantics",
-    "commit" : "9f2db0673944f5e83beb366b685d5350f9b0ff66",
+    "commit" : "937fa8e8b075a322d40a994c768bed4c80344db4",
     "answers" : [ {
       "sourceType" : "taxonomy",
       "source" : "OLiA",
@@ -18,12 +18,12 @@
       "scheme" : "arXiv",
       "archive" : {
         "subject" : "Computer Science",
-        "divergenceBits" : 0.32826902874041775,
-        "nearestByChanceBits" : 0.40822958590088076,
+        "divergenceBits" : 0.3282833882177507,
+        "nearestByChanceBits" : 0.40823306630266554,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.09524941564767571,
           "carriedBy" : [ {
             "word" : "word",
@@ -118,7 +118,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.06008298830743078,
+          "shareOfRepository" : 0.060081907215096986,
           "shareOfSubject" : 0.04201125461161316,
           "carriedBy" : [ {
             "word" : "pull_request",
@@ -183,7 +183,7 @@
           }, {
             "word" : "repository",
             "occurrences" : 914,
-            "mass" : 12.143663626402816,
+            "mass" : 12.145999167754592,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -213,7 +213,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.057965321576252955,
           "carriedBy" : [ {
             "word" : "claim",
@@ -248,7 +248,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -278,7 +278,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -308,7 +308,7 @@
           } ]
         }, {
           "topic" : "mathematics",
-          "shareOfRepository" : 0.028050598135056608,
+          "shareOfRepository" : 0.028046192835571426,
           "shareOfSubject" : 0.08375082328906187,
           "carriedBy" : [ {
             "word" : "count",
@@ -372,8 +372,8 @@
             } ]
           }, {
             "word" : "upper_quartile",
-            "occurrences" : 13,
-            "mass" : 7.0319856410175845,
+            "occurrences" : 10,
+            "mass" : 7.019670068783103,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "upper_quartile",
@@ -404,18 +404,18 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computer Science",
-          "divergenceBits" : 0.32826902874041775,
+          "divergenceBits" : 0.3282833882177507,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         } ]
       },
       "category" : {
         "subject" : "Computation and Language",
-        "divergenceBits" : 0.4201469469142786,
-        "nearestByChanceBits" : 0.4515214932997813,
+        "divergenceBits" : 0.4201620174174199,
+        "nearestByChanceBits" : 0.4515275544787747,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.29112893241037313,
           "carriedBy" : [ {
             "word" : "word",
@@ -510,7 +510,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.06008298830743078,
+          "shareOfRepository" : 0.060081907215096986,
           "shareOfSubject" : 0.19882022421291679,
           "carriedBy" : [ {
             "word" : "pull_request",
@@ -575,7 +575,7 @@
           }, {
             "word" : "repository",
             "occurrences" : 914,
-            "mass" : 12.143663626402816,
+            "mass" : 12.145999167754592,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -605,7 +605,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.03444697468868257,
           "carriedBy" : [ {
             "word" : "claim",
@@ -640,7 +640,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -670,7 +670,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -700,7 +700,7 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.027802913319192196,
+          "shareOfRepository" : 0.02780410280865589,
           "shareOfSubject" : 0.0454944893513016,
           "carriedBy" : [ {
             "word" : "phrase",
@@ -796,7 +796,7 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Computation and Language",
-          "divergenceBits" : 0.4201469469142786,
+          "divergenceBits" : 0.4201620174174199,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -804,12 +804,12 @@
       "scheme" : "OpenAlex",
       "archive" : {
         "subject" : "Artificial Intelligence",
-        "divergenceBits" : 0.2356296413198235,
-        "nearestByChanceBits" : 0.31442170992551766,
+        "divergenceBits" : 0.23563002026067664,
+        "nearestByChanceBits" : 0.31440812603732293,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "computing",
-          "shareOfRepository" : 0.06008298830743078,
+          "shareOfRepository" : 0.060081907215096986,
           "shareOfSubject" : 0.05178837563128419,
           "carriedBy" : [ {
             "word" : "pull_request",
@@ -874,7 +874,7 @@
           }, {
             "word" : "repository",
             "occurrences" : 914,
-            "mass" : 12.143663626402816,
+            "mass" : 12.145999167754592,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -904,7 +904,7 @@
           } ]
         }, {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.042123093909517025,
           "carriedBy" : [ {
             "word" : "word",
@@ -999,7 +999,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.038606564241872365,
           "carriedBy" : [ {
             "word" : "claim",
@@ -1034,7 +1034,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -1064,7 +1064,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1094,12 +1094,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.0400693788271276,
+          "shareOfRepository" : 0.040068058107740404,
           "shareOfSubject" : 0.03138153192808851,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 538,
-            "mass" : 91.15290821911154,
+            "mass" : 91.15290714455277,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1190,34 +1190,34 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Artificial Intelligence",
-          "divergenceBits" : 0.2356296413198235,
+          "divergenceBits" : 0.23563002026067664,
           "carriedBy" : [ "computing", "linguistics", "law", "telecommunication" ]
         }, {
           "subject" : "Computer Networks and Communications",
-          "divergenceBits" : 0.2882868216968666,
+          "divergenceBits" : 0.28828374921261224,
           "carriedBy" : [ "computing", "law", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Language and Linguistics",
-          "divergenceBits" : 0.29309796776820796,
+          "divergenceBits" : 0.29307968916259547,
           "carriedBy" : [ "linguistics", "telecommunication", "computing", "law" ]
         }, {
           "subject" : "Communication",
-          "divergenceBits" : 0.30793254338861215,
+          "divergenceBits" : 0.30792422539994957,
           "carriedBy" : [ "linguistics", "publishing", "law", "computing" ]
         }, {
           "subject" : "Computer Vision and Pattern Recognition",
-          "divergenceBits" : 0.3081327780593619,
+          "divergenceBits" : 0.30813021763381915,
           "carriedBy" : [ "computing", "mathematics", "law", "telecommunication" ]
         } ]
       },
       "category" : {
         "subject" : "Authorship Attribution and Profiling",
-        "divergenceBits" : 0.4042805551311449,
-        "nearestByChanceBits" : 0.48393761649374506,
+        "divergenceBits" : 0.4042847173565011,
+        "nearestByChanceBits" : 0.4839320177807301,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.13590510080966223,
           "carriedBy" : [ {
             "word" : "word",
@@ -1312,12 +1312,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.0400693788271276,
+          "shareOfRepository" : 0.040068058107740404,
           "shareOfSubject" : 0.14042872668774878,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 538,
-            "mass" : 91.15290821911154,
+            "mass" : 91.15290714455277,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1407,7 +1407,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.057266379389465764,
           "carriedBy" : [ {
             "word" : "claim",
@@ -1442,7 +1442,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -1472,7 +1472,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1502,7 +1502,7 @@
           } ]
         }, {
           "topic" : "grammar",
-          "shareOfRepository" : 0.027802913319192196,
+          "shareOfRepository" : 0.02780410280865589,
           "shareOfSubject" : 0.06264848298519216,
           "carriedBy" : [ {
             "word" : "phrase",
@@ -1598,31 +1598,31 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "Authorship Attribution and Profiling",
-          "divergenceBits" : 0.4042805551311449,
+          "divergenceBits" : 0.4042847173565011,
           "carriedBy" : [ "linguistics", "telecommunication", "law", "grammar" ]
         }, {
           "subject" : "Natural Language Processing Techniques",
-          "divergenceBits" : 0.4214912420172057,
+          "divergenceBits" : 0.4214778527147086,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "mathematics" ]
         }, {
           "subject" : "Medical Research and Practices",
-          "divergenceBits" : 0.460613755849178,
+          "divergenceBits" : 0.4606040013475651,
           "carriedBy" : [ "linguistics", "publishing", "law", "mathematics" ]
         }, {
           "subject" : "Mental Health via Writing",
-          "divergenceBits" : 0.46351623847192314,
+          "divergenceBits" : 0.4635069105405732,
           "carriedBy" : [ "linguistics", "publishing", "telecommunication", "law" ]
         }, {
           "subject" : "Linguistics and language evolution",
-          "divergenceBits" : 0.46808474227924307,
+          "divergenceBits" : 0.468073615855069,
           "carriedBy" : [ "linguistics", "telecommunication", "grammar", "law" ]
         }, {
           "subject" : "Media Discourse and Social  Analysis",
-          "divergenceBits" : 0.4698691457800856,
+          "divergenceBits" : 0.46985797597255874,
           "carriedBy" : [ "linguistics", "computing", "telecommunication", "law" ]
         }, {
           "subject" : "Library Science and Information Systems",
-          "divergenceBits" : 0.47964379270791807,
+          "divergenceBits" : 0.47962947668524986,
           "carriedBy" : [ "linguistics", "publishing", "computing", "law" ]
         } ]
       }
@@ -1630,12 +1630,12 @@
       "scheme" : "CSO",
       "archive" : {
         "subject" : "linguistics",
-        "divergenceBits" : 0.19539340476581657,
-        "nearestByChanceBits" : 0.26384490263968846,
+        "divergenceBits" : 0.195383476244999,
+        "nearestByChanceBits" : 0.2638390787458945,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.11428553689228892,
           "carriedBy" : [ {
             "word" : "word",
@@ -1730,7 +1730,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.06008298830743078,
+          "shareOfRepository" : 0.060081907215096986,
           "shareOfSubject" : 0.05284707797133278,
           "carriedBy" : [ {
             "word" : "pull_request",
@@ -1795,7 +1795,7 @@
           }, {
             "word" : "repository",
             "occurrences" : 914,
-            "mass" : 12.143663626402816,
+            "mass" : 12.145999167754592,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -1825,7 +1825,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.03984878719744651,
           "carriedBy" : [ {
             "word" : "claim",
@@ -1860,7 +1860,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -1890,7 +1890,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -1920,7 +1920,7 @@
           } ]
         }, {
           "topic" : "mathematics",
-          "shareOfRepository" : 0.028050598135056608,
+          "shareOfRepository" : 0.028046192835571426,
           "shareOfSubject" : 0.02994046525699651,
           "carriedBy" : [ {
             "word" : "count",
@@ -1984,8 +1984,8 @@
             } ]
           }, {
             "word" : "upper_quartile",
-            "occurrences" : 13,
-            "mass" : 7.0319856410175845,
+            "occurrences" : 10,
+            "mass" : 7.019670068783103,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "upper_quartile",
@@ -2016,26 +2016,26 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "linguistics",
-          "divergenceBits" : 0.19539340476581657,
+          "divergenceBits" : 0.195383476244999,
           "carriedBy" : [ "linguistics", "computing", "law", "mathematics" ]
         }, {
           "subject" : "computer science",
-          "divergenceBits" : 0.23227346273037697,
+          "divergenceBits" : 0.23227142656156682,
           "carriedBy" : [ "computing", "law", "linguistics", "mathematics" ]
         }, {
           "subject" : "engineering",
-          "divergenceBits" : 0.25580572361045356,
+          "divergenceBits" : 0.2558013100767374,
           "carriedBy" : [ "linguistics", "law", "mathematics", "geography" ]
         } ]
       },
       "category" : {
         "subject" : "information technology",
-        "divergenceBits" : 0.2423776313277697,
-        "nearestByChanceBits" : 0.2858310357119838,
+        "divergenceBits" : 0.24238750297962675,
+        "nearestByChanceBits" : 0.2858264509769956,
         "standsApartFromChance" : true,
         "carriedBy" : [ {
           "topic" : "linguistics",
-          "shareOfRepository" : 0.13668956049512615,
+          "shareOfRepository" : 0.13668973817167207,
           "shareOfSubject" : 0.07440422500917063,
           "carriedBy" : [ {
             "word" : "word",
@@ -2130,7 +2130,7 @@
           } ]
         }, {
           "topic" : "computing",
-          "shareOfRepository" : 0.06008298830743078,
+          "shareOfRepository" : 0.060081907215096986,
           "shareOfSubject" : 0.0423680999216988,
           "carriedBy" : [ {
             "word" : "pull_request",
@@ -2195,7 +2195,7 @@
           }, {
             "word" : "repository",
             "occurrences" : 914,
-            "mass" : 12.143663626402816,
+            "mass" : 12.145999167754592,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -2225,7 +2225,7 @@
           } ]
         }, {
           "topic" : "law",
-          "shareOfRepository" : 0.03674758580640989,
+          "shareOfRepository" : 0.03674510442639687,
           "shareOfSubject" : 0.05342952369951923,
           "carriedBy" : [ {
             "word" : "claim",
@@ -2260,7 +2260,7 @@
           }, {
             "word" : "verdict",
             "occurrences" : 41,
-            "mass" : 13.107401377789856,
+            "mass" : 13.107401240553035,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "each form carries that verdict as its",
@@ -2290,7 +2290,7 @@
           }, {
             "word" : "file",
             "occurrences" : 1001,
-            "mass" : 11.267978134130596,
+            "mass" : 11.267970072500274,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -2320,12 +2320,12 @@
           } ]
         }, {
           "topic" : "telecommunication",
-          "shareOfRepository" : 0.0400693788271276,
+          "shareOfRepository" : 0.040068058107740404,
           "shareOfSubject" : 0.027300098627321873,
           "carriedBy" : [ {
             "word" : "file",
             "occurrences" : 538,
-            "mass" : 91.15290821911154,
+            "mass" : 91.15290714455277,
             "sources" : [ "lexicon:topical-domain" ],
             "quotations" : [ {
               "phrase" : "files",
@@ -2416,15 +2416,15 @@
         } ],
         "nearerThanChance" : [ {
           "subject" : "information technology",
-          "divergenceBits" : 0.2423776313277697,
+          "divergenceBits" : 0.24238750297962675,
           "carriedBy" : [ "linguistics", "computing", "law", "telecommunication" ]
         }, {
           "subject" : "ontology",
-          "divergenceBits" : 0.2739198231070596,
+          "divergenceBits" : 0.273912881286451,
           "carriedBy" : [ "linguistics", "law", "computing", "grammar" ]
         }, {
           "subject" : "speech communication",
-          "divergenceBits" : 0.27725869852747315,
+          "divergenceBits" : 0.27725667810225474,
           "carriedBy" : [ "linguistics", "computing", "law", "grammar" ]
         } ]
       }
@@ -2503,43 +2503,43 @@
     } ],
     "distinctiveScopes" : [ {
       "scope" : "code-semantics-engine/src/main/java",
-      "divergenceBits" : 0.03902389790793599,
+      "divergenceBits" : 0.03902838322664855,
       "writesMoreOf" : [ "grammar", "linguistics" ]
     }, {
       "scope" : "lexicon/src/main/java",
-      "divergenceBits" : 0.12011790832743488,
+      "divergenceBits" : 0.12011095012912948,
       "writesMoreOf" : [ "linguistics", "grammar" ]
     }, {
       "scope" : "lexicon/src/test/java",
-      "divergenceBits" : 0.08544375078587414,
+      "divergenceBits" : 0.08544335641806189,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "reading-export/src/main/java",
-      "divergenceBits" : 0.08607313015170756,
+      "divergenceBits" : 0.0860737189705211,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "repository-clones/src/main/java",
-      "divergenceBits" : 0.3075617667227844,
+      "divergenceBits" : 0.3075575576357525,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "skos-matching/src/main/java",
-      "divergenceBits" : 0.12479966984619742,
+      "divergenceBits" : 0.12478590208298271,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "skos-matching/src/test/java",
-      "divergenceBits" : 0.1254846902959187,
+      "divergenceBits" : 0.12548502569936568,
       "writesMoreOf" : [ "linguistics" ]
     }, {
       "scope" : "vocabulary-page/src/main/java",
-      "divergenceBits" : 0.14161779036538683,
+      "divergenceBits" : 0.14107214235213966,
       "writesMoreOf" : [ "computing" ]
     }, {
       "scope" : "vocabulary-page/src/test/java",
-      "divergenceBits" : 0.14595853031479028,
+      "divergenceBits" : 0.14603245985289293,
       "writesMoreOf" : [ "computing" ]
     } ],
-    "shareOfWordsWithACitation" : 0.980125393263495,
-    "shareOfMassOnNoSubject" : 0.839779520315924,
+    "shareOfWordsWithACitation" : 0.9801175130538733,
+    "shareOfMassOnNoSubject" : 0.8397766990829618,
     "counts" : {
       "signals" : 309,
       "themes" : 11,
@@ -6262,8 +6262,8 @@
   "themes" : [ {
     "topic" : "computing",
     "scope" : "repository-clones/src/main/java",
-    "shareOfRepository" : 0.011833930031489736,
-    "divergenceBits" : 0.06656366909689325,
+    "shareOfRepository" : 0.011833743134616246,
+    "divergenceBits" : 0.06656454591911427,
     "carriedBy" : [ {
       "word" : "pull_request",
       "occurrences" : 153,
@@ -6327,7 +6327,7 @@
     }, {
       "word" : "repository",
       "occurrences" : 914,
-      "mass" : 12.143663626402816,
+      "mass" : 12.145999167754592,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -6417,7 +6417,7 @@
     }, {
       "word" : "statement",
       "occurrences" : 291,
-      "mass" : 6.581390453211835,
+      "mass" : 6.581367161956572,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "what a sentence of prose is worth a javadoc statement a comment a line of documentation",
@@ -6508,8 +6508,8 @@
   }, {
     "topic" : "computing",
     "scope" : "vocabulary-page/src/main/java",
-    "shareOfRepository" : 0.011833930031489736,
-    "divergenceBits" : 0.023910187181151298,
+    "shareOfRepository" : 0.011833743134616246,
+    "divergenceBits" : 0.02389158653437673,
     "carriedBy" : [ {
       "word" : "pull_request",
       "occurrences" : 153,
@@ -6573,7 +6573,7 @@
     }, {
       "word" : "repository",
       "occurrences" : 914,
-      "mass" : 12.143663626402816,
+      "mass" : 12.145999167754592,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -6663,7 +6663,7 @@
     }, {
       "word" : "statement",
       "occurrences" : 291,
-      "mass" : 6.581390453211835,
+      "mass" : 6.581367161956572,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "what a sentence of prose is worth a javadoc statement a comment a line of documentation",
@@ -6754,8 +6754,8 @@
   }, {
     "topic" : "computing",
     "scope" : "vocabulary-page/src/test/java",
-    "shareOfRepository" : 0.011833930031489736,
-    "divergenceBits" : 0.009892434175016271,
+    "shareOfRepository" : 0.011833743134616246,
+    "divergenceBits" : 0.00990797907020289,
     "carriedBy" : [ {
       "word" : "pull_request",
       "occurrences" : 153,
@@ -6819,7 +6819,7 @@
     }, {
       "word" : "repository",
       "occurrences" : 914,
-      "mass" : 12.143663626402816,
+      "mass" : 12.145999167754592,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -6909,7 +6909,7 @@
     }, {
       "word" : "statement",
       "occurrences" : 291,
-      "mass" : 6.581390453211835,
+      "mass" : 6.581367161956572,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "what a sentence of prose is worth a javadoc statement a comment a line of documentation",
@@ -7000,8 +7000,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.02265148763340701,
-    "divergenceBits" : 0.008013146481802007,
+    "shareOfRepository" : 0.022651533469898837,
+    "divergenceBits" : 0.00801311025308133,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2780,
@@ -7246,8 +7246,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/test/java",
-    "shareOfRepository" : 0.02265148763340701,
-    "divergenceBits" : 0.007528387337626771,
+    "shareOfRepository" : 0.022651533469898837,
+    "divergenceBits" : 0.007528352205304945,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2780,
@@ -7492,8 +7492,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "skos-matching/src/main/java",
-    "shareOfRepository" : 0.02265148763340701,
-    "divergenceBits" : 0.005317171653528147,
+    "shareOfRepository" : 0.022651533469898837,
+    "divergenceBits" : 0.0053171420631298524,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2780,
@@ -7738,8 +7738,8 @@
   }, {
     "topic" : "grammar",
     "scope" : "lexicon/src/main/java",
-    "shareOfRepository" : 0.004769284064648658,
-    "divergenceBits" : 0.0047334916651745745,
+    "shareOfRepository" : 0.004769467721323568,
+    "divergenceBits" : 0.004733083860060459,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 337,
@@ -7984,8 +7984,8 @@
   }, {
     "topic" : "grammar",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.004769284064648658,
-    "divergenceBits" : 0.0028207435479402658,
+    "shareOfRepository" : 0.004769467721323568,
+    "divergenceBits" : 0.00282042621765402,
     "carriedBy" : [ {
       "word" : "phrase",
       "occurrences" : 337,
@@ -8230,8 +8230,8 @@
   }, {
     "topic" : "computing",
     "scope" : "reading-export/src/main/java",
-    "shareOfRepository" : 0.011833930031489736,
-    "divergenceBits" : 0.0015872293837646753,
+    "shareOfRepository" : 0.011833743134616246,
+    "divergenceBits" : 0.001587378023048069,
     "carriedBy" : [ {
       "word" : "pull_request",
       "occurrences" : 153,
@@ -8295,7 +8295,7 @@
     }, {
       "word" : "repository",
       "occurrences" : 914,
-      "mass" : 12.143663626402816,
+      "mass" : 12.145999167754592,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "a divergence between two whole distributions a scope against a repository a repository against a published subject",
@@ -8385,7 +8385,7 @@
     }, {
       "word" : "statement",
       "occurrences" : 291,
-      "mass" : 6.581390453211835,
+      "mass" : 6.581367161956572,
       "sources" : [ "lexicon:topical-domain" ],
       "quotations" : [ {
         "phrase" : "what a sentence of prose is worth a javadoc statement a comment a line of documentation",
@@ -8476,8 +8476,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "lexicon/src/test/java",
-    "shareOfRepository" : 0.02265148763340701,
-    "divergenceBits" : 0.0012729560098596725,
+    "shareOfRepository" : 0.022651533469898837,
+    "divergenceBits" : 0.0012729414690268795,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2780,
@@ -8722,8 +8722,8 @@
   }, {
     "topic" : "linguistics",
     "scope" : "code-semantics-engine/src/main/java",
-    "shareOfRepository" : 0.02265148763340701,
-    "divergenceBits" : 0.0012532669211000116,
+    "shareOfRepository" : 0.022651533469898837,
+    "divergenceBits" : 0.0012532524928365197,
     "carriedBy" : [ {
       "word" : "word",
       "occurrences" : 2780,
@@ -11419,237 +11419,237 @@
     } ],
     "branches" : [ {
       "branch" : "TextStructuralUnit",
-      "agreesWithTheRepository" : 0.4474859828591539,
+      "agreesWithTheRepository" : 0.4474740541542689,
       "mass" : 427.7853794072465,
-      "kept" : 191.42796095682777,
+      "kept" : 191.4228580312827,
       "terms" : [ "source", "document", "author", "sources", "sentence", "origin", "citations", "sentences", "heading", "authors", "abstracts", "authored", "title", "documents", "origins", "footnotes", "sourced", "headline", "documented", "titles" ]
     }, {
       "branch" : "OrthographicEntity",
-      "agreesWithTheRepository" : 0.3227424474059341,
+      "agreesWithTheRepository" : 0.32273445681215507,
       "mass" : 170.51415990306074,
-      "kept" : 55.03215728448062,
+      "kept" : 55.03079477509526,
       "terms" : [ "token", "text", "tokens", "script", "texts", "scripts", "string", "characters", "character" ]
     }, {
       "branch" : "Morpheme",
-      "agreesWithTheRepository" : 0.30146034616286566,
+      "agreesWithTheRepository" : 0.3014497846647773,
       "mass" : 161.85705086053127,
-      "kept" : 48.79348258131631,
+      "kept" : 48.791773128383056,
       "terms" : [ "root", "roots", "stem", "affix", "stems" ]
     }, {
       "branch" : "Constituent",
-      "agreesWithTheRepository" : 0.4096811275944408,
+      "agreesWithTheRepository" : 0.4096928878551674,
       "mass" : 152.29031491908935,
-      "kept" : 62.39046793776502,
+      "kept" : 62.3922589115746,
       "terms" : [ "phrase", "phrases", "clause", "fragment", "glob", "clauses" ]
     }, {
       "branch" : "MorphosyntacticCategory",
-      "agreesWithTheRepository" : 0.4671407759583518,
+      "agreesWithTheRepository" : 0.467143513854549,
       "mass" : 101.7537863892051,
-      "kept" : 47.53334273055365,
+      "kept" : 47.533621321858455,
       "terms" : [ "verb", "noun", "residual", "adjective", "verbs", "nouns", "punctuation", "adjectives", "conjunction" ]
     }, {
       "branch" : "Assessment",
-      "agreesWithTheRepository" : 0.2789707973337112,
+      "agreesWithTheRepository" : 0.2789807027640872,
       "mass" : 49.4213897175558,
-      "kept" : 13.787124494846617,
+      "kept" : 13.78761403498155,
       "terms" : [ "definition", "evaluation", "definitions" ]
     }, {
       "branch" : "Affix",
-      "agreesWithTheRepository" : 0.2650749249573948,
+      "agreesWithTheRepository" : 0.2650651745418566,
       "mass" : 46.92884968602051,
-      "kept" : 12.43966130885875,
+      "kept" : 12.439203733073578,
       "terms" : [ "suffix", "prefix", "suffixes", "prefixed", "prefixes" ]
     }, {
       "branch" : "Residual",
-      "agreesWithTheRepository" : 0.40588358393006974,
+      "agreesWithTheRepository" : 0.40587901794733683,
       "mass" : 44.26454588184385,
-      "kept" : 17.966252523559792,
+      "kept" : 17.966050412407615,
       "terms" : [ "abbreviation", "symbol", "abbreviations", "acronym", "foreign", "date", "symbols" ]
     }, {
       "branch" : "EntityType",
-      "agreesWithTheRepository" : 0.23778795352035206,
+      "agreesWithTheRepository" : 0.2377826595102466,
       "mass" : 43.85194586819709,
-      "kept" : 10.427464465883844,
+      "kept" : 10.427232313239275,
       "terms" : [ "times", "sum", "sums", "program", "timed", "plan" ]
     }, {
       "branch" : "ConcreteEntity",
-      "agreesWithTheRepository" : 0.27278073133544406,
+      "agreesWithTheRepository" : 0.2727809510709531,
       "mass" : 43.565110675863494,
-      "kept" : 11.883722750871605,
+      "kept" : 11.883732323673378,
       "terms" : [ "function", "functions", "object" ]
     }, {
       "branch" : "HypotacticDiscourseRelation",
-      "agreesWithTheRepository" : 0.2003246098180342,
+      "agreesWithTheRepository" : 0.20031470282756403,
       "mass" : 38.01278243554608,
-      "kept" : 7.614895809498592,
+      "kept" : 7.614519217225259,
       "terms" : [ "mean", "means", "meaning", "meant", "supports" ]
     }, {
       "branch" : "Support",
-      "agreesWithTheRepository" : 0.1808549012965052,
+      "agreesWithTheRepository" : 0.18085694106385863,
       "mass" : 29.292056156521312,
-      "kept" : 5.297611924959349,
+      "kept" : 5.297671673939212,
       "terms" : [ "evidence", "evidenced" ]
     }, {
       "branch" : "SecondaryPunctuation",
-      "agreesWithTheRepository" : 0.32184454647921495,
+      "agreesWithTheRepository" : 0.3218427599308173,
       "mass" : 28.44553670768577,
-      "kept" : 9.155040861042988,
+      "kept" : 9.154990041714962,
       "terms" : [ "quoted", "quotes", "quote", "slash", "quoting" ]
     }, {
       "branch" : "InformationStatus",
-      "agreesWithTheRepository" : 0.10496986218680972,
+      "agreesWithTheRepository" : 0.10496449729781772,
       "mass" : 28.001642141613665,
-      "kept" : 2.93932851660955,
+      "kept" : 2.9391782909078663,
       "terms" : [ "gives", "given", "gave", "give" ]
     }, {
       "branch" : "SyntacticRole",
-      "agreesWithTheRepository" : 0.3386050205224243,
+      "agreesWithTheRepository" : 0.3386212791508806,
       "mass" : 22.985445639708818,
-      "kept" : 7.782987292550673,
+      "kept" : 7.783361004371231,
       "terms" : [ "head", "predicate", "heads" ]
     }, {
       "branch" : "Conjunction",
-      "agreesWithTheRepository" : 0.1478198494599946,
+      "agreesWithTheRepository" : 0.1478122445297764,
       "mass" : 20.794137317699942,
-      "kept" : 3.0737862479528615,
+      "kept" : 3.0736281099896123,
       "terms" : [ "list", "lists", "listed" ]
     }, {
       "branch" : "CoherenceRelation",
-      "agreesWithTheRepository" : 0.20449494701866314,
+      "agreesWithTheRepository" : 0.2045031592153806,
       "mass" : 20.520479195125226,
-      "kept" : 4.1963343058047125,
+      "kept" : 4.196502824016599,
       "terms" : [ "expansion", "comparison", "expansions" ]
     }, {
       "branch" : "Character",
-      "agreesWithTheRepository" : 0.05785850366513354,
+      "agreesWithTheRepository" : 0.057858629520810445,
       "mass" : 20.494005165911208,
-      "kept" : 1.1857524730051392,
+      "kept" : 1.185755052292032,
       "terms" : [ "letter", "letters" ]
     }, {
       "branch" : "Abbreviation",
-      "agreesWithTheRepository" : 0.3090549694793664,
+      "agreesWithTheRepository" : 0.3090538090880801,
       "mass" : 11.0,
-      "kept" : 3.3996046642730304,
+      "kept" : 3.3995918999688812,
       "terms" : [ "initialism", "initialisms" ]
     }, {
       "branch" : "CoordTypeFeature",
-      "agreesWithTheRepository" : 0.2205639248995634,
+      "agreesWithTheRepository" : 0.2205695619515153,
       "mass" : 10.681275089415482,
-      "kept" : 2.355903956653414,
+      "kept" : 2.3559641675560057,
       "terms" : [ "initials", "simple", "initial" ]
     }, {
       "branch" : "Possible",
-      "agreesWithTheRepository" : 0.30239614176950674,
+      "agreesWithTheRepository" : 0.30237096608496233,
       "mass" : 10.20297020249805,
-      "kept" : 3.0853388238246535,
+      "kept" : 3.0850819570654195,
       "terms" : [ "preferred", "prefers" ]
     }, {
       "branch" : "Determiner",
-      "agreesWithTheRepository" : 0.30609335141794236,
+      "agreesWithTheRepository" : 0.30609856445448125,
       "mass" : 9.92273242193627,
-      "kept" : 3.0372824222539494,
+      "kept" : 3.0373341498206305,
       "terms" : [ "article" ]
     }, {
       "branch" : "NumberFeature",
-      "agreesWithTheRepository" : 0.16255553023491282,
+      "agreesWithTheRepository" : 0.16255501803193625,
       "mass" : 9.29273649229535,
-      "kept" : 1.5105857078383946,
+      "kept" : 1.5105809480711028,
       "terms" : [ "plural", "plurals", "singular", "trials" ]
     }, {
       "branch" : "Numeral",
-      "agreesWithTheRepository" : 0.36017290654854595,
+      "agreesWithTheRepository" : 0.36018709834863216,
       "mass" : 8.024621489136905,
-      "kept" : 2.89025124569436,
+      "kept" : 2.8903651295183015,
       "terms" : [ "fraction", "fractions" ]
     }, {
       "branch" : "AbsoluteTense",
-      "agreesWithTheRepository" : 0.32468591657991674,
+      "agreesWithTheRepository" : 0.32468508339429664,
       "mass" : 7.92365635305697,
-      "kept" : 2.5726996256565826,
+      "kept" : 2.5726930237800505,
       "terms" : [ "past", "perfect", "present" ]
     }, {
       "branch" : "Condition",
-      "agreesWithTheRepository" : 0.39179711071911905,
+      "agreesWithTheRepository" : 0.39180017289573027,
       "mass" : 7.751745639086242,
-      "kept" : 3.037111544423521,
+      "kept" : 3.037135281637713,
       "terms" : [ "result" ]
     }, {
       "branch" : "InflectionTypeFeature",
-      "agreesWithTheRepository" : 0.3120574587820726,
+      "agreesWithTheRepository" : 0.31206366851054235,
       "mass" : 7.380133442868868,
-      "kept" : 2.303025687654247,
+      "kept" : 2.303071516278998,
       "terms" : [ "base form", "inflected", "base forms", "inflects" ]
     }, {
       "branch" : "MovementFeature",
-      "agreesWithTheRepository" : 0.22784053880417615,
+      "agreesWithTheRepository" : 0.22782433200863,
       "mass" : 7.329108780374828,
-      "kept" : 1.669868093475019,
+      "kept" : 1.66974931210748,
       "terms" : [ "control", "controls", "raises" ]
     }, {
       "branch" : "DegreeFeature",
-      "agreesWithTheRepository" : 0.39759553493614747,
+      "agreesWithTheRepository" : 0.3975894350576831,
       "mass" : 4.737004613666404,
-      "kept" : 1.8834118833656923,
+      "kept" : 1.883382988213264,
       "terms" : [ "positive", "superlatives", "comparatives" ]
     }, {
       "branch" : "PersonFeature",
-      "agreesWithTheRepository" : 0.35074022528787063,
+      "agreesWithTheRepository" : 0.3507559820378299,
       "mass" : 3.960622180395905,
-      "kept" : 1.3891495158321971,
+      "kept" : 1.389211922365577,
       "terms" : [ "third", "seconds" ]
     }, {
       "branch" : "SentenceMedialPunctuation",
-      "agreesWithTheRepository" : 0.15769585397911726,
+      "agreesWithTheRepository" : 0.15769547877846218,
       "mass" : 3.9228915945188025,
-      "kept" : 0.6186237400651435,
+      "kept" : 0.6186222681936475,
       "terms" : [ "commas", "colon" ]
     }, {
       "branch" : "TextualOrganizationalRelation",
-      "agreesWithTheRepository" : 0.2622234581354232,
+      "agreesWithTheRepository" : 0.26223343347040623,
       "mass" : 3.6771422000415463,
-      "kept" : 0.9642329437505923,
+      "kept" : 0.964269624475818,
       "terms" : [ "attribution", "extra" ]
     }, {
       "branch" : "Noun",
-      "agreesWithTheRepository" : 0.26544649988140384,
+      "agreesWithTheRepository" : 0.26544263708087945,
       "mass" : 1.9460338968157356,
-      "kept" : 0.516567886560306,
+      "kept" : 0.5165603694195489,
       "terms" : [ "proper noun", "common noun" ]
     }, {
       "branch" : "Expansion",
-      "agreesWithTheRepository" : 0.38248205112537653,
+      "agreesWithTheRepository" : 0.3824948383545178,
       "mass" : 1.55646220418557,
-      "kept" : 0.5953188563560214,
+      "kept" : 0.5953387591948761,
       "terms" : [ "exception", "alternative" ]
     }, {
       "branch" : "UsageAndFrequencyFeature",
-      "agreesWithTheRepository" : 0.13816048009351917,
+      "agreesWithTheRepository" : 0.13815613319439518,
       "mass" : 1.3760812094362147,
-      "kept" : 0.19012004054337792,
+      "kept" : 0.19011405885717408,
       "terms" : [ "impossible", "possible" ]
     }, {
       "branch" : "Collocation",
-      "agreesWithTheRepository" : 0.2384367576357957,
+      "agreesWithTheRepository" : 0.23843822327469613,
       "mass" : 1.0,
-      "kept" : 0.2384367576357957,
+      "kept" : 0.23843822327469613,
       "terms" : [ "idiom" ]
     }, {
       "branch" : "Phrase",
-      "agreesWithTheRepository" : 0.36378853574799636,
+      "agreesWithTheRepository" : 0.3637896905261922,
       "mass" : 0.9846316452490014,
-      "kept" : 0.3581977044762748,
+      "kept" : 0.3581988415074297,
       "terms" : [ "verb phrase" ]
     }, {
       "branch" : "LayoutElement",
-      "agreesWithTheRepository" : 0.09280079379415616,
+      "agreesWithTheRepository" : 0.09282575716597219,
       "mass" : 0.9662714343318825,
-      "kept" : 0.08967075612661653,
+      "kept" : 0.08969487751970696,
       "terms" : [ "list markers" ]
     }, {
       "branch" : "Given",
-      "agreesWithTheRepository" : 0.13249327476738312,
+      "agreesWithTheRepository" : 0.13248651242822185,
       "mass" : 0.7002922349816723,
-      "kept" : 0.09278401150689153,
+      "kept" : 0.09277927589328658,
       "terms" : [ "active" ]
     } ],
     "matchesByNormalisation" : {
@@ -11674,7 +11674,7 @@
     }
   } ],
   "setAside" : {
-    "wordOccurrencesNoResourceCovers" : 3525,
+    "wordOccurrencesNoResourceCovers" : 3526,
     "wordsBelowEveryThreshold" : 1059,
     "wordsWithinTheReferencesError" : 17,
     "wordsTheLanguageSupplies" : 10,
