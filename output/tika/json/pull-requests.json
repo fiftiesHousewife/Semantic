@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "2.0",
+  "schemaVersion" : "4.0",
   "repository" : "apache/tika",
   "repositoryCode" : {
     "commentLines" : 48959,
@@ -979,35 +979,46 @@
         },
         "typesAddedWithoutATest" : [ {
           "path" : "tika-core/src/main/java/org/apache/tika/extractor/EmbeddedMetadataLookup.java",
-          "name" : "EmbeddedMetadataLookup"
+          "name" : "EmbeddedMetadataLookup",
+          "test" : "TestEmbeddedMetadataLookup"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHook.java",
-          "name" : "ParseHook"
+          "name" : "ParseHook",
+          "test" : "TestParseHook"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHooks.java",
-          "name" : "ParseHooks.Run"
+          "name" : "ParseHooks.Run",
+          "test" : "TestRun"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
-          "name" : "InferenceBinding"
+          "name" : "InferenceBinding",
+          "test" : "TestInferenceBinding"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceDispatcher.java",
-          "name" : "InferenceDispatcher.Bound"
+          "name" : "InferenceDispatcher.Bound",
+          "test" : "TestBound"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceDispatcher.java",
-          "name" : "InferenceDispatcher.State"
+          "name" : "InferenceDispatcher.State",
+          "test" : "TestState"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceSelection.java",
-          "name" : "InferenceSelection"
+          "name" : "InferenceSelection",
+          "test" : "TestInferenceSelection"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceTask.java",
-          "name" : "InferenceTask"
+          "name" : "InferenceTask",
+          "test" : "TestInferenceTask"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceUnit.java",
-          "name" : "InferenceUnit"
+          "name" : "InferenceUnit",
+          "test" : "TestInferenceUnit"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InputKind.java",
-          "name" : "InputKind"
-        } ]
+          "name" : "InputKind",
+          "test" : "TestInputKind"
+        } ],
+        "testMethodsAdded" : 31
       },
       "inferred" : {
         "type" : "feat",
@@ -1640,11 +1651,14 @@
         },
         "typesAddedWithoutATest" : [ {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/EngineRegistry.java",
-          "name" : "EngineRegistry"
+          "name" : "EngineRegistry",
+          "test" : "TestEngineRegistry"
         }, {
           "path" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbeddingEngine.java",
-          "name" : "EmbeddingEngine"
-        } ]
+          "name" : "EmbeddingEngine",
+          "test" : "TestEmbeddingEngine"
+        } ],
+        "testMethodsAdded" : 7
       },
       "inferred" : {
         "type" : "feat",
@@ -2149,7 +2163,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 2
       },
       "inferred" : {
         "type" : "feat",
@@ -3453,47 +3468,62 @@
         },
         "typesAddedWithoutATest" : [ {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/MarkedContentConfig.java",
-          "name" : "MarkedContentConfig"
+          "name" : "MarkedContentConfig",
+          "test" : "TestMarkedContentConfig"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/MarkedContentConfig.java",
-          "name" : "MarkedContentConfig.Strategy"
+          "name" : "MarkedContentConfig.Strategy",
+          "test" : "TestStrategy"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.EventKind"
+          "name" : "PDFMarkedContent2XHTML.EventKind",
+          "test" : "TestEventKind"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.Label"
+          "name" : "PDFMarkedContent2XHTML.Label",
+          "test" : "TestLabel"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.MarkedContentFrame"
+          "name" : "PDFMarkedContent2XHTML.MarkedContentFrame",
+          "test" : "TestMarkedContentFrame"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.Segment"
+          "name" : "PDFMarkedContent2XHTML.Segment",
+          "test" : "TestSegment"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.Event"
+          "name" : "PDFMarkedContent2XHTML.Event",
+          "test" : "TestEvent"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.Run"
+          "name" : "PDFMarkedContent2XHTML.Run",
+          "test" : "TestRun"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.ElementSpec"
+          "name" : "PDFMarkedContent2XHTML.ElementSpec",
+          "test" : "TestElementSpec"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.PageStats"
+          "name" : "PDFMarkedContent2XHTML.PageStats",
+          "test" : "TestPageStats"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFMarkedContent2XHTML.java",
-          "name" : "PDFMarkedContent2XHTML.BlockGroup"
+          "name" : "PDFMarkedContent2XHTML.BlockGroup",
+          "test" : "TestBlockGroup"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/StructureIndex.java",
-          "name" : "StructureIndex.Node"
+          "name" : "StructureIndex.Node",
+          "test" : "TestNode"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/StructureIndex.java",
-          "name" : "StructureIndex.Leaf"
+          "name" : "StructureIndex.Leaf",
+          "test" : "TestLeaf"
         }, {
           "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/StructureIndex.java",
-          "name" : "StructureIndex.Frame"
-        } ]
+          "name" : "StructureIndex.Frame",
+          "test" : "TestFrame"
+        } ],
+        "testMethodsAdded" : 29
       }
     },
     "concepts" : [ {
@@ -4694,17 +4724,22 @@
         },
         "typesAddedWithoutATest" : [ {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/enricher/TextRecognizerSelection.java",
-          "name" : "TextRecognizerSelection"
+          "name" : "TextRecognizerSelection",
+          "test" : "TestTextRecognizerSelection"
         }, {
           "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/TextChunker.java",
-          "name" : "TextChunker"
+          "name" : "TextChunker",
+          "test" : "TestTextChunker"
         }, {
           "path" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/EmbedTask.java",
-          "name" : "EmbedTask.Owned"
+          "name" : "EmbedTask.Owned",
+          "test" : "TestOwned"
         }, {
           "path" : "tika-serialization/src/main/java/org/apache/tika/config/loader/MetadataFilterLoader.java",
-          "name" : "MetadataFilterLoader"
-        } ]
+          "name" : "MetadataFilterLoader",
+          "test" : "TestMetadataFilterLoader"
+        } ],
+        "testMethodsAdded" : 15
       },
       "inferred" : {
         "type" : "feat",
@@ -4919,7 +4954,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 0
       },
       "inferred" : {
         "type" : "build",
@@ -5078,7 +5114,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 0
       },
       "inferred" : {
         "type" : "build",
@@ -5237,7 +5274,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 0
       },
       "inferred" : {
         "type" : "build",
@@ -5699,7 +5737,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 2
       },
       "inferred" : {
         "type" : "feat",
@@ -6089,7 +6128,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 1
       },
       "inferred" : {
         "type" : "feat",
@@ -7180,7 +7220,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 3
       },
       "inferred" : {
         "type" : "feat",
@@ -7913,7 +7954,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 0
       }
     },
     "concepts" : [ {
@@ -8055,7 +8097,8 @@
             }
           }
         },
-        "typesAddedWithoutATest" : [ ]
+        "typesAddedWithoutATest" : [ ],
+        "testMethodsAdded" : 0
       },
       "inferred" : {
         "type" : "build",
