@@ -3,16 +3,19 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
+import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
 
 /**
  * What an author's pull requests do to the code, in two sentences drawn from the figures already
- * measured: how much they add and remove, how much of it the build publishes and how much tests it, and
- * whether the methods they leave are more complex than the ones already there.
+ * measured: how much they add and remove, how much of it the build publishes and how much tests it,
+ * whether the methods they leave are more complex than the ones already there, and how many of them
+ * leave one method past anything the repository holds.
  *
  * <p>Whether that is an improvement is the reader's judgement. A reading that stated one would be
  * asserting something it has not measured.
@@ -27,8 +30,8 @@ final class AuthorQuality {
         if (author.readAgainstABase() == 0) {
             return "";
         }
-        return String.format(Locale.ROOT, "%s %s %s", changed(author), tested(author),
-                complexity(author));
+        return String.format(Locale.ROOT, "%s %s %s %s", changed(author), tested(author),
+                complexity(author), outliers(author)).trim();
     }
 
     private static String changed(final AuthorPullRequests author) {
@@ -62,9 +65,7 @@ final class AuthorQuality {
      */
     private static String complexity(final AuthorPullRequests author) {
         final int repository = author.repositoryCode().metrics().complexity().upperQuartile();
-        final List<Integer> declared = written(author)
-                .map(diff -> diff.atHead().metrics())
-                .filter(metrics -> metrics.methods() > 0)
+        final List<Integer> declared = declaring(author)
                 .map(metrics -> metrics.complexity().upperQuartile())
                 .toList();
         if (declared.isEmpty()) {
@@ -82,6 +83,50 @@ final class AuthorQuality {
         return String.format(Locale.ROOT, "Their methods are %s complex than the repository\u2019s own, "
                 + "at a 75th centile of %d against its %d.",
                 theirs > repository ? "more" : "less", theirs, repository);
+    }
+
+    /**
+     * How many of them leave one method past the repository's own 75th centile, which the sentence above
+     * cannot say: a change whose methods are typical can still carry a single method far past anything
+     * the repository holds, and that method is what a reviewer reads first.
+     *
+     * <p>Each change's worst method is what counts here, against the repository's 75th centile for the
+     * same measure. Where nothing declares a method there is nothing to count, and the sentence above
+     * has already said so.
+     */
+    private static String outliers(final AuthorPullRequests author) {
+        final MeasuredCode.Metrics repository = author.repositoryCode().metrics();
+        if (declaring(author).findAny().isEmpty()) {
+            return "";
+        }
+        final long complex = past(author, metrics -> metrics.complexity().highest(),
+                repository.complexity());
+        final long longest = past(author, metrics -> metrics.methodStatements().highest(),
+                repository.methodStatements());
+        if (complex == 0 && longest == 0) {
+            return "None of them leaves a method past the repository\u2019s 75th centile, for "
+                    + "complexity or for length.";
+        }
+        return String.format(Locale.ROOT, "Of these, %d %s a method past the repository\u2019s 75th "
+                + "centile for complexity and %d for length.", complex,
+                complex == 1 ? "leaves" : "leave", longest);
+    }
+
+    /** How many changes leave one method past the repository's own 75th centile for this measure. */
+    private static long past(final AuthorPullRequests author,
+                             final ToIntFunction<MeasuredCode.Metrics> worst,
+                             final MeasuredCode.Spread repository) {
+        return declaring(author)
+                .filter(metrics -> MetricBand.of(worst.applyAsInt(metrics), repository)
+                        == MetricBand.UNUSUAL)
+                .count();
+    }
+
+    /** The changes that declare a method, which are the only ones with a spread to read. */
+    private static Stream<MeasuredCode.Metrics> declaring(final AuthorPullRequests author) {
+        return written(author)
+                .map(diff -> diff.atHead().metrics())
+                .filter(metrics -> metrics.methods() > 0);
     }
 
     /**

@@ -68,12 +68,45 @@ class AuthorQualityTest {
     }
 
     @Test
+    void countsTheChangesWhoseWorstMethodIsPastTheRepositorysOwnCentile() {
+        assertThat(quality.of(author(1, 5, 5)))
+                .as("two of the three reach a complexity of 5, past the repository’s 2")
+                .contains("Of these, 2 leave a method past the repository’s 75th centile for "
+                        + "complexity and 0 for length.");
+    }
+
+    @Test
+    void writesTheVerbForOneChangeWhereOnlyOneIsPastIt() {
+        assertThat(quality.of(author(1, 1, 5)))
+                .contains("Of these, 1 leaves a method past the repository’s 75th centile for "
+                        + "complexity and 0 for length.");
+    }
+
+    @Test
+    void countsNoOutlyingMethodWhereNoneOfThemLeavesOne() {
+        assertThat(quality.of(author(1, 1, 2)))
+                .contains("None of them leaves a method past the repository’s 75th centile, for "
+                        + "complexity or for length.");
+    }
+
+    @Test
+    void countsNoOutlierWhereNoneOfThemDeclaresAMethod() {
+        final String said = quality.of(author(0, 0));
+
+        assertAll(
+                () -> assertThat(said).contains("None of them declares a method"),
+                () -> assertThat(said)
+                        .as("nothing was measured, so no count of outlying methods is stated")
+                        .doesNotContain("75th centile for complexity"));
+    }
+
+    @Test
     void namesNeitherTheQuartileCountsNorTheLengthTheTableCarriesBelow() {
         final String said = quality.of(author(3, 5, 5));
 
         assertAll(
                 () -> assertThat(said).doesNotContain("In 2 of them"),
-                () -> assertThat(said).doesNotContain("longest"));
+                () -> assertThat(said).doesNotContain("the longest method is"));
     }
 
     @Test
@@ -102,7 +135,7 @@ class AuthorQualityTest {
 
     private static MeasuredCode measured(final int upperQuartile) {
         final int methods = upperQuartile == 0 ? 0 : 9;
-        return new MeasuredCode(40, new MeasuredCode.Metrics(3, methods, 300, 24, spread(2, 5, 20),
+        return new MeasuredCode(40, new MeasuredCode.Metrics(3, methods, 300, 24, spread(2, 5, 8),
                 spread(1, upperQuartile, upperQuartile), spread(1, 2, 4), spread(1, 2, 3)));
     }
 
