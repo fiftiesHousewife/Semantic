@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "937fa8e8b075a322d40a994c768bed4c80344db4",
-  "commit" : "659e2c6da18672acb95ad700cef4a1872cc93815",
+  "previousCommit" : "659e2c6da18672acb95ad700cef4a1872cc93815",
+  "commit" : "c5998e3d433c05fdfad059f406d3eac4ae4fd217",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -131,7 +131,7 @@
     "after" : "3"
   }, {
     "figure" : "Words above the bar",
-    "before" : "309",
+    "before" : "310",
     "after" : "310"
   }, {
     "figure" : "Topics reported",
@@ -142,9 +142,5 @@
     "before" : "144",
     "after" : "144"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "metrics",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }

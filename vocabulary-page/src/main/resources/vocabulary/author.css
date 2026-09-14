@@ -146,9 +146,9 @@ table.work td.number {
     font-variant-numeric: tabular-nums;
 }
 
-/* Where a figure sits in the repository's own spread. The three marks differ in outline — a tick, a dash,
-   a cross — so nothing here is carried by colour alone; each cell also states its band in a title, and the
-   legend names all three. */
+/* Where a figure sits in the repository's own spread. The outline of the mark is the whole signal — a
+   tick, a dash, a cross, all in one ink — so no reader needs to tell two colours apart; each cell also
+   states its band in a title, and the legend names all three. */
 /* The mark sits inside the column's own padding, and every cell and header of a marked table carries
    the same, so a figure stays under the heading it belongs to. */
 table.work.banded th,
@@ -171,15 +171,6 @@ table.work td.band .mark {
     font-size: 0.85em;
     color: var(--ink-soft);
 }
-
-.mark[data-band="typical"],
-table.work td.band[data-band="typical"] .mark { color: var(--count); }
-
-.mark[data-band="higher"],
-table.work td.band[data-band="higher"] .mark { color: var(--ink-faint); }
-
-.mark[data-band="unusual"],
-table.work td.band[data-band="unusual"] .mark { color: var(--missed); }
 
 .legend {
     font-size: 0.8rem;
