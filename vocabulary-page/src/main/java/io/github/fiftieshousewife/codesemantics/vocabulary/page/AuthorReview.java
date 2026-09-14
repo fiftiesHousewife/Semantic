@@ -88,8 +88,8 @@ final class AuthorReview {
     private SectionTag spread(final AuthorPullRequests author) {
         return section().withClass("headless").with(
                 p().withClass("lede").with(
-                        span("The code each pull request leaves, at the middle of its methods, three "
-                                + "quarters of the way up them, and at its worst. The last column is the "
+                        span("The code each pull request leaves, at the median of its methods, at their "
+                                + "75th centile, and at its worst. The last column is the "
                                 + "repository itself, and a figure is unusual only against that — "
                                 + "nothing below is measured against a threshold chosen by this "
                                 + "reading. "),
@@ -110,7 +110,7 @@ final class AuthorReview {
 
     private static DomContent spreadRows(final AuthorPullRequests author,
                                                      final Measure measure) {
-        return each(List.of("median", "upper quartile", "worst"),
+        return each(List.of("median", "75th centile", "worst"),
                 at -> spreadRow(author, measure, at));
     }
 
@@ -162,7 +162,7 @@ final class AuthorReview {
         if ("median".equals(at)) {
             return spread.median();
         }
-        return "upper quartile".equals(at) ? spread.upperQuartile() : spread.highest();
+        return "75th centile".equals(at) ? spread.upperQuartile() : spread.highest();
     }
 
     private static TrTag addedRow(final ExportedPullRequest pullRequest) {

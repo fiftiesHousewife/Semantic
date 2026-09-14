@@ -15,33 +15,33 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class AuthorQualityTest {
 
-    /** A repository three quarters of whose methods carry a complexity of two or less. */
+    /** A repository whose methods reach a complexity of two at their 75th centile. */
     private static final MeasuredCode.Spread REPOSITORY = spread(1, 2, 116);
 
     private final AuthorQuality quality = new AuthorQuality();
 
     @Test
-    void saysTheMethodsAreMoreComplexWhereTheirQuartileSitsAboveTheRepositorys() {
+    void saysTheMethodsAreMoreComplexWhereTheirCentileSitsAboveTheRepositorys() {
         assertThat(quality.of(author(3, 5, 5)))
-                .contains("more complex than the repository’s own: three quarters sit at or below 5, "
-                        + "against its 2");
+                .contains("more complex than the repository’s own, at a 75th centile of 5 against "
+                        + "its 2");
     }
 
     @Test
-    void saysTheMethodsAreLessComplexWhereTheirQuartileSitsBelowIt() {
+    void saysTheMethodsAreLessComplexWhereTheirCentileSitsBelowIt() {
         assertThat(quality.of(author(1, 1, 2)))
-                .contains("less complex than the repository’s own: three quarters sit at or below 1, "
-                        + "against its 2");
+                .contains("less complex than the repository’s own, at a 75th centile of 1 against "
+                        + "its 2");
     }
 
     @Test
-    void saysTheMethodsAreAsComplexWhereTheTwoQuartilesAgree() {
+    void saysTheMethodsAreAsComplexWhereTheTwoCentilesAgree() {
         assertThat(quality.of(author(2, 2, 3)))
-                .contains("as complex as the repository’s own: three quarters of each sit at or below 2");
+                .contains("as complex as the repository’s own, at a 75th centile of 2 each");
     }
 
     @Test
-    void readsTheQuartileRatherThanTheMedianBecauseAMedianComplexityIsOneAlmostEverywhere() {
+    void readsTheCentileRatherThanTheMedianBecauseAMedianComplexityIsOneAlmostEverywhere() {
         assertThat(quality.of(author(5, 5, 5)))
                 .as("every method has a complexity of one at the median, so a median compares nothing")
                 .doesNotContain("median");
@@ -51,14 +51,14 @@ class AuthorQualityTest {
     void takesTheMiddlePullRequestAtTheSmallestRankCoveringHalfOfThem() {
         assertThat(quality.of(author(3, 5)))
                 .as("the same rank rule the tree's own spreads use, so an even count takes the lower")
-                .contains("three quarters sit at or below 3");
+                .contains("at a 75th centile of 3");
     }
 
     @Test
     void readsPastAChangeDeclaringNoMethodAtAll() {
         assertThat(quality.of(author(0, 5, 5)))
                 .as("a change touching only poms declares no method and says nothing about complexity")
-                .contains("three quarters sit at or below 5");
+                .contains("at a 75th centile of 5");
     }
 
     @Test
@@ -92,7 +92,7 @@ class AuthorQualityTest {
                 List.of(), repository());
     }
 
-    /** A change whose methods reach this complexity three quarters of the way up them, or none at all. */
+    /** A change whose methods reach this complexity at their 75th centile, or declare none at all. */
     private static ChangedCode atComplexity(final int upperQuartile) {
         return new ChangedCode(4, 2, new ChangedCode.Declarations(1, 2, 3),
                 new ChangedCode.Declarations(0, 0, 0), 31, List.of(), List.of(),

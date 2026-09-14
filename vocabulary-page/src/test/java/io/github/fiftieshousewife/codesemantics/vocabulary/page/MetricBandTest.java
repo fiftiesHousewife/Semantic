@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 class MetricBandTest {
 
-    /** A repository whose methods carry three statements in the middle and eight at the upper quartile. */
+    /** A repository whose methods carry three statements in the middle and eight at the 75th centile. */
     private static final MeasuredCode.Spread REPOSITORY = new MeasuredCode.Spread(3, 8, 780);
 
     @Test
@@ -72,7 +72,7 @@ class MetricBandTest {
     void namesEachBandForWhatItMeasuresAgainstRatherThanForAVerdict() {
         assertAll(
                 () -> assertThat(MetricBand.TYPICAL.shown()).isEqualTo("at or below the median"),
-                () -> assertThat(MetricBand.HIGHER.shown()).isEqualTo("up to the upper quartile"),
-                () -> assertThat(MetricBand.UNUSUAL.shown()).isEqualTo("above the upper quartile"));
+                () -> assertThat(MetricBand.HIGHER.shown()).isEqualTo("up to the 75th centile"),
+                () -> assertThat(MetricBand.UNUSUAL.shown()).isEqualTo("above the 75th centile"));
     }
 }

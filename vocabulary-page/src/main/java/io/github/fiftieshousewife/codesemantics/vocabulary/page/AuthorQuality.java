@@ -52,10 +52,10 @@ final class AuthorQuality {
      * Whether the methods these pull requests leave are more complex than the ones already there, which
      * is the comparison a reviewer opens with.
      *
-     * <p>Both figures are upper quartiles, not medians. A median complexity is one almost everywhere —
-     * tika's is, and so is nearly every pull request's — so a median would report the two as equal
-     * whatever the change did. Three quarters of the way up the methods is where the measure moves, and
-     * it is the same bound the marks in the table below are drawn at.
+     * <p>Both figures are 75th centiles. A median complexity is one almost everywhere — tika's is, and
+     * so is nearly every pull request's — so a median would report the two as equal whatever the change
+     * did. The 75th centile is where the measure moves, and it is the bound the marks in the table below
+     * are drawn at.
      *
      * <p>The pull requests' own figure is the middle one's, so a single unusual change does not carry the
      * sentence, and a change declaring no method at all is read past rather than counted as nought.
@@ -77,10 +77,10 @@ final class AuthorQuality {
     private static String said(final int theirs, final int repository) {
         if (theirs == repository) {
             return String.format(Locale.ROOT, "Their methods are as complex as the repository\u2019s "
-                    + "own: three quarters of each sit at or below %d.", repository);
+                    + "own, at a 75th centile of %d each.", repository);
         }
-        return String.format(Locale.ROOT, "Their methods are %s complex than the repository\u2019s own: "
-                + "three quarters sit at or below %d, against its %d.",
+        return String.format(Locale.ROOT, "Their methods are %s complex than the repository\u2019s own, "
+                + "at a 75th centile of %d against its %d.",
                 theirs > repository ? "more" : "less", theirs, repository);
     }
 
