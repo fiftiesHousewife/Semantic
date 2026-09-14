@@ -72,6 +72,57 @@ class UntestedTypesTest {
     }
 
     @Test
+    void countsTheMethodsTheChangeAddsCarryingTheAnnotationThatNamesATest() throws IOException {
+        checking(head, "EngineTest.java", """
+                class EngineTest {
+                    @Test
+                    void starts() {
+                    }
+
+                    @Test
+                    void stops() {
+                    }
+
+                    private void neitherOfThose() {
+                    }
+                }
+                """);
+
+        assertThat(work.between(base, head).testMethodsAdded()).isEqualTo(2);
+    }
+
+    @Test
+    void countsNoTestMethodWhereTheChangeAddsNone() throws IOException {
+        production(head, "Engine.java", "public class Engine {\n  void starts() {\n  }\n}\n");
+
+        assertThat(work.between(base, head).testMethodsAdded()).isZero();
+    }
+
+    @Test
+    void countsATestMethodTheChangeAddsToATestClassThatAlreadyStood() throws IOException {
+        checking(base, "EngineTest.java", """
+                class EngineTest {
+                    @Test
+                    void starts() {
+                    }
+                }
+                """);
+        checking(head, "EngineTest.java", """
+                class EngineTest {
+                    @Test
+                    void starts() {
+                    }
+
+                    @Test
+                    void stops() {
+                    }
+                }
+                """);
+
+        assertThat(work.between(base, head).testMethodsAdded()).isEqualTo(1);
+    }
+
+    @Test
     void namesNoTypeWhereNothingWasAdded() throws IOException {
         production(base, "Engine.java", "public class Engine {\n}\n");
         production(head, "Engine.java", "public class Engine {\n}\n");

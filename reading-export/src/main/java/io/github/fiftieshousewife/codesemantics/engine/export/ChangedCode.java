@@ -26,12 +26,16 @@ import java.util.Objects;
  * @param typesAddedWithoutATest the types it adds to what the build publishes for which it adds no test
  *                     of the name Surefire would run, each with the name such a test would carry — which
  *                     says no test arrived with them, never that nothing covers them
+ * @param testMethodsAdded how many of the methods it adds carry the {@code Test} annotation. It counts
+ *                     the tests that arrived and says nothing about what they exercise: no standard
+ *                     names a test method after its subject, and which methods a test runs would need
+ *                     the tests run, which this reading does not do
  */
 public record ChangedCode(int filesRead, int filesAdded, Declarations added, Declarations removed,
                           int kept, List<NamedDeclaration> typesAdded,
                           List<NamedDeclaration> typesRemoved, List<KindFiles> filesByKind,
                           MeasuredCode atHead, MeasuredCode atBase,
-                          List<TypeWithoutATest> typesAddedWithoutATest) {
+                          List<TypeWithoutATest> typesAddedWithoutATest, int testMethodsAdded) {
 
     public ChangedCode {
         Objects.requireNonNull(added, "added");

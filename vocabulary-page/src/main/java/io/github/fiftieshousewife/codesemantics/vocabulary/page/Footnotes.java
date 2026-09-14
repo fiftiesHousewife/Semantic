@@ -34,6 +34,9 @@ final class Footnotes {
     /** Why the kinds of file sum to fewer than the files changed. */
     static final int OUTSIDE_THE_BUILD = 4;
 
+    /** Which annotation a test method is counted by, and which methods that leaves out. */
+    static final int TEST_METHODS = 5;
+
     private Footnotes() {
     }
 
@@ -47,7 +50,8 @@ final class Footnotes {
     static SectionTag markup() {
         return section().withId("notes").with(
                 h2("Notes"),
-                ol().withClass("notes").with(each(List.of(convention(), fit(), untested(), outside()),
+                ol().withClass("notes").with(each(
+                        List.of(convention(), fit(), untested(), outside(), testMethods()),
                         note -> note)));
     }
 
@@ -94,6 +98,32 @@ final class Footnotes {
                 span(". It says no test arrived with the type. A type a test already standing in the "
                         + "repository exercises is counted here all the same, because the reading runs "
                         + "nothing and measures no coverage."));
+    }
+
+    private static LiTag testMethods() {
+        return li().withId("note-" + TEST_METHODS).with(
+                span("A test method is one carrying the "),
+                span("Test").withClass("token"),
+                span(" annotation, which is what "),
+                a("JUnit 4").withHref("https://junit.org/junit4/javadoc/latest/org/junit/Test.html"),
+                span(", "),
+                a("JUnit Jupiter").withHref("https://docs.junit.org/current/api/org.junit.jupiter.api/"
+                        + "org/junit/jupiter/api/Test.html"),
+                span(" and "),
+                a("TestNG").withHref("https://testng.org/javadocs/org/testng/annotations/Test.html"),
+                span(" each call it. A method Jupiter also runs under "),
+                span("ParameterizedTest").withClass("token"),
+                span(", "),
+                span("RepeatedTest").withClass("token"),
+                span(", "),
+                span("TestFactory").withClass("token"),
+                span(" or "),
+                span("TestTemplate").withClass("token"),
+                span(" is not counted: those carry Jupiter's own "),
+                span("Testable").withClass("token"),
+                span(" annotation, and reading one annotation through another needs the classpath this "
+                        + "parse does not have. The count says how many tests arrived, never what they "
+                        + "exercise."));
     }
 
     private static LiTag fit() {

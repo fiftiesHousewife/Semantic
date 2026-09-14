@@ -29,20 +29,20 @@ final class PullRequestFixture {
     }
 
     static ChangedCode written(final int types, final int methods, final int fields,
-                                        final List<String> typesAdded) {
+                               final List<String> typesAdded) {
         return written(types, methods, fields, typesAdded, List.of());
     }
 
     static ChangedCode written(final int types, final int methods, final int fields,
-                                        final List<String> typesAdded,
-                                        final List<ChangedCode.TypeWithoutATest> untested) {
+                               final List<String> typesAdded,
+                               final List<ChangedCode.TypeWithoutATest> untested) {
         return new ChangedCode(4, 2, new ChangedCode.Declarations(types, methods, fields),
                 new ChangedCode.Declarations(0, 1, 0), 31,
                 typesAdded.stream()
                         .map(name -> new ChangedCode.NamedDeclaration(name + ".java", name))
                         .toList(),
                 List.of(), List.of(new ChangedCode.KindFiles("production", 4)),
-                side(40, 300), side(30, 240), untested);
+                side(40, 300), side(30, 240), untested, 2);
     }
 
     /** One type arriving with no test, named as the first of Surefire's default patterns would run it. */

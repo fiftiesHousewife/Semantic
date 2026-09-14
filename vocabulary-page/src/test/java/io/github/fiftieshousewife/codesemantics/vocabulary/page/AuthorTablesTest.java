@@ -52,6 +52,10 @@ class AuthorTablesTest {
 
         assertAll(
                 () -> assertThat(markup).contains("Types with no test"),
+                () -> assertThat(markup).contains("Test methods added"),
+                () -> assertThat(markup)
+                        .as("the count of test methods is the figure the fixture states")
+                        .contains(">2<"),
                 () -> assertThat(markup).contains("Complexity per method, median"),
                 () -> assertThat(markup).contains("Complexity per method, worst"),
                 () -> assertThat(markup)

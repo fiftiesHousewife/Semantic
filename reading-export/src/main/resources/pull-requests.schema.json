@@ -857,6 +857,12 @@
                         }
                       }
                     }
+                  },
+                  "testMethodsAdded": {
+                    "title": "Test methods added",
+                    "description": "How many of the methods the change adds carry the Test annotation, which is what JUnit 4, JUnit Jupiter and TestNG each call the annotation on one test method. A method Jupiter also runs under ParameterizedTest, RepeatedTest, TestFactory or TestTemplate is not counted: those carry Jupiter's Testable meta-annotation, resolving which needs the classpath this parse does not have. It counts the tests that arrived and says nothing about what they exercise — no standard names a test method after its subject, and which methods a test runs would need the tests run.",
+                    "type": "integer",
+                    "minimum": 0
                   }
                 }
               },

@@ -47,7 +47,7 @@ class InferredChangeKindTest {
                 adding.added(), adding.removed(), adding.kept(), adding.typesAdded(),
                 adding.typesRemoved(),
                 List.of(new ChangedCode.KindFiles(kind, 3)), adding.atHead(), adding.atBase(),
-                List.of());
+                List.of(), 0);
     }
 
     private static ChangedCode removing() {
@@ -55,7 +55,7 @@ class InferredChangeKindTest {
         return new ChangedCode(adding.filesRead(), adding.filesAdded(),
                 new ChangedCode.Declarations(0, 0, 0), new ChangedCode.Declarations(0, 2, 0),
                 adding.kept(), List.of(), List.of(), adding.filesByKind(), adding.atHead(),
-                adding.atBase(), List.of());
+                adding.atBase(), List.of(), 0);
     }
 
     private static ChangedCode untouched() {

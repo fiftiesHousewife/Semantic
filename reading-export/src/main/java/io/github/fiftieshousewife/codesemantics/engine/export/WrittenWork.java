@@ -7,9 +7,6 @@ import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.Declaration;
@@ -23,7 +20,6 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.ChangedFileScopes
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
 import io.github.fiftieshousewife.codesemantics.engine.reading.StatedExclusions;
-import io.github.fiftieshousewife.codesemantics.engine.reading.SurefireTestNames;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
 
 /**
@@ -38,6 +34,8 @@ public final class WrittenWork {
 
     private final DeclaredMembers members = DeclaredMembers.newInstance();
 
+    private final ChangedTests tests = new ChangedTests();
+
     /** The head tree read against the base tree the fetch step wrote beside it. */
     ChangedCode between(final Path base, final Path head) {
         final List<SourceScope> scopes = new ChangedFileScopes().under(head);
@@ -51,7 +49,8 @@ public final class WrittenWork {
                 counted(diff.addedByKind()), counted(diff.removedByKind()), diff.kept(),
                 types(diff.added()), types(diff.removed()), byKind(head, scopes, read),
                 measured(head, scopes), measured(base, new ChangedFileScopes().under(base)),
-                withoutATest(head, diff.added(), scopes));
+                tests.typesWithoutOne(head, diff.added(), scopes),
+                tests.methodsAdded(head, scopes, diff.added()));
     }
 
     /**
@@ -140,43 +139,6 @@ public final class WrittenWork {
     private static ChangedCode.Declarations counted(final Map<DeclarationKind, Integer> byKind) {
         return new ChangedCode.Declarations(byKind.get(DeclarationKind.TYPE),
                 byKind.get(DeclarationKind.METHOD), byKind.get(DeclarationKind.FIELD));
-    }
-
-    /**
-     * The types the change adds to what the build publishes and adds no test for, each named beside the
-     * test it arrives without. A test is one whose name Surefire would run, and its subject is the name
-     * that pattern leaves — so a change adding {@code TikaConfig} and {@code TikaConfigTest} has covered
-     * the first. The name the missing test would carry comes from the first of the same patterns, so a
-     * reader is given a name Surefire would run rather than one chosen here.
-     */
-    private static List<ChangedCode.TypeWithoutATest> withoutATest(final Path root,
-                                                                    final List<Declaration> added,
-                                                                    final List<SourceScope> scopes) {
-        final SurefireTestNames tests = new SurefireTestNames();
-        final Map<String, SourceKind> kindOfPath = kindOfEachPath(root, scopes);
-        final Set<String> tested = added.stream()
-                .map(Declaration::name)
-                .map(tests::subjectOf)
-                .flatMap(Optional::stream)
-                .collect(Collectors.toUnmodifiableSet());
-        return added.stream()
-                .filter(declaration -> declaration.kind() == DeclarationKind.TYPE)
-                .filter(declaration -> kindOfPath.getOrDefault(declaration.path(), SourceKind.OTHER)
-                        == SourceKind.PRODUCTION)
-                .filter(declaration -> !tests.names(declaration.name()))
-                .filter(declaration -> !tested.contains(declaration.name()))
-                .map(declaration -> new ChangedCode.TypeWithoutATest(declaration.path(),
-                        declaration.written(), tests.testOf(declaration.name()).orElse("")))
-                .toList();
-    }
-
-    /** Which kind each read file is, keyed on the path the declarations are written against. */
-    private static Map<String, SourceKind> kindOfEachPath(final Path root,
-                                                          final List<SourceScope> scopes) {
-        final Map<String, SourceKind> kinds = new LinkedHashMap<>();
-        scopes.forEach(scope -> scope.files().forEach(file ->
-                kinds.putIfAbsent(root.relativize(file).toString(), SourceKind.of(scope.name()))));
-        return kinds;
     }
 
     private static List<ChangedCode.NamedDeclaration> types(final List<Declaration> declarations) {

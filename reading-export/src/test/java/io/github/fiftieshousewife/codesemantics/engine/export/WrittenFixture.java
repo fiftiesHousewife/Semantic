@@ -20,10 +20,10 @@ final class WrittenFixture {
 
     /** A change adding these declarations to what the build publishes, and removing nothing. */
     static ChangedCode adding(final int types, final int methods, final int fields,
-                                       final List<ChangedCode.NamedDeclaration> typesAdded) {
+                              final List<ChangedCode.NamedDeclaration> typesAdded) {
         return new ChangedCode(3, 1, new ChangedCode.Declarations(types, methods, fields),
                 new ChangedCode.Declarations(0, 0, 0), 41, typesAdded, List.of(),
                 List.of(new ChangedCode.KindFiles("production", 3)), side(40, 300), side(30, 240),
-                List.of());
+                List.of(), 0);
     }
 }
