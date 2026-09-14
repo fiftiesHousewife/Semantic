@@ -1,13 +1,13 @@
 {
-  "previousCommit" : "1ab60cda44206f91944469ea6ff91c0fba465864",
-  "commit" : "d9718df4c42a1ee80ac9b0c9720ed4cc1acfe537",
+  "previousCommit" : "d9718df4c42a1ee80ac9b0c9720ed4cc1acfe537",
+  "commit" : "ac96fe48ddc3030dcf9803f31694fba40a568a22",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
     "after" : "98.0%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.1%",
+    "before" : "84.0%",
     "after" : "84.0%"
   }, {
     "figure" : "arXiv archive — nearest subject",
@@ -16,7 +16,7 @@
   }, {
     "figure" : "arXiv archive — divergence",
     "before" : "32.8%",
-    "after" : "32.8%"
+    "after" : "32.9%"
   }, {
     "figure" : "arXiv archive — chance reaches",
     "before" : "40.9%",
@@ -39,8 +39,8 @@
     "after" : "42.0%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.3%",
-    "after" : "45.2%"
+    "before" : "45.2%",
+    "after" : "45.1%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
     "before" : "yes",
@@ -55,11 +55,11 @@
     "after" : "Artificial Intelligence"
   }, {
     "figure" : "OpenAlex archive — divergence",
-    "before" : "23.7%",
+    "before" : "23.6%",
     "after" : "23.6%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.4%",
+    "before" : "31.5%",
     "after" : "31.5%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -75,11 +75,11 @@
     "after" : "Authorship Attribution and Profiling"
   }, {
     "figure" : "OpenAlex category — divergence",
-    "before" : "40.6%",
+    "before" : "40.5%",
     "after" : "40.5%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.5%",
+    "before" : "48.4%",
     "after" : "48.4%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -115,11 +115,11 @@
     "after" : "information technology"
   }, {
     "figure" : "CSO category — divergence",
-    "before" : "24.2%",
+    "before" : "24.3%",
     "after" : "24.3%"
   }, {
     "figure" : "CSO category — chance reaches",
-    "before" : "28.7%",
+    "before" : "28.6%",
     "after" : "28.6%"
   }, {
     "figure" : "CSO category — stands apart from chance",
@@ -135,40 +135,12 @@
     "after" : "309"
   }, {
     "figure" : "Topics reported",
-    "before" : "9",
+    "before" : "11",
     "after" : "11"
   }, {
     "figure" : "Concepts written",
-    "before" : "140",
+    "before" : "144",
     "after" : "144"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "requests",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "shown",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "spread",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "deepest",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "leaves",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "sha256",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "Fraction",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }
