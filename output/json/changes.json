@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "38be78d1b0197df25411bb3dddecbb83a2d8ebc4",
-  "commit" : "0107961ca87b1975051e748f1d55007d8cf89437",
+  "previousCommit" : "0107961ca87b1975051e748f1d55007d8cf89437",
+  "commit" : "bd7350918724e523e7c391d8fb5ab5223c141e16",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -15,7 +15,7 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.9%",
+    "before" : "32.8%",
     "after" : "32.8%"
   }, {
     "figure" : "arXiv archive — chance reaches",
