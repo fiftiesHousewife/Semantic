@@ -5,11 +5,13 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
+import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.PullRequestExport;
 import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
 
@@ -24,21 +26,37 @@ import io.github.fiftieshousewife.codesemantics.engine.export.ReadingExport;
  * @param pullRequests     the author's pull requests, lowest number first
  * @param repositoryWords  the words the repository's own reading carries, for saying which of a pull
  *                         request's words are not among them
+ * @param repositoryCode   what the whole working tree measures, for reading a pull request's figures
+ *                         against the code they join
  */
 public record AuthorPullRequests(String repository, String author,
                                  List<ExportedPullRequest> pullRequests,
-                                 List<String> repositoryWords) {
+                                 List<String> repositoryWords, MeasuredCode repositoryCode) {
 
     public AuthorPullRequests {
         pullRequests = List.copyOf(pullRequests);
         repositoryWords = List.copyOf(repositoryWords);
+        Objects.requireNonNull(repositoryCode, "repositoryCode");
     }
 
-    /** The author's pull requests without the repository's own words beside them. */
+    /** The author's pull requests with nothing of the repository beside them, which only a test has. */
     public AuthorPullRequests(final String repository, final String author,
                               final List<ExportedPullRequest> pullRequests) {
-        this(repository, author, pullRequests, List.of());
+        this(repository, author, pullRequests, List.of(), NOTHING_MEASURED);
     }
+
+    /** The same with the repository's own words, for a test that reads which of a change's are new. */
+    public AuthorPullRequests(final String repository, final String author,
+                              final List<ExportedPullRequest> pullRequests,
+                              final List<String> repositoryWords) {
+        this(repository, author, pullRequests, repositoryWords, NOTHING_MEASURED);
+    }
+
+    /** A tree nothing was measured over, so every figure read against it is nought. */
+    private static final MeasuredCode NOTHING_MEASURED = new MeasuredCode(0,
+            new MeasuredCode.Metrics(0, 0, 0, 0, new MeasuredCode.Spread(0, 0, 0),
+                    new MeasuredCode.Spread(0, 0, 0), new MeasuredCode.Spread(0, 0, 0),
+                    new MeasuredCode.Spread(0, 0, 0)));
 
     /** One entry per author the fetched set states, most pull requests first. */
     public static List<AuthorPullRequests> in(final PullRequestExport fetched,
@@ -53,7 +71,7 @@ public record AuthorPullRequests(String repository, String author,
                 .map(entry -> new AuthorPullRequests(reading.summary().repository(), entry.getKey(),
                         entry.getValue(), reading.signals().stream()
                                 .map(signal -> PublishedSpelling.shown(signal.word()))
-                                .toList()))
+                                .toList(), fetched.repositoryCode()))
                 .sorted(Comparator.comparingInt((AuthorPullRequests author) ->
                         author.pullRequests().size()).reversed())
                 .toList();

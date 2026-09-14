@@ -41,33 +41,60 @@ public final class TreeMetrics {
      *
      * @param types             how many types the tree declares
      * @param methods           how many methods and constructors it declares
-     * @param statements        how many statements those methods carry in total
-     * @param largestType       the most members any one type declares, which is what says how large a
-     *                          type is: a type declares members and carries no statements of its own
-     * @param longestMethod     the most statements any one method carries
-     * @param totalComplexity   McCabe's complexity summed over every method
-     * @param highestComplexity the largest any one method reaches
-     * @param deepestNesting    the deepest block any method holds
-     * @param mostParameters    the most parameters any one method declares
+     * @param statements       how many statements those methods carry in total
+     * @param largestType      the most members any one type declares, which is what says how large a
+     *                         type is: a type declares members and carries no statements of its own
+     * @param methodStatements how the statements per method are spread
+     * @param complexity       how McCabe's complexity is spread over those methods
+     * @param nesting          how the deepest block per method is spread
+     * @param parameters       how the parameters per method are spread
      */
-    public record Measured(int types, int methods, int statements, int largestType, int longestMethod,
-                           int totalComplexity, int highestComplexity, int deepestNesting,
-                           int mostParameters) {
+    public record Measured(int types, int methods, int statements, int largestType,
+                           Spread methodStatements, Spread complexity, Spread nesting,
+                           Spread parameters) {
 
         static Measured of(final List<Integer> membersPerType, final List<MethodMetrics> methods) {
             return new Measured(membersPerType.size(), methods.size(),
                     methods.stream().mapToInt(MethodMetrics::statements).sum(),
                     membersPerType.stream().mapToInt(Integer::intValue).max().orElse(0),
-                    top(methods, MethodMetrics::statements),
-                    methods.stream().mapToInt(MethodMetrics::complexity).sum(),
-                    top(methods, MethodMetrics::complexity),
-                    top(methods, MethodMetrics::nesting),
-                    top(methods, MethodMetrics::parameters));
+                    Spread.over(methods, MethodMetrics::statements),
+                    Spread.over(methods, MethodMetrics::complexity),
+                    Spread.over(methods, MethodMetrics::nesting),
+                    Spread.over(methods, MethodMetrics::parameters));
+        }
+    }
+
+    /**
+     * How one figure is spread over the methods measured, at the nearest rank: the value at the smallest
+     * rank covering that share of them, sorted. It needs no interpolation and lands on a figure some
+     * method actually has.
+     *
+     * @param median        the value at the middle of the sorted methods
+     * @param upperQuartile the value three quarters of the way up them
+     * @param highest       the largest any one method reaches
+     */
+    public record Spread(int median, int upperQuartile, int highest) {
+
+        private static final double MIDDLE = 0.5;
+
+        private static final double UPPER_QUARTILE = 0.75;
+
+        static Spread over(final List<MethodMetrics> methods,
+                           final ToIntFunction<MethodMetrics> figure) {
+            final List<Integer> sorted = methods.stream()
+                    .map(figure::applyAsInt)
+                    .sorted()
+                    .toList();
+            return new Spread(at(sorted, MIDDLE), at(sorted, UPPER_QUARTILE),
+                    sorted.isEmpty() ? 0 : sorted.getLast());
         }
 
-        private static int top(final List<MethodMetrics> measured,
-                               final ToIntFunction<MethodMetrics> figure) {
-            return measured.stream().mapToInt(figure).max().orElse(0);
+        /** The value at the smallest rank covering this share, and nought where nothing was measured. */
+        private static int at(final List<Integer> sorted, final double share) {
+            if (sorted.isEmpty()) {
+                return 0;
+            }
+            return sorted.get(Math.min(sorted.size() - 1, (int) Math.ceil(share * sorted.size()) - 1));
         }
     }
 

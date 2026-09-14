@@ -84,7 +84,8 @@ class AuthorPullRequestsTest {
     }
 
     private static PullRequestExport fetched(final ExportedPullRequest... pullRequests) {
-        return PullRequestExport.of("apache/tika", List.of(pullRequests));
+        return PullRequestExport.of("apache/tika", PullRequestFixture.side(400, 3000),
+                List.of(pullRequests));
     }
 
     private static ReadingExport reading() {

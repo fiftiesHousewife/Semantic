@@ -61,6 +61,8 @@ public final class AuthorPage {
 
     private final AuthorSubjects subjects = new AuthorSubjects();
 
+    private final AuthorConcepts concepts = new AuthorConcepts();
+
     public AuthorPage(final String stylesheet, final String behaviour) {
         this.stylesheet = stylesheet;
         this.behaviour = behaviour;
@@ -89,6 +91,7 @@ public final class AuthorPage {
                         scale.markup(author),
                         review.markup(author),
                         subjects.markup(author),
+                        concepts.markup(author),
                         words(author),
                         types(author),
                         untested(author),

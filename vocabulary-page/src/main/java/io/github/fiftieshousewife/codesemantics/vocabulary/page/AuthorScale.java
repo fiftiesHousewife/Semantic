@@ -32,19 +32,22 @@ final class AuthorScale {
     SectionTag markup(final AuthorPullRequests author) {
         return section().withId("scale").with(
                 h2("How much each one changes"),
-                p().withClass("lede").withText("Changed is what the host states the pull request "
-                        + "touches. Read counts those the reading covers: a changed file no source set, "
-                        + "documentation directory or build file list reaches is not read, so a "
-                        + "changelog entry is changed and never read. Added counts the files standing "
-                        + "at the head and not at the base. Which kind a file is comes from where the "
-                        + "build looks for it."),
+                p().withClass("lede").withText("The five kinds and the unread ones account for every "
+                        + "changed file. Which kind a file is comes from where the build looks for it: "
+                        + "a source set it publishes is production, the source sets that check it are "
+                        + "tests and fixtures. Not read is a file no source set, documentation "
+                        + "directory or build file list reaches — a changelog is changed and never "
+                        + "read. A fixture is read by its name alone and never its contents. New "
+                        + "counts the files standing at the head and not at the base, which is a count "
+                        + "of the same files again rather than a sixth kind."),
                 h3("Files it touches"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Changed").withClass("number"),
-                                th("Read").withClass("number"), th("Added").withClass("number"),
                                 th("Production").withClass("number"), th("Tests").withClass("number"),
                                 th("Fixtures").withClass("number"), th("Docs").withClass("number"),
-                                th("Build").withClass("number"))),
+                                th("Build").withClass("number"),
+                                th("Not read").withClass("number"),
+                                th("New").withClass("number"))),
                         tbody(each(author.pullRequests(), AuthorScale::files)))),
                 p().withClass("lede").withText("A declaration is a type, a method or a field. Removed "
                         + "sums the three kinds. Untouched counts the declarations standing in those "
@@ -64,11 +67,11 @@ final class AuthorScale {
         final Optional<ExportedWork.Written> written = AuthorPullRequests.writtenOf(pullRequest);
         return tr(td(String.valueOf(pullRequest.number())),
                 Figure.counted(Optional.of(pullRequest.files())),
-                Figure.counted(written.map(ExportedWork.Written::filesRead)),
-                Figure.counted(written.map(ExportedWork.Written::filesAdded)),
                 kind(written, SourceKind.PRODUCTION), kind(written, SourceKind.TESTS),
                 kind(written, SourceKind.FIXTURES), kind(written, SourceKind.DOCUMENTATION),
-                kind(written, SourceKind.BUILD));
+                kind(written, SourceKind.BUILD),
+                Figure.counted(written.map(ExportedWork.Written::filesUnread)),
+                Figure.counted(written.map(ExportedWork.Written::filesAdded)));
     }
 
     private static TrTag declarations(final ExportedPullRequest pullRequest) {

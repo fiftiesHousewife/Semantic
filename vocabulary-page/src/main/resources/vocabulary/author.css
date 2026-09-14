@@ -146,6 +146,14 @@ table.work td.number {
     font-variant-numeric: tabular-nums;
 }
 
+/* The repository's own column is what the others are read against, so it stands apart from them. */
+table.work th.reference,
+table.work td.reference {
+    border-left: 1px solid var(--rule);
+    padding-left: 1rem;
+    color: var(--ink-soft);
+}
+
 table.work td:first-child,
 table.work th:first-child {
     font-variant-numeric: tabular-nums;

@@ -62,6 +62,7 @@ public final class ExportCommand {
 
     private static Path wrote(final TreeReading reading, final String commit,
                               final Optional<PullRequestSet> fetched) throws IOException {
+        // The whole tree is measured only where a pull request will be read against it.
         final ReportFolder folder = ReportFolder.forReadingOf(reading.root());
         final Path file = folder.file(ExportFile.NAME);
         final ExportFile exports = new ExportFile();
@@ -70,24 +71,20 @@ public final class ExportCommand {
                 reading.terms(), reading.arxivField(), reading.namesChance());
         exports.wrote(file, current);
         wroteChanges(folder, previous, current);
-        wrotePullRequests(folder, fetched);
+        wrotePullRequests(folder, reading, fetched);
         return file;
     }
 
     /**
-     * The pull requests the property names, as their own document beside the reading. A run reading none
-     * removes any document already there, so a folder never states a set the run did not read.
+     * The pull requests the property names, as their own document beside the reading, with the whole
+     * tree measured beside them so each is read against the code it joins.
      */
-    private static void wrotePullRequests(final ReportFolder folder,
+    private static void wrotePullRequests(final ReportFolder folder, final TreeReading reading,
                                           final Optional<PullRequestSet> fetched) throws IOException {
-        final Path file = folder.file(PULL_REQUESTS);
-        final PullRequestFile pullRequests = new PullRequestFile();
-        if (fetched.isEmpty()) {
-            pullRequests.removed(file);
-            return;
-        }
-        pullRequests.wrote(file, PullRequestExport.of(fetched.get().repository(),
-                read(fetched.get())));
+        PullRequestDocument.wrote(folder.file(PULL_REQUESTS).getParent(),
+                fetched.map(PullRequestSet::repository),
+                fetched.map(set -> WrittenWork.ofTheWholeTree(reading.root())),
+                fetched.map(ExportCommand::read).orElse(List.of()));
     }
 
     private static List<ExportedPullRequest> read(final PullRequestSet set) {

@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
@@ -8,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.Declaration;
 import io.github.fiftieshousewife.codesemantics.engine.parse.DeclarationDiff;
@@ -18,6 +21,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.parse.TreeMetrics;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
+import io.github.fiftieshousewife.codesemantics.engine.reading.StatedExclusions;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SurefireTestNames;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
 
@@ -29,7 +33,7 @@ import io.github.fiftieshousewife.codesemantics.engine.reading.SourceScope;
  * {@code fix:} prefix is the Conventional Commits specification's word; what no bundled standard states is
  * the name for a change that adds nine methods and removes one, so no such class is named here.
  */
-final class WrittenWork {
+public final class WrittenWork {
 
     private final DeclaredMembers members = DeclaredMembers.newInstance();
 
@@ -40,7 +44,7 @@ final class WrittenWork {
                 members.under(base, RepositoryReading.scopesUnder(base)),
                 members.under(head, scopes));
         final List<Path> read = filesIn(scopes);
-        return new ExportedWork.Written(read.size(), (int) read.stream()
+        return new ExportedWork.Written(read.size(), unread(head, read), (int) read.stream()
                 .filter(file -> !Files.exists(base.resolve(head.relativize(file))))
                 .count(),
                 counted(diff.addedByKind()), counted(diff.removedByKind()), diff.kept(),
@@ -64,6 +68,11 @@ final class WrittenWork {
                 .toList();
     }
 
+    /** The same measurement over a whole working tree, which is what a pull request is read against. */
+    public static MeasuredCode ofTheWholeTree(final Path root) {
+        return measured(root, RepositoryReading.scopesUnder(root));
+    }
+
     private static MeasuredCode measured(final Path root, final List<SourceScope> scopes) {
         return new MeasuredCode(commentLinesIn(root, scopes), metricsIn(root, scopes));
     }
@@ -72,17 +81,45 @@ final class WrittenWork {
     private static MeasuredCode.Metrics metricsIn(final Path root, final List<SourceScope> scopes) {
         final TreeMetrics.Measured measured = TreeMetrics.newInstance().under(root, scopes);
         return new MeasuredCode.Metrics(measured.types(), measured.methods(), measured.statements(),
-                measured.largestType(), measured.longestMethod(), measured.totalComplexity(),
-                measured.highestComplexity(), measured.deepestNesting(), measured.mostParameters());
+                measured.largestType(), spread(measured.methodStatements()),
+                spread(measured.complexity()), spread(measured.nesting()),
+                spread(measured.parameters()));
     }
 
-    /** The lines one tree's authors wrote as prose, counted by the lines each javadoc or comment spans. */
+    private static MeasuredCode.Spread spread(final TreeMetrics.Spread measured) {
+        return new MeasuredCode.Spread(measured.median(), measured.upperQuartile(), measured.highest());
+    }
+
+    /**
+     * The lines one tree's authors wrote as prose, each counted at what the parse says one occurrence of
+     * it is worth. Prose standing in every file was written once and copied into the rest, so a licence
+     * header sixteen lines long counts sixteen lines over the whole tree rather than sixteen per file —
+     * the weight {@code CopiedComments} derives from the tree in hand, and without it the figure would
+     * mostly count a legal instrument nobody here wrote.
+     */
     private static int commentLinesIn(final Path root, final List<SourceScope> scopes) {
-        return ParsedRepository.of(root, scopes).files().stream()
+        return (int) Math.round(ParsedRepository.of(root, scopes).files().stream()
                 .flatMap(file -> file.occurrences().stream())
                 .filter(occurrence -> occurrence.form().isProse())
-                .mapToInt(occurrence -> (int) occurrence.text().lines().count())
-                .sum();
+                .mapToDouble(occurrence -> occurrence.weight() * occurrence.text().lines().count())
+                .sum());
+    }
+
+    /**
+     * How many of the pull request's own files no scope reaches. The tree's own {@code .readingignore}
+     * travels with every copy that has one and states what the reading must leave out, so it is not a
+     * file the pull request changed and is counted as neither read nor unread.
+     */
+    private static int unread(final Path head, final List<Path> read) {
+        try (Stream<Path> everything = Files.walk(head)) {
+            return (int) everything
+                    .filter(Files::isRegularFile)
+                    .filter(file -> !StatedExclusions.FILE.equals(file.getFileName().toString()))
+                    .filter(file -> !read.contains(file))
+                    .count();
+        } catch (final IOException e) {
+            throw new UncheckedIOException("Failed to walk " + head, e);
+        }
     }
 
     private static List<Path> filesIn(final List<SourceScope> scopes) {

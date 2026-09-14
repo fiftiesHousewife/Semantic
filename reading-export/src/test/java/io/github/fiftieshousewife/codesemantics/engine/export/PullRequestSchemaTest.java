@@ -34,7 +34,7 @@ class PullRequestSchemaTest {
             List.of(new ExportedPullRequest.MatchedConcept("CSO", "inference engine", "inference engines",
                     "a component that applies rules to a knowledge base", 9)));
 
-    private static final PullRequestExport EXPORT = PullRequestExport.of("apache/tika", List.of(READ));
+    private static final PullRequestExport EXPORT = PullRequestExport.of("apache/tika", WrittenFixture.side(400, 3000), List.of(READ));
 
     private final PullRequestFile file = new PullRequestFile();
 
@@ -47,7 +47,7 @@ class PullRequestSchemaTest {
 
     @Test
     void admitsAPullRequestCarryingNoStatement() throws IOException {
-        final String document = file.of(PullRequestExport.of("apache/tika",
+        final String document = file.of(PullRequestExport.of("apache/tika", WrittenFixture.side(400, 3000),
                 List.of(new ExportedPullRequest("apache/tika", 3153, "tballison",
                         "7c80965e8f14c0465c7fdf3858009ed6cb691c30",
                         "68e57621168adf9e8e3004e3ff4ea6fd5e4c3cd7", 35, Map.of(), List.of()))));
@@ -78,7 +78,7 @@ class PullRequestSchemaTest {
     @Test
     void writesNoDocumentTheSchemaRefuses(@TempDir final Path folder) {
         final PullRequestExport unversioned =
-                new PullRequestExport("two", "apache/tika", List.of(READ));
+                new PullRequestExport("two", "apache/tika", WrittenFixture.side(400, 3000), List.of(READ));
 
         assertThatIllegalStateException()
                 .isThrownBy(() -> file.wrote(folder.resolve(PullRequestFile.NAME), unversioned))

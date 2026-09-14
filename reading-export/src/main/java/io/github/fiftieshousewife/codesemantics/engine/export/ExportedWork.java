@@ -90,6 +90,11 @@ public record ExportedWork(Stated stated, List<Issue> issues, Written written, I
      *                     same enclosing declarations
      * @param typesAdded   every type the change adds, named and pathed, and empty where it adds none
      * @param typesRemoved every type the change removes, named and pathed, and empty where it removes none
+     * @param filesUnread  how many of the files the pull request changed no scope reaches, so that
+     *                     {@code filesRead} and this account for every one of them. A changelog sits in
+     *                     no source set, no documentation directory and on no module chain, and is
+     *                     changed without being read. The tree's own {@code .readingignore} travels with
+     *                     the copy and is counted as neither
      * @param filesByKind  how many of the files read are of each kind the build's own layout states,
      *                     summing to {@code filesRead}
      * @param atHead       what the changed files measure as the pull request leaves them
@@ -98,9 +103,10 @@ public record ExportedWork(Stated stated, List<Issue> issues, Written written, I
      *                     test of the name Surefire would run — which says no test arrived with them,
      *                     never that nothing covers them
      */
-    public record Written(int filesRead, int filesAdded, Declarations added, Declarations removed, int kept,
-                          List<NamedDeclaration> typesAdded, List<NamedDeclaration> typesRemoved,
-                          List<KindFiles> filesByKind, MeasuredCode atHead, MeasuredCode atBase,
+    public record Written(int filesRead, int filesUnread, int filesAdded, Declarations added,
+                          Declarations removed, int kept, List<NamedDeclaration> typesAdded,
+                          List<NamedDeclaration> typesRemoved, List<KindFiles> filesByKind,
+                          MeasuredCode atHead, MeasuredCode atBase,
                           List<NamedDeclaration> typesAddedWithoutATest) {
 
         public Written {

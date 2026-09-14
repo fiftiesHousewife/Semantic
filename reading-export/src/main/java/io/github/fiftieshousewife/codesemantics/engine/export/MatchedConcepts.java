@@ -40,11 +40,20 @@ final class MatchedConcepts {
                 .toList();
     }
 
+    /**
+     * What the publisher calls the concept. Some state a label beside the identifier and some state the
+     * identifier alone, and a reader wants the label where there is one — OLiA's {@code Document} rather
+     * than the URI it is published under.
+     */
+    private static String named(final SkosConcept stated) {
+        return stated.prefLabel().isEmpty() ? stated.concept() : stated.prefLabel();
+    }
+
     private static ExportedPullRequest.MatchedConcept concept(final BundledTaxonomies taxonomy,
                                                               final TermSighting sighting) {
         final SkosConcept stated = sighting.concepts().getFirst();
         return new ExportedPullRequest.MatchedConcept(taxonomy.name(),
-                String.join(" ", sighting.words()), stated.concept(), stated.definition(),
+                String.join(" ", sighting.words()), named(stated), stated.definition(),
                 sighting.occurrences());
     }
 }

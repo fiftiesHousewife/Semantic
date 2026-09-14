@@ -52,8 +52,11 @@ class AuthorTablesTest {
 
         assertAll(
                 () -> assertThat(markup).contains("Types with no test"),
-                () -> assertThat(markup).contains("Highest complexity"),
-                () -> assertThat(markup).contains("Longest method"));
+                () -> assertThat(markup).contains("Complexity per method, median"),
+                () -> assertThat(markup).contains("Complexity per method, worst"),
+                () -> assertThat(markup)
+                        .as("the repository's own column is what the others are read against")
+                        .contains("class=\"number reference\""));
     }
 
     @Test

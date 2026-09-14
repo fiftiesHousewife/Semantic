@@ -51,6 +51,97 @@ class WrittenWorkTest {
                 () -> assertThat(written.filesAdded()).isZero());
     }
 
+    private static final String LICENCE = """
+            /*
+             * Licensed to the Apache Software Foundation under one or more
+             * contributor license agreements. See the NOTICE file.
+             */
+            """;
+
+    @Test
+    void countsALicenceHeaderStandingInEveryFileOnce(@TempDir final Path alone) throws IOException {
+        wrote(alone, "Engine.java", LICENCE + "class Engine {\n}\n");
+        wrote(head, "Engine.java", LICENCE + "class Engine {\n}\n");
+        wrote(head, "Loader.java", LICENCE + "class Loader {\n}\n");
+
+        assertThat(work.between(base, head).atHead().commentLines())
+                .as("one legal instrument repeated once per file was written once, so a second file "
+                        + "carrying it adds nothing; counting it per file would outweigh whatever the "
+                        + "repository is for")
+                .isEqualTo(work.between(base, alone).atHead().commentLines());
+    }
+
+    @Test
+    void countsTheProseAnAuthorWroteWhereItStandsAlone(@TempDir final Path alone) throws IOException {
+        final String documented = """
+                class Engine {
+                    /**
+                     * Loads the engine the configuration names.
+                     */
+                    void load() {
+                    }
+                }
+                """;
+        wrote(alone, "Engine.java", documented);
+        wrote(head, "Engine.java", documented);
+        wrote(head, "Loader.java", "class Loader {\n}\n");
+
+        assertThat(work.between(base, head).atHead().commentLines())
+                .as("prose standing in one file is that author's own and is counted whole")
+                .isEqualTo(work.between(base, alone).atHead().commentLines())
+                .isPositive();
+    }
+
+    @Test
+    void countsAChangedFileNoScopeReachesAsUnread() throws IOException {
+        wrote(base, "Engine.java", ENGINE);
+        wrote(head, "Engine.java", ENGINE);
+        Files.writeString(head.resolve("CHANGES.txt"), "Added inference bindings.\n");
+
+        final ExportedWork.Written written = work.between(base, head);
+
+        assertAll(
+                () -> assertThat(written.filesRead())
+                        .as("a changelog sits in no source set, no documentation directory and on no "
+                                + "module chain, so nothing reaches it")
+                        .isEqualTo(1),
+                () -> assertThat(written.filesUnread()).isEqualTo(1),
+                () -> assertThat(written.filesRead() + written.filesUnread())
+                        .as("every file the pull request changed is read or is counted as unread")
+                        .isEqualTo(2));
+    }
+
+    @Test
+    void countsEveryFileItReadsUnderExactlyOneKind() throws IOException {
+        wrote(head, "Engine.java", ENGINE);
+        Files.createDirectories(head.resolve("docs"));
+        Files.writeString(head.resolve("docs").resolve("inference.md"), "Loading an engine.\n");
+        Files.writeString(head.resolve("CHANGES.txt"), "Added inference bindings.\n");
+
+        final ExportedWork.Written written = work.between(base, head);
+
+        assertThat(written.filesByKind().stream()
+                .mapToInt(ExportedWork.KindFiles::files)
+                .sum())
+                .as("the kinds account for every file read, and the unread ones are counted apart")
+                .isEqualTo(written.filesRead());
+    }
+
+    @Test
+    void countsTheTreesOwnExclusionsAsNeitherReadNorUnread() throws IOException {
+        wrote(head, "Engine.java", ENGINE);
+        Files.writeString(head.resolve(".readingignore"), "docs/\n");
+
+        final ExportedWork.Written written = work.between(base, head);
+
+        assertAll(
+                () -> assertThat(written.filesRead()).isEqualTo(1),
+                () -> assertThat(written.filesUnread())
+                        .as("the tree's own statement of what to exclude travels with the copy and is "
+                                + "not a file the pull request changed")
+                        .isZero());
+    }
+
     @Test
     void namesEveryTypeAFileTheHeadAloneStatesAdds() throws IOException {
         wrote(base, "Engine.java", ENGINE);

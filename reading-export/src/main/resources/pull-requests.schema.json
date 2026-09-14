@@ -8,6 +8,7 @@
   "required": [
     "schemaVersion",
     "repository",
+    "repositoryCode",
     "pullRequests"
   ],
   "properties": {
@@ -292,14 +293,15 @@
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
-                  "filesRead",
-                  "filesAdded",
                   "added",
-                  "removed",
-                  "kept",
-                  "filesByKind",
+                  "atBase",
                   "atHead",
-                  "atBase"
+                  "filesAdded",
+                  "filesByKind",
+                  "filesRead",
+                  "filesUnread",
+                  "kept",
+                  "removed"
                 ],
                 "properties": {
                   "filesRead": {
@@ -409,6 +411,8 @@
                     }
                   },
                   "atHead": {
+                    "title": "At the head commit",
+                    "description": "What the changed files measure as the pull request leaves them.",
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
@@ -418,13 +422,13 @@
                     "properties": {
                       "commentLines": {
                         "title": "Comment lines",
-                        "description": "How many lines the authors wrote as javadoc or as comments. Prose is the one thing counted in lines: a line count of code moves with the formatter and with the javadoc above it, so the code is counted by what it declares and what its methods carry.",
+                        "description": "How many lines the authors wrote as javadoc or as comments, each counted at what the parse says one occurrence of it is worth. Prose standing in every file was written once and copied into the rest, so a licence header counts once over the tree rather than once per file.",
                         "type": "integer",
                         "minimum": 0
                       },
                       "metrics": {
                         "title": "Size and complexity",
-                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837): one per method, plus one for each point at which control can branch.",
+                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The quantiles are the nearest-rank ones, which need no interpolation and land on a figure some method actually has; the largest alone says what the worst method is and nothing about the rest. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837), whose own paper proposes ten as the limit for one module.",
                         "type": "object",
                         "additionalProperties": false,
                         "required": [
@@ -432,11 +436,10 @@
                           "methods",
                           "statements",
                           "largestType",
-                          "longestMethod",
-                          "totalComplexity",
-                          "highestComplexity",
-                          "deepestNesting",
-                          "mostParameters"
+                          "methodStatements",
+                          "complexity",
+                          "nesting",
+                          "parameters"
                         ],
                         "properties": {
                           "types": {
@@ -463,43 +466,137 @@
                             "type": "integer",
                             "minimum": 0
                           },
-                          "longestMethod": {
-                            "title": "Longest method",
-                            "description": "The most statements any one method carries.",
-                            "type": "integer",
-                            "minimum": 0
+                          "methodStatements": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Statements per method",
+                            "description": "How the statements per method are spread."
                           },
-                          "totalComplexity": {
-                            "title": "Total complexity",
-                            "description": "McCabe's complexity summed over every method.",
-                            "type": "integer",
-                            "minimum": 0
+                          "complexity": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Complexity per method",
+                            "description": "How McCabe's complexity is spread over those methods."
                           },
-                          "highestComplexity": {
-                            "title": "Highest complexity",
-                            "description": "The largest any one method reaches.",
-                            "type": "integer",
-                            "minimum": 0
+                          "nesting": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Nesting per method",
+                            "description": "How the deepest block per method is spread, counting its own body as one."
                           },
-                          "deepestNesting": {
-                            "title": "Deepest nesting",
-                            "description": "The deepest block any method holds, counting its own body as one.",
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "mostParameters": {
-                            "title": "Most parameters",
-                            "description": "The most parameters any one method declares.",
-                            "type": "integer",
-                            "minimum": 0
+                          "parameters": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Parameters per method",
+                            "description": "How the parameters per method are spread."
                           }
                         }
                       }
-                    },
-                    "title": "At the head commit",
-                    "description": "What the changed files measure as the pull request leaves them."
+                    }
                   },
                   "atBase": {
+                    "title": "At the base commit",
+                    "description": "What the same files measured as the pull request found them.",
                     "type": "object",
                     "additionalProperties": false,
                     "required": [
@@ -509,13 +606,13 @@
                     "properties": {
                       "commentLines": {
                         "title": "Comment lines",
-                        "description": "How many lines the authors wrote as javadoc or as comments. Prose is the one thing counted in lines: a line count of code moves with the formatter and with the javadoc above it, so the code is counted by what it declares and what its methods carry.",
+                        "description": "How many lines the authors wrote as javadoc or as comments, each counted at what the parse says one occurrence of it is worth. Prose standing in every file was written once and copied into the rest, so a licence header counts once over the tree rather than once per file.",
                         "type": "integer",
                         "minimum": 0
                       },
                       "metrics": {
                         "title": "Size and complexity",
-                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837): one per method, plus one for each point at which control can branch.",
+                        "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The quantiles are the nearest-rank ones, which need no interpolation and land on a figure some method actually has; the largest alone says what the worst method is and nothing about the rest. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837), whose own paper proposes ten as the limit for one module.",
                         "type": "object",
                         "additionalProperties": false,
                         "required": [
@@ -523,11 +620,10 @@
                           "methods",
                           "statements",
                           "largestType",
-                          "longestMethod",
-                          "totalComplexity",
-                          "highestComplexity",
-                          "deepestNesting",
-                          "mostParameters"
+                          "methodStatements",
+                          "complexity",
+                          "nesting",
+                          "parameters"
                         ],
                         "properties": {
                           "types": {
@@ -554,41 +650,133 @@
                             "type": "integer",
                             "minimum": 0
                           },
-                          "longestMethod": {
-                            "title": "Longest method",
-                            "description": "The most statements any one method carries.",
-                            "type": "integer",
-                            "minimum": 0
+                          "methodStatements": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Statements per method",
+                            "description": "How the statements per method are spread."
                           },
-                          "totalComplexity": {
-                            "title": "Total complexity",
-                            "description": "McCabe's complexity summed over every method.",
-                            "type": "integer",
-                            "minimum": 0
+                          "complexity": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Complexity per method",
+                            "description": "How McCabe's complexity is spread over those methods."
                           },
-                          "highestComplexity": {
-                            "title": "Highest complexity",
-                            "description": "The largest any one method reaches.",
-                            "type": "integer",
-                            "minimum": 0
+                          "nesting": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Nesting per method",
+                            "description": "How the deepest block per method is spread, counting its own body as one."
                           },
-                          "deepestNesting": {
-                            "title": "Deepest nesting",
-                            "description": "The deepest block any method holds, counting its own body as one.",
-                            "type": "integer",
-                            "minimum": 0
-                          },
-                          "mostParameters": {
-                            "title": "Most parameters",
-                            "description": "The most parameters any one method declares.",
-                            "type": "integer",
-                            "minimum": 0
+                          "parameters": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                              "median",
+                              "upperQuartile",
+                              "highest"
+                            ],
+                            "properties": {
+                              "median": {
+                                "title": "Median",
+                                "description": "The value at the middle of the sorted methods.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "upperQuartile": {
+                                "title": "Upper quartile",
+                                "description": "The value three quarters of the way up them.",
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "highest": {
+                                "title": "Highest",
+                                "description": "The largest any one method reaches.",
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "title": "Parameters per method",
+                            "description": "How the parameters per method are spread."
                           }
                         }
                       }
-                    },
-                    "title": "At the base commit",
-                    "description": "What the same files measured as the pull request found them."
+                    }
                   },
                   "typesAdded": {
                     "title": "Types added",
@@ -664,6 +852,12 @@
                         }
                       }
                     }
+                  },
+                  "filesUnread": {
+                    "title": "Files unread",
+                    "description": "How many of the files the pull request changed no scope reaches, so that filesRead and this account for every one of them. A changelog sits in no source set, no documentation directory and on no module chain. The tree's own .readingignore travels with the copy and is counted as neither.",
+                    "type": "integer",
+                    "minimum": 0
                   }
                 }
               },
@@ -743,6 +937,190 @@
                   "minimum": 1
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "repositoryCode": {
+      "title": "The repository's own code",
+      "description": "What the whole working tree measures at the commit it was read at, so a pull request's figures are read against the code they join rather than against a number chosen here. A method carrying sixty statements says one thing where the repository's own worst carries sixty-two and another where it carries two hundred.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commentLines",
+        "metrics"
+      ],
+      "properties": {
+        "commentLines": {
+          "title": "Comment lines",
+          "description": "How many lines the authors wrote as javadoc or as comments, each counted at what the parse says one occurrence of it is worth. Prose standing in every file was written once and copied into the rest, so a licence header counts once over the tree rather than once per file.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "metrics": {
+          "title": "Size and complexity",
+          "description": "The size and complexity of what the files declare. Size is counted in statements and in members, never in lines. The quantiles are the nearest-rank ones, which need no interpolation and land on a figure some method actually has; the largest alone says what the worst method is and nothing about the rest. The complexity is McCabe's (https://doi.org/10.1109/TSE.1976.233837), whose own paper proposes ten as the limit for one module.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "types",
+            "methods",
+            "statements",
+            "largestType",
+            "methodStatements",
+            "complexity",
+            "nesting",
+            "parameters"
+          ],
+          "properties": {
+            "types": {
+              "title": "Types",
+              "description": "How many types the files declare.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "methods": {
+              "title": "Methods",
+              "description": "How many methods and constructors they declare.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "statements": {
+              "title": "Statements",
+              "description": "How many statements those methods carry in total. A block holds statements and is not counted as one.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "largestType": {
+              "title": "Largest type",
+              "description": "The most members any one type declares.",
+              "type": "integer",
+              "minimum": 0
+            },
+            "methodStatements": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "median",
+                "upperQuartile",
+                "highest"
+              ],
+              "properties": {
+                "median": {
+                  "title": "Median",
+                  "description": "The value at the middle of the sorted methods.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "upperQuartile": {
+                  "title": "Upper quartile",
+                  "description": "The value three quarters of the way up them.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "highest": {
+                  "title": "Highest",
+                  "description": "The largest any one method reaches.",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "title": "Statements per method",
+              "description": "How the statements per method are spread."
+            },
+            "complexity": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "median",
+                "upperQuartile",
+                "highest"
+              ],
+              "properties": {
+                "median": {
+                  "title": "Median",
+                  "description": "The value at the middle of the sorted methods.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "upperQuartile": {
+                  "title": "Upper quartile",
+                  "description": "The value three quarters of the way up them.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "highest": {
+                  "title": "Highest",
+                  "description": "The largest any one method reaches.",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "title": "Complexity per method",
+              "description": "How McCabe's complexity is spread over those methods."
+            },
+            "nesting": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "median",
+                "upperQuartile",
+                "highest"
+              ],
+              "properties": {
+                "median": {
+                  "title": "Median",
+                  "description": "The value at the middle of the sorted methods.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "upperQuartile": {
+                  "title": "Upper quartile",
+                  "description": "The value three quarters of the way up them.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "highest": {
+                  "title": "Highest",
+                  "description": "The largest any one method reaches.",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "title": "Nesting per method",
+              "description": "How the deepest block per method is spread, counting its own body as one."
+            },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "median",
+                "upperQuartile",
+                "highest"
+              ],
+              "properties": {
+                "median": {
+                  "title": "Median",
+                  "description": "The value at the middle of the sorted methods.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "upperQuartile": {
+                  "title": "Upper quartile",
+                  "description": "The value three quarters of the way up them.",
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "highest": {
+                  "title": "Highest",
+                  "description": "The largest any one method reaches.",
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "title": "Parameters per method",
+              "description": "How the parameters per method are spread."
             }
           }
         }

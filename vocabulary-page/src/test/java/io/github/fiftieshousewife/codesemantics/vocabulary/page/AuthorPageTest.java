@@ -22,7 +22,7 @@ class AuthorPageTest {
 
         assertAll(
                 () -> assertThat(markup).contains("<title>tballison on tika</title>"),
-                () -> assertThat(markup).contains("2 pull requests, changing 3 files"),
+                () -> assertThat(markup).contains("2 pull requests, 3 files changed"),
                 () -> assertThat(markup).contains("3153"),
                 () -> assertThat(markup).contains("3154"),
                 () -> assertThat(markup).contains(PullRequestFixture.HEAD));
@@ -34,7 +34,7 @@ class AuthorPageTest {
 
         assertAll(
                 () -> assertThat(markup).contains("calls all 2 a Task"),
-                () -> assertThat(markup).contains("counts 10 declarations added and 1 declaration removed"),
+                () -> assertThat(markup).contains("10 declarations added and 1 declaration removed"),
                 () -> assertThat(markup).contains("href=\"https://github.com/tballison\""),
                 () -> assertThat(markup).contains("Engine"),
                 () -> assertThat(markup).contains("Conventional Commits"));

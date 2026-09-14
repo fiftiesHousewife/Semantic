@@ -50,19 +50,23 @@ class TreeMetricsTest {
                 () -> assertThat(measured.largestType())
                         .as("a type is measured by the members it declares")
                         .isEqualTo(2),
-                () -> assertThat(measured.longestMethod()).isEqualTo(2),
-                () -> assertThat(measured.totalComplexity()).isEqualTo(4),
-                () -> assertThat(measured.highestComplexity()).isEqualTo(3),
-                () -> assertThat(measured.deepestNesting()).isEqualTo(2),
-                () -> assertThat(measured.mostParameters()).isEqualTo(2));
+                () -> assertThat(measured.methodStatements().highest()).isEqualTo(2),
+                () -> assertThat(measured.methodStatements().median())
+                        .as("two methods carrying two statements and one, so the middle is the smaller")
+                        .isEqualTo(1),
+                () -> assertThat(measured.complexity().highest()).isEqualTo(3),
+                () -> assertThat(measured.complexity().median()).isEqualTo(1),
+                () -> assertThat(measured.nesting().highest()).isEqualTo(2),
+                () -> assertThat(measured.parameters().highest()).isEqualTo(2),
+                () -> assertThat(measured.parameters().upperQuartile()).isEqualTo(2));
     }
 
     @Test
     void measuresNothingWhereTheScopesReachNoJavaFile() {
         assertAll(
                 () -> assertThat(metrics.under(tree, List.of()).types()).isZero(),
-                () -> assertThat(metrics.under(tree, List.of()).longestMethod()).isZero(),
-                () -> assertThat(metrics.under(tree, List.of()).totalComplexity()).isZero());
+                () -> assertThat(metrics.under(tree, List.of()).methodStatements().highest()).isZero(),
+                () -> assertThat(metrics.under(tree, List.of()).complexity().median()).isZero());
     }
 
     @Test

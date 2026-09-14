@@ -21,20 +21,19 @@ final class AuthorSummary {
 
     private final AuthorWords words = new AuthorWords();
 
-    /** How much work: the pull requests, the files, and the declarations they add and remove. */
+    /**
+     * How much work, in one line. What the reading covers of those files and how many are new are the
+     * table's columns, and a line repeating them says nothing the reader is about to read anyway.
+     */
     String volume(final AuthorPullRequests author) {
-        final String opened = String.format(Locale.ROOT, "%s, changing %s.",
+        final String opened = String.format(Locale.ROOT, "%s, %s changed",
                 Counted.of(author.pullRequests().size(), "pull request"),
                 Counted.of(author.changedFiles(), "file"));
         if (author.readAgainstABase() == 0) {
-            return opened;
+            return opened + ".";
         }
-        return String.format(Locale.ROOT,
-                "%s The reading covers %d of those files, %d of them new, and counts %s added and %s "
-                        + "removed.",
-                opened, author.filesRead(), author.filesAdded(),
-                Counted.of(author.added().total(), "declaration"),
-                removed(author.removed()));
+        return String.format(Locale.ROOT, "%s, %s added and %s removed.", opened,
+                Counted.of(author.added().total(), "declaration"), removed(author.removed()));
     }
 
     /** What kind of change: the standard's word for it, and the shape that word covers. */
@@ -46,13 +45,11 @@ final class AuthorSummary {
         }
         final Map<String, ExportedWork.Inferred> covered = author.inferred();
         if (covered.isEmpty()) {
-            return "No standard's definition covers the shape of these changes, so nothing names the "
-                    + "kind of work they are.";
+            return "No published definition covers the shape of these changes.";
         }
-        return String.format(Locale.ROOT, "Conventional Commits calls %s: %s %s.",
-                counted(author.inferredCounts(), author.pullRequests().size()),
-                author.pullRequests().size() == 1 ? "it" : "each",
-                shapes(covered));
+        return String.format(Locale.ROOT, "%s %s — %s under Conventional Commits.",
+                author.pullRequests().size() == 1 ? "It" : "Each",
+                shapes(covered), words(author.inferredCounts()));
     }
 
     /** What the repository's own tracker calls the work, and nothing where it states none. */
@@ -65,22 +62,23 @@ final class AuthorSummary {
                 counted(types, author.pullRequests().size()));
     }
 
-    /** What the code is about: the words more than one pull request writes above both references. */
+    /** What the code is about. Which words count and why is the section's own lede, not this line. */
     String subject(final AuthorPullRequests author) {
         final List<AuthorWords.Shared> shared = words.acrossPullRequests(author).stream()
                 .filter(word -> word.pullRequests() > 1 || author.pullRequests().size() == 1)
                 .limit(QUOTED_WORDS)
                 .toList();
         if (shared.isEmpty()) {
-            return String.format(Locale.ROOT,
-                    "No word is written more densely than both references in more than one of the %d, so "
-                            + "they have no subject matter in common.",
-                    author.pullRequests().size());
+            return "They have no subject matter in common.";
         }
-        return String.format(Locale.ROOT,
-                "Their code is about %s — each written more densely than both ordinary English and a "
-                        + "reference corpus of ten Java repositories.",
-                shared.stream().map(AuthorWords.Shared::word).collect(Collectors.joining(", ")));
+        return "About " + shared.stream()
+                .map(AuthorWords.Shared::word)
+                .collect(Collectors.joining(", ")) + ".";
+    }
+
+    /** Each word the shapes reach, without the count where every change reaches the same one. */
+    private static String words(final Map<String, Integer> types) {
+        return String.join(", ", types.keySet());
     }
 
     private static String shapes(final Map<String, ExportedWork.Inferred> covered) {

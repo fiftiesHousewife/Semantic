@@ -41,7 +41,8 @@ class PullRequestSectionTest {
     }
 
     private static List<AuthorPullRequests> byAuthor(final ExportedPullRequest... pullRequests) {
-        return AuthorPullRequests.in(PullRequestExport.of("apache/tika", List.of(pullRequests)),
+        return AuthorPullRequests.in(PullRequestExport.of("apache/tika", PullRequestFixture.side(400, 3000),
+                List.of(pullRequests)),
                 ReadingExport.of(
                         new ExportedSummary("tika", "c0ffee", List.of(ExportedAnswer.NONE), List.of(),
                                 List.of(), List.of(), List.of(), List.of(), List.of(), 0.9, 0.5,
