@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "ac96fe48ddc3030dcf9803f31694fba40a568a22",
-  "commit" : "b7d39d09d2208e3518ad57e6ee06cbda4a7efcba",
+  "previousCommit" : "b7d39d09d2208e3518ad57e6ee06cbda4a7efcba",
+  "commit" : "38be78d1b0197df25411bb3dddecbb83a2d8ebc4",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -15,11 +15,11 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.9%",
-    "after" : "32.8%"
+    "before" : "32.8%",
+    "after" : "32.9%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.9%",
+    "before" : "40.8%",
     "after" : "40.8%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
@@ -39,7 +39,7 @@
     "after" : "42.0%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.1%",
+    "before" : "45.2%",
     "after" : "45.2%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -59,7 +59,7 @@
     "after" : "23.6%"
   }, {
     "figure" : "OpenAlex archive — chance reaches",
-    "before" : "31.5%",
+    "before" : "31.4%",
     "after" : "31.4%"
   }, {
     "figure" : "OpenAlex archive — stands apart from chance",
@@ -76,7 +76,7 @@
   }, {
     "figure" : "OpenAlex category — divergence",
     "before" : "40.5%",
-    "after" : "40.5%"
+    "after" : "40.4%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
     "before" : "48.4%",
@@ -115,7 +115,7 @@
     "after" : "information technology"
   }, {
     "figure" : "CSO category — divergence",
-    "before" : "24.3%",
+    "before" : "24.2%",
     "after" : "24.2%"
   }, {
     "figure" : "CSO category — chance reaches",
