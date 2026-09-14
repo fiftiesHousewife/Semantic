@@ -34,21 +34,33 @@ final class AuthorQuality {
                 complexity(author), outliers(author)).trim();
     }
 
-    private static String changed(final AuthorPullRequests author) {
-        return String.format(Locale.ROOT, "These pull requests add %s and remove %s, across %d "
-                        + "files the build publishes and %d that test them.",
-                DeclarationPhrase.of(author.added()), DeclarationPhrase.of(author.removed()),
-                filesOf(author, SourceKind.PRODUCTION), filesOf(author, SourceKind.TESTS));
+    /** What they add and remove, and across how many files of each kind. */
+    String changed(final AuthorPullRequests author) {
+        final int many = author.pullRequests().size();
+        return String.format(Locale.ROOT, "%s %s and %s %s, across %d files the build publishes and "
+                        + "%d that test them.",
+                Counted.agreeing(many, "This pull request adds", "These pull requests add"),
+                DeclarationPhrase.of(author.added()),
+                Counted.agreeing(many, "removes", "remove"),
+                DeclarationPhrase.of(author.removed()),
+                AuthorTotals.filesOf(author, SourceKind.PRODUCTION),
+                AuthorTotals.filesOf(author, SourceKind.TESTS));
     }
 
-    private static String tested(final AuthorPullRequests author) {
-        final int untested = author.typesAddedWithoutATest().size();
-        if (untested == 0) {
-            return "Every type they add to the published code arrives with a test named for it.";
+    /** How many of the types they add to the published code arrive with no test. */
+    String tested(final AuthorPullRequests author) {
+        final int many = author.pullRequests().size();
+        final String add = Counted.agreeing(many, "it adds", "they add");
+        if (author.added().types() == 0) {
+            return Counted.agreeing(many, "It declares", "They declare")
+                    + " no type the build did not already publish.";
         }
-        return String.format(Locale.ROOT,
-                "%d of the types they add to the published code arrive with no test named for them.",
-                untested);
+        if (author.typesAddedWithoutATest().isEmpty()) {
+            return String.format(Locale.ROOT, "Every type %s to the published code arrives with a "
+                    + "test named for it.", add);
+        }
+        return String.format(Locale.ROOT, "%d of the types %s to the published code arrive with no "
+                + "test named for them.", author.typesAddedWithoutATest().size(), add);
     }
 
     /**
@@ -63,26 +75,28 @@ final class AuthorQuality {
      * <p>The pull requests' own figure is the middle one's, so a single unusual change does not carry the
      * sentence, and a change declaring no method at all is read past rather than counted as nought.
      */
-    private static String complexity(final AuthorPullRequests author) {
+    String complexity(final AuthorPullRequests author) {
         final int repository = author.repositoryCode().metrics().complexity().upperQuartile();
         final List<Integer> declared = declaring(author)
                 .map(metrics -> metrics.complexity().upperQuartile())
                 .toList();
+        final int many = author.pullRequests().size();
         if (declared.isEmpty()) {
-            return "None of them declares a method, so there is nothing to compare with the "
-                    + "repository\u2019s own.";
+            return Counted.agreeing(many, "It declares no method", "None of them declares a method")
+                    + ", so there is nothing to compare with the repository\u2019s own.";
         }
-        return said(middleOf(declared), repository);
+        return said(many, middleOf(declared), repository);
     }
 
-    private static String said(final int theirs, final int repository) {
+    private static String said(final int many, final int theirs, final int repository) {
+        final String whose = Counted.agreeing(many, "The methods it leaves are", "Their methods are");
         if (theirs == repository) {
-            return String.format(Locale.ROOT, "Their methods are as complex as the repository\u2019s "
-                    + "own, at a 75th centile of %d each.", repository);
+            return String.format(Locale.ROOT, "%s as complex as the repository\u2019s own, at a 75th "
+                    + "centile of %d each.", whose, repository);
         }
-        return String.format(Locale.ROOT, "Their methods are %s complex than the repository\u2019s own, "
-                + "at a 75th centile of %d against its %d.",
-                theirs > repository ? "more" : "less", theirs, repository);
+        return String.format(Locale.ROOT, "%s %s complex than the repository\u2019s own, at a 75th "
+                + "centile of %d against its %d.", whose, theirs > repository ? "more" : "less",
+                theirs, repository);
     }
 
     /**
@@ -94,7 +108,7 @@ final class AuthorQuality {
      * same measure. Where nothing declares a method there is nothing to count, and the sentence above
      * has already said so.
      */
-    private static String outliers(final AuthorPullRequests author) {
+    String outliers(final AuthorPullRequests author) {
         final MeasuredCode.Metrics repository = author.repositoryCode().metrics();
         if (declaring(author).findAny().isEmpty()) {
             return "";
@@ -103,13 +117,14 @@ final class AuthorQuality {
                 repository.complexity());
         final long longest = past(author, metrics -> metrics.methodStatements().highest(),
                 repository.methodStatements());
+        final int many = author.pullRequests().size();
         if (complex == 0 && longest == 0) {
-            return "None of them leaves a method past the repository\u2019s 75th centile, for "
-                    + "complexity or for length.";
+            return Counted.agreeing(many, "It leaves no method", "None of them leaves a method")
+                    + " past the repository\u2019s 75th centile, for complexity or for length.";
         }
-        return String.format(Locale.ROOT, "Of these, %d %s a method past the repository\u2019s 75th "
-                + "centile for complexity and %d for length.", complex,
-                complex == 1 ? "leaves" : "leave", longest);
+        return String.format(Locale.ROOT, "%s%d %s a method past the repository\u2019s 75th centile "
+                + "for complexity and %d for length.", Counted.agreeing(many, "", "Of these, "),
+                complex, complex == 1 ? "leaves" : "leave", longest);
     }
 
     /** How many changes leave one method past the repository's own 75th centile for this measure. */
@@ -138,14 +153,6 @@ final class AuthorQuality {
                 .sorted()
                 .toList();
         return sorted.get((int) Math.ceil(MIDDLE * sorted.size()) - 1);
-    }
-
-    private static int filesOf(final AuthorPullRequests author, final SourceKind kind) {
-        return written(author)
-                .flatMap(diff -> diff.filesByKind().stream())
-                .filter(files -> kind.published().equals(files.kind()))
-                .mapToInt(ChangedCode.KindFiles::files)
-                .sum();
     }
 
     private static Stream<ChangedCode> written(

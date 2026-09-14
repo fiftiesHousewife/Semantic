@@ -101,6 +101,26 @@ class AuthorQualityTest {
     }
 
     @Test
+    void writesEverySentenceForOneChangeWhereTheAuthorOpenedOnlyOne() {
+        final String said = quality.of(author(5));
+
+        assertAll(
+                () -> assertThat(said).startsWith("This pull request adds"),
+                () -> assertThat(said).contains("The methods it leaves are more complex"),
+                () -> assertThat(said)
+                        .as("one change is not \"of these\", and it leaves rather than they leave")
+                        .contains("1 leaves a method past")
+                        .doesNotContain("Of these"));
+    }
+
+    @Test
+    void writesTheNoneSentenceForOneChangeWithoutADoubleNegative() {
+        assertThat(quality.of(author(1)))
+                .contains("It leaves no method past the repository’s 75th centile, for complexity "
+                        + "or for length.");
+    }
+
+    @Test
     void namesNeitherTheQuartileCountsNorTheLengthTheTableCarriesBelow() {
         final String said = quality.of(author(3, 5, 5));
 

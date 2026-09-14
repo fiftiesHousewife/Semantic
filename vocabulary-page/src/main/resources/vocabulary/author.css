@@ -57,6 +57,32 @@
     margin: 0 0 var(--step);
 }
 
+/* The whole report in one list, a line per question the sections answer. The question is what a reader
+   scans, so it holds the left edge and the figures run on from it. */
+.overview {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: var(--rule-width);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.overview li {
+    margin: 0 0 calc(var(--step) * 0.75);
+}
+
+.overview li b a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+}
+
+.overview li b a:hover,
+.overview li b a:focus {
+    border-bottom-color: var(--count);
+}
+
 section {
     margin-top: calc(var(--step) * 4);
     border-top: 1px solid var(--rule);

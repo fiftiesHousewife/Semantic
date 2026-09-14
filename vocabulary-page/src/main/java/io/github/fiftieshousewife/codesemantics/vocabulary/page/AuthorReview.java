@@ -168,17 +168,11 @@ final class AuthorReview {
     private static TrTag addedRow(final ExportedPullRequest pullRequest) {
         final Optional<ChangedCode> written = PullRequestWork.written(pullRequest);
         return tr(PullRequestLink.cell(pullRequest),
-                Figure.counted(written.map(AuthorReview::statements)),
-                Figure.counted(written.map(AuthorReview::comment)),
+                Figure.counted(written.map(AuthorTotals::statementsAdded)),
+                Figure.counted(written.map(AuthorTotals::proseLinesAdded)),
                 Figure.counted(written.map(diff -> diff.typesAddedWithoutATest().size())),
                 Figure.counted(written.map(ChangedCode::testMethodsAdded)));
     }
 
-    private static int comment(final ChangedCode written) {
-        return written.atHead().commentLines() - written.atBase().commentLines();
-    }
 
-    private static int statements(final ChangedCode written) {
-        return written.atHead().metrics().statements() - written.atBase().metrics().statements();
-    }
 }

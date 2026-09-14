@@ -11,4 +11,9 @@ final class Counted {
     static String of(final int count, final String noun) {
         return String.format(Locale.ROOT, "%d %s%s", count, noun, count == 1 ? "" : "s");
     }
+
+    /** Whichever of the two wordings agrees with this count, for a sentence naming the thing itself. */
+    static String agreeing(final int count, final String one, final String more) {
+        return count == 1 ? one : more;
+    }
 }

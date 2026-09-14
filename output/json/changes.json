@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "659e2c6da18672acb95ad700cef4a1872cc93815",
-  "commit" : "c5998e3d433c05fdfad059f406d3eac4ae4fd217",
+  "previousCommit" : "c5998e3d433c05fdfad059f406d3eac4ae4fd217",
+  "commit" : "084e898cf1b4ec329563a30a587ad1b48dc3b71b",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -16,7 +16,7 @@
   }, {
     "figure" : "arXiv archive — divergence",
     "before" : "32.8%",
-    "after" : "32.8%"
+    "after" : "32.9%"
   }, {
     "figure" : "arXiv archive — chance reaches",
     "before" : "40.8%",
@@ -36,7 +36,7 @@
   }, {
     "figure" : "arXiv category — divergence",
     "before" : "42.0%",
-    "after" : "42.0%"
+    "after" : "42.1%"
   }, {
     "figure" : "arXiv category — chance reaches",
     "before" : "45.2%",
@@ -96,11 +96,11 @@
   }, {
     "figure" : "CSO archive — divergence",
     "before" : "19.5%",
-    "after" : "19.5%"
+    "after" : "19.6%"
   }, {
     "figure" : "CSO archive — chance reaches",
     "before" : "26.4%",
-    "after" : "26.4%"
+    "after" : "26.5%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
     "before" : "yes",
@@ -116,11 +116,11 @@
   }, {
     "figure" : "CSO category — divergence",
     "before" : "24.2%",
-    "after" : "24.2%"
+    "after" : "24.3%"
   }, {
     "figure" : "CSO category — chance reaches",
     "before" : "28.6%",
-    "after" : "28.6%"
+    "after" : "28.7%"
   }, {
     "figure" : "CSO category — stands apart from chance",
     "before" : "yes",
@@ -132,7 +132,7 @@
   }, {
     "figure" : "Words above the bar",
     "before" : "310",
-    "after" : "310"
+    "after" : "312"
   }, {
     "figure" : "Topics reported",
     "before" : "11",
@@ -142,5 +142,13 @@
     "before" : "144",
     "after" : "144"
   } ],
-  "crossings" : [ ]
+  "crossings" : [ {
+    "population" : "WORD",
+    "name" : "changed",
+    "entered" : true
+  }, {
+    "population" : "WORD",
+    "name" : "leaves",
+    "entered" : true
+  } ]
 }
