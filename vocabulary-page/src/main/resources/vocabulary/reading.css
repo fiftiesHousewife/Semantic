@@ -146,18 +146,6 @@ h3 {
 .cloud b[data-band="1"] { color: var(--ink-soft);  font-weight: 450; }
 .cloud b[data-band="0"] { color: var(--ink-ghost); font-weight: 350; }
 
-.chip {
-    display: inline-block;
-    width: 0.5em;
-    height: 0.5em;
-    border-radius: 50%;
-    margin-right: 0.3em;
-}
-
-.chip.set-0 { background: var(--set-a); }
-.chip.set-1 { background: var(--set-b); }
-.chip.set-2 { background: var(--set-c); }
-
 .readout {
     min-height: 1.5rem;
     color: var(--ink-soft);
@@ -217,12 +205,6 @@ h3 {
     font-weight: 600;
     margin: 0 0 0.5rem;
     color: var(--ink-soft);
-}
-
-.overlaps .chip {
-    width: 0.7em;
-    height: 0.7em;
-    margin-right: 0.35em;
 }
 
 .overlaps .words {

@@ -17,7 +17,6 @@
     var GRID_STEP = 5;
 
     var data = JSON.parse(document.getElementById("reading").textContent);
-    var leading = data.leadingDomains || [];
     var overlap = data.overlap || {domains: [], regions: [], otherDomains: []};
     var cloudReadout = document.querySelector(".cloud-readout");
     var vennReadout = document.querySelector(".venn-readout");
@@ -43,17 +42,6 @@
     }
 
     /* ---- the cloud ---- */
-
-    function chipFor(tile) {
-        var place = -1;
-        (tile.domains || []).forEach(function (domain) {
-            var found = leading.indexOf(domain);
-            if (found >= 0 && (place < 0 || found < place)) {
-                place = found;
-            }
-        });
-        return place < 0 ? null : element("span", "chip set-" + place);
-    }
 
     function tileStatement(tile) {
         var parts = [tile.label + " — " + tile.claim.toFixed(4) + " bits, "
@@ -103,10 +91,6 @@
         var doublings = Math.log(loudest) / Math.LN2;
         centred(tiles).forEach(function (tile) {
             var made = element("b", tile.members.length > 1 ? "merged" : null);
-            var chip = chipFor(tile);
-            if (chip !== null) {
-                made.appendChild(chip);
-            }
             made.appendChild(document.createTextNode(tile.label));
             var share = tile.claim > 0 && claimSpan > 0
                 ? Math.log(tile.claim / weakest) / claimSpan : 0;
@@ -367,9 +351,6 @@
                 var section = document.createElement("section");
                 section.id = sectionId(region);
                 var head = document.createElement("h3");
-                region.domains.forEach(function (index) {
-                    head.appendChild(element("span", "chip set-" + index));
-                });
                 head.appendChild(document.createTextNode(heading(region) + " — "
                     + region.words.length + (region.words.length === 1 ? " word" : " words")));
                 section.appendChild(head);

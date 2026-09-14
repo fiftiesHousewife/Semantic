@@ -144,7 +144,6 @@ public final class PagesCommand {
                 significant.words(), lexicon::countedSenseDomainsOf);
         return new ObjectMapper().writeValueAsString(Map.of(
                 "funnel", VocabularyFunnel.of(reading),
-                "leadingDomains", overlap.domains().stream().map(DomainOverlap.Drawn::domain).toList(),
                 "overlap", overlap,
                 "signals", export.signals().size()));
     }

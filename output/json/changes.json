@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "c5998e3d433c05fdfad059f406d3eac4ae4fd217",
-  "commit" : "084e898cf1b4ec329563a30a587ad1b48dc3b71b",
+  "previousCommit" : "084e898cf1b4ec329563a30a587ad1b48dc3b71b",
+  "commit" : "093eef91ba9e009309eebeeccd53901eeb059efb",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -15,7 +15,7 @@
     "after" : "Computer Science"
   }, {
     "figure" : "arXiv archive — divergence",
-    "before" : "32.8%",
+    "before" : "32.9%",
     "after" : "32.9%"
   }, {
     "figure" : "arXiv archive — chance reaches",
@@ -35,7 +35,7 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.0%",
+    "before" : "42.1%",
     "after" : "42.1%"
   }, {
     "figure" : "arXiv category — chance reaches",
@@ -95,11 +95,11 @@
     "after" : "linguistics"
   }, {
     "figure" : "CSO archive — divergence",
-    "before" : "19.5%",
+    "before" : "19.6%",
     "after" : "19.6%"
   }, {
     "figure" : "CSO archive — chance reaches",
-    "before" : "26.4%",
+    "before" : "26.5%",
     "after" : "26.5%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
@@ -115,11 +115,11 @@
     "after" : "information technology"
   }, {
     "figure" : "CSO category — divergence",
-    "before" : "24.2%",
+    "before" : "24.3%",
     "after" : "24.3%"
   }, {
     "figure" : "CSO category — chance reaches",
-    "before" : "28.6%",
+    "before" : "28.7%",
     "after" : "28.7%"
   }, {
     "figure" : "CSO category — stands apart from chance",
@@ -131,7 +131,7 @@
     "after" : "3"
   }, {
     "figure" : "Words above the bar",
-    "before" : "310",
+    "before" : "312",
     "after" : "312"
   }, {
     "figure" : "Topics reported",
@@ -142,13 +142,5 @@
     "before" : "144",
     "after" : "144"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "changed",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "leaves",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }
