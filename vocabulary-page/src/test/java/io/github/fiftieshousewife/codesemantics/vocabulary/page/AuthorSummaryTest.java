@@ -18,7 +18,7 @@ class AuthorSummaryTest {
     @Test
     void opensWithHowMuchTheyChange() {
         assertThat(summary.volume(author(adding(2, 5, 3), adding(1, 1, 0))))
-                .isEqualTo("2 pull requests, 2 files changed, 12 declarations added and none removed.");
+                .isEqualTo("2 pull requests, 2 files changed.");
     }
 
     @Test
@@ -51,18 +51,21 @@ class AuthorSummaryTest {
                 pullRequest(1, "tballison", List.of("parser", "loader")),
                 pullRequest(2, "tballison", List.of("parser", "engine"))));
 
-        assertThat(summary.subject(author))
-                .isEqualTo("About parser.");
+        assertThat(summary.subjectWords(author)).containsExactly("parser");
     }
 
     @Test
-    void saysSoWhereThePullRequestsShareNoWord() {
+    void namesNoWordWhereThePullRequestsShareNone() {
         final AuthorPullRequests author = new AuthorPullRequests("tika", "tballison", List.of(
                 pullRequest(1, "tballison", List.of("parser")),
                 pullRequest(2, "tballison", List.of("cipher"))));
 
-        assertThat(summary.subject(author))
-                .isEqualTo("They have no subject matter in common.");
+        assertThat(summary.subjectWords(author)).isEmpty();
+    }
+
+    @Test
+    void namesTheStandardsWordWhereOneCoversEveryChange() {
+        assertThat(summary.word(author(adding(2, 5, 3), adding(1, 1, 0)))).isEqualTo("feat");
     }
 
     @Test
@@ -79,7 +82,7 @@ class AuthorSummaryTest {
     }
 
     private static ExportedWork.Written adding(final int types, final int methods, final int fields) {
-        return new ExportedWork.Written(4, 0, 2, new ExportedWork.Declarations(types, methods, fields),
+        return new ExportedWork.Written(4, 2, new ExportedWork.Declarations(types, methods, fields),
                 new ExportedWork.Declarations(0, 0, 0), 31, List.of(), List.of(),
                 List.of(new ExportedWork.KindFiles("production", 4)),
                 PullRequestFixture.side(40, 300), PullRequestFixture.side(30, 240), List.of());

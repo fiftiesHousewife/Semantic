@@ -32,7 +32,8 @@ final class AuthorWork {
                         span("What it says is the word its own statement uses; what its code says is the "
                                 + "word a standard's definition covers the measured shape with"),
                         Footnotes.marker(Footnotes.CONVENTION),
-                        span(". The tracker's word is the tracker's own.")),
+                        span(". Jira's issue types stay as Jira writes them: a Bug is reported as a "
+                                + "Bug and is never rewritten as one of the standard's words.")),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("It says"), th("Its code says"),
                                 th("Why its code says that"), th("Tracker says"))),

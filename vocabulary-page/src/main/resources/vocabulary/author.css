@@ -148,9 +148,15 @@ table.work td.number {
 
 /* Where a figure sits in the repository's own spread. The colour is never the only carrier: each cell
    also states its band in a title, and the legend names all three. */
+/* The mark sits inside the column's own padding, and every cell and header of a marked table carries
+   the same, so a figure stays under the heading it belongs to. */
+table.work.banded th,
+table.work.banded td {
+    padding-right: 1.6rem;
+}
+
 table.work td.band {
     position: relative;
-    padding-right: 1.6rem;
 }
 
 table.work td.band::after {

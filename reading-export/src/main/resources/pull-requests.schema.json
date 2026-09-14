@@ -299,7 +299,6 @@
                   "filesAdded",
                   "filesByKind",
                   "filesRead",
-                  "filesUnread",
                   "kept",
                   "removed"
                 ],
@@ -386,7 +385,7 @@
                   },
                   "filesByKind": {
                     "title": "Files by kind",
-                    "description": "How many of the files read are of each kind the build's own layout states — production for a source set the build publishes, tests and fixtures for the source sets that check it, documentation for the repository's own prose, build for the files the build is declared in. The counts sum to filesRead.",
+                    "description": "How many of the files the pull request changed are of each kind, accounting for all of them: the kinds the build's own layout states — production, tests, fixtures, documentation, build — and other for a file the build declares nowhere, such as a changelog. The tree's own .readingignore travels with the copy and is counted under no kind.",
                     "type": "array",
                     "items": {
                       "type": "object",
@@ -852,12 +851,6 @@
                         }
                       }
                     }
-                  },
-                  "filesUnread": {
-                    "title": "Files unread",
-                    "description": "How many of the files the pull request changed no scope reaches, so that filesRead and this account for every one of them. A changelog sits in no source set, no documentation directory and on no module chain. The tree's own .readingignore travels with the copy and is counted as neither.",
-                    "type": "integer",
-                    "minimum": 0
                   }
                 }
               },

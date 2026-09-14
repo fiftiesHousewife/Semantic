@@ -34,7 +34,7 @@ class AuthorPageTest {
 
         assertAll(
                 () -> assertThat(markup).contains("calls all 2 a Task"),
-                () -> assertThat(markup).contains("10 declarations added and 1 declaration removed"),
+                () -> assertThat(markup).contains("2 types, 5 methods and 3 fields"),
                 () -> assertThat(markup).contains("href=\"https://github.com/tballison\""),
                 () -> assertThat(markup).contains("Engine"),
                 () -> assertThat(markup).contains("Conventional Commits"));

@@ -95,7 +95,7 @@ final class AuthorReview {
                         span("● ").withClass("band-higher"), span("up to the upper quartile  "),
                         span("● ").withClass("band-unusual"), span("above the upper quartile")),
                 h3("The code it leaves"),
-                div().withClass("scrolls").with(table().withClass("work").with(
+                div().withClass("scrolls").with(table().withClass("work banded").with(
                         thead(tr(th("Measure"),
                                 each(author.pullRequests(),
                                         pullRequest -> th(String.valueOf(pullRequest.number()))

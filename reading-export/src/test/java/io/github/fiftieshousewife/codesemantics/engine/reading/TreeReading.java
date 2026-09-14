@@ -77,6 +77,15 @@ public final class TreeReading {
         return new TreeReading(root.toAbsolutePath().normalize());
     }
 
+    /**
+     * A directory holding one pull request's changed files, read as the copy it is: it carries no root
+     * pom and therefore no module chain, so a change to a module's own pom reads as nothing without this.
+     */
+    public static RepositoryReading ofChangedFiles(final Path root) {
+        return READINGS.computeIfAbsent(root.toAbsolutePath().normalize(),
+                RepositoryReading::ofChangedFiles);
+    }
+
     /** The tree {@code -Dcs.clone.dir} names, or the one the test is running inside where it does not. */
     public static TreeReading ofTheCloneUnderReading() {
         return new TreeReading(new CloneUnderReading().root());

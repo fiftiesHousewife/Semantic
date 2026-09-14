@@ -36,24 +36,35 @@ public final class RepositoryReading {
 
     private final Path root;
     private final long seed;
+    private final List<SourceScope> scopes;
 
     private ParsedRepository parsed;
     private RepositoryLegibility legibility;
     private RepositoryThemes themes;
 
-    private RepositoryReading(final Path root, final long seed) {
+    private RepositoryReading(final Path root, final long seed, final List<SourceScope> scopes) {
         this.root = Objects.requireNonNull(root, "root");
         this.seed = seed;
+        this.scopes = List.copyOf(scopes);
     }
 
     /** The tree at this path, read at the seed every report in this library uses. */
     public static RepositoryReading of(final Path root) {
-        return new RepositoryReading(root, SEED);
+        return new RepositoryReading(root, SEED, scopesUnder(root));
+    }
+
+    /**
+     * A directory holding one pull request's changed files rather than a whole working tree, read with
+     * {@link ChangedFileScopes}: a copy carries no root pom and therefore no module chain, so a change to
+     * a module's own pom would otherwise read as nothing at all.
+     */
+    public static RepositoryReading ofChangedFiles(final Path root) {
+        return new RepositoryReading(root, SEED, new ChangedFileScopes().under(root));
     }
 
     /** The same, at a seed the caller chooses — two seeds are two draws of the null and not two readings. */
     public static RepositoryReading of(final Path root, final long seed) {
-        return new RepositoryReading(root, seed);
+        return new RepositoryReading(root, seed, scopesUnder(root));
     }
 
     public Path root() {
@@ -62,6 +73,11 @@ public final class RepositoryReading {
 
     public long seed() {
         return seed;
+    }
+
+    /** The scopes this reading was built over, which a caller differencing two trees reads the same way. */
+    public List<SourceScope> scopes() {
+        return scopes;
     }
 
     /** Every Java source set and the markdown beside it, filtered by whatever {@code .readingignore} states. */
@@ -74,7 +90,6 @@ public final class RepositoryReading {
 
     public synchronized ParsedRepository parsed() {
         if (parsed == null) {
-            final List<SourceScope> scopes = scopesUnder(root);
             log.info("Parsing {} — {} source sets", root, scopes.size());
             final long started = System.nanoTime();
             parsed = ParsedRepository.of(root, scopes);

@@ -9,6 +9,7 @@ import j2html.tags.DomContent;
 import j2html.tags.specialized.BodyTag;
 import j2html.tags.specialized.DivTag;
 import j2html.tags.specialized.LiTag;
+import j2html.tags.specialized.PTag;
 import j2html.tags.specialized.SectionTag;
 import j2html.tags.specialized.TrTag;
 
@@ -18,6 +19,7 @@ import static j2html.TagCreator.body;
 import static j2html.TagCreator.code;
 import static j2html.TagCreator.div;
 import static j2html.TagCreator.each;
+import static j2html.TagCreator.em;
 import static j2html.TagCreator.h1;
 import static j2html.TagCreator.h2;
 import static j2html.TagCreator.h3;
@@ -49,7 +51,7 @@ public final class AuthorPage {
 
     private final String behaviour;
 
-    private final AuthorSummary summary = new AuthorSummary();
+    private final AuthorFold fold = new AuthorFold();
 
     private final AuthorWork work = new AuthorWork();
 
@@ -74,17 +76,7 @@ public final class AuthorPage {
         return body(
                 style(rawHtml(stylesheet)),
                 div().withClass("sheet").with(
-                        header().withClass("fold").with(
-                                p().withClass("nav").with(a("← " + author.repository())
-                                        .withHref("reading.html")),
-                                h1().with(a(author.author()).withHref("https://github.com/" + author.author()),
-                                        span(" on "),
-                                        a(author.repository()).withHref("reading.html")),
-                                p(summary.volume(author)).withClass("finding"),
-                                p().withClass("finding").with(span(summary.kind(author)),
-                                        Footnotes.marker(Footnotes.CONVENTION),
-                                        span(" " + summary.tracker(author))),
-                                p(summary.subject(author)).withClass("finding")),
+                        fold.markup(author),
                         work.markup(author),
                         scale.markup(author),
                         review.markup(author),

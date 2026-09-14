@@ -105,9 +105,9 @@ class WrittenWorkTest {
                         .as("a changelog sits in no source set, no documentation directory and on no "
                                 + "module chain, so nothing reaches it")
                         .isEqualTo(1),
-                () -> assertThat(written.filesUnread()).isEqualTo(1),
-                () -> assertThat(written.filesRead() + written.filesUnread())
-                        .as("every file the pull request changed is read or is counted as unread")
+                () -> assertThat(kind(written, "other")).isEqualTo(1),
+                () -> assertThat(allKinds(written))
+                        .as("the kinds account for every file the pull request changed")
                         .isEqualTo(2));
     }
 
@@ -120,11 +120,10 @@ class WrittenWorkTest {
 
         final ExportedWork.Written written = work.between(base, head);
 
-        assertThat(written.filesByKind().stream()
-                .mapToInt(ExportedWork.KindFiles::files)
-                .sum())
-                .as("the kinds account for every file read, and the unread ones are counted apart")
-                .isEqualTo(written.filesRead());
+        assertThat(allKinds(written))
+                .as("the kinds account for every file the pull request changed, the ones the build "
+                        + "declares nowhere among them")
+                .isEqualTo(written.filesRead() + kind(written, "other"));
     }
 
     @Test
@@ -136,7 +135,7 @@ class WrittenWorkTest {
 
         assertAll(
                 () -> assertThat(written.filesRead()).isEqualTo(1),
-                () -> assertThat(written.filesUnread())
+                () -> assertThat(kind(written, "other"))
                         .as("the tree's own statement of what to exclude travels with the copy and is "
                                 + "not a file the pull request changed")
                         .isZero());
@@ -191,6 +190,17 @@ class WrittenWorkTest {
                         .extracting(ExportedWork.NamedDeclaration::name)
                         .containsExactly("Engine"),
                 () -> assertThat(written.kept()).isZero());
+    }
+
+    private static int kind(final ExportedWork.Written written, final String kind) {
+        return written.filesByKind().stream()
+                .filter(files -> kind.equals(files.kind()))
+                .mapToInt(ExportedWork.KindFiles::files)
+                .sum();
+    }
+
+    private static int allKinds(final ExportedWork.Written written) {
+        return written.filesByKind().stream().mapToInt(ExportedWork.KindFiles::files).sum();
     }
 
     private static void wrote(final Path tree, final String name, final String source) throws IOException {

@@ -63,7 +63,26 @@ A word used in a sense only this project uses has to be taught to every reader.
 - Where the field has no term, use plain English that says the mechanism.
 - Never coin a meaning for an ordinary word.
 
-### 6. No justifying tail
+### 6. Compression is not concision
+
+A sentence that states a mechanism in so few words that the reader has to reconstruct it has not been made concise. It has been made a riddle. Concision removes what the reader does not need; compression removes what they do.
+
+| Refused | Why it fails | Write |
+|---|---|---|
+| A file's kind is where the build looks for it | *kind* and *where* are both carrying rules the reader cannot see: nothing says a kind is a name this reading gives, or that *where* means a directory the build declares | The build declares where its source, its tests and its resources live. Each file is counted under the one it sits in |
+| New recounts those the base does not hold | *recounts*, *those* and *the base* each depend on a sentence the reader has not been given | A file is new when the pull request adds it: it stands at the head commit and not at the one it branched from |
+| A fixture is counted by its name alone | *counted by* hides the fact that matters — that nothing opens the file | A fixture's file name is read. Its contents are never opened |
+
+The test: read the sentence as somebody who has not seen the code. If a noun in it could mean three things, name which. If a verb is carrying a rule, state the rule. A second sentence costs the reader four seconds; one they cannot decode costs them the paragraph.
+
+### 7. No sentence that asserts an identity
+
+*The tracker's word is the tracker's own.* *A term means what the term means.* A sentence whose predicate restates its subject carries nothing. Either delete it, or say the consequence that made it seem worth writing.
+
+- Refused: *The tracker's word is the tracker's own.*
+- Write: *Jira's issue types stay as Jira writes them — a Bug is reported as a Bug and is never rewritten as a `fix`.*
+
+### 8. No justifying tail
 
 A clause bolted onto a finished statement to say what the thing does *not* do, or is *not*, defends against a misreading nobody had yet — and the defence is what plants the doubt. The main clause already carries the fact. Delete the tail; where the distinction genuinely changes what the reader does, give it its own sentence with its own subject.
 
@@ -134,6 +153,8 @@ Read the draft once for each line:
 
 - [ ] Every metaphor removed, headings included
 - [ ] No "X, not Y" pairing
+- [ ] Every sentence decodable on one reading by somebody who has not seen the code
+- [ ] No sentence whose predicate restates its subject
 - [ ] No trailing clause saying what the thing does not do
 - [ ] Nothing about the document itself, its history, or planned work
 - [ ] Every sentence carries information the previous one did not

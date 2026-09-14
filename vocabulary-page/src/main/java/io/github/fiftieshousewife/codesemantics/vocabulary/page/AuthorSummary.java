@@ -26,14 +26,9 @@ final class AuthorSummary {
      * table's columns, and a line repeating them says nothing the reader is about to read anyway.
      */
     String volume(final AuthorPullRequests author) {
-        final String opened = String.format(Locale.ROOT, "%s, %s changed",
+        return String.format(Locale.ROOT, "%s, %s changed.",
                 Counted.of(author.pullRequests().size(), "pull request"),
                 Counted.of(author.changedFiles(), "file"));
-        if (author.readAgainstABase() == 0) {
-            return opened + ".";
-        }
-        return String.format(Locale.ROOT, "%s, %s added and %s removed.", opened,
-                Counted.of(author.added().total(), "declaration"), removed(author.removed()));
     }
 
     /** What kind of change: the standard's word for it, and the shape that word covers. */
@@ -52,6 +47,13 @@ final class AuthorSummary {
                 shapes(covered), words(author.inferredCounts()));
     }
 
+    /** The standard's own word for these changes, where one word covers all of them, for a caller linking it. */
+    String word(final AuthorPullRequests author) {
+        final Map<String, Integer> covered = author.statedClasses().isEmpty()
+                ? author.inferredCounts() : author.statedClasses();
+        return covered.size() == 1 ? covered.keySet().iterator().next() : "";
+    }
+
     /** What the repository's own tracker calls the work, and nothing where it states none. */
     String tracker(final AuthorPullRequests author) {
         final Map<String, Integer> types = author.trackerTypes();
@@ -62,18 +64,29 @@ final class AuthorSummary {
                 counted(types, author.pullRequests().size()));
     }
 
-    /** What the code is about. Which words count and why is the section's own lede, not this line. */
-    String subject(final AuthorPullRequests author) {
-        final List<AuthorWords.Shared> shared = words.acrossPullRequests(author).stream()
+    /** The words themselves, for a caller that italicises them. Which words count is the section's lede. */
+    List<String> subjectWords(final AuthorPullRequests author) {
+        return words.acrossPullRequests(author).stream()
                 .filter(word -> word.pullRequests() > 1 || author.pullRequests().size() == 1)
                 .limit(QUOTED_WORDS)
-                .toList();
-        if (shared.isEmpty()) {
-            return "They have no subject matter in common.";
-        }
-        return "About " + shared.stream()
                 .map(AuthorWords.Shared::word)
-                .collect(Collectors.joining(", ")) + ".";
+                .toList();
+    }
+
+    /** Where the words the pull requests share sit, as the vocabularies the repository published file them. */
+    String placed(final AuthorPullRequests author) {
+        final List<String> subjects = author.pullRequests().stream()
+                .flatMap(pullRequest -> pullRequest.concepts().stream())
+                .filter(concept -> !concept.statedPath().isEmpty())
+                .map(concept -> concept.statedPath().getFirst())
+                .distinct()
+                .limit(QUOTED_WORDS)
+                .toList();
+        if (subjects.isEmpty()) {
+            return "";
+        }
+        return String.format(Locale.ROOT, " The vocabularies this repository publishes file the terms "
+                + "these files write under %s.", String.join(", ", subjects));
     }
 
     /** Each word the shapes reach, without the count where every change reaches the same one. */
@@ -85,10 +98,6 @@ final class AuthorSummary {
         return covered.values().stream()
                 .map(ExportedWork.Inferred::shape)
                 .collect(Collectors.joining("; "));
-    }
-
-    private static String removed(final ExportedWork.Declarations declarations) {
-        return declarations.total() == 0 ? "none" : Counted.of(declarations.total(), "declaration");
     }
 
     /** Each word with how many of the author's pull requests carry it, out of how many there are. */

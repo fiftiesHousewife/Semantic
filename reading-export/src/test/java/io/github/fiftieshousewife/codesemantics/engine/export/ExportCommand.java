@@ -106,7 +106,7 @@ public final class ExportCommand {
                                             final PullRequestSet.PullRequest pullRequest,
                                             final int statements) {
         final Path head = set.treeOf(pullRequest);
-        final RepositoryReading reading = TreeReading.of(head).reading();
+        final RepositoryReading reading = TreeReading.ofChangedFiles(head);
         final List<ExportedWork.Issue> issues = set.issuesOf(pullRequest)
                 .map(PinnedIssues::in)
                 .orElse(List.of());

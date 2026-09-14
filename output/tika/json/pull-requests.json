@@ -796,7 +796,6 @@
       } ],
       "written" : {
         "filesRead" : 34,
-        "filesUnread" : 1,
         "filesAdded" : 23,
         "added" : {
           "types" : 31,
@@ -916,6 +915,9 @@
         }, {
           "kind" : "fixtures",
           "files" : 2
+        }, {
+          "kind" : "other",
+          "files" : 1
         } ],
         "atHead" : {
           "commentLines" : 922,
@@ -1530,7 +1532,6 @@
       } ],
       "written" : {
         "filesRead" : 10,
-        "filesUnread" : 1,
         "filesAdded" : 8,
         "added" : {
           "types" : 8,
@@ -1575,6 +1576,9 @@
         }, {
           "kind" : "tests",
           "files" : 3
+        }, {
+          "kind" : "other",
+          "files" : 1
         } ],
         "atHead" : {
           "commentLines" : 321,
@@ -2057,7 +2061,6 @@
       } ],
       "written" : {
         "filesRead" : 13,
-        "filesUnread" : 1,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -2084,6 +2087,9 @@
         }, {
           "kind" : "fixtures",
           "files" : 2
+        }, {
+          "kind" : "other",
+          "files" : 1
         } ],
         "atHead" : {
           "commentLines" : 734,
@@ -3285,7 +3291,6 @@
       } ],
       "written" : {
         "filesRead" : 13,
-        "filesUnread" : 3,
         "filesAdded" : 6,
         "added" : {
           "types" : 21,
@@ -3384,6 +3389,9 @@
         }, {
           "kind" : "fixtures",
           "files" : 1
+        }, {
+          "kind" : "other",
+          "files" : 3
         } ],
         "atHead" : {
           "commentLines" : 517,
@@ -4569,7 +4577,6 @@
       } ],
       "written" : {
         "filesRead" : 39,
-        "filesUnread" : 3,
         "filesAdded" : 8,
         "added" : {
           "types" : 9,
@@ -4623,6 +4630,9 @@
         }, {
           "kind" : "fixtures",
           "files" : 2
+        }, {
+          "kind" : "other",
+          "files" : 3
         } ],
         "atHead" : {
           "commentLines" : 2072,
@@ -4771,6 +4781,55 @@
       "the reference corpus" : 1.0
     },
     "signals" : [ ],
+    "statement" : {
+      "sentences" : 4,
+      "words" : 33,
+      "divergenceBits" : 0.7816932278099284,
+      "chanceDivergenceBits" : 0.46953410611281715,
+      "chanceRate" : 0.001,
+      "resamples" : 999,
+      "topics" : [ {
+        "topic" : "buildings",
+        "divergenceBits" : 0.10186497318002977,
+        "statedShare" : 0.03362465474163626,
+        "writtenShare" : 0.3320872520387638
+      }, {
+        "topic" : "person",
+        "divergenceBits" : 0.09322354516024674,
+        "statedShare" : 0.18644709032049347,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "software",
+        "divergenceBits" : 0.053404212567055895,
+        "statedShare" : 0.10680842513411179,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "statistics",
+        "divergenceBits" : 0.053404212567055895,
+        "statedShare" : 0.10680842513411179,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "nasa",
+        "divergenceBits" : 0.04661177258012337,
+        "statedShare" : 0.09322354516024674,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "space-science",
+        "divergenceBits" : 0.04661177258012337,
+        "statedShare" : 0.09322354516024674,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "mathematics",
+        "divergenceBits" : 0.04246729232378916,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.08493458464757832
+      }, {
+        "topic" : "education",
+        "divergenceBits" : 0.03073121946510181,
+        "statedShare" : 0.06146243893020362,
+        "writtenShare" : 0.0
+      } ]
+    },
     "work" : {
       "stated" : {
         "linesRead" : 4,
@@ -4783,8 +4842,7 @@
         "url" : "https://issues.apache.org/jira/browse/TIKA-4836"
       } ],
       "written" : {
-        "filesRead" : 0,
-        "filesUnread" : 3,
+        "filesRead" : 3,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -4799,9 +4857,12 @@
         "kept" : 0,
         "typesAdded" : [ ],
         "typesRemoved" : [ ],
-        "filesByKind" : [ ],
+        "filesByKind" : [ {
+          "kind" : "build",
+          "files" : 3
+        } ],
         "atHead" : {
-          "commentLines" : 0,
+          "commentLines" : 5,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -4830,7 +4891,7 @@
           }
         },
         "atBase" : {
-          "commentLines" : 0,
+          "commentLines" : 5,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -4859,6 +4920,11 @@
           }
         },
         "typesAddedWithoutATest" : [ ]
+      },
+      "inferred" : {
+        "type" : "build",
+        "definition" : "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+        "shape" : "changes only build files"
       }
     },
     "concepts" : [ ]
@@ -4874,6 +4940,55 @@
       "the reference corpus" : 1.0
     },
     "signals" : [ ],
+    "statement" : {
+      "sentences" : 4,
+      "words" : 26,
+      "divergenceBits" : 0.8257393208784963,
+      "chanceDivergenceBits" : 0.6209932985319719,
+      "chanceRate" : 0.001,
+      "resamples" : 999,
+      "topics" : [ {
+        "topic" : "buildings",
+        "divergenceBits" : 0.2661056389316896,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.5322112778633792
+      }, {
+        "topic" : "software",
+        "divergenceBits" : 0.09384494634654199,
+        "statedShare" : 0.18768989269308398,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "statistics",
+        "divergenceBits" : 0.09384494634654199,
+        "statedShare" : 0.18768989269308398,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "computing",
+        "divergenceBits" : 0.06690009430648919,
+        "statedShare" : 0.3856971763980531,
+        "writtenShare" : 0.09662437045793183
+      }, {
+        "topic" : "arithmetic",
+        "divergenceBits" : 0.05407159996572519,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.1081431999314504
+      }, {
+        "topic" : "geography",
+        "divergenceBits" : 0.04417970449027361,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.08835940898054721
+      }, {
+        "topic" : "education",
+        "divergenceBits" : 0.03982050636929643,
+        "statedShare" : 0.07964101273859286,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "music",
+        "divergenceBits" : 0.03982050636929643,
+        "statedShare" : 0.07964101273859286,
+        "writtenShare" : 0.0
+      } ]
+    },
     "work" : {
       "stated" : {
         "linesRead" : 4,
@@ -4886,8 +5001,7 @@
         "url" : "https://issues.apache.org/jira/browse/TIKA-4836"
       } ],
       "written" : {
-        "filesRead" : 0,
-        "filesUnread" : 1,
+        "filesRead" : 1,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -4902,9 +5016,12 @@
         "kept" : 0,
         "typesAdded" : [ ],
         "typesRemoved" : [ ],
-        "filesByKind" : [ ],
+        "filesByKind" : [ {
+          "kind" : "build",
+          "files" : 1
+        } ],
         "atHead" : {
-          "commentLines" : 0,
+          "commentLines" : 3,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -4933,7 +5050,7 @@
           }
         },
         "atBase" : {
-          "commentLines" : 0,
+          "commentLines" : 3,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -4962,6 +5079,11 @@
           }
         },
         "typesAddedWithoutATest" : [ ]
+      },
+      "inferred" : {
+        "type" : "build",
+        "definition" : "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+        "shape" : "changes only build files"
       }
     },
     "concepts" : [ ]
@@ -4977,6 +5099,55 @@
       "the reference corpus" : 1.0
     },
     "signals" : [ ],
+    "statement" : {
+      "sentences" : 4,
+      "words" : 68,
+      "divergenceBits" : 0.5682835220931526,
+      "chanceDivergenceBits" : 0.5118260575854909,
+      "chanceRate" : 0.018,
+      "resamples" : 999,
+      "topics" : [ {
+        "topic" : "christianity",
+        "divergenceBits" : 0.07175513808620387,
+        "statedShare" : 0.14351027617240775,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "arithmetic",
+        "divergenceBits" : 0.05407159996572519,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.1081431999314504
+      }, {
+        "topic" : "buildings",
+        "divergenceBits" : 0.04509475128418132,
+        "statedShare" : 0.22817910105593764,
+        "writtenShare" : 0.5322112778633792
+      }, {
+        "topic" : "geography",
+        "divergenceBits" : 0.04417970449027361,
+        "statedShare" : 0.0,
+        "writtenShare" : 0.08835940898054721
+      }, {
+        "topic" : "animals",
+        "divergenceBits" : 0.036408274101196195,
+        "statedShare" : 0.07281654820239239,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "chemistry",
+        "divergenceBits" : 0.031414280197438395,
+        "statedShare" : 0.06282856039487679,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "law",
+        "divergenceBits" : 0.020566981623809447,
+        "statedShare" : 0.04113396324761889,
+        "writtenShare" : 0.0
+      }, {
+        "topic" : "location",
+        "divergenceBits" : 0.01966106317544936,
+        "statedShare" : 0.03932212635089872,
+        "writtenShare" : 0.0
+      } ]
+    },
     "work" : {
       "stated" : {
         "linesRead" : 4,
@@ -4989,8 +5160,7 @@
         "url" : "https://issues.apache.org/jira/browse/TIKA-4792"
       } ],
       "written" : {
-        "filesRead" : 0,
-        "filesUnread" : 1,
+        "filesRead" : 1,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -5005,9 +5175,12 @@
         "kept" : 0,
         "typesAdded" : [ ],
         "typesRemoved" : [ ],
-        "filesByKind" : [ ],
+        "filesByKind" : [ {
+          "kind" : "build",
+          "files" : 1
+        } ],
         "atHead" : {
-          "commentLines" : 0,
+          "commentLines" : 3,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -5036,7 +5209,7 @@
           }
         },
         "atBase" : {
-          "commentLines" : 0,
+          "commentLines" : 3,
           "metrics" : {
             "types" : 0,
             "methods" : 0,
@@ -5065,6 +5238,11 @@
           }
         },
         "typesAddedWithoutATest" : [ ]
+      },
+      "inferred" : {
+        "type" : "build",
+        "definition" : "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+        "shape" : "changes only build files"
       }
     },
     "concepts" : [ ]
@@ -5442,7 +5620,6 @@
       } ],
       "written" : {
         "filesRead" : 2,
-        "filesUnread" : 0,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -5833,7 +6010,6 @@
       } ],
       "written" : {
         "filesRead" : 2,
-        "filesUnread" : 0,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -6916,7 +7092,6 @@
       } ],
       "written" : {
         "filesRead" : 7,
-        "filesUnread" : 1,
         "filesAdded" : 1,
         "added" : {
           "types" : 1,
@@ -6942,6 +7117,9 @@
           "files" : 2
         }, {
           "kind" : "fixtures",
+          "files" : 1
+        }, {
+          "kind" : "other",
           "files" : 1
         } ],
         "atHead" : {
@@ -7659,7 +7837,6 @@
       } ],
       "written" : {
         "filesRead" : 2,
-        "filesUnread" : 0,
         "filesAdded" : 0,
         "added" : {
           "types" : 0,
@@ -7799,6 +7976,91 @@
         "linesRead" : 0,
         "linesParsed" : 0,
         "classes" : [ ]
+      },
+      "written" : {
+        "filesRead" : 1,
+        "filesAdded" : 0,
+        "added" : {
+          "types" : 0,
+          "methods" : 0,
+          "fields" : 0
+        },
+        "removed" : {
+          "types" : 0,
+          "methods" : 0,
+          "fields" : 0
+        },
+        "kept" : 0,
+        "typesAdded" : [ ],
+        "typesRemoved" : [ ],
+        "filesByKind" : [ {
+          "kind" : "build",
+          "files" : 1
+        } ],
+        "atHead" : {
+          "commentLines" : 0,
+          "metrics" : {
+            "types" : 0,
+            "methods" : 0,
+            "statements" : 0,
+            "largestType" : 0,
+            "methodStatements" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "complexity" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "nesting" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "parameters" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            }
+          }
+        },
+        "atBase" : {
+          "commentLines" : 0,
+          "metrics" : {
+            "types" : 0,
+            "methods" : 0,
+            "statements" : 0,
+            "largestType" : 0,
+            "methodStatements" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "complexity" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "nesting" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            },
+            "parameters" : {
+              "median" : 0,
+              "upperQuartile" : 0,
+              "highest" : 0
+            }
+          }
+        },
+        "typesAddedWithoutATest" : [ ]
+      },
+      "inferred" : {
+        "type" : "build",
+        "definition" : "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+        "shape" : "changes only build files"
       }
     },
     "concepts" : [ ]

@@ -21,7 +21,7 @@ final class WrittenFixture {
     /** A change adding these declarations to what the build publishes, and removing nothing. */
     static ExportedWork.Written adding(final int types, final int methods, final int fields,
                                        final List<ExportedWork.NamedDeclaration> typesAdded) {
-        return new ExportedWork.Written(3, 0, 1, new ExportedWork.Declarations(types, methods, fields),
+        return new ExportedWork.Written(3, 1, new ExportedWork.Declarations(types, methods, fields),
                 new ExportedWork.Declarations(0, 0, 0), 41, typesAdded, List.of(),
                 List.of(new ExportedWork.KindFiles("production", 3)), side(40, 300), side(30, 240),
                 List.of());

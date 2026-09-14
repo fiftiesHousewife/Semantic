@@ -33,21 +33,25 @@ final class AuthorScale {
     SectionTag markup(final AuthorPullRequests author) {
         return section().withId("scale").with(
                 h2("How much each one changes"),
-                p().withClass("lede").withText("A file’s kind is where the build looks for it. New "
-                        + "recounts those the base does not hold, and a fixture is counted by its name "
-                        + "alone."),
+                p().withClass("lede").withText("The build declares where its source, its tests and its "
+                        + "resources live, and each file is counted under the one it sits in. Other "
+                        + "holds the files the build declares nowhere — a changelog, a licence — so the "
+                        + "kinds account for every file changed. A file is new when the pull request "
+                        + "adds it: it stands at the head commit and not at the one it branched from. A "
+                        + "fixture's file name is read; its contents are never opened."),
                 h3("Files it touches"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"),
-                                th().withClass("number").with(span("Changed"),
-                                        Footnotes.marker(Footnotes.OUTSIDE_THE_BUILD)),
+                                th("Changed").withClass("number"),
                                 th("Production").withClass("number"), th("Tests").withClass("number"),
                                 th("Fixtures").withClass("number"), th("Docs").withClass("number"),
-                                th("Build").withClass("number"), th("New").withClass("number"))),
+                                th("Build").withClass("number"), th("Other").withClass("number"),
+                                th("New").withClass("number"))),
                         tbody(each(author.pullRequests(), AuthorScale::files)))),
                 p().withClass("lede").withText("A declaration is a type, a method or a field. Removed "
-                        + "sums the three. Untouched is what the pull request leaves standing in those "
-                        + "same files, which is the size of what it changes inside."),
+                        + "counts all three together. Untouched counts the declarations that were "
+                        + "already in those files and that the pull request does not alter, which says "
+                        + "how much code the change sits inside."),
                 h3("Declarations it changes"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Types added").withClass("number"),
@@ -64,7 +68,7 @@ final class AuthorScale {
                 Figure.counted(Optional.of(pullRequest.files())),
                 kind(written, SourceKind.PRODUCTION), kind(written, SourceKind.TESTS),
                 kind(written, SourceKind.FIXTURES), kind(written, SourceKind.DOCUMENTATION),
-                kind(written, SourceKind.BUILD),
+                kind(written, SourceKind.BUILD), kind(written, SourceKind.OTHER),
                 Figure.counted(written.map(ExportedWork.Written::filesAdded)));
     }
 

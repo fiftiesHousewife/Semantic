@@ -19,6 +19,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.DeclaredMembers;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
 import io.github.fiftieshousewife.codesemantics.engine.parse.TreeMetrics;
+import io.github.fiftieshousewife.codesemantics.engine.reading.ChangedFileScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
 import io.github.fiftieshousewife.codesemantics.engine.reading.StatedExclusions;
@@ -39,17 +40,17 @@ public final class WrittenWork {
 
     /** The head tree read against the base tree the fetch step wrote beside it. */
     ExportedWork.Written between(final Path base, final Path head) {
-        final List<SourceScope> scopes = RepositoryReading.scopesUnder(head);
+        final List<SourceScope> scopes = new ChangedFileScopes().under(head);
         final DeclarationDiff diff = DeclarationDiff.between(
-                members.under(base, RepositoryReading.scopesUnder(base)),
+                members.under(base, new ChangedFileScopes().under(base)),
                 members.under(head, scopes));
         final List<Path> read = filesIn(scopes);
-        return new ExportedWork.Written(read.size(), unread(head, read), (int) read.stream()
+        return new ExportedWork.Written(read.size(), (int) read.stream()
                 .filter(file -> !Files.exists(base.resolve(head.relativize(file))))
                 .count(),
                 counted(diff.addedByKind()), counted(diff.removedByKind()), diff.kept(),
-                types(diff.added()), types(diff.removed()), byKind(scopes),
-                measured(head, scopes), measured(base, RepositoryReading.scopesUnder(base)),
+                types(diff.added()), types(diff.removed()), byKind(head, scopes, read),
+                measured(head, scopes), measured(base, new ChangedFileScopes().under(base)),
                 withoutATest(head, diff.added(), scopes));
     }
 
@@ -57,12 +58,17 @@ public final class WrittenWork {
      * How many of the files read are of each kind the build's own layout states. A file two scopes both
      * reach is counted once, under the first that reaches it, so the counts sum to the files read.
      */
-    private static List<ExportedWork.KindFiles> byKind(final List<SourceScope> scopes) {
+    private static List<ExportedWork.KindFiles> byKind(final Path head, final List<SourceScope> scopes,
+                                                       final List<Path> read) {
         final Map<Path, String> kindOf = new LinkedHashMap<>();
         scopes.forEach(scope -> scope.files().forEach(file ->
                 kindOf.putIfAbsent(file, SourceKind.of(scope.name()).published())));
         final Map<String, Integer> counts = new LinkedHashMap<>();
         kindOf.values().forEach(kind -> counts.merge(kind, 1, Integer::sum));
+        final int other = unread(head, read);
+        if (other > 0) {
+            counts.put(SourceKind.OTHER.published(), other);
+        }
         return counts.entrySet().stream()
                 .map(entry -> new ExportedWork.KindFiles(entry.getKey(), entry.getValue()))
                 .toList();
@@ -106,9 +112,10 @@ public final class WrittenWork {
     }
 
     /**
-     * How many of the pull request's own files no scope reaches. The tree's own {@code .readingignore}
-     * travels with every copy that has one and states what the reading must leave out, so it is not a
-     * file the pull request changed and is counted as neither read nor unread.
+     * How many of the pull request's own files no scope reaches — a changelog, a licence — which are
+     * counted under {@code other} so the kinds account for every file it changed. The tree's own
+     * {@code .readingignore} travels with every copy that has one and states what the reading must leave
+     * out, so it is not a file the pull request changed and is counted under no kind at all.
      */
     private static int unread(final Path head, final List<Path> read) {
         try (Stream<Path> everything = Files.walk(head)) {

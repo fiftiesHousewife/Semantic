@@ -44,10 +44,14 @@ final class AuthorSubjects {
     SectionTag markup(final AuthorPullRequests author) {
         return section().withId("subjects").with(
                 h2("What each pull request is about"),
-                p().withClass("lede").withText("A word counts where the changed files write it more "
-                        + "densely than both references: ordinary English, and ten Java repositories "
-                        + "read the same way. Forms a dictionary calls one word count once. A word is "
-                        + "new where the repository\u2019s own reading does not carry it."),
+                p().withClass("lede").withText("These words are read from the changed files themselves "
+                        + "— the names their authors declared and the prose they wrote around them. "
+                        + "Nothing here is read from the pull request's title, its description or its "
+                        + "commit messages: those are read separately, and how far they sit from the "
+                        + "code is the last column. A word counts where the changed files write it more "
+                        + "densely than both references, ordinary English and ten Java repositories "
+                        + "read the same way. Forms a dictionary calls one word count once, and a word "
+                        + "is new where the repository\u2019s own reading does not carry it."),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Words").withClass("number"),
                                 th("New").withClass("number"), th("Strongest"),

@@ -29,7 +29,7 @@ final class PullRequestFixture {
 
     static ExportedWork.Written written(final int types, final int methods, final int fields,
                                         final List<String> typesAdded) {
-        return new ExportedWork.Written(4, 0, 2, new ExportedWork.Declarations(types, methods, fields),
+        return new ExportedWork.Written(4, 2, new ExportedWork.Declarations(types, methods, fields),
                 new ExportedWork.Declarations(0, 1, 0), 31,
                 typesAdded.stream()
                         .map(name -> new ExportedWork.NamedDeclaration(name + ".java", name))

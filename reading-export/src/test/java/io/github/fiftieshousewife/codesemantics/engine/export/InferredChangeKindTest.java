@@ -43,7 +43,7 @@ class InferredChangeKindTest {
 
     private static ExportedWork.Written over(final String kind) {
         final ExportedWork.Written adding = WrittenFixture.adding(1, 2, 0, List.of());
-        return new ExportedWork.Written(adding.filesRead(), adding.filesUnread(), adding.filesAdded(),
+        return new ExportedWork.Written(adding.filesRead(), adding.filesAdded(),
                 adding.added(), adding.removed(), adding.kept(), adding.typesAdded(),
                 adding.typesRemoved(),
                 List.of(new ExportedWork.KindFiles(kind, 3)), adding.atHead(), adding.atBase(),
@@ -52,7 +52,7 @@ class InferredChangeKindTest {
 
     private static ExportedWork.Written removing() {
         final ExportedWork.Written adding = WrittenFixture.adding(0, 0, 0, List.of());
-        return new ExportedWork.Written(adding.filesRead(), adding.filesUnread(), adding.filesAdded(),
+        return new ExportedWork.Written(adding.filesRead(), adding.filesAdded(),
                 new ExportedWork.Declarations(0, 0, 0), new ExportedWork.Declarations(0, 2, 0),
                 adding.kept(), List.of(), List.of(), adding.filesByKind(), adding.atHead(),
                 adding.atBase(), List.of());
