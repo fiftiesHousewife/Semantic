@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Optional;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
@@ -63,29 +64,29 @@ final class AuthorScale {
     }
 
     private static TrTag files(final ExportedPullRequest pullRequest) {
-        final Optional<ExportedWork.Written> written = PullRequestWork.written(pullRequest);
+        final Optional<ChangedCode> written = PullRequestWork.written(pullRequest);
         return tr(PullRequestLink.cell(pullRequest),
                 Figure.counted(Optional.of(pullRequest.files())),
                 kind(written, SourceKind.PRODUCTION), kind(written, SourceKind.TESTS),
                 kind(written, SourceKind.FIXTURES), kind(written, SourceKind.DOCUMENTATION),
                 kind(written, SourceKind.BUILD), kind(written, SourceKind.OTHER),
-                Figure.counted(written.map(ExportedWork.Written::filesAdded)));
+                Figure.counted(written.map(ChangedCode::filesAdded)));
     }
 
     private static TrTag declarations(final ExportedPullRequest pullRequest) {
-        final Optional<ExportedWork.Written> written = PullRequestWork.written(pullRequest);
+        final Optional<ChangedCode> written = PullRequestWork.written(pullRequest);
         return tr(PullRequestLink.cell(pullRequest),
                 Figure.counted(written.map(diff -> diff.added().types())),
                 Figure.counted(written.map(diff -> diff.added().methods())),
                 Figure.counted(written.map(diff -> diff.added().fields())),
                 Figure.counted(written.map(diff -> diff.removed().total())),
-                Figure.counted(written.map(ExportedWork.Written::kept)));
+                Figure.counted(written.map(ChangedCode::kept)));
     }
 
-    private static TdTag kind(final Optional<ExportedWork.Written> written, final SourceKind kind) {
+    private static TdTag kind(final Optional<ChangedCode> written, final SourceKind kind) {
         return Figure.counted(written.map(diff -> diff.filesByKind().stream()
                 .filter(files -> kind.published().equals(files.kind()))
-                .mapToInt(ExportedWork.KindFiles::files)
+                .mapToInt(ChangedCode.KindFiles::files)
                 .sum()));
     }
 

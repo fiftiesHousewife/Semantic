@@ -53,7 +53,7 @@ public final class ExportedPullRequests {
      * whose base tree the fetch step pinned and whose statement it did not.
      */
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
-                                  final ExportedWork.Written written) {
+                                  final ChangedCode written) {
         return changedFiles(facts, reading)
                 .withWork(work(ExportedWork.Stated.noStatement(), List.of(), Optional.of(written)));
     }
@@ -92,7 +92,7 @@ public final class ExportedPullRequests {
     public ExportedPullRequest of(final PullRequestFacts facts, final RepositoryReading reading,
                                   final String statement, final List<ExportedWork.Issue> issues,
                                   final int judgedTogether,
-                                  final Optional<ExportedWork.Written> written) {
+                                  final Optional<ChangedCode> written) {
         final ExportedPullRequest block = changedFiles(facts, reading)
                 .withWork(work(new StatedWork().of(statement), issues, written));
         return statedBesideWritten(statement, judgedTogether, reading)
@@ -102,7 +102,7 @@ public final class ExportedPullRequests {
 
     private static ExportedWork work(final ExportedWork.Stated stated,
                                      final List<ExportedWork.Issue> issues,
-                                     final Optional<ExportedWork.Written> written) {
+                                     final Optional<ChangedCode> written) {
         return written
                 .map(declarations -> covered(new ExportedWork(stated, issues, declarations)))
                 .orElseGet(() -> new ExportedWork(stated, issues));

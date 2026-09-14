@@ -41,24 +41,24 @@ class InferredChangeKindTest {
                 () -> assertThat(kinds.of(untouched())).isEmpty());
     }
 
-    private static ExportedWork.Written over(final String kind) {
-        final ExportedWork.Written adding = WrittenFixture.adding(1, 2, 0, List.of());
-        return new ExportedWork.Written(adding.filesRead(), adding.filesAdded(),
+    private static ChangedCode over(final String kind) {
+        final ChangedCode adding = WrittenFixture.adding(1, 2, 0, List.of());
+        return new ChangedCode(adding.filesRead(), adding.filesAdded(),
                 adding.added(), adding.removed(), adding.kept(), adding.typesAdded(),
                 adding.typesRemoved(),
-                List.of(new ExportedWork.KindFiles(kind, 3)), adding.atHead(), adding.atBase(),
+                List.of(new ChangedCode.KindFiles(kind, 3)), adding.atHead(), adding.atBase(),
                 List.of());
     }
 
-    private static ExportedWork.Written removing() {
-        final ExportedWork.Written adding = WrittenFixture.adding(0, 0, 0, List.of());
-        return new ExportedWork.Written(adding.filesRead(), adding.filesAdded(),
-                new ExportedWork.Declarations(0, 0, 0), new ExportedWork.Declarations(0, 2, 0),
+    private static ChangedCode removing() {
+        final ChangedCode adding = WrittenFixture.adding(0, 0, 0, List.of());
+        return new ChangedCode(adding.filesRead(), adding.filesAdded(),
+                new ChangedCode.Declarations(0, 0, 0), new ChangedCode.Declarations(0, 2, 0),
                 adding.kept(), List.of(), List.of(), adding.filesByKind(), adding.atHead(),
                 adding.atBase(), List.of());
     }
 
-    private static ExportedWork.Written untouched() {
+    private static ChangedCode untouched() {
         return WrittenFixture.adding(0, 0, 0, List.of());
     }
 }

@@ -829,14 +829,15 @@
                   },
                   "typesAddedWithoutATest": {
                     "title": "Types added with no test",
-                    "description": "The types the change adds to what the build publishes and adds no test for, where a test is a class whose name Maven Surefire's own default includes would run — Test*, *Test, *Tests, *TestCase — and its subject is the name that pattern leaves. It says no test arrived with the type, never that nothing covers it: a type may be exercised by a test that already stood.",
+                    "description": "The types the change adds to what the build publishes and adds no test for, where a test is a class whose name Maven Surefire's own default includes would run — Test*, *Test, *Tests, *TestCase — and its subject is the name that pattern leaves. Each is named beside the test it arrives without. It says no test arrived with the type, never that nothing covers it: a type may be exercised by a test that already stood.",
                     "type": "array",
                     "items": {
                       "type": "object",
                       "additionalProperties": false,
                       "required": [
                         "path",
-                        "name"
+                        "name",
+                        "test"
                       ],
                       "properties": {
                         "path": {
@@ -847,6 +848,11 @@
                         "name": {
                           "title": "Name",
                           "description": "The name, under the declarations it sits inside, written outermost first and separated by dots.",
+                          "type": "string"
+                        },
+                        "test": {
+                          "title": "Test it arrives without",
+                          "description": "The class name the first of Surefire's default includes, Test*, gives for a test of this type. The name is read back through the same four patterns, so it is one that build would run. Empty where the type's own name is not one those patterns carry — a name not opening as a type name does.",
                           "type": "string"
                         }
                       }

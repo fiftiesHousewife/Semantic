@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.ToIntFunction;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
 import io.github.fiftieshousewife.codesemantics.engine.reading.SourceKind;
@@ -70,11 +71,11 @@ final class AuthorQuality {
         return written(author)
                 .flatMap(diff -> diff.filesByKind().stream())
                 .filter(files -> kind.published().equals(files.kind()))
-                .mapToInt(ExportedWork.KindFiles::files)
+                .mapToInt(ChangedCode.KindFiles::files)
                 .sum();
     }
 
-    private static Stream<ExportedWork.Written> written(
+    private static Stream<ChangedCode> written(
             final AuthorPullRequests author) {
         return author.pullRequests().stream()
                 .map(PullRequestWork::written)

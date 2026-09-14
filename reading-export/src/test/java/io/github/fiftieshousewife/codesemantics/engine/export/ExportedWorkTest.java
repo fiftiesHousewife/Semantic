@@ -14,7 +14,7 @@ class ExportedWorkTest {
 
     @Test
     void writesOnlyTheFieldsTheSchemaStatesForTheDeclarationsItCounts() throws Exception {
-        final String written = mapper.writeValueAsString(new ExportedWork.Declarations(1, 2, 3));
+        final String written = mapper.writeValueAsString(new ChangedCode.Declarations(1, 2, 3));
 
         assertThat(mapper.readTree(written).fieldNames()).toIterable()
                 .containsExactlyInAnyOrder("types", "methods", "fields");
@@ -35,9 +35,9 @@ class ExportedWorkTest {
 
     @Test
     void readsBackEveryWrittenBlockItWrites() throws Exception {
-        final ExportedWork.Written written = WrittenFixture.adding(0, 2, 0, List.of());
+        final ChangedCode written = WrittenFixture.adding(0, 2, 0, List.of());
 
-        assertThat(mapper.readValue(mapper.writeValueAsString(written), ExportedWork.Written.class))
+        assertThat(mapper.readValue(mapper.writeValueAsString(written), ChangedCode.class))
                 .isEqualTo(written);
     }
 

@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.Optional;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 
@@ -23,7 +24,7 @@ final class PullRequestWork {
     }
 
     /** The declarations one pull request changes, where its base tree was fetched. */
-    static Optional<ExportedWork.Written> written(final ExportedPullRequest pullRequest) {
+    static Optional<ChangedCode> written(final ExportedPullRequest pullRequest) {
         return of(pullRequest).map(ExportedWork::written);
     }
 

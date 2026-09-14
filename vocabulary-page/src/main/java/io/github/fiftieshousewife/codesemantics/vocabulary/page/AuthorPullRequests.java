@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import io.github.fiftieshousewife.codesemantics.engine.export.MeasuredCode;
@@ -97,23 +98,23 @@ public record AuthorPullRequests(String repository, String author,
 
     /** How many of those files the reading's scopes reach, summed over the pull requests read against a base. */
     public int filesRead() {
-        return written().mapToInt(ExportedWork.Written::filesRead).sum();
+        return written().mapToInt(ChangedCode::filesRead).sum();
     }
 
     public int filesAdded() {
-        return written().mapToInt(ExportedWork.Written::filesAdded).sum();
+        return written().mapToInt(ChangedCode::filesAdded).sum();
     }
 
-    public ExportedWork.Declarations added() {
-        return summed(written().map(ExportedWork.Written::added).toList());
+    public ChangedCode.Declarations added() {
+        return summed(written().map(ChangedCode::added).toList());
     }
 
-    public ExportedWork.Declarations removed() {
-        return summed(written().map(ExportedWork.Written::removed).toList());
+    public ChangedCode.Declarations removed() {
+        return summed(written().map(ChangedCode::removed).toList());
     }
 
     public int kept() {
-        return written().mapToInt(ExportedWork.Written::kept).sum();
+        return written().mapToInt(ChangedCode::kept).sum();
     }
 
     /** How many of the author's pull requests state a base tree, so carry a declaration diff at all. */
@@ -122,14 +123,14 @@ public record AuthorPullRequests(String repository, String author,
     }
 
     /** Every type the author's pull requests add to what the build publishes with no test of its own. */
-    public List<ExportedWork.NamedDeclaration> typesAddedWithoutATest() {
+    public List<ChangedCode.TypeWithoutATest> typesAddedWithoutATest() {
         return written()
                 .flatMap(diff -> diff.typesAddedWithoutATest().stream())
                 .toList();
     }
 
     /** Every type the author's pull requests add, in the order the pull requests were numbered. */
-    public List<ExportedWork.NamedDeclaration> typesAdded() {
+    public List<ChangedCode.NamedDeclaration> typesAdded() {
         return written()
                 .flatMap(diff -> diff.typesAdded().stream())
                 .toList();
@@ -171,7 +172,7 @@ public record AuthorPullRequests(String repository, String author,
         return Map.copyOf(types);
     }
 
-    private Stream<ExportedWork.Written> written() {
+    private Stream<ChangedCode> written() {
         return pullRequests.stream()
                 .map(PullRequestWork::written)
                 .flatMap(Optional::stream);
@@ -183,10 +184,10 @@ public record AuthorPullRequests(String repository, String author,
                 .flatMap(Optional::stream);
     }
 
-    private static ExportedWork.Declarations summed(final List<ExportedWork.Declarations> counts) {
-        return new ExportedWork.Declarations(
-                counts.stream().mapToInt(ExportedWork.Declarations::types).sum(),
-                counts.stream().mapToInt(ExportedWork.Declarations::methods).sum(),
-                counts.stream().mapToInt(ExportedWork.Declarations::fields).sum());
+    private static ChangedCode.Declarations summed(final List<ChangedCode.Declarations> counts) {
+        return new ChangedCode.Declarations(
+                counts.stream().mapToInt(ChangedCode.Declarations::types).sum(),
+                counts.stream().mapToInt(ChangedCode.Declarations::methods).sum(),
+                counts.stream().mapToInt(ChangedCode.Declarations::fields).sum());
     }
 }

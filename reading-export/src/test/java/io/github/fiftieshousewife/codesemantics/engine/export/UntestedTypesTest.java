@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class UntestedTypesTest {
@@ -25,8 +26,28 @@ class UntestedTypesTest {
         production(head, "Engine.java", "public class Engine {\n}\n");
 
         assertThat(work.between(base, head).typesAddedWithoutATest())
-                .extracting(ExportedWork.NamedDeclaration::name)
+                .extracting(ChangedCode.TypeWithoutATest::name)
                 .containsExactly("Engine");
+    }
+
+    @Test
+    void namesTheTestSurefiresFirstDefaultPatternWouldRunForIt() throws IOException {
+        production(head, "Engine.java", "public class Engine {\n}\n");
+
+        assertThat(work.between(base, head).typesAddedWithoutATest())
+                .extracting(ChangedCode.TypeWithoutATest::test)
+                .containsExactly("TestEngine");
+    }
+
+    @Test
+    void namesTheTestOfANestedTypeAfterTheNameItIsDeclaredUnder() throws IOException {
+        production(head, "Engine.java", "public class Engine {\n  class Piston {\n  }\n}\n");
+
+        assertThat(work.between(base, head).typesAddedWithoutATest())
+                .extracting(ChangedCode.TypeWithoutATest::name,
+                        ChangedCode.TypeWithoutATest::test)
+                .containsExactly(tuple("Engine", "TestEngine"),
+                        tuple("Engine.Piston", "TestPiston"));
     }
 
     @Test
@@ -41,12 +62,12 @@ class UntestedTypesTest {
     void countsNoTestTypeAsUntestedItself() throws IOException {
         checking(head, "EngineTest.java", "class EngineTest {\n}\n");
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.typesAddedWithoutATest()).isEmpty(),
                 () -> assertThat(written.filesByKind())
-                        .extracting(ExportedWork.KindFiles::kind)
+                        .extracting(ChangedCode.KindFiles::kind)
                         .containsExactly("tests"));
     }
 

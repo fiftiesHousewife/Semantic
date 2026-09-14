@@ -31,7 +31,7 @@ public record PullRequestExport(String schemaVersion, String repository, Measure
                                 List<ExportedPullRequest> pullRequests) {
 
     /** The version of this file's shape, so a consumer branches on a change rather than failing on it. */
-    public static final String SCHEMA_VERSION = "2.0";
+    public static final String SCHEMA_VERSION = "3.0";
 
     public PullRequestExport {
         Objects.requireNonNull(schemaVersion, "schemaVersion");

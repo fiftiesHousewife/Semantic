@@ -19,10 +19,14 @@ import java.util.regex.Pattern;
  */
 public final class SurefireTestNames {
 
+    /** The affix of the first of the four, {@code Test*.java}, which is the one a name is made from. */
+    private static final String FIRST_PATTERN_PREFIX = "Test";
+
     /**
-     * Surefire's four default patterns, with the subject required to open as a type name does. Oracle's
-     * Java code conventions state that a class name begins with a capital, which is what keeps
-     * {@code Tests} from reading as a test of something called {@code s}.
+     * Surefire's four default patterns, in the order its documentation lists them, with the subject
+     * required to open as a type name does. Oracle's Java code conventions state that a class name
+     * begins with a capital, which is what keeps {@code Tests} from reading as a test of something
+     * called {@code s}.
      */
     private static final List<Pattern> PATTERNS = List.of(
             Pattern.compile("^Test(?<subject>[A-Z].*)$"),
@@ -43,5 +47,18 @@ public final class SurefireTestNames {
     /** Whether the name is one Surefire would run as a test. */
     public boolean names(final String name) {
         return subjectOf(name).isPresent();
+    }
+
+    /**
+     * What a test of this name would itself be called, under the first of Surefire's default patterns.
+     * The name is read back through the same patterns and given only where it reads as a test of the
+     * subject it was made from, so a subject the patterns cannot carry — one not opening as a type name
+     * does — is named nothing rather than given a name Surefire would not run.
+     */
+    public Optional<String> testOf(final String subject) {
+        final String named = FIRST_PATTERN_PREFIX + subject;
+        return subjectOf(named)
+                .filter(subject::equals)
+                .map(read -> named);
     }
 }

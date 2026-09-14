@@ -32,4 +32,24 @@ class SurefireTestNamesTest {
                 () -> assertThat(names.subjectOf("Test")).isEmpty(),
                 () -> assertThat(names.subjectOf("Tests")).isEmpty());
     }
+
+    @Test
+    void namesTheTestATypeWouldHaveUnderSurefiresFirstDefaultPattern() {
+        assertAll(
+                () -> assertThat(names.testOf("TikaConfig")).contains("TestTikaConfig"),
+                () -> assertThat(names.testOf(names.testOf("TikaConfig").orElseThrow()))
+                        .contains("TestTestTikaConfig"));
+    }
+
+    @Test
+    void readsBackEveryNameItGivesAsATestOfTheSubjectItWasGiven() {
+        assertThat(names.subjectOf(names.testOf("TikaConfig").orElseThrow())).contains("TikaConfig");
+    }
+
+    @Test
+    void namesNoTestForASubjectThePatternWouldNotReadBack() {
+        assertAll(
+                () -> assertThat(names.testOf("tikaConfig")).isEmpty(),
+                () -> assertThat(names.testOf("")).isEmpty());
+    }
 }

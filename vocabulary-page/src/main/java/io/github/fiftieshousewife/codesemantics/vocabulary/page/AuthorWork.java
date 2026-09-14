@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import j2html.tags.specialized.SectionTag;
@@ -81,10 +82,10 @@ final class AuthorWork {
     /** Every type each pull request introduces, listed where it introduces any. */
     static List<String> typesAdded(final ExportedPullRequest pullRequest) {
         return PullRequestWork.written(pullRequest)
-                .map(ExportedWork.Written::typesAdded)
+                .map(ChangedCode::typesAdded)
                 .orElse(List.of())
                 .stream()
-                .map(ExportedWork.NamedDeclaration::name)
+                .map(ChangedCode.NamedDeclaration::name)
                 .toList();
     }
 }

@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.Map;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedAnswer;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSummary;
@@ -91,7 +92,7 @@ class AuthorPullRequestsTest {
                 () -> assertThat(author.statedClasses()).containsOnly(Map.entry("fix", 2)));
     }
 
-    private static ExportedWork withWritten(final ExportedWork.Written diff) {
+    private static ExportedWork withWritten(final ChangedCode diff) {
         return new ExportedWork(ExportedWork.Stated.noStatement(), List.of(), diff);
     }
 

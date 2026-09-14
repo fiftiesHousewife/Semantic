@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 
 /**
@@ -15,7 +16,7 @@ final class DeclarationPhrase {
 
     static final String NOTHING = "nothing";
 
-    static String of(final ExportedWork.Declarations declarations) {
+    static String of(final ChangedCode.Declarations declarations) {
         return joined(List.of(
                 counted(declarations.types(), "type"),
                 counted(declarations.methods(), "method"),

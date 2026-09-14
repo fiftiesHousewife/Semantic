@@ -110,7 +110,7 @@ public final class ExportCommand {
         final List<ExportedWork.Issue> issues = set.issuesOf(pullRequest)
                 .map(PinnedIssues::in)
                 .orElse(List.of());
-        final Optional<ExportedWork.Written> written = set.baseOf(pullRequest)
+        final Optional<ChangedCode> written = set.baseOf(pullRequest)
                 .map(base -> new WrittenWork().between(base, head));
         return set.statementOf(pullRequest)
                 .map(statement -> exported.of(pullRequest.facts(set.repository()), reading,

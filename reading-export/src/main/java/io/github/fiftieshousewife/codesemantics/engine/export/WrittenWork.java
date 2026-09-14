@@ -39,13 +39,13 @@ public final class WrittenWork {
     private final DeclaredMembers members = DeclaredMembers.newInstance();
 
     /** The head tree read against the base tree the fetch step wrote beside it. */
-    ExportedWork.Written between(final Path base, final Path head) {
+    ChangedCode between(final Path base, final Path head) {
         final List<SourceScope> scopes = new ChangedFileScopes().under(head);
         final DeclarationDiff diff = DeclarationDiff.between(
                 members.under(base, new ChangedFileScopes().under(base)),
                 members.under(head, scopes));
         final List<Path> read = filesIn(scopes);
-        return new ExportedWork.Written(read.size(), (int) read.stream()
+        return new ChangedCode(read.size(), (int) read.stream()
                 .filter(file -> !Files.exists(base.resolve(head.relativize(file))))
                 .count(),
                 counted(diff.addedByKind()), counted(diff.removedByKind()), diff.kept(),
@@ -58,7 +58,7 @@ public final class WrittenWork {
      * How many of the files read are of each kind the build's own layout states. A file two scopes both
      * reach is counted once, under the first that reaches it, so the counts sum to the files read.
      */
-    private static List<ExportedWork.KindFiles> byKind(final Path head, final List<SourceScope> scopes,
+    private static List<ChangedCode.KindFiles> byKind(final Path head, final List<SourceScope> scopes,
                                                        final List<Path> read) {
         final Map<Path, String> kindOf = new LinkedHashMap<>();
         scopes.forEach(scope -> scope.files().forEach(file ->
@@ -70,7 +70,7 @@ public final class WrittenWork {
             counts.put(SourceKind.OTHER.published(), other);
         }
         return counts.entrySet().stream()
-                .map(entry -> new ExportedWork.KindFiles(entry.getKey(), entry.getValue()))
+                .map(entry -> new ChangedCode.KindFiles(entry.getKey(), entry.getValue()))
                 .toList();
     }
 
@@ -137,17 +137,19 @@ public final class WrittenWork {
                 .toList();
     }
 
-    private static ExportedWork.Declarations counted(final Map<DeclarationKind, Integer> byKind) {
-        return new ExportedWork.Declarations(byKind.get(DeclarationKind.TYPE),
+    private static ChangedCode.Declarations counted(final Map<DeclarationKind, Integer> byKind) {
+        return new ChangedCode.Declarations(byKind.get(DeclarationKind.TYPE),
                 byKind.get(DeclarationKind.METHOD), byKind.get(DeclarationKind.FIELD));
     }
 
     /**
-     * The types the change adds to what the build publishes and adds no test for. A test is one whose
-     * name Surefire would run, and its subject is the name that pattern leaves — so a change adding
-     * {@code TikaConfig} and {@code TikaConfigTest} has covered the first.
+     * The types the change adds to what the build publishes and adds no test for, each named beside the
+     * test it arrives without. A test is one whose name Surefire would run, and its subject is the name
+     * that pattern leaves — so a change adding {@code TikaConfig} and {@code TikaConfigTest} has covered
+     * the first. The name the missing test would carry comes from the first of the same patterns, so a
+     * reader is given a name Surefire would run rather than one chosen here.
      */
-    private static List<ExportedWork.NamedDeclaration> withoutATest(final Path root,
+    private static List<ChangedCode.TypeWithoutATest> withoutATest(final Path root,
                                                                     final List<Declaration> added,
                                                                     final List<SourceScope> scopes) {
         final SurefireTestNames tests = new SurefireTestNames();
@@ -163,8 +165,8 @@ public final class WrittenWork {
                         == SourceKind.PRODUCTION)
                 .filter(declaration -> !tests.names(declaration.name()))
                 .filter(declaration -> !tested.contains(declaration.name()))
-                .map(declaration -> new ExportedWork.NamedDeclaration(declaration.path(),
-                        declaration.written()))
+                .map(declaration -> new ChangedCode.TypeWithoutATest(declaration.path(),
+                        declaration.written(), tests.testOf(declaration.name()).orElse("")))
                 .toList();
     }
 
@@ -177,10 +179,10 @@ public final class WrittenWork {
         return kinds;
     }
 
-    private static List<ExportedWork.NamedDeclaration> types(final List<Declaration> declarations) {
+    private static List<ChangedCode.NamedDeclaration> types(final List<Declaration> declarations) {
         return declarations.stream()
                 .filter(declaration -> declaration.kind() == DeclarationKind.TYPE)
-                .map(declaration -> new ExportedWork.NamedDeclaration(declaration.path(),
+                .map(declaration -> new ChangedCode.NamedDeclaration(declaration.path(),
                         declaration.written()))
                 .toList();
     }

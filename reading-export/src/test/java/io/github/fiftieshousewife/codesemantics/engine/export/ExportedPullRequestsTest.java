@@ -62,8 +62,8 @@ class ExportedPullRequestsTest {
     @Test
     void readsTheChangedFilesIdenticallyWithAndWithoutTheBaseTree() {
         final RepositoryReading reading = RepositoryReading.of(tree);
-        final ExportedWork.Written written = WrittenFixture.adding(1, 1, 3,
-                List.of(new ExportedWork.NamedDeclaration("LanguageParser.java", "LanguageParser")));
+        final ChangedCode written = WrittenFixture.adding(1, 1, 3,
+                List.of(new ChangedCode.NamedDeclaration("LanguageParser.java", "LanguageParser")));
 
         final ExportedPullRequest without = exported.of(FACTS, reading);
         final ExportedPullRequest with = exported.of(FACTS, reading, written);

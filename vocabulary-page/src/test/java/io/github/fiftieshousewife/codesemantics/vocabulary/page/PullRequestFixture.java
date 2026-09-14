@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.Map;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedSignal;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedStatement;
@@ -27,15 +28,31 @@ final class PullRequestFixture {
                 Map.of("ordinary English", 0.001), words.stream().map(PullRequestFixture::signal).toList());
     }
 
-    static ExportedWork.Written written(final int types, final int methods, final int fields,
+    static ChangedCode written(final int types, final int methods, final int fields,
                                         final List<String> typesAdded) {
-        return new ExportedWork.Written(4, 2, new ExportedWork.Declarations(types, methods, fields),
-                new ExportedWork.Declarations(0, 1, 0), 31,
+        return written(types, methods, fields, typesAdded, List.of());
+    }
+
+    static ChangedCode written(final int types, final int methods, final int fields,
+                                        final List<String> typesAdded,
+                                        final List<ChangedCode.TypeWithoutATest> untested) {
+        return new ChangedCode(4, 2, new ChangedCode.Declarations(types, methods, fields),
+                new ChangedCode.Declarations(0, 1, 0), 31,
                 typesAdded.stream()
-                        .map(name -> new ExportedWork.NamedDeclaration(name + ".java", name))
+                        .map(name -> new ChangedCode.NamedDeclaration(name + ".java", name))
                         .toList(),
-                List.of(), List.of(new ExportedWork.KindFiles("production", 4)),
-                side(40, 300), side(30, 240), List.of());
+                List.of(), List.of(new ChangedCode.KindFiles("production", 4)),
+                side(40, 300), side(30, 240), untested);
+    }
+
+    /** One type arriving with no test, named as the first of Surefire's default patterns would run it. */
+    static ChangedCode.TypeWithoutATest untested(final String name) {
+        return new ChangedCode.TypeWithoutATest(name + ".java", name, "Test" + name);
+    }
+
+    /** One type arriving with no test whose name that pattern would not read back. */
+    static ChangedCode.TypeWithoutATest unnameable(final String name) {
+        return new ChangedCode.TypeWithoutATest(name + ".java", name, "");
     }
 
     static MeasuredCode.Spread spread(final int median, final int upperQuartile, final int highest) {

@@ -59,6 +59,8 @@ public final class AuthorPage {
 
     private final AuthorReview review = new AuthorReview();
 
+    private final AuthorUntestedTypes untested = new AuthorUntestedTypes();
+
     private final AuthorSubjects subjects = new AuthorSubjects();
 
     private final AuthorConcepts concepts = new AuthorConcepts();
@@ -84,7 +86,7 @@ public final class AuthorPage {
                         concepts.markup(author),
                         words(author),
                         types(author),
-                        untested(author),
+                        untested.markup(author),
                         commits(author),
                         Footnotes.markup()),
                 script().withType("application/json").withId("pull-requests")
@@ -125,29 +127,6 @@ public final class AuthorPage {
         return li().withId(PullRequestAnchors.typesId(pullRequest))
                 .with(b().with(PullRequestLink.numbered(pullRequest)),
                         code(added.isEmpty() ? " none" : " " + String.join(", ", added)));
-    }
-
-    /** The types each pull request adds to what the build publishes and adds no test for. */
-    private static SectionTag untested(final AuthorPullRequests author) {
-        final SectionTag drawn = section().withId("untested")
-                .with(h2("The types added with no test of their own"));
-        if (author.typesAddedWithoutATest().isEmpty()) {
-            return drawn.with(p("Every type they add to what the build publishes arrives with a test "
-                    + "named for it."));
-        }
-        return drawn.with(ul().withClass("readings")
-                .with(each(author.pullRequests(), AuthorPage::untestedOf)));
-    }
-
-    private static LiTag untestedOf(final ExportedPullRequest pullRequest) {
-        final List<String> named = PullRequestWork.written(pullRequest)
-                .map(ExportedWork.Written::typesAddedWithoutATest)
-                .orElse(List.of())
-                .stream()
-                .map(ExportedWork.NamedDeclaration::name)
-                .toList();
-        return li(b().with(PullRequestLink.numbered(pullRequest)),
-                code(named.isEmpty() ? " none" : " " + String.join(", ", named)));
     }
 
     /** The commits each pull request was read at, so a figure here can be taken again. */

@@ -63,6 +63,10 @@ public final class ReadingFolder {
      * The pull requests read beside this repository, as their own published document, and nothing where
      * the run read none. It is a separate file from the reading, so a folder without one is a repository
      * read on its own rather than a document missing a section.
+     *
+     * <p>A document published at another version is nothing too. It parses — a field added since is
+     * absent rather than malformed — so the version is what says whether this build can draw it, the way
+     * a reading of another shape is one {@link #readable()} declines.
      */
     public Optional<PullRequestExport> pullRequests() {
         final Path file = folder.resolve(PullRequestFile.NAME);
@@ -70,7 +74,8 @@ public final class ReadingFolder {
             return Optional.empty();
         }
         try {
-            return Optional.of(new PullRequestFile().in(file));
+            return Optional.of(new PullRequestFile().in(file))
+                    .filter(read -> PullRequestExport.SCHEMA_VERSION.equals(read.schemaVersion()));
         } catch (final IOException e) {
             throw new UncheckedIOException("No readable pull requests at " + file, e);
         }

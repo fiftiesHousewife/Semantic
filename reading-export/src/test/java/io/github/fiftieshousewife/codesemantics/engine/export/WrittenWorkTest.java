@@ -41,7 +41,7 @@ class WrittenWorkTest {
                 }
                 """);
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.added().methods()).isEqualTo(1),
@@ -98,7 +98,7 @@ class WrittenWorkTest {
         wrote(head, "Engine.java", ENGINE);
         Files.writeString(head.resolve("CHANGES.txt"), "Added inference bindings.\n");
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.filesRead())
@@ -118,7 +118,7 @@ class WrittenWorkTest {
         Files.writeString(head.resolve("docs").resolve("inference.md"), "Loading an engine.\n");
         Files.writeString(head.resolve("CHANGES.txt"), "Added inference bindings.\n");
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertThat(allKinds(written))
                 .as("the kinds account for every file the pull request changed, the ones the build "
@@ -131,7 +131,7 @@ class WrittenWorkTest {
         wrote(head, "Engine.java", ENGINE);
         Files.writeString(head.resolve(".readingignore"), "docs/\n");
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.filesRead()).isEqualTo(1),
@@ -150,13 +150,13 @@ class WrittenWorkTest {
                 }
                 """);
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.filesRead()).isEqualTo(2),
                 () -> assertThat(written.filesAdded()).isEqualTo(1),
                 () -> assertThat(written.typesAdded())
-                        .extracting(ExportedWork.NamedDeclaration::name)
+                        .extracting(ChangedCode.NamedDeclaration::name)
                         .containsExactly("Loader"),
                 () -> assertThat(written.typesRemoved()).isEmpty());
     }
@@ -165,7 +165,7 @@ class WrittenWorkTest {
     void readsEveryDeclarationAsAddedWhereTheBaseStatesNoFileAtAll() throws IOException {
         wrote(head, "Engine.java", ENGINE);
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.added().types()).isEqualTo(1),
@@ -180,27 +180,27 @@ class WrittenWorkTest {
         wrote(base, "Engine.java", "public class Engine {\n}\n");
         wrote(head, "Engine.java", "public class InferenceEngine {\n}\n");
 
-        final ExportedWork.Written written = work.between(base, head);
+        final ChangedCode written = work.between(base, head);
 
         assertAll(
                 () -> assertThat(written.typesAdded())
-                        .extracting(ExportedWork.NamedDeclaration::name)
+                        .extracting(ChangedCode.NamedDeclaration::name)
                         .containsExactly("InferenceEngine"),
                 () -> assertThat(written.typesRemoved())
-                        .extracting(ExportedWork.NamedDeclaration::name)
+                        .extracting(ChangedCode.NamedDeclaration::name)
                         .containsExactly("Engine"),
                 () -> assertThat(written.kept()).isZero());
     }
 
-    private static int kind(final ExportedWork.Written written, final String kind) {
+    private static int kind(final ChangedCode written, final String kind) {
         return written.filesByKind().stream()
                 .filter(files -> kind.equals(files.kind()))
-                .mapToInt(ExportedWork.KindFiles::files)
+                .mapToInt(ChangedCode.KindFiles::files)
                 .sum();
     }
 
-    private static int allKinds(final ExportedWork.Written written) {
-        return written.filesByKind().stream().mapToInt(ExportedWork.KindFiles::files).sum();
+    private static int allKinds(final ChangedCode written) {
+        return written.filesByKind().stream().mapToInt(ChangedCode.KindFiles::files).sum();
     }
 
     private static void wrote(final Path tree, final String name, final String source) throws IOException {

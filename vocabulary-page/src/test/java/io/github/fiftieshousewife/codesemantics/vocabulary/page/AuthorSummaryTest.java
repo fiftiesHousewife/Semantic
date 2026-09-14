@@ -3,6 +3,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import org.junit.jupiter.api.Test;
 
@@ -81,14 +82,14 @@ class AuthorSummaryTest {
                         .isEqualTo("The tika issue tracker calls all 1 a Task."));
     }
 
-    private static ExportedWork.Written adding(final int types, final int methods, final int fields) {
-        return new ExportedWork.Written(4, 2, new ExportedWork.Declarations(types, methods, fields),
-                new ExportedWork.Declarations(0, 0, 0), 31, List.of(), List.of(),
-                List.of(new ExportedWork.KindFiles("production", 4)),
+    private static ChangedCode adding(final int types, final int methods, final int fields) {
+        return new ChangedCode(4, 2, new ChangedCode.Declarations(types, methods, fields),
+                new ChangedCode.Declarations(0, 0, 0), 31, List.of(), List.of(),
+                List.of(new ChangedCode.KindFiles("production", 4)),
                 PullRequestFixture.side(40, 300), PullRequestFixture.side(30, 240), List.of());
     }
 
-    private static AuthorPullRequests author(final ExportedWork.Written... written) {
+    private static AuthorPullRequests author(final ChangedCode... written) {
         return new AuthorPullRequests("tika", "tballison",
                 IntStream.range(0, written.length)
                         .mapToObj(index -> pullRequest(index + 1, "tballison", List.of("parser"))

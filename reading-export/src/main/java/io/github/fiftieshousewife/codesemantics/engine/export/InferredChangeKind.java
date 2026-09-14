@@ -30,7 +30,7 @@ final class InferredChangeKind {
     private static final List<String> BUILD = List.of(SourceKind.BUILD.published());
 
     /** One measurement per shape the mapping names, keyed on the token the mapping names it by. */
-    private static final Map<String, Predicate<ExportedWork.Written>> MEASUREMENTS = Map.of(
+    private static final Map<String, Predicate<ChangedCode>> MEASUREMENTS = Map.of(
             "documentation-only", written -> written.everyFileAmong(DOCUMENTATION),
             "checks-only", written -> written.everyFileAmong(CHECKING),
             "build-only", written -> written.everyFileAmong(BUILD),
@@ -42,7 +42,7 @@ final class InferredChangeKind {
     private final ChangeShapes shapes = ChangeShapes.fromClasspath();
 
     /** The first shape the change has, where the mapping states a type for it. */
-    Optional<ExportedWork.Inferred> of(final ExportedWork.Written written) {
+    Optional<ExportedWork.Inferred> of(final ChangedCode written) {
         return shapes.shapes().stream()
                 .filter(shape -> measures(shape).test(written))
                 .findFirst()
@@ -51,8 +51,8 @@ final class InferredChangeKind {
                         shape.measurement()));
     }
 
-    private static Predicate<ExportedWork.Written> measures(final ChangeShape shape) {
-        final Predicate<ExportedWork.Written> measurement = MEASUREMENTS.get(shape.shape());
+    private static Predicate<ChangedCode> measures(final ChangeShape shape) {
+        final Predicate<ChangedCode> measurement = MEASUREMENTS.get(shape.shape());
         if (measurement == null) {
             throw new IllegalStateException(String.format(Locale.ROOT,
                     "change-shape-types.tsv states the shape %s, which nothing here measures",
@@ -61,11 +61,11 @@ final class InferredChangeKind {
         return measurement;
     }
 
-    private static int added(final ExportedWork.Written written) {
+    private static int added(final ChangedCode written) {
         return written.added().total();
     }
 
-    private static int removed(final ExportedWork.Written written) {
+    private static int removed(final ChangedCode written) {
         return written.removed().total();
     }
 }

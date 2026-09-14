@@ -21,10 +21,8 @@ import com.fasterxml.jackson.annotation.Nulls;
  * the tracker's answer, and the type here is the tracker's word verbatim, never mapped onto another
  * standard's vocabulary.
  *
- * <p>{@code written} is what the changed files do to the declarations that stood before them: the pull
- * request's own tree read against the same files at its base commit, both pinned by the fetch step. It is
- * the parse's answer and not a standard's — a declaration added is a fact of the text — so no change class
- * is named from it, and a renamed declaration reads as one removed and one added.
+ * <p>{@code written} is what the changed files do to the declarations that stood before them, which
+ * {@link ChangedCode} holds.
  *
  * <p>{@code inferred} is the word a published standard's own definition covers the measured shape with —
  * a change that only adds declarations is the thing the specification defines {@code feat} as. It is the
@@ -42,7 +40,7 @@ import com.fasterxml.jackson.annotation.Nulls;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public record ExportedWork(Stated stated,
                            @JsonSetter(nulls = Nulls.AS_EMPTY) List<Issue> issues,
-                           Written written, Inferred inferred) {
+                           ChangedCode written, Inferred inferred) {
 
     public ExportedWork {
         Objects.requireNonNull(stated, "stated");
@@ -55,7 +53,7 @@ public record ExportedWork(Stated stated,
     }
 
     /** The work of a pull request read against its base, before any definition has been asked about it. */
-    public ExportedWork(final Stated stated, final List<Issue> issues, final Written written) {
+    public ExportedWork(final Stated stated, final List<Issue> issues, final ChangedCode written) {
         this(stated, issues, written, null);
     }
 
@@ -84,66 +82,6 @@ public record ExportedWork(Stated stated,
     }
 
     /**
-     * What the changed files write, as declarations: the pull request's tree at its head read against the
-     * same files at its base.
-     *
-     * @param filesRead    how many files of the pull request the reading's own scopes reach
-     * @param filesAdded   how many of those files stand at the head and not at the base
-     * @param added        the declarations standing at the head that did not stand at the base
-     * @param removed      the declarations standing at the base that do not stand at the head
-     * @param kept         how many of the head's declarations stood at the base under the same name in the
-     *                     same enclosing declarations
-     * @param typesAdded   every type the change adds, named and pathed, and empty where it adds none
-     * @param typesRemoved every type the change removes, named and pathed, and empty where it removes none
-     * @param filesByKind  how many of the files the pull request changed are of each kind, accounting
-     *                     for all of them: the kinds the build's own layout states, and {@code other}
-     *                     for a file it declares nowhere — a changelog, a licence
-     * @param atHead       what the changed files measure as the pull request leaves them
-     * @param atBase       what the same files measured as it found them
-     * @param typesAddedWithoutATest the types it adds to what the build publishes for which it adds no
-     *                     test of the name Surefire would run — which says no test arrived with them,
-     *                     never that nothing covers them
-     */
-    public record Written(int filesRead, int filesAdded, Declarations added,
-                          Declarations removed, int kept, List<NamedDeclaration> typesAdded,
-                          List<NamedDeclaration> typesRemoved, List<KindFiles> filesByKind,
-                          MeasuredCode atHead, MeasuredCode atBase,
-                          List<NamedDeclaration> typesAddedWithoutATest) {
-
-        public Written {
-            Objects.requireNonNull(added, "added");
-            Objects.requireNonNull(removed, "removed");
-            Objects.requireNonNull(atHead, "atHead");
-            Objects.requireNonNull(atBase, "atBase");
-            typesAdded = List.copyOf(typesAdded);
-            typesRemoved = List.copyOf(typesRemoved);
-            filesByKind = List.copyOf(filesByKind);
-            typesAddedWithoutATest = List.copyOf(typesAddedWithoutATest);
-        }
-
-        /** Whether every file the reading covers is of one of these kinds. */
-        public boolean everyFileAmong(final List<String> kinds) {
-            return !filesByKind.isEmpty() && filesByKind.stream()
-                    .allMatch(kind -> kinds.contains(kind.kind()));
-        }
-    }
-
-    /**
-     * Declarations counted by what they are in the syntax. A zero is a count and not an abstention: the
-     * parse read the files and found none of that kind changed.
-     *
-     * @param types   classes, interfaces, enums, records and annotations
-     * @param methods methods and constructors
-     * @param fields  fields, enum constants and record components
-     */
-    public record Declarations(int types, int methods, int fields) {
-
-        public int total() {
-            return types + methods + fields;
-        }
-    }
-
-    /**
      * The word a published standard's own definition covers a measured shape with.
      *
      * @param type       the token as the standard writes it
@@ -152,25 +90,6 @@ public record ExportedWork(Stated stated,
      *                   "it …" — {@code adds declarations and removes none}
      */
     public record Inferred(String type, String definition, String shape) {
-    }
-
-    /**
-     * How many of a change's files are of one kind, as the build's own layout states it.
-     *
-     * @param kind  {@code production}, {@code tests}, {@code fixtures}, {@code documentation} or
-     *              {@code build}
-     * @param files how many of the files read are of that kind
-     */
-    public record KindFiles(String kind, int files) {
-    }
-
-    /**
-     * One declaration this change states, and the file it stands in.
-     *
-     * @param path the file, relative to the pull request's own directory
-     * @param name the name under the declarations it sits inside
-     */
-    public record NamedDeclaration(String path, String name) {
     }
 
     /**
