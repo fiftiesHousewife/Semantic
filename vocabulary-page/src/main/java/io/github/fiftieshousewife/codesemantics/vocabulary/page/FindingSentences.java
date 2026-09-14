@@ -55,8 +55,8 @@ public final class FindingSentences {
     /** One refused vocabulary as a sentence carrying the two counts the refusal rests on. */
     public String refused(final SetAside.RefusedVocabulary vocabulary) {
         return String.format(Locale.ROOT,
-                "The repository writes %d of %s’s phrases; a deal of %s’s own words reaches %d, so %s "
-                        + "says nothing here.",
+                "The repository writes %d of %s’s phrases; a deal of %s’s own words reaches %d, so "
+                        + "the reading draws nothing from %s here.",
                 vocabulary.bar().phrases(), vocabulary.vocabulary(), vocabulary.vocabulary(),
                 vocabulary.bar().chanceExpectedBest(), vocabulary.vocabulary());
     }

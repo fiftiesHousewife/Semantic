@@ -103,7 +103,7 @@ class ReadingPageTest {
     @Test
     void statesEachRefusedVocabularyWithItsTwoCounts() {
         assertThat(page).contains("The repository writes 1 of CSO’s phrases; a deal of CSO’s own "
-                + "words reaches 2, so CSO says nothing here.");
+                + "words reaches 2, so the reading draws nothing from CSO here.");
     }
 
     @Test

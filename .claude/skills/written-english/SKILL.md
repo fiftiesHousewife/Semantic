@@ -108,6 +108,43 @@ A clause bolted onto a finished statement to say what the thing does *not* do, o
 
 The same test as rule 2 separates a tail from a rule: *a letter next to a digit is not a boundary* states the rule itself and stays; a trailing *which invents nothing* explains a phrase the sentence already finished.
 
+### 10. An artefact states; it does not say
+
+A file, a prefix, a vocabulary and a tracker all publish. None of them speaks. **states**, **defines**, **records**, **lists** and **names** describe what a published thing does to its own content and stay. **says**, **answers**, **speaks**, **tells** and **admits** give it a voice and go.
+
+| Refused | Write |
+|---|---|
+| a message beginning `feat:` says the change adds a feature | a message beginning `feat:` states that the change adds a feature |
+| what its code says | what its declarations count |
+| the vocabulary answers | the vocabulary matches 12 of its concepts |
+| the tracker tells us it is a Bug | the tracker records it as a Bug |
+
+*Calls* survives where it means naming and nothing else: *what Jira calls a Bug* is what Jira wrote in the field. *Covers* survives for a definition and a case, which is the word the specifications themselves use.
+
+### 11. No possessive chain
+
+One possessive per noun phrase. A second makes the reader hold two owners before reaching the noun that matters, and a third makes them parse the sentence twice.
+
+| Refused | Owners | Write |
+|---|---|---|
+| the word a published standard's own definition covers the measured shape with | standard's, definition's, shape's | the type whose definition covers what the parse measured |
+| the repository's own tracker's issue type | repository's, tracker's | the issue type the repository's tracker records |
+| each pull request's own reading's leading words | pull request's, reading's | the words each pull request's reading leads with → the leading words of each reading |
+
+The fix is usually a relative clause: *whose*, *that*, *the … of …*. Where two owners are both load-bearing, give them a sentence each.
+
+### 12. A pronoun's referent is named in its own sentence
+
+*It*, *its*, *they* and *their* reach back one sentence at most, and never to a table heading, a column name or a section title. A reader who arrives mid-page has no antecedent at all.
+
+| Refused | Why | Write |
+|---|---|---|
+| What it says is the word its own statement uses | *it* is the pull request, named nowhere in the sentence or the one before it | Conventional Commits' grammar parses the author's own statement |
+| They add 69 types and remove 3, across 54 files the build publishes | *they* opens a paragraph whose subject was last named three paragraphs up | These pull requests add 69 types and remove 3, across 54 files the build publishes |
+| They have no subject matter in common | *they* reaches a pronoun, which reaches another | These pull requests have no subject matter in common |
+
+The test: cover everything above the sentence. If the subject has vanished, name it. A pronoun reaching one sentence back to a named subject is what pronouns are for, and stays — once the paragraph's first sentence names them, *their methods* in its second is right.
+
 ## The requirements
 
 ### Terse and structural
@@ -170,6 +207,9 @@ Read the draft once for each line:
 - [ ] No sentence whose predicate restates its subject
 - [ ] No sentence ending on a preposition
 - [ ] No trailing clause saying what the thing does not do
+- [ ] No artefact given a voice — it states, it does not say
+- [ ] One possessive per noun phrase
+- [ ] Every pronoun's referent named in its own sentence
 - [ ] Nothing about the document itself, its history, or planned work
 - [ ] Every sentence carries information the previous one did not
 - [ ] Every ambiguous term defined at first use and linked

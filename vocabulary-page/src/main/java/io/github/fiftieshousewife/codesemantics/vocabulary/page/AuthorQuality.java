@@ -32,8 +32,8 @@ final class AuthorQuality {
     }
 
     private static String changed(final AuthorPullRequests author) {
-        return String.format(Locale.ROOT, "They add %s and remove %s, across %d files the build "
-                        + "publishes and %d that test them.",
+        return String.format(Locale.ROOT, "These pull requests add %s and remove %s, across %d "
+                        + "files the build publishes and %d that test them.",
                 DeclarationPhrase.of(author.added()), DeclarationPhrase.of(author.removed()),
                 filesOf(author, SourceKind.PRODUCTION), filesOf(author, SourceKind.TESTS));
     }

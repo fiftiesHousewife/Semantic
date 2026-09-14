@@ -60,13 +60,13 @@ public final class ChangeShapeTable {
         return section().withId("shapes").withClass("headless").with(
                 p().withClass("lede").with(
                         span("Every shape a reading can measure, in the order the rules are applied: "
-                                + "the first shape a change has is the one that answers. The definition "
-                                + "is quoted from "),
+                                + "the first shape a change has is the one used. The definition is "
+                                + "quoted from "),
                         a("Conventional Commits")
                                 .withHref("https://www.conventionalcommits.org/en/v1.0.0/"),
                         span(" beside the measurement it is taken to cover, so the pairing can be read "
                                 + "one against the other. A shape under no definition names nothing, "
-                                + "and says why.")),
+                                + "and the reason stands beside it.")),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("A change that"), th("Is a"), th("Because the standard defines it as"))),
                         tbody(each(shapes.shapes(), ChangeShapeTable::row)))));

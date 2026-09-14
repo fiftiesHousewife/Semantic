@@ -51,8 +51,8 @@ final class AuthorScale {
                         tbody(each(author.pullRequests(), AuthorScale::files)))),
                 p().withClass("lede").withText("A declaration is a type, a method or a field. Removed "
                         + "counts all three together. Untouched counts the declarations that were "
-                        + "already in those files and that the pull request does not alter, which says "
-                        + "how much code the change sits inside."),
+                        + "already in those files and that the pull request leaves alone, which "
+                        + "measures how much code the change joins."),
                 h3("Declarations it changes"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Types added").withClass("number"),

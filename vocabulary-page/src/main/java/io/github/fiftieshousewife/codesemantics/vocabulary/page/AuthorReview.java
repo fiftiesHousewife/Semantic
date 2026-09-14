@@ -90,12 +90,13 @@ final class AuthorReview {
                 p().withClass("lede").with(
                         span("The code each pull request leaves, at the middle of its methods, three "
                                 + "quarters of the way up them, and at its worst. The last column is the "
-                                + "repository itself, which is what says whether a figure is unusual "
-                                + "here — nothing below is measured against a threshold chosen by this "
+                                + "repository itself, and a figure is unusual only against that — "
+                                + "nothing below is measured against a threshold chosen by this "
                                 + "reading. "),
                         a("McCabe").withHref("https://doi.org/10.1109/TSE.1976.233837"),
-                        span(", whose complexity this is, proposes ten as the limit for one module, and "
-                                + "a complexity answers to that as well as to this repository.")),
+                        span(", whose complexity this is, proposes ten as the limit for one module, so "
+                                + "a complexity is read against that limit as well as against this "
+                                + "repository.")),
                 p().withClass("legend").with(each(List.of(MetricBand.values()), AuthorReview::key)),
                 h3("The code it leaves"),
                 div().withClass("scrolls").with(table().withClass("work banded").with(

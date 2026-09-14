@@ -94,9 +94,9 @@ final class Footnotes {
                 span("*Tests").withClass("token"),
                 span(" or "),
                 span("*TestCase").withClass("token"),
-                span(". It says no test arrived with the type. A type a test already standing in the "
-                        + "repository exercises is counted here all the same, because the reading runs "
-                        + "nothing and measures no coverage."));
+                span(". The count states that no test arrived with the type. A type that a test "
+                        + "already in the repository exercises is counted here all the same, because "
+                        + "the reading runs nothing and measures no coverage."));
     }
 
     private static LiTag testMethods() {
@@ -121,15 +121,16 @@ final class Footnotes {
                 span(" is not counted: those carry Jupiter's own "),
                 span("Testable").withClass("token"),
                 span(" annotation, and reading one annotation through another needs the classpath this "
-                        + "parse does not have. The count says how many tests arrived, never what they "
-                        + "exercise."));
+                        + "parse does not have. The count states how many tests arrived, never what "
+                        + "they exercise."));
     }
 
     private static LiTag fit() {
         return li().withId("note-" + FIT).with(
                 span("How well a description fits its code is the "),
                 a("Jensen–Shannon divergence").withHref("https://doi.org/10.1109/18.61115"),
-                span(" between a reading of what the pull request says and a reading of what it changes, "
+                span(" between a reading of what the pull request states and a reading of what it "
+                        + "changes, "
                         + "compared with 100 descriptions of the same shape built from that code's own "
                         + "words at random. It reads high where fewer than 5 of those 100 sit closer to "
                         + "the code, medium where fewer than 10 do, and uncertain where more do — the "

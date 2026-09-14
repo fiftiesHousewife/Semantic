@@ -64,7 +64,7 @@ final class AuthorFold {
     private PTag subject(final AuthorPullRequests author) {
         final List<String> words = summary.subjectWords(author);
         if (words.isEmpty()) {
-            return p("They have no subject matter in common.").withClass("finding");
+            return p("These pull requests have no subject matter in common.").withClass("finding");
         }
         return p().withClass("finding").with(span("About "), quoted(words), placed(author));
     }

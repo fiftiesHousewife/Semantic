@@ -38,8 +38,9 @@ final class AuthorWork {
                         span(". Jira\u2019s issue types stay as Jira writes them: a Bug is reported as a "
                                 + "Bug and is never rewritten as one of the standard\u2019s words.")),
                 div().withClass("scrolls").with(table().withClass("work").with(
-                        thead(tr(th("Pull request"), th("It says"), th("Its code says"),
-                                th("Why its code says that"), th("Tracker says"))),
+                        thead(tr(th("Pull request"), th("Type from its statement"),
+                                th("Type from its declarations"), th("Shape measured"),
+                                th("Type from the tracker"))),
                         tbody(each(author.pullRequests(), AuthorWork::row)))));
     }
 
