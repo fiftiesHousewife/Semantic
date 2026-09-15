@@ -2,6 +2,7 @@ package io.github.fiftieshousewife.codesemantics.vocabulary.page;
 
 import java.util.List;
 
+import io.github.fiftieshousewife.codesemantics.engine.export.ChangedCode;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedPullRequest;
 import io.github.fiftieshousewife.codesemantics.engine.export.ExportedWork;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,36 @@ class AuthorFoldTest {
                 () -> assertThat(markup).contains("How many"),
                 () -> assertThat(markup).doesNotContain("What it changes"),
                 () -> assertThat(markup).doesNotContain("What the code looks like"));
+    }
+
+    @Test
+    void namesTheStatementsRepeatedInAMethodBodyAnotherOfItsOwnMethodsWritesToo() {
+        assertThat(fold.markup(repeating(12)).render())
+                .contains("12 statements stand in a method body another of their own methods "
+                        + "writes too, the biggest of those bodies carrying 4");
+    }
+
+    @Test
+    void namesNoRepeatWhereEveryBodyStandsOnce() {
+        assertThat(fold.markup(repeating(0)).render())
+                .doesNotContain("another of their own methods writes too");
+    }
+
+    private static AuthorPullRequests repeating(final int statements) {
+        return new AuthorPullRequests("tika", "tballison", List.of(
+                pullRequest(3153, "tballison", List.of("parser"))
+                        .withWork(new ExportedWork(ExportedWork.Stated.noStatement(), List.of(),
+                                repeated(written(2, 5, 3, List.of("Engine")), statements)))));
+    }
+
+    private static ChangedCode repeated(final ChangedCode written, final int statements) {
+        return new ChangedCode(written.filesRead(), written.filesAdded(), written.added(),
+                written.removed(), written.kept(), written.typesAdded(), written.typesRemoved(),
+                written.filesByKind(), written.atHead(), written.atBase(),
+                written.typesAddedWithoutATest(), written.testMethodsAdded(),
+                new ChangedCode.Repeated(statements, statements == 0 ? 0 : 4,
+                        statements == 0 ? List.of()
+                        : List.of(new ChangedCode.NamedDeclaration("Engine.java", "Engine.started"))));
     }
 
     private static AuthorPullRequests withADiff() {

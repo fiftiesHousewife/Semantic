@@ -86,7 +86,7 @@ class AuthorSummaryTest {
         return new ChangedCode(4, 2, new ChangedCode.Declarations(types, methods, fields),
                 new ChangedCode.Declarations(0, 0, 0), 31, List.of(), List.of(),
                 List.of(new ChangedCode.KindFiles("production", 4)),
-                PullRequestFixture.side(40, 300), PullRequestFixture.side(30, 240), List.of(), 0);
+                PullRequestFixture.side(40, 300), PullRequestFixture.side(30, 240), List.of(), 0, ChangedCode.Repeated.none());
     }
 
     private static AuthorPullRequests author(final ChangedCode... written) {

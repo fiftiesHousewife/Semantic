@@ -49,6 +49,21 @@ final class AuthorTotals {
                 .sum();
     }
 
+    /** How many statements stand in a method body another method of the same change writes too. */
+    static int statementsRepeated(final AuthorPullRequests author) {
+        return written(author)
+                .mapToInt(diff -> diff.repeated().statements())
+                .sum();
+    }
+
+    /** The biggest body any one change repeats, which is what a total of trivial repeats cannot say. */
+    static int biggestRepeat(final AuthorPullRequests author) {
+        return written(author)
+                .mapToInt(diff -> diff.repeated().largest())
+                .max()
+                .orElse(0);
+    }
+
     static int testMethodsAdded(final AuthorPullRequests author) {
         return written(author)
                 .mapToInt(ChangedCode::testMethodsAdded)

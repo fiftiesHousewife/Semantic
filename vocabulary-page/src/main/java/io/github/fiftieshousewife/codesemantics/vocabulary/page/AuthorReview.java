@@ -70,17 +70,23 @@ final class AuthorReview {
                                 + "maven-surefire-plugin/test-mojo.html#includes"),
                         span(" would run as its test"),
                         Footnotes.marker(Footnotes.UNTESTED),
-                        span(". The last column counts the methods it adds carrying the "),
+                        span(". The next column counts the methods it adds carrying the "),
                         span("Test").withClass("token"),
                         span(" annotation"),
                         Footnotes.marker(Footnotes.TEST_METHODS),
+                        span(", and the last two the statements it writes in a method body another "
+                                + "of its own methods writes too, with the biggest such body beside "
+                                + "them"),
+                        Footnotes.marker(Footnotes.REPEATED),
                         span(".")),
                 h3("What it adds"),
                 div().withClass("scrolls").with(table().withClass("work").with(
                         thead(tr(th("Pull request"), th("Statements").withClass("number"),
                                 th("Comment lines").withClass("number"),
                                 th("Types with no test").withClass("number"),
-                                th("Test methods added").withClass("number"))),
+                                th("Test methods added").withClass("number"),
+                                th("Statements repeated").withClass("number"),
+                                th("Biggest repeat").withClass("number"))),
                         tbody(each(author.pullRequests(), AuthorReview::addedRow)))));
     }
 
@@ -171,7 +177,9 @@ final class AuthorReview {
                 Figure.counted(written.map(AuthorTotals::statementsAdded)),
                 Figure.counted(written.map(AuthorTotals::proseLinesAdded)),
                 Figure.counted(written.map(diff -> diff.typesAddedWithoutATest().size())),
-                Figure.counted(written.map(ChangedCode::testMethodsAdded)));
+                Figure.counted(written.map(ChangedCode::testMethodsAdded)),
+                Figure.counted(written.map(diff -> diff.repeated().statements())),
+                Figure.counted(written.map(diff -> diff.repeated().largest())));
     }
 
 

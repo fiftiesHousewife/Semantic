@@ -24,6 +24,6 @@ final class WrittenFixture {
         return new ChangedCode(3, 1, new ChangedCode.Declarations(types, methods, fields),
                 new ChangedCode.Declarations(0, 0, 0), 41, typesAdded, List.of(),
                 List.of(new ChangedCode.KindFiles("production", 3)), side(40, 300), side(30, 240),
-                List.of(), 0);
+                List.of(), 0, ChangedCode.Repeated.none());
     }
 }

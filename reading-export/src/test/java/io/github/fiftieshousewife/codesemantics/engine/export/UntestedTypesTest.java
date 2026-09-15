@@ -123,6 +123,52 @@ class UntestedTypesTest {
     }
 
     @Test
+    void namesTheMethodsWritingOneBodyInTwoOfTheChangedFiles() throws IOException {
+        production(head, "Engine.java", """
+                public class Engine {
+                    int started() {
+                        final int count = load();
+                        return count + 1;
+                    }
+                }
+                """);
+        production(head, "Loader.java", """
+                public class Loader {
+                    int opened() {
+                        final int count = load();
+                        return count + 1;
+                    }
+                }
+                """);
+
+        final ChangedCode.Repeated repeated = work.between(base, head).repeated();
+
+        assertAll(
+                () -> assertThat(repeated.methods())
+                        .extracting(ChangedCode.NamedDeclaration::name)
+                        .containsExactly("Engine.started", "Loader.opened"),
+                () -> assertThat(repeated.statements()).isEqualTo(4),
+                () -> assertThat(repeated.largest()).isEqualTo(2));
+    }
+
+    @Test
+    void namesNoRepeatedBodyWhereEachStandsOnce() throws IOException {
+        production(head, "Engine.java", """
+                public class Engine {
+                    int started() {
+                        return 1;
+                    }
+                }
+                """);
+
+        final ChangedCode.Repeated repeated = work.between(base, head).repeated();
+
+        assertAll(
+                () -> assertThat(repeated.methods()).isEmpty(),
+                () -> assertThat(repeated.statements()).isZero());
+    }
+
+    @Test
     void namesNoTypeWhereNothingWasAdded() throws IOException {
         production(base, "Engine.java", "public class Engine {\n}\n");
         production(head, "Engine.java", "public class Engine {\n}\n");

@@ -150,7 +150,7 @@ class AuthorQualityTest {
         return new ChangedCode(4, 2, new ChangedCode.Declarations(1, 2, 3),
                 new ChangedCode.Declarations(0, 0, 0), 31, List.of(), List.of(),
                 List.of(new ChangedCode.KindFiles("production", 4)),
-                measured(upperQuartile), measured(1), List.of(), 0);
+                measured(upperQuartile), measured(1), List.of(), 0, ChangedCode.Repeated.none());
     }
 
     private static MeasuredCode measured(final int upperQuartile) {

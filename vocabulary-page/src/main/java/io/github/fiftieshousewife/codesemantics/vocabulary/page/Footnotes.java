@@ -37,6 +37,9 @@ final class Footnotes {
     /** Which annotation a test method is counted by, and which methods that leaves out. */
     static final int TEST_METHODS = 5;
 
+    /** What makes two method bodies the same, and which bodies are left uncounted. */
+    static final int REPEATED = 6;
+
     private Footnotes() {
     }
 
@@ -51,7 +54,8 @@ final class Footnotes {
         return section().withId("notes").with(
                 h2("Notes"),
                 ol().withClass("notes").with(each(
-                        List.of(convention(), fit(), untested(), outside(), testMethods()),
+                        List.of(convention(), fit(), untested(), outside(), testMethods(),
+                                repeated()),
                         note -> note)));
     }
 
@@ -123,6 +127,19 @@ final class Footnotes {
                 span(" annotation, and reading one annotation through another needs the classpath this "
                         + "parse does not have. The count states how many tests arrived, never what "
                         + "they exercise."));
+    }
+
+    private static LiTag repeated() {
+        return li().withId("note-" + REPEATED).with(
+                span("Two method bodies are the same where the parse prints them alike, so a body "
+                        + "wrapped across three lines and the same body on one are one body. Nothing "
+                        + "weaker than equality counts: a body differing by one identifier is a "
+                        + "different body. A body carrying no statement is not counted however often "
+                        + "it is written. The figure is the statements those methods carry together "
+                        + "rather than how many of them there are, because twelve repeated bodies of "
+                        + "one statement and three of thirty-two are different findings. The "
+                        + "biggest repeated body is published beside the total for the same reason: "
+                        + "on tika the totals are mostly accessors returning a field."));
     }
 
     private static LiTag fit() {

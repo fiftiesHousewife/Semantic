@@ -42,7 +42,7 @@ final class PullRequestFixture {
                         .map(name -> new ChangedCode.NamedDeclaration(name + ".java", name))
                         .toList(),
                 List.of(), List.of(new ChangedCode.KindFiles("production", 4)),
-                side(40, 300), side(30, 240), untested, 2);
+                side(40, 300), side(30, 240), untested, 2, ChangedCode.Repeated.none());
     }
 
     /** One type arriving with no test, named as the first of Surefire's default patterns would run it. */

@@ -1,5 +1,5 @@
 {
-  "schemaVersion" : "4.0",
+  "schemaVersion" : "5.0",
   "repository" : "apache/tika",
   "repositoryCode" : {
     "commentLines" : 48959,
@@ -1018,7 +1018,42 @@
           "name" : "InputKind",
           "test" : "TestInputKind"
         } ],
-        "testMethodsAdded" : 31
+        "testMethodsAdded" : 31,
+        "repeated" : {
+          "statements" : 10,
+          "largest" : 1,
+          "methods" : [ {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/hook/ParseHook.java",
+            "name" : "ParseHook.wants"
+          }, {
+            "path" : "tika-server/tika-server-core/src/test/java/org/apache/tika/server/core/CXFTestBase.java",
+            "name" : "CXFTestBase.isAllowPerRequestConfig"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+            "name" : "InferenceBinding.isEnabled"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceSelection.java",
+            "name" : "InferenceSelection.isEnabled"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/sax/AbstractRecursiveParserWrapperHandler.java",
+            "name" : "AbstractRecursiveParserWrapperHandler.getEmbeddedMetadata"
+          }, {
+            "path" : "tika-pipes/tika-pipes-integration-tests/src/test/java/org/apache/tika/pipes/core/PipesClientTest.java",
+            "name" : "PipesClientTest.ChattyNeverFinishingServerManager.getTempDirectory"
+          }, {
+            "path" : "tika-server/tika-server-core/src/test/java/org/apache/tika/server/core/CXFTestBase.java",
+            "name" : "CXFTestBase.getUnpackEmitterBasePath"
+          }, {
+            "path" : "tika-server/tika-server-core/src/test/java/org/apache/tika/server/core/CXFTestBase.java",
+            "name" : "CXFTestBase.getPipesInputPath"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/hook/ParseHooksTest.java",
+            "name" : "ParseHooksTest.ContainerParser.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/inference/InferenceDispatcherTest.java",
+            "name" : "InferenceDispatcherTest.ContainerParser.getSupportedTypes"
+          } ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -1658,7 +1693,12 @@
           "name" : "EmbeddingEngine",
           "test" : "TestEmbeddingEngine"
         } ],
-        "testMethodsAdded" : 7
+        "testMethodsAdded" : 7,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -2164,7 +2204,18 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 2
+        "testMethodsAdded" : 2,
+        "repeated" : {
+          "statements" : 6,
+          "largest" : 3,
+          "methods" : [ {
+            "path" : "tika-serialization/src/main/java/org/apache/tika/config/loader/ContentEnricherLoader.java",
+            "name" : "ContentEnricherLoader.unwrap"
+          }, {
+            "path" : "tika-serialization/src/test/java/org/apache/tika/config/loader/ContentEnricherLoaderTest.java",
+            "name" : "ContentEnricherLoaderTest.unwrap"
+          } ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -3523,7 +3574,30 @@
           "name" : "StructureIndex.Frame",
           "test" : "TestFrame"
         } ],
-        "testMethodsAdded" : 29
+        "testMethodsAdded" : 29,
+        "repeated" : {
+          "statements" : 12,
+          "largest" : 4,
+          "methods" : [ {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFParser.java",
+            "name" : "PDFParser.getPDFParserConfig"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFParser.java",
+            "name" : "PDFParser.getDefaultConfig"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFMarkedContentGateTest.java",
+            "name" : "PDFMarkedContentGateTest.Result.body"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFMarkedContentIdentityTest.java",
+            "name" : "PDFMarkedContentIdentityTest.body"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/TaggedPdfBuilder.java",
+            "name" : "TaggedPdfBuilder.taggedLine"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/TaggedPdfBuilder.java",
+            "name" : "TaggedPdfBuilder.taggedLine"
+          } ]
+        }
       }
     },
     "concepts" : [ {
@@ -4739,7 +4813,123 @@
           "name" : "MetadataFilterLoader",
           "test" : "TestMetadataFilterLoader"
         } ],
-        "testMethodsAdded" : 15
+        "testMethodsAdded" : 15,
+        "repeated" : {
+          "statements" : 45,
+          "largest" : 3,
+          "methods" : [ {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/enricher/ContentEnrichers.java",
+            "name" : "ContentEnrichers.GuardedEnricher.GuardedEnricher"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/AbstractPDF2XHTML.java",
+            "name" : "AbstractPDF2XHTML.PageTextBuffer.PageTextBuffer"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/enricher/TextRecognizerSelection.java",
+            "name" : "TextRecognizerSelection.isEnabled"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceBinding.java",
+            "name" : "InferenceBinding.isEnabled"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceUnit.java",
+            "name" : "InferenceUnit.getText"
+          }, {
+            "path" : "tika-parsers/tika-parsers-ml/tika-inference/src/main/java/org/apache/tika/inference/Chunk.java",
+            "name" : "Chunk.getText"
+          }, {
+            "path" : "tika-core/src/main/java/org/apache/tika/parser/inference/InferenceUnit.java",
+            "name" : "InferenceUnit.getSize"
+          }, {
+            "path" : "tika-serialization/src/test/java/org/apache/tika/config/loader/TestChunker.java",
+            "name" : "TestChunker.getSize"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.RecognizingParser.recognizesText"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.PageEnricher.recognizesText"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.testHasTextRecognizerRefusedDuringEnrichment.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.testEnricherCannotRewriteContentType.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.testRuntimeFailureAbortsChainWithEarlierFailureSuppressed.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.testTimeoutAbortsChainImmediately.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.namedEnricher.getSupportedTypes"
+          }, {
+            "path" : "tika-core/src/test/java/org/apache/tika/parser/enricher/ContentEnrichersTest.java",
+            "name" : "ContentEnrichersTest.testRecursionGuard.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-ml/tika-inference/src/test/java/org/apache/tika/inference/EmbedTaskTest.java",
+            "name" : "EmbedTaskTest.tearDown"
+          }, {
+            "path" : "tika-parsers/tika-parsers-ml/tika-inference/src/test/java/org/apache/tika/inference/OpenAIEmbeddingEngineTest.java",
+            "name" : "OpenAIEmbeddingEngineTest.tearDown"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/AbstractPDF2XHTML.java",
+            "name" : "AbstractPDF2XHTML.setStartBookmark"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/AbstractPDF2XHTML.java",
+            "name" : "AbstractPDF2XHTML.setEndBookmark"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.testLegacyAccessChecking.getPassword"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.testAccessCheckingUserPassword.getPassword"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.PageAnnotator.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.EnrichingImageParser.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.PageEnricher.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.testExplicitContentEnricherReceivesRenderedPages.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.mockOcrParser.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.failingOcrParser.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.timingOutOcrParser.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.testOCRPageTimeoutDoesNotAbortWholeDocument.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/test/java/org/apache/tika/parser/pdf/PDFParserTest.java",
+            "name" : "PDFParserTest.testChunksFromAllOcrPagesReachParent.getSupportedTypes"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/InferenceBindingsWireTest.java",
+            "name" : "InferenceBindingsWireTest.setUpResources"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/TextRecognizerWireTest.java",
+            "name" : "TextRecognizerWireTest.setUpResources"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/InferenceBindingsWireTest.java",
+            "name" : "InferenceBindingsWireTest.setUpProviders"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/TextRecognizerWireTest.java",
+            "name" : "TextRecognizerWireTest.setUpProviders"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/InferenceBindingsWireTest.java",
+            "name" : "InferenceBindingsWireTest.isAllowPerRequestConfig"
+          }, {
+            "path" : "tika-server/tika-server-standard/src/test/java/org/apache/tika/server/standard/TextRecognizerWireTest.java",
+            "name" : "TextRecognizerWireTest.isAllowPerRequestConfig"
+          } ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -4955,7 +5145,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 0
+        "testMethodsAdded" : 0,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "build",
@@ -5115,7 +5310,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 0
+        "testMethodsAdded" : 0,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "build",
@@ -5275,7 +5475,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 0
+        "testMethodsAdded" : 0,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "build",
@@ -5738,7 +5943,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 2
+        "testMethodsAdded" : 2,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -6129,7 +6339,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 1
+        "testMethodsAdded" : 1,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -7221,7 +7436,30 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 3
+        "testMethodsAdded" : 3,
+        "repeated" : {
+          "statements" : 6,
+          "largest" : 1,
+          "methods" : [ {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDF2XHTML.java",
+            "name" : "PDF2XHTML.PDF2XHTML"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDF2XHTML.java",
+            "name" : "PDF2XHTML.AngleDetectingPDF2XHTML.AngleDetectingPDF2XHTML"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFParser.java",
+            "name" : "PDFParser.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/renderer/pdf/pdfbox/PDFBoxRenderer.java",
+            "name" : "PDFBoxRenderer.getSupportedTypes"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFParser.java",
+            "name" : "PDFParser.getPDFParserConfig"
+          }, {
+            "path" : "tika-parsers/tika-parsers-standard/tika-parsers-standard-modules/tika-parser-pdf-module/src/main/java/org/apache/tika/parser/pdf/PDFParser.java",
+            "name" : "PDFParser.getDefaultConfig"
+          } ]
+        }
       },
       "inferred" : {
         "type" : "feat",
@@ -7955,7 +8193,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 0
+        "testMethodsAdded" : 0,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       }
     },
     "concepts" : [ {
@@ -8098,7 +8341,12 @@
           }
         },
         "typesAddedWithoutATest" : [ ],
-        "testMethodsAdded" : 0
+        "testMethodsAdded" : 0,
+        "repeated" : {
+          "statements" : 0,
+          "largest" : 0,
+          "methods" : [ ]
+        }
       },
       "inferred" : {
         "type" : "build",

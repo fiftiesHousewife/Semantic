@@ -30,12 +30,14 @@ import java.util.Objects;
  *                     the tests that arrived and says nothing about what they exercise: no standard
  *                     names a test method after its subject, and which methods a test runs would need
  *                     the tests run, which this reading does not do
+ * @param repeated     the method bodies its own changed files write more than once
  */
 public record ChangedCode(int filesRead, int filesAdded, Declarations added, Declarations removed,
                           int kept, List<NamedDeclaration> typesAdded,
                           List<NamedDeclaration> typesRemoved, List<KindFiles> filesByKind,
                           MeasuredCode atHead, MeasuredCode atBase,
-                          List<TypeWithoutATest> typesAddedWithoutATest, int testMethodsAdded) {
+                          List<TypeWithoutATest> typesAddedWithoutATest, int testMethodsAdded,
+                          Repeated repeated) {
 
     public ChangedCode {
         Objects.requireNonNull(added, "added");
@@ -46,6 +48,7 @@ public record ChangedCode(int filesRead, int filesAdded, Declarations added, Dec
         typesRemoved = List.copyOf(typesRemoved);
         filesByKind = List.copyOf(filesByKind);
         typesAddedWithoutATest = List.copyOf(typesAddedWithoutATest);
+        Objects.requireNonNull(repeated, "repeated");
     }
 
     /** Whether every file the reading covers is of one of these kinds. */
@@ -86,6 +89,32 @@ public record ChangedCode(int filesRead, int filesAdded, Declarations added, Dec
      * @param name the name under the declarations it sits inside
      */
     public record NamedDeclaration(String path, String name) {
+    }
+
+    /**
+     * The method bodies this change writes more than once, at the head commit.
+     *
+     * <p>Two bodies are the same where the parse prints them alike, so layout is not a difference and
+     * nothing weaker than equality is admitted. A body carrying no statement is not counted however often
+     * it is written.
+     *
+     * @param statements how many statements the repeating methods carry together
+     * @param largest    the statements the biggest repeated body carries, which is what separates a
+     *                   copied algorithm from thirty accessors each returning a field. Neither figure
+     *                   alone says what a repeat is worth, and no threshold is stated to tell them apart
+     * @param methods    each method writing a body another of them also writes, named and pathed, and
+     *                   empty where every body stands once
+     */
+    public record Repeated(int statements, int largest, List<NamedDeclaration> methods) {
+
+        public Repeated {
+            methods = List.copyOf(methods);
+        }
+
+        /** Nothing was repeated, which is what a change of one method always reads as. */
+        public static Repeated none() {
+            return new Repeated(0, 0, List.of());
+        }
     }
 
     /**

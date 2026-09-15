@@ -113,7 +113,19 @@ final class AuthorOverview {
 
     private LiTag leaves(final AuthorPullRequests author) {
         return line("What the code looks like", "review", text(quality.complexity(author)),
-                text(" " + quality.outliers(author)));
+                text(" " + quality.outliers(author)), repeated(author));
+    }
+
+    /** What they write twice, left off where every method body of theirs stands once. */
+    private static DomContent repeated(final AuthorPullRequests author) {
+        final int statements = AuthorTotals.statementsRepeated(author);
+        if (statements == 0) {
+            return span("");
+        }
+        return span().with(span(String.format(Locale.ROOT, " %s stand in a method body another of "
+                        + "their own methods writes too, the biggest of those bodies carrying %d",
+                Counted.of(statements, "statement"), AuthorTotals.biggestRepeat(author))),
+                Footnotes.marker(Footnotes.REPEATED), span("."));
     }
 
     /** How far each description sits from the code shipped with it, counted by band, strongest first. */

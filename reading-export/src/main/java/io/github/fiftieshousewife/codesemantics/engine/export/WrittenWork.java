@@ -15,6 +15,7 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.DeclarationKind;
 import io.github.fiftieshousewife.codesemantics.engine.parse.DeclaredMembers;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.ParsedRepository;
+import io.github.fiftieshousewife.codesemantics.engine.parse.RepeatedBodies;
 import io.github.fiftieshousewife.codesemantics.engine.parse.TreeMetrics;
 import io.github.fiftieshousewife.codesemantics.engine.reading.ChangedFileScopes;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
@@ -50,7 +51,7 @@ public final class WrittenWork {
                 types(diff.added()), types(diff.removed()), byKind(head, scopes, read),
                 measured(head, scopes), measured(base, new ChangedFileScopes().under(base)),
                 tests.typesWithoutOne(head, diff.added(), scopes),
-                tests.methodsAdded(head, scopes, diff.added()));
+                tests.methodsAdded(head, scopes, diff.added()), repeated(head, scopes));
     }
 
     /**
@@ -71,6 +72,18 @@ public final class WrittenWork {
         return counts.entrySet().stream()
                 .map(entry -> new ChangedCode.KindFiles(entry.getKey(), entry.getValue()))
                 .toList();
+    }
+
+    /**
+     * The method bodies the changed files write more than once, read over all of them together so a body
+     * copied from one file into another is found as readily as one copied within a file.
+     */
+    private static ChangedCode.Repeated repeated(final Path root, final List<SourceScope> scopes) {
+        final RepeatedBodies.Repeated written = RepeatedBodies.newInstance().under(root, scopes);
+        return new ChangedCode.Repeated(written.statements(), written.largest(),
+                written.methods().stream()
+                .map(method -> new ChangedCode.NamedDeclaration(method.path(), method.written()))
+                .toList());
     }
 
     /** The same measurement over a whole working tree, which is what a pull request is read against. */

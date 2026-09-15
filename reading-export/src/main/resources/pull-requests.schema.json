@@ -858,6 +858,56 @@
                       }
                     }
                   },
+                  "repeated": {
+                    "title": "Method bodies written more than once",
+                    "description": "The method bodies the change's own files write more than once, at the head commit. Two bodies are the same where the parse prints them alike, so a body wrapped across three lines and the same body on one read alike, and nothing weaker than equality is admitted. A body carrying no statement is not counted however often it is written.",
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "statements",
+                      "largest",
+                      "methods"
+                    ],
+                    "properties": {
+                      "statements": {
+                        "title": "Statements repeated",
+                        "description": "How many statements the repeating methods carry together.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "largest": {
+                        "title": "The biggest repeated body",
+                        "description": "The statements the biggest repeated body carries, which is what separates a copied algorithm from thirty accessors each returning a field. Neither figure alone says what a repeat is worth, and no threshold is stated to tell them apart.",
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "methods": {
+                        "title": "The methods repeating a body",
+                        "description": "Each method writing a body another method of the change also writes. Empty where every body stands once.",
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "path",
+                            "name"
+                          ],
+                          "properties": {
+                            "path": {
+                              "title": "File",
+                              "description": "The file the declaration stands in, relative to the pull request's own directory.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "title": "Name",
+                              "description": "The name, under the declarations it sits inside, written outermost first and separated by dots.",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
                   "testMethodsAdded": {
                     "title": "Test methods added",
                     "description": "How many of the methods the change adds carry the Test annotation, which is what JUnit 4, JUnit Jupiter and TestNG each call the annotation on one test method. A method Jupiter also runs under ParameterizedTest, RepeatedTest, TestFactory or TestTemplate is not counted: those carry Jupiter's Testable meta-annotation, resolving which needs the classpath this parse does not have. It counts the tests that arrived and says nothing about what they exercise — no standard names a test method after its subject, and which methods a test runs would need the tests run.",
