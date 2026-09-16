@@ -42,6 +42,17 @@ implementation("io.github.fiftieshousewife:reading-export:0.1.0-SNAPSHOT")
 
 `./gradlew publishToMavenLocal` puts the jars in `~/.m2/repository` under that coordinate. Nothing is on Maven Central yet.
 
+Reading a repository's pull requests takes the fetched directory and nothing else:
+
+```java
+PullRequestSet set = PullRequestSet.under(Path.of("~/evaluation/pull-requests/tika"));
+List<ExportedPullRequest> read = new ReadPullRequests(List.of()).in(set);
+PullRequestDocument.wrote(folder, Optional.of(set.repository()),
+        Optional.of(WrittenWork.ofTheWholeTree(clone)), read);
+```
+
+`ReadPullRequests` judges the statements together, so each is priced against the field of all of them, and reads each head as the changed-file copy it is. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) fills the directory it expects.
+
 A release to [the Maven Central Portal](https://central.sonatype.com) goes in three steps. `releaseCheck` states what stands in the way and fails where anything does — a `SNAPSHOT` version, or an unset key — so a release refuses to start rather than failing at the upload.
 
 ```

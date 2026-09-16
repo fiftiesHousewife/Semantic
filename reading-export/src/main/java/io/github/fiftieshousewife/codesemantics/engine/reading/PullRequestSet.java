@@ -18,11 +18,11 @@ import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
  */
 public final class PullRequestSet {
 
-    static final String MANIFEST = "pull-requests.tsv";
-    static final String STATEMENT_SUFFIX = "-statement.md";
-    static final String TEMPLATE_SUFFIX = "-template.md";
-    static final String ISSUES_SUFFIX = "-issues.tsv";
-    static final String BASE_SUFFIX = "-base";
+    public static final String MANIFEST = "pull-requests.tsv";
+    public static final String STATEMENT_SUFFIX = "-statement.md";
+    public static final String TEMPLATE_SUFFIX = "-template.md";
+    public static final String ISSUES_SUFFIX = "-issues.tsv";
+    public static final String BASE_SUFFIX = "-base";
     private static final String COMMENT = "#";
     private static final String REPOSITORY_FIELD = "# repository:";
     private static final String COLUMN = "\t";

@@ -1,14 +1,11 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-import io.github.fiftieshousewife.codesemantics.engine.parse.AuthoredLines;
-import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 
 import io.github.fiftieshousewife.codesemantics.engine.term.BundledTaxonomies;
 import io.github.fiftieshousewife.codesemantics.engine.term.TermIndex;
@@ -87,53 +84,9 @@ public final class ExportCommand {
         PullRequestDocument.wrote(folder.file(PULL_REQUESTS).getParent(),
                 fetched.map(PullRequestSet::repository),
                 fetched.map(set -> WrittenWork.ofTheWholeTree(reading.root())),
-                fetched.map(set -> read(set, published)).orElse(List.of()));
+                fetched.map(set -> new ReadPullRequests(published).in(set)).orElse(List.of()));
     }
 
-    private static List<ExportedPullRequest> read(final PullRequestSet set,
-                                                 final List<String> published) {
-        final ExportedPullRequests exported = new ExportedPullRequests(published);
-        final int statements = (int) set.pullRequests().stream()
-                .filter(pullRequest -> set.statementOf(pullRequest).isPresent())
-                .count();
-        return set.pullRequests().stream()
-                .map(pullRequest -> read(exported, set, pullRequest, statements))
-                .toList();
-    }
-
-    /** The statements are judged together, so each is priced against the field of all of them. */
-    private static ExportedPullRequest read(final ExportedPullRequests exported, final PullRequestSet set,
-                                            final PullRequestSet.PullRequest pullRequest,
-                                            final int statements) {
-        final Path head = set.treeOf(pullRequest);
-        final RepositoryReading reading = TreeReading.ofChangedFiles(head);
-        final List<ExportedWork.Issue> issues = set.issuesOf(pullRequest)
-                .map(PinnedIssues::in)
-                .orElse(List.of());
-        final Optional<ChangedCode> written = set.baseOf(pullRequest)
-                .map(base -> new WrittenWork().between(base, head));
-        return set.statementOf(pullRequest)
-                .map(statement -> exported.of(pullRequest.facts(set.repository()), reading,
-                        authored(statement, set.templateOf(pullRequest)), issues, statements, written))
-                .orElseGet(() -> written
-                        .map(declarations -> exported.of(pullRequest.facts(set.repository()), reading, declarations))
-                        .orElseGet(() -> exported.of(pullRequest.facts(set.repository()), reading)));
-    }
-
-    /** The statement without the lines the host's own template supplied, where the fetch pinned one. */
-    private static String authored(final Path statement, final Optional<Path> template) {
-        return template
-                .map(pinned -> AuthoredLines.of(textIn(statement), textIn(pinned)))
-                .orElseGet(() -> textIn(statement));
-    }
-
-    private static String textIn(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
-        }
-    }
 
     /**
      * The reading already on disk, where there is one this shape can read.
