@@ -1,6 +1,6 @@
 {
-  "previousCommit" : "28680634ee816b03f6e039da59b4fbc5e7486549",
-  "commit" : "d273e979b3da20759235c75743a24d74221e3f4c",
+  "previousCommit" : "d273e979b3da20759235c75743a24d74221e3f4c",
+  "commit" : "9a35c2ee45d6372f6123b2ac45cff400058be5ae",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
@@ -19,7 +19,7 @@
     "after" : "32.8%"
   }, {
     "figure" : "arXiv archive — chance reaches",
-    "before" : "40.7%",
+    "before" : "40.8%",
     "after" : "40.8%"
   }, {
     "figure" : "arXiv archive — stands apart from chance",
@@ -39,7 +39,7 @@
     "after" : "42.1%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
+    "before" : "45.3%",
     "after" : "45.3%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -79,7 +79,7 @@
     "after" : "40.4%"
   }, {
     "figure" : "OpenAlex category — chance reaches",
-    "before" : "48.5%",
+    "before" : "48.4%",
     "after" : "48.4%"
   }, {
     "figure" : "OpenAlex category — stands apart from chance",
@@ -131,7 +131,7 @@
     "after" : "3"
   }, {
     "figure" : "Words above the bar",
-    "before" : "313",
+    "before" : "315",
     "after" : "315"
   }, {
     "figure" : "Topics reported",
@@ -142,13 +142,5 @@
     "before" : "145",
     "after" : "145"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "functions",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "issues",
-    "entered" : true
-  } ]
+  "crossings" : [ ]
 }
