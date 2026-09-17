@@ -12,9 +12,19 @@ import java.util.stream.Stream;
  *
  * <p><b>Nothing is dropped for coming second.</b> Taking the single best source hides the rest, and the
  * rest are often the ones a reader wants: on jPOS five vocabularies clear the phrase bar and only BIAN
- * places its matched concept under {@code Cards}, which is what the library is. The kinds still back off —
- * a reading answered by a subject scheme is one whose vocabularies said nothing — but the backoff is
- * between kinds and never inside one.
+ * places its matched concept under {@code Cards}, which is what the library is. The kinds still back off,
+ * but the backoff is between kinds and never inside one.
+ *
+ * <p><b>A subject scheme is not one of the kinds, and was until 2026-09-17.</b> It sat last, so a reading
+ * reached it only where no vocabulary had answered — and measured over the eleven evaluation members it
+ * was wrong every time it spoke: arXiv names the stated area 4 of 11, OpenAlex 0 of 11, and the six
+ * answers the cascade actually published were all on the two members nothing else could read. The reason
+ * is not a defect that can be repaired. Each of OpenAlex's 4,498 subject descriptions reads into 50.6
+ * domain labels with eight labels carried by every one of them, leaving two subjects 0.66 bits apart on a
+ * scale bounded at one; removing the scheme's own mean takes them to 0.88 bits apart and moves
+ * precision@10 not at all, because at two hundred generic labels a derivatives pricing library and a
+ * poverty study are one shape. A repository no vocabulary can read now states nothing, which is the
+ * outcome the doctrine asks for.
  *
  * <p>It is an ordered list of evidence kinds and not the levels of one hierarchy: a term vocabulary and a
  * subject scheme sit in different published trees. Each kind states its own bar, and none of them is
@@ -25,7 +35,7 @@ import java.util.stream.Stream;
  * a taxonomy rather than a word list buys exactly one thing — the node reached carries meaning — so a
  * reading that reaches a node and reports only its name has matched a name. The answer is therefore the
  * publisher's own definition of the concept this repository wrote most, which {@link AnswerFromATaxonomy}
- * chooses for a vocabulary and {@link AnswerFromAScheme} for a subject scheme's placement.
+ * chooses.
  *
  * <p>Two things were tried above it and both are too general to say anything about a repository. The
  * <em>branch</em> is noise and not descriptive: on jPOS, a card-payment library, FIBO's most-carried branch
@@ -92,25 +102,9 @@ public enum EvidenceKinds {
         }
     },
 
-    /**
-     * A subject scheme's placement, coarsest level first.
-     *
-     * <p>Nothing is matched here. A scheme states its subjects' subject matter, so the answer is which
-     * subject's own statement this repository's vocabulary sits nearest to, and it qualifies where the
-     * repository sits nearer to it than to every subject of a scheme of chance.
-     */
-    PLACED_SUBJECT {
-        @Override
-        List<ExportedAnswer> of(final ReadingExport reading) {
-            return reading.summary().placedIn().stream()
-                    .map(SCHEME::of)
-                    .flatMap(Optional::stream)
-                    .toList();
-        }
-    };
+    ;
 
     private static final AnswerFromATaxonomy TAXONOMY = new AnswerFromATaxonomy();
-    private static final AnswerFromAScheme SCHEME = new AnswerFromAScheme();
 
     /** What the reading is about: every source that cleared the bar of the first kind to qualify. */
     public static List<ExportedAnswer> answering(final ReadingExport reading) {

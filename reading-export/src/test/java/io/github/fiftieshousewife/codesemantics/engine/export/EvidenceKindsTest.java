@@ -125,52 +125,36 @@ class EvidenceKindsTest {
     }
 
     @Test
-    void answersOncePerSchemeWithItsArchiveAsThePathToItsCategory() {
-        final List<ExportedAnswer> answers = EvidenceKinds.answering(reading(List.of(),
+    void answersNothingFromASubjectSchemeHoweverFarItStandsFromChance() {
+        assertThat(EvidenceKinds.answering(reading(List.of(),
                 List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
                                 level("Computation and Language", true)),
                         new ExportedPlacement("CSO", level("linguistics", true),
-                                level("speech communication", false)))));
-        assertAll(
-                () -> assertThat(answers).extracting(ExportedAnswer::source)
-                        .as("naming a scheme twice says which level neither time")
-                        .containsExactly("arXiv", "CSO"),
-                () -> assertThat(answers).extracting(ExportedAnswer::result)
-                        .containsExactly("Computation and Language", "linguistics"),
-                () -> assertThat(answers).extracting(ExportedAnswer::statedPath)
-                        .containsExactly(List.of("Computer Science"), List.of()),
-                () -> assertThat(answers).extracting(ExportedAnswer::sourceType)
-                        .containsOnly("subject scheme"));
+                                level("speech communication", true))))))
+                .as("a scheme names the stated area 0 to 5 times of 11 and cannot be told from chance "
+                        + "by a bar drawn over subjects 0.66 bits apart, so it states nothing")
+                .containsExactly(ExportedAnswer.NONE);
     }
 
     @Test
-    void leavesOutASchemeNeitherOfWhoseLevelsStandsApartFromChance() {
-        assertThat(EvidenceKinds.answering(reading(List.of(),
-                List.of(new ExportedPlacement("arXiv", level("Computer Science", false),
-                        level("Computation and Language", false))))))
-                .containsExactly(ExportedAnswer.NONE);
+    void stillAnswersFromAVocabularyWhereASchemeAlsoPlaced() {
+        assertThat(EvidenceKinds.answering(reading(
+                List.of(cleared("FIX", "Session", 52, 5)),
+                List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
+                        level("Computation and Language", true))))))
+                .extracting(ExportedAnswer::source)
+                .as("taking the scheme out of the cascade leaves every vocabulary answer where it was")
+                .containsExactly("FIX");
     }
 
     @Test
     void statesEachSourceTypesStrengthInItsOwnUnitAndLeavesOutTheOtherOne() {
         final List<ExportedAnswer> vocabularies = EvidenceKinds.answering(reading(
                 List.of(cleared("FIX", "Session", 52, 5)), List.of()));
-        final List<ExportedAnswer> schemes = EvidenceKinds.answering(reading(List.of(),
-                List.of(new ExportedPlacement("arXiv", level("Computer Science", true),
-                        level("Computation and Language", true)))));
-        assertAll(
-                () -> assertThat(vocabularies).singleElement()
-                        .extracting(ExportedAnswer::timesItsBar, ExportedAnswer::bitsPastChance)
-                        .as("a vocabulary has no distance in bits, and states none rather than zero")
-                        .containsExactly(52.0 / 5.0, null),
-                () -> assertThat(schemes).singleElement()
-                        .extracting(ExportedAnswer::timesItsBar)
-                        .as("a scheme faces no permutation bar, and states none rather than zero")
-                        .isNull(),
-                () -> assertThat(schemes.getFirst().bitsPastChance())
-                        .isCloseTo(0.1, within(1e-9)),
-                () -> assertThat(schemes).singleElement().extracting(ExportedAnswer::qualifiedBy)
-                        .asString().isEqualTo("0.100 bits nearer than chance reached"));
+        assertThat(vocabularies).singleElement()
+                .extracting(ExportedAnswer::timesItsBar, ExportedAnswer::bitsPastChance)
+                .as("a vocabulary has no distance in bits, and states none rather than zero")
+                .containsExactly(52.0 / 5.0, null);
     }
 
     @Test
