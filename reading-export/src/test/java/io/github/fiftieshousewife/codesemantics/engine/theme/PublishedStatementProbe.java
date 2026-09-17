@@ -107,6 +107,35 @@ public final class PublishedStatementProbe {
                 .map(SharedMass.Shared::topic).toList()));
         ranked(placed, marked, chance.chanceNearest(), area);
         new SuperiorityFigures(area).print(scored(placed, marked));
+        distinctive(areas, read, marked, area, seed);
+    }
+
+    /**
+     * The same placement over what each subject states that the scheme does not state everywhere.
+     *
+     * <p>It is printed beside the reading's own answer rather than replacing it, so the two are read
+     * against each other on one run: a scheme whose subjects already differ loses nothing here, and one
+     * whose subjects all read alike is where the difference shows.
+     */
+    private static void distinctive(final List<SubjectTopics> areas, final TopicDistribution read,
+                                    final Map<String, ProbabilityOfSuperiority.Expectation> marked,
+                                    final String area, final long seed) {
+        final List<TopicDistribution> only = new DistinctiveSubjects()
+                .over(areas.stream().map(SubjectTopics::distribution).toList());
+        final List<SubjectTopics> apart = java.util.stream.IntStream.range(0, areas.size())
+                .mapToObj(at -> new SubjectTopics(areas.get(at).concept(), areas.get(at).label(),
+                        areas.get(at).group(), only.get(at), areas.get(at).phrases()))
+                .filter(subject -> !subject.distribution().isEmpty())
+                .toList();
+        System.out.printf("%n  -- what each subject states that the scheme does not state everywhere%n");
+        census(apart, seed);
+        final List<SubjectPlacement.Placement> placed = SubjectPlacement.byDivergence().of(read, apart);
+        System.out.printf("  nearest %s %.4f bits%n", placed.getFirst().label(), placed.getFirst().bits());
+        placed.stream().limit(SHOWN).forEach(one -> System.out.printf("     %-56s %.4f%s%n", one.label(),
+                one.bits(),
+                marked.getOrDefault(one.concept(), ProbabilityOfSuperiority.Expectation.DOES_NOT)
+                        == ProbabilityOfSuperiority.Expectation.MEETS_IT ? "  <- under " + area : ""));
+        new SuperiorityFigures(area).print(scored(placed, marked));
     }
 
     /**
