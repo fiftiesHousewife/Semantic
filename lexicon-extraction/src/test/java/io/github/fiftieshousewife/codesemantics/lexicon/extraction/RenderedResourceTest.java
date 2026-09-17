@@ -16,9 +16,6 @@ class RenderedResourceTest {
 
     private static final String NIST_CATALOG_VERSION = "1.2.0";
 
-    private static final String OPENALEX_CITATION = "OpenAlex's own topics snapshot, "
-            + "s3://openalex/data/jsonl/topics/ at 2026-06-26, the manifest and the 6 parts it names, "
-            + "stating 4516 records";
 
     @Test
     void arxivTaxonomyIsWhatItsRendererWrites() throws IOException {
@@ -82,12 +79,6 @@ class RenderedResourceTest {
                 .isEqualTo(committed("nist-csf-functions.tsv"));
     }
 
-    @Test
-    void openAlexTopicsAreWhatTheirRendererWrites() throws IOException {
-        assertThat(new OpenAlexTopicsExtraction().rendered(SkosRows.in("openalex-topics.tsv"),
-                OPENALEX_CITATION))
-                .isEqualTo(committed("openalex-topics.tsv"));
-    }
 
     private static String committed(final String resource) throws IOException {
         try (InputStream stream = RenderedResourceTest.class.getResourceAsStream("/" + resource)) {

@@ -10,7 +10,6 @@ import io.github.fiftieshousewife.codesemantics.engine.term.TopicLabelDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.CsoTopics;
-import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 /**
@@ -22,14 +21,9 @@ final class SubjectSenseSources {
 
     private static final String CATEGORY = "category";
 
-    private static final String SUBFIELD = "subfield";
-
     /** Each scheme's word index is built once per JVM: a bundled taxonomy cannot change under a running program. */
     private static final SubjectDomains ARXIV_CATEGORIES =
             new SubjectDomains(ArxivSubjects.fromClasspath(), WordNetLexicon.fromClasspath(), CATEGORY);
-
-    private static final SubjectDomains OPENALEX_SUBFIELDS =
-            new SubjectDomains(OpenAlexTopics.fromClasspath(), WordNetLexicon.fromClasspath(), SUBFIELD);
 
     /** CSO states labels and no prose, so its word index reads the labels — see {@link TopicLabelDomains}. */
     private static final TopicLabelDomains CSO_TOPICS =
@@ -43,8 +37,6 @@ final class SubjectSenseSources {
         final Map<String, Function<String, List<CountedSenseDomains>>> paths = new LinkedHashMap<>();
         paths.put("arXiv categories",
                 word -> corroborated.of(ARXIV_CATEGORIES.countedSenseDomainsOf(word)));
-        paths.put("OpenAlex subfields",
-                word -> corroborated.of(OPENALEX_SUBFIELDS.countedSenseDomainsOf(word)));
         paths.put("CSO topics", word -> corroborated.of(CSO_TOPICS.countedSenseDomainsOf(word)));
         return paths;
     }

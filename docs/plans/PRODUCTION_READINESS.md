@@ -18,7 +18,7 @@ Nothing below is ranked by appeal. Every step names the figure it would move and
 | Schema | 1,019 lines | 1,282 lines |
 | A consumer can produce it | yes — `ExportedReading.of(path, commit)` | yes, from 2026-09-16 — `ReadPullRequests` |
 | Sources | 12 concept taxonomies, 23 bundled resources | 3 standards: Conventional Commits, the tracker, the shape mapping |
-| Measured accuracy | a bundled vocabulary answers 9 members of 11 and is right 11 times of 14 | unmeasured |
+| Measured accuracy | `evaluationAnswers`: a vocabulary fires on 7 of 7 positive controls, and the reading is silent on 2 of 4 negatives — both exceptions being right answers a domainless control counts as wrong | unmeasured |
 | Known to be wrong | the placement: arXiv 4/11, OpenAlex 0/11, CSO 5/11 | — |
 
 ---
@@ -37,7 +37,7 @@ Nothing below is ranked by appeal. Every step names the figure it would move and
 
 **Measured, as far as one shell allows.** maven was re-read and now states nothing where it had answered *Audio and Speech Processing*, *Biometric Identification and Security* and *computer science* about a build tool. This repository's own reading is unchanged at `OLiA BaseForm`, and the `pinned` findings pass, which is what says no figure moved above the rung. besu's read completed in 162.3 s but its export write fell outside the ten-minute limit the agent shell imposes, so **its committed reading is stale and still shows the old three answers** — it is the same case as maven and it is not yet re-measured. The remaining nine cannot change: they answer above the rung.
 
-**What is still owed**: besu re-read, and `evaluationScore` reprinted so the accuracy line in the backlog is taken after the change rather than before it. A full `evaluationReadAll` is roughly 25 minutes and needs a shell without a ten-minute ceiling.
+**Done 2026-09-17.** All eleven were re-read: besu and maven now state nothing, the other nine are unchanged, and `evaluationAnswers` — added because `evaluationScore` read the placement the reading no longer answers from — puts a vocabulary firing on 7 of 7 positive controls and the reading silent on 2 of 4 negatives. OpenAlex is removed outright: 3.3 MB of resource, two lexicon readers, six extraction classes, eight probes and `evaluationScore` with `SubjectAncestry`, which scored OpenAlex placements and had no other subject.
 
 ### A2. Two files, and each one honest about what it is for
 
@@ -85,7 +85,7 @@ The reading answers where it has a vocabulary and abstains elsewhere. That is co
 
 ### B1. The unit is the committer over history, not the author of a fetched pull request
 
-Today's reports are per author per fetched pull request set. `fetch-commit-changes.sh` already writes any clone's commits in the shape the statement path reads, and a commit is a base and a head like a pull request is. The unit becomes the committer, and the corpus becomes the history.
+Today's reports are per author per fetched pull request set. `fetch/fetch-commit-changes.sh` already writes any clone's commits in the shape the statement path reads, and a commit is a base and a head like a pull request is. The unit becomes the committer, and the corpus becomes the history.
 
 **What settles it**: the reports drawn per committer over a repository's history, and the per-pull-request reports reproduced from them.
 

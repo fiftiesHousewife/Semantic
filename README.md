@@ -19,9 +19,9 @@ It works in the terms of lexical semantics and information theory. The [glossary
 |---|---|
 | `./gradlew read` | reads this repository and writes the three files under [`output/json/`](output/json) |
 | `./gradlew read -Dcs.clone.dir=<path>` | reads another checkout, and writes its files under `output/<name>/json/` |
-| `./gradlew pullRequests -Dcs.clone.dir=<path> -Dcs.pullrequests.dir=<path>` | reads a checkout and the pull requests [`fetch-pull-requests.sh`](fetch-pull-requests.sh) wrote beside it, then writes a report per author |
-| `./fetch-pull-requests.sh <owner/name> <clone> [target]` | writes one directory per pull request, its base version, what it says, and the tracker's word for every issue it references. `PR_AUTHOR` selects whose are taken |
-| `./fetch-commits.sh <clone> [author] [target]` | writes one repository's commit messages, filtered to an author where one is named, pinned to the commit the clone stands at |
+| `./gradlew pullRequests -Dcs.clone.dir=<path> -Dcs.pullrequests.dir=<path>` | reads a checkout and the pull requests [`fetch/fetch-pull-requests.sh`](fetch/fetch-pull-requests.sh) wrote beside it, then writes a report per author |
+| `fetch/fetch-pull-requests.sh <owner/name> <clone> [target]` | writes one directory per pull request, its base version, what it says, and the tracker's word for every issue it references. `PR_AUTHOR` selects whose are taken |
+| `fetch/fetch-commits.sh <clone> [author] [target]` | writes one repository's commit messages, filtered to an author where one is named, pinned to the commit the clone stands at |
 | `./gradlew readingExport` | writes [`reading.json`](output/json/reading.json) alone |
 | `./gradlew pages` | writes one findings page per published reading under `output/`, one report per pull request author, and the card page comparing the readings, under `vocabulary-page/build/reports/vocabulary/` |
 | `./gradlew checkAll` | tests and coverage verification, which is what [the build](.github/workflows/build.yml) runs on every push and pull request |
@@ -51,7 +51,7 @@ PullRequestDocument.wrote(folder, Optional.of(set.repository()),
         Optional.of(WrittenWork.ofTheWholeTree(clone)), read);
 ```
 
-`ReadPullRequests` judges the statements together, so each is priced against the field of all of them, and reads each head as the changed-file copy it is. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) fills the directory it expects.
+`ReadPullRequests` judges the statements together, so each is priced against the field of all of them, and reads each head as the changed-file copy it is. [`fetch/fetch-pull-requests.sh`](fetch/fetch-pull-requests.sh) fills the directory it expects.
 
 A release to [the Maven Central Portal](https://central.sonatype.com) goes in three steps. `releaseCheck` states what stands in the way and fails where anything does — a `SNAPSHOT` version, or an unset key — so a release refuses to start rather than failing at the upload.
 
@@ -162,7 +162,6 @@ Read at commit `1a55ee6`, abbreviated:
                     "nearestByChanceBits": 0.4100, "standsApartFromChance": true },
       "category": { "subject": "Computation and Language", "divergenceBits": 0.4176,
                     "nearestByChanceBits": 0.4534, "standsApartFromChance": true } },
-    { "scheme": "OpenAlex", "...": "Artificial Intelligence, and Authorship Attribution and Profiling" },
     { "scheme": "CSO",      "...": "linguistics, and information technology" }
   ],
   "distinctiveScopes": [
@@ -232,9 +231,9 @@ One signal, in full:
 
 ### What a pull request adds to the reading
 
-The library reads no network and no `.git`, so both a pull request and a commit history reach it as files a fetch step wrote. [`fetch-commits.sh`](fetch-commits.sh) writes one repository's messages, filtered to an author where one is named and pinned to the commit the clone stands at; nothing reads them yet, and what a history says is [its own scope to build](docs/plans/COMMIT_MESSAGES.md).
+The library reads no network and no `.git`, so both a pull request and a commit history reach it as files a fetch step wrote. [`fetch/fetch-commits.sh`](fetch/fetch-commits.sh) writes one repository's messages, filtered to an author where one is named and pinned to the commit the clone stands at; nothing reads them yet, and what a history says is [its own scope to build](docs/plans/COMMIT_MESSAGES.md).
 
-A pull request reaches it as a directory. [`fetch-pull-requests.sh`](fetch-pull-requests.sh) writes four of them, each recording the commit it was taken at: the changed files as the pull request leaves them, the same files as it found them, what the pull request says — its title, its description and its commit messages — and the repository's own pull request template. Where the repository's `pom.xml` names a JIRA tracker under `issueManagement`, the script also records the type that tracker gives each issue the statement mentions.
+A pull request reaches it as a directory. [`fetch/fetch-pull-requests.sh`](fetch/fetch-pull-requests.sh) writes four of them, each recording the commit it was taken at: the changed files as the pull request leaves them, the same files as it found them, what the pull request says — its title, its description and its commit messages — and the repository's own pull request template. Where the repository's `pom.xml` names a JIRA tracker under `issueManagement`, the script also records the type that tracker gives each issue the statement mentions.
 
 Each pull request is then read on its own, against thresholds drawn from the files it changes, and the result is its own document — `pull-requests.json`, at its own `schemaVersion`, beside the reading. It answers a different question about a different corpus: the reading is of a working tree at one commit, this is of the changes proposed against it. A consumer wanting one and not the other reads one file, and the repository's own figures cannot move when this shape does. Each entry answers four questions:
 
@@ -454,7 +453,7 @@ Step 4 uses all 999 rather than the usual 95th percentile because every scope is
 | Reading | Called | Reads | Answers |
 |---|---|---|---|
 | Dictionary labels on the words a repository declares | **themes** — `themes`, `summary.about` | WordNet Domains, Wiktionary topics | what its words are about |
-| A published scheme's prose, compared as a distribution | **placement** — `summary.placedIn` | arXiv, OpenAlex, CSO | which published subject it stands nearest, against chance |
+| A published scheme's prose, compared as a distribution | **placement** — `summary.placedIn` | arXiv, CSO | which published subject it stands nearest, against chance |
 | A published vocabulary's terms, matched against declared names | **concepts** — `taxonomies[].concepts` | seven vocabularies | which published concepts it spells |
 | The levels those concepts sit under | **subjects** — `taxonomies[].concepts[].placedUnder` | the same publisher's own hierarchy | what the concepts it spells are about |
 
@@ -475,7 +474,6 @@ The fourth exists because the third has a hard limit: **a term match can only fi
 | Scheme | Rows | Read from | What it adds |
 |---|--:|---|---|
 | [arXiv category taxonomy](https://arxiv.org/category_taxonomy) | 174 — 8 groups, 11 archives, 155 categories, 152 of them described | [`arxiv-taxonomy.tsv`](lexicon/src/main/resources/arxiv-taxonomy.tsv) | the categories a preprint archive files papers under, each with a published description at an 18-word median |
-| [OpenAlex](https://openalex.org/) | 4,798 — 4,516 topics under 252 subfields, 26 fields and 4 domains | [`openalex-topics.tsv`](lexicon/src/main/resources/openalex-topics.tsv) | *Personal Information Management*, *Library Science and Information Systems*, *Caching and Content Delivery*, where arXiv names none of them. Descriptions run to a 69-word median |
 | [CSO](https://cso.kmi.open.ac.uk/), the Computer Science Ontology | 11,438 topics, 12 with no parent and 225 directly beneath those | [`cso-topics.tsv`](lexicon/src/main/resources/cso-topics.tsv), [`cso-abstracts.tsv`](lexicon/src/main/resources/cso-abstracts.tsv) | computer science at a grain the other two have no category for |
 
 Nobody writes `cs.CL` in code and nobody writes *Computation and Language* either, so [`PooledDescriptions`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/PooledDescriptions.java) pools each category's own description through the pipeline above and [`SubjectPlacement`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectPlacement.java) compares distribution against distribution. [`SubjectNull`](code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/theme/SubjectNull.java) builds a taxonomy of chance from the same descriptions, and the nearest real subject has to beat the nearest chance one.
@@ -577,7 +575,7 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 |---|---|
 | `./gradlew evaluationFetch -Dcs.evaluation.dir=<dir>` | fetches each member at the commit the manifest pins, and does nothing where the tree is already there |
 | `./gradlew evaluationReadAll -Dcs.evaluation.dir=<dir>` | reads every member in one JVM, several at a time, one folder per member under `output/` |
-| `./gradlew evaluationScore` | scores the readings already under `output/` against the areas the manifest states |
+| `./gradlew evaluationAnswers` | scores the readings already under `output/` against what each member is there to demonstrate: a vocabulary fires on a positive control and stays silent on a negative one |
 
 | Member | Stated area | Expected |
 |---|---|---|
@@ -601,10 +599,14 @@ The taxonomies, the resources and the rules were all chosen while reading this t
 | Apache Santuario | CSO ×1.3 |
 | Aeron | CSO ×1.1 |
 | this repository | OLiA ×1.2 |
-| **Besu** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
-| **Apache Maven** | **none** — no vocabulary cleared both units, and the reading answers from a subject scheme instead |
+| **Besu** | **none** — no vocabulary cleared both units, and the reading states nothing |
+| **Apache Maven** | **none** — no vocabulary cleared both units, and the reading states nothing |
 
-The two FIX engines lead with FIX, the derivatives and banking libraries lead with FIBO or BIAN, the document toolkit leads with PRONOM, and the build tool and the Ethereum client are reached by nothing — besu's own vocabulary is blockchain's, which no bundled source states, and the refusal is the correct reading. **Across the twelve readings, 65 of the 72 subject-scheme level readings stand apart from chance**: arXiv on 20 of 24, OpenAlex on 23 of 24, CSO on 22 of 24.
+The two FIX engines lead with FIX, the derivatives and banking libraries lead with FIBO or BIAN, the document toolkit leads with PRONOM, and the build tool and the Ethereum client are reached by nothing — besu's own vocabulary is blockchain's, which no bundled source states, and the refusal is the correct reading.
+
+**Scored against what each member is there to demonstrate** — `./gradlew evaluationAnswers` — a vocabulary fires on **7 of 7 positive controls** and the reading is silent on **2 of 4 negatives**. The two that are not silent are Tika, answered by PRONOM on file formats, and Aeron, answered by CSO with `unicast`, and both answers are right: a negative control is negative for a domain the manifest reasons about and does not name.
+
+**A reading answered from a subject scheme until 2026-09-17, and does not now.** Over the same eleven members the schemes named the stated area 4 times of 11 (arXiv), 0 (OpenAlex) and 5 (CSO), each right only where its habitual answer — *Computer Science*, *Artificial Intelligence* — happened to be true. Standing apart from chance did not separate them: 32 of 33 placements did, because every OpenAlex topic description read into 50.6 domain labels with eight labels carried by all 4,498, leaving two subjects 0.6612 bits apart on a scale bounded at one. Removing the scheme's own mean repairs the space to 0.8820 bits and moves precision@10 not at all. OpenAlex is no longer bundled; Besu and Maven state nothing instead.
 
 **What the same measurement refuses.** A term vocabulary states prose per concept, so it can be offered to the placement machinery as though it were a subject scheme. Three have been, and all three fail the out-of-domain control:
 
@@ -706,7 +708,6 @@ Each answers a question the export raises and does not settle.
 | Published subjects | [arXiv category taxonomy](https://arxiv.org/category_taxonomy), 155 categories, 152 of them described |
 | Published vocabularies, one model | [SKOS](https://www.w3.org/TR/skos-reference/), W3C Simple Knowledge Organization System |
 | Relevant domains against a null | Gliozzo, A., Strapparava, C. and Magnini, B. (2004), [*Unsupervised domain relevance estimation for word sense disambiguation*](https://aclanthology.org/W04-3249/), EMNLP |
-| Research topics | [OpenAlex](https://openalex.org/), 4,516 topics under 252 subfields, 26 fields and 4 domains, CC0 |
 | Security weaknesses | [CWE](https://cwe.mitre.org/), The MITRE Corporation. 959 weaknesses of catalog 4.13, under the [CWE Terms of Use](https://cwe.mitre.org/about/termsofuse.html) |
 | File formats | [PRONOM](https://www.nationalarchives.gov.uk/pronom/), The National Archives. 2,571 formats of DROID signature file V125, under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) |
 | Sense distributions shift with domain | Koeling, R., McCarthy, D. and Carroll, J. (2005), [*Domain-specific sense distributions and predominant sense acquisition*](https://aclanthology.org/H05-1053/), HLT-EMNLP. A domain's own text ranks senses better than the tagged corpus, which is why 1990s counts underweight computing senses here |

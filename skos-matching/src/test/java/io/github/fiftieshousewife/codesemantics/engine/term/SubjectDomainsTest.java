@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.CountedSenseDomains;
-import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.WordNetLexicon;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,8 +16,9 @@ class SubjectDomainsTest {
     private static final SubjectDomains ARXIV_CATEGORIES =
             new SubjectDomains(ArxivSubjects.fromClasspath(), WordNetLexicon.fromClasspath(), "category");
 
-    private static final SubjectDomains OPENALEX_SUBFIELDS =
-            new SubjectDomains(OpenAlexTopics.fromClasspath(), WordNetLexicon.fromClasspath(), "subfield");
+    /** The level above a category, which is where a scheme's coarsest statement sits. */
+    private static final SubjectDomains ARXIV_ARCHIVES =
+            new SubjectDomains(ArxivSubjects.fromClasspath(), WordNetLexicon.fromClasspath(), "archive");
 
     @Test
     void placesAWordUnderTheCategoryWhoseDescriptionCarriesIt() {
@@ -39,15 +39,15 @@ class SubjectDomainsTest {
     }
 
     @Test
-    void placesAWordUnderTheSubfieldWhoseTopicKeywordsCarryIt() {
-        assertThat(OPENALEX_SUBFIELDS.countedSenseDomainsOf("innovation"))
+    void placesAWordUnderTheArchiveWhoseCategoryProseCarriesIt() {
+        assertThat(ARXIV_ARCHIVES.countedSenseDomainsOf("linguistics"))
                 .flatExtracting(CountedSenseDomains::domains)
-                .contains("Strategy and Management");
+                .contains("Computer Science");
     }
 
     @Test
     void statesEachMatchedSubjectAsOneUncountedSense() {
-        assertThat(OPENALEX_SUBFIELDS.countedSenseDomainsOf("innovation"))
+        assertThat(ARXIV_ARCHIVES.countedSenseDomainsOf("linguistics"))
                 .allSatisfy(sense -> assertAll(
                         () -> assertThat(sense.uses()).isZero(),
                         () -> assertThat(sense.domains()).isNotEmpty()));
@@ -55,7 +55,7 @@ class SubjectDomainsTest {
 
     @Test
     void namesThePlacingSubjectsOwnLabelOnEachSense() {
-        assertThat(OPENALEX_SUBFIELDS.countedSenseDomainsOf("innovation"))
+        assertThat(ARXIV_ARCHIVES.countedSenseDomainsOf("linguistics"))
                 .isNotEmpty()
                 .allSatisfy(sense -> assertThat(sense.placingLabels())
                         .hasSize(1)

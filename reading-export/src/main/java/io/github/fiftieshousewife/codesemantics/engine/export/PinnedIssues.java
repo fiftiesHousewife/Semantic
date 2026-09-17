@@ -9,7 +9,7 @@ import java.util.Locale;
 
 /**
  * The issues a fetch step pinned beside a statement, read back as the tracker stated them. The file is
- * {@code fetch-pull-requests.sh}'s: one row per issue the statement references, of the project the
+ * {@code fetch/fetch-pull-requests.sh}'s: one row per issue the statement references, of the project the
  * repository's own pom names, with the type the tracker states verbatim. The export republishes the key,
  * the type and the tracker's page; the summary and the retrieval date stay in the pinned file.
  */

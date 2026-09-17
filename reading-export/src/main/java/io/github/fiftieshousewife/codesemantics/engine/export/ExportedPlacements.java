@@ -22,8 +22,6 @@ final class ExportedPlacements {
     List<ExportedPlacement> in(final RepositoryReading reading, final RepositoryThemes themes,
                                final PlacedField field) {
         return List.of(placement(field, themes),
-                placement(PlacedField.ofOpenAlex(themes.repository().comparison(), reading.seed()),
-                        themes),
                 placement(PlacedField.ofCso(themes.repository().comparison(), reading.seed()), themes));
     }
 

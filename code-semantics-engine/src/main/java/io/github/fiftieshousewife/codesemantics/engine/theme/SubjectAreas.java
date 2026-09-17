@@ -6,7 +6,6 @@ import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameOccurrence;
 import io.github.fiftieshousewife.codesemantics.engine.reading.IdentifierWords;
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
-import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
@@ -67,16 +66,6 @@ public final class SubjectAreas {
     /** The same descriptions pooled a level up, computed once per JVM for the same reason. */
     public static List<SubjectTopics> archivesFromClasspath() {
         return ClasspathReadings.pooledOf(ArxivSubjects.fromClasspath());
-    }
-
-    /** Every topic OpenAlex describes, read by the same instrument that reads arXiv's categories. */
-    public static List<SubjectTopics> topicsFromClasspath() {
-        return ClasspathReadings.leavesOf(OpenAlexTopics.fromClasspath());
-    }
-
-    /** OpenAlex's topics pooled to the subfield each is stated in. */
-    public static List<SubjectTopics> subfieldsFromClasspath() {
-        return ClasspathReadings.pooledOf(OpenAlexTopics.fromClasspath());
     }
 
     /** Any scheme's subjects at the finest level it is placed at, read once per JVM. */

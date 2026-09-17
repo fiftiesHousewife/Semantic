@@ -4,11 +4,8 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.fiftieshousewife.codesemantics.engine.theme.PlacedUnder;
-import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -55,14 +52,6 @@ class EvaluationSetTest {
                 .allSatisfy(member -> assertThat(member.statedBy()).startsWith("its own GitHub"));
     }
 
-    @Test
-    void namesAnAreaTheSchemeItselfStatesForEveryMember() {
-        assertThat(manifest.members())
-                .as("an area the scheme does not state would mark no topic, and a reading scored against "
-                        + "nothing reads exactly like a reading that failed")
-                .allSatisfy(member -> assertThatCode(() -> PlacedUnder.in(
-                        OpenAlexTopics.fromClasspath(), member.area())).doesNotThrowAnyException());
-    }
 
     @Test
     void refusesToGuessWhereTheClonesAre() {

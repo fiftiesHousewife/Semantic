@@ -87,69 +87,6 @@ tasks.register<JavaExec>("functionalPlacement") {
     )
 }
 
-// Where the repository under reading stands among OpenAlex's topics by the runs of words it declares, and
-// whether the topics stating its publisher's own DOAP category token outrank the ones that do not.
-//   ./gradlew phraseMatchedSubjects -Parea="Computer Science" -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("phraseMatchedSubjects") {
-    group = "verification"
-    description = "Places a repository among OpenAlex topics by matched phrases (-Parea=<subject area>)"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PhraseMatchedSubjectsProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("area") as String?)
-}
-
-// How much of a subject scheme a repository could reach at all, counted into the buckets that name the
-// repair each unreached keyword would need, with the topics the expected result marks reported apart.
-//   ./gradlew keywordReach -Parea="Computer Science" -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("keywordReach") {
-    group = "verification"
-    description = "Counts how far a repository got towards every keyword a subject scheme publishes"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.KeywordReachProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("area") as String?)
-}
-
-// Which words stop a subject scheme's published keyword being read as a run of senses, so a decision to
-// bundle a catalogue of abbreviations is taken against the words it would actually buy.
-//   ./gradlew unreadRuns
-tasks.register<JavaExec>("unreadRuns") {
-    group = "verification"
-    description = "Names the words that stop a published keyword being read as senses"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.UnreadRunsProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-}
-
-
-// How much of what no dictionary could read a subject scheme states in its own words, scheme by scheme.
-// It prints; nothing votes on it and no published figure moves.
-//   ./gradlew unplacedRuns -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("unplacedRuns") {
-    group = "verification"
-    description = "Counts what each bundled subject scheme states of the runs no dictionary read"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.UnplacedRunProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-}
-
-// Why one named OpenAlex topic is or is not reached: its keywords one at a time, with the furthest the
-// repository got towards writing each.
-//   ./gradlew topicMatch -Ptopic="Semantic Web"
-tasks.register<JavaExec>("topicMatch") {
-    group = "verification"
-    description = "Traces one OpenAlex topic keyword by keyword against the repository under reading"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.TopicMatchProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("topic") as String?)
-}
-
 // Which concepts of a term taxonomy held in a file this repository declares, so a candidate vocabulary
 // can be tried before anything decides to bundle it. A taxonomy stating no definition can be read no
 // other way.
@@ -310,7 +247,7 @@ tasks.register<Test>("read") {
 
 // One repository's pull requests, read and reported in a single command: the reading of the clone, the
 // pull requests fetched beside it, and the pages drawn from both. It is the whole path a reviewer runs.
-//   ./fetch-pull-requests.sh apache/tika ~/evaluation/tika ~/evaluation/pull-requests/tika
+//   fetch/fetch-pull-requests.sh apache/tika ~/evaluation/tika ~/evaluation/pull-requests/tika
 //   ./gradlew pullRequests -Dcs.clone.dir=~/evaluation/tika -Dcs.pullrequests.dir=~/evaluation/pull-requests/tika
 // PR_AUTHOR on the fetch step selects whose pull requests are taken, so a run is per repository and per
 // author. The reading writes output/<name>/json/pull-requests.json and the pages one report per author.
@@ -326,8 +263,8 @@ val pullRequestsTask = tasks.register("pullRequests") {
 gradle.taskGraph.whenReady {
     if (hasTask(pullRequestsTask.get()) && System.getProperty("cs.pullrequests.dir") == null) {
         throw GradleException(
-            "pullRequests needs -Dcs.pullrequests.dir=<directory fetch-pull-requests.sh filled>. " +
-                "Run ./fetch-pull-requests.sh first; the library reads no network and no .git.")
+            "pullRequests needs -Dcs.pullrequests.dir=<directory fetch/fetch-pull-requests.sh filled>. " +
+                "Run fetch/fetch-pull-requests.sh first; the library reads no network and no .git.")
     }
 }
 
@@ -477,12 +414,14 @@ tasks.register<JavaExec>("evaluationReadAll") {
 // scored against the subject area the manifest states for it, an OpenAlex placement rolled up through the
 // scheme's own `broader` column until it reaches the level the area names.
 //   ./gradlew evaluationScore
-tasks.register<JavaExec>("evaluationScore") {
+// What the reading answers, scored against what each member is there to demonstrate. evaluationScore
+// scores the placement, which the reading no longer answers from.
+//   ./gradlew evaluationAnswers
+tasks.register<JavaExec>("evaluationAnswers") {
     group = "verification"
-    description = "Scores the evaluation-set readings under output/ against the areas the manifest states"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationScoreCommand"
+    description = "Scores what the reading answers against each member's expected result"
+    mainClass = "io.github.fiftieshousewife.codesemantics.engine.reading.EvaluationAnswerCommand"
     classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
     workingDir = rootDir
 }
 
@@ -668,15 +607,3 @@ tasks.register<JavaExec>("subjectWitnesses") {
     System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
 }
 
-// Which of the two statements OpenAlex makes about a topic places a repository better: the prose, the
-// keywords, or both together as the reading takes them today.
-//   ./gradlew publishedStatements -Parea="Computer Science" -Dcs.clone.dir=<path>
-tasks.register<JavaExec>("publishedStatements") {
-    group = "verification"
-    description = "Places a repository against each statement OpenAlex publishes (-Parea=<subject area>)"
-    mainClass = "io.github.fiftieshousewife.codesemantics.engine.theme.PublishedStatementProbe"
-    classpath = sourceSets["test"].runtimeClasspath
-    maxHeapSize = "3g"
-    System.getProperty("cs.clone.dir")?.let { systemProperty("cs.clone.dir", it) }
-    args = listOfNotNull(findProperty("area") as String?)
-}

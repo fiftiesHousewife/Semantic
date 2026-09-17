@@ -1,12 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.reading.PublishedSourceSets;
@@ -20,21 +17,11 @@ record ReadFile(String scope, String path, int lines, ParsedSource parsed) {
                 .filter(candidate -> candidate.reads(file))
                 .findFirst();
         final String source = reader.filter(SourceReader::opensTheFile)
-                .map(found -> contentOf(file))
+                .map(found -> FileText.of(file))
                 .orElse("");
         return new ReadFile(scope, root.relativize(file).toString(), (int) source.lines().count(),
                 reader.map(found -> found.read(file, source))
                         .orElseGet(ParsedSource::unreadable));
-    }
-
-    private static String contentOf(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT,
-                    "Failed to read %s",
-                    file), e);
-        }
     }
 
     ParsedFile retaining(final ImportOrigins origins, final ImportTally tally,

@@ -52,22 +52,17 @@ One line, and `$HOME` rather than `~` — neither bash nor zsh expands a tilde a
 
 ## What the run is scored on
 
-Eleven members at four levels — arXiv archive and category, OpenAlex subfield and topic — is 44 level readings. Every figure comes out of `summary.placedIn` in each member's `reading.json`.
-
-| Figure | Where it comes from |
-|---|---|
-| stands apart from chance | `standsApartFromChance`, counted over all 36 |
-| margin | `nearestByChanceBits` − `divergenceBits` |
-| mean divergence, mean chance bar | `divergenceBits` and `nearestByChanceBits`. **Report both.** Where the divergence falls and the bar falls with it, every candidate subject moved and the reading did not improve |
-| subjects in the band | the length of `nearerThanChance` — the subjects the instrument cannot separate from the leader |
-| leader in the stated area | the leader rolled up through `broader` in [`openalex-topics.tsv`](../../../lexicon/src/main/resources/openalex-topics.tsv) until it reaches the level the manifest's `area` names |
-| band reaches it | the same, for any subject in the band |
-
-`EvaluationScoreCommand` prints all of them from the readings already under `output/`, deserialising each through the export's own model, so a schema bump moves it with the export rather than breaking a second parser:
+**What the reading answers**, from `summary.answers` in each member's `reading.json`. A member's manifest row states what it is there to demonstrate: a vocabulary fires on a positive control and stays silent on a negative one.
 
 ```
-./gradlew evaluationScore
+./gradlew evaluationAnswers
 ```
+
+It deserialises through the export's own model, so a schema bump moves it with the export rather than breaking a second parser. The two counts stay apart because they are different claims — firing where a domain is present says the vocabularies reach it, staying silent where it is absent says they do not reach everywhere, and one figure over both would let one buy the other.
+
+**A negative control is negative for a domain the manifest does not name.** Tika is answered by PRONOM on file formats and Aeron by CSO with `unicast`; both answers are right, and each counts against the reading because the row carries one expected result and no domain. Read the named rows, never the count alone.
+
+**What the placement scored is gone.** `evaluationScore` and `SubjectAncestry` rolled an OpenAlex placement up to the manifest's `area` column. OpenAlex named that area 0 times of 11 and was removed on 2026-09-17; nothing scores `area` now, and the column is kept as a fact about the member.
 
 ## What decides whether a change stays
 

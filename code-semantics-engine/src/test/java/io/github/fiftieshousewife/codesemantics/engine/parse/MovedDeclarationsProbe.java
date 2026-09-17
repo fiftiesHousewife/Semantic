@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  * enclosing declaration is a measurement, where matching on similarity would be an assertion.
  *
  * <p>Run it with {@code ./gradlew :code-semantics-engine:test --tests '*MovedDeclarationsProbe'
- * -Dinclude.tags=diagnostic -Dcs.pullrequests.dir=<directory fetch-pull-requests.sh filled>}.
+ * -Dinclude.tags=diagnostic -Dcs.pullrequests.dir=<directory fetch/fetch-pull-requests.sh filled>}.
  */
 @Tag("diagnostic")
 class MovedDeclarationsProbe {

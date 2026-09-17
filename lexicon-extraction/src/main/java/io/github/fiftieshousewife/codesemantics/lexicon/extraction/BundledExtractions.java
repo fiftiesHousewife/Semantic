@@ -114,12 +114,6 @@ public final class BundledExtractions {
                     (sources, resources) -> new MediaTypeExtraction()
                             .extract(sources.path(0, "the directory of registry CSVs"),
                                     resources.resolve("media-types.tsv"))),
-            new BundledExtraction("openalex",
-                    "the directory holding OpenAlex's topics snapshot: the manifest and the parts it names",
-                    (sources, resources) -> new OpenAlexTopicsExtraction()
-                            .extract(sources.path(0, "the snapshot directory"),
-                                    resources.resolve("openalex-topics.tsv"),
-                                    resources.resolve("openalex-topic-sizes.tsv"))),
             new BundledExtraction("xwnd",
                     "the eXtended WordNet Domains archive and WordNet 3.0's own index, in that order",
                     (sources, resources) -> new XwndDomainsExtraction()

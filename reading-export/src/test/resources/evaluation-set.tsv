@@ -11,8 +11,11 @@
 #               is AGPL-3.0. Where the publisher states a licence SPDX has no identifier for, the file
 #               name is recorded instead: QuickFIX/J publishes "The QuickFIX Software License, Version
 #               1.0", which is BSD-4-clause-shaped and not copyleft.
-#   area        the subject area the reading is expected to place the member under, named exactly as
-#               the scheme states it — a field such as Computer Science, or a subfield such as
+#   area        the subject area the member's publisher states. It named OpenAlex's own subjects, and
+#               OpenAlex was removed on 2026-09-17 after naming the stated area 0 times of 11, so
+#               NOTHING SCORES THIS COLUMN NOW and no test checks it against a scheme. It is kept as
+#               a fact about the member. What is scored is the expected result below, by
+#               `./gradlew evaluationAnswers`. Named as the scheme stated it — a field such as Computer Science, or a subfield such as
 #               Finance. It is an identifier in somebody else's hierarchy, so it cannot collide with
 #               another sense of a word. What it replaced could: marking a topic by whether its prose
 #               said "security" marked Food Security, Pesticide Exposure and Retirement and

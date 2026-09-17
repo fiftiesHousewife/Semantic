@@ -44,9 +44,8 @@ One Gradle invocation at a time. A background probe counts as one.
 |---|---|
 | `./gradlew wordVotes -Pwords="signature cluster"` | every topical vote the resources cast for a word, each vote's mass and source, the sense coverage, and the share each topic ends up with |
 | `./gradlew topicCarriers <topic>` | every word that carried a topic, with occurrences and mass — the whole tail, not the witnesses the report shows |
-| `./gradlew subjectWitness -Dcs.clone.dir=<path>` | what a placement rests on: the topics the repository and the subject both put mass in |
-| `./gradlew publishedStatements -Parea="Computer Science" -Dcs.clone.dir=<path>` | a repository placed against each statement a scheme publishes, with the ranked topics, the band, and the field and subfield each rolls up to |
-| `./gradlew pathPlacement -Dcs.clone.dir=<path>` | every reading path placed against every scheme, with the agreement between paths |
+| `./gradlew pathPlacement -Dcs.clone.dir=<path>` | every reading path placed against arXiv and CSO, with the agreement between paths |
+| `./gradlew evaluationAnswers` | what the readings under `output/` answer, against what each member is there to demonstrate |
 | `./gradlew readTimings` | stage timings — see [`profiling-a-read`](../profiling-a-read/SKILL.md) |
 
 ## The method

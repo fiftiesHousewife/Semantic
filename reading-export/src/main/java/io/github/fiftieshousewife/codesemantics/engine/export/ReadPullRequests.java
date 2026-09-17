@@ -1,13 +1,12 @@
 package io.github.fiftieshousewife.codesemantics.engine.export;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.AuthoredLines;
+import io.github.fiftieshousewife.codesemantics.engine.parse.FileText;
 import io.github.fiftieshousewife.codesemantics.engine.reading.PullRequestSet;
 import io.github.fiftieshousewife.codesemantics.engine.reading.RepositoryReading;
 import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
@@ -15,7 +14,7 @@ import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
 /**
  * The pull requests a fetch step wrote, read into the entries the export publishes.
  *
- * <p>This is the whole of the path: hand it the directory {@code fetch-pull-requests.sh} filled and it
+ * <p>This is the whole of the path: hand it the directory {@code fetch/fetch-pull-requests.sh} filled and it
  * returns one entry per pull request, ready for {@link PullRequestDocument} to write. A caller composing
  * the pieces itself would have to know that the statements are judged together and that a changed-file
  * copy is read differently from a whole tree, and both are decisions of the reading rather than of the
@@ -76,15 +75,7 @@ public final class ReadPullRequests {
      */
     private static String authored(final Path statement, final Optional<Path> template) {
         return template
-                .map(pinned -> AuthoredLines.of(textIn(statement), textIn(pinned)))
-                .orElseGet(() -> textIn(statement));
-    }
-
-    private static String textIn(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException("Failed to read " + file, e);
-        }
+                .map(pinned -> AuthoredLines.of(FileText.of(statement), FileText.of(pinned)))
+                .orElseGet(() -> FileText.of(statement));
     }
 }

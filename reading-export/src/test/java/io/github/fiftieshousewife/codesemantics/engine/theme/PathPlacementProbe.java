@@ -48,7 +48,7 @@ public final class PathPlacementProbe {
     }
 
     /**
-     * One path's reading, taken once. Each placement against OpenAlex draws a 999-resample null over 4,516
+     * One path's reading, taken once. Each placement draws a 999-resample null over the scheme's
      * subjects, so a caller that asked for the same field twice would pay for it twice.
      */
     private record ReadingPath(String name, TopicDistribution reading, String note) {
@@ -62,11 +62,10 @@ public final class PathPlacementProbe {
             System.out.printf("   ABSTAINS — nothing to place%n%n");
             return;
         }
-        placed("arXiv", PlacedField.ofArxiv(read, seed));
-        final PlacedField openAlex = PlacedField.ofOpenAlex(read, seed);
-        placed("OpenAlex", openAlex);
+        final PlacedField arxiv = PlacedField.ofArxiv(read, seed);
+        placed("arXiv", arxiv);
         placed("CSO", PlacedField.ofCso(read, seed));
-        expected(openAlex);
+        expected(arxiv);
         System.out.println();
     }
 

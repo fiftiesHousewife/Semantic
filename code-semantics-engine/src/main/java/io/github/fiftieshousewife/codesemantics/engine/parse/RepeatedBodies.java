@@ -1,13 +1,10 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -75,7 +72,7 @@ public final class RepeatedBodies {
                 .distinct()
                 .sorted()
                 .forEach(file -> written.addAll(bodiesIn(root.relativize(file).toString(),
-                        contentOf(file))));
+                        FileText.of(file))));
         return repeatedAmong(written);
     }
 
@@ -128,13 +125,5 @@ public final class RepeatedBodies {
 
     /** One method's body as the parse prints it, with what the method is and how much it carries. */
     private record Written(Declaration declaration, String body, int statements) {
-    }
-
-    private static String contentOf(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT, "Failed to read %s", file), e);
-        }
     }
 }

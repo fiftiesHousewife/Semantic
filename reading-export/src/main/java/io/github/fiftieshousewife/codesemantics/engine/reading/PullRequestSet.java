@@ -12,7 +12,7 @@ import io.github.fiftieshousewife.codesemantics.repository.PullRequestFacts;
 
 /**
  * The pull requests a fetch step wrote, read from the {@code pull-requests.tsv} manifest
- * {@code fetch-pull-requests.sh} keeps beside the directories it fills. Each row pins one pull request to
+ * {@code fetch/fetch-pull-requests.sh} keeps beside the directories it fills. Each row pins one pull request to
  * the head commit its files were taken at, the way the evaluation-set manifest pins each member, so a
  * reading of these directories is a reading of named commits.
  */
@@ -64,7 +64,7 @@ public final class PullRequestSet {
         final Path manifest = directory.resolve(MANIFEST);
         if (!Files.isRegularFile(manifest)) {
             throw new IllegalStateException(String.format(Locale.ROOT,
-                    "No %s under %s. Point cs.pullrequests.dir at the directory fetch-pull-requests.sh "
+                    "No %s under %s. Point cs.pullrequests.dir at the directory fetch/fetch-pull-requests.sh "
                     + "filled.",
                     MANIFEST, directory));
         }

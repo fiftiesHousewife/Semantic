@@ -1,12 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParserConfiguration;
@@ -57,7 +54,7 @@ public final class DeclaredMembers {
                 .filter(file -> file.getFileName().toString().endsWith(JAVA_SUFFIX))
                 .distinct()
                 .sorted()
-                .flatMap(file -> in(root.relativize(file).toString(), contentOf(file)).stream())
+                .flatMap(file -> in(root.relativize(file).toString(), FileText.of(file)).stream())
                 .toList();
     }
 
@@ -97,14 +94,6 @@ public final class DeclaredMembers {
                      final List<Declaration> declared) {
         if (!name.isBlank()) {
             declared.add(new Declaration(path, enclosing.around(node), kind, name));
-        }
-    }
-
-    private static String contentOf(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT, "Failed to read %s", file), e);
         }
     }
 }

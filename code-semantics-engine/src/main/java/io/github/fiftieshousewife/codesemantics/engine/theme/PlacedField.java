@@ -5,7 +5,6 @@ import java.util.List;
 import io.github.fiftieshousewife.codesemantics.lexicon.ArxivSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.BianServiceDomains;
 import io.github.fiftieshousewife.codesemantics.lexicon.CsoSubjects;
-import io.github.fiftieshousewife.codesemantics.lexicon.OpenAlexTopics;
 import io.github.fiftieshousewife.codesemantics.lexicon.PublishedSubjects;
 import io.github.fiftieshousewife.codesemantics.lexicon.SkosConcept;
 
@@ -51,18 +50,6 @@ public record PlacedField(String scheme, List<SubjectPlacement.Placement> archiv
                 SubjectAreas.publishedFromClasspath(), seed);
     }
 
-    /**
-     * Placed against OpenAlex's topics, pooled to the subfield for the broader level.
-     *
-     * <p><b>The topics are read from OpenAlex's keywords</b>, which is its account of the subject; its other
-     * account describes the cluster the topic was built from and every one of the 4,516 opens with the same
-     * four words. The null is drawn from the same account, so chance is filled from the vocabulary the
-     * comparison runs on.
-     */
-    public static PlacedField ofOpenAlex(final TopicDistribution reading, final long seed) {
-        return of(OpenAlexTopics.fromClasspath(), reading, SubjectAreas.subfieldsFromClasspath(),
-                SubjectAreas.topicsFromClasspath(), seed);
-    }
 
     /**
      * Placed against the Computer Science Ontology, at its twelve roots and the topics stated beneath them.

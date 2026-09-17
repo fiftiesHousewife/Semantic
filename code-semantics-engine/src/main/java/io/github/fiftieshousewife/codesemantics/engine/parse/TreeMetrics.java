@@ -1,12 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.parse;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.ToIntFunction;
 
 import com.github.javaparser.JavaParser;
@@ -107,7 +104,7 @@ public final class TreeMetrics {
                 .filter(file -> file.getFileName().toString().endsWith(JAVA_SUFFIX))
                 .distinct()
                 .sorted()
-                .forEach(file -> measure(contentOf(file), membersPerType, methods));
+                .forEach(file -> measure(FileText.of(file), membersPerType, methods));
         return Measured.of(membersPerType, methods);
     }
 
@@ -125,13 +122,5 @@ public final class TreeMetrics {
         return unit.findAll(CallableDeclaration.class).stream()
                 .map(MethodMetrics::of)
                 .toList();
-    }
-
-    private static String contentOf(final Path file) {
-        try {
-            return Files.readString(file);
-        } catch (final IOException e) {
-            throw new UncheckedIOException(String.format(Locale.ROOT, "Failed to read %s", file), e);
-        }
     }
 }
