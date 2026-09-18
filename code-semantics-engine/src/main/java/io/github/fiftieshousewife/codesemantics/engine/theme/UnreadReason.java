@@ -1,5 +1,7 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
+import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
+
 /** Why a run of words a repository wrote carries no topic. */
 public enum UnreadReason {
 
@@ -22,5 +24,10 @@ public enum UnreadReason {
      * it names rather than by its spelling. Pooling the two puts {@code org joda beans meta bean} beside
      * {@code swaption} and reads as though the resources had failed on both.
      */
-    A_DEPENDENCY_NAMES_IT
+    A_DEPENDENCY_NAMES_IT;
+
+    /** Why no word of a run reached a resource, which is the form of the run and nothing about its words. */
+    public static UnreadReason ofARunNothingRead(final NameForm form) {
+        return form == NameForm.IMPORT ? A_DEPENDENCY_NAMES_IT : NO_WORD_REACHED_A_RESOURCE;
+    }
 }

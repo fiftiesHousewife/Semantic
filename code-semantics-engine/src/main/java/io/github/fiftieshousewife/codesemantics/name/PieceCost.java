@@ -3,8 +3,9 @@ package io.github.fiftieshousewife.codesemantics.name;
 /**
  * What one candidate piece of a compound costs to read: its Zipf cost against the frequency list, or the
  * cost of a cited token, or {@link #UNPARSEABLE} when nothing reads it. Cost rather than a boolean, because
- * a segmenter choosing between parses must prefer the common reading to the merely possible one —
- * {@code userid} is user / id and not use / rid because the first pieces are cheaper.
+ * a segmenter choosing between parses must prefer the common reading to the merely possible one. Two
+ * readings span {@code notebook}: the word itself at rank 12,315, and note at 680 beside book at 293. The
+ * one word costs 12.4 and the two pieces 18.2, so the compound is read whole.
  *
  * <p>A short piece is held to a rarity floor. The frequency list carries junk fragments (tc, ri, ars, ity)
  * that would let any identifier "parse", so a three-letter run only counts as a word when it is genuinely

@@ -8,9 +8,8 @@ import java.util.Optional;
 /**
  * Splits a glued lowercase run into the dictionary words and cited tokens it is made of ({@code pushevent}
  * into push / event, {@code dslcontext} into dsl / context), choosing the parse whose pieces are cheapest
- * under a frequency (Zipf) cost, so {@code userid} resolves to the common user / id rather than the rare
- * use / rid. This is the last rule of identifier splitting, reached only for a residual no case or separator
- * boundary divided.
+ * under a frequency (Zipf) cost, so {@code notebook} stays one word where note / book also spans it. This is
+ * the last rule of identifier splitting, reached only for a residual no case or separator boundary divided.
  *
  * <p>One unrecognised two-or-three-letter run is tolerated at the leading edge — the branding initialism of
  * {@code gharchive}. A token the frequency list already knows, a token grown from a known word by
@@ -67,9 +66,9 @@ public final class WordSegmenter {
     }
 
     /**
-     * The lowercase pieces of a glued compound, or empty when the token is already a known word, a cited
-     * token or a known word's derived form, too short to be a compound, or has no convincing parse into
-     * known pieces.
+     * The lowercase pieces of a glued compound, or empty when the token is already a known word, a run a
+     * dictionary carries whole, a cited token or a known word's derived form; when it is too short to be a
+     * compound or carries anything but letters; or when no parse covers it in pieces of a convincing length.
      */
     public Optional<List<String>> segment(final String token) {
         final String compound = token.toLowerCase(Locale.ROOT);
@@ -78,8 +77,8 @@ public final class WordSegmenter {
         }
         return parses.of(compound).stream()
                 .filter(parse -> averagePieceLength(parse.pieces()) >= MIN_AVERAGE_PIECE_LENGTH)
-                .min(Comparator.comparingDouble(CompoundParses.Parse::cost))
-                .map(CompoundParses.Parse::pieces);
+                .min(Comparator.comparingDouble(Parse::cost))
+                .map(Parse::pieces);
     }
 
     /**

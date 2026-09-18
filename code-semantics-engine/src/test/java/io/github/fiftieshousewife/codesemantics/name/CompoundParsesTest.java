@@ -15,8 +15,8 @@ class CompoundParsesTest {
 
     private List<String> cheapestOf(final String compound) {
         return parses.of(compound).stream()
-                .min(Comparator.comparingDouble(CompoundParses.Parse::cost))
-                .map(CompoundParses.Parse::pieces)
+                .min(Comparator.comparingDouble(Parse::cost))
+                .map(Parse::pieces)
                 .orElse(List.of());
     }
 
@@ -30,7 +30,7 @@ class CompoundParsesTest {
     @Test
     void spendsItsOneLeadingResidualOnABrandingInitialism() {
         assertThat(parses.of("gharchive"))
-                .extracting(CompoundParses.Parse::pieces)
+                .extracting(Parse::pieces)
                 .contains(List.of("gh", "archive"));
     }
 

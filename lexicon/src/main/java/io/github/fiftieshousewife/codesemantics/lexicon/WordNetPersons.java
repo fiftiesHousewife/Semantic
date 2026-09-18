@@ -5,7 +5,11 @@ import net.sf.extjwnl.data.POS;
 import net.sf.extjwnl.data.Synset;
 import net.sf.extjwnl.data.Word;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
+
+import static java.util.function.Predicate.not;
 
 /**
  * Whether a noun denotes a person. It does when its person senses — those in WordNet's {@code noun.person}
@@ -33,18 +37,28 @@ final class WordNetPersons {
     }
 
     private boolean sensesDenoteAPerson(final IndexWord word) {
-        int personUse = 0;
-        int otherUse = 0;
-        boolean everyNounSenseIsAPerson = true;
-        for (final Synset sense : entries.senses(word)) {
-            if (PERSON_LEX_FILE.equals(sense.getLexFileName())) {
-                personUse = Math.max(personUse, useCount(sense, word.getLemma()));
-            } else {
-                otherUse = Math.max(otherUse, useCount(sense, word.getLemma()));
-                everyNounSenseIsAPerson = false;
-            }
-        }
-        return personUse > otherUse || (personUse == 0 && otherUse == 0 && everyNounSenseIsAPerson);
+        final List<Synset> senses = entries.senses(word);
+        final int personUse = highestUseCount(senses, word, WordNetPersons::isAPersonSense);
+        final int otherUse = highestUseCount(senses, word, not(WordNetPersons::isAPersonSense));
+        return personUse > otherUse || isUncountedAndNothingElse(personUse, senses);
+    }
+
+    /** The corpus use count of the most-used sense in one partition, and zero where that partition is empty. */
+    private int highestUseCount(final List<Synset> senses, final IndexWord word, final Predicate<Synset> part) {
+        return senses.stream()
+                .filter(part)
+                .mapToInt(sense -> useCount(sense, word.getLemma()))
+                .max()
+                .orElse(0);
+    }
+
+    /** A word the sense-tagged corpus never counted denotes a person where it has no other kind of sense. */
+    private static boolean isUncountedAndNothingElse(final int personUse, final List<Synset> senses) {
+        return personUse == 0 && senses.stream().allMatch(WordNetPersons::isAPersonSense);
+    }
+
+    private static boolean isAPersonSense(final Synset sense) {
+        return PERSON_LEX_FILE.equals(sense.getLexFileName());
     }
 
     private static int useCount(final Synset sense, final String lemma) {

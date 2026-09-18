@@ -89,14 +89,9 @@ public final class TopicTally {
     private void read(final List<String> phrase, final NameForm form, final String site,
                       final double weight) {
         final String run = String.join(" ", phrase);
-        final List<String> lemmas = phrase.stream()
-                .map(word -> offered.of(form, word))
-                .flatMap(Optional::stream)
-                .toList();
+        final List<String> lemmas = lemmasOf(phrase, form);
         if (lemmas.isEmpty()) {
-            workings.unread().record(form == NameForm.IMPORT
-                    ? UnreadReason.A_DEPENDENCY_NAMES_IT
-                    : UnreadReason.NO_WORD_REACHED_A_RESOURCE, run, site);
+            workings.unread().record(UnreadReason.ofARunNothingRead(form), run, site);
             return;
         }
         phraseOccurrences++;
@@ -113,6 +108,20 @@ public final class TopicTally {
         }
         final double unit = worth * reading.coherence() * reading.credence();
         unplacedMass += worth - unit;
+        commit(reading, unit, form, run, site);
+    }
+
+    /** The lemmas of a phrase, leaving out each word no resource holds an entry about. */
+    private List<String> lemmasOf(final List<String> phrase, final NameForm form) {
+        return phrase.stream()
+                .map(word -> offered.of(form, word))
+                .flatMap(Optional::stream)
+                .toList();
+    }
+
+    /** Shares the unit of mass the phrase committed between the topics its words agreed on. */
+    private void commit(final PhraseReading reading, final double unit, final NameForm form,
+                        final String run, final String site) {
         reading.shareByTopic().forEach((topic, share) -> {
             final double said = unit * share;
             massByTopic.merge(topic, said, Double::sum);

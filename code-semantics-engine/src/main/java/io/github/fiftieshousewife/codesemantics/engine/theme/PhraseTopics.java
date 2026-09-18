@@ -1,13 +1,9 @@
 package io.github.fiftieshousewife.codesemantics.engine.theme;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import io.github.fiftieshousewife.codesemantics.engine.parse.NameForm;
 
@@ -119,27 +115,22 @@ public final class PhraseTopics {
             return PhraseReading.NOTHING;
         }
         final WordCommitments commitments = new WordCommitments(words, cite, commitment);
-        final Map<String, Double> scores = new TreeMap<>();
-        final Map<String, Set<String>> agreement = new TreeMap<>();
-        final List<RefusedTopic> refused = new ArrayList<>();
-        commitments.topics().forEach(topic -> {
-            final Set<String> agreeing = commitments.agreeing(topic);
-            final TopicScore score = new TopicScore(commitments.agreed(agreeing, topic, weightByWord),
-                    agreeing.size(), commitments.words(), expectedIn(topic));
-            if (score.stands()) {
-                scores.put(topic, score.value());
-                agreement.put(topic, agreeing);
-                return;
-            }
-            score.refusals().forEach(rule -> refused.add(new RefusedTopic(topic, rule)));
-        });
-        if (scores.isEmpty()) {
-            return new PhraseReading(Map.of(), Map.of(), 0.0, refused);
+        final StandingTopics standing = new StandingTopics();
+        commitments.topics().forEach(topic -> score(commitments, topic, weightByWord, standing));
+        return standing.readingAt(coverage);
+    }
+
+    /** Scores one topic the phrase's words named, and keeps it or records the rules that removed it. */
+    private void score(final WordCommitments commitments, final String topic,
+                       final Map<String, Double> weightByWord, final StandingTopics standing) {
+        final Set<String> agreeing = commitments.agreeing(topic);
+        final TopicScore score = new TopicScore(commitments.agreed(agreeing, topic, weightByWord),
+                agreeing.size(), commitments.words(), expectedIn(topic));
+        if (score.stands()) {
+            standing.keep(topic, score.value(), agreeing);
+            return;
         }
-        final Set<String> carrying = agreement.values().stream()
-                .flatMap(Set::stream)
-                .collect(Collectors.toCollection(TreeSet::new));
-        return PhraseReading.normalised(scores, agreement, coverage.of(carrying), refused);
+        standing.refuse(topic, score.refusals());
     }
 
     /** The prior's promotion factor, in {@code [1, 2]} by what a share is — {@link #under} states the rule. */
