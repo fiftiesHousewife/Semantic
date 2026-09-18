@@ -15,6 +15,8 @@ What a committer did to a codebase, as one structured document per committer per
 
 **No composite score.** A number combining complexity, duplication and coverage is an assertion with no publisher behind it. The document states the figures and the reader judges.
 
+**What each figure is organised by** is [`EVALUATING_A_CHANGE.md`](EVALUATING_A_CHANGE.md): ISO/IEC 5055 for quality, ISO/IEC/IEEE 14764 for the kind of maintenance, the Cisco review-size evidence for reviewability, and SARIF for the findings half of the output.
+
 ---
 
 ## What the document holds
