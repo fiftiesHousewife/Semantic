@@ -1,14 +1,14 @@
 {
-  "previousCommit" : "659b283633e0d899bd678b9f56b2e060cbec76ed",
-  "commit" : "535db2619f457b24274c38f53fb0592b70f0bd89",
+  "previousCommit" : "d1c9f0c929605f205afc42c48400d521e0bccd86",
+  "commit" : "d1c9f0c929605f205afc42c48400d521e0bccd86",
   "moved" : [ {
     "figure" : "λ — words a resource can be cited for",
     "before" : "98.0%",
     "after" : "98.0%"
   }, {
     "figure" : "Mass settled on no subject",
-    "before" : "84.0%",
-    "after" : "83.8%"
+    "before" : "83.9%",
+    "after" : "83.9%"
   }, {
     "figure" : "arXiv archive — nearest subject",
     "before" : "Computer Science",
@@ -16,7 +16,7 @@
   }, {
     "figure" : "arXiv archive — divergence",
     "before" : "32.8%",
-    "after" : "32.9%"
+    "after" : "32.8%"
   }, {
     "figure" : "arXiv archive — chance reaches",
     "before" : "40.7%",
@@ -35,11 +35,11 @@
     "after" : "Computation and Language"
   }, {
     "figure" : "arXiv category — divergence",
-    "before" : "42.1%",
-    "after" : "41.9%"
+    "before" : "41.8%",
+    "after" : "41.8%"
   }, {
     "figure" : "arXiv category — chance reaches",
-    "before" : "45.2%",
+    "before" : "45.3%",
     "after" : "45.3%"
   }, {
     "figure" : "arXiv category — stands apart from chance",
@@ -59,7 +59,7 @@
     "after" : "19.5%"
   }, {
     "figure" : "CSO archive — chance reaches",
-    "before" : "26.3%",
+    "before" : "26.4%",
     "after" : "26.4%"
   }, {
     "figure" : "CSO archive — stands apart from chance",
@@ -75,8 +75,8 @@
     "after" : "information technology"
   }, {
     "figure" : "CSO category — divergence",
-    "before" : "24.3%",
-    "after" : "24.3%"
+    "before" : "24.2%",
+    "after" : "24.2%"
   }, {
     "figure" : "CSO category — chance reaches",
     "before" : "28.6%",
@@ -91,8 +91,8 @@
     "after" : "3"
   }, {
     "figure" : "Words above the bar",
-    "before" : "314",
-    "after" : "314"
+    "before" : "315",
+    "after" : "315"
   }, {
     "figure" : "Topics reported",
     "before" : "11",
@@ -102,25 +102,5 @@
     "before" : "145",
     "after" : "145"
   } ],
-  "crossings" : [ {
-    "population" : "WORD",
-    "name" : "distinctive",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "functions",
-    "entered" : true
-  }, {
-    "population" : "WORD",
-    "name" : "extract",
-    "entered" : false
-  }, {
-    "population" : "WORD",
-    "name" : "note",
-    "entered" : false
-  }, {
-    "population" : "CONCEPT",
-    "name" : "Date",
-    "entered" : false
-  } ]
+  "crossings" : [ ]
 }

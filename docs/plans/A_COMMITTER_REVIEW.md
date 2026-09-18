@@ -29,7 +29,7 @@ One section per question, each opening with the figure and reaching the list beh
 | **Code left** | complexity, method length, nesting and parameters at median, 75th centile and worst; types arriving with no test; test methods added | the repository's own 75th centile |
 | **Duplication** | bodies repeated inside a change, and bodies a change adds that already stood in the tree | a permutation null over the tree's own bodies |
 | **Surface** | declarations added to and removed from the published API, and dependencies added, removed and moved | Semantic Versioning's own definition of an incompatible change |
-| **Security** | shapes a published weakness catalogue defines, imports in the platform's own security packages, and dependencies an advisory names | each row quotes its publisher's definition |
+| **Security** | transport security switched off, secrets and keys committed, algorithms the platform refuses, and dependencies an advisory names | each row quotes its publisher's definition |
 
 The last three sections do not exist yet. What each needs is below.
 
@@ -93,50 +93,19 @@ How many scopes and modules one change spans. A change touching nine modules and
 
 ---
 
-## Static security review: what can honestly be identified
+## Static security review
 
-**The refusals first**, because they bound everything else.
+[`STATIC_SECURITY_ANALYSIS.md`](STATIC_SECURITY_ANALYSIS.md) carries the rules, their citations and their worked examples. Three things a parse can find, each cited by the party that defined it:
 
-| Refused | Why |
-|---|---|
-| a hand-written list of dangerous methods | it is the doctrine's central prohibition, and a list nobody published is an assertion |
-| taint or dataflow analysis | it needs type resolution and a call graph. No symbol solver is on the classpath, and the honest answer to a question the machinery cannot ask is silence |
-| a security score, or the word *insecure* | the document states a shape and names who defined it |
-| any rule needing to know what a name refers to | `a == b` on two strings is [CWE-597](https://cwe.mitre.org/data/definitions/597.html) only where both are strings, and the parse cannot say |
-
-Three routes remain, and all three cite a publisher.
-
-### Route 1 — the weakness catalogue already bundled
-
-[`cwe-terms.tsv`](../../lexicon/src/main/resources/cwe-terms.tsv) carries 993 weaknesses of CWE 4.13, each with MITRE's own name, definition, abstraction level and parent. It is read today as a term vocabulary — it answers whether a repository *writes* security words.
-
-A second reading of the same file answers a different question: **which weaknesses are a shape the parse alone decides.** The form is the one [`change-shape-types.tsv`](../../lexicon/src/main/resources/change-shape-types.tsv) already uses for Conventional Commits — one row per measurable shape, quoting the publisher's definition beside the measurement taken to cover it, so a reader can check the pairing rather than trust it.
-
-| The parse measures | The weakness | MITRE's definition, quoted |
+| | Finds | Cited by |
 |---|---|---|
-| a `catch` block carrying no statements | [CWE-390](https://cwe.mitre.org/data/definitions/390.html) | The product detects a specific error, but takes no actions to handle the error |
-| any other block carrying no statements | [CWE-1071](https://cwe.mitre.org/data/definitions/1071.html) | The source code contains an empty code block |
-| `catch (Exception)` or `catch (Throwable)` | [CWE-396](https://cwe.mitre.org/data/definitions/396.html) | Catching overly broad exceptions promotes complex error handling code that is more likely to contain security vulnerabilities |
-| `throws Exception` on a declaration | [CWE-397](https://cwe.mitre.org/data/definitions/397.html) | Throwing overly broad exceptions promotes complex error handling code |
-| a `finalize()` declaration | [CWE-586](https://cwe.mitre.org/data/definitions/586.html) | The product contains an explicit call to the finalize() method |
+| **A** | transport security switched off — a platform TLS interface implemented with an empty body, a `verify` returning a constant, a process-wide verifier replaced | CWE-295 and CWE-297, with `javax.net.ssl` read from the platform's own class files |
+| **B** | a secret or a key committed — a PEM private-key boundary, a JWT, a provider's own documented token format, and a literal whose entropy exceeds 999 drawn from the tree's own literals | RFC 7468, RFC 7519, each provider's documentation, and a permutation null |
+| **C** | an algorithm the platform itself refuses | `Security.getProperty("jdk.tls.disabledAlgorithms")`, asked of the runtime rather than extracted |
 
-**The credential row is the interesting one**, because it is where the two products meet. [CWE-798](https://cwe.mitre.org/data/definitions/798.html) is hard-coded credentials, and deciding it needs to know that a field named `password` or `apiSecret` is about credentials. A hand list of such words is refused. The bundled resources already answer it: the reading resolves each word of a declared name to the subjects WordNet Domains and Wiktionary state for it, so the rule becomes **a field the bundled resources place under a security or cryptography subject, initialised from a string literal**. The vote is a citation, the shape is the parse, and neither is a list written here.
+**String literals enter there and nowhere else.** The semantic reading discards a literal as somebody else's vocabulary quoted; the security path reads literals as shape, and nothing it finds reaches a subject figure.
 
-**What settles the whole route**: every row runs against the eleven evaluation members. A row firing on a repository with no security domain is a row measuring the wrong thing. **Abandon a row if** it cannot be decided by the parse alone, or if its count on the out-of-domain members is not near zero.
-
-### Route 2 — the platform states its own security surface
-
-[`PlatformPackages`](../../code-semantics-engine/src/main/java/io/github/fiftieshousewife/codesemantics/engine/parse/PlatformPackages.java) already asks `ModuleFinder.ofSystem()` which packages the platform exports. The same delegation answers which of them the platform itself calls security: `java.security`, `java.security.cert`, `javax.crypto`, `javax.net.ssl`, `javax.security.auth`, and the reflection packages beside them.
-
-A change adding imports of those is a change touching the platform's own security surface. The document states the count added and the count standing at base, and states nothing about whether the change is sound.
-
-**Deprecation is free and stronger.** The platform marks its own members `@Deprecated(forRemoval = true)` — `SecurityManager` under [JEP 411](https://openjdk.org/jeps/411) among them — and Java 25 carries [`java.lang.classfile`](https://openjdk.org/jeps/484) in the platform itself, so reading that annotation out of the JDK's own class files needs no dependency. A change adding a use of an API the platform has marked for removal is a fact the platform published.
-
-### Route 3 — advisories against the dependencies a change adds
-
-[OSV](https://osv.dev/) and the [GitHub Advisory Database](https://github.com/advisories) state which coordinate-and-version pairs carry a known vulnerability. The library reads no network, so this arrives the way pull requests do: a fetch step writes the advisory rows beside the clone and the reading joins the coordinates the change adds against them.
-
-**What it states**: a change added a dependency an advisory names, with the advisory's own identifier. **What it never states**: that the change introduced a vulnerability — the advisory is about a coordinate, and whether the code reaches the affected path is the dataflow question refused above.
+**Refused**: taint and dataflow analysis, whether a finding is reachable, a severity score, a detection tool's rule set adopted whole, and the words *insecure*, *vulnerable* and *unsafe*.
 
 ---
 
@@ -144,10 +113,10 @@ A change adding imports of those is a change touching the platform's own securit
 
 1. **The published surface (4).** Cheapest, pure shape, unblocks two rows the bundled mapping already states, and every other section reads better with it.
 2. **Whole-tree exact duplication (1, first half).** The machinery exists and only the index is missing; it is the pattern the literature puts most of the churn on.
-3. **CWE shapes (route 1), the five parse-decidable rows.** One bundled resource, one new reader, measured on the eleven.
+3. **The disabled-algorithm list, then the two RFC grammars**, from [`STATIC_SECURITY_ANALYSIS.md`](STATIC_SECURITY_ANALYSIS.md). One runtime delegation and no new resource file.
 4. **AI attribution from the trailers**, which turns every existing figure into a comparison the literature does not have.
-5. **Dependencies (5) and the platform's security packages (route 2)**, which share the same import and pom reading.
-6. **Near-duplicate with its permutation null (1, second half)**, then **line age (3)**, then **advisories (route 3)**, each of which needs the fetch step extended.
+5. **Dependencies (5), and the TLS interfaces read from the platform's class files.**
+6. **Near-duplicate with its permutation null (1, second half)**, then **line age (3)**, then the entropy null and the dependency advisories, each of which needs the fetch step extended or the literal corpus indexed.
 
 **The comparison this makes possible.** [The 302,579-commit study](https://arxiv.org/html/2603.28592v2) has no human comparison group, which its authors decline on attribution grounds. These figures measure both sides with one instrument, over repositories carrying both, reported side by side with no verdict. **Abandon if** the two are indistinguishable on every shape — which is itself worth publishing.
 
