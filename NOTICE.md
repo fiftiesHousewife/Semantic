@@ -32,6 +32,37 @@ The library's own dependencies are declared in `gradle/libs.versions.toml`, with
 | `lexicon/src/main/resources/fpml-terms.tsv` | 1,405 | the FpML 5.11 confirmation schemas' complex types, read from the HandCoded toolkit repository's vendored copy at a pinned commit, the schema set pinned by digest | **the FpML Public License — notice required.** The Licensor of the FpML Specifications is the International Swaps and Derivatives Association, Inc. (ISDA); the licence, at <https://www.fpml.org/the_standard/fpml-public-license/>, grants use, reproduction, modification and distribution of the specifications or portions of them, with this notice carried on copies distributed outside software |
 | `lexicon/src/main/resources/media-types.tsv` | 2,344 | the IANA media type registry, read from the ten per-registry CSVs IANA publishes, the file set pinned by digest | CC0 1.0 — IANA's licensing terms state the protocol registries "may be freely used by any party for any purpose" |
 | `lexicon/src/main/resources/conventional-commit-types.tsv` | 11 | the Conventional Commits v1.0.0 specification's own markdown at a pinned revision, the file pinned by blob id, with type definitions from the Angular commit guidelines at the revision the specification's own link pins | MIT for both (the specification site and the Angular repository) |
+| `lexicon/src/main/resources/change-shape-types.tsv` | 7 | this library's pairing of a measured change shape with a Conventional Commits type, the definitions quoted from `conventional-commit-types.tsv` | CC BY 3.0 for the quoted definitions (the Conventional Commits specification); the shapes and the pairings carry this library's own Apache-2.0 |
+
+## This project's own resources
+
+Published inside the jars, written here, and carrying this library's Apache-2.0 licence rather than anybody else's:
+
+| Resource | Holds |
+|---|---|
+| `reading-export/src/main/resources/reading-export.schema.json` | the schema `reading.json` is validated against before the file exists |
+| `reading-export/src/main/resources/pull-requests.schema.json` | the same for `pull-requests.json` |
+
+## The reference corpus, and the question its licences raise
+
+Two files hold the denominator every word is scored against: **`reference-corpus/src/main/resources/reference-corpus-shares.tsv`** (28,839 words) and **`reference-corpus-run-shares.tsv`** (1,447 runs). Both are this project's own measurement — how densely working Java writes each word — pooled over a seeded draw of **100 public Java repositories**, each pinned at a commit. The frame, the predicate, every rank, every rejection and every repository with its licence are stated in each file's own header.
+
+The draw required a licence GitHub recognises, taking GitHub's own enumeration of thirteen whole rather than choosing which ones count. What it drew:
+
+| Licence | Repositories |
+|---|--:|
+| MIT | 40 |
+| Apache-2.0 | 37 |
+| GPL-3.0 | 12 |
+| CC0-1.0 | 5 |
+| AGPL-3.0 | 2 |
+| BSD-3-Clause, EPL-2.0, GPL-2.0, MPL-2.0 | 1 each |
+
+**Fifteen of the hundred carry a GPL-family licence and two more a file-level reciprocal one, against this library's Apache-2.0. That question is open and is not answered here.**
+
+What the files contain is a word and a count: `transaction`, 1,564 occurrences at a share of 1.036e-03. No source line, no expression, no fragment of any repository's code — a measurement over identifiers, each too short to carry copyright on its own. The position this project works on is that a frequency table is a fact about a corpus rather than a derivative of it. **That position has had no legal review**, and a reciprocal licence reaching a measurement taken over the licensed work is the shape of the risk. It is recorded as an open question in `BACKLOG.md`, the way the WordNet gap below is, because a notice page that guesses is worse than one that says what has not been settled.
+
+Two things narrow it. Each repository is pinned at a commit and named in the header, so what was read is checkable rather than asserted. And no repository carries more than a hundredth of the total by construction — the draw weighs every repository the same whatever its size.
 
 ## WordNet, and a gap stated rather than papered over
 
