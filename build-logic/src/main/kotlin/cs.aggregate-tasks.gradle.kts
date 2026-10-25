@@ -45,16 +45,52 @@ tasks.register<Zip>("centralBundle") {
 }
 
 // What a release must satisfy before it is worth uploading, said by the build rather than remembered.
+// Every condition below is one the Portal rejects an upload for, so a pass here is worth the upload
+// attempt and a fail costs nothing.
+//
+// The POM elements are checked as direct children of <project>: `url` appears inside `licenses`, `scm` and
+// `developers` as well, so containment in the text proves nothing about the project's own.
+val requiredPomElements = listOf("name", "description", "url", "licenses", "developers", "scm")
+
+fun pomFaultsIn(pom: java.io.File, module: String): List<String> {
+    val project = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+        .newDocumentBuilder()
+        .parse(pom)
+        .documentElement
+    val stated = (0 until project.childNodes.length)
+        .map { project.childNodes.item(it) }
+        .filter { it.nodeType == org.w3c.dom.Node.ELEMENT_NODE }
+        .map { it.nodeName }
+        .toSet()
+    return requiredPomElements
+        .filterNot { stated.contains(it) }
+        .map { "$module states no <$it> in its POM, which Central requires" }
+}
+
 tasks.register("releaseCheck") {
     group = "publishing"
     description = "States whether this build could be released to Maven Central"
+    dependsOn(publishedModules.map { "$it:generatePomFileForMavenJavaPublication" })
     doLast {
         val faults = buildList {
             if (version.toString().endsWith("SNAPSHOT")) {
                 add("the version is $version; Central takes no SNAPSHOT. Pass -Pversion=<release>")
             }
+            // Both, because signing is required only where both are present: a key without a passphrase
+            // signs nothing, and the build would otherwise report a releasable state and publish unsigned.
             if (System.getenv("SIGNING_KEY").isNullOrBlank()) {
                 add("SIGNING_KEY is unset, so nothing is signed and Central refuses every artefact")
+            }
+            if (System.getenv("SIGNING_PASSWORD").isNullOrBlank()) {
+                add("SIGNING_PASSWORD is unset, so nothing is signed and Central refuses every artefact")
+            }
+            publishedModules.forEach { module ->
+                val pom = file("${project(module).layout.buildDirectory.get()}/publications/mavenJava/pom-default.xml")
+                if (pom.exists()) {
+                    addAll(pomFaultsIn(pom, module))
+                } else {
+                    add("$module generated no POM, so what it would publish cannot be read")
+                }
             }
         }
         if (faults.isEmpty()) {
